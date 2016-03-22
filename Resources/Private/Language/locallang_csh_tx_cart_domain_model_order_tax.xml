@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<T3locallang>
+    <meta type="array">
+        <description>Context Sensitive Help (CSH) for table tx_cart_domain_model_order_tax</description>
+        <type>CSH</type>
+        <csh_table>tx_cart_domain_model_order_tax</csh_table>
+    </meta>
+    <data type="array">
+        <languageKey index="default" type="array">
+            <label index="name.description">name</label>
+            <label index="value.description">value</label>
+            <label index="calc.description">calc</label>
+            <label index="sum.description">sum</label>
+        </languageKey>
+    </data>
+</T3locallang>

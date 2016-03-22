@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="messages" date="2014-10-23T11:22:42Z" product-name="cart">
+		<header/>
+		<body>
+			<trans-unit id="sku.description">
+				<source>SKU</source>
+			</trans-unit>
+			<trans-unit id="price_measure.description">
+				<source>Content is not used, if the product has variants.</source>
+			</trans-unit>
+			<trans-unit id="price_measure_unit.description">
+				<source>Content is not used, if the product has variants.</source>
+			</trans-unit>
+			<trans-unit id="base_price_measure_unit.description">
+				<source></source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

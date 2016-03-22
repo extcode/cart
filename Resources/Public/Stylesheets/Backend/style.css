@@ -1,0 +1,128 @@
+.tx_cart_module_products_filter {
+    background-color: #dddddd;
+    border: 1px solid #a2aab8;
+    margin: 15px 0;
+    width: 100%;
+}
+
+.tx_cart_module_products_filter_inner {
+    margin: 15px;
+}
+
+#module_cartorders_search_form label {
+    width: 150px;
+    display: inline-block;
+}
+
+#module_cartorders_search_form input {
+    width: 150px;
+    display: inline-block;
+    margin-right: 50px;
+}
+
+
+#module_cartorders_search_form .col-25 {
+    width: 25%;
+    display: block;
+    float: left;
+}
+
+#module_cartorders_search_form .col-50 {
+    width: 50%;
+    display: block;
+    float: left;
+}
+
+#module_cartorders_search_form .col-75 {
+    width: 75%;
+    display: block;
+    float: left;
+}
+
+.download-links {
+    float:right;
+    margin-bottom: 15px;
+    display: block;
+}
+
+.download-button {
+    background: #f6f6f6 -moz-linear-gradient(center top, #f6f6f6 10%, #d5d5d5 90%) repeat-x center bottom;
+    border: 1px solid #7c7c7c;
+    border-radius: 1px;
+    color: #434343;
+    cursor: pointer;
+    padding: 5px;
+}
+
+.filter {
+    float:left;
+    margin-bottom: 15px;
+    display: block;
+}
+
+.clear {
+    height: 1px;
+    clear: both;
+}
+
+.block-left {
+    width: 45%;
+    float: left;
+}
+
+.block-right {
+    width: 45%;
+    float: right;
+}
+
+.label {
+    font-weight: bold;
+}
+
+tr.sum {
+    background-color: #666;
+    color: #fff;
+}
+
+.f3-widget-paginator {
+    display: inline-block;
+    border-radius: 4px;
+    margin: 20px 0;
+    padding-left: 0;
+}
+
+.f3-widget-paginator > li {
+    display: inline;
+}
+
+.f3-widget-paginator > li > a,
+.f3-widget-paginator > li.current {
+    position: relative;
+    float: left;
+    padding: 6px 12px;
+    margin-left: -1px;
+    text-decoration: none;
+    border: 1px solid #DDD;
+    background-color: #FFF;
+    color: #FF8700;
+}
+
+.f3-widget-paginator > li.current,
+.f3-widget-paginator > li > a:hover,
+.f3-widget-paginator > li > a:focus {
+    text-decoration: underline;
+    background-color: #EEE;
+}
+
+.f3-widget-paginator > li:first-child > a,
+.f3-widget-paginator > li.current:first-child {
+    margin-left: 0;
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+}
+
+.f3-widget-paginator > li:last-child > a,
+.f3-widget-paginator > li.current:last-child {
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+}

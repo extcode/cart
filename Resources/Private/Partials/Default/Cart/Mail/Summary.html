@@ -1,0 +1,116 @@
+<tr class="first">
+    <td colspan="4" style="text-align: right;">
+        <f:translate
+                key="LLL:EXT:cart/Resources/Private/Language/locallang.xlf:tx_cart_domain_model_order_product.cart_net"/>
+    </td>
+    <td style="text-align: right;" class="last">
+        <span class="price">
+            <f:format.currency currencySign="{settings.format.currency.currencySign}"
+                               decimalSeparator="{settings.format.currency.decimalSeparator}"
+                               thousandsSeparator="{settings.format.currency.thousandsSeparator}"
+                               prependCurrency="{settings.format.currency.prependCurrency}"
+                               separateCurrency="{settings.format.currency.separateCurrency}"
+                               decimals="{settings.format.currency.decimals}">
+                {cart.net}
+            </f:format.currency>
+        </span>
+    </td>
+</tr>
+<tr>
+    <td colspan="4" style="text-align: right;">
+        <f:translate
+                key="LLL:EXT:cart/Resources/Private/Language/locallang.xlf:tx_cart_domain_model_order_product.cart_gross"/>
+    </td>
+    <td style="text-align: right;" class="last">
+        <span class="price">
+            <f:format.currency currencySign="{settings.format.currency.currencySign}"
+                               decimalSeparator="{settings.format.currency.decimalSeparator}"
+                               thousandsSeparator="{settings.format.currency.thousandsSeparator}"
+                               prependCurrency="{settings.format.currency.prependCurrency}"
+                               separateCurrency="{settings.format.currency.separateCurrency}"
+                               decimals="{settings.format.currency.decimals}">
+                {cart.gross}
+            </f:format.currency>
+        </span>
+    </td>
+</tr>
+
+<f:render partial="Cart/Mail/TaxList" arguments="{taxes: cart.taxes}"/>
+
+<tr>
+    <td colspan="4" style="text-align: right;">
+        <f:translate
+                key="LLL:EXT:cart/Resources/Private/Language/locallang.xlf:tx_cart_domain_model_order_product.service_net"/>
+    </td>
+    <td style="text-align: right;" class="last">
+        <span class="price">
+            <f:format.currency currencySign="{settings.format.currency.currencySign}"
+                               decimalSeparator="{settings.format.currency.decimalSeparator}"
+                               thousandsSeparator="{settings.format.currency.thousandsSeparator}"
+                               prependCurrency="{settings.format.currency.prependCurrency}"
+                               separateCurrency="{settings.format.currency.separateCurrency}"
+                               decimals="{settings.format.currency.decimals}">
+                {cart.serviceNet}
+            </f:format.currency>
+        </span>
+    </td>
+</tr>
+<tr>
+    <td colspan="4" style="text-align: right;">
+        <f:translate
+                key="LLL:EXT:cart/Resources/Private/Language/locallang.xlf:tx_cart_domain_model_order_product.service_gross"/>
+    </td>
+    <td style="text-align: right;" class="last">
+        <span class="price">
+            <f:format.currency currencySign="{settings.format.currency.currencySign}"
+                               decimalSeparator="{settings.format.currency.decimalSeparator}"
+                               thousandsSeparator="{settings.format.currency.thousandsSeparator}"
+                               prependCurrency="{settings.format.currency.prependCurrency}"
+                               separateCurrency="{settings.format.currency.separateCurrency}"
+                               decimals="{settings.format.currency.decimals}">
+                {cart.serviceGross}
+            </f:format.currency>
+        </span>
+    </td>
+</tr>
+
+<f:render partial="Cart/Mail/TaxList" arguments="{taxes: cart.serviceTaxes}"/>
+
+<tr>
+    <td colspan="4" style="text-align: right;">
+        <f:translate
+                key="LLL:EXT:cart/Resources/Private/Language/locallang.xlf:tx_cart_domain_model_order_product.total_net"/>
+    </td>
+    <td style="text-align: right;" class="last">
+        <span class="price">
+            <f:format.currency currencySign="{settings.format.currency.currencySign}"
+                               decimalSeparator="{settings.format.currency.decimalSeparator}"
+                               thousandsSeparator="{settings.format.currency.thousandsSeparator}"
+                               prependCurrency="{settings.format.currency.prependCurrency}"
+                               separateCurrency="{settings.format.currency.separateCurrency}"
+                               decimals="{settings.format.currency.decimals}">
+                {cart.totalNet}
+            </f:format.currency>
+        </span>
+    </td>
+</tr>
+<tr>
+    <td colspan="4" style="text-align: right;">
+        <f:translate
+                key="LLL:EXT:cart/Resources/Private/Language/locallang.xlf:tx_cart_domain_model_order_product.total_gross"/>
+    </td>
+    <td style="text-align: right;" class="last">
+        <span class="price">
+            <f:format.currency currencySign="{settings.format.currency.currencySign}"
+                               decimalSeparator="{settings.format.currency.decimalSeparator}"
+                               thousandsSeparator="{settings.format.currency.thousandsSeparator}"
+                               prependCurrency="{settings.format.currency.prependCurrency}"
+                               separateCurrency="{settings.format.currency.separateCurrency}"
+                               decimals="{settings.format.currency.decimals}">
+                {cart.totalGross}
+            </f:format.currency>
+        </span>
+    </td>
+</tr>
+
+<f:render partial="Cart/Mail/TaxList" arguments="{taxes: cart.totalTaxes}"/>

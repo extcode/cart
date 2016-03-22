@@ -1,0 +1,15 @@
+plugin.tx_cart {
+    view {
+        templateRootPaths {
+            101 = {$plugin.tx_cart.view.bootstrap.templateRootPath}
+        }
+        partialRootPaths {
+            101 = {$plugin.tx_cart.view.bootstrap.partialRootPath}
+        }
+        layoutRootPaths {
+            101 = {$plugin.tx_cart.view.bootstrap.layoutRootPath}
+        }
+    }
+}
+
+page.includeCSS.tx_cart >

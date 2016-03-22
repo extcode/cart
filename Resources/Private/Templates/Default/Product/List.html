@@ -1,0 +1,42 @@
+<f:layout name="Default"/>
+
+<f:section name="main">
+
+    <f:flashMessages renderMode="div"/>
+
+    <table class="tx_cart">
+        <tr>
+            <th>
+                &nbsp;
+            </th>
+            <th>
+                <f:translate key="tx_cart_domain_model_product.title"/>
+            </th>
+            <th>
+                <f:translate key="tx_cart_domain_model_product.price"/>
+            </th>
+        </tr>
+
+        <f:for each="{products}" as="product">
+            <tr>
+                <td>
+                    <f:link.action action="show" arguments="{product : product}">
+                        <f:if condition="{product.images}">
+                            <f:image src="{product.firstImage.originalResource.originalFile.uid}"
+                                     title="{product.firstImage.originalResource.title}"
+                                     alt="{product.firstImage.originalResource.title}"
+                                     width="100" />
+                        </f:if>
+                    </f:link.action>
+                </td>
+                <td>
+                    <f:link.action action="show" arguments="{product : product}">{product.title}</f:link.action>
+                </td>
+                <td>
+                    <f:render partial="Product/Price" arguments="{product: product, settings: settings}"></f:render>
+                </td>
+            </tr>
+        </f:for>
+    </table>
+
+</f:section>

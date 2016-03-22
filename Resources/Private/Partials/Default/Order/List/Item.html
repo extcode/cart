@@ -1,0 +1,43 @@
+<tr>
+    <td>
+        {orderItem.orderNumber}
+    </td>
+    <td>
+        <f:if condition="{orderItem.orderDate}">
+            <f:then>
+                <f:format.date format="d.m.Y" date="{orderItem.orderDate}"/>
+            </f:then>
+            <f:else>
+                &nbsp;
+            </f:else>
+        </f:if>
+    </td>
+    <td>
+        {orderItem.invoiceNumber}
+    </td>
+    <td>
+        <f:if condition="{orderItem.invoiceDate}">
+            <f:then>
+                <f:format.date format="d.m.Y" date="{orderItem.invoiceDate}"/>
+            </f:then>
+            <f:else>
+                &nbsp;
+            </f:else>
+        </f:if>
+    </td>
+    <td style="width: 75px; text-align: right;">
+        <f:format.currency currencySign="{orderItem.currency}"
+                           decimalSeparator="{settings.format.currency.decimalSeparator}"
+                           thousandsSeparator="{settings.format.currency.thousandsSeparator}"
+                           prependCurrency="{settings.format.currency.prependCurrency}"
+                           separateCurrency="{settings.format.currency.separateCurrency}"
+                           decimals="{settings.format.currency.decimals}">
+            {orderItem.totalGross}
+        </f:format.currency>
+    </td>
+    <td>
+        <f:link.action action="show" arguments="{orderItem : orderItem}">
+            show
+        </f:link.action>
+    </td>
+</tr>

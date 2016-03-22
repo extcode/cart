@@ -1,0 +1,13 @@
+<li>
+    <f:translate key="LLL:EXT:cart/Resources/Private/Language/locallang.xml:plugin.cart.product.tax"
+                 arguments="{0: orderTax.orderTaxClass.name}"/>
+    :
+    <f:format.currency currencySign="{settings.format.currency.currencySign}"
+                       decimalSeparator="{settings.format.currency.decimalSeparator}"
+                       thousandsSeparator="{settings.format.currency.thousandsSeparator}"
+                       prependCurrency="{settings.format.currency.prependCurrency}"
+                       separateCurrency="{settings.format.currency.separateCurrency}"
+                       decimals="{settings.format.currency.decimals}">
+        {orderTax.tax}
+    </f:format.currency>
+</li>

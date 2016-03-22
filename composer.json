@@ -1,0 +1,29 @@
+{
+    "name": "extcode/cart",
+    "type": "typo3-cms-extension",
+    "description": "Shopping Cart",
+    "homepage": "http://cart.extco.de",
+    "license": [
+        "GPL-2.0+"
+    ],
+    "keywords": [
+        "TYPO3 CMS",
+        "Shopping Cart",
+        "cart"
+    ],
+    "support": {
+        "issues": "https://forge.typo3.org/projects/extension-cart"
+    },
+    "version": "0.2.0",
+    "require": {
+        "typo3/cms-core": ">=6.2.0,<8.0"
+    },
+    "replace": {
+        "cart": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Extcode\\Cart\\": "Classes/"
+        }
+    }
+}

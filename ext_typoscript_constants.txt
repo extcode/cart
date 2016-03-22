@@ -1,0 +1,21 @@
+plugin.tx_cart {
+    settings {
+        cart {
+            pid = 0
+            isNetCart = 0
+        }
+
+        order {
+            pid = 0
+        }
+
+        format.currency {
+            currencySign       = &euro;
+            decimalSeparator   = ,
+            thousandsSeparator = .
+            prependCurrency    = 0
+            separateCurrency   = &nbsp;
+            decimals           = 2
+        }
+    }
+}

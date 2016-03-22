@@ -1,0 +1,23 @@
+<div>
+    <div>
+        <span>{address.salutation} {address.title} {address.firstName} {address.lastName}</span><br/>
+        <f:if condition="{address.company}">
+            <span>{address.company}</span><br/>
+        </f:if>
+        {address.street}<br/>
+        {address.zip} {address.city}<br/>
+        {address.country}
+    </div>
+    <br/>
+    <div>
+        <f:if condition="{address.email}">
+            {address.email}<br/>
+        </f:if>
+        <f:if condition="{address.phone}">
+            {address.phone}<br/>
+        </f:if>
+        <f:if condition="{address.fax}">
+            {address.fax}<br/>
+        </f:if>
+    </div>
+</div>

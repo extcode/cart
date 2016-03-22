@@ -1,0 +1,79 @@
+<f:layout name="Default"/>
+
+<f:section name="actions">
+</f:section>
+
+<f:section name="content">
+    <f:flashMessages/>
+
+    <f:render partial="Order/Filter/Statistic" arguments="{piVars: piVars, action: 'statistic'}"/>
+
+    <div class="clear"></div>
+
+    <p>
+        OrderItemCount: {statistics.orderItemCount}
+    </p>
+    <p>
+        OrderProductCount: {statistics.orderProductCount}
+    </p>
+
+    <div class="table-fit">
+        <table class="table table-striped typo3-dblist">
+            <thead>
+            <tr class="t3-row-header">
+                <td>&nbsp;</td>
+                <th>Total</th>
+                <th>Average</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <th>Gross:</th>
+                <td>
+                    <f:format.currency currencySign="{settings.format.currency.currencySign}"
+                                       decimalSeparator="{settings.format.currency.decimalSeparator}"
+                                       thousandsSeparator="{settings.format.currency.thousandsSeparator}"
+                                       prependCurrency="{settings.format.currency.prependCurrency}"
+                                       separateCurrency="{settings.format.currency.separateCurrency}"
+                                       decimals="{settings.format.currency.decimals}">
+                        {statistics.orderItemGross}
+                    </f:format.currency>
+                </td>
+                <td>
+                    <f:format.currency currencySign="{settings.format.currency.currencySign}"
+                                       decimalSeparator="{settings.format.currency.decimalSeparator}"
+                                       thousandsSeparator="{settings.format.currency.thousandsSeparator}"
+                                       prependCurrency="{settings.format.currency.prependCurrency}"
+                                       separateCurrency="{settings.format.currency.separateCurrency}"
+                                       decimals="{settings.format.currency.decimals}">
+                        {statistics.orderItemAverageGross}
+                    </f:format.currency>
+                </td>
+            </tr>
+            <tr>
+                <th>Net:</th>
+                <td>
+                    <f:format.currency currencySign="{settings.format.currency.currencySign}"
+                                       decimalSeparator="{settings.format.currency.decimalSeparator}"
+                                       thousandsSeparator="{settings.format.currency.thousandsSeparator}"
+                                       prependCurrency="{settings.format.currency.prependCurrency}"
+                                       separateCurrency="{settings.format.currency.separateCurrency}"
+                                       decimals="{settings.format.currency.decimals}">
+                        {statistics.orderItemNet}
+                    </f:format.currency>
+                </td>
+                <td>
+                    <f:format.currency currencySign="{settings.format.currency.currencySign}"
+                                       decimalSeparator="{settings.format.currency.decimalSeparator}"
+                                       thousandsSeparator="{settings.format.currency.thousandsSeparator}"
+                                       prependCurrency="{settings.format.currency.prependCurrency}"
+                                       separateCurrency="{settings.format.currency.separateCurrency}"
+                                       decimals="{settings.format.currency.decimals}">
+                        {statistics.orderItemAverageNet}
+                    </f:format.currency>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</f:section>

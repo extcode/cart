@@ -1,0 +1,122 @@
+module.tx_cart {
+
+    view {
+        templateRootPaths {
+            0 = EXT:cart/Resources/Private/Backend/Templates/
+        }
+        partialRootPaths {
+            0 = EXT:cart/Resources/Private/Backend/Partials/
+        }
+        layoutRootPaths {
+            0 = EXT:cart/Resources/Private/Backend/Layouts/
+        }
+    }
+
+    persistence {
+        storagePid = {$module.tx_cart.persistence.storagePid}
+
+        classes {
+            TYPO3\CMS\Extbase\Domain\Model\FrontendUser {
+                mapping {
+                    tableName = fe_users
+                    recordType = TYPO3\CMS\Extbase\Domain\Model\FrontendUser
+                    columns {
+                        lockToDomain.mapOnProperty = lockToDomain
+                    }
+                }
+            }
+        }
+    }
+
+    settings {
+        format.currency {
+            currencySign       = {$plugin.tx_cart.settings.format.currency.currencySign}
+            decimalSeparator   = {$plugin.tx_cart.settings.format.currency.decimalSeparator}
+            thousandsSeparator = {$plugin.tx_cart.settings.format.currency.thousandsSeparator}
+            prependCurrency    = {$plugin.tx_cart.settings.format.currency.prependCurrency}
+            separateCurrency   = {$plugin.tx_cart.settings.format.currency.separateCurrency}
+            decimals           = {$plugin.tx_cart.settings.format.currency.decimals}
+        }
+    }
+}
+
+config.tx_extbase {
+  persistence {
+    classes {
+      Extcode\Cart\Domain\Model\TtContent {
+        mapping {
+          tableName = tt_content
+          columns {
+            crdate.mapOnProperty = crdate
+            tstamp.mapOnProperty = tstamp
+            CType.mapOnProperty = contentType
+            header.mapOnProperty = header
+            header_position.mapOnProperty = headerPosition
+            bodytext.mapOnProperty = bodytext
+            image.mapOnProperty = image
+            imagewidth.mapOnProperty = imagewidth
+            imageorient.mapOnProperty = imageorient
+            imagecaption.mapOnProperty = imagecaption
+            imagecols.mapOnProperty = imagecols
+            imageborder.mapOnProperty = imageborder
+            media.mapOnProperty = media
+            layout.mapOnProperty = layout
+            cols.mapOnProperty = cols
+            records.mapOnProperty = records
+            pages.mapOnProperty = pages
+            starttime.mapOnProperty = starttime
+            endtime.mapOnProperty = endtime
+            colPos.mapOnProperty = colPos
+            subheader.mapOnProperty = subheader
+            spaceBefore.mapOnProperty = spaceBefore
+            spaceAfter.mapOnProperty = spaceAfter
+            fe_group.mapOnProperty = feGroup
+            header_link.mapOnProperty = headerLink
+            imagecaption_position.mapOnProperty = imagecaptionPosition
+            image_link.mapOnProperty = imageLink
+            image_zoom.mapOnProperty = imageZoom
+            image_noRows.mapOnProperty = imageNoRows
+            image_effects.mapOnProperty = imageEffects
+            image_compression.mapOnProperty = imageCompression
+            altText.mapOnProperty = altText
+            titleText.mapOnProperty = titleText
+            longdescURL.mapOnProperty = longdescUrl
+            header_layout.mapOnProperty = headerLayout
+            menu_type.mapOnProperty = menuType
+            list_type.mapOnProperty = listType
+            table_border.mapOnProperty = tableBorder
+            table_cellspacing.mapOnProperty = tableCellspacing
+            table_cellpadding.mapOnProperty = tableCellpadding
+            table_bgColor.mapOnProperty = tableBgColor
+            select_key.mapOnProperty = selectKey
+            sectionIndex.mapOnProperty = sectionIndex
+            linkToTop.mapOnProperty = linkToTop
+            file_collections.mapOnProperty = fileCollections
+            filelink_size.mapOnProperty = filelinkSize
+            filelink_sorting.mapOnProperty = filelinkSorting
+            target.mapOnProperty = target
+            section_frame.mapOnProperty = sectionFrame
+            date.mapOnProperty = date
+            multimedia.mapOnProperty = multimedia
+            image_frames.mapOnProperty = imageFrames
+            recursive.mapOnProperty = recursive
+            imageheight.mapOnProperty = imageheight
+            rte_enabled.mapOnProperty = rteEnabled
+            sys_language_uid.mapOnProperty = sysLanguageUid
+            tx_impexp_origuid.mapOnProperty = txImpexpOriguid
+            pi_flexform.mapOnProperty = piFlexform
+            accessibility_title.mapOnProperty = accessibilityTitle
+            accessibility_bypass.mapOnProperty = accessibilityBypass
+            accessibility_bypass_text.mapOnProperty = accessibilityBypassText
+            selected_categories.mapOnProperty = selectedCategories
+            category_field.mapOnProperty = categoryField
+            tx_gridelements_backend_layout.mapOnProperty = txGridelementsBackendLayout
+            tx_gridelements_children.mapOnProperty = txGridelementsChildren
+            tx_gridelements_container.mapOnProperty = txGridelementsContainer
+            tx_gridelements_columns.mapOnProperty = txGridelementsColumns
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,54 @@
+<f:form id="form-order" class="form"
+        name="orderItem"
+        object="{orderItem}"
+        action="orderCart"
+        method="post">
+    <div class="form-row">
+        <div class="small-12 medium-12 large-4 form-columns">
+            <div class="form-column">
+                <f:render partial="Cart/Form/Address/Billing" arguments="{billingAddress:billingAddress}"/>
+                <ul class="form-list">
+                    <li class="control">
+                        <label for="shipping:same_as_billing">
+                            <f:form.checkbox name="shipping_same_as_billing" checked="true"
+                                             id="shipping:same_as_billing" value="true"
+                                             title="An dieselbe Adresse versenden"
+                                             onclick="shipping.setSameAsBilling(this.checked)"
+                                             class="checkbox"/>
+                            <span>An dieselbe Adresse versenden</span>
+                        </label>
+                    </li>
+                </ul>
+                <f:render partial="Cart/Form/Address/Shipping" arguments="{shippingAddress:shippingAddress}"/>
+            </div>
+        </div>
+        <div class="small-12 medium-12 large-8 form-columns" style="padding: 0;">
+            <div class="form-column">
+                <div class="small-12 medium-6 large-6 form-columns">
+                    <div class="form-column">
+                        <f:render partial="Cart/Form/ShippingMethod" arguments="{cart:cart, shippings:shippings}"/>
+                        <f:render partial="Cart/Form/PaymentMethod" arguments="{cart:cart, payments:payments}"/>
+                        <f:render partial="Cart/Form/Coupon" arguments="{cart:cart}"/>
+                    </div>
+                </div>
+
+                <div class="small-12 medium-6 large-6 form-columns">
+                    <div class="form-column">
+                        <f:render partial="Cart/Form/Cart" arguments="{cart: cart}"/>
+
+                        <f:if condition="{cart.isOrderable}">
+                            <f:then>
+                                <div class="form-block">
+                                    <div class="small-6 form-columns">
+                                        <f:form.submit class="button"
+                                                       value="{f:translate(key: 'tx_cart.submit_order', default: '[submit order]')}"/>
+                                    </div>
+                                </div>
+                            </f:then>
+                        </f:if>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</f:form>

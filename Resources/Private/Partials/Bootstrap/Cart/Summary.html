@@ -1,0 +1,106 @@
+<div class="cart_footer">
+
+    <div class="cart_col cart_foot_col1 cart_net">
+        <f:translate
+                key="LLL:EXT:cart/Resources/Private/Language/locallang.xlf:\Extcode\Cart\Domain\Model\product.cart_net"/>
+    </div>
+    <div class="cart_col cart_foot_col2 cart_net">
+        <f:format.currency currencySign="{settings.format.currency.currencySign}"
+                           decimalSeparator="{settings.format.currency.decimalSeparator}"
+                           thousandsSeparator="{settings.format.currency.thousandsSeparator}"
+                           prependCurrency="{settings.format.currency.prependCurrency}"
+                           separateCurrency="{settings.format.currency.separateCurrency}"
+                           decimals="{settings.format.currency.decimals}">
+            {cart.net}
+        </f:format.currency>
+    </div>
+    <div class="cart_cleaner"><!-- --></div>
+
+    <div class="cart_col cart_foot_col1 cart_gross">
+        <f:translate
+                key="LLL:EXT:cart/Resources/Private/Language/locallang.xlf:\Extcode\Cart\Domain\Model\product.cart_gross"/>
+    </div>
+    <div class="cart_col cart_foot_col2 cart_gross">
+        <f:format.currency currencySign="{settings.format.currency.currencySign}"
+                           decimalSeparator="{settings.format.currency.decimalSeparator}"
+                           thousandsSeparator="{settings.format.currency.thousandsSeparator}"
+                           prependCurrency="{settings.format.currency.prependCurrency}"
+                           separateCurrency="{settings.format.currency.separateCurrency}"
+                           decimals="{settings.format.currency.decimals}">
+            {cart.gross}
+        </f:format.currency>
+    </div>
+    <div class="cart_cleaner"><!-- --></div>
+
+    <f:render partial="Cart/TaxList" arguments="{taxes: cart.taxes}"/>
+    <div class="cart_cleaner"><!-- --></div>
+
+    <div class="cart_col cart_foot_col1 cart_servicecost_net">
+        <f:translate
+                key="LLL:EXT:cart/Resources/Private/Language/locallang.xlf:\Extcode\Cart\Domain\Model\product.service_net"/>
+    </div>
+    <div class="cart_col cart_foot_col2 cart_servicecost_net">
+        <f:format.currency currencySign="{settings.format.currency.currencySign}"
+                           decimalSeparator="{settings.format.currency.decimalSeparator}"
+                           thousandsSeparator="{settings.format.currency.thousandsSeparator}"
+                           prependCurrency="{settings.format.currency.prependCurrency}"
+                           separateCurrency="{settings.format.currency.separateCurrency}"
+                           decimals="{settings.format.currency.decimals}">
+            {cart.serviceNet}
+        </f:format.currency>
+    </div>
+    <div class="cart_cleaner"><!-- --></div>
+
+    <div class="cart_col cart_foot_col1 cart_servicecost_gross">
+        <f:translate
+                key="LLL:EXT:cart/Resources/Private/Language/locallang.xlf:\Extcode\Cart\Domain\Model\product.service_gross"/>
+    </div>
+    <div class="cart_col cart_foot_col2 cart_servicecost_gross">
+        <f:format.currency currencySign="{settings.format.currency.currencySign}"
+                           decimalSeparator="{settings.format.currency.decimalSeparator}"
+                           thousandsSeparator="{settings.format.currency.thousandsSeparator}"
+                           prependCurrency="{settings.format.currency.prependCurrency}"
+                           separateCurrency="{settings.format.currency.separateCurrency}"
+                           decimals="{settings.format.currency.decimals}">
+            {cart.serviceGross}
+        </f:format.currency>
+    </div>
+    <div class="cart_cleaner"><!-- --></div>
+
+    <f:render partial="Cart/TaxList" arguments="{taxes: cart.serviceTaxes}"/>
+    <div class="cart_cleaner"><!-- --></div>
+
+    <div class="cart_col cart_foot_col1 cart_servicecost_total_net">
+        <f:translate
+                key="LLL:EXT:cart/Resources/Private/Language/locallang.xlf:\Extcode\Cart\Domain\Model\product.total_net"/>
+    </div>
+    <div class="cart_col cart_foot_col2 cart_servicecost_total_net">
+        <f:format.currency currencySign="{settings.format.currency.currencySign}"
+                           decimalSeparator="{settings.format.currency.decimalSeparator}"
+                           thousandsSeparator="{settings.format.currency.thousandsSeparator}"
+                           prependCurrency="{settings.format.currency.prependCurrency}"
+                           separateCurrency="{settings.format.currency.separateCurrency}"
+                           decimals="{settings.format.currency.decimals}">
+            {cart.totalNet}
+        </f:format.currency>
+    </div>
+    <div class="cart_col cart_foot_col1 cart_servicecost_total_gross">
+        <f:translate
+                key="LLL:EXT:cart/Resources/Private/Language/locallang.xlf:\Extcode\Cart\Domain\Model\product.total_gross"/>
+    </div>
+    <div class="cart_col cart_foot_col2 cart_servicecost_total_gross">
+        <f:format.currency currencySign="{settings.format.currency.currencySign}"
+                           decimalSeparator="{settings.format.currency.decimalSeparator}"
+                           thousandsSeparator="{settings.format.currency.thousandsSeparator}"
+                           prependCurrency="{settings.format.currency.prependCurrency}"
+                           separateCurrency="{settings.format.currency.separateCurrency}"
+                           decimals="{settings.format.currency.decimals}">
+            {cart.totalGross}
+        </f:format.currency>
+    </div>
+    <div class="cart_cleaner"><!-- --></div>
+
+    <f:render partial="Cart/TaxList" arguments="{taxes: cart.totalTaxes}"/>
+    <div class="cart_cleaner"><!-- --></div>
+
+</div>

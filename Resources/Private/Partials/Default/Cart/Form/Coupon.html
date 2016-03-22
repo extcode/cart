@@ -1,0 +1,47 @@
+<div id="accept-term" class="form-block">
+    <h5 class="form-title"><span class="num">4</span><span>Gutschein</span></h5>
+
+    <div class="form-content">
+        <fieldset>
+            <f:if condition="{cart.coupons}">
+                <f:then>
+                    <ul>
+                        <f:for each="{cart.coupons}" as="coupon">
+                            <li>
+                                <span>{coupon.title}</span><span> - </span>
+                                <span>
+                                    <f:format.currency currencySign="{settings.format.currency.currencySign}"
+                                                       decimalSeparator="{settings.format.currency.decimalSeparator}"
+                                                       thousandsSeparator="{settings.format.currency.thousandsSeparator}"
+                                                       prependCurrency="{settings.format.currency.prependCurrency}"
+                                                       separateCurrency="{settings.format.currency.separateCurrency}"
+                                                       decimals="{settings.format.currency.decimals}">
+                                        {coupon.discount}
+                                    </f:format.currency>
+                                </span>
+                                <f:if condition="{coupon.isUseable}">
+                                    <f:else>
+                                        <span style="color: red;">
+                                            Gutschein kann nicht angerechnet werden. Mindestbestellwert:
+                                            <f:format.currency currencySign="{settings.format.currency.currencySign}"
+                                                               decimalSeparator="{settings.format.currency.decimalSeparator}"
+                                                               thousandsSeparator="{settings.format.currency.thousandsSeparator}"
+                                                               prependCurrency="{settings.format.currency.prependCurrency}"
+                                                               separateCurrency="{settings.format.currency.separateCurrency}"
+                                                               decimals="{settings.format.currency.decimals}">
+                                                {coupon.cartMinPrice}
+                                            </f:format.currency>
+                                        </span>
+                                    </f:else>
+                                </f:if>
+                            </li>
+                        </f:for>
+                    </ul>
+                </f:then>
+                <f:else>
+                    Keine Gutscheinmöglichkeit verfügbar.
+                </f:else>
+            </f:if>
+        </fieldset>
+    </div>
+</div>

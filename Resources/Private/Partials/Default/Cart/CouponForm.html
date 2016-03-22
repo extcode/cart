@@ -1,0 +1,17 @@
+<f:form id="form-coupon" class="form"
+        name="couponItem"
+        action="addCoupon"
+        method="post">
+    <div class="form-row">
+        <div class="small-12 medium-12 large-12 form-columns">
+            <div class="form-column">
+                <f:form.textfield type="text" value="" name="couponCode"/>
+
+                <div class="small-6 form-columns">
+                    <f:form.submit class="button"
+                                   value="{f:translate(key: 'tx_cart.add_coupon', default: '[add coupon]')}"/>
+                </div>
+            </div>
+        </div>
+    </div>
+</f:form>

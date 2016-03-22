@@ -1,0 +1,32 @@
+<tr class="{f:if(condition: product.quantityIsInRange, then: '', else: 'danger')}">
+    <td colspan="2">
+        <div class="product-name">{product.title} - {product.feVariant.value}</div>
+        <p>
+            <f:translate key="tx_cart_domain_model_order_product.sku.short"/>
+            : {product.sku}
+        </p>
+    </td>
+    <td style="text-align: right;">
+        <f:format.currency currencySign="{settings.format.currency.currencySign}"
+                           decimalSeparator="{settings.format.currency.decimalSeparator}"
+                           thousandsSeparator="{settings.format.currency.thousandsSeparator}"
+                           prependCurrency="{settings.format.currency.prependCurrency}"
+                           separateCurrency="{settings.format.currency.separateCurrency}"
+                           decimals="{settings.format.currency.decimals}">
+            {product.bestPrice}
+        </f:format.currency>
+    </td>
+    <td style="text-align: right;">
+        {product.quantity}
+    </td>
+    <td style="text-align: right;">
+        <f:format.currency currencySign="{settings.format.currency.currencySign}"
+                           decimalSeparator="{settings.format.currency.decimalSeparator}"
+                           thousandsSeparator="{settings.format.currency.thousandsSeparator}"
+                           prependCurrency="{settings.format.currency.prependCurrency}"
+                           separateCurrency="{settings.format.currency.separateCurrency}"
+                           decimals="{settings.format.currency.decimals}">
+            {product.gross}
+        </f:format.currency>
+    </td>
+</tr>

@@ -1,0 +1,22 @@
+<f:for each="{taxes}" as="tax" key="tax_class">
+    <tr>
+        <td colspan="4" style="text-align: right;">
+            <f:translate key="LLL:EXT:cart/Resources/Private/Language/locallang.xlf:tx_cart.tax_class"/>
+            (
+            <f:translate key="LLL:EXT:cart/Resources/Private/Language/locallang.xlf:tx_cart.tax_class.{tax_class}"/>
+            )
+        </td>
+        <td style="text-align: right;" class="last">
+            <span class="price">
+                <f:format.currency currencySign="{settings.format.currency.currencySign}"
+                                   decimalSeparator="{settings.format.currency.decimalSeparator}"
+                                   thousandsSeparator="{settings.format.currency.thousandsSeparator}"
+                                   prependCurrency="{settings.format.currency.prependCurrency}"
+                                   separateCurrency="{settings.format.currency.separateCurrency}"
+                                   decimals="{settings.format.currency.decimals}">
+                    {tax}
+                </f:format.currency>
+            </span>
+        </td>
+    </tr>
+</f:for>

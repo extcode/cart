@@ -1,0 +1,54 @@
+<f:for each="{products}" as="product">
+    <tr class="{f:if(condition: cartProduct.quantityIsInRange, then: '', else: 'danger')}">
+        <td>
+            <div class="product-name">{cartProduct.title}</div>
+            <p>
+                <f:translate key="tx_cart_domain_model_order_product.sku.short"/>
+                : {cartProduct.sku}
+            </p>
+            <p>
+                <f:link.action action="removeProduct" arguments="{cartProduct: cartProduct.id}">
+                    <f:translate key="tx_cart.remove_product"/>
+                </f:link.action>
+            </p>
+        </td>
+        <td class="text-right">
+            <f:if condition="{cartProduct.beVariants}">
+                <f:then>
+                    <span class="price">&nbsp;</span>
+                </f:then>
+                <f:else>
+                    <f:format.currency currencySign="{settings.format.currency.currencySign}"
+                                       decimalSeparator="{settings.format.currency.decimalSeparator}"
+                                       thousandsSeparator="{settings.format.currency.thousandsSeparator}"
+                                       prependCurrency="{settings.format.currency.prependCurrency}"
+                                       separateCurrency="{settings.format.currency.separateCurrency}"
+                                       decimals="{settings.format.currency.decimals}">
+                        {cartProduct.price}
+                    </f:format.currency>
+                </f:else>
+            </f:if>
+        </td>
+        <td class="a-center">
+            <div class="qty-wrapper">
+                {cartProduct.quantity}
+            </div>
+        </td>
+        <td class="last text-right">
+            <f:if condition="{cartProduct.quantityIsInRange}">
+                <f:then>
+                    <f:format.currency currencySign="{settings.format.currency.currencySign}"
+                                       decimalSeparator="{settings.format.currency.decimalSeparator}"
+                                       thousandsSeparator="{settings.format.currency.thousandsSeparator}"
+                                       prependCurrency="{settings.format.currency.prependCurrency}"
+                                       separateCurrency="{settings.format.currency.separateCurrency}"
+                                       decimals="{settings.format.currency.decimals}">
+                        {cartProduct.gross}
+                    </f:format.currency>
+                </f:then>
+            </f:if>
+        </td>
+    </tr>
+    <f:render partial="Cart/ProductVariantList" arguments="{cartProduct:product}"/>
+</f:for>
+

@@ -1,0 +1,196 @@
+<T3DataStructure>
+    <sheets>
+        <sDEF>
+            <ROOT>
+                <TCEforms>
+                    <sheetTitle>Optionen</sheetTitle>
+                </TCEforms>
+                <type>array</type>
+                <el>
+                    <switchableControllerActions>
+                        <TCEforms>
+                            <label>
+                                LLL:EXT:cart/Resources/Private/Language/locallang_db.xlf:tx_cart.plugin.products.action.switch
+                            </label>
+                            <config>
+                                <type>select</type>
+                                <items>
+                                    <numIndex index="0">
+                                        <numIndex index="0">LLL:EXT:cart/Resources/Private/Language/locallang_db.xlf:tx_cart.plugin.products.action.product.list_and_show</numIndex>
+                                        <numIndex index="1">Product->list;Product->show</numIndex>
+                                    </numIndex>
+                                    <numIndex index="1">
+                                        <numIndex index="0">LLL:EXT:cart/Resources/Private/Language/locallang_db.xlf:tx_cart.plugin.products.action.product.teaser</numIndex>
+                                        <numIndex index="1">Product->teaser</numIndex>
+                                    </numIndex>
+                                    <numIndex index="2">
+                                        <numIndex index="0">LLL:EXT:cart/Resources/Private/Language/locallang_db.xlf:tx_cart.plugin.products.action.product.flexform</numIndex>
+                                        <numIndex index="1">Product->flexform</numIndex>
+                                    </numIndex>
+                                </items>
+                            </config>
+                        </TCEforms>
+                    </switchableControllerActions>
+
+                    <settings.productUids>
+                        <TCEforms>
+                            <exclude>1</exclude>
+                            <label>
+                                LLL:EXT:cart/Resources/Private/Language/locallang_db.xlf:tx_cart.plugin.products.action.product.teaser.select.product
+                            </label>
+                            <displayCond>FIELD:switchableControllerActions:=:Product->teaser</displayCond>
+                            <config>
+                                <type>select</type>
+                                <foreign_table>tx_cart_domain_model_product_product</foreign_table>
+                                <size>3</size>
+                                <minitems>1</minitems>
+                                <maxitems>3</maxitems>
+                            </config>
+                        </TCEforms>
+                    </settings.productUids>
+
+                    <settings.categoriesList>
+                        <TCEforms>
+                            <exclude>1</exclude>
+                            <label>Categories:</label>
+                            <displayCond>FIELD:switchableControllerActions:=:Product->list;Product->show</displayCond>
+                            <config>
+                                <type>select</type>
+                                <autoSizeMax>50</autoSizeMax>
+                                <foreign_table>sys_category</foreign_table>
+                                <foreign_table_where>AND sys_category.sys_language_uid IN (-1, 0) ORDER BY
+                                    sys_category.title ASC
+                                </foreign_table_where>
+                                <maxitems>99</maxitems>
+                                <renderMode>tree</renderMode>
+                                <size>10</size>
+                                <treeConfig>
+                                    <appearance>
+                                        <expandAll>1</expandAll>
+                                        <showHeader>1</showHeader>
+                                    </appearance>
+                                    <parentField>parent</parentField>
+                                </treeConfig>
+                            </config>
+                        </TCEforms>
+                    </settings.categoriesList>
+
+                    <settings.cartPageId>
+                        <TCEforms>
+                            <label>
+                                LLL:EXT:cart/Resources/Private/Language/locallang_db.xlf:tx_cart.flexform.cartPageId
+                            </label>
+                            <displayCond>FIELD:switchableControllerActions:=:Product->flexform</displayCond>
+                            <config>
+                                <type>input</type>
+                                <eval>int</eval>
+                                <range>
+                                    <lower>1</lower>
+                                    <upper>9999999</upper>
+                                </range>
+                            </config>
+                        </TCEforms>
+                    </settings.cartPageId>
+                    <settings.productId>
+                        <TCEforms>
+                            <label>
+                                LLL:EXT:cart/Resources/Private/Language/locallang_db.xlf:tx_cart.flexform.productId
+                            </label>
+                            <displayCond>FIELD:switchableControllerActions:=:Product->flexform</displayCond>
+                            <config>
+                                <type>input</type>
+                                <eval>int</eval>
+                                <range>
+                                    <lower>1</lower>
+                                    <upper>9999999</upper>
+                                </range>
+                            </config>
+                        </TCEforms>
+                    </settings.productId>
+                    <settings.title>
+                        <TCEforms>
+                            <label>
+                                LLL:EXT:cart/Resources/Private/Language/locallang_db.xlf:tx_cart_flexform_model_product.title
+                            </label>
+                            <displayCond>FIELD:switchableControllerActions:=:Product->flexform</displayCond>
+                            <config>
+                                <type>input</type>
+                                <eval>required</eval>
+                            </config>
+                        </TCEforms>
+                    </settings.title>
+                    <settings.sku>
+                        <TCEforms>
+                            <label>
+                                LLL:EXT:cart/Resources/Private/Language/locallang_db.xlf:tx_cart_flexform_model_product.sku
+                            </label>
+                            <displayCond>FIELD:switchableControllerActions:=:Product->flexform</displayCond>
+                            <config>
+                                <type>input</type>
+                            </config>
+                        </TCEforms>
+                    </settings.sku>
+                    <settings.isNetPrice>
+                        <TCEforms>
+                            <label>
+                                LLL:EXT:cart/Resources/Private/Language/locallang_db.xlf:tx_cart_flexform_model_product.is_net_price
+                            </label>
+                            <displayCond>FIELD:switchableControllerActions:=:Product->flexform</displayCond>
+                            <config>
+                                <type>check</type>
+                            </config>
+                        </TCEforms>
+                    </settings.isNetPrice>
+                    <settings.price>
+                        <TCEforms>
+                            <label>
+                                LLL:EXT:cart/Resources/Private/Language/locallang_db.xlf:tx_cart_flexform_model_product.price
+                            </label>
+                            <displayCond>FIELD:switchableControllerActions:=:Product->flexform</displayCond>
+                            <config>
+                                <type>input</type>
+                                <eval>\Extcode\Cart\Utility\EvalPrice</eval>
+                            </config>
+                        </TCEforms>
+                    </settings.price>
+                    <settings.taxClassId>
+                        <TCEforms>
+                            <label>
+                                LLL:EXT:cart/Resources/Private/Language/locallang_db.xlf:tx_cart_flexform_model_product.tax_class_id
+                            </label>
+                            <displayCond>FIELD:switchableControllerActions:=:Product->flexform</displayCond>
+                            <config>
+                                <type>select</type>
+                                <items type="array">
+                                    <numIndex index="0" type="array">
+                                        <numIndex index="0">LLL:EXT:cart/Resources/Private/Language/locallang_db.xlf:tx_cart_flexform_model_product.tax_class_id.1</numIndex>
+                                        <numIndex index="1">1</numIndex>
+                                    </numIndex>
+                                    <numIndex index="1" type="array">
+                                        <numIndex index="0">LLL:EXT:cart/Resources/Private/Language/locallang_db.xlf:tx_cart_flexform_model_product.tax_class_id.2</numIndex>
+                                        <numIndex index="1">2</numIndex>
+                                    </numIndex>
+                                    <numIndex index="2" type="array">
+                                        <numIndex index="0">LLL:EXT:cart/Resources/Private/Language/locallang_db.xlf:tx_cart_flexform_model_product.tax_class_id.3</numIndex>
+                                        <numIndex index="1">3</numIndex>
+                                    </numIndex>
+                                </items>
+                            </config>
+                        </TCEforms>
+                    </settings.taxClassId>
+                    <settings.attributes>
+                        <TCEforms>
+                            <label>
+                                LLL:EXT:cart/Resources/Private/Language/locallang_db.xlf:tx_cart_flexform_model_product.attributes
+                            </label>
+                            <displayCond>FIELD:switchableControllerActions:=:Product->flexform</displayCond>
+                            <config>
+                                <type>text</type>
+                            </config>
+                        </TCEforms>
+                    </settings.attributes>
+                </el>
+            </ROOT>
+        </sDEF>
+    </sheets>
+</T3DataStructure>

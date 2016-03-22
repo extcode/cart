@@ -1,0 +1,47 @@
+<div id="checkout-review" class="form-block">
+    <h5 class="form-title"><span class="num">5</span><span>Bestellübersicht</span></h5>
+
+    <div class="form-content">
+        <fieldset>
+            <ul class="form-list">
+                <li class="fields">
+                    <div class="field acceptTerm">
+                        <label>
+                            <f:form.checkbox id="orderItem:acceptTerm"
+                                             name="orderItem[acceptTerm]"
+                                             title="{f:translate(key:'tx_cart_domain_model_order_item.accept_terms')}"
+                                             value="{orderItem.acceptTerm}"/>
+                            <span> <f:translate key="tx_cart_domain_model_order_item.accept_terms"/></span>
+                        </label>
+                    </div>
+                    <div class="field acceptTerm">
+                        <label>
+                            <f:form.checkbox id="orderItem:acceptConditions"
+                                             name="orderItem[acceptConditions]"
+                                             title="{f:translate(key:'tx_cart_domain_model_order_item.accept_conditions')}"
+                                             value="{orderItem.acceptConditions}"/>
+                            <span> <f:translate key="tx_cart_domain_model_order_item.accept_conditions"/></span>
+                        </label>
+                    </div>
+                </li>
+                <li>
+                    <label><span><f:translate key="tx_cart_domain_model_order_item.comment"/></span>
+                        <f:form.textarea id="orderItem:comment" name="orderItem[comment]" value="{orderItem.comment}"/>
+                    </label>
+                </li>
+            </ul>
+        </fieldset>
+
+        <table id="checkout-review-table" class="data-table" style="width: 100%">
+            <colgroup>
+                <col/>
+                <col width="1"/>
+                <col width="1"/>
+                <col width="1"/>
+            </colgroup>
+            <tbody>
+            <f:render partial="Cart/Summary" arguments="{cart:cart}"/>
+            </tbody>
+        </table>
+    </div>
+</div>

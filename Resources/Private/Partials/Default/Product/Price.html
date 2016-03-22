@@ -1,0 +1,38 @@
+<f:if condition="{product.specialPrices}">
+    <f:then>
+        <f:format.currency currencySign="{settings.format.currency.currencySign}"
+                           decimalSeparator="{settings.format.currency.decimalSeparator}"
+                           thousandsSeparator="{settings.format.currency.thousandsSeparator}"
+                           prependCurrency="{settings.format.currency.prependCurrency}"
+                           separateCurrency="{settings.format.currency.separateCurrency}"
+                           decimals="{settings.format.currency.decimals}">
+            {product.bestSpecialPrice}
+        </f:format.currency>
+        bisher:
+        <del>
+            <f:format.currency currencySign="{settings.format.currency.currencySign}"
+                               decimalSeparator="{settings.format.currency.decimalSeparator}"
+                               thousandsSeparator="{settings.format.currency.thousandsSeparator}"
+                               prependCurrency="{settings.format.currency.prependCurrency}"
+                               separateCurrency="{settings.format.currency.separateCurrency}"
+                               decimals="{settings.format.currency.decimals}">
+                {product.price}
+            </f:format.currency>
+        </del>
+        <strong>(Sie sparen: {product.bestSpecialPricePercentageDiscount} %)</strong>
+    </f:then>
+    <f:else>
+        <f:if condition="{product.beVariants}">
+            <f:translate key="tx_cart_domain_model_product.price.from"/>
+            :
+        </f:if>
+        <f:format.currency currencySign="{settings.format.currency.currencySign}"
+                           decimalSeparator="{settings.format.currency.decimalSeparator}"
+                           thousandsSeparator="{settings.format.currency.thousandsSeparator}"
+                           prependCurrency="{settings.format.currency.prependCurrency}"
+                           separateCurrency="{settings.format.currency.separateCurrency}"
+                           decimals="{settings.format.currency.decimals}">
+            {product.minPrice}
+        </f:format.currency>
+    </f:else>
+</f:if>

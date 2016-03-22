@@ -1,0 +1,84 @@
+<f:layout name="Default"/>
+
+<f:section name="actions">
+    <span class="btn btn-default btn-sm">
+        <f:be.buttons.icon
+                uri="{f:uri.action(action:'export', arguments:{format: 'csv', filter: piVars.filter})}"
+                icon="actions-document-export-csv"/>
+    </span>
+</f:section>
+
+<f:section name="content">
+    <f:flashMessages/>
+
+    <f:render partial="Order/Filter/List"
+              arguments="{piVars: piVars, action: 'list', paymentStatus: paymentStatus, shippingStatus: shippingStatus}"/>
+
+    <div class="clear"></div>
+
+    <f:if condition="{orderItems}">
+        <f:then>
+            <f:widget.paginate objects="{orderItems}" as="paginatedOrderItems" configuration="{itemsPerPage: 25}">
+                <table class="tx_cart table table-striped table-hover">
+                    <thead>
+                    <tr class="t3-row-header">
+                        <th>
+                            <f:translate key="tx_cart_domain_model_order_address.first_name"/>
+                        </th>
+                        <th>
+                            <f:translate key="tx_cart_domain_model_order_address.last_name"/>
+                        </th>
+                        <th>
+                            <f:translate key="tx_cart_domain_model_order_address.company"/>
+                        </th>
+                        <th>
+                            <f:translate key="tx_cart_domain_model_order_item.order_number"/>
+                        </th>
+                        <th>
+                            <f:translate key="tx_cart_domain_model_order_item.order_date"/>
+                        </th>
+                        <th>
+                            <f:translate key="tx_cart_domain_model_order_item.invoice_number"/>
+                        </th>
+                        <th>
+                            <f:translate key="tx_cart_domain_model_order_item.invoice_date"/>
+                        </th>
+                        <th>
+                            <f:translate key="tx_cart_domain_model_order_item.total_gross"/>
+                        </th>
+                        <th>
+                            <f:translate key="tx_cart_domain_model_order_item.total_net"/>
+                        </th>
+                        <th>
+                            <f:translate key="tx_cart_domain_model_order_payment"/>
+                            <br/>(
+                            <f:translate key="tx_cart_domain_model_order_payment.status"/>
+                            )
+                        </th>
+                        <th>
+                            <f:translate key="tx_cart_domain_model_order_shipping"/>
+                            <br/>(
+                            <f:translate key="tx_cart_domain_model_order_shipping.status"/>
+                            )
+                        </th>
+                        <th>
+                            &nbsp;
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <f:for each="{paginatedOrderItems}" as="orderItem">
+                        <f:cycle values="{0: 'even', 1: 'odd'}" as="cycle">
+                            <f:render partial="Order/List/Item"
+                                      arguments="{orderItem: orderItem, cycle:cycle, piVars: piVars}"/>
+                        </f:cycle>
+                    </f:for>
+                    </tbody>
+                </table>
+            </f:widget.paginate>
+        </f:then>
+        <f:else>
+            Select a Page where Order Item Dataset are saved.
+        </f:else>
+    </f:if>
+</f:section>

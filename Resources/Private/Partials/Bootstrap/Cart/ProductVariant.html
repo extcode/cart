@@ -1,0 +1,34 @@
+{namespace cart=Extcode\Cart\ViewHelpers}
+
+<div class="cart_product_variant">
+    <div class="cart_col cart_col_title">{variant.title}</div>
+    <div class="cart_col cart_col_sku">{variant.sku}</div>
+    <div class="cart_col cart_col_price cart_right">
+        <f:format.currency currencySign="{settings.format.currency.currencySign}"
+                           decimalSeparator="{settings.format.currency.decimalSeparator}"
+                           thousandsSeparator="{settings.format.currency.thousandsSeparator}"
+                           prependCurrency="{settings.format.currency.prependCurrency}"
+                           separateCurrency="{settings.format.currency.separateCurrency}"
+                           decimals="{settings.format.currency.decimals}">
+            {variant.price}
+        </f:format.currency>
+    </div>
+    <div class="cart_col cart_col_qty cart_center">
+        {variant.qty}
+    </div>
+    <div class="cart_col cart_col_total cart_right">
+        <f:format.currency currencySign="{settings.format.currency.currencySign}"
+                           decimalSeparator="{settings.format.currency.decimalSeparator}"
+                           thousandsSeparator="{settings.format.currency.thousandsSeparator}"
+                           prependCurrency="{settings.format.currency.prependCurrency}"
+                           separateCurrency="{settings.format.currency.separateCurrency}"
+                           decimals="{settings.format.currency.decimals}">
+            {variant.gross}
+        </f:format.currency>
+    </div>
+    <div>
+        <cart:link.action action="removeProduct" product="{variant.product}" variant="{variant}">delete
+        </cart:link.action>
+    </div>
+    <div class="cart_cleaner"><!-- --></div>
+</div>

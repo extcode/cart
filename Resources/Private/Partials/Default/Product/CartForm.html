@@ -1,0 +1,20 @@
+{namespace cart=Extcode\Cart\ViewHelpers}
+
+<div class="cart_form">
+    <f:form pageUid="{pid}"
+            extensionName="Cart" pluginName="Cart" controller="Cart" action="addProduct"
+            method="post">
+        <input type="hidden" value="{product.uid}" name="tx_cart_cart[productId]">
+        <input type="text" value="1" name="tx_cart_cart[quantity]">
+        <f:if condition="{product.beVariants}">
+            <cart:form.variantSelect name="tx_cart_cart[beVariants][1]" product="{product}"/>
+        </f:if>
+        <f:if condition="{product.feVariants}">
+            <f:for each="{product.feVariants}" as="feVariant">
+                {feVariant.title}:
+                <input type="text" name="tx_cart_cart[feVariants][{feVariant.sku}]">
+            </f:for>
+        </f:if>
+        <input type="submit" value="<f:translate key='tx_cart.plugin.form.submit' />">
+    </f:form>
+</div>

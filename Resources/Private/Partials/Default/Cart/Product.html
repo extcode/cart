@@ -1,0 +1,53 @@
+<tr class="{f:if(condition: product.quantityIsInRange, then: '', else: 'danger')}">
+    <td colspan="2">
+        <div class="product-name">{product.title} - {product.feVariant.value}</div>
+        <p>
+            <f:translate key="tx_cart_domain_model_order_product.sku.short"/>
+            : {product.sku}
+        </p>
+    </td>
+    <td class="text-right">
+                    <span class="price">
+                        <f:format.currency currencySign="{settings.format.currency.currencySign}"
+                                           decimalSeparator="{settings.format.currency.decimalSeparator}"
+                                           thousandsSeparator="{settings.format.currency.thousandsSeparator}"
+                                           prependCurrency="{settings.format.currency.prependCurrency}"
+                                           separateCurrency="{settings.format.currency.separateCurrency}"
+                                           decimals="{settings.format.currency.decimals}">
+                            {product.bestPrice}
+                        </f:format.currency>
+                    </span>
+    </td>
+    <td class="a-center">
+        <div class="qty-wrapper">
+            <f:form.textfield type="text" value="{product.quantity}" name="quantities[{product.id}]"/>
+        </div>
+    </td>
+    <td class="text-right">
+        <f:if condition="{product.quantityIsInRange}">
+            <f:then>
+                <f:format.currency currencySign="{settings.format.currency.currencySign}"
+                                   decimalSeparator="{settings.format.currency.decimalSeparator}"
+                                   thousandsSeparator="{settings.format.currency.thousandsSeparator}"
+                                   prependCurrency="{settings.format.currency.prependCurrency}"
+                                   separateCurrency="{settings.format.currency.separateCurrency}"
+                                   decimals="{settings.format.currency.decimals}">
+                    {product.gross}
+                </f:format.currency>
+            </f:then>
+            <f:else>
+                <f:if condition="{product.quantityBelowRange}">
+                    Mindestbestellmenge nicht erreicht.
+                </f:if>
+                <f:if condition="{product.quantityAboveRange}">
+                    Maximalbestellmenge überschritten.
+                </f:if>
+            </f:else>
+        </f:if>
+    </td>
+    <td class="last">
+        <f:link.action action="removeProduct" arguments="{product: product.id}">
+            <span class="delete-link">x</span>
+        </f:link.action>
+    </td>
+</tr>

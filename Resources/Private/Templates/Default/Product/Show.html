@@ -1,0 +1,62 @@
+{namespace cart=Extcode\Cart\ViewHelpers}
+
+<f:layout name="Default"/>
+
+<f:section name="main">
+    <h1>{product.title}</h1>
+
+    <f:if condition="{product.images}">
+        <f:image src="{product.firstImage.originalResource.originalFile.uid}"
+                 title="{product.firstImage.originalResource.title}"
+                 alt="{product.firstImage.originalResource.title}" />
+
+        <f:if condition="{product.images -> f:count()} > 1">
+            <f:for each="{product.images}" as="image">
+                <f:image src="{image.originalResource.originalFile.uid}"
+                         title="{image.originalResource.title}"
+                         alt="{image.originalResource.title}"
+                         width="100" />
+            </f:for>
+        </f:if>
+    </f:if>
+
+    <div>
+        <f:format.raw>
+            {product.teaser}
+        </f:format.raw>
+    </div>
+    <div>
+        <f:format.raw>
+            {product.description}
+        </f:format.raw>
+    </div>
+
+    <f:if condition="{product.productContent}">
+        <f:for each="{product.productContent}" as="content" iteration="iterator">
+            <div id="content-{iterator.cycle}" class="content-element">
+                <f:cObject typoscriptObjectPath="tt_content.{content.contentType}.20"
+                           data="<cart:mapModelPropertiesToTableColumns class='Extcode\\Product\\Domain\\Model\\TtContent' table='tt_content' data='{content}' />"/>
+            </div>
+        </f:for>
+    </f:if>
+
+    <f:if condition="{settings.cart.pid}">
+        <f:render partial="Product/CartForm" arguments="{product: product, pid: settings.cart.pid}"/>
+    </f:if>
+
+    <f:render partial="Product/Price" arguments="{product: product, settings: settings}"></f:render>
+    <f:render partial="Product/BasePrice" arguments="{product: product, settings: settings}"></f:render>
+
+    <f:if condition="{product.relatedProducts}">
+        <ul>
+        <f:for each="{product.relatedProducts}" as="relatedProduct">
+            <li>
+                <f:render partial="Product/RelatedProduct" arguments="{product: relatedProduct}"/>
+            </li>
+        </f:for>
+        </ul>
+    </f:if>
+
+    <f:link.action action="list">Back to list</f:link.action>
+    <br/>
+</f:section>

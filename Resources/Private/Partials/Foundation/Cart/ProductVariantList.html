@@ -1,0 +1,45 @@
+{namespace cart=Extcode\Cart\ViewHelpers}
+
+<f:if condition="{cartProduct.beVariants}">
+    <f:then>
+        <f:for each="{cartProduct.beVariants}" as="variant">
+            <tr class="">
+                <td>
+                    <div class="product-name">{cartProduct.title} ({variant.title})</div>
+                    <p>
+                        <f:translate key="tx_cart_domain_model_order_product.sku.short"/>
+                        : {variant.sku}
+                    </p>
+                    <p>
+                        <cart:link.action action="removeProduct" product="{variant.product}" variant="{variant}">
+                            <f:translate key="tx_cart.remove_product"/>
+                        </cart:link.action>
+                    </p>
+                </td>
+                <td class="text-right">
+                    <f:format.currency currencySign="{settings.format.currency.currencySign}"
+                                       decimalSeparator="{settings.format.currency.decimalSeparator}"
+                                       thousandsSeparator="{settings.format.currency.thousandsSeparator}"
+                                       prependCurrency="{settings.format.currency.prependCurrency}"
+                                       separateCurrency="{settings.format.currency.separateCurrency}"
+                                       decimals="{settings.format.currency.decimals}">
+                        {variant.price}
+                    </f:format.currency>
+                </td>
+                <td class="a-center">
+                    {variant.quantity}
+                </td>
+                <td class="last text-right">
+                    <f:format.currency currencySign="{settings.format.currency.currencySign}"
+                                       decimalSeparator="{settings.format.currency.decimalSeparator}"
+                                       thousandsSeparator="{settings.format.currency.thousandsSeparator}"
+                                       prependCurrency="{settings.format.currency.prependCurrency}"
+                                       separateCurrency="{settings.format.currency.separateCurrency}"
+                                       decimals="{settings.format.currency.decimals}">
+                        {variant.gross}
+                    </f:format.currency>
+                </td>
+            </tr>
+        </f:for>
+    </f:then>
+</f:if>

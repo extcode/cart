@@ -1,0 +1,13 @@
+<f:layout name="Mail"/>
+
+<f:section name="main">
+
+    Vielen Dank für Ihre Bestellung.
+
+    <f:if condition="{orderItem.orderNumber}">
+        {orderItem.orderNumber}
+    </f:if>
+
+    <f:render partial="Cart/Mail/Cart" arguments="{cart: cart}"/>
+
+</f:section>

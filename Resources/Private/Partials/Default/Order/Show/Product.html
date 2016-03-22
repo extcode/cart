@@ -1,0 +1,70 @@
+<tr>
+    <td>
+        {product.sku}
+    </td>
+    <td>
+        {product.title}
+    </td>
+    <td>
+        <f:format.currency currencySign="{currencySign}"
+                           decimalSeparator="{settings.format.currency.decimalSeparator}"
+                           thousandsSeparator="{settings.format.currency.thousandsSeparator}"
+                           prependCurrency="{settings.format.currency.prependCurrency}"
+                           separateCurrency="{settings.format.currency.separateCurrency}"
+                           decimals="{settings.format.currency.decimals}">
+            {product.price}
+        </f:format.currency>
+    </td>
+    <td>
+        <f:format.currency currencySign="{currencySign}"
+                           decimalSeparator="{settings.format.currency.decimalSeparator}"
+                           thousandsSeparator="{settings.format.currency.thousandsSeparator}"
+                           prependCurrency="{settings.format.currency.prependCurrency}"
+                           separateCurrency="{settings.format.currency.separateCurrency}"
+                           decimals="{settings.format.currency.decimals}">
+            {product.discount}
+        </f:format.currency>
+    </td>
+    <td>
+        {product.count}
+    </td>
+    <td>
+        <f:format.currency currencySign="{currencySign}"
+                           decimalSeparator="{settings.format.currency.decimalSeparator}"
+                           thousandsSeparator="{settings.format.currency.thousandsSeparator}"
+                           prependCurrency="{settings.format.currency.prependCurrency}"
+                           separateCurrency="{settings.format.currency.separateCurrency}"
+                           decimals="{settings.format.currency.decimals}">
+            {product.net}
+        </f:format.currency>
+    </td>
+    <td>
+        <f:format.currency currencySign="{currencySign}"
+                           decimalSeparator="{settings.format.currency.decimalSeparator}"
+                           thousandsSeparator="{settings.format.currency.thousandsSeparator}"
+                           prependCurrency="{settings.format.currency.prependCurrency}"
+                           separateCurrency="{settings.format.currency.separateCurrency}"
+                           decimals="{settings.format.currency.decimals}">
+            {product.gross}
+        </f:format.currency>
+    </td>
+    <f:for each="{product.orderItem.orderTotalTax}" as="orderTotalTax">
+        <td>
+            <f:if condition="{0: orderTotalTax.orderTaxClass.id} == {0: {product.orderTaxClass.id}}">
+                <f:then>
+                    <f:format.currency currencySign="{currencySign}"
+                                       decimalSeparator="{settings.format.currency.decimalSeparator}"
+                                       thousandsSeparator="{settings.format.currency.thousandsSeparator}"
+                                       prependCurrency="{settings.format.currency.prependCurrency}"
+                                       separateCurrency="{settings.format.currency.separateCurrency}"
+                                       decimals="{settings.format.currency.decimals}">
+                        {product.orderTax.tax}
+                    </f:format.currency>
+                </f:then>
+                <f:else>
+                    <!-- -->
+                </f:else>
+            </f:if>
+        </td>
+    </f:for>
+</tr>

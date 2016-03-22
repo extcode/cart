@@ -1,0 +1,192 @@
+<?php
+
+defined('TYPO3_MODE') or die();
+
+$_LLL = 'LLL:EXT:cart/Resources/Private/Language/locallang_db.xlf';
+
+return [
+    'ctrl' => [
+        'title' => $_LLL . ':tx_cart_domain_model_order_product',
+        'label' => 'sku',
+        'label_alt' => 'title',
+        'label_alt_force' => 1,
+        'tstamp' => 'tstamp',
+        'crdate' => 'crdate',
+        'cruser_id' => 'cruser_id',
+        'dividers2tabs' => true,
+
+        'versioningWS' => 2,
+        'versioning_followPages' => true,
+        'origUid' => 't3_origuid',
+        'hideTable' => true,
+        'delete' => 'deleted',
+        'enablecolumns' => [],
+        'searchFields' => 'sku,title',
+        'iconfile' => 'EXT:cart/Resources/Public/Icons/Order/Product.png'
+    ],
+    'hideTable' => 1,
+    'interface' => [
+        'showRecordFieldList' => 'sku, title, count, additional_data, product_additional, price, discount, gross, net, tax, tax_class',
+    ],
+    'types' => [
+        '1' => [
+            'showitem' => 'sku, title, count, --palette--;' . $_LLL . ':tx_cart_domain_model_order_product.price.group;price, product_additional, additional_data'
+        ],
+    ],
+    'palettes' => [
+        '1' => [
+            'showitem' => ''
+        ],
+        'price' => [
+            'showitem' => 'price, discount, --linebreak--, gross, net, --linebreak--, tax, tax_class',
+            'canNotCollapse' => 1
+        ],
+    ],
+    'columns' => [
+        'sku' => [
+            'exclude' => 0,
+            'label' => $_LLL . ':tx_cart_domain_model_order_product.sku',
+            'config' => [
+                'type' => 'input',
+                'readOnly' => 1,
+                'size' => 30,
+                'eval' => 'trim,required'
+            ],
+        ],
+        'title' => [
+            'exclude' => 0,
+            'label' => $_LLL . ':tx_cart_domain_model_order_product.title',
+            'config' => [
+                'type' => 'input',
+                'readOnly' => 1,
+                'size' => 30,
+                'eval' => 'trim,required'
+            ],
+        ],
+        'count' => [
+            'exclude' => 0,
+            'label' => $_LLL . ':tx_cart_domain_model_order_product.count',
+            'config' => [
+                'type' => 'input',
+                'readOnly' => 1,
+                'size' => 30,
+                'eval' => 'int'
+            ],
+        ],
+        'price' => [
+            'exclude' => 0,
+            'label' => $_LLL . ':tx_cart_domain_model_order_product.price',
+            'config' => [
+                'type' => 'input',
+                'readOnly' => 1,
+                'size' => 30,
+                'eval' => 'double2'
+            ],
+        ],
+        'discount' => [
+            'exclude' => 0,
+            'label' => $_LLL . ':tx_cart_domain_model_order_product.discount',
+            'config' => [
+                'type' => 'input',
+                'readOnly' => 1,
+                'size' => 30,
+                'eval' => 'double2'
+            ],
+        ],
+        'gross' => [
+            'exclude' => 0,
+            'label' => $_LLL . ':tx_cart_domain_model_order_product.gross',
+            'config' => [
+                'type' => 'input',
+                'readOnly' => 1,
+                'size' => 30,
+                'eval' => 'double2'
+            ],
+        ],
+        'net' => [
+            'exclude' => 0,
+            'label' => $_LLL . ':tx_cart_domain_model_order_product.net',
+            'config' => [
+                'type' => 'input',
+                'readOnly' => 1,
+                'size' => 30,
+                'eval' => 'double2'
+            ],
+        ],
+        'tax' => [
+            'exclude' => 0,
+            'label' => $_LLL . ':tx_cart_domain_model_order_product.tax',
+            'config' => [
+                'type' => 'input',
+                'readOnly' => 1,
+                'size' => 30,
+                'eval' => 'double2'
+            ],
+        ],
+        'tax_class' => [
+            'exclude' => 0,
+            'label' => $_LLL . ':tx_cart_domain_model_order_product.tax_class',
+            'config' => [
+                'type' => 'select',
+                'renderType' => 'selectSingle',
+                'readOnly' => 1,
+                'foreign_table' => 'tx_cart_domain_model_order_taxclass',
+                'minitems' => 1,
+                'maxitems' => 1,
+                'appearance' => [
+                    'enabledControls' => [
+                        'info' => false,
+                        'new' => false,
+                        'dragdrop' => false,
+                        'sort' => false,
+                        'hide' => false,
+                        'delete' => false,
+                        'localize' => false,
+                    ],
+                ],
+            ],
+        ],
+        'additional_data' => [
+            'exclude' => 0,
+            'label' => $_LLL . ':tx_cart_domain_model_order_product.additional_data',
+            'config' => [
+                'type' => 'text',
+                'readOnly' => 1,
+                'cols' => 48,
+                'rows' => 5
+            ],
+        ],
+        'item' => [
+            'config' => [
+                'type' => 'passthrough',
+            ],
+        ],
+        'product_additional' => [
+            'exclude' => 0,
+            'label' => $_LLL . ':tx_cart_domain_model_order_product.product_additional',
+            'config' => [
+                'type' => 'inline',
+                'readOnly' => 1,
+                'foreign_table' => 'tx_cart_domain_model_order_productadditional',
+                'foreign_field' => 'product',
+                'maxitems' => 9999,
+                'appearance' => [
+                    'collapseAll' => 1,
+                    'levelLinksPosition' => 'top',
+                    'showSynchronizationLink' => 1,
+                    'showPossibleLocalizationRecords' => 1,
+                    'showAllLocalizationLink' => 1,
+                    'enabledControls' => [
+                        'info' => false,
+                        'new' => false,
+                        'dragdrop' => false,
+                        'sort' => false,
+                        'hide' => false,
+                        'delete' => false,
+                        'localize' => false,
+                    ],
+                ],
+            ],
+        ],
+    ],
+];

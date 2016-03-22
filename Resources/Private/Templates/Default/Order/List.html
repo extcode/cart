@@ -1,0 +1,46 @@
+<f:layout name="Default"/>
+
+<f:section name="main">
+
+    <f:flashMessages renderMode="div"/>
+
+    <f:if condition="{orderItems}">
+        <f:then>
+            <f:widget.paginate objects="{orderItems}" as="paginatedOrderItems" configuration="{itemsPerPage: 25}">
+                <table class="">
+                    <thead>
+                    <tr class="">
+                        <th>
+                            <f:translate key="tx_cart_domain_model_order_item.order_number"/>
+                        </th>
+                        <th>
+                            <f:translate key="tx_cart_domain_model_order_item.order_date"/>
+                        </th>
+                        <th>
+                            <f:translate key="tx_cart_domain_model_order_item.invoice_number"/>
+                        </th>
+                        <th>
+                            <f:translate key="tx_cart_domain_model_order_item.invoice_date"/>
+                        </th>
+                        <th>
+                            <f:translate key="tx_cart_domain_model_order_item.total_gross"/>
+                        </th>
+                        <th>
+                            &nbsp;
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <f:for each="{paginatedOrderItems}" as="orderItem">
+                        <f:render partial="Order/List/Item"
+                                  arguments="{orderItem: orderItem}"/>
+                    </f:for>
+                    </tbody>
+                </table>
+            </f:widget.paginate>
+        </f:then>
+        <f:else>
+            Select a Page where Order Item Dataset are saved.
+        </f:else>
+    </f:if>
+</f:section>

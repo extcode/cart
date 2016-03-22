@@ -1,0 +1,93 @@
+<table class="tx-cart table" width="100%">
+    <tr>
+        <th style="background-color: #ededed;">
+            <f:translate key="tx_cart_domain_model_order_item.order_number"/>
+            :
+        </th>
+        <td>
+            {orderItem.orderNumber}
+        </td>
+        <th style="background-color: #ededed; border-left: 1px solid #DDD;">
+            <f:translate key="tx_cart_domain_model_order_item.invoice_number"/>
+            :
+        </th>
+        <td>
+            {orderItem.invoiceNumber}
+        </td>
+    </tr>
+    <tr>
+        <th style="background-color: #ededed;">
+            <f:translate key="tx_cart_domain_model_order_item.order_date"/>
+            :
+        </th>
+        <td>
+            <f:if condition="{orderItem.orderDate}">
+                <f:format.date format="d.m.Y" date="{orderItem.orderDate}"/>
+            </f:if>
+        </td>
+        <th style="background-color: #ededed; border-left: 1px solid #DDD;">
+            <f:translate key="tx_cart_domain_model_order_item.invoice_date"/>
+            :
+        </th>
+        <td>
+            <f:if condition="{orderItem.invoiceDate}">
+                <f:format.date format="d.m.Y" date="{orderItem.invoiceDate}"/>
+            </f:if>
+        </td>
+    </tr>
+    <tr>
+        <th style="background-color: #ededed;">
+            <f:translate key="tx_cart_domain_model_order_item.order_shipping"/>
+            :
+        </th>
+        <td>
+            {orderItem.payment.name}
+        </td>
+        <th style="background-color: #ededed; border-left: 1px solid #DDD;">
+            <f:translate key="tx_cart_domain_model_order_item.order_payment"/>
+            :
+        </th>
+        <td>
+            {orderItem.shipping.name}
+        </td>
+    </tr>
+    <tr>
+        <th style="background-color: #ededed;">
+            <f:translate key="tx_cart_domain_model_order_payment.status"/>
+        </th>
+        <td>
+            <f:translate key="tx_cart_domain_model_order_payment.status.{orderItem.payment.status}"/>
+        </td>
+        <th style="background-color: #ededed; border-left: 1px solid #DDD;">
+            <f:translate key="tx_cart_domain_model_order_payment.status"/>
+        </th>
+        <td>
+            <f:translate key="tx_cart_domain_model_order_payment.status.{orderItem.shipping.status}"/>
+        </td>
+    </tr>
+</table>
+<br>
+
+<div>
+    <div class="block-left">
+        <f:if condition="{orderItem.billingAddress}">
+            <strong>
+                <f:translate key="tx_cart_domain_model_order_item.billing_address"/>
+                :
+            </strong>
+            <f:render partial="Order/Show/Address" arguments="{address: orderItem.billingAddress}"/>
+        </f:if>
+    </div>
+
+    <div class="block-right">
+        <f:if condition="{orderItem.shippingAddress}">
+            <strong>
+                <f:translate key="tx_cart_domain_model_order_item.shipping_address"/>
+                :
+            </strong>
+            <f:render partial="Order/Show/Address" arguments="{address: orderItem.shippingAddress}"/>
+        </f:if>
+    </div>
+
+    <div class="clear"><!-- --></div>
+</div>

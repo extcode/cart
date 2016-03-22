@@ -1,0 +1,79 @@
+<f:layout name="Default"/>
+
+<f:section name="actions">
+</f:section>
+
+<f:section name="content">
+    <f:flashMessages renderMode="div"/>
+
+    <f:render partial="Product/Filter" arguments="{piVars: piVars, action: 'list'}"/>
+
+    <div class="table-fit">
+        <table class="table table-striped typo3-dblist">
+            <thead>
+            <tr class="t3-row-header">
+                <th style="text-align: left;">
+                    <f:translate key="tx_cart_domain_model_product.sku"/>
+                </th>
+                <th style="text-align: left;">
+                    <f:translate key="tx_cart_domain_model_product.title"/>
+                </th>
+                <th style="text-align: right; width: 75px;">
+                    <f:translate key="tx_cart_domain_model_product.stock"/>
+                </th>
+                <th style="text-align: right; width: 100px;">
+                    <f:translate key="tx_cart_domain_model_product.price"/>
+                </th>
+                <th>
+                    &nbsp;
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            <f:for each="{products}" as="product">
+                <tr class="db_list_normal">
+                    <td>
+                        <f:link.action action="show" arguments="{product : product}"> {product.sku}</f:link.action>
+                    </td>
+                    <td>
+                        <f:link.action action="show" arguments="{product : product}"> {product.title}</f:link.action>
+                    </td>
+                    <td style="text-align: right;">
+                        {product.stock}
+                        <f:if condition="{product.variants}">(!)</f:if>
+                    </td>
+                    <td style="text-align: right;">
+                        <f:if condition="{product.variants}">
+                            <f:then>
+                                <f:translate key="tx_cart_domain_model_product.price.from"/>
+                                :
+                                <f:format.currency currencySign="{settings.format.currency.currencySign}"
+                                                   decimalSeparator="{settings.format.currency.decimalSeparator}"
+                                                   thousandsSeparator="{settings.format.currency.thousandsSeparator}">
+                                    {product.minPrice}
+                                </f:format.currency>
+                            </f:then>
+                            <f:else>
+                                <f:format.currency currencySign="{settings.format.currency.currencySign}"
+                                                   decimalSeparator="{settings.format.currency.decimalSeparator}"
+                                                   thousandsSeparator="{settings.format.currency.thousandsSeparator}">
+                                    {product.price}
+                                </f:format.currency>
+                            </f:else>
+                        </f:if>
+                    </td>
+                    <td>
+                        <div class="">
+                            <span class="btn btn-default btn-sm">
+                                <f:be.buttons.icon
+                                        uri="{f:uri.action(action:'show', arguments:{product : product})}"
+                                        icon="actions-view"/>
+                            </span>
+                        </div>
+                    </td>
+                </tr>
+            </f:for>
+            </tbody>
+        </table>
+    </div>
+</f:section>

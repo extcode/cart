@@ -1,0 +1,24 @@
+<f:layout name="Default"/>
+
+<f:section name="actions">
+</f:section>
+
+<f:section name="content">
+    <h1>{variant.product.title} ({variant.product.sku})</h1>
+
+    <f:render partial="FormErrors"/>
+
+    <f:form method="post" action="update" name="variant" object="{variant}">
+        <label for="stock">
+            <f:translate key="tx_cartproduct_domain_model_variant.stock"/>
+        </label><br/>
+        <f:form.textfield property="stock"/>
+        <br/>
+        <f:form.submit value="Edit"/>
+    </f:form>
+
+    <f:link.action controller="Variant" action="show" arguments="{variant : variant}">Back to Variant</f:link.action>
+    <f:link.action controller="Product" action="show" arguments="{product : variant.product}">Back to Product
+    </f:link.action>
+
+</f:section>

@@ -1,0 +1,29 @@
+<div class="block-title"><span class="num num4">4</span><span>Kassenübersicht</span></div>
+<div>
+
+    <div class="field acceptTerm">
+        <div class="input-box">
+            <f:form.checkbox id="orderItem:acceptTerm" name="orderItem[acceptTerm]" value="{orderItem.acceptTerm}"/>
+            <f:translate key="tx_cart_domain_model_order_item.accept_terms"/>
+        </div>
+    </div>
+    <div class="field acceptConditions">
+        <div class="input-box">
+            <f:form.checkbox id="orderItem:acceptConditions" name="orderItem[acceptConditions]"
+                             value="{orderItem.acceptConditions}"/>
+            <f:translate key="tx_cart_domain_model_order_item.accept_conditions"/>
+        </div>
+    </div>
+    <div class="field comment">
+        <label for="orderItem:comment" class="required">
+            <f:translate key="tx_cart_domain_model_order_item.comment"/>
+        </label>
+
+        <div class="input-box">
+            <f:form.textarea id="orderItem:comment" name="orderItem[comment]" value="{orderItem.comment}"/>
+        </div>
+    </div>
+
+    <f:render partial="Cart/ProductList" arguments="{products: cart.products}"/>
+    <f:render partial="Cart/Summary" arguments="{cart: cart}"/>
+</div>

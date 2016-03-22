@@ -1,0 +1,55 @@
+<div class="tx_cart_module_products_filter">
+    <div class="tx_cart_module_products_filter_inner">
+
+        <f:form action="{action}" name="filter" id="module_cartorders_search_form">
+            <div class="col-50" style="display:block;float:left;">
+                <div>
+                    <label for="searchOrderDateStart">
+                        <f:translate key="filterStartDate"/>
+                    </label>
+                    <f:form.textfield property="orderDateStart" id="searchOrderDateStart"
+                                      class="cart_module_search_field_start cart_date"
+                                      value="{piVars.filter.orderDateStart}"
+                                      type="date" />
+                </div>
+                <div>
+                    <label for="searchOrderDateEnd">
+                        <f:translate key="filterEndDate"/>
+                    </label>
+                    <f:form.textfield property="orderDateEnd" id="searchOrderDateEnd"
+                                      class="cart_module_search_field_end cart_date"
+                                      value="{piVars.filter.orderDateEnd}"
+                                      type="date" />
+                </div>
+            </div>
+            <div class="col-50" style="display:block;float:left;">
+                <div>
+                    <label for="searchInvoiceDateStart">
+                        <f:translate key="filterStartDate"/>
+                    </label>
+                    <f:form.textfield property="invoiceDateStart" id="searchInvoiceDateStart"
+                                      class="cart_module_search_field_start cart_date"
+                                      value="{piVars.filter.invoiceDateStart}"
+                                      type="date" />
+                </div>
+                <div>
+                    <label for="searchInvoiceDateEnd">
+                        <f:translate key="filterEndDate"/>
+                    </label>
+                    <f:form.textfield property="invoiceDateEnd" id="searchInvoiceDateEnd"
+                                      class="cart_module_search_field_end cart_date"
+                                      value="{piVars.filter.invoiceDateEnd}"
+                                      type="date" />
+                </div>
+            </div>
+            <div class="clear">&nbsp;</div><br />
+
+            <div class="col-25" style="float:right;">
+                <f:form.submit value="{f:translate(key: 'filter')}" class="searchall_submit"/>
+            </div>
+
+            <div class="clear">&nbsp;</div>
+        </f:form>
+
+    </div>
+</div>
