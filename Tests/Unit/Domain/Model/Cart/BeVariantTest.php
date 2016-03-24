@@ -214,7 +214,7 @@ class BeVariantTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
     {
         $cartProduct = $this->getMock('Extcode\\Cart\\Domain\\Model\\Cart\\Product', array(), array(), '', false);
         $cartProduct->expects($this->any())->method('getTaxClass')->will($this->returnValue($this->taxClass));
-        $variant = $this->getMock('Extcode\\Cart\\Domain\\Model\\Variant', array(), array(), '', false);
+        $variant = $this->getMock('Extcode\\Cart\\Domain\\Model\\Cart\\BeVariant', array(), array(), '', false);
         $variant->expects($this->any())->method('getTaxClass')->will($this->returnValue($this->taxClass));
 
         new \Extcode\Cart\Domain\Model\Cart\BeVariant(
@@ -236,7 +236,6 @@ class BeVariantTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
     {
         $cartProduct = $this->getMock('Extcode\\Cart\\Domain\\Model\\Cart\\Product', array(), array(), '', false);
         $cartProduct->expects($this->any())->method('getTaxClass')->will($this->returnValue($this->taxClass));
-
 
         $this->setExpectedException(
             'InvalidArgumentException',
@@ -398,7 +397,7 @@ class BeVariantTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
         $min = 1;
         $max = 1;
 
-//sets max before because $min and $max are 0 by default
+        //sets max before because $min and $max are 0 by default
         $this->beVariant->setMax($max);
         $this->beVariant->setMin($min);
 
@@ -439,7 +438,10 @@ class BeVariantTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
         $min = 2;
         $max = 1;
 
+        //sets max before because $min and $max are 0 by default
+        $this->beVariant->setMax($min);
         $this->beVariant->setMin($min);
+        
         $this->beVariant->setMax($max);
     }
 }
