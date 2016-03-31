@@ -2,54 +2,284 @@
 
 namespace Extcode\Cart\Tests\Controller;
 
-/***************************************************************
- *  Copyright notice
+/**
+ * This file is part of the TYPO3 CMS project.
  *
- *  (c) 2015 Daniel Lorenz <ext.cart@extco.de>, extco.de
+ * It is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License, either version 2
+ * of the License, or any later version.
  *
- *  All rights reserved
+ * For the full copyright and license information, please read the
+ * LICENSE.txt file that was distributed with this source code.
  *
- *  This script is part of the TYPO3 project. The TYPO3 project is
- *  free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 3 of the License, or
- *  (at your option) any later version.
- *
- *  The GNU General Public License can be found at
- *  http://www.gnu.org/copyleft/gpl.html.
- *
- *  This script is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  This copyright notice MUST APPEAR in all copies of the script!
- ***************************************************************/
+ * The TYPO3 project - inspiring people to share!
+ */
 
+/**
+ * Cart Controller
+ *
+ * @package cart
+ * @author Daniel Lorenz <ext.cart@extco.de>
+ */
 class CartControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
 {
     /**
-     * Fixture
      * @var \Extcode\Cart\Controller\CartController
      */
-    protected $controller = null;
+    protected $subject = null;
 
-    public function setUp()
+    /**
+     * @var \TYPO3\CMS\Extbase\Mvc\View\ViewInterface|\PHPUnit_Framework_MockObject_MockObject
+     */
+    protected $view = null;
+
+    /**
+     * @var \Extcode\Cart\Domain\Repository\Product\CouponRepository|\PHPUnit_Framework_MockObject_MockObject
+     */
+    protected $couponRepository = null;
+
+    /**
+     * @var \Extcode\Cart\Utility\CartUtility
+     */
+    protected $cartUtility;
+
+    /**
+     * Set Up
+     */
+    protected function setUp()
     {
-        $this->controller = new \Extcode\Cart\Controller\CartController;
+        $this->setUpConfiguration();
+
+        $this->subject = $this->getAccessibleMock(
+            \Extcode\Cart\Controller\CartController::class,
+            ['dummy']
+        );
+
+        $this->setUpSettings();
+
+        $this->view = $this->getMock(
+            \TYPO3\CMS\Extbase\Mvc\View\ViewInterface::class
+        );
+        $this->inject($this->subject, 'view', $this->view);
+
+        $this->couponRepository = $this->getMock(
+            \Extcode\Cart\Domain\Repository\Product\CouponRepository::class,
+            array(),
+            array(),
+            '',
+            false
+        );
+        $this->inject($this->subject, 'couponRepository', $this->couponRepository);
+
+        $parserUtility = $this->getParserUtility();
+        $this->inject($this->subject, 'parserUtility', $parserUtility);
+
+        $cartUtility = $this->getCartUtility();
+        $this->inject($cartUtility, 'parserUtility', $parserUtility);
+        $this->inject($this->subject, 'cartUtility', $cartUtility);
+    }
+
+    /**
+     * @return \PHPUnit_Framework_MockObject_MockObject
+     */
+    protected function getParserUtility()
+    {
+        $parserUtility = $this->getMock(
+            \Extcode\Cart\Utility\ParserUtility::class,
+            ['parseTaxClasses'],
+            [],
+            '',
+            false
+        );
+        $parserUtility
+            ->expects($this->any())
+            ->method('parseTaxClasses')
+            ->will($this->returnValue([]));
+
+        return $parserUtility;
+    }
+
+    /**
+     * @return \PHPUnit_Framework_MockObject_MockObject
+     */
+    protected function getCartUtility()
+    {
+        $cartUtility = $this->getMock(
+            \Extcode\Cart\Utility\CartUtility::class,
+            array('parseServices'),
+            array(),
+            '',
+            false
+        );
+        $cartUtility
+            ->expects($this->any())
+            ->method('parseServices')
+            ->will($this->returnValue([]));
+
+        $sessionHandler = $this->getMock(
+            \Extcode\Cart\Service\SessionHandler::class,
+            array(),
+            array(),
+            '',
+            false
+        );
+        $this->inject($cartUtility, 'sessionHandler', $sessionHandler);
+
+        return $cartUtility;
+    }
+
+    /**
+     * Set Up Configuration
+     */
+    protected function setUpConfiguration()
+    {
+        $configuration = [];
+        $configurationManager = $this->getMock(
+            \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::class
+        );
+        $configurationManager
+            ->expects($this->any())
+            ->method('getConfiguration')
+            ->will($this->returnValue($configuration));
+    }
+
+    /**
+     * Set Up Settings
+     */
+    protected function setUpSettings()
+    {
+        $settings = [
+            'cart' => [
+                'pid' => 1
+            ]
+        ];
+        $this->subject->_set('settings', $settings);
+
+        $pluginSettings = [];
+        $this->subject->_set('pluginSettings', $pluginSettings);
     }
 
     /**
      * @test
      */
-    public function addCouponActionAddsCouponToCart()
+    public function showCartActionCanBeCalled()
     {
-        // Optional: Test anything here, if you want.
-        $this->assertTrue(true, 'This should already work.');
+        $this->subject->showCartAction();
+    }
+    
+    /**
+     * @test
+     */
+    public function cartPassesCartToView()
+    {
+        $cart = new \Extcode\Cart\Domain\Model\Cart\Cart([], 0);
 
-        // Stop here and mark this test as incomplete.
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
+        $this->view->expects(self::once())->method('assign')->with('cart', $cart);
+
+        $this->subject->showCartAction();
+    }
+
+    /**
+     * @test
+     */
+    public function cartPassesShippingsPaymentsSpecialsToView()
+    {
+        $assignArguments = array(
+            'shippings' => [],
+            'payments' => [],
+            'specials' => []
         );
+
+        $this->view->expects(self::at(1))->method('assignMultiple')->with($assignArguments);
+
+        $this->subject->showCartAction();
+    }
+
+    /**
+     * @test
+     */
+    public function cartPassesNewOrderItemAndNewAddressesToView()
+    {
+        $assignArguments = array(
+            'orderItem' => new \Extcode\Cart\Domain\Model\Order\Item(),
+            'billingAddress' => new \Extcode\Cart\Domain\Model\Order\Address(),
+            'shippingAddress' => new \Extcode\Cart\Domain\Model\Order\Address()
+        );
+
+        $this->view->expects(self::at(2))->method('assignMultiple')->with($assignArguments);
+
+        $this->subject->showCartAction();
+    }
+
+    /**
+     * @test
+     */
+    public function cartPassesOrderItemToView()
+    {
+        $orderItem = $this->getMock(
+            \Extcode\Cart\Domain\Model\Order\Item::class,
+            array(),
+            array(),
+            '',
+            false
+        );
+
+        $assignArguments = array(
+            'orderItem' => $orderItem,
+            'billingAddress' => new \Extcode\Cart\Domain\Model\Order\Address(),
+            'shippingAddress' => new \Extcode\Cart\Domain\Model\Order\Address()
+        );
+
+        $this->view->expects(self::at(2))->method('assignMultiple')->with($assignArguments);
+
+        $this->subject->showCartAction($orderItem, null, null);
+    }
+
+    /**
+     * @test
+     */
+    public function cartPassesBillingAddressItemToView()
+    {
+        $billingAddress = $this->getMock(
+            \Extcode\Cart\Domain\Model\Order\Address::class,
+            array(),
+            array(),
+            '',
+            false
+        );
+
+        $assignArguments = array(
+            'orderItem' => new \Extcode\Cart\Domain\Model\Order\Item(),
+            'billingAddress' => $billingAddress,
+            'shippingAddress' => new \Extcode\Cart\Domain\Model\Order\Address()
+        );
+
+        $this->view->expects(self::at(2))->method('assignMultiple')->with($assignArguments);
+
+        $this->subject->showCartAction(null, $billingAddress, null);
+    }
+
+    /**
+     * @test
+     */
+    public function cartPassesShippingAddressItemToView()
+    {
+        $shippingAddress = $this->getMock(
+            \Extcode\Cart\Domain\Model\Order\Address::class,
+            array(),
+            array(),
+            '',
+            false
+        );
+
+        $assignArguments = array(
+            'orderItem' => new \Extcode\Cart\Domain\Model\Order\Item(),
+            'billingAddress' => new \Extcode\Cart\Domain\Model\Order\Address(),
+            'shippingAddress' => $shippingAddress
+        );
+
+        $this->view->expects(self::at(2))->method('assignMultiple')->with($assignArguments);
+
+        $this->subject->showCartAction(null, null, $shippingAddress);
     }
 }
