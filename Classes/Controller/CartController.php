@@ -300,6 +300,17 @@ class CartController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 
                 $couponWasAdded = $this->cart->addCoupon($newCartCoupon);
 
+                if ($couponWasAdded == 1) {
+                    $this->addFlashMessage(
+                        \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
+                            'tx_cart.ok.coupon.added',
+                            $this->extensionName
+                        ),
+                        $messageTitle = '',
+                        $severity = \TYPO3\CMS\Core\Messaging\AbstractMessage::OK,
+                        $storeInSession = true
+                    );
+                }
                 if ($couponWasAdded == -1) {
                     $this->addFlashMessage(
                         \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(

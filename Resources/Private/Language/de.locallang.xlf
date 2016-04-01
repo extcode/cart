@@ -484,8 +484,12 @@
                 <target>Preis</target>
             </trans-unit>
 
+            <trans-unit id="tx_cart.ok.coupon.added">
+                <source>Coupon was added.</source>
+                <target>Gutschein wurde hinzugefügt.</target>
+            </trans-unit>
             <trans-unit id="tx_cart.error.coupon.not_accepted">
-                <source>Coupon code is not accepted.</source>
+                <source>Coupon code was not accepted.</source>
                 <target>Gutscheincode wurde nicht akzeptiert.</target>
             </trans-unit>
             <trans-unit id="tx_cart.error.coupon.already_added">

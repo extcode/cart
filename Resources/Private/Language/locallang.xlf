@@ -605,8 +605,11 @@
                 <source>Price</source>
             </trans-unit>
 
+            <trans-unit id="tx_cart.ok.coupon.added">
+                <source>Coupon was added.</source>
+            </trans-unit>
             <trans-unit id="tx_cart.error.coupon.not_accepted">
-                <source>Coupon code is not accepted.</source>
+                <source>Coupon code was not accepted.</source>
             </trans-unit>
             <trans-unit id="tx_cart.error.coupon.already_added">
                 <source>Coupon code has already been added.</source>
