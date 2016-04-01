@@ -605,6 +605,16 @@
                 <source>Price</source>
             </trans-unit>
 
+            <trans-unit id="tx_cart.error.coupon.not_accepted">
+                <source>Coupon code is not accepted.</source>
+            </trans-unit>
+            <trans-unit id="tx_cart.error.coupon.already_added">
+                <source>Coupon code has already been added.</source>
+            </trans-unit>
+            <trans-unit id="tx_cart.error.coupon.not_combinable">
+                <source>Coupon codes can not be combined.</source>
+            </trans-unit>
+
         </body>
     </file>
 </xliff>

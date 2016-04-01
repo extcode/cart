@@ -167,7 +167,7 @@ class Cart
     /**
      * Coupon
      *
-     * @var \Extcode\Cart\Domain\Model\Cart\Coupon[]
+     * @var \Extcode\Cart\Domain\Model\Cart\AbstractCoupon[]
      */
     private $coupons = array();
 
@@ -783,7 +783,7 @@ class Cart
     /**
      * Adds a Coupon to Cart
      *
-     * @param \Extcode\Cart\Domain\Model\Product\Coupon $coupon
+     * @param \Extcode\Cart\Domain\Model\Cart\AbstractCoupon $coupon
      *
      * @return int
      */
@@ -795,16 +795,8 @@ class Cart
             if ((!empty($this->coupons)) && ( !$this->areCouponsCombinable() || !$coupon->getIsCombinable())) {
                 $returnCode = -2;
             } else {
-                $newCoupon = new \Extcode\Cart\Domain\Model\Cart\Coupon(
-                    $coupon->getTitle(),
-                    $coupon->getCode(),
-                    $coupon->getDiscount(),
-                    $this->taxClasses[$coupon->getTaxClassId()],
-                    $coupon->getCartMinPrice(),
-                    $coupon->getIsCombinable()
-                );
-                $newCoupon->setCart($this);
-                $this->coupons[$coupon->getCode()] = $newCoupon;
+                $coupon->setCart($this);
+                $this->coupons[$coupon->getCode()] = $coupon;
 
                 $returnCode = 1;
             }

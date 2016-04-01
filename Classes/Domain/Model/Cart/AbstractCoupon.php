@@ -16,12 +16,12 @@ namespace Extcode\Cart\Domain\Model\Cart;
  */
 
 /**
- * Cart Coupon Model
+ * Cart AbstractCoupon Model
  *
  * @package cart
  * @author Daniel Lorenz <ext.cart@extco.de>
  */
-class Coupon
+abstract class AbstractCoupon
 {
 
     /**
@@ -89,6 +89,7 @@ class Coupon
      * @param \Extcode\Cart\Domain\Model\Cart\TaxClass $taxClass
      * @param float $cartMinPrice
      * @param bool $isCombinable
+     * @param bool $isRelativeDiscount
      *
      * @throws \InvalidArgumentException
      */
@@ -98,7 +99,8 @@ class Coupon
         $discount,
         $taxClass,
         $cartMinPrice,
-        $isCombinable = false
+        $isCombinable = false,
+        $isRelativeDiscount = false
     ) {
         if (!$title) {
             throw new \InvalidArgumentException(
@@ -131,6 +133,7 @@ class Coupon
         $this->cartMinPrice = $cartMinPrice;
         $this->taxClass = $taxClass;
         $this->isCombinable = $isCombinable;
+        $this->isRelativeDiscount = $isRelativeDiscount;
     }
 
     /**
@@ -195,7 +198,7 @@ class Coupon
      */
     public function getGross()
     {
-        return $this->discount;
+        return $this->getDiscount();
     }
 
     /**
@@ -205,7 +208,7 @@ class Coupon
      */
     public function getNet()
     {
-        $net = $this->discount / ($this->taxClass->getCalc() + 1);
+        $net = $this->getDiscount() / ($this->getTaxClass()->getCalc() + 1);
         return $net;
     }
 
@@ -226,7 +229,7 @@ class Coupon
      */
     public function getTax()
     {
-        $tax = $this->discount - ($this->discount / ($this->taxClass->getCalc() + 1));
+        $tax = $this->getDiscount() - ($this->getDiscount() / ($this->getTaxClass()->getCalc() + 1));
         return $tax;
     }
 

@@ -27,7 +27,8 @@
         </f:format.currency>
     </div>
     <div>
-        <cart:link.action action="removeProduct" product="{variant.product}" variant="{variant}">delete
+        <cart:link.action action="removeProduct" product="{variant.product}" beVariant="{variant}">
+            <f:translate key="tx_cart.remove_product"/>
         </cart:link.action>
     </div>
     <div class="cart_cleaner"><!-- --></div>

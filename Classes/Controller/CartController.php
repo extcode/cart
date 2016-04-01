@@ -289,7 +289,49 @@ class CartController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
             $couponCode = $this->request->getArgument('couponCode');
             $coupon = $this->couponRepository->findOneByCode($couponCode);
             if ($coupon) {
-                $couponWasAdded = $this->cart->addCoupon($coupon);
+                $newCartCoupon = new \Extcode\Cart\Domain\Model\Cart\CartCoupon(
+                    $coupon->getTitle(),
+                    $coupon->getCode(),
+                    $coupon->getDiscount(),
+                    $this->cart->getTaxClass($coupon->getTaxClassId()),
+                    $coupon->getCartMinPrice(),
+                    $coupon->getIsCombinable()
+                );
+
+                $couponWasAdded = $this->cart->addCoupon($newCartCoupon);
+
+                if ($couponWasAdded == -1) {
+                    $this->addFlashMessage(
+                        \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
+                            'tx_cart.error.coupon.already_added',
+                            $this->extensionName
+                        ),
+                        $messageTitle = '',
+                        $severity = \TYPO3\CMS\Core\Messaging\AbstractMessage::WARNING,
+                        $storeInSession = true
+                    );
+                }
+                if ($couponWasAdded == -2) {
+                    $this->addFlashMessage(
+                        \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
+                            'tx_cart.error.coupon.not_combinable',
+                            $this->extensionName
+                        ),
+                        $messageTitle = '',
+                        $severity = \TYPO3\CMS\Core\Messaging\AbstractMessage::WARNING,
+                        $storeInSession = true
+                    );
+                }
+            } else {
+                $this->addFlashMessage(
+                    \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
+                        'tx_cart.error.coupon.not_accepted',
+                        $this->extensionName
+                    ),
+                    $messageTitle = '',
+                    $severity = \TYPO3\CMS\Core\Messaging\AbstractMessage::WARNING,
+                    $storeInSession = true
+                );
             }
 
             $this->sessionHandler->writeToSession($this->cart, $this->settings['cart']['pid']);

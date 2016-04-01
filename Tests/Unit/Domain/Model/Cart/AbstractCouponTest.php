@@ -34,10 +34,10 @@ namespace Extcode\Cart\Tests\Domain\Model\Cart;
  * @license http://www.gnu.org/licenses/lgpl.html
  *                     GNU Lesser General Public License, version 3 or later
  */
-class CouponTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
+class AbstractCouponTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
 {
     /**
-     * @var \Extcode\Cart\Domain\Model\Cart\Coupon
+     * @var \PHPUnit_Framework_MockObject_MockObject
      */
     protected $coupon = null;
 
@@ -85,12 +85,15 @@ class CouponTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
         $this->code = 'CouponTitle';
         $this->discount = 10.00;
 
-        $this->coupon = new \Extcode\Cart\Domain\Model\Cart\Coupon(
-            $this->title,
-            $this->code,
-            $this->discount,
-            $this->taxClass,
-            $this->cartMinPrice
+        $this->coupon = $this->getMockForAbstractClass(
+            '\Extcode\Cart\Domain\Model\Cart\AbstractCoupon',
+            [
+                $this->title,
+                $this->code,
+                $this->discount,
+                $this->taxClass,
+                $this->cartMinPrice
+            ]
         );
     }
 
@@ -105,12 +108,15 @@ class CouponTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
             1448230010
         );
 
-        $this->coupon = new \Extcode\Cart\Domain\Model\Cart\Coupon(
-            null,
-            $this->code,
-            $this->discount,
-            $this->taxClass,
-            $this->cartMinPrice
+        $this->getMockForAbstractClass(
+            '\Extcode\Cart\Domain\Model\Cart\AbstractCoupon',
+            [
+                null,
+                $this->code,
+                $this->discount,
+                $this->taxClass,
+                $this->cartMinPrice
+            ]
         );
     }
 
@@ -125,12 +131,15 @@ class CouponTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
             1448230020
         );
 
-        $this->coupon = new \Extcode\Cart\Domain\Model\Cart\Coupon(
-            $this->title,
-            null,
-            $this->discount,
-            $this->taxClass,
-            $this->cartMinPrice
+        $this->getMockForAbstractClass(
+            '\Extcode\Cart\Domain\Model\Cart\AbstractCoupon',
+            [
+                $this->title,
+                null,
+                $this->discount,
+                $this->taxClass,
+                $this->cartMinPrice
+            ]
         );
     }
 
@@ -145,12 +154,15 @@ class CouponTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
             1448230030
         );
 
-        $this->coupon = new \Extcode\Cart\Domain\Model\Cart\Coupon(
-            $this->title,
-            $this->code,
-            null,
-            $this->taxClass,
-            $this->cartMinPrice
+        $this->getMockForAbstractClass(
+            '\Extcode\Cart\Domain\Model\Cart\AbstractCoupon',
+            [
+                $this->title,
+                $this->code,
+                null,
+                $this->taxClass,
+                $this->cartMinPrice
+            ]
         );
     }
 
@@ -165,12 +177,15 @@ class CouponTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
             1448230040
         );
 
-        $this->coupon = new \Extcode\Cart\Domain\Model\Cart\Coupon(
-            $this->title,
-            $this->code,
-            $this->discount,
-            null,
-            $this->cartMinPrice
+        $this->getMockForAbstractClass(
+            '\Extcode\Cart\Domain\Model\Cart\AbstractCoupon',
+            [
+                $this->title,
+                $this->code,
+                $this->discount,
+                null,
+                $this->cartMinPrice
+            ]
         );
     }
 
@@ -189,13 +204,16 @@ class CouponTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
      */
     public function constructorSetsIsCombinable()
     {
-        $coupon = new \Extcode\Cart\Domain\Model\Cart\Coupon(
-            $this->title,
-            $this->code,
-            $this->discount,
-            $this->taxClass,
-            $this->cartMinPrice,
-            true
+        $coupon = $this->getMockForAbstractClass(
+            '\Extcode\Cart\Domain\Model\Cart\AbstractCoupon',
+            [
+                $this->title,
+                $this->code,
+                $this->discount,
+                $this->taxClass,
+                $this->cartMinPrice,
+                true
+            ]
         );
 
         $this->assertTrue(
@@ -275,14 +293,14 @@ class CouponTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
     /**
      * @test
      */
-    public function IsUsableReturnsTrueIfCartMinPriceIsLessToGivenPrice()
+    public function isUsableReturnsTrueIfCartMinPriceIsLessToGivenPrice()
     {
         $gross = 10.00;
         $discount = 5.00;
         $cartMinPrice = 9.99;
 
         $cart = $this->getMock(
-            'Extcode\\Cart\\Domain\\Model\\Cart\\Cart',
+            \Extcode\Cart\Domain\Model\Cart\Cart::class,
             array('getGross'),
             array(),
             '',
@@ -290,13 +308,16 @@ class CouponTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
         );
         $cart->expects($this->any())->method('getGross')->will($this->returnValue($gross));
 
-        $coupon = new \Extcode\Cart\Domain\Model\Cart\Coupon(
-            $this->title,
-            $this->code,
-            $discount,
-            $this->taxClass,
-            $cartMinPrice,
-            true
+        $coupon = $this->getMockForAbstractClass(
+            '\Extcode\Cart\Domain\Model\Cart\AbstractCoupon',
+            [
+                $this->title,
+                $this->code,
+                $discount,
+                $this->taxClass,
+                $cartMinPrice,
+                true
+            ]
         );
         $coupon->setCart($cart);
 
@@ -308,7 +329,7 @@ class CouponTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
     /**
      * @test
      */
-    public function IsUsableReturnsTrueIfCartMinPriceIsEqualToGivenPrice()
+    public function isUsableReturnsTrueIfCartMinPriceIsEqualToGivenPrice()
     {
         $gross = 10.00;
         $discount = 5.00;
@@ -323,13 +344,16 @@ class CouponTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
         );
         $cart->expects($this->any())->method('getGross')->will($this->returnValue($gross));
 
-        $coupon = new \Extcode\Cart\Domain\Model\Cart\Coupon(
-            $this->title,
-            $this->code,
-            $discount,
-            $this->taxClass,
-            $cartMinPrice,
-            true
+        $coupon = $this->getMockForAbstractClass(
+            '\Extcode\Cart\Domain\Model\Cart\AbstractCoupon',
+            [
+                $this->title,
+                $this->code,
+                $discount,
+                $this->taxClass,
+                $cartMinPrice,
+                true
+            ]
         );
         $coupon->setCart($cart);
 
@@ -341,7 +365,7 @@ class CouponTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
     /**
      * @test
      */
-    public function IsUsableReturnsFalseIfCartMinPriceIsGreaterToGivenPrice()
+    public function isUsableReturnsFalseIfCartMinPriceIsGreaterToGivenPrice()
     {
         $gross = 10.00;
         $discount = 5.00;
@@ -356,13 +380,22 @@ class CouponTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
         );
         $cart->expects($this->any())->method('getGross')->will($this->returnValue($gross));
 
-        $coupon = new \Extcode\Cart\Domain\Model\Cart\Coupon(
-            $this->title,
-            $this->code,
-            $discount,
-            $this->taxClass,
-            $cartMinPrice,
-            true
+        $coupon = $this->getMockForAbstractClass(
+            '\Extcode\Cart\Domain\Model\Cart\AbstractCoupon',
+            [
+                $this->title,
+                $this->code,
+                $discount,
+                $this->taxClass,
+                $cartMinPrice,
+                true
+            ],
+            $mockClassName = '',
+            $callOriginalConstructor = true,
+            $callOriginalClone = true,
+            $callAutoload = true,
+            $mockedMethods = array('dummy'),
+            $cloneArguments = false
         );
         $coupon->setCart($cart);
 
