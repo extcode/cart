@@ -170,7 +170,7 @@ class CartControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
     /**
      * @test
      */
-    public function cartPassesCartToView()
+    public function showCartPassesCartToView()
     {
         $cart = new \Extcode\Cart\Domain\Model\Cart\Cart([], 0);
 
@@ -182,7 +182,7 @@ class CartControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
     /**
      * @test
      */
-    public function cartPassesShippingsPaymentsSpecialsToView()
+    public function showCartPassesShippingsPaymentsSpecialsToView()
     {
         $assignArguments = array(
             'shippings' => [],
@@ -198,7 +198,7 @@ class CartControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
     /**
      * @test
      */
-    public function cartPassesNewOrderItemAndNewAddressesToView()
+    public function showCartPassesNewOrderItemAndNewAddressesToView()
     {
         $assignArguments = array(
             'orderItem' => new \Extcode\Cart\Domain\Model\Order\Item(),
@@ -214,7 +214,7 @@ class CartControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
     /**
      * @test
      */
-    public function cartPassesOrderItemToView()
+    public function showCartPassesOrderItemToView()
     {
         $orderItem = $this->getMock(
             \Extcode\Cart\Domain\Model\Order\Item::class,
@@ -238,7 +238,7 @@ class CartControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
     /**
      * @test
      */
-    public function cartPassesBillingAddressItemToView()
+    public function showCartPassesBillingAddressItemToView()
     {
         $billingAddress = $this->getMock(
             \Extcode\Cart\Domain\Model\Order\Address::class,
@@ -262,7 +262,7 @@ class CartControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
     /**
      * @test
      */
-    public function cartPassesShippingAddressItemToView()
+    public function showCartPassesShippingAddressItemToView()
     {
         $shippingAddress = $this->getMock(
             \Extcode\Cart\Domain\Model\Order\Address::class,
@@ -281,5 +281,25 @@ class CartControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
         $this->view->expects(self::at(2))->method('assignMultiple')->with($assignArguments);
 
         $this->subject->showCartAction(null, null, $shippingAddress);
+    }
+
+    /**
+     * @test
+     */
+    public function showMiniActionCanBeCalled()
+    {
+        $this->subject->showMiniAction();
+    }
+
+    /**
+     * @test
+     */
+    public function showMiniPassesCartToView()
+    {
+        $cart = new \Extcode\Cart\Domain\Model\Cart\Cart([], 0);
+
+        $this->view->expects(self::once())->method('assign')->with('cart', $cart);
+
+        $this->subject->showMiniAction();
     }
 }

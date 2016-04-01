@@ -15,8 +15,6 @@ namespace Extcode\Cart\Controller;
  * The TYPO3 project - inspiring people to share!
  */
 
-use \TYPO3\CMS\Core\Utility;
-
 /**
  * Cart Controller
  *
@@ -206,8 +204,6 @@ class CartController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     {
         $this->cart = $this->cartUtility->getCartFromSession($this->settings['cart'], $this->pluginSettings);
         $this->view->assign('cart', $this->cart);
-
-        $this->parseData();
     }
 
     /**
