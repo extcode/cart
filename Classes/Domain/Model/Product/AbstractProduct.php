@@ -21,7 +21,7 @@ namespace Extcode\Cart\Domain\Model\Product;
  * @package cart
  * @author Daniel Lorenz <ext.cart@extco.de>
  */
-class AbstractProduct extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
+abstract class AbstractProduct extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 {
 
     /**
