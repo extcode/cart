@@ -25,6 +25,13 @@
             {product.teaser}
         </f:format.raw>
     </div>
+    <f:if condition="{product.tags}">
+        <div>
+            <f:for each="{product.tags}" as="tag">
+                <span>{tag.title}</span>
+            </f:for>
+        </div>
+    </f:if>
     <div>
         <f:format.raw>
             {product.description}

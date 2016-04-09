@@ -31,7 +31,7 @@ return [
         'iconfile' => 'EXT:cart/Resources/Public/Icons/Product/Product.png'
     ],
     'interface' => [
-        'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, sku, title, header_image, teaser, description, min_number_in_order, max_number_in_order, price, special_prices, price_measure, price_measure_unit, base_price_measure_unit, tax_class_id, be_variant_attribute1, be_variant_attribute2, be_variant_attribute3, fe_variants, be_variants, related_products, category',
+        'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, sku, title, header_image, teaser, description, min_number_in_order, max_number_in_order, price, special_prices, price_measure, price_measure_unit, base_price_measure_unit, tax_class_id, be_variant_attribute1, be_variant_attribute2, be_variant_attribute3, fe_variants, be_variants, related_products, category, tags',
     ],
     'types' => [
         '1' => [
@@ -51,9 +51,9 @@ return [
                 fe_variants,
                 --palette--;' . $_LLL . ':tx_cart_domain_model_product_product.palette.be_variant_attributes;be_variant_attributes,
             --div--;' . $_LLL . ':tx_cart_domain_model_product_product.div.related_products,
-                related_products,
+                related_products, tags, 
             --div--;' . $_LLL . ':tx_cart_domain_model_product_product.div.categories,
-                categories, '
+                categories'
         ],
     ],
     'palettes' => [
@@ -550,6 +550,29 @@ return [
                 'eval' => 'int',
                 'default' => 0,
             ]
+        ],
+
+        'tags' => [
+            'exclude' => 1,
+            'label' => $_LLL . 'tx_cart_domain_model_product_product.tags',
+            'config' => [
+                'type' => 'group',
+                'internal_type' => 'db',
+                'allowed' => 'tx_cart_domain_model_product_tag',
+                'foreign_table' => 'tx_cart_domain_model_product_tag',
+                'size' => 5,
+                'minitems' => 0,
+                'maxitems' => 100,
+                'MM' => 'tx_cart_domain_model_product_tag_mm',
+                'wizards' => [
+                    'suggest' => [
+                        'type' => 'suggest',
+                        'default' => [
+                            'searchWholePhrase' => true
+                        ]
+                    ],
+                ],
+            ],
         ],
     ],
 ];

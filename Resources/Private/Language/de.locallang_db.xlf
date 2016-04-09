@@ -730,6 +730,10 @@
             <trans-unit id="tx_cart_domain_model_product_product.stock">
                 <target>Lagerbestand</target>
             </trans-unit>
+            <trans-unit id="tx_cart_domain_model_product_product.tagsh">
+                <source>Tags</source>
+                <target>Schlagworte</target>
+            </trans-unit>
   
             <trans-unit id="tx_cart_domain_model_product_bevariantattribute">
                 <source>Backend Variant Attributes</source>
@@ -830,6 +834,15 @@
             <trans-unit id="tx_cart_domain_model_product_specialprice.price">
                 <source>Price</source>
                 <target>Preis</target>
+            </trans-unit>
+
+            <trans-unit id="tx_cart_domain_model_product_tag">
+                <source>Tag</source>
+                <target>Schlagwort</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_product_tag.title">
+                <source>Title</source>
+                <target>Titel</target>
             </trans-unit>
         </body>
     </file>

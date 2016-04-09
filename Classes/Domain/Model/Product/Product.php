@@ -213,6 +213,13 @@ class Product extends \Extcode\Cart\Domain\Model\Product\AbstractProduct
     protected $categories = null;
 
     /**
+     * Tags
+     *
+     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Extcode\Cart\Domain\Model\Product\Tag>
+     */
+    protected $tags;
+
+    /**
      * Product constructor.
      *
      */
@@ -998,4 +1005,45 @@ class Product extends \Extcode\Cart\Domain\Model\Product\AbstractProduct
         $this->measureUnits = $measureUnits;
     }
 
+    /**
+     * Adds a Tag
+     *
+     * @param \Extcode\Cart\Domain\Model\Product\Tag $tag
+     * @return void
+     */
+    public function addTag(\Extcode\Cart\Domain\Model\Product\Tag $tag)
+    {
+        $this->tags->attach($tag);
+    }
+
+    /**
+     * Removes a Tag
+     *
+     * @param \Extcode\Cart\Domain\Model\Product\Tag $tagToRemove
+     * @return void
+     */
+    public function removeTag(\Extcode\Cart\Domain\Model\Product\Tag $tagToRemove)
+    {
+        $this->tags->detach($tagToRemove);
+    }
+
+    /**
+     * Returns the Tags
+     *
+     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Extcode\Cart\Domain\Model\Product\Tag>
+     */
+    public function getTags()
+    {
+        return $this->tags;
+    }
+
+    /**
+     * Sets the Tags
+     *
+     * @param  \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Extcode\Cart\Domain\Model\Product\Tag> $tags
+     */
+    public function setTags(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $tags)
+    {
+        $this->tags = $tags;
+    }
 }

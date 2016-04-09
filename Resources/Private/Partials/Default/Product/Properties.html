@@ -1,4 +1,5 @@
 <table class="tx-cart-product">
+    <f:debug>{cartProduct}</f:debug>
     <tr>
         <td>
             <f:translate key="tx_cart_domain_model_product.sku"/>
@@ -15,6 +16,18 @@
             {cartProduct.title}
         </td>
     </tr>
+    <f:if condition="{cartProduct.tags}">
+        <tr>
+            <td>
+                <f:translate key="tx_cart_domain_model_product.title"/>
+            </td>
+            <td>
+                <f:for each="{cartProduct.tags}" as="tag">
+                    <span>{tag.title}</span>
+                </f:for>
+            </td>
+        </tr>
+    </f:if>
     <tr>
         <td>
             <f:translate key="tx_cart_domain_model_product.teaser"/>

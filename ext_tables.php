@@ -180,6 +180,7 @@ $tables = [
     'product_bevariant',
     'product_bevariantattribute',
     'product_bevariantattributeoption',
+    'product_tag',
 ];
 
 foreach ($tables as $table) {
