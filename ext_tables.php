@@ -35,6 +35,7 @@ $pluginNames = [
     'MiniCart',
     'Cart',
     'Product',
+    'FlexProduct',
     'Order'
 ];
 
@@ -43,7 +44,7 @@ foreach ($pluginNames as $pluginName) {
     \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
         'Extcode.' . $_EXTKEY,
         $pluginName,
-        $_LLL . ':tx_cart.plugin.' . lcfirst($pluginName)
+        $_LLL . ':tx_cart.plugin.' . strtolower(preg_replace('/[A-Z]/', '_$0', lcfirst($pluginName)))
     );
     $flexFormPath = 'EXT:' . $_EXTKEY . '/Configuration/FlexForms/' . $pluginName . 'Plugin.xml';
     if (file_exists(\TYPO3\CMS\Core\Utility\GeneralUtility::getFileAbsFileName($flexFormPath))) {

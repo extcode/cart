@@ -30,7 +30,14 @@
                     </f:link.action>
                 </td>
                 <td>
-                    <f:link.action action="show" arguments="{product : product}">{product.title}</f:link.action>
+                    <f:if condition="{settings.showPageUids}">
+                        <f:then>
+                            <f:link.action pageUid="{settings.showPageUids}" action="show" arguments="{product : product}">{product.title}</f:link.action>
+                        </f:then>
+                        <f:else>
+                            <f:link.action action="show" arguments="{product : product}">{product.title}</f:link.action>
+                        </f:else>
+                    </f:if>
                 </td>
                 <td>
                     <f:render partial="Product/Price" arguments="{product: product, settings: settings}"></f:render>

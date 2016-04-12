@@ -30,11 +30,23 @@ defined('TYPO3_MODE') or die();
     'Extcode.' . $_EXTKEY,
     'Product',
     [
-        'Product' => 'show, list, teaser, flexform',
+        'Product' => 'show, list, teaser',
     ],
     // non-cacheable actions
     [
-        'Product' => 'show',
+        'Product' => 'list',
+    ]
+);
+
+\TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
+    'Extcode.' . $_EXTKEY,
+    'FlexProduct',
+    [
+        'Product' => 'flexform',
+    ],
+    // non-cacheable actions
+    [
+        'Product' => '',
     ]
 );
 

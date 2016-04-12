@@ -21,11 +21,14 @@
                 <source>Products</source>
             </trans-unit>
 
-            <trans-unit id="tx_cart.plugin.miniCart">
+            <trans-unit id="tx_cart.plugin.mini_cart">
                 <source>Cart: Mini-Cart</source>
             </trans-unit>
             <trans-unit id="tx_cart.plugin.cart">
                 <source>Cart: Cart</source>
+            </trans-unit>
+            <trans-unit id="tx_cart.plugin.flex_product">
+                <source>Cart: FlexProduct</source>
             </trans-unit>
             <trans-unit id="tx_cart.plugin.product">
                 <source>Cart: Product</source>
@@ -428,21 +431,23 @@
                 <source>Number of Coupons used</source>
             </trans-unit>
 
-
-
-
-
             <trans-unit id="tx_cart.plugin.products.action.switch">
-                <source>Select Controller and Action</source>
+                <source>Display Type</source>
             </trans-unit>
             <trans-unit id="tx_cart.plugin.products.action.product.list_and_show">
-                <source>List and Show products</source>
+                <source>Product - List and Show View</source>
+            </trans-unit>
+            <trans-unit id="tx_cart.plugin.products.action.product.show">
+                <source>Product - Show View</source>
             </trans-unit>
             <trans-unit id="tx_cart.plugin.products.action.product.teaser">
-                <source>Teaser product</source>
+                <source>Product - Teaser View</source>
+            </trans-unit>
+            <trans-unit id="tx_cart.plugin.products.action.product.list.select.page">
+                <source>Choose detail page</source>
             </trans-unit>
             <trans-unit id="tx_cart.plugin.products.action.product.teaser.select.product">
-                <source>Choose a product to teaser</source>
+                <source>Choose teaser product</source>
             </trans-unit>
             <trans-unit id="tx_cart.plugin.products.action.product.flexform">
                 <source>Flexform</source>

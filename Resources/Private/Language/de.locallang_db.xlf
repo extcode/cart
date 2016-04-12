@@ -26,13 +26,17 @@
                 <target>Produkte</target>
             </trans-unit>
 
-            <trans-unit id="tx_cart.plugin.miniCart">
+            <trans-unit id="tx_cart.plugin.mini_cart">
                 <source>Cart: Mini-Cart</source>
                 <target>Cart: Mini-Warenkorb</target>
             </trans-unit>
             <trans-unit id="tx_cart.plugin.cart">
                 <source>Cart: Cart</source>
                 <target>Cart: Warenkorb</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.plugin.flex_product">
+                <source>Cart: FlexProduct</source>
+                <target>Cart: FlexProdukt</target>
             </trans-unit>
             <trans-unit id="tx_cart.plugin.product">
                 <source>Cart: Product</source>
@@ -535,26 +539,55 @@
                 <target>Anzahl der verwendeten Coupons</target>
             </trans-unit>
             
-            
-            
-            
-            
-            
-            
-            
-            
+
             <trans-unit id="tx_cart.module.products">
                 <source>Products</source>
                 <target>Produkte</target>
             </trans-unit>
             <trans-unit id="tx_cart.plugin.products">
+                <source>Products</source>
                 <target>Produkte</target>
             </trans-unit>
+            <trans-unit id="tx_cart.plugin.products.action.switch">
+                <source>Display Type</source>
+                <target>Darstellungsart</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.plugin.products.action.product.list_and_show">
+                <source>Product - List and Show View</source>
+                <target>Produkt - Listen- und Detailansicht</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.plugin.products.action.product.show">
+                <source>Product - Show View</source>
+                <target>Produkt - Detailansicht</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.plugin.products.action.product.teaser">
+                <source>Product - Teaser View</source>
+                <target>Produkt - Teaseransicht</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.plugin.products.action.product.list.select.page">
+                <source>Choose detail page</source>
+                <target>Detailseite auswählen</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.plugin.products.action.product.teaser.select.product">
+                <source>Choose teaser product</source>
+                <target>Teaserprodukt auswählen</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.plugin.products.action.product.flexform">
+                <source>Flexform</source>
+                <target>Flexform</target>
+            </trans-unit>
+
             <trans-unit id="tx_cart.plugin.products.action.switch">
                 <target>Select Controller and Action</target>
             </trans-unit>
             <trans-unit id="tx_cart.plugin.products.action.product.list_and_show">
                 <target>List and Show products</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.plugin.products.action.product.list">
+                <source>List Products</source>
+            </trans-unit>
+            <trans-unit id="tx_cart.plugin.products.action.product.show">
+                <source>Show product</source>
             </trans-unit>
             <trans-unit id="tx_cart.plugin.products.action.product.teaser">
                 <target>Teaser product</target>
