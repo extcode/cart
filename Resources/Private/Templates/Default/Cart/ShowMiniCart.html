@@ -5,7 +5,7 @@
         <f:if condition="{cart.products}">
             <f:then>
                 <div>
-                    <f:translate key="tx_cart.plugin.mini_cart.products_in_cart" arguments="{0: '{cart.products -> f:count()}'}"></f:translate>
+                    <f:translate key="tx_cart.plugin.mini_cart.products_in_cart" arguments="{0: '{cart.count}'}"></f:translate>
                 </div>
                 <div>
                     <f:link.page pageUid="{settings.cart.pid}">
