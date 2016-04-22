@@ -10,6 +10,9 @@
             <trans-unit id="tx_cart.plugin.mini_cart.go_to_cart_page">
                 <source>Go to shopping cart.</source>
             </trans-unit>
+            <trans-unit id="tx_cart.plugin.mini_cart.products_in_cart">
+                <source>%s products in cart.</source>
+            </trans-unit>
 
             <trans-unit id="tx_cart_domain_model_order_product.title">
                 <source>Product</source>

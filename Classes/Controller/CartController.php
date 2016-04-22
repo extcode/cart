@@ -196,11 +196,11 @@ class CartController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     }
 
     /**
-     * Action showMini
+     * Action showMiniCart
      *
      * @return void
      */
-    public function showMiniAction()
+    public function showMiniCartAction()
     {
         $this->cart = $this->cartUtility->getCartFromSession($this->settings['cart'], $this->pluginSettings);
         $this->view->assign('cart', $this->cart);

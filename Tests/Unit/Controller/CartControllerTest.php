@@ -286,20 +286,20 @@ class CartControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
     /**
      * @test
      */
-    public function showMiniActionCanBeCalled()
+    public function showMiniCartActionCanBeCalled()
     {
-        $this->subject->showMiniAction();
+        $this->subject->showMiniCartAction();
     }
 
     /**
      * @test
      */
-    public function showMiniPassesCartToView()
+    public function showMiniCartPassesCartToView()
     {
         $cart = new \Extcode\Cart\Domain\Model\Cart\Cart([], 0);
 
         $this->view->expects(self::once())->method('assign')->with('cart', $cart);
 
-        $this->subject->showMiniAction();
+        $this->subject->showMiniCartAction();
     }
 }

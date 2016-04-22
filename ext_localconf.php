@@ -6,11 +6,11 @@ defined('TYPO3_MODE') or die();
     'Extcode.' . $_EXTKEY,
     'MiniCart',
     [
-        'Cart' => 'showMini',
+        'Cart' => 'showMiniCart',
     ],
     // non-cacheable actions
     [
-        'Cart' => 'showMini',
+        'Cart' => 'showMiniCart',
     ]
 );
 
