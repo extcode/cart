@@ -379,7 +379,7 @@ class OrderUtility
     protected function addCoupons()
     {
         /**
-         * @var $cartCoupon \Extcode\Cart\Domain\Model\Cart\Coupon
+         * @var $cartCoupon \Extcode\Cart\Domain\Model\Cart\CartCoupon
          */
         foreach ($this->cart->getCoupons() as $cartCoupon) {
             if ($cartCoupon->getIsUseable()) {
