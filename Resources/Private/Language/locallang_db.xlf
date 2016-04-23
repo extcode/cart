@@ -514,6 +514,9 @@
             <trans-unit id="tx_cart_domain_model_product_product.div.related_products">
                 <source>Related Products</source>
             </trans-unit>
+            <trans-unit id="tx_cart_domain_model_product_product.div.tags_categories">
+                <source>Tags and Categories</source>
+            </trans-unit>
 
             <trans-unit id="tx_cart_domain_model_product_product.palette.prices">
                 <source>Prices</source>

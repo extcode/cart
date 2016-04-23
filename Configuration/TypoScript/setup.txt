@@ -1,14 +1,3 @@
-config.tx_extbase {
-    objects {
-        TYPO3\CMS\Extbase\Domain\Model\Category {
-            className = Extcode\Cart\Domain\Model\Category
-        }
-        TYPO3\CMS\Extbase\Domain\Repository\CategoryRepository {
-            className = Extcode\Cart\Domain\Repository\CategoryRepository
-        }
-    }
-}
-
 plugin.tx_cart {
     persistence {
         classes {

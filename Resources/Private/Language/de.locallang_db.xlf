@@ -645,6 +645,10 @@
                 <source>Related Products</source>
                 <target>Verwandte Produkte</target>
             </trans-unit>
+            <trans-unit id="tx_cart_domain_model_product_product.div.tags_categories">
+                <source>Tags and Categories</source>
+                <target>Tags und Kategorien</t>
+            </trans-unit>
   
             <trans-unit id="tx_cart_domain_model_product.palette.prices">
                 <target>Preise</target>

@@ -83,7 +83,7 @@ class ProductRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
         if ((!empty($categories))) {
             $categoryConstraints = array();
             foreach ($categories as $category) {
-                $categoryConstraints[] = $query->contains('productCategories', $category);
+                $categoryConstraints[] = $query->contains('categories', $category);
             }
             $constraints = $query->logicalOr($categoryConstraints);
         }

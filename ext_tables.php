@@ -194,6 +194,6 @@ foreach ($tables as $table) {
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::makeCategorizable(
     $_EXTKEY,
     'tx_cart_domain_model_product_product',
-    'product_categories',
+    'categories',
     []
 );

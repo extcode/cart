@@ -27,7 +27,7 @@ class CategoryRepository extends \TYPO3\CMS\Extbase\Domain\Repository\CategoryRe
     /**
      * findAllAsRecursiveTreeArray
      *
-     * @param \Extcode\Cart\Domain\Model\Category $selectedCategory
+     * @param \TYPO3\CMS\Extbase\Domain\Model\Category $selectedCategory
      * @return array $categories
      */
     public function findAllAsRecursiveTreeArray($selectedCategory = null)
@@ -40,7 +40,7 @@ class CategoryRepository extends \TYPO3\CMS\Extbase\Domain\Repository\CategoryRe
     /**
      * findAllAsArray
      *
-     * @param \Extcode\Cart\Domain\Model\Category $selectedCategory
+     * @param \TYPO3\CMS\Extbase\Domain\Model\Category $selectedCategory
      * @return array $categories
      */
     public function findAllAsArray($selectedCategory = null)
@@ -65,7 +65,7 @@ class CategoryRepository extends \TYPO3\CMS\Extbase\Domain\Repository\CategoryRe
     /**
      * findSubcategoriesRecursiveAsArray
      *
-     * @param Extcode\Cart\Domain\Model\Category $parentCategory
+     * @param \TYPO3\CMS\Extbase\Domain\Model\Category $parentCategory
      * @return array $categories
      */
     public function findSubcategoriesRecursiveAsArray($parentCategory)
@@ -76,8 +76,11 @@ class CategoryRepository extends \TYPO3\CMS\Extbase\Domain\Repository\CategoryRe
             if (($parentCategory && $category['uid'] == $parentCategory->getUid())
                 || !$parentCategory
             ) {
-                $this->getSubcategoriesIds($localCategories, $category,
-                    $categories);
+                $this->getSubcategoriesIds(
+                    $localCategories,
+                    $category,
+                    $categories
+                );
             }
         }
         return $categories;
@@ -99,8 +102,11 @@ class CategoryRepository extends \TYPO3\CMS\Extbase\Domain\Repository\CategoryRe
         $subcategoriesArray[] = $parentCategory['uid'];
         foreach ($categoriesArray as $category) {
             if ($category['parent'] == $parentCategory['uid']) {
-                $this->getSubcategoriesIds($categoriesArray, $category,
-                    $subcategoriesArray);
+                $this->getSubcategoriesIds(
+                    $categoriesArray,
+                    $category,
+                    $subcategoriesArray
+                );
             }
         }
     }

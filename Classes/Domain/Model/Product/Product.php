@@ -919,10 +919,10 @@ class Product extends \Extcode\Cart\Domain\Model\Product\AbstractProduct
     /**
      * Adds a Product Category
      *
-     * @param \TYPO3\CMS\Extbase\Domain\Model\Category $productCategory
+     * @param \TYPO3\CMS\Extbase\Domain\Model\Category $Category
      * @return void
      */
-    public function addProductCategory(\TYPO3\CMS\Extbase\Domain\Model\Category $category)
+    public function addCategory(\TYPO3\CMS\Extbase\Domain\Model\Category $category)
     {
         $this->categories->attach($category);
     }
@@ -933,7 +933,7 @@ class Product extends \Extcode\Cart\Domain\Model\Product\AbstractProduct
      * @param \TYPO3\CMS\Extbase\Domain\Model\Category $categoryToRemove
      * @return void
      */
-    public function removeProductCategory(\TYPO3\CMS\Extbase\Domain\Model\Category $categoryToRemove)
+    public function removeCategory(\TYPO3\CMS\Extbase\Domain\Model\Category $categoryToRemove)
     {
         $this->categories->detach($categoryToRemove);
     }
@@ -943,7 +943,7 @@ class Product extends \Extcode\Cart\Domain\Model\Product\AbstractProduct
      *
      * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\Category> $categories
      */
-    public function getProductCategories()
+    public function getCategories()
     {
         return $this->categories;
     }
@@ -953,7 +953,7 @@ class Product extends \Extcode\Cart\Domain\Model\Product\AbstractProduct
      *
      * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\Category> $categories
      */
-    public function setProductCategories(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $categories)
+    public function setCategories(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $categories)
     {
         $this->categories = $categories;
     }
