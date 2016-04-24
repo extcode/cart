@@ -568,6 +568,10 @@
                 <source>Choose detail page</source>
                 <target>Detailseite auswählen</target>
             </trans-unit>
+            <trans-unit id="tx_cart.plugin.products.action.product.list.subcategories">
+                <source>List subcategories</source>
+                <target>Unterkategorien anzeigen</target>
+            </trans-unit>
             <trans-unit id="tx_cart.plugin.products.action.product.teaser.select.product">
                 <source>Choose teaser product</source>
                 <target>Teaserprodukt auswählen</target>
@@ -647,7 +651,7 @@
             </trans-unit>
             <trans-unit id="tx_cart_domain_model_product_product.div.tags_categories">
                 <source>Tags and Categories</source>
-                <target>Tags und Kategorien</t>
+                <target>Tags und Kategorien</target>
             </trans-unit>
   
             <trans-unit id="tx_cart_domain_model_product.palette.prices">

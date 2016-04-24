@@ -91,14 +91,18 @@ class ProductController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
                 true
             );
 
-            $categories = array();
+            $categories = [];
 
-            foreach ($selectedCategories as $selectedCategory) {
-                $category = $this->categoryRepository->findByUid($selectedCategory);
-                $categories = array_merge(
-                    $categories,
-                    $this->categoryRepository->findSubcategoriesRecursiveAsArray($category)
-                );
+            if ($this->settings['listSubcategories']) {
+                foreach ($selectedCategories as $selectedCategory) {
+                    $category = $this->categoryRepository->findByUid($selectedCategory);
+                    $categories = array_merge(
+                        $categories,
+                        $this->categoryRepository->findSubcategoriesRecursiveAsArray($category)
+                    );
+                }
+            } else {
+                $categories = $selectedCategories;
             }
 
             $products = $this->productRepository->findByCategories($categories);
