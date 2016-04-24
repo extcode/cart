@@ -55,6 +55,9 @@
     width: 100%;
     float: left;
 }
+.tx-cart .validation-error {
+    color: red;
+}
 .tx-cart [class*="column"] + [class*="column"]:last-child {
     float: right;
 }
@@ -106,6 +109,9 @@
         width: 66.66666%;
     }
 }
+.tx-cart form .input-box {
+    margin-bottom: 1.25rem;
+}
 .tx-cart form input[type="submit"] {
     width: auto;
 }
@@ -116,7 +122,6 @@
     font-family: "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif;
     font-weight: normal;
     line-height: normal;
-    margin: 0 0 1.25rem;
     position: relative;
     text-decoration: none;
     text-align: center;
@@ -204,7 +209,6 @@
     color: rgba(0, 0, 0, 0.75);
     display: block;
     font-size: 0.875rem;
-    margin: 0 0 1rem 0;
     padding: 0.5rem;
     height: 2.3125rem;
     width: 100%;
@@ -225,7 +229,6 @@
     color: rgba(0, 0, 0, 0.75);
     display: block;
     font-size: 0.875rem;
-    margin: 0 0 1rem 0;
     padding: 0.5rem;
     height: 2.3125rem;
     width: 100%;

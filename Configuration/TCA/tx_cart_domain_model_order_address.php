@@ -56,7 +56,7 @@ return [
                 'type' => 'input',
                 'readOnly' => 1,
                 'size' => 30,
-                'eval' => 'trim'
+                'eval' => 'trim,required'
             ],
         ],
         'first_name' => [
@@ -66,7 +66,7 @@ return [
                 'type' => 'input',
                 'readOnly' => 1,
                 'size' => 30,
-                'eval' => 'trim'
+                'eval' => 'trim,required'
             ],
         ],
         'last_name' => [
@@ -76,7 +76,7 @@ return [
                 'type' => 'input',
                 'readOnly' => 1,
                 'size' => 30,
-                'eval' => 'trim'
+                'eval' => 'trim,required'
             ],
         ],
         'email' => [
@@ -86,7 +86,7 @@ return [
                 'type' => 'input',
                 'readOnly' => 1,
                 'size' => 30,
-                'eval' => 'trim'
+                'eval' => 'trim,required'
             ],
         ],
         'company' => [
@@ -106,7 +106,7 @@ return [
                 'type' => 'input',
                 'readOnly' => 1,
                 'size' => 30,
-                'eval' => 'trim'
+                'eval' => 'trim,required'
             ],
         ],
         'zip' => [
@@ -116,7 +116,7 @@ return [
                 'type' => 'input',
                 'readOnly' => 1,
                 'size' => 30,
-                'eval' => 'trim'
+                'eval' => 'trim,required'
             ],
         ],
         'city' => [
@@ -126,7 +126,7 @@ return [
                 'type' => 'input',
                 'readOnly' => 1,
                 'size' => 30,
-                'eval' => 'trim'
+                'eval' => 'trim,required'
             ],
         ],
         'country' => [

@@ -98,7 +98,6 @@ class Address extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * Country
      *
      * @var string
-     * @validate NotEmpty
      */
     protected $country;
 

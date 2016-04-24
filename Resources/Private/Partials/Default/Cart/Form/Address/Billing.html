@@ -8,11 +8,17 @@
                     <div class="field salutation">
                         <label for="billingAddress:salutation" class="required">
                             <f:translate key="tx_cart_domain_model_order_address.salutation"/>
-                            <em>*</em></label>
+                            <em>*</em>
+                        </label>
 
                         <div class="input-box">
                             <f:form.textfield id="billingAddress:salutation" name="billingAddress[salutation]"
                                               value="{billingAddress.salutation}"/>
+                            <f:form.validationResults for="billingAddress">
+                                <f:if condition="{validationResults.flattenedErrors.salutation}">
+                                    <span class="validation-error">{validationResults.flattenedErrors.salutation.0.message}</span>
+                                </f:if>
+                            </f:form.validationResults>
                         </div>
                     </div>
                     <div class="field title">
@@ -28,32 +34,50 @@
                     <div class="field firstName">
                         <label for="billingAddress:firstName" class="required">
                             <f:translate key="tx_cart_domain_model_order_address.first_name"/>
-                            <em>*</em></label>
+                            <em>*</em>
+                        </label>
 
                         <div class="input-box">
                             <f:form.textfield id="billingAddress:firstName" name="billingAddress[firstName]"
                                               value="{billingAddress.firstName}"/>
+                            <f:form.validationResults for="billingAddress">
+                                <f:if condition="{validationResults.flattenedErrors.firstName}">
+                                    <span class="validation-error">{validationResults.flattenedErrors.firstName.0.message}</span>
+                                </f:if>
+                            </f:form.validationResults>
                         </div>
                     </div>
                     <div class="field lastName">
                         <label for="billingAddress:lastName" class="required">
                             <f:translate key="tx_cart_domain_model_order_address.last_name"/>
-                            <em>*</em></label>
+                            <em>*</em>
+                        </label>
 
                         <div class="input-box">
                             <f:form.textfield id="billingAddress:lastName" name="billingAddress[lastName]"
                                               value="{billingAddress.lastName}"/>
+                            <f:form.validationResults for="billingAddress">
+                                <f:if condition="{validationResults.flattenedErrors.lastName}">
+                                    <span class="validation-error">{validationResults.flattenedErrors.lastName.0.message}</span>
+                                </f:if>
+                            </f:form.validationResults>
                         </div>
                     </div>
                 </li>
                 <li>
                     <label for="billingAddress:email" class="required">
                         <f:translate key="tx_cart_domain_model_order_address.email"/>
-                        <em>*</em></label>
+                        <em>*</em>
+                    </label>
 
                     <div class="input-box">
                         <f:form.textfield id="billingAddress:email" name="billingAddress[email]"
                                           value="{billingAddress.email}"/>
+                        <f:form.validationResults for="billingAddress">
+                            <f:if condition="{validationResults.flattenedErrors.email}">
+                                <span class="validation-error">{validationResults.flattenedErrors.email.0.message}</span>
+                            </f:if>
+                        </f:form.validationResults>
                     </div>
                 </li>
                 <li>
@@ -71,11 +95,17 @@
                         <div class="small-12 form-columns">
                             <label for="billingAddress:street" class="required">
                                 <f:translate key="tx_cart_domain_model_order_address.street"/>
-                                <em>*</em></label>
+                                <em>*</em>
+                            </label>
 
                             <div class="input-box">
                                 <f:form.textfield id="billingAddress:street" name="billingAddress[street]"
                                                   value="{billingAddress.street}"/>
+                                <f:form.validationResults for="billingAddress">
+                                    <f:if condition="{validationResults.flattenedErrors.street}">
+                                        <span class="validation-error">{validationResults.flattenedErrors.street.0.message}</span>
+                                    </f:if>
+                                </f:form.validationResults>
                             </div>
                         </div>
                     </div>
@@ -84,11 +114,17 @@
                             <div class="field">
                                 <label for="billingAddress:zip" class="required">
                                     <f:translate key="tx_cart_domain_model_order_address.zip"/>
-                                    <em>*</em></label>
+                                    <em>*</em>
+                                </label>
 
                                 <div class="input-box">
                                     <f:form.textfield id="billingAddress:zip" name="billingAddress[zip]"
                                                       value="{billingAddress.zip}"/>
+                                    <f:form.validationResults for="billingAddress">
+                                        <f:if condition="{validationResults.flattenedErrors.zip}">
+                                            <span class="validation-error">{validationResults.flattenedErrors.zip.0.message}</span>
+                                        </f:if>
+                                    </f:form.validationResults>
                                 </div>
                             </div>
                         </div>
@@ -96,20 +132,26 @@
                             <div class="field">
                                 <label for="billingAddress:city" class="required">
                                     <f:translate key="tx_cart_domain_model_order_address.city"/>
-                                    <em>*</em></label>
+                                    <em>*</em>
+                                </label>
 
                                 <div class="input-box">
                                     <f:form.textfield id="billingAddress:city" name="billingAddress[city]"
                                                       value="{billingAddress.city}"/>
+                                    <f:form.validationResults for="billingAddress">
+                                        <f:if condition="{validationResults.flattenedErrors.city}">
+                                            <span class="validation-error">{validationResults.flattenedErrors.city.0.message}</span>
+                                        </f:if>
+                                    </f:form.validationResults>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="form-row">
                         <div class="small-12 form-columns">
-                            <label for="billingAddress:country" class="required">
+                            <label for="billingAddress:country">
                                 <f:translate key="tx_cart_domain_model_order_address.country"/>
-                                <em>*</em></label>
+                            </label>
 
                             <div class="input-box">
                                 <f:form.textfield id="billingAddress:country" name="billingAddress[country]"

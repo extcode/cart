@@ -418,11 +418,11 @@ class CartController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     /**
      * Action order Cart
      *
+     * @dontvalidate $shippingAddress
+     *
      * @param \Extcode\Cart\Domain\Model\Order\Item $orderItem
      * @param \Extcode\Cart\Domain\Model\Order\Address $billingAddress
      * @param \Extcode\Cart\Domain\Model\Order\Address $shippingAddress
-     *
-     * @ignorevalidation $shippingAddress
      *
      * @return void
      */

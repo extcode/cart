@@ -9,11 +9,10 @@
                 <f:render partial="Cart/Form/Address/Billing" arguments="{billingAddress:billingAddress}"/>
                 <ul class="form-list">
                     <li class="control">
-                        <label for="shipping:same_as_billing">
+                        <label for="shipping_same_as_billing">
                             <f:form.checkbox name="shipping_same_as_billing" checked="true"
-                                             id="shipping:same_as_billing" value="true"
+                                             id="shipping_same_as_billing" value="true"
                                              title="An dieselbe Adresse versenden"
-                                             onclick="shipping.setSameAsBilling(this.checked)"
                                              class="checkbox"/>
                             <span>An dieselbe Adresse versenden</span>
                         </label>

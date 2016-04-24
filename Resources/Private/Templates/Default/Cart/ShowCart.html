@@ -2,6 +2,13 @@
 
 <f:section name="main">
     <f:flashMessages renderMode="div" />
+    <f:form.validationResults for="orderItem">
+        <f:if condition="{validationResults.flattenedErrors}">
+            <div class="error">
+                <f:for each="{validationResults.flattenedErrors}" key="propertyPath" as="errors">{propertyPath}: <f:for each="{errors}" as="error">{error}</f:for></f:for>
+            </div>
+        </f:if>
+    </f:form.validationResults>
 
     <div class="small-12 medium-12 large-12 form-columns">
         <f:if condition="{cart.products}">
