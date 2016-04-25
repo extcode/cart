@@ -11,7 +11,7 @@
                 <source>Go to shopping cart.</source>
             </trans-unit>
             <trans-unit id="tx_cart.plugin.mini_cart.products_in_cart">
-                <source>%s products in cart.</source>
+                <source>products in cart.</source>
             </trans-unit>
 
             <trans-unit id="tx_cart_domain_model_order_product.title">

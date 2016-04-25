@@ -61,8 +61,8 @@ class CartUtility
     /**
      * Restore cart from session or creates a new one
      *
-     * @param array $cartSettings TypoScript Cart Settings
-     * @param array $pluginSettings TypoScript Plugin Settings
+     * @param array $cartSettings
+     * @param array $pluginSettings
      *
      * @return \Extcode\Cart\Domain\Model\Cart\Cart
      */
@@ -75,6 +75,19 @@ class CartUtility
         }
 
         return $cart;
+    }
+
+    /**
+     * Restore cart from session or creates a new one
+     *
+     * @param \Extcode\Cart\Domain\Model\Cart\Cart $cart
+     * @param array $cartSettings
+     *
+     * @return void
+     */
+    public function writeCartToSession($cart, $cartSettings)
+    {
+        $this->sessionHandler->writeToSession($cart, $cartSettings['cart']['pid']);
     }
 
     /**

@@ -572,6 +572,10 @@
                 <source>List subcategories</source>
                 <target>Unterkategorien anzeigen</target>
             </trans-unit>
+            <trans-unit id="tx_cart.plugin.products.action.product.show.addToCartByAjax">
+                <source>Add to cart by Ajax-Request</source>
+                <target>Zum Warenkorb mittels Ajax-Request hinzufügen</target>
+            </trans-unit>
             <trans-unit id="tx_cart.plugin.products.action.product.teaser.select.product">
                 <source>Choose teaser product</source>
                 <target>Teaserprodukt auswählen</target>

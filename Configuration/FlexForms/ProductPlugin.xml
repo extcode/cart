@@ -110,6 +110,18 @@
                             </config>
                         </TCEforms>
                     </settings.listSubcategories>
+
+                    <settings.addToCartByAjax>
+                        <TCEforms>
+                            <label>
+                                LLL:EXT:cart/Resources/Private/Language/locallang_db.xlf:tx_cart.plugin.products.action.product.show.addToCartByAjax
+                            </label>
+                            <displayCond>FIELD:switchableControllerActions:=:Product->show</displayCond>
+                            <config>
+                                <type>check</type>
+                            </config>
+                        </TCEforms>
+                    </settings.addToCartByAjax>
                 </el>
             </ROOT>
         </sDEF>

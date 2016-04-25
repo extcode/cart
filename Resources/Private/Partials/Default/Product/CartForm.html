@@ -2,8 +2,13 @@
 
 <div class="cart_form">
     <f:form pageUid="{pid}"
+            id="add-product-form"
             extensionName="Cart" pluginName="Cart" controller="Cart" action="addProduct"
-            method="post">
+            method="post"
+            additionalAttributes="{data-remote: '{settings.addToCartByAjax}'}">
+        <f:if condition="{settings.addToCartByAjax}'}">
+            <input type="hidden" value="{pid}" name="tx_cart_cart[pid]">
+        </f:if>
         <input type="hidden" value="{product.uid}" name="tx_cart_cart[productId]">
         <input type="text" value="1" name="tx_cart_cart[quantity]">
         <f:if condition="{product.beVariants}">

@@ -13,8 +13,8 @@
                 <target>Gehe zum Warenkorb.</target>
             </trans-unit>
             <trans-unit id="tx_cart.plugin.mini_cart.products_in_cart">
-                <source>%s products in cart.</source>
-                <target>%s Artikel im Warenkorb.</target>
+                <source>products in cart.</source>
+                <target>Artikel im Warenkorb.</target>
             </trans-unit>
 
             <trans-unit id="tx_cart_domain_model_order_product.title">

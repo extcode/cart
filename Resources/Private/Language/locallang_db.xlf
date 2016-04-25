@@ -449,6 +449,9 @@
             <trans-unit id="tx_cart.plugin.products.action.product.list.subcategories">
                 <source>List subcategories</source>
             </trans-unit>
+            <trans-unit id="tx_cart.plugin.products.action.product.show.addToCartByAjax">
+                <source>Add to cart by Ajax-Request</source>
+            </trans-unit>
             <trans-unit id="tx_cart.plugin.products.action.product.teaser.select.product">
                 <source>Choose teaser product</source>
             </trans-unit>
