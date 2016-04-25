@@ -11,9 +11,7 @@
                            thousandsSeparator="{settings.format.currency.thousandsSeparator}"
                            prependCurrency="{settings.format.currency.prependCurrency}"
                            separateCurrency="{settings.format.currency.separateCurrency}"
-                           decimals="{settings.format.currency.decimals}">
-            {product.price}
-        </f:format.currency>
+                           decimals="{settings.format.currency.decimals}">{product.price}</f:format.currency>
     </td>
     <td>
         <f:format.currency currencySign="{currencySign}"
@@ -21,9 +19,7 @@
                            thousandsSeparator="{settings.format.currency.thousandsSeparator}"
                            prependCurrency="{settings.format.currency.prependCurrency}"
                            separateCurrency="{settings.format.currency.separateCurrency}"
-                           decimals="{settings.format.currency.decimals}">
-            {product.discount}
-        </f:format.currency>
+                           decimals="{settings.format.currency.decimals}">{product.discount}</f:format.currency>
     </td>
     <td>
         {product.count}
@@ -34,9 +30,7 @@
                            thousandsSeparator="{settings.format.currency.thousandsSeparator}"
                            prependCurrency="{settings.format.currency.prependCurrency}"
                            separateCurrency="{settings.format.currency.separateCurrency}"
-                           decimals="{settings.format.currency.decimals}">
-            {product.net}
-        </f:format.currency>
+                           decimals="{settings.format.currency.decimals}">{product.net}</f:format.currency>
     </td>
     <td>
         <f:format.currency currencySign="{currencySign}"
@@ -44,9 +38,7 @@
                            thousandsSeparator="{settings.format.currency.thousandsSeparator}"
                            prependCurrency="{settings.format.currency.prependCurrency}"
                            separateCurrency="{settings.format.currency.separateCurrency}"
-                           decimals="{settings.format.currency.decimals}">
-            {product.gross}
-        </f:format.currency>
+                           decimals="{settings.format.currency.decimals}">{product.gross}</f:format.currency>
     </td>
     <f:for each="{product.orderItem.orderTotalTax}" as="orderTotalTax">
         <td>
@@ -57,9 +49,7 @@
                                        thousandsSeparator="{settings.format.currency.thousandsSeparator}"
                                        prependCurrency="{settings.format.currency.prependCurrency}"
                                        separateCurrency="{settings.format.currency.separateCurrency}"
-                                       decimals="{settings.format.currency.decimals}">
-                        {product.orderTax.tax}
-                    </f:format.currency>
+                                       decimals="{settings.format.currency.decimals}">{product.orderTax.tax}</f:format.currency>
                 </f:then>
                 <f:else>
                     <!-- -->

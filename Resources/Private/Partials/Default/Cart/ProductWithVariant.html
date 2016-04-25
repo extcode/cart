@@ -23,9 +23,7 @@
                                        thousandsSeparator="{settings.format.currency.thousandsSeparator}"
                                        prependCurrency="{settings.format.currency.prependCurrency}"
                                        separateCurrency="{settings.format.currency.separateCurrency}"
-                                       decimals="{settings.format.currency.decimals}">
-                        {variant.priceCalculated}
-                    </f:format.currency>
+                                       decimals="{settings.format.currency.decimals}">{variant.priceCalculated}</f:format.currency>
                 </td>
                 <td class="a-center">
                     <div class="qty-wrapper">
@@ -41,9 +39,7 @@
                                                thousandsSeparator="{settings.format.currency.thousandsSeparator}"
                                                prependCurrency="{settings.format.currency.prependCurrency}"
                                                separateCurrency="{settings.format.currency.separateCurrency}"
-                                               decimals="{settings.format.currency.decimals}">
-                                {variant.gross}
-                            </f:format.currency>
+                                               decimals="{settings.format.currency.decimals}">{variant.gross}</f:format.currency>
                         </f:then>
                         <f:else>
                             <f:if condition="{product.quantityBelowRange}">
@@ -108,9 +104,7 @@
                                    thousandsSeparator="{settings.format.currency.thousandsSeparator}"
                                    prependCurrency="{settings.format.currency.prependCurrency}"
                                    separateCurrency="{settings.format.currency.separateCurrency}"
-                                   decimals="{settings.format.currency.decimals}">
-                    {product.gross}
-                </f:format.currency>
+                                   decimals="{settings.format.currency.decimals}">{product.gross}</f:format.currency>
             </f:then>
         </f:if>
     </td>

@@ -16,9 +16,7 @@
                                                            thousandsSeparator="{settings.format.currency.thousandsSeparator}"
                                                            prependCurrency="{settings.format.currency.prependCurrency}"
                                                            separateCurrency="{settings.format.currency.separateCurrency}"
-                                                           decimals="{settings.format.currency.decimals}">
-                                            {payment.gross}
-                                        </f:format.currency>
+                                                           decimals="{settings.format.currency.decimals}">{payment.gross}</f:format.currency>
                                     </f:then>
                                     <f:else>
                                         <label>
@@ -30,9 +28,7 @@
                                                         thousandsSeparator="{settings.format.currency.thousandsSeparator}"
                                                         prependCurrency="{settings.format.currency.prependCurrency}"
                                                         separateCurrency="{settings.format.currency.separateCurrency}"
-                                                        decimals="{settings.format.currency.decimals}">
-                                                    {payment.gross}
-                                                </f:format.currency>
+                                                        decimals="{settings.format.currency.decimals}">{payment.gross}</f:format.currency>
                                             </f:link.action>
                                         </label>
                                     </f:else>

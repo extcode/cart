@@ -31,9 +31,7 @@
                            thousandsSeparator="{settings.format.currency.thousandsSeparator}"
                            prependCurrency="{settings.format.currency.prependCurrency}"
                            separateCurrency="{settings.format.currency.separateCurrency}"
-                           decimals="{settings.format.currency.decimals}">
-            {orderItem.totalGross}
-        </f:format.currency>
+                           decimals="{settings.format.currency.decimals}">{orderItem.totalGross}</f:format.currency>
     </td>
     <td>
         <f:link.action action="show" arguments="{orderItem : orderItem}">

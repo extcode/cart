@@ -8,9 +8,7 @@
                            thousandsSeparator="{settings.format.currency.thousandsSeparator}"
                            prependCurrency="{settings.format.currency.prependCurrency}"
                            separateCurrency="{settings.format.currency.separateCurrency}"
-                           decimals="{settings.format.currency.decimals}">
-            {orderItem.net}
-        </f:format.currency>
+                           decimals="{settings.format.currency.decimals}">{orderItem.net}</f:format.currency>
     </td>
     <td>
         <f:format.currency currencySign="{orderItem.currency}"
@@ -18,9 +16,7 @@
                            thousandsSeparator="{settings.format.currency.thousandsSeparator}"
                            prependCurrency="{settings.format.currency.prependCurrency}"
                            separateCurrency="{settings.format.currency.separateCurrency}"
-                           decimals="{settings.format.currency.decimals}">
-            {orderItem.gross}
-        </f:format.currency>
+                           decimals="{settings.format.currency.decimals}">{orderItem.gross}</f:format.currency>
     </td>
     <f:for each="{orderItem.orderTax}" as="orderTax">
         <td>
@@ -29,9 +25,7 @@
                                thousandsSeparator="{settings.format.currency.thousandsSeparator}"
                                prependCurrency="{settings.format.currency.prependCurrency}"
                                separateCurrency="{settings.format.currency.separateCurrency}"
-                               decimals="{settings.format.currency.decimals}">
-                {orderTax.tax}
-            </f:format.currency>
+                               decimals="{settings.format.currency.decimals}">{orderTax.tax}</f:format.currency>
         </td>
     </f:for>
 </tr>
@@ -47,9 +41,7 @@
                            thousandsSeparator="{settings.format.currency.thousandsSeparator}"
                            prependCurrency="{settings.format.currency.prependCurrency}"
                            separateCurrency="{settings.format.currency.separateCurrency}"
-                           decimals="{settings.format.currency.decimals}">
-            {orderItem.orderShipping.net}
-        </f:format.currency>
+                           decimals="{settings.format.currency.decimals}">{orderItem.orderShipping.net}</f:format.currency>
     </td>
     <td>
         <f:format.currency currencySign="{orderItem.currency}"
@@ -57,9 +49,7 @@
                            thousandsSeparator="{settings.format.currency.thousandsSeparator}"
                            prependCurrency="{settings.format.currency.prependCurrency}"
                            separateCurrency="{settings.format.currency.separateCurrency}"
-                           decimals="{settings.format.currency.decimals}">
-            {orderItem.orderShipping.gross}
-        </f:format.currency>
+                           decimals="{settings.format.currency.decimals}">{orderItem.orderShipping.gross}</f:format.currency>
     </td>
     <f:for each="{orderItem.orderTotalTax}" as="orderTotalTax">
         <td>
@@ -70,9 +60,7 @@
                                        thousandsSeparator="{settings.format.currency.thousandsSeparator}"
                                        prependCurrency="{settings.format.currency.prependCurrency}"
                                        separateCurrency="{settings.format.currency.separateCurrency}"
-                                       decimals="{settings.format.currency.decimals}">
-                        {orderItem.orderShipping.orderTax.tax}
-                    </f:format.currency>
+                                       decimals="{settings.format.currency.decimals}">{orderItem.orderShipping.orderTax.tax}</f:format.currency>
                 </f:then>
                 <f:else>
                     <!-- -->
@@ -93,9 +81,7 @@
                            thousandsSeparator="{settings.format.currency.thousandsSeparator}"
                            prependCurrency="{settings.format.currency.prependCurrency}"
                            separateCurrency="{settings.format.currency.separateCurrency}"
-                           decimals="{settings.format.currency.decimals}">
-            {orderItem.orderPayment.net}
-        </f:format.currency>
+                           decimals="{settings.format.currency.decimals}">{orderItem.orderPayment.net}</f:format.currency>
     </td>
     <td>
         <f:format.currency currencySign="{orderItem.currency}"
@@ -103,9 +89,7 @@
                            thousandsSeparator="{settings.format.currency.thousandsSeparator}"
                            prependCurrency="{settings.format.currency.prependCurrency}"
                            separateCurrency="{settings.format.currency.separateCurrency}"
-                           decimals="{settings.format.currency.decimals}">
-            {orderItem.orderPayment.gross}
-        </f:format.currency>
+                           decimals="{settings.format.currency.decimals}">{orderItem.orderPayment.gross}</f:format.currency>
     </td>
     <f:for each="{orderItem.orderTotalTax}" as="orderTotalTax">
         <td>
@@ -116,9 +100,7 @@
                                        thousandsSeparator="{settings.format.currency.thousandsSeparator}"
                                        prependCurrency="{settings.format.currency.prependCurrency}"
                                        separateCurrency="{settings.format.currency.separateCurrency}"
-                                       decimals="{settings.format.currency.decimals}">
-                        {orderItem.orderPayment.orderTax.tax}
-                    </f:format.currency>
+                                       decimals="{settings.format.currency.decimals}">{orderItem.orderPayment.orderTax.tax}</f:format.currency>
                 </f:then>
                 <f:else>
                     <!-- -->
@@ -138,9 +120,7 @@
                            thousandsSeparator="{settings.format.currency.thousandsSeparator}"
                            prependCurrency="{settings.format.currency.prependCurrency}"
                            separateCurrency="{settings.format.currency.separateCurrency}"
-                           decimals="{settings.format.currency.decimals}">
-            {orderItem.totalNet}
-        </f:format.currency>
+                           decimals="{settings.format.currency.decimals}">{orderItem.totalNet}</f:format.currency>
     </td>
     <td>
         <f:format.currency currencySign="{orderItem.currency}"
@@ -148,9 +128,7 @@
                            thousandsSeparator="{settings.format.currency.thousandsSeparator}"
                            prependCurrency="{settings.format.currency.prependCurrency}"
                            separateCurrency="{settings.format.currency.separateCurrency}"
-                           decimals="{settings.format.currency.decimals}">
-            {orderItem.totalGross}
-        </f:format.currency>
+                           decimals="{settings.format.currency.decimals}">{orderItem.totalGross}</f:format.currency>
     </td>
     <f:for each="{orderItem.orderTotalTax}" as="orderTotalTax">
         <td>
@@ -159,9 +137,7 @@
                                thousandsSeparator="{settings.format.currency.thousandsSeparator}"
                                prependCurrency="{settings.format.currency.prependCurrency}"
                                separateCurrency="{settings.format.currency.separateCurrency}"
-                               decimals="{settings.format.currency.decimals}">
-                {orderTotalTax.tax}
-            </f:format.currency>
+                               decimals="{settings.format.currency.decimals}">{orderTotalTax.tax}</f:format.currency>
         </td>
     </f:for>
 </tr>

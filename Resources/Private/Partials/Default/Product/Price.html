@@ -5,9 +5,7 @@
                            thousandsSeparator="{settings.format.currency.thousandsSeparator}"
                            prependCurrency="{settings.format.currency.prependCurrency}"
                            separateCurrency="{settings.format.currency.separateCurrency}"
-                           decimals="{settings.format.currency.decimals}">
-            {product.bestSpecialPrice}
-        </f:format.currency>
+                           decimals="{settings.format.currency.decimals}">{product.bestSpecialPrice}</f:format.currency>
         bisher:
         <del>
             <f:format.currency currencySign="{settings.format.currency.currencySign}"
@@ -15,9 +13,7 @@
                                thousandsSeparator="{settings.format.currency.thousandsSeparator}"
                                prependCurrency="{settings.format.currency.prependCurrency}"
                                separateCurrency="{settings.format.currency.separateCurrency}"
-                               decimals="{settings.format.currency.decimals}">
-                {product.price}
-            </f:format.currency>
+                               decimals="{settings.format.currency.decimals}">{product.price}</f:format.currency>
         </del>
         <strong>(Sie sparen: {product.bestSpecialPricePercentageDiscount} %)</strong>
     </f:then>
@@ -31,8 +27,6 @@
                            thousandsSeparator="{settings.format.currency.thousandsSeparator}"
                            prependCurrency="{settings.format.currency.prependCurrency}"
                            separateCurrency="{settings.format.currency.separateCurrency}"
-                           decimals="{settings.format.currency.decimals}">
-            {product.minPrice}
-        </f:format.currency>
+                           decimals="{settings.format.currency.decimals}">{product.minPrice}</f:format.currency>
     </f:else>
 </f:if>

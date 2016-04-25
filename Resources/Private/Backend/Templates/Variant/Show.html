@@ -49,9 +49,7 @@
             <td>
                 <f:format.currency currencySign="{settings.format.currency.currencySign}"
                                    decimalSeparator="{settings.format.currency.decimalSeparator}"
-                                   thousandsSeparator="{settings.format.currency.thousandsSeparator}">
-                    {variant.price}
-                </f:format.currency>
+                                   thousandsSeparator="{settings.format.currency.thousandsSeparator}">{variant.price}</f:format.currency>
             </td>
             <td>{variant.priceMeasure} {variant.priceMeasureUnit}</td>
         </tr>
@@ -62,9 +60,7 @@
             <td>
                 <f:format.currency currencySign="{settings.format.currency.currencySign}"
                                    decimalSeparator="{settings.format.currency.decimalSeparator}"
-                                   thousandsSeparator="{settings.format.currency.thousandsSeparator}">
-                    {variant.basePrice}
-                </f:format.currency>
+                                   thousandsSeparator="{settings.format.currency.thousandsSeparator}">{variant.basePrice}</f:format.currency>
             </td>
             <td>{variant.product.basePriceMeasure} {variant.product.basePriceMeasureUnit}</td>
         </tr>

@@ -15,9 +15,7 @@
                                                        thousandsSeparator="{settings.format.currency.thousandsSeparator}"
                                                        prependCurrency="{settings.format.currency.prependCurrency}"
                                                        separateCurrency="{settings.format.currency.separateCurrency}"
-                                                       decimals="{settings.format.currency.decimals}">
-                                        {coupon.discount}
-                                    </f:format.currency>
+                                                       decimals="{settings.format.currency.decimals}">{coupon.discount}</f:format.currency>
                                 </span>
                                 <f:if condition="{coupon.isUseable}">
                                     <f:else>
@@ -28,9 +26,7 @@
                                                                thousandsSeparator="{settings.format.currency.thousandsSeparator}"
                                                                prependCurrency="{settings.format.currency.prependCurrency}"
                                                                separateCurrency="{settings.format.currency.separateCurrency}"
-                                                               decimals="{settings.format.currency.decimals}">
-                                                {coupon.cartMinPrice}
-                                            </f:format.currency>
+                                                               decimals="{settings.format.currency.decimals}">{coupon.cartMinPrice}</f:format.currency>
                                         </span>
                                     </f:else>
                                 </f:if>

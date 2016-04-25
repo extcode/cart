@@ -4,16 +4,14 @@
             <f:translate key="tx_cart_domain_model_order_product.tax" arguments="{0: tax.taxClass.name}"/>
         </td>
         <td class="a-right last">
-			<span class="price">
-				<f:format.currency currencySign="{settings.format.currency.currencySign}"
+            <span class="price">
+                <f:format.currency currencySign="{settings.format.currency.currencySign}"
                                    decimalSeparator="{settings.format.currency.decimalSeparator}"
                                    thousandsSeparator="{settings.format.currency.thousandsSeparator}"
                                    prependCurrency="{settings.format.currency.prependCurrency}"
                                    separateCurrency="{settings.format.currency.separateCurrency}"
-                                   decimals="{settings.format.currency.decimals}">
-                    {tax}
-                </f:format.currency>
-			</span>
+                                   decimals="{settings.format.currency.decimals}">{tax}</f:format.currency>
+            </span>
         </td>
     </tr>
 </f:for>

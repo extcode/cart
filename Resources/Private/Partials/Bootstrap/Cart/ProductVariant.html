@@ -9,9 +9,7 @@
                            thousandsSeparator="{settings.format.currency.thousandsSeparator}"
                            prependCurrency="{settings.format.currency.prependCurrency}"
                            separateCurrency="{settings.format.currency.separateCurrency}"
-                           decimals="{settings.format.currency.decimals}">
-            {variant.price}
-        </f:format.currency>
+                           decimals="{settings.format.currency.decimals}">{variant.price}</f:format.currency>
     </div>
     <div class="cart_col cart_col_qty cart_center">
         {variant.qty}
@@ -22,9 +20,7 @@
                            thousandsSeparator="{settings.format.currency.thousandsSeparator}"
                            prependCurrency="{settings.format.currency.prependCurrency}"
                            separateCurrency="{settings.format.currency.separateCurrency}"
-                           decimals="{settings.format.currency.decimals}">
-            {variant.gross}
-        </f:format.currency>
+                           decimals="{settings.format.currency.decimals}">{variant.gross}</f:format.currency>
     </div>
     <div>
         <cart:link.action action="removeProduct" product="{variant.product}" beVariant="{variant}">

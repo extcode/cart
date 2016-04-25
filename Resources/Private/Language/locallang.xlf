@@ -8,7 +8,7 @@
                 <source>Cart is empty.</source>
             </trans-unit>
             <trans-unit id="tx_cart.plugin.mini_cart.go_to_cart_page">
-                <source>Go to shopping cart.</source>
+                <source>Go to Checkout</source>
             </trans-unit>
             <trans-unit id="tx_cart.plugin.mini_cart.products_in_cart">
                 <source>products in cart.</source>

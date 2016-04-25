@@ -12,9 +12,7 @@
                            thousandsSeparator="{settings.format.currency.thousandsSeparator}"
                            prependCurrency="{settings.format.currency.prependCurrency}"
                            separateCurrency="{settings.format.currency.separateCurrency}"
-                           decimals="{settings.format.currency.decimals}">
-            {product.bestPrice}
-        </f:format.currency>
+                           decimals="{settings.format.currency.decimals}">{product.bestPrice}</f:format.currency>
     </td>
     <td style="text-align: right;">
         {product.quantity}
@@ -25,8 +23,6 @@
                            thousandsSeparator="{settings.format.currency.thousandsSeparator}"
                            prependCurrency="{settings.format.currency.prependCurrency}"
                            separateCurrency="{settings.format.currency.separateCurrency}"
-                           decimals="{settings.format.currency.decimals}">
-            {product.gross}
-        </f:format.currency>
+                           decimals="{settings.format.currency.decimals}">{product.gross}</f:format.currency>
     </td>
 </tr>

@@ -49,16 +49,12 @@
                                 :
                                 <f:format.currency currencySign="{settings.format.currency.currencySign}"
                                                    decimalSeparator="{settings.format.currency.decimalSeparator}"
-                                                   thousandsSeparator="{settings.format.currency.thousandsSeparator}">
-                                    {product.minPrice}
-                                </f:format.currency>
+                                                   thousandsSeparator="{settings.format.currency.thousandsSeparator}">{product.minPrice}</f:format.currency>
                             </f:then>
                             <f:else>
                                 <f:format.currency currencySign="{settings.format.currency.currencySign}"
                                                    decimalSeparator="{settings.format.currency.decimalSeparator}"
-                                                   thousandsSeparator="{settings.format.currency.thousandsSeparator}">
-                                    {product.price}
-                                </f:format.currency>
+                                                   thousandsSeparator="{settings.format.currency.thousandsSeparator}">{product.price}</f:format.currency>
                             </f:else>
                         </f:if>
                     </td>
