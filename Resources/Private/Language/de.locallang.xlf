@@ -8,7 +8,7 @@
                 <source>Cart is empty.</source>
                 <target>Der Warenkorb ist leer.</target>
             </trans-unit>
-            <trans-unit id="tx_cart.plugin.mini_cart.go_to_cart_page">
+            <trans-unit id="tx_cart.plugin.mini_cart.go_to_checkout">
                 <source>Go to Checkout</source>
                 <target>Weiter zur Kasse</target>
             </trans-unit>

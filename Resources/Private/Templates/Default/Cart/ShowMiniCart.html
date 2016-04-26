@@ -5,12 +5,10 @@
         <div>
             <span class="count">{cart.count}</span> <f:translate key="tx_cart.plugin.mini_cart.products_in_cart" />
         </div>
-        <f:if condition="{cart.products}">
-            <div style="{f:if(condition: cart.count, then: 'display: block;', else: 'display: none;')}">
-                <f:link.page pageUid="{settings.cart.pid}">
-                    <f:translate key="tx_cart.plugin.mini_cart.go_to_cart_page"/>
-                </f:link.page>
-            </div>
-        </f:if>
+        <div id="link-to-checkout" style="{f:if(condition: cart.count, then: 'display: block;', else: 'display: none;')}">
+            <f:link.page pageUid="{settings.cart.pid}">
+                <f:translate key="tx_cart.plugin.mini_cart.go_to_checkout"/>
+            </f:link.page>
+        </div>
     </div>
 </f:section>

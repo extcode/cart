@@ -35,6 +35,12 @@ $("#add-product-form").submit(function(e) {
                     $('#tx-cart-minicart span.count').html(response.count);
                     $('#tx-cart-minicart span.net').html(response.net);
                     $('#tx-cart-minicart span.gross').html(response.gross);
+
+                    if (response.count > 0) {
+                        $('#link-to-checkout').show();
+                    } else {
+                        $('#link-to-checkout').hide();
+                    }
                 }
             }
         });
