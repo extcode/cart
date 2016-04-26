@@ -10,7 +10,7 @@ plugin.tx_cart {
     }
 }
 
-page.includeCSS.tx_cart = EXT:cart/Resources/Public/Stylesheets/Default/style.css
+page.includeCSS.tx_cart = EXT:cart/Resources/Public/Stylesheets/Default/cart.css
 
 plugin.tx_cart {
 

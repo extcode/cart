@@ -51,8 +51,13 @@
         <f:render partial="Product/CartForm" arguments="{product: product, pid: settings.cart.pid}"/>
     </f:if>
 
-    <f:render partial="Product/Price" arguments="{product: product, settings: settings}"></f:render>
-    <f:render partial="Product/BasePrice" arguments="{product: product, settings: settings}"></f:render>
+    <div>
+        <f:render partial="Product/Price" arguments="{product: product, settings: settings}"></f:render>
+    </div>
+
+    <f:if condition="{product.basePriceMeasureUnit}">
+        <f:render partial="Product/BasePrice" arguments="{product: product, settings: settings}"></f:render>
+    </f:if>
 
     <f:if condition="{product.relatedProducts}">
         <ul>
@@ -64,6 +69,6 @@
         </ul>
     </f:if>
 
-    <f:link.action action="list">Back to list</f:link.action>
+    <f:link.action class="button secondary" action="list">Back to list</f:link.action>
     <br/>
 </f:section>

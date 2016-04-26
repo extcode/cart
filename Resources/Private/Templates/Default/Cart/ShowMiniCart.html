@@ -5,7 +5,7 @@
         <div>
             <span class="count">{cart.count}</span> <f:translate key="tx_cart.plugin.mini_cart.products_in_cart" />
         </div>
-        <div id="link-to-checkout" style="{f:if(condition: cart.count, then: 'display: block;', else: 'display: none;')}">
+        <div id="link-to-checkout" class="button" style="{f:if(condition:'{cart.count}>0',then:'display: block;',else:'display: none;')}">
             <f:link.page pageUid="{settings.cart.pid}">
                 <f:translate key="tx_cart.plugin.mini_cart.go_to_checkout"/>
             </f:link.page>

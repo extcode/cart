@@ -115,7 +115,10 @@
 .tx-cart form input[type="submit"] {
     width: auto;
 }
-.tx-cart button, .tx-cart .button {
+.tx-cart button,
+.tx-cart .button,
+#tx-cart-minicart button,
+#tx-cart-minicart .button {
     border-style: solid;
     border-width: 0;
     cursor: pointer;
@@ -138,23 +141,39 @@
     color: #fff;
     transition: background-color 300ms ease-out;
 }
-.tx-cart button:hover, .tx-cart button:focus {
+.tx-cart button:hover,
+.tx-cart .button:hover,
+.tx-cart button:focus,
+.tx-cart .button:focus,
+#tx-cart-minicart button:hover,
+#tx-cart-minicart .button:hover,
+#tx-cart-minicart button:focus,
+#tx-cart-minicart .button:focus {
     color: #fff;
     background-color: #007095;
 }
-.tx-cart .button:hover, .tx-cart .button:focus {
-    color: #fff;
-    background-color: #007095;
-}
-.tx-cart button::-moz-focus-inner, .tx-cart .button::-moz-focus-inner {
+.tx-cart button::-moz-focus-inner,
+.tx-cart .button::-moz-focus-inner,
+#tx-cart-minicart button::-moz-focus-inner,
+#tx-cart-minicart .button::-moz-focus-inner {
     border: 0;
     padding: 0;
 }
-.tx-cart button a {
+.tx-cart button a,
+.tx-cart .button a,
+#tx-cart-minicart button a,
+#tx-cart-minicart .button a {
     color: #fff;
     text-decoration: none;
 }
-.tx-cart button a:hover, .tx-cart button a:focus {
+.tx-cart button a:hover,
+.tx-cart .button a:hover,
+.tx-cart button a:focus,
+.tx-cart .button a:focus,
+#tx-cart-minicart button a:hover,
+#tx-cart-minicart .button a:hover,
+#tx-cart-minicart button a:focus,
+#tx-cart-minicart .button a:focus {
     color: #fff;
     text-decoration: none;
 }
