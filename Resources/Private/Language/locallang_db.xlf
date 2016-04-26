@@ -373,6 +373,33 @@
             <trans-unit id="tx_cart_domain_model_order_transaction.txn_id">
                 <source>Transaction ID</source>
             </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_transaction.txn_txt">
+                <source>Transaction TXT</source>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_transaction.status">
+                <source>Status</source>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_transaction.status.unknown">
+                <source>unknown</source>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_transaction.status.invalid">
+                <source>invalid</source>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_transaction.status.open">
+                <source>open</source>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_transaction.status.pending">
+                <source>pending</source>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_transaction.status.paid">
+                <source>paid</source>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_transaction.status.canceled">
+                <source>canceled</source>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_transaction.note">
+                <source>Note</source>
+            </trans-unit>
 
             <trans-unit id="tx_cart_domain_model_order_taxclass">
                 <source>Order Tax Class</source>

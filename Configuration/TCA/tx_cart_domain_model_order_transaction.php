@@ -24,11 +24,11 @@ return [
     ],
     'hideTable' => 1,
     'interface' => [
-        'showRecordFieldList' => 'txn_id',
+        'showRecordFieldList' => 'txn_id, status, note',
     ],
     'types' => [
         '1' => [
-            'showitem' => 'txn_id'
+            'showitem' => 'txn_id, status, note'
         ],
     ],
     'palettes' => [
@@ -46,6 +46,44 @@ return [
                 'size' => 30,
                 'eval' => 'trim'
             ],
+        ],
+        'txn_txt' => [
+            'label' => $_LLL . ':tx_cart_domain_model_order_transaction.txn_txt',
+            'config' => [
+                'type' => 'text',
+                'readOnly' => 1,
+                'cols' => '40',
+                'rows' => '15'
+            ]
+        ],
+        'status' => [
+            'exclude' => 0,
+            'label' => $_LLL . ':tx_cart_domain_model_order_transaction.status',
+            'config' => [
+                'type' => 'select',
+                'readOnly' => 1,
+                'renderType' => 'selectSingle',
+                'items' => [
+                    [$_LLL . ':tx_cart_domain_model_order_transaction.status.unknown', 'unknown'],
+                    [$_LLL . ':tx_cart_domain_model_order_transaction.status.invalid', 'invalid'],
+                    [$_LLL . ':tx_cart_domain_model_order_transaction.status.open', 'open'],
+                    [$_LLL . ':tx_cart_domain_model_order_transaction.status.pending', 'pending'],
+                    [$_LLL . ':tx_cart_domain_model_order_transaction.status.paid', 'paid'],
+                    [$_LLL . ':tx_cart_domain_model_order_transaction.status.canceled', 'canceled']
+                ],
+                'size' => 1,
+                'maxitems' => 1,
+                'eval' => 'required'
+            ],
+        ],
+        'note' => [
+            'label' => $_LLL . ':tx_cart_domain_model_order_transaction.note',
+            'config' => [
+                'type' => 'text',
+                'readOnly' => 1,
+                'cols' => '40',
+                'rows' => '15'
+            ]
         ],
         'payment' => [
             'config' => [

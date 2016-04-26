@@ -32,6 +32,27 @@ class Transaction extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     protected $txnId = '';
 
     /**
+     * TxnTxt
+     *
+     * @var string
+     */
+    protected $txnTxt = '';
+
+    /**
+     * Status
+     *
+     * @var string
+     */
+    protected $status = '';
+
+    /**
+     * TxnTxt
+     *
+     * @var string
+     */
+    protected $note = '';
+
+    /**
      * @return string
      */
     public function getTxnId()
@@ -46,5 +67,71 @@ class Transaction extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     public function setTxnId($txnId)
     {
         $this->txnId = $txnId;
+    }
+
+    /**
+     * Sets TxnTxt
+     *
+     * @param string $txnTxt
+     *
+     * @return void
+     */
+    public function setTxnTxt($txnTxt)
+    {
+        $this->txnTxt = $txnTxt;
+    }
+
+    /**
+     * Gets TxnTxt
+     *
+     * @return string
+     */
+    public function getTxnTxt()
+    {
+        return $this->txnTxt;
+    }
+
+    /**
+     * Returns Status
+     *
+     * @return string
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    /**
+     * Sets Status
+     *
+     * @param string $status
+     *
+     * @return void
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
+    }
+
+    /**
+     * Sets Note
+     *
+     * @param string $note
+     *
+     * @return void
+     */
+    public function setNote($note)
+    {
+        $this->note = $note;
+    }
+
+    /**
+     * Gets Note
+     *
+     * @return string
+     */
+    public function getNote()
+    {
+        return $this->note;
     }
 }

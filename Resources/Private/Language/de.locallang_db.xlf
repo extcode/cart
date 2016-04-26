@@ -463,10 +463,48 @@
             </trans-unit>
 
             <trans-unit id="tx_cart_domain_model_order_transaction">
+                <source>Transaction</source>
                 <target>Transaḱtion</target>
             </trans-unit>
             <trans-unit id="tx_cart_domain_model_order_transaction.txn_id">
+                <source>Transaction TXT</source>
                 <target>Transaḱtion ID</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_transaction.txn_txt">
+                <source>Transaction TXT</source>
+                <target>Transaktion TXT</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_transaction.status">
+                <source>Status</source>
+                <target>Status</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_transaction.status.unknown">
+                <source>unknown</source>
+                <target>unbekannt</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_transaction.status.invalid">
+                <source>invalid</source>
+                <target>ungültig</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_transaction.status.open">
+                <source>open</source>
+                <target>offen</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_transaction.status.pending">
+                <source>pending</source>
+                <target>ausstehend</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_transaction.status.paid">
+                <source>paid</source>
+                <target>bezahlt</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_transaction.status.canceled">
+                <source>canceled</source>
+                <target>storniert</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_transaction.note">
+                <source>Note</source>
+                <target>Notiz</target>
             </trans-unit>
 
             <trans-unit id="tx_cart_domain_model_order_taxclass">
