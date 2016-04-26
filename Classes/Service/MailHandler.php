@@ -40,12 +40,18 @@ class MailHandler implements SingletonInterface
     protected $pluginName = 'Cart';
 
     /**
-     * Extbase Object Manager
+     * Object Manager
      *
      * @var \TYPO3\CMS\Extbase\Object\ObjectManager
-     * @inject
      */
     protected $objectManager;
+
+    /**
+     * Log Manager
+     *
+     * @var \TYPO3\CMS\Core\Log\LogManager
+     */
+    protected $logManager;
 
     /**
      * Configuration Manager
@@ -97,6 +103,11 @@ class MailHandler implements SingletonInterface
     {
         $this->objectManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(
             'TYPO3\CMS\Extbase\Object\ObjectManager'
+        );
+
+
+        $this->logManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(
+            'TYPO3\CMS\Core\Log\LogManager'
         );
 
         $this->configurationManager =
@@ -202,26 +213,29 @@ class MailHandler implements SingletonInterface
             return;
         }
 
-        $renderer = $this->getEmailRenderer('OrderBuyer');
+        $status = $orderItem->getPayment()->getStatus();
+        $view = $this->getEmailStandaloneView('/Order/Mail/' . ucfirst($status) . '/', 'Buyer', 'html');
 
-        $renderer->assign('settings', $this->pluginSettings['settings']);
+        if ($view->getTemplatePathAndFilename()) {
+            $view->assign('settings', $this->pluginSettings['settings']);
 
-        $renderer->assign('cart', $this->cart);
-        $renderer->assign('orderItem', $orderItem);
-        $renderer->assign('billingAddress', $billingAddress);
-        $renderer->assign('shippingAddress', $shippingAddress);
+            $view->assign('cart', $this->cart);
+            $view->assign('orderItem', $orderItem);
+            $view->assign('billingAddress', $billingAddress);
+            $view->assign('shippingAddress', $shippingAddress);
 
-        $mailBody = $renderer->render();
+            $mailBody = $view->render();
 
-        $mail = $this->objectManager->get('TYPO3\\CMS\\Core\\Mail\\MailMessage');
-        $mail->setFrom($this->buyerEmailFrom);
-        $mail->setTo($billingAddress->getEmail());
-        $mail->setSubject(
-            \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_cart.mail.buyer.subject', 'Cart')
-        );
-        $mail->setBody($mailBody, 'text/html', 'utf-8');
-        //$mail->addPart(strip_tags($mailBody), 'text/plain', 'utf-8');
-        $mail->send();
+            $mail = $this->objectManager->get('TYPO3\\CMS\\Core\\Mail\\MailMessage');
+            $mail->setFrom($this->buyerEmailFrom);
+            $mail->setTo($billingAddress->getEmail());
+            $mail->setSubject(
+                \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_cart.mail.buyer.subject', 'Cart')
+            );
+            $mail->setBody($mailBody, 'text/html', 'utf-8');
+            //$mail->addPart(strip_tags($mailBody), 'text/plain', 'utf-8');
+            $mail->send();
+        }
     }
 
     /**
@@ -244,81 +258,81 @@ class MailHandler implements SingletonInterface
             return;
         }
 
-        $renderer = $this->getEmailRenderer('OrderSeller');
+        $status = $orderItem->getPayment()->getStatus();
+        $view = $this->getEmailStandaloneView('/Order/Mail/' . ucfirst($status) . '/', 'Seller', 'html');
 
-        $renderer->assign('settings', $this->pluginSettings['settings']);
+        if ($view->getTemplatePathAndFilename()) {
+            $view->assign('settings', $this->pluginSettings['settings']);
 
-        $renderer->assign('cart', $this->cart);
-        $renderer->assign('orderItem', $orderItem);
-        $renderer->assign('billingAddress', $billingAddress);
-        $renderer->assign('shippingAddress', $shippingAddress);
+            $view->assign('cart', $this->cart);
+            $view->assign('orderItem', $orderItem);
+            $view->assign('billingAddress', $billingAddress);
+            $view->assign('shippingAddress', $shippingAddress);
 
-        $mailBody = $renderer->render();
+            $mailBody = $view->render();
 
-        $mail = $this->objectManager->get('TYPO3\\CMS\\Core\\Mail\\MailMessage');
-        $mail->setFrom($this->sellerEmailFrom);
-        $mail->setTo($this->sellerEmailTo);
-        $mail->setSubject(
-            \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_cart.mail.seller.subject', 'Cart')
-        );
-        $mail->setBody($mailBody, 'text/html', 'utf-8');
-        //$mail->addPart(strip_tags($mailBody), 'text/plain', 'utf-8');
-        $mail->send();
+            $mail = $this->objectManager->get('TYPO3\\CMS\\Core\\Mail\\MailMessage');
+            $mail->setFrom($this->sellerEmailFrom);
+            $mail->setTo($this->sellerEmailTo);
+            $mail->setSubject(
+                \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_cart.mail.seller.subject', 'Cart')
+            );
+            $mail->setBody($mailBody, 'text/html', 'utf-8');
+            //$mail->addPart(strip_tags($mailBody), 'text/plain', 'utf-8');
+            $mail->send();
+        }
     }
 
     /**
      * This creates another stand-alone instance of the Fluid StandaloneView
      * to render an e-mail template
      *
-     * @param string $templateFileName Template file name
-     * @param string $format Template file format
+     * @param string $templatePath
+     * @param string $templateFileName
+     * @param string $format
      *
      * @return \TYPO3\CMS\Fluid\View\StandaloneView Fluid instance
      */
-    protected function getEmailRenderer($templateFileName = 'Default', $format = 'html')
+    protected function getEmailStandaloneView($templatePath = '/Mail/', $templateFileName = 'Default', $format = 'html')
     {
+        $templatePathAndFileName = $templatePath . $templateFileName . '.' . $format;
+
+        /** @var \TYPO3\CMS\Fluid\View\StandaloneView $view */
         $view = $this->objectManager->get('TYPO3\\CMS\\Fluid\\View\\StandaloneView');
         $view->setFormat($format);
 
-        $layoutRootPaths = array();
-        $partialRootPaths = array();
-        $templateRootPaths = array();
-
         if ($this->pluginSettings['view']) {
             if ($this->pluginSettings['view']['layoutRootPaths']) {
-                foreach ($this->pluginSettings['view']['layoutRootPaths'] as $pathNameKey => $pathNameValue) {
-                    $layoutRootPaths[$pathNameKey] = \TYPO3\CMS\Core\Utility\GeneralUtility::getFileAbsFileName(
-                        $pathNameValue
-                    );
-                }
+                $view->setLayoutRootPaths($this->pluginSettings['view']['layoutRootPaths']);
             }
-            $view->setLayoutRootPaths($layoutRootPaths);
 
-            if ($this->pluginSettings['view']['layoutRootPaths']) {
-                foreach ($this->pluginSettings['view']['partialRootPaths'] as $pathNameKey => $pathNameValue) {
-                    $partialRootPaths[$pathNameKey] = \TYPO3\CMS\Core\Utility\GeneralUtility::getFileAbsFileName(
-                        $pathNameValue
-                    );
-                }
+            if ($this->pluginSettings['view']['partialRootPaths']) {
+                $view->setPartialRootPaths($this->pluginSettings['view']['partialRootPaths']);
             }
-            $view->setPartialRootPaths($partialRootPaths);
 
             if ($this->pluginSettings['view']['templateRootPaths']) {
-                $templateRootPaths = $this->pluginSettings['view']['templateRootPaths'];
+                foreach ($this->pluginSettings['view']['templateRootPaths'] as $pathNameKey => $pathNameValue) {
+                    $templateRootPath = \TYPO3\CMS\Core\Utility\GeneralUtility::getFileAbsFileName(
+                        $pathNameValue
+                    );
+
+                    $completePath = $templateRootPath . $templatePathAndFileName;
+                    if (file_exists($completePath)) {
+                        $view->setTemplatePathAndFilename($completePath);
+                    }
+                }
             }
         }
 
-        foreach ($templateRootPaths as $templateRootPath) {
-            $templateRootPath = \TYPO3\CMS\Core\Utility\GeneralUtility::getFileAbsFileName($templateRootPath);
-
-            if (file_exists($templateRootPath)) {
-                $templatePathAndFilename = $templateRootPath;
-                $templatePathAndFilename .= '/Cart/Mail/';
-                $templatePathAndFilename .= $templateFileName . '.' . $format;
-
-                $view->setTemplatePathAndFilename($templatePathAndFilename);
-                break;
-            }
+        if (!$view->getTemplatePathAndFilename()) {
+            $logger = $this->logManager->getLogger(__CLASS__);
+            $logger->error(
+                'Cannot find Template for MailHandler',
+                [
+                    'templateRootPaths' => $this->pluginSettings['view']['templateRootPaths'],
+                    'templatePathAndFileName' => $templatePathAndFileName,
+                ]
+            );
         }
 
         return $view;
