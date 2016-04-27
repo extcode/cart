@@ -63,7 +63,7 @@ if (TYPO3_MODE === 'BE') {
     if (!isset($TBE_MODULES['Cart'])) {
         $temp_TBE_MODULES = [];
         foreach ($TBE_MODULES as $key => $val) {
-            if ($key == 'web') {
+            if ($key == 'file') {
                 $temp_TBE_MODULES[$key] = $val;
                 $temp_TBE_MODULES['Cart'] = '';
             } else {
