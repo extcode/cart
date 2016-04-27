@@ -21,26 +21,42 @@
         <tbody>
             <f:for each="{products}" as="product">
                 <tr>
-                    <td>
-                        <f:link.action action="show" arguments="{product : product}">
-                            <f:if condition="{product.images}">
-                                <f:image src="{product.firstImage.originalResource.originalFile.uid}"
-                                         title="{product.firstImage.originalResource.title}"
-                                         alt="{product.firstImage.originalResource.title}"
-                                         width="100" />
-                            </f:if>
-                        </f:link.action>
-                    </td>
-                    <td>
-                        <f:if condition="{settings.showPageUids}">
-                            <f:then>
-                                <f:link.action pageUid="{settings.showPageUids}" action="show" arguments="{product: product}">{product.title}</f:link.action>
-                            </f:then>
-                            <f:else>
-                                <f:link.action action="show" arguments="{product: product.uid}">{product.title}</f:link.action>
-                            </f:else>
-                        </f:if>
-                    </td>
+                    <f:if condition="{settings.showPageUids}">
+                        <f:then>
+                            <td>
+                                <f:link.action pageUid="{settings.showPageUids}" action="show" arguments="{product : product}">
+                                    <f:if condition="{product.images}">
+                                        <f:image src="{product.firstImage.originalResource.originalFile.uid}"
+                                                 title="{product.firstImage.originalResource.title}"
+                                                 alt="{product.firstImage.originalResource.title}"
+                                                 width="100" />
+                                    </f:if>
+                                </f:link.action>
+                            </td>
+                            <td>
+                                <f:link.action pageUid="{settings.showPageUids}" action="show" arguments="{product: product}">
+                                    {product.title}
+                                </f:link.action>
+                            </td>
+                        </f:then>
+                        <f:else>
+                            <td>
+                                <f:link.action action="show" arguments="{product : product}">
+                                    <f:if condition="{product.images}">
+                                        <f:image src="{product.firstImage.originalResource.originalFile.uid}"
+                                                 title="{product.firstImage.originalResource.title}"
+                                                 alt="{product.firstImage.originalResource.title}"
+                                                 width="100" />
+                                    </f:if>
+                                </f:link.action>
+                            </td>
+                            <td>
+                                <f:link.action action="show" arguments="{product: product.uid}">
+                                    {product.title}
+                                </f:link.action>
+                            </td>
+                        </f:else>
+                    </f:if>
                     <td>
                         <f:render partial="Product/Price" arguments="{product: product, settings: settings}"></f:render>
                     </td>

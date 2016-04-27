@@ -12,7 +12,7 @@ $("#add-product-form").submit(function(e) {
             type: "POST",
 
             data: {
-                eID: 'addProductToCart',
+                eID: 'addProduct',
                 cartPid: $('#add-product-form input[name="tx_cart_cart[pid]"]').val(),
                 request: {
                     arguments: {

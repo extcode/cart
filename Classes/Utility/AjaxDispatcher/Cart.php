@@ -24,41 +24,9 @@ namespace Extcode\Cart\Utility\AjaxDispatcher;
 class Cart
 {
     /**
-     * @var array
+     * @var \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface
      */
-    protected $conf;
-
-    /**
-     * @var array
-     */
-    protected $settings;
-
-    /**
-     * @var string
-     */
-    protected $extensionName;
-
-    /**
-     * @var string
-     */
-    protected $pluginName;
-
-    /**
-     * @var string
-     */
-    protected $controllerName;
-
-    /**
-     * @var string
-     */
-    protected $actionName;
-
-    /**
-     * Array of all request Arguments
-     *
-     * @var array
-     */
-    protected $requestArguments = array();
+    protected $configurationManager;
 
     /**
      * @var \TYPO3\CMS\Extbase\Object\ObjectManager
@@ -66,14 +34,16 @@ class Cart
     protected $objectManager;
 
     /**
-     * @var \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface
+     * @var \TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager
      */
-    protected $configurationManager;
+    protected $persistenceManager;
 
     /**
-     * @var array
+     * Request
+     *
+     * @var \TYPO3\CMS\Extbase\Mvc\Request
      */
-    protected $arguments = array();
+    protected $request;
 
     /**
      * Cart Utility
@@ -90,6 +60,23 @@ class Cart
     protected $parserUtility;
 
     /**
+     * @var array
+     */
+    protected $conf = [];
+
+    /**
+     * @var array
+     */
+    protected $settings = [];
+
+    /**
+     * Plugin Settings
+     *
+     * @var array
+     */
+    protected $pluginSettings = [];
+
+    /**
      * Cart
      *
      * @var \Extcode\Cart\Domain\Model\Cart\Cart
@@ -97,59 +84,28 @@ class Cart
     protected $cart;
 
     /**
-     * Plugin Settings
-     *
-     * @var array
+     * Initialize Manager Classes
      */
-    protected $pluginSettings;
-
-    /**
-     * Prepare the call arguments
-     *
-     * @return \Extcode\Cart\Utility\AjaxDispatcher\Cart
-     */
-    public function initCallArguments()
+    protected function initManager()
     {
         $this->objectManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(
-            'TYPO3\CMS\Extbase\Object\ObjectManager'
+            'TYPO3\\CMS\\Extbase\\Object\\ObjectManager'
         );
-
-        $ajax = \TYPO3\CMS\Core\Utility\GeneralUtility::_GP('request');
-
-        $this->request = $this->objectManager->get('TYPO3\CMS\Extbase\Mvc\Request');
-        $this->request->setControllerVendorName('Extcode');
-        $this->request->setcontrollerExtensionName('Cart');
-        $this->request->setPluginName('Cart');
-        $this->request->setControllerName('Cart');
-        $this->request->setControllerActionName('addProduct');
-        $this->request->setArguments($ajax['arguments']);
-
-        /**
-         * @var \TYPO3\CMS\Extbase\Service\TypoScriptService $typoScriptService
-         */
-        $typoScriptService = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(
-            'TYPO3\\CMS\\Extbase\\Service\\TypoScriptService'
-        );
-        $this->conf = $typoScriptService->convertTypoScriptArrayToPlainArray(
-            $GLOBALS['TSFE']->tmpl->setup['plugin.']['tx_cart.']
-        );
-        $this->settings = $this->conf['settings'];
 
         $this->persistenceManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(
-            'TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager'
+            'TYPO3\\CMS\\Extbase\\Persistence\\Generic\\PersistenceManager'
         );
 
         $this->configurationManager = $this->objectManager->get(
             'TYPO3\\CMS\\Extbase\\Configuration\\ConfigurationManagerInterface'
         );
+    }
 
-        $this->pluginSettings =
-            $this->configurationManager->getConfiguration(
-                \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK,
-                'Cart',
-                'Cart'
-            );
-
+    /**
+     * Initialize Utility Classes
+     */
+    protected function initUtilities()
+    {
         $this->cartUtility = $this->objectManager->get(
             'Extcode\\Cart\\Utility\\CartUtility'
         );
@@ -157,16 +113,89 @@ class Cart
         $this->parserUtility = $this->objectManager->get(
             'Extcode\\Cart\\Utility\\ParserUtility'
         );
+    }
+
+    /**
+     * Initialize Settings
+     */
+    protected function initSettings()
+    {
+        $typoScriptService = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(
+            'TYPO3\\CMS\\Extbase\\Service\\TypoScriptService'
+        );
+
+        $this->conf = $typoScriptService->convertTypoScriptArrayToPlainArray(
+            $GLOBALS['TSFE']->tmpl->setup['plugin.']['tx_cart.']
+        );
+
+        $this->settings = $this->conf['settings'];
+
+        $this->pluginSettings =
+            $this->configurationManager->getConfiguration(
+                \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK,
+                'Cart',
+                'Cart'
+            );
+    }
+
+    /**
+     * Get Request
+     */
+    protected function getRequest()
+    {
+        $request = \TYPO3\CMS\Core\Utility\GeneralUtility::_GP('request');
+        $action = \TYPO3\CMS\Core\Utility\GeneralUtility::_GP('eID');
+
+        $this->request = $this->objectManager->get('TYPO3\CMS\Extbase\Mvc\Request');
+        $this->request->setControllerVendorName('Extcode');
+        $this->request->setcontrollerExtensionName('Cart');
+        $this->request->setPluginName('Cart');
+        $this->request->setControllerName('Cart');
+        $this->request->setControllerActionName($action);
+        $this->request->setArguments($request['arguments']);
+    }
+
+    /**
+     * Initialize
+     *
+     * @return \Extcode\Cart\Utility\AjaxDispatcher\Cart
+     */
+    public function init()
+    {
+        $this->initManager();
+        $this->initUtilities();
+        $this->initSettings();
+
+        $this->getRequest();
 
         return $this;
     }
 
+    /**
+     * @return mixed
+     */
     public function dispatch()
     {
         $this->cart = $this->cartUtility->getCartFromSession($this->settings['cart'], $this->pluginSettings);
 
-        $this->parseData();
+        $response = [];
 
+        switch ($this->request->getControllerActionName()) {
+            case 'addProduct':
+                $response = $this->addProductAction();
+                break;
+        }
+
+        return json_encode($response);
+    }
+
+    /**
+     * Add Product Action
+     *
+     * @return array
+     */
+    protected function addProductAction()
+    {
         $products = $this->cartUtility->getProductsFromRequest(
             $this->pluginSettings,
             $this->request,
@@ -189,36 +218,34 @@ class Cart
             'gross' => $this->cart->getGross(),
         ];
 
-        return json_encode($response);
+        $response = $this->changeResponseAfterAjaxAddProduct($response);
+
+        return $response;
     }
 
     /**
-     * Set the request array from the getPost array
-     */
-    protected function setRequestArgumentsFromGetPost($request)
-    {
-        $validArguments = array('extensionName', 'pluginName', 'controllerName', 'actionName', 'arguments');
-        foreach ($validArguments as $argument) {
-            if ($request[$argument]) {
-                $this->requestArguments[$argument] = $request[$argument];
-            }
-        }
-    }
-
-    /**
-     * Parse Data
+     * Change Response after Ajax Add Product
      *
-     * @return void
+     * @param array $response
+     *
+     * @return array
      */
-    protected function parseData()
+    protected function changeResponseAfterAjaxAddProduct($response = [])
     {
-        // parse all shippings
-        $this->shippings = $this->parserUtility->parseServices('Shipping', $this->pluginSettings, $this->cart);
+        $data = array(
+            'cart' => $this->cart,
+            'response' => &$response
+        );
 
-        // parse all payments
-        $this->payments = $this->parserUtility->parseServices('Payment', $this->pluginSettings, $this->cart);
+        $signalSlotDispatcher = $this->objectManager->get(
+            'TYPO3\\CMS\\Extbase\\SignalSlot\\Dispatcher'
+        );
+        $signalSlotDispatcher->dispatch(
+            __CLASS__,
+            'changeResponseAfterAjaxAddProduct',
+            array($data)
+        );
 
-        // parse all specials
-        $this->specials = $this->parserUtility->parseServices('Special', $this->pluginSettings, $this->cart);
+        return $response;
     }
 }

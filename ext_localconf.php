@@ -63,5 +63,5 @@ defined('TYPO3_MODE') or die();
 );
 
 if (TYPO3_MODE == 'FE') {
-    $TYPO3_CONF_VARS['FE']['eID_include']['addProductToCart'] = 'EXT:cart/Classes/Utility/eIDDispatcher.php';
+    $TYPO3_CONF_VARS['FE']['eID_include']['addProduct'] = 'EXT:cart/Classes/Utility/eIDDispatcher.php';
 }

@@ -54,4 +54,4 @@ $dispatcher = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(
 );
 
 // ATTENTION! Dispatcher first needs to be initialized here!!!
-echo $dispatcher->initCallArguments()->dispatch();
+echo $dispatcher->init()->dispatch();
