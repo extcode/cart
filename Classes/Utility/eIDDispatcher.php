@@ -23,7 +23,7 @@ namespace Extcode\Cart\Utility;
  */
 
 require_once \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('cart') .
-    'Classes/Utility/AjaxDispatcher/Cart.php';
+    'Classes/Utility/eIDDispatcher/Cart.php';
 
 // Init TSFE for database access
 
@@ -50,7 +50,7 @@ $GLOBALS['TSFE']->initTemplate();
 $GLOBALS['TSFE']->getConfigArray();
 
 $dispatcher = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(
-    'Extcode\Cart\Utility\AjaxDispatcher\Cart'
+    'Extcode\Cart\Utility\eIDDispatcher\Cart'
 );
 
 // ATTENTION! Dispatcher first needs to be initialized here!!!

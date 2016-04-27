@@ -1,6 +1,6 @@
 <?php
 
-namespace Extcode\Cart\Utility\AjaxDispatcher;
+namespace Extcode\Cart\Utility\eIDDispatcher;
 
 /**
  * This file is part of the TYPO3 CMS project.
@@ -16,7 +16,7 @@ namespace Extcode\Cart\Utility\AjaxDispatcher;
  */
 
 /**
- * AjaxDispatcher Cart
+ * eIDDispatcher Cart
  *
  * @package cart
  * @author Daniel Lorenz <ext.cart@extco.de>
@@ -158,7 +158,7 @@ class Cart
     /**
      * Initialize
      *
-     * @return \Extcode\Cart\Utility\AjaxDispatcher\Cart
+     * @return \Extcode\Cart\Utility\eIDDispatcher\Cart
      */
     public function init()
     {
