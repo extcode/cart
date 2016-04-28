@@ -27,7 +27,7 @@
             </trans-unit>
             <trans-unit id="tx_cart_domain_model_order_product.sku.short">
                 <source>SKU</source>
-                <target>Art.-Nr</target>
+                <target>Art.-Nr.</target>
             </trans-unit>
             <trans-unit id="tx_cart_domain_model_order_product.quantity">
                 <source>Quantity</source>

@@ -33,7 +33,7 @@
             <f:translate key="tx_cart_domain_model_product.teaser"/>
         </td>
         <td>
-            {cartProduct.teaser}
+            {product.teaser -> f:format.html()}
         </td>
     </tr>
     <tr>
@@ -41,7 +41,7 @@
             <f:translate key="tx_cart_domain_model_product.description"/>
         </td>
         <td>
-            {cartProduct.description}
+            {cartProduct.description -> f:format.html()}
         </td>
     </tr>
     <tr>
@@ -49,7 +49,12 @@
             <f:translate key="tx_cart_domain_model_product.price"/>
         </td>
         <td>
-            {cartProduct.price}
+            <f:format.currency currencySign="{settings.format.currency.currencySign}"
+                               decimalSeparator="{settings.format.currency.decimalSeparator}"
+                               thousandsSeparator="{settings.format.currency.thousandsSeparator}"
+                               prependCurrency="{settings.format.currency.prependCurrency}"
+                               separateCurrency="{settings.format.currency.separateCurrency}"
+                               decimals="{settings.format.currency.decimals}">{cartProduct.price}</f:format.currency>
         </td>
     </tr>
 </table>

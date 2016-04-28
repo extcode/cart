@@ -3,6 +3,12 @@
 <f:layout name="Default"/>
 
 <f:section name="main">
+    <cart:format.nothing>
+        <cart:titleTag>
+            <f:format.htmlentitiesDecode>{product.title}</f:format.htmlentitiesDecode>
+        </cart:titleTag>
+    </cart:format.nothing>
+
     <h1>{product.title}</h1>
 
     <f:if condition="{product.images}">
@@ -22,7 +28,7 @@
 
     <div>
         <f:format.raw>
-            {product.teaser}
+            {product.teaser -> f:format.html()}
         </f:format.raw>
     </div>
     <f:if condition="{product.tags}">
@@ -34,7 +40,7 @@
     </f:if>
     <div>
         <f:format.raw>
-            {product.description}
+            {product.description -> f:format.html()}
         </f:format.raw>
     </div>
 

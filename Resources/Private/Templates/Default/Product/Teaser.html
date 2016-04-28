@@ -12,7 +12,7 @@
                          height="100"/>
             </f:if>
 
-            <div>{product.teaser}</div>
+            <div>{product.teaser -> f:format.html()}</div>
 
             <f:if condition="{settings.cart.pid}">
                 <f:render partial="Product/CartForm" arguments="{product: product, pid: settings.cart.pid}"/>
