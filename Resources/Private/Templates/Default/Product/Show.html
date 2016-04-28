@@ -14,14 +14,17 @@
     <f:if condition="{product.images}">
         <f:image src="{product.firstImage.originalResource.originalFile.uid}"
                  title="{product.firstImage.originalResource.title}"
-                 alt="{product.firstImage.originalResource.title}" />
+                 alt="{product.firstImage.originalResource.title}"
+                 width="{settings.showAction.media.image.size.medium.maxWidth}"
+                 height="{settings.showAction.media.image.size.medium.maxHeight}" />
 
         <f:if condition="{product.images -> f:count()} > 1">
             <f:for each="{product.images}" as="image">
                 <f:image src="{image.originalResource.originalFile.uid}"
                          title="{image.originalResource.title}"
                          alt="{image.originalResource.title}"
-                         width="100" />
+                         width="{settings.showAction.media.image.size.small.maxWidth}"
+                         height="{settings.showAction.media.image.size.small.maxHeight}"  />
             </f:for>
         </f:if>
     </f:if>

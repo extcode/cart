@@ -9,7 +9,8 @@
                 <f:image src="{product.firstImage.originalResource.originalFile.uid}"
                          title="{product.firstImage.originalResource.title}"
                          alt="{product.firstImage.originalResource.title}"
-                         height="100"/>
+                         width="{settings.teaserAction.media.image.size.medium.maxWidth}"
+                         height="{settings.teaserAction.media.image.size.medium.maxHeight}"/>
             </f:if>
 
             <div>{product.teaser -> f:format.html()}</div>

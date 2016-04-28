@@ -52,6 +52,23 @@ plugin.tx_cart {
             decimals           = {$plugin.tx_cart.settings.format.currency.decimals}
         }
 
+        showAction {
+            media {
+                image {
+                    size {
+                        small.maxWidth = 100
+                        small.maxHeight =
+                        medium.maxWidth = 300
+                        medium.maxHeight =
+                        large.maxWidth = 600
+                        large.maxHeight =
+                    }
+                }
+            }
+        }
+        teaserAction < .showAction
+        listAction < .showAction
+
         seller.emailAddress = test@extco.de
     }
 
