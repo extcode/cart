@@ -1,21 +1,13 @@
+{namespace cart=Extcode\Cart\ViewHelpers}
+
 <f:if condition="{product.beVariants}">
     <f:then>
         <f:for each="{product.beVariants}" as="variant">
             <div>
-                <f:format.currency currencySign="{settings.format.currency.currencySign}"
-                                   decimalSeparator="{settings.format.currency.decimalSeparator}"
-                                   thousandsSeparator="{settings.format.currency.thousandsSeparator}"
-                                   prependCurrency="{settings.format.currency.prependCurrency}"
-                                   separateCurrency="{settings.format.currency.separateCurrency}"
-                                   decimals="{settings.format.currency.decimals}">{variant.priceCalculated}</f:format.currency> / {variant.priceMeasure} {variant.priceMeasureUnit} :
+                <cart:format.currency>{variant.priceCalculated}</cart:format.currency> / {variant.priceMeasure} {variant.priceMeasureUnit} :
                 <f:if condition="{variant.isMeasureUnitCompatibility}">
                     <f:then>
-                        <f:format.currency currencySign="{settings.format.currency.currencySign}"
-                                           decimalSeparator="{settings.format.currency.decimalSeparator}"
-                                           thousandsSeparator="{settings.format.currency.thousandsSeparator}"
-                                           prependCurrency="{settings.format.currency.prependCurrency}"
-                                           separateCurrency="{settings.format.currency.separateCurrency}"
-                                           decimals="{settings.format.currency.decimals}">{variant.calculatedBasePrice}</f:format.currency> / 1 {product.basePriceMeasureUnit}
+                        <cart:format.currency>{variant.calculatedBasePrice}</cart:format.currency> / 1 {product.basePriceMeasureUnit}
                     </f:then>
                     <f:else>
                         ---
@@ -26,20 +18,10 @@
     </f:then>
     <f:else>
         <div>
-            <f:format.currency currencySign="{settings.format.currency.currencySign}"
-                               decimalSeparator="{settings.format.currency.decimalSeparator}"
-                               thousandsSeparator="{settings.format.currency.thousandsSeparator}"
-                               prependCurrency="{settings.format.currency.prependCurrency}"
-                               separateCurrency="{settings.format.currency.separateCurrency}"
-                               decimals="{settings.format.currency.decimals}">{product.bestSpecialPrice}</f:format.currency> / {product.priceMeasure} {product.priceMeasureUnit} :
+            <cart:format.currency>{product.bestSpecialPrice}</cart:format.currency> / {product.priceMeasure} {product.priceMeasureUnit} :
             <f:if condition="{product.isMeasureUnitCompatibility}">
                 <f:then>
-                    <f:format.currency currencySign="{settings.format.currency.currencySign}"
-                                       decimalSeparator="{settings.format.currency.decimalSeparator}"
-                                       thousandsSeparator="{settings.format.currency.thousandsSeparator}"
-                                       prependCurrency="{settings.format.currency.prependCurrency}"
-                                       separateCurrency="{settings.format.currency.separateCurrency}"
-                                       decimals="{settings.format.currency.decimals}">{product.calculatedBasePrice}</f:format.currency> / 1 {product.basePriceMeasureUnit}
+                    <cart:format.currency>{product.calculatedBasePrice}</cart:format.currency> / 1 {product.basePriceMeasureUnit}
                 </f:then>
                 <f:else>
                     ---

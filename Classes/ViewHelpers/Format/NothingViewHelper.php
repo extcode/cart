@@ -16,7 +16,7 @@ namespace Extcode\Cart\ViewHelpers\Format;
  */
 
 /**
- * Title Tag ViewHelper
+ * Nothing ViewHelper
  *
  * @package cart
  * @author Georg Ringer <typo3@ringerge.org>

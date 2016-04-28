@@ -1,15 +1,12 @@
+{namespace cart=Extcode\Cart\ViewHelpers}
+
 <tr class="first">
     <td colspan="3" class="a-right">
         <f:translate key="tx_cart_domain_model_order_product.cart_net"/>
     </td>
     <td class="a-right last">
         <span class="price">
-            <f:format.currency currencySign="{settings.format.currency.currencySign}"
-                               decimalSeparator="{settings.format.currency.decimalSeparator}"
-                               thousandsSeparator="{settings.format.currency.thousandsSeparator}"
-                               prependCurrency="{settings.format.currency.prependCurrency}"
-                               separateCurrency="{settings.format.currency.separateCurrency}"
-                               decimals="{settings.format.currency.decimals}">{cart.net}</f:format.currency>
+            <cart:format.currency>{cart.net}</cart:format.currency>
         </span>
     </td>
 </tr>
@@ -19,12 +16,7 @@
     </td>
     <td class="a-right last">
         <span class="price">
-            <f:format.currency currencySign="{settings.format.currency.currencySign}"
-                               decimalSeparator="{settings.format.currency.decimalSeparator}"
-                               thousandsSeparator="{settings.format.currency.thousandsSeparator}"
-                               prependCurrency="{settings.format.currency.prependCurrency}"
-                               separateCurrency="{settings.format.currency.separateCurrency}"
-                               decimals="{settings.format.currency.decimals}">{cart.gross}</f:format.currency>
+            <cart:format.currency>{cart.gross}</cart:format.currency>
         </span>
     </td>
 </tr>
@@ -37,12 +29,7 @@
     </td>
     <td class="a-right last">
         <span class="price">
-            <f:format.currency currencySign="{settings.format.currency.currencySign}"
-                               decimalSeparator="{settings.format.currency.decimalSeparator}"
-                               thousandsSeparator="{settings.format.currency.thousandsSeparator}"
-                               prependCurrency="{settings.format.currency.prependCurrency}"
-                               separateCurrency="{settings.format.currency.separateCurrency}"
-                               decimals="{settings.format.currency.decimals}">{cart.serviceNet}</f:format.currency>
+            <cart:format.currency>{cart.serviceNet}</cart:format.currency>
         </span>
     </td>
 </tr>
@@ -52,12 +39,7 @@
     </td>
     <td class="a-right last">
         <span class="price">
-            <f:format.currency currencySign="{settings.format.currency.currencySign}"
-                               decimalSeparator="{settings.format.currency.decimalSeparator}"
-                               thousandsSeparator="{settings.format.currency.thousandsSeparator}"
-                               prependCurrency="{settings.format.currency.prependCurrency}"
-                               separateCurrency="{settings.format.currency.separateCurrency}"
-                               decimals="{settings.format.currency.decimals}">{cart.serviceGross}</f:format.currency>
+            <cart:format.currency>{cart.serviceGross}</cart:format.currency>
         </span>
     </td>
 </tr>
@@ -70,12 +52,7 @@
     </td>
     <td class="a-right last">
         <span class="price">
-            <f:format.currency currencySign="{settings.format.currency.currencySign}"
-                               decimalSeparator="{settings.format.currency.decimalSeparator}"
-                               thousandsSeparator="{settings.format.currency.thousandsSeparator}"
-                               prependCurrency="{settings.format.currency.prependCurrency}"
-                               separateCurrency="{settings.format.currency.separateCurrency}"
-                               decimals="{settings.format.currency.decimals}">{cart.totalNet}</f:format.currency>
+            <cart:format.currency>{cart.totalNet}</cart:format.currency>
         </span>
     </td>
 </tr>
@@ -85,12 +62,7 @@
     </td>
     <td class="a-right last">
         <span class="price">
-            <f:format.currency currencySign="{settings.format.currency.currencySign}"
-                               decimalSeparator="{settings.format.currency.decimalSeparator}"
-                               thousandsSeparator="{settings.format.currency.thousandsSeparator}"
-                               prependCurrency="{settings.format.currency.prependCurrency}"
-                               separateCurrency="{settings.format.currency.separateCurrency}"
-                               decimals="{settings.format.currency.decimals}">{cart.totalGross}</f:format.currency>
+            <cart:format.currency>{cart.totalGross}</cart:format.currency>
         </span>
     </td>
 </tr>

@@ -1,3 +1,5 @@
+{namespace cart=Extcode\Cart\ViewHelpers}
+
 <tr class="db_list_normal">
     <td>
         {orderItem.billingAddress.firstName}
@@ -29,20 +31,10 @@
         </f:if>
     </td>
     <td style="width: 75px; text-align: right;">
-        <f:format.currency currencySign="{orderItem.currency}"
-                           decimalSeparator="{settings.format.currency.decimalSeparator}"
-                           thousandsSeparator="{settings.format.currency.thousandsSeparator}"
-                           prependCurrency="{settings.format.currency.prependCurrency}"
-                           separateCurrency="{settings.format.currency.separateCurrency}"
-                           decimals="{settings.format.currency.decimals}">{orderItem.totalGross}</f:format.currency>
+        <cart:format.currency>{orderItem.totalGross}</cart:format.currency>
     </td>
     <td style="width: 75px; text-align: right;">
-        <f:format.currency currencySign="{orderItem.currency}"
-                           decimalSeparator="{settings.format.currency.decimalSeparator}"
-                           thousandsSeparator="{settings.format.currency.thousandsSeparator}"
-                           prependCurrency="{settings.format.currency.prependCurrency}"
-                           separateCurrency="{settings.format.currency.separateCurrency}"
-                           decimals="{settings.format.currency.decimals}">{orderItem.totalNet}</f:format.currency>
+        <cart:format.currency>{orderItem.totalNet}</cart:format.currency>
     </td>
     <td class="order-payment-status-{orderItem.payment.status}">
         {orderItem.payment.name} <br/>

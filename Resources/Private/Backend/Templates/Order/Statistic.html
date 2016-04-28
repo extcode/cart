@@ -1,3 +1,5 @@
+{namespace cart=Extcode\Cart\ViewHelpers}
+
 <f:layout name="Default"/>
 
 <f:section name="actions">
@@ -30,39 +32,19 @@
             <tr>
                 <th>Gross:</th>
                 <td>
-                    <f:format.currency currencySign="{settings.format.currency.currencySign}"
-                                       decimalSeparator="{settings.format.currency.decimalSeparator}"
-                                       thousandsSeparator="{settings.format.currency.thousandsSeparator}"
-                                       prependCurrency="{settings.format.currency.prependCurrency}"
-                                       separateCurrency="{settings.format.currency.separateCurrency}"
-                                       decimals="{settings.format.currency.decimals}">{statistics.orderItemGross}</f:format.currency>
+                    <cart:format.currency>{statistics.orderItemGross}</cart:format.currency>
                 </td>
                 <td>
-                    <f:format.currency currencySign="{settings.format.currency.currencySign}"
-                                       decimalSeparator="{settings.format.currency.decimalSeparator}"
-                                       thousandsSeparator="{settings.format.currency.thousandsSeparator}"
-                                       prependCurrency="{settings.format.currency.prependCurrency}"
-                                       separateCurrency="{settings.format.currency.separateCurrency}"
-                                       decimals="{settings.format.currency.decimals}">{statistics.orderItemAverageGross}</f:format.currency>
+                    <cart:format.currency>{statistics.orderItemAverageGross}</cart:format.currency>
                 </td>
             </tr>
             <tr>
                 <th>Net:</th>
                 <td>
-                    <f:format.currency currencySign="{settings.format.currency.currencySign}"
-                                       decimalSeparator="{settings.format.currency.decimalSeparator}"
-                                       thousandsSeparator="{settings.format.currency.thousandsSeparator}"
-                                       prependCurrency="{settings.format.currency.prependCurrency}"
-                                       separateCurrency="{settings.format.currency.separateCurrency}"
-                                       decimals="{settings.format.currency.decimals}">{statistics.orderItemNet}</f:format.currency>
+                    <cart:format.currency>{statistics.orderItemNet}</cart:format.currency>
                 </td>
                 <td>
-                    <f:format.currency currencySign="{settings.format.currency.currencySign}"
-                                       decimalSeparator="{settings.format.currency.decimalSeparator}"
-                                       thousandsSeparator="{settings.format.currency.thousandsSeparator}"
-                                       prependCurrency="{settings.format.currency.prependCurrency}"
-                                       separateCurrency="{settings.format.currency.separateCurrency}"
-                                       decimals="{settings.format.currency.decimals}">{statistics.orderItemAverageNet}</f:format.currency>
+                    <cart:format.currency>{statistics.orderItemAverageNet}</cart:format.currency>
                 </td>
             </tr>
             </tbody>

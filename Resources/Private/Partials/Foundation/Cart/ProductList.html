@@ -1,3 +1,5 @@
+{namespace cart=Extcode\Cart\ViewHelpers}
+
 <f:for each="{products}" as="product">
     <tr class="{f:if(condition: cartProduct.quantityIsInRange, then: '', else: 'danger')}">
         <td>
@@ -18,12 +20,7 @@
                     <span class="price">&nbsp;</span>
                 </f:then>
                 <f:else>
-                    <f:format.currency currencySign="{settings.format.currency.currencySign}"
-                                       decimalSeparator="{settings.format.currency.decimalSeparator}"
-                                       thousandsSeparator="{settings.format.currency.thousandsSeparator}"
-                                       prependCurrency="{settings.format.currency.prependCurrency}"
-                                       separateCurrency="{settings.format.currency.separateCurrency}"
-                                       decimals="{settings.format.currency.decimals}">{cartProduct.price}</f:format.currency>
+                    <cart:format.currency>{cartProduct.price}</cart:format.currency>
                 </f:else>
             </f:if>
         </td>
@@ -35,12 +32,7 @@
         <td class="last text-right">
             <f:if condition="{cartProduct.quantityIsInRange}">
                 <f:then>
-                    <f:format.currency currencySign="{settings.format.currency.currencySign}"
-                                       decimalSeparator="{settings.format.currency.decimalSeparator}"
-                                       thousandsSeparator="{settings.format.currency.thousandsSeparator}"
-                                       prependCurrency="{settings.format.currency.prependCurrency}"
-                                       separateCurrency="{settings.format.currency.separateCurrency}"
-                                       decimals="{settings.format.currency.decimals}">{cartProduct.gross}</f:format.currency>
+                    <cart:format.currency>{cartProduct.gross}</cart:format.currency>
                 </f:then>
             </f:if>
         </td>

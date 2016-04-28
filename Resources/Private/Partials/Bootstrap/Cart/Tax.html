@@ -1,10 +1,7 @@
+{namespace cart=Extcode\Cart\ViewHelpers}
+
 <div class="cart_col cart_foot_col1 cart_tax">
 </div>
 <div class="cart_col cart_foot_col2 cart_tax">
-    <f:format.currency currencySign="{settings.format.currency.currencySign}"
-                       decimalSeparator="{settings.format.currency.decimalSeparator}"
-                       thousandsSeparator="{settings.format.currency.thousandsSeparator}"
-                       prependCurrency="{settings.format.currency.prependCurrency}"
-                       separateCurrency="{settings.format.currency.separateCurrency}"
-                       decimals="{settings.format.currency.decimals}">{tax}</f:format.currency>
+    <cart:format.currency>{tax}</cart:format.currency>
 </div>

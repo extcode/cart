@@ -1,9 +1,6 @@
+{namespace cart=Extcode\Cart\ViewHelpers}
+
 <p>
     {special.name}:
-    <f:format.currency currencySign="{settings.format.currency.currencySign}"
-                       decimalSeparator="{settings.format.currency.decimalSeparator}"
-                       thousandsSeparator="{settings.format.currency.thousandsSeparator}"
-                       prependCurrency="{settings.format.currency.prependCurrency}"
-                       separateCurrency="{settings.format.currency.separateCurrency}"
-                       decimals="{settings.format.currency.decimals}">{special.gross}</f:format.currency>
+    <cart:format.currency>{special.gross}</cart:format.currency>
 </p>

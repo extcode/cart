@@ -1,3 +1,5 @@
+{namespace cart=Extcode\Cart\ViewHelpers}
+
 <div id="shipping-method" class="form-block">
     <h5 class="form-title"><span class="num">3</span><span>Zahlmethode</span></h5>
 
@@ -12,24 +14,13 @@
                                 <f:if condition="{0: shipping.id} == {0: cart.shipping.id}">
                                     <f:then>
                                         Versand
-                                        <f:format.currency currencySign="{settings.format.currency.currencySign}"
-                                                           decimalSeparator="{settings.format.currency.decimalSeparator}"
-                                                           thousandsSeparator="{settings.format.currency.thousandsSeparator}"
-                                                           prependCurrency="{settings.format.currency.prependCurrency}"
-                                                           separateCurrency="{settings.format.currency.separateCurrency}"
-                                                           decimals="{settings.format.currency.decimals}">{shipping.gross}</f:format.currency>
+                                        <cart:format.currency>{shipping.gross}</cart:format.currency>
                                     </f:then>
                                     <f:else>
                                         <label>
                                             <f:link.action action="setShipping" arguments="{shippingId:shipping.id}">
                                                 Versand
-                                                <f:format.currency
-                                                        currencySign="{settings.format.currency.currencySign}"
-                                                        decimalSeparator="{settings.format.currency.decimalSeparator}"
-                                                        thousandsSeparator="{settings.format.currency.thousandsSeparator}"
-                                                        prependCurrency="{settings.format.currency.prependCurrency}"
-                                                        separateCurrency="{settings.format.currency.separateCurrency}"
-                                                        decimals="{settings.format.currency.decimals}">{shipping.gross}</f:format.currency>
+                                                <cart:format.currency>{shipping.gross}</cart:format.currency>
                                             </f:link.action>
                                         </label>
                                     </f:else>

@@ -1,3 +1,5 @@
+{namespace cart=Extcode\Cart\ViewHelpers}
+
 <tr class="{f:if(condition: product.quantityIsInRange, then: '', else: 'danger')}">
     <td colspan="2">
         <div class="product-name">{product.title} - {product.feVariant.value}</div>
@@ -7,22 +9,12 @@
         </p>
     </td>
     <td style="text-align: right;">
-        <f:format.currency currencySign="{settings.format.currency.currencySign}"
-                           decimalSeparator="{settings.format.currency.decimalSeparator}"
-                           thousandsSeparator="{settings.format.currency.thousandsSeparator}"
-                           prependCurrency="{settings.format.currency.prependCurrency}"
-                           separateCurrency="{settings.format.currency.separateCurrency}"
-                           decimals="{settings.format.currency.decimals}">{product.bestPrice}</f:format.currency>
+        <cart:format.currency>{product.bestPrice}</cart:format.currency>
     </td>
     <td style="text-align: right;">
         {product.quantity}
     </td>
     <td style="text-align: right;">
-        <f:format.currency currencySign="{settings.format.currency.currencySign}"
-                           decimalSeparator="{settings.format.currency.decimalSeparator}"
-                           thousandsSeparator="{settings.format.currency.thousandsSeparator}"
-                           prependCurrency="{settings.format.currency.prependCurrency}"
-                           separateCurrency="{settings.format.currency.separateCurrency}"
-                           decimals="{settings.format.currency.decimals}">{product.gross}</f:format.currency>
+        <cart:format.currency>{product.gross}</cart:format.currency>
     </td>
 </tr>

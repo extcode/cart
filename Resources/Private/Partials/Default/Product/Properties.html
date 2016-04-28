@@ -1,3 +1,5 @@
+{namespace cart=Extcode\Cart\ViewHelpers}
+
 <table class="tx-cart-product">
     <f:debug>{cartProduct}</f:debug>
     <tr>
@@ -49,12 +51,7 @@
             <f:translate key="tx_cart_domain_model_product.price"/>
         </td>
         <td>
-            <f:format.currency currencySign="{settings.format.currency.currencySign}"
-                               decimalSeparator="{settings.format.currency.decimalSeparator}"
-                               thousandsSeparator="{settings.format.currency.thousandsSeparator}"
-                               prependCurrency="{settings.format.currency.prependCurrency}"
-                               separateCurrency="{settings.format.currency.separateCurrency}"
-                               decimals="{settings.format.currency.decimals}">{cartProduct.price}</f:format.currency>
+            <cart:format.currency>{cartProduct.price}</cart:format.currency>
         </td>
     </tr>
 </table>

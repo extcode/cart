@@ -1,3 +1,5 @@
+{namespace cart=Extcode\Cart\ViewHelpers}
+
 <f:layout name="Default"/>
 
 <f:section name="actions">
@@ -47,14 +49,10 @@
                             <f:then>
                                 <f:translate key="tx_cart_domain_model_product.price.from"/>
                                 :
-                                <f:format.currency currencySign="{settings.format.currency.currencySign}"
-                                                   decimalSeparator="{settings.format.currency.decimalSeparator}"
-                                                   thousandsSeparator="{settings.format.currency.thousandsSeparator}">{product.minPrice}</f:format.currency>
+                                <cart:format.currency>{product.minPrice}</cart:format.currency>
                             </f:then>
                             <f:else>
-                                <f:format.currency currencySign="{settings.format.currency.currencySign}"
-                                                   decimalSeparator="{settings.format.currency.decimalSeparator}"
-                                                   thousandsSeparator="{settings.format.currency.thousandsSeparator}">{product.price}</f:format.currency>
+                                <cart:format.currency>{product.price}</cart:format.currency>
                             </f:else>
                         </f:if>
                     </td>

@@ -1,3 +1,5 @@
+{namespace cart=Extcode\Cart\ViewHelpers}
+
 <f:layout name="Default"/>
 
 <f:section name="main">
@@ -17,12 +19,7 @@
                                             {variant.qty}
                                         </div>
                                         <div class="cart_minicart_col cart_minicart_col_total cart_right">
-                                            <f:format.currency currencySign="{settings.format.currency.currencySign}"
-                                                               decimalSeparator="{settings.format.currency.decimalSeparator}"
-                                                               thousandsSeparator="{settings.format.currency.thousandsSeparator}"
-                                                               prependCurrency="{settings.format.currency.prependCurrency}"
-                                                               separateCurrency="{settings.format.currency.separateCurrency}"
-                                                               decimals="{settings.format.currency.decimals}">{variant.gross}</f:format.currency>
+                                            <cart:format.currency>{variant.gross}</cart:format.currency>
                                         </div>
                                         <div class="cart_cleaner"><!-- --></div>
                                     </div>
@@ -37,12 +34,7 @@
                                         {cartProduct.qty}
                                     </div>
                                     <div class="cart_minicart_col cart_minicart_col_total cart_right">
-                                        <f:format.currency currencySign="{settings.format.currency.currencySign}"
-                                                           decimalSeparator="{settings.format.currency.decimalSeparator}"
-                                                           thousandsSeparator="{settings.format.currency.thousandsSeparator}"
-                                                           prependCurrency="{settings.format.currency.prependCurrency}"
-                                                           separateCurrency="{settings.format.currency.separateCurrency}"
-                                                           decimals="{settings.format.currency.decimals}">{cartProduct.gross}</f:format.currency>
+                                        <cart:format.currency>{cartProduct.gross}</cart:format.currency>
                                     </div>
                                     <div class="cart_cleaner"><!-- --></div>
                                 </div>
@@ -56,12 +48,7 @@
                             key="LLL:EXT:cart/Resources/Private/Language/locallang.xlf:\Extcode\Cart\Domain\Model\product.cart_gross"/>
                 </div>
                 <div class="cart_minicart_col cart_foot_col2 cart_gross">
-                    <f:format.currency currencySign="{settings.format.currency.currencySign}"
-                                       decimalSeparator="{settings.format.currency.decimalSeparator}"
-                                       thousandsSeparator="{settings.format.currency.thousandsSeparator}"
-                                       prependCurrency="{settings.format.currency.prependCurrency}"
-                                       separateCurrency="{settings.format.currency.separateCurrency}"
-                                       decimals="{settings.format.currency.decimals}">{cart.gross}</f:format.currency>
+                    <cart:format.currency>{cart.gross}</cart:format.currency>
                 </div>
                 <div class="cart_cleaner"><!-- --></div>
 

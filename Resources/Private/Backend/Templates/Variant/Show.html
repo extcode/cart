@@ -1,3 +1,5 @@
+{namespace cart=Extcode\Cart\ViewHelpers}
+
 <f:layout name="Default"/>
 
 <f:section name="actions">
@@ -47,9 +49,7 @@
                 <f:translate key="tx_cartproduct_domain_model_product.price"/>
             </th>
             <td>
-                <f:format.currency currencySign="{settings.format.currency.currencySign}"
-                                   decimalSeparator="{settings.format.currency.decimalSeparator}"
-                                   thousandsSeparator="{settings.format.currency.thousandsSeparator}">{variant.price}</f:format.currency>
+                <cart:format.currency>{variant.price}</cart:format.currency>
             </td>
             <td>{variant.priceMeasure} {variant.priceMeasureUnit}</td>
         </tr>
@@ -58,9 +58,7 @@
                 <f:translate key="tx_cartproduct_domain_model_product.base_price"/>
             </th>
             <td>
-                <f:format.currency currencySign="{settings.format.currency.currencySign}"
-                                   decimalSeparator="{settings.format.currency.decimalSeparator}"
-                                   thousandsSeparator="{settings.format.currency.thousandsSeparator}">{variant.basePrice}</f:format.currency>
+                <cart:format.currency>{variant.basePrice}</cart:format.currency>
             </td>
             <td>{variant.product.basePriceMeasure} {variant.product.basePriceMeasureUnit}</td>
         </tr>

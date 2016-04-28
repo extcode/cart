@@ -1,3 +1,5 @@
+{namespace cart=Extcode\Cart\ViewHelpers}
+
 <div id="accept-term" class="form-block">
     <h5 class="form-title"><span class="num">4</span><span>Gutschein</span></h5>
 
@@ -10,23 +12,13 @@
                             <li>
                                 <span>{coupon.title}</span><span> - </span>
                                 <span>
-                                    <f:format.currency currencySign="{settings.format.currency.currencySign}"
-                                                       decimalSeparator="{settings.format.currency.decimalSeparator}"
-                                                       thousandsSeparator="{settings.format.currency.thousandsSeparator}"
-                                                       prependCurrency="{settings.format.currency.prependCurrency}"
-                                                       separateCurrency="{settings.format.currency.separateCurrency}"
-                                                       decimals="{settings.format.currency.decimals}">{coupon.discount}</f:format.currency>
+                                    <cart:format.currency>{coupon.discount}</cart:format.currency>
                                 </span>
                                 <f:if condition="{coupon.isUseable}">
                                     <f:else>
                                         <span style="color: red;">
                                             Gutschein kann nicht angerechnet werden. Mindestbestellwert:
-                                            <f:format.currency currencySign="{settings.format.currency.currencySign}"
-                                                               decimalSeparator="{settings.format.currency.decimalSeparator}"
-                                                               thousandsSeparator="{settings.format.currency.thousandsSeparator}"
-                                                               prependCurrency="{settings.format.currency.prependCurrency}"
-                                                               separateCurrency="{settings.format.currency.separateCurrency}"
-                                                               decimals="{settings.format.currency.decimals}">{coupon.cartMinPrice}</f:format.currency>
+                                            <cart:format.currency>{coupon.cartMinPrice}</cart:format.currency>
                                         </span>
                                     </f:else>
                                 </f:if>

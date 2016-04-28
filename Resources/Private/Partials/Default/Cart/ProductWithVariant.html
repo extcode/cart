@@ -18,12 +18,7 @@
                     </p>
                 </td>
                 <td class="text-right">
-                    <f:format.currency currencySign="{settings.format.currency.currencySign}"
-                                       decimalSeparator="{settings.format.currency.decimalSeparator}"
-                                       thousandsSeparator="{settings.format.currency.thousandsSeparator}"
-                                       prependCurrency="{settings.format.currency.prependCurrency}"
-                                       separateCurrency="{settings.format.currency.separateCurrency}"
-                                       decimals="{settings.format.currency.decimals}">{variant.priceCalculated}</f:format.currency>
+                    <cart:format.currency>{variant.priceCalculated}</cart:format.currency>
                 </td>
                 <td class="a-center">
                     <div class="qty-wrapper">
@@ -34,12 +29,7 @@
                 <td class="last text-right">
                     <f:if condition="{product.quantityIsInRange}">
                         <f:then>
-                            <f:format.currency currencySign="{settings.format.currency.currencySign}"
-                                               decimalSeparator="{settings.format.currency.decimalSeparator}"
-                                               thousandsSeparator="{settings.format.currency.thousandsSeparator}"
-                                               prependCurrency="{settings.format.currency.prependCurrency}"
-                                               separateCurrency="{settings.format.currency.separateCurrency}"
-                                               decimals="{settings.format.currency.decimals}">{variant.gross}</f:format.currency>
+                            <cart:format.currency>{variant.gross}</cart:format.currency>
                         </f:then>
                         <f:else>
                             <f:if condition="{product.quantityBelowRange}">
@@ -99,12 +89,7 @@
     <td class="text-right">
         <f:if condition="{product.quantityIsInRange}">
             <f:then>
-                <f:format.currency currencySign="{settings.format.currency.currencySign}"
-                                   decimalSeparator="{settings.format.currency.decimalSeparator}"
-                                   thousandsSeparator="{settings.format.currency.thousandsSeparator}"
-                                   prependCurrency="{settings.format.currency.prependCurrency}"
-                                   separateCurrency="{settings.format.currency.separateCurrency}"
-                                   decimals="{settings.format.currency.decimals}">{product.gross}</f:format.currency>
+                <cart:format.currency>{product.gross}</cart:format.currency>
             </f:then>
         </f:if>
     </td>

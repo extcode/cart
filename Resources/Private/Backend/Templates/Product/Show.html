@@ -1,3 +1,5 @@
+{namespace cart=Extcode\Cart\ViewHelpers}
+
 <f:layout name="Default"/>
 
 <f:section name="actions">
@@ -74,9 +76,7 @@
                     </f:if>
                     <td style="text-align: right;">{variant.stock}</td>
                     <td style="text-align: right;">
-                        <f:format.currency currencySign="{settings.format.currency.currencySign}"
-                                           decimalSeparator="{settings.format.currency.decimalSeparator}"
-                                           thousandsSeparator="{settings.format.currency.thousandsSeparator}">{variant.price}</f:format.currency>
+                        <cart:format.currency>{variant.price}</cart:format.currency>
                     </td>
                 </tr>
             </f:for>
@@ -115,9 +115,7 @@
                         <f:if condition="{product.variants}">(!)</f:if>
                     </td>
                     <td style="text-align: right;">
-                        <f:format.currency currencySign="{settings.format.currency.currencySign}"
-                                           decimalSeparator="{settings.format.currency.decimalSeparator}"
-                                           thousandsSeparator="{settings.format.currency.thousandsSeparator}">{relatedProduct.price}</f:format.currency>
+                        <cart:format.currency>{relatedProduct.price}</cart:format.currency>
                     </td>
                 </tr>
             </f:for>

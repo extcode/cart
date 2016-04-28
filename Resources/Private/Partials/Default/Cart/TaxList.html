@@ -1,3 +1,5 @@
+{namespace cart=Extcode\Cart\ViewHelpers}
+
 <f:for each="{taxes}" as="tax" key="tax_class">
     <tr>
         <td colspan="3" class="a-right">
@@ -8,12 +10,7 @@
         </td>
         <td class="a-right last">
             <span class="price">
-                <f:format.currency currencySign="{settings.format.currency.currencySign}"
-                                   decimalSeparator="{settings.format.currency.decimalSeparator}"
-                                   thousandsSeparator="{settings.format.currency.thousandsSeparator}"
-                                   prependCurrency="{settings.format.currency.prependCurrency}"
-                                   separateCurrency="{settings.format.currency.separateCurrency}"
-                                   decimals="{settings.format.currency.decimals}">{tax}</f:format.currency>
+                <cart:format.currency>{tax}</cart:format.currency>
             </span>
         </td>
     </tr>
