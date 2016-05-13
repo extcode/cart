@@ -122,7 +122,7 @@ class Address extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      */
     public function toArray()
     {
-        $address = array(
+        $address = [
             'salutation' => $this->getSalutation(),
             'title' => $this->getTitle(),
             'firstName' => $this->getFirstName(),
@@ -135,7 +135,7 @@ class Address extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
             'email' => $this->getEmail(),
             'phone' => $this->getPhone(),
             'fax' => $this->getFax(),
-        );
+        ];
 
         return $address;
     }

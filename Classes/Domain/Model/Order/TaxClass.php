@@ -93,11 +93,11 @@ class TaxClass extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      */
     public function toArray()
     {
-        $taxClassArray = array(
+        $taxClassArray = [
             'title' => $this->getTitle(),
             'value' => $this->getValue(),
             'calc' => $this->getCalc(),
-        );
+        ];
 
         return $taxClassArray;
     }

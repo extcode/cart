@@ -209,7 +209,7 @@ class Extra
     public function getTax()
     {
         $this->calcTax();
-        return array('taxclassid' => $this->taxClass->getId(), 'tax' => $this->tax);
+        return ['taxclassid' => $this->taxClass->getId(), 'tax' => $this->tax];
     }
 
     /**

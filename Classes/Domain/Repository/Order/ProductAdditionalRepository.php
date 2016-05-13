@@ -32,15 +32,15 @@ class ProductAdditionalRepository extends \TYPO3\CMS\Extbase\Persistence\Reposit
      *
      * @return object
      */
-    public function findAllByAdditionalType(array $piVars = array(), $additionalType)
+    public function findAllByAdditionalType(array $piVars = [], $additionalType)
     {
         // settings
         $query = $this->createQuery();
 
-        $and = array(
+        $and = [
             $query->equals('deleted', 0),
             $query->equals('additionalType', $additionalType)
-        );
+        ];
 
         // filter
         if (isset($piVars['filter'])) {

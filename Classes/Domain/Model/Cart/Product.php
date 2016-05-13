@@ -169,7 +169,7 @@ class Product
      *
      * @var array Additional
      */
-    private $additional = array();
+    private $additional = [];
 
     /**
      * Min Number In Cart
@@ -811,7 +811,7 @@ class Product
      */
     public function toArray()
     {
-        $productArr = array(
+        $productArr = [
             'productId' => $this->productId,
             'tableId' => $this->tableId,
             'contentId' => $this->contentId,
@@ -827,17 +827,17 @@ class Product
             'price_total_net' => $this->net,
             'tax' => $this->tax,
             'additional' => $this->additional
-        );
+        ];
 
         if ($this->beVariants) {
-            $variantArr = array();
+            $variantArr = [];
 
             foreach ($this->beVariants as $variant) {
                 /** @var $variant \Extcode\Cart\Domain\Model\Cart\BeVariant */
-                array_push($variantArr, array($variant->getId() => $variant->toArray()));
+                array_push($variantArr, [$variant->getId() => $variant->toArray()]);
             }
 
-            array_push($productArr, array('variants' => $variantArr));
+            array_push($productArr, ['variants' => $variantArr]);
         }
 
         return $productArr;

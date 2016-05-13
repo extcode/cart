@@ -40,7 +40,7 @@ class MapModelPropertiesToTableColumnsViewHelper extends \TYPO3\CMS\Fluid\Core\V
         if (isset($conf['persistence']['classes'][$class]['mapping']) &&
             $conf['persistence']['classes'][$class]['mapping']['tableName'] == $table
         ) {
-            $mapping = array();
+            $mapping = [];
             foreach ($conf['persistence']['classes'][$class]['mapping']['columns'] as $tableColumn => $modelPropertyData) {
                 $modelProperty = $modelPropertyData['mapOnProperty'];
                 $mapping[$modelProperty] = $tableColumn;

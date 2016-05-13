@@ -188,12 +188,12 @@ class BeVariant extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
         if ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['cart']['changeVariantDiscount']) {
             foreach ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['cart']['changeVariantDiscount'] as $funcRef) {
                 if ($funcRef) {
-                    $params = array(
+                    $params = [
                         'price_calc_method' => $this->priceCalcMethod,
                         'price' => &$price,
                         'parent_price' => &$parentPrice,
                         'discount' => &$discount,
-                    );
+                    ];
 
                     \TYPO3\CMS\Core\Utility\GeneralUtility::callUserFunction($funcRef, $params, $this);
                 }
@@ -397,7 +397,7 @@ class BeVariant extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      */
     public function getSku()
     {
-        $skuArray = array();
+        $skuArray = [];
 
         if ($this->getProduct()->getBeVariantAttribute1()) {
             $skuArray[] = $this->getProduct()->getBeVariantAttribute1()->getSku();
@@ -424,7 +424,7 @@ class BeVariant extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      */
     public function getTitle()
     {
-        $titleArray = array();
+        $titleArray = [];
 
         if ($this->getProduct()->getBeVariantAttribute1()) {
             $titleArray[] = $this->getBeVariantAttributeOption1()->getTitle();

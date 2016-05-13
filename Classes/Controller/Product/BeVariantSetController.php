@@ -71,7 +71,7 @@ class BeVariantController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionContro
             $this->configurationManager->getConfiguration(
                 \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK
             );
-        $persistenceConfiguration = array('persistence' => array('storagePid' => $this->pageId));
+        $persistenceConfiguration = ['persistence' => ['storagePid' => $this->pageId]];
         $this->configurationManager->setConfiguration(array_merge($frameworkConfiguration, $persistenceConfiguration));
 
         $this->piVars = $this->request->getArguments();
@@ -111,6 +111,6 @@ class BeVariantController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionContro
 
         //$this->persistenceManager->persistAll();
 
-        $this->redirect('show', null, null, array('beVariant' => $beVariant));
+        $this->redirect('show', null, null, ['beVariant' => $beVariant]);
     }
 }

@@ -613,7 +613,7 @@ abstract class AbstractService
      */
     public function unsetAdditionalArray()
     {
-        $this->additional = array();
+        $this->additional = [];
     }
 
     /**

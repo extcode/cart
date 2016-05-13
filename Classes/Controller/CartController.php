@@ -74,35 +74,35 @@ class CartController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      *
      * @var array
      */
-    protected $gpValues = array();
+    protected $gpValues = [];
 
     /**
      * TaxClasses
      *
      * @var array
      */
-    protected $taxClasses = array();
+    protected $taxClasses = [];
 
     /**
      * Shippings
      *
      * @var array
      */
-    protected $shippings = array();
+    protected $shippings = [];
 
     /**
      * Payments
      *
      * @var array
      */
-    protected $payments = array();
+    protected $payments = [];
 
     /**
      * Specials
      *
      * @var array
      */
-    protected $specials = array();
+    protected $specials = [];
 
     /**
      * Plugin Settings
@@ -129,7 +129,7 @@ class CartController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
             $frameworkConfiguration = $this->configurationManager->getConfiguration(
                 \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK
             );
-            $persistenceConfiguration = array('persistence' => array('storagePid' => $this->pageId));
+            $persistenceConfiguration = ['persistence' => ['storagePid' => $this->pageId]];
             $this->configurationManager->setConfiguration(
                 array_merge($frameworkConfiguration, $persistenceConfiguration)
             );
@@ -158,28 +158,34 @@ class CartController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 
         $this->parseData();
 
-        $assignArguments = array(
+        $assignArguments = [
             'shippings' => $this->shippings,
             'payments' => $this->payments,
             'specials' => $this->specials
-        );
+        ];
         $this->view->assignMultiple($assignArguments);
 
         if ($orderItem == null) {
-            $orderItem = new \Extcode\Cart\Domain\Model\Order\Item();
+            $orderItem = $this->objectManager->get(
+                \Extcode\Cart\Domain\Model\Order\Item::class
+            );
         }
         if ($billingAddress == null) {
-            $billingAddress = new \Extcode\Cart\Domain\Model\Order\Address();
+            $billingAddress = $this->objectManager->get(
+                \Extcode\Cart\Domain\Model\Order\Address::class
+            );
         }
         if ($shippingAddress == null) {
-            $shippingAddress = new \Extcode\Cart\Domain\Model\Order\Address();
+            $shippingAddress = $this->objectManager->get(
+                \Extcode\Cart\Domain\Model\Order\Address::class
+            );
         }
 
-        $assignArguments = array(
+        $assignArguments = [
             'orderItem' => $orderItem,
             'billingAddress' => $billingAddress,
             'shippingAddress' => $shippingAddress
-        );
+        ];
         $this->view->assignMultiple($assignArguments);
     }
 

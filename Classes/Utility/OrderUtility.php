@@ -178,7 +178,7 @@ class OrderUtility
 
         $orderItem->setPid($this->storagePid);
 
-        $orderItem->setFeUser((int) $GLOBALS['TSFE']->fe_user->user['uid']);
+        $orderItem->setFeUser((int)$GLOBALS['TSFE']->fe_user->user['uid']);
 
         $orderItem->setGross($this->cart->getGross());
         $orderItem->setNet($this->cart->getNet());
@@ -234,15 +234,15 @@ class OrderUtility
     {
         // TODO internal stock check
 
-        $data = array(
+        $data = [
             'cart' => $cart,
-        );
+        ];
 
         $signalSlotDispatcher = $this->objectManager->get('TYPO3\\CMS\\Extbase\\SignalSlot\\Dispatcher');
         $signalSlotDispatcher->dispatch(
             __CLASS__,
             'afterInternalCheckStock',
-            array($data)
+            [$data]
         );
     }
 
@@ -253,15 +253,15 @@ class OrderUtility
      */
     public function handleStock(\Extcode\Cart\Domain\Model\Cart\Cart $cart)
     {
-        $data = array(
+        $data = [
             'cart' => $cart,
-        );
+        ];
 
         $signalSlotDispatcher = $this->objectManager->get('TYPO3\\CMS\\Extbase\\SignalSlot\\Dispatcher');
         $signalSlotDispatcher->dispatch(
             __CLASS__,
             'beforeHandleStock',
-            array($data)
+            [$data]
         );
 
         foreach ($cart->getProducts() as $cartProduct) {
@@ -277,15 +277,15 @@ class OrderUtility
 
         $this->persistenceManager->persistAll();
 
-        $data = array(
+        $data = [
             'cart' => $cart,
-        );
+        ];
 
         $signalSlotDispatcher = $this->objectManager->get('TYPO3\\CMS\\Extbase\\SignalSlot\\Dispatcher');
         $signalSlotDispatcher->dispatch(
             __CLASS__,
             'afterHandleStock',
-            array($data)
+            [$data]
         );
     }
 
@@ -302,18 +302,18 @@ class OrderUtility
         $payment = $cart->getPayment();
         $provider = $payment->getAdditional('payment_service');
 
-        $data = array(
+        $data = [
             'orderItem' => $orderItem,
             'cart' => $cart,
             'provider' => $provider
-        );
+        ];
 
         $signalSlotDispatcher = $this->objectManager->get('TYPO3\\CMS\\Extbase\\SignalSlot\\Dispatcher');
         $signalSlotDispatcher->dispatch(
             __CLASS__,
             __FUNCTION__ .
             'AfterOrder',
-            array($data)
+            [$data]
         );
     }
 
@@ -326,7 +326,7 @@ class OrderUtility
      */
     protected function addTaxes($type = 'Tax')
     {
-        $cartTaxes = call_user_func(array($this->cart, 'get' . $type . 'es'));
+        $cartTaxes = call_user_func([$this->cart, 'get' . $type . 'es']);
         foreach ($cartTaxes as $cartTaxKey => $cartTax) {
             /**
              * Order Tax
@@ -340,7 +340,7 @@ class OrderUtility
 
             $this->taxRepository->add($orderTax);
 
-            call_user_func(array($this->orderItem, 'add' . $type), $orderTax);
+            call_user_func([$this->orderItem, 'add' . $type], $orderTax);
         }
     }
 
@@ -445,19 +445,19 @@ class OrderUtility
 
         $additionalArray = $cartProduct->getAdditionalArray();
 
-        $data = array(
+        $data = [
             'cartProduct' => $cartProduct,
             'orderProduct' => &$orderProduct,
             'additionalArray' => &$additionalArray,
             'storagePid' => $this->storagePid,
-        );
+        ];
 
         $signalSlotDispatcher = $this->objectManager->get('TYPO3\\CMS\\Extbase\\SignalSlot\\Dispatcher');
         $signalSlotDispatcher->dispatch(
             __CLASS__,
             __FUNCTION__ .
             'BeforeSetAdditionalData',
-            array($data)
+            [$data]
         );
 
         $orderProduct->setAdditionalData(json_encode($data['additionalArray']));
@@ -591,8 +591,8 @@ class OrderUtility
         );
         $orderProduct->setPid($this->storagePid);
 
-        $skuWithVariants = array();
-        $titleWithVariants = array();
+        $skuWithVariants = [];
+        $titleWithVariants = [];
 
         $variantInner = $variant;
         for ($count = $level; $count > 0; $count--) {
@@ -649,19 +649,19 @@ class OrderUtility
 
         $additionalArray = $cartProduct->getAdditionalArray();
 
-        $data = array(
+        $data = [
             'cartProduct' => $cartProduct,
             'orderProduct' => &$orderProduct,
             'additionalArray' => &$additionalArray,
             'storagePid' => $this->storagePid,
-        );
+        ];
 
         $signalSlotDispatcher = $this->objectManager->get('TYPO3\\CMS\\Extbase\\SignalSlot\\Dispatcher');
         $signalSlotDispatcher->dispatch(
             __CLASS__,
             __FUNCTION__ .
             'BeforeSetAdditionalData',
-            array($data)
+            [$data]
         );
 
         $orderProduct->setAdditionalData(json_encode($data['additionalArray']));
@@ -808,7 +808,7 @@ class OrderUtility
         $registry->set('tx_cart', $registryName, $orderNumber);
 
         $cObjRenderer = GeneralUtility::makeInstance('TYPO3\\CMS\\Frontend\\ContentObject\\ContentObjectRenderer');
-        $cObjRenderer->start(array('orderNumber' => $orderNumber));
+        $cObjRenderer->start(['orderNumber' => $orderNumber]);
         $orderNumber = $cObjRenderer->cObjGetSingle(
             $pluginTypoScriptSettings['orderNumber'],
             $pluginTypoScriptSettings['orderNumber.']
@@ -842,7 +842,7 @@ class OrderUtility
         $registry->set('tx_cart', $registryName, $invoiceNumber);
 
         $cObjRenderer = GeneralUtility::makeInstance('TYPO3\\CMS\\Frontend\\ContentObject\\ContentObjectRenderer');
-        $cObjRenderer->start(array('invoiceNumber' => $invoiceNumber));
+        $cObjRenderer->start(['invoiceNumber' => $invoiceNumber]);
         $invoiceNumber = $cObjRenderer->cObjGetSingle(
             $pluginTypoScriptSettings['invoiceNumber'],
             $pluginTypoScriptSettings['invoiceNumber.']

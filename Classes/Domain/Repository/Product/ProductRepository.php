@@ -30,12 +30,12 @@ class ProductRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
      * @param array $piVars
      * @return Query Object
      */
-    public function findAll($piVars = array())
+    public function findAll($piVars = [])
     {
         // settings
         $query = $this->createQuery();
 
-        $constraints = array();
+        $constraints = [];
 
         // filter
         if (isset($piVars['filter'])) {
@@ -78,10 +78,10 @@ class ProductRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
         $query = $this->createQuery();
         //$query->getQuerySettings()->setRespectStoragePage(false);
 
-        $constraints = array();
+        $constraints = [];
 
         if ((!empty($categories))) {
-            $categoryConstraints = array();
+            $categoryConstraints = [];
             foreach ($categories as $category) {
                 $categoryConstraints[] = $query->contains('categories', $category);
             }

@@ -24,9 +24,9 @@ namespace Extcode\Cart\Domain\Repository\Order;
 class ItemRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
 {
 
-    protected $defaultOrderings = array(
+    protected $defaultOrderings = [
         'uid' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_DESCENDING
-    );
+    ];
 
     /**
      * Find a order by a given orderNumber
@@ -57,14 +57,14 @@ class ItemRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
      *
      * @return object
      */
-    public function findAll(array $piVars = array())
+    public function findAll(array $piVars = [])
     {
         // settings
         $query = $this->createQuery();
 
-        $and = array(
+        $and = [
             $query->equals('deleted', 0)
-        );
+        ];
 
         // filter
         if (isset($piVars['filter'])) {

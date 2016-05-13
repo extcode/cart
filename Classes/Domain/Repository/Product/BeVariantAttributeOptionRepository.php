@@ -30,12 +30,12 @@ class BeVariantAttributeOptionRepository extends \TYPO3\CMS\Extbase\Persistence\
      * @param array $piVars
      * @return Query Object
      */
-    public function findAll($piVars = array())
+    public function findAll($piVars = [])
     {
         // settings
         $query = $this->createQuery();
 
-        $constraints = array();
+        $constraints = [];
 
         // filter
         if (isset($piVars['filter'])) {

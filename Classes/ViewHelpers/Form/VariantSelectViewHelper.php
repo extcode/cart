@@ -41,7 +41,7 @@ class VariantSelectViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractV
              * @var \Extcode\Cart\Domain\Model\Product\BeVariant $beVariant
              */
 
-            $optionLabelArray = array();
+            $optionLabelArray = [];
             if ($product->getBeVariantAttribute1()) {
                 $optionLabelArray[] = $beVariant->getBeVariantAttributeOption1()->getTitle();
             }

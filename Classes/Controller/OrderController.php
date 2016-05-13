@@ -106,7 +106,8 @@ class OrderController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $this->pageId = (int)(GeneralUtility::_GET('id')) ? Utility\GeneralUtility::_GET('id') : 1;
 
         if (TYPO3_MODE === 'BE') {
-            $this->pageinfo = \TYPO3\CMS\Backend\Utility\BackendUtility::readPageAccess($this->id, $GLOBALS['BE_USER']->getPagePermsClause(1));
+            $this->pageinfo = \TYPO3\CMS\Backend\Utility\BackendUtility::readPageAccess($this->id,
+                $GLOBALS['BE_USER']->getPagePermsClause(1));
 
             $configurationManager = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Configuration\\ConfigurationManagerInterface');
 
@@ -114,7 +115,7 @@ class OrderController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
                 $configurationManager->getConfiguration(
                     \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK
                 );
-            $persistenceConfiguration = array('persistence' => array('storagePid' => $this->pageId));
+            $persistenceConfiguration = ['persistence' => ['storagePid' => $this->pageId]];
             $configurationManager->setConfiguration(array_merge($frameworkConfiguration, $persistenceConfiguration));
 
             $this->settings = $configurationManager->getConfiguration(
@@ -138,12 +139,12 @@ class OrderController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 
         $this->view->assign('piVars', $this->piVars);
 
-        $statistics = array(
+        $statistics = [
             'gross' => 0.0,
             'net' => 0.0,
             'orderItemCount' => count($orderItems),
             'orderProductCount' => 0,
-        );
+        ];
 
         foreach ($orderItems as $orderItem) {
             /** @var \Extcode\Cart\Domain\Model\Order\Item $orderItem */
@@ -177,7 +178,7 @@ class OrderController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         if (TYPO3_MODE === 'BE') {
             $orderItems = $this->itemRepository->findAll($this->piVars);
         } else {
-            $feUser = (int) $GLOBALS['TSFE']->fe_user->user['uid'];
+            $feUser = (int)$GLOBALS['TSFE']->fe_user->user['uid'];
             $orderItems = $this->itemRepository->findByFeUser($feUser);
         }
         $this->view->assign('piVars', $this->piVars);
@@ -229,7 +230,7 @@ class OrderController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     public function showAction(\Extcode\Cart\Domain\Model\Order\Item $orderItem)
     {
         if (TYPO3_MODE === 'FE') {
-            $feUser = (int) $GLOBALS['TSFE']->fe_user->user['uid'];
+            $feUser = (int)$GLOBALS['TSFE']->fe_user->user['uid'];
             if ($orderItem->getFeUser() != $feUser) {
                 $this->addFlashMessage(
                     'Access denied.',
@@ -270,7 +271,7 @@ class OrderController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $this->itemRepository->update($orderItem);
         $this->persistenceManager->persistAll();
 
-        $this->redirect('show', null, null, array('orderItem' => $orderItem));
+        $this->redirect('show', null, null, ['orderItem' => $orderItem]);
     }
 
     /**
@@ -343,7 +344,7 @@ class OrderController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         if (is_file($file)) {
             $fileLen = filesize($file);
 
-            $headers = array(
+            $headers = [
                 'Pragma' => 'public',
                 'Expires' => 0,
                 'Cache-Control' => 'must-revalidate, post-check=0, pre-check=0',
@@ -353,7 +354,7 @@ class OrderController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
                 'Content-Disposition' => 'attachment; filename="' . $fileName . '"',
                 'Content-Transfer-Encoding' => 'binary',
                 'Content-Length' => $fileLen
-            );
+            ];
 
             foreach ($headers as $header => $data) {
                 $this->response->setHeader($header, $data);
@@ -403,15 +404,15 @@ class OrderController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 
         $renderer = Utility\GeneralUtility::makeInstance('Tx_WtCartPdf_Utility_Renderer');
 
-        $files = array();
-        $errors = array();
+        $files = [];
+        $errors = [];
 
-        $params = array(
+        $params = [
             'orderItem' => $orderItem,
             'type' => 'invoice',
             'files' => &$files,
             'errors' => &$errors
-        );
+        ];
 
         $renderer->createPdf($params);
 
@@ -455,7 +456,7 @@ class OrderController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      */
     public function getPaymentStatus()
     {
-        $paymentStatusArray = array();
+        $paymentStatusArray = [];
 
         $paymentStatus = new \stdClass();
         $paymentStatus->key = '';
@@ -465,7 +466,7 @@ class OrderController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         );
         $paymentStatusArray[] = $paymentStatus;
 
-        $entries = array('open', 'pending', 'paid', 'canceled');
+        $entries = ['open', 'pending', 'paid', 'canceled'];
         foreach ($entries as $entry) {
             $paymentStatus = new \stdClass();
             $paymentStatus->key = $entry;
@@ -485,7 +486,7 @@ class OrderController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      */
     public function getShippingStatus()
     {
-        $shippingStatusArray = array();
+        $shippingStatusArray = [];
 
         $shippingStatus = new \stdClass();
         $shippingStatus->key = '';
@@ -495,7 +496,7 @@ class OrderController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         );
         $shippingStatusArray[] = $shippingStatus;
 
-        $entries = array('open', 'on_hold', 'in_process', 'shipped');
+        $entries = ['open', 'on_hold', 'in_process', 'shipped'];
         foreach ($entries as $entry) {
             $shippingStatus = new \stdClass();
             $shippingStatus->key = $entry;

@@ -203,7 +203,7 @@ class Coupon extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      */
     public function setCartMinPrice($cartMinPrice)
     {
-         $this->cartMinPrice = $cartMinPrice;
+        $this->cartMinPrice = $cartMinPrice;
     }
 
     /**

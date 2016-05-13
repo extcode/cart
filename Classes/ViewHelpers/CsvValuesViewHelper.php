@@ -34,7 +34,7 @@ class CsvValuesViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewH
      */
     public function render(\Extcode\Cart\Domain\Model\Order\Item $orderItem, $delim = ',', $quote = '"')
     {
-        $orderItemArr = array();
+        $orderItemArr = [];
 
         $orderItemArr[] = $orderItem->getBillingAddress()->getSalutation();
         $orderItemArr[] = $orderItem->getBillingAddress()->getTitle();

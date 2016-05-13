@@ -232,10 +232,10 @@ class Cart
      */
     protected function changeResponseAfterAjaxAddProduct($response = [])
     {
-        $data = array(
+        $data = [
             'cart' => $this->cart,
             'response' => &$response
-        );
+        ];
 
         $signalSlotDispatcher = $this->objectManager->get(
             'TYPO3\\CMS\\Extbase\\SignalSlot\\Dispatcher'
@@ -243,7 +243,7 @@ class Cart
         $signalSlotDispatcher->dispatch(
             __CLASS__,
             'changeResponseAfterAjaxAddProduct',
-            array($data)
+            [$data]
         );
 
         return $response;

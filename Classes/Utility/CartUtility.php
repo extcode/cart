@@ -158,7 +158,7 @@ class CartUtility
 
         $registry->set('tx_cart', $registryName, $orderNumber);
 
-        $cObjRenderer->start(array('orderNumber' => $orderNumber));
+        $cObjRenderer->start(['orderNumber' => $orderNumber]);
         $orderNumber = $cObjRenderer->
         cObjGetSingle($pluginTypoScriptSettings['orderNumber'], $pluginTypoScriptSettings['orderNumber.']);
 
@@ -191,8 +191,8 @@ class CartUtility
             }
         }
 
-        $products = array();
-        $preCartProductSets = array();
+        $products = [];
+        $preCartProductSets = [];
 
         if ($multiple == 1) {
             $preCartProductSets[1] = $this->parserUtility->getPreCartProductSet($pluginSettings, $request);
@@ -210,7 +210,6 @@ class CartUtility
 
         return $products;
     }
-
 
 
     /**
@@ -252,12 +251,12 @@ class CartUtility
             $newCartProduct->setSpecialPrice($preCartProductSetValue['specialPrice']);
         }
 
-        $newVariantArr = array();
+        $newVariantArr = [];
 
         // ToDo: refactor Variant
 
         if ($preCartProductSetValue['beVariants']) {
-            $variantConf = array();
+            $variantConf = [];
             if (isset($this->pluginSettings['repository']) && is_array($this->pluginSettings['repository'])) {
                 $variantConf = $this->pluginSettings;
             } elseif (isset($this->pluginSettings['db']) && is_array($this->pluginSettings['db'])) {
@@ -457,7 +456,7 @@ class CartUtility
 
         $flexformData = GeneralUtility::xml2array($row['pi_flexform']);
 
-        $gpvarArr = array('productId', 'sku', 'title', 'price', 'isNetPrice');
+        $gpvarArr = ['productId', 'sku', 'title', 'price', 'isNetPrice'];
         foreach ($gpvarArr as $gpvarVal) {
             $preCartProductSetValue[$gpvarVal] = $abstractPlugin->pi_getFFvalue(
                 $flexformData,
@@ -510,7 +509,8 @@ class CartUtility
     {
 
         if (isset($this->pluginSettings['repository']) && is_array($this->pluginSettings['repository'])) {
-            return $this->getCartProductDetailsFromRepository($preCartProductSetValue, $this->pluginSettings['repository']);
+            return $this->getCartProductDetailsFromRepository($preCartProductSetValue,
+                $this->pluginSettings['repository']);
         } elseif (isset($this->pluginSettings['db']) && is_array($this->pluginSettings['db'])) {
             return $this->getCartProductDetailsFromTable($preCartProductSetValue, $this->pluginSettings['db']);
         }
@@ -586,7 +586,7 @@ class CartUtility
             }
 
             if ($databaseSettings['additional']) {
-                $preCartProductSetValue['additional'] = array();
+                $preCartProductSetValue['additional'] = [];
                 foreach ($databaseSettings['additional'] as $additionalKey => $additionalValue) {
                     if ($additionalValue['field']) {
                         $preCartProductSetValue['additional'][$additionalKey] = $row[$additionalValue['field']];
@@ -679,21 +679,21 @@ class CartUtility
                 $feVariants = $productObject->$repositoryFields['getFeVariants']();
 
                 if ($feVariants) {
-                    $preCartProductSetValue['feVariants'] = array();
+                    $preCartProductSetValue['feVariants'] = [];
                     foreach ($feVariants as $feVariant) {
                         if ($feVariantValues[$feVariant->getSku()]) {
-                            $preCartProductSetValue['feVariants'][] = array(
+                            $preCartProductSetValue['feVariants'][] = [
                                 'sku' => $feVariant->getSku(),
                                 'title' => $feVariant->getTitle(),
                                 'value' => $feVariantValues[$feVariant->getSku()]
-                            );
+                            ];
                         }
                     }
                 }
             }
 
             if ($repositoryFields['additional.']) {
-                $preCartProductSetValue['additional'] = array();
+                $preCartProductSetValue['additional'] = [];
                 foreach ($repositoryFields['additional.'] as $additionalKey => $additionalValue) {
                     if ($additionalValue['field']) {
                         $preCartProductSetValue['additional'][$additionalKey] = $productObject->$additionalValue['field']();
@@ -819,7 +819,7 @@ class CartUtility
 
         $res = $GLOBALS['TYPO3_DB']->exec_SELECTquery($select, $table, $where, $groupBy, $orderBy, $limit);
 
-        $variantData = array();
+        $variantData = [];
 
         if ($res) {
             $row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res);
@@ -877,7 +877,7 @@ class CartUtility
         $variantRepository = $objectManager->get($repositorySettings['class']);
         $variantObject = $variantRepository->findByUid($variantId);
 
-        $variantData = array();
+        $variantData = [];
         if ($variantObject) {
 
             if (isset($variantObject->$repositorySettings['getTitle'])) {

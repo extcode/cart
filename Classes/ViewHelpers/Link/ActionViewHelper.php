@@ -54,7 +54,7 @@ class ActionViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\Link\ActionViewHelpe
      */
     public function render(
         $action = null,
-        array $arguments = array(),
+        array $arguments = [],
         $controller = null,
         $extensionName = null,
         $pluginName = null,
@@ -65,10 +65,10 @@ class ActionViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\Link\ActionViewHelpe
         $section = '',
         $format = '',
         $linkAccessRestrictedPages = false,
-        array $additionalParams = array(),
+        array $additionalParams = [],
         $absolute = false,
         $addQueryString = false,
-        array $argumentsToBeExcludedFromQueryString = array(),
+        array $argumentsToBeExcludedFromQueryString = [],
         $addQueryStringMethod = null
     ) {
 

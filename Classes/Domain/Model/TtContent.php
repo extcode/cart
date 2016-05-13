@@ -1,4 +1,5 @@
 <?php
+
 namespace Extcode\Cart\Domain\Model;
 
 /**

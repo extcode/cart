@@ -35,7 +35,7 @@ class CsvHeaderViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewH
     public function render($delim = ',', $quote = '"')
     {
 
-        $orderItemArr = array();
+        $orderItemArr = [];
 
         $orderItemArr[] = 'FirstName';
         $orderItemArr[] = 'LastName';

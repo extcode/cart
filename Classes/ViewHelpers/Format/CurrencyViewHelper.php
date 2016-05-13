@@ -33,8 +33,14 @@ class CurrencyViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHe
      * @return string the formatted amount.
      * @api
      */
-    public function render($currencySign=null, $decimalSeparator=null, $thousandsSeparator=null, $prependCurrency=null, $separateCurrency=null, $decimals=null)
-    {
+    public function render(
+        $currencySign = null,
+        $decimalSeparator = null,
+        $thousandsSeparator = null,
+        $prependCurrency = null,
+        $separateCurrency = null,
+        $decimals = null
+    ) {
         $currencyFormat = [];
         $settings = $this->templateVariableContainer->get('settings');
         if ($settings && $settings['format'] && $settings['format']['currency']) {

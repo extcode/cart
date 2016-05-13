@@ -150,7 +150,7 @@ class BeVariant
      *
      * @var array Additional
      */
-    private $additional = array();
+    private $additional = [];
 
     /**
      * __construct
@@ -229,7 +229,7 @@ class BeVariant
      */
     public function toArray()
     {
-        $variantArr = array(
+        $variantArr = [
             'id' => $this->id,
             'sku' => $this->sku,
             'title' => $this->title,
@@ -241,17 +241,17 @@ class BeVariant
             'price_total_net' => $this->net,
             'tax' => $this->tax,
             'additional' => $this->additional
-        );
+        ];
 
         if ($this->beVariants) {
-            $innerVariantArr = array();
+            $innerVariantArr = [];
 
             foreach ($this->beVariants as $variant) {
                 /** @var \Extcode\Cart\Domain\Model\Cart\BeVariant $variant */
-                array_push($innerVariantArr, array($variant->getId() => $variant->toArray()));
+                array_push($innerVariantArr, [$variant->getId() => $variant->toArray()]);
             }
 
-            array_push($variantArr, array('variants' => $innerVariantArr));
+            array_push($variantArr, ['variants' => $innerVariantArr]);
         }
 
         return $variantArr;
@@ -357,12 +357,12 @@ class BeVariant
         if ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['cart']['changeVariantDiscount']) {
             foreach ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['cart']['changeVariantDiscount'] as $funcRef) {
                 if ($funcRef) {
-                    $params = array(
+                    $params = [
                         'price_calc_method' => $this->priceCalcMethod,
                         'price' => &$price,
                         'parent_price' => &$parentPrice,
                         'discount' => &$discount,
-                    );
+                    ];
 
                     GeneralUtility::callUserFunction($funcRef, $params, $this);
                 }
@@ -403,12 +403,12 @@ class BeVariant
         if ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['cart']['changeVariantDiscount']) {
             foreach ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['cart']['changeVariantDiscount'] as $funcRef) {
                 if ($funcRef) {
-                    $params = array(
+                    $params = [
                         'price_calc_method' => $this->priceCalcMethod,
                         'price' => &$price,
                         'parent_price' => &$parentPrice,
                         'discount' => &$discount,
-                    );
+                    ];
 
                     GeneralUtility::callUserFunction($funcRef, $params, $this);
                 }

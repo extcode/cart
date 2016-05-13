@@ -1,6 +1,6 @@
 <?php
 
-$EM_CONF[$_EXTKEY] = array(
+$EM_CONF[$_EXTKEY] = [
     'title' => 'Cart',
     'description' => 'Adds shopping cart(s) to your TYPO3 installation',
     'category' => 'plugin',
@@ -22,11 +22,12 @@ $EM_CONF[$_EXTKEY] = array(
     'author_company' => 'extco.de UG (haftungsbeschränkt)',
     'CGLcompliance' => null,
     'CGLcompliance_note' => null,
-    'constraints' => array(
-        'depends' => array(
+    'constraints' => [
+        'depends' => [
             'typo3' => '6.2.0-7.99.99',
-        ),
-        'conflicts' => array(),
-        'suggests' => array(),
-    ),
-);
+            'php' => '5.4.0-7.0.99'
+        ],
+        'conflicts' => [],
+        'suggests' => [],
+    ],
+];

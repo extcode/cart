@@ -31,14 +31,14 @@ class ProductRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
      *
      * @return object
      */
-    public function findAll(array $piVars = array())
+    public function findAll(array $piVars = [])
     {
         // settings
         $query = $this->createQuery();
 
-        $and = array(
+        $and = [
             $query->equals('deleted', 0)
-        );
+        ];
 
         // filter
         if (isset($piVars['filter'])) {

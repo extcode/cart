@@ -43,7 +43,7 @@ class ParserUtility
      */
     public function parseTaxClasses(array $pluginSettings)
     {
-        $taxClasses = array();
+        $taxClasses = [];
 
         if (isset($pluginSettings['taxClassRepository']) && is_array($pluginSettings['taxClassRepository'])) {
             $taxClasses = $this->parseTaxClassesFromRepository($pluginSettings['taxClassRepository']);
@@ -63,7 +63,7 @@ class ParserUtility
      */
     protected function parseTaxClassesFromTypoScript(array $taxClassSettings)
     {
-        $taxClasses = array();
+        $taxClasses = [];
 
         foreach ($taxClassSettings as $taxClassKey => $taxClassValue) {
             $taxClasses[$taxClassKey] = new \Extcode\Cart\Domain\Model\Cart\TaxClass(
@@ -86,7 +86,7 @@ class ParserUtility
      */
     protected function parseTaxClassesFromRepository(array $taxClassRepositorySettings)
     {
-        $taxes = array();
+        $taxes = [];
 
         $objectManager = GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager');
         $taxClassRepository = $objectManager->get($taxClassRepositorySettings['class']);
@@ -120,7 +120,7 @@ class ParserUtility
      */
     public function parseServices($className, array $pluginSettings, \Extcode\Cart\Domain\Model\Cart\Cart $cart)
     {
-        $services = array();
+        $services = [];
         $type = strtolower($className) . 's';
 
         if ($pluginSettings[$type]['options']) {
@@ -188,7 +188,7 @@ class ParserUtility
                     $service->setIsPreset(true);
                 }
 
-                $additional = array();
+                $additional = [];
                 if ($value['additional.']) {
                     foreach ($value['additional'] as $additionalKey => $additionalValue) {
                         if ($additionalValue['value']) {
@@ -219,7 +219,7 @@ class ParserUtility
             $this->pluginSettings = $pluginSettings;
         }
 
-        $productValueSet = array();
+        $productValueSet = [];
 
         if ($request->hasArgument('productId')) {
             $productValueSet['productId'] = intval($request->getArgument('productId'));

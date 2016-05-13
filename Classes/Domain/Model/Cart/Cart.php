@@ -155,7 +155,7 @@ class Cart
      *
      * @var array
      */
-    private $additional = array();
+    private $additional = [];
 
     /**
      * Order Id
@@ -169,7 +169,7 @@ class Cart
      *
      * @var \Extcode\Cart\Domain\Model\Cart\AbstractCoupon[]
      */
-    private $coupons = array();
+    private $coupons = [];
 
     /**
      * __construct
@@ -185,7 +185,7 @@ class Cart
         $this->net = 0.0;
         $this->gross = 0.0;
         $this->count = 0;
-        $this->products = array();
+        $this->products = [];
 
         $this->maxServiceAttr1 = 0.0;
         $this->maxServiceAttr2 = 0.0;
@@ -204,7 +204,7 @@ class Cart
      */
     public function __sleep()
     {
-        return array(
+        return [
             'taxClasses',
             'net',
             'gross',
@@ -227,7 +227,7 @@ class Cart
             'orderNumber',
             'invoiceNumber',
             'additional'
-        );
+        ];
     }
 
     /**
@@ -443,7 +443,7 @@ class Cart
      */
     public function getServiceTaxes()
     {
-        $taxes = array();
+        $taxes = [];
 
         if ($this->payment) {
             $tax = $this->payment->getTax();
@@ -710,7 +710,7 @@ class Cart
      */
     public function toArray()
     {
-        $cartArray = array(
+        $cartArray = [
             'net' => $this->net,
             'gross' => $this->gross,
             'count' => $this->count,
@@ -722,7 +722,7 @@ class Cart
             'sumServiceAttribute2' => $this->sumServiceAttr2,
             'sumServiceAttribute3' => $this->sumServiceAttr3,
             'additional' => $this->additional
-        );
+        ];
 
         if ($this->payment) {
             $cartArray['payment'] = $this->payment->getName();
@@ -733,7 +733,7 @@ class Cart
         }
 
         if ($this->specials) {
-            $specials = array();
+            $specials = [];
             foreach ($this->specials as $special) {
                 $specials[] = $special->getName();
             }
@@ -792,7 +792,7 @@ class Cart
         if ($this->coupons[$coupon->getCode()]) {
             $returnCode = -1;
         } else {
-            if ((!empty($this->coupons)) && ( !$this->areCouponsCombinable() || !$coupon->getIsCombinable())) {
+            if ((!empty($this->coupons)) && (!$this->areCouponsCombinable() || !$coupon->getIsCombinable())) {
                 $returnCode = -2;
             } else {
                 $coupon->setCart($this);
@@ -856,7 +856,7 @@ class Cart
      */
     public function getCouponTaxes()
     {
-        $taxes = array();
+        $taxes = [];
 
         if ($this->coupons) {
             foreach ($this->coupons as $coupon) {
@@ -1218,7 +1218,7 @@ class Cart
      */
     private function calcTax()
     {
-        $this->taxes = array();
+        $this->taxes = [];
         if ($this->products) {
             foreach ($this->products as $product) {
                 $this->addTax($product->getTax(), $product->getTaxClass());
@@ -1258,7 +1258,7 @@ class Cart
      */
     public function unsetAdditionalArray()
     {
-        $this->additional = array();
+        $this->additional = [];
     }
 
     /**
@@ -1350,7 +1350,7 @@ class Cart
 
         if ($this->products) {
             foreach ($this->products as $product) {
-                if (! $product->getQuantityIsInRange()) {
+                if (!$product->getQuantityIsInRange()) {
                     $isOrderable = false;
                     break;
                 }

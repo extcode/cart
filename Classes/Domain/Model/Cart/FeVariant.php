@@ -44,7 +44,7 @@ class FeVariant
      *
      * @var array
      */
-    private $variantData = array();
+    private $variantData = [];
 
     /**
      * Title Glue
@@ -69,7 +69,7 @@ class FeVariant
      * @return \Extcode\Cart\Domain\Model\Cart\FeVariant
      */
     public function __construct(
-        $variantData = array()
+        $variantData = []
     ) {
         $this->variantData = $variantData;
     }
@@ -101,7 +101,8 @@ class FeVariant
     /**
      * @return array
      */
-    public function getVariantData() {
+    public function getVariantData()
+    {
         return $this->variantData;
     }
 
@@ -110,7 +111,7 @@ class FeVariant
      */
     public function getTitle()
     {
-        $titleArr = array();
+        $titleArr = [];
         foreach ($this->variantData as $variant) {
             $titleArr[] = $variant['title'];
         }
@@ -122,7 +123,7 @@ class FeVariant
      */
     public function getSku()
     {
-        $skuArr = array();
+        $skuArr = [];
         foreach ($this->variantData as $variant) {
             $skuArr[] = $variant['sku'];
         }
@@ -134,7 +135,7 @@ class FeVariant
      */
     public function getValue()
     {
-        $valueArr = array();
+        $valueArr = [];
         foreach ($this->variantData as $variant) {
             $valueArr[] = $variant['value'];
         }

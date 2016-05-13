@@ -46,17 +46,17 @@ class CategoryRepository extends \TYPO3\CMS\Extbase\Domain\Repository\CategoryRe
     public function findAllAsArray($selectedCategory = null)
     {
         $localCategories = $this->findAll();
-        $categories = array();
+        $categories = [];
         // Transform categories to array
         foreach ($localCategories as $localCategory) {
-            $newCategory = array(
+            $newCategory = [
                 'uid' => $localCategory->getUid(),
                 'title' => $localCategory->getTitle(),
                 'parent' =>
                     ($localCategory->getParent() ? $localCategory->getParent()->getUid() : null),
                 'subcategories' => null,
                 'isSelected' => ($selectedCategory == $localCategory ? true : false)
-            );
+            ];
             $categories[] = $newCategory;
         }
         return $categories;
@@ -70,7 +70,7 @@ class CategoryRepository extends \TYPO3\CMS\Extbase\Domain\Repository\CategoryRe
      */
     public function findSubcategoriesRecursiveAsArray($parentCategory)
     {
-        $categories = array();
+        $categories = [];
         $localCategories = $this->findAllAsArray();
         foreach ($localCategories as $category) {
             if (($parentCategory && $category['uid'] == $parentCategory->getUid())
