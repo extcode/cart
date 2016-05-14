@@ -28,12 +28,10 @@ use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
  */
 class OrderController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 {
-
     /**
      * Persistence Manager
      *
      * @var \TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager
-     * @inject
      */
     protected $persistenceManager;
 
@@ -41,7 +39,6 @@ class OrderController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      * Order Item Repository
      *
      * @var \Extcode\Cart\Domain\Repository\Order\ItemRepository
-     * @inject
      */
     protected $itemRepository;
 
@@ -49,23 +46,81 @@ class OrderController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      * Order Utility
      *
      * @var \Extcode\Cart\Utility\OrderUtility
-     * @inject
      */
     protected $orderUtility;
 
     /**
-     * Page Id
-     *
-     * @var int
-     */
-    protected $pageId;
-
-    /**
-     * PiVars
+     * Search Arguments
      *
      * @var array
      */
-    protected $piVars;
+    protected $searchArguments;
+
+    /**
+     * @param \TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager $persistenceManager
+     */
+    public function injectPersistenceManager(
+        \TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager $persistenceManager
+    ) {
+        $this->persistenceManager = $persistenceManager;
+    }
+
+    /**
+     * @param \Extcode\Cart\Domain\Repository\Order\ItemRepository $itemRepository
+     */
+    public function injectItemRepository(
+        \Extcode\Cart\Domain\Repository\Order\ItemRepository $itemRepository
+    ) {
+        $this->itemRepository = $itemRepository;
+    }
+
+    /**
+     * @param \Extcode\Cart\Utility\OrderUtility $orderUtility
+     */
+    public function injectOrderUtility(
+        \Extcode\Cart\Utility\OrderUtility $orderUtility
+    ) {
+        $this->orderUtility = $orderUtility;
+    }
+
+    /**
+     * Initialize Action
+     *
+     * @return void
+     */
+    protected function initializeAction()
+    {
+        if (TYPO3_MODE === 'BE') {
+            $pageId = (int)(GeneralUtility::_GET('id')) ? Utility\GeneralUtility::_GET('id') : 1;
+
+            $this->pageinfo = \TYPO3\CMS\Backend\Utility\BackendUtility::readPageAccess(
+                $pageId,
+                $GLOBALS['BE_USER']->getPagePermsClause(1)
+            );
+
+            $configurationManager = $this->objectManager->get(
+                'TYPO3\\CMS\\Extbase\\Configuration\\ConfigurationManagerInterface'
+            );
+
+            $frameworkConfiguration =
+                $configurationManager->getConfiguration(
+                    \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK
+                );
+            $persistenceConfiguration = ['persistence' => ['storagePid' => $pageId]];
+            $configurationManager->setConfiguration(array_merge($frameworkConfiguration, $persistenceConfiguration));
+
+            $this->settings = $configurationManager->getConfiguration(
+                \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_SETTINGS,
+                $this->request->getControllerExtensionName(),
+                $this->request->getPluginName()
+            );
+
+            $arguments = $this->request->getArguments();
+            if ($arguments['search']) {
+                $this->searchArguments = $arguments['search'];
+            }
+        }
+    }
 
     /**
      * Initialize Update Action
@@ -93,51 +148,15 @@ class OrderController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     }
 
     /**
-     * Initialize Action
-     *
-     * @return void
-     */
-    protected function initializeAction()
-    {
-        if (!$this->persistenceManager) {
-            $this->persistenceManager = $this->objectManager->get('TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager');
-        }
-
-        $this->pageId = (int)(GeneralUtility::_GET('id')) ? Utility\GeneralUtility::_GET('id') : 1;
-
-        if (TYPO3_MODE === 'BE') {
-            $this->pageinfo = \TYPO3\CMS\Backend\Utility\BackendUtility::readPageAccess($this->id,
-                $GLOBALS['BE_USER']->getPagePermsClause(1));
-
-            $configurationManager = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Configuration\\ConfigurationManagerInterface');
-
-            $frameworkConfiguration =
-                $configurationManager->getConfiguration(
-                    \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK
-                );
-            $persistenceConfiguration = ['persistence' => ['storagePid' => $this->pageId]];
-            $configurationManager->setConfiguration(array_merge($frameworkConfiguration, $persistenceConfiguration));
-
-            $this->settings = $configurationManager->getConfiguration(
-                \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_SETTINGS,
-                $this->request->getControllerExtensionName(),
-                $this->request->getPluginName()
-            );
-        }
-
-        $this->piVars = $this->request->getArguments();
-    }
-
-    /**
      * Statistic Action
      *
      * @return void
      */
     public function statisticAction()
     {
-        $orderItems = $this->itemRepository->findAll($this->piVars);
+        $orderItems = $this->itemRepository->findAll($this->searchArguments);
 
-        $this->view->assign('piVars', $this->piVars);
+        $this->view->assign('searchArguments', $this->searchArguments);
 
         $statistics = [
             'gross' => 0.0,
@@ -176,12 +195,12 @@ class OrderController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     public function listAction()
     {
         if (TYPO3_MODE === 'BE') {
-            $orderItems = $this->itemRepository->findAll($this->piVars);
+            $orderItems = $this->itemRepository->findAll($this->searchArguments);
         } else {
             $feUser = (int)$GLOBALS['TSFE']->fe_user->user['uid'];
             $orderItems = $this->itemRepository->findByFeUser($feUser);
         }
-        $this->view->assign('piVars', $this->piVars);
+        $this->view->assign('searchArguments', $this->searchArguments);
         $this->view->assign('orderItems', $orderItems);
 
         $this->view->assign('paymentStatus', $this->getPaymentStatus());
@@ -209,9 +228,9 @@ class OrderController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
                 true);
         }
 
-        $orderItems = $this->itemRepository->findAll($this->piVars);
+        $orderItems = $this->itemRepository->findAll($this->searchArguments);
 
-        $this->view->assign('piVars', $this->piVars);
+        $this->view->assign('searchArguments', $this->searchArguments);
         $this->view->assign('orderItems', $orderItems);
 
         $pdfRendererInstalled = Utility\ExtensionManagementUtility::isLoaded('wt_cart_pdf');
@@ -382,7 +401,9 @@ class OrderController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         /**
          * @var \TYPO3\CMS\Extbase\Service\TypoScriptService $typoScriptService
          */
-        $typoScriptService = GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Service\\TypoScriptService');
+        $typoScriptService = $this->objectManager->get(
+            \TYPO3\CMS\Extbase\Service\TypoScriptService::class
+        );
         $pluginTypoScriptSettings = $typoScriptService->convertTypoScriptArrayToPlainArray($cartConf);
 
         $invoiceNumber = $this->orderUtility->getInvoiceNumber($pluginTypoScriptSettings);
@@ -399,25 +420,22 @@ class OrderController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      */
     protected function generateInvoiceDocument(\Extcode\Cart\Domain\Model\Order\Item $orderItem)
     {
+        $extensionManagerUtility = $this->objectManager->get(
+            \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::class
+        );
 
-        $this->buildTSFE($orderItem->getPid());
+        if ($extensionManagerUtility->isLoaded('cart_order_pdf')) {
+            $this->buildTSFE($orderItem->getPid());
 
-        $renderer = Utility\GeneralUtility::makeInstance('Tx_WtCartPdf_Utility_Renderer');
+            $orderPdf = $this->objectManager->get(
+                \Extcode\CartOrderPdf\Utility\OrderPdf::class
+            );
 
-        $files = [];
-        $errors = [];
+            $pdf = $orderPdf->createPdf($orderItem, 'invoice');
 
-        $params = [
-            'orderItem' => $orderItem,
-            'type' => 'invoice',
-            'files' => &$files,
-            'errors' => &$errors
-        ];
-
-        $renderer->createPdf($params);
-
-        if ($params['files']['invoice']) {
-            $orderItem->setInvoicePdf($params['files']['invoice']);
+            if ($pdf) {
+                $orderItem->setInvoicePdf($pdf);
+            }
         }
     }
 

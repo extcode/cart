@@ -47,34 +47,20 @@ class BeVariantController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionContro
     protected $configurationManager;
 
     /**
-     * @var int Current page
-     */
-    protected $pageId;
-
-    /**
-     * piVars
-     *
-     * @var array
-     */
-    protected $piVars;
-
-    /**
      * Action initializer
      *
      * @return void
      */
     protected function initializeAction()
     {
-        $this->pageId = (int)\TYPO3\CMS\Core\Utility\GeneralUtility::_GP('id');
+        $pageId = (int)\TYPO3\CMS\Core\Utility\GeneralUtility::_GP('id');
 
         $frameworkConfiguration =
             $this->configurationManager->getConfiguration(
                 \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK
             );
-        $persistenceConfiguration = ['persistence' => ['storagePid' => $this->pageId]];
+        $persistenceConfiguration = ['persistence' => ['storagePid' => $pageId]];
         $this->configurationManager->setConfiguration(array_merge($frameworkConfiguration, $persistenceConfiguration));
-
-        $this->piVars = $this->request->getArguments();
     }
 
     /**

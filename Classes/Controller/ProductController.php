@@ -23,12 +23,10 @@ namespace Extcode\Cart\Controller;
  */
 class ProductController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 {
-
     /**
      * productRepository
      *
      * @var \Extcode\Cart\Domain\Repository\Product\ProductRepository
-     * @inject
      */
     protected $productRepository;
 
@@ -36,27 +34,33 @@ class ProductController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
      * categoryRepository
      *
      * @var \Extcode\Cart\Domain\Repository\CategoryRepository
-     * @inject
      */
     protected $categoryRepository;
 
     /**
-     * @var \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface
-     * @inject
-     */
-    protected $configurationManager;
-
-    /**
-     * @var int Current page
-     */
-    protected $pageId;
-
-    /**
-     * piVars
+     * Search Arguments
      *
      * @var array
      */
-    protected $piVars;
+    protected $searchArguments;
+
+    /**
+     * @param \Extcode\Cart\Domain\Repository\Product\ProductRepository $productRepository
+     */
+    public function injectProductRepository(
+        \Extcode\Cart\Domain\Repository\Product\ProductRepository $productRepository
+    ) {
+        $this->$productRepository = $productRepository;
+    }
+
+    /**
+     * @param \Extcode\Cart\Domain\Repository\CategoryRepository $categoryRepository
+     */
+    public function injectCategoryRepository(
+        \Extcode\Cart\Domain\Repository\CategoryRepository $categoryRepository
+    ) {
+        $this->categoryRepository = $categoryRepository;
+    }
 
     /**
      * Action initializer
@@ -65,16 +69,22 @@ class ProductController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
      */
     protected function initializeAction()
     {
-        $this->pageId = (int)\TYPO3\CMS\Core\Utility\GeneralUtility::_GP('id');
+        if (TYPO3_MODE === 'BE') {
+            $pageId = (int)\TYPO3\CMS\Core\Utility\GeneralUtility::_GP('id');
 
-        $frameworkConfiguration =
-            $this->configurationManager->getConfiguration(
-                \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK
-            );
-        $persistenceConfiguration = ['persistence' => ['storagePid' => $this->pageId]];
-        $this->configurationManager->setConfiguration(array_merge($frameworkConfiguration, $persistenceConfiguration));
+            $frameworkConfiguration =
+                $this->configurationManager->getConfiguration(
+                    \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK
+                );
+            $persistenceConfiguration = ['persistence' => ['storagePid' => $pageId]];
+            $this->configurationManager->setConfiguration(array_merge($frameworkConfiguration,
+                $persistenceConfiguration));
 
-        $this->piVars = $this->request->getArguments();
+            $arguments = $this->request->getArguments();
+            if ($arguments['search']) {
+                $this->searchArguments = $arguments['search'];
+            }
+        }
     }
 
     /**
@@ -107,10 +117,10 @@ class ProductController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 
             $products = $this->productRepository->findByCategories($categories);
         } else {
-            $products = $this->productRepository->findAll($this->piVars);
+            $products = $this->productRepository->findAll($this->searchArguments);
         }
 
-        $this->view->assign('piVars', $this->piVars);
+        $this->view->assign('searchArguments', $this->searchArguments);
         $this->view->assign('products', $products);
     }
 

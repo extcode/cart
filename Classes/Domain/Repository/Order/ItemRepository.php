@@ -15,6 +15,8 @@ namespace Extcode\Cart\Domain\Repository\Order;
  * The TYPO3 project - inspiring people to share!
  */
 
+use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
+
 /**
  * Order Item Repository
  *
@@ -23,7 +25,6 @@ namespace Extcode\Cart\Domain\Repository\Order;
  */
 class ItemRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
 {
-
     protected $defaultOrderings = [
         'uid' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_DESCENDING
     ];
@@ -33,7 +34,7 @@ class ItemRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
      *
      * @param string $orderNumber Order Number
      *
-     * @return object
+     * @return QueryResultInterface|array
      */
     public function findOneByOrderNumber($orderNumber)
     {
@@ -51,13 +52,13 @@ class ItemRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
     }
 
     /**
-     * Find all orders
+     * Find all orders filtered by $searchArguments
      *
-     * @param array $piVars Plugin Variables
+     * @param array $searchArguments
      *
-     * @return object
+     * @return QueryResultInterface|array
      */
-    public function findAll(array $piVars = [])
+    public function findAll($searchArguments = [])
     {
         // settings
         $query = $this->createQuery();
@@ -67,8 +68,8 @@ class ItemRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
         ];
 
         // filter
-        if (isset($piVars['filter'])) {
-            foreach ((array)$piVars['filter'] as $field => $value) {
+        if (isset($searchArguments)) {
+            foreach ((array)$searchArguments as $field => $value) {
                 if (empty($value)) {
                     continue;
                 }

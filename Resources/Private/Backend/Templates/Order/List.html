@@ -3,7 +3,7 @@
 <f:section name="actions">
     <span class="btn btn-default btn-sm">
         <f:be.buttons.icon
-                uri="{f:uri.action(action:'export', arguments:{format: 'csv', filter: piVars.filter})}"
+                uri="{f:uri.action(action:'export', arguments:{format: 'csv', filter: arguments.filter})}"
                 icon="actions-document-export-csv"/>
     </span>
 </f:section>
@@ -12,7 +12,7 @@
     <f:flashMessages/>
 
     <f:render partial="Order/Filter/List"
-              arguments="{piVars: piVars, action: 'list', paymentStatus: paymentStatus, shippingStatus: shippingStatus}"/>
+              arguments="{searchArguments: searchArguments, action: 'list', paymentStatus: paymentStatus, shippingStatus: shippingStatus}"/>
 
     <div class="clear"></div>
 
@@ -70,7 +70,7 @@
                     <f:for each="{paginatedOrderItems}" as="orderItem">
                         <f:cycle values="{0: 'even', 1: 'odd'}" as="cycle">
                             <f:render partial="Order/List/Item"
-                                      arguments="{orderItem: orderItem, cycle:cycle, piVars: piVars}"/>
+                                      arguments="{orderItem: orderItem, cycle:cycle, arguments: arguments}"/>
                         </f:cycle>
                     </f:for>
                     </tbody>

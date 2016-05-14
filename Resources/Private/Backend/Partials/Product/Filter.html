@@ -1,20 +1,20 @@
 <div class="tx_cart_module_products_filter">
     <div class="tx_cart_module_products_filter_inner">
 
-        <f:form action="{action}" name="filter" id="cartproduct_module_search">
+        <f:form action="{action}" name="search" id="cartproduct_module_search">
             <div>
                 <label for="sku">
                     <f:translate key="tx_cart_domain_model_product.filter.sku"/>
                     :
                 </label>
-                <f:form.textfield property="sku" id="sku" value="{piVars.filter.sku}"/>
+                <f:form.textfield property="sku" id="sku" value="{searchArguments.sku}"/>
             </div>
             <div>
                 <label for="title">
                     <f:translate key="tx_cart_domain_model_product.filter.title"/>
                     :
                 </label>
-                <f:form.textfield property="title" id="title" value="{piVars.filter.title}"/>
+                <f:form.textfield property="title" id="title" value="{searchArguments.title}"/>
             </div>
             <div class="right">
                 <f:form.submit value="{f:translate(key: 'tx_cart.module.action.filter')}"

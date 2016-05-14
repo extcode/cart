@@ -7,14 +7,14 @@
                     <f:translate key="tx_cartproduct_domain_model_product.filter.sku"/>
                     :
                 </label>
-                <f:form.textfield property="sku" id="sku" value="{piVars.filter.sku}"/>
+                <f:form.textfield property="sku" id="sku" value="{arguments.filter.sku}"/>
             </div>
             <div>
                 <label for="title">
                     <f:translate key="tx_cartproduct_domain_model_product.filter.title"/>
                     :
                 </label>
-                <f:form.textfield property="title" id="title" value="{piVars.filter.title}"/>
+                <f:form.textfield property="title" id="title" value="{arguments.filter.title}"/>
             </div>
             <div class="right">
                 <f:form.submit value="{f:translate(key: 'tx_cartproduct.module.action.filter')}"

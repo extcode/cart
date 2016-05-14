@@ -23,18 +23,15 @@ namespace Extcode\Cart\Controller;
  */
 class CartController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 {
-
     /**
      * Session Handler
      *
      * @var \Extcode\Cart\Service\SessionHandler
-     * @inject
      */
     protected $sessionHandler;
 
     /**
      * @var \Extcode\Cart\Domain\Repository\Product\CouponRepository
-     * @inject
      */
     protected $couponRepository;
 
@@ -42,7 +39,6 @@ class CartController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      * Cart Utility
      *
      * @var \Extcode\Cart\Utility\CartUtility
-     * @inject
      */
     protected $cartUtility;
 
@@ -50,7 +46,6 @@ class CartController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      * Order Utility
      *
      * @var \Extcode\Cart\Utility\OrderUtility
-     * @inject
      */
     protected $orderUtility;
 
@@ -58,7 +53,6 @@ class CartController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      * Parser Utility
      *
      * @var \Extcode\Cart\Utility\ParserUtility
-     * @inject
      */
     protected $parserUtility;
 
@@ -112,6 +106,50 @@ class CartController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     protected $pluginSettings;
 
     /**
+     * @param \Extcode\Cart\Service\SessionHandler $sessionHandler
+     */
+    public function injectSessionHandler(\Extcode\Cart\Service\SessionHandler $sessionHandler)
+    {
+        $this->sessionHandler = $sessionHandler;
+    }
+
+    /**
+     * @param \Extcode\Cart\Domain\Repository\Product\CouponRepository $couponRepository
+     */
+    public function injectCouponRepository(
+        \Extcode\Cart\Domain\Repository\Product\CouponRepository $couponRepository
+    ) {
+        $this->couponRepository = $couponRepository;
+    }
+
+    /**
+     * @param \Extcode\Cart\Utility\CartUtility $cartUtility
+     */
+    public function injectCartUtility(
+        \Extcode\Cart\Utility\CartUtility $cartUtility
+    ) {
+        $this->cartUtility = $cartUtility;
+    }
+
+    /**
+     * @param \Extcode\Cart\Utility\OrderUtility $orderUtility
+     */
+    public function injectOrderUtility(
+        \Extcode\Cart\Utility\OrderUtility $orderUtility
+    ) {
+        $this->orderUtility = $orderUtility;
+    }
+
+    /**
+     * @param \Extcode\Cart\Utility\ParserUtility $parserUtility
+     */
+    public function injectParserUtility(
+        \Extcode\Cart\Utility\ParserUtility $parserUtility
+    ) {
+        $this->parserUtility = $parserUtility;
+    }
+
+    /**
      * Action initialize
      *
      * @return void
@@ -123,19 +161,18 @@ class CartController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
                 \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK
             );
 
-        $this->pageId = (int)\TYPO3\CMS\Core\Utility\GeneralUtility::_GP('id');
 
         if (TYPO3_MODE === 'BE') {
+            $pageId = (int)\TYPO3\CMS\Core\Utility\GeneralUtility::_GP('id');
+
             $frameworkConfiguration = $this->configurationManager->getConfiguration(
                 \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK
             );
-            $persistenceConfiguration = ['persistence' => ['storagePid' => $this->pageId]];
+            $persistenceConfiguration = ['persistence' => ['storagePid' => $pageId]];
             $this->configurationManager->setConfiguration(
                 array_merge($frameworkConfiguration, $persistenceConfiguration)
             );
         }
-
-        $this->piVars = $this->request->getArguments();
     }
 
     /**
@@ -283,7 +320,8 @@ class CartController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
             $couponCode = $this->request->getArgument('couponCode');
             $coupon = $this->couponRepository->findOneByCode($couponCode);
             if ($coupon) {
-                $newCartCoupon = new \Extcode\Cart\Domain\Model\Cart\CartCoupon(
+                $newCartCoupon = $this->objectManager->get(
+                    \Extcode\Cart\Domain\Model\Cart\CartCoupon::class,
                     $coupon->getTitle(),
                     $coupon->getCode(),
                     $coupon->getDiscount(),
@@ -498,7 +536,9 @@ class CartController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         \Extcode\Cart\Domain\Model\Order\Address $billingAddress,
         \Extcode\Cart\Domain\Model\Order\Address $shippingAddress = null
     ) {
-        $mailHandler = $this->objectManager->get('Extcode\Cart\Service\MailHandler');
+        $mailHandler = $this->objectManager->get(
+            \Extcode\Cart\Service\MailHandler::class
+        );
         $mailHandler->setCart($this->cart);
         $mailHandler->sendBuyerMail($orderItem, $billingAddress, $shippingAddress);
     }
@@ -517,7 +557,9 @@ class CartController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         \Extcode\Cart\Domain\Model\Order\Address $billingAddress,
         \Extcode\Cart\Domain\Model\Order\Address $shippingAddress = null
     ) {
-        $mailHandler = $this->objectManager->get('Extcode\Cart\Service\MailHandler');
+        $mailHandler = $this->objectManager->get(
+            \Extcode\Cart\Service\MailHandler::class
+        );
         $mailHandler->setCart($this->cart);
         $mailHandler->sendSellerMail($orderItem, $billingAddress, $shippingAddress);
     }

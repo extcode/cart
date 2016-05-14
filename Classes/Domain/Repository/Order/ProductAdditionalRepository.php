@@ -15,6 +15,8 @@ namespace Extcode\Cart\Domain\Repository\Order;
  * The TYPO3 project - inspiring people to share!
  */
 
+use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
+
 /**
  * Order ProductAdditional Repository
  *
@@ -23,16 +25,15 @@ namespace Extcode\Cart\Domain\Repository\Order;
  */
 class ProductAdditionalRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
 {
-
     /**
      * Count all by Category
      *
-     * @param array $piVars Plugin Variables
+     * @param array $arguments Plugin Variables
      * @param string $additionalType
      *
-     * @return object
+     * @return QueryResultInterface|array
      */
-    public function findAllByAdditionalType(array $piVars = [], $additionalType)
+    public function findAllByAdditionalType(array $arguments = [], $additionalType)
     {
         // settings
         $query = $this->createQuery();
@@ -43,8 +44,8 @@ class ProductAdditionalRepository extends \TYPO3\CMS\Extbase\Persistence\Reposit
         ];
 
         // filter
-        if (isset($piVars['filter'])) {
-            foreach ((array)$piVars['filter'] as $field => $value) {
+        if (isset($arguments['filter'])) {
+            foreach ((array)$arguments['filter'] as $field => $value) {
                 if ($field == 'start' && !empty($value)) {
                     $and[] = $query->greaterThan('crdate', strtotime($value));
                 } elseif ($field == 'stop' && !empty($value)) {

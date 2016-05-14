@@ -8,7 +8,7 @@
 <f:section name="content">
     <f:flashMessages renderMode="div"/>
 
-    <f:render partial="Product/Filter" arguments="{piVars: piVars, action: 'list'}"/>
+    <f:render partial="Product/Filter" arguments="{searchArguments: searchArguments, action: 'list'}"/>
 
     <div class="table-fit">
         <table class="table table-striped typo3-dblist">

@@ -15,6 +15,8 @@ namespace Extcode\Cart\Domain\Repository\Product;
  * The TYPO3 project - inspiring people to share!
  */
 
+use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
+
 /**
  * Product BeVariantAttribute Repository
  *
@@ -23,14 +25,14 @@ namespace Extcode\Cart\Domain\Repository\Product;
  */
 class BeVariantAttributeRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
 {
-
     /**
-     * Finds objects filtered by $piVars['filter']
+     * Finds objects filtered by $arguments['filter']
      *
-     * @param array $piVars
-     * @return Query Object
+     * @param array $arguments
+     *
+     * @return QueryResultInterface|array
      */
-    public function findAll($piVars = [])
+    public function findAll($arguments = [])
     {
         // settings
         $query = $this->createQuery();
@@ -38,8 +40,8 @@ class BeVariantAttributeRepository extends \TYPO3\CMS\Extbase\Persistence\Reposi
         $constraints = [];
 
         // filter
-        if (isset($piVars['filter'])) {
-            foreach ((array)$piVars['filter'] as $field => $value) {
+        if (isset($arguments['filter'])) {
+            foreach ((array)$arguments['filter'] as $field => $value) {
                 if (empty($value)) {
                     continue;
                 }

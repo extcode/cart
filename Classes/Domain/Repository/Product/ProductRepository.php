@@ -15,6 +15,8 @@ namespace Extcode\Cart\Domain\Repository\Product;
  * The TYPO3 project - inspiring people to share!
  */
 
+use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
+
 /**
  * Product Product Repository
  *
@@ -23,14 +25,14 @@ namespace Extcode\Cart\Domain\Repository\Product;
  */
 class ProductRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
 {
-
     /**
-     * Finds objects filtered by $piVars['filter']
+     * Find all products filtered by $searchArguments
      *
-     * @param array $piVars
-     * @return Query Object
+     * @param array $searchArguments
+     *
+     * @return QueryResultInterface|array
      */
-    public function findAll($piVars = [])
+    public function findAll($searchArguments = [])
     {
         // settings
         $query = $this->createQuery();
@@ -38,8 +40,8 @@ class ProductRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
         $constraints = [];
 
         // filter
-        if (isset($piVars['filter'])) {
-            foreach ((array)$piVars['filter'] as $field => $value) {
+        if (isset($searchArguments)) {
+            foreach ((array)$searchArguments as $field => $value) {
                 if (empty($value)) {
                     continue;
                 }
@@ -67,11 +69,11 @@ class ProductRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
     }
 
     /**
-     * Finds objects based on selected categories
+     * Find all products based on selected categories
      *
      * @param array $categories
      *
-     * @return object
+     * @return QueryResultInterface|array
      */
     public function findByCategories($categories)
     {
@@ -100,11 +102,11 @@ class ProductRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
     }
 
     /**
-     * Finds objects based on selected uids
+     * Find all products based on selected uids
      *
      * @param string $uids
      *
-     * @return object
+     * @return QueryResultInterface|array
      */
     public function findByUids($uids)
     {
