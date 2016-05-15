@@ -50,7 +50,7 @@ class ProductController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
     public function injectProductRepository(
         \Extcode\Cart\Domain\Repository\Product\ProductRepository $productRepository
     ) {
-        $this->$productRepository = $productRepository;
+        $this->productRepository = $productRepository;
     }
 
     /**
