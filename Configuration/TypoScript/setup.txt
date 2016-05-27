@@ -68,8 +68,6 @@ plugin.tx_cart {
         }
         teaserAction < .showAction
         listAction < .showAction
-
-        seller.emailAddress = test@extco.de
     }
 
     db {
