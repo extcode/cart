@@ -206,7 +206,7 @@ class OrderController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $this->view->assign('paymentStatus', $this->getPaymentStatus());
         $this->view->assign('shippingStatus', $this->getShippingStatus());
 
-        $pdfRendererInstalled = Utility\ExtensionManagementUtility::isLoaded('wt_cart_pdf');
+        $pdfRendererInstalled = Utility\ExtensionManagementUtility::isLoaded('cart_pdf');
         $this->view->assign('pdfRendererInstalled', $pdfRendererInstalled);
     }
 
@@ -332,7 +332,7 @@ class OrderController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
             $orderItem->setInvoiceNumber($invoiceNumber);
 
             $msg = 'Invoice Number was generated.';
-            $this->flashMessageContainer->add($msg);
+            $this->addFlashMessage->add($msg);
         }
 
         if ($orderItem->getInvoiceNumber()) {
@@ -342,7 +342,7 @@ class OrderController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
             $this->persistenceManager->persistAll();
 
             $msg = 'Invoice Document was generated.';
-            $this->flashMessageContainer->add($msg);
+            $this->addFlashMessage($msg);
         }
 
         $this->redirect('list');
@@ -424,14 +424,14 @@ class OrderController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
             \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::class
         );
 
-        if ($extensionManagerUtility->isLoaded('cart_order_pdf')) {
-            $this->buildTSFE($orderItem->getPid());
+        if ($extensionManagerUtility->isLoaded('cart_pdf')) {
+            //$this->buildTSFE($orderItem->getPid());
 
             $orderPdf = $this->objectManager->get(
-                \Extcode\CartOrderPdf\Utility\OrderPdf::class
+                \Extcode\CartPdf\Service\InvoiceService::class
             );
 
-            $pdf = $orderPdf->createPdf($orderItem, 'invoice');
+            $pdf = $orderPdf->createPdf($orderItem);
 
             if ($pdf) {
                 $orderItem->setInvoicePdf($pdf);
@@ -462,8 +462,8 @@ class OrderController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $GLOBALS['TSFE']->connectToDB();
         $GLOBALS['TSFE']->initFEuser();
         $GLOBALS['TSFE']->id = $pid;
-        $GLOBALS['TSFE']->determineId();
-        $GLOBALS['TSFE']->initTemplate();
+        //$GLOBALS['TSFE']->determineId();
+        //$GLOBALS['TSFE']->initTemplate();
         $GLOBALS['TSFE']->getConfigArray();
     }
 

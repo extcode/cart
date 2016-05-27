@@ -70,7 +70,7 @@
                     <f:for each="{paginatedOrderItems}" as="orderItem">
                         <f:cycle values="{0: 'even', 1: 'odd'}" as="cycle">
                             <f:render partial="Order/List/Item"
-                                      arguments="{orderItem: orderItem, cycle:cycle, arguments: arguments}"/>
+                                      arguments="{orderItem: orderItem, cycle:cycle, arguments: arguments, pdfRendererInstalled: pdfRendererInstalled}"/>
                         </f:cycle>
                     </f:for>
                     </tbody>
