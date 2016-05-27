@@ -106,14 +106,13 @@ class MailHandler implements SingletonInterface
         );
 
 
-        $this->logManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(
-            'TYPO3\CMS\Core\Log\LogManager'
+        $this->logManager = $this->objectManager->get(
+            \TYPO3\CMS\Core\Log\LogManager::class
         );
 
-        $this->configurationManager =
-            $this->objectManager->get(
-                'TYPO3\CMS\Extbase\Configuration\ConfigurationManager'
-            );
+        $this->configurationManager = $this->objectManager->get(
+            \TYPO3\CMS\Extbase\Configuration\ConfigurationManager::class
+        );
 
         $this->setPluginSettings();
 
