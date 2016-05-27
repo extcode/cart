@@ -1,7 +1,7 @@
 {
     "name": "extcode/cart",
     "type": "typo3-cms-extension",
-    "description": "Shopping Cart",
+    "description": "Shopping Cart(s) for TYPO3",
     "homepage": "http://cart.extco.de",
     "license": [
         "GPL-2.0+"
@@ -11,12 +11,24 @@
         "Shopping Cart",
         "cart"
     ],
+    "authors": [
+        {
+            "name": "Daniel Lorenz",
+            "email": "ext.cart@extco.de",
+            "role": "Developer"
+        }
+    ],
     "support": {
         "issues": "https://forge.typo3.org/projects/extension-cart"
     },
     "version": "0.6.2",
     "require": {
+        "php": ">=5.4.0",
         "typo3/cms-core": ">=6.2.0,<8.0"
+    },
+    "require-dev": {
+        "mikey179/vfsStream": "~1.6.0",
+        "phpunit/phpunit": "~4.8.0"
     },
     "replace": {
         "cart": "*"

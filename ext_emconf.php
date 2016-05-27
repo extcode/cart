@@ -2,7 +2,7 @@
 
 $EM_CONF[$_EXTKEY] = [
     'title' => 'Cart',
-    'description' => 'Adds shopping cart(s) to your TYPO3 installation',
+    'description' => 'Shopping Cart(s) for TYPO3',
     'category' => 'plugin',
     'shy' => false,
     'version' => '0.6.2',
@@ -25,7 +25,7 @@ $EM_CONF[$_EXTKEY] = [
     'constraints' => [
         'depends' => [
             'typo3' => '6.2.0-7.99.99',
-            'php' => '5.4.0-7.0.99'
+            'php' => '5.4.0'
         ],
         'conflicts' => [],
         'suggests' => [],
