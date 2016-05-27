@@ -24,16 +24,22 @@ namespace Extcode\Cart\Utility\eIDDispatcher;
 class Cart
 {
     /**
+     * Object Manager
+     *
+     * @var \TYPO3\CMS\Extbase\Object\ObjectManagerInterface
+     */
+    protected $objectManager;
+
+    /**
+     * Configuration Manager
+     *
      * @var \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface
      */
     protected $configurationManager;
 
     /**
-     * @var \TYPO3\CMS\Extbase\Object\ObjectManager
-     */
-    protected $objectManager;
-
-    /**
+     * Persistence Manager
+     *
      * @var \TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager
      */
     protected $persistenceManager;
@@ -84,21 +90,30 @@ class Cart
     protected $cart;
 
     /**
-     * Initialize Manager Classes
+     * @param \TYPO3\CMS\Extbase\Object\ObjectManagerInterface $objectManager
      */
-    protected function initManager()
-    {
-        $this->objectManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(
-            'TYPO3\\CMS\\Extbase\\Object\\ObjectManager'
-        );
+    public function injectObjectManager(
+        \TYPO3\CMS\Extbase\Object\ObjectManagerInterface $objectManager
+    ) {
+        $this->objectManager = $objectManager;
+    }
 
-        $this->persistenceManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(
-            'TYPO3\\CMS\\Extbase\\Persistence\\Generic\\PersistenceManager'
-        );
+    /**
+     * @param \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface $configurationManager
+     */
+    public function injectConfigurationManager(
+        \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface $configurationManager
+    ) {
+        $this->configurationManager = $configurationManager;
+    }
 
-        $this->configurationManager = $this->objectManager->get(
-            'TYPO3\\CMS\\Extbase\\Configuration\\ConfigurationManagerInterface'
-        );
+    /**
+     * @param \TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager $persistenceManager
+     */
+    public function injectPersistenceManager(
+        \TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager $persistenceManager
+    ) {
+        $this->persistenceManager = $persistenceManager;
     }
 
     /**
@@ -162,7 +177,6 @@ class Cart
      */
     public function init()
     {
-        $this->initManager();
         $this->initUtilities();
         $this->initSettings();
 

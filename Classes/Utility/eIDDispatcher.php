@@ -22,11 +22,7 @@ namespace Extcode\Cart\Utility;
  * @author Daniel Lorenz <ext.cart@extco.de>
  */
 
-require_once \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('cart') .
-    'Classes/Utility/eIDDispatcher/Cart.php';
-
 // Init TSFE for database access
-
 $pageId = (int)\TYPO3\CMS\Core\Utility\GeneralUtility::_GP('cartPid');
 $GLOBALS['TSFE'] = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(
     'TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController',
@@ -49,8 +45,12 @@ $GLOBALS['TSFE']->sys_page = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstanc
 $GLOBALS['TSFE']->initTemplate();
 $GLOBALS['TSFE']->getConfigArray();
 
-$dispatcher = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(
-    'Extcode\Cart\Utility\eIDDispatcher\Cart'
+$objectManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(
+    \TYPO3\CMS\Extbase\Object\ObjectManager::class
+);
+
+$dispatcher = $objectManager->get(
+    \Extcode\Cart\Utility\eIDDispatcher\Cart::class
 );
 
 // ATTENTION! Dispatcher first needs to be initialized here!!!
