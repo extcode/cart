@@ -27,14 +27,14 @@ namespace Extcode\Cart\Tests\Domain\Model\Cart;
  ***************************************************************/
 
 /**
- * Coupon Test
+ * CartCoupon Test
  *
  * @package cart
  * @author Daniel Lorenz
  * @license http://www.gnu.org/licenses/lgpl.html
  *                     GNU Lesser General Public License, version 3 or later
  */
-class AbstractCouponTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
+class CartCouponTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
 {
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
@@ -85,15 +85,12 @@ class AbstractCouponTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
         $this->code = 'CouponTitle';
         $this->discount = 10.00;
 
-        $this->coupon = $this->getMockForAbstractClass(
-            '\Extcode\Cart\Domain\Model\Cart\AbstractCoupon',
-            [
-                $this->title,
-                $this->code,
-                $this->discount,
-                $this->taxClass,
-                $this->cartMinPrice
-            ]
+        $this->coupon = new \Extcode\Cart\Domain\Model\Cart\CartCoupon(
+            $this->title,
+            $this->code,
+            $this->discount,
+            $this->taxClass,
+            $this->cartMinPrice
         );
     }
 
@@ -108,15 +105,12 @@ class AbstractCouponTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
             1448230010
         );
 
-        $this->getMockForAbstractClass(
-            '\Extcode\Cart\Domain\Model\Cart\AbstractCoupon',
-            [
-                null,
-                $this->code,
-                $this->discount,
-                $this->taxClass,
-                $this->cartMinPrice
-            ]
+        $this->coupon = new \Extcode\Cart\Domain\Model\Cart\CartCoupon(
+            null,
+            $this->code,
+            $this->discount,
+            $this->taxClass,
+            $this->cartMinPrice
         );
     }
 
@@ -131,15 +125,12 @@ class AbstractCouponTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
             1448230020
         );
 
-        $this->getMockForAbstractClass(
-            '\Extcode\Cart\Domain\Model\Cart\AbstractCoupon',
-            [
-                $this->title,
-                null,
-                $this->discount,
-                $this->taxClass,
-                $this->cartMinPrice
-            ]
+        $this->coupon = new \Extcode\Cart\Domain\Model\Cart\CartCoupon(
+            $this->title,
+            null,
+            $this->discount,
+            $this->taxClass,
+            $this->cartMinPrice
         );
     }
 
@@ -154,15 +145,12 @@ class AbstractCouponTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
             1448230030
         );
 
-        $this->getMockForAbstractClass(
-            '\Extcode\Cart\Domain\Model\Cart\AbstractCoupon',
-            [
-                $this->title,
-                $this->code,
-                null,
-                $this->taxClass,
-                $this->cartMinPrice
-            ]
+        $this->coupon = new \Extcode\Cart\Domain\Model\Cart\CartCoupon(
+            $this->title,
+            $this->code,
+            null,
+            $this->taxClass,
+            $this->cartMinPrice
         );
     }
 
@@ -177,15 +165,12 @@ class AbstractCouponTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
             1448230040
         );
 
-        $this->getMockForAbstractClass(
-            '\Extcode\Cart\Domain\Model\Cart\AbstractCoupon',
-            [
-                $this->title,
-                $this->code,
-                $this->discount,
-                null,
-                $this->cartMinPrice
-            ]
+        $this->coupon = new \Extcode\Cart\Domain\Model\Cart\CartCoupon(
+            $this->title,
+            $this->code,
+            $this->discount,
+            null,
+            $this->cartMinPrice
         );
     }
 
@@ -204,16 +189,13 @@ class AbstractCouponTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
      */
     public function constructorSetsIsCombinable()
     {
-        $coupon = $this->getMockForAbstractClass(
-            '\Extcode\Cart\Domain\Model\Cart\AbstractCoupon',
-            [
-                $this->title,
-                $this->code,
-                $this->discount,
-                $this->taxClass,
-                $this->cartMinPrice,
-                true
-            ]
+        $coupon = new \Extcode\Cart\Domain\Model\Cart\CartCoupon(
+            $this->title,
+            $this->code,
+            $this->discount,
+            $this->taxClass,
+            $this->cartMinPrice,
+            true
         );
 
         $this->assertTrue(
@@ -308,16 +290,13 @@ class AbstractCouponTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
         );
         $cart->expects($this->any())->method('getGross')->will($this->returnValue($gross));
 
-        $coupon = $this->getMockForAbstractClass(
-            '\Extcode\Cart\Domain\Model\Cart\AbstractCoupon',
-            [
-                $this->title,
-                $this->code,
-                $discount,
-                $this->taxClass,
-                $cartMinPrice,
-                true
-            ]
+        $coupon = new \Extcode\Cart\Domain\Model\Cart\CartCoupon(
+            $this->title,
+            $this->code,
+            $discount,
+            $this->taxClass,
+            $cartMinPrice,
+            true
         );
         $coupon->setCart($cart);
 
@@ -344,16 +323,13 @@ class AbstractCouponTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
         );
         $cart->expects($this->any())->method('getGross')->will($this->returnValue($gross));
 
-        $coupon = $this->getMockForAbstractClass(
-            '\Extcode\Cart\Domain\Model\Cart\AbstractCoupon',
-            [
-                $this->title,
-                $this->code,
-                $discount,
-                $this->taxClass,
-                $cartMinPrice,
-                true
-            ]
+        $coupon = new \Extcode\Cart\Domain\Model\Cart\CartCoupon(
+            $this->title,
+            $this->code,
+            $discount,
+            $this->taxClass,
+            $cartMinPrice,
+            true
         );
         $coupon->setCart($cart);
 
@@ -380,22 +356,13 @@ class AbstractCouponTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
         );
         $cart->expects($this->any())->method('getGross')->will($this->returnValue($gross));
 
-        $coupon = $this->getMockForAbstractClass(
-            '\Extcode\Cart\Domain\Model\Cart\AbstractCoupon',
-            [
-                $this->title,
-                $this->code,
-                $discount,
-                $this->taxClass,
-                $cartMinPrice,
-                true
-            ],
-            $mockClassName = '',
-            $callOriginalConstructor = true,
-            $callOriginalClone = true,
-            $callAutoload = true,
-            $mockedMethods = array('dummy'),
-            $cloneArguments = false
+        $coupon = new \Extcode\Cart\Domain\Model\Cart\CartCoupon(
+            $this->title,
+            $this->code,
+            $discount,
+            $this->taxClass,
+            $cartMinPrice,
+            true
         );
         $coupon->setCart($cart);
 

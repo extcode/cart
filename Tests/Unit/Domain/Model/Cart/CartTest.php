@@ -790,8 +790,9 @@ class CartTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
      */
     public function addCouponAddsNewCoupon()
     {
-        $coupon = $this->getMockForAbstractClass(
-            \Extcode\Cart\Domain\Model\Cart\AbstractCoupon::class,
+        $coupon = $this->getMock(
+            \Extcode\Cart\Domain\Model\Cart\CartCoupon::class,
+            array(),
             array(),
             '',
             false
@@ -822,8 +823,9 @@ class CartTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
      */
     public function addSameCouponReturnsReturnCodeOne()
     {
-        $coupon = $this->getMockForAbstractClass(
-            \Extcode\Cart\Domain\Model\Cart\AbstractCoupon::class,
+        $coupon = $this->getMock(
+            \Extcode\Cart\Domain\Model\Cart\CartCoupon::class,
+            array(),
             array(),
             '',
             false
@@ -852,8 +854,9 @@ class CartTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
      */
     public function addSameCouponDoesNotChangeCouponNumberInCart()
     {
-        $coupon = $this->getMockForAbstractClass(
-            \Extcode\Cart\Domain\Model\Cart\AbstractCoupon::class,
+        $coupon = $this->getMock(
+            \Extcode\Cart\Domain\Model\Cart\CartCoupon::class,
+            array(),
             array(),
             '',
             false
@@ -886,8 +889,9 @@ class CartTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
      */
     public function addSameCouponReturnsErrorCodeMinusOne()
     {
-        $coupon = $this->getMockForAbstractClass(
-            \Extcode\Cart\Domain\Model\Cart\AbstractCoupon::class,
+        $coupon = $this->getMock(
+            \Extcode\Cart\Domain\Model\Cart\CartCoupon::class,
+            array(),
             array(),
             '',
             false
@@ -918,8 +922,9 @@ class CartTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
      */
     public function addSecondNotCombinableCouponDoesNotChangeCouponNumberInCart()
     {
-        $firstCoupon = $this->getMockForAbstractClass(
-            \Extcode\Cart\Domain\Model\Cart\AbstractCoupon::class,
+        $firstCoupon = $this->getMock(
+            \Extcode\Cart\Domain\Model\Cart\CartCoupon::class,
+            array(),
             array(),
             '',
             false,
@@ -934,8 +939,9 @@ class CartTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
             method('getTaxClass')->
             will($this->returnValue($this->normalTaxClass));
 
-        $secondCoupon = $this->getMockForAbstractClass(
-            \Extcode\Cart\Domain\Model\Cart\AbstractCoupon::class,
+        $secondCoupon = $this->getMock(
+            \Extcode\Cart\Domain\Model\Cart\CartCoupon::class,
+            array(),
             array(),
             '',
             false,
@@ -970,8 +976,9 @@ class CartTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
      */
     public function addSecondNotCombinableCouponReturnsReturnErrorCodeMinusTwo()
     {
-        $firstCoupon = $this->getMockForAbstractClass(
-            \Extcode\Cart\Domain\Model\Cart\AbstractCoupon::class,
+        $firstCoupon = $this->getMock(
+            \Extcode\Cart\Domain\Model\Cart\CartCoupon::class,
+            array(),
             array(),
             '',
             false,
@@ -987,8 +994,9 @@ class CartTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
             ->method('getTaxClass')
             ->will($this->returnValue($this->normalTaxClass));
 
-        $secondCoupon = $this->getMockForAbstractClass(
-            \Extcode\Cart\Domain\Model\Cart\AbstractCoupon::class,
+        $secondCoupon = $this->getMock(
+            \Extcode\Cart\Domain\Model\Cart\CartCoupon::class,
+            array(),
             array(),
             '',
             false,
@@ -1022,8 +1030,9 @@ class CartTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
      */
     public function addSecondCombinableCouponToNotCombinableCouponsDoesNotChangeCouponNumberInCart()
     {
-        $firstCoupon = $this->getMockForAbstractClass(
-            \Extcode\Cart\Domain\Model\Cart\AbstractCoupon::class,
+        $firstCoupon = $this->getMock(
+            \Extcode\Cart\Domain\Model\Cart\CartCoupon::class,
+            array(),
             array(),
             '',
             false,
@@ -1038,8 +1047,9 @@ class CartTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
             method('getTaxClassId')->
             will($this->returnValue($this->normalTaxClass->getId()));
 
-        $secondCoupon = $this->getMockForAbstractClass(
-            \Extcode\Cart\Domain\Model\Cart\AbstractCoupon::class,
+        $secondCoupon = $this->getMock(
+            \Extcode\Cart\Domain\Model\Cart\CartCoupon::class,
+            array(),
             array(),
             '',
             false,
@@ -1075,8 +1085,9 @@ class CartTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
      */
     public function addSecondCombinableCouponToNotCombinableCouponsReturnsReturnErrorCodeMinusTwo()
     {
-        $firstCoupon = $this->getMockForAbstractClass(
-            \Extcode\Cart\Domain\Model\Cart\AbstractCoupon::class,
+        $firstCoupon = $this->getMock(
+            \Extcode\Cart\Domain\Model\Cart\CartCoupon::class,
+            array(),
             array(),
             '',
             false,
@@ -1092,8 +1103,9 @@ class CartTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
             ->method('getTaxClass')
             ->will($this->returnValue($this->normalTaxClass));
 
-        $secondCoupon = $this->getMockForAbstractClass(
-            \Extcode\Cart\Domain\Model\Cart\AbstractCoupon::class,
+        $secondCoupon = $this->getMock(
+            \Extcode\Cart\Domain\Model\Cart\CartCoupon::class,
+            array(),
             array(),
             '',
             false,
@@ -1128,8 +1140,9 @@ class CartTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
      */
     public function addSecondCombinableCouponAddsCoupon()
     {
-        $firstCoupon = $this->getMockForAbstractClass(
-            \Extcode\Cart\Domain\Model\Cart\AbstractCoupon::class,
+        $firstCoupon = $this->getMock(
+            \Extcode\Cart\Domain\Model\Cart\CartCoupon::class,
+            array(),
             array(),
             '',
             false,
@@ -1146,8 +1159,9 @@ class CartTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
             ->will($this->returnValue($this->normalTaxClass));
         $firstCoupon->expects($this->any())->method('getIsCombinable')->will($this->returnValue(true));
 
-        $secondCoupon = $this->getMockForAbstractClass(
-            \Extcode\Cart\Domain\Model\Cart\AbstractCoupon::class,
+        $secondCoupon = $this->getMock(
+            \Extcode\Cart\Domain\Model\Cart\CartCoupon::class,
+            array(),
             array(),
             '',
             false,
@@ -1218,22 +1232,19 @@ class CartTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
     {
         $gross = 10.00;
 
-        $firstCoupon = $this->getMockForAbstractClass(
-            \Extcode\Cart\Domain\Model\Cart\AbstractCoupon::class,
+        $firstCoupon = $this->getMock(
+            \Extcode\Cart\Domain\Model\Cart\CartCoupon::class,
+            array(),
             array(),
             '',
             false,
             true,
             true,
-            array('getCode', 'getTitle', 'getDiscount', 'getTaxClass', 'getIsCombinable')
+            array('getCode', 'getGross', 'getIsUseable', 'getIsCombinable')
         );
         $firstCoupon->expects($this->any())->method('getCode')->will($this->returnValue('firstCouponCode'));
-        $firstCoupon->expects($this->any())->method('getTitle')->will($this->returnValue('firstCouponTitle'));
-        $firstCoupon->expects($this->any())->method('getDiscount')->will($this->returnValue($gross));
-        $firstCoupon
-            ->expects($this->any())
-            ->method('getTaxClass')
-            ->will($this->returnValue($this->normalTaxClass));
+        $firstCoupon->expects($this->any())->method('getGross')->will($this->returnValue($gross));
+        $firstCoupon->expects($this->any())->method('getIsUseable')->will($this->returnValue(true));
         $firstCoupon->expects($this->any())->method('getIsCombinable')->will($this->returnValue(true));
 
         $this->grossCart->addCoupon($firstCoupon);
@@ -1279,8 +1290,9 @@ class CartTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
         $discount = 5.00;
         $cartMinPrice = 15.00;
 
-        $firstCoupon = $this->getMockForAbstractClass(
-            \Extcode\Cart\Domain\Model\Cart\AbstractCoupon::class,
+        $firstCoupon = $this->getMock(
+            \Extcode\Cart\Domain\Model\Cart\CartCoupon::class,
+            array(),
             array(),
             '',
             false
@@ -1317,22 +1329,19 @@ class CartTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
         $discount = 10.00;
         $net = $discount / ($this->normalTaxClass->getCalc() + 1);
 
-        $firstCoupon = $this->getMockForAbstractClass(
-            \Extcode\Cart\Domain\Model\Cart\AbstractCoupon::class,
+        $firstCoupon = $this->getMock(
+            \Extcode\Cart\Domain\Model\Cart\CartCoupon::class,
+            array(),
             array(),
             '',
             false,
             true,
             true,
-            array('getCode', 'getTitle', 'getDiscount', 'getTaxClass', 'getIsCombinable')
+            array('getCode', 'getNet', 'getIsUseable', 'getIsCombinable')
         );
         $firstCoupon->expects($this->any())->method('getCode')->will($this->returnValue('firstCouponCode'));
-        $firstCoupon->expects($this->any())->method('getTitle')->will($this->returnValue('firstCouponTitle'));
-        $firstCoupon->expects($this->any())->method('getDiscount')->will($this->returnValue($discount));
-        $firstCoupon
-            ->expects($this->any())
-            ->method('getTaxClass')
-            ->will($this->returnValue($this->normalTaxClass));
+        $firstCoupon->expects($this->any())->method('getNet')->will($this->returnValue($net));
+        $firstCoupon->expects($this->any())->method('getIsUseable')->will($this->returnValue(true));
         $firstCoupon->expects($this->any())->method('getIsCombinable')->will($this->returnValue(true));
 
         $this->grossCart->addCoupon($firstCoupon);
@@ -1358,22 +1367,24 @@ class CartTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
         $gross = 10.00;
         $tax = $gross - ($gross / ($this->normalTaxClass->getCalc() + 1));
 
-        $firstCoupon = $this->getMockForAbstractClass(
-            \Extcode\Cart\Domain\Model\Cart\AbstractCoupon::class,
+        $firstCoupon = $this->getMock(
+            \Extcode\Cart\Domain\Model\Cart\CartCoupon::class,
+            [],
             array(),
             '',
             false,
             true,
             true,
-            array('getCode', 'getTitle', 'getDiscount', 'getTaxClass', 'getIsCombinable')
+            array('getCode', 'getTax', 'getTaxClass', 'getIsUseable', 'getIsCombinable')
         );
+
         $firstCoupon->expects($this->any())->method('getCode')->will($this->returnValue('firstCouponCode'));
-        $firstCoupon->expects($this->any())->method('getTitle')->will($this->returnValue('firstCouponTitle'));
-        $firstCoupon->expects($this->any())->method('getDiscount')->will($this->returnValue($gross));
+        $firstCoupon->expects($this->any())->method('getTax')->will($this->returnValue($tax));
         $firstCoupon
             ->expects($this->any())
             ->method('getTaxClass')
             ->will($this->returnValue($this->normalTaxClass));
+        $firstCoupon->expects($this->any())->method('getIsUseable')->will($this->returnValue(true));
         $firstCoupon->expects($this->any())->method('getIsCombinable')->will($this->returnValue(true));
 
         $this->grossCart->addCoupon($firstCoupon);

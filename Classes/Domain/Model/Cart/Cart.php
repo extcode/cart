@@ -167,7 +167,7 @@ class Cart
     /**
      * Coupon
      *
-     * @var \Extcode\Cart\Domain\Model\Cart\AbstractCoupon[]
+     * @var \Extcode\Cart\Domain\Model\Cart\CartCouponInterface[]
      */
     private $coupons = [];
 
@@ -472,7 +472,7 @@ class Cart
 
         if ($this->coupons) {
             foreach ($this->coupons as $coupon) {
-                if ($this->getGross() >= $coupon->getCartMinPrice()) {
+                if ($coupon->getIsUseable()) {
                     $tax = $coupon->getTax();
                     $taxes[$coupon->getTaxClass()->getId()] -= $tax;
                 }
@@ -754,7 +754,7 @@ class Cart
     /**
      * Return Coupons
      *
-     * @return \Extcode\Cart\Domain\Model\Cart\Coupon[]
+     * @return array
      */
     public function getCoupons()
     {
@@ -783,11 +783,11 @@ class Cart
     /**
      * Adds a Coupon to Cart
      *
-     * @param \Extcode\Cart\Domain\Model\Cart\AbstractCoupon $coupon
+     * @param \Extcode\Cart\Domain\Model\Cart\CartCouponInterface $coupon
      *
      * @return int
      */
-    public function addCoupon($coupon)
+    public function addCoupon(\Extcode\Cart\Domain\Model\Cart\CartCouponInterface $coupon)
     {
         if ($this->coupons[$coupon->getCode()]) {
             $returnCode = -1;
@@ -816,10 +816,8 @@ class Cart
 
         if ($this->coupons) {
             foreach ($this->coupons as $coupon) {
-                if (!$coupon->getIsRelativeDiscount()) {
-                    if ($this->getGross() >= $coupon->getCartMinPrice()) {
-                        $gross += $coupon->getGross();
-                    }
+                if ($coupon->getIsUseable()) {
+                    $gross += $coupon->getGross();
                 }
             }
         }
@@ -838,10 +836,8 @@ class Cart
 
         if ($this->coupons) {
             foreach ($this->coupons as $coupon) {
-                if (!$coupon->getIsRelativeDiscount()) {
-                    if ($this->getGross() >= $coupon->getCartMinPrice()) {
-                        $net += $coupon->getNet();
-                    }
+                if ($coupon->getIsUseable()) {
+                    $net += $coupon->getNet();
                 }
             }
         }
@@ -860,11 +856,9 @@ class Cart
 
         if ($this->coupons) {
             foreach ($this->coupons as $coupon) {
-                if (!$coupon->getIsRelativeDiscount()) {
-                    if ($this->getGross() >= $coupon->getCartMinPrice()) {
-                        $tax = $coupon->getTax();
-                        $taxes[$coupon->getTaxClass()->getId()] += $tax;
-                    }
+                if ($coupon->getIsUseable()) {
+                    $tax = $coupon->getTax();
+                    $taxes[$coupon->getTaxClass()->getId()] += $tax;
                 }
             }
         }
