@@ -1,6 +1,32 @@
 <div>
     <table id="checkout-review-table" class="data-table" style="width: 100%; border-collapse: collapse;" border="1">
-        <f:render partial="Cart/Mail/ProductList" arguments="{products: cart.products}"/>
-        <f:render partial="Cart/Mail/Summary" arguments="{cart: cart}"/>
+        <colgroup>
+            <col span="2"/>
+            <col width="1"/>
+            <col width="1"/>
+            <col width="1"/>
+        </colgroup>
+        <thead>
+        <tr class="first last" style="background-color:#0098dd;color:#fff;">
+            <th rowspan="1" colspan="2" style="text-align: left;">
+                <f:translate key="tx_cart_domain_model_order_product.title"/>
+            </th>
+            <th colspan="1" class="a-center">
+                <f:translate key="tx_cart_domain_model_order_product.price"/>
+            </th>
+
+            <th rowspan="1" class="a-center">
+                <f:translate key="tx_cart_domain_model_order_product.quantity"/>
+            </th>
+
+            <th colspan="1" class="a-center">
+                <f:translate key="tx_cart_domain_model_order_product.price_total"/>
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+            <f:render partial="Cart/Mail/ProductList" arguments="{products: cart.products}"/>
+            <f:render partial="Cart/Mail/Summary" arguments="{cart: cart}"/>
+        </tbody>
     </table>
 </div>

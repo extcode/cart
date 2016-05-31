@@ -1,0 +1,35 @@
+<table style="font-size:12px;">
+    <tr>
+        <td style="width:300px;vertical-align:top;">
+            <b><f:translate key="tx_cart_domain_model_cart.billing_address" />:</b><br />
+            <f:if condition="{billingAddress.company}">
+                {billingAddress.company}<br /><br />
+            </f:if>
+            {billingAddress.fullName}<br />
+            {billingAddress.street}<br />
+            {billingAddress.zip} {billingAddress.city}<br />
+            <f:if condition="{billingAddress.country}">
+                {billingAddress.country}<br />
+            </f:if>
+        </td>
+        <td style="width:300px;vertical-align:top;">
+            <b><f:translate key="tx_cart_domain_model_cart.shipping_address" />:</b><br />
+            <f:if condition="{shippingAddress}">
+                <f:then>
+                    <f:if condition="{shippingAddress.company}">
+                        {shippingAddress.company}<br /><br />
+                    </f:if>
+                    {shippingAddress.fullName}<br />
+                    {shippingAddress.street}<br />
+                    {shippingAddress.zip} {shippingAddress.city}<br />
+                    <f:if condition="{shippingAddress.country}">
+                        {shippingAddress.country}<br />
+                    </f:if>
+                </f:then>
+                <f:else>
+                    <f:translate key="tx_cart_domain_model_cart.use_billing_address" /><br /><br />
+                </f:else>
+            </f:if>
+        </td>
+    </tr>
+</table>

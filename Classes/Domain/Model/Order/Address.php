@@ -204,6 +204,11 @@ class Address extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
         return $this->lastName;
     }
 
+    public function getFullName()
+    {
+        return join(' ', [$this->firstName, $this->lastName]);
+    }
+
     /**
      * @return string
      */

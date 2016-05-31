@@ -14,6 +14,34 @@
                 <source>products in cart.</source>
             </trans-unit>
 
+            <trans-unit id="tx_cart_domain_model_cart.billing_address">
+                <source>Billing Address</source>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_cart.shipping_address">
+                <source>Shipping Address</source>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_cart.use_billing_address">
+                <source>use Billing Address</source>
+            </trans-unit>
+            <trans-unit id="tx_cart.mail.thank_you_for_order">
+                <source>Thank you for your order.</source>
+            </trans-unit>
+            <trans-unit id="tx_cart.mail.order_information">
+                <source>Order Information</source>
+            </trans-unit>
+            <trans-unit id="tx_cart.mail.order_summary">
+                <source>Order Summary</source>
+            </trans-unit>
+            <trans-unit id="tx_cart.mail.payment_method">
+                <source>Payment method</source>
+            </trans-unit>
+            <trans-unit id="tx_cart.mail.shipping_method">
+                <source>Shipping method</source>
+            </trans-unit>
+            <trans-unit id="tx_cart.mail.signature">
+                <source>Sincerely yours</source>
+            </trans-unit>
+
             <trans-unit id="tx_cart_domain_model_order_product.title">
                 <source>Product</source>
             </trans-unit>

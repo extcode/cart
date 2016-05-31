@@ -105,7 +105,6 @@ class MailHandler implements SingletonInterface
             'TYPO3\CMS\Extbase\Object\ObjectManager'
         );
 
-
         $this->logManager = $this->objectManager->get(
             \TYPO3\CMS\Core\Log\LogManager::class
         );
@@ -333,6 +332,9 @@ class MailHandler implements SingletonInterface
                 ]
             );
         }
+
+        // set controller extension name for translation
+        $view->getRequest()->setControllerExtensionName('Cart');
 
         return $view;
     }

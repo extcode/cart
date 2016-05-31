@@ -17,6 +17,43 @@
                 <target>Artikel im Warenkorb.</target>
             </trans-unit>
 
+            <trans-unit id="tx_cart_domain_model_cart.billing_address">
+                <source>Billing Address</source>
+                <target>Rechnungsadresse</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_cart.shipping_address">
+                <source>Shipping Address</source>
+                <target>Versandadresse</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_cart.use_billing_address">
+                <source>use Billing Address</source>
+                <target>Rechnungsadresse verwenden</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.mail.thank_you_for_order">
+                <source>Thank you for your order.</source>
+                <target>Vielen Dank für Ihre Bestellung.</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.mail.order_information">
+                <source>Order Information</source>
+                <target>Bestellinformation</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.mail.order_summary">
+                <source>Order Summary</source>
+                <target>Bestellübersicht</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.mail.payment_method">
+                <source>Payment method</source>
+                <target>Zahlungsart</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.mail.shipping_method">
+                <source>Shipping method</source>
+                <target>Versandart</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.mail.signature">
+                <source>Sincerely yours</source>
+                <target>Mit freundlichen Grüßen</target>
+            </trans-unit>
+
             <trans-unit id="tx_cart_domain_model_order_product.title">
                 <source>Product</source>
                 <target>Produkt</target>

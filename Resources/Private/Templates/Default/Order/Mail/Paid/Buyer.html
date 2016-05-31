@@ -1,13 +1,32 @@
 <f:layout name="Mail"/>
 
 <f:section name="main">
+    <p>
+        <b><f:translate key="tx_cart.mail.thank_you_for_order" /></b>
+    </p>
 
-    Vielen Dank für Ihre Bestellung.
+    <p style="background-color:#0098dd;color:#fff;padding:3px;">
+        <b><f:translate key="tx_cart.mail.order_information" />:</b>
+    </p>
+
+    <f:render partial="Cart/Mail/Address" arguments="{billingAddress: billingAddress, shippingAddress: shippingAddress}"/>
+
+    <p style="background-color:#0098dd;color:#fff;padding:3px;">
+        <b><f:translate key="tx_cart.mail.order_summary" />:</b>
+    </p>
 
     <f:if condition="{orderItem.orderNumber}">
-        {orderItem.orderNumber}
+        <b><f:translate key="tx_cart_domain_model_order_item.order_number" />:</b>  {orderItem.orderNumber} <br />
     </f:if>
+    <b><f:translate key="tx_cart_domain_model_order_item.order_date" />:</b> <<f:format.date format="d.m.Y" date="{orderItem.orderDate}" /><br />
+    <b><f:translate key="tx_cart.mail.payment_method" />:</b>  {orderItem.payment.name} ({orderItem.payment.status}) <br />
+    <b><f:translate key="tx_cart.mail.shipping_method" />:</b>  {orderItem.shipping.name} ({orderItem.shipping.status}) <br />
+    <br />
 
     <f:render partial="Cart/Mail/Cart" arguments="{cart: cart}"/>
 
+    <f:translate key="tx_cart.mail.signature" />
+
+    <br />
+    <f:render partial="Cart/Mail/BuyerInformation" arguments="{_all}"/>
 </f:section>
