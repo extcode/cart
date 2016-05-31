@@ -116,22 +116,37 @@ class MailHandler implements SingletonInterface
         $this->setPluginSettings();
 
         if (!empty($this->pluginSettings['settings'])) {
-            if (!empty($this->pluginSettings['settings']['buyer']) &&
-                !empty($this->pluginSettings['settings']['buyer']['emailFromAddress'])
-            ) {
-                $this->setBuyerEmailFrom($this->pluginSettings['settings']['buyer']['emailFromAddress']);
+            if (!empty($this->pluginSettings['settings']['buyer'])) {
+                if (!empty($this->pluginSettings['settings']['seller']['emailFromAddress'])) {
+                    $this->setBuyerEmailFrom($this->pluginSettings['settings']['buyer']['mail']['fromAddress']);
+                } elseif (
+                    !empty($this->pluginSettings['settings']['buyer']['mail']) &&
+                    !empty($this->pluginSettings['settings']['buyer']['mail']['fromAddress'])
+                ) {
+                    $this->setBuyerEmailFrom($this->pluginSettings['settings']['buyer']['mail']['fromAddress']);
+                }
             }
 
-            if (!empty($this->pluginSettings['settings']['seller']) &&
-                !empty($this->pluginSettings['settings']['seller']['emailFromAddress'])
-            ) {
-                $this->setSellerEmailFrom($this->pluginSettings['settings']['seller']['emailFromAddress']);
+            if (!empty($this->pluginSettings['settings']['seller'])) {
+                if (!empty($this->pluginSettings['settings']['seller']['emailFromAddress'])) {
+                    $this->setSellerEmailFrom($this->pluginSettings['settings']['seller']['emailFromAddress']);
+                } elseif (
+                    !empty($this->pluginSettings['settings']['seller']['mail']) &&
+                    !empty($this->pluginSettings['settings']['seller']['mail']['fromAddress'])
+                ) {
+                    $this->setSellerEmailFrom($this->pluginSettings['settings']['seller']['mail']['fromAddress']);
+                }
             }
 
-            if (!empty($this->pluginSettings['settings']['seller']) &&
-                !empty($this->pluginSettings['settings']['seller']['emailToAddress'])
-            ) {
-                $this->setSellerEmailTo($this->pluginSettings['settings']['seller']['emailToAddress']);
+            if (!empty($this->pluginSettings['settings']['seller'])) {
+                if (!empty($this->pluginSettings['settings']['seller']['emailToAddress'])) {
+                    $this->setSellerEmailTo($this->pluginSettings['settings']['seller']['emailToAddress']);
+                } elseif (
+                    !empty($this->pluginSettings['settings']['seller']['mail']) &&
+                    !empty($this->pluginSettings['settings']['seller']['mail']['toAddress'])
+                ) {
+                    $this->setSellerEmailTo($this->pluginSettings['settings']['seller']['mail']['toAddress']);
+                }
             }
         }
     }
@@ -232,6 +247,16 @@ class MailHandler implements SingletonInterface
             );
             $mail->setBody($mailBody, 'text/html', 'utf-8');
             //$mail->addPart(strip_tags($mailBody), 'text/plain', 'utf-8');
+
+            // get and add attachments
+            $attachments = $this->getAttachments('buyer');
+            foreach ($attachments as $attachment) {
+                $attachmentFile = \TYPO3\CMS\Core\Utility\GeneralUtility::getFileAbsFileName($attachment);
+                if (file_exists($attachmentFile)) {
+                    $mail->attach(\Swift_Attachment::fromPath($attachmentFile));
+                }
+            }
+
             $mail->send();
         }
     }
@@ -277,8 +302,35 @@ class MailHandler implements SingletonInterface
             );
             $mail->setBody($mailBody, 'text/html', 'utf-8');
             //$mail->addPart(strip_tags($mailBody), 'text/plain', 'utf-8');
+
+            // get and add attachments
+            $attachments = $this->getAttachments('seller');
+            foreach ($attachments as $attachment) {
+                $attachmentFile = \TYPO3\CMS\Core\Utility\GeneralUtility::getFileAbsFileName($attachment);
+                if (file_exists($attachmentFile)) {
+                    $mail->attach(\Swift_Attachment::fromPath($attachmentFile));
+                }
+            }
+
             $mail->send();
         }
+    }
+
+    /**
+     * @param string $to
+     *
+     * @return array
+     */
+    protected function getAttachments($to) {
+        if ($this->pluginSettings['settings'] &&
+            $this->pluginSettings['settings'][$to] &&
+            $this->pluginSettings['settings'][$to]['mail'] &&
+            $this->pluginSettings['settings'][$to]['mail']['attachments']
+        ) {
+            return $this->pluginSettings['settings'][$to]['mail']['attachments'];
+        }
+
+        return [];
     }
 
     /**
