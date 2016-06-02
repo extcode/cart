@@ -117,8 +117,8 @@ class MailHandler implements SingletonInterface
 
         if (!empty($this->pluginSettings['settings'])) {
             if (!empty($this->pluginSettings['settings']['buyer'])) {
-                if (!empty($this->pluginSettings['settings']['seller']['emailFromAddress'])) {
-                    $this->setBuyerEmailFrom($this->pluginSettings['settings']['buyer']['mail']['fromAddress']);
+                if (!empty($this->pluginSettings['settings']['buyer']['emailFromAddress'])) {
+                    $this->setBuyerEmailFrom($this->pluginSettings['settings']['buyer']['emailFromAddress']);
                 } elseif (
                     !empty($this->pluginSettings['settings']['buyer']['mail']) &&
                     !empty($this->pluginSettings['settings']['buyer']['mail']['fromAddress'])
