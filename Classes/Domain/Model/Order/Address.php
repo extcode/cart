@@ -234,6 +234,18 @@ class Address extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * @return string
      */
+    public function getSalutationOrTitleLastName()
+    {
+        if ($this->title) {
+            return $this->getTitleLastName();
+        } else {
+            return $this->getSalutationLastName();
+        }
+    }
+
+    /**
+     * @return string
+     */
     public function getFullName()
     {
         $fullName = [$this->firstName, $this->lastName];

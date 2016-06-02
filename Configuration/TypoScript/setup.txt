@@ -216,3 +216,13 @@ plugin.tx_cart {
         }
     }
 }
+
+# use this lib to add custom information or content elements to your email template
+lib.cartMailHeader = COA
+lib.cartMailHeader {
+}
+
+# use this lib to add custom information or content elements to your email template
+lib.cartMailFooter = COA
+lib.cartMailFooter {
+}

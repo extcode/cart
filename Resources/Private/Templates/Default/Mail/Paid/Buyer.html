@@ -2,6 +2,12 @@
 
 <f:section name="main">
     <p>
+        <f:translate key="tx_cart.mail.salutation" arguments="{0: billingAddress.titleLastName}"/>
+    </p>
+
+    <f:cObject typoscriptObjectPath="lib.cartMailHeader" />
+
+    <p>
         <b><f:translate key="tx_cart.mail.thank_you_for_order" /></b>
     </p>
 
@@ -15,18 +21,20 @@
         <b><f:translate key="tx_cart.mail.order_summary" />:</b>
     </p>
 
-    <f:if condition="{orderItem.orderNumber}">
-        <b><f:translate key="tx_cart_domain_model_order_item.order_number" />:</b>  {orderItem.orderNumber} <br />
-    </f:if>
-    <b><f:translate key="tx_cart_domain_model_order_item.order_date" />:</b> <<f:format.date format="d.m.Y" date="{orderItem.orderDate}" /><br />
-    <b><f:translate key="tx_cart.mail.payment_method" />:</b>  {orderItem.payment.name} ({orderItem.payment.status}) <br />
-    <b><f:translate key="tx_cart.mail.shipping_method" />:</b>  {orderItem.shipping.name} ({orderItem.shipping.status}) <br />
-    <br />
+    <p>
+        <f:if condition="{orderItem.orderNumber}">
+            <b><f:translate key="tx_cart_domain_model_order_item.order_number" />:</b>  {orderItem.orderNumber} <br />
+        </f:if>
+        <b><f:translate key="tx_cart_domain_model_order_item.order_date" />:</b> <f:format.date format="d.m.Y" date="{orderItem.orderDate}" /><br />
+        <b><f:translate key="tx_cart.mail.payment_method" />:</b>  {orderItem.payment.name} ({orderItem.payment.status}) <br />
+        <b><f:translate key="tx_cart.mail.shipping_method" />:</b>  {orderItem.shipping.name} ({orderItem.shipping.status})
+    </p>
 
     <f:render partial="Mail/Cart" arguments="{cart: cart}"/>
 
-    <f:translate key="tx_cart.mail.signature" />
+    <p>
+        <f:translate key="tx_cart.mail.signature" />
+    </p>
 
-    <br />
-    <f:render partial="Mail/BuyerInformation" arguments="{_all}"/>
+    <f:cObject typoscriptObjectPath="lib.cartMailFooter" />
 </f:section>

@@ -282,6 +282,40 @@ class AddressTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
     /**
      * @test
      */
+    public function getSalutationOrTitleLastNameWithoutTitleReturnsCorrectConcatenation()
+    {
+        $salutation = 'salutation';
+        $this->address->setSalutation($salutation);
+        $lastName = 'last name';
+        $this->address->setLastName($lastName);
+
+        $this->assertEquals(
+            $salutation . ' ' . $lastName,
+            $this->address->getSalutationOrTitleLastName()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function getSalutationOrTitleLastNameWithTitleReturnsCorrectConcatenation()
+    {
+        $salutation = 'salutation';
+        $this->address->setSalutation($salutation);
+        $title = 'title';
+        $this->address->setTitle($title);
+        $lastName = 'last name';
+        $this->address->setLastName($lastName);
+
+        $this->assertEquals(
+            $title . ' ' . $lastName,
+            $this->address->getSalutationOrTitleLastName()
+        );
+    }
+
+    /**
+     * @test
+     */
     public function getFullNameReturnsCorrectConcatenation()
     {
         $firstName = 'first name';

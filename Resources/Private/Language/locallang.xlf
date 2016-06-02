@@ -38,6 +38,9 @@
             <trans-unit id="tx_cart.mail.shipping_method">
                 <source>Shipping method</source>
             </trans-unit>
+            <trans-unit id="tx_cart.mail.salutation">
+                <source>Dear %s,</source>
+            </trans-unit>
             <trans-unit id="tx_cart.mail.signature">
                 <source>Sincerely yours</source>
             </trans-unit>

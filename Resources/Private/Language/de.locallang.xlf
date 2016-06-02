@@ -49,6 +49,10 @@
                 <source>Shipping method</source>
                 <target>Versandart</target>
             </trans-unit>
+            <trans-unit id="tx_cart.mail.salutation">
+                <source>Dear %s,</source>
+                <target>Sehr geehrte(r) %s,</target>
+            </trans-unit>
             <trans-unit id="tx_cart.mail.signature">
                 <source>Sincerely yours</source>
                 <target>Mit freundlichen Grüßen</target>
