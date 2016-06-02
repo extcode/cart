@@ -204,9 +204,67 @@ class Address extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
         return $this->lastName;
     }
 
+    /**
+     * @return string
+     */
+    public function getSalutationLastName()
+    {
+        $salutationLastName = [$this->salutation, $this->lastName];
+        return join(' ', array_filter($salutationLastName));
+    }
+
+    /**
+     * @return string
+     */
+    public function getTitleLastName()
+    {
+        $titleLastName = [$this->title, $this->lastName];
+        return join(' ', array_filter($titleLastName));
+    }
+
+    /**
+     * @return string
+     */
+    public function getSalutationTitleLastName()
+    {
+        $salutationTitleLastName = [$this->salutation, $this->title, $this->lastName];
+        return join(' ', array_filter($salutationTitleLastName));
+    }
+
+    /**
+     * @return string
+     */
     public function getFullName()
     {
-        return join(' ', [$this->firstName, $this->lastName]);
+        $fullName = [$this->firstName, $this->lastName];
+        return join(' ', array_filter($fullName));
+    }
+
+    /**
+     * @return string
+     */
+    public function getSalutationFullName()
+    {
+        $salutationFullName = [$this->salutation, $this->firstName, $this->lastName];
+        return join(' ', array_filter($salutationFullName));
+    }
+
+    /**
+     * @return string
+     */
+    public function getTitleFullName()
+    {
+        $titleFullName = [$this->title, $this->firstName, $this->lastName];
+        return join(' ', array_filter($titleFullName));
+    }
+
+    /**
+     * @return string
+     */
+    public function getSalutationTitleFullName()
+    {
+        $salutationTitleFullName = [$this->salutation, $this->title, $this->firstName, $this->lastName];
+        return join(' ', array_filter($salutationTitleFullName));
     }
 
     /**

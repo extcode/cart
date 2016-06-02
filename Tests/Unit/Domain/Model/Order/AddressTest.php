@@ -202,6 +202,192 @@ class AddressTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
     /**
      * @test
      */
+    public function getSalutationLastNameReturnsConcatenation()
+    {
+        $salutation = 'salutation';
+        $this->address->setSalutation($salutation);
+        $lastName = 'last name';
+        $this->address->setLastName($lastName);
+
+        $this->assertEquals(
+            $salutation . ' ' . $lastName,
+            $this->address->getSalutationLastName()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function getTitleLastNameWithoutTitleReturnsCorrectConcatenation()
+    {
+        $lastName = 'last name';
+        $this->address->setLastName($lastName);
+
+        $this->assertEquals(
+            $lastName,
+            $this->address->getTitleLastName()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function getTitleLastNameWithTitleReturnsCorrectConcatenation()
+    {
+        $title = 'title';
+        $this->address->setTitle($title);
+        $lastName = 'last name';
+        $this->address->setLastName($lastName);
+
+        $this->assertEquals(
+            $title . ' ' . $lastName,
+            $this->address->getTitleLastName()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function getSalutationTitleLastNameWithoutTitleReturnsCorrectConcatenation()
+    {
+        $salutation = 'salutation';
+        $this->address->setSalutation($salutation);
+        $lastName = 'last name';
+        $this->address->setLastName($lastName);
+
+        $this->assertEquals(
+            $salutation . ' ' . $lastName,
+            $this->address->getSalutationTitleLastName()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function getSalutationTitleLastNameWithTitleReturnsCorrectConcatenation()
+    {
+        $salutation = 'salutation';
+        $this->address->setSalutation($salutation);
+        $title = 'title';
+        $this->address->setTitle($title);
+        $lastName = 'last name';
+        $this->address->setLastName($lastName);
+
+        $this->assertEquals(
+            $salutation . ' ' . $title . ' ' . $lastName,
+            $this->address->getSalutationTitleLastName()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function getFullNameReturnsCorrectConcatenation()
+    {
+        $firstName = 'first name';
+        $this->address->setFirstName($firstName);
+        $lastName = 'last name';
+        $this->address->setLastName($lastName);
+
+        $this->assertEquals(
+            $firstName . ' ' . $lastName,
+            $this->address->getFullName()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function getSalutationFullNameReturnsCorrectConcatenation()
+    {
+        $salutation = 'salutation';
+        $this->address->setSalutation($salutation);
+        $firstName = 'first name';
+        $this->address->setFirstName($firstName);
+        $lastName = 'last name';
+        $this->address->setLastName($lastName);
+
+        $this->assertEquals(
+            $salutation . ' ' . $firstName . ' ' . $lastName,
+            $this->address->getSalutationFullName()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function getTitleFullNameWithoutTitleReturnsCorrectConcatenation()
+    {
+        $firstName = 'first name';
+        $this->address->setFirstName($firstName);
+        $lastName = 'last name';
+        $this->address->setLastName($lastName);
+
+        $this->assertEquals(
+            $firstName . ' ' . $lastName,
+            $this->address->getTitleFullName()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function getTitleFullNameWithTitleReturnsCorrectConcatenation()
+    {
+        $title = 'title';
+        $this->address->setTitle($title);
+        $firstName = 'first name';
+        $this->address->setFirstName($firstName);
+        $lastName = 'last name';
+        $this->address->setLastName($lastName);
+
+        $this->assertEquals(
+            $title . ' ' . $firstName . ' ' . $lastName,
+            $this->address->getTitleFullName()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function getSalutationTitleFullNameWithoutTitleReturnsCorrectConcatenation()
+    {
+        $salutation = 'salutation';
+        $this->address->setSalutation($salutation);
+        $firstName = 'first name';
+        $this->address->setFirstName($firstName);
+        $lastName = 'last name';
+        $this->address->setLastName($lastName);
+
+        $this->assertEquals(
+            $salutation . ' ' . $firstName . ' ' . $lastName,
+            $this->address->getSalutationTitleFullName()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function getSalutationTitleFullNameWithTitleReturnsCorrectConcatenation()
+    {
+        $salutation = 'salutation';
+        $this->address->setSalutation($salutation);
+        $title = 'title';
+        $this->address->setTitle($title);
+        $firstName = 'first name';
+        $this->address->setFirstName($firstName);
+        $lastName = 'last name';
+        $this->address->setLastName($lastName);
+
+        $this->assertEquals(
+            $salutation . ' ' . $title . ' ' . $firstName . ' ' . $lastName,
+            $this->address->getSalutationTitleFullName()
+        );
+    }
+
+    /**
+     * @test
+     */
     public function getCompanyInitiallyReturnsEmptyString()
     {
         $this->assertSame(
