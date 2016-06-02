@@ -227,7 +227,7 @@ class MailHandler implements SingletonInterface
         }
 
         $status = $orderItem->getPayment()->getStatus();
-        $view = $this->getEmailStandaloneView('/Order/Mail/' . ucfirst($status) . '/', 'Buyer', 'html');
+        $view = $this->getEmailStandaloneView('/Mail/' . ucfirst($status) . '/', 'Buyer', 'html');
 
         if ($view->getTemplatePathAndFilename()) {
             $view->assign('settings', $this->pluginSettings['settings']);
@@ -282,7 +282,7 @@ class MailHandler implements SingletonInterface
         }
 
         $status = $orderItem->getPayment()->getStatus();
-        $view = $this->getEmailStandaloneView('/Order/Mail/' . ucfirst($status) . '/', 'Seller', 'html');
+        $view = $this->getEmailStandaloneView('/Mail/' . ucfirst($status) . '/', 'Seller', 'html');
 
         if ($view->getTemplatePathAndFilename()) {
             $view->assign('settings', $this->pluginSettings['settings']);

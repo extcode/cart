@@ -5,7 +5,7 @@
         <b><f:translate key="tx_cart.mail.order_information" />:</b>
     </p>
 
-    <f:render partial="Cart/Mail/Address" arguments="{billingAddress: billingAddress, shippingAddress: shippingAddress}"/>
+    <f:render partial="Mail/Address" arguments="{billingAddress: billingAddress, shippingAddress: shippingAddress}"/>
 
     <p style="background-color:#3b7eb0;color:#fff;padding:3px;">
         <b><f:translate key="tx_cart.mail.order_summary" />:</b>
@@ -19,5 +19,5 @@
     <b><f:translate key="tx_cart.mail.shipping_method" />:</b>  {orderItem.shipping.name} ({orderItem.shipping.status}) <br />
     <br />
 
-    <f:render partial="Cart/Mail/Cart" arguments="{cart: cart}"/>
+    <f:render partial="Mail/Cart" arguments="{cart: cart}"/>
 </f:section>
