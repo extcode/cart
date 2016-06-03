@@ -14,7 +14,7 @@ plugin.tx_cart {
             decimalSeparator   = ,
             thousandsSeparator = .
             prependCurrency    = 0
-            separateCurrency   = &nbsp;
+            separateCurrency   = 1
             decimals           = 2
         }
     }

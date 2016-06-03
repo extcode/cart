@@ -98,7 +98,7 @@ class CurrencyViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHe
         }
         $output = number_format($floatToFormat, $decimals, $decimalSeparator, $thousandsSeparator);
         if ($currencySign !== '') {
-            $currencySeparator = $separateCurrency ? ' ' : '';
+            $currencySeparator = $separateCurrency ? '&nbsp;' : '';
             if ($prependCurrency === true) {
                 $output = $currencySign . $currencySeparator . $output;
             } else {
