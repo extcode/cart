@@ -625,58 +625,71 @@ class CartUtility
 
         if ($productObject) {
             if (isset($repositoryFields['getTitle'])) {
-                $preCartProductSetValue['title'] = $productObject->$repositoryFields['getTitle'];
+                $functionName = $repositoryFields['getTitle'];
+                $preCartProductSetValue['title'] = $productObject->$functionName();
             } else {
                 $preCartProductSetValue['title'] = $productObject->getTitle();
             }
             if (isset($repositoryFields['getSku'])) {
-                $preCartProductSetValue['sku'] = $productObject->$repositoryFields['getSku'];
+                $functionName = $repositoryFields['getSku'];
+                $preCartProductSetValue['sku'] = $productObject->$functionName();
             } else {
                 $preCartProductSetValue['sku'] = $productObject->getSku();
             }
             if (isset($repositoryFields['getPrice'])) {
-                $preCartProductSetValue['price'] = $productObject->$repositoryFields['getPrice'];
+                $functionName = $repositoryFields['getPrice'];
+                $preCartProductSetValue['price'] = $productObject->$functionName();
             } else {
                 $preCartProductSetValue['price'] = $productObject->getPrice();
             }
 
             if (isset($repositoryFields['getProductTaxClassId'])) {
-                $preCartProductSetValue['taxClassId'] = $productObject->$repositoryFields['getProductTaxClassId']();
+                $functionName = $repositoryFields['getProductTaxClassId'];
+                $preCartProductSetValue['taxClassId'] = $productObject->$functionName();
             } elseif (isset($repositoryFields['getProductTaxClass'])) {
-                $preCartProductSetValue['taxClassId'] = $productObject->$repositoryFields['getProductTaxClass']()->getUid();
+                $functionName = $repositoryFields['getProductTaxClass'];
+                $preCartProductSetValue['taxClassId'] = $productObject->$functionName()->getUid();
             } else {
                 $preCartProductSetValue['taxClassId'] = $productObject->getTaxClassId();
             }
 
             if (isset($repositoryFields['getServiceAttribute1'])) {
-                $preCartProductSetValue['serviceAttribute1'] = $productObject->$repositoryFields['getServiceAttribute1']();
+                $functionName = $repositoryFields['getServiceAttribute1'];
+                $preCartProductSetValue['serviceAttribute1'] = $productObject->$functionName();
             }
             if (isset($repositoryFields['getServiceAttribute2'])) {
-                $preCartProductSetValue['serviceAttribute2'] = $productObject->$repositoryFields['getServiceAttribute2']();
+                $functionName = $repositoryFields['getServiceAttribute2'];
+                $preCartProductSetValue['serviceAttribute2'] = $productObject->$functionName();
             }
             if (isset($repositoryFields['getServiceAttribute3'])) {
-                $preCartProductSetValue['serviceAttribute3'] = $productObject->$repositoryFields['getServiceAttribute3']();
+                $functionName = $repositoryFields['getServiceAttribute3'];
+                $preCartProductSetValue['serviceAttribute3'] = $productObject->$functionName();
             }
 
             if (isset($repositoryFields['hasFeVariants'])) {
-                $preCartProductSetValue['hasFeVariants'] = $productObject->$repositoryFields['hasFeVariants']();
+                $functionName = $repositoryFields['hasFeVariants'];
+                $preCartProductSetValue['hasFeVariants'] = $productObject->$functionName();
             }
 
             if (isset($repositoryFields['getSpecialPrice'])) {
-                $preCartProductSetValue['specialPrice'] = $productObject->$repositoryFields['getSpecialPrice']();
+                $functionName = $repositoryFields['getSpecialPrice'];
+                $preCartProductSetValue['specialPrice'] = $productObject->$functionName();
             }
 
             if (isset($repositoryFields['getMinNumber'])) {
-                $preCartProductSetValue['minNumber'] = $productObject->$repositoryFields['getMinNumber']();
+                $functionName = $repositoryFields['getMinNumber'];
+                $preCartProductSetValue['minNumber'] = $productObject->$functionName();
             }
             if (isset($repositoryFields['getMaxNumber'])) {
-                $preCartProductSetValue['maxNumber'] = $productObject->$repositoryFields['getMaxNumber']();
+                $functionName = $repositoryFields['getMaxNumber'];
+                $preCartProductSetValue['maxNumber'] = $productObject->$functionName();
             }
 
             if (isset($repositoryFields['getFeVariants'])) {
                 $feVariantValues = $preCartProductSetValue['feVariants'];
 
-                $feVariants = $productObject->$repositoryFields['getFeVariants']();
+                $functionName = $repositoryFields['getFeVariants'];
+                $feVariants = $productObject->$functionName();
 
                 if ($feVariants) {
                     $preCartProductSetValue['feVariants'] = [];
@@ -696,9 +709,10 @@ class CartUtility
                 $preCartProductSetValue['additional'] = [];
                 foreach ($repositoryFields['additional.'] as $additionalKey => $additionalValue) {
                     if ($additionalValue['field']) {
-                        $preCartProductSetValue['additional'][$additionalKey] = $productObject->$additionalValue['field']();
+                        $functionName = $additionalValue['field'];
+                        $preCartProductSetValue['additional'][$additionalKey] = $functionName();
                     } elseif ($additionalValue['value']) {
-                        $preCartProductSetValue['additional'][$additionalKey] = $additionalValue['value']();
+                        $preCartProductSetValue['additional'][$additionalKey] = $additionalValue['value'];
                     }
                 }
             }
