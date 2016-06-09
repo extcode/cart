@@ -119,8 +119,7 @@ class MailHandler implements SingletonInterface
             if (!empty($this->pluginSettings['settings']['buyer'])) {
                 if (!empty($this->pluginSettings['settings']['buyer']['emailFromAddress'])) {
                     $this->setBuyerEmailFrom($this->pluginSettings['settings']['buyer']['emailFromAddress']);
-                } elseif (
-                    !empty($this->pluginSettings['settings']['buyer']['mail']) &&
+                } elseif (!empty($this->pluginSettings['settings']['buyer']['mail']) &&
                     !empty($this->pluginSettings['settings']['buyer']['mail']['fromAddress'])
                 ) {
                     $this->setBuyerEmailFrom($this->pluginSettings['settings']['buyer']['mail']['fromAddress']);
@@ -130,8 +129,7 @@ class MailHandler implements SingletonInterface
             if (!empty($this->pluginSettings['settings']['seller'])) {
                 if (!empty($this->pluginSettings['settings']['seller']['emailFromAddress'])) {
                     $this->setSellerEmailFrom($this->pluginSettings['settings']['seller']['emailFromAddress']);
-                } elseif (
-                    !empty($this->pluginSettings['settings']['seller']['mail']) &&
+                } elseif (!empty($this->pluginSettings['settings']['seller']['mail']) &&
                     !empty($this->pluginSettings['settings']['seller']['mail']['fromAddress'])
                 ) {
                     $this->setSellerEmailFrom($this->pluginSettings['settings']['seller']['mail']['fromAddress']);
@@ -141,8 +139,7 @@ class MailHandler implements SingletonInterface
             if (!empty($this->pluginSettings['settings']['seller'])) {
                 if (!empty($this->pluginSettings['settings']['seller']['emailToAddress'])) {
                     $this->setSellerEmailTo($this->pluginSettings['settings']['seller']['emailToAddress']);
-                } elseif (
-                    !empty($this->pluginSettings['settings']['seller']['mail']) &&
+                } elseif (!empty($this->pluginSettings['settings']['seller']['mail']) &&
                     !empty($this->pluginSettings['settings']['seller']['mail']['toAddress'])
                 ) {
                     $this->setSellerEmailTo($this->pluginSettings['settings']['seller']['mail']['toAddress']);
@@ -292,11 +289,13 @@ class MailHandler implements SingletonInterface
             $view->assign('billingAddress', $billingAddress);
             $view->assign('shippingAddress', $shippingAddress);
 
+            $mailToAddresses = explode(',', $this->sellerEmailTo);
+
             $mailBody = $view->render();
 
             $mail = $this->objectManager->get('TYPO3\\CMS\\Core\\Mail\\MailMessage');
             $mail->setFrom($this->sellerEmailFrom);
-            $mail->setTo($this->sellerEmailTo);
+            $mail->setTo($mailToAddresses);
             $mail->setSubject(
                 \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_cart.mail.seller.subject', 'Cart')
             );
