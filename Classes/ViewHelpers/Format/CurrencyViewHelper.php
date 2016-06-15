@@ -18,10 +18,13 @@ namespace Extcode\Cart\ViewHelpers\Format;
 /**
  * Currency ViewHelper
  *
+ * Currency ViewHelper was adapted from Fluid Currency ViewHelper but allows to define default behaviour through
+ * TypoScript settings.
+ *
  * @package cart
  * @author Daniel Lorenz <ext.cart@extco.de>
  */
-class CurrencyViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper
+class CurrencyViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\Format\CurrencyViewHelper
 {
     /**
      * @param string $currencySign (optional) The currency sign, eg $ or €.
@@ -30,8 +33,8 @@ class CurrencyViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHe
      * @param boolean $prependCurrency (optional) Select if the curreny sign should be prepended
      * @param boolean $separateCurrency (optional) Separate the currency sign from the number by a single space, defaults to true due to backwards compatibility
      * @param integer $decimals (optional) Set decimals places.
+     *
      * @return string the formatted amount.
-     * @api
      */
     public function render(
         $currencySign = null,
@@ -41,70 +44,50 @@ class CurrencyViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHe
         $separateCurrency = null,
         $decimals = null
     ) {
-        $currencyFormat = [];
         $settings = $this->templateVariableContainer->get('settings');
+
         if ($settings && $settings['format'] && $settings['format']['currency']) {
             $currencyFormat = $settings['format']['currency'];
-        }
 
-        if (!$currencySign) {
-            if ($currencyFormat['currencySign']) {
-                $currencySign = $currencyFormat['currencySign'];
-            } else {
-                $currencySign = '';
+            if (!$currencySign) {
+                if ($currencyFormat['currencySign']) {
+                    $currencySign = $currencyFormat['currencySign'];
+                }
             }
-        }
-        if (!$decimalSeparator) {
-            if ($currencyFormat['decimalSeparator']) {
-                $decimalSeparator = $currencyFormat['decimalSeparator'];
-            } else {
-                $decimalSeparator = ',';
+            if (!$decimalSeparator) {
+                if ($currencyFormat['decimalSeparator']) {
+                    $decimalSeparator = $currencyFormat['decimalSeparator'];
+                }
             }
-        }
-        if (!$thousandsSeparator) {
-            if ($currencyFormat['thousandsSeparator']) {
-                $thousandsSeparator = $currencyFormat['thousandsSeparator'];
-            } else {
-                $thousandsSeparator = '.';
+            if (!$thousandsSeparator) {
+                if ($currencyFormat['thousandsSeparator']) {
+                    $thousandsSeparator = $currencyFormat['thousandsSeparator'];
+                }
             }
-        }
-        if (!$prependCurrency) {
-            if ($currencyFormat['prependCurrency']) {
-                $prependCurrency = $currencyFormat['prependCurrency'];
-            } else {
-                $prependCurrency = false;
+            if (!$prependCurrency) {
+                if ($currencyFormat['prependCurrency']) {
+                    $prependCurrency = filter_var($currencyFormat['prependCurrency'], FILTER_VALIDATE_BOOLEAN);
+                }
             }
-        }
-        if (!$separateCurrency) {
-            if ($currencyFormat['separateCurrency']) {
-                $separateCurrency = $currencyFormat['separateCurrency'];
-            } else {
-                $separateCurrency = true;
+            if (!$separateCurrency) {
+                if ($currencyFormat['separateCurrency']) {
+                    $separateCurrency = filter_var($currencyFormat['separateCurrency'], FILTER_VALIDATE_BOOLEAN);
+                }
             }
-        }
-        if (!$decimals) {
-            if ($currencyFormat['decimals']) {
-                $decimals = $currencyFormat['decimals'];
-            } else {
-                $decimals = true;
+            if (!$decimals) {
+                if ($currencyFormat['decimals']) {
+                    $decimals = intval($currencyFormat['decimals']);
+                }
             }
         }
 
-        $floatToFormat = $this->renderChildren();
-        if (empty($floatToFormat)) {
-            $floatToFormat = 0.0;
-        } else {
-            $floatToFormat = floatval($floatToFormat);
-        }
-        $output = number_format($floatToFormat, $decimals, $decimalSeparator, $thousandsSeparator);
-        if ($currencySign !== '') {
-            $currencySeparator = $separateCurrency ? ' ' : '';
-            if ($prependCurrency === true) {
-                $output = $currencySign . $currencySeparator . $output;
-            } else {
-                $output = $output . $currencySeparator . $currencySign;
-            }
-        }
-        return $output;
+        return parent::render(
+            $currencySign,
+            $decimalSeparator,
+            $thousandsSeparator,
+            $prependCurrency,
+            $separateCurrency,
+            $decimals
+        );
     }
 }

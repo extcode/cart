@@ -13,8 +13,8 @@ plugin.tx_cart {
             currencySign       = &euro;
             decimalSeparator   = ,
             thousandsSeparator = .
-            prependCurrency    = 0
-            separateCurrency   = &nbsp;
+            prependCurrency    = false
+            separateCurrency   = true
             decimals           = 2
         }
     }
