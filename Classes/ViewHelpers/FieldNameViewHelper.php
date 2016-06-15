@@ -21,7 +21,7 @@ namespace Extcode\Cart\ViewHelpers;
  * @package cart
  * @author Daniel Lorenz <ext.cart@extco.de>
  */
-class FieldNameViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\Link\ActionViewHelper
+class FieldNameViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper
 {
 
     public function initializeArguments()
