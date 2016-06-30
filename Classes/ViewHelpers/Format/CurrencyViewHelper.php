@@ -24,8 +24,14 @@ namespace Extcode\Cart\ViewHelpers\Format;
  * @package cart
  * @author Daniel Lorenz <ext.cart@extco.de>
  */
-class CurrencyViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\Format\CurrencyViewHelper
+class CurrencyViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper
 {
+    /**
+     * @var \TYPO3\CMS\Extbase\Configuration\ConfigurationManager
+     * @inject
+     */
+    protected $configurationManager;
+
     /**
      * @param string $currencySign (optional) The currency sign, eg $ or €.
      * @param string $decimalSeparator (optional) The separator for the decimal point.
@@ -81,13 +87,22 @@ class CurrencyViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\Format\CurrencyVie
             }
         }
 
-        return parent::render(
-            $currencySign,
-            $decimalSeparator,
-            $thousandsSeparator,
-            $prependCurrency,
-            $separateCurrency,
-            $decimals
-        );
+        $floatToFormat = $this->renderChildren();
+        if (empty($floatToFormat)) {
+            $floatToFormat = 0.0;
+        } else {
+            $floatToFormat = floatval($floatToFormat);
+        }
+
+        $output = number_format($floatToFormat, $decimals, $decimalSeparator, $thousandsSeparator);
+        if ($currencySign !== '') {
+            $currencySeparator = $separateCurrency ? '&nbsp;' : '';
+            if ($prependCurrency === true) {
+                $output = $currencySign . $currencySeparator . $output;
+            } else {
+                $output = $output . $currencySeparator . $currencySign;
+            }
+        }
+        return $output;
     }
 }
