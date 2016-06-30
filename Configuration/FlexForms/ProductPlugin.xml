@@ -96,7 +96,7 @@
                     <settings.showPageUids>
                         <TCEforms>
                             <exclude>1</exclude>
-                            <label>LLL:EXT:cart/Resources/Private/Language/locallang_db.xlf:tx_cart.plugin.products.action.product.list.select.page</label>
+                            <label>LLL:EXT:cart/Resources/Private/Language/locallang_db.xlf:tx_cart.plugin.products.action.product.list.select.single_pid</label>
                             <displayCond>FIELD:switchableControllerActions:=:Product->list;Product->show</displayCond>
                             <config>
                                 <type>group</type>

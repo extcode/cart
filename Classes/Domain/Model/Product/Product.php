@@ -208,7 +208,7 @@ class Product extends \Extcode\Cart\Domain\Model\Product\AbstractProduct
     /**
      * Categories
      *
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\Category>
+     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Extcode\Cart\Domain\Model\Category>
      */
     protected $categories = null;
 
@@ -941,11 +941,27 @@ class Product extends \Extcode\Cart\Domain\Model\Product\AbstractProduct
     /**
      * Returns the categories
      *
-     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\Category> $categories
+     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Extcode\Cart\Domain\Model\Category> $categories
      */
     public function getCategories()
     {
         return $this->categories;
+    }
+
+    /**
+     * Returns the first category
+     *
+     * @return \Extcode\Cart\Domain\Model\Category
+     */
+    public function getFirstCategory()
+    {
+        $categories = $this->getCategories();
+        if (!is_null($categories)) {
+            $categories->rewind();
+            return $categories->current();
+        } else {
+            return null;
+        }
     }
 
     /**

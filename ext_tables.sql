@@ -847,3 +847,11 @@ CREATE TABLE tx_cart_domain_model_product_tag_mm (
     KEY uid_local (uid_local),
     KEY uid_foreign (uid_foreign)
 );
+
+#
+# Extend table structure of table 'sys_category'
+#
+CREATE TABLE sys_category (
+    cart_product_images int(11) unsigned DEFAULT '0',
+    cart_product_single_pid int(11) unsigned DEFAULT '0' NOT NULL,
+);

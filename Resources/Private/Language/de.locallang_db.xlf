@@ -602,9 +602,9 @@
                 <source>Product - Teaser View</source>
                 <target>Produkt - Teaseransicht</target>
             </trans-unit>
-            <trans-unit id="tx_cart.plugin.products.action.product.list.select.page">
-                <source>Choose detail page</source>
-                <target>Detailseite auswählen</target>
+            <trans-unit id="tx_cart.plugin.products.action.product.list.select.single_pid">
+                <source>Product Detail Page</source>
+                <target>Produktdetailseite</target>
             </trans-unit>
             <trans-unit id="tx_cart.plugin.products.action.product.list.orderBy">
                 <source>Sort by</source>
@@ -962,6 +962,15 @@
             <trans-unit id="tx_cart_domain_model_product_tag.title">
                 <source>Title</source>
                 <target>Titel</target>
+            </trans-unit>
+
+            <trans-unit id="tx_cart_domain_model_category.cart_product_image">
+                <source>Cart: Product Category Image</source>
+                <target>Cart: Prdduktkategoriebild</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_category.cart_product_single_pid">
+                <source>Cart: Product Detail Page</source>
+                <target>Cart: Produktdetailseite</target>
             </trans-unit>
         </body>
     </file>

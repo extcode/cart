@@ -23,4 +23,18 @@ namespace Extcode\Cart\Domain\Model;
  */
 class Category extends \TYPO3\CMS\Extbase\Domain\Model\Category
 {
+    /**
+     * @var int
+     */
+    protected $cartProductSinglePid;
+
+    /**
+     * Returns CartProductSinglePid
+     *
+     * @return int
+     */
+    public function getCartProductSinglePid()
+    {
+        return $this->cartProductSinglePid;
+    }
 }

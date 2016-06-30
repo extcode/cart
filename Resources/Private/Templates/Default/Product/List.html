@@ -21,10 +21,10 @@
         <tbody>
             <f:for each="{products}" as="product">
                 <tr>
-                    <f:if condition="{settings.showPageUids}">
+                    <f:if condition="{product.firstCategory.cartProductSinglePid}">
                         <f:then>
                             <td>
-                                <f:link.action pageUid="{settings.showPageUids}" action="show" arguments="{product : product}">
+                                <f:link.action pageUid="{product.firstCategory.cartProductSinglePid}" action="show" arguments="{product : product}">
                                     <f:if condition="{product.images}">
                                         <f:image src="{product.firstImage.originalResource.originalFile.uid}"
                                                  title="{product.firstImage.originalResource.title}"
@@ -35,28 +35,50 @@
                                 </f:link.action>
                             </td>
                             <td>
-                                <f:link.action pageUid="{settings.showPageUids}" action="show" arguments="{product: product}">
+                                <f:link.action pageUid="{product.firstCategory.cartProductSinglePid}" action="show" arguments="{product: product}">
                                     {product.title}
                                 </f:link.action>
                             </td>
                         </f:then>
                         <f:else>
-                            <td>
-                                <f:link.action action="show" arguments="{product : product}">
-                                    <f:if condition="{product.images}">
-                                        <f:image src="{product.firstImage.originalResource.originalFile.uid}"
-                                                 title="{product.firstImage.originalResource.title}"
-                                                 alt="{product.firstImage.originalResource.title}"
-                                                 width="{settings.listAction.media.image.size.small.maxWidth}"
-                                                 height="{settings.listAction.media.image.size.small.maxHeight}" />
-                                    </f:if>
-                                </f:link.action>
-                            </td>
-                            <td>
-                                <f:link.action action="show" arguments="{product: product.uid}">
-                                    {product.title}
-                                </f:link.action>
-                            </td>
+                            <f:if condition="{settings.showPageUids}">
+                                <f:then>
+                                    <td>
+                                        <f:link.action pageUid="{settings.showPageUids}" action="show" arguments="{product : product}">
+                                            <f:if condition="{product.images}">
+                                                <f:image src="{product.firstImage.originalResource.originalFile.uid}"
+                                                         title="{product.firstImage.originalResource.title}"
+                                                         alt="{product.firstImage.originalResource.title}"
+                                                         width="{settings.listAction.media.image.size.small.maxWidth}"
+                                                         height="{settings.listAction.media.image.size.small.maxHeight}" />
+                                            </f:if>
+                                        </f:link.action>
+                                    </td>
+                                    <td>
+                                        <f:link.action pageUid="{settings.showPageUids}" action="show" arguments="{product: product}">
+                                            {product.title}
+                                        </f:link.action>
+                                    </td>
+                                </f:then>
+                                <f:else>
+                                    <td>
+                                        <f:link.action action="show" arguments="{product : product}">
+                                            <f:if condition="{product.images}">
+                                                <f:image src="{product.firstImage.originalResource.originalFile.uid}"
+                                                         title="{product.firstImage.originalResource.title}"
+                                                         alt="{product.firstImage.originalResource.title}"
+                                                         width="{settings.listAction.media.image.size.small.maxWidth}"
+                                                         height="{settings.listAction.media.image.size.small.maxHeight}" />
+                                            </f:if>
+                                        </f:link.action>
+                                    </td>
+                                    <td>
+                                        <f:link.action action="show" arguments="{product: product.uid}">
+                                            {product.title}
+                                        </f:link.action>
+                                    </td>
+                                </f:else>
+                            </f:if>
                         </f:else>
                     </f:if>
                     <td>
