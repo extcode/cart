@@ -5,10 +5,10 @@ defined('TYPO3_MODE') or die();
 $_LLL = 'LLL:EXT:cart/Resources/Private/Language/locallang_db.xlf';
 
 $newSysCategoryColumns = [
-    'cart_product_images' => [
+    'images' => [
         'exclude' => 1,
         'l10n_mode' => 'mergeIfNotBlank',
-        'label' => $_LLL . ':tx_cart_domain_model_category.cart_product_image',
+        'label' => $_LLL . ':tx_cart_domain_model_category.image',
         'config' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::getFileFieldTCAConfig(
             'images',
             [
@@ -56,7 +56,7 @@ $newSysCategoryColumns = [
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTCAcolumns('sys_category', $newSysCategoryColumns);
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addToAllTCAtypes(
     'sys_category',
-    '--div--;LLL:EXT:frontend/Resources/Private/Language/locallang_tca.xlf:pages.tabs.options, cart_product_images',
+    '--div--;LLL:EXT:frontend/Resources/Private/Language/locallang_tca.xlf:pages.tabs.options, images',
     '',
     'before:description'
 );

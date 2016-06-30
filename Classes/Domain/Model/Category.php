@@ -24,6 +24,15 @@ namespace Extcode\Cart\Domain\Model;
 class Category extends \TYPO3\CMS\Extbase\Domain\Model\Category
 {
     /**
+     * Images
+     *
+     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference>
+     */
+    protected $images;
+
+    /**
+     * CartProductSinglePid
+     *
      * @var int
      */
     protected $cartProductSinglePid;
@@ -36,5 +45,29 @@ class Category extends \TYPO3\CMS\Extbase\Domain\Model\Category
     public function getCartProductSinglePid()
     {
         return $this->cartProductSinglePid;
+    }
+
+    /**
+     * Returns images
+     *
+     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference>
+     */
+    public function getImages()
+    {
+        return $this->images;
+    }
+
+    /**
+     * Returns the first image
+     *
+     * @return \TYPO3\CMS\Extbase\Domain\Model\FileReference|null
+     */
+    public function getFirstImage()
+    {
+        $images = $this->getImages();
+        foreach ($images as $image) {
+            return $image;
+        }
+        return null;
     }
 }

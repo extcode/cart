@@ -852,6 +852,6 @@ CREATE TABLE tx_cart_domain_model_product_tag_mm (
 # Extend table structure of table 'sys_category'
 #
 CREATE TABLE sys_category (
-    cart_product_images int(11) unsigned DEFAULT '0',
+    images int(11) unsigned DEFAULT '0',
     cart_product_single_pid int(11) unsigned DEFAULT '0' NOT NULL,
 );
