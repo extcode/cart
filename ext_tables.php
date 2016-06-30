@@ -46,6 +46,8 @@ foreach ($pluginNames as $pluginName) {
         $pluginName,
         $_LLL . ':tx_cart.plugin.' . strtolower(preg_replace('/[A-Z]/', '_$0', lcfirst($pluginName)))
     );
+    $TCA['tt_content']['types']['list']['subtypes_excludelist'][$pluginSignature] = 'select_key';
+
     $flexFormPath = 'EXT:' . $_EXTKEY . '/Configuration/FlexForms/' . $pluginName . 'Plugin.xml';
     if (file_exists(\TYPO3\CMS\Core\Utility\GeneralUtility::getFileAbsFileName($flexFormPath))) {
         $TCA['tt_content']['types']['list']['subtypes_addlist'][$pluginSignature] = 'pi_flexform';

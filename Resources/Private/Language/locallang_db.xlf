@@ -473,8 +473,35 @@
             <trans-unit id="tx_cart.plugin.products.action.product.list.select.page">
                 <source>Choose detail page</source>
             </trans-unit>
+            <trans-unit id="tx_cart.plugin.products.action.product.list.orderBy">
+                <source>Sort by</source>
+            </trans-unit>
+            <trans-unit id="tx_cart.plugin.products.action.product.list.orderBy.uid">
+                <source>Uid</source>
+            </trans-unit>
+            <trans-unit id="tx_cart.plugin.products.action.product.list.orderBy.tstamp">
+                <source>Last edited</source>
+            </trans-unit>
+            <trans-unit id="tx_cart.plugin.products.action.product.list.orderBy.crdate">
+                <source>Created</source>
+            </trans-unit>
+            <trans-unit id="tx_cart.plugin.products.action.product.list.orderBy.title">
+                <source>Title</source>
+            </trans-unit>
+            <trans-unit id="tx_cart.plugin.products.action.product.list.orderDirection">
+                <source>Sort direction</source>
+            </trans-unit>
+            <trans-unit id="tx_cart.plugin.products.action.product.list.orderDirection.asc">
+                <source>Ascending</source>
+            </trans-unit>
+            <trans-unit id="tx_cart.plugin.products.action.product.list.orderDirection.desc">
+                <source>Descending</source>
+            </trans-unit>
+            <trans-unit id="tx_cart.plugin.products.action.product.list.categories">
+                <source>Categories</source>
+            </trans-unit>
             <trans-unit id="tx_cart.plugin.products.action.product.list.subcategories">
-                <source>List subcategories</source>
+                <source>Subcategories</source>
             </trans-unit>
             <trans-unit id="tx_cart.plugin.products.action.product.show.addToCartByAjax">
                 <source>Add to cart by Ajax-Request</source>

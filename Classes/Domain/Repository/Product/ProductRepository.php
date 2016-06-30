@@ -26,41 +26,31 @@ use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 class ProductRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
 {
     /**
-     * Find all products filtered by $searchArguments
-     *
-     * @param array $searchArguments
+     * @param \Extcode\Cart\Domain\Model\Dto\Product\ProductDemand $demand
      *
      * @return QueryResultInterface|array
      */
-    public function findAll($searchArguments = [])
+    public function findDemanded(\Extcode\Cart\Domain\Model\Dto\Product\ProductDemand $demand)
     {
-        // settings
         $query = $this->createQuery();
 
         $constraints = [];
 
-        // filter
-        if (isset($searchArguments)) {
-            foreach ((array)$searchArguments as $field => $value) {
-                if (empty($value)) {
-                    continue;
-                }
-
-                switch ($field) {
-                    case 'sku':
-                        $constraints[] = $query->equals('sku', $value);
-                        break;
-                    case 'title':
-                        $constraints[] = $query->like('title', '%' . $value . '%');
-                }
-            }
+        if ($demand->getSku()) {
+            $constraints[] = $query->equals('sku', $demand->getSku());
+        }
+        if ($demand->getTitle()) {
+            $constraints[] = $query->like('title', '%' . $demand->getTitle() . '%');
         }
 
-        // create constraint
         if (!empty($constraints)) {
             $query->matching(
                 $query->logicalAnd($constraints)
             );
+        }
+
+        if ($orderings = $this->createOrderingsFromDemand($demand)) {
+            $query->setOrderings($orderings);
         }
 
         $products = $query->execute();
@@ -118,5 +108,33 @@ class ProductRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
         );
 
         return $query->execute();
+    }
+
+    /**
+     * @param \Extcode\Cart\Domain\Model\Dto\Product\ProductDemand $demand
+     *
+     * @return array<\TYPO3\CMS\Extbase\Persistence\Generic\Qom\ConstraintInterface>
+     */
+    protected function createOrderingsFromDemand($demand)
+    {
+        $orderings = [];
+
+        $orderList = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode(',', $demand->getOrder(), true);
+        
+        if (!empty($orderList)) {
+            foreach ($orderList as $orderItem) {
+                list($orderField, $ascDesc) =
+                    \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode(' ', $orderItem, true);
+                if ($ascDesc) {
+                    $orderings[$orderField] = ((strtolower($ascDesc) == 'desc') ?
+                        \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_DESCENDING :
+                        \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING);
+                } else {
+                    $orderings[$orderField] = \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING;
+                }
+            }
+        }
+
+        return $orderings;
     }
 }

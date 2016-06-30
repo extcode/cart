@@ -77,8 +77,9 @@ class ProductController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
                     \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK
                 );
             $persistenceConfiguration = ['persistence' => ['storagePid' => $pageId]];
-            $this->configurationManager->setConfiguration(array_merge($frameworkConfiguration,
-                $persistenceConfiguration));
+            $this->configurationManager->setConfiguration(
+                array_merge($frameworkConfiguration, $persistenceConfiguration)
+            );
 
             $arguments = $this->request->getArguments();
             if ($arguments['search']) {
@@ -88,12 +89,43 @@ class ProductController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
     }
 
     /**
+     * Create the demand object which define which records will get shown
+     *
+     * @param array $settings
+     *
+     * @return \Extcode\Cart\Domain\Model\Dto\Product\ProductDemand
+     */
+    protected function createDemandObjectFromSettings($settings)
+    {
+        /** @var \Extcode\Cart\Domain\Model\Dto\Product\ProductDemand $demand */
+        $demand = $this->objectManager->get(
+            \Extcode\Cart\Domain\Model\Dto\Product\ProductDemand::class
+        );
+
+        if ($this->searchArguments['sku']) {
+            $demand->setSku($this->searchArguments['sku']);
+        }
+        if ($this->searchArguments['title']) {
+            $demand->setTitle($this->searchArguments['title']);
+        }
+        if ($settings['orderBy']) {
+            $demand->setOrder($settings['orderBy'] . ' ' . $settings['orderDirection']);
+        }
+
+        return $demand;
+    }
+
+
+    /**
      * action list
      *
      * @return void
      */
     public function listAction()
     {
+        $demand = $this->createDemandObjectFromSettings($this->settings);
+        $demand->setActionAndClass(__METHOD__, __CLASS__);
+
         if ($this->settings['categoriesList']) {
             $selectedCategories = \TYPO3\CMS\Core\Utility\GeneralUtility::intExplode(
                 ',',
@@ -117,7 +149,7 @@ class ProductController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 
             $products = $this->productRepository->findByCategories($categories);
         } else {
-            $products = $this->productRepository->findAll($this->searchArguments);
+            $products = $this->productRepository->findDemanded($demand);
         }
 
         $this->view->assign('searchArguments', $this->searchArguments);

@@ -9,9 +9,7 @@
                 <el>
                     <switchableControllerActions>
                         <TCEforms>
-                            <label>
-                                LLL:EXT:cart/Resources/Private/Language/locallang_db.xlf:tx_cart.plugin.products.action.switch
-                            </label>
+                            <label>LLL:EXT:cart/Resources/Private/Language/locallang_db.xlf:tx_cart.plugin.products.action.switch</label>
                             <config>
                                 <type>select</type>
                                 <items>
@@ -32,11 +30,63 @@
                         </TCEforms>
                     </switchableControllerActions>
 
+                    <!-- order -->
+                    <settings.orderBy>
+                        <TCEforms>
+                            <label>LLL:EXT:cart/Resources/Private/Language/locallang_db.xlf:tx_cart.plugin.products.action.product.list.orderBy</label>
+                            <displayCond>FIELD:switchableControllerActions:=:Product->list;Product->show</displayCond>
+                            <config>
+                                <type>select</type>
+                                <items>
+                                    <numIndex index="0" type="array">
+                                        <numIndex index="0"></numIndex>
+                                        <numIndex index="1"></numIndex>
+                                    </numIndex>
+                                    <numIndex index="1">
+                                        <numIndex index="0">LLL:EXT:cart/Resources/Private/Language/locallang_db.xlf:tx_cart.plugin.products.action.product.list.orderBy.tstamp</numIndex>
+                                        <numIndex index="1">tstamp</numIndex>
+                                    </numIndex>
+                                    <numIndex index="3">
+                                        <numIndex index="0">LLL:EXT:cart/Resources/Private/Language/locallang_db.xlf:tx_cart.plugin.products.action.product.list.orderBy.crdate</numIndex>
+                                        <numIndex index="1">crdate</numIndex>
+                                    </numIndex>
+                                    <numIndex index="4">
+                                        <numIndex index="0">LLL:EXT:cart/Resources/Private/Language/locallang_db.xlf:tx_cart.plugin.products.action.product.list.orderBy.title</numIndex>
+                                        <numIndex index="1">title</numIndex>
+                                    </numIndex>
+                                </items>
+                            </config>
+                        </TCEforms>
+                    </settings.orderBy>
+
+                    <!-- order direction  -->
+                    <settings.orderDirection>
+                        <TCEforms>
+                            <label>LLL:EXT:cart/Resources/Private/Language/locallang_db.xlf:tx_cart.plugin.products.action.product.list.orderDirection</label>
+                            <displayCond>FIELD:switchableControllerActions:=:Product->list;Product->show</displayCond>
+                            <config>
+                                <type>select</type>
+                                <items>
+                                    <numIndex index="0" type="array">
+                                        <numIndex index="0"></numIndex>
+                                        <numIndex index="1"></numIndex>
+                                    </numIndex>
+                                    <numIndex index="1">
+                                        <numIndex index="0">LLL:EXT:cart/Resources/Private/Language/locallang_db.xlf:tx_cart.plugin.products.action.product.list.orderDirection.asc</numIndex>
+                                        <numIndex index="1">asc</numIndex>
+                                    </numIndex>
+                                    <numIndex index="2">
+                                        <numIndex index="0">LLL:EXT:cart/Resources/Private/Language/locallang_db.xlf:tx_cart.plugin.products.action.product.list.orderDirection.desc</numIndex>
+                                        <numIndex index="1">desc</numIndex>
+                                    </numIndex>
+                                </items>
+                            </config>
+                        </TCEforms>
+                    </settings.orderDirection>
+
                     <settings.addToCartByAjax>
                         <TCEforms>
-                            <label>
-                                LLL:EXT:cart/Resources/Private/Language/locallang_db.xlf:tx_cart.plugin.products.action.product.show.addToCartByAjax
-                            </label>
+                            <label>LLL:EXT:cart/Resources/Private/Language/locallang_db.xlf:tx_cart.plugin.products.action.product.show.addToCartByAjax</label>
                             <config>
                                 <type>check</type>
                             </config>
@@ -46,9 +96,7 @@
                     <settings.showPageUids>
                         <TCEforms>
                             <exclude>1</exclude>
-                            <label>
-                                LLL:EXT:cart/Resources/Private/Language/locallang_db.xlf:tx_cart.plugin.products.action.product.list.select.page
-                            </label>
+                            <label>LLL:EXT:cart/Resources/Private/Language/locallang_db.xlf:tx_cart.plugin.products.action.product.list.select.page</label>
                             <displayCond>FIELD:switchableControllerActions:=:Product->list;Product->show</displayCond>
                             <config>
                                 <type>group</type>
@@ -70,9 +118,7 @@
                     <settings.productUids>
                         <TCEforms>
                             <exclude>1</exclude>
-                            <label>
-                                LLL:EXT:cart/Resources/Private/Language/locallang_db.xlf:tx_cart.plugin.products.action.product.teaser.select.product
-                            </label>
+                            <label>LLL:EXT:cart/Resources/Private/Language/locallang_db.xlf:tx_cart.plugin.products.action.product.teaser.select.product</label>
                             <displayCond>FIELD:switchableControllerActions:=:Product->teaser</displayCond>
                             <config>
                                 <type>select</type>
@@ -87,7 +133,7 @@
                     <settings.categoriesList>
                         <TCEforms>
                             <exclude>1</exclude>
-                            <label>Categories:</label>
+                            <label>LLL:EXT:cart/Resources/Private/Language/locallang_db.xlf:tx_cart.plugin.products.action.product.list.categories</label>
                             <displayCond>FIELD:switchableControllerActions:=:Product->list;Product->show</displayCond>
                             <config>
                                 <type>select</type>
@@ -112,9 +158,7 @@
 
                     <settings.listSubcategories>
                         <TCEforms>
-                            <label>
-                                LLL:EXT:cart/Resources/Private/Language/locallang_db.xlf:tx_cart.plugin.products.action.product.list.subcategories
-                            </label>
+                            <label>LLL:EXT:cart/Resources/Private/Language/locallang_db.xlf:tx_cart.plugin.products.action.product.list.subcategories</label>
                             <displayCond>FIELD:switchableControllerActions:=:Product->list;Product->show</displayCond>
                             <config>
                                 <type>check</type>
