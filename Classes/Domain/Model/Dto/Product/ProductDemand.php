@@ -38,6 +38,13 @@ class ProductDemand extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     protected $title;
 
     /**
+     * Categories
+     *
+     * @var array
+     */
+    protected $categories;
+
+    /**
      * Order
      *
      * @var string
@@ -100,6 +107,24 @@ class ProductDemand extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     public function setTitle($title)
     {
         $this->title = $title;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCategories()
+    {
+        return $this->categories;
+    }
+
+    /**
+     * @param mixed $categories
+     *
+     * @return void
+     */
+    public function setCategories($categories)
+    {
+        $this->categories = $categories; 
     }
 
     /**

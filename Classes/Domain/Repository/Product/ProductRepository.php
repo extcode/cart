@@ -43,6 +43,14 @@ class ProductRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
             $constraints[] = $query->like('title', '%' . $demand->getTitle() . '%');
         }
 
+        if ((!empty($demand->getCategories()))) {
+            $categoryConstraints = [];
+            foreach ($demand->getCategories() as $category) {
+                $categoryConstraints[] = $query->contains('categories', $category);
+            }
+            $constraints = $query->logicalOr($categoryConstraints);
+        }
+
         if (!empty($constraints)) {
             $query->matching(
                 $query->logicalAnd($constraints)
@@ -72,13 +80,7 @@ class ProductRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
 
         $constraints = [];
 
-        if ((!empty($categories))) {
-            $categoryConstraints = [];
-            foreach ($categories as $category) {
-                $categoryConstraints[] = $query->contains('categories', $category);
-            }
-            $constraints = $query->logicalOr($categoryConstraints);
-        }
+
 
         if (!empty($constraints)) {
             $query->matching(

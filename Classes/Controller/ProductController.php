@@ -112,20 +112,19 @@ class ProductController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
             $demand->setOrder($settings['orderBy'] . ' ' . $settings['orderDirection']);
         }
 
+        $this->addCategoriesToDemandObjectFromSettings($demand, $settings);
+
         return $demand;
     }
 
-
     /**
-     * action list
+     * @param \Extcode\Cart\Domain\Model\Dto\Product\ProductDemand $demand
+     * @param array $settings
      *
      * @return void
      */
-    public function listAction()
+    protected function addCategoriesToDemandObjectFromSettings(&$demand, $settings)
     {
-        $demand = $this->createDemandObjectFromSettings($this->settings);
-        $demand->setActionAndClass(__METHOD__, __CLASS__);
-
         if ($this->settings['categoriesList']) {
             $selectedCategories = \TYPO3\CMS\Core\Utility\GeneralUtility::intExplode(
                 ',',
@@ -147,10 +146,22 @@ class ProductController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
                 $categories = $selectedCategories;
             }
 
-            $products = $this->productRepository->findByCategories($categories);
-        } else {
-            $products = $this->productRepository->findDemanded($demand);
+            $demand->setCategories($categories);
         }
+    }
+
+
+    /**
+     * action list
+     *
+     * @return void
+     */
+    public function listAction()
+    {
+        $demand = $this->createDemandObjectFromSettings($this->settings);
+        $demand->setActionAndClass(__METHOD__, __CLASS__);
+
+        $products = $this->productRepository->findDemanded($demand);
 
         $this->view->assign('searchArguments', $this->searchArguments);
         $this->view->assign('products', $products);
