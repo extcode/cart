@@ -50,12 +50,20 @@ class OrderUtility
     protected $orderItemRepository;
 
     /**
-     * Coupon Repository
+     * Product Coupon Repository
+     *
+     * @var \Extcode\Cart\Domain\Repository\Product\CouponRepository
+     * @inject
+     */
+    protected $productCouponRepository;
+
+    /**
+     * Order Coupon Repository
      *
      * @var \Extcode\Cart\Domain\Repository\Order\CouponRepository
      * @inject
      */
-    protected $couponRepository;
+    protected $orderCouponRepository;
 
     /**
      * Product Repository
@@ -392,9 +400,13 @@ class OrderUtility
                 );
                 $orderCoupon->setPid($this->storagePid);
 
-                $this->couponRepository->add($orderCoupon);
+                $this->orderCouponRepository->add($orderCoupon);
 
                 $this->orderItem->addCoupon($orderCoupon);
+
+                $coupon = $this->productCouponRepository->findOneByCode($cartCoupon->getCode());
+                $coupon->incNumberUsed();
+                $this->productCouponRepository->update($coupon);
             }
         }
     }

@@ -19,17 +19,21 @@ return [
         'versioning_followPages' => true,
         'origUid' => 't3_origuid',
         'delete' => 'deleted',
-        'enablecolumns' => [],
+        'enablecolumns' => [
+            'disabled' => 'hidden',
+            'starttime' => 'starttime',
+            'endtime' => 'endtime',
+        ],
         'searchFields' => 'title',
         'iconfile' => 'EXT:cart/Resources/Public/Icons/Product/Coupon.png'
     ],
     'hideTable' => 1,
     'interface' => [
-        'showRecordFieldList' => 'title, code, discount, tax_class_id, cart_min_price, is_combinable, is_relative_discount, number_available, number_used',
+        'showRecordFieldList' => 'hidden, starttime, endtime, title, code, discount, tax_class_id, cart_min_price, is_combinable, is_relative_discount, handle_available, number_available, number_used',
     ],
     'types' => [
         '1' => [
-            'showitem' => 'title, code, discount, tax_class_id, cart_min_price, is_combinable, number_available, number_used'
+            'showitem' => 'hidden;;1, starttime, endtime, title, code, discount, tax_class_id, cart_min_price, is_combinable, handle_available, number_available, number_used'
         ],
     ],
     'palettes' => [
@@ -38,6 +42,45 @@ return [
         ],
     ],
     'columns' => [
+        'hidden' => [
+            'exclude' => 1,
+            'label' => 'LLL:EXT:lang/locallang_general.xlf:LGL.hidden',
+            'config' => [
+                'type' => 'check',
+            ],
+        ],
+        'starttime' => [
+            'exclude' => 1,
+            'l10n_mode' => 'mergeIfNotBlank',
+            'label' => 'LLL:EXT:lang/locallang_general.xlf:LGL.starttime',
+            'config' => [
+                'type' => 'input',
+                'size' => 13,
+                'max' => 20,
+                'eval' => 'datetime',
+                'checkbox' => 0,
+                'default' => 0,
+                'range' => [
+                    'lower' => mktime(0, 0, 0, date('m'), date('d'), date('Y'))
+                ],
+            ],
+        ],
+        'endtime' => [
+            'exclude' => 1,
+            'l10n_mode' => 'mergeIfNotBlank',
+            'label' => 'LLL:EXT:lang/locallang_general.xlf:LGL.endtime',
+            'config' => [
+                'type' => 'input',
+                'size' => 13,
+                'max' => 20,
+                'eval' => 'datetime',
+                'checkbox' => 0,
+                'default' => 0,
+                'range' => [
+                    'lower' => mktime(0, 0, 0, date('m'), date('d'), date('Y'))
+                ],
+            ],
+        ],
         'title' => [
             'exclude' => 0,
             'label' => $_LLL . ':tx_cart_domain_model_product_coupon.title',
@@ -101,8 +144,16 @@ return [
                 'type' => 'check',
             ],
         ],
+        'handle_available' => [
+            'exclude' => 1,
+            'label' => $_LLL . ':tx_cart_domain_model_product_coupon.handle_available',
+            'config' => [
+                'type' => 'check',
+            ],
+        ],
         'number_available' => [
             'exclude' => 0,
+            'displayCond' => 'FIELD:handle_available:REQ:TRUE',
             'label' => $_LLL . ':tx_cart_domain_model_product_coupon.number_available',
             'config' => [
                 'type' => 'input',

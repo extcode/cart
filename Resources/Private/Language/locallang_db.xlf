@@ -451,6 +451,9 @@
             <trans-unit id="tx_cart_domain_model_product_coupon.is_combinable">
                 <source>Is Combinable with other Coupons</source>
             </trans-unit>
+            <trans-unit id="tx_cart_domain_model_product_coupon.handle_available">
+                <source>Handle number coupons availability</source>
+            </trans-unit>
             <trans-unit id="tx_cart_domain_model_product_coupon.number_available">
                 <source>Number of Coupons available</source>
             </trans-unit>

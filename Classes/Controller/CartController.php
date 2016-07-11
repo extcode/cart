@@ -318,8 +318,10 @@ class CartController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
             $this->cart = $this->cartUtility->getCartFromSession($this->settings['cart'], $this->pluginSettings);
 
             $couponCode = $this->request->getArgument('couponCode');
+
+            /** @var \Extcode\Cart\Domain\Model\Product\Coupon $coupon */
             $coupon = $this->couponRepository->findOneByCode($couponCode);
-            if ($coupon) {
+            if ($coupon && $coupon->getIsAvailable()) {
                 $newCartCoupon = $this->objectManager->get(
                     \Extcode\Cart\Domain\Model\Cart\CartCoupon::class,
                     $coupon->getTitle(),

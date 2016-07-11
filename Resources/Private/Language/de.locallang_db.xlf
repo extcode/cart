@@ -568,6 +568,10 @@
                 <source>Is Combinable with other Coupons</source>
                 <target>Kombinierbar mit anderen Coupons</target>
             </trans-unit>
+            <trans-unit id="tx_cart_domain_model_product_coupon.handle_available">
+                <source>Handle number coupons availability</source>
+                <target>Anzahl verfügbarer Coupons verwalten</target>
+            </trans-unit>
             <trans-unit id="tx_cart_domain_model_product_coupon.number_available">
                 <source>Number of Coupons available</source>
                 <target>Anzahl der verfügbaren Coupons</target>

@@ -246,8 +246,21 @@ class CouponTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
     /**
      * @test
      */
-    public function getIsAvailableReturnsFalseIfNumberAvailableEqualsToNumberUsed()
+    public function getIsAvailableReturnsTrueIfHandleAvailableIsFalseAndNumberAvailableEqualsToNumberUsed()
     {
+        $this->coupon->setNumberAvailable(10);
+        $this->coupon->setNumberUsed(10);
+        $this->assertTrue(
+            $this->coupon->getIsAvailable()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function getIsAvailableReturnsFalseIfHandleAvailableIsTrueAndNumberAvailableEqualsToNumberUsed()
+    {
+        $this->coupon->setHandleAvailable(true);
         $this->coupon->setNumberAvailable(10);
         $this->coupon->setNumberUsed(10);
         $this->assertFalse(
@@ -258,8 +271,21 @@ class CouponTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
     /**
      * @test
      */
-    public function getIsAvailableReturnsFalseIfNumberAvailableLessThanNumberUsed()
+    public function getIsAvailableReturnsTrueIfHandleAvailableIsFalseAndNumberAvailableLessThanNumberUsed()
     {
+        $this->coupon->setNumberAvailable(10);
+        $this->coupon->setNumberUsed(11);
+        $this->assertTrue(
+            $this->coupon->getIsAvailable()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function getIsAvailableReturnsFalseIfHandleAvailableIsTrueAndNumberAvailableLessThanNumberUsed()
+    {
+        $this->coupon->setHandleAvailable(true);
         $this->coupon->setNumberAvailable(10);
         $this->coupon->setNumberUsed(11);
         $this->assertFalse(

@@ -760,6 +760,7 @@ CREATE TABLE tx_cart_domain_model_product_coupon (
     cart_min_price double(11,2) DEFAULT '0.00' NOT NULL,
     is_combinable tinyint(4) unsigned DEFAULT '0' NOT NULL,
     is_relative_discount tinyint(4) unsigned DEFAULT '0' NOT NULL,
+    handle_available tinyint(4) unsigned DEFAULT '0' NOT NULL,
     number_available int(11) DEFAULT '0' NOT NULL,
     number_used int(11) DEFAULT '0' NOT NULL,
 
@@ -767,6 +768,9 @@ CREATE TABLE tx_cart_domain_model_product_coupon (
     crdate int(11) unsigned DEFAULT '0' NOT NULL,
     cruser_id int(11) unsigned DEFAULT '0' NOT NULL,
     deleted tinyint(4) unsigned DEFAULT '0' NOT NULL,
+    hidden tinyint(4) unsigned DEFAULT '0' NOT NULL,
+    starttime int(11) unsigned DEFAULT '0' NOT NULL,
+    endtime int(11) unsigned DEFAULT '0' NOT NULL,
 
     t3ver_oid int(11) DEFAULT '0' NOT NULL,
     t3ver_id int(11) DEFAULT '0' NOT NULL,

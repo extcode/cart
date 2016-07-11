@@ -75,6 +75,13 @@ class Coupon extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     protected $isRelativeDiscount = false;
 
     /**
+     * Handle Available
+     *
+     * @var bool
+     */
+    protected $handleAvailable = false;
+
+    /**
      * Number Available
      *
      * @var integer
@@ -198,12 +205,29 @@ class Coupon extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Sets Cart Min Price
      *
-     * @param float $cartminPrice
+     * @param float $cartMinPrice
      * @return void
      */
     public function setCartMinPrice($cartMinPrice)
     {
         $this->cartMinPrice = $cartMinPrice;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getHandleAvailable()
+    {
+        return $this->handleAvailable;
+    }
+
+    /**
+     * @param bool $handleAvailable
+     * @return void
+     */
+    public function setHandleAvailable($handleAvailable)
+    {
+        $this->handleAvailable = $handleAvailable;
     }
 
     /**
@@ -224,6 +248,8 @@ class Coupon extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     }
 
     /**
+     * Returns the number how often the coupon was used
+     *
      * @return int
      */
     public function getNumberUsed()
@@ -232,6 +258,18 @@ class Coupon extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     }
 
     /**
+     * Increase the number how often the coupon was used
+     *
+     * @return void
+     */
+    public function incNumberUsed()
+    {
+        $this->numberUsed += 1;
+    }
+
+    /**
+     * Set the number how often the coupon was used
+     *
      * @param int $numberUsed
      * @return void
      */
@@ -264,8 +302,12 @@ class Coupon extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      */
     public function getIsAvailable()
     {
-        $available = $this->numberAvailable - $this->numberUsed;
+        if ($this->handleAvailable) {
+            $available = $this->numberAvailable - $this->numberUsed;
 
-        return ($available > 0);
+            return ($available > 0);
+        }
+
+        return true;
     }
 }
