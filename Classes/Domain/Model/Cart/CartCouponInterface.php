@@ -21,7 +21,7 @@ namespace Extcode\Cart\Domain\Model\Cart;
  * @package cart
  * @author Daniel Lorenz <ext.cart@extco.de>
  */
-interface CartCouponInterface extends \TYPO3\CMS\Core\SingletonInterface
+interface CartCouponInterface
 {
     /**
      * Gets Title
