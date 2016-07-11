@@ -310,11 +310,17 @@
             <trans-unit id="tx_cart_domain_model_order_item.comment">
                 <source>Comment</source>
             </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_item.accept_terms">
+                <source>I have read the general terms and agree to them.</source>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_item.accept_terms.error.1361959228">
+                <source>You have to agree to the general terms.</source>
+            </trans-unit>
             <trans-unit id="tx_cart_domain_model_order_item.accept_conditions">
                 <source>I have read the conditions and agree to them.</source>
             </trans-unit>
-            <trans-unit id="tx_cart_domain_model_order_item.accept_terms">
-                <source>I have read the general terms and agree to them.</source>
+            <trans-unit id="tx_cart_domain_model_order_item.accept_conditions.error.1361959228">
+                <source>You have to agree to the conditions.</source>
             </trans-unit>
 
             <trans-unit id="tx_cart_domain_model_order_tax">

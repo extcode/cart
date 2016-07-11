@@ -29,7 +29,7 @@ return [
     ],
     'hideTable' => 1,
     'interface' => [
-        'showRecordFieldList' => 'hidden, starttime, endtime, title, code, discount, tax_class_id, cart_min_price, is_combinable, is_relative_discount, handle_available, number_available, number_used',
+        'showRecordFieldList' => 'hidden, starttime, endtime, title, code, discount, tax_class_id, cart_min_price, is_combinable, handle_available, number_available, number_used',
     ],
     'types' => [
         '1' => [

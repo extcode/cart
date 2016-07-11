@@ -138,7 +138,7 @@
                                                       value="{shippingAddress.city}"/>
                                     <f:form.validationResults for="shippingAddress">
                                         <f:if condition="{validationResults.flattenedErrors.lastName}">
-                                            <span class="validation-error">{validationResults.flattenedErrors.lastName.0.message}</span>
+                                            <span class="validation-error">{validationResults.flattenedErrors.city.0.message}</span>
                                         </f:if>
                                     </f:form.validationResults>
                                 </div>

@@ -5,22 +5,40 @@
         <fieldset>
             <ul class="form-list">
                 <li class="fields">
-                    <div class="field acceptTerm">
+                    <div class="field acceptTerms">
                         <label>
-                            <f:form.checkbox id="orderItem:acceptTerm"
-                                             name="orderItem[acceptTerm]"
+                            <f:form.checkbox id="orderItem:acceptTerms"
+                                             name="orderItem[acceptTerms]"
                                              title="{f:translate(key:'tx_cart_domain_model_order_item.accept_terms')}"
-                                             value="{orderItem.acceptTerm}"/>
-                            <span> <f:translate key="tx_cart_domain_model_order_item.accept_terms"/></span>
+                                             value="1"/>
+                            <span>
+                                <f:translate key="tx_cart_domain_model_order_item.accept_terms"/>
+                            </span>
+                            <f:form.validationResults for="orderItem">
+                                <f:if condition="{validationResults.flattenedErrors.acceptTerms}">
+                                    <span class="validation-error">
+                                        <f:translate key="tx_cart_domain_model_order_item.accept_terms.error.{validationResults.flattenedErrors.acceptTerms.0.code}" >{validationResults.flattenedErrors.acceptTerms.0.code}</f:translate>
+                                    </span>
+                                </f:if>
+                            </f:form.validationResults>
                         </label>
                     </div>
-                    <div class="field acceptTerm">
+                    <div class="field acceptTerms">
                         <label>
                             <f:form.checkbox id="orderItem:acceptConditions"
                                              name="orderItem[acceptConditions]"
                                              title="{f:translate(key:'tx_cart_domain_model_order_item.accept_conditions')}"
-                                             value="{orderItem.acceptConditions}"/>
-                            <span> <f:translate key="tx_cart_domain_model_order_item.accept_conditions"/></span>
+                                             value="1"/>
+                            <span>
+                                <f:translate key="tx_cart_domain_model_order_item.accept_conditions"/>
+                            </span>
+                            <f:form.validationResults for="orderItem">
+                                <f:if condition="{validationResults.flattenedErrors.acceptConditions}">
+                                    <span class="validation-error">
+                                        <f:translate key="tx_cart_domain_model_order_item.accept_conditions.error.{validationResults.flattenedErrors.acceptConditions.0.code}" >{validationResults.flattenedErrors.acceptConditions.0.code}</f:translate>
+                                    </span>
+                                </f:if>
+                            </f:form.validationResults>
                         </label>
                     </div>
                 </li>

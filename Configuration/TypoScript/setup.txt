@@ -70,6 +70,15 @@ plugin.tx_cart {
         listAction < .showAction
     }
 
+    validation {
+        orderCartAction {
+            fields {
+                acceptTerms = true
+                acceptConditions = true
+            }
+        }
+    }
+
     db {
         tableName   = {$plugin.tx_cart.db.tableName}
         l10n_parent = {$plugin.tx_cart.db.l10n_parent}

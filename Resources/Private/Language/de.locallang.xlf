@@ -149,13 +149,21 @@
                 <source>Comment</source>
                 <target>Bemerkung</target>
             </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_item.accept_terms">
+                <source>I have read the general terms and agree to them.</source>
+                <target>Ich habe die Allgemeinen Geschäftsbedingungen gelesen und stimme diesen zu.</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_item.accept_terms.error.1361959228">
+                <source>You have to agree to the general terms.</source>
+                <target>Sie müssen den Allgemeinen Geschäftsbedingungen zustimmen.</target>
+            </trans-unit>
             <trans-unit id="tx_cart_domain_model_order_item.accept_conditions">
                 <source>I have read the conditions and agree to them.</source>
                 <target>Ich habe die Widerrufsbelehrung gelesen und stimme dieser zu.</target>
             </trans-unit>
-            <trans-unit id="tx_cart_domain_model_order_item.accept_terms">
-                <source>I have read the general terms and agree to them.</source>
-                <target>Ich habe die Allgemeinen Geschäftsbedingungen gelesen und stimme diesen zu.</target>
+            <trans-unit id="tx_cart_domain_model_order_item.accept_conditions.error.1361959228">
+                <source>You have to agree to the conditions.</source>
+                <target>Sie müssen der Widerrufsbelehrung zustimmen.</target>
             </trans-unit>
 
             <trans-unit id="tx_cart_domain_model_order_address">

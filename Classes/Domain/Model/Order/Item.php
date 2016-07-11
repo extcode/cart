@@ -202,14 +202,14 @@ class Item extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      *
      * @var bool
      */
-    protected $acceptTerm;
+    protected $acceptTerms = false;
 
     /**
      * Accept Conditions
      *
      * @var bool
      */
-    protected $acceptConditions;
+    protected $acceptConditions = false;
 
     /**
      * Comment
@@ -895,18 +895,18 @@ class Item extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * @return bool
      */
-    public function getAcceptTerm()
+    public function getAcceptTerms()
     {
-        return $this->acceptTerm;
+        return $this->acceptTerms;
     }
 
     /**
-     * @param bool $acceptTerm
+     * @param bool $acceptTerms
      * @return void
      */
-    public function setAcceptTerm($acceptTerm)
+    public function setAcceptTerms($acceptTerms)
     {
-        $this->acceptTerm = $acceptTerm;
+        $this->acceptTerms = $acceptTerms;
     }
 
     /**
