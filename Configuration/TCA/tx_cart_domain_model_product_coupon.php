@@ -158,7 +158,8 @@ return [
             'config' => [
                 'type' => 'input',
                 'size' => 30,
-                'eval' => 'double2'
+                'eval' => 'int',
+                'default' => '0'
             ],
         ],
         'number_used' => [
@@ -167,7 +168,8 @@ return [
             'config' => [
                 'type' => 'input',
                 'size' => 30,
-                'eval' => 'double2'
+                'eval' => 'int',
+                'default' => '0'
             ],
         ],
     ],
