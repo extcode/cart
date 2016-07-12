@@ -104,7 +104,7 @@
             </trans-unit>
             <trans-unit id="tx_cart_domain_model_order_product.service_net">
                 <source>Service- and Shipping costs (net)</source>
-                <target>Service- und Versandkosten (brutto)</target>
+                <target>Service- und Versandkosten (netto)</target>
             </trans-unit>
             <trans-unit id="tx_cart_domain_model_order_product.service_gross">
                 <source>Service- and Shipping costs (gross)</source>
