@@ -1,5 +1,7 @@
 <div id="shipping-address" class="form-block" style="display: none;">
-    <h5 class="form-title"><span><f:translate key="tx_cart_domain_model_order_item.shipping_address"/></span></h5>
+    <h5 class="form-title">
+        <span><f:translate key="tx_cart_domain_model_order_item.shipping_address"/></span>
+    </h5>
     <div class="form-content">
         <fieldset>
             <ul class="form-list">
@@ -9,10 +11,11 @@
                             <f:translate key="tx_cart_domain_model_order_address.salutation"/>
                             <em>*</em>
                         </label>
-
                         <div class="input-box">
-                            <f:form.textfield id="shippingAddress:salutation" name="shippingAddress[salutation]"
-                                              value="{shippingAddress.salutation}"/>
+                            <f:form.textfield id="shippingAddress:salutation"
+                                              name="shippingAddress[salutation]"
+                                              value="{shippingAddress.salutation}"
+                                              data="{required:'true'}"/>
                             <f:form.validationResults for="shippingAddress">
                                 <f:if condition="{validationResults.flattenedErrors.salutation}">
                                     <span class="validation-error">{validationResults.flattenedErrors.salutation.0.message}</span>
@@ -24,9 +27,9 @@
                         <label for="shippingAddress:title">
                             <f:translate key="tx_cart_domain_model_order_address.title"/>
                         </label>
-
                         <div class="input-box">
-                            <f:form.textfield id="shippingAddress:title" name="shippingAddress[title]"
+                            <f:form.textfield id="shippingAddress:title"
+                                              name="shippingAddress[title]"
                                               value="{shippingAddress.title}"/>
                         </div>
                     </div>
@@ -35,10 +38,11 @@
                             <f:translate key="tx_cart_domain_model_order_address.first_name"/>
                             <em>*</em>
                         </label>
-
                         <div class="input-box">
-                            <f:form.textfield id="shippingAddress:firstName" name="shippingAddress[firstName]"
-                                              value="{shippingAddress.firstName}"/>
+                            <f:form.textfield id="shippingAddress:firstName"
+                                              name="shippingAddress[firstName]"
+                                              value="{shippingAddress.firstName}"
+                                              data="{required:'true'}"/>
                             <f:form.validationResults for="shippingAddress">
                                 <f:if condition="{validationResults.flattenedErrors.firstName}">
                                     <span class="validation-error">{validationResults.flattenedErrors.firstName.0.message}</span>
@@ -51,10 +55,11 @@
                             <f:translate key="tx_cart_domain_model_order_address.last_name"/>
                             <em>*</em>
                         </label>
-
                         <div class="input-box">
-                            <f:form.textfield id="shippingAddress:lastName" name="shippingAddress[lastName]"
-                                              value="{shippingAddress.lastName}"/>
+                            <f:form.textfield id="shippingAddress:lastName"
+                                              name="shippingAddress[lastName]"
+                                              value="{shippingAddress.lastName}"
+                                              data="{required:'true'}"/>
                             <f:form.validationResults for="shippingAddress">
                                 <f:if condition="{validationResults.flattenedErrors.lastName}">
                                     <span class="validation-error">{validationResults.flattenedErrors.lastName.0.message}</span>
@@ -68,10 +73,12 @@
                         <f:translate key="tx_cart_domain_model_order_address.email"/>
                         <em>*</em>
                     </label>
-
                     <div class="input-box">
-                        <f:form.textfield id="shippingAddress:email" name="shippingAddress[email]"
-                                          value="{shippingAddress.email}"/>
+                        <f:form.textfield id="shippingAddress:email"
+                                          name="shippingAddress[email]"
+                                          value="{shippingAddress.email}"
+                                          type="email"
+                                          data="{required:'true'}"/>
                         <f:form.validationResults for="shippingAddress">
                             <f:if condition="{validationResults.flattenedErrors.email}">
                                 <span class="validation-error">{validationResults.flattenedErrors.email.0.message}</span>
@@ -83,9 +90,9 @@
                     <label for="shippingAddress:company">
                         <f:translate key="tx_cart_domain_model_order_address.company"/>
                     </label>
-
                     <div class="input-box">
-                        <f:form.textfield id="shippingAddress:company" name="shippingAddress[company]"
+                        <f:form.textfield id="shippingAddress:company"
+                                          name="shippingAddress[company]"
                                           value="{shippingAddress.company}"/>
                     </div>
                 </li>
@@ -96,10 +103,11 @@
                                 <f:translate key="tx_cart_domain_model_order_address.street"/>
                                 <em>*</em>
                             </label>
-
                             <div class="input-box">
-                                <f:form.textfield id="shippingAddress:street" name="shippingAddress[street]"
-                                                  value="{shippingAddress.street}"/>
+                                <f:form.textfield id="shippingAddress:street"
+                                                  name="shippingAddress[street]"
+                                                  value="{shippingAddress.street}"
+                                                  data="{required:'true'}"/>
                                 <f:form.validationResults for="shippingAddress">
                                     <f:if condition="{validationResults.flattenedErrors.street}">
                                         <span class="validation-error">{validationResults.flattenedErrors.street.0.message}</span>
@@ -115,10 +123,11 @@
                                     <f:translate key="tx_cart_domain_model_order_address.zip"/>
                                     <em>*</em>
                                 </label>
-
                                 <div class="input-box">
-                                    <f:form.textfield id="shippingAddress:zip" name="shippingAddress[zip]"
-                                                      value="{shippingAddress.zip}"/>
+                                    <f:form.textfield id="shippingAddress:zip"
+                                                      name="shippingAddress[zip]"
+                                                      value="{shippingAddress.zip}"
+                                                      data="{required:'true'}"/>
                                     <f:form.validationResults for="shippingAddress">
                                         <f:if condition="{validationResults.flattenedErrors.zip}">
                                             <span class="validation-error">{validationResults.flattenedErrors.zip.0.message}</span>
@@ -131,11 +140,13 @@
                             <div class="field">
                                 <label for="shippingAddress:city" class="required">
                                     <f:translate key="tx_cart_domain_model_order_address.city"/>
-                                    <em>*</em></label>
-
+                                    <em>*</em>
+                                </label>
                                 <div class="input-box">
-                                    <f:form.textfield id="shippingAddress:city" name="shippingAddress[city]"
-                                                      value="{shippingAddress.city}"/>
+                                    <f:form.textfield id="shippingAddress:city"
+                                                      name="shippingAddress[city]"
+                                                      value="{shippingAddress.city}"
+                                                      data="{required:'true'}"/>
                                     <f:form.validationResults for="shippingAddress">
                                         <f:if condition="{validationResults.flattenedErrors.lastName}">
                                             <span class="validation-error">{validationResults.flattenedErrors.city.0.message}</span>
@@ -150,9 +161,9 @@
                             <label for="shippingAddress:country">
                                 <f:translate key="tx_cart_domain_model_order_address.country"/>
                             </label>
-
                             <div class="input-box">
-                                <f:form.textfield id="shippingAddress:country" name="shippingAddress[country]"
+                                <f:form.textfield id="shippingAddress:country"
+                                                  name="shippingAddress[country]"
                                                   value="{shippingAddress.country}"/>
                             </div>
                         </div>
