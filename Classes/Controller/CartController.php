@@ -496,8 +496,6 @@ class CartController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
             }
         }
 
-        $this->setDynamicValidation('acceptTerms');
-
         $this->orderUtility->saveOrderItem(
             $this->pluginSettings,
             $this->cart,
