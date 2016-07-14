@@ -3,10 +3,12 @@
 
     <div class="field acceptTerms">
         <div class="input-box">
-            <f:form.checkbox id="orderItem:acceptTerms"
-                             name="orderItem[acceptTerms]"
-                             title="{f:translate(key:'tx_cart_domain_model_order_item.accept_terms')}"
-                             value="1"/>
+            <f:if condition="{0: settings.showCartAction.validation.fields.acceptTerms} == {0: 'true'}">
+                <f:form.checkbox id="orderItem:acceptTerms"
+                                 name="orderItem[acceptTerms]"
+                                 title="{f:translate(key:'tx_cart_domain_model_order_item.accept_terms')}"
+                                 value="1"/>
+            </f:if>
             <span>
                 <f:translate key="tx_cart_domain_model_order_item.accept_terms"/>
             </span>
@@ -21,10 +23,12 @@
     </div>
     <div class="field acceptConditions">
         <div class="input-box">
-            <f:form.checkbox id="orderItem:acceptConditions"
-                             name="orderItem[acceptConditions]"
-                             title="{f:translate(key:'tx_cart_domain_model_order_item.accept_conditions')}"
-                             value="1"/>
+            <f:if condition="{0: settings.showCartAction.validation.fields.acceptConditions} == {0: 'true'}">
+                <f:form.checkbox id="orderItem:acceptConditions"
+                                 name="orderItem[acceptConditions]"
+                                 title="{f:translate(key:'tx_cart_domain_model_order_item.accept_conditions')}"
+                                 value="1"/>
+            </f:if>
             <span>
                 <f:translate key="tx_cart_domain_model_order_item.accept_conditions"/>
             </span>

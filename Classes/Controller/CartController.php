@@ -609,35 +609,37 @@ class CartController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      */
     protected function setDynamicValidation($propertyName, $propertyValue)
     {
-        // build custom validation chain
-        /** @var \TYPO3\CMS\Extbase\Validation\ValidatorResolver $validatorResolver */
-        $validatorResolver = $this->objectManager->get(\TYPO3\CMS\Extbase\Validation\ValidatorResolver::class);
+        if ($propertyValue == 'true') {
+            // build custom validation chain
+            /** @var \TYPO3\CMS\Extbase\Validation\ValidatorResolver $validatorResolver */
+            $validatorResolver = $this->objectManager->get(\TYPO3\CMS\Extbase\Validation\ValidatorResolver::class);
 
-        $booleanValidator = $this->objectManager->get(
-            \TYPO3\CMS\Extbase\Validation\Validator\BooleanValidator::class,
-            [
-                'is' => $propertyValue,
-            ]
-        );
-
-        /** @var \Extcode\Cart\Domain\Validator\OrderItemValidator $modelValidator */
-        $modelValidator = $validatorResolver->createValidator(
-            \Extcode\Cart\Domain\Validator\OrderItemValidator::class
-        );
-
-        $modelValidator->addPropertyValidator(
-            $propertyName,
-            $booleanValidator
-        );
-
-        /** @var \TYPO3\CMS\Extbase\Validation\Validator\ConjunctionValidator $baseConjunctionValidator */
-        $baseConjunctionValidator = $this->arguments->getArgument('orderItem')->getValidator();
-        if ($baseConjunctionValidator === null) {
-            $baseConjunctionValidator = $validatorResolver->createValidator(
-                \TYPO3\CMS\Extbase\Validation\Validator\ConjunctionValidator::class
+            $booleanValidator = $this->objectManager->get(
+                \TYPO3\CMS\Extbase\Validation\Validator\BooleanValidator::class,
+                [
+                    'is' => $propertyValue,
+                ]
             );
-            $this->arguments->getArgument('orderItem')->setValidator($baseConjunctionValidator);
+
+            /** @var \Extcode\Cart\Domain\Validator\OrderItemValidator $modelValidator */
+            $modelValidator = $validatorResolver->createValidator(
+                \Extcode\Cart\Domain\Validator\OrderItemValidator::class
+            );
+
+            $modelValidator->addPropertyValidator(
+                $propertyName,
+                $booleanValidator
+            );
+
+            /** @var \TYPO3\CMS\Extbase\Validation\Validator\ConjunctionValidator $baseConjunctionValidator */
+            $baseConjunctionValidator = $this->arguments->getArgument('orderItem')->getValidator();
+            if ($baseConjunctionValidator === null) {
+                $baseConjunctionValidator = $validatorResolver->createValidator(
+                    \TYPO3\CMS\Extbase\Validation\Validator\ConjunctionValidator::class
+                );
+                $this->arguments->getArgument('orderItem')->setValidator($baseConjunctionValidator);
+            }
+            $baseConjunctionValidator->addValidator($modelValidator);
         }
-        $baseConjunctionValidator->addValidator($modelValidator);
     }
 }

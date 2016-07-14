@@ -141,6 +141,13 @@ plugin.tx_cart {
         # cat=plugin.cart//0650; type=int+; label= Offset for invoice number: The offset is added to the invoice number (e.g. if the offset is 999 the first invoice number will be 1000).
         offset =
     }
+
+    validation {
+        fields {
+            acceptTerms = true
+            acceptConditions = true
+        }
+    }
 }
 
 plugin.tx_cart {

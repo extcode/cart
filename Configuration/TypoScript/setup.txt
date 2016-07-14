@@ -68,13 +68,22 @@ plugin.tx_cart {
         }
         teaserAction < .showAction
         listAction < .showAction
+
+        showCartAction {
+            validation {
+                fields {
+                    acceptTerms = {$plugin.tx_cart.validation.fields.acceptTerms}
+                    acceptConditions = {$plugin.tx_cart.validation.fields.acceptConditions}
+                }
+            }
+        }
     }
 
     validation {
         orderCartAction {
             fields {
-                acceptTerms = true
-                acceptConditions = true
+                acceptTerms = {$plugin.tx_cart.validation.fields.acceptTerms}
+                acceptConditions = {$plugin.tx_cart.validation.fields.acceptConditions}
             }
         }
     }
