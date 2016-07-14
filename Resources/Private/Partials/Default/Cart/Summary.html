@@ -46,6 +46,31 @@
 
 <f:render partial="Cart/TaxList" arguments="{taxes: cart.serviceTaxes}"/>
 
+<f:if condition="{cart.couponGross} > 0">
+    <tr>
+        <td colspan="3" class="a-right">
+            <f:translate key="tx_cart_domain_model_order_product.coupon_net"/>
+        </td>
+        <td class="a-right last">
+            <span class="price">
+                <cart:format.currency>-{cart.couponNet}</cart:format.currency>
+            </span>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="3" class="a-right">
+            <f:translate key="tx_cart_domain_model_order_product.coupon_gross"/>
+        </td>
+        <td class="a-right last">
+            <span class="price">
+                <cart:format.currency>-{cart.couponGross}</cart:format.currency>
+            </span>
+        </td>
+    </tr>
+
+    <f:render partial="Cart/TaxList" arguments="{taxes: cart.couponTaxes, type: 'coupon'}"/>
+</f:if>
+
 <tr>
     <td colspan="3" class="a-right">
         <f:translate key="tx_cart_domain_model_order_product.total_net"/>

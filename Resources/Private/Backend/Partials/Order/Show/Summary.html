@@ -67,6 +67,35 @@
     </f:for>
 </tr>
 
+<f:if condition="{orderItem.coupons}">
+    <f:for each="{orderItem.coupons}" as="orderCoupon">
+        <tr style="border-top: 1px solid #000000;">
+            <td colspan="5">
+                <f:translate key="tx_cart_domain_model_order_coupon"/>
+                {orderCoupon.title}
+            </td>
+            <td>
+                ---
+            </td>
+            <td>
+                <cart:format.currency>{orderCoupon.discount}</cart:format.currency>
+            </td>
+            <f:for each="{orderItem.orderTotalTax}" as="orderTotalTax">
+                <td>
+                    <f:if condition="{0: orderTotalTax.orderTaxClass.id} == {0: orderCoupon.orderTaxClass.id}">
+                        <f:then>
+                            <cart:format.currency>{orderCoupon.orderTax.tax}</cart:format.currency>
+                        </f:then>
+                        <f:else>
+                            <!-- -->
+                        </f:else>
+                    </f:if>
+                </td>
+            </f:for>
+        </tr>
+    </f:for>
+</f:if>
+
 <tr class="sum">
     <td colspan="5">
         <f:translate key="tx_cart_domain_model_order_item.cart_total_price"/>

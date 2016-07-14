@@ -10,7 +10,14 @@
         </td>
         <td class="a-right last">
             <span class="price">
-                <cart:format.currency>{tax}</cart:format.currency>
+                <f:if condition="{0: type} == {0: 'coupon'}">
+                    <f:then>
+                        <cart:format.currency>-{tax}</cart:format.currency>
+                    </f:then>
+                    <f:else>
+                        <cart:format.currency>{tax}</cart:format.currency>
+                    </f:else>
+                </f:if>
             </span>
         </td>
     </tr>
