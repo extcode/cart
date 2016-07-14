@@ -976,6 +976,11 @@
                 <source>Cart: Product Detail Page</source>
                 <target>Cart: Produktdetailseite</target>
             </trans-unit>
+
+            <trans-unit id="tx_cart_domain_model_cart">
+                <source>Cart Session</source>
+                <target>Cart Session</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

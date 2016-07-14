@@ -800,6 +800,10 @@
             <trans-unit id="tx_cart_domain_model_category.cart_product_single_pid">
                 <source>Cart: Product Detail Page</source>
             </trans-unit>
+
+            <trans-unit id="tx_cart_domain_model_cart">
+                <source>Cart Session</source>
+            </trans-unit>
         </body>
     </file>
 </xliff>

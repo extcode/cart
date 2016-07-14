@@ -30,7 +30,7 @@ return [
             'endtime' => 'endtime',
         ],
         'searchFields' => 'title',
-        'iconfile' => 'EXT:cart/Resources/Public/Icons/Product/Variant.png'
+        'iconfile' => 'EXT:cart/Resources/Public/Icons/Product/BeVariant.png'
     ],
     'interface' => [
         'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, be_variant_attribute_option1, be_variant_attribute_option2, be_variant_attribute_option3, stock',
