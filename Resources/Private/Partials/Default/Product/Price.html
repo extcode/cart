@@ -11,9 +11,12 @@
     </f:then>
     <f:else>
         <f:if condition="{product.beVariants}">
-            <f:translate key="tx_cart_domain_model_product.price.from"/>
-            :
+            <f:then>
+                <cart:format.currency>{product.beVariants.0.priceCalculated}</cart:format.currency>
+            </f:then>
+            <f:else>
+                <cart:format.currency>{product.minPrice}</cart:format.currency>
+            </f:else>
         </f:if>
-        <cart:format.currency>{product.minPrice}</cart:format.currency>
     </f:else>
 </f:if>

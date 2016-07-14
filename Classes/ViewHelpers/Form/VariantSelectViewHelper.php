@@ -26,20 +26,35 @@ class VariantSelectViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractV
     /**
      * render
      *
+     * @param string $id
      * @param string $name
      * @param \Extcode\Cart\Domain\Model\Product\Product $product
-     * @return array
+     *
+     * @return string
      */
-    public function render($name = '', \Extcode\Cart\Domain\Model\Product\Product $product)
+    public function render($id = '', $name = '', \Extcode\Cart\Domain\Model\Product\Product $product)
     {
+        $currencyViewHelper = $this->objectManager->get(
+            \Extcode\Cart\ViewHelpers\Format\CurrencyViewHelper::class
+        );
+        $currencyViewHelper->initialize();
+        $currencyViewHelper->setRenderingContext($this->renderingContext);
+
         $out = '';
 
-        $out .= '<select name="' . $name . '">';
+        $out .= '<select id="' . $id . '" name="' . $name . '">';
 
         foreach ($product->getBeVariants() as $beVariant) {
             /**
              * @var \Extcode\Cart\Domain\Model\Product\BeVariant $beVariant
              */
+
+            $currencyViewHelper->setRenderChildrenClosure(
+                function () use ($beVariant) {
+                    return $beVariant->getPriceCalculated();
+                }
+            );
+            $beVariantPriceCalculated = $currencyViewHelper->render();
 
             $optionLabelArray = [];
             if ($product->getBeVariantAttribute1()) {
@@ -53,7 +68,7 @@ class VariantSelectViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractV
             }
             $optionLabel = join(' - ', $optionLabelArray);
 
-            $out .= '<option value="' . $beVariant->getUid() . '">' . $optionLabel . '</option>';
+            $out .= '<option value="' . $beVariant->getUid() . '" data-price="' . $beVariantPriceCalculated . '">' . $optionLabel . '</option>';
         }
 
         $out .= '</select>';

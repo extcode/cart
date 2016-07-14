@@ -2,6 +2,12 @@ $('#shipping_same_as_billing').change(function() {
     $('#shipping-address').toggle(!this.checked);
 });
 
+$('#be-variants-select').change(function () {
+    var price = $(this).children().filter(':selected').data('price');
+
+    $('#product-price').html(price);
+});
+
 $("#add-product-form").submit(function(e) {
     $form = $(this);
 

@@ -11,6 +11,7 @@ plugin.tx_cart {
 }
 
 page.includeCSS.tx_cart = EXT:cart/Resources/Public/Stylesheets/Default/cart.css
+page.includeJSFooter.tx_cart = EXT:cart/Resources/Public/JavaScripts/Default/cart.js
 
 plugin.tx_cart {
 
