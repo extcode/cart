@@ -375,6 +375,39 @@
                 <target>Gutscheincode absenden</target>
             </trans-unit>
 
+            <trans-unit id="tx_cart.controller.order.action.show_cart.block-header.billing_address">
+                <source>Billing Address</source>
+                <target>Rechnungsadresse</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.controller.order.action.show_cart.block-header.shipping_address">
+                <source>Shipping Address</source>
+                <target>Versandadresse</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.controller.order.action.show_cart.block-header.shipping_method">
+                <source>Shipping Method</source>
+                <target>Versandart</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.controller.order.action.show_cart.block-header.payment_method">
+                <source>Payment Method</source>
+                <target>Zahlmethode</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.controller.order.action.show_cart.block-header.coupons">
+                <source>Coupons</source>
+                <target>Gutscheine</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.controller.order.action.show_cart.block-header.order_overview">
+                <source>Order Overvier</source>
+                <target>Bestellübersicht</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.controller.order.action.show_cart.coupons.not_available">
+                <source>No coupon code was entered.</source>
+                <target>Es wurde kein Gutschein-Code eingegeben.</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.controller.order.action.order_cart.thank_you">
+                <source>Thank you for your order.</source>
+                <target>Vielen Dank für Ihre Bestellung.</source>
+            </trans-unit>
+
             <trans-unit id="tx_cart.module.productController.listAction.header">
                 <target>Produkt - Liste</target>
             </trans-unit>
@@ -459,6 +492,19 @@
             </trans-unit>
             <trans-unit id="tx_cart_domain_model_product.stock">
                 <target>Lagerbestand</target>
+            </trans-unit>
+
+            <trans-unit id="tx_cart_domain_model_product_coupon">
+                <source>Coupon</source>
+                <target>Gutschein</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_product_coupon.code">
+                <source>Coupon Code</source>
+                <target>Gutschein-Code</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_product_coupon.code.not_useable">
+                <source>Coupon Code is not useable.</source>
+                <target>Gutschein-Code ist nicht verwendbar.</target>
             </trans-unit>
 
             <trans-unit id="tx_cart_domain_model_productvariantset">

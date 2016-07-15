@@ -1,8 +1,10 @@
 {namespace cart=Extcode\Cart\ViewHelpers}
 
 <div id="accept-term" class="form-block">
-    <h5 class="form-title"><span class="num">4</span><span>Gutschein</span></h5>
-
+    <h5 class="form-title">
+        <span class="num">4</span>
+        <span><f:translate key="tx_cart.controller.order.action.show_cart.block-header.coupons"/></span>
+    </h5>
     <div class="form-content">
         <fieldset>
             <f:if condition="{cart.coupons}">
@@ -17,8 +19,8 @@
                                 <f:if condition="{coupon.isUseable}">
                                     <f:else>
                                         <span style="color: red;">
-                                            Gutschein kann nicht angerechnet werden. Mindestbestellwert:
-                                            <cart:format.currency>{coupon.cartMinPrice}</cart:format.currency>
+                                            <f:translate key="tx_cart_domain_model_product_coupon.code.not_useable"/>
+                                            Mindestbestellwert: <cart:format.currency>{coupon.cartMinPrice}</cart:format.currency>
                                         </span>
                                     </f:else>
                                 </f:if>
@@ -27,7 +29,7 @@
                     </ul>
                 </f:then>
                 <f:else>
-                    Keine Gutscheinmöglichkeit verfügbar.
+                    <f:translate key="tx_cart.controller.order.action.show_cart.coupons.not_available"/>
                 </f:else>
             </f:if>
         </fieldset>
