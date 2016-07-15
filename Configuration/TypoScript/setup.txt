@@ -77,6 +77,15 @@ plugin.tx_cart {
                     acceptConditions = {$plugin.tx_cart.validation.fields.acceptConditions}
                 }
             }
+            summary {
+                fields {
+                    cart.net = true
+                    cart.taxes = true
+                    discount.gross = true
+                    service.gross = true
+                    total.gross = true
+                }
+            }
         }
     }
 

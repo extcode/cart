@@ -50,29 +50,29 @@
 
 <f:render partial="Mail/TaxList" arguments="{taxes: cart.serviceTaxes}"/>
 
-<f:if condition="{cart.couponGross} > 0">
+<f:if condition="{cart.discountGross}">
     <tr>
         <td colspan="4" style="text-align: right;">
-            <f:translate key="tx_cart_domain_model_order_product.coupon_net"/>
+            <f:translate key="tx_cart_domain_model_order_product.discount_net"/>
         </td>
         <td style="text-align: right;" class="last">
             <span class="price">
-                <cart:format.currency>-{cart.couponNet}</cart:format.currency>
+                <cart:format.currency>{cart.discountNet}</cart:format.currency>
             </span>
         </td>
     </tr>
     <tr>
         <td colspan="4" style="text-align: right;">
-            <f:translate key="tx_cart_domain_model_order_product.coupon_gross"/>
+            <f:translate key="tx_cart_domain_model_order_product.discount_gross"/>
         </td>
         <td style="text-align: right;" class="last">
             <span class="price">
-                <cart:format.currency>-{cart.couponGross}</cart:format.currency>
+                <cart:format.currency>{cart.discountGross}</cart:format.currency>
             </span>
         </td>
     </tr>
 
-    <f:render partial="Mail/TaxList" arguments="{taxes: cart.couponTaxes, type: 'coupon'}"/>
+    <f:render partial="Mail/TaxList" arguments="{taxes: cart.discountTaxes}"/>
 </f:if>
 
 <tr>

@@ -144,10 +144,10 @@
             <trans-unit id="tx_cart_domain_model_order_product.service_gross">
                 <source>Service- and Shipping costs (gross)</source>
             </trans-unit>
-            <trans-unit id="tx_cart_domain_model_order_product.coupon_net">
+            <trans-unit id="tx_cart_domain_model_order_product.discount_net">
                 <source>Discount (net)</source>
             </trans-unit>
-            <trans-unit id="tx_cart_domain_model_order_product.coupon_gross">
+            <trans-unit id="tx_cart_domain_model_order_product.discount_gross">
                 <source>Discount (gross)</source>
             </trans-unit>
             <trans-unit id="tx_cart_domain_model_order_product.delete">

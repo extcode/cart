@@ -110,11 +110,11 @@
                 <source>Service- and Shipping costs (gross)</source>
                 <target>Service- und Versandkosten (brutto)</target>
             </trans-unit>
-            <trans-unit id="tx_cart_domain_model_order_product.coupon_net">
+            <trans-unit id="tx_cart_domain_model_order_product.discount_net">
                 <source>Discount (net)</source>
                 <target>Rabatt (netto)</target>
             </trans-unit>
-            <trans-unit id="tx_cart_domain_model_order_product.coupon_gross">
+            <trans-unit id="tx_cart_domain_model_order_product.discount_gross">
                 <source>Discount (gross)</source>
                 <target>Rabatt (brutto)</target>
             </trans-unit>

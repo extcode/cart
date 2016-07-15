@@ -867,6 +867,42 @@ class Cart
     }
 
     /**
+     * Returns Discount Gross of Coupon Gross for Views
+     *
+     * @return float
+     */
+    public function getDiscountGross()
+    {
+        $gross = -1 * $this->getCouponGross();
+
+        return $gross;
+    }
+
+    /**
+     * Returns Discount Net of Coupon Net for Views
+     *
+     * @return float
+     */
+    public function getDiscountNet()
+    {
+        $net = -1 * $this->getCouponNet();
+
+        return $net;
+    }
+
+    /**
+     * Returns Discount Taxes of Coupon Taxes for Views
+     *
+     * @return array
+     */
+    public function getDiscountTaxes()
+    {
+        $taxes = array_map(function($value) { return -1 * $value; }, $this->getCouponTaxes());
+
+        return $taxes;
+    }
+
+    /**
      * @param \Extcode\Cart\Domain\Model\Cart\Product $newProduct
      *
      * @return void
