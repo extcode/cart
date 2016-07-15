@@ -18,11 +18,11 @@ defined('TYPO3_MODE') or die();
     'Extcode.' . $_EXTKEY,
     'Cart',
     [
-        'Cart' => 'showCart, clearCart, addProduct, removeProduct, addCoupon, setShipping, setPayment, updateCart, orderCart',
+        'Cart' => 'showCart, clearCart, addProduct, removeProduct, addCoupon, removeCoupon, setShipping, setPayment, updateCart, orderCart',
     ],
     // non-cacheable actions
     [
-        'Cart' => 'showCart, clearCart, addProduct, removeProduct, addCoupon, setShipping, setPayment, updateCart, orderCart',
+        'Cart' => 'showCart, clearCart, addProduct, removeProduct, addCoupon, removeCoupon, setShipping, setPayment, updateCart, orderCart',
     ]
 );
 

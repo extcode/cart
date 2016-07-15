@@ -806,6 +806,25 @@ class Cart
     }
 
     /**
+     * Remove Coupon with a given Coupon Code from Cart
+     *
+     * @param string $couponCode
+     * @return int
+     */
+    public function removeCoupon($couponCode)
+    {
+        if (!$this->coupons[$couponCode]) {
+            $returnCode = -1;
+        } else {
+            unset($this->coupons[$couponCode]);
+
+            $returnCode = 1;
+        }
+
+        return $returnCode;
+    }
+
+    /**
      * Returns Coupon Gross
      *
      * @return float

@@ -24,6 +24,11 @@
                                         </span>
                                     </f:else>
                                 </f:if>
+                                <span class="remove-coupon-link">
+                                    <f:link.action action="removeCoupon" arguments="{couponCode: coupon.code}">
+                                        <span class="delete-link" title="<f:translate key='tx_cart.remove_coupon'/>">x</span>
+                                    </f:link.action>
+                                </span>
                             </li>
                         </f:for>
                     </ul>

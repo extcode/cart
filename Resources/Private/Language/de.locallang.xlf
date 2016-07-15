@@ -374,6 +374,10 @@
                 <source>add coupon</source>
                 <target>Gutscheincode absenden</target>
             </trans-unit>
+            <trans-unit id="tx_cart.remove_coupon">
+                <source>remove</source>
+                <target>entfernen</target>
+            </trans-unit>
 
             <trans-unit id="tx_cart.controller.order.action.show_cart.block-header.billing_address">
                 <source>Billing Address</source>
@@ -405,7 +409,7 @@
             </trans-unit>
             <trans-unit id="tx_cart.controller.order.action.order_cart.thank_you">
                 <source>Thank you for your order.</source>
-                <target>Vielen Dank für Ihre Bestellung.</source>
+                <target>Vielen Dank für Ihre Bestellung.</target>
             </trans-unit>
 
             <trans-unit id="tx_cart.module.productController.listAction.header">
@@ -606,6 +610,14 @@
             <trans-unit id="tx_cart.error.coupon.not_combinable">
                 <source>Coupon codes can not be combined.</source>
                 <target>Gutscheincodes sind nicht kombinierbar.</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.ok.coupon.removed">
+                <source>Coupon was removed.</source>
+                <target>Gutschein wurde entfernt.</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.error.coupon.not_found">
+                <source>Coupon code was not found.</source>
+                <target>Gutscheincode wurde nicht gefunden.</target>
             </trans-unit>
 
         </body>

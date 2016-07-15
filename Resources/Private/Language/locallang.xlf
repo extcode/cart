@@ -197,6 +197,9 @@
             <trans-unit id="tx_cart.add_coupon">
                 <source>add coupon</source>
             </trans-unit>
+            <trans-unit id="tx_cart.remove_coupon">
+                <source>remove</source>
+            </trans-unit>
 
             <trans-unit id="tx_cart.controller.order.actions">
                 <source>Actions</source>
@@ -696,6 +699,12 @@
             </trans-unit>
             <trans-unit id="tx_cart.error.coupon.not_combinable">
                 <source>Coupon codes can not be combined.</source>
+            </trans-unit>
+            <trans-unit id="tx_cart.ok.coupon.removed">
+                <source>Coupon was removed.</source>
+            </trans-unit>
+            <trans-unit id="tx_cart.error.coupon.not_found">
+                <source>Coupon code was not found.</source>
             </trans-unit>
 
         </body>

@@ -386,6 +386,47 @@ class CartController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     }
 
     /**
+     * Action Remove Coupon
+     *
+     * @return void
+     */
+    public function removeCouponAction()
+    {
+        if ($this->request->hasArgument('couponCode')) {
+            $this->cart = $this->cartUtility->getCartFromSession($this->settings['cart'], $this->pluginSettings);
+            $couponCode = $this->request->getArgument('couponCode');
+            $couponWasRemoved = $this->cart->removeCoupon($couponCode);
+
+            if ($couponWasRemoved == 1) {
+                $this->addFlashMessage(
+                    \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
+                        'tx_cart.ok.coupon.removed',
+                        $this->extensionName
+                    ),
+                    $messageTitle = '',
+                    $severity = \TYPO3\CMS\Core\Messaging\AbstractMessage::OK,
+                    $storeInSession = true
+                );
+            }
+            if ($couponWasRemoved == -1) {
+                $this->addFlashMessage(
+                    \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
+                        'tx_cart.error.coupon.not_found',
+                        $this->extensionName
+                    ),
+                    $messageTitle = '',
+                    $severity = \TYPO3\CMS\Core\Messaging\AbstractMessage::WARNING,
+                    $storeInSession = true
+                );
+            }
+
+            $this->sessionHandler->writeToSession($this->cart, $this->settings['cart']['pid']);
+        }
+
+        $this->redirect('showCart');
+    }
+
+    /**
      * Action removeProduct
      *
      * @return void
