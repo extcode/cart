@@ -6,6 +6,8 @@ CREATE TABLE tx_cart_domain_model_product_product (
     uid int(11) NOT NULL auto_increment,
     pid int(11) DEFAULT '0' NOT NULL,
 
+    product_type varchar(255) DEFAULT 'simple' NOT NULL,
+
     sku varchar(255) DEFAULT '' NOT NULL,
     title varchar(255) DEFAULT '' NOT NULL,
     teaser text NOT NULL,
@@ -508,6 +510,8 @@ CREATE TABLE tx_cart_domain_model_order_product (
     pid int(11) DEFAULT '0' NOT NULL,
 
     item int(11) unsigned DEFAULT '0' NOT NULL,
+
+    product_type varchar(255) DEFAULT '' NOT NULL,
 
     sku varchar(255) DEFAULT '' NOT NULL,
     title varchar(255) DEFAULT '' NOT NULL,

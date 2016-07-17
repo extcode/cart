@@ -3,5 +3,11 @@
 .. --------------------------------------------------
 .. -*- coding: utf-8 -*- with BOM.
 
-Entwickler-Team
-===============
+ChangeLog
+=========
+
+.. toctree::
+   :maxdepth: 5
+   :titlesonly:
+
+   0.15.0

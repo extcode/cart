@@ -57,6 +57,8 @@ foreach ($pluginNames as $pluginName) {
         );
     }
 }
+$TCA['tt_content']['types']['list']['subtypes_excludelist']['cart_minicart'] = 'select_key,pages,recursive';
+$TCA['tt_content']['types']['list']['subtypes_excludelist']['cart_flexproduct'] = 'select_key,pages,recursive';
 
 /**
  * Register Backend Modules

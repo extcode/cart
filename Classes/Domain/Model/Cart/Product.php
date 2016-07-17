@@ -23,6 +23,12 @@ namespace Extcode\Cart\Domain\Model\Cart;
  */
 class Product
 {
+    /**
+     * Product Type
+     *
+     * @var string
+     */
+    private $productType;
 
     /**
      * Product Id
@@ -188,6 +194,7 @@ class Product
     /**
      * __construct
      *
+     * @param int $productType
      * @param int $productId
      * @param int $tableId
      * @param int $contentId
@@ -202,6 +209,7 @@ class Product
      * @throws \InvalidArgumentException
      */
     public function __construct(
+        $productType,
         $productId,
         $tableId,
         $contentId,
@@ -212,7 +220,14 @@ class Product
         $quantity,
         $isNetPrice = false,
         $feVariant = null
-    ) {
+    )
+    {
+        if (!$productType) {
+            throw new \InvalidArgumentException(
+                'You have to specify a valid $productType for constructor.',
+                1468754400
+            );
+        }
         if (!$productId) {
             throw new \InvalidArgumentException(
                 'You have to specify a valid $productId for constructor.',
@@ -250,6 +265,7 @@ class Product
             );
         }
 
+        $this->productType = $productType;
         $this->productId = $productId;
         $this->tableId = $tableId != null ? $tableId : 0;
         $this->contentId = $contentId;
@@ -469,6 +485,14 @@ class Product
         $this->beVariants[$variantId]->changeQuantity($newQuantity);
 
         $this->reCalc();
+    }
+
+    /**
+     * @return string
+     */
+    public function getProductType()
+    {
+        return $this->productType;
     }
 
     /**

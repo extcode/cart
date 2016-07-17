@@ -48,6 +48,11 @@ class ProductTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
     protected $product = null;
 
     /**
+     * @var string
+     */
+    protected $productType;
+
+    /**
      * @var int
      */
     protected $productId;
@@ -89,6 +94,7 @@ class ProductTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
     {
         $this->taxClass = new \Extcode\Cart\Domain\Model\Cart\TaxClass(1, '19', 0.19, 'normal');
 
+        $this->productType = 'simple';
         $this->productId = 1001;
         $this->tableId = 1002;
         $this->contentId = 1003;
@@ -98,6 +104,7 @@ class ProductTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
         $this->quantity = 1;
 
         $this->product = new \Extcode\Cart\Domain\Model\Cart\Product(
+            $this->productType,
             $this->productId,
             $this->tableId,
             $this->contentId,
@@ -130,6 +137,30 @@ class ProductTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
     /**
      * @test
      */
+    public function constructCartProductWithoutProductTypeThrowsException()
+    {
+        $this->setExpectedException(
+            'InvalidArgumentException',
+            'You have to specify a valid $productType for constructor.',
+            1468754400
+        );
+
+        new \Extcode\Cart\Domain\Model\Cart\Product(
+            null,
+            $this->productId,
+            $this->tableId,
+            $this->contentId,
+            $this->sku,
+            $this->title,
+            $this->price,
+            $this->taxClass,
+            $this->quantity
+        );
+    }
+
+    /**
+     * @test
+     */
     public function constructCartProductWithoutProductIdThrowsException()
     {
         $this->setExpectedException(
@@ -139,6 +170,7 @@ class ProductTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
         );
 
         new \Extcode\Cart\Domain\Model\Cart\Product(
+            $this->productType,
             null,
             $this->tableId,
             $this->contentId,
@@ -162,6 +194,7 @@ class ProductTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
         );
 
         new \Extcode\Cart\Domain\Model\Cart\Product(
+            $this->productType,
             $this->productId,
             $this->tableId,
             $this->contentId,
@@ -185,6 +218,7 @@ class ProductTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
         );
 
         new \Extcode\Cart\Domain\Model\Cart\Product(
+            $this->productType,
             $this->productId,
             $this->tableId,
             $this->contentId,
@@ -208,6 +242,7 @@ class ProductTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
         );
 
         new \Extcode\Cart\Domain\Model\Cart\Product(
+            $this->productType,
             $this->productId,
             $this->tableId,
             $this->contentId,
@@ -231,6 +266,7 @@ class ProductTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
         );
 
         new \Extcode\Cart\Domain\Model\Cart\Product(
+            $this->productType,
             $this->productId,
             $this->tableId,
             $this->contentId,
@@ -254,6 +290,7 @@ class ProductTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
         );
 
         new \Extcode\Cart\Domain\Model\Cart\Product(
+            $this->productType,
             $this->productId,
             $this->tableId,
             $this->contentId,
@@ -262,6 +299,17 @@ class ProductTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
             $this->price,
             $this->taxClass,
             null
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function getCartProductTypeReturnsProductTypeSetByConstructor()
+    {
+        $this->assertSame(
+            $this->productType,
+            $this->product->getProductType()
         );
     }
 
@@ -293,6 +341,7 @@ class ProductTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
     public function getIdForTableProductReturnsTableProductIdSetIndirectlyByConstructor()
     {
         $product = new \Extcode\Cart\Domain\Model\Cart\Product(
+            $this->productType,
             $this->productId,
             $this->tableId,
             null,
@@ -315,6 +364,7 @@ class ProductTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
     public function getIdForFlexformProductReturnsTableProductIdSetIndirectlyByConstructor()
     {
         $product = new \Extcode\Cart\Domain\Model\Cart\Product(
+            $this->productType,
             $this->productId,
             null,
             $this->contentId,
@@ -395,6 +445,7 @@ class ProductTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
         $specialPrice = 1.00;
 
         $product = new \Extcode\Cart\Domain\Model\Cart\Product(
+            $this->productType,
             $this->productId,
             null,
             $this->contentId,
@@ -420,6 +471,7 @@ class ProductTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
         $price = 10.00;
 
         $product = new \Extcode\Cart\Domain\Model\Cart\Product(
+            $this->productType,
             $this->productId,
             null,
             $this->contentId,
@@ -445,6 +497,7 @@ class ProductTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
         $specialPrice = 0.00;
 
         $product = new \Extcode\Cart\Domain\Model\Cart\Product(
+            $this->productType,
             $this->productId,
             null,
             $this->contentId,
@@ -471,6 +524,7 @@ class ProductTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
         $specialPrice = 9.00;
 
         $product = new \Extcode\Cart\Domain\Model\Cart\Product(
+            $this->productType,
             $this->productId,
             null,
             $this->contentId,
@@ -496,6 +550,7 @@ class ProductTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
         $price = 10.00;
 
         $product = new \Extcode\Cart\Domain\Model\Cart\Product(
+            $this->productType,
             $this->productId,
             null,
             $this->contentId,
@@ -521,6 +576,7 @@ class ProductTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
         $specialPrice = 11.00;
 
         $product = new \Extcode\Cart\Domain\Model\Cart\Product(
+            $this->productType,
             $this->productId,
             null,
             $this->contentId,
@@ -547,6 +603,7 @@ class ProductTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
         $specialPrice = 5.00;
 
         $product = new \Extcode\Cart\Domain\Model\Cart\Product(
+            $this->productType,
             $this->productId,
             null,
             $this->contentId,
@@ -593,6 +650,7 @@ class ProductTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
     public function getIsNetPriceReturnsTrueSetByDefaultConstructor()
     {
         $net_fixture = new \Extcode\Cart\Domain\Model\Cart\Product(
+            $this->productType,
             $this->productId,
             $this->tableId,
             $this->contentId,
@@ -779,6 +837,7 @@ class ProductTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
         $quantity = 7;
 
         $this->product = new \Extcode\Cart\Domain\Model\Cart\Product(
+            $this->productType,
             $this->productId,
             $this->tableId,
             $this->contentId,
@@ -808,6 +867,7 @@ class ProductTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
         $quantity = 5;
 
         $this->product = new \Extcode\Cart\Domain\Model\Cart\Product(
+            $this->productType,
             $this->productId,
             $this->tableId,
             $this->contentId,
@@ -837,6 +897,7 @@ class ProductTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
         $quantity = 10;
 
         $this->product = new \Extcode\Cart\Domain\Model\Cart\Product(
+            $this->productType,
             $this->productId,
             $this->tableId,
             $this->contentId,
@@ -866,6 +927,7 @@ class ProductTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
         $quantity = 4;
 
         $this->product = new \Extcode\Cart\Domain\Model\Cart\Product(
+            $this->productType,
             $this->productId,
             $this->tableId,
             $this->contentId,
@@ -895,6 +957,7 @@ class ProductTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
         $quantity = 11;
 
         $this->product = new \Extcode\Cart\Domain\Model\Cart\Product(
+            $this->productType,
             $this->productId,
             $this->tableId,
             $this->contentId,
@@ -924,6 +987,7 @@ class ProductTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
         $quantity = 7;
 
         $this->product = new \Extcode\Cart\Domain\Model\Cart\Product(
+            $this->productType,
             $this->productId,
             $this->tableId,
             $this->contentId,
@@ -952,6 +1016,7 @@ class ProductTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
         $quantity = 5;
 
         $this->product = new \Extcode\Cart\Domain\Model\Cart\Product(
+            $this->productType,
             $this->productId,
             $this->tableId,
             $this->contentId,
@@ -980,6 +1045,7 @@ class ProductTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
         $quantity = 10;
 
         $this->product = new \Extcode\Cart\Domain\Model\Cart\Product(
+            $this->productType,
             $this->productId,
             $this->tableId,
             $this->contentId,
@@ -1008,6 +1074,7 @@ class ProductTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
         $quantity = 4;
 
         $this->product = new \Extcode\Cart\Domain\Model\Cart\Product(
+            $this->productType,
             $this->productId,
             $this->tableId,
             $this->contentId,
@@ -1036,6 +1103,7 @@ class ProductTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
         $quantity = 11;
 
         $this->product = new \Extcode\Cart\Domain\Model\Cart\Product(
+            $this->productType,
             $this->productId,
             $this->tableId,
             $this->contentId,
@@ -1064,6 +1132,7 @@ class ProductTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
         $quantity = 4;
 
         $this->product = new \Extcode\Cart\Domain\Model\Cart\Product(
+            $this->productType,
             $this->productId,
             $this->tableId,
             $this->contentId,
@@ -1085,6 +1154,7 @@ class ProductTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
         $quantity = 11;
 
         $this->product = new \Extcode\Cart\Domain\Model\Cart\Product(
+            $this->productType,
             $this->productId,
             $this->tableId,
             $this->contentId,
@@ -1114,6 +1184,7 @@ class ProductTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
         $quantity = 4;
 
         $this->product = new \Extcode\Cart\Domain\Model\Cart\Product(
+            $this->productType,
             $this->productId,
             $this->tableId,
             $this->contentId,
@@ -1135,6 +1206,7 @@ class ProductTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
         $quantity = 11;
 
         $this->product = new \Extcode\Cart\Domain\Model\Cart\Product(
+            $this->productType,
             $this->productId,
             $this->tableId,
             $this->contentId,
@@ -1164,6 +1236,7 @@ class ProductTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
         $quantity = 4;
 
         $this->product = new \Extcode\Cart\Domain\Model\Cart\Product(
+            $this->productType,
             $this->productId,
             $this->tableId,
             $this->contentId,
@@ -1185,6 +1258,7 @@ class ProductTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
         $quantity = 11;
 
         $this->product = new \Extcode\Cart\Domain\Model\Cart\Product(
+            $this->productType,
             $this->productId,
             $this->tableId,
             $this->contentId,

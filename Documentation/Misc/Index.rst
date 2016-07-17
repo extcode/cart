@@ -3,5 +3,14 @@
 .. --------------------------------------------------
 .. -*- coding: utf-8 -*- with BOM.
 
-Unterstützer und Sponsoren
-==========================
+.. _misc:
+
+Sonstiges
+---------
+
+.. toctree::
+   :maxdepth: 5
+   :titlesonly:
+
+   Changelog/Index
+   Todos/Index

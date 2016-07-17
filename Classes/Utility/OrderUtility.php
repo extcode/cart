@@ -449,6 +449,7 @@ class OrderUtility
         );
         $orderProduct->setPid($this->storagePid);
 
+        $orderProduct->setProductType($cartProduct->getProductType());
         $orderProduct->setPrice($cartProduct->getPrice());
         $orderProduct->setGross($cartProduct->getGross());
         $orderProduct->setNet($cartProduct->getNet());
@@ -622,6 +623,7 @@ class OrderUtility
         $skuWithVariants['sku'] = $cartProduct->getSku();
         $titleWithVariants['title'] = $cartProduct->getTitle();
 
+        $orderProduct->setProductType($cartProduct->getProductType());
         $orderProduct->setPrice($variant->getPrice());
         $orderProduct->setDiscount($variant->getDiscount());
         $orderProduct->setGross($variant->getGross());

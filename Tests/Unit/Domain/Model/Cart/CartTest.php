@@ -349,6 +349,7 @@ class CartTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
     public function addFirstCartProductToCartChangeCountOfProducts()
     {
         $product = new \Extcode\Cart\Domain\Model\Cart\Product(
+            'simple',
             1,
             0,
             0,
@@ -377,6 +378,7 @@ class CartTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
     {
         $productPrice = 10.00;
         $grossProduct = new \Extcode\Cart\Domain\Model\Cart\Product(
+            'simple',
             1,
             0,
             0,
@@ -403,6 +405,7 @@ class CartTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
     {
         $productPrice = 10.00;
         $netProduct = new \Extcode\Cart\Domain\Model\Cart\Product(
+            'simple',
             1,
             0,
             0,
@@ -429,6 +432,7 @@ class CartTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
     {
         $productPrice = 10.00;
         $grossProduct = new \Extcode\Cart\Domain\Model\Cart\Product(
+            'simple',
             1,
             0,
             0,
@@ -455,6 +459,7 @@ class CartTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
     {
         $productPrice = 10.00;
         $netProduct = new \Extcode\Cart\Domain\Model\Cart\Product(
+            'simple',
             1,
             0,
             0,
@@ -483,6 +488,7 @@ class CartTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
     {
         $productPrice = 10.00;
         $grossProduct = new \Extcode\Cart\Domain\Model\Cart\Product(
+            'simple',
             1,
             0,
             0,
@@ -509,6 +515,7 @@ class CartTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
     {
         $productPrice = 10.00;
         $netProduct = new \Extcode\Cart\Domain\Model\Cart\Product(
+            'simple',
             1,
             0,
             0,
@@ -535,6 +542,7 @@ class CartTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
     {
         $productPrice = 10.00;
         $grossProduct = new \Extcode\Cart\Domain\Model\Cart\Product(
+            'simple',
             1,
             0,
             0,
@@ -561,6 +569,7 @@ class CartTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
     {
         $productPrice = 10.00;
         $netProduct = new \Extcode\Cart\Domain\Model\Cart\Product(
+            'simple',
             1,
             0,
             0,
@@ -588,6 +597,7 @@ class CartTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
         $taxId = 1;
         $productPrice = 10.00;
         $product = new \Extcode\Cart\Domain\Model\Cart\Product(
+            'simple',
             1,
             0,
             0,
@@ -616,6 +626,7 @@ class CartTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
     {
         $firstCartProductPrice = 10.00;
         $firstCartProduct = new \Extcode\Cart\Domain\Model\Cart\Product(
+            'simple',
             1,
             0,
             0,
@@ -630,6 +641,7 @@ class CartTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
 
         $secondCartProductPrice = 20.00;
         $secondCartProduct = new \Extcode\Cart\Domain\Model\Cart\Product(
+            'simple',
             2,
             0,
             0,
@@ -657,6 +669,7 @@ class CartTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
     {
         $firstCartProductPrice = 10.00;
         $firstCartProduct = new \Extcode\Cart\Domain\Model\Cart\Product(
+            'simple',
             1,
             0,
             0,
@@ -671,6 +684,7 @@ class CartTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
 
         $secondCartProductPrice = 20.00;
         $secondCartProduct = new \Extcode\Cart\Domain\Model\Cart\Product(
+            'simple',
             2,
             0,
             0,
@@ -1265,6 +1279,7 @@ class CartTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
     protected function addFirstProductToCarts()
     {
         $product = new \Extcode\Cart\Domain\Model\Cart\Product(
+            'simple',
             1,
             0,
             0,
@@ -1438,6 +1453,7 @@ class CartTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
         $cart->expects($this->any())->method('getCouponGross')->will($this->returnValue($couponGross));
 
         $product = new \Extcode\Cart\Domain\Model\Cart\Product(
+            'simple',
             1,
             0,
             0,
@@ -1476,6 +1492,7 @@ class CartTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
         $cart->expects($this->any())->method('getCouponNet')->will($this->returnValue($couponNet));
 
         $product = new \Extcode\Cart\Domain\Model\Cart\Product(
+            'simple',
             1,
             0,
             0,

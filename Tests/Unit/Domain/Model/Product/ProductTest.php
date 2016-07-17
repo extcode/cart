@@ -76,7 +76,31 @@ class ProductTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
     /**
      * @test
      */
-    public function getTeaserReturnsInitialValueForString()
+    public function getProductTypeReturnsInitialValueForProductType()
+    {
+        $this->assertSame(
+            'simple',
+            $this->product->getProductType()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function setProductTypeSetsProductType()
+    {
+        $this->product->setProductType('configurable');
+
+        $this->assertSame(
+            'configurable',
+            $this->product->getProductType()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function getTeaserReturnsInitialValueForTeaser()
     {
         $this->assertSame(
             '',

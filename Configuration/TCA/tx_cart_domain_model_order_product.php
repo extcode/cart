@@ -26,11 +26,11 @@ return [
     ],
     'hideTable' => 1,
     'interface' => [
-        'showRecordFieldList' => 'sku, title, count, additional_data, product_additional, price, discount, gross, net, tax, tax_class',
+        'showRecordFieldList' => 'product_type, sku, title, count, additional_data, product_additional, price, discount, gross, net, tax, tax_class',
     ],
     'types' => [
         '1' => [
-            'showitem' => 'sku, title, count, --palette--;' . $_LLL . ':tx_cart_domain_model_order_product.price.group;price, product_additional, additional_data'
+            'showitem' => 'product_type, sku, title, count, --palette--;' . $_LLL . ':tx_cart_domain_model_order_product.price.group;price, product_additional, additional_data'
         ],
     ],
     'palettes' => [
@@ -43,6 +43,25 @@ return [
         ],
     ],
     'columns' => [
+        'product_type' => [
+            'exclude' => 1,
+            'label' => $_LLL . ':tx_cart_domain_model_order_product.product_type',
+            'config' => [
+                'type' => 'select',
+                'renderType' => 'selectSingle',
+                'items' => [
+                    ['', ''],
+                    [$_LLL . ':tx_cart_domain_model_order_product.product_type.simple', 'simple'],
+                    [$_LLL . ':tx_cart_domain_model_order_product.product_type.configurable', 'configurable'],
+                    [$_LLL . ':tx_cart_domain_model_order_product.product_type.virtual', 'virtual'],
+                    [$_LLL . ':tx_cart_domain_model_order_product.product_type.downloadable', 'downloadable'],
+                ],
+                'readOnly' => 1,
+                'size' => 1,
+                'minitems' => 0,
+                'maxitems' => 1,
+            ]
+        ],
         'sku' => [
             'exclude' => 0,
             'label' => $_LLL . ':tx_cart_domain_model_order_product.sku',

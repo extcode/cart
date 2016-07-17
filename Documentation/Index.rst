@@ -3,7 +3,7 @@
 .. --------------------------------------------------
 .. -*- coding: utf-8 -*- with BOM.
 
-.. include:: Includes.txt
+.. include:: ../Includes.txt
 
 .. _start:
 
@@ -11,44 +11,45 @@
 EXT: Cart
 ===========================
 
-.. image:: /Images/cart_logo.png
-        :height: 200
-        :width: 200
+.. image:: ../Images/cart_logo.png
+   :height: 200
+   :width: 200
+
 
 .. only:: html
 
-        :Version:
-                |release|
+    :Version:
+        |release|
 
-        :Language:
-                en
+    :Sprache:
+        de
 
-        :Description:
-                Cart is a powerful extension which adds a shopping cart to your TYPO3 installation.
+    :Beschreibung:
+        Cart ist eine Erweiterung, die einen Shop in TYPO3 integriert
 
-        :Keywords:
-                cart, shop, shopping, e-commerce, ecommerce, checkout, payment
+    :Keywords:
+        cart, shop, shopping, e-commerce, ecommerce, checkout, payment
 
-        :Author:
-                Daniel Lorenz
+    :Autor:
+        Daniel Lorenz
 
-        :Email:
-                ext.cart@extco.de
+    :E-Mail:
+        ext.cart@extco.de
 
-        :Rendered:
-                |today|
+    :Rendered:
+        |today|
 
-        The content of this document is related to TYPO3,
-        a GNU/GPL CMS/Framework available from `www.typo3.org <https://typo3.org/>`__.
+    The content of this document is related to TYPO3,
+    a GNU/GPL CMS/Framework available from `www.typo3.org <https://typo3.org/>`__.
 
-        **Table of Contents**
-
+    **Inhaltsverzeichnis**
 
 .. toctree::
-        :maxdepth: 5
-        :titlesonly:
+    :maxdepth: 5
+    :titlesonly:
 
-        Introduction/Index
-        EditorManual/Index
-        DeveloperManual/Index
-        AdministratorManual/Index
+    Introduction/Index
+    EditorManual/Index
+    DeveloperManual/Index
+    AdministratorManual/Index
+    Misc/Index

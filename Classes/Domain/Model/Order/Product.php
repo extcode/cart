@@ -32,6 +32,13 @@ class Product extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     protected $item;
 
     /**
+     * Product Type
+     *
+     * @var string
+     */
+    protected $productType = '';
+
+    /**
      * Sku
      *
      * @var string
@@ -165,6 +172,27 @@ class Product extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     protected function initStorageObjects()
     {
         $this->productAdditional = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+    }
+
+    /**
+     * Returns the Product Type
+     *
+     * @return string
+     */
+    public function getProductType()
+    {
+        return $this->productType;
+    }
+
+    /**
+     * Sets the Product Type
+     *
+     * @var string $productType
+     * @return void
+     */
+    public function setProductType($productType)
+    {
+        $this->productType = $productType;
     }
 
     /**

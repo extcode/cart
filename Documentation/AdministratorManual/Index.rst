@@ -3,8 +3,8 @@
 .. --------------------------------------------------
 .. -*- coding: utf-8 -*- with BOM.
 
-Administrator Manual
-====================
+Administratoren Handbuch
+========================
 
 .. toctree::
     :maxdepth: 5

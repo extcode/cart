@@ -3,8 +3,8 @@
 .. --------------------------------------------------
 .. -*- coding: utf-8 -*- with BOM.
 
-Developer Manual
-================
+Entwickler Handbuch
+===================
 
 .. toctree::
     :maxdepth: 5

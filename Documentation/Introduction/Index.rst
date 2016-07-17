@@ -3,8 +3,8 @@
 .. --------------------------------------------------
 .. -*- coding: utf-8 -*- with BOM.
 
-Introduction
-============
+Einführung
+----------
 
 .. toctree::
     :maxdepth: 5
@@ -12,3 +12,4 @@ Introduction
 
     DevelopmentTeam/Index
     SupportersAndSponsors/Index
+    Support/Index

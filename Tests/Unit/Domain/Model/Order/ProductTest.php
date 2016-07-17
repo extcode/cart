@@ -157,4 +157,31 @@ class ProductTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
             $this->product->getCount()
         );
     }
+
+    /**
+     * @test
+     */
+    /**
+     * @test
+     */
+    public function getProductTypeReturnsInitialValueForProductType()
+    {
+        $this->assertSame(
+            '',
+            $this->product->getProductType()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function setProductTypeSetsProductType()
+    {
+        $this->product->setProductType('configurable');
+
+        $this->assertSame(
+            'configurable',
+            $this->product->getProductType()
+        );
+    }
 }

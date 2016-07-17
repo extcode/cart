@@ -27,16 +27,17 @@ return [
             'starttime' => 'starttime',
             'endtime' => 'endtime',
         ],
+        'requestUpdate' => 'product_type, be_variant_attribute1, be_variant_attribute2, be_variant_attribute3',
         'searchFields' => 'sku,title,teaser,description,price,',
         'iconfile' => 'EXT:cart/Resources/Public/Icons/Product/Product.png'
     ],
     'interface' => [
-        'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, sku, title, header_image, teaser, description, min_number_in_order, max_number_in_order, price, special_prices, price_measure, price_measure_unit, base_price_measure_unit, tax_class_id, be_variant_attribute1, be_variant_attribute2, be_variant_attribute3, fe_variants, be_variants, related_products, categories, tags',
+        'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, product_type, sku, title, header_image, teaser, description, min_number_in_order, max_number_in_order, price, special_prices, price_measure, price_measure_unit, base_price_measure_unit, tax_class_id, be_variant_attribute1, be_variant_attribute2, be_variant_attribute3, fe_variants, be_variants, related_products, categories, tags',
     ],
     'types' => [
         '1' => [
             'showitem' => 'sys_language_uid;;;;1-1-1, l10n_parent, l10n_diffsource, hidden;;1, starttime, endtime,
-            sku, title,
+            product_type, sku, title,
             --div--;' . $_LLL . ':tx_cart_domain_model_product_product.div.descriptions,
                 teaser;;;richtext:rte_transform[mode=ts_links], description;;;richtext:rte_transform[mode=ts_links],
                 product_content,
@@ -159,6 +160,25 @@ return [
                     'lower' => mktime(0, 0, 0, date('m'), date('d'), date('Y'))
                 ],
             ],
+        ],
+
+        'product_type' => [
+            'exclude' => 1,
+            'label' => $_LLL . ':tx_cart_domain_model_product_product.product_type',
+            'config' => [
+                'type' => 'select',
+                'renderType' => 'selectSingle',
+                'items' => [
+                    [$_LLL . ':tx_cart_domain_model_product_product.product_type.simple', 'simple'],
+                    [$_LLL . ':tx_cart_domain_model_product_product.product_type.configurable', 'configurable'],
+                    [$_LLL . ':tx_cart_domain_model_product_product.product_type.virtual', 'virtual'],
+                    [$_LLL . ':tx_cart_domain_model_product_product.product_type.downloadable', 'downloadable'],
+                ],
+                'default' => 'simple',
+                'size' => 1,
+                'minitems' => 0,
+                'maxitems' => 1,
+            ]
         ],
 
         'sku' => [
@@ -343,6 +363,7 @@ return [
 
         'be_variant_attribute1' => [
             'exclude' => 1,
+            'displayCond' => 'FIELD:product_type:=:configurable',
             'label' => $_LLL . ':tx_cart_domain_model_product_product.be_variant_attribute1',
             'config' => [
                 'type' => 'select',
@@ -359,6 +380,7 @@ return [
 
         'be_variant_attribute2' => [
             'exclude' => 1,
+            'displayCond' => 'FIELD:product_type:=:configurable',
             'label' => $_LLL . ':tx_cart_domain_model_product_product.be_variant_attribute2',
             'config' => [
                 'type' => 'select',
@@ -375,6 +397,7 @@ return [
 
         'be_variant_attribute3' => [
             'exclude' => 1,
+            'displayCond' => 'FIELD:product_type:=:configurable',
             'label' => $_LLL . ':tx_cart_domain_model_product_product.be_variant_attribute3',
             'config' => [
                 'type' => 'select',
@@ -410,6 +433,7 @@ return [
 
         'be_variants' => [
             'exclude' => 1,
+            'displayCond' => 'FIELD:product_type:=:configurable',
             'label' => $_LLL . ':tx_cart_domain_model_product_product.be_variants',
             'config' => [
                 'type' => 'inline',

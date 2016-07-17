@@ -3,5 +3,5 @@
 .. --------------------------------------------------
 .. -*- coding: utf-8 -*- with BOM.
 
-Configuration
+Konfiguration
 =============

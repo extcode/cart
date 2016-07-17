@@ -3,5 +3,5 @@
 .. --------------------------------------------------
 .. -*- coding: utf-8 -*- with BOM.
 
-Supporters and Sponsors
-=======================
+Unterstützer und Sponsoren
+==========================

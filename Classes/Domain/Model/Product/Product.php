@@ -53,6 +53,13 @@ class Product extends \Extcode\Cart\Domain\Model\Product\AbstractProduct
     ];
 
     /**
+     * Product Type
+     *
+     * @var string
+     */
+    protected $productType = 'simple';
+
+    /**
      * Images
      *
      * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference>
@@ -227,6 +234,27 @@ class Product extends \Extcode\Cart\Domain\Model\Product\AbstractProduct
     {
         $this->specialPrices = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
         $this->beVariants = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+    }
+
+    /**
+     * Returns the Product Type
+     *
+     * @return string
+     */
+    public function getProductType()
+    {
+        return $this->productType;
+    }
+
+    /**
+     * Set the Product Type
+     *
+     * @var string $productType
+     * @return void
+     */
+    public function setProductType($productType)
+    {
+        $this->productType = $productType;
     }
 
     /**

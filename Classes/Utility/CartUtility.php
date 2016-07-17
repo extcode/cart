@@ -219,7 +219,7 @@ class CartUtility
      *
      * @return \Extcode\Cart\Domain\Model\Cart\Product
      */
-    public function createproduct(array $preCartProductSetValue)
+    public function createProduct(array $preCartProductSetValue)
     {
         $newFeVariant = null;
         if ($preCartProductSetValue['feVariants']) {
@@ -229,6 +229,7 @@ class CartUtility
         }
 
         $newCartProduct = new \Extcode\Cart\Domain\Model\Cart\Product(
+            $preCartProductSetValue['productType'],
             $preCartProductSetValue['productId'],
             $preCartProductSetValue['tableId'],
             $preCartProductSetValue['contentId'],
@@ -456,7 +457,7 @@ class CartUtility
 
         $flexformData = GeneralUtility::xml2array($row['pi_flexform']);
 
-        $gpvarArr = ['productId', 'sku', 'title', 'price', 'isNetPrice'];
+        $gpvarArr = ['productType', 'productId', 'sku', 'title', 'price', 'isNetPrice'];
         foreach ($gpvarArr as $gpvarVal) {
             $preCartProductSetValue[$gpvarVal] = $abstractPlugin->pi_getFFvalue(
                 $flexformData,
@@ -495,7 +496,7 @@ class CartUtility
             }
         }
 
-        return $this->createproduct($preCartProductSetValue);
+        return $this->createProduct($preCartProductSetValue);
     }
 
     /**
@@ -553,6 +554,13 @@ class CartUtility
         if ($res) {
             $row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res);
 
+            if ($databaseSettings['productType']) {
+                if ($row[$databaseSettings['productType']]) {
+                    $preCartProductSetValue['productType'] = $row[$databaseSettings['productType']];
+                }
+            } else {
+                $preCartProductSetValue['productType'] = 'simple';
+            }
             $preCartProductSetValue['title'] = $row[$databaseSettings['title']];
             $preCartProductSetValue['price'] = $row[$databaseSettings['price']];
             $preCartProductSetValue['taxClassId'] = $row[$databaseSettings['taxClassId']];
@@ -597,7 +605,7 @@ class CartUtility
             }
         }
 
-        return $this->createproduct($preCartProductSetValue);
+        return $this->createProduct($preCartProductSetValue);
     }
 
     /**
@@ -624,6 +632,12 @@ class CartUtility
         $repositoryFields = $repositorySettings['fields'];
 
         if ($productObject) {
+            if (isset($repositoryFields['getProductType'])) {
+                $functionName = $repositoryFields['getProductType'];
+                $preCartProductSetValue['productType'] = $productObject->$functionName();
+            } else {
+                $preCartProductSetValue['productType'] = $productObject->getProductType();
+            }
             if (isset($repositoryFields['getTitle'])) {
                 $functionName = $repositoryFields['getTitle'];
                 $preCartProductSetValue['title'] = $productObject->$functionName();
@@ -719,7 +733,7 @@ class CartUtility
 
         }
 
-        return $this->createproduct($preCartProductSetValue);
+        return $this->createProduct($preCartProductSetValue);
     }
 
     /**
