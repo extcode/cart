@@ -1,3 +1,9 @@
+0.15.2
+    2016-07-17
+    Daniel Lorenz <daniel.lorenz@extco.de>
+
+    * TASK #1194: wrong price for order_product will be saved
+
 0.15.1
     2016-07-17
     Daniel Lorenz <daniel.lorenz@extco.de>

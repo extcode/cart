@@ -450,7 +450,7 @@ class OrderUtility
         $orderProduct->setPid($this->storagePid);
 
         $orderProduct->setProductType($cartProduct->getProductType());
-        $orderProduct->setPrice($cartProduct->getPrice());
+        $orderProduct->setPrice($cartProduct->getBestPrice());
         $orderProduct->setGross($cartProduct->getGross());
         $orderProduct->setNet($cartProduct->getNet());
         $orderProduct->setTaxClass($this->taxClasses[$cartProduct->getTaxClass()->getId()]);
@@ -624,7 +624,7 @@ class OrderUtility
         $titleWithVariants['title'] = $cartProduct->getTitle();
 
         $orderProduct->setProductType($cartProduct->getProductType());
-        $orderProduct->setPrice($variant->getPrice());
+        $orderProduct->setPrice($variant->getPriceCalculated());
         $orderProduct->setDiscount($variant->getDiscount());
         $orderProduct->setGross($variant->getGross());
         $orderProduct->setNet($variant->getNet());
