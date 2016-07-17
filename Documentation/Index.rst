@@ -11,7 +11,7 @@
 EXT: Cart
 ===========================
 
-.. image:: ../Images/cart_logo.png
+.. image:: Images/cart_logo.png
    :height: 200
    :width: 200
 
