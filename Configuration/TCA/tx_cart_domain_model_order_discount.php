@@ -6,7 +6,7 @@ $_LLL = 'LLL:EXT:cart/Resources/Private/Language/locallang_db.xlf';
 
 return [
     'ctrl' => [
-        'title' => $_LLL . ':tx_cart_domain_model_order_coupon',
+        'title' => $_LLL . ':tx_cart_domain_model_order_discount',
         'label' => 'code',
         'label_alt' => 'title',
         'label_alt_force' => 1,
@@ -22,15 +22,15 @@ return [
         'delete' => 'deleted',
         'enablecolumns' => [],
         'searchFields' => 'title',
-        'iconfile' => 'EXT:cart/Resources/Public/Icons/Order/Coupon.png'
+        'iconfile' => 'EXT:cart/Resources/Public/Icons/Order/Discount.png'
     ],
     'hideTable' => 1,
     'interface' => [
-        'showRecordFieldList' => 'title, code, discount, tax_class_id, tax',
+        'showRecordFieldList' => 'title, code, gross, net, tax_class_id, tax',
     ],
     'types' => [
         '1' => [
-            'showitem' => 'title, code, discount, tax_class_id, tax'
+            'showitem' => 'title, code, gross, net, tax_class_id, tax'
         ],
     ],
     'palettes' => [
@@ -41,7 +41,7 @@ return [
     'columns' => [
         'title' => [
             'exclude' => 0,
-            'label' => $_LLL . ':tx_cart_domain_model_order_coupon.title',
+            'label' => $_LLL . ':tx_cart_domain_model_order_discount.title',
             'config' => [
                 'type' => 'input',
                 'size' => 30,
@@ -50,16 +50,25 @@ return [
         ],
         'code' => [
             'exclude' => 0,
-            'label' => $_LLL . ':tx_cart_domain_model_order_coupon.code',
+            'label' => $_LLL . ':tx_cart_domain_model_order_discount.code',
             'config' => [
                 'type' => 'input',
                 'size' => 30,
                 'eval' => 'trim,required'
             ],
         ],
-        'discount' => [
+        'gross' => [
             'exclude' => 0,
-            'label' => $_LLL . ':tx_cart_domain_model_order_coupon.discount',
+            'label' => $_LLL . ':tx_cart_domain_model_order_discount.gross',
+            'config' => [
+                'type' => 'input',
+                'size' => 30,
+                'eval' => 'double2'
+            ],
+        ],
+        'net' => [
+            'exclude' => 0,
+            'label' => $_LLL . ':tx_cart_domain_model_order_discount.net',
             'config' => [
                 'type' => 'input',
                 'size' => 30,
@@ -68,11 +77,11 @@ return [
         ],
         'tax_class_id' => [
             'exclude' => 1,
-            'label' => $_LLL . ':tx_cart_domain_model_order_coupon.tax_class_id',
+            'label' => $_LLL . ':tx_cart_domain_model_order_discount.tax_class_id',
             'config' => [
                 'type' => 'select',
                 'items' => [
-                    [$_LLL . ':tx_cart_domain_model_order_coupon.tax_class_id.1', 1],
+                    [$_LLL . ':tx_cart_domain_model_order_discount.tax_class_id.1', 1],
                 ],
                 'size' => 1,
                 'minitems' => 1,
@@ -81,7 +90,7 @@ return [
         ],
         'tax' => [
             'exclude' => 0,
-            'label' => $_LLL . ':tx_cart_domain_model_order_coupon.tax',
+            'label' => $_LLL . ':tx_cart_domain_model_order_discount.tax',
             'config' => [
                 'type' => 'input',
                 'size' => 30,

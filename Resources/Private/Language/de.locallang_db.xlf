@@ -179,9 +179,9 @@
                 <source>Order Products</source>
                 <target>Produkte der Bestellung</target>
             </trans-unit>
-            <trans-unit id="tx_cart_domain_model_order_item.coupons">
-                <source>Order Coupons</source>
-                <target>Coupons der Bestellung</target>
+            <trans-unit id="tx_cart_domain_model_order_item.discounts">
+                <source>Discounts</source>
+                <target>Rabatte</target>
             </trans-unit>
             <trans-unit id="tx_cart_domain_model_order_item.shipping">
                 <source>Shipping</source>
@@ -326,39 +326,43 @@
                 <target>Product Additional</target>
             </trans-unit>
 
-            <trans-unit id="tx_cart_domain_model_order_coupon">
-                <source>Coupon</source>
-                <target>Coupon</target>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_order_coupon.title">
-                <source>Title</source>
-                <target>Titel</target>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_order_coupon.code">
-                <source>Code</source>
-                <target>Code</target>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_order_coupon.discount">
+            <trans-unit id="tx_cart_domain_model_order_discount">
                 <source>Discount</source>
                 <target>Rabatt</target>
             </trans-unit>
-            <trans-unit id="tx_cart_domain_model_order_coupon.tax_class_id">
+            <trans-unit id="tx_cart_domain_model_order_discount.title">
+                <source>Title</source>
+                <target>Titel</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_discount.code">
+                <source>Code</source>
+                <target>Code</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_discount.gross">
+                <source>Discount (gross)</source>
+                <target>Rabatt (Brutto)</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_discount.net">
+                <source>Discount (net)</source>
+                <target>Rabatt (Netto)</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_discount.tax_class_id">
                 <source>Tax Class</source>
                 <target>Steuerklasse</target>
             </trans-unit>
-            <trans-unit id="tx_cart_domain_model_order_coupon.tax_class_id.1">
+            <trans-unit id="tx_cart_domain_model_order_discount.tax_class_id.1">
                 <source>normal</source>
                 <target>normal</target>
             </trans-unit>
-            <trans-unit id="tx_cart_domain_model_order_coupon.tax_class_id.2">
+            <trans-unit id="tx_cart_domain_model_order_discount.tax_class_id.2">
                 <source>reduced</source>
                 <target>reduziert</target>
             </trans-unit>
-            <trans-unit id="tx_cart_domain_model_order_coupon.tax_class_id.3">
+            <trans-unit id="tx_cart_domain_model_order_discount.tax_class_id.3">
                 <source>free</source>
                 <target>frei</target>
             </trans-unit>
-            <trans-unit id="tx_cart_domain_model_order_coupon.tax">
+            <trans-unit id="tx_cart_domain_model_order_discount.tax">
                 <source>Tax</source>
                 <target>Umsatzsteuer</target>
             </trans-unit>

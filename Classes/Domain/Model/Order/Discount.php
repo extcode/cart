@@ -16,12 +16,12 @@ namespace Extcode\Cart\Domain\Model\Order;
  */
 
 /**
- * Order Coupon Model
+ * Order Discount Model
  *
  * @package cart
  * @author Daniel Lorenz <ext.cart@extco.de>
  */
-class Coupon extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
+class Discount extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 {
 
     /**
@@ -48,12 +48,20 @@ class Coupon extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     protected $code = '';
 
     /**
-     * Discount
+     * Gross
      *
      * @var float
      * @validate NotEmpty
      */
-    protected $discount = 0.0;
+    protected $gross = 0.0;
+
+    /**
+     * Net
+     *
+     * @var float
+     * @validate NotEmpty
+     */
+    protected $net = 0.0;
 
     /**
      * Tax Class
@@ -85,7 +93,8 @@ class Coupon extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     public function __construct(
         $title,
         $code,
-        $discount,
+        $gross,
+        $net,
         $taxClass,
         $tax
     ) {
@@ -101,10 +110,16 @@ class Coupon extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
                 1455452820
             );
         }
-        if (!$discount) {
+        if (!$gross) {
             throw new \InvalidArgumentException(
-                'You have to specify a valid $discount for constructor.',
-                1455452830
+                'You have to specify a valid $gross for constructor.',
+                1468779204
+            );
+        }
+        if (!$net) {
+            throw new \InvalidArgumentException(
+                'You have to specify a valid $net for constructor.',
+                1468779221
             );
         }
         if (!$taxClass) {
@@ -122,7 +137,8 @@ class Coupon extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
         $this->title = $title;
         $this->code = $code;
-        $this->discount = $discount;
+        $this->gross = $gross;
+        $this->net = $net;
         $this->taxClass = $taxClass;
         $this->tax = $tax;
     }
@@ -148,13 +164,23 @@ class Coupon extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     }
 
     /**
-     * Returns Discount
+     * Returns Gross
      *
      * @return float
      */
-    public function getDiscount()
+    public function getGross()
     {
-        return $this->discount;
+        return $this->gross;
+    }
+
+    /**
+     * Returns Net
+     *
+     * @return float
+     */
+    public function getNet()
+    {
+        return $this->net;
     }
 
     /**

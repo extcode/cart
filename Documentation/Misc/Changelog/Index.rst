@@ -10,5 +10,6 @@ ChangeLog
    :maxdepth: 5
    :titlesonly:
 
-   0.15.0
+   0.16.0
    0.15.2
+   0.15.0

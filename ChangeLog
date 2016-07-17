@@ -1,3 +1,9 @@
+0.16.0
+    2016-07-17
+    Daniel Lorenz <daniel.lorenz@extco.de>
+
+    * TASK #1186: save net price for order discount
+
 0.15.2
     2016-07-17
     Daniel Lorenz <daniel.lorenz@extco.de>

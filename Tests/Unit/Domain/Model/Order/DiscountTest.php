@@ -27,12 +27,12 @@ namespace Extcode\Cart\Tests\Domain\Model\Order;
  ***************************************************************/
 
 
-class CouponTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
+class DiscountTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
 {
     /**
-     * @var \Extcode\Cart\Domain\Model\Order\Coupon
+     * @var \Extcode\Cart\Domain\Model\Order\Discount
      */
-    protected $coupon = null;
+    protected $discount = null;
 
     /**
      * Title
@@ -49,11 +49,18 @@ class CouponTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
     protected $code = '';
 
     /**
-     * Discount
+     * Gross
      *
      * @var float
      */
-    protected $discount = 0.0;
+    protected $gross = 0.0;
+
+    /**
+     * Net
+     *
+     * @var float
+     */
+    protected $net = 0.0;
 
     /**
      * TaxClass
@@ -76,15 +83,17 @@ class CouponTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
     {
         $this->taxClass = new \Extcode\Cart\Domain\Model\Cart\TaxClass(1, '19', 0.19, 'normal');
 
-        $this->title = 'Coupon';
-        $this->code = 'coupon';
-        $this->discount = 10.00;
+        $this->title = 'Discount';
+        $this->code = 'discount';
+        $this->gross = 10.00;
+        $this->net = 8.40;
         $this->tax = 1.60;
 
-        $this->coupon = new \Extcode\Cart\Domain\Model\Order\Coupon(
+        $this->discount = new \Extcode\Cart\Domain\Model\Order\Discount(
             $this->title,
             $this->code,
-            $this->discount,
+            $this->gross,
+            $this->net,
             $this->taxClass,
             $this->tax
         );
@@ -93,7 +102,7 @@ class CouponTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
     /**
      * @test
      */
-    public function constructCouponWithoutTitleThrowsException()
+    public function constructDiscountWithoutTitleThrowsException()
     {
         $this->setExpectedException(
             'InvalidArgumentException',
@@ -101,10 +110,11 @@ class CouponTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
             1455452810
         );
 
-        new \Extcode\Cart\Domain\Model\Order\Coupon(
+        new \Extcode\Cart\Domain\Model\Order\Discount(
             null,
             $this->code,
-            $this->discount,
+            $this->gross,
+            $this->net,
             $this->taxClass,
             $this->tax
         );
@@ -113,7 +123,7 @@ class CouponTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
     /**
      * @test
      */
-    public function constructCouponWithoutCodeThrowsException()
+    public function constructDiscountWithoutCodeThrowsException()
     {
         $this->setExpectedException(
             'InvalidArgumentException',
@@ -121,10 +131,11 @@ class CouponTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
             1455452820
         );
 
-        new \Extcode\Cart\Domain\Model\Order\Coupon(
+        new \Extcode\Cart\Domain\Model\Order\Discount(
             $this->title,
             null,
-            $this->discount,
+            $this->gross,
+            $this->net,
             $this->taxClass,
             $this->tax
         );
@@ -133,17 +144,39 @@ class CouponTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
     /**
      * @test
      */
-    public function constructCouponWithoutDiscountThrowsException()
+    public function constructDiscountWithoutGrossThrowsException()
     {
         $this->setExpectedException(
             'InvalidArgumentException',
-            'You have to specify a valid $discount for constructor.',
-            1455452830
+            'You have to specify a valid $gross for constructor.',
+            1468779204
         );
 
-        new \Extcode\Cart\Domain\Model\Order\Coupon(
+        new \Extcode\Cart\Domain\Model\Order\Discount(
             $this->title,
             $this->code,
+            null,
+            $this->net,
+            $this->taxClass,
+            $this->tax
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function constructDiscountWithoutNetThrowsException()
+    {
+        $this->setExpectedException(
+            'InvalidArgumentException',
+            'You have to specify a valid $net for constructor.',
+            1468779221
+        );
+
+        new \Extcode\Cart\Domain\Model\Order\Discount(
+            $this->title,
+            $this->code,
+            $this->gross,
             null,
             $this->taxClass,
             $this->tax
@@ -153,7 +186,7 @@ class CouponTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
     /**
      * @test
      */
-    public function constructCouponWithoutTaxClassThrowsException()
+    public function constructDiscountWithoutTaxClassThrowsException()
     {
         $this->setExpectedException(
             'InvalidArgumentException',
@@ -161,10 +194,11 @@ class CouponTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
             1455452840
         );
 
-        new \Extcode\Cart\Domain\Model\Order\Coupon(
+        new \Extcode\Cart\Domain\Model\Order\Discount(
             $this->title,
             $this->code,
-            $this->discount,
+            $this->gross,
+            $this->net,
             null,
             $this->tax
         );
@@ -173,7 +207,7 @@ class CouponTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
     /**
      * @test
      */
-    public function constructCouponWithoutTaxThrowsException()
+    public function constructDiscountWithoutTaxThrowsException()
     {
         $this->setExpectedException(
             'InvalidArgumentException',
@@ -181,10 +215,11 @@ class CouponTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
             1455452850
         );
 
-        new \Extcode\Cart\Domain\Model\Order\Coupon(
+        new \Extcode\Cart\Domain\Model\Order\Discount(
             $this->title,
             $this->code,
-            $this->discount,
+            $this->gross,
+            $this->net,
             $this->taxClass,
             null
         );
@@ -197,7 +232,7 @@ class CouponTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
     {
         $this->assertSame(
             $this->title,
-            $this->coupon->getTitle()
+            $this->discount->getTitle()
         );
     }
 
@@ -208,18 +243,29 @@ class CouponTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
     {
         $this->assertSame(
             $this->code,
-            $this->coupon->getCode()
+            $this->discount->getCode()
         );
     }
 
     /**
      * @test
      */
-    public function getDiscountInitiallyReturnsDiscountSetDirectlyByConstructor()
+    public function getGrossInitiallyReturnsGrossSetDirectlyByConstructor()
     {
         $this->assertSame(
-            $this->discount,
-            $this->coupon->getDiscount()
+            $this->gross,
+            $this->discount->getGross()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function getNetInitiallyReturnsNetSetDirectlyByConstructor()
+    {
+        $this->assertSame(
+            $this->net,
+            $this->discount->getNet()
         );
     }
 
@@ -230,7 +276,7 @@ class CouponTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
     {
         $this->assertSame(
             $this->taxClass,
-            $this->coupon->getTaxClass()
+            $this->discount->getTaxClass()
         );
     }
 
@@ -241,7 +287,7 @@ class CouponTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
     {
         $this->assertSame(
             $this->tax,
-            $this->coupon->getTax()
+            $this->discount->getTax()
         );
     }
 }

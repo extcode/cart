@@ -16,12 +16,12 @@ namespace Extcode\Cart\Domain\Repository\Order;
  */
 
 /**
- * Order Coupon Repository
+ * Order Discount Repository
  *
  * @package cart
  * @author Daniel Lorenz <ext.cart@extco.de>
  */
-class CouponRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
+class DiscountRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
 {
 
 }

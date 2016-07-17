@@ -353,7 +353,7 @@ CREATE TABLE tx_cart_domain_model_order_item (
     total_tax int(11) unsigned DEFAULT '0' NOT NULL,
     tax_class int(11) unsigned DEFAULT '0' NOT NULL,
     products int(11) unsigned DEFAULT '0' NOT NULL,
-    coupons int(11) unsigned DEFAULT '0' NOT NULL,
+    discounts int(11) unsigned DEFAULT '0' NOT NULL,
     shipping int(11) unsigned DEFAULT '0',
     payment int(11) unsigned DEFAULT '0',
 
@@ -551,9 +551,9 @@ CREATE TABLE tx_cart_domain_model_order_product (
 );
 
 #
-# Table structure for table 'tx_cart_domain_model_order_coupon'
+# Table structure for table 'tx_cart_domain_model_order_discount'
 #
-CREATE TABLE tx_cart_domain_model_order_coupon (
+CREATE TABLE tx_cart_domain_model_order_discount (
 
     uid int(11) NOT NULL auto_increment,
     pid int(11) DEFAULT '0' NOT NULL,
@@ -562,7 +562,8 @@ CREATE TABLE tx_cart_domain_model_order_coupon (
 
     title varchar(255) DEFAULT '' NOT NULL,
     code varchar(255) DEFAULT '' NOT NULL,
-    discount double(11,2) DEFAULT '0.00' NOT NULL,
+    gross double(11,2) DEFAULT '0.00' NOT NULL,
+    net double(11,2) DEFAULT '0.00' NOT NULL,
     tax_class_id int(11) unsigned DEFAULT '1' NOT NULL,
     tax double(11,2) DEFAULT '0.00' NOT NULL,
 

@@ -155,12 +155,12 @@ class Item extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     protected $products;
 
     /**
-     * Coupons
+     * Discounts
      *
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<Extcode\Cart\Domain\Model\Order\Coupon>
+     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<Extcode\Cart\Domain\Model\Order\Discount>
      * @lazy
      */
-    protected $coupons;
+    protected $discounts;
 
     /**
      * Payment
@@ -236,7 +236,7 @@ class Item extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     protected function initStorageObjects()
     {
         $this->products = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
-        $this->coupons = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+        $this->discounts = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
         $this->taxClass = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
         $this->tax = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
         $this->totalTax = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
@@ -723,49 +723,49 @@ class Item extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     }
 
     /**
-     * Adds a Coupon
+     * Adds a Discount
      *
-     * @param \Extcode\Cart\Domain\Model\Order\Coupon $coupon
-     *
-     * @return void
-     */
-    public function addCoupon(\Extcode\Cart\Domain\Model\Order\Coupon $coupon)
-    {
-        $this->coupons->attach($coupon);
-    }
-
-    /**
-     * Removes a Coupon
-     *
-     * @param \Extcode\Cart\Domain\Model\Order\Coupon $couponToRemove
+     * @param \Extcode\Cart\Domain\Model\Order\Discount $discount
      *
      * @return void
      */
-    public function removeCoupon(\Extcode\Cart\Domain\Model\Order\Coupon $couponToRemove)
+    public function addDiscount(\Extcode\Cart\Domain\Model\Order\Discount $discount)
     {
-        $this->coupons->detach($couponToRemove);
+        $this->discounts->attach($discount);
     }
 
     /**
-     * Returns Coupons
+     * Removes a Discount
      *
-     * @return  \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Extcode\Cart\Domain\Model\Order\Coupon> $coupon
-     */
-    public function getCoupons()
-    {
-        return $this->coupons;
-    }
-
-    /**
-     * Sets Coupons
-     *
-     * @param  \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Extcode\Cart\Domain\Model\Order\Coupon> $coupons
+     * @param \Extcode\Cart\Domain\Model\Order\Discount $discountToRemove
      *
      * @return void
      */
-    public function setCoupons($coupons)
+    public function removeDiscount(\Extcode\Cart\Domain\Model\Order\Discount $discountToRemove)
     {
-        $this->coupons = $coupons;
+        $this->discounts->detach($discountToRemove);
+    }
+
+    /**
+     * Returns Discounts
+     *
+     * @return  \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Extcode\Cart\Domain\Model\Order\Discount> $discount
+     */
+    public function getDiscounts()
+    {
+        return $this->discounts;
+    }
+
+    /**
+     * Sets Discounts
+     *
+     * @param  \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Extcode\Cart\Domain\Model\Order\Discount> $discounts
+     *
+     * @return void
+     */
+    public function setDiscounts($discounts)
+    {
+        $this->discounts = $discounts;
     }
 
     /**

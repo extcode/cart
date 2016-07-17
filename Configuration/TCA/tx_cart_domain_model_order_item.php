@@ -24,7 +24,7 @@ return [
         'iconfile' => 'EXT:cart/Resources/Public/Icons/Order/Item.png'
     ],
     'interface' => [
-        'showRecordFieldList' => 'pid, fe_user, order_number, invoice_number, billing_address, shipping_address, gross, net, total_gross, total_net, additional_data, tax_class, products, coupons, tax, total_tax, payment, shipping, order_pdf, invoice_pdf',
+        'showRecordFieldList' => 'pid, fe_user, order_number, invoice_number, billing_address, shipping_address, gross, net, total_gross, total_net, additional_data, tax_class, products, discounts, tax, total_tax, payment, shipping, order_pdf, invoice_pdf',
     ],
     'types' => [
         '1' => [
@@ -37,7 +37,7 @@ return [
                 additional_data,
                 tax_class,
                 products,
-                coupons,
+                discounts,
                 payment,
                 shipping,
                 order_pdf,
@@ -342,13 +342,13 @@ return [
                 ],
             ],
         ],
-        'coupons' => [
+        'discounts' => [
             'exclude' => 0,
-            'label' => $_LLL . ':tx_cart_domain_model_order_item.coupons',
+            'label' => $_LLL . ':tx_cart_domain_model_order_item.discounts',
             'config' => [
                 'type' => 'inline',
                 'readOnly' => 1,
-                'foreign_table' => 'tx_cart_domain_model_order_coupon',
+                'foreign_table' => 'tx_cart_domain_model_order_discount',
                 'foreign_field' => 'item',
                 'maxitems' => 9999,
                 'appearance' => [

@@ -58,12 +58,12 @@ class OrderUtility
     protected $productCouponRepository;
 
     /**
-     * Order Coupon Repository
+     * Order Discount Repository
      *
-     * @var \Extcode\Cart\Domain\Repository\Order\CouponRepository
+     * @var \Extcode\Cart\Domain\Repository\Order\DiscountRepository
      * @inject
      */
-    protected $orderCouponRepository;
+    protected $orderDiscountRepository;
 
     /**
      * Product Repository
@@ -391,18 +391,19 @@ class OrderUtility
          */
         foreach ($this->cart->getCoupons() as $cartCoupon) {
             if ($cartCoupon->getIsUseable()) {
-                $orderCoupon = new \Extcode\Cart\Domain\Model\Order\Coupon(
+                $orderDiscount = new \Extcode\Cart\Domain\Model\Order\Discount(
                     $cartCoupon->getTitle(),
                     $cartCoupon->getCode(),
-                    $cartCoupon->getDiscount(),
+                    $cartCoupon->getGross(),
+                    $cartCoupon->getNet(),
                     $cartCoupon->getTaxClass(),
                     $cartCoupon->getTax()
                 );
-                $orderCoupon->setPid($this->storagePid);
+                $orderDiscount->setPid($this->storagePid);
 
-                $this->orderCouponRepository->add($orderCoupon);
+                $this->orderDiscountRepository->add($orderDiscount);
 
-                $this->orderItem->addCoupon($orderCoupon);
+                $this->orderItem->addDiscount($orderDiscount);
 
                 $coupon = $this->productCouponRepository->findOneByCode($cartCoupon->getCode());
                 $coupon->incNumberUsed();
