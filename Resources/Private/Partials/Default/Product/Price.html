@@ -2,12 +2,17 @@
 
 <f:if condition="{product.specialPrices}">
     <f:then>
-        <cart:format.currency>{product.bestSpecialPrice}</cart:format.currency>
-        bisher:
-        <del>
-            <cart:format.currency>{product.price}</cart:format.currency>
-        </del>
-        <strong>(Sie sparen: {product.bestSpecialPricePercentageDiscount} %)</strong>
+        <div class="regular_price">
+            <f:translate key="tx_cart_domain_model_product_product.regular_price"/>:
+            <del><cart:format.currency>{product.price}</cart:format.currency></del>
+        </div>
+        <div class="special_price">
+            <f:translate key="tx_cart_domain_model_product_product.special_price"/>:
+            <cart:format.currency>{product.bestSpecialPrice}</cart:format.currency>
+        </div>
+        <div>
+            <strong>(Sie sparen: <f:format.number>{product.bestSpecialPricePercentageDiscount}</f:format.number> %)</strong>
+        </div>
     </f:then>
     <f:else>
         <f:if condition="{product.beVariants}">

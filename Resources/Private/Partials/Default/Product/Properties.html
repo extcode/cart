@@ -4,7 +4,7 @@
     <f:debug>{cartProduct}</f:debug>
     <tr>
         <td>
-            <f:translate key="tx_cart_domain_model_product.sku"/>
+            <f:translate key="tx_cart_domain_model_product_product.sku"/>
         </td>
         <td>
             {cartProduct.sku}
@@ -12,7 +12,7 @@
     </tr>
     <tr>
         <td>
-            <f:translate key="tx_cart_domain_model_product.title"/>
+            <f:translate key="tx_cart_domain_model_product_product.title"/>
         </td>
         <td>
             {cartProduct.title}
@@ -21,7 +21,7 @@
     <f:if condition="{cartProduct.tags}">
         <tr>
             <td>
-                <f:translate key="tx_cart_domain_model_product.title"/>
+                <f:translate key="tx_cart_domain_model_product_product.title"/>
             </td>
             <td>
                 <f:for each="{cartProduct.tags}" as="tag">
@@ -32,7 +32,7 @@
     </f:if>
     <tr>
         <td>
-            <f:translate key="tx_cart_domain_model_product.teaser"/>
+            <f:translate key="tx_cart_domain_model_product_product.teaser"/>
         </td>
         <td>
             {product.teaser -> f:format.html()}
@@ -40,7 +40,7 @@
     </tr>
     <tr>
         <td>
-            <f:translate key="tx_cart_domain_model_product.description"/>
+            <f:translate key="tx_cart_domain_model_product_product.description"/>
         </td>
         <td>
             {cartProduct.description -> f:format.html()}
@@ -48,7 +48,7 @@
     </tr>
     <tr>
         <td>
-            <f:translate key="tx_cart_domain_model_product.price"/>
+            <f:translate key="tx_cart_domain_model_product_product.price"/>
         </td>
         <td>
             <cart:format.currency>{cartProduct.price}</cart:format.currency>

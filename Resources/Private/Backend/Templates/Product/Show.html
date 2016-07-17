@@ -31,23 +31,23 @@
         <table class="tx_cartorder typo3-dblist">
             <tr class="t3-row-header">
                 <th style="width: 75px;">
-                    <f:translate key="tx_cartproduct_domain_model_product.sku"/>
+                    <f:translate key="tx_cart_domain_model_order_product.sku"/>
                 </th>
                 <f:if condition="{product.beVariantAttribute1}">
                     <th style="text-align: left;">{product.beVariantAttribute1.title} (
-                        <f:translate key="tx_cartproduct_domain_model_product.be_variant_attribute1"/>
+                        <f:translate key="tx_cart_domain_model_order_product.be_variant_attribute1"/>
                         )
                     </th>
                 </f:if>
                 <f:if condition="{product.beVariantAttribute2}">
                     <th style="text-align: left;">{product.beVariantAttribute2.title} (
-                        <f:translate key="tx_cartproduct_domain_model_product.be_variant_attribute2"/>
+                        <f:translate key="tx_cart_domain_model_order_product.be_variant_attribute2"/>
                         )
                     </th>
                 </f:if>
                 <f:if condition="{product.beVariantAttribute3}">
                     <th style="text-align: left;">{product.beVariantAttribute3.title} (
-                        <f:translate key="tx_cartproduct_domain_model_product.be_variant_attribute3"/>
+                        <f:translate key="tx_cart_domain_model_order_product.be_variant_attribute3"/>
                         )
                     </th>
                 </f:if>
@@ -87,16 +87,16 @@
         <table class="tx_cartorder typo3-dblist">
             <tr class="t3-row-header">
                 <th style="text-align: left;">
-                    <f:translate key="tx_cartproduct_domain_model_product.sku"/>
+                    <f:translate key="tx_cart_domain_model_order_product.sku"/>
                 </th>
                 <th style="text-align: left;">
-                    <f:translate key="tx_cartproduct_domain_model_product.title"/>
+                    <f:translate key="tx_cart_domain_model_order_product.title"/>
                 </th>
                 <th style="width: 75px;">
-                    <f:translate key="tx_cartproduct_domain_model_product.stock"/>
+                    <f:translate key="tx_cart_domain_model_order_product.stock"/>
                 </th>
                 <th style="width: 100px;">
-                    <f:translate key="tx_cartproduct_domain_model_product.price"/>
+                    <f:translate key="tx_cart_domain_model_order_product.price"/>
                 </th>
             </tr>
 
@@ -123,7 +123,7 @@
     </f:if>
 
     <f:if condition="{product.files}">
-        <f:translate key="tx_cartproduct_domain_model_product.files"/>
+        <f:translate key="tx_cart_domain_model_order_product.files"/>
         :<br>
         <f:for each="{product.files}" as="file">
             <a href="{file.originalResource.publicUrl}">
