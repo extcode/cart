@@ -5,3 +5,11 @@
 
 Konfiguration
 =============
+
+.. toctree::
+   :maxdepth: 5
+   :titlesonly:
+
+   MainConfiguration/Index
+   PaymentMethods/Index
+   ShippingMethods/Index
