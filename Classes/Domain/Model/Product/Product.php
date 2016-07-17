@@ -1013,10 +1013,10 @@ class Product extends \Extcode\Cart\Domain\Model\Product\AbstractProduct
         if (count($this->getBeVariants())) {
             foreach ($this->getBeVariants() as $variant) {
                 if (!isset($minPrice)) {
-                    $minPrice = $variant->getPriceCalculated();
+                    $minPrice = $variant->getBestPriceCalculated();
                 } else {
-                    if ($variant->getPriceCalculated() < $minPrice) {
-                        $minPrice = $variant->getPriceCalculated();
+                    if ($variant->getBestPriceCalculated() < $minPrice) {
+                        $minPrice = $variant->getBestPriceCalculated();
                     }
                 }
             }

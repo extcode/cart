@@ -3,9 +3,11 @@ $('#shipping_same_as_billing').change(function() {
 });
 
 $('#be-variants-select').change(function () {
-    var price = $(this).children().filter(':selected').data('price');
+    var special_price = $(this).children().filter(':selected').data('special-price');
+    var regular_price = $(this).children().filter(':selected').data('regular-price');
 
-    $('#product-price').html(price);
+    $('#product-price .special_price .price').html(special_price);
+    $('#product-price .regular_price .price').html(regular_price);
 });
 
 $("#add-product-form").submit(function(e) {

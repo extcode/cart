@@ -586,6 +586,15 @@
             <trans-unit id="tx_cart_domain_model_product_product.price">
                 <source>Price</source>
             </trans-unit>
+            <trans-unit id="tx_cart_domain_model_product_product.unit_price">
+                <source>Unit Price</source>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_product_product.count">
+                <source>Count</source>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_product_product.subtotal">
+                <source>Subtotal</source>
+            </trans-unit>
             <trans-unit id="tx_cart_domain_model_product_product.regular_price">
                 <source>Regular Price</source>
             </trans-unit>

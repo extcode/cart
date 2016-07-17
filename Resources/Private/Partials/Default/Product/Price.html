@@ -4,24 +4,34 @@
     <f:then>
         <div class="regular_price">
             <f:translate key="tx_cart_domain_model_product_product.regular_price"/>:
-            <del><cart:format.currency>{product.price}</cart:format.currency></del>
+            <del>
+                <span class="price">
+                    <cart:format.currency>{product.price}</cart:format.currency>
+                </span>
+            </del>
         </div>
         <div class="special_price">
             <f:translate key="tx_cart_domain_model_product_product.special_price"/>:
-            <cart:format.currency>{product.bestSpecialPrice}</cart:format.currency>
+            <span class="price">
+                <cart:format.currency>{product.bestSpecialPrice}</cart:format.currency>
+            </span>
         </div>
         <div>
             <strong>(Sie sparen: <f:format.number>{product.bestSpecialPricePercentageDiscount}</f:format.number> %)</strong>
         </div>
     </f:then>
     <f:else>
-        <f:if condition="{product.beVariants}">
-            <f:then>
-                <cart:format.currency>{product.beVariants.0.priceCalculated}</cart:format.currency>
-            </f:then>
-            <f:else>
-                <cart:format.currency>{product.minPrice}</cart:format.currency>
-            </f:else>
-        </f:if>
+        <div class="regular_price">
+            <span class="price">
+                <f:if condition="{product.beVariants}">
+                    <f:then>
+                        <cart:format.currency>{product.beVariants.0.priceCalculated}</cart:format.currency>
+                    </f:then>
+                    <f:else>
+                        <cart:format.currency>{product.minPrice}</cart:format.currency>
+                    </f:else>
+                </f:if>
+            </span>
+        </div>
     </f:else>
 </f:if>

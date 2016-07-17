@@ -76,7 +76,7 @@
             </trans-unit>
             <trans-unit id="tx_cart_domain_model_order_product.price">
                 <source>Unit Price</source>
-                <target>Einzelpreis</target>
+                <target>Stückpreis</target>
             </trans-unit>
             <trans-unit id="tx_cart_domain_model_order_product.price_total">
                 <source>Subtotal</source>
@@ -468,6 +468,18 @@
             <trans-unit id="tx_cart_domain_model_product_product.price">
                 <source>Price</source>
                 <target>Preis</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_product_product.unit_price">
+                <source>Unit Price</source>
+                <target>Stückpreis</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_product_product.count">
+                <source>Count</source>
+                <target>Anzahl</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_product_product.subtotal">
+                <source>Subtotal</source>
+                <target>Zwischensumme</target>
             </trans-unit>
             <trans-unit id="tx_cart_domain_model_product_product.regular_price">
                 <source>Regular Price</source>

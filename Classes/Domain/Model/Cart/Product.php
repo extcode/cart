@@ -597,6 +597,18 @@ class Product
     }
 
     /**
+     * Returns Best Price Discount
+     *
+     * @return float
+     */
+    public function getDiscount()
+    {
+        $discount = $this->price - $this->getBestPrice();
+
+        return $discount;
+    }
+
+    /**
      * Returns Special Price
      *
      * @return float

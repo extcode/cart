@@ -172,17 +172,17 @@ class BeVariant extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     {
         $price = $this->getPrice();
 
-        $parentPrice = $this->getProduct()->getBestSpecialPrice();
+        $parentPrice = $this->getProduct()->getPrice();
 
         switch ($this->priceCalcMethod) {
             case 3:
-                $discount = -1 * (($price / 100) * ($parentPrice));
+                $calc_price = -1 * (($price / 100) * ($parentPrice));
                 break;
             case 5:
-                $discount = ($price / 100) * ($parentPrice);
+                $calc_price = ($price / 100) * ($parentPrice);
                 break;
             default:
-                $discount = 0;
+                $calc_price = 0;
         }
 
         if ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['cart']['changeVariantDiscount']) {
@@ -192,7 +192,7 @@ class BeVariant extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
                         'price_calc_method' => $this->priceCalcMethod,
                         'price' => &$price,
                         'parent_price' => &$parentPrice,
-                        'discount' => &$discount,
+                        'calc_price' => &$calc_price,
                     ];
 
                     \TYPO3\CMS\Core\Utility\GeneralUtility::callUserFunction($funcRef, $params, $this);
@@ -213,7 +213,60 @@ class BeVariant extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
                 $price = 0.0;
         }
 
-        return $parentPrice + $price + $discount;
+        return $parentPrice + $price + $calc_price;
+    }
+
+    /**
+     * Gets Price Calculated
+     *
+     * @return float
+     */
+    public function getBestPriceCalculated()
+    {
+        $price = $this->getPrice();
+
+        $parentPrice = $this->getProduct()->getBestSpecialPrice();
+
+        switch ($this->priceCalcMethod) {
+            case 3:
+                $calc_price = -1 * (($price / 100) * ($parentPrice));
+                break;
+            case 5:
+                $calc_price = ($price / 100) * ($parentPrice);
+                break;
+            default:
+                $calc_price = 0;
+        }
+
+        if ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['cart']['changeVariantDiscount']) {
+            foreach ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['cart']['changeVariantDiscount'] as $funcRef) {
+                if ($funcRef) {
+                    $params = [
+                        'price_calc_method' => $this->priceCalcMethod,
+                        'price' => &$price,
+                        'parent_price' => &$parentPrice,
+                        'calc_price' => &$calc_price,
+                    ];
+
+                    \TYPO3\CMS\Core\Utility\GeneralUtility::callUserFunction($funcRef, $params, $this);
+                }
+            }
+        }
+
+        switch ($this->priceCalcMethod) {
+            case 1:
+                $parentPrice = 0.0;
+                break;
+            case 2:
+                $price = -1 * $price;
+                break;
+            case 4:
+                break;
+            default:
+                $price = 0.0;
+        }
+
+        return $parentPrice + $price + $calc_price;
     }
 
     /**
@@ -364,7 +417,7 @@ class BeVariant extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     public function getCalculatedBasePrice()
     {
         if ($this->getIsMeasureUnitCompatibility()) {
-            return $this->getPriceCalculated() * $this->getMeasureUnitFactor();
+            return $this->getBestPriceCalculated() * $this->getMeasureUnitFactor();
         }
 
         return false;

@@ -54,7 +54,14 @@ class VariantSelectViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractV
                     return $beVariant->getPriceCalculated();
                 }
             );
-            $beVariantPriceCalculated = $currencyViewHelper->render();
+            $regularPrice = $currencyViewHelper->render();
+
+            $currencyViewHelper->setRenderChildrenClosure(
+                function () use ($beVariant) {
+                    return $beVariant->getBestPriceCalculated();
+                }
+            );
+            $specialPrice = $currencyViewHelper->render();
 
             $optionLabelArray = [];
             if ($product->getBeVariantAttribute1()) {
@@ -68,7 +75,12 @@ class VariantSelectViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractV
             }
             $optionLabel = join(' - ', $optionLabelArray);
 
-            $out .= '<option value="' . $beVariant->getUid() . '" data-price="' . $beVariantPriceCalculated . '">' . $optionLabel . '</option>';
+            $value = 'value="' . $beVariant->getUid() . '"';
+            $data = 'data-regular-price="' . $regularPrice . '"';
+            if ($regularPrice != $specialPrice) {
+                $data .= ' data-special-price="' . $specialPrice . '"';
+            }
+            $out .= '<option ' . $value . ' ' . $data . '>' . $optionLabel . '</option>';
         }
 
         $out .= '</select>';

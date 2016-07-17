@@ -451,7 +451,8 @@ class OrderUtility
         $orderProduct->setPid($this->storagePid);
 
         $orderProduct->setProductType($cartProduct->getProductType());
-        $orderProduct->setPrice($cartProduct->getBestPrice());
+        $orderProduct->setPrice($cartProduct->getPrice());
+        $orderProduct->setDiscount($cartProduct->getDiscount());
         $orderProduct->setGross($cartProduct->getGross());
         $orderProduct->setNet($cartProduct->getNet());
         $orderProduct->setTaxClass($this->taxClasses[$cartProduct->getTaxClass()->getId()]);
