@@ -119,30 +119,30 @@ class MailHandler implements SingletonInterface
             if (!empty($this->pluginSettings['settings']['buyer'])) {
                 if (!empty($this->pluginSettings['settings']['buyer']['emailFromAddress'])) {
                     $this->setBuyerEmailFrom($this->pluginSettings['settings']['buyer']['emailFromAddress']);
-                } elseif (!empty($this->pluginSettings['settings']['buyer']['mail']) &&
-                    !empty($this->pluginSettings['settings']['buyer']['mail']['fromAddress'])
+                } elseif (!empty($this->pluginSettings['mail']['buyer']) &&
+                    !empty($this->pluginSettings['mail']['buyer']['fromAddress'])
                 ) {
-                    $this->setBuyerEmailFrom($this->pluginSettings['settings']['buyer']['mail']['fromAddress']);
+                    $this->setBuyerEmailFrom($this->pluginSettings['mail']['buyer']['fromAddress']);
                 }
             }
 
             if (!empty($this->pluginSettings['settings']['seller'])) {
                 if (!empty($this->pluginSettings['settings']['seller']['emailFromAddress'])) {
                     $this->setSellerEmailFrom($this->pluginSettings['settings']['seller']['emailFromAddress']);
-                } elseif (!empty($this->pluginSettings['settings']['seller']['mail']) &&
-                    !empty($this->pluginSettings['settings']['seller']['mail']['fromAddress'])
+                } elseif (!empty($this->pluginSettings['mail']['seller']) &&
+                    !empty($this->pluginSettings['mail']['seller']['fromAddress'])
                 ) {
-                    $this->setSellerEmailFrom($this->pluginSettings['settings']['seller']['mail']['fromAddress']);
+                    $this->setSellerEmailFrom($this->pluginSettings['mail']['seller']['fromAddress']);
                 }
             }
 
             if (!empty($this->pluginSettings['settings']['seller'])) {
                 if (!empty($this->pluginSettings['settings']['seller']['emailToAddress'])) {
                     $this->setSellerEmailTo($this->pluginSettings['settings']['seller']['emailToAddress']);
-                } elseif (!empty($this->pluginSettings['settings']['seller']['mail']) &&
-                    !empty($this->pluginSettings['settings']['seller']['mail']['toAddress'])
+                } elseif (!empty($this->pluginSettings['mail']['seller']) &&
+                    !empty($this->pluginSettings['mail']['seller']['toAddress'])
                 ) {
-                    $this->setSellerEmailTo($this->pluginSettings['settings']['seller']['mail']['toAddress']);
+                    $this->setSellerEmailTo($this->pluginSettings['mail']['seller']['toAddress']);
                 }
             }
         }
@@ -321,12 +321,11 @@ class MailHandler implements SingletonInterface
      * @return array
      */
     protected function getAttachments($to) {
-        if ($this->pluginSettings['settings'] &&
-            $this->pluginSettings['settings'][$to] &&
-            $this->pluginSettings['settings'][$to]['mail'] &&
-            $this->pluginSettings['settings'][$to]['mail']['attachments']
+        if ($this->pluginSettings['mail'] &&
+            $this->pluginSettings['mail'][$to] &&
+            $this->pluginSettings['mail'][$to]['attachments']
         ) {
-            return $this->pluginSettings['settings'][$to]['mail']['attachments'];
+            return $this->pluginSettings['mail'][$to]['attachments'];
         }
 
         return [];

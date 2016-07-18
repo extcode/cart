@@ -69,8 +69,17 @@ Bezahlmethode (Vorkasse) mit.
 .. container:: table-row
 
    Property
-      payments.options.n.free\_from
+      payments.options.n.free.from
    Data type
       Text
    Description
       Wenn der Bruttopreis der Produkte größer oder gleich dem angegebenen Wert ist, ist der Preis für die Bezahlmethode 0.00.
+
+.. container:: table-row
+
+   Property
+      payments.options.n.free.until
+   Data type
+      Text
+   Description
+      Wenn der Bruttopreis der Produkte kleiner oder gleich dem angegebenen Wert ist, ist der Preis für die Bezahlmethode 0.00.

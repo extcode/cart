@@ -13,3 +13,4 @@ Konfiguration
    MainConfiguration/Index
    PaymentMethods/Index
    ShippingMethods/Index
+   MailConfiguration/Index

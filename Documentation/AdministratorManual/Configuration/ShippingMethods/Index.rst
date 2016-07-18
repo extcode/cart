@@ -68,9 +68,18 @@ Versandart (Standard) mit.
 .. container:: table-row
 
    Property
-      shippings.options.n.free\_from
+      shippings.options.n.free.from
    Data type
       Text
    Description
       Wenn der Bruttopreis der Produkte größer oder gleich dem angegebenen Wert ist, ist der Preis für die Versandart 0.00.
       Dies kann für Versandkostenfreiheit ab einem definierten Bestellwert genutzt werden.
+
+.. container:: table-row
+
+   Property
+      shippings.options.n.free.until
+   Data type
+      Text
+   Description
+      Wenn der Bruttopreis der Produkte kleiner oder gleich dem angegebenen Wert ist, ist der Preis für die Versandart 0.00.
