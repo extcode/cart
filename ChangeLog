@@ -1,3 +1,9 @@
+0.17.2
+    2016-07-17
+    Daniel Lorenz <daniel.lorenz@extco.de>
+
+    * BUGFIX #1199: resolve root path before setLayoutRootPaths and setPartialRootPaths in TYPO3 6.2
+
 0.17.1
     2016-07-17
     Daniel Lorenz <daniel.lorenz@extco.de>

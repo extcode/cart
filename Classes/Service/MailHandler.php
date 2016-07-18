@@ -351,13 +351,8 @@ class MailHandler implements SingletonInterface
         $view->setFormat($format);
 
         if ($this->pluginSettings['view']) {
-            if ($this->pluginSettings['view']['layoutRootPaths']) {
-                $view->setLayoutRootPaths($this->pluginSettings['view']['layoutRootPaths']);
-            }
-
-            if ($this->pluginSettings['view']['partialRootPaths']) {
-                $view->setPartialRootPaths($this->pluginSettings['view']['partialRootPaths']);
-            }
+            $view->setLayoutRootPaths($this->resolveRootPaths('layoutRootPaths'));
+            $view->setPartialRootPaths($this->resolveRootPaths('partialRootPaths'));
 
             if ($this->pluginSettings['view']['templateRootPaths']) {
                 foreach ($this->pluginSettings['view']['templateRootPaths'] as $pathNameKey => $pathNameValue) {
@@ -388,5 +383,34 @@ class MailHandler implements SingletonInterface
         $view->getRequest()->setControllerExtensionName('Cart');
 
         return $view;
+    }
+
+    /**
+     * Returns the Partial Root Path
+     *
+     * For TYPO3 Version 6.2 it resolves the absolute file names
+     *
+     * @var string $type
+     * @return array
+     *
+     * @deprecated will be removed with support for TYPO3 6.2
+     */
+    protected function resolveRootPaths($type)
+    {
+        $rootPaths = [];
+
+        if ($this->pluginSettings['view'][$type]) {
+            $rootPaths = $this->pluginSettings['view'][$type];
+
+            if (\TYPO3\CMS\Core\Utility\GeneralUtility::compat_version('6.2')) {
+                foreach ($rootPaths as $rootPathsKey => $rootPathsValue) {
+                    $rootPaths[$rootPathsKey] = \TYPO3\CMS\Core\Utility\GeneralUtility::getFileAbsFileName(
+                        $rootPathsValue
+                    );
+                }
+            }
+        }
+
+        return $rootPaths;
     }
 }
