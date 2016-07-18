@@ -2,7 +2,6 @@
 # Table structure for table 'tx_cart_domain_model_product_product'
 #
 CREATE TABLE tx_cart_domain_model_product_product (
-
     uid int(11) NOT NULL auto_increment,
     pid int(11) DEFAULT '0' NOT NULL,
 
@@ -72,14 +71,12 @@ CREATE TABLE tx_cart_domain_model_product_product (
     KEY parent (pid),
     KEY t3ver_oid (t3ver_oid,t3ver_wsid),
     KEY language (l10n_parent,sys_language_uid)
-
 );
 
 #
 # Table structure for table 'tx_cart_domain_model_product_specialprice'
 #
 CREATE TABLE tx_cart_domain_model_product_specialprice (
-
     uid int(11) NOT NULL auto_increment,
     pid int(11) DEFAULT '0' NOT NULL,
 
@@ -113,14 +110,12 @@ CREATE TABLE tx_cart_domain_model_product_specialprice (
     KEY parent (pid),
     KEY t3ver_oid (t3ver_oid,t3ver_wsid),
     KEY language (l10n_parent,sys_language_uid)
-
 );
 
 #
 # Table structure for table 'tx_cart_domain_model_product_bevariantattribute'
 #
 CREATE TABLE tx_cart_domain_model_product_bevariantattribute (
-
     uid int(11) NOT NULL auto_increment,
     pid int(11) DEFAULT '0' NOT NULL,
 
@@ -157,14 +152,12 @@ CREATE TABLE tx_cart_domain_model_product_bevariantattribute (
     KEY parent (pid),
     KEY t3ver_oid (t3ver_oid,t3ver_wsid),
     KEY language (l10n_parent,sys_language_uid)
-
 );
 
 #
 # Table structure for table 'tx_cart_domain_model_product_bevariantattributeoption'
 #
 CREATE TABLE tx_cart_domain_model_product_bevariantattributeoption (
-
     uid int(11) NOT NULL auto_increment,
     pid int(11) DEFAULT '0' NOT NULL,
 
@@ -200,14 +193,12 @@ CREATE TABLE tx_cart_domain_model_product_bevariantattributeoption (
     KEY parent (pid),
     KEY t3ver_oid (t3ver_oid,t3ver_wsid),
     KEY language (l10n_parent,sys_language_uid)
-
 );
 
 #
 # Table structure for table 'tx_cart_domain_model_product_fevariant'
 #
 CREATE TABLE tx_cart_domain_model_product_fevariant (
-
     uid int(11) NOT NULL auto_increment,
     pid int(11) DEFAULT '0' NOT NULL,
 
@@ -225,15 +216,13 @@ CREATE TABLE tx_cart_domain_model_product_fevariant (
     endtime int(11) unsigned DEFAULT '0' NOT NULL,
 
     PRIMARY KEY (uid),
-    KEY parent (pid),
-
+    KEY parent (pid)
 );
 
 #
 # Table structure for table 'tx_cart_domain_model_product_bevariant'
 #
 CREATE TABLE tx_cart_domain_model_product_bevariant (
-
     uid int(11) NOT NULL auto_increment,
     pid int(11) DEFAULT '0' NOT NULL,
 
@@ -276,14 +265,12 @@ CREATE TABLE tx_cart_domain_model_product_bevariant (
     KEY parent (pid),
     KEY t3ver_oid (t3ver_oid,t3ver_wsid),
     KEY language (l10n_parent,sys_language_uid)
-
 );
 
 #
 # Table structure for table 'tx_cart_domain_model_product_tag'
 #
 CREATE TABLE tx_cart_domain_model_product_tag (
-
     uid int(11) NOT NULL auto_increment,
     pid int(11) DEFAULT '0' NOT NULL,
 
@@ -321,14 +308,13 @@ CREATE TABLE tx_cart_domain_model_product_tag (
 # Extend table structure of table 'tt_content'
 #
 CREATE TABLE tt_content (
-    tx_cart_domain_model_product_product int(11) unsigned DEFAULT '0' NOT NULL,
+    tx_cart_domain_model_product_product int(11) unsigned DEFAULT '0' NOT NULL
 );
 
 #
 # Table structure for table 'tx_cart_domain_model_order_item'
 #
 CREATE TABLE tx_cart_domain_model_order_item (
-
     uid int(11) NOT NULL auto_increment,
     pid int(11) DEFAULT '0' NOT NULL,
 
@@ -379,14 +365,12 @@ CREATE TABLE tx_cart_domain_model_order_item (
     PRIMARY KEY (uid),
     KEY parent (pid),
     KEY t3ver_oid (t3ver_oid,t3ver_wsid)
-
 );
 
 #
 # Table structure for table 'tx_cart_domain_model_order_address'
 #
 CREATE TABLE tx_cart_domain_model_order_address (
-
     tstamp int(11) unsigned DEFAULT '0' NOT NULL,
     crdate int(11) unsigned DEFAULT '0' NOT NULL,
     cruser_id int(11) unsigned DEFAU
@@ -427,14 +411,12 @@ CREATE TABLE tx_cart_domain_model_order_address (
     PRIMARY KEY (uid),
     KEY parent (pid),
     KEY t3ver_oid (t3ver_oid,t3ver_wsid)
-
 );
 
 #
 # Table structure for table 'tx_cart_domain_model_order_taxclass'
 #
 CREATE TABLE tx_cart_domain_model_order_taxclass (
-
     uid int(11) NOT NULL auto_increment,
     pid int(11) DEFAULT '0' NOT NULL,
 
@@ -464,14 +446,12 @@ CREATE TABLE tx_cart_domain_model_order_taxclass (
     PRIMARY KEY (uid),
     KEY parent (pid),
     KEY t3ver_oid (t3ver_oid,t3ver_wsid)
-
 );
 
 #
 # Table structure for table 'tx_cart_domain_model_order_tax'
 #
 CREATE TABLE tx_cart_domain_model_order_tax (
-
     uid int(11) NOT NULL auto_increment,
     pid int(11) DEFAULT '0' NOT NULL,
 
@@ -498,14 +478,12 @@ CREATE TABLE tx_cart_domain_model_order_tax (
     PRIMARY KEY (uid),
     KEY parent (pid),
     KEY t3ver_oid (t3ver_oid,t3ver_wsid)
-
 );
 
 #
 # Table structure for table 'tx_cart_domain_model_order_product'
 #
 CREATE TABLE tx_cart_domain_model_order_product (
-
     uid int(11) NOT NULL auto_increment,
     pid int(11) DEFAULT '0' NOT NULL,
 
@@ -547,14 +525,12 @@ CREATE TABLE tx_cart_domain_model_order_product (
     PRIMARY KEY (uid),
     KEY parent (pid),
     KEY t3ver_oid (t3ver_oid,t3ver_wsid)
-
 );
 
 #
 # Table structure for table 'tx_cart_domain_model_order_discount'
 #
 CREATE TABLE tx_cart_domain_model_order_discount (
-
     uid int(11) NOT NULL auto_increment,
     pid int(11) DEFAULT '0' NOT NULL,
 
@@ -587,14 +563,12 @@ CREATE TABLE tx_cart_domain_model_order_discount (
     PRIMARY KEY (uid),
     KEY parent (pid),
     KEY t3ver_oid (t3ver_oid,t3ver_wsid)
-
 );
 
 #
 # Table structure for table 'tx_cart_domain_model_order_productadditional'
 #
 CREATE TABLE tx_cart_domain_model_order_productadditional (
-
     uid int(11) NOT NULL auto_increment,
     pid int(11) DEFAULT '0' NOT NULL,
 
@@ -625,7 +599,6 @@ CREATE TABLE tx_cart_domain_model_order_productadditional (
     PRIMARY KEY (uid),
     KEY parent (pid),
     KEY t3ver_oid (t3ver_oid,t3ver_wsid)
-
 );
 
 
@@ -633,7 +606,6 @@ CREATE TABLE tx_cart_domain_model_order_productadditional (
 # Table structure for table 'tx_cart_domain_model_order_shipping'
 #
 CREATE TABLE tx_cart_domain_model_order_shipping (
-
     uid int(11) NOT NULL auto_increment,
     pid int(11) DEFAULT '0' NOT NULL,
 
@@ -666,14 +638,12 @@ CREATE TABLE tx_cart_domain_model_order_shipping (
     PRIMARY KEY (uid),
     KEY parent (pid),
     KEY t3ver_oid (t3ver_oid,t3ver_wsid)
-
 );
 
 #
 # Table structure for table 'tx_cart_domain_model_order_payment'
 #
 CREATE TABLE tx_cart_domain_model_order_payment (
-
     uid int(11) NOT NULL auto_increment,
     pid int(11) DEFAULT '0' NOT NULL,
 
@@ -709,14 +679,12 @@ CREATE TABLE tx_cart_domain_model_order_payment (
     PRIMARY KEY (uid),
     KEY parent (pid),
     KEY t3ver_oid (t3ver_oid,t3ver_wsid)
-
 );
 
 #
 # Table structure for table 'tx_cart_domain_model_order_transaction'
 #
 CREATE TABLE tx_cart_domain_model_order_transaction (
-
     uid int(11) NOT NULL auto_increment,
     pid int(11) DEFAULT '0' NOT NULL,
 
@@ -746,15 +714,13 @@ CREATE TABLE tx_cart_domain_model_order_transaction (
     t3_origuid int(11) DEFAULT '0' NOT NULL,
 
     PRIMARY KEY (uid),
-    KEY parent (pid),
-
+    KEY parent (pid)
 );
 
 #
 # Table structure for table 'tx_cart_domain_model_product_coupon'
 #
 CREATE TABLE tx_cart_domain_model_product_coupon (
-
     uid int(11) NOT NULL auto_increment,
     pid int(11) DEFAULT '0' NOT NULL,
 
@@ -792,14 +758,12 @@ CREATE TABLE tx_cart_domain_model_product_coupon (
     PRIMARY KEY (uid),
     KEY parent (pid),
     KEY t3ver_oid (t3ver_oid,t3ver_wsid)
-
 );
 
 #
 # Table structure for table 'tx_cart_domain_model_cart'
 #
 CREATE TABLE tx_cart_domain_model_cart (
-
     uid int(11) NOT NULL auto_increment,
     pid int(11) DEFAULT '0' NOT NULL,
 
@@ -829,8 +793,7 @@ CREATE TABLE tx_cart_domain_model_cart (
     t3_origuid int(11) DEFAULT '0' NOT NULL,
 
     PRIMARY KEY (uid),
-    KEY parent (pid),
-
+    KEY parent (pid)
 );
 
 #
@@ -862,5 +825,5 @@ CREATE TABLE tx_cart_domain_model_product_tag_mm (
 #
 CREATE TABLE sys_category (
     images int(11) unsigned DEFAULT '0',
-    cart_product_single_pid int(11) unsigned DEFAULT '0' NOT NULL,
+    cart_product_single_pid int(11) unsigned DEFAULT '0' NOT NULL
 );
