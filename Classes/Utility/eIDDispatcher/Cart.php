@@ -167,7 +167,9 @@ class Cart
         $this->request->setPluginName('Cart');
         $this->request->setControllerName('Cart');
         $this->request->setControllerActionName($action);
-        $this->request->setArguments($request['arguments']);
+
+        $parameters = \TYPO3\CMS\Core\Utility\GeneralUtility::_GPmerged('tx_cart_cart');
+        $this->request->setArguments($parameters);
     }
 
     /**

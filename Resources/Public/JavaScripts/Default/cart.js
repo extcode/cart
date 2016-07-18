@@ -10,8 +10,28 @@ $('#be-variants-select').change(function () {
     $('#product-price .regular_price .price').html(regular_price);
 });
 
+$.fn.serializeObject = function()
+{
+    var o = {};
+    var a = this.serializeArray();
+    $.each(a, function() {
+        if (o[this.name] !== undefined) {
+            if (!o[this.name].push) {
+                o[this.name] = [o[this.name]];
+            }
+            o[this.name].push(this.value || '');
+        } else {
+            o[this.name] = this.value || '';
+        }
+    });
+    return o;
+};
+
 $("#add-product-form").submit(function(e) {
     $form = $(this);
+    var serializedObject = $form.serializeObject();
+    serializedObject.eID = 'addProduct';
+    serializedObject.cartPid = $('#add-product-form input[name="tx_cart_cart[pid]"]').val();
 
     if ($form.data('remote')) {
         $.ajax({
@@ -19,22 +39,7 @@ $("#add-product-form").submit(function(e) {
             url: 'index.php',
             type: "POST",
 
-            data: {
-                eID: 'addProduct',
-                cartPid: $('#add-product-form input[name="tx_cart_cart[pid]"]').val(),
-                request: {
-                    arguments: {
-                        cartPid: $('#add-product-form input[name="tx_cart_cart[pid]"]').val(),
-                        productId: $('#add-product-form input[name="tx_cart_cart[productId]"]').val(),
-                        quantity: $('#add-product-form input[name="tx_cart_cart[quantity]"]').val(),
-                        beVariants: {
-                            1: $('#add-product-form select[name="tx_cart_cart[beVariants][1]"]').val(),
-                            2: $('#add-product-form select[name="tx_cart_cart[beVariants][2]"]').val(),
-                            3: $('#add-product-form select[name="tx_cart_cart[beVariants][3]"]').val()
-                        }
-                    }
-                }
-            },
+            data: serializedObject,
 
             success: function(data)
             {
