@@ -230,13 +230,13 @@
                 <source>Name</source>
                 <target>Name</target>
             </trans-unit>
-            <trans-unit id="tx_cart_domain_model_order_shipping.gross">
-                <source>Price (gross)</source>
-                <target>Preis (Brutto)</target>
-            </trans-unit>
             <trans-unit id="tx_cart_domain_model_order_shipping.net">
                 <source>Price (net)</source>
-                <target>Preis (Netto)</target>
+                <target>Preis (netto)</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_shipping.gross">
+                <source>Price (gross)</source>
+                <target>Preis (brutto)</target>
             </trans-unit>
             <trans-unit id="tx_cart_domain_model_order_shipping.tax">
                 <source>Tax</source>
@@ -279,13 +279,13 @@
                 <source>Name</source>
                 <target>Name</target>
             </trans-unit>
-            <trans-unit id="tx_cart_domain_model_order_payment.gross">
-                <source>Price (gross)</source>
-                <target>Preis (Brutto)</target>
-            </trans-unit>
             <trans-unit id="tx_cart_domain_model_order_payment.net">
                 <source>Price (net)</source>
-                <target>Preis (Netto)</target>
+                <target>Preis (netto)</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_payment.gross">
+                <source>Price (gross)</source>
+                <target>Preis (brutto)</target>
             </trans-unit>
             <trans-unit id="tx_cart_domain_model_order_payment.tax">
                 <source>Tax</source>
@@ -448,6 +448,15 @@
             <trans-unit id="tx_cart.tax_class.3">
                 <source>free</source>
                 <target>frei</target>
+            </trans-unit>
+
+            <trans-unit id="tx_cart_domain_model_cart_cart.net">
+                <source>Price (net)</source>
+                <target>Preis (netto)</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_cart_cart.gross">
+                <source>Price (gross)</source>
+                <target>Preis (brutto)</target>
             </trans-unit>
 
             <trans-unit id="tx_cart_domain_model_product_product">

@@ -422,11 +422,11 @@
             <trans-unit id="tx_cart_domain_model_order_shipping.name">
                 <source>Name</source>
             </trans-unit>
-            <trans-unit id="tx_cart_domain_model_order_shipping.gross">
-                <source>Gross</source>
-            </trans-unit>
             <trans-unit id="tx_cart_domain_model_order_shipping.net">
-                <source>Net</source>
+                <source>Price (net)</source>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_shipping.gross">
+                <source>Price (gross)</source>
             </trans-unit>
             <trans-unit id="tx_cart_domain_model_order_shipping.tax">
                 <source>Tax</source>
@@ -456,11 +456,11 @@
             <trans-unit id="tx_cart_domain_model_order_payment.name">
                 <source>Name</source>
             </trans-unit>
-            <trans-unit id="tx_cart_domain_model_order_payment.gross">
-                <source>Gross</source>
-            </trans-unit>
             <trans-unit id="tx_cart_domain_model_order_payment.net">
-                <source>Net</source>
+                <source>Price (net)</source>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_payment.gross">
+                <source>Price (gross)</source>
             </trans-unit>
             <trans-unit id="tx_cart_domain_model_order_payment.tax">
                 <source>Tax</source>
@@ -559,6 +559,13 @@
 
             <trans-unit id="tx_cart.plugin.form.submit">
                 <source>Add to cart</source>
+            </trans-unit>
+
+            <trans-unit id="tx_cart_domain_model_cart_cart.net">
+                <source>Price (net)</source>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_cart_cart.gross">
+                <source>Price (gross)</source>
             </trans-unit>
 
             <trans-unit id="tx_cart_domain_model_product_product.filter.sku">
