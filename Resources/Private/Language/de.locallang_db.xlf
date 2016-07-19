@@ -560,6 +560,14 @@
                 <source>Code</source>
                 <target>Code</target>
             </trans-unit>
+            <trans-unit id="tx_cart_domain_model_product_coupon.coupon_type">
+                <source>Type</source>
+                <target>Typ</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_product_coupon.coupon_type.cartdiscount">
+                <source>Cart Discount</source>
+                <target>Rabatt auf den Warenkorb</target>
+            </trans-unit>
             <trans-unit id="tx_cart_domain_model_product_coupon.is_relative_discount">
                 <source>Is Relative Discount</source>
                 <target>Ist relativer Rabatt</target>

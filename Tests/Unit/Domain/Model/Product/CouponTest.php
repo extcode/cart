@@ -48,6 +48,13 @@ class CouponTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
     protected $code = '';
 
     /**
+     * Coupon Type
+     *
+     * @var string
+     */
+    protected $couponType = '';
+
+    /**
      * Discount
      *
      * @var float
@@ -68,12 +75,14 @@ class CouponTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
     {
         $this->title = 'Coupon';
         $this->code = 'coupon';
+        $this->couponType = 'cartdiscount';
         $this->discount = 10.00;
         $this->taxClassId = 1;
 
         $this->coupon = new \Extcode\Cart\Domain\Model\Product\Coupon(
             $this->title,
             $this->code,
+            $this->couponType,
             $this->discount,
             $this->taxClassId
         );
@@ -93,6 +102,7 @@ class CouponTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
         $this->coupon = new \Extcode\Cart\Domain\Model\Product\Coupon(
             null,
             $this->code,
+            $this->couponType,
             $this->discount,
             $this->taxClassId
         );
@@ -111,6 +121,27 @@ class CouponTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
 
         $this->coupon = new \Extcode\Cart\Domain\Model\Product\Coupon(
             $this->title,
+            null,
+            $this->couponType,
+            $this->discount,
+            $this->taxClassId
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function constructCouponWithoutCouponTypeThrowsException()
+    {
+        $this->setExpectedException(
+            'InvalidArgumentException',
+            'You have to specify a valid $couponType for constructor.',
+            1468927505
+        );
+
+        $this->coupon = new \Extcode\Cart\Domain\Model\Product\Coupon(
+            $this->title,
+            $this->code,
             null,
             $this->discount,
             $this->taxClassId
@@ -131,6 +162,7 @@ class CouponTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
         $this->coupon = new \Extcode\Cart\Domain\Model\Product\Coupon(
             $this->title,
             $this->code,
+            $this->couponType,
             null,
             $this->taxClassId
         );
@@ -150,6 +182,7 @@ class CouponTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
         $this->coupon = new \Extcode\Cart\Domain\Model\Product\Coupon(
             $this->title,
             $this->code,
+            $this->couponType,
             $this->discount,
             null
         );
@@ -174,6 +207,17 @@ class CouponTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
         $this->assertSame(
             $this->code,
             $this->coupon->getCode()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function getCouponTypeInitiallyReturnsCouponTypeSetDirectlyByConstructor()
+    {
+        $this->assertSame(
+            $this->couponType,
+            $this->coupon->getCouponType()
         );
     }
 
@@ -332,7 +376,8 @@ class CouponTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
     /**
      * @test
      */
-    public function setIsCombinableSetsIsCombinable() {
+    public function setIsCombinableSetsIsCombinable()
+    {
         $isCombinable = true;
 
         $this->coupon->setIsCombinable($isCombinable);

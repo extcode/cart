@@ -726,6 +726,7 @@ CREATE TABLE tx_cart_domain_model_product_coupon (
 
     title varchar(255) DEFAULT '' NOT NULL,
     code varchar(255) DEFAULT '' NOT NULL,
+    coupon_type varchar(255) DEFAULT 'cartdiscount' NOT NULL,
     discount double(11,2) DEFAULT '0.00' NOT NULL,
     tax_class_id int(11) unsigned DEFAULT '1' NOT NULL,
     cart_min_price double(11,2) DEFAULT '0.00' NOT NULL,

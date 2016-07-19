@@ -56,6 +56,13 @@ class CartCouponTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
     protected $code;
 
     /**
+     * Coupon Type
+     *
+     * @var string
+     */
+    protected $couponType;
+
+    /**
      * Discount
      *
      * @var float
@@ -81,13 +88,15 @@ class CartCouponTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
     {
         $this->taxClass = new \Extcode\Cart\Domain\Model\Cart\TaxClass(1, '19', 0.19, 'normal');
 
-        $this->title = 'CouponTitle';
-        $this->code = 'CouponTitle';
+        $this->title = 'title';
+        $this->code = 'code';
+        $this->couponType = 'cartdiscount';
         $this->discount = 10.00;
 
         $this->coupon = new \Extcode\Cart\Domain\Model\Cart\CartCoupon(
             $this->title,
             $this->code,
+            $this->couponType,
             $this->discount,
             $this->taxClass,
             $this->cartMinPrice
@@ -108,6 +117,7 @@ class CartCouponTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
         $this->coupon = new \Extcode\Cart\Domain\Model\Cart\CartCoupon(
             null,
             $this->code,
+            $this->couponType,
             $this->discount,
             $this->taxClass,
             $this->cartMinPrice
@@ -127,6 +137,28 @@ class CartCouponTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
 
         $this->coupon = new \Extcode\Cart\Domain\Model\Cart\CartCoupon(
             $this->title,
+            null,
+            $this->couponType,
+            $this->discount,
+            $this->taxClass,
+            $this->cartMinPrice
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function constructCouponWithoutCouponTypeThrowsException()
+    {
+        $this->setExpectedException(
+            'InvalidArgumentException',
+            'You have to specify a valid $couponType for constructor.',
+            1468928203
+        );
+
+        $this->coupon = new \Extcode\Cart\Domain\Model\Cart\CartCoupon(
+            $this->title,
+            $this->code,
             null,
             $this->discount,
             $this->taxClass,
@@ -148,6 +180,7 @@ class CartCouponTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
         $this->coupon = new \Extcode\Cart\Domain\Model\Cart\CartCoupon(
             $this->title,
             $this->code,
+            $this->couponType,
             null,
             $this->taxClass,
             $this->cartMinPrice
@@ -168,6 +201,7 @@ class CartCouponTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
         $this->coupon = new \Extcode\Cart\Domain\Model\Cart\CartCoupon(
             $this->title,
             $this->code,
+            $this->couponType,
             $this->discount,
             null,
             $this->cartMinPrice
@@ -192,6 +226,7 @@ class CartCouponTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
         $coupon = new \Extcode\Cart\Domain\Model\Cart\CartCoupon(
             $this->title,
             $this->code,
+            $this->couponType,
             $this->discount,
             $this->taxClass,
             $this->cartMinPrice,
@@ -293,6 +328,7 @@ class CartCouponTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
         $coupon = new \Extcode\Cart\Domain\Model\Cart\CartCoupon(
             $this->title,
             $this->code,
+            $this->couponType,
             $discount,
             $this->taxClass,
             $cartMinPrice,
@@ -326,6 +362,7 @@ class CartCouponTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
         $coupon = new \Extcode\Cart\Domain\Model\Cart\CartCoupon(
             $this->title,
             $this->code,
+            $this->couponType,
             $discount,
             $this->taxClass,
             $cartMinPrice,
@@ -359,6 +396,7 @@ class CartCouponTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
         $coupon = new \Extcode\Cart\Domain\Model\Cart\CartCoupon(
             $this->title,
             $this->code,
+            $this->couponType,
             $discount,
             $this->taxClass,
             $cartMinPrice,

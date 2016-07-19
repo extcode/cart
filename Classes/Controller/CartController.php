@@ -326,6 +326,7 @@ class CartController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
                     \Extcode\Cart\Domain\Model\Cart\CartCoupon::class,
                     $coupon->getTitle(),
                     $coupon->getCode(),
+                    $coupon->getCouponType(),
                     $coupon->getDiscount(),
                     $this->cart->getTaxClass($coupon->getTaxClassId()),
                     $coupon->getCartMinPrice(),

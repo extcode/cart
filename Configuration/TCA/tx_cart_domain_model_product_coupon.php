@@ -29,11 +29,11 @@ return [
     ],
     'hideTable' => 1,
     'interface' => [
-        'showRecordFieldList' => 'hidden, starttime, endtime, title, code, discount, tax_class_id, cart_min_price, is_combinable, handle_available, number_available, number_used',
+        'showRecordFieldList' => 'hidden, starttime, endtime, title, code, coupon_type, discount, tax_class_id, cart_min_price, is_combinable, handle_available, number_available, number_used',
     ],
     'types' => [
         '1' => [
-            'showitem' => 'hidden;;1, starttime, endtime, title, code, discount, tax_class_id, cart_min_price, is_combinable, handle_available, number_available, number_used'
+            'showitem' => 'hidden;;1, starttime, endtime, title, code, coupon_type, discount, tax_class_id, cart_min_price, is_combinable, handle_available, number_available, number_used'
         ],
     ],
     'palettes' => [
@@ -98,6 +98,21 @@ return [
                 'size' => 30,
                 'eval' => 'trim,required'
             ],
+        ],
+        'coupon_type' => [
+            'exclude' => 1,
+            'label' => $_LLL . ':tx_cart_domain_model_product_coupon.coupon_type',
+            'config' => [
+                'type' => 'select',
+                'renderType' => 'selectSingle',
+                'items' => [
+                    [$_LLL . ':tx_cart_domain_model_product_coupon.coupon_type.cartdiscount', 'cartdiscount'],
+                ],
+                'default' => 'simple',
+                'size' => 1,
+                'minitems' => 0,
+                'maxitems' => 1,
+            ]
         ],
         'discount' => [
             'exclude' => 0,

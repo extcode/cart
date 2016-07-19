@@ -40,6 +40,14 @@ class Coupon extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     protected $code = '';
 
     /**
+     * Coupon Type
+     *
+     * @var string
+     * @validate NotEmpty
+     */
+    protected $codeType = '';
+
+    /**
      * Discount
      *
      * @var float
@@ -100,6 +108,7 @@ class Coupon extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      *
      * @param string $title
      * @param string $code
+     * @param string $couponType
      * @param float $discount
      * @param int $taxClassId
      *
@@ -108,6 +117,7 @@ class Coupon extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     public function __construct(
         $title,
         $code,
+        $couponType,
         $discount,
         $taxClassId
     ) {
@@ -121,6 +131,12 @@ class Coupon extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
             throw new \InvalidArgumentException(
                 'You have to specify a valid $code for constructor.',
                 1456840920
+            );
+        }
+        if (!$couponType) {
+            throw new \InvalidArgumentException(
+                'You have to specify a valid $couponType for constructor.',
+                1468927505
             );
         }
         if (!$discount) {
@@ -138,6 +154,7 @@ class Coupon extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
         $this->title = $title;
         $this->code = $code;
+        $this->couponType = $couponType;
         $this->discount = $discount;
         $this->taxClassId = $taxClassId;
     }
@@ -160,6 +177,16 @@ class Coupon extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     public function getCode()
     {
         return $this->code;
+    }
+
+    /**
+     * Gets Coupon Type
+     *
+     * @return string
+     */
+    public function getCouponType()
+    {
+        return $this->couponType;
     }
 
     /**

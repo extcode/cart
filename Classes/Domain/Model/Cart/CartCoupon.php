@@ -46,6 +46,14 @@ class CartCoupon implements \Extcode\Cart\Domain\Model\Cart\CartCouponInterface
     protected $code = '';
 
     /**
+     * Coupon Type
+     *
+     * @var string
+     */
+    protected $couponType = '';
+
+
+    /**
      * Is Combinable
      *
      * @var bool
@@ -85,6 +93,7 @@ class CartCoupon implements \Extcode\Cart\Domain\Model\Cart\CartCouponInterface
      *
      * @param string $title
      * @param string $code
+     * @param string $couponType
      * @param float $discount
      * @param \Extcode\Cart\Domain\Model\Cart\TaxClass $taxClass
      * @param float $cartMinPrice
@@ -95,6 +104,7 @@ class CartCoupon implements \Extcode\Cart\Domain\Model\Cart\CartCouponInterface
     public function __construct(
         $title,
         $code,
+        $couponType,
         $discount,
         $taxClass,
         $cartMinPrice,
@@ -112,6 +122,12 @@ class CartCoupon implements \Extcode\Cart\Domain\Model\Cart\CartCouponInterface
                 1448230020
             );
         }
+        if (!$couponType) {
+            throw new \InvalidArgumentException(
+                'You have to specify a valid $couponType for constructor.',
+                1468928203
+            );
+        }
         if (!$discount) {
             throw new \InvalidArgumentException(
                 'You have to specify a valid $discount for constructor.',
@@ -127,6 +143,7 @@ class CartCoupon implements \Extcode\Cart\Domain\Model\Cart\CartCouponInterface
 
         $this->title = $title;
         $this->code = $code;
+        $this->couponType = $couponType;
         $this->discount = $discount;
         $this->cartMinPrice = $cartMinPrice;
         $this->taxClass = $taxClass;
@@ -160,6 +177,16 @@ class CartCoupon implements \Extcode\Cart\Domain\Model\Cart\CartCouponInterface
     public function getCode()
     {
         return $this->code;
+    }
+
+    /**
+     * Gets Coupon Type
+     *
+     * @return string
+     */
+    public function getCouponType()
+    {
+        return $this->couponType;
     }
 
     /**

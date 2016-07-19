@@ -1,3 +1,9 @@
+0.20.0
+    2016-07-19
+    Daniel Lorenz <daniel.lorenz@extco.de>
+
+    * TASK #1197: add coupon_type to coupons
+
 0.19.2
     2016-07-19
     Daniel Lorenz <daniel.lorenz@extco.de>
