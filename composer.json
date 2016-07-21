@@ -24,18 +24,39 @@
     "version": "0.21.0",
     "require": {
         "php": ">=5.4.0",
-        "typo3/cms-core": ">=6.2.0,<8.0"
+        "typo3/cms-core": "^6.2 || ^7.6"
     },
     "require-dev": {
+        "namelesscoder/typo3-repository-client": "1.1.x-dev",
         "mikey179/vfsStream": "~1.6.0",
         "phpunit/phpunit": "~4.8.0"
-    },
-    "replace": {
-        "cart": "*"
     },
     "autoload": {
         "psr-4": {
             "Extcode\\Cart\\": "Classes/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Extcode\\Cart\\Tests\\": "Tests",
+            "TYPO3\\CMS\\Core\\Tests\\": ".Build/vendor/typo3/cms/typo3/sysext/core/Tests/",
+            "TYPO3\\CMS\\Fluid\\Tests\\": ".Build/vendor/typo3/cms/typo3/sysext/fluid/Tests/"
+        }
+    },
+    "replace": {
+        "cart": "self.version"
+    },
+    "config": {
+        "vendor-dir": ".Build/vendor",
+        "bin-dir": ".Build/bin"
+    },
+    "extra": {
+        "typo3/cms": {
+            "cms-package-dir": "{$vendor-dir}/typo3/cms",
+            "web-dir": ".Build/Web",
+            "Package": {
+                "partOfMinimalUsableSystem": true
+            }
         }
     }
 }

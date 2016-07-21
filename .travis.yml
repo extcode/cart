@@ -1,0 +1,55 @@
+language: php
+
+sudo: false
+
+matrix:
+  include:
+    - php: 5.5
+      env: TYPO3_VERSION=^6.2
+    - php: 5.6
+      env: TYPO3_VERSION=^6.2
+    - php: 5.5
+      env: TYPO3_VERSION=^7.6
+    - php: 5.6
+      env: TYPO3_VERSION=^7.6
+    - php: 7
+      env: TYPO3_VERSION=^7.6
+
+cache:
+  directories:
+    - $HOME/.composer/cache
+
+addons:
+  apt:
+    packages:
+      - parallel
+
+notifications:
+  email:
+    - travis@extco.de
+
+before_install:
+  - phpenv config-rm xdebug.ini
+  - composer self-update
+  - composer --version
+
+before_script:
+  - >
+    if [ -n "$TRAVIS_TAG" ]; then
+      composer set-version $TRAVIS_TAG
+      # If this fails, we forgot to update version numbers before tagging the release
+      test -z "$(git diff --shortstat 2> /dev/null | tail -n1)";
+    fi
+  - composer require typo3/cms=$TYPO3_VERSION
+  - export TYPO3_PATH_WEB="$PWD/.Build/Web"
+  - ln -s Scripts/typo3cms typo3cms
+
+script:
+  - >
+    echo;
+    echo "Running unit tests";
+    .Build/bin/phpunit -c .Build/vendor/typo3/cms/typo3/sysext/core/Build/UnitTests.xml Tests/Unit/
+  - >
+    echo;
+    echo "Running php lint";
+    find . -name \*.php ! -path "./.Build/*" | parallel --gnu php -d display_errors=stderr -l {} > /dev/null \;
