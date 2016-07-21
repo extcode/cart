@@ -1,6 +1,6 @@
 # Cart
 
-[![build status](http://134.119.13.156:8080/project/Cart/builds/status.png?ref=master)](http://134.119.13.156:8080/project/Cart/builds/status.png?ref=master)
+[![Build Status](https://travis-ci.org/extcode/cart.svg?branch=master)](https://travis-ci.org/extcode/cart)
 
 ## Description
 
