@@ -42,6 +42,11 @@ class BeVariantTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
     protected $taxClass = null;
 
     /**
+     * @var \Extcode\Cart\Domain\Model\Cart\Product
+     */
+    protected $product = null;
+
+    /**
      * @var \Extcode\Cart\Domain\Model\Cart\BeVariant
      */
     protected $beVariant = null;
@@ -83,10 +88,16 @@ class BeVariantTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
     {
         $this->taxClass = new \Extcode\Cart\Domain\Model\Cart\TaxClass(1, '19', 0.19, 'normal');
 
-        $cartProduct = $this->getMock('Extcode\\Cart\\Domain\\Model\\Cart\\Product', array(), array(), '', false);
-        $cartProduct->expects($this->any())->method('getTaxClass')->will($this->returnValue($this->taxClass));
-        $cartProduct->expects($this->any())->method('getTitle')->will($this->returnValue('Test Product'));
-        $cartProduct->expects($this->any())->method('getSku')->will($this->returnValue('test-product'));
+        $this->product = $this->getMock(
+            \Extcode\Cart\Domain\Model\Cart\Product::class,
+            array(),
+            array(),
+            '',
+            false
+        );
+        $this->product->expects($this->any())->method('getTaxClass')->will($this->returnValue($this->taxClass));
+        $this->product->expects($this->any())->method('getTitle')->will($this->returnValue('Test Product'));
+        $this->product->expects($this->any())->method('getSku')->will($this->returnValue('test-product'));
 
         $this->id = '1';
         $this->title = 'Test Variant';
@@ -97,7 +108,7 @@ class BeVariantTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
 
         $this->beVariant = new \Extcode\Cart\Domain\Model\Cart\BeVariant(
             $this->id,
-            $cartProduct,
+            $this->product,
             null,
             $this->title,
             $this->sku,
@@ -134,7 +145,7 @@ class BeVariantTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
      */
     public function getCompleteSkuReturnsCompleteSkuSetByConstructor()
     {
-        $sku = 'test-product' . '-' . $this->sku;
+        $sku = $this->product->getSku() . '-' . $this->sku;
         $this->assertSame(
             $sku,
             $this->beVariant->getCompleteSku()
@@ -149,7 +160,7 @@ class BeVariantTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
         $skuDelimiter = '_';
         $this->beVariant->setSkuDelimiter($skuDelimiter);
 
-        $sku = 'test-product' . $skuDelimiter . $this->sku;
+        $sku = $this->product->getSku() . $skuDelimiter . $this->sku;
         $this->assertSame(
             $sku,
             $this->beVariant->getCompleteSku()
@@ -172,7 +183,7 @@ class BeVariantTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
      */
     public function getCompleteTitleReturnsCompleteTitleSetByConstructor()
     {
-        $title = 'Test Product' . ' - ' . $this->title;
+        $title = $this->product->getTitle() . ' - ' . $this->title;
         $this->assertSame(
             $title,
             $this->beVariant->getCompleteTitle()
@@ -187,7 +198,7 @@ class BeVariantTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
         $titleDelimiter = ',';
         $this->beVariant->setTitleDelimiter($titleDelimiter);
 
-        $title = 'Test Product' . $titleDelimiter . $this->title;
+        $title = $this->product->getTitle() . $titleDelimiter . $this->title;
         $this->assertSame(
             $title,
             $this->beVariant->getCompleteTitle()
