@@ -480,17 +480,24 @@ class BeVariant extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
         $titleArray = [];
 
         if ($this->getProduct()->getBeVariantAttribute1()) {
-            $titleArray[] = $this->getBeVariantAttributeOption1()->getTitle();
+            $titleArray[] =
+                $this->getProduct()->getBeVariantAttribute1()->getTitle()
+                . ' '
+                . $this->getBeVariantAttributeOption1()->getTitle();
         }
-
         if ($this->getProduct()->getBeVariantAttribute2()) {
-            $titleArray[] = $this->getBeVariantAttributeOption2()->getTitle();
+            $titleArray[] =
+                $this->getProduct()->getBeVariantAttribute2()->getTitle()
+                . ' '
+                . $this->getBeVariantAttributeOption2()->getTitle();
         }
-
         if ($this->getProduct()->getBeVariantAttribute3()) {
-            $titleArray[] = $this->getBeVariantAttributeOption3()->getTitle();
+            $titleArray[] =
+                $this->getProduct()->getBeVariantAttribute3()->getTitle()
+                . ' '
+                . $this->getBeVariantAttributeOption3()->getTitle();
         }
 
-        return join(' ', $titleArray);
+        return join(' - ', $titleArray);
     }
 }

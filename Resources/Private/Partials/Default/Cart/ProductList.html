@@ -3,7 +3,9 @@
 <f:section name="withoutVariant">
     <tr class="{f:if(condition: product.quantityIsInRange, then: '', else: 'danger')}">
         <td colspan="2">
-            <div class="product-name">{product.title} - {product.feVariant.value}</div>
+            <div class="product-name">
+                {product.title} {f:if(condition:'{product.feVariant.value}',then:'- {product.feVariant.value}')}
+            </div>
             <p>
                 <f:translate key="tx_cart_domain_model_order_product.sku.short"/>
                 : {product.sku}
@@ -53,10 +55,10 @@
             <tr class="{f:if(condition: product.quantityIsInRange, then: '', else: 'danger')}">
                 <td>&nbsp;</td>
                 <td>
-                    <div class="product-name">{variant.title}</div>
+                    <div class="product-name">{variant.completeTitle}</div>
                     <p>
                         <f:translate key="tx_cart_domain_model_order_product.sku.short"/>
-                        : {variant.sku}
+                        : {variant.completeSku}
                     </p>
                 </td>
                 <td class="text-right">
@@ -97,7 +99,9 @@
 <f:section name="withVariant">
     <tr class="{f:if(condition: product.quantityIsInRange, then: '', else: 'danger')}">
         <td colspan="2">
-            <div class="product-name">{product.title} - {product.feVariant.value}</div>
+            <div class="product-name">
+                {product.title} {f:if(condition:'{product.feVariant.value}',then:'- {product.feVariant.value}')}
+            </div>
         </td>
         <td class="text-right">
             &nbsp;

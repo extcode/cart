@@ -600,8 +600,8 @@ class OrderUtility
          * @var \Extcode\Cart\Domain\Model\Order\Product $orderProduct
          */
         $orderProduct = new \Extcode\Cart\Domain\Model\Order\Product(
-            $variant->getSku(),
-            $variant->getTitle(),
+            $variant->getCompleteSku(),
+            $variant->getCompleteTitle(),
             $variant->getQuantity()
         );
         $orderProduct->setPid($this->storagePid);
@@ -646,7 +646,7 @@ class OrderUtility
              */
             $orderProductAdditional = new \Extcode\Cart\Domain\Model\Order\ProductAdditional(
                 'variant_' . $count,
-                $variantInner->getSku(),
+                $variantInner->getCompleteSku(),
                 $variantInner->getTitle()
             );
             $orderProductAdditional->setPid($this->storagePid);

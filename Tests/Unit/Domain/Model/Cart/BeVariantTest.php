@@ -85,6 +85,7 @@ class BeVariantTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
 
         $cartProduct = $this->getMock('Extcode\\Cart\\Domain\\Model\\Cart\\Product', array(), array(), '', false);
         $cartProduct->expects($this->any())->method('getTaxClass')->will($this->returnValue($this->taxClass));
+        $cartProduct->expects($this->any())->method('getTitle')->will($this->returnValue('Test Product'));
         $cartProduct->expects($this->any())->method('getSku')->will($this->returnValue('test-product'));
 
         $this->id = '1';
@@ -122,10 +123,21 @@ class BeVariantTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
      */
     public function getSkuReturnsSkuSetByConstructor()
     {
+        $this->assertSame(
+            $this->sku,
+            $this->beVariant->getSku()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function getCompleteSkuReturnsCompleteSkuSetByConstructor()
+    {
         $sku = 'test-product' . '-' . $this->sku;
         $this->assertSame(
             $sku,
-            $this->beVariant->getSku()
+            $this->beVariant->getCompleteSku()
         );
     }
 
@@ -140,7 +152,7 @@ class BeVariantTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
         $sku = 'test-product' . $skuDelimiter . $this->sku;
         $this->assertSame(
             $sku,
-            $this->beVariant->getSku()
+            $this->beVariant->getCompleteSku()
         );
     }
 
@@ -152,6 +164,33 @@ class BeVariantTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
         $this->assertSame(
             $this->title,
             $this->beVariant->getTitle()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function getCompleteTitleReturnsCompleteTitleSetByConstructor()
+    {
+        $title = 'Test Product' . ' - ' . $this->title;
+        $this->assertSame(
+            $title,
+            $this->beVariant->getCompleteTitle()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function getTitleWithTitleDelimiterReturnsTitleSetByConstructorWithGivenTitleDelimiter()
+    {
+        $titleDelimiter = ',';
+        $this->beVariant->setTitleDelimiter($titleDelimiter);
+
+        $title = 'Test Product' . $titleDelimiter . $this->title;
+        $this->assertSame(
+            $title,
+            $this->beVariant->getCompleteTitle()
         );
     }
 

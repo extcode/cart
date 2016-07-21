@@ -1,3 +1,9 @@
+0.21.0
+    2016-07-21
+    Daniel Lorenz <daniel.lorenz@extco.de>
+
+    * TASK #1205: title of order item products not correct for products with variants
+
 0.20.1
     2016-07-21
     Daniel Lorenz <daniel.lorenz@extco.de>

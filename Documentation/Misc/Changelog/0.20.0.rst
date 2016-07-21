@@ -6,7 +6,7 @@
 0.20.0 - 19.07.2016
 -------------------
 
-Diese Version figt den Coupons einen Typ hinzu. Dieser wird auf den Wert "cartdiscount" gesetzt.
+Diese Version fügt den Coupons einen Typ hinzu. Dieser wird auf den Wert "cartdiscount" gesetzt.
 
 .. NOTE::
    Da der Typ noch keine Auswirkungen auf die Verarbeitung hat, sind hier keine weiteren Anpassungen notwendig.

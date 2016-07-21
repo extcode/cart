@@ -55,6 +55,13 @@ class BeVariant
     private $title = '';
 
     /**
+     * Title Delimiter
+     *
+     * @var string
+     */
+    private $titleDelimiter = ' - ';
+
+    /**
      * SKU
      *
      * @var string
@@ -306,13 +313,59 @@ class BeVariant
     }
 
     /**
+     * Returns the Title Delimiter
+     *
+     * @return string
+     */
+    public function getTitleDelimiter()
+    {
+        return $this->titleDelimiter;
+    }
+
+    /**
+     * Sets the Title Delimiter
+     *
+     * @param string $titleDelimiter
+     * @return void
+     */
+    public function setTitleDelimiter($titleDelimiter)
+    {
+        $this->titleDelimiter = $titleDelimiter;
+    }
+
+    /**
      * Gets Title
      *
      * @return string
      */
     public function getTitle()
     {
+
         return $this->title;
+    }
+
+    /**
+     * Gets Complete Title
+     *
+     * @return string
+     */
+    public function getCompleteTitle()
+    {
+        $title = '';
+
+        if ($this->getParentBeVariant()) {
+            $title = $this->getParentBeVariant()->getCompleteTitle();
+        } elseif ($this->getProduct()) {
+            $title = $this->getProduct()->getTitle();
+        }
+
+        if ($this->isFeVariant) {
+            $title .= $this->titleDelimiter . $this->id;
+        } else {
+            $title .= $this->titleDelimiter . $this->title;
+        }
+
+        return $title;
     }
 
     /**
@@ -537,6 +590,16 @@ class BeVariant
      * @return string
      */
     public function getSku()
+    {
+        return $this->sku;
+    }
+
+    /**
+     * Gets CompleteSku
+     *
+     * @return string
+     */
+    public function getCompleteSku()
     {
         $sku = '';
 

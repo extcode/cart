@@ -6,7 +6,7 @@
 0.17.0 - 17.07.2016
 -------------------
 
-Diese Version behebt eine Fehler beim Speichern von Produkten in den Bestellungen. Es werden die normalen Einzelpeise und die angewendeten Rabatte (Special Prices) angerechnet.
+Diese Version behebt einen Fehler beim Speichern von Produkten in den Bestellungen. Es werden die normalen Einzelpeise und die angewendeten Rabatte (Special Prices) angerechnet.
 
 .. IMPORTANT::
    * Diese Version ändert einen ViewHelper und erlaubt das Überschreiben des regulären und speziellen Preises nach Auswahl einer anderen Backendvariante
