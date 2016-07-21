@@ -10,6 +10,6 @@ Einführung
     :maxdepth: 5
     :titlesonly:
 
-    DevelopmentTeam/Index
-    SupportersAndSponsors/Index
     Support/Index
+    Sponsoring/Index
+    NoteOfThanks/Index
