@@ -30,7 +30,7 @@ class Item extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      *
      * @var int
      */
-    protected $cartPid;
+    protected $cartPid = 0;
 
     /**
      * FeUser

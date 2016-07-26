@@ -62,26 +62,23 @@ class ItemTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
     /**
      * @test
      */
-    public function constructItemWithoutCartPidThrowsException()
+    public function getCartPidInitiallyReturnsZero()
     {
-        $this->setExpectedException(
-            'InvalidArgumentException',
-            'You have to specify a valid $cartPid for constructor.',
-            1469448584
-        );
-
-        new \Extcode\Cart\Domain\Model\Order\Item(
-            null
+        $this->assertSame(
+            0,
+            $this->item->getCartPid()
         );
     }
 
     /**
      * @test
      */
-    public function getCartPidInitiallyReturnsCartPidSetDirectlyByConstructor()
+    public function setCartPidSetsCartPid()
     {
+        $this->item->setCartPid('1');
+
         $this->assertSame(
-            $this->cartPid,
+            '1',
             $this->item->getCartPid()
         );
     }
