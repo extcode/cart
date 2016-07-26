@@ -37,6 +37,13 @@ namespace Extcode\Cart\Tests\Domain\Model\Order;
 class ItemTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
 {
     /**
+     * Cart Pid
+     *
+     * @var int
+     */
+    protected $cartPid = 1;
+
+    /**
      * @var \Extcode\Cart\Domain\Model\Order\Item
      */
     protected $item;
@@ -47,13 +54,42 @@ class ItemTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
     public function setUp()
     {
 
-        $this->item = new \Extcode\Cart\Domain\Model\Order\Item();
+        $this->item = new \Extcode\Cart\Domain\Model\Order\Item(
+            $this->cartPid
+        );
     }
 
     /**
      * @test
      */
-    public function getCurrencyInitiallyReturnsEmptyString()
+    public function constructItemWithoutCartPidThrowsException()
+    {
+        $this->setExpectedException(
+            'InvalidArgumentException',
+            'You have to specify a valid $cartPid for constructor.',
+            1469448584
+        );
+
+        new \Extcode\Cart\Domain\Model\Order\Item(
+            null
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function getCartPidInitiallyReturnsCartPidSetDirectlyByConstructor()
+    {
+        $this->assertSame(
+            $this->cartPid,
+            $this->item->getCartPid()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function getCurrencyInitiallyReturnsEuroSignString()
     {
         $this->assertSame(
             '€',

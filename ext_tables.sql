@@ -318,6 +318,8 @@ CREATE TABLE tx_cart_domain_model_order_item (
     uid int(11) NOT NULL auto_increment,
     pid int(11) DEFAULT '0' NOT NULL,
 
+    cart_pid int(11) DEFAULT '0' NOT NULL,
+
     fe_user int(11) unsigned DEFAULT '0',
 
     billing_address int(11) unsigned DEFAULT '0' NOT NULL,
@@ -332,8 +334,8 @@ CREATE TABLE tx_cart_domain_model_order_item (
     net double(11,2) DEFAULT '0.00' NOT NULL,
     total_gross double(11,2) DEFAULT '0.00' NOT NULL,
     total_net double(11,2) DEFAULT '0.00' NOT NULL,
-    order_pdf text NOT NULL,
-    invoice_pdf text NOT NULL,
+    order_pdf int(11) unsigned DEFAULT '0',
+    invoice_pdf int(11) unsigned DEFAULT '0',
 
     tax int(11) unsigned DEFAULT '0' NOT NULL,
     total_tax int(11) unsigned DEFAULT '0' NOT NULL,
@@ -371,9 +373,6 @@ CREATE TABLE tx_cart_domain_model_order_item (
 # Table structure for table 'tx_cart_domain_model_order_address'
 #
 CREATE TABLE tx_cart_domain_model_order_address (
-    tstamp int(11) unsigned DEFAULT '0' NOT NULL,
-    crdate int(11) unsigned DEFAULT '0' NOT NULL,
-    cruser_id int(11) unsigned DEFAU
     uid int(11) NOT NULL auto_increment,
     pid int(11) DEFAULT '0' NOT NULL,
 

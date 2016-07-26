@@ -25,6 +25,12 @@ use Extcode\Cart\Property\Exception\ResetPropertyException;
  */
 class Item extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 {
+    /**
+     * Cart Pid
+     *
+     * @var int
+     */
+    protected $cartPid;
 
     /**
      * FeUser
@@ -179,14 +185,14 @@ class Item extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Order Pdf
      *
-     * @var string
+     * @var \Extcode\Cart\Domain\Model\FileReference
      */
     protected $orderPdf;
 
     /**
      * Invoice Pdf
      *
-     * @var string
+     * @var \Extcode\Cart\Domain\Model\FileReference
      */
     protected $invoicePdf;
 
@@ -240,6 +246,27 @@ class Item extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
         $this->taxClass = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
         $this->tax = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
         $this->totalTax = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+    }
+
+    /**
+     * Set Cart Pid
+     *
+     * @var int $cartPid
+     * @return void
+     */
+    public function setCartPid($cartPid)
+    {
+        $this->cartPid = $cartPid;
+    }
+
+    /**
+     * Get Cart Pid
+     *
+     * @return int
+     */
+    public function getCartPid()
+    {
+        return $this->cartPid;
     }
 
     /**
@@ -589,7 +616,7 @@ class Item extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Returns Order PDF
      *
-     * @return string $orderPdf
+     * @return \Extcode\Cart\Domain\Model\FileReference
      */
     public function getOrderPdf()
     {
@@ -599,7 +626,7 @@ class Item extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Sets Order PDF
      *
-     * @param string $orderPdf
+     * @param \Extcode\Cart\Domain\Model\FileReference $orderPdf
      *
      * @return void
      */
@@ -611,7 +638,7 @@ class Item extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Sets Invoice PDF
      *
-     * @return string
+     * @return \Extcode\Cart\Domain\Model\FileReference
      */
     public function getInvoicePdf()
     {
@@ -621,7 +648,7 @@ class Item extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Sets Invoice PDF
      *
-     * @param string $invoicePdf
+     * @param \Extcode\Cart\Domain\Model\FileReference $invoicePdf
      *
      * @return void
      */

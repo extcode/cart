@@ -529,6 +529,8 @@ class CartController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 
         $this->orderUtility->checkStock($this->cart);
 
+        $orderItem->setCartPid(intval($GLOBALS['TSFE']->id));
+
         if ($this->request->hasArgument('shipping_same_as_billing')) {
             $isShippingAddressSameAsBilling = $this->request->getArgument('shipping_same_as_billing');
 
@@ -654,7 +656,9 @@ class CartController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         if ($propertyValue == 'true') {
             // build custom validation chain
             /** @var \TYPO3\CMS\Extbase\Validation\ValidatorResolver $validatorResolver */
-            $validatorResolver = $this->objectManager->get(\TYPO3\CMS\Extbase\Validation\ValidatorResolver::class);
+            $validatorResolver = $this->objectManager->get(
+                \TYPO3\CMS\Extbase\Validation\ValidatorResolver::class
+            );
 
             $booleanValidator = $this->objectManager->get(
                 \TYPO3\CMS\Extbase\Validation\Validator\BooleanValidator::class,

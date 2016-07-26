@@ -24,7 +24,7 @@ return [
         'iconfile' => 'EXT:cart/Resources/Public/Icons/Order/Item.png'
     ],
     'interface' => [
-        'showRecordFieldList' => 'pid, fe_user, order_number, invoice_number, billing_address, shipping_address, gross, net, total_gross, total_net, additional_data, tax_class, products, discounts, tax, total_tax, payment, shipping, order_pdf, invoice_pdf',
+        'showRecordFieldList' => 'pid, cart_pid, fe_user, order_number, invoice_number, billing_address, shipping_address, gross, net, total_gross, total_net, additional_data, tax_class, products, discounts, tax, total_tax, payment, shipping, order_pdf, invoice_pdf',
     ],
     'types' => [
         '1' => [
@@ -70,6 +70,29 @@ return [
             'exclude' => 1,
             'config' => [
                 'type' => 'passthrough'
+            ]
+        ],
+        'cart_pid' => [
+            'exclude' => 1,
+            'l10n_mode' => 'mergeIfNotBlank',
+            'label' => $_LLL . ':tx_cart_domain_model_category.cart_pid',
+            'config' => [
+                'type' => 'group',
+                'internal_type' => 'db',
+                'allowed' => 'pages',
+                'size' => 1,
+                'maxitems' => 1,
+                'minitems' => 0,
+                'show_thumbs' => 1,
+                'default' => 0,
+                'wizards' => [
+                    'suggest' => [
+                        'type' => 'suggest',
+                        'default' => [
+                            'searchWholePhrase' => true
+                        ]
+                    ],
+                ],
             ]
         ],
         'fe_user' => [
@@ -426,32 +449,56 @@ return [
         'order_pdf' => [
             'exclude' => 0,
             'label' => $_LLL . ':tx_cart_domain_model_order_item.order_pdf',
-            'config' => [
-                'type' => 'group',
-                'readOnly' => 1,
-                'internal_type' => 'file_reference',
-                'uploadfolder' => 'uploads/tx_cart/order_pdf/',
-                'allowed' => 'pdf',
-                'disallowed' => 'php',
-                'size' => 1,
-                'minitems' => 0,
-                'maxitems' => 1,
-            ],
+            'config' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::getFileFieldTCAConfig(
+                'file',
+                [
+                    'appearance' => [
+                        'enabledControls' => [
+                            'info' => true,
+                            'new' => false,
+                            'dragdrop' => false,
+                            'sort' => false,
+                            'hide' => false,
+                            'delete' => true,
+                            'localize' => false,
+                        ],
+                    ],
+                    'foreign_match_fields' => [
+                        'fieldname' => 'order_pdf',
+                        'tablenames' => 'tx_cart_domain_model_order_item',
+                        'table_local' => 'sys_file',
+                    ],
+                    'maxitems' => 99,
+                ],
+                'pdf'
+            ),
         ],
         'invoice_pdf' => [
             'exclude' => 0,
             'label' => $_LLL . ':tx_cart_domain_model_order_item.invoice_pdf',
-            'config' => [
-                'type' => 'group',
-                'readOnly' => 1,
-                'internal_type' => 'file_reference',
-                'uploadfolder' => 'uploads/tx_cart/invoice_pdf/',
-                'allowed' => 'pdf',
-                'disallowed' => 'php',
-                'size' => 1,
-                'minItems' => 0,
-                'maxItems' => 1,
-            ],
+            'config' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::getFileFieldTCAConfig(
+                'file',
+                [
+                    'appearance' => [
+                        'enabledControls' => [
+                            'info' => true,
+                            'new' => false,
+                            'dragdrop' => false,
+                            'sort' => false,
+                            'hide' => false,
+                            'delete' => true,
+                            'localize' => false,
+                        ],
+                    ],
+                    'foreign_match_fields' => [
+                        'fieldname' => 'invoice_pdf',
+                        'tablenames' => 'tx_cart_domain_model_order_item',
+                        'table_local' => 'sys_file',
+                    ],
+                    'maxitems' => 99,
+                ],
+                'pdf'
+            ),
         ],
         'crdate' => [
             'exclude' => 1,

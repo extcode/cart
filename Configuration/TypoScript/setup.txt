@@ -219,6 +219,10 @@ plugin.tx_cart {
 
 }
 
+module.tx_cart {
+    invoiceNumber < plugin.tx_cart.invoiceNumber
+}
+
 plugin.tx_cart {
     db >
 

@@ -836,7 +836,7 @@ class OrderUtility
     /**
      * Get Invoice Number
      *
-     * @param array $pluginSettings TypoScript Plugin Settings
+     * @param array $pluginSettings
      *
      * @return int
      */

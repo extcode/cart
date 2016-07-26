@@ -262,7 +262,7 @@ class OrderController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 
         $this->view->assign('orderItem', $orderItem);
 
-        $pdfRendererInstalled = Utility\ExtensionManagementUtility::isLoaded('wt_cart_pdf');
+        $pdfRendererInstalled = Utility\ExtensionManagementUtility::isLoaded('cart_pdf');
         $this->view->assign('pdfRendererInstalled', $pdfRendererInstalled);
     }
 
@@ -331,8 +331,17 @@ class OrderController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
             $invoiceNumber = $this->generateInvoiceNumber($orderItem);
             $orderItem->setInvoiceNumber($invoiceNumber);
 
-            $msg = 'Invoice Number was generated.';
-            $this->addFlashMessage->add($msg);
+            $this->addFlashMessage(
+                'Invoice Number was generated.',
+                $messageTitle = '',
+                $severity = \TYPO3\CMS\Core\Messaging\AbstractMessage::OK,
+                $storeInSession = true
+            );
+
+            $this->itemRepository->update($orderItem);
+
+            $this->persistenceManager->persistAll();
+
         }
 
         if ($orderItem->getInvoiceNumber()) {
@@ -357,7 +366,8 @@ class OrderController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      */
     public function downloadInvoiceDocumentAction(\Extcode\Cart\Domain\Model\Order\Item $orderItem)
     {
-        $file = PATH_site . $orderItem->getInvoicePdf();
+        $file = PATH_site . $orderItem->getInvoicePdf()->getOriginalResource()->getPublicUrl();
+
         $fileName = 'Invoice.pdf';
 
         if (is_file($file)) {
@@ -383,7 +393,7 @@ class OrderController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
             @readfile($file);
         }
 
-        $this->redirect('list');
+        //$this->redirect('list');
     }
 
     /**
@@ -404,7 +414,26 @@ class OrderController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $typoScriptService = $this->objectManager->get(
             \TYPO3\CMS\Extbase\Service\TypoScriptService::class
         );
-        $pluginTypoScriptSettings = $typoScriptService->convertTypoScriptArrayToPlainArray($cartConf);
+
+        $configurationManager = $this->objectManager->get(
+            \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::class
+        );
+
+        $cartConfiguration =
+            $configurationManager->getConfiguration(
+                \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK
+            );
+
+        if ($cartConfiguration) {
+            $pluginTypoScriptSettings = $typoScriptService->convertTypoScriptArrayToPlainArray($cartConfiguration);
+        }
+
+        //TODO replace it width dynamic var
+        $pluginTypoScriptSettings['settings'] = [
+            'cart' => [
+                'pid' => $orderItem->getCartPid(),
+            ],
+        ];
 
         $invoiceNumber = $this->orderUtility->getInvoiceNumber($pluginTypoScriptSettings);
 
@@ -425,13 +454,11 @@ class OrderController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         );
 
         if ($extensionManagerUtility->isLoaded('cart_pdf')) {
-            //$this->buildTSFE($orderItem->getPid());
-
             $orderPdf = $this->objectManager->get(
-                \Extcode\CartPdf\Service\InvoiceService::class
+                \Extcode\CartPdf\Service\PdfService::class
             );
 
-            $pdf = $orderPdf->createPdf($orderItem);
+            $pdf = $orderPdf->createPdf('invoicePdf', $orderItem);
 
             if ($pdf) {
                 $orderItem->setInvoicePdf($pdf);
@@ -464,7 +491,7 @@ class OrderController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $GLOBALS['TSFE']->id = $pid;
         //$GLOBALS['TSFE']->determineId();
         //$GLOBALS['TSFE']->initTemplate();
-        $GLOBALS['TSFE']->getConfigArray();
+        //$GLOBALS['TSFE']->getConfigArray();
     }
 
     /**
