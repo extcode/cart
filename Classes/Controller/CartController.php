@@ -283,7 +283,7 @@ class CartController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     /**
      * Action Add Product
      *
-     * @return void
+     * @return string
      */
     public function addProductAction()
     {
@@ -298,13 +298,36 @@ class CartController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
             $this->cart->getTaxClasses()
         );
 
+        $quantity = 0;
         foreach ($products as $product) {
+            $quantity += $product->getQuantity();
             $this->cart->addProduct($product);
         }
 
         $this->sessionHandler->writeToSession($this->cart, $this->settings['cart']['pid']);
 
-        $this->redirect('showCart');
+        $productsChanged = [];
+
+        foreach ($products as $product) {
+            $productChanged = $this->cart->getProduct($product->getId());
+            $productsChanged[$product->getId()] = $productChanged->toArray();
+        }
+
+        if (isset($_GET['type'])) {
+            // ToDo: have different response status
+            $response = [
+                'status' => '200',
+                'added' => $quantity,
+                'count' => $this->cart->getCount(),
+                'net' => $this->cart->getNet(),
+                'gross' => $this->cart->getGross(),
+                'productsChanged' => $productsChanged,
+            ];
+
+            return json_encode($response);
+        } else {
+            $this->redirect('showCart');
+        }
     }
 
     /**

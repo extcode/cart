@@ -1,3 +1,9 @@
+0.23.0
+    2016-08-01
+    Daniel Lorenz <daniel.lorenz@extco.de>
+
+    * TASK #1206: multi language support in cart for ajax requests
+
 0.22.0
     2016-07-26
     Daniel Lorenz <daniel.lorenz@extco.de>

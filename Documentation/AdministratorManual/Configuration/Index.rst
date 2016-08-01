@@ -16,3 +16,4 @@ Konfiguration
    MailConfiguration/Index
    ActionConfiguration/Index
    FormatConfiguration/Index
+   AjaxConfiguration/Index

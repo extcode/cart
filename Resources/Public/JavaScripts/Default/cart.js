@@ -28,15 +28,14 @@ $.fn.serializeObject = function()
 };
 
 $("#add-product-form").submit(function(e) {
+
     $form = $(this);
     var serializedObject = $form.serializeObject();
-    serializedObject.eID = 'addProduct';
-    serializedObject.cartPid = $('#add-product-form input[name="tx_cart_cart[pid]"]').val();
 
     if ($form.data('remote')) {
         $.ajax({
             async: 'true',
-            url: 'index.php',
+            url: $form.attr('action')+'&type=2278001',
             type: "POST",
 
             data: serializedObject,
