@@ -24,7 +24,7 @@ return [
         'iconfile' => 'EXT:cart/Resources/Public/Icons/Order/Item.png'
     ],
     'interface' => [
-        'showRecordFieldList' => 'pid, cart_pid, fe_user, order_number, invoice_number, billing_address, shipping_address, gross, net, total_gross, total_net, additional_data, tax_class, products, discounts, tax, total_tax, payment, shipping, order_pdf, invoice_pdf',
+        'showRecordFieldList' => 'pid, cart_pid, fe_user, order_number, invoice_number, billing_address, shipping_address, gross, net, total_gross, total_net, additional_data, tax_class, products, discounts, tax, total_tax, payment, shipping',
     ],
     'types' => [
         '1' => [
@@ -39,9 +39,7 @@ return [
                 products,
                 discounts,
                 payment,
-                shipping,
-                order_pdf,
-                invoice_pdf'
+                shipping'
         ],
     ],
     'palettes' => [

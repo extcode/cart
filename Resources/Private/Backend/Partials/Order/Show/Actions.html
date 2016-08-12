@@ -1,20 +1,7 @@
 <div class="btn-group">
-
     <f:if condition="{0: orderItem.invoiceNumber} == {0: ''}">
         <f:link.action action="generateInvoiceNumber" arguments="{orderItem : orderItem}">
             <f:translate key="tx_cart.controller.order.action.generateInvoiceNumber"/>
-        </f:link.action>
-    </f:if>
-
-    <f:if condition="{0: orderItem.invoicePdf, 1:pdfRendererInstalled} == {0: '', 1:1}">
-        <f:link.action action="generateInvoiceDocument" arguments="{orderItem : orderItem}">
-            <f:translate key="tx_cart.controller.order.action.generateInvoiceDocument"/>
-        </f:link.action>
-    </f:if>
-
-    <f:if condition="{orderItem.invoicePdf}">
-        <f:link.action action="downloadInvoiceDocument" arguments="{orderItem : orderItem}">
-            <f:translate key="tx_cart.controller.order.action.downloadInvoiceDocument"/>
         </f:link.action>
     </f:if>
 </div>

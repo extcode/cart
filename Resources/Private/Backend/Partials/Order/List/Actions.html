@@ -10,12 +10,4 @@
                 uri="{f:uri.action(action:'edit', arguments:{orderItem : orderItem})}"
                 icon="actions-open"/>
     </span>
-
-    <f:if condition="{pdfRendererInstalled}">
-        <span class="btn btn-default btn-sm">
-            <f:be.buttons.icon
-                    uri="{f:uri.action(action:'generateInvoiceDocument', arguments:{orderItem : orderItem})}"
-                    icon="actions-file-pdf"/>
-        </span>
-    </f:if>
 </div>

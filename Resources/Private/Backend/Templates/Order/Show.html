@@ -28,14 +28,6 @@
             </f:link.action>
         </span>
     </f:if>
-
-    <f:if condition="{orderItem.invoicePdf}">
-        <span class="btn btn-default btn-sm">
-            <f:link.action action="downloadInvoiceDocument" arguments="{orderItem : orderItem}">
-                <f:translate key="tx_cart.controller.order.action.downloadInvoiceDocument"/>
-            </f:link.action>
-        </span>
-    </f:if>
 </f:section>
 
 <f:section name="content">
