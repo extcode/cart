@@ -1,22 +1,8 @@
 plugin.tx_cart {
     view {
-        default {
-            templateRootPath = EXT:cart/Resources/Private/Templates/Default/
-            partialRootPath = EXT:cart/Resources/Private/Partials/Default/
-            layoutRootPath = EXT:cart/Resources/Private/Layouts/Default/
-        }
-
-        bootstrap {
-            templateRootPath = EXT:cart/Resources/Private/Templates/Bootstrap/
-            partialRootPath = EXT:cart/Resources/Private/Partials/Bootstrap/
-            layoutRootPath = EXT:cart/Resources/Private/Layouts/Bootstrap/
-        }
-
-        foundation {
-            templateRootPath = EXT:cart/Resources/Private/Templates/Foundation/
-            partialRootPath = EXT:cart/Resources/Private/Partials/Foundation/
-            layoutRootPath = EXT:cart/Resources/Private/Layouts/Foundation/
-        }
+        templateRootPath = EXT:cart/Resources/Private/Templates/
+        partialRootPath = EXT:cart/Resources/Private/Partials/
+        layoutRootPath = EXT:cart/Resources/Private/Layouts/
     }
 
     persistence {

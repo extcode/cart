@@ -13,18 +13,7 @@ $_LLL = 'LLL:EXT:' . $_EXTKEY . '/Resources/Private/Language/locallang_db.xlf';
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addStaticFile(
     $_EXTKEY,
     'Configuration/TypoScript',
-    'Shopping Cart - Default Configuration'
-);
-
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addStaticFile(
-    $_EXTKEY,
-    'Configuration/TypoScript/Bootstrap',
-    'Shopping Cart - Bootstrap Template'
-);
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addStaticFile(
-    $_EXTKEY,
-    'Configuration/TypoScript/Foundation',
-    'Shopping Cart - Foundation Template'
+    'Shopping Cart - Cart'
 );
 
 /**

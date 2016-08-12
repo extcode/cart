@@ -25,23 +25,20 @@ plugin.tx_cart {
     }
 }
 
-page.includeCSS.tx_cart = EXT:cart/Resources/Public/Stylesheets/Default/cart.css
-page.includeJSFooter.tx_cart = EXT:cart/Resources/Public/JavaScripts/Default/cart.js
+page.includeCSS.tx_cart = EXT:cart/Resources/Public/Stylesheets/cart.css
+page.includeJSFooter.tx_cart = EXT:cart/Resources/Public/JavaScripts/cart.js
 
 plugin.tx_cart {
 
     view {
         templateRootPaths {
-            0 = EXT:cart/Resources/Private/Templates/Default/
-            1 = {$plugin.tx_cart.view.default.templateRootPath}
+            0 = {$plugin.tx_cart.view.templateRootPath}
         }
         partialRootPaths {
-            0 = EXT:cart/Resources/Private/Partials/Default/
-            1 = {$plugin.tx_cart.view.default.partialRootPath}
+            0 = {$plugin.tx_cart.view.partialRootPath}
         }
         layoutRootPaths {
-            0 = EXT:cart/Resources/Private/Layouts/Default/
-            1 = {$plugin.tx_cart.view.default.layoutRootPath}
+            0 = {$plugin.tx_cart.view.layoutRootPath}
         }
     }
 
