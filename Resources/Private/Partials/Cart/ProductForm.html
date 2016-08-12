@@ -1,0 +1,54 @@
+<div class="row top-buffer">
+    <div class="col-sm-6 text-right pull-right">
+        <f:link.action action="clearCart" class="btn btn-danger">
+            <f:translate key="tx_cart.clear_cart"/>
+        </f:link.action>
+    </div>
+</div>
+
+<f:form id="form-cart" class="form"
+        name="orderItem"
+        action="updateCart"
+        method="post">
+    <div class="row">
+        <div class="col-sm-12">
+            <table id="checkout-review-table" class="data-table table stack" style="width: 100%">
+                <colgroup>
+                    <col span="2"/>
+                    <col width="1"/>
+                    <col width="1"/>
+                    <col width="1"/>
+                    <col width="1"/>
+                </colgroup>
+                <thead>
+                    <tr class="first last">
+                        <th colspan="2" class="col-md-6">
+                            <f:translate key="tx_cart_domain_model_product_product.title"/>
+                        </th>
+                        <th class="col-md-2 text-right">
+                            <f:translate key="tx_cart_domain_model_product_product.unit_price"/>
+                        </th>
+                        <th class="col-md-1">
+                            <f:translate key="tx_cart_domain_model_product_product.count"/>
+                        </th>
+                        <th class="col-md-2 text-right">
+                            <f:translate key="tx_cart_domain_model_product_product.subtotal"/>
+                        </th>
+                        <th class="col-md-1">
+                            &nbsp;
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <f:render partial="Cart/ProductForm/ProductList" arguments="{products:cart.products}"/>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-6 text-right pull-right">
+            <f:form.submit class="btn btn-default"
+                           value="{f:translate(key: 'tx_cart.update_cart', default: '[submit update]')}"/>
+        </div>
+    </div>
+</f:form>

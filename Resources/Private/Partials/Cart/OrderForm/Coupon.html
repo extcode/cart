@@ -1,6 +1,6 @@
 {namespace cart=Extcode\Cart\ViewHelpers}
 
-<div id="accept-term" class="form-block">
+<div id="accept-term" class="bg-light-grey top-buffer">
     <h5 class="form-title">
         <span class="num">4</span>
         <span><f:translate key="tx_cart.controller.order.action.show_cart.block-header.coupons"/></span>
@@ -20,13 +20,13 @@
                                     <f:else>
                                         <span style="color: red;">
                                             <f:translate key="tx_cart_domain_model_product_product_coupon.code.not_useable"/>
-                                            Mindestbestellwert: <cart:format.currency>{coupon.cartMinPrice}</cart:format.currency>
+                                            <f:translate key="tx_cart_domain_model_product_product_coupon.cart_min_price"/>: <cart:format.currency>{coupon.cartMinPrice}</cart:format.currency>
                                         </span>
                                     </f:else>
                                 </f:if>
                                 <span class="remove-coupon-link">
                                     <f:link.action action="removeCoupon" arguments="{couponCode: coupon.code}">
-                                        <span class="delete-link" title="<f:translate key='tx_cart.remove_coupon'/>">x</span>
+                                        <span class="delete-link btn btn-danger" title="<f:translate key='tx_cart.remove_coupon'/>">x</span>
                                     </f:link.action>
                                 </span>
                             </li>

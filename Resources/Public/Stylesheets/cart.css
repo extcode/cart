@@ -1,0 +1,48 @@
+.bg-light-grey {
+    background-color: #efefef;
+}
+
+.tx-cart form#form-order .form-title .num, .tx-cart form#form-cart .form-title .num {
+    background: #333;
+    color: #fff;
+    display: inline-block;
+    width: 20px;
+    border-radius: 50%;
+    text-align: center;
+    height: 20px;
+    line-height: 20px;
+    font-size: 0.75em;
+    vertical-align: middle;
+    margin-right: 10px;
+    margin-top: -3px;
+}
+
+.tx-cart h5.form-title {
+    background: #ccc;
+    margin: 0;
+    padding: 0 20px;
+    line-height: 2;
+}
+
+/*
+ * OPTIONAL BEGIN
+ */
+#form-order h5 {padding: 10px} #accept-term fieldset {padding: 16px 8px 18px 8px}
+span.price {min-width: 65px; display: block}
+label, label em {display: inline}
+.tx-cart li, .tx-cart ul {list-style-type: none;}
+.tx-cart ul {list-style-type: none; padding: 0px 8px 2px 8px}
+.tx-cart fieldset dl {margin-left: 8px}
+.tx-cart fieldset dl dd, .tx-cart fieldset dl dd ul { margin-left: 0px ! important; padding-left: 0px ! important;}
+
+.form-control-inline {
+    min-width: 0;
+    width: auto;
+    display: inline;
+}
+
+.top-buffer { margin-top:20px; }
+
+/*
+ * OPTIONAL END
+ */

@@ -382,6 +382,10 @@
                 <source>remove</source>
                 <target>entfernen</target>
             </trans-unit>
+            <trans-unit id="tx_cart.same_address">
+                <source>Send it to the same address.</source>
+                <target>An die gleiche Adresse versenden.</target>
+            </trans-unit>
 
             <trans-unit id="tx_cart.controller.order.action.show_cart.block-header.billing_address">
                 <source>Billing Address</source>
@@ -543,6 +547,10 @@
             <trans-unit id="tx_cart_domain_model_product_product_coupon.code.not_useable">
                 <source>Coupon Code is not useable.</source>
                 <target>Gutschein-Code ist nicht verwendbar.</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_product_product_coupon.cart_min_price">
+                <source>Minimum Order Value</source>
+                <target>Mindestbestellwert</target>
             </trans-unit>
 
             <trans-unit id="tx_cart_domain_model_product_productvariantset">

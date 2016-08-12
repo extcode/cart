@@ -2,13 +2,13 @@
 
 <f:for each="{taxes}" as="tax" key="tax_class">
     <tr>
-        <td colspan="3" class="a-right">
+        <td colspan="3" class="text-right">
             <f:translate key="tx_cart.tax_class"/>
             (
             <f:translate key="tx_cart.tax_class.{tax_class}"/>
             )
         </td>
-        <td class="a-right last">
+        <td class="text-right last">
             <span class="price">
                 <cart:format.currency>{tax}</cart:format.currency>
             </span>

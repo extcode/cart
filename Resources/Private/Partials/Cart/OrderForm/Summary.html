@@ -2,10 +2,10 @@
 
 <f:if condition="{settings.showCartAction.summary.fields.cart.net}">
     <tr class="first">
-        <td colspan="3" class="a-right">
+        <td colspan="3" class="text-right">
             <f:translate key="tx_cart_domain_model_cart_cart.net"/>
         </td>
-        <td class="a-right last">
+        <td class="text-right last">
             <span class="price">
                 <cart:format.currency>{cart.net}</cart:format.currency>
             </span>
@@ -14,10 +14,10 @@
 </f:if>
 <f:if condition="{settings.showCartAction.summary.fields.cart.gross}">
     <tr>
-        <td colspan="3" class="a-right">
+        <td colspan="3" class="text-right">
             <f:translate key="tx_cart_domain_model_cart_cart.gross"/>
         </td>
-        <td class="a-right last">
+        <td class="text-right last">
             <span class="price">
                 <cart:format.currency>{cart.gross}</cart:format.currency>
             </span>
@@ -25,16 +25,16 @@
     </tr>
 </f:if>
 <f:if condition="{settings.showCartAction.summary.fields.cart.taxes}">
-    <f:render partial="Cart/TaxList" arguments="{taxClasses: cart.taxClasses, taxes: cart.taxes}"/>
+    <f:render partial="Cart/OrderForm/TaxList" arguments="{taxClasses: cart.taxClasses, taxes: cart.taxes}"/>
 </f:if>
 
 <f:if condition="{cart.discountGross}">
     <f:if condition="{settings.showCartAction.summary.fields.discount.net}">
         <tr>
-            <td colspan="3" class="a-right">
+            <td colspan="3" class="text-right">
                 <f:translate key="tx_cart_domain_model_order_product.discount_net"/>
             </td>
-            <td class="a-right last">
+            <td class="text-right last">
                 <span class="price">
                     <cart:format.currency>{cart.discountNet}</cart:format.currency>
                 </span>
@@ -43,10 +43,10 @@
     </f:if>
     <f:if condition="{settings.showCartAction.summary.fields.discount.gross}">
         <tr>
-            <td colspan="3" class="a-right">
+            <td colspan="3" class="text-right">
                 <f:translate key="tx_cart_domain_model_order_product.discount_gross"/>
             </td>
-            <td class="a-right last">
+            <td class="text-right last">
                 <span class="price">
                     <cart:format.currency>{cart.discountGross}</cart:format.currency>
                 </span>
@@ -54,16 +54,16 @@
         </tr>
     </f:if>
     <f:if condition="{settings.showCartAction.summary.fields.discount.taxes}">
-        <f:render partial="Cart/TaxList" arguments="{taxClasses: cart.taxClasses, taxes: cart.discountTaxes}"/>
+        <f:render partial="Cart/OrderForm/TaxList" arguments="{taxClasses: cart.taxClasses, taxes: cart.discountTaxes}"/>
     </f:if>
 </f:if>
 
 <f:if condition="{settings.showCartAction.summary.fields.service.net}">
     <tr>
-        <td colspan="3" class="a-right">
+        <td colspan="3" class="text-right">
             <f:translate key="tx_cart_domain_model_order_product.service_net"/>
         </td>
-        <td class="a-right last">
+        <td class="text-right last">
             <span class="price">
                 <cart:format.currency>{cart.serviceNet}</cart:format.currency>
             </span>
@@ -72,10 +72,10 @@
 </f:if>
 <f:if condition="{settings.showCartAction.summary.fields.service.gross}">
     <tr>
-        <td colspan="3" class="a-right">
+        <td colspan="3" class="text-right">
             <f:translate key="tx_cart_domain_model_order_product.service_gross"/>
         </td>
-        <td class="a-right last">
+        <td class="text-right last">
             <span class="price">
                 <cart:format.currency>{cart.serviceGross}</cart:format.currency>
             </span>
@@ -83,15 +83,15 @@
     </tr>
 </f:if>
 <f:if condition="{settings.showCartAction.summary.fields.service.taxes}">
-    <f:render partial="Cart/TaxList" arguments="{taxClasses: cart.taxClasses, taxes: cart.serviceTaxes}"/>
+    <f:render partial="Cart/OrderForm/TaxList" arguments="{taxClasses: cart.taxClasses, taxes: cart.serviceTaxes}"/>
 </f:if>
 
 <f:if condition="{settings.showCartAction.summary.fields.total.net}">
     <tr>
-        <td colspan="3" class="a-right">
+        <td colspan="3" class="text-right">
             <f:translate key="tx_cart_domain_model_order_product.total_net"/>
         </td>
-        <td class="a-right last">
+        <td class="text-right last">
             <span class="price">
                 <cart:format.currency>{cart.totalNet}</cart:format.currency>
             </span>
@@ -100,10 +100,10 @@
 </f:if>
 <f:if condition="{settings.showCartAction.summary.fields.total.gross}">
     <tr>
-        <td colspan="3" class="a-right">
+        <td colspan="3" class="text-right">
             <f:translate key="tx_cart_domain_model_order_product.total_gross"/>
         </td>
-        <td class="a-right last">
+        <td class="text-right last">
             <span class="price">
                 <cart:format.currency>{cart.totalGross}</cart:format.currency>
             </span>
@@ -111,5 +111,5 @@
     </tr>
 </f:if>
 <f:if condition="{settings.showCartAction.summary.fields.total.taxes}">
-    <f:render partial="Cart/TaxList" arguments="{taxClasses: cart.taxClasses, taxes: cart.totalTaxes}"/>
+    <f:render partial="Cart/OrderForm/TaxList" arguments="{taxClasses: cart.taxClasses, taxes: cart.totalTaxes}"/>
 </f:if>

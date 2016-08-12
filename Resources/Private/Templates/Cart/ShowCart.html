@@ -3,21 +3,14 @@
 <f:section name="main">
     <f:flashMessages renderMode="div" />
 
-    <div class="small-12 medium-12 large-12 form-columns">
+    <div class="col-sm-12 col-md-12 col-lg-12 form-columns">
         <f:if condition="{cart.products}">
             <f:then>
-                <f:render partial="Cart/CartForm" arguments="{cart:cart}"/>
+                <f:render partial="Cart/ProductForm" arguments="{cart:cart}"/>
 
                 <f:render partial="Cart/CouponForm" arguments="{cart:cart}"/>
 
-                <f:render partial="Cart/OrderForm" arguments="{
-                    cart:cart,
-                    orderItem:orderItem,
-                    billingAddress:billingAddress,
-                    shippingAddress:shippingAddress,
-                    shippings:shippings,
-                    payments:payments}"
-                />
+                <f:render partial="Cart/OrderForm" arguments="{_all}"/>
             </f:then>
             <f:else>
                 <f:render partial="Cart/Empty"/>

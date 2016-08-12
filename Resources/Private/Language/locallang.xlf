@@ -203,6 +203,9 @@
             <trans-unit id="tx_cart.remove_coupon">
                 <source>remove</source>
             </trans-unit>
+            <trans-unit id="tx_cart.same_address">
+                <source>Send it to the same address.</source>
+            </trans-unit>
 
             <trans-unit id="tx_cart.controller.order.actions">
                 <source>Actions</source>
@@ -650,6 +653,9 @@
             </trans-unit>
             <trans-unit id="tx_cart_domain_model_product_product_coupon.code.not_useable">
                 <source>Coupon Code is not useable.</source>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_product_product_coupon.cart_min_price">
+                <source>Minimum Order Value</source>
             </trans-unit>
 
             <trans-unit id="tx_cart_domain_model_product_productvariantset">

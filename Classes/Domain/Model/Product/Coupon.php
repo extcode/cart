@@ -45,7 +45,7 @@ class Coupon extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * @var string
      * @validate NotEmpty
      */
-    protected $codeType = '';
+    protected $couponType = '';
 
     /**
      * Discount

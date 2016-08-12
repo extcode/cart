@@ -2,7 +2,7 @@
 
 <f:section name="withoutVariant">
     <tr class="{f:if(condition: product.quantityIsInRange, then: '', else: 'danger')}">
-        <td colspan="2">
+        <td colspan="2" class="col-md-6">
             <div class="product-name">
                 {product.title} {f:if(condition:'{product.feVariant.value}',then:'- {product.feVariant.value}')}
             </div>
@@ -11,17 +11,15 @@
                 : {product.sku}
             </p>
         </td>
-        <td class="text-right">
-                    <span class="price">
-                        <cart:format.currency>{product.bestPrice}</cart:format.currency>
-                    </span>
+        <td class="col-md-2 text-right">
+            <span class="price">
+                <cart:format.currency>{product.bestPrice}</cart:format.currency>
+            </span>
         </td>
-        <td class="a-center">
-            <div class="qty-wrapper">
-                <f:form.textfield type="text" value="{product.quantity}" name="quantities[{product.id}]"/>
-            </div>
+        <td class="col-md-1 text-right">
+            <f:form.textfield class="form-control form-control-inline" type="text" value="{product.quantity}" name="quantities[{product.id}]"/>
         </td>
-        <td class="text-right">
+        <td class="col-md-2 text-right">
             <f:if condition="{product.quantityIsInRange}">
                 <f:then>
                     <cart:format.currency>{product.gross}</cart:format.currency>
@@ -36,9 +34,9 @@
                 </f:else>
             </f:if>
         </td>
-        <td class="last">
+        <td class="last col-md-1 text-right">
             <f:link.action action="removeProduct" arguments="{product: product.id}">
-                <span class="delete-link" title="<f:translate key='tx_cart.remove_product'/>">x</span>
+                <span class="delete-link btn btn-danger" title="<f:translate key='tx_cart.remove_product'/>">x</span>
             </f:link.action>
         </td>
     </tr>
@@ -53,24 +51,27 @@
         </f:then>
         <f:else>
             <tr class="{f:if(condition: product.quantityIsInRange, then: '', else: 'danger')}">
-                <td>&nbsp;</td>
-                <td>
-                    <div class="product-name">{variant.completeTitle}</div>
+                <td class="col-md-1">&nbsp;</td>
+                <td class="col-md-5">
+                    <div class="product-name">{variant.title}</div>
                     <p>
                         <f:translate key="tx_cart_domain_model_order_product.sku.short"/>
-                        : {variant.completeSku}
+                        : {variant.sku}
                     </p>
                 </td>
-                <td class="text-right">
+                <td class="col-md-2 text-right">
                     <cart:format.currency>{variant.bestPriceCalculated}</cart:format.currency>
                 </td>
-                <td class="a-center">
+                <td class="col-md-1">
                     <div class="qty-wrapper">
-                        <f:form.textfield type="text" value="{variant.quantity}"
-                                          name="quantities{cart:fieldName(variant:variant)}"/>
+                        <f:form.textfield
+                                class="form-control form-control-inline"
+                                type="text"
+                                value="{variant.quantity}"
+                                name="quantities{cart:fieldName(variant:variant)}"/>
                     </div>
                 </td>
-                <td class="last text-right">
+                <td class="col-md-2 text-right">
                     <f:if condition="{product.quantityIsInRange}">
                         <f:then>
                             <cart:format.currency>{variant.gross}</cart:format.currency>
@@ -85,9 +86,9 @@
                         </f:else>
                     </f:if>
                 </td>
-                <td>
+                <td class="last col-md-1 text-right">
                     <cart:link.action action="removeProduct" product="{variant.product}" beVariant="{variant}">
-                        <span class="delete-link" title="<f:translate key='tx_cart.remove_product'/>">x</span>
+                        <span class="delete-link btn btn-danger" title="<f:translate key='tx_cart.remove_product'/>">x</span>
                     </cart:link.action>
                 </td>
             </tr>
