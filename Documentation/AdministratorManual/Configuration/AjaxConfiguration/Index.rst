@@ -26,5 +26,7 @@ Um Produkte per AJAX-Request in den Warenkorb zu legen, wird eine Konfiguration 
 
         10 < tt_content.list.20.cart_cart
     }
+
 |
+
 Dies ist die mitgelieferte Konfiguration für das Warenkorb-Plugin. Über diesen Seitentyp (2278001) lassen sich Produkte zum Warenkorb hinzufügen.
