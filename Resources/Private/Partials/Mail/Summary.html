@@ -1,101 +1,120 @@
 {namespace cart=Extcode\Cart\ViewHelpers}
 
 <tr class="first">
-    <td colspan="4" style="text-align: right;">
-        <f:translate
-                key="LLL:EXT:cart/Resources/Private/Language/locallang.xlf:tx_cart_domain_model_cart_cart.net"/>
-    </td>
-    <td style="text-align: right;" class="last">
-        <span class="price">
-            <cart:format.currency>{cart.net}</cart:format.currency>
-        </span>
-    </td>
-</tr>
-<tr>
-    <td colspan="4" style="text-align: right;">
-        <f:translate
-                key="LLL:EXT:cart/Resources/Private/Language/locallang.xlf:tx_cart_domain_model_cart_cart.gross"/>
-    </td>
-    <td style="text-align: right;" class="last">
-        <span class="price">
-            <cart:format.currency>{cart.gross}</cart:format.currency>
-        </span>
-    </td>
+    <td colspan="4" style="text-align: right;"><!-- --></td>
+    <td style="text-align: right;"><!-- --></td>
 </tr>
 
-<f:render partial="Mail/TaxList" arguments="{taxes: cart.taxes}"/>
-
-<tr>
-    <td colspan="4" style="text-align: right;">
-        <f:translate
-                key="LLL:EXT:cart/Resources/Private/Language/locallang.xlf:tx_cart_domain_model_order_product.service_net"/>
-    </td>
-    <td style="text-align: right;" class="last">
-        <span class="price">
-            <cart:format.currency>{cart.serviceNet}</cart:format.currency>
-        </span>
-    </td>
-</tr>
-<tr>
-    <td colspan="4" style="text-align: right;">
-        <f:translate
-                key="LLL:EXT:cart/Resources/Private/Language/locallang.xlf:tx_cart_domain_model_order_product.service_gross"/>
-    </td>
-    <td style="text-align: right;" class="last">
-        <span class="price">
-            <cart:format.currency>{cart.serviceGross}</cart:format.currency>
-        </span>
-    </td>
-</tr>
-
-<f:render partial="Mail/TaxList" arguments="{taxes: cart.serviceTaxes}"/>
-
-<f:if condition="{cart.discountGross}">
-    <tr>
+<f:if condition="{settings.showCartAction.summary.fields.cart.net}">
+    <tr class="first">
         <td colspan="4" style="text-align: right;">
-            <f:translate key="tx_cart_domain_model_order_product.discount_net"/>
+            <f:translate key="tx_cart_domain_model_cart_cart.net"/>
         </td>
-        <td style="text-align: right;" class="last">
+        <td style="text-align: right;">
             <span class="price">
-                <cart:format.currency>{cart.discountNet}</cart:format.currency>
+                <cart:format.currency>{cart.net}</cart:format.currency>
             </span>
         </td>
     </tr>
+</f:if>
+<f:if condition="{settings.showCartAction.summary.fields.cart.gross}">
     <tr>
         <td colspan="4" style="text-align: right;">
-            <f:translate key="tx_cart_domain_model_order_product.discount_gross"/>
+            <f:translate key="tx_cart_domain_model_cart_cart.gross"/>
         </td>
-        <td style="text-align: right;" class="last">
+        <td style="text-align: right;">
             <span class="price">
-                <cart:format.currency>{cart.discountGross}</cart:format.currency>
+                <cart:format.currency>{cart.gross}</cart:format.currency>
             </span>
         </td>
     </tr>
-
-    <f:render partial="Mail/TaxList" arguments="{taxes: cart.discountTaxes}"/>
+</f:if>
+<f:if condition="{settings.showCartAction.summary.fields.cart.taxes}">
+    <f:render partial="Mail/TaxList" arguments="{taxes: cart.taxes}"/>
 </f:if>
 
-<tr>
-    <td colspan="4" style="text-align: right;">
-        <f:translate
-                key="LLL:EXT:cart/Resources/Private/Language/locallang.xlf:tx_cart_domain_model_order_product.total_net"/>
-    </td>
-    <td style="text-align: right;" class="last">
-        <span class="price">
-            <cart:format.currency>{cart.totalNet}</cart:format.currency>
-        </span>
-    </td>
-</tr>
-<tr>
-    <td colspan="4" style="text-align: right;">
-        <f:translate
-                key="LLL:EXT:cart/Resources/Private/Language/locallang.xlf:tx_cart_domain_model_order_product.total_gross"/>
-    </td>
-    <td style="text-align: right;" class="last">
-        <span class="price">
-            <cart:format.currency>{cart.totalGross}</cart:format.currency>
-        </span>
-    </td>
-</tr>
+<f:if condition="{cart.discountGross}">
+    <f:if condition="{settings.showCartAction.summary.fields.discount.net}">
+        <tr>
+            <td colspan="4" style="text-align: right;">
+                <f:translate key="tx_cart_domain_model_order_product.discount_net"/>
+            </td>
+            <td style="text-align: right;">
+                <span class="price">
+                    <cart:format.currency>{cart.discountNet}</cart:format.currency>
+                </span>
+            </td>
+        </tr>
+    </f:if>
+    <f:if condition="{settings.showCartAction.summary.fields.discount.gross}">
+        <tr>
+            <td colspan="4" style="text-align: right;">
+                <f:translate key="tx_cart_domain_model_order_product.discount_gross"/>
+            </td>
+            <td style="text-align: right;">
+                <span class="price">
+                    <cart:format.currency>{cart.discountGross}</cart:format.currency>
+                </span>
+            </td>
+        </tr>
+    </f:if>
+    <f:if condition="{settings.showCartAction.summary.fields.discount.taxes}">
+        <f:render partial="Cart/OrderForm/TaxList" arguments="{taxClasses: cart.taxClasses, taxes: cart.discountTaxes}"/>
+    </f:if>
+</f:if>
 
-<f:render partial="Mail/TaxList" arguments="{taxes: cart.totalTaxes}"/>
+<f:if condition="{settings.showCartAction.summary.fields.service.net}">
+    <tr>
+        <td colspan="4" style="text-align: right;">
+            <f:translate key="tx_cart_domain_model_order_product.service_net"/>
+        </td>
+        <td style="text-align: right;">
+            <span class="price">
+                <cart:format.currency>{cart.serviceNet}</cart:format.currency>
+            </span>
+        </td>
+    </tr>
+</f:if>
+<f:if condition="{settings.showCartAction.summary.fields.service.gross}">
+    <tr>
+        <td colspan="4" style="text-align: right;">
+            <f:translate key="tx_cart_domain_model_order_product.service_gross"/>
+        </td>
+        <td style="text-align: right;">
+            <span class="price">
+                <cart:format.currency>{cart.serviceGross}</cart:format.currency>
+            </span>
+        </td>
+    </tr>
+</f:if>
+<f:if condition="{settings.showCartAction.summary.fields.service.taxes}">
+    <f:render partial="Mail/TaxList" arguments="{taxes: cart.serviceTaxes}"/>
+</f:if>
+
+<f:if condition="{settings.showCartAction.summary.fields.total.net}">
+    <tr>
+        <td colspan="4" style="text-align: right;">
+            <f:translate key="tx_cart_domain_model_order_product.total_net"/>
+        </td>
+        <td style="text-align: right;">
+            <span class="price">
+                <cart:format.currency>{cart.totalNet}</cart:format.currency>
+            </span>
+        </td>
+    </tr>
+</f:if>
+<f:if condition="{settings.showCartAction.summary.fields.total.gross}">
+    <tr>
+        <td colspan="4" style="text-align: right;">
+            <f:translate key="tx_cart_domain_model_order_product.total_gross"/>
+        </td>
+        <td style="text-align: right;">
+            <span class="price">
+                <cart:format.currency>{cart.totalGross}</cart:format.currency>
+            </span>
+        </td>
+    </tr>
+</f:if>
+<f:if condition="{settings.showCartAction.summary.fields.total.taxes}">
+    <f:render partial="Mail/TaxList" arguments="{taxes: cart.totalTaxes}"/>
+</f:if>

@@ -12,7 +12,7 @@
                 {billingAddress.country}<br />
             </f:if>
             <br />
-            {billingAddress.email}
+            {billingAddress.email}<br />
         </td>
         <td style="width:300px;vertical-align:top;">
             <b><f:translate key="tx_cart_domain_model_cart.shipping_address" />:</b><br />
@@ -27,8 +27,6 @@
                     <f:if condition="{shippingAddress.country}">
                         {shippingAddress.country}<br />
                     </f:if>
-                    <br />
-                    {shippingAddress.email}
                 </f:then>
                 <f:else>
                     <f:translate key="tx_cart_domain_model_cart.use_billing_address" /><br /><br />

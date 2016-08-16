@@ -1,9 +1,14 @@
+0.25.0
+    2016-08-16
+    Daniel Lorenz <daniel.lorenz@extco.de>
+
+    * TASK #1214: update mail templates
+
 0.24.0
     2016-08-12
     Daniel Lorenz <daniel.lorenz@extco.de>
 
     * TASK #1203: join default, bootstrap and foundation templates
-
 
 0.23.1
     2016-08-12

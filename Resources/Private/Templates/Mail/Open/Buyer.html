@@ -8,27 +8,50 @@
     <f:cObject typoscriptObjectPath="lib.cartMailHeader" />
 
     <p>
-        <b><f:translate key="tx_cart.mail.thank_you_for_order" /></b>
+        <b><f:translate key="tx_cart.mail.thank_you_for_order" /></b> <f:translate key="tx_cart.mail.thank_you_for_order_note" />
     </p>
 
-    <p style="background-color:#3b7eb0;color:#fff;padding:3px;">
+    <p style="background-color:#3b7eb0;color:#fff;padding:5px;">
         <b><f:translate key="tx_cart.mail.order_information" />:</b>
     </p>
 
     <f:render partial="Mail/Address" arguments="{billingAddress: billingAddress, shippingAddress: shippingAddress}"/>
 
-    <p style="background-color:#3b7eb0;color:#fff;padding:3px;">
+    <p style="background-color:#3b7eb0;color:#fff;padding:5px;">
         <b><f:translate key="tx_cart.mail.order_summary" />:</b>
     </p>
 
-    <p>
+    <table cellspacing="0" border="0">
+        <tbody>
         <f:if condition="{orderItem.orderNumber}">
-            <b><f:translate key="tx_cart_domain_model_order_item.order_number" />:</b>  {orderItem.orderNumber} <br />
+            <tr>
+                <td colspan="2" style="font-family: Arial, Helvetica, sans-serif; font-size: 12px;"><b><f:translate key="tx_cart_domain_model_order_item.order_number" /></b></td>
+                <td style="font-family: Arial, Helvetica, sans-serif; font-size: 12px;">: {orderItem.orderNumber}</td>
+            </tr>
         </f:if>
-        <b><f:translate key="tx_cart_domain_model_order_item.order_date" />:</b> <f:format.date format="d.m.Y" date="{orderItem.orderDate}" /><br />
-        <b><f:translate key="tx_cart.mail.payment_method" />:</b>  {orderItem.payment.name} ({orderItem.payment.status}) <br />
-        <b><f:translate key="tx_cart.mail.shipping_method" />:</b>  {orderItem.shipping.name} ({orderItem.shipping.status})
-    </p>
+        <tr>
+            <td colspan="2" style="font-family: Arial, Helvetica, sans-serif; font-size: 12px;"><b><f:translate key="tx_cart_domain_model_order_item.order_date" /></b></td>
+            <td style="font-family: Arial, Helvetica, sans-serif; font-size: 12px;">: <f:format.date format="d.m.Y" date="{orderItem.orderDate}" /></td>
+        </tr>
+        <tr>
+            <td colspan="2" style="font-family: Arial, Helvetica, sans-serif; font-size: 12px;"><b><f:translate key="tx_cart.mail.payment_method" /></b></td>
+            <td style="font-family: Arial, Helvetica, sans-serif; font-size: 12px;">: {orderItem.payment.name}</td>
+        </tr>
+        <tr>
+            <td colspan="2" style="font-family: Arial, Helvetica, sans-serif; font-size: 12px;"><b><f:translate key="tx_cart.mail.shipping_method" /></b></td>
+            <td style="font-family: Arial, Helvetica, sans-serif; font-size: 12px;">: {orderItem.shipping.name}</td>
+        </tr>
+        <f:if condition="{orderItem.comment}">
+            <tr>
+                <td colspan="2" style="font-family: Arial, Helvetica, sans-serif; font-size: 12px;"><b><f:translate key="tx_cart_domain_model_order_item.comment" /></b></td>
+                <td style="font-family: Arial, Helvetica, sans-serif; font-size: 12px;">: {orderItem.comment}</td>
+            </tr>
+        </f:if>
+        <tr>
+            <td height="10" style="font-size:10px; line-height:10px;">   </td><!-- Spacer -->
+        </tr>
+        </tbody>
+    </table>
 
     <f:render partial="Mail/Cart" arguments="{cart: cart}"/>
 
