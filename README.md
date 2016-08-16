@@ -9,4 +9,4 @@ The extension allows you to create coupons, products with or without variants, s
 
 ## Website
 
-Homepage: http://cart.extco.de
+Homepage: https://cart.extco.de

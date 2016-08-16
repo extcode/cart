@@ -2,7 +2,7 @@
     "name": "extcode/cart",
     "type": "typo3-cms-extension",
     "description": "Shopping Cart(s) for TYPO3",
-    "homepage": "http://cart.extdev.de",
+    "homepage": "https://cart.extco.de",
     "license": [
         "GPL-2.0+"
     ],
