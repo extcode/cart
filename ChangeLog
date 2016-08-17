@@ -1,3 +1,9 @@
+1.0.1
+    2016-08-17
+    Daniel Lorenz <daniel.lorenz@extco.de>
+
+    * BUG #77522: MailHandler doesn't send emails when called from eID-request
+
 1.0.0
     2016-08-16
     Daniel Lorenz <daniel.lorenz@extco.de>
