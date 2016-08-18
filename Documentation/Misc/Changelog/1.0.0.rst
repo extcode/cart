@@ -4,6 +4,6 @@
 .. -*- coding: utf-8 -*- with BOM.
 
 1.0.0 - 16.08.2016
--------------------
+------------------
 
 Erste Veröffentlichung der Erweiterung im TER.

@@ -581,6 +581,9 @@ class CartController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 
         $this->sendMails($orderItem, $billingAddress, $shippingAddress);
 
+        $this->view->assign('cart', $this->cart);
+        $this->view->assign('orderItem', $orderItem);
+
         $paymentId = $this->cart->getPayment()->getId();
         if (intval($this->pluginSettings['payments']['options'][$paymentId]['preventClearCart']) != 1) {
             $this->cart = $this->cartUtility->getNewCart($this->settings['cart'], $this->pluginSettings);

@@ -1,5 +1,11 @@
+1.1.0
+    2016-08-18
+    Daniel Lorenz <daniel.lorenz@extco.de>
+
+    * BUG #77544: cart should be available on thank you page
+
 1.0.2
-    2016-08-17
+    2016-08-18
     Daniel Lorenz <daniel.lorenz@extco.de>
 
     * BUG #77543: reload on thank you page throws an error
