@@ -548,6 +548,10 @@ class CartController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         \Extcode\Cart\Domain\Model\Order\Address $shippingAddress = null
     ) {
         $this->cart = $this->cartUtility->getCartFromSession($this->settings['cart'], $this->pluginSettings);
+
+        if ($this->cart->getCount() == 0) {
+            $this->redirect('showCart');
+        }
         $this->parseData();
 
         $this->orderUtility->checkStock($this->cart);

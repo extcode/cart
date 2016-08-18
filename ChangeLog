@@ -1,3 +1,9 @@
+1.0.2
+    2016-08-17
+    Daniel Lorenz <daniel.lorenz@extco.de>
+
+    * BUG #77543: reload on thank you page throws an error
+
 1.0.1
     2016-08-17
     Daniel Lorenz <daniel.lorenz@extco.de>
