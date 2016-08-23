@@ -233,7 +233,7 @@ class OrderController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $this->view->assign('searchArguments', $this->searchArguments);
         $this->view->assign('orderItems', $orderItems);
 
-        $pdfRendererInstalled = Utility\ExtensionManagementUtility::isLoaded('wt_cart_pdf');
+        $pdfRendererInstalled = Utility\ExtensionManagementUtility::isLoaded('cart_pdf');
         $this->view->assign('pdfRendererInstalled', $pdfRendererInstalled);
     }
 

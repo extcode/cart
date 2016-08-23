@@ -120,22 +120,3 @@ config.tx_extbase {
         }
     }
 }
-
-config.tx_extbase {
-    persistence {
-        classes {
-            Extcode\Cart\Domain\Model\FileReference {
-                mapping {
-                    tableName = sys_file_reference
-                    columns {
-                        uid_local.mapOnProperty = originalFileIdentifier
-                    }
-                }
-            }
-        }
-        objects {
-            TYPO3\CMS\Extbase\Domain\Model\FileReference.className =Extcode\Cart\Domain\Model\FileReference
-        }
-        updateReferenceIndex = 1
-    }
-}

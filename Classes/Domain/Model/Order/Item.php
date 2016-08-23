@@ -185,14 +185,14 @@ class Item extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Order Pdf
      *
-     * @var \Extcode\Cart\Domain\Model\FileReference
+     * @var \TYPO3\CMS\Extbase\Domain\Model\FileReference
      */
     protected $orderPdf;
 
     /**
      * Invoice Pdf
      *
-     * @var \Extcode\Cart\Domain\Model\FileReference
+     * @var \TYPO3\CMS\Extbase\Domain\Model\FileReference
      */
     protected $invoicePdf;
 
@@ -616,7 +616,7 @@ class Item extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Returns Order PDF
      *
-     * @return \Extcode\Cart\Domain\Model\FileReference
+     * @return \TYPO3\CMS\Extbase\Domain\Model\FileReference
      */
     public function getOrderPdf()
     {
@@ -626,7 +626,7 @@ class Item extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Sets Order PDF
      *
-     * @param \Extcode\Cart\Domain\Model\FileReference $orderPdf
+     * @param \TYPO3\CMS\Extbase\Domain\Model\FileReference $orderPdf
      *
      * @return void
      */
@@ -638,7 +638,7 @@ class Item extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Sets Invoice PDF
      *
-     * @return \Extcode\Cart\Domain\Model\FileReference
+     * @return \TYPO3\CMS\Extbase\Domain\Model\FileReference
      */
     public function getInvoicePdf()
     {
@@ -648,7 +648,7 @@ class Item extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Sets Invoice PDF
      *
-     * @param \Extcode\Cart\Domain\Model\FileReference $invoicePdf
+     * @param \TYPO3\CMS\Extbase\Domain\Model\FileReference $invoicePdf
      *
      * @return void
      */
