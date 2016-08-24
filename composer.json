@@ -21,7 +21,7 @@
     "support": {
         "issues": "https://forge.typo3.org/projects/extension-cart"
     },
-    "version": "1.1.1",
+    "version": "1.1.2",
     "require": {
         "php": ">=5.4.0",
         "typo3/cms-core": "^6.2 || ^7.6"
