@@ -1280,6 +1280,7 @@ class Cart
      */
     public function reCalc()
     {
+        $this->calcCount();
         $this->calcGross();
         $this->calcNet();
         $this->calcTax();

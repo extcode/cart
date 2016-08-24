@@ -522,10 +522,10 @@ class CartController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         ) {
             $fields = $this->pluginSettings['validation']['orderCartAction']['fields'];
 
-            if (key_exists('acceptTerms', $fields)) {
+            if (array_key_exists('acceptTerms', $fields)) {
                 $this->setDynamicValidation('acceptTerms', $fields['acceptTerms']);
             }
-            if (key_exists('acceptConditions', $fields)) {
+            if (array_key_exists('acceptConditions', $fields)) {
                 $this->setDynamicValidation('acceptConditions', $fields['acceptConditions']);
             }
         }
@@ -629,6 +629,7 @@ class CartController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         \Extcode\Cart\Domain\Model\Order\Address $billingAddress,
         \Extcode\Cart\Domain\Model\Order\Address $shippingAddress = null
     ) {
+        /* @var \Extcode\Cart\Service\MailHandler $mailHandler*/
         $mailHandler = $this->objectManager->get(
             \Extcode\Cart\Service\MailHandler::class
         );
@@ -650,6 +651,7 @@ class CartController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         \Extcode\Cart\Domain\Model\Order\Address $billingAddress,
         \Extcode\Cart\Domain\Model\Order\Address $shippingAddress = null
     ) {
+        /* @var \Extcode\Cart\Service\MailHandler $mailHandler*/
         $mailHandler = $this->objectManager->get(
             \Extcode\Cart\Service\MailHandler::class
         );

@@ -139,7 +139,7 @@ class ParserUtility
                     $cart->getIsNetCart()
                 );
 
-                if ($className = 'Payment') {
+                if ($className == 'Payment') {
                     if ($value['provider']) {
                         $service->setProvider($value['provider']);
                     }
