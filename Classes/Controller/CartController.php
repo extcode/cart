@@ -629,7 +629,7 @@ class CartController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         \Extcode\Cart\Domain\Model\Order\Address $billingAddress,
         \Extcode\Cart\Domain\Model\Order\Address $shippingAddress = null
     ) {
-	    /* @var \Extcode\Cart\Service\MailHandler $mailHandler*/
+        /* @var \Extcode\Cart\Service\MailHandler $mailHandler*/
         $mailHandler = $this->objectManager->get(
             \Extcode\Cart\Service\MailHandler::class
         );
@@ -651,7 +651,7 @@ class CartController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         \Extcode\Cart\Domain\Model\Order\Address $billingAddress,
         \Extcode\Cart\Domain\Model\Order\Address $shippingAddress = null
     ) {
-	    /* @var \Extcode\Cart\Service\MailHandler $mailHandler*/
+        /* @var \Extcode\Cart\Service\MailHandler $mailHandler*/
         $mailHandler = $this->objectManager->get(
             \Extcode\Cart\Service\MailHandler::class
         );
