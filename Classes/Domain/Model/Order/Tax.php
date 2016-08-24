@@ -45,13 +45,13 @@ class Tax extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * @param float $tax
      * @param \Extcode\Cart\Domain\Model\Order\TaxClass $taxClass
      *
-     * @return \Extcode\Cart\Domain\Model\Order\TaxClass
+     * @return \Extcode\Cart\Domain\Model\Order\Tax
      */
     public function __construct(
         $tax,
         $taxClass
     ) {
-        if (!$tax) {
+        if (!isset($tax)) {
             throw new \InvalidArgumentException(
                 'You have to specify a valid $tax for constructor.',
                 1456836510
