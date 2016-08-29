@@ -161,6 +161,14 @@
                 <source>Shipping Address</source>
                 <target>Versandadresse</target>
             </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_item.order_shipping">
+                <source>Shipping</source>
+                <target>Versand</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_item.order_payment">
+                <source>Payment</source>
+                <target>Zahlung</target>
+            </trans-unit>
             <trans-unit id="tx_cart_domain_model_order_item.comment">
                 <source>Comment</source>
                 <target>Bemerkung</target>

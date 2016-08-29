@@ -315,7 +315,7 @@ class OrderController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
             $this->addFlashMessage($msg);
         }
 
-        $this->redirect('list');
+        $this->redirect('show', null, null, ['orderItem' => $orderItem]);
     }
 
     /**
@@ -354,7 +354,7 @@ class OrderController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
             $this->addFlashMessage($msg);
         }
 
-        $this->redirect('list');
+        $this->redirect('show', null, null, ['orderItem' => $orderItem]);
     }
 
     /**

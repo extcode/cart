@@ -19,8 +19,7 @@
 
 <tr>
     <td colspan="5">
-        <f:translate key="tx_cart_domain_model_order_item.order_shipping"/>
-        {orderItem.orderShipping.name}
+        <f:translate key="tx_cart_domain_model_order_item.order_shipping"/>: {orderItem.shipping.name}
     </td>
     <td>
         <cart:format.currency>{orderItem.orderShipping.net}</cart:format.currency>
@@ -44,8 +43,7 @@
 
 <tr style="border-top: 1px solid #000000;">
     <td colspan="5">
-        <f:translate key="tx_cart_domain_model_order_item.order_payment"/>
-        {orderItem.orderPayment.name}
+        <f:translate key="tx_cart_domain_model_order_item.order_payment"/>: {orderItem.payment.name}
     </td>
     <td>
         <cart:format.currency>{orderItem.orderPayment.net}</cart:format.currency>

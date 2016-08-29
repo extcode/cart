@@ -9,25 +9,20 @@
         <fieldset>
             <dl class="sp-methods">
                 <f:for each="{payments}" as="payment">
-                    <dt>{payment.name}</dt>
+                    <dt>
+                        <f:if condition="{0: payment.id} == {0: cart.payment.id}">
+                            <f:then>
+                                {payment.name}
+                            </f:then>
+                            <f:else>
+                                <f:link.action action="setPayment" arguments="{paymentId:payment.id}">
+                                    {payment.name}
+                                </f:link.action>
+                            </f:else>
+                        </f:if>
+                    </dt>
                     <dd>
-                        <ul>
-                            <li>
-                                <f:if condition="{0: payment.id} == {0: cart.payment.id}">
-                                    <f:then>
-                                        <cart:format.currency>{payment.gross}</cart:format.currency>
-                                    </f:then>
-                                    <f:else>
-                                        <label>
-                                            <f:link.action action="setPayment" arguments="{paymentId:payment.id}">
-                                                Versand
-                                                <cart:format.currency>{payment.gross}</cart:format.currency>
-                                            </f:link.action>
-                                        </label>
-                                    </f:else>
-                                </f:if>
-                            </li>
-                        </ul>
+                        <cart:format.currency>{payment.gross}</cart:format.currency>
                     </dd>
                 </f:for>
             </dl>

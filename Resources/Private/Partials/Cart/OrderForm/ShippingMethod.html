@@ -9,26 +9,20 @@
         <fieldset>
             <dl class="sp-methods">
                 <f:for each="{shippings}" as="shipping">
-                    <dt>{shipping.name}</dt>
+                    <dt>
+                        <f:if condition="{0: shipping.id} == {0: cart.shipping.id}">
+                            <f:then>
+                                {shipping.name}
+                            </f:then>
+                            <f:else>
+                                <f:link.action action="setShipping" arguments="{shippingId:shipping.id}">
+                                    {shipping.name}
+                                </f:link.action>
+                            </f:else>
+                        </f:if>
+                    </dt>
                     <dd>
-                        <ul>
-                            <li>
-                                <f:if condition="{0: shipping.id} == {0: cart.shipping.id}">
-                                    <f:then>
-                                        Versand
-                                        <cart:format.currency>{shipping.gross}</cart:format.currency>
-                                    </f:then>
-                                    <f:else>
-                                        <label>
-                                            <f:link.action action="setShipping" arguments="{shippingId:shipping.id}">
-                                                Versand
-                                                <cart:format.currency>{shipping.gross}</cart:format.currency>
-                                            </f:link.action>
-                                        </label>
-                                    </f:else>
-                                </f:if>
-                            </li>
-                        </ul>
+                        <cart:format.currency>{shipping.gross}</cart:format.currency>
                     </dd>
                 </f:for>
             </dl>

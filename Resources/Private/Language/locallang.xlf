@@ -344,10 +344,10 @@
                 <source>Order Product</source>
             </trans-unit>
             <trans-unit id="tx_cart_domain_model_order_item.order_shipping">
-                <source>Order Shipping</source>
+                <source>Shipping</source>
             </trans-unit>
             <trans-unit id="tx_cart_domain_model_order_item.order_payment">
-                <source>Order Payment</source>
+                <source>Payment</source>
             </trans-unit>
             <trans-unit id="tx_cart_domain_model_order_item.crdate">
                 <source>Order Date</source>
