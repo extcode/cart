@@ -328,11 +328,11 @@
             <trans-unit id="tx_cart_domain_model_order_item.additional_data">
                 <source>Additional Data</source>
             </trans-unit>
-            <trans-unit id="tx_cart_domain_model_order_item.order_pdf">
-                <source>Order Pdf</source>
+            <trans-unit id="tx_cart_domain_model_order_item.order_pdfs">
+                <source>Order PDFs</source>
             </trans-unit>
-            <trans-unit id="tx_cart_domain_model_order_item.invoice_pdf">
-                <source>Invoice Pdf</source>
+            <trans-unit id="tx_cart_domain_model_order_item.invoice_pdfs">
+                <source>Invoice PDFs</source>
             </trans-unit>
             <trans-unit id="tx_cart_domain_model_order_item.order_tax">
                 <source>Order Tax</source>

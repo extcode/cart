@@ -1,3 +1,9 @@
+1.1.5
+    2016-09-02
+    Daniel Lorenz <daniel.lorenz@extco.de>
+
+    * TASK #1227: change invoice_pdf and order_pdf relations to object storages in order item model
+
 1.1.4
     2016-08-29
     Daniel Lorenz <daniel.lorenz@extco.de>

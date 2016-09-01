@@ -334,8 +334,8 @@ CREATE TABLE tx_cart_domain_model_order_item (
     net double(11,2) DEFAULT '0.00' NOT NULL,
     total_gross double(11,2) DEFAULT '0.00' NOT NULL,
     total_net double(11,2) DEFAULT '0.00' NOT NULL,
-    order_pdf int(11) unsigned DEFAULT '0',
-    invoice_pdf int(11) unsigned DEFAULT '0',
+    order_pdfs int(11) unsigned DEFAULT '0',
+    invoice_pdfs int(11) unsigned DEFAULT '0',
 
     tax int(11) unsigned DEFAULT '0' NOT NULL,
     total_tax int(11) unsigned DEFAULT '0' NOT NULL,

@@ -1,7 +1,23 @@
 <div class="btn-group">
     <f:if condition="{0: orderItem.invoiceNumber} == {0: ''}">
-        <f:link.action action="generateInvoiceNumber" arguments="{orderItem : orderItem}">
-            <f:translate key="tx_cart.controller.order.action.generateInvoiceNumber"/>
+            <span class="btn btn-default btn-sm">
+                <f:link.action action="generateInvoiceNumber" arguments="{orderItem : orderItem}">
+                    <f:translate key="tx_cart.controller.order.action.generateInvoiceNumber"/>
+                </f:link.action>
+            </span>
+    </f:if>
+
+    <span class="btn btn-default btn-sm">
+        <f:link.action action="generateInvoiceDocument" arguments="{orderItem : orderItem}">
+            <f:translate key="tx_cart.controller.order.action.generateInvoiceDocument"/>
         </f:link.action>
+    </span>
+
+    <f:if condition="{orderItem.invoicePdfs}">
+        <span class="btn btn-default btn-sm">
+            <f:link.action action="downloadInvoiceDocument" arguments="{orderItem : orderItem}">
+                <f:translate key="tx_cart.controller.order.action.downloadInvoiceDocument"/>
+            </f:link.action>
+        </span>
     </f:if>
 </div>

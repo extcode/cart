@@ -185,16 +185,16 @@ class Item extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Order Pdf
      *
-     * @var \TYPO3\CMS\Extbase\Domain\Model\FileReference
+     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference>
      */
-    protected $orderPdf;
+    protected $orderPdfs;
 
     /**
      * Invoice Pdf
      *
-     * @var \TYPO3\CMS\Extbase\Domain\Model\FileReference
+     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference>
      */
-    protected $invoicePdf;
+    protected $invoicePdfs;
 
     /**
      * crdate
@@ -246,6 +246,7 @@ class Item extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
         $this->taxClass = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
         $this->tax = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
         $this->totalTax = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+        $this->invoicePdfs = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
     }
 
     /**
@@ -616,45 +617,93 @@ class Item extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Returns Order PDF
      *
-     * @return \TYPO3\CMS\Extbase\Domain\Model\FileReference
+     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference>
      */
-    public function getOrderPdf()
+    public function getOrderPdfs()
     {
-        return $this->orderPdf;
+        return $this->orderPdfs;
     }
 
     /**
      * Sets Order PDF
      *
+     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference>
+     *
+     * @return void
+     */
+    public function setOrderPdf($orderPdfs)
+    {
+        $this->orderPdfs = $orderPdfs;
+    }
+
+    /**
+     * Sets Invoice PDFs
+     *
+     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference>
+     */
+    public function getInvoicePdfs()
+    {
+        return $this->invoicePdfs;
+    }
+
+    /**
+     * Adds a Order PDF
+     *
      * @param \TYPO3\CMS\Extbase\Domain\Model\FileReference $orderPdf
      *
      * @return void
      */
-    public function setOrderPdf($orderPdf)
+    public function addOrderPdf(\TYPO3\CMS\Extbase\Domain\Model\FileReference $orderPdf)
     {
-        $this->orderPdf = $orderPdf;
+        $this->invoicePdfs->attach($orderPdf);
     }
 
     /**
-     * Sets Invoice PDF
+     * Removes a Order PDF
      *
-     * @return \TYPO3\CMS\Extbase\Domain\Model\FileReference
+     * @param \TYPO3\CMS\Extbase\Domain\Model\FileReference $orderPdfToRemove
+     *
+     * @return void
      */
-    public function getInvoicePdf()
+    public function removeOrderPdf(\TYPO3\CMS\Extbase\Domain\Model\FileReference $orderPdfToRemove)
     {
-        return $this->invoicePdf;
+        $this->orderPdfs->detach($orderPdfToRemove);
     }
 
     /**
-     * Sets Invoice PDF
+     * Sets Invoice PDFs
+     *
+     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference $invoicePdf>
+     *
+     * @return void
+     */
+    public function setInvoicePdfs($invoicePdfs)
+    {
+        $this->invoicePdfs = $invoicePdfs;
+    }
+
+    /**
+     * Adds a Invoice PDF
      *
      * @param \TYPO3\CMS\Extbase\Domain\Model\FileReference $invoicePdf
      *
      * @return void
      */
-    public function setInvoicePdf($invoicePdf)
+    public function addInvoicePdf(\TYPO3\CMS\Extbase\Domain\Model\FileReference $invoicePdf)
     {
-        $this->invoicePdf = $invoicePdf;
+        $this->invoicePdfs->attach($invoicePdf);
+    }
+
+    /**
+     * Removes a Invoice PDF
+     *
+     * @param \TYPO3\CMS\Extbase\Domain\Model\FileReference $invoicePdfToRemove
+     *
+     * @return void
+     */
+    public function removeInvoicePdf(\TYPO3\CMS\Extbase\Domain\Model\FileReference $invoicePdfToRemove)
+    {
+        $this->invoicePdfs->detach($invoicePdfToRemove);
     }
 
     /**

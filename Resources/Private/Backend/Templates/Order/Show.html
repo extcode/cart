@@ -7,27 +7,11 @@
                 icon="actions-close"/>
     </span>
 
-    <span class="btn btn-default btn-sm">
-        <f:be.buttons.icon
-                uri="{f:uri.action(action:'edit', arguments:{orderItem : orderItem})}"
-                icon="actions-open"/>
-    </span>
-
-    <f:if condition="{0: orderItem.invoiceNumber} == {0: ''}">
-        <span class="btn btn-default btn-sm">
-            <f:link.action action="generateInvoiceNumber" arguments="{orderItem : orderItem}">
-                <f:translate key="tx_cart.controller.order.action.generateInvoiceNumber"/>
-            </f:link.action>
-        </span>
+    <f:if condition="{pdfRendererInstalled}">
+        <f:render partial="Order/Show/Actions" arguments="{orderItem: orderItem}"/>
     </f:if>
 
-    <f:if condition="{0: orderItem.invoicePdf, 1:pdfRendererInstalled} == {0: '', 1:1}">
-        <span class="btn btn-default btn-sm">
-            <f:link.action action="generateInvoiceDocument" arguments="{orderItem : orderItem}">
-                <f:translate key="tx_cart.controller.order.action.generateInvoiceDocument"/>
-            </f:link.action>
-        </span>
-    </f:if>
+
 </f:section>
 
 <f:section name="content">
@@ -44,8 +28,4 @@
     <div style="padding-bottom: 20px;">
         <f:render partial="Order/Show/Cart" arguments="{orderItem: orderItem}"/>
     </div>
-
-    <f:render partial="Order/Show/Actions"
-              arguments="{orderItem: orderItem, pdfRendererInstalled: pdfRendererInstalled, hideshowaction: 1}"/>
-
 </f:section>

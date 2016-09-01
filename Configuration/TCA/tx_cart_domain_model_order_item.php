@@ -39,7 +39,8 @@ return [
                 products,
                 discounts,
                 payment,
-                shipping'
+                shipping,
+                invoice_pdfs'
         ],
     ],
     'palettes' => [
@@ -444,9 +445,9 @@ return [
                 ],
             ],
         ],
-        'order_pdf' => [
+        'order_pdfs' => [
             'exclude' => 0,
-            'label' => $_LLL . ':tx_cart_domain_model_order_item.order_pdf',
+            'label' => $_LLL . ':tx_cart_domain_model_order_item.order_pdfs',
             'config' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::getFileFieldTCAConfig(
                 'file',
                 [
@@ -462,7 +463,7 @@ return [
                         ],
                     ],
                     'foreign_match_fields' => [
-                        'fieldname' => 'order_pdf',
+                        'fieldname' => 'order_pdfs',
                         'tablenames' => 'tx_cart_domain_model_order_item',
                         'table_local' => 'sys_file',
                     ],
@@ -471,9 +472,9 @@ return [
                 'pdf'
             ),
         ],
-        'invoice_pdf' => [
+        'invoice_pdfs' => [
             'exclude' => 0,
-            'label' => $_LLL . ':tx_cart_domain_model_order_item.invoice_pdf',
+            'label' => $_LLL . ':tx_cart_domain_model_order_item.invoice_pdfs',
             'config' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::getFileFieldTCAConfig(
                 'file',
                 [
@@ -489,7 +490,7 @@ return [
                         ],
                     ],
                     'foreign_match_fields' => [
-                        'fieldname' => 'invoice_pdf',
+                        'fieldname' => 'invoice_pdfs',
                         'tablenames' => 'tx_cart_domain_model_order_item',
                         'table_local' => 'sys_file',
                     ],

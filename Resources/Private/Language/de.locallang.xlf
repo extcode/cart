@@ -144,6 +144,14 @@
                 <source>Total Price (Net)</source>
                 <target>Gesamtpreis (Netto)</target>
             </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_item.order_pdfs">
+                <source>Order PDFs</source>
+                <target>Bestell PDFs</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_item.invoice_pdfs">
+                <source>Invoice PDFs</source>
+                <target>Rechnung PDFs</target>
+            </trans-unit>
 
             <trans-unit id="tx_cart_domain_model_order_item.invoice_number">
                 <source>Invoice Number</source>

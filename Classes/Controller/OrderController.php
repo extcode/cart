@@ -330,6 +330,7 @@ class OrderController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         if (!$orderItem->getInvoiceNumber()) {
             $invoiceNumber = $this->generateInvoiceNumber($orderItem);
             $orderItem->setInvoiceNumber($invoiceNumber);
+            $orderItem->setInvoiceDate(new \DateTime());
 
             $this->addFlashMessage(
                 'Invoice Number was generated.',
@@ -366,9 +367,11 @@ class OrderController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      */
     public function downloadInvoiceDocumentAction(\Extcode\Cart\Domain\Model\Order\Item $orderItem)
     {
-        $file = PATH_site . $orderItem->getInvoicePdf()->getOriginalResource()->getPublicUrl();
+        $invoicePdfs = $orderItem->getInvoicePdfs()->toArray();
+        $originalPdf = end($invoicePdfs)->getOriginalResource();
+        $file = PATH_site . $originalPdf->getPublicUrl();
 
-        $fileName = 'Invoice.pdf';
+        $fileName = $originalPdf->getName();
 
         if (is_file($file)) {
             $fileLen = filesize($file);
