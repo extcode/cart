@@ -24,10 +24,10 @@ return [
         'iconfile' => 'EXT:cart/Resources/Public/Icons/Product/FeVariant.png'
     ],
     'interface' => [
-        'showRecordFieldList' => 'hidden, sku, title',
+        'showRecordFieldList' => 'hidden, is_required, sku, title',
     ],
     'types' => [
-        '1' => ['showitem' => 'hidden;;1, sku, title, --div--;LLL:EXT:cms/locallang_ttc.xlf:tabs.access'],
+        '1' => ['showitem' => 'hidden;;1, is_required, sku, title, --div--;LLL:EXT:cms/locallang_ttc.xlf:tabs.access'],
     ],
     'palettes' => [
         '1' => ['showitem' => ''],
@@ -41,6 +41,13 @@ return [
             ],
         ],
 
+        'is_required' => [
+            'exclude' => 1,
+            'label' => $_LLL . ':tx_cart_domain_model_product_fevariant.is_required',
+            'config' => [
+                'type' => 'check',
+            ],
+        ],
         'sku' => [
             'exclude' => 1,
             'label' => $_LLL . ':tx_cart_domain_model_product_fevariant.sku',
@@ -50,7 +57,6 @@ return [
                 'eval' => 'required,trim'
             ],
         ],
-
         'title' => [
             'exclude' => 1,
             'label' => $_LLL . ':tx_cart_domain_model_product_fevariant.title',
@@ -60,7 +66,6 @@ return [
                 'eval' => 'required,trim'
             ],
         ],
-
         'product' => [
             'config' => [
                 'type' => 'passthrough',

@@ -23,7 +23,6 @@ namespace Extcode\Cart\Domain\Model\Product;
  */
 abstract class AbstractProduct extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 {
-
     /**
      * SKU
      *

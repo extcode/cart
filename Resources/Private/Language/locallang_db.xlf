@@ -812,6 +812,9 @@
             <trans-unit id="tx_cart_domain_model_product_fevariant">
                 <source>Frontend Variant</source>
             </trans-unit>
+            <trans-unit id="tx_cart_domain_model_product_fevariant.is_required">
+                <source>is Required</source>
+            </trans-unit>
             <trans-unit id="tx_cart_domain_model_product_fevariant.sku">
                 <source>SKU</source>
             </trans-unit>

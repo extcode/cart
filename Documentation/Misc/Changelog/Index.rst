@@ -10,6 +10,7 @@ ChangeLog
    :maxdepth: 5
    :titlesonly:
 
+   1.2.0
    1.1.5
    1.1.0
    1.0.0

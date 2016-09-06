@@ -16,8 +16,16 @@
         </f:if>
         <f:if condition="{product.feVariants}">
             <f:for each="{product.feVariants}" as="feVariant">
-                {feVariant.title}:
-                <input type="text" name="tx_cart_cart[feVariants][{feVariant.sku}]">
+                <f:if condition="{feVariant.isRequired}">
+                    <f:then>
+                        <label class="required">{feVariant.title} <em>*</em></label>
+                        <input type="text" name="tx_cart_cart[feVariants][{feVariant.sku}]" required="true">
+                    </f:then>
+                    <f:else>
+                        <label class="required">{feVariant.title}</label>
+                        <input type="text" name="tx_cart_cart[feVariants][{feVariant.sku}]">
+                    </f:else>
+                </f:if>
             </f:for>
         </f:if>
         <input type="submit" class="btn btn-default" value="<f:translate key='tx_cart.plugin.form.submit' />">

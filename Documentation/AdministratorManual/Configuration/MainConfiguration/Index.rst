@@ -18,6 +18,19 @@ settings.cart.pid
       Definiert die Seite in der das Warenkorb-Plugin liegt. Dies wird benötigt, um ein Produkt dem richtigen
       Warenkorb zuzuorden und auf den Warenkorb zu verweisen.
 
+settings.cart.isNetCart
+"""""""""""""""""""""""
+.. container:: table-row
+
+   Property
+      settings.cart.isNetCart
+   Data type
+      boolean
+   Description
+      Definiert ob der Warenkorb als Nettowarenkorb behandelt werden soll. Ist der Warenkorb ein Nettowarenkorb,
+      werden die Preisberechungen alle auf den Nettopreisen der Produkte durchgeführt und ausgegeben, andernfalls
+      erfolgt die Berechnungn mit den Bruttopreisen.
+
 settings.order.pid
 """"""""""""""""""
 .. container:: table-row

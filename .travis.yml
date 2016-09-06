@@ -4,16 +4,18 @@ sudo: false
 
 matrix:
   include:
-    - php: 5.5
-      env: TYPO3_VERSION=^6.2
-    - php: 5.6
-      env: TYPO3_VERSION=^6.2
-    - php: 5.5
-      env: TYPO3_VERSION=^7.6
-    - php: 5.6
+    - php: 7.1
       env: TYPO3_VERSION=^7.6
     - php: 7
       env: TYPO3_VERSION=^7.6
+    - php: 5.6
+      env: TYPO3_VERSION=^7.6
+    - php: 5.5
+      env: TYPO3_VERSION=^7.6
+    - php: 5.6
+      env: TYPO3_VERSION=^6.2
+    - php: 5.5
+      env: TYPO3_VERSION=^6.2
 
 cache:
   directories:

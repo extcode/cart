@@ -16,12 +16,128 @@ namespace Extcode\Cart\Domain\Model\Product;
  */
 
 /**
- * Product FeVariant Model
+ * Product FeVariant
  *
  * @package cart
  * @author Daniel Lorenz <ext.cart@extco.de>
  */
-class FeVariant extends \Extcode\Cart\Domain\Model\Product\AbstractProduct
+class FeVariant extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 {
+    /**
+     * SKU
+     *
+     * @var string
+     * @validate NotEmpty
+     */
+    protected $sku = '';
 
+    /**
+     * Title
+     *
+     * @var string
+     * @validate NotEmpty
+     */
+    protected $title = '';
+
+    /**
+     * Description
+     *
+     * @var string
+     */
+    protected $description = '';
+
+    /**
+     * Is Required
+     *
+     * @var boolean
+     */
+    protected $isRequired = false;
+
+    /**
+     * Returns SKU
+     *
+     * @return string
+     */
+    public function getSku()
+    {
+        return $this->sku;
+    }
+
+    /**
+     * Sets SKU
+     *
+     * @param string $sku
+     *
+     * @return void
+     */
+    public function setSku($sku)
+    {
+        $this->sku = $sku;
+    }
+
+    /**
+     * Returns Title
+     *
+     * @return string
+     */
+    public function getTitle()
+    {
+        return $this->title;
+    }
+
+    /**
+     * Sets Title
+     *
+     * @param string $title
+     *
+     * @return void
+     */
+    public function setTitle($title)
+    {
+        $this->title = $title;
+    }
+
+    /**
+     * Returns Description
+     *
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * Sets Description
+     *
+     * @param string $description
+     *
+     * @return void
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+    }
+
+    /**
+     * Returns IsRequired
+     *
+     * @return boolean
+     */
+    public function getIsRequired()
+    {
+        return $this->isRequired;
+    }
+
+    /**
+     * Sets IsRequired
+     *
+     * @param boolean $isRequired
+     *
+     * @return void
+     */
+    public function setIsRequired($isRequired)
+    {
+        $this->isRequired = $isRequired;
+    }
 }
