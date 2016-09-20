@@ -1,3 +1,9 @@
+1.2.3
+    2016-09-20
+    Daniel Lorenz <daniel.lorenz@extco.de>
+
+    * BUGFIX #14: remove dependency to SessionUtility
+
 1.2.2
     2016-09-20
     Daniel Lorenz <daniel.lorenz@extco.de>

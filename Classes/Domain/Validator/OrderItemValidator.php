@@ -27,19 +27,6 @@ class OrderItemValidator extends \TYPO3\CMS\Extbase\Validation\Validator\Abstrac
     protected $propertyValidators = array();
 
     /**
-     * @var \TYPO3\CMS\Form\Utility\SessionUtility
-     */
-    protected $sessionUtility;
-
-    /**
-     * @param \TYPO3\CMS\Form\Utility\SessionUtility $sessionUtility
-     */
-    public function injectSessionUtility(\TYPO3\CMS\Form\Utility\SessionUtility $sessionUtility)
-    {
-        $this->sessionUtility = $sessionUtility;
-    }
-
-    /**
      * Checks if the given value is valid according to the validator, and returns
      * the Error Messages object which occurred.
      *
@@ -72,19 +59,9 @@ class OrderItemValidator extends \TYPO3\CMS\Extbase\Validation\Validator\Abstrac
      */
     protected function getPropertyValue(\Extcode\Cart\Domain\Model\Order\Item $item, $propertyName)
     {
-        /**
-         * If a confirmation page is set and a fileupload was done before
-         * there is no incoming data if the process action is called.
-         * The data is only in the session at this time.
-         * This results in a negative validation (if a validation is set).
-         * Therefore, look first in the session.
-         */
-        if ($this->sessionUtility->getSessionData($propertyName)) {
-            $propertyValue = $this->sessionUtility->getSessionData($propertyName);
-        } else {
-            $getter = 'get' . ucfirst($propertyName);
-            $propertyValue = $item->$getter();
-        }
+        $getter = 'get' . ucfirst($propertyName);
+        $propertyValue = $item->$getter();
+
         return $propertyValue;
     }
 
