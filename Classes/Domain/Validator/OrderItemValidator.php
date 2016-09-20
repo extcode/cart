@@ -161,6 +161,23 @@ class OrderItemValidator extends \TYPO3\CMS\Extbase\Validation\Validator\Abstrac
     }
 
     /**
+     * Checks if the specified property of the given object is valid.
+     *
+     * If at least one error occurred, the result is FALSE.
+     *
+     * @param object $object The object containing the property to validate
+     * @param string $propertyName Name of the property to validate
+     * @return boolean TRUE if the property value is valid, FALSE if an error occurred
+     *
+     * @deprecated since Extbase 1.4.0, will be removed two versions after Extbase 6.1
+     * @api
+     */
+    public function isPropertyValid($object, $propertyName)
+    {
+        return false;
+    }
+
+    /**
      * Checks the given object can be validated by the validator implementation
      *
      * @param mixed $object The object to be checked
