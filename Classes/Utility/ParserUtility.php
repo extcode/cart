@@ -147,6 +147,7 @@ class ParserUtility
 
                 if (is_array($value['extra'])) {
                     $service->setExtraType($value['extra']['_typoScriptNodeValue']);
+                    unset($value['extra']['_typoScriptNodeValue']);
                     foreach ($value['extra'] as $extraKey => $extraValue) {
                         $extra = new \Extcode\Cart\Domain\Model\Cart\Extra(
                             $extraKey,
