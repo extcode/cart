@@ -210,6 +210,10 @@
                 <source>Send it to the same address.</source>
             </trans-unit>
 
+            <trans-unit id="tx_cart.history_back">
+                <source>back</source>
+            </trans-unit>
+
             <trans-unit id="tx_cart.controller.order.actions">
                 <source>Actions</source>
             </trans-unit>

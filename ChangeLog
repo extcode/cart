@@ -1,3 +1,9 @@
+1.2.4
+    2016-09-28
+    Daniel Lorenz <daniel.lorenz@extco.de>
+    * BUGFIX #18: show prices for payment and shipping of an order in backend modul
+    * BUGFIX #19: replace action link to list with history.back() in product detail view
+
 1.2.3
     2016-09-20
     Daniel Lorenz <daniel.lorenz@extco.de>

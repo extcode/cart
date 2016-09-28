@@ -407,6 +407,11 @@
                 <target>An die gleiche Adresse versenden.</target>
             </trans-unit>
 
+            <trans-unit id="tx_cart.history_back">
+                <source>back</source>
+                <target>zurück</target>
+            </trans-unit>
+
             <trans-unit id="tx_cart.controller.order.action.show_cart.block-header.billing_address">
                 <source>Billing Address</source>
                 <target>Rechnungsadresse</target>
