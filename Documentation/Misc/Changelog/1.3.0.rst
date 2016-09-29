@@ -1,0 +1,16 @@
+.. ==================================================
+.. FOR YOUR INFORMATION
+.. --------------------------------------------------
+.. -*- coding: utf-8 -*- with BOM.
+
+1.3.0 - 29.09.2016
+------------------
+
+In dieser Version wurden einige OrderController-Actions generalisiert, so dass man aus dem Backend heraus verschiedene PDF-Dokumente generieren kann.
+
+* Neben den Rechnungen können nun auch Bestellbestätigungen erzeugt und gespeichert werden.
+* Es können Lieferscheine im PDF-Format generiert werden.
+* Die Dokumente lassen sich direkt nach der Bestellung erzeugen und als Anhang in den E-Mails an den Käufer und/oder den Verkäufer verschicken.
+
+.. IMPORTANT::
+   * Es ist eine Aktualisierung der Datenbank erforderlich um die Datenbankfelder für die Lieferscheine zu erzeugen. Da die Felder neu hinzukommen ist ein Update unproblematisch.

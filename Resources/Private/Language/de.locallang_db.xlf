@@ -99,6 +99,10 @@
                 <source>Shipping</source>
                 <target>Versand</target>
             </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_item.palettes.documents">
+                <source>Documents</source>
+                <target>Dokumente</target>
+            </trans-unit>
             <trans-unit id="tx_cart_domain_model_order_item.fe_user">
                 <source>User</source>
                 <target>Benutzer</target>
@@ -122,6 +126,14 @@
             <trans-unit id="tx_cart_domain_model_order_item.invoice_date">
                 <source>Invoice Date</source>
                 <target>Rechnungsdatum</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_item.delivery_number">
+                <source>Delivery Note Number</source>
+                <target>Lieferscheinnummer</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_item.delivery_date">
+                <source>Delivery Note Date</source>
+                <target>Lieferscheindatum</target>
             </trans-unit>
             <trans-unit id="tx_cart_domain_model_order_item.shipping_address">
                 <source>Shipping Address</source>
@@ -160,12 +172,16 @@
                 <target>Zusätzliche Daten</target>
             </trans-unit>
             <trans-unit id="tx_cart_domain_model_order_item.order_pdfs">
-                <source>Order PDFs</source>
-                <target>Bestell PDFs</target>
+                <source>Order Confirmations (PDF)</source>
+                <target>Bestellbestätigungen (PDF)</target>
             </trans-unit>
             <trans-unit id="tx_cart_domain_model_order_item.invoice_pdfs">
-                <source>Invoice PDFs</source>
-                <target>Rechnung PDFs</target>
+                <source>Invoices (PDF)</source>
+                <target>Rechnungen (PDF)</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_item.delivery_pdfs">
+                <source>Delivery Notes (PDF)</source>
+                <target>Lieferscheine (PDF)</target>
             </trans-unit>
             <trans-unit id="tx_cart_domain_model_order_item.tax">
                 <source>Tax</source>

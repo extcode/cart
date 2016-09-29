@@ -1,17 +1,7 @@
 <f:layout name="Default"/>
 
 <f:section name="actions">
-    <span class="btn btn-default btn-sm">
-        <f:be.buttons.icon
-                uri="{f:uri.action(action:'list')}"
-                icon="actions-close"/>
-    </span>
-
-    <f:if condition="{pdfRendererInstalled}">
-        <f:render partial="Order/Show/Actions" arguments="{orderItem: orderItem}"/>
-    </f:if>
-
-
+    <f:render partial="Order/Show/Actions" arguments="{orderItem: orderItem, pdfRendererInstalled: pdfRendererInstalled}"/>
 </f:section>
 
 <f:section name="content">

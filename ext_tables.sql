@@ -329,15 +329,19 @@ CREATE TABLE tx_cart_domain_model_order_item (
 
     order_number varchar(255) DEFAULT '' NOT NULL,
     order_date int(11) unsigned DEFAULT '0' NOT NULL,
+    order_pdfs int(11) unsigned DEFAULT '0',
     invoice_number varchar(255) DEFAULT '' NOT NULL,
     invoice_date int(11) unsigned DEFAULT '0' NOT NULL,
+    invoice_pdfs int(11) unsigned DEFAULT '0',
+    delivery_number varchar(255) DEFAULT '' NOT NULL,
+    delivery_date int(11) unsigned DEFAULT '0' NOT NULL,
+    delivery_pdfs int(11) unsigned DEFAULT '0',
+
     currency varchar(255) DEFAULT '' NOT NULL,
     gross double(11,2) DEFAULT '0.00' NOT NULL,
     net double(11,2) DEFAULT '0.00' NOT NULL,
     total_gross double(11,2) DEFAULT '0.00' NOT NULL,
     total_net double(11,2) DEFAULT '0.00' NOT NULL,
-    order_pdfs int(11) unsigned DEFAULT '0',
-    invoice_pdfs int(11) unsigned DEFAULT '0',
 
     tax int(11) unsigned DEFAULT '0' NOT NULL,
     total_tax int(11) unsigned DEFAULT '0' NOT NULL,

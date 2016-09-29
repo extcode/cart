@@ -137,14 +137,6 @@ class OrderController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 
             $this->request->setArgument('orderItem', $orderItem);
         }
-        $this->arguments->
-        getArgument('orderItem')->
-        getPropertyMappingConfiguration()->
-        forProperty('birthday')->
-        setTypeConverterOption(
-            'TYPO3\\CMS\\Extbase\\Property\\TypeConverter\\DateTimeConverter',
-            DateTimeConverter::CONFIGURATION_DATE_FORMAT, 'd.m.Y'
-        );
     }
 
     /**
@@ -221,11 +213,11 @@ class OrderController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 
         if ($format == 'csv') {
             $title = 'Order-Export-' . date('Y-m-d_H-i');
+            $filename = $title . '.' . $format;
 
             $this->response->setHeader('Content-Type', 'text/' . $format, true);
             $this->response->setHeader('Content-Description', 'File transfer', true);
-            $this->response->setHeader('Content-Disposition', 'attachment; filename="' . $title . '.' . $format . '"',
-                true);
+            $this->response->setHeader('Content-Disposition', 'attachment; filename="' . $filename . '"', true);
         }
 
         $orderItems = $this->itemRepository->findAll($this->searchArguments);
@@ -322,53 +314,55 @@ class OrderController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      * Generate Invoice Document Action
      *
      * @param \Extcode\Cart\Domain\Model\Order\Item $orderItem
+     * @param string $pdfType
      *
      * @return void
      */
-    public function generateInvoiceDocumentAction(\Extcode\Cart\Domain\Model\Order\Item $orderItem)
+    public function generatePdfDocumentAction(\Extcode\Cart\Domain\Model\Order\Item $orderItem, $pdfType)
     {
-        if (!$orderItem->getInvoiceNumber()) {
-            $invoiceNumber = $this->generateInvoiceNumber($orderItem);
-            $orderItem->setInvoiceNumber($invoiceNumber);
-            $orderItem->setInvoiceDate(new \DateTime());
+        if ($pdfType == 'invoice') {
+            if (!$orderItem->getInvoiceNumber()) {
+                $invoiceNumber = $this->generateInvoiceNumber($orderItem);
+                $orderItem->setInvoiceNumber($invoiceNumber);
+                $orderItem->setInvoiceDate(new \DateTime());
 
-            $this->addFlashMessage(
-                'Invoice Number was generated.',
-                $messageTitle = '',
-                $severity = \TYPO3\CMS\Core\Messaging\AbstractMessage::OK,
-                $storeInSession = true
-            );
+                $this->addFlashMessage(
+                    'Invoice Number was generated.',
+                    $messageTitle = '',
+                    $severity = \TYPO3\CMS\Core\Messaging\AbstractMessage::OK,
+                    $storeInSession = true
+                );
 
-            $this->itemRepository->update($orderItem);
+                $this->itemRepository->update($orderItem);
 
-            $this->persistenceManager->persistAll();
-
+                $this->persistenceManager->persistAll();
+            }
         }
 
-        if ($orderItem->getInvoiceNumber()) {
-            $this->generateInvoiceDocument($orderItem);
+        $this->generatePdfDocument($orderItem, $pdfType);
 
-            $this->itemRepository->update($orderItem);
-            $this->persistenceManager->persistAll();
+        $this->itemRepository->update($orderItem);
+        $this->persistenceManager->persistAll();
 
-            $msg = 'Invoice Document was generated.';
-            $this->addFlashMessage($msg);
-        }
+        $msg = ucfirst($pdfType) . '-PDF-Document was generated.';
+        $this->addFlashMessage($msg);
 
         $this->redirect('show', null, null, ['orderItem' => $orderItem]);
     }
 
     /**
-     * Download Invoice Document Action
+     * Download Pdf Document Action
      *
      * @param \Extcode\Cart\Domain\Model\Order\Item $orderItem
+     * @param string $pdfType
      *
      * @return void
      */
-    public function downloadInvoiceDocumentAction(\Extcode\Cart\Domain\Model\Order\Item $orderItem)
+    public function downloadPdfDocumentAction(\Extcode\Cart\Domain\Model\Order\Item $orderItem, $pdfType)
     {
-        $invoicePdfs = $orderItem->getInvoicePdfs()->toArray();
-        $originalPdf = end($invoicePdfs)->getOriginalResource();
+        $getter = 'get' . ucfirst($pdfType) . 'Pdfs';
+        $pdfs = $orderItem->$getter();
+        $originalPdf = end($pdfs->toArray())->getOriginalResource();
         $file = PATH_site . $originalPdf->getPublicUrl();
 
         $fileName = $originalPdf->getName();
@@ -380,7 +374,6 @@ class OrderController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
                 'Pragma' => 'public',
                 'Expires' => 0,
                 'Cache-Control' => 'must-revalidate, post-check=0, pre-check=0',
-                'Cache-Control' => 'public',
                 'Content-Description' => 'File Transfer',
                 'Content-Type' => 'application/pdf',
                 'Content-Disposition' => 'attachment; filename="' . $fileName . '"',
@@ -444,28 +437,25 @@ class OrderController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     }
 
     /**
-     * Generate Invoice Document
+     * Generate Pdf Document
      *
      * @param \Extcode\Cart\Domain\Model\Order\Item $orderItem
+     * @param string $pdfType
      *
      * @return void
      */
-    protected function generateInvoiceDocument(\Extcode\Cart\Domain\Model\Order\Item $orderItem)
+    protected function generatePdfDocument(\Extcode\Cart\Domain\Model\Order\Item $orderItem, $pdfType)
     {
         $extensionManagerUtility = $this->objectManager->get(
             \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::class
         );
 
         if ($extensionManagerUtility->isLoaded('cart_pdf')) {
-            $orderPdf = $this->objectManager->get(
+            $pdfService = $this->objectManager->get(
                 \Extcode\CartPdf\Service\PdfService::class
             );
 
-            $pdf = $orderPdf->createPdf('invoicePdf', $orderItem);
-
-            if ($pdf) {
-                $orderItem->setInvoicePdf($pdf);
-            }
+            $pdfService->createPdf($orderItem, $pdfType);
         }
     }
 

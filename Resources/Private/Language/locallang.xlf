@@ -238,6 +238,15 @@
             <trans-unit id="tx_cart.controller.order.action.downloadInvoiceDocument">
                 <source>Download Invoice Document</source>
             </trans-unit>
+            <trans-unit id="tx_cart.controller.order.action.generateDeliveryNumber">
+                <source>Generate Delivery Note Number</source>
+            </trans-unit>
+            <trans-unit id="tx_cart.controller.order.action.generateDeliveryDocument">
+                <source>Generate Delivery Note Document</source>
+            </trans-unit>
+            <trans-unit id="tx_cart.controller.order.action.downloadDeliveryDocument">
+                <source>Download Delivery Note Document</source>
+            </trans-unit>
             <trans-unit id="tx_cart.controller.order.action.statistic">
                 <source>Statistic of Orders</source>
             </trans-unit>

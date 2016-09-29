@@ -1,4 +1,32 @@
 <div class="btn-group">
+    <span class="btn btn-default btn-sm">
+        <f:be.buttons.icon
+                uri="{f:uri.action(action:'list')}"
+                icon="actions-close"/>
+    </span>
+
+    <f:if condition="{0: orderItem.orderNumber} == {0: ''}">
+            <span class="btn btn-default btn-sm">
+                <f:link.action action="generateOrderNumber" arguments="{orderItem : orderItem}">
+                    <f:translate key="tx_cart.controller.order.action.generateOrderNumber"/>
+                </f:link.action>
+            </span>
+    </f:if>
+    <f:if condition="{pdfRendererInstalled}">
+        <span class="btn btn-default btn-sm">
+            <f:link.action action="generatePdfDocument" arguments="{orderItem : orderItem, pdfType: 'order'}">
+                <f:translate key="tx_cart.controller.order.action.generateOrderDocument"/>
+            </f:link.action>
+        </span>
+    </f:if>
+    <f:if condition="{orderItem.orderPdfs}">
+        <span class="btn btn-default btn-sm">
+            <f:link.action action="downloadPdfDocument" arguments="{orderItem : orderItem, pdfType: 'order'}">
+                <f:translate key="tx_cart.controller.order.action.downloadOrderDocument"/>
+            </f:link.action>
+        </span>
+    </f:if>
+
     <f:if condition="{0: orderItem.invoiceNumber} == {0: ''}">
             <span class="btn btn-default btn-sm">
                 <f:link.action action="generateInvoiceNumber" arguments="{orderItem : orderItem}">
@@ -6,17 +34,39 @@
                 </f:link.action>
             </span>
     </f:if>
-
-    <span class="btn btn-default btn-sm">
-        <f:link.action action="generateInvoiceDocument" arguments="{orderItem : orderItem}">
-            <f:translate key="tx_cart.controller.order.action.generateInvoiceDocument"/>
-        </f:link.action>
-    </span>
-
+    <f:if condition="{pdfRendererInstalled}">
+        <span class="btn btn-default btn-sm">
+            <f:link.action action="generatePdfDocument" arguments="{orderItem : orderItem, pdfType: 'invoice'}">
+                <f:translate key="tx_cart.controller.order.action.generateInvoiceDocument"/>
+            </f:link.action>
+        </span>
+    </f:if>
     <f:if condition="{orderItem.invoicePdfs}">
         <span class="btn btn-default btn-sm">
-            <f:link.action action="downloadInvoiceDocument" arguments="{orderItem : orderItem}">
+            <f:link.action action="downloadPdfDocument" arguments="{orderItem : orderItem, pdfType: 'invoice'}">
                 <f:translate key="tx_cart.controller.order.action.downloadInvoiceDocument"/>
+            </f:link.action>
+        </span>
+    </f:if>
+
+    <f:if condition="{0: orderItem.deliveryNumber} == {0: ''}">
+            <span class="btn btn-default btn-sm">
+                <f:link.action action="generateDeliveryNumber" arguments="{orderItem : orderItem}">
+                    <f:translate key="tx_cart.controller.order.action.generateDeliveryNumber"/>
+                </f:link.action>
+            </span>
+    </f:if>
+    <f:if condition="{pdfRendererInstalled}">
+        <span class="btn btn-default btn-sm">
+            <f:link.action action="generatePdfDocument" arguments="{orderItem : orderItem, pdfType: 'delivery'}">
+                <f:translate key="tx_cart.controller.order.action.generateDeliveryDocument"/>
+            </f:link.action>
+        </span>
+    </f:if>
+    <f:if condition="{orderItem.deliveryPdfs}">
+        <span class="btn btn-default btn-sm">
+            <f:link.action action="downloadPdfDocument" arguments="{orderItem : orderItem, pdfType: 'delivery'}">
+                <f:translate key="tx_cart.controller.order.action.downloadDeliveryDocument"/>
             </f:link.action>
         </span>
     </f:if>

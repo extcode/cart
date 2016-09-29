@@ -37,6 +37,28 @@ mail.buyer.fromAddress
    Description
       Definiert mit welcher Absender-Adresse die E-Mails an den Käufer gesendet werden.
 
+mail.buyer.attachments
+""""""""""""""""""""""
+.. container:: table-row
+
+   Property
+      mail.buyer.attachments.n
+   Data type
+      array
+   Description
+      Definiert einen E-Mail-Anhang/mehrere E-Mail-Anhänge die an den Käufer geschickt werden. Dies können zum Beispiel Dokumente mit den Allgemeinen Geschäftsbedingungen sein.
+
+mail.buyer.attachDocuments
+""""""""""""""""""""""""""
+.. container:: table-row
+
+   Property
+      mail.buyer.attachDocuments.n
+   Data type
+      array
+   Description
+      Definiert einen E-Mail-Anhang/mehrere E-Mail-Anhänge der generierten PDF-Dokumente die an den Käufer geschickt werden. Dies kann die Bestellbestätigung, die Rechnung oder ein eigenes Dokument sein.
+
 mail.seller.fromAddress
 """""""""""""""""""""""
 .. container:: table-row
@@ -59,13 +81,24 @@ mail.seller.toAddress
    Description
       Definiert an welche Empfänger-Adressen die E-Mails an den Verkäufer/Shopbetreiber gesendet werden. Sollen die E-Mails an mehrere Empfänger gehen, können diese kommasepariert angegeben werden.
 
-mail.buyer.attachments
-""""""""""""""""""""""
+mail.seller.attachments
+"""""""""""""""""""""""
 .. container:: table-row
 
    Property
-      mail.buyer.attachments.n
+      mail.seller.attachments.n
    Data type
-      string
+      array
    Description
-      Definiert einen E-Mail-Anhang/mehrere E-Mail-Anhänge die an den Käufer geschickt werden. Dies können zum Beispiel Dokumente mit den Allgemeinen Geschäftsbedingungen sein.
+      Definiert einen E-Mail-Anhang/mehrere E-Mail-Anhänge die an den Verkäufer/Shopbetreiber geschickt werden.
+
+mail.seller.attachDocuments
+"""""""""""""""""""""""""""
+.. container:: table-row
+
+   Property
+      mail.seller.attachDocuments.n
+   Data type
+      array
+   Description
+      Definiert einen E-Mail-Anhang/mehrere E-Mail-Anhänge der generierten PDF-Dokumente die an den Verkäufer/Shopbetreiber geschickt werden. Dies kann die Bestellbestätigung, die Rechnung, der Lieferschein oder ein eigenes Dokument sein.

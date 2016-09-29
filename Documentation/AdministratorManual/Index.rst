@@ -12,3 +12,4 @@ Administratoren Handbuch
 
     Installation/Index
     Configuration/Index
+    Snippets/Index

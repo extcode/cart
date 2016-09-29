@@ -24,7 +24,7 @@ return [
         'iconfile' => 'EXT:cart/Resources/Public/Icons/Order/Item.png'
     ],
     'interface' => [
-        'showRecordFieldList' => 'pid, cart_pid, fe_user, order_number, invoice_number, billing_address, shipping_address, gross, net, total_gross, total_net, additional_data, tax_class, products, discounts, tax, total_tax, payment, shipping',
+        'showRecordFieldList' => 'pid, cart_pid, fe_user, order_number, invoice_number, delivery_number, billing_address, shipping_address, gross, net, total_gross, total_net, additional_data, tax_class, products, discounts, tax, total_tax, payment, shipping',
     ],
     'types' => [
         '1' => [
@@ -40,7 +40,7 @@ return [
                 discounts,
                 payment,
                 shipping,
-                invoice_pdfs'
+                --palette--;' . $_LLL . ':tx_cart_domain_model_order_item.palettes.documents;pdfs'
         ],
     ],
     'palettes' => [
@@ -52,7 +52,7 @@ return [
             'canNotCollapse' => 0
         ],
         'numbers' => [
-            'showitem' => 'order_number, order_date, --linebreak--, invoice_number, invoice_date',
+            'showitem' => 'order_number, order_date, --linebreak--, invoice_number, invoice_date, --linebreak--, delivery_number, delivery_date',
             'canNotCollapse' => 1
         ],
         'price' => [
@@ -63,6 +63,10 @@ return [
             'showitem' => 'total_gross, total_net, --linebreak--, order_total_tax',
             'canNotCollapse' => 1
         ],
+        'pdfs' => [
+            'showitem' => 'order_pdfs, --linebreak--, invoice_pdfs, --linebreak--, delivery_pdfs',
+            'canNotCollapse' => 1
+        ]
     ],
     'columns' => [
         'pid' => [
@@ -144,6 +148,28 @@ return [
         'invoice_date' => [
             'exclude' => 1,
             'label' => $_LLL . ':tx_cart_domain_model_order_item.invoice_date',
+            'config' => [
+                'type' => 'input',
+                'size' => '8',
+                'max' => '20',
+                'eval' => 'date',
+                'checkbox' => '0',
+                'default' => '0'
+            ]
+        ],
+        'delivery_number' => [
+            'exclude' => 0,
+            'label' => $_LLL . ':tx_cart_domain_model_order_item.delivery_number',
+            'config' => [
+                'type' => 'input',
+                'readOnly' => 1,
+                'size' => 30,
+                'eval' => 'trim'
+            ],
+        ],
+        'delivery_date' => [
+            'exclude' => 1,
+            'label' => $_LLL . ':tx_cart_domain_model_order_item.delivery_date',
             'config' => [
                 'type' => 'input',
                 'size' => '8',
@@ -491,6 +517,33 @@ return [
                     ],
                     'foreign_match_fields' => [
                         'fieldname' => 'invoice_pdfs',
+                        'tablenames' => 'tx_cart_domain_model_order_item',
+                        'table_local' => 'sys_file',
+                    ],
+                    'maxitems' => 99,
+                ],
+                'pdf'
+            ),
+        ],
+        'delivery_pdfs' => [
+            'exclude' => 0,
+            'label' => $_LLL . ':tx_cart_domain_model_order_item.delivery_pdfs',
+            'config' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::getFileFieldTCAConfig(
+                'file',
+                [
+                    'appearance' => [
+                        'enabledControls' => [
+                            'info' => true,
+                            'new' => false,
+                            'dragdrop' => false,
+                            'sort' => false,
+                            'hide' => false,
+                            'delete' => true,
+                            'localize' => false,
+                        ],
+                    ],
+                    'foreign_match_fields' => [
+                        'fieldname' => 'delivery_pdfs',
                         'tablenames' => 'tx_cart_domain_model_order_item',
                         'table_local' => 'sys_file',
                     ],

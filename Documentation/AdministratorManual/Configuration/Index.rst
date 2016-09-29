@@ -17,3 +17,4 @@ Konfiguration
    ActionConfiguration/Index
    FormatConfiguration/Index
    AjaxConfiguration/Index
+   PdfConfiguration/Index

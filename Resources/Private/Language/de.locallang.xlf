@@ -412,6 +412,53 @@
                 <target>zurück</target>
             </trans-unit>
 
+            <trans-unit id="tx_cart.controller.order.actions">
+                <source>Actions</source>
+                <target>Aktionen</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.controller.order.action.show">
+                <source>Show</source>
+                <target>Anzeigen</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.controller.order.action.edit">
+                <source>Edit</source>
+                <target>Bearbeiten</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.controller.order.action.list">
+                <source>List</source>
+                <target>Auflisten</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.controller.order.action.export.csv">
+                <source>Export (CSV)</source>
+                <target>Export (CSV)</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.controller.order.action.generateInvoiceNumber">
+                <source>Generate Invoice Number</source>
+                <target>Rechnungsnummer generieren</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.controller.order.action.generateInvoiceDocument">
+                <source>Generate Invoice Document</source>
+                <target>Rechnung generieren</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.controller.order.action.downloadInvoiceDocument">
+                <source>Download Invoice Document</source>
+                <target>Rechnung herunterladen</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.controller.order.action.generateDeliveryNumber">
+                <source>Generate Delivery Note Number</source>
+                <target>Lieferscheinnummer generieren</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.controller.order.action.generateDeliveryDocument">
+                <source>Generate Delivery Note Document</source>
+                <target>Lieferschein generieren</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.controller.order.action.downloadDeliveryDocument">
+                <source>Download Delivery Note Document</source>
+                <target>Lieferschein herunterladen</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.controller.order.action.statistic">
+                <source>Statistic of Orders</source>
+            </trans-unit>
             <trans-unit id="tx_cart.controller.order.action.show_cart.block-header.billing_address">
                 <source>Billing Address</source>
                 <target>Rechnungsadresse</target>

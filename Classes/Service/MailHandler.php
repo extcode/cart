@@ -249,7 +249,7 @@ class MailHandler implements SingletonInterface
             //$mail->addPart(strip_tags($mailBody), 'text/plain', 'utf-8');
 
             // get and add attachments
-            $attachments = $this->getAttachments('buyer');
+            $attachments = $this->getAttachments($orderItem, 'buyer');
             foreach ($attachments as $attachment) {
                 $attachmentFile = \TYPO3\CMS\Core\Utility\GeneralUtility::getFileAbsFileName($attachment);
                 if (file_exists($attachmentFile)) {
@@ -306,7 +306,7 @@ class MailHandler implements SingletonInterface
             //$mail->addPart(strip_tags($mailBody), 'text/plain', 'utf-8');
 
             // get and add attachments
-            $attachments = $this->getAttachments('seller');
+            $attachments = $this->getAttachments($orderItem, 'seller');
             foreach ($attachments as $attachment) {
                 $attachmentFile = \TYPO3\CMS\Core\Utility\GeneralUtility::getFileAbsFileName($attachment);
                 if (file_exists($attachmentFile)) {
@@ -319,19 +319,31 @@ class MailHandler implements SingletonInterface
     }
 
     /**
+     * @param \Extcode\Cart\Domain\Model\Order\Item $orderItem
      * @param string $to
      *
      * @return array
      */
-    protected function getAttachments($to) {
-        if ($this->pluginSettings['mail'] &&
-            $this->pluginSettings['mail'][$to] &&
-            $this->pluginSettings['mail'][$to]['attachments']
-        ) {
-            return $this->pluginSettings['mail'][$to]['attachments'];
+    protected function getAttachments(\Extcode\Cart\Domain\Model\Order\Item $orderItem, $to)
+    {
+        $attachments = [];
+
+        if ($this->pluginSettings['mail'] && $this->pluginSettings['mail'][$to]) {
+            if ($this->pluginSettings['mail'][$to]['attachments']) {
+                $attachments = $this->pluginSettings['mail'][$to]['attachments'];
+            }
+            if ($this->pluginSettings['mail'][$to]['attachDocuments']) {
+                foreach ($this->pluginSettings['mail'][$to]['attachDocuments'] as $pdfType => $pdfData) {
+                    $getter = 'get' . ucfirst($pdfType) . 'Pdfs';
+                    $pdfs = $orderItem->$getter();
+                    $originalPdf = end($pdfs->toArray())->getOriginalResource();
+                    $file = PATH_site . $originalPdf->getPublicUrl();
+                    $attachments[] = $file;
+                }
+            }
         }
 
-        return [];
+        return $attachments;
     }
 
     /**

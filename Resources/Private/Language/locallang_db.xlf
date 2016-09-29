@@ -77,6 +77,9 @@
             <trans-unit id="tx_cart_domain_model_order_item.palettes.shipping">
                 <source>Shipping</source>
             </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_item.palettes.documents">
+                <source>Documents</source>
+            </trans-unit>
             <trans-unit id="tx_cart_domain_model_order_item.fe_user">
                 <source>User</source>
             </trans-unit>
@@ -94,6 +97,12 @@
             </trans-unit>
             <trans-unit id="tx_cart_domain_model_order_item.invoice_date">
                 <source>Invoice Date</source>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_item.delivery_number">
+                <source>Delivery Note Number</source>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_item.delivery_date">
+                <source>Delivery Note Date</source>
             </trans-unit>
             <trans-unit id="tx_cart_domain_model_order_item.first_name">
                 <source>Firstname</source>
@@ -132,10 +141,13 @@
                 <source>Additional Data</source>
             </trans-unit>
             <trans-unit id="tx_cart_domain_model_order_item.order_pdfs">
-                <source>Order PDFs</source>
+                <source>Order Confirmations (PDF)</source>
             </trans-unit>
             <trans-unit id="tx_cart_domain_model_order_item.invoice_pdfs">
-                <source>Invoice PDFs</source>
+                <source>Invoices (PDF)</source>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_item.delivery_pdfs">
+                <source>Delivery Notes (PDF)</source>
             </trans-unit>
             <trans-unit id="tx_cart_domain_model_order_item.tax">
                 <source>Tax</source>

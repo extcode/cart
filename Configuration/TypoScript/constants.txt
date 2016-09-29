@@ -111,11 +111,11 @@ plugin.tx_cart {
     }
 
     orderNumber {
-        # cat=plugin.cart//0600; type=text; label= Prefix (prepend) for order number (e.g. DE).
+        # cat=plugin.cart//0600; type=text; label= Prefix (prepend) for order confirmation number (e.g. DE).
         prefix =
-        # cat=plugin.cart//0610; type=text; label= Suffix (append) for order number (e.g. O).
+        # cat=plugin.cart//0610; type=text; label= Suffix (append) for order confirmation number (e.g. O).
         suffix =
-        # cat=plugin.cart//0620; type=int+; label= Offset for order number: The offset is added to the order number (e.g. if the offset is 999 the first order number will be 1000).
+        # cat=plugin.cart//0620; type=int+; label= Offset for order confirmation number: The offset is added to the order confirmation number (e.g. if the offset is 999 the first order confirmation number will be 1000).
         offset =
     }
 
@@ -125,6 +125,15 @@ plugin.tx_cart {
         # cat=plugin.cart//0640; type=text; label= Suffix (append) for invoice number (e.g. I).
         suffix =
         # cat=plugin.cart//0650; type=int+; label= Offset for invoice number: The offset is added to the invoice number (e.g. if the offset is 999 the first invoice number will be 1000).
+        offset =
+    }
+
+    deliveryNumber {
+        # cat=plugin.cart//0660; type=text; label= Prefix (prepend) for delivery note number (e.g. DE).
+        prefix =
+        # cat=plugin.cart//0670; type=text; label= Suffix (append) for delivery note number (e.g. I).
+        suffix =
+        # cat=plugin.cart//0680; type=int+; label= Offset for delivery note number: The offset is added to the delivery note number (e.g. if the offset is 999 the first delivery note number will be 1000).
         offset =
     }
 

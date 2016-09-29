@@ -68,6 +68,20 @@ class Item extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     protected $invoiceDate = null;
 
     /**
+     * Delivery Number
+     *
+     * @var string
+     */
+    protected $deliveryNumber;
+
+    /**
+     * Delivery Date
+     *
+     * @var \DateTime
+     */
+    protected $deliveryDate = null;
+
+    /**
      * Billing Address
      *
      * @lazy
@@ -197,6 +211,13 @@ class Item extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     protected $invoicePdfs;
 
     /**
+     * Delivery Pdf
+     *
+     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference>
+     */
+    protected $deliveryPdfs;
+
+    /**
      * crdate
      *
      * @var \DateTime
@@ -247,6 +268,7 @@ class Item extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
         $this->tax = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
         $this->totalTax = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
         $this->invoicePdfs = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+        $this->deliveryPdfs = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
     }
 
     /**
@@ -389,6 +411,58 @@ class Item extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     public function setInvoiceDate(\DateTime $invoiceDate)
     {
         $this->invoiceDate = $invoiceDate;
+    }
+
+    /**
+     * Returns the deliveryNumber
+     *
+     * @return string
+     */
+    public function getDeliveryNumber()
+    {
+        return $this->deliveryNumber;
+    }
+
+    /**
+     * Sets the deliveryNumber
+     *
+     * @param string $deliveryNumber
+     *
+     * @return string
+     * @throws ResetPropertyException
+     */
+    public function setDeliveryNumber($deliveryNumber)
+    {
+        if (!$this->deliveryNumber) {
+            $this->deliveryNumber = $deliveryNumber;
+        } else {
+            if ($this->deliveryNumber != $deliveryNumber) {
+                throw new ResetPropertyException('Could not reset deliveryNumber', 1475061197);
+            }
+        }
+        return $this->deliveryNumber;
+    }
+
+    /**
+     * Gets Delivery Date
+     *
+     * @return \DateTime
+     */
+    public function getDeliveryDate()
+    {
+        return $this->deliveryDate;
+    }
+
+    /**
+     * Sets Delivery Date
+     *
+     * @param \DateTime $deliveryDate
+     *
+     * @return void
+     */
+    public function setDeliveryDate(\DateTime $deliveryDate)
+    {
+        $this->deliveryDate = $deliveryDate;
     }
 
     /**
@@ -631,19 +705,9 @@ class Item extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      *
      * @return void
      */
-    public function setOrderPdf($orderPdfs)
+    public function setOrderPdfs($orderPdfs)
     {
         $this->orderPdfs = $orderPdfs;
-    }
-
-    /**
-     * Sets Invoice PDFs
-     *
-     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference>
-     */
-    public function getInvoicePdfs()
-    {
-        return $this->invoicePdfs;
     }
 
     /**
@@ -655,7 +719,7 @@ class Item extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      */
     public function addOrderPdf(\TYPO3\CMS\Extbase\Domain\Model\FileReference $orderPdf)
     {
-        $this->invoicePdfs->attach($orderPdf);
+        $this->orderPdfs->attach($orderPdf);
     }
 
     /**
@@ -668,6 +732,16 @@ class Item extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     public function removeOrderPdf(\TYPO3\CMS\Extbase\Domain\Model\FileReference $orderPdfToRemove)
     {
         $this->orderPdfs->detach($orderPdfToRemove);
+    }
+
+    /**
+     * Returns Invoice PDFs
+     *
+     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference>
+     */
+    public function getInvoicePdfs()
+    {
+        return $this->invoicePdfs;
     }
 
     /**
@@ -704,6 +778,52 @@ class Item extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     public function removeInvoicePdf(\TYPO3\CMS\Extbase\Domain\Model\FileReference $invoicePdfToRemove)
     {
         $this->invoicePdfs->detach($invoicePdfToRemove);
+    }
+
+    /**
+     * Returns Delivery PDFs
+     *
+     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference>
+     */
+    public function getDeliveryPdfs()
+    {
+        return $this->deliveryPdfs;
+    }
+
+    /**
+     * Sets Delivery PDFs
+     *
+     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference $deliveryPdf>
+     *
+     * @return void
+     */
+    public function setDeliveryPdfs($deliveryPdfs)
+    {
+        $this->deliveryPdfs = $deliveryPdfs;
+    }
+
+    /**
+     * Adds a Delivery PDF
+     *
+     * @param \TYPO3\CMS\Extbase\Domain\Model\FileReference $deliveryPdf
+     *
+     * @return void
+     */
+    public function addDeliveryPdf(\TYPO3\CMS\Extbase\Domain\Model\FileReference $deliveryPdf)
+    {
+        $this->deliveryPdfs->attach($deliveryPdf);
+    }
+
+    /**
+     * Removes a Delivery PDF
+     *
+     * @param \TYPO3\CMS\Extbase\Domain\Model\FileReference $deliveryPdfToRemove
+     *
+     * @return void
+     */
+    public function removeDeliveryPdf(\TYPO3\CMS\Extbase\Domain\Model\FileReference $deliveryPdfToRemove)
+    {
+        $this->deliveryPdfs->detach($deliveryPdfToRemove);
     }
 
     /**
