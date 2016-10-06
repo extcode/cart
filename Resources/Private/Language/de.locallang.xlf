@@ -412,6 +412,11 @@
                 <target>zurück</target>
             </trans-unit>
 
+            <trans-unit id="tx_cart.error.validation">
+                <source>A validation error has occurred.</source>
+                <target>Ein validierungsfehler ist aufgetreten.</target>
+            </trans-unit>
+
             <trans-unit id="tx_cart.controller.order.actions">
                 <source>Actions</source>
                 <target>Aktionen</target>
@@ -646,6 +651,7 @@
             </trans-unit>
 
             <trans-unit id="tx_cart.plugin.form.submit">
+                <source>Add to cart</source>
                 <target>in den Warenkorb</target>
             </trans-unit>
 

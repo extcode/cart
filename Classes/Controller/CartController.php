@@ -150,6 +150,24 @@ class CartController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     }
 
     /**
+     * @return string
+     */
+    protected function getErrorFlashMessage() {
+        $getValidationResults = $this->arguments->getValidationResults();
+
+        if ($getValidationResults->hasErrors()) {
+            $errorMsg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
+                'tx_cart.error.validation',
+                $this->extensionName
+            );
+        } else {
+            $errorMsg = parent::getErrorFlashMessage();
+        }
+
+        return $errorMsg;
+    }
+
+    /**
      * Action initialize
      *
      * @return void
