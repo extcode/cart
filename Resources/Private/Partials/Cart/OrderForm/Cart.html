@@ -20,9 +20,9 @@
                             </span>
                             <f:form.validationResults for="orderItem">
                                 <f:if condition="{validationResults.flattenedErrors.acceptTerms}">
-                                    <span class="validation-error">
+                                    <div class="validation-error alert alert-danger" style="margin-bottom: 0;">
                                         <f:translate key="tx_cart_domain_model_order_item.accept_terms.error.{validationResults.flattenedErrors.acceptTerms.0.code}" >{validationResults.flattenedErrors.acceptTerms.0.code}</f:translate>
-                                    </span>
+                                    </div>
                                 </f:if>
                             </f:form.validationResults>
                         </label>
@@ -40,9 +40,9 @@
                             </span>
                             <f:form.validationResults for="orderItem">
                                 <f:if condition="{validationResults.flattenedErrors.acceptConditions}">
-                                    <span class="validation-error">
+                                    <div class="validation-error alert alert-danger" style="margin-bottom: 0;">
                                         <f:translate key="tx_cart_domain_model_order_item.accept_conditions.error.{validationResults.flattenedErrors.acceptConditions.0.code}" >{validationResults.flattenedErrors.acceptConditions.0.code}</f:translate>
-                                    </span>
+                                    </div>
                                 </f:if>
                             </f:form.validationResults>
                         </label>

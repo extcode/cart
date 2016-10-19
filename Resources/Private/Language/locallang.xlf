@@ -586,6 +586,12 @@
             <trans-unit id="tx_cart.plugin.form.submit">
                 <source>Add to cart</source>
             </trans-unit>
+            <trans-unit id="tx_cart.plugin.form.submit.success">
+                <source>The product has been added to your shopping cart.</source>
+            </trans-unit>
+            <trans-unit id="tx_cart.plugin.form.submit.error">
+                <source>The product could not be added to the shopping cart.</source>
+            </trans-unit>
 
             <trans-unit id="tx_cart_domain_model_cart_cart.net">
                 <source>Price (net)</source>

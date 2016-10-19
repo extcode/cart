@@ -414,7 +414,7 @@
 
             <trans-unit id="tx_cart.error.validation">
                 <source>A validation error has occurred.</source>
-                <target>Ein validierungsfehler ist aufgetreten.</target>
+                <target>Ein Validierungsfehler ist aufgetreten.</target>
             </trans-unit>
 
             <trans-unit id="tx_cart.controller.order.actions">
@@ -653,6 +653,14 @@
             <trans-unit id="tx_cart.plugin.form.submit">
                 <source>Add to cart</source>
                 <target>in den Warenkorb</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.plugin.form.submit.success">
+                <source>The product has been added to your shopping cart.</source>
+                <target>Das Produkt wurde in den Warenkorb gelegt.</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.plugin.form.submit.error">
+                <source>The product could not be added to the shopping cart.</source>
+                <target>Das Produkt konnte nicht in den Warenkorb gelegt werden.</target>
             </trans-unit>
 
             <trans-unit id="tx_cart_domain_model_product_producttaxclass">

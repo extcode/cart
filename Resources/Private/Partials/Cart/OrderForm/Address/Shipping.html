@@ -19,7 +19,7 @@
                                               data="{required:'true'}"/>
                             <f:form.validationResults for="shippingAddress">
                                 <f:if condition="{validationResults.flattenedErrors.salutation}">
-                                    <span class="validation-error">{validationResults.flattenedErrors.salutation.0.message}</span>
+                                    <div class="validation-error alert alert-danger">{validationResults.flattenedErrors.salutation.0.message}</div>
                                 </f:if>
                             </f:form.validationResults>
                         </div>
@@ -48,7 +48,7 @@
                                               data="{required:'true'}"/>
                             <f:form.validationResults for="shippingAddress">
                                 <f:if condition="{validationResults.flattenedErrors.firstName}">
-                                    <span class="validation-error">{validationResults.flattenedErrors.firstName.0.message}</span>
+                                    <div class="validation-error alert alert-danger">{validationResults.flattenedErrors.firstName.0.message}</div>
                                 </f:if>
                             </f:form.validationResults>
                         </div>
@@ -66,7 +66,7 @@
                                               data="{required:'true'}"/>
                             <f:form.validationResults for="shippingAddress">
                                 <f:if condition="{validationResults.flattenedErrors.lastName}">
-                                    <span class="validation-error">{validationResults.flattenedErrors.lastName.0.message}</span>
+                                    <div class="validation-error alert alert-danger">{validationResults.flattenedErrors.lastName.0.message}</div>
                                 </f:if>
                             </f:form.validationResults>
                         </div>
@@ -86,7 +86,7 @@
                                           data="{required:'true'}"/>
                         <f:form.validationResults for="shippingAddress">
                             <f:if condition="{validationResults.flattenedErrors.email}">
-                                <span class="validation-error">{validationResults.flattenedErrors.email.0.message}</span>
+                                <div class="validation-error alert alert-danger">{validationResults.flattenedErrors.email.0.message}</div>
                             </f:if>
                         </f:form.validationResults>
                     </div>
@@ -117,7 +117,7 @@
                                                   data="{required:'true'}"/>
                                 <f:form.validationResults for="shippingAddress">
                                     <f:if condition="{validationResults.flattenedErrors.street}">
-                                        <span class="validation-error">{validationResults.flattenedErrors.street.0.message}</span>
+                                        <div class="validation-error alert alert-danger">{validationResults.flattenedErrors.street.0.message}</div>
                                     </f:if>
                                 </f:form.validationResults>
                             </div>
@@ -138,7 +138,7 @@
                                                       data="{required:'true'}"/>
                                     <f:form.validationResults for="shippingAddress">
                                         <f:if condition="{validationResults.flattenedErrors.zip}">
-                                            <span class="validation-error">{validationResults.flattenedErrors.zip.0.message}</span>
+                                            <div class="validation-error alert alert-danger">{validationResults.flattenedErrors.zip.0.message}</div>
                                         </f:if>
                                     </f:form.validationResults>
                                 </div>
@@ -158,7 +158,7 @@
                                                       data="{required:'true'}"/>
                                     <f:form.validationResults for="shippingAddress">
                                         <f:if condition="{validationResults.flattenedErrors.lastName}">
-                                            <span class="validation-error">{validationResults.flattenedErrors.city.0.message}</span>
+                                            <div class="validation-error alert alert-danger">{validationResults.flattenedErrors.city.0.message}</div>
                                         </f:if>
                                     </f:form.validationResults>
                                 </div>
