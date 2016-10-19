@@ -433,7 +433,7 @@
             </trans-unit>
             <trans-unit id="tx_cart_domain_model_order_shipping.status.on_hold">
                 <source>on hold</source>
-                <target>on Wartestellung</target>
+                <target>in Wartestellung</target>
             </trans-unit>
             <trans-unit id="tx_cart_domain_model_order_shipping.status.in_process">
                 <source>in process</source>
@@ -628,7 +628,7 @@
                 <source>Number of Coupons used</source>
                 <target>Anzahl der verwendeten Coupons</target>
             </trans-unit>
-            
+
 
             <trans-unit id="tx_cart.module.products">
                 <source>Products</source>
@@ -760,7 +760,7 @@
             <trans-unit id="tx_cart_flexform_model_product.attributes">
                 <target>Zusätzliche Attribute</target>
             </trans-unit>
-  
+
             <trans-unit id="tx_cart_domain_model_product_product.div.descriptions">
                 <target>Beschreibung</target>
             </trans-unit>
@@ -783,7 +783,7 @@
                 <source>Tags and Categories</source>
                 <target>Tags und Kategorien</target>
             </trans-unit>
-  
+
             <trans-unit id="tx_cart_domain_model_product.palette.prices">
                 <target>Preise</target>
             </trans-unit>
@@ -797,7 +797,7 @@
             <trans-unit id="tx_cart_domain_model_product.palette.stock">
                 <target>Lager</target>
             </trans-unit>
-  
+
             <trans-unit id="tx_cart_domain_model_product_product">
                 <source>Product</source>
                 <target>Produkt</target>
@@ -942,7 +942,7 @@
                 <source>Tags</source>
                 <target>Schlagworte</target>
             </trans-unit>
-  
+
             <trans-unit id="tx_cart_domain_model_product_bevariantattribute">
                 <source>Backend Variant Attributes</source>
                 <target>Backend Variant Attribute</target>
@@ -965,7 +965,7 @@
             <trans-unit id="tx_cart_domain_model_product_bevariantattribute.be_variant_attribute_options">
                 <target>Backend Variant Attribut Optionen</target>
             </trans-unit>
-  
+
             <trans-unit id="tx_cart_domain_model_product_bevariantattributeoption">
                 <source>Backend Variant Attribute Option</source>
                 <target>Backend Variant Attribut Option</target>
@@ -982,7 +982,7 @@
                 <source>Description</source>
                 <target>Beschreibung</target>
             </trans-unit>
-  
+
             <trans-unit id="tx_cart_domain_model_productvariant.palette.variants">
                 <target>Varianten</target>
             </trans-unit>
