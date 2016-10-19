@@ -30,10 +30,10 @@ return [
         'iconfile' => 'EXT:cart/Resources/Public/Icons/Product/SpecialPrice.png'
     ],
     'interface' => [
-        'showRecordFieldList' => 'hidden, starttime, endtime, price',
+        'showRecordFieldList' => 'hidden, starttime, endtime, frontend_user_group, price',
     ],
     'types' => [
-        '1' => ['showitem' => 'hidden;;1, starttime, endtime, price'],
+        '1' => ['showitem' => 'hidden;;1, starttime, endtime, frontend_user_group, price'],
     ],
     'palettes' => [
         '1' => ['showitem' => ''],
@@ -120,7 +120,21 @@ return [
                 ],
             ],
         ],
-
+        'frontend_user_group' => [
+            'exclude' => 1,
+            'label' => $_LLL . ':tx_cart_domain_model_product_specialprice.frontend_user_group',
+            'config' => [
+                'type' => 'select',
+                'readOnly' => 0,
+                'foreign_table' => 'fe_groups',
+                'size' => 1,
+                'items' => [
+                    [$_LLL . ':tx_cart_domain_model_product_specialprice.frontend_user_group.not_available', 0],
+                ],
+                'minitems' => 0,
+                'maxitems' => 1,
+            ]
+        ],
         'price' => [
             'exclude' => 1,
             'label' => $_LLL . ':tx_cart_domain_model_product_specialprice.price',

@@ -482,16 +482,19 @@ class Product extends \Extcode\Cart\Domain\Model\Product\AbstractProduct
     /**
      * Returns best Special Price
      *
+     * @var array $frontendUserGroupIds
      * @return float
      */
-    public function getBestSpecialPrice()
+    public function getBestSpecialPrice($frontendUserGroupIds = [])
     {
         $bestSpecialPrice = $this->price;
 
         if ($this->specialPrices) {
             foreach ($this->specialPrices as $specialPrice) {
                 if ($specialPrice->getPrice() < $bestSpecialPrice) {
-                    $bestSpecialPrice = $specialPrice->getPrice();
+                    if (!$specialPrice->getFrontendUserGroup() || in_array($specialPrice->getFrontendUserGroup(), $frontendUserGroupIds)) {
+                        $bestSpecialPrice = $specialPrice->getPrice();
+                    }
                 }
             }
         }
@@ -502,11 +505,12 @@ class Product extends \Extcode\Cart\Domain\Model\Product\AbstractProduct
     /**
      * Returns best Special Price Discount
      *
+     * @var array $frontendUserGroupIds
      * @return float
      */
-    public function getBestSpecialPriceDiscount()
+    public function getBestSpecialPriceDiscount($frontendUserGroupIds = [])
     {
-        $bestSpecialPrice = $this->getBestSpecialPrice();
+        $bestSpecialPrice = $this->getBestSpecialPrice($frontendUserGroupIds);
         $bestSpecialPriceDiscount = $this->price - $bestSpecialPrice;
 
         return $bestSpecialPriceDiscount;
@@ -515,11 +519,12 @@ class Product extends \Extcode\Cart\Domain\Model\Product\AbstractProduct
     /**
      * Returns best Special Price Percentage Discount
      *
+     * @var array $frontendUserGroupIds
      * @return float
      */
-    public function getBestSpecialPricePercentageDiscount()
+    public function getBestSpecialPricePercentageDiscount($frontendUserGroupIds = [])
     {
-        $estSpecialPricePercentageDiscount = (($this->getBestSpecialPriceDiscount()) / $this->price) * 100;
+        $estSpecialPricePercentageDiscount = (($this->getBestSpecialPriceDiscount($frontendUserGroupIds)) / $this->price) * 100;
 
         return $estSpecialPricePercentageDiscount;
     }

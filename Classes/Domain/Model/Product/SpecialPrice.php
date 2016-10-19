@@ -16,7 +16,7 @@ namespace Extcode\Cart\Domain\Model\Product;
  */
 
 /**
- * Product SpecialPrice Model
+ * Product SpecialPrice
  *
  * @package cart
  * @author Daniel Lorenz <ext.cart@extco.de>
@@ -30,6 +30,13 @@ class SpecialPrice extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * @validate NotEmpty
      */
     protected $price = 0.0;
+
+    /**
+     * Frontend User Group
+     *
+     * @var \TYPO3\CMS\Extbase\Domain\Model\FrontendUserGroup
+     */
+    protected $frontendUserGroup;
 
     /**
      * Returns the Price
@@ -50,5 +57,25 @@ class SpecialPrice extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     public function setPrice($price)
     {
         $this->price = $price;
+    }
+
+    /**
+     * Returns the Frontend User Group
+     *
+     * @return \TYPO3\CMS\Extbase\Domain\Model\FrontendUserGroup
+     */
+    public function getFrontendUserGroup()
+    {
+        return $this->frontendUserGroup;
+    }
+
+    /**
+     * Sets the Frontend User Group
+     *
+     * @param \TYPO3\CMS\Extbase\Domain\Model\FrontendUserGroup $frontendUserGroup
+     */
+    public function setFrontendUserGroup($frontendUserGroup)
+    {
+        $this->setFrontendUserGroup = $frontendUserGroup;
     }
 }

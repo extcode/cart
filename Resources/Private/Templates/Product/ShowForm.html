@@ -1,0 +1,17 @@
+{namespace cart=Extcode\Cart\ViewHelpers}
+
+<f:layout name="Default"/>
+
+<f:section name="main">
+    <f:if condition="{settings.cart.pid}">
+        <f:render partial="Product/CartForm" arguments="{product: product, pid: settings.cart.pid}"/>
+    </f:if>
+
+    <div id="product-price">
+        <f:render partial="Product/Price" arguments="{product: product, settings: settings}"></f:render>
+    </div>
+
+    <f:if condition="{product.basePriceMeasureUnit}">
+        <f:render partial="Product/BasePrice" arguments="{product: product, settings: settings}"></f:render>
+    </f:if>
+</f:section>

@@ -30,11 +30,11 @@ defined('TYPO3_MODE') or die();
     'Extcode.' . $_EXTKEY,
     'Product',
     [
-        'Product' => 'show, list, teaser',
+        'Product' => 'show, list, teaser, showForm',
     ],
     // non-cacheable actions
     [
-        'Product' => 'list',
+        'Product' => 'list, showForm',
     ]
 );
 

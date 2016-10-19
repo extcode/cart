@@ -27,6 +27,13 @@ use \TYPO3\CMS\Extbase\Mvc\Request;
  */
 class CartUtility
 {
+    /**
+     * Object Manager
+     *
+     * @var \TYPO3\CMS\Extbase\Object\ObjectManager
+     * @inject
+     */
+    protected $objectManager;
 
     /**
      * Session Handler
@@ -75,6 +82,33 @@ class CartUtility
         }
 
         return $cart;
+    }
+
+    /**
+     * Get Frontend User Group
+     *
+     * @return array
+     */
+    protected function getFrontendUserGroupIds()
+    {
+        if (!$this->objectManager) {
+            $this->objectManager = GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager');
+        }
+        $feGroupIds = [];
+        $feUserId = (int)$GLOBALS['TSFE']->fe_user->user['uid'];
+        if ($feUserId) {
+            $frontendUserRepository = $this->objectManager->get(
+                \TYPO3\CMS\Extbase\Domain\Repository\FrontendUserRepository::class
+            );
+            $feUser = $frontendUserRepository->findByUid($feUserId);
+            $feGroups = $feUser->getUsergroup();
+            if ($feGroups) {
+                foreach ($feGroups as $feGroup) {
+                    $feGroupIds[] = $feGroup->getUid();
+                }
+            }
+        }
+        return $feGroupIds;
     }
 
     /**
@@ -697,7 +731,8 @@ class CartUtility
 
             if (isset($repositoryFields['getSpecialPrice'])) {
                 $functionName = $repositoryFields['getSpecialPrice'];
-                $preCartProductSetValue['specialPrice'] = $productObject->$functionName();
+                $frontendUserGroupIds = $this->getFrontendUserGroupIds();
+                $preCartProductSetValue['specialPrice'] = $productObject->$functionName($frontendUserGroupIds);
             }
 
             if (isset($repositoryFields['getMinNumber'])) {

@@ -86,6 +86,8 @@ CREATE TABLE tx_cart_domain_model_product_specialprice (
 
     product int(11) unsigned DEFAULT '0' NOT NULL,
 
+    frontend_user_group int(11) unsigned DEFAULT '0' NOT NULL,
+
     price double(11,2) DEFAULT '0.00' NOT NULL,
 
     tstamp int(11) unsigned DEFAULT '0' NOT NULL,

@@ -13,11 +13,11 @@
         <div class="special_price">
             <f:translate key="tx_cart_domain_model_product_product.special_price"/>:
             <span class="price">
-                <cart:format.currency>{product.bestSpecialPrice}</cart:format.currency>
+                <cart:format.currency><cart:product.bestSpecialPrice product="{product}"/></cart:format.currency>
             </span>
         </div>
         <div>
-            <strong>(Sie sparen: <f:format.number>{product.bestSpecialPricePercentageDiscount}</f:format.number> %)</strong>
+            <strong>(Sie sparen: <f:format.number><cart:product.bestSpecialPricePercentageDiscount product="{product}"/></f:format.number> %)</strong>
         </div>
     </f:then>
     <f:else>

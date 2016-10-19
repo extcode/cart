@@ -13,6 +13,21 @@ ajaxCart {
     10 < tt_content.list.20.cart_cart
 }
 
+ajaxProduct = PAGE
+ajaxProduct {
+    typeNum = 2278002
+
+    config {
+        disableAllHeaderCode = 1
+        xhtml_cleaning = 0
+        admPanel = 0
+        debug = 0
+        no_cache = 1
+    }
+
+    10 < tt_content.list.20.cart_product
+}
+
 plugin.tx_cart {
     persistence {
         classes {

@@ -179,6 +179,17 @@ class ProductController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
     }
 
     /**
+     * action showForm
+     *
+     * @param \Extcode\Cart\Domain\Model\Product\Product $product
+     * @return void
+     */
+    public function showFormAction(\Extcode\Cart\Domain\Model\Product\Product $product)
+    {
+        $this->view->assign('product', $product);
+    }
+
+    /**
      * action teaser
      *
      * @return void
