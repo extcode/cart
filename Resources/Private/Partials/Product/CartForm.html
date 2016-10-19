@@ -1,6 +1,8 @@
 {namespace cart=Extcode\Cart\ViewHelpers}
 
 <div class="cart_form">
+    <div class="form-message"></div>
+
     <f:form pageUid="{pid}"
             id="add-product-form"
             extensionName="Cart" pluginName="Cart" controller="Cart" action="addProduct"
@@ -30,4 +32,15 @@
         </f:if>
         <input type="submit" class="btn btn-default" value="<f:translate key='tx_cart.plugin.form.submit' />">
     </f:form>
+
+    <div class="form-success" style="display: none;">
+        <div class="alert alert-success" >
+            <f:translate key="tx_cart.plugin.form.submit.success"/>
+        </div>
+    </div>
+    <div class="form-error" style="display: none;">
+        <div class="alert alert-warning">
+            <f:translate key="tx_cart.plugin.form.submit.error"/>
+        </div>
+    </div>
 </div>

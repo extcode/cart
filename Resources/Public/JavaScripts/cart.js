@@ -53,6 +53,18 @@ $("#add-product-form").submit(function(e) {
                     } else {
                         $('#link-to-checkout').hide();
                     }
+
+                    $(document).trigger('status.cartWasChanged',[true]);
+
+                    $form.each(function(){
+                        this.reset();
+                    });
+
+                    var message = $(".cart_form .form-success").html();
+                    $(message).appendTo(".cart_form .form-message").delay(2000).fadeOut('slow', function() { $(this).remove(); });
+                } else {
+                    var message = $(".cart_form .form-success").html();
+                    $(message).appendTo(".cart_form .form-message").delay(2000).fadeOut('slow', function() { $(this).remove(); });
                 }
             }
         });
