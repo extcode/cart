@@ -1,3 +1,9 @@
+1.4.0
+    2016-10-19
+    Daniel Lorenz <daniel.lorenz@extco.de>
+
+    * TASK #15: add fields for ServiceAttributes to product table
+
 1.3.3
     2016-10-19
     Daniel Lorenz <daniel.lorenz@extco.de>

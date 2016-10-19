@@ -712,6 +712,84 @@ class ProductTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
     /**
      * @test
      */
+    public function getServiceAttribute1ReturnsZero()
+    {
+        $this->assertSame(
+            0.0,
+            $this->product->getServiceAttribute1()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function setServiceAttribute1SetsServiceAttribute1()
+    {
+        $serviceAttribute1 = 1.0;
+
+        $this->product->setServiceAttribute1($serviceAttribute1);
+
+        $this->assertSame(
+            $serviceAttribute1,
+            $this->product->getServiceAttribute1()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function getServiceAttribute2ReturnsZero()
+    {
+        $this->assertSame(
+            0.0,
+            $this->product->getServiceAttribute2()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function setServiceAttribute2SetsServiceAttribute2()
+    {
+        $serviceAttribute2 = 2.0;
+
+        $this->product->setServiceAttribute2($serviceAttribute2);
+
+        $this->assertSame(
+            $serviceAttribute2,
+            $this->product->getServiceAttribute2()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function getServiceAttribute3ReturnsZero()
+    {
+        $this->assertSame(
+            0.0,
+            $this->product->getServiceAttribute3()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function setServiceAttribute3SetsServiceAttribute3()
+    {
+        $serviceAttribute3 = 3.0;
+
+        $this->product->setServiceAttribute3($serviceAttribute3);
+
+        $this->assertSame(
+            $serviceAttribute3,
+            $this->product->getServiceAttribute3()
+        );
+    }
+
+    /**
+     * @test
+     */
     public function getTaxClassIdInitiallyReturnsTaxClassId()
     {
         $this->assertSame(

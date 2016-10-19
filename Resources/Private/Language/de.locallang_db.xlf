@@ -790,6 +790,10 @@
             <trans-unit id="tx_cart_domain_model_product.palette.measures">
                 <target>Maßangaben</target>
             </trans-unit>
+            <trans-unit id="tx_cart_domain_model_product_product.palette.service_attributes">
+                <source>Service Attributes</source>
+                <target>Service Attribute</target>
+            </trans-unit>
             <trans-unit id="tx_cart_domain_model_product.palette.stock">
                 <target>Lager</target>
             </trans-unit>
@@ -883,6 +887,18 @@
             </trans-unit>
             <trans-unit id="tx_cart_domain_model_product_product.measure.area">
                 <target>Fläche</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_product_product.service_attribute1">
+                <source>Attribute 1</source>
+                <target>Attribut 1</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_product_product.service_attribute2">
+                <source>Attribute 2</source>
+                <target>Attribut 2</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_product_product.service_attribute3">
+                <source>Attribute 3</source>
+                <target>Attribut 3</target>
             </trans-unit>
             <trans-unit id="tx_cart_domain_model_product_product.be_variants">
                 <target>Backend Varianten</target>

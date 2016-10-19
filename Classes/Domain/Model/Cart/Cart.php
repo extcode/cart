@@ -1284,6 +1284,8 @@ class Cart
         $this->calcGross();
         $this->calcNet();
         $this->calcTax();
+
+        $this->updateServiceAttributes();
     }
 
     /**

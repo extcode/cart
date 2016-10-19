@@ -32,7 +32,7 @@ return [
         'iconfile' => 'EXT:cart/Resources/Public/Icons/Product/Product.png'
     ],
     'interface' => [
-        'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, product_type, sku, title, header_image, teaser, description, min_number_in_order, max_number_in_order, price, special_prices, price_measure, price_measure_unit, base_price_measure_unit, tax_class_id, be_variant_attribute1, be_variant_attribute2, be_variant_attribute3, fe_variants, be_variants, related_products, categories, tags',
+        'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, product_type, sku, title, header_image, teaser, description, min_number_in_order, max_number_in_order, price, special_prices, price_measure, price_measure_unit, base_price_measure_unit, service_attribute1, service_attribute2, service_attribute3, tax_class_id, be_variant_attribute1, be_variant_attribute2, be_variant_attribute3, fe_variants, be_variants, related_products, categories, tags',
     ],
     'types' => [
         '1' => [
@@ -47,6 +47,7 @@ return [
                 --palette--;' . $_LLL . ':tx_cart_domain_model_product_product.palette.minmax;minmax,
                 --palette--;' . $_LLL . ':tx_cart_domain_model_product_product.palette.prices;prices,
                 --palette--;' . $_LLL . ':tx_cart_domain_model_product_product.palette.measures;measures,
+                --palette--;' . $_LLL . ':tx_cart_domain_model_product_product.palette.service_attributes;service_attributes,
                 --palette--;' . $_LLL . ':tx_cart_domain_model_product_product.palette.stock;stock,
             --div--;' . $_LLL . ':tx_cart_domain_model_product_product.div.variants,
                 fe_variants,
@@ -75,6 +76,10 @@ return [
         ],
         'measures' => [
             'showitem' => 'price_measure, price_measure_unit, base_price_measure_unit',
+            'canNotCollapse' => 1
+        ],
+        'service_attributes' => [
+            'showitem' => 'service_attribute1, service_attribute2, service_attribute3',
             'canNotCollapse' => 1
         ],
         'stock' => ['showitem' => 'handle_stock, stock', 'canNotCollapse' => 1],
@@ -341,6 +346,37 @@ return [
                 'size' => 1,
                 'minitems' => 0,
                 'maxitems' => 1,
+            ]
+        ],
+
+        'service_attribute1' => [
+            'exclude' => 1,
+            'label' => $_LLL . ':tx_cart_domain_model_product_product.service_attribute1',
+            'config' => [
+                'type' => 'input',
+                'size' => 30,
+                'eval' => 'required,float',
+                'default' => '0.0',
+            ]
+        ],
+        'service_attribute2' => [
+            'exclude' => 1,
+            'label' => $_LLL . ':tx_cart_domain_model_product_product.service_attribute2',
+            'config' => [
+                'type' => 'input',
+                'size' => 30,
+                'eval' => 'required,float',
+                'default' => '0.0',
+            ]
+        ],
+        'service_attribute3' => [
+            'exclude' => 1,
+            'label' => $_LLL . ':tx_cart_domain_model_product_product.service_attribute3',
+            'config' => [
+                'type' => 'input',
+                'size' => 30,
+                'eval' => 'required,float',
+                'default' => '0.0',
             ]
         ],
 

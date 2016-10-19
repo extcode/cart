@@ -139,6 +139,27 @@ class Product extends \Extcode\Cart\Domain\Model\Product\AbstractProduct
     protected $basePriceMeasureUnit = '';
 
     /**
+     * Service Attriute 1
+     *
+     * @var float
+     */
+    protected $serviceAttribute1 = 0.0;
+
+    /**
+     * Service Attriute 2
+     *
+     * @var float
+     */
+    protected $serviceAttribute2 = 0.0;
+
+    /**
+     * Service Attriute 3
+     *
+     * @var float
+     */
+    protected $serviceAttribute3 = 0.0;
+
+    /**
      * Tax Class Id
      *
      * @var integer
@@ -618,6 +639,72 @@ class Product extends \Extcode\Cart\Domain\Model\Product\AbstractProduct
         }
 
         return false;
+    }
+
+    /**
+     * Returns Service Attribute 1
+     *
+     * @return float
+     */
+    public function getServiceAttribute1()
+    {
+        return $this->serviceAttribute1;
+    }
+
+    /**
+     * Sets Service Attribute 1
+     *
+     * @param float $serviceAttribute1
+     *
+     * @return void
+     */
+    public function setServiceAttribute1($serviceAttribute1)
+    {
+        $this->serviceAttribute1 = $serviceAttribute1;
+    }
+
+    /**
+     * Returns Service Attribute 2
+     *
+     * @return float
+     */
+    public function getServiceAttribute2()
+    {
+        return $this->serviceAttribute2;
+    }
+
+    /**
+     * Sets Service Attribute 2
+     *
+     * @param float $serviceAttribute2
+     *
+     * @return void
+     */
+    public function setServiceAttribute2($serviceAttribute2)
+    {
+        $this->serviceAttribute2 = $serviceAttribute2;
+    }
+
+    /**
+     * Returns Service Attribute 3
+     *
+     * @return float
+     */
+    public function getServiceAttribute3()
+    {
+        return $this->serviceAttribute3;
+    }
+
+    /**
+     * Sets Service Attribute 3
+     *
+     * @param float $serviceAttribute3
+     *
+     * @return void
+     */
+    public function setServiceAttribute3($serviceAttribute3)
+    {
+        $this->serviceAttribute3 = $serviceAttribute3;
     }
 
     /**

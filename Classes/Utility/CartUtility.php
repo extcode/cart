@@ -252,6 +252,16 @@ class CartUtility
             $newCartProduct->setSpecialPrice($preCartProductSetValue['specialPrice']);
         }
 
+        if ($preCartProductSetValue['serviceAttribute1'] !== null) {
+            $newCartProduct->setServiceAttribute1($preCartProductSetValue['serviceAttribute1']);
+        }
+        if ($preCartProductSetValue['serviceAttribute2'] !== null) {
+            $newCartProduct->setServiceAttribute2($preCartProductSetValue['serviceAttribute2']);
+        }
+        if ($preCartProductSetValue['serviceAttribute3'] !== null) {
+            $newCartProduct->setServiceAttribute3($preCartProductSetValue['serviceAttribute3']);
+        }
+
         $newVariantArr = [];
 
         // ToDo: refactor Variant
