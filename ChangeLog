@@ -1,3 +1,9 @@
+1.5.1
+    2016-10-31
+    Daniel Lorenz <daniel.lorenz@extco.de>
+
+    * TASK #31: fix calculation of service attributes
+
 1.5.0
     2016-10-19
     Daniel Lorenz <daniel.lorenz@extco.de>

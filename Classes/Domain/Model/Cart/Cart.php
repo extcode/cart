@@ -1128,9 +1128,9 @@ class Cart
                 $this->maxServiceAttr3 = $product->getServiceAttribute3();
             }
 
-            $this->sumServiceAttr1 = $product->getServiceAttribute1() * $product->getQuantity();
-            $this->sumServiceAttr2 = $product->getServiceAttribute2() * $product->getQuantity();
-            $this->sumServiceAttr3 = $product->getServiceAttribute3() * $product->getQuantity();
+            $this->sumServiceAttr1 += $product->getServiceAttribute1() * $product->getQuantity();
+            $this->sumServiceAttr2 += $product->getServiceAttribute2() * $product->getQuantity();
+            $this->sumServiceAttr3 += $product->getServiceAttribute3() * $product->getQuantity();
         }
     }
 
