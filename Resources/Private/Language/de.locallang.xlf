@@ -280,7 +280,7 @@
             </trans-unit>
             <trans-unit id="tx_cart_domain_model_order_shipping.status.on_hold">
                 <source>on hold</source>
-                <target>on Wartestellung</target>
+                <target>in Wartestellung</target>
             </trans-unit>
             <trans-unit id="tx_cart_domain_model_order_shipping.status.in_process">
                 <source>in process</source>
