@@ -72,3 +72,13 @@ $("#add-product-form").submit(function(e) {
         e.preventDefault();
     }
 });
+
+$('#form-cart').submit(function() {
+    $('input:submit').attr("disabled", true);
+});
+$('#form-order').submit(function() {
+    $('input:submit').attr("disabled", true);
+});
+$('#form-coupon').submit(function() {
+    $('input:submit').attr("disabled", true);
+});
