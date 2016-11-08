@@ -94,7 +94,7 @@ abstract class AbstractService extends \TYPO3\CMS\Extbase\DomainObject\AbstractE
     public function toArray()
     {
         $service = [
-            'service_ud' => $this->getServiceId(),
+            'service_id' => $this->getServiceId(),
             'name' => $this->getName(),
             'status' => $this->getStatus(),
             'net' => $this->getNet(),
