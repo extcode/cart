@@ -620,6 +620,7 @@ CREATE TABLE tx_cart_domain_model_order_shipping (
     uid int(11) NOT NULL auto_increment,
     pid int(11) DEFAULT '0' NOT NULL,
 
+    service_id int(11) DEFAULT '0' NOT NULL,
     name varchar(255) DEFAULT '' NOT NULL,
     status varchar(255) DEFAULT '0' NOT NULL,
     gross double(11,2) DEFAULT '0.00' NOT NULL,
@@ -658,6 +659,7 @@ CREATE TABLE tx_cart_domain_model_order_payment (
     uid int(11) NOT NULL auto_increment,
     pid int(11) DEFAULT '0' NOT NULL,
 
+    service_id int(11) DEFAULT '0' NOT NULL,
     name varchar(255) DEFAULT '' NOT NULL,
     provider varchar(255) DEFAULT '' NOT NULL,
     status varchar(255) DEFAULT '0' NOT NULL,
@@ -778,6 +780,9 @@ CREATE TABLE tx_cart_domain_model_product_coupon (
 CREATE TABLE tx_cart_domain_model_cart (
     uid int(11) NOT NULL auto_increment,
     pid int(11) DEFAULT '0' NOT NULL,
+
+    f_hash varchar(255) DEFAULT '' NOT NULL,
+    s_hash varchar(255) DEFAULT '' NOT NULL,
 
     fe_user int(11) DEFAULT '0' NOT NULL,
 

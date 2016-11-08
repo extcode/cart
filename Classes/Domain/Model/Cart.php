@@ -24,6 +24,20 @@ namespace Extcode\Cart\Domain\Model;
 class Cart extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 {
     /**
+     * fHash
+     *
+     * @var string
+     */
+    protected $fHash;
+
+    /**
+     * sHash
+     *
+     * @var string
+     */
+    protected $sHash;
+
+    /**
      * FeUser
      *
      * @var \TYPO3\CMS\Extbase\Domain\Model\FrontendUser
@@ -50,6 +64,46 @@ class Cart extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * @var boolean
      */
     protected $wasOrdered;
+
+    /**
+     * Returns fHash
+     *
+     * @return string
+     */
+    public function getFHash()
+    {
+        return $this->fHash;
+    }
+
+    /**
+     * Sets fHash
+     *
+     * @return void
+     */
+    public function setFHash($fHash)
+    {
+        $this->fHash = $fHash;
+    }
+
+    /**
+     * Returns sHash
+     *
+     * @return string
+     */
+    public function getSHash()
+    {
+        return $this->sHash;
+    }
+
+    /**
+     * Sets sHash
+     *
+     * @return void
+     */
+    public function setSHash($sHash)
+    {
+        $this->sHash = $sHash;
+    }
 
     /**
      * Returns FeUser

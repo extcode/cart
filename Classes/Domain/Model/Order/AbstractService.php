@@ -23,6 +23,13 @@ namespace Extcode\Cart\Domain\Model\Order;
  */
 abstract class AbstractService extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 {
+    /**
+     * Service Id
+     *
+     * @var int
+     * @validate NotEmpty
+     */
+    protected $serviceId;
 
     /**
      * Name
@@ -87,6 +94,7 @@ abstract class AbstractService extends \TYPO3\CMS\Extbase\DomainObject\AbstractE
     public function toArray()
     {
         $service = [
+            'service_ud' => $this->getServiceId(),
             'name' => $this->getName(),
             'status' => $this->getStatus(),
             'net' => $this->getNet(),
@@ -103,6 +111,22 @@ abstract class AbstractService extends \TYPO3\CMS\Extbase\DomainObject\AbstractE
         $service['note'] = $this->getNote();
 
         return $service;
+    }
+
+    /**
+     * @return int
+     */
+    public function getServiceId()
+    {
+        return $this->serviceId;
+    }
+
+    /**
+     * @param int $serviceId
+     */
+    public function setServiceId($serviceId)
+    {
+        $this->serviceId = $serviceId;
     }
 
     /**

@@ -43,6 +43,25 @@ class OrderController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     protected $itemRepository;
 
     /**
+     * Order Payment Repository
+     *
+     * @var \Extcode\Cart\Domain\Repository\Order\PaymentRepository
+     */
+    protected $paymentRepository;
+
+    /**
+     * Cart Repository
+     *
+     * @var \Extcode\Cart\Domain\Repository\CartRepository
+     */
+    protected $cartRepository;
+
+    /**
+     * @var \Extcode\Cart\Domain\Model\Cart
+     */
+    protected $cart = null;
+
+    /**
      * Order Utility
      *
      * @var \Extcode\Cart\Utility\OrderUtility
@@ -55,6 +74,13 @@ class OrderController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      * @var array
      */
     protected $searchArguments;
+
+    /**
+     * Plugin Settings
+     *
+     * @var array
+     */
+    protected $pluginSettings;
 
     /**
      * @param \TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager $persistenceManager
@@ -75,6 +101,24 @@ class OrderController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     }
 
     /**
+     * @param \Extcode\Cart\Domain\Repository\Order\PaymentRepository $paymentRepository
+     */
+    public function injectPaymentRepository(
+        \Extcode\Cart\Domain\Repository\Order\PaymentRepository $paymentRepository
+    ) {
+        $this->paymentRepository = $paymentRepository;
+    }
+
+    /**
+     * @param \Extcode\Cart\Domain\Repository\CartRepository $cartRepository
+     */
+    public function injectCartRepository(
+        \Extcode\Cart\Domain\Repository\CartRepository $cartRepository
+    ) {
+        $this->cartRepository = $cartRepository;
+    }
+
+    /**
      * @param \Extcode\Cart\Utility\OrderUtility $orderUtility
      */
     public function injectOrderUtility(
@@ -90,6 +134,11 @@ class OrderController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      */
     protected function initializeAction()
     {
+        $this->pluginSettings =
+            $this->configurationManager->getConfiguration(
+                \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK
+            );
+
         if (TYPO3_MODE === 'BE') {
             $pageId = (int)(GeneralUtility::_GET('id')) ? Utility\GeneralUtility::_GET('id') : 1;
 
@@ -545,5 +594,191 @@ class OrderController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
             $shippingStatusArray[] = $shippingStatus;
         }
         return $shippingStatusArray;
+    }
+
+    /**
+     * Payment Success Action
+     *
+     * @return void
+     */
+    public function paymentSuccessAction()
+    {
+        if ($this->request->hasArgument('hash') && !empty($this->request->getArgument('hash'))) {
+            $hash = $this->request->getArgument('hash');
+
+            $querySettings = $this->objectManager->get(
+                \TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings::class
+            );
+            $querySettings->setStoragePageIds(array($this->settings['order']['pid']));
+            $this->cartRepository->setDefaultQuerySettings($querySettings);
+
+            $this->cart = $this->cartRepository->findOneBySHash($hash);
+
+            if ($this->cart) {
+                $orderItem = $this->cart->getOrderItem();
+                $payment = $orderItem->getPayment();
+
+                $payment->setStatus('paid');
+
+                $this->paymentRepository->update($payment);
+                $this->persistenceManager->persistAll();
+
+                $billingAddress = $orderItem->getBillingAddress()->_loadRealInstance();
+                $shippingAddress = null;
+                if ($orderItem->getShippingAddress()) {
+                    $shippingAddress = $orderItem->getShippingAddress()->_loadRealInstance();
+                }
+
+                $data = [
+                    'orderItem' => $orderItem,
+                    'cart' => $this->cart,
+                    'billingAddress' => $billingAddress,
+                    'shippingAddress' => $shippingAddress,
+                ];
+
+                $signalSlotDispatcher = $this->objectManager->get('TYPO3\\CMS\\Extbase\\SignalSlot\\Dispatcher');
+                $signalSlotDispatcher->dispatch(
+                    __CLASS__,
+                    __FUNCTION__ . 'AfterUpdatePaymentAndBeforeSuccessMail',
+                    [$data]
+                );
+
+                $this->sendMails($orderItem, $billingAddress, $shippingAddress);
+
+                $signalSlotDispatcher = $this->objectManager->get('TYPO3\\CMS\\Extbase\\SignalSlot\\Dispatcher');
+                $signalSlotDispatcher->dispatch(
+                    __CLASS__,
+                    __FUNCTION__ . 'AfterUpdatePaymentAndAfterSuccessMail',
+                    [$data]
+                );
+            }
+        }
+    }
+
+    /**
+     * Fail Action
+     *
+     * @return void
+     */
+    public function paymentCancelAction()
+    {
+        if ($this->request->hasArgument('hash') && !empty($this->request->getArgument('hash'))) {
+            $hash = $this->request->getArgument('hash');
+
+            $querySettings = $this->objectManager->get(
+                \TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings::class
+            );
+            $querySettings->setStoragePageIds(array($this->settings['order']['pid']));
+            $this->cartRepository->setDefaultQuerySettings($querySettings);
+
+            $this->cart = $this->cartRepository->findOneByFHash($hash);
+
+            if ($this->cart) {
+                $orderItem = $this->cart->getOrderItem();
+                $payment = $orderItem->getPayment();
+
+                $payment->setStatus('canceled');
+
+                $this->paymentRepository->update($payment);
+                $this->persistenceManager->persistAll();
+
+                $billingAddress = $orderItem->getBillingAddress()->_loadRealInstance();
+                $shippingAddress = null;
+                if ($orderItem->getShippingAddress()) {
+                    $shippingAddress = $orderItem->getShippingAddress()->_loadRealInstance();
+                }
+
+                $data = [
+                    'orderItem' => $orderItem,
+                    'cart' => $this->cart,
+                    'billingAddress' => $billingAddress,
+                    'shippingAddress' => $shippingAddress,
+                ];
+
+                $signalSlotDispatcher = $this->objectManager->get('TYPO3\\CMS\\Extbase\\SignalSlot\\Dispatcher');
+                $signalSlotDispatcher->dispatch(
+                    __CLASS__,
+                    __FUNCTION__ . 'AfterUpdatePaymentAndBeforeCancelMail',
+                    [$data]
+                );
+
+                $this->sendMails($orderItem, $billingAddress, $shippingAddress);
+
+                $signalSlotDispatcher = $this->objectManager->get('TYPO3\\CMS\\Extbase\\SignalSlot\\Dispatcher');
+                $signalSlotDispatcher->dispatch(
+                    __CLASS__,
+                    __FUNCTION__ . 'AfterUpdatePaymentAndAfterCancelMail',
+                    [$data]
+                );
+            }
+        }
+    }
+
+    /**
+     * Send Mails
+     *
+     * @param \Extcode\Cart\Domain\Model\Order\Item $orderItem Order Item
+     * @param \Extcode\Cart\Domain\Model\Order\Address $billingAddress Billing Address
+     * @param \Extcode\Cart\Domain\Model\Order\Address $shippingAddress Shipping Address
+     *
+     * @return void
+     */
+    protected function sendMails(
+        \Extcode\Cart\Domain\Model\Order\Item $orderItem,
+        \Extcode\Cart\Domain\Model\Order\Address $billingAddress,
+        \Extcode\Cart\Domain\Model\Order\Address $shippingAddress = null
+    ) {
+        $paymentId = $orderItem->getPayment()->getId();
+        $paymentStatus = $orderItem->getPayment()->getStatus();
+        if (intval($this->pluginSettings['payments']['options'][$paymentId]['sendBuyerEmail'][$paymentStatus]) == 1) {
+            $this->sendBuyerMail($orderItem, $billingAddress, $shippingAddress);
+        }
+        if (intval($this->pluginSettings['payments']['options'][$paymentId]['sendSellerEmail'][$paymentStatus]) != 1) {
+            $this->sendSellerMail($orderItem, $billingAddress, $shippingAddress);
+        }
+    }
+
+    /**
+     * Send a Mail to Buyer
+     *
+     * @param \Extcode\Cart\Domain\Model\Order\Item $orderItem Order Item
+     * @param \Extcode\Cart\Domain\Model\Order\Address $billingAddress Billing Address
+     * @param \Extcode\Cart\Domain\Model\Order\Address $shippingAddress Shipping Address
+     *
+     * @return void
+     */
+    protected function sendBuyerMail(
+        \Extcode\Cart\Domain\Model\Order\Item $orderItem,
+        \Extcode\Cart\Domain\Model\Order\Address $billingAddress,
+        \Extcode\Cart\Domain\Model\Order\Address $shippingAddress = null
+    ) {
+        /* @var \Extcode\Cart\Service\MailHandler $mailHandler*/
+        $mailHandler = $this->objectManager->get(
+            \Extcode\Cart\Service\MailHandler::class
+        );
+        $mailHandler->setCart($this->cart->getCart());
+        $mailHandler->sendBuyerMail($orderItem, $billingAddress, $shippingAddress);
+    }
+
+    /**
+     * Send a Mail to Seller
+     *
+     * @param \Extcode\Cart\Domain\Model\Order\Item $orderItem Order Item
+     * @param \Extcode\Cart\Domain\Model\Order\Address $billingAddress Billing Address
+     * @param \Extcode\Cart\Domain\Model\Order\Address $shippingAddress Shipping Address
+     *
+     * @return void
+     */
+    protected function sendSellerMail(
+        \Extcode\Cart\Domain\Model\Order\Item $orderItem,
+        \Extcode\Cart\Domain\Model\Order\Address $billingAddress,
+        \Extcode\Cart\Domain\Model\Order\Address $shippingAddress = null
+    ) {
+        /* @var \Extcode\Cart\Service\MailHandler $mailHandler*/
+        $mailHandler = $this->objectManager->get(
+            \Extcode\Cart\Service\MailHandler::class
+        );
+        $mailHandler->setCart($this->cart->getCart());
+        $mailHandler->sendSellerMail($orderItem, $billingAddress, $shippingAddress);
     }
 }

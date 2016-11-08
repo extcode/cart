@@ -24,11 +24,11 @@ return [
     ],
     'hideTable' => 1,
     'interface' => [
-        'showRecordFieldList' => 'name, status, gross, net, tax, tax_class, note',
+        'showRecordFieldList' => 'service_id, name, status, gross, net, tax, tax_class, note',
     ],
     'types' => [
         '1' => [
-            'showitem' => 'name, status, gross, net, tax, tax_class, note'
+            'showitem' => 'service_id, name, status, gross, net, tax, tax_class, note'
         ],
     ],
     'palettes' => [
@@ -37,6 +37,16 @@ return [
         ],
     ],
     'columns' => [
+        'service_id' => [
+            'exclude' => 0,
+            'label' => $_LLL . ':tx_cart_domain_model_order_shipping.service_id',
+            'config' => [
+                'type' => 'input',
+                'readOnly' => 1,
+                'size' => 30,
+                'eval' => 'int,required'
+            ],
+        ],
         'name' => [
             'exclude' => 0,
             'label' => $_LLL . ':tx_cart_domain_model_order_shipping.name',

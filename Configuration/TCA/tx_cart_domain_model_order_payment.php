@@ -24,11 +24,11 @@ return [
     ],
     'hideTable' => 1,
     'interface' => [
-        'showRecordFieldList' => 'name, provider, status, gross, net, tax, tax_class, note, transactions',
+        'showRecordFieldList' => 'service_id, name, provider, status, gross, net, tax, tax_class, note, transactions',
     ],
     'types' => [
         '1' => [
-            'showitem' => 'name, provider, status, gross, net, tax, tax_class, note, transactions'
+            'showitem' => 'service_id, name, provider, status, gross, net, tax, tax_class, note, transactions'
         ],
     ],
     'palettes' => [
@@ -37,6 +37,16 @@ return [
         ],
     ],
     'columns' => [
+        'service_id' => [
+            'exclude' => 0,
+            'label' => $_LLL . ':tx_cart_domain_model_order_payment.service_id',
+            'config' => [
+                'type' => 'input',
+                'readOnly' => 1,
+                'size' => 30,
+                'eval' => 'int,required'
+            ],
+        ],
         'name' => [
             'exclude' => 0,
             'label' => $_LLL . ':tx_cart_domain_model_order_payment.name',

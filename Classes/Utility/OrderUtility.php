@@ -759,6 +759,7 @@ class OrderUtility
         $orderPayment = $this->objectManager->get('Extcode\\Cart\\Domain\\Model\\Order\\Payment');
         $orderPayment->setPid($this->storagePid);
 
+        $orderPayment->setServiceId($payment->getId());
         $orderPayment->setName($payment->getName());
         $orderPayment->setProvider($payment->getProvider());
         $orderPayment->setStatus($payment->getStatus());
@@ -766,6 +767,7 @@ class OrderUtility
         $orderPayment->setNet($payment->getNet());
         $orderPayment->setTaxClass($this->taxClasses[$payment->getTaxClass()->getId()]);
         $orderPayment->setTax($payment->getTax());
+        $orderPayment->setNote($payment->getNote());
 
         $this->paymentRepository->add($orderPayment);
 
@@ -788,12 +790,14 @@ class OrderUtility
         $orderShipping = $this->objectManager->get('Extcode\\Cart\\Domain\\Model\\Order\\Shipping');
         $orderShipping->setPid($this->storagePid);
 
+        $orderShipping->setServiceId($shipping->getId());
         $orderShipping->setName($shipping->getName());
         $orderShipping->setStatus($shipping->getStatus());
         $orderShipping->setGross($shipping->getGross());
         $orderShipping->setNet($shipping->getNet());
         $orderShipping->setTaxClass($this->taxClasses[$shipping->getTaxClass()->getId()]);
         $orderShipping->setTax($shipping->getTax());
+        $orderShipping->setNote($shipping->getNote());
 
         $this->shippingRepository->add($orderShipping);
 

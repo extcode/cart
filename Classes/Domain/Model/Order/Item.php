@@ -468,7 +468,7 @@ class Item extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Gets Billing Address
      *
-     * @return string
+     * @return \Extcode\Cart\Domain\Model\Order\Address
      */
     public function getBillingAddress()
     {
@@ -478,11 +478,11 @@ class Item extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Set Billing Address
      *
-     * @param string $billingAddress
+     * @param \Extcode\Cart\Domain\Model\Order\Address $billingAddress
      *
      * @return void
      */
-    public function setBillingAddress($billingAddress)
+    public function setBillingAddress(\Extcode\Cart\Domain\Model\Order\Address $billingAddress)
     {
         $this->billingAddress = $billingAddress;
     }
@@ -490,7 +490,7 @@ class Item extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Gets Shipping Address
      *
-     * @return string
+     * @return \Extcode\Cart\Domain\Model\Order\Address
      */
     public function getShippingAddress()
     {

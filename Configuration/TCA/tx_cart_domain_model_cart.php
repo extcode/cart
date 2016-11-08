@@ -22,18 +22,38 @@ return [
         'searchFields' => '',
     ],
     'interface' => [
-        'showRecordFieldList' => 'pid, fe_user, was_ordered, order_item, cart',
+        'showRecordFieldList' => 'pid, f_hash, s_hash, fe_user, was_ordered, order_item, cart',
     ],
     'types' => [
         '1' => [
             'showitem' =>
-                'pid, fe_user, was_ordered, order_item, cart'
+                'pid, f_hash, s_hash, fe_user, was_ordered, order_item, cart'
         ],
     ],
     'palettes' => [
         '1' => ['showitem' => ''],
     ],
     'columns' => [
+        'f_hash' => [
+            'exclude' => 0,
+            'label' => $_LLL . ':tx_cart_domain_model_cart.f_hash',
+            'config' => [
+                'type' => 'input',
+                'readOnly' => 1,
+                'size' => 30,
+                'eval' => 'trim,required'
+            ],
+        ],
+        's_hash' => [
+            'exclude' => 0,
+            'label' => $_LLL . ':tx_cart_domain_model_cart.s_hash',
+            'config' => [
+                'type' => 'input',
+                'readOnly' => 1,
+                'size' => 30,
+                'eval' => 'trim,required'
+            ],
+        ],
         'pid' => [
             'exclude' => 1,
             'config' => [
