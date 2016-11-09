@@ -180,12 +180,20 @@ class ParserUtility
                     $service->addExtra($extra);
                 }
 
-                $service->setFreeFrom($value['free']['from']);
-                $service->setFreeUntil($value['free']['until']);
-                $service->setAvailableFrom($value['available']['from']);
-                $service->setAvailableUntil($value['available']['until']);
+                if ($value['free']) {
+                    $service->setFreeFrom($value['free']['from']);
+                    $service->setFreeUntil($value['free']['until']);
+                }
+                if ($value['available']) {
+                    $service->setAvailableFrom($value['available']['from']);
+                    $service->setAvailableUntil($value['available']['until']);
+                    if ($value['available']['fallBackId']) {
+                        $service->setFallBackId($value['available']['fallBackId']);
+                    }
+                }
 
                 if ($pluginSettings[$type]['preset'] == $key) {
+
                     $service->setIsPreset(true);
                 }
 

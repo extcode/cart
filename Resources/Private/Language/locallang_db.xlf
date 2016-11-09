@@ -20,6 +20,9 @@
             <trans-unit id="tx_cart.module.products">
                 <source>Products</source>
             </trans-unit>
+            <trans-unit id="tx_cart.module.coupons">
+                <source>Coupons</source>
+            </trans-unit>
 
             <trans-unit id="tx_cart.plugin.mini_cart">
                 <source>Cart: Mini-Cart</source>
@@ -320,6 +323,9 @@
             <trans-unit id="tx_cart_domain_model_order_shipping">
                 <source>Shipping</source>
             </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_shipping.service_id">
+                <source>Service ID</source>
+            </trans-unit>
             <trans-unit id="tx_cart_domain_model_order_shipping.name">
                 <source>Name</source>
             </trans-unit>
@@ -356,6 +362,9 @@
 
             <trans-unit id="tx_cart_domain_model_order_payment">
                 <source>Payment</source>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_payment.service_id">
+                <source>Service ID</source>
             </trans-unit>
             <trans-unit id="tx_cart_domain_model_order_payment.name">
                 <source>Name</source>

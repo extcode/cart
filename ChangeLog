@@ -1,3 +1,9 @@
+1.6.1
+    2016-11-09
+    Daniel Lorenz <daniel.lorenz@extco.de>
+
+    * TASK #32: handle service availability
+
 1.6.0
     2016-11-08
     Daniel Lorenz <daniel.lorenz@extco.de>

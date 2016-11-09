@@ -148,6 +148,10 @@ class CartUtility
              * @var \Extcode\Cart\Domain\Model\Shipping $shipping
              */
             if ($shipping->getIsPreset()) {
+                if (!$shipping->isAvailable($cart->getGross())) {
+                    $fallBackId = $shipping->getFallBackId();
+                    $shipping = $this->getServiceById($shippings, $fallBackId);
+                }
                 $cart->setShipping($shipping);
                 break;
             }
@@ -161,12 +165,30 @@ class CartUtility
              * @var \Extcode\Cart\Domain\Model\Payment $payment
              */
             if ($payment->getIsPreset()) {
+                if (!$payment->isAvailable($cart->getGross())) {
+                    $fallBackId = $payment->getFallBackId();
+                    $payment = $this->getServiceById($payments, $fallBackId);
+                }
                 $cart->setPayment($payment);
                 break;
             }
         }
 
         return $cart;
+    }
+
+    /**
+     * @param array $services
+     * @param int $serviceId
+     * @return mixed
+     */
+    public function getServiceById($services, $serviceId)
+    {
+        foreach ($services as $service) {
+            if ($service->getId() == $serviceId) {
+                return $service;
+            }
+        }
     }
 
     /**

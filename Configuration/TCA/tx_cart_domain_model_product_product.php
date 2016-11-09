@@ -355,8 +355,8 @@ return [
             'config' => [
                 'type' => 'input',
                 'size' => 30,
-                'eval' => 'required,float',
-                'default' => '0.0',
+                'eval' => 'double2,required',
+                'default' => '0.00',
             ]
         ],
         'service_attribute2' => [
@@ -365,8 +365,8 @@ return [
             'config' => [
                 'type' => 'input',
                 'size' => 30,
-                'eval' => 'required,float',
-                'default' => '0.0',
+                'eval' => 'double2,required',
+                'default' => '0.00',
             ]
         ],
         'service_attribute3' => [
@@ -375,8 +375,8 @@ return [
             'config' => [
                 'type' => 'input',
                 'size' => 30,
-                'eval' => 'required,float',
-                'default' => '0.0',
+                'eval' => 'double2,required',
+                'default' => '0.00',
             ]
         ],
 

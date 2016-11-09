@@ -218,6 +218,12 @@
                 <source>A validation error has occurred.</source>
             </trans-unit>
 
+            <trans-unit id="tx_cart.controller.cart.action.set_payment.not_available">
+                <source>This payment method is not available.</source>
+            </trans-unit>
+            <trans-unit id="tx_cart.controller.cart.action.set_shipping.not_available">
+                <source>This shipping method is not available.</source>
+            </trans-unit>
             <trans-unit id="tx_cart.controller.order.actions">
                 <source>Actions</source>
             </trans-unit>
@@ -232,6 +238,15 @@
             </trans-unit>
             <trans-unit id="tx_cart.controller.order.action.export.csv">
                 <source>Export (CSV)</source>
+            </trans-unit>
+            <trans-unit id="tx_cart.controller.order.action.generateOrderNumber">
+                <source>Generate Order Number</source>
+            </trans-unit>
+            <trans-unit id="tx_cart.controller.order.action.generateOrderDocument">
+                <source>Generate Order Document</source>
+            </trans-unit>
+            <trans-unit id="tx_cart.controller.order.action.downloadOrderDocument">
+                <source>Download Order Document</source>
             </trans-unit>
             <trans-unit id="tx_cart.controller.order.action.generateInvoiceNumber">
                 <source>Generate Invoice Number</source>

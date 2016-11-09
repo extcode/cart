@@ -156,6 +156,18 @@ $TCA['pages']['columns']['module']['config']['items'][] = [
     $iconPath . 'pages_products_icon.png'
 );
 
+$TCA['pages']['columns']['module']['config']['items'][] = [
+    'LLL:EXT:' . $_EXTKEY . '/Resources/Private/Language/locallang_db.xlf:tx_cart.module.coupons',
+    'coupons',
+    $iconPath . 'pages_coupons_icon.png'
+];
+
+\TYPO3\CMS\Backend\Sprite\SpriteManager::addTcaTypeIcon(
+    'pages',
+    'contains-coupons',
+    $iconPath . 'pages_coupons_icon.png'
+);
+
 $tables = [
     'order_item',
     'order_address',

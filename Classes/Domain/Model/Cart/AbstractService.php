@@ -39,6 +39,13 @@ abstract class AbstractService
     private $id;
 
     /**
+     * Fall Back ID
+     *
+     * @var int
+     */
+    private $fallBackId;
+
+    /**
      * Name
      *
      * @var string
@@ -215,6 +222,22 @@ abstract class AbstractService
     public function setProvider($provider)
     {
         $this->provider = $provider;
+    }
+
+    /**
+     * @return int
+     */
+    public function getFallBackId()
+    {
+        return $this->fallBackId;
+    }
+
+    /**
+     * @param int $fallBackId
+     */
+    public function setFallBackId($fallBackId)
+    {
+        $this->fallBackId = $fallBackId;
     }
 
     /**

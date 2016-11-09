@@ -293,6 +293,9 @@ class CartController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
                 }
                 $this->cart->reCalc();
             }
+
+            $this->updateService();
+
             $this->sessionHandler->writeToSession($this->cart, $this->settings['cart']['pid']);
         }
         $this->redirect('showCart');
@@ -307,9 +310,6 @@ class CartController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     {
         $this->cart = $this->cartUtility->getCartFromSession($this->settings['cart'], $this->pluginSettings);
 
-        // TODO: Check if the function call is necessary.
-        $this->parseData();
-
         $products = $this->cartUtility->getProductsFromRequest(
             $this->pluginSettings,
             $this->request,
@@ -321,6 +321,8 @@ class CartController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
             $quantity += $product->getQuantity();
             $this->cart->addProduct($product);
         }
+
+        $this->updateService();
 
         $this->sessionHandler->writeToSession($this->cart, $this->settings['cart']['pid']);
 
@@ -345,6 +347,26 @@ class CartController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
             return json_encode($response);
         } else {
             $this->redirect('showCart');
+        }
+    }
+
+    protected function updateService()
+    {
+        $this->parseData();
+        if (!$this->cart->getPayment()->isAvailable($this->cart->getGross())) {
+            $fallBackId = $this->cart->getPayment()->getFallBackId();
+            if ($fallBackId) {
+                $payment = $this->cartUtility->getServiceById($this->payments, $fallBackId);
+                $this->cart->setPayment($payment);
+            }
+        }
+
+        if (!$this->cart->getShipping()->isAvailable($this->cart->getGross())) {
+            $fallBackId = $this->cart->getShipping()->getFallBackId();
+            if ($fallBackId) {
+                $shipping = $this->cartUtility->getServiceById($this->shippings, $fallBackId);
+                $this->cart->setShipping($shipping);
+            }
         }
     }
 
@@ -479,6 +501,8 @@ class CartController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
             $this->cart = $this->sessionHandler->restoreFromSession($this->settings['cart']['pid']);
             $this->cart->removeProductById($this->request->getArgument('product'));
 
+            $this->updateService();
+
             $this->sessionHandler->writeToSession($this->cart, $this->settings['cart']['pid']);
         }
         $this->redirect('showCart');
@@ -500,7 +524,19 @@ class CartController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $shipping = $this->shippings[$shippingId];
 
         if ($shipping) {
-            $cart->setShipping($shipping);
+            if ($shipping->isAvailable($cart->getGross())) {
+                $cart->setShipping($shipping);
+            } else {
+                $this->addFlashMessage(
+                    \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
+                        'tx_cart.controller.cart.action.set_shipping.not_available',
+                        $this->extensionName
+                    ),
+                    $messageTitle = '',
+                    $severity = \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR,
+                    $storeInSession = true
+                );
+            }
         }
 
         $this->sessionHandler->writeToSession($cart, $this->settings['cart']['pid']);
@@ -524,7 +560,19 @@ class CartController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $payment = $this->payments[$paymentId];
 
         if ($payment) {
-            $cart->setPayment($payment);
+            if ($payment->isAvailable($cart->getGross())) {
+                $cart->setPayment($payment);
+            } else {
+                $this->addFlashMessage(
+                    \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
+                        'tx_cart.controller.cart.action.set_payment.not_available',
+                        $this->extensionName
+                    ),
+                    $messageTitle = '',
+                    $severity = \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR,
+                    $storeInSession = true
+                );
+            }
         }
 
         $this->sessionHandler->writeToSession($cart, $this->settings['cart']['pid']);

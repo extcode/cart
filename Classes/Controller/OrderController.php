@@ -728,12 +728,12 @@ class OrderController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         \Extcode\Cart\Domain\Model\Order\Address $billingAddress,
         \Extcode\Cart\Domain\Model\Order\Address $shippingAddress = null
     ) {
-        $paymentId = $orderItem->getPayment()->getId();
+        $paymentId = $orderItem->getPayment()->getServiceId();
         $paymentStatus = $orderItem->getPayment()->getStatus();
         if (intval($this->pluginSettings['payments']['options'][$paymentId]['sendBuyerEmail'][$paymentStatus]) == 1) {
             $this->sendBuyerMail($orderItem, $billingAddress, $shippingAddress);
         }
-        if (intval($this->pluginSettings['payments']['options'][$paymentId]['sendSellerEmail'][$paymentStatus]) != 1) {
+        if (intval($this->pluginSettings['payments']['options'][$paymentId]['sendSellerEmail'][$paymentStatus]) == 1) {
             $this->sendSellerMail($orderItem, $billingAddress, $shippingAddress);
         }
     }

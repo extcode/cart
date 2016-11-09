@@ -83,3 +83,33 @@ Bezahlmethode (Vorkasse) mit.
       Text
    Description
       Wenn der Bruttopreis der Produkte kleiner oder gleich dem angegebenen Wert ist, ist der Preis für die Bezahlmethode 0.00.
+
+
+.. container:: table-row
+
+   Property
+      payments.options.n.available.from
+   Data type
+      Text
+   Description
+      Nur wenn der Bruttopreis der Produkte größer oder gleich dem angegebenen Wert ist, ist diese Bezahlmethode verfügbar,
+      anderfalls wird die Rückfall-Zahlmethode verwendet.
+
+.. container:: table-row
+
+   Property
+      payments.options.n.available.until
+   Data type
+      Text
+   Description
+      Nur wenn der Bruttopreis der Produkte kleiner oder gleich dem angegebenen Wert ist, ist diese Bezahlmethode verfügbar,
+      anderfalls wird die Rückfall-Zahlmethode verwendet.
+
+.. container:: table-row
+
+   Property
+      payments.options.n.available.fallBackId
+   Data type
+      Text
+   Description
+      Ist die Bezahlmethode nicht verfügbar, wird die Zahlmethode mit dieser ID verwendet.

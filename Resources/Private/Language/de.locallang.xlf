@@ -437,6 +437,18 @@
                 <source>Export (CSV)</source>
                 <target>Export (CSV)</target>
             </trans-unit>
+            <trans-unit id="tx_cart.controller.order.action.generateOrderNumber">
+                <source>Generate Order Number</source>
+                <target>Bestellnummer generieren</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.controller.order.action.generateOrderDocument">
+                <source>Generate Order Document</source>
+                <target>Bestellbestätigung generieren</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.controller.order.action.downloadOrderDocument">
+                <source>Download Order Document</source>
+                <target>Bestellbestätigung herunterladen</target>
+            </trans-unit>
             <trans-unit id="tx_cart.controller.order.action.generateInvoiceNumber">
                 <source>Generate Invoice Number</source>
                 <target>Rechnungsnummer generieren</target>

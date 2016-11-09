@@ -22,9 +22,9 @@ CREATE TABLE tx_cart_domain_model_product_product (
     base_price_measure double(11,2) DEFAULT '0.00' NOT NULL,
     base_price_measure_unit varchar(8) DEFAULT '' NOT NULL,
 
-    service_attribute1 float DEFAULT '0' NOT NULL,
-    service_attribute2 float DEFAULT '0' NOT NULL,
-    service_attribute3 float DEFAULT '0' NOT NULL,
+    service_attribute1 double(11,2) DEFAULT '0.00' NOT NULL,
+    service_attribute2 double(11,2) DEFAULT '0.00' NOT NULL,
+    service_attribute3 double(11,2) DEFAULT '0.00' NOT NULL,
 
     stock int(11) unsigned DEFAULT '0' NOT NULL,
     handle_stock tinyint(4) unsigned DEFAULT '0' NOT NULL,
