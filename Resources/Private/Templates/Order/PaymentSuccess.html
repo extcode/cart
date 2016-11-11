@@ -1,10 +1,14 @@
 <f:layout name="Default"/>
 
 <f:section name="main">
-    <div class="col-sm-12 col-md-12 col-lg-12">
-        <f:translate key="tx_cart.controller.order.action.payment_success.thank_you"/>
-    </div>
-    <div class="col-sm-12 col-md-12 col-lg-12">
-        <f:translate key="tx_cart.controller.order.action.payment_success.thank_you_order_number" arguments="{1: orderItem.orderNumber}" />
-    </div>
+    <f:flashMessages renderMode="div" />
+
+    <f:if condition="{orderItem}">
+        <div class="col-sm-12 col-md-12 col-lg-12">
+            <f:translate key="tx_cart.controller.order.action.payment_success.thank_you"/>
+        </div>
+        <div class="col-sm-12 col-md-12 col-lg-12">
+            <f:translate key="tx_cart.controller.order.action.payment_success.thank_you_order_number" arguments="{1: orderItem.orderNumber}" />
+        </div>
+    </f:if>
 </f:section>

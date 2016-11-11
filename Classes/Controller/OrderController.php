@@ -636,8 +636,6 @@ class OrderController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 
                 $this->view->assign('orderItem', $orderItem);
             } else {
-                $this->view->assign('error', true);
-
                 $this->addFlashMessage(
                     \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
                         'tx_cart.controller.order.action.payment_cancel.error_occured',
@@ -648,8 +646,6 @@ class OrderController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
                 );
             }
         } else {
-            $this->view->assign('error', true);
-
             $this->addFlashMessage(
                 \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
                     'tx_cart.controller.order.action.payment_cancel.access_denied',
