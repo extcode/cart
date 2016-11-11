@@ -1,3 +1,9 @@
+1.6.2
+    2016-11-11
+    Daniel Lorenz <daniel.lorenz@extco.de>
+
+    * TASK #34: fix ViewHelper extending from
+
 1.6.1
     2016-11-09
     Daniel Lorenz <daniel.lorenz@extco.de>

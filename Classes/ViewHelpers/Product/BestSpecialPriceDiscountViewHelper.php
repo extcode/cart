@@ -21,7 +21,7 @@ namespace Extcode\Cart\ViewHelpers\Product;
  * @package cart
  * @author Daniel Lorenz <ext.cart@extco.de>
  */
-class BestSpecialPriceDiscountViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\Link\ActionViewHelper
+class BestSpecialPriceDiscountViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper
 {
     /**
      * @param \Extcode\Cart\Domain\Model\Product\Product $product
