@@ -623,35 +623,41 @@ class OrderController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
                 $this->paymentRepository->update($payment);
                 $this->persistenceManager->persistAll();
 
-                $billingAddress = $orderItem->getBillingAddress()->_loadRealInstance();
-                $shippingAddress = null;
-                if ($orderItem->getShippingAddress()) {
-                    $shippingAddress = $orderItem->getShippingAddress()->_loadRealInstance();
-                }
-
-                $data = [
-                    'orderItem' => $orderItem,
-                    'cart' => $this->cart,
-                    'billingAddress' => $billingAddress,
-                    'shippingAddress' => $shippingAddress,
-                ];
-
-                $signalSlotDispatcher = $this->objectManager->get('TYPO3\\CMS\\Extbase\\SignalSlot\\Dispatcher');
-                $signalSlotDispatcher->dispatch(
-                    __CLASS__,
-                    __FUNCTION__ . 'AfterUpdatePaymentAndBeforeSuccessMail',
-                    [$data]
+                $this->addFlashMessage(
+                    \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
+                        'tx_cart.controller.order.action.payment_cancel.successfully_paid',
+                        $this->extensionName
+                    ),
+                    '',
+                    \TYPO3\CMS\Core\Messaging\AbstractMessage::OK
                 );
 
-                $this->sendMails($orderItem, $billingAddress, $shippingAddress);
+                $this->sendMails($orderItem, 'success', __CLASS__, __FUNCTION__);
 
-                $signalSlotDispatcher = $this->objectManager->get('TYPO3\\CMS\\Extbase\\SignalSlot\\Dispatcher');
-                $signalSlotDispatcher->dispatch(
-                    __CLASS__,
-                    __FUNCTION__ . 'AfterUpdatePaymentAndAfterSuccessMail',
-                    [$data]
+                $this->view->assign('orderItem', $orderItem);
+            } else {
+                $this->view->assign('error', true);
+
+                $this->addFlashMessage(
+                    \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
+                        'tx_cart.controller.order.action.payment_cancel.error_occured',
+                        $this->extensionName
+                    ),
+                    '',
+                    \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR
                 );
             }
+        } else {
+            $this->view->assign('error', true);
+
+            $this->addFlashMessage(
+                \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
+                    'tx_cart.controller.order.action.payment_cancel.access_denied',
+                    $this->extensionName
+                ),
+                '',
+                \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR
+            );
         }
     }
 
@@ -682,52 +688,72 @@ class OrderController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
                 $this->paymentRepository->update($payment);
                 $this->persistenceManager->persistAll();
 
-                $billingAddress = $orderItem->getBillingAddress()->_loadRealInstance();
-                $shippingAddress = null;
-                if ($orderItem->getShippingAddress()) {
-                    $shippingAddress = $orderItem->getShippingAddress()->_loadRealInstance();
-                }
-
-                $data = [
-                    'orderItem' => $orderItem,
-                    'cart' => $this->cart,
-                    'billingAddress' => $billingAddress,
-                    'shippingAddress' => $shippingAddress,
-                ];
-
-                $signalSlotDispatcher = $this->objectManager->get('TYPO3\\CMS\\Extbase\\SignalSlot\\Dispatcher');
-                $signalSlotDispatcher->dispatch(
-                    __CLASS__,
-                    __FUNCTION__ . 'AfterUpdatePaymentAndBeforeCancelMail',
-                    [$data]
+                $this->addFlashMessage(
+                    \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
+                        'tx_cart.controller.order.action.payment_cancel.successfully_canceled',
+                        $this->extensionName
+                    ),
+                    '',
+                    \TYPO3\CMS\Core\Messaging\AbstractMessage::OK
                 );
 
-                $this->sendMails($orderItem, $billingAddress, $shippingAddress);
+                $this->sendMails($orderItem, 'cancel', __CLASS__, __FUNCTION__);
 
-                $signalSlotDispatcher = $this->objectManager->get('TYPO3\\CMS\\Extbase\\SignalSlot\\Dispatcher');
-                $signalSlotDispatcher->dispatch(
-                    __CLASS__,
-                    __FUNCTION__ . 'AfterUpdatePaymentAndAfterCancelMail',
-                    [$data]
+                $this->view->assign('orderItem', $orderItem);
+            } else {
+                $this->addFlashMessage(
+                    \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
+                        'tx_cart.controller.order.action.payment_cancel.error_occured',
+                        $this->extensionName
+                    ),
+                    '',
+                    \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR
                 );
             }
+        } else {
+            $this->addFlashMessage(
+                \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
+                    'tx_cart.controller.order.action.payment_cancel.access_denied',
+                    $this->extensionName
+                ),
+                '',
+                \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR
+            );
         }
     }
 
     /**
      * Send Mails
      *
-     * @param \Extcode\Cart\Domain\Model\Order\Item $orderItem Order Item
-     * @param \Extcode\Cart\Domain\Model\Order\Address $billingAddress Billing Address
-     * @param \Extcode\Cart\Domain\Model\Order\Address $shippingAddress Shipping Address
+     * @param \Extcode\Cart\Domain\Model\Order\Item $orderItem
+     * @paran string $type
+     * @param string $class
+     * @param string $function
      *
      * @return void
      */
-    protected function sendMails(
-        \Extcode\Cart\Domain\Model\Order\Item $orderItem,
-        \Extcode\Cart\Domain\Model\Order\Address $billingAddress,
-        \Extcode\Cart\Domain\Model\Order\Address $shippingAddress = null
-    ) {
+    protected function sendMails(\Extcode\Cart\Domain\Model\Order\Item $orderItem, $type, $class, $function)
+    {
+        $billingAddress = $orderItem->getBillingAddress()->_loadRealInstance();
+        $shippingAddress = null;
+        if ($orderItem->getShippingAddress()) {
+            $shippingAddress = $orderItem->getShippingAddress()->_loadRealInstance();
+        }
+
+        $data = [
+            'orderItem' => $orderItem,
+            'cart' => $this->cart,
+            'billingAddress' => $billingAddress,
+            'shippingAddress' => $shippingAddress,
+        ];
+
+        $signalSlotDispatcher = $this->objectManager->get('TYPO3\\CMS\\Extbase\\SignalSlot\\Dispatcher');
+        $signalSlotDispatcher->dispatch(
+            $class,
+            $function . 'AfterUpdatePaymentAndBefore' . ucfirst($type) . 'Mail',
+            $data
+        );
+
         $paymentId = $orderItem->getPayment()->getServiceId();
         $paymentStatus = $orderItem->getPayment()->getStatus();
         if (intval($this->pluginSettings['payments']['options'][$paymentId]['sendBuyerEmail'][$paymentStatus]) == 1) {
@@ -736,6 +762,13 @@ class OrderController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         if (intval($this->pluginSettings['payments']['options'][$paymentId]['sendSellerEmail'][$paymentStatus]) == 1) {
             $this->sendSellerMail($orderItem, $billingAddress, $shippingAddress);
         }
+
+        $signalSlotDispatcher = $this->objectManager->get('TYPO3\\CMS\\Extbase\\SignalSlot\\Dispatcher');
+        $signalSlotDispatcher->dispatch(
+            $class,
+            $function . 'AfterUpdatePaymentAndAfter' . ucfirst($type) . 'Mail',
+            $data
+        );
     }
 
     /**

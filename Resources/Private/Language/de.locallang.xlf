@@ -417,6 +417,52 @@
                 <target>Ein Validierungsfehler ist aufgetreten.</target>
             </trans-unit>
 
+            <trans-unit id="tx_cart.controller.cart.action.set_payment.not_available">
+                <source>This payment method is not available.</source>
+                <target>Diese Bezahlmethode ist nicht verfügbar.</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.controller.cart.action.set_shipping.not_available">
+                <source>This shipping method is not available.</source>
+                <target>Diese Versandmethode ist nicht verfügbar.</target>
+            </trans-unit>
+
+            <trans-unit id="tx_cart.controller.order.action.payment_success.successfully_paid">
+                <source>The order was successfully paid.</source>
+                <target>Die Bestellung wurde erfolgreich bezahlt.</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.controller.order.action.payment_success.error_occured">
+                <source>An error occurred while updating the order.</source>
+                <target>Es ist ein Fehler bei der Aktualisierung der Bestellung aufgetreten.</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.controller.order.action.payment_success.access_denied">
+                <source>Access denied!</source>
+                <target>Access denied!</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.controller.order.action.payment_success.thank_you">
+                <source>Thank you for your order.</source>
+                <target>Vielen Dank für Ihre Bestellung.</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.controller.order.action.payment_success.thank_you_order_number">
+                <source>Your order number is: %1$s</source>
+                <target>Ihre Bestellnummer lautet: %1$s</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.controller.order.action.payment_cancel.successfully_canceled">
+                <source>The order has been canceled.</source>
+                <target>Die Bestellung wurde abgebrochen.</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.controller.order.action.payment_cancel.error_occured">
+                <source>An error occurred while updating the order.</source>
+                <target>Es ist ein Fehler bei der Aktualisierung der Bestellung aufgetreten.</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.controller.order.action.payment_cancel.access_denied">
+                <source>Access denied!</source>
+                <target>Access denied!</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.controller.order.action.payment_cancel.thank_you">
+                <source>Thank you.</source>
+                <target>Vielen Dank.</target>
+            </trans-unit>
+
             <trans-unit id="tx_cart.controller.order.actions">
                 <source>Actions</source>
                 <target>Aktionen</target>

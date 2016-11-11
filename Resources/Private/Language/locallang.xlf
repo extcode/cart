@@ -224,6 +224,35 @@
             <trans-unit id="tx_cart.controller.cart.action.set_shipping.not_available">
                 <source>This shipping method is not available.</source>
             </trans-unit>
+
+            <trans-unit id="tx_cart.controller.order.action.payment_success.successfully_paid">
+                <source>The order was successfully paid.</source>
+            </trans-unit>
+            <trans-unit id="tx_cart.controller.order.action.payment_success.error_occured">
+                <source>An error occurred while updating the order.</source>
+            </trans-unit>
+            <trans-unit id="tx_cart.controller.order.action.payment_success.access_denied">
+                <source>Access denied!</source>
+            </trans-unit>
+            <trans-unit id="tx_cart.controller.order.action.payment_success.thank_you">
+                <source>Thank you for your order.</source>
+            </trans-unit>
+            <trans-unit id="tx_cart.controller.order.action.payment_success.thank_you_order_number">
+                <source>Your order number is: %1$s</source>
+            </trans-unit>
+            <trans-unit id="tx_cart.controller.order.action.payment_cancel.successfully_canceled">
+                <source>The order has been canceled.</source>
+            </trans-unit>
+            <trans-unit id="tx_cart.controller.order.action.payment_cancel.error_occured">
+                <source>An error occurred while updating the order.</source>
+            </trans-unit>
+            <trans-unit id="tx_cart.controller.order.action.payment_cancel.access_denied">
+                <source>Access denied!</source>
+            </trans-unit>
+            <trans-unit id="tx_cart.controller.order.action.payment_cancel.thank_you">
+                <source>Thank you.</source>
+            </trans-unit>
+
             <trans-unit id="tx_cart.controller.order.actions">
                 <source>Actions</source>
             </trans-unit>
