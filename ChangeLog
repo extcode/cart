@@ -1,3 +1,9 @@
+1.6.5
+    2016-11-15
+    Daniel Lorenz <daniel.lorenz@extco.de>
+
+    * TASK #38: allow null for orderItem an billingAddress in orderCart action
+
 1.6.4
     2016-11-15
     Daniel Lorenz <daniel.lorenz@extco.de>
