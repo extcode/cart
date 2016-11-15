@@ -90,7 +90,11 @@ class VariantSelectViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractV
                 $data .= ' data-special-price="' . $specialPrice . '"';
                 $data .= ' data-special-price-percentage-discount="' . $specialPricePercentageDiscount . '"';
             }
-            $out .= '<option ' . $value . ' ' . $data . '>' . $optionLabel . '</option>';
+            $disabled = '';
+            if (!$beVariant->getIsAvailable() && $beVariant->getProduct()->getHandleStockInVariants()) {
+                $disabled = 'disabled';
+            }
+            $out .= '<option ' . $value . ' ' . $data . ' ' . $disabled . '>' . $optionLabel . '</option>';
         }
 
         $out .= '</select>';

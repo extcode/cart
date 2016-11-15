@@ -234,6 +234,13 @@ class Product extends \Extcode\Cart\Domain\Model\Product\AbstractProduct
     protected $handleStock = false;
 
     /**
+     * Handle Stock in Variants
+     *
+     * @var bool
+     */
+    protected $handleStockInVariants = false;
+
+    /**
      * Categories
      *
      * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Extcode\Cart\Domain\Model\Category>
@@ -973,15 +980,20 @@ class Product extends \Extcode\Cart\Domain\Model\Product\AbstractProduct
      */
     public function getStock()
     {
-        if (count($this->beVariants)) {
+        if (!$this->handleStock) {
+            return PHP_INT_MAX;
+        }
+
+        if ($this->handleStockInVariants) {
             $count = 0;
-
-            foreach ($this->beVariants as $variant) {
-                $count += $variant->getStock();
+            if (count($this->beVariants)) {
+                foreach ($this->beVariants as $variant) {
+                    $count += $variant->getStock();
+                }
             }
-
             return $count;
         }
+
         return $this->stock;
     }
 
@@ -1002,7 +1014,7 @@ class Product extends \Extcode\Cart\Domain\Model\Product\AbstractProduct
      */
     public function addToStock($numberOfProducts)
     {
-        if ($this->handleStock()) {
+        if ($this->getHandleStock()) {
             $this->stock += $numberOfProducts;
         }
     }
@@ -1014,15 +1026,17 @@ class Product extends \Extcode\Cart\Domain\Model\Product\AbstractProduct
      */
     public function removeFromStock($numberOfProducts)
     {
-        if ($this->handleStock()) {
+        if ($this->getHandleStock()) {
             $this->stock -= $numberOfProducts;
         }
     }
 
     /**
+     * Returns Handle Stock
+     *
      * @return bool
      */
-    public function handleStock()
+    public function getHandleStock()
     {
         return $this->handleStock;
     }
@@ -1039,9 +1053,55 @@ class Product extends \Extcode\Cart\Domain\Model\Product\AbstractProduct
     }
 
     /**
+     * Returns Handle Stock In Variants
+     *
+     * @return boolean
+     */
+    public function getHandleStockInVariants()
+    {
+        return $this->handleStockInVariants;
+    }
+
+    /**
+     * Sets Handle Stock In Variants
+     *
+     * @param boolean $handleStockInVariants
+     */
+    public function setHandleStockInVariants($handleStockInVariants)
+    {
+        $this->handleStockInVariants = $handleStockInVariants;
+    }
+
+    /**
+     * Returns Is Available
+     *
+     * @return bool
+     */
+    public function getIsAvailable()
+    {
+        if (!$this->handleStock) {
+            return true;
+        } else {
+            if (!$this->handleStockInVariants) {
+                return boolval($this->stock);
+            } else {
+                if (count($this->beVariants)) {
+                    foreach ($this->beVariants as $beVariant) {
+                        if ($beVariant->getIsAvailable()) {
+                            return true;
+                        }
+                    }
+                }
+            }
+        }
+
+        return false;
+    }
+
+    /**
      * Adds a Product Category
      *
-     * @param \TYPO3\CMS\Extbase\Domain\Model\Category $Category
+     * @param \TYPO3\CMS\Extbase\Domain\Model\Category $category
      * @return void
      */
     public function addCategory(\TYPO3\CMS\Extbase\Domain\Model\Category $category)

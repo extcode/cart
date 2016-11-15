@@ -27,7 +27,7 @@ return [
             'starttime' => 'starttime',
             'endtime' => 'endtime',
         ],
-        'requestUpdate' => 'product_type, be_variant_attribute1, be_variant_attribute2, be_variant_attribute3',
+        'requestUpdate' => 'product_type, be_variant_attribute1, be_variant_attribute2, be_variant_attribute3, handle_stock, handle_stock_in_variants',
         'searchFields' => 'sku,title,teaser,description,price,',
         'iconfile' => 'EXT:cart/Resources/Public/Icons/Product/Product.png'
     ],
@@ -48,7 +48,8 @@ return [
                 --palette--;' . $_LLL . ':tx_cart_domain_model_product_product.palette.prices;prices,
                 --palette--;' . $_LLL . ':tx_cart_domain_model_product_product.palette.measures;measures,
                 --palette--;' . $_LLL . ':tx_cart_domain_model_product_product.palette.service_attributes;service_attributes,
-                --palette--;' . $_LLL . ':tx_cart_domain_model_product_product.palette.stock;stock,
+            --div--;' . $_LLL . ':tx_cart_domain_model_product_product.div.stock,
+                handle_stock, handle_stock_in_variants, stock,
             --div--;' . $_LLL . ':tx_cart_domain_model_product_product.div.variants,
                 fe_variants,
                 --palette--;' . $_LLL . ':tx_cart_domain_model_product_product.palette.be_variant_attributes;be_variant_attributes,
@@ -82,7 +83,6 @@ return [
             'showitem' => 'service_attribute1, service_attribute2, service_attribute3',
             'canNotCollapse' => 1
         ],
-        'stock' => ['showitem' => 'handle_stock, stock', 'canNotCollapse' => 1],
     ],
     'columns' => [
 
@@ -601,8 +601,27 @@ return [
                 'type' => 'check',
             ],
         ],
+        'handle_stock_in_variants' => [
+            'exclude' => 1,
+            'displayCond' => [
+                'AND' => [
+                    'FIELD:product_type:=:configurable',
+                    'FIELD:handle_stock:=:1',
+                ]
+            ],
+            'label' => $_LLL . ':tx_cart_domain_model_product_product.handle_stock_in_variants',
+            'config' => [
+                'type' => 'check',
+            ],
+        ],
         'stock' => [
             'exclude' => 1,
+            'displayCond' => [
+                'AND' => [
+                    'FIELD:handle_stock:=:1',
+                    'FIELD:handle_stock_in_variants:=:0',
+                ]
+            ],
             'label' => $_LLL . ':tx_cart_domain_model_product_product.stock',
             'config' => [
                 'type' => 'input',

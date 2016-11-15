@@ -65,6 +65,12 @@
     * TASK #42: only attach documents when rendered
 
 1.6.5
+    2016-11-16
+    Daniel Lorenz <daniel.lorenz@extco.de>
+
+    * TASK #39: add stock handling for products and backend variants
+
+1.6.5
     2016-11-15
     Daniel Lorenz <daniel.lorenz@extco.de>
 

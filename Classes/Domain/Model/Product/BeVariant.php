@@ -617,6 +617,36 @@ class BeVariant extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     }
 
     /**
+     * Add To Stock
+     *
+     * @param int $stock
+     */
+    public function addToStock($stock)
+    {
+        $this->stock += $stock;
+    }
+
+    /**
+     * Remove From Stock
+     *
+     * @param int $stock
+     */
+    public function removeFromStock($stock)
+    {
+        $this->stock -= $stock;
+    }
+
+    /**
+     * Returns Is Available
+     *
+     * @return bool
+     */
+    public function getIsAvailable()
+    {
+        return boolval($this->stock);
+    }
+
+    /**
      * Returns the calculated SKU
      *
      * @return string

@@ -42,6 +42,7 @@ return [
         --div--;' . $_LLL_product . '.div.prices,
             --palette--;' . $_LLL_product . '.palette.prices;prices,
             --palette--;' . $_LLL_product . '.palette.measure;measure,
+        --div--;' . $_LLL_product . '.div.stock,
             stock,
         --div--;LLL:EXT:cms/locallang_ttc.xlf:tabs.access, starttime, endtime'
         ],

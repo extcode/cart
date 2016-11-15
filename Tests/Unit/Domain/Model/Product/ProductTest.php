@@ -419,9 +419,23 @@ class ProductTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
     /**
      * @test
      */
-    public function getStockInitiallyReturnsZero()
+    public function getStockWithoutHandleStockInitiallyReturnsIntMax()
     {
         $product = new \Extcode\Cart\Domain\Model\Product\Product();
+
+        $this->assertSame(
+            PHP_INT_MAX,
+            $product->getStock()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function getStockWithHandleStockInitiallyReturnsZero()
+    {
+        $product = new \Extcode\Cart\Domain\Model\Product\Product();
+        $product->setHandleStock(true);
 
         $this->assertSame(
             0,
@@ -432,15 +446,23 @@ class ProductTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
     /**
      * @test
      */
-    public function setStockSetsStock()
+    public function setStockWithHandleStockSetsStock()
     {
         $stock = 10;
 
         $product = new \Extcode\Cart\Domain\Model\Product\Product();
         $product->setStock($stock);
+        $product->setHandleStock(true);
 
         $this->assertSame(
             $stock,
+            $product->getStock()
+        );
+
+        $product->setHandleStock(false);
+
+        $this->assertSame(
+            PHP_INT_MAX,
             $product->getStock()
         );
     }
@@ -489,7 +511,7 @@ class ProductTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
         $product = new \Extcode\Cart\Domain\Model\Product\Product();
 
         $this->assertFalse(
-            $product->handleStock()
+            $product->getHandleStock()
         );
     }
 
@@ -502,7 +524,105 @@ class ProductTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
         $product->setHandleStock(true);
 
         $this->assertTrue(
-            $product->handleStock()
+            $product->getHandleStock()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function isAvailableInitiallyReturnsTrue()
+    {
+        $product = new \Extcode\Cart\Domain\Model\Product\Product();
+
+        $this->assertTrue(
+            $product->getIsAvailable()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function isAvailableWithHandleStockIsEnabledAndEmptyStockReturnsFalse()
+    {
+        $product = new \Extcode\Cart\Domain\Model\Product\Product();
+        $product->setHandleStock(true);
+
+        $this->assertFalse(
+            $product->getIsAvailable()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function isAvailableWithHandleStockIsEnabledAndNotEmptyStockReturnsTrue()
+    {
+        $product = new \Extcode\Cart\Domain\Model\Product\Product();
+        $product->setStock(10);
+        $product->setHandleStock(true);
+
+        $this->assertTrue(
+            $product->getIsAvailable()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function isAvailableWithHandleStockAndHandleStockInVariantsIsEnabledAndNoBackendVariantsConfiguredReturnsFalse()
+    {
+        $product = new \Extcode\Cart\Domain\Model\Product\Product();
+        $product->setStock(10);
+        $product->setHandleStock(true);
+        $product->setHandleStockInVariants(true);
+
+        $this->assertFalse(
+            $product->getIsAvailable()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function isAvailableWithHandleStockAndHandleStockInVariantsIsEnabledAndBackendVariantConfiguredIsNotAvailableReturnsFalse()
+    {
+        $productBackendVariant = $this->getMock(
+            'Extcode\\Cart\\Domain\\Model\\Product\\BeVariant',
+            array(),
+            array(),
+            '',
+            false
+        );
+        $productBackendVariant->expects($this->any())->method('getIsAvailable')->will($this->returnValue(false));
+
+        $product = new \Extcode\Cart\Domain\Model\Product\Product();
+        $product->addBeVariant($productBackendVariant);
+        $product->setStock(10);
+        $product->setHandleStock(true);
+        $product->setHandleStockInVariants(true);
+
+        $this->assertFalse(
+            $product->getIsAvailable()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function isAvailableWithHandleStockAndHandleStockInVariantsIsEnabledAndBackendVariantConfiguredIsAvailableReturnsFalse()
+    {
+        $productBackendVariant = $this->getMock('Extcode\\Cart\\Domain\\Model\\Product\\BeVariant', array(), array(), '', false);
+        $productBackendVariant->expects($this->any())->method('getIsAvailable')->will($this->returnValue(true));
+
+        $product = new \Extcode\Cart\Domain\Model\Product\Product();
+        $product->addBeVariant($productBackendVariant);
+        $product->setStock(10);
+        $product->setHandleStock(true);
+        $product->setHandleStockInVariants(true);
+
+        $this->assertTrue(
+            $product->getIsAvailable()
         );
     }
 

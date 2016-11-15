@@ -403,4 +403,53 @@ class BeVariantTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
             $this->beVariant->getBestPriceCalculated()
         );
     }
+
+
+
+    /**
+     * @test
+     */
+    public function getStockInitiallyReturnsZero()
+    {
+        $this->assertSame(
+            0,
+            $this->beVariant->getStock()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function setStockSetsStock()
+    {
+        $stock = 10;
+        $this->beVariant->setStock($stock);
+
+        $this->assertSame(
+            $stock,
+            $this->beVariant->getStock()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function getIsAvailableInitiallyReturnsFalse()
+    {
+        $this->assertFalse(
+            $this->beVariant->getIsAvailable()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function getIsAvailableWithStockGreaterZeroReturnsTrue()
+    {
+        $this->beVariant->setStock(10);
+
+        $this->assertTrue(
+            $this->beVariant->getIsAvailable()
+        );
+    }
 }

@@ -799,19 +799,22 @@
                 <source>Tags and Categories</source>
                 <target>Tags und Kategorien</target>
             </trans-unit>
+            <trans-unit id="tx_cart_domain_model_product_product.div.stock">
+                <source>Stock</source>
+                <target>Lagerbestand</target>
+            </trans-unit>
 
-            <trans-unit id="tx_cart_domain_model_product.palette.prices">
+            <trans-unit id="tx_cart_domain_model_product_product.palette.prices">
+                <source>Prices</source>
                 <target>Preise</target>
             </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product.palette.measures">
+            <trans-unit id="tx_cart_domain_model_product_product.palette.measures">
+                <source>Measures</source>
                 <target>Maßangaben</target>
             </trans-unit>
             <trans-unit id="tx_cart_domain_model_product_product.palette.service_attributes">
                 <source>Service Attributes</source>
                 <target>Service Attribute</target>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product.palette.stock">
-                <target>Lager</target>
             </trans-unit>
 
             <trans-unit id="tx_cart_domain_model_product_product">
@@ -950,6 +953,10 @@
             </trans-unit>
             <trans-unit id="tx_cart_domain_model_product_product.handle_stock">
                 <target>Lagerbestand verwalten</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_product_product.handle_stock_in_variants">
+                <source>Stock handling in variants</source>
+                <target>Lagerbestand in den Varianten verwalten</target>
             </trans-unit>
             <trans-unit id="tx_cart_domain_model_product_product.stock">
                 <target>Lagerbestand</target>

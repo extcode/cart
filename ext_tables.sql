@@ -26,8 +26,9 @@ CREATE TABLE tx_cart_domain_model_product_product (
     service_attribute2 double(11,2) DEFAULT '0.00' NOT NULL,
     service_attribute3 double(11,2) DEFAULT '0.00' NOT NULL,
 
-    stock int(11) unsigned DEFAULT '0' NOT NULL,
     handle_stock tinyint(4) unsigned DEFAULT '0' NOT NULL,
+    handle_stock_in_variants tinyint(4) unsigned DEFAULT '0' NOT NULL,
+    stock int(11) unsigned DEFAULT '0' NOT NULL,
 
     tax_class_id int(11) unsigned DEFAULT '1' NOT NULL,
 

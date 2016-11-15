@@ -121,14 +121,6 @@ class OrderUtility
     protected $taxRepository;
 
     /**
-     * Product Product Repository
-     *
-     * @var \Extcode\Cart\Domain\Repository\Product\ProductRepository
-     * @inject
-     */
-    protected $productProductRepository;
-
-    /**
      * Cart
      *
      * @var \Extcode\Cart\Domain\Model\Cart\Cart
@@ -280,14 +272,33 @@ class OrderUtility
             [$data]
         );
 
+        /** @var \Extcode\Cart\Domain\Repository\Product\ProductRepository $productProductRepository */
+        $productProductRepository = $this->objectManager->get(
+            \Extcode\Cart\Domain\Repository\Product\ProductRepository::class
+        );
+        /** @var \Extcode\Cart\Domain\Repository\Product\BeVariantRepository $productBeVariantRepository */
+        $productBeVariantRepository = $this->objectManager->get(
+            \Extcode\Cart\Domain\Repository\Product\BeVariantRepository::class
+        );
+
+        /** @var \Extcode\Cart\Domain\Model\Cart\Product $cartProduct */
         foreach ($cart->getProducts() as $cartProduct) {
-            /** @var $cartProduct \Extcode\Cart\Domain\Model\Cart\Product */
             if (!$cartProduct->getContentId()) {
-                $productProduct = $this->productProductRepository->findByUid($cartProduct->getProductId());
-                if ($productProduct) {
-                    $productProduct->removeFromStock($cartProduct->getQuantity());
+                /** @var \Extcode\Cart\Domain\Model\Product\Product $productProduct */
+                $productProduct = $productProductRepository->findByUid($cartProduct->getProductId());
+                if ($productProduct && $productProduct->getHandleStock()) {
+                    if ($productProduct->getHandleStockInVariants()) {
+                        /** @var \Extcode\Cart\Domain\Model\Cart\BeVariant $cartBeVariant */
+                        foreach ($cartProduct->getBeVariants() as $cartBeVariant) {
+                            /** @var \Extcode\Cart\Domain\Model\Product\BeVariant $productBeVariant */
+                            $productBeVariant = $productBeVariantRepository->findByUid($cartBeVariant->getId());
+                            $productBeVariant->removeFromStock($cartBeVariant->getQuantity());
+                        }
+                    } else {
+                        $productProduct->removeFromStock($cartProduct->getQuantity());
+                    }
                 }
-                $this->productProductRepository->update($productProduct);
+                $productProductRepository->update($productProduct);
             }
         }
 
