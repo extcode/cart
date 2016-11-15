@@ -66,6 +66,15 @@ class Cart extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     protected $wasOrdered;
 
     /**
+     * Cart constructor
+     */
+    public function __construct()
+    {
+        $this->fHash = bin2hex(openssl_random_pseudo_bytes(32));
+        $this->sHash = bin2hex(openssl_random_pseudo_bytes(32));
+    }
+
+    /**
      * Returns fHash
      *
      * @return string
