@@ -574,12 +574,16 @@ class CartUtility
      */
     public function getCartProductFromDatabase(array $preCartProductSetValue)
     {
-
         if (isset($this->pluginSettings['repository']) && is_array($this->pluginSettings['repository'])) {
-            return $this->getCartProductDetailsFromRepository($preCartProductSetValue,
-                $this->pluginSettings['repository']);
+            return $this->getCartProductDetailsFromRepository(
+                $preCartProductSetValue,
+                $this->pluginSettings['repository']
+            );
         } elseif (isset($this->pluginSettings['db']) && is_array($this->pluginSettings['db'])) {
-            return $this->getCartProductDetailsFromTable($preCartProductSetValue, $this->pluginSettings['db']);
+            return $this->getCartProductDetailsFromTable(
+                $preCartProductSetValue,
+                $this->pluginSettings['db']
+            );
         }
 
         return false;

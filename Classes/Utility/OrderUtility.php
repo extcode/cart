@@ -181,7 +181,9 @@ class OrderUtility
         $this->orderItem = $orderItem;
 
         if (!$this->objectManager) {
-            $this->objectManager = GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager');
+            $this->objectManager = GeneralUtility::makeInstance(
+                \TYPO3\CMS\Extbase\Object\ObjectManager::class
+            );
         }
 
         $orderItem->setPid($this->storagePid);
@@ -246,7 +248,9 @@ class OrderUtility
             'cart' => $cart,
         ];
 
-        $signalSlotDispatcher = $this->objectManager->get('TYPO3\\CMS\\Extbase\\SignalSlot\\Dispatcher');
+        $signalSlotDispatcher = $this->objectManager->get(
+            \TYPO3\CMS\Extbase\SignalSlot\Dispatcher::class
+        );
         $signalSlotDispatcher->dispatch(
             __CLASS__,
             'afterInternalCheckStock',
@@ -265,7 +269,9 @@ class OrderUtility
             'cart' => $cart,
         ];
 
-        $signalSlotDispatcher = $this->objectManager->get('TYPO3\\CMS\\Extbase\\SignalSlot\\Dispatcher');
+        $signalSlotDispatcher = $this->objectManager->get(
+            \TYPO3\CMS\Extbase\SignalSlot\Dispatcher::class
+        );
         $signalSlotDispatcher->dispatch(
             __CLASS__,
             'beforeHandleStock',
@@ -289,7 +295,9 @@ class OrderUtility
             'cart' => $cart,
         ];
 
-        $signalSlotDispatcher = $this->objectManager->get('TYPO3\\CMS\\Extbase\\SignalSlot\\Dispatcher');
+        $signalSlotDispatcher = $this->objectManager->get(
+            \TYPO3\CMS\Extbase\SignalSlot\Dispatcher::class
+        );
         $signalSlotDispatcher->dispatch(
             __CLASS__,
             'afterHandleStock',
@@ -302,6 +310,8 @@ class OrderUtility
      *
      * @param \Extcode\Cart\Domain\Model\Order\Item $orderItem
      * @param \Extcode\Cart\Domain\Model\Cart\Cart $cart
+     *
+     * @return bool
      */
     public function handlePayment(
         \Extcode\Cart\Domain\Model\Order\Item $orderItem,
@@ -313,16 +323,20 @@ class OrderUtility
         $data = [
             'orderItem' => $orderItem,
             'cart' => $cart,
-            'provider' => $provider
+            'provider' => $provider,
+            'providerUsed' => false,
         ];
 
-        $signalSlotDispatcher = $this->objectManager->get('TYPO3\\CMS\\Extbase\\SignalSlot\\Dispatcher');
-        $signalSlotDispatcher->dispatch(
+        $signalSlotDispatcher = $this->objectManager->get(
+            \TYPO3\CMS\Extbase\SignalSlot\Dispatcher::class
+        );
+        $params = $signalSlotDispatcher->dispatch(
             __CLASS__,
-            __FUNCTION__ .
-            'AfterOrder',
+            __FUNCTION__ . 'AfterOrder',
             [$data]
         );
+
+        return $params[0]['providerUsed'];
     }
 
     /**
@@ -467,7 +481,9 @@ class OrderUtility
             'storagePid' => $this->storagePid,
         ];
 
-        $signalSlotDispatcher = $this->objectManager->get('TYPO3\\CMS\\Extbase\\SignalSlot\\Dispatcher');
+        $signalSlotDispatcher = $this->objectManager->get(
+            \TYPO3\CMS\Extbase\SignalSlot\Dispatcher::class
+        );
         $signalSlotDispatcher->dispatch(
             __CLASS__,
             __FUNCTION__ .
@@ -672,7 +688,9 @@ class OrderUtility
             'storagePid' => $this->storagePid,
         ];
 
-        $signalSlotDispatcher = $this->objectManager->get('TYPO3\\CMS\\Extbase\\SignalSlot\\Dispatcher');
+        $signalSlotDispatcher = $this->objectManager->get(
+            \TYPO3\CMS\Extbase\SignalSlot\Dispatcher::class
+        );
         $signalSlotDispatcher->dispatch(
             __CLASS__,
             __FUNCTION__ .
@@ -700,7 +718,9 @@ class OrderUtility
          * Order Address
          * @var \Extcode\Cart\Domain\Model\Order\Address $orderAddress
          */
-        $orderAddress = $this->objectManager->get('Extcode\\Cart\\Domain\\Model\\Order\\Address');
+        $orderAddress = $this->objectManager->get(
+            \Extcode\Cart\Domain\Model\Order\Address::class
+        );
         $orderAddress->setPid($this->storagePid);
 
         if ($billingAddress['title']) {
@@ -728,7 +748,9 @@ class OrderUtility
          * Order Address
          * @var \Extcode\Cart\Domain\Model\Order\Address $orderAddress
          */
-        $orderAddress = $this->objectManager->get('Extcode\\Cart\\Domain\\Model\\Order\\Address');
+        $orderAddress = $this->objectManager->get(
+            \Extcode\Cart\Domain\Model\Order\Address::class
+        );
         $orderAddress->setPid($this->storagePid);
 
         if ($shippingAddress['title']) {
@@ -756,7 +778,9 @@ class OrderUtility
          * Order Payment
          * @var $orderPayment \Extcode\Cart\Domain\Model\Order\Payment
          */
-        $orderPayment = $this->objectManager->get('Extcode\\Cart\\Domain\\Model\\Order\\Payment');
+        $orderPayment = $this->objectManager->get(
+            \Extcode\Cart\Domain\Model\Order\Payment::class
+        );
         $orderPayment->setPid($this->storagePid);
 
         $orderPayment->setServiceId($payment->getId());
@@ -787,7 +811,9 @@ class OrderUtility
          * Order Shipping
          * @var $orderShipping \Extcode\Cart\Domain\Model\Order\Shipping
          */
-        $orderShipping = $this->objectManager->get('Extcode\\Cart\\Domain\\Model\\Order\\Shipping');
+        $orderShipping = $this->objectManager->get(
+            \Extcode\Cart\Domain\Model\Order\Shipping::class
+        );
         $orderShipping->setPid($this->storagePid);
 
         $orderShipping->setServiceId($shipping->getId());
