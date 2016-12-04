@@ -336,9 +336,13 @@ class MailHandler implements SingletonInterface
                 foreach ($this->pluginSettings['mail'][$to]['attachDocuments'] as $pdfType => $pdfData) {
                     $getter = 'get' . ucfirst($pdfType) . 'Pdfs';
                     $pdfs = $orderItem->$getter();
-                    $originalPdf = end($pdfs->toArray())->getOriginalResource();
-                    $file = PATH_site . $originalPdf->getPublicUrl();
-                    $attachments[] = $file;
+                    if ($pdfs && is_array($pdfs)) {
+                        $lastOriginalPdf = end($pdfs->toArray())->getOriginalResource();
+                        $lastOriginalPdfPath = PATH_site . $lastOriginalPdf->getPublicUrl();
+                        if (is_file($lastOriginalPdfPath)) {
+                            $attachments[] = $lastOriginalPdfPath;
+                        }
+                    }
                 }
             }
         }
