@@ -46,11 +46,25 @@ class Transaction extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     protected $status = '';
 
     /**
+     * External Status Code
+     *
+     * @var string
+     */
+    protected $externalStatusCode = '';
+
+    /**
      * TxnTxt
      *
      * @var string
      */
     protected $note = '';
+
+    /**
+     * Payment
+     *
+     * @var \Extcode\Cart\Domain\Model\Order\Payment
+     */
+    protected $payment = null;
 
     /**
      * @return string
@@ -114,6 +128,22 @@ class Transaction extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     }
 
     /**
+     * @return string
+     */
+    public function getExternalStatusCode()
+    {
+        return $this->externalStatusCode;
+    }
+
+    /**
+     * @param string $externalStatusCode
+     */
+    public function setExternalStatusCode($externalStatusCode)
+    {
+        $this->externalStatusCode = $externalStatusCode;
+    }
+
+    /**
      * Sets Note
      *
      * @param string $note
@@ -133,5 +163,15 @@ class Transaction extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     public function getNote()
     {
         return $this->note;
+    }
+
+    /**
+     * Returns the payment
+     *
+     * @return \Extcode\Cart\Domain\Model\Order\Payment
+     */
+    public function getPayment()
+    {
+        return $this->payment;
     }
 }

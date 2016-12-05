@@ -174,11 +174,9 @@ class CartController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      */
     public function initializeAction()
     {
-        $this->pluginSettings =
-            $this->configurationManager->getConfiguration(
-                \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK
-            );
-
+        $this->pluginSettings = $this->configurationManager->getConfiguration(
+            \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK
+        );
 
         if (TYPO3_MODE === 'BE') {
             $pageId = (int)\TYPO3\CMS\Core\Utility\GeneralUtility::_GP('id');
