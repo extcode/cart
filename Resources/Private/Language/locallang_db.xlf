@@ -436,6 +436,9 @@
             <trans-unit id="tx_cart_domain_model_order_transaction.status.canceled">
                 <source>canceled</source>
             </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_transaction.external_status_code">
+                <source>External Status Code</source>
+            </trans-unit>
             <trans-unit id="tx_cart_domain_model_order_transaction.note">
                 <source>Note</source>
             </trans-unit>

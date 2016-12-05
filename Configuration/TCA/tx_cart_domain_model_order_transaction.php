@@ -24,11 +24,11 @@ return [
     ],
     'hideTable' => 1,
     'interface' => [
-        'showRecordFieldList' => 'txn_id, status, note',
+        'showRecordFieldList' => 'txn_id, status, external_status_code, note',
     ],
     'types' => [
         '1' => [
-            'showitem' => 'txn_id, status, note'
+            'showitem' => 'txn_id, status, external_status_code, note'
         ],
     ],
     'palettes' => [
@@ -75,6 +75,15 @@ return [
                 'maxitems' => 1,
                 'eval' => 'required'
             ],
+        ],
+        'external_status_code' => [
+            'label' => $_LLL . ':tx_cart_domain_model_order_transaction.external_status_code',
+            'config' => [
+                'type' => 'input',
+                'readOnly' => 1,
+                'size' => 30,
+                'eval' => 'trim'
+            ]
         ],
         'note' => [
             'label' => $_LLL . ':tx_cart_domain_model_order_transaction.note',

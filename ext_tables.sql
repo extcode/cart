@@ -704,9 +704,10 @@ CREATE TABLE tx_cart_domain_model_order_transaction (
     payment int(11) unsigned DEFAULT '0' NOT NULL,
 
     provider varchar(20) DEFAULT ''  NOT NULL,
-    txn_id varchar(20) DEFAULT ''  NOT NULL,
+    txn_id varchar(255) DEFAULT ''  NOT NULL,
     txn_txt text NOT NULL,
     status varchar(255) DEFAULT 'unknown' NOT NULL,
+    external_status_code varchar(255) DEFAULT '' NOT NULL,
     note text NOT NULL,
 
     tstamp int(11) unsigned DEFAULT '0' NOT NULL,

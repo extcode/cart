@@ -554,6 +554,10 @@
                 <source>canceled</source>
                 <target>storniert</target>
             </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_transaction.external_status_code">
+                <source>External Status Code</source>
+                <target>Externer Status Code</target>
+            </trans-unit>
             <trans-unit id="tx_cart_domain_model_order_transaction.note">
                 <source>Note</source>
                 <target>Notiz</target>
