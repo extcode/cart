@@ -26,6 +26,12 @@ use TYPO3\CMS\Extbase\Mvc\Request;
  */
 class ParserUtility
 {
+    /**
+     * Object Manager
+     *
+     * @var \TYPO3\CMS\Extbase\Object\ObjectManager
+     */
+    protected $objectManager;
 
     /**
      * Plugin Settings
@@ -33,6 +39,15 @@ class ParserUtility
      * @var array
      */
     protected $pluginSettings;
+
+    /**
+     * @param \TYPO3\CMS\Extbase\Object\ObjectManagerInterface $objectManager
+     */
+    public function injectObjectManager(
+        \TYPO3\CMS\Extbase\Object\ObjectManagerInterface $objectManager
+    ) {
+        $this->objectManager = $objectManager;
+    }
 
     /**
      * Parse Tax Classes
@@ -264,6 +279,24 @@ class ParserUtility
                 }
             }
         }
+
+        $data = [
+            'pluginSettings' => $pluginSettings,
+            'request' => $request,
+            'productValueSet' => $productValueSet,
+        ];
+
+        $signalSlotDispatcher = $this->objectManager->get(
+            \TYPO3\CMS\Extbase\SignalSlot\Dispatcher::class
+        );
+
+        $slotReturn = $signalSlotDispatcher->dispatch(
+            __CLASS__,
+            'changePreCartProductSet',
+            [$data]
+        );
+
+        $productValueSet = $slotReturn[0]['productValueSet'];
 
         return $productValueSet;
     }

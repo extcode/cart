@@ -31,7 +31,6 @@ class CartUtility
      * Object Manager
      *
      * @var \TYPO3\CMS\Extbase\Object\ObjectManager
-     * @inject
      */
     protected $objectManager;
 
@@ -66,6 +65,15 @@ class CartUtility
     protected $taxClasses;
 
     /**
+     * @param \TYPO3\CMS\Extbase\Object\ObjectManagerInterface $objectManager
+     */
+    public function injectObjectManager(
+        \TYPO3\CMS\Extbase\Object\ObjectManagerInterface $objectManager
+    ) {
+        $this->objectManager = $objectManager;
+    }
+
+    /**
      * Restore cart from session or creates a new one
      *
      * @param array $cartSettings
@@ -91,9 +99,6 @@ class CartUtility
      */
     protected function getFrontendUserGroupIds()
     {
-        if (!$this->objectManager) {
-            $this->objectManager = GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager');
-        }
         $feGroupIds = [];
         $feUserId = (int)$GLOBALS['TSFE']->fe_user->user['uid'];
         if ($feUserId) {
@@ -180,6 +185,7 @@ class CartUtility
     /**
      * @param array $services
      * @param int $serviceId
+     *
      * @return mixed
      */
     public function getServiceById($services, $serviceId)
@@ -189,6 +195,8 @@ class CartUtility
                 return $service;
             }
         }
+
+        return false;
     }
 
     /**
@@ -256,73 +264,88 @@ class CartUtility
             // TODO: iterate over request
         }
 
-        foreach ($preCartProductSets as $preCartProductSetKey => $preCartProductSetValue) {
-            if ($preCartProductSetValue['contentId']) {
-                $products[$preCartProductSetKey] = $this->getCartProductFromCE($preCartProductSetValue);
-            } elseif ($preCartProductSetValue['productId']) {
-                $products[$preCartProductSetKey] = $this->getCartProductFromDatabase($preCartProductSetValue);
+        foreach ($preCartProductSets as $preCartProductSetKey => $cartProductValues) {
+            if ($cartProductValues['contentId']) {
+                $products[$preCartProductSetKey] = $this->getCartProductFromCE($cartProductValues);
+            } elseif ($cartProductValues['productId']) {
+                $products[$preCartProductSetKey] = $this->getCartProductFromDatabase($cartProductValues);
             }
         }
 
         return $products;
     }
 
-
     /**
      * Create a CartProduct from array
      *
-     * @param array $preCartProductSetValue
+     * @param array $cartProductValues
      *
      * @return \Extcode\Cart\Domain\Model\Cart\Product
      */
-    public function createProduct(array $preCartProductSetValue)
+    public function createProduct(array $cartProductValues)
     {
         $newFeVariant = null;
-        if ($preCartProductSetValue['feVariants']) {
+        if ($cartProductValues['feVariants']) {
             $newFeVariant = new \Extcode\Cart\Domain\Model\Cart\FeVariant(
-                $preCartProductSetValue['feVariants']
+                $cartProductValues['feVariants']
             );
         }
 
         $newCartProduct = new \Extcode\Cart\Domain\Model\Cart\Product(
-            $preCartProductSetValue['productType'],
-            $preCartProductSetValue['productId'],
-            $preCartProductSetValue['tableId'],
-            $preCartProductSetValue['contentId'],
-            $preCartProductSetValue['sku'],
-            $preCartProductSetValue['title'],
-            $preCartProductSetValue['price'],
-            $this->taxClasses[$preCartProductSetValue['taxClassId']],
-            $preCartProductSetValue['quantity'],
-            $preCartProductSetValue['isNetPrice'],
+            $cartProductValues['productType'],
+            $cartProductValues['productId'],
+            $cartProductValues['tableId'],
+            $cartProductValues['contentId'],
+            $cartProductValues['sku'],
+            $cartProductValues['title'],
+            $cartProductValues['price'],
+            $this->taxClasses[$cartProductValues['taxClassId']],
+            $cartProductValues['quantity'],
+            $cartProductValues['isNetPrice'],
             $newFeVariant
         );
 
-        if ($preCartProductSetValue['maxNumber'] !== null) {
-            $newCartProduct->setMaxNumberInCart($preCartProductSetValue['maxNumber']);
+        if ($cartProductValues['maxNumber'] !== null) {
+            $newCartProduct->setMaxNumberInCart($cartProductValues['maxNumber']);
         }
-        if ($preCartProductSetValue['minNumber'] !== null) {
-            $newCartProduct->setMinNumberInCart($preCartProductSetValue['minNumber']);
+        if ($cartProductValues['minNumber'] !== null) {
+            $newCartProduct->setMinNumberInCart($cartProductValues['minNumber']);
         }
-        if ($preCartProductSetValue['specialPrice'] !== null) {
-            $newCartProduct->setSpecialPrice($preCartProductSetValue['specialPrice']);
+        if ($cartProductValues['specialPrice'] !== null) {
+            $newCartProduct->setSpecialPrice($cartProductValues['specialPrice']);
         }
 
-        if ($preCartProductSetValue['serviceAttribute1'] !== null) {
-            $newCartProduct->setServiceAttribute1($preCartProductSetValue['serviceAttribute1']);
+        if ($cartProductValues['serviceAttribute1'] !== null) {
+            $newCartProduct->setServiceAttribute1($cartProductValues['serviceAttribute1']);
         }
-        if ($preCartProductSetValue['serviceAttribute2'] !== null) {
-            $newCartProduct->setServiceAttribute2($preCartProductSetValue['serviceAttribute2']);
+        if ($cartProductValues['serviceAttribute2'] !== null) {
+            $newCartProduct->setServiceAttribute2($cartProductValues['serviceAttribute2']);
         }
-        if ($preCartProductSetValue['serviceAttribute3'] !== null) {
-            $newCartProduct->setServiceAttribute3($preCartProductSetValue['serviceAttribute3']);
+        if ($cartProductValues['serviceAttribute3'] !== null) {
+            $newCartProduct->setServiceAttribute3($cartProductValues['serviceAttribute3']);
         }
+
+        $data = [
+            'cartProductValueSet' => $cartProductValues,
+            'newCartProduct' => $newCartProduct,
+        ];
+
+        $signalSlotDispatcher = $this->objectManager->get(
+            \TYPO3\CMS\Extbase\SignalSlot\Dispatcher::class
+        );
+        $slotReturn = $signalSlotDispatcher->dispatch(
+            __CLASS__,
+            'changeNewCartProduct',
+            [$data]
+        );
+
+        $newCartProduct = $slotReturn[0]['newCartProduct'];
 
         $newVariantArr = [];
 
         // ToDo: refactor Variant
 
-        if ($preCartProductSetValue['beVariants']) {
+        if ($cartProductValues['beVariants']) {
             $variantConf = [];
             if (isset($this->pluginSettings['repository']) && is_array($this->pluginSettings['repository'])) {
                 $variantConf = $this->pluginSettings;
@@ -330,20 +353,20 @@ class CartUtility
                 $variantConf = $this->pluginSettings;
             }
 
-            $priceCalcMethod = $preCartProductSetValue['priceCalcMethod'];
+            $priceCalcMethod = $cartProductValues['priceCalcMethod'];
             $price = $newCartProduct->getBestPrice();
             if ($this->pluginSettings['gpValues']['beVariants']) {
                 foreach ($this->pluginSettings['gpValues']['beVariants'] as $variantsKey => $variantsValue) {
                     if ($variantsKey == 1) {
-                        if ($preCartProductSetValue['hasFeVariants']) {
+                        if ($cartProductValues['hasFeVariants']) {
                             $newVariant = $this->getFeVariant(
                                 $newCartProduct,
                                 null,
-                                $preCartProductSetValue,
+                                $cartProductValues,
                                 $variantsValue,
                                 $priceCalcMethod,
                                 $price,
-                                $preCartProductSetValue['hasFeVariants'] - 1
+                                $cartProductValues['hasFeVariants'] - 1
                             );
                         } else {
                             if (isset($this->pluginSettings['repository'])) {
@@ -356,7 +379,7 @@ class CartUtility
                                 $newCartProduct,
                                 null,
                                 $variantConf,
-                                $preCartProductSetValue,
+                                $cartProductValues,
                                 $variantsValue,
                                 $priceCalcMethod,
                                 $price
@@ -376,7 +399,7 @@ class CartUtility
                             $newVariant = $this->getFeVariant(
                                 null,
                                 $newVariantArr[$variantsKey - 1],
-                                $preCartProductSetValue,
+                                $cartProductValues,
                                 $variantsValue,
                                 $priceCalcMethod,
                                 $price,
@@ -390,7 +413,7 @@ class CartUtility
                             }
 
                             $newVariant = $this->getDatabaseVariant(null, $newVariantArr[$variantsKey - 1],
-                                $variantConf, $preCartProductSetValue, $variantsValue, $priceCalcMethod, $price);
+                                $variantConf, $cartProductValues, $variantsValue, $priceCalcMethod, $price);
                         }
 
                         if ($newVariant) {
@@ -413,7 +436,7 @@ class CartUtility
      * @param \Extcode\Cart\Domain\Model\Cart\Product $product
      * @param \Extcode\Cart\Domain\Model\Cart\BeVariant $variant
      * @param $variantConf
-     * @param $preCartProductSetValue
+     * @param $cartProductValues
      * @param $variantsValue
      * @param $priceCalcMethod
      * @param $price
@@ -424,14 +447,14 @@ class CartUtility
         $product,
         $variant,
         $variantConf,
-        $preCartProductSetValue,
+        $cartProductValues,
         $variantsValue,
         $priceCalcMethod,
         $price
     ) {
 
         list($pluginSettingsVariantsName, $pluginSettingsVariantsKey, $remainder) = explode('|', $variantsValue, 3);
-        $variantsValue = $preCartProductSetValue[$pluginSettingsVariantsName][$pluginSettingsVariantsKey];
+        $variantsValue = $cartProductValues[$pluginSettingsVariantsName][$pluginSettingsVariantsKey];
         // if value is a integer, get details from database
         if (!is_int($variantsValue) ? (ctype_digit($variantsValue)) : true) {
             // creating a new Variant and using Price and Taxclass form CartProduct
@@ -451,7 +474,7 @@ class CartUtility
                 $variantData['sku'],
                 $priceCalcMethod,
                 $price,
-                $preCartProductSetValue['quantity']
+                $cartProductValues['quantity']
             );
 
             unset($variantData['title']);
@@ -474,7 +497,7 @@ class CartUtility
      *
      * @param \Extcode\Cart\Domain\Model\Cart\Product $product
      * @param \Extcode\Cart\Domain\Model\Cart\BeVariant $variant
-     * @param array $preCartProductSetValue
+     * @param array $cartProductValues
      * @param string $variantsValue
      * @param integer $priceCalcMethod
      * @param float $price
@@ -485,7 +508,7 @@ class CartUtility
     protected function getFeVariant(
         $product,
         $variant,
-        array $preCartProductSetValue,
+        array $cartProductValues,
         $variantsValue,
         $priceCalcMethod,
         $price,
@@ -499,8 +522,8 @@ class CartUtility
             str_replace(' ', '', $variantsValue),
             $priceCalcMethod,
             $price,
-            $preCartProductSetValue['quantity'],
-            $preCartProductSetValue['isNetPrice']
+            $cartProductValues['quantity'],
+            $cartProductValues['isNetPrice']
         );
 
         $newVariant->setHasFeVariants($hasCountFeVariants);
@@ -511,28 +534,28 @@ class CartUtility
     /**
      * Get CartProduct from Content Element
      *
-     * @param array $preCartProductSetValue
+     * @param array $cartProductValues
      *
      * @return \Extcode\Cart\Domain\Model\Cart\Product
      */
-    public function getCartProductFromCE(array $preCartProductSetValue)
+    public function getCartProductFromCE(array $cartProductValues)
     {
         $abstractPlugin = new \TYPO3\CMS\Frontend\Plugin\AbstractPlugin();
 
-        $row = $abstractPlugin->pi_getRecord('tt_content', $preCartProductSetValue['contentId']);
+        $row = $abstractPlugin->pi_getRecord('tt_content', $cartProductValues['contentId']);
 
         $flexformData = GeneralUtility::xml2array($row['pi_flexform']);
 
         $gpvarArr = ['productType', 'productId', 'sku', 'title', 'price', 'isNetPrice'];
         foreach ($gpvarArr as $gpvarVal) {
-            $preCartProductSetValue[$gpvarVal] = $abstractPlugin->pi_getFFvalue(
+            $cartProductValues[$gpvarVal] = $abstractPlugin->pi_getFFvalue(
                 $flexformData,
                 'settings.' . $gpvarVal,
                 'sDEF'
             );
         }
 
-        $preCartProductSetValue['taxClassId'] = $abstractPlugin->pi_getFFvalue(
+        $cartProductValues['taxClassId'] = $abstractPlugin->pi_getFFvalue(
             $flexformData,
             'settings.taxClassId',
             'sDEF'
@@ -544,44 +567,44 @@ class CartUtility
             list($key, $value) = explode('==', $line, 2);
             switch ($key) {
                 case 'serviceAttribute1':
-                    $preCartProductSetValue['serviceAttribute1'] = floatval($value);
+                    $cartProductValues['serviceAttribute1'] = floatval($value);
                     break;
                 case 'serviceAttribute2':
-                    $preCartProductSetValue['serviceAttribute2'] = floatval($value);
+                    $cartProductValues['serviceAttribute2'] = floatval($value);
                     break;
                 case 'serviceAttribute3':
-                    $preCartProductSetValue['serviceAttribute3'] = floatval($value);
+                    $cartProductValues['serviceAttribute3'] = floatval($value);
                     break;
                 case 'minNumber':
-                    $preCartProductSetValue['minNumber'] = intval($value);
+                    $cartProductValues['minNumber'] = intval($value);
                     break;
                 case 'maxNumber':
-                    $preCartProductSetValue['maxNumber'] = intval($value);
+                    $cartProductValues['maxNumber'] = intval($value);
                     break;
                 default:
             }
         }
 
-        return $this->createProduct($preCartProductSetValue);
+        return $this->createProduct($cartProductValues);
     }
 
     /**
      * Get CartProduct from Database
      *
-     * @param array $preCartProductSetValue
+     * @param array $cartProductValues
      *
      * @return \Extcode\Cart\Domain\Model\Cart\Product
      */
-    public function getCartProductFromDatabase(array $preCartProductSetValue)
+    public function getCartProductFromDatabase(array $cartProductValues)
     {
         if (isset($this->pluginSettings['repository']) && is_array($this->pluginSettings['repository'])) {
             return $this->getCartProductDetailsFromRepository(
-                $preCartProductSetValue,
+                $cartProductValues,
                 $this->pluginSettings['repository']
             );
         } elseif (isset($this->pluginSettings['db']) && is_array($this->pluginSettings['db'])) {
             return $this->getCartProductDetailsFromTable(
-                $preCartProductSetValue,
+                $cartProductValues,
                 $this->pluginSettings['db']
             );
         }
@@ -592,16 +615,16 @@ class CartUtility
     /**
      * Get CartProduct from Database Table
      *
-     * @param array $preCartProductSetValue
+     * @param array $cartProductValues
      * @param array $databaseSettings
      *
      * @return \Extcode\Cart\Domain\Model\Cart\Product
      */
-    public function getCartProductDetailsFromTable($preCartProductSetValue, $databaseSettings)
+    public function getCartProductDetailsFromTable($cartProductValues, $databaseSettings)
     {
-        $productId = intval($preCartProductSetValue['productId']);
+        $productId = intval($cartProductValues['productId']);
 
-        $tableId = intval($preCartProductSetValue['tableId']);
+        $tableId = intval($cartProductValues['tableId']);
         if (($tableId != 0) && ($databaseSettings[$tableId])) {
             $databaseSettings = $databaseSettings[$tableId];
         }
@@ -626,77 +649,76 @@ class CartUtility
 
             if ($databaseSettings['productType']) {
                 if ($row[$databaseSettings['productType']]) {
-                    $preCartProductSetValue['productType'] = $row[$databaseSettings['productType']];
+                    $cartProductValues['productType'] = $row[$databaseSettings['productType']];
                 }
             } else {
-                $preCartProductSetValue['productType'] = 'simple';
+                $cartProductValues['productType'] = 'simple';
             }
-            $preCartProductSetValue['title'] = $row[$databaseSettings['title']];
-            $preCartProductSetValue['price'] = $row[$databaseSettings['price']];
-            $preCartProductSetValue['taxClassId'] = $row[$databaseSettings['taxClassId']];
+            $cartProductValues['title'] = $row[$databaseSettings['title']];
+            $cartProductValues['price'] = $row[$databaseSettings['price']];
+            $cartProductValues['taxClassId'] = $row[$databaseSettings['taxClassId']];
 
             if ($row[$databaseSettings['sku']]) {
-                $preCartProductSetValue['sku'] = $row[$databaseSettings['sku']];
+                $cartProductValues['sku'] = $row[$databaseSettings['sku']];
             }
             if ($row[$databaseSettings['serviceAttribute1']]) {
-                $preCartProductSetValue['serviceAttribute1'] = $row[$databaseSettings['serviceAttribute1']];
+                $cartProductValues['serviceAttribute1'] = $row[$databaseSettings['serviceAttribute1']];
             }
             if ($row[$databaseSettings['serviceAttribute2']]) {
-                $preCartProductSetValue['serviceAttribute2'] = $row[$databaseSettings['serviceAttribute2']];
+                $cartProductValues['serviceAttribute2'] = $row[$databaseSettings['serviceAttribute2']];
             }
             if ($row[$databaseSettings['serviceAttribute3']]) {
-                $preCartProductSetValue['serviceAttribute3'] = $row[$databaseSettings['serviceAttribute3']];
+                $cartProductValues['serviceAttribute3'] = $row[$databaseSettings['serviceAttribute3']];
             }
             if ($row[$databaseSettings['serviceAttribute3']]) {
-                $preCartProductSetValue['serviceAttribute3'] = $row[$databaseSettings['serviceAttribute3']];
+                $cartProductValues['serviceAttribute3'] = $row[$databaseSettings['serviceAttribute3']];
             }
             if ($row[$databaseSettings['hasFeVariants']]) {
-                $preCartProductSetValue['hasFeVariants'] = $row[$databaseSettings['hasFeVariants']];
+                $cartProductValues['hasFeVariants'] = $row[$databaseSettings['hasFeVariants']];
             }
             if ($row[$databaseSettings['minNumber']]) {
-                $preCartProductSetValue['minNumber'] = $row[$databaseSettings['minNumber']];
+                $cartProductValues['minNumber'] = $row[$databaseSettings['minNumber']];
             }
             if ($row[$databaseSettings['maxNumber']]) {
-                $preCartProductSetValue['maxNumber'] = $row[$databaseSettings['maxNumber']];
+                $cartProductValues['maxNumber'] = $row[$databaseSettings['maxNumber']];
             }
             if ($row[$databaseSettings['specialPrice']]) {
-                $preCartProductSetValue['specialPrice'] = $row[$databaseSettings['specialPrice']];
+                $cartProductValues['specialPrice'] = $row[$databaseSettings['specialPrice']];
             }
 
             if ($databaseSettings['additional']) {
-                $preCartProductSetValue['additional'] = [];
+                $cartProductValues['additional'] = [];
                 foreach ($databaseSettings['additional'] as $additionalKey => $additionalValue) {
                     if ($additionalValue['field']) {
-                        $preCartProductSetValue['additional'][$additionalKey] = $row[$additionalValue['field']];
+                        $cartProductValues['additional'][$additionalKey] = $row[$additionalValue['field']];
                     } elseif ($additionalValue['value']) {
-                        $preCartProductSetValue['additional'][$additionalKey] = $additionalValue['value'];
+                        $cartProductValues['additional'][$additionalKey] = $additionalValue['value'];
                     }
                 }
             }
         }
 
-        return $this->createProduct($preCartProductSetValue);
+        return $this->createProduct($cartProductValues);
     }
 
     /**
      * Get CartProduct from Database Repository
      *
-     * @param array $preCartProductSetValue
+     * @param array $cartProductValues
      * @param array $repositorySettings
      *
      * @return \Extcode\Cart\Domain\Model\Cart\Product
      */
-    public function getCartProductDetailsFromRepository($preCartProductSetValue, $repositorySettings)
+    public function getCartProductDetailsFromRepository($cartProductValues, $repositorySettings)
     {
-        $productId = intval($preCartProductSetValue['productId']);
+        $productId = intval($cartProductValues['productId']);
 
-        $repositoryId = intval($preCartProductSetValue['repositoryId']);
+        $repositoryId = intval($cartProductValues['repositoryId']);
         if (($repositoryId != 0) && ($repositorySettings[$repositoryId])) {
             $repositorySettings = $repositorySettings[$repositoryId];
         }
 
-        $objectManager = GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager');
-        $productRepository = $objectManager->get($repositorySettings['class']);
+        $productRepository = $this->objectManager->get($repositorySettings['class']);
         $productObject = $productRepository->findByUid($productId);
 
         $repositoryFields = $repositorySettings['fields'];
@@ -704,83 +726,83 @@ class CartUtility
         if ($productObject) {
             if (isset($repositoryFields['getProductType'])) {
                 $functionName = $repositoryFields['getProductType'];
-                $preCartProductSetValue['productType'] = $productObject->$functionName();
+                $cartProductValues['productType'] = $productObject->$functionName();
             } else {
-                $preCartProductSetValue['productType'] = $productObject->getProductType();
+                $cartProductValues['productType'] = $productObject->getProductType();
             }
             if (isset($repositoryFields['getTitle'])) {
                 $functionName = $repositoryFields['getTitle'];
-                $preCartProductSetValue['title'] = $productObject->$functionName();
+                $cartProductValues['title'] = $productObject->$functionName();
             } else {
-                $preCartProductSetValue['title'] = $productObject->getTitle();
+                $cartProductValues['title'] = $productObject->getTitle();
             }
             if (isset($repositoryFields['getSku'])) {
                 $functionName = $repositoryFields['getSku'];
-                $preCartProductSetValue['sku'] = $productObject->$functionName();
+                $cartProductValues['sku'] = $productObject->$functionName();
             } else {
-                $preCartProductSetValue['sku'] = $productObject->getSku();
+                $cartProductValues['sku'] = $productObject->getSku();
             }
             if (isset($repositoryFields['getPrice'])) {
                 $functionName = $repositoryFields['getPrice'];
-                $preCartProductSetValue['price'] = $productObject->$functionName();
+                $cartProductValues['price'] = $productObject->$functionName();
             } else {
-                $preCartProductSetValue['price'] = $productObject->getPrice();
+                $cartProductValues['price'] = $productObject->getPrice();
             }
 
             if (isset($repositoryFields['getProductTaxClassId'])) {
                 $functionName = $repositoryFields['getProductTaxClassId'];
-                $preCartProductSetValue['taxClassId'] = $productObject->$functionName();
+                $cartProductValues['taxClassId'] = $productObject->$functionName();
             } elseif (isset($repositoryFields['getProductTaxClass'])) {
                 $functionName = $repositoryFields['getProductTaxClass'];
-                $preCartProductSetValue['taxClassId'] = $productObject->$functionName()->getUid();
+                $cartProductValues['taxClassId'] = $productObject->$functionName()->getUid();
             } else {
-                $preCartProductSetValue['taxClassId'] = $productObject->getTaxClassId();
+                $cartProductValues['taxClassId'] = $productObject->getTaxClassId();
             }
 
             if (isset($repositoryFields['getServiceAttribute1'])) {
                 $functionName = $repositoryFields['getServiceAttribute1'];
-                $preCartProductSetValue['serviceAttribute1'] = $productObject->$functionName();
+                $cartProductValues['serviceAttribute1'] = $productObject->$functionName();
             }
             if (isset($repositoryFields['getServiceAttribute2'])) {
                 $functionName = $repositoryFields['getServiceAttribute2'];
-                $preCartProductSetValue['serviceAttribute2'] = $productObject->$functionName();
+                $cartProductValues['serviceAttribute2'] = $productObject->$functionName();
             }
             if (isset($repositoryFields['getServiceAttribute3'])) {
                 $functionName = $repositoryFields['getServiceAttribute3'];
-                $preCartProductSetValue['serviceAttribute3'] = $productObject->$functionName();
+                $cartProductValues['serviceAttribute3'] = $productObject->$functionName();
             }
 
             if (isset($repositoryFields['hasFeVariants'])) {
                 $functionName = $repositoryFields['hasFeVariants'];
-                $preCartProductSetValue['hasFeVariants'] = $productObject->$functionName();
+                $cartProductValues['hasFeVariants'] = $productObject->$functionName();
             }
 
             if (isset($repositoryFields['getSpecialPrice'])) {
                 $functionName = $repositoryFields['getSpecialPrice'];
                 $frontendUserGroupIds = $this->getFrontendUserGroupIds();
-                $preCartProductSetValue['specialPrice'] = $productObject->$functionName($frontendUserGroupIds);
+                $cartProductValues['specialPrice'] = $productObject->$functionName($frontendUserGroupIds);
             }
 
             if (isset($repositoryFields['getMinNumber'])) {
                 $functionName = $repositoryFields['getMinNumber'];
-                $preCartProductSetValue['minNumber'] = $productObject->$functionName();
+                $cartProductValues['minNumber'] = $productObject->$functionName();
             }
             if (isset($repositoryFields['getMaxNumber'])) {
                 $functionName = $repositoryFields['getMaxNumber'];
-                $preCartProductSetValue['maxNumber'] = $productObject->$functionName();
+                $cartProductValues['maxNumber'] = $productObject->$functionName();
             }
 
             if (isset($repositoryFields['getFeVariants'])) {
-                $feVariantValues = $preCartProductSetValue['feVariants'];
+                $feVariantValues = $cartProductValues['feVariants'];
 
                 $functionName = $repositoryFields['getFeVariants'];
                 $feVariants = $productObject->$functionName();
 
                 if ($feVariants) {
-                    $preCartProductSetValue['feVariants'] = [];
+                    $cartProductValues['feVariants'] = [];
                     foreach ($feVariants as $feVariant) {
                         if ($feVariantValues[$feVariant->getSku()]) {
-                            $preCartProductSetValue['feVariants'][] = [
+                            $cartProductValues['feVariants'][] = [
                                 'sku' => $feVariant->getSku(),
                                 'title' => $feVariant->getTitle(),
                                 'value' => $feVariantValues[$feVariant->getSku()]
@@ -791,20 +813,37 @@ class CartUtility
             }
 
             if ($repositoryFields['additional.']) {
-                $preCartProductSetValue['additional'] = [];
+                $cartProductValues['additional'] = [];
                 foreach ($repositoryFields['additional.'] as $additionalKey => $additionalValue) {
                     if ($additionalValue['field']) {
                         $functionName = $additionalValue['field'];
-                        $preCartProductSetValue['additional'][$additionalKey] = $functionName();
+                        $cartProductValues['additional'][$additionalKey] = $functionName();
                     } elseif ($additionalValue['value']) {
-                        $preCartProductSetValue['additional'][$additionalKey] = $additionalValue['value'];
+                        $cartProductValues['additional'][$additionalKey] = $additionalValue['value'];
                     }
                 }
             }
 
         }
 
-        return $this->createProduct($preCartProductSetValue);
+        $data = [
+            'productObject' => $productObject,
+            'repositoryFields' => $repositoryFields,
+            'cartProductValueSet' => $cartProductValues,
+        ];
+
+        $signalSlotDispatcher = $this->objectManager->get(
+            \TYPO3\CMS\Extbase\SignalSlot\Dispatcher::class
+        );
+        $slotReturn = $signalSlotDispatcher->dispatch(
+            __CLASS__,
+            'changePreCartProduct',
+            [$data]
+        );
+
+        $cartProductValues = $slotReturn[0]['cartProductValueSet'];
+
+        return $this->createProduct($cartProductValues);
     }
 
     /**
@@ -972,8 +1011,7 @@ class CartUtility
      */
     public function getVariantDetailsFromRepository($variantId, $repositorySettings)
     {
-        $objectManager = GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager');
-        $variantRepository = $objectManager->get($repositorySettings['class']);
+        $variantRepository = $this->objectManager->get($repositorySettings['class']);
         $variantObject = $variantRepository->findByUid($variantId);
 
         $variantData = [];

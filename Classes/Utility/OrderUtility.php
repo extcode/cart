@@ -26,20 +26,19 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 class OrderUtility
 {
     /**
+     * Object Manager
+     *
+     * @var \TYPO3\CMS\Extbase\Object\ObjectManager
+     */
+    protected $objectManager;
+
+    /**
      * Persistence Manager
      *
      * @var \TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager
      * @inject
      */
     protected $persistenceManager;
-
-    /**
-     * Object Manager
-     *
-     * @var \TYPO3\CMS\Extbase\Object\ObjectManager
-     * @inject
-     */
-    protected $objectManager;
 
     /**
      * Item Repository
@@ -158,6 +157,15 @@ class OrderUtility
     protected $storagePid = null;
 
     /**
+     * @param \TYPO3\CMS\Extbase\Object\ObjectManagerInterface $objectManager
+     */
+    public function injectObjectManager(
+        \TYPO3\CMS\Extbase\Object\ObjectManagerInterface $objectManager
+    ) {
+        $this->objectManager = $objectManager;
+    }
+
+    /**
      * Save Order
      *
      * @param array $pluginSettings TypoScript Plugin Settings
@@ -179,12 +187,6 @@ class OrderUtility
 
         $this->cart = $cart;
         $this->orderItem = $orderItem;
-
-        if (!$this->objectManager) {
-            $this->objectManager = GeneralUtility::makeInstance(
-                \TYPO3\CMS\Extbase\Object\ObjectManager::class
-            );
-        }
 
         $orderItem->setPid($this->storagePid);
 

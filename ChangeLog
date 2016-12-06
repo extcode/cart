@@ -1,3 +1,9 @@
+1.7.0
+    2016-12-06
+    Daniel Lorenz <daniel.lorenz@extco.de>
+
+    * TASK #45: add signal slots to change products before they added to cart
+
 1.6.8
     2016-12-05
     Daniel Lorenz <daniel.lorenz@extco.de>
