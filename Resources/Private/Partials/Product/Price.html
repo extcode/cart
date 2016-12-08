@@ -16,8 +16,8 @@
                 <cart:format.currency><cart:product.bestSpecialPrice product="{product}"/></cart:format.currency>
             </span>
         </div>
-        <div>
-            <strong>(Sie sparen: <f:format.number><cart:product.bestSpecialPricePercentageDiscount product="{product}"/></f:format.number> %)</strong>
+        <div class="special_price_percentage_discount">
+            <strong>(Sie sparen: <span class="price"><f:format.number><cart:product.bestSpecialPricePercentageDiscount product="{product}"/></f:format.number></span> %)</strong>
         </div>
     </f:then>
     <f:else>

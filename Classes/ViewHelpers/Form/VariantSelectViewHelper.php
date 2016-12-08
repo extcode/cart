@@ -63,6 +63,8 @@ class VariantSelectViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractV
             );
             $specialPrice = $currencyViewHelper->render();
 
+            $specialPricePercentageDiscount = number_format($beVariant->getBestSpecialPricePercentageDiscount(), 2);
+
             $optionLabelArray = [];
             if ($product->getBeVariantAttribute1()) {
                 $optionLabelArray[] = $beVariant->getBeVariantAttributeOption1()->getTitle();
@@ -79,6 +81,7 @@ class VariantSelectViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractV
             $data = 'data-regular-price="' . $regularPrice . '"';
             if ($regularPrice != $specialPrice) {
                 $data .= ' data-special-price="' . $specialPrice . '"';
+                $data .= ' data-special-price-percentage-discount="' . $specialPricePercentageDiscount . '"';
             }
             $out .= '<option ' . $value . ' ' . $data . '>' . $optionLabel . '</option>';
         }

@@ -60,6 +60,14 @@ class BeVariant extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     protected $price = 0.0;
 
     /**
+     * Product Special Price
+     *
+     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Extcode\Cart\Domain\Model\Product\SpecialPrice>
+     * @cascade remove
+     */
+    protected $specialPrices = null;
+
+    /**
      * Price Calc Method
      *
      * @var int
@@ -88,6 +96,15 @@ class BeVariant extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     protected $stock = 0;
 
     /**
+     * Product constructor.
+     *
+     */
+    public function __construct()
+    {
+        $this->specialPrices = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+    }
+
+    /**
      * Returns the Product
      *
      * @return \Extcode\Cart\Domain\Model\Product\Product
@@ -95,6 +112,18 @@ class BeVariant extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     public function getProduct()
     {
         return $this->product;
+    }
+
+    /**
+     * Sets the Product
+     *
+     * @param \Extcode\Cart\Domain\Model\Product\Product $product
+     *
+     * @return void
+     */
+    public function setProduct(\Extcode\Cart\Domain\Model\Product\Product $product)
+    {
+        $this->product = $product;
     }
 
     /**
@@ -221,11 +250,11 @@ class BeVariant extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      *
      * @return float
      */
-    public function getBestPriceCalculated()
+    public function getBestPriceCalculated($frontendUserGroupIds = [])
     {
-        $price = $this->getPrice();
+        $price = $this->getBestPrice($frontendUserGroupIds);
 
-        $parentPrice = $this->getProduct()->getBestSpecialPrice();
+        $parentPrice = $this->getProduct()->getBestSpecialPrice($frontendUserGroupIds);
 
         switch ($this->priceCalcMethod) {
             case 3:
@@ -305,6 +334,146 @@ class BeVariant extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     public function setPriceCalcMethod($priceCalcMethod)
     {
         $this->priceCalcMethod = $priceCalcMethod;
+    }
+
+    /**
+     * Adds a Special Price
+     *
+     * @param \Extcode\Cart\Domain\Model\Product\SpecialPrice $specialPrice
+     * @return void
+     */
+    public function addSpecialPrice(\Extcode\Cart\Domain\Model\Product\SpecialPrice $specialPrice)
+    {
+        $this->specialPrices->attach($specialPrice);
+    }
+
+    /**
+     * Removes a Special Price
+     *
+     * @param \Extcode\Cart\Domain\Model\Product\SpecialPrice $specialPriceToRemove
+     * @return void
+     */
+    public function removeSpecialPrice(\Extcode\Cart\Domain\Model\Product\SpecialPrice $specialPriceToRemove)
+    {
+        $this->specialPrices->detach($specialPriceToRemove);
+    }
+
+    /**
+     * Returns the Special Prices
+     *
+     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Extcode\Cart\Domain\Model\specialPrice>
+     */
+    public function getSpecialPrices()
+    {
+        return $this->specialPrices;
+    }
+
+    /**
+     * Sets the Special Prices
+     *
+     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage $specialPrices
+     */
+    public function setSpecialPrices(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $specialPrices)
+    {
+        $this->specialPrices = $specialPrices;
+    }
+
+    /**
+     * Returns Best Special Price
+     *
+     * @var array $frontendUserGroupIds
+     *
+     * @return \Extcode\Cart\Domain\Model\Product\SpecialPrice
+     */
+    public function getBestSpecialPrice($frontendUserGroupIds = [])
+    {
+        /** @var \Extcode\Cart\Domain\Model\Product\SpecialPrice $bestSpecialPrice */
+        $bestSpecialPrice = null;
+
+        if ($this->specialPrices) {
+            foreach ($this->specialPrices as $specialPrice) {
+                if ($bestSpecialPrice == null) {
+                    $bestSpecialPrice = array_shift($this->specialPrices->toArray());
+                    continue;
+                }
+
+                if ((
+                        ($specialPrice->getPrice() < $bestSpecialPrice->getPrice()) &&
+                        in_array($this->priceCalcMethod, [0, 1, 4, 5])
+                    ) ||
+                    (
+                        ($specialPrice->getPrice() > $bestSpecialPrice->getPrice()) &&
+                        in_array($this->priceCalcMethod, [2, 3])
+                    )
+                ) {
+                    if (!$specialPrice->getFrontendUserGroup() ||
+                        in_array($specialPrice->getFrontendUserGroup(), $frontendUserGroupIds)
+                    ) {
+                        $bestSpecialPrice = $specialPrice;
+                    }
+                }
+            }
+        }
+
+        return $bestSpecialPrice;
+    }
+
+    /**
+     * Returns Best Price
+     *
+     * @var array $frontendUserGroupIds
+     *
+     * @return float
+     */
+    public function getBestPrice($frontendUserGroupIds = [])
+    {
+        $bestPrice = $this->price;
+        $bestSpecialPrice = $this->getBestSpecialPrice($frontendUserGroupIds);
+
+        if ($bestSpecialPrice) {
+            if ((
+                    ($bestSpecialPrice->getPrice() < $bestPrice) &&
+                    in_array($this->priceCalcMethod, [0, 1, 4, 5])
+                ) ||
+                (
+                    ($bestSpecialPrice->getPrice() > $bestPrice) &&
+                    in_array($this->priceCalcMethod, [2, 3])
+                )
+            ) {
+                $bestPrice = $bestSpecialPrice->getPrice();
+            }
+        }
+
+        return $bestPrice;
+    }
+
+    /**
+     * Returns best Special Price Discount
+     *
+     * @var array $frontendUserGroupIds
+     * @return float
+     */
+    public function getBestSpecialPriceDiscount($frontendUserGroupIds = [])
+    {
+        $bestSpecialPrice = $this->getBestPriceCalculated($frontendUserGroupIds);
+        $bestSpecialPriceDiscount = $this->getPriceCalculated() - $bestSpecialPrice;
+
+        return $bestSpecialPriceDiscount;
+    }
+
+    /**
+     * Returns best Special Price Percentage Discount
+     *
+     * @var array $frontendUserGroupIds
+     * @return float
+     */
+    public function getBestSpecialPricePercentageDiscount($frontendUserGroupIds = [])
+    {
+        if ($this->getPriceCalculated() != 0) {
+            $bestSpecialPricePercentageDiscount = (($this->getBestSpecialPriceDiscount($frontendUserGroupIds)) / $this->getPriceCalculated()) * 100;
+        }
+
+        return $bestSpecialPricePercentageDiscount;
     }
 
     /**

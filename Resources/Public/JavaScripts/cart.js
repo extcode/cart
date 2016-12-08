@@ -5,9 +5,11 @@ $('#shipping_same_as_billing').change(function() {
 $('#be-variants-select').change(function () {
     var special_price = $(this).children().filter(':selected').data('special-price');
     var regular_price = $(this).children().filter(':selected').data('regular-price');
+    var special_price_percentage_discount = $(this).children().filter(':selected').data('special-price-percentage-discount');
 
     $('#product-price .special_price .price').html(special_price);
     $('#product-price .regular_price .price').html(regular_price);
+    $('#product-price .special_price_percentage_discount .price').html(special_price_percentage_discount);
 });
 
 $.fn.serializeObject = function()

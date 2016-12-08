@@ -412,8 +412,15 @@ class CartUtility
                                 $variantConf = $variantConf['db']['beVariants'];
                             }
 
-                            $newVariant = $this->getDatabaseVariant(null, $newVariantArr[$variantsKey - 1],
-                                $variantConf, $cartProductValues, $variantsValue, $priceCalcMethod, $price);
+                            $newVariant = $this->getDatabaseVariant(
+                                null,
+                                $newVariantArr[$variantsKey - 1],
+                                $variantConf,
+                                $cartProductValues,
+                                $variantsValue,
+                                $priceCalcMethod,
+                                $price
+                            );
                         }
 
                         if ($newVariant) {
@@ -452,7 +459,6 @@ class CartUtility
         $priceCalcMethod,
         $price
     ) {
-
         list($pluginSettingsVariantsName, $pluginSettingsVariantsKey, $remainder) = explode('|', $variantsValue, 3);
         $variantsValue = $cartProductValues[$pluginSettingsVariantsName][$pluginSettingsVariantsKey];
         // if value is a integer, get details from database
@@ -466,7 +472,7 @@ class CartUtility
                 $priceCalcMethod = intval($variantData['priceCalcMethod']);
             }
 
-            $newVariant = new \Extcode\Cart\Domain\Model\Cart\BeVariant (
+            $newVariant = new \Extcode\Cart\Domain\Model\Cart\BeVariant(
                 $variantsValue,
                 $product,
                 $variant,
@@ -476,6 +482,10 @@ class CartUtility
                 $price,
                 $cartProductValues['quantity']
             );
+
+            if ($variantData['specialPrice']) {
+                $newVariant->setSpecialPrice($variantData['specialPrice']);
+            }
 
             unset($variantData['title']);
             unset($variantData['sku']);
@@ -487,9 +497,8 @@ class CartUtility
                 }
             }
 
+            return $newVariant;
         }
-
-        return $newVariant;
     }
 
     /**
@@ -887,7 +896,6 @@ class CartUtility
      */
     public function getVariantDetails($variantId, &$conf)
     {
-
         if (isset($conf['repository'])) {
             return $this->getVariantDetailsFromRepository($variantId, $conf['repository']);
         } elseif (isset($conf['db'])) {
@@ -919,6 +927,11 @@ class CartUtility
             $databaseSettings['price'] != '{$plugin.cart.db.variants.db.price}'
         ) {
             $select .= ', ' . $table . '.' . $databaseSettings['price'];
+        }
+        if ($databaseSettings['specialPrice'] != '' &&
+            $databaseSettings['specialPrice'] != '{$plugin.cart.db.variants.db.specialPrice}'
+        ) {
+            $select .= ', ' . $table . '.' . $databaseSettings['specialPrice'];
         }
         if ($databaseSettings['inheritPrice'] != '' &&
             $databaseSettings['variants.']['db.']['price'] != '{$plugin.cart.db.variants.db.inheritPrice}'
@@ -973,7 +986,9 @@ class CartUtility
 
             // if inherit_price is defined then check the inherit_price and replace the with variant price
             // if inherit_price is not defined then replace the with variant price
-            if ($databaseSettings['inheritPrice'] != '' && $databaseSettings['price'] != '{$plugin.cart.db.variants.db.inheritPrice}') {
+            if ($databaseSettings['inheritPrice'] != '' &&
+                $databaseSettings['price'] != '{$plugin.cart.db.variants.db.inheritPrice}'
+            ) {
                 if ($row[$databaseSettings['inheritPrice']]) {
                     if ($row[$databaseSettings['price']]) {
                         $variantData['price'] = $row[$databaseSettings['price']];
@@ -983,6 +998,10 @@ class CartUtility
                 if ($row[$databaseSettings['price']]) {
                     $variantData['price'] = $row[$databaseSettings['price']];
                 }
+            }
+
+            if ($row[$databaseSettings['specialPrice']]) {
+                $variantData['specialPrice'] = $row[$databaseSettings['specialPrice']];
             }
 
             if ($row[$databaseSettings['hasFeVariants']]) {
@@ -1016,37 +1035,48 @@ class CartUtility
 
         $variantData = [];
         if ($variantObject) {
+            $repositoryFields = $repositorySettings['fields'];
 
-            if (isset($variantObject->$repositorySettings['getTitle'])) {
-                $variantData['title'] = $variantObject->$repositorySettings['getTitle'];
+            if (isset($repositoryFields['getTitle'])) {
+                $functionName = $repositoryFields['getTitle'];
+                $variantData['title'] = $variantObject->$functionName();
             } else {
                 $variantData['title'] = $variantObject->getTitle();
             }
 
-            if (isset($variantObject->$repositorySettings['getSku'])) {
-                $variantData['sku'] = $variantObject->$repositorySettings['getSku'];
+            if (isset($repositoryFields['getSku'])) {
+                $functionName = $repositoryFields['getSku'];
+                $variantData['sku'] = $variantObject->$functionName();
             } else {
                 $variantData['sku'] = $variantObject->getSku();
             }
 
-            if (isset($variantObject->$repositorySettings['getPriceCalcMethod'])) {
-                $variantData['priceCalcMethod'] = $variantObject->$repositorySettings['getPriceCalcMethod'];
+            if (isset($repositoryFields['getPriceCalcMethod'])) {
+                $functionName = $repositoryFields['getPriceCalcMethod'];
+                $variantData['priceCalcMethod'] = $variantObject->$functionName();
             } else {
                 $variantData['priceCalcMethod'] = $variantObject->getPriceCalcMethod();
             }
 
-            if (isset($variantObject->$repositorySettings['getPrice'])) {
-                $variantData['price'] = $variantObject->$repositorySettings['getPrice'];
+            if (isset($repositoryFields['getPrice'])) {
+                $functionName = $repositoryFields['getPrice'];
+                $variantData['price'] = $variantObject->$functionName();
             } else {
                 $variantData['price'] = $variantObject->getPrice();
             }
 
-            if (isset($repositorySettings['hasFeVariants'])) {
-                $variantData['hasFeVariants'] = $repositorySettings['hasFeVariants'];
+            if (isset($repositoryFields['getSpecialPrice'])) {
+                $functionName = $repositoryFields['getSpecialPrice'];
+                $frontendUserGroupIds = $this->getFrontendUserGroupIds();
+                $variantData['specialPrice'] = $variantObject->$functionName($frontendUserGroupIds);
             }
 
-            if (isset($repositorySettings['additional']) && is_array($repositorySettings['additional'])) {
-                foreach ($repositorySettings['additional'] as $additionalKey => $additionalValue) {
+            if (isset($repositoryFields['hasFeVariants'])) {
+                $variantData['hasFeVariants'] = $repositoryFields['hasFeVariants'];
+            }
+
+            if (isset($repositoryFields['additional']) && is_array($repositoryFields['additional'])) {
+                foreach ($repositoryFields['additional'] as $additionalKey => $additionalValue) {
                     if ($additionalValue['field']) {
                         $variantData['additional']['$additionalKey'] = $variantObject->$additionalValue['field'];
                     } elseif ($additionalValue['value']) {
@@ -1054,22 +1084,6 @@ class CartUtility
                     }
                 }
             }
-
-            /*
-                        // if inherit_price is defined then check the inherit_price and replace the with variant price
-                        // if inherit_price is not defined then replace the with variant price
-                        if ($conf['db.']['inherit_price'] != '' && $conf['db.']['price'] != '{$plugin.wtcart.db.variants.db.inherit_price}') {
-                            if ($row[$conf['db.']['inherit_price']]) {
-                                if ($row[$conf['db.']['price']]) {
-                                    $variant->setPrice($row[$conf['db.']['price']]);
-                                }
-                            }
-                        } else {
-                            if ($row[$conf['db.']['price']]) {
-                                $variant->setPrice($row[$conf['db.']['price']]);
-                            }
-                        }
-            */
         }
 
         return $variantData;

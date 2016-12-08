@@ -149,6 +149,7 @@ plugin.tx_cart {
                 fields {
                     title             = {$plugin.tx_cart.db.variants.db.title}
                     price             = {$plugin.tx_cart.db.variants.db.price}
+                    specialPrice      = {$plugin.tx_cart.db.variants.db.specialPrice}
                     priceCalcMethod   = {$plugin.tx_cart.db.variants.db.priceCalcMethod}
                     inheritPrice      = {$plugin.tx_cart.db.variants.db.inheritPrice}
                     sku               = {$plugin.tx_cart.db.variants.db.sku}
@@ -280,6 +281,10 @@ plugin.tx_cart {
         beVariants {
             repository {
                 class = {$plugin.tx_cart.products.repository.beVariants.repository.class}
+
+                fields {
+                    getSpecialPrice = {$plugin.tx_cart.products.repository.beVariants.repository.fields.getSpecialPrice}
+                }
             }
         }
     }
@@ -299,4 +304,21 @@ lib.cartMailHeader {
 # use this lib to add custom information or content elements to your email template
 lib.cartMailFooter = COA
 lib.cartMailFooter {
+}
+
+lib.cartProduct = COA
+lib.cartProduct.showForm = USER
+lib.cartProduct.showForm {
+    userFunc = TYPO3\CMS\Extbase\Core\Bootstrap->run
+    vendorName = Extcode
+    extensionName = Cart
+    pluginName = ProductPartial
+
+    controller = Product
+    action = showForm
+
+    settings =< plugin.tx_cart.settings
+    persistence =< plugin.tx_cart.persistence
+    view =< plugin.tx_cart.view
+    update =< plugin.tx_cart.update
 }

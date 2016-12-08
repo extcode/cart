@@ -168,12 +168,16 @@ plugin.tx_cart {
                 getMinNumberInOrder = getMinNumberInOrder
                 getMaxNumberInOrder = getMaxNumberInOrder
                 getSpecialPrice     = getBestSpecialPrice
-                getFeVariants = getFeVariants
+                getFeVariants       = getFeVariants
             }
 
             beVariants {
                 repository {
                     class = Extcode\Cart\Domain\Repository\Product\BeVariantRepository
+
+                    fields {
+                        getSpecialPrice = getBestSpecialPrice
+                    }
                 }
             }
         }

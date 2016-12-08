@@ -42,6 +42,18 @@ defined('TYPO3_MODE') or die();
 
 \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
     'Extcode.' . $_EXTKEY,
+    'ProductPartial',
+    [
+        'Product' => 'showForm',
+    ],
+    // non-cacheable actions
+    [
+        'Product' => 'showForm',
+    ]
+);
+
+\TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
+    'Extcode.' . $_EXTKEY,
     'FlexProduct',
     [
         'Product' => 'flexform',

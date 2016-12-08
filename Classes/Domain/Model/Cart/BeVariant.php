@@ -90,6 +90,13 @@ class BeVariant
     private $price = 0.0;
 
     /**
+     * Special Price
+     *
+     * @var float
+     */
+    private $specialPrice = null;
+
+    /**
      * Quantity
      *
      * @var int
@@ -242,6 +249,7 @@ class BeVariant
             'title' => $this->title,
             'price_calc_method' => $this->priceCalcMethod,
             'price' => $this->getPrice(),
+            'specialPrice' => $this->getSpecialPrice(),
             'taxClass' => $this->getTaxClass(),
             'quantity' => $this->quantity,
             'price_total_gross' => $this->gross,
@@ -378,6 +386,46 @@ class BeVariant
         return $this->price;
     }
 
+    /**
+     * Returns Special Price
+     *
+     * @return float
+     */
+    public function getSpecialPrice()
+    {
+        return $this->specialPrice;
+    }
+
+    /**
+     * Sets Special Price
+     *
+     * @param float $specialPrice
+     */
+    public function setSpecialPrice($specialPrice)
+    {
+        $this->specialPrice = $specialPrice;
+    }
+
+    /**
+     * Returns Best Price (min of Price and Special Price)
+     *
+     * @return float
+     */
+    public function getBestPrice()
+    {
+        $bestPrice = $this->price;
+
+        if ($this->specialPrice &&
+            (
+                (($this->specialPrice < $bestPrice) && in_array($this->priceCalcMethod, [0,1,4,5])) ||
+                (($this->specialPrice > $bestPrice) && in_array($this->priceCalcMethod, [2,3]))
+            )
+        ) {
+            $bestPrice = $this->specialPrice;
+        }
+
+        return $bestPrice;
+    }
 
     /**
      * Gets Discount
@@ -392,18 +440,32 @@ class BeVariant
     }
 
     /**
+     * Returns Special Price
+     *
+     * @return float
+     */
+    public function getSpecialPriceDiscount()
+    {
+        $discount = 0.0;
+        if (($this->price != 0.0) && ($this->specialPrice)) {
+            $discount = (($this->price - $this->specialPrice) / $this->price) * 100;
+        }
+        return $discount;
+    }
+
+    /**
      * Gets Price Calculated
      *
      * @return float
      */
     public function getPriceCalculated()
     {
-        $price = $this->getPrice();
+        $price = $this->getBestPrice();
 
         if ($this->getParentBeVariant()) {
-            $parentPrice = $this->getParentBeVariant()->getPrice();
+            $parentPrice = $this->getParentBeVariant()->getBestPrice();
         } elseif ($this->getProduct()) {
-            $parentPrice = $this->getProduct()->getPrice();
+            $parentPrice = $this->getProduct()->getBestPrice();
         } else {
             $parentPrice = 0;
         }
@@ -457,10 +519,10 @@ class BeVariant
      */
     public function getBestPriceCalculated()
     {
-        $price = $this->getPrice();
+        $price = $this->getBestPrice();
 
         if ($this->getParentBeVariant()) {
-            $parentPrice = $this->getParentBeVariant()->getPrice();
+            $parentPrice = $this->getParentBeVariant()->getBestPrice();
         } elseif ($this->getProduct()) {
             $parentPrice = $this->getProduct()->getBestPrice();
         } else {
@@ -521,9 +583,9 @@ class BeVariant
         }
 
         if ($this->getParentBeVariant()) {
-            return $this->getParentBeVariant()->getPrice();
+            return $this->getParentBeVariant()->getBestPrice();
         } elseif ($this->getProduct()) {
-            return $this->getProduct()->getPrice();
+            return $this->getProduct()->getBestPrice();
         }
 
         return 0.0;
@@ -784,7 +846,8 @@ class BeVariant
 
     /**
      * @param array $newVariants
-     * @return mixed
+     *
+     * @return void
      */
     public function addBeVariants($newVariants)
     {
@@ -795,7 +858,8 @@ class BeVariant
 
     /**
      * @param \Extcode\Cart\Domain\Model\Cart\BeVariant $newBeVariant
-     * @return mixed
+     *
+     * @return void
      */
     public function addBeVariant(\Extcode\Cart\Domain\Model\Cart\BeVariant $newBeVariant)
     {

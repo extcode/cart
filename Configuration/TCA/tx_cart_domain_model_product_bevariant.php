@@ -54,7 +54,7 @@ return [
             'showitem' => 'be_variant_attribute_option1, be_variant_attribute_option2, be_variant_attribute_option3',
             'canNotCollapse' => 1
         ],
-        'prices' => ['showitem' => 'price, price_calc_method', 'canNotCollapse' => 1],
+        'prices' => ['showitem' => 'price, price_calc_method, --linebreak--, special_prices', 'canNotCollapse' => 1],
         'measure' => ['showitem' => 'price_measure, price_measure_unit', 'canNotCollapse' => 1],
     ],
     'columns' => [
@@ -226,6 +226,25 @@ return [
                 'minitems' => 0,
                 'maxitems' => 1,
             ]
+        ],
+
+        'special_prices' => [
+            'exclude' => 1,
+            'label' => $_LLL . ':tx_cart_domain_model_product_product.special_prices',
+            'config' => [
+                'type' => 'inline',
+                'foreign_table' => 'tx_cart_domain_model_product_specialprice',
+                'foreign_field' => 'be_variant',
+                'foreign_table_where' => ' AND tx_cart_domain_model_product_specialprice.pid=###CURRENT_PID### ORDER BY tx_cart_domain_model_product_specialprice.title ',
+                'maxitems' => 99,
+                'appearance' => [
+                    'collapseAll' => 1,
+                    'levelLinksPosition' => 'top',
+                    'showSynchronizationLink' => 1,
+                    'showPossibleLocalizationRecords' => 1,
+                    'showAllLocalizationLink' => 1
+                ],
+            ],
         ],
 
         'price_measure' => [

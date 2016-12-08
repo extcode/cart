@@ -85,6 +85,7 @@ CREATE TABLE tx_cart_domain_model_product_specialprice (
     pid int(11) DEFAULT '0' NOT NULL,
 
     product int(11) unsigned DEFAULT '0' NOT NULL,
+    be_variant int(11) unsigned DEFAULT '0' NOT NULL,
 
     frontend_user_group int(11) unsigned DEFAULT '0' NOT NULL,
 
@@ -241,6 +242,9 @@ CREATE TABLE tx_cart_domain_model_product_bevariant (
     be_variant_attribute_option3 int(11) unsigned DEFAULT '0' NOT NULL,
 
     price double(11,2) DEFAULT '0.00' NOT NULL,
+
+    special_prices int(11) unsigned DEFAULT '0' NOT NULL,
+
     price_calc_method int(11) unsigned DEFAULT '0' NOT NULL,
     price_measure double(11,2) DEFAULT '0.00' NOT NULL,
     price_measure_unit varchar(8) DEFAULT '' NOT NULL,

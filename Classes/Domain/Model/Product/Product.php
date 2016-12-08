@@ -492,7 +492,9 @@ class Product extends \Extcode\Cart\Domain\Model\Product\AbstractProduct
         if ($this->specialPrices) {
             foreach ($this->specialPrices as $specialPrice) {
                 if ($specialPrice->getPrice() < $bestSpecialPrice) {
-                    if (!$specialPrice->getFrontendUserGroup() || in_array($specialPrice->getFrontendUserGroup(), $frontendUserGroupIds)) {
+                    if (!$specialPrice->getFrontendUserGroup() ||
+                        in_array($specialPrice->getFrontendUserGroup(), $frontendUserGroupIds)
+                    ) {
                         $bestSpecialPrice = $specialPrice->getPrice();
                     }
                 }
@@ -524,9 +526,9 @@ class Product extends \Extcode\Cart\Domain\Model\Product\AbstractProduct
      */
     public function getBestSpecialPricePercentageDiscount($frontendUserGroupIds = [])
     {
-        $estSpecialPricePercentageDiscount = (($this->getBestSpecialPriceDiscount($frontendUserGroupIds)) / $this->price) * 100;
+        $bestSpecialPricePercentageDiscount = (($this->getBestSpecialPriceDiscount($frontendUserGroupIds)) / $this->price) * 100;
 
-        return $estSpecialPricePercentageDiscount;
+        return $bestSpecialPricePercentageDiscount;
     }
 
     /**

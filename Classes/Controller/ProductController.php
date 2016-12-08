@@ -150,7 +150,6 @@ class ProductController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         }
     }
 
-
     /**
      * action list
      *
@@ -175,6 +174,7 @@ class ProductController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
      */
     public function showAction(\Extcode\Cart\Domain\Model\Product\Product $product)
     {
+        $this->view->assign('user', $GLOBALS['TSFE']->fe_user->user);
         $this->view->assign('product', $product);
     }
 
@@ -184,8 +184,35 @@ class ProductController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
      * @param \Extcode\Cart\Domain\Model\Product\Product $product
      * @return void
      */
-    public function showFormAction(\Extcode\Cart\Domain\Model\Product\Product $product)
+    public function showFormAction(\Extcode\Cart\Domain\Model\Product\Product $product = null)
     {
+        if (!$product && $this->request->getPluginName()=='ProductPartial') {
+            $requestBuilder =$this->objectManager->get(
+                \TYPO3\CMS\Extbase\Mvc\Web\RequestBuilder::class
+            );
+            $configurationManager = $this->objectManager->get(
+                \TYPO3\CMS\Extbase\Configuration\ConfigurationManager::class
+            );
+            $configurationManager->setConfiguration([
+                'vendorName' => 'Extcode',
+                'extensionName' => 'Cart',
+                'pluginName' => 'Product',
+            ]);
+            /**
+             * @var \TYPO3\CMS\Extbase\Mvc\Web\Request $cartProductRequest
+             */
+            $cartProductRequest = $requestBuilder->build();
+
+            if ($cartProductRequest->hasArgument('product')) {
+                $productUid = $cartProductRequest->getArgument('product');
+            }
+
+            $productRepository = $this->objectManager->get(
+                \Extcode\Cart\Domain\Repository\Product\ProductRepository::class
+            );
+
+            $product =  $productRepository->findByUid($productUid);
+        }
         $this->view->assign('product', $product);
     }
 
