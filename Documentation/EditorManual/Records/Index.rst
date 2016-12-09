@@ -7,10 +7,9 @@ Datensätze
 ----------
 
 .. toctree::
-          :maxdepth: 5
-          :titlesonly:
+   :maxdepth: 5
+   :titlesonly:
 
-          Orders/Index
-          Products/Index
-          ProductVariants/Index
-          Coupons/Index
+   Orders/Index
+   Products/Index
+   Coupons/Index

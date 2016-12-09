@@ -8,17 +8,14 @@ Produkte
 
 Derzeit können drei verschiedene Datensätze angelegt werden.
 
-* Produkte
-* Varianten
-* Coupons
+* einfach
+* konfigurierbar
+* virtuell
 
-Produkte
---------
+Produkte können mit Frontend Varianten und konfigurierbare Produkte auch mit Backend Varianten individualisiert werden.
 
-Varianten
----------
+.. toctree::
+   :maxdepth: 5
+   :titlesonly:
 
-Coupons
--------
-
-Coupons oder auch Gutscheine werden derzeit nur auf den gesamten Warenkorb angerechnet.
+   Variants/Index
