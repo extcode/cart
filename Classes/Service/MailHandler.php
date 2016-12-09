@@ -239,14 +239,15 @@ class MailHandler implements SingletonInterface
 
             $mailBody = $view->render();
 
-            $mail = $this->objectManager->get('TYPO3\\CMS\\Core\\Mail\\MailMessage');
+            $mail = $this->objectManager->get(
+                \TYPO3\CMS\Core\Mail\MailMessage::class
+            );
             $mail->setFrom($this->buyerEmailFrom);
             $mail->setTo($billingAddress->getEmail());
             $mail->setSubject(
                 \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_cart.mail.buyer.subject', 'Cart')
             );
             $mail->setBody($mailBody, 'text/html', 'utf-8');
-            //$mail->addPart(strip_tags($mailBody), 'text/plain', 'utf-8');
 
             // get and add attachments
             $attachments = $this->getAttachments($orderItem, 'buyer');
@@ -296,14 +297,16 @@ class MailHandler implements SingletonInterface
 
             $mailBody = $view->render();
 
-            $mail = $this->objectManager->get('TYPO3\\CMS\\Core\\Mail\\MailMessage');
+            $mail = $this->objectManager->get(
+                \TYPO3\CMS\Core\Mail\MailMessage::class
+            );
             $mail->setFrom($this->sellerEmailFrom);
             $mail->setTo($mailToAddresses);
+            $mail->setReplyTo($billingAddress->getEmail());
             $mail->setSubject(
                 \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_cart.mail.seller.subject', 'Cart')
             );
             $mail->setBody($mailBody, 'text/html', 'utf-8');
-            //$mail->addPart(strip_tags($mailBody), 'text/plain', 'utf-8');
 
             // get and add attachments
             $attachments = $this->getAttachments($orderItem, 'seller');
@@ -365,7 +368,9 @@ class MailHandler implements SingletonInterface
         $templatePathAndFileName = $templatePath . $templateFileName . '.' . $format;
 
         /** @var \TYPO3\CMS\Fluid\View\StandaloneView $view */
-        $view = $this->objectManager->get('TYPO3\\CMS\\Fluid\\View\\StandaloneView');
+        $view = $this->objectManager->get(
+            \TYPO3\CMS\Fluid\View\StandaloneView::class
+        );
         $view->setFormat($format);
 
         if ($this->pluginSettings['view']) {
