@@ -1,3 +1,9 @@
+1.8.3
+    2016-12-10
+    Daniel Lorenz <daniel.lorenz@extco.de>
+
+    * TASK #52: fix special price calculation in commit
+
 1.8.2
     2016-12-09
     Daniel Lorenz <daniel.lorenz@extco.de>
