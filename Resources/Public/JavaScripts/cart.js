@@ -29,7 +29,7 @@ $.fn.serializeObject = function()
     return o;
 };
 
-$("#add-product-form").submit(function(e) {
+$(".add-product-form").submit(function(e) {
 
     $form = $(this);
     var serializedObject = $form.serializeObject();
