@@ -49,6 +49,10 @@ class Product extends \Extcode\Cart\Domain\Model\Product\AbstractProduct
         ],
         'area' => [
             'm2' => 1,
+        ],
+        'time' => [
+            'hour' => 8,
+            'day' => 1,
         ]
     ];
 
