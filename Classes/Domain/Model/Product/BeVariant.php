@@ -390,10 +390,14 @@ class BeVariant extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
         /** @var \Extcode\Cart\Domain\Model\Product\SpecialPrice $bestSpecialPrice */
         $bestSpecialPrice = null;
 
-        if ($this->specialPrices) {
-            foreach ($this->specialPrices as $specialPrice) {
+        if ($this->getSpecialPrices()) {
+            foreach ($this->getSpecialPrices() as $specialPrice) {
                 if ($bestSpecialPrice == null) {
-                    $bestSpecialPrice = array_shift($this->specialPrices->toArray());
+                    if (!$specialPrice->getFrontendUserGroup() ||
+                        in_array($specialPrice->getFrontendUserGroup(), $frontendUserGroupIds)
+                    ) {
+                        $bestSpecialPrice = $specialPrice;
+                    }
                     continue;
                 }
 

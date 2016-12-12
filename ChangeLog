@@ -1,8 +1,14 @@
+1.8.4
+    2016-12-10
+    Daniel Lorenz <daniel.lorenz@extco.de>
+
+    * BUGFIX #54: wrong special price calculation for variants if first special price is related to a frontend user group
+
 1.8.3
     2016-12-10
     Daniel Lorenz <daniel.lorenz@extco.de>
 
-    * TASK #52: fix special price calculation in commit
+    * BUGFIX #52: fix special price calculation in commit
 
 1.8.2
     2016-12-09
