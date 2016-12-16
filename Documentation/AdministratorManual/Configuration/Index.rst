@@ -18,3 +18,4 @@ Konfiguration
    FormatConfiguration/Index
    AjaxConfiguration/Index
    PdfConfiguration/Index
+   ServiceAttributeConfiguration/Index
