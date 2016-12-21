@@ -3,6 +3,7 @@
     Daniel Lorenz <daniel.lorenz@extco.de>
 
     * TASK #30: make extension compatibile to TYPO3 v8
+    * TASK #39: add stock handling for products and backend variants
 
 1.8.5
     2016-12-16
