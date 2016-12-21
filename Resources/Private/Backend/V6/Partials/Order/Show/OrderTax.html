@@ -1,0 +1,8 @@
+{namespace cart=Extcode\Cart\ViewHelpers}
+
+<li>
+    <f:translate key="LLL:EXT:cart/Resources/Private/Language/locallang.xlf:plugin.cart.product.tax"
+                 arguments="{0: orderTax.orderTaxClass.name}"/>
+    :
+    <cart:format.currency currencySign="{orderItem.currency}">{orderTax.tax}</cart:format.currency>
+</li>

@@ -1,0 +1,37 @@
+{namespace cart=Extcode\Cart\ViewHelpers}
+
+<tr>
+    <td>
+        {product.sku}
+    </td>
+    <td>
+        {product.title}
+    </td>
+    <td>
+        <cart:format.currency currencySign="{currencySign}">{product.price}</cart:format.currency>
+    </td>
+    <td>
+        <cart:format.currency currencySign="{currencySign}">{product.discount}</cart:format.currency>
+    </td>
+    <td>
+        {product.count}
+    </td>
+    <td>
+        <cart:format.currency currencySign="{currencySign}">{product.net}</cart:format.currency>
+    </td>
+    <td>
+        <cart:format.currency currencySign="{currencySign}">{product.gross}</cart:format.currency>
+    </td>
+    <f:for each="{product.orderItem.orderTotalTax}" as="orderTotalTax">
+        <td>
+            <f:if condition="{0: orderTotalTax.orderTaxClass.id} == {0: {product.orderTaxClass.id}}">
+                <f:then>
+                    <cart:format.currency currencySign="{currencySign}">{product.orderTax.tax}</cart:format.currency>
+                </f:then>
+                <f:else>
+                    <!-- -->
+                </f:else>
+            </f:if>
+        </td>
+    </f:for>
+</tr>

@@ -1,0 +1,21 @@
+<f:layout name="Default"/>
+
+<f:section name="actions">
+    <f:render partial="Order/Show/Actions" arguments="{orderItem: orderItem, pdfRendererInstalled: pdfRendererInstalled}"/>
+</f:section>
+
+<f:section name="content">
+    <f:flashMessages/>
+
+    <div style="padding-bottom: 20px;">
+        <f:render partial="Order/Show/Properties" arguments="{orderItem: orderItem}"/>
+    </div>
+
+    <div style="padding-bottom: 20px;">
+        <f:render partial="Order/Show/ServiceStatus" arguments="{orderItem: orderItem}"/>
+    </div>
+
+    <div style="padding-bottom: 20px;">
+        <f:render partial="Order/Show/Cart" arguments="{orderItem: orderItem}"/>
+    </div>
+</f:section>

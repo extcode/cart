@@ -15,6 +15,8 @@ namespace Extcode\Cart\ViewHelpers\Format;
  * The TYPO3 project - inspiring people to share!
  */
 
+use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
+
 /**
  * Currency ViewHelper
  *
@@ -24,13 +26,20 @@ namespace Extcode\Cart\ViewHelpers\Format;
  * @package cart
  * @author Daniel Lorenz <ext.cart@extco.de>
  */
-class CurrencyViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper
+class CurrencyViewHelper extends AbstractViewHelper
 {
     /**
      * @var \TYPO3\CMS\Extbase\Configuration\ConfigurationManager
      * @inject
      */
     protected $configurationManager;
+
+    /**
+     * Output is escaped already. We must not escape children, to avoid double encoding.
+     *
+     * @var bool
+     */
+    protected $escapeOutput = false;
 
     /**
      * @param string $currencySign (optional) The currency sign, eg $ or €.

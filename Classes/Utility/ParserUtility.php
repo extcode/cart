@@ -243,30 +243,30 @@ class ParserUtility
             $this->pluginSettings = $pluginSettings;
         }
 
-        $productValueSet = [];
+        $cartProductValues = [];
 
         if ($request->hasArgument('productId')) {
-            $productValueSet['productId'] = intval($request->getArgument('productId'));
+            $cartProductValues['productId'] = intval($request->getArgument('productId'));
         }
         if ($request->hasArgument('tableId')) {
-            $productValueSet['tableId'] = intval($request->getArgument('tableId'));
+            $cartProductValues['tableId'] = intval($request->getArgument('tableId'));
         }
         if ($request->hasArgument('repositoryId')) {
-            $productValueSet['repositoryId'] = intval($request->getArgument('repositoryId'));
+            $cartProductValues['repositoryId'] = intval($request->getArgument('repositoryId'));
         }
         if ($request->hasArgument('contentId')) {
-            $productValueSet['contentId'] = intval($request->getArgument('contentId'));
+            $cartProductValues['contentId'] = intval($request->getArgument('contentId'));
         }
         if ($request->hasArgument('quantity')) {
             $quantity = intval($request->getArgument('quantity'));
-            $productValueSet['quantity'] = $quantity ? $quantity : 1;
+            $cartProductValues['quantity'] = $quantity ? $quantity : 1;
         }
 
         if ($request->hasArgument('feVariants')) {
             $requestFeVariants = $request->getArgument('feVariants');
             if (is_array($requestFeVariants)) {
                 foreach ($requestFeVariants as $requestFeVariantKey => $requestFeVariantValue) {
-                    $productValueSet['feVariants'][$requestFeVariantKey] = $requestFeVariantValue;
+                    $cartProductValues['feVariants'][$requestFeVariantKey] = $requestFeVariantValue;
                 }
             }
         }
@@ -275,7 +275,7 @@ class ParserUtility
             $requestVariants = $request->getArgument('beVariants');
             if (is_array($requestVariants)) {
                 foreach ($requestVariants as $requestVariantKey => $requestVariantValue) {
-                    $productValueSet['beVariants'][$requestVariantKey] = intval($requestVariantValue);
+                    $cartProductValues['beVariants'][$requestVariantKey] = intval($requestVariantValue);
                 }
             }
         }
@@ -283,7 +283,7 @@ class ParserUtility
         $data = [
             'pluginSettings' => $pluginSettings,
             'request' => $request,
-            'productValueSet' => $productValueSet,
+            'cartProductValues' => $cartProductValues,
         ];
 
         $signalSlotDispatcher = $this->objectManager->get(
@@ -292,12 +292,12 @@ class ParserUtility
 
         $slotReturn = $signalSlotDispatcher->dispatch(
             __CLASS__,
-            'changePreCartProductSet',
+            'changeCartProductValues',
             [$data]
         );
 
-        $productValueSet = $slotReturn[0]['productValueSet'];
+        $cartProductValues = $slotReturn[0]['cartProductValues'];
 
-        return $productValueSet;
+        return $cartProductValues;
     }
 }

@@ -847,5 +847,6 @@ CREATE TABLE tx_cart_domain_model_product_tag_mm (
 #
 CREATE TABLE sys_category (
     images int(11) unsigned DEFAULT '0',
+    cart_product_list_pid int(11) unsigned DEFAULT '0' NOT NULL,
     cart_product_single_pid int(11) unsigned DEFAULT '0' NOT NULL
 );

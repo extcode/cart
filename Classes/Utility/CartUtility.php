@@ -326,7 +326,7 @@ class CartUtility
         }
 
         $data = [
-            'cartProductValueSet' => $cartProductValues,
+            'cartProductValues' => $cartProductValues,
             'newCartProduct' => $newCartProduct,
         ];
 
@@ -463,16 +463,17 @@ class CartUtility
         $variantsValue = $cartProductValues[$pluginSettingsVariantsName][$pluginSettingsVariantsKey];
         // if value is a integer, get details from database
         if (!is_int($variantsValue) ? (ctype_digit($variantsValue)) : true) {
+            $variantId = $variantsValue;
             // creating a new Variant and using Price and Taxclass form CartProduct
 
             // get further data of variant
-            $variantData = $this->getVariantDetails($variantsValue, $variantConf);
+            $variantData = $this->getVariantDetails($cartProductValues, $variantId, $variantConf);
 
             if ($variantData['priceCalcMethod']) {
                 $priceCalcMethod = intval($variantData['priceCalcMethod']);
             }
 
-            $newVariant = new \Extcode\Cart\Domain\Model\Cart\BeVariant(
+            $newCartVariant = new \Extcode\Cart\Domain\Model\Cart\BeVariant(
                 $variantsValue,
                 $product,
                 $variant,
@@ -484,7 +485,7 @@ class CartUtility
             );
 
             if ($variantData['specialPrice']) {
-                $newVariant->setSpecialPrice($variantData['specialPrice']);
+                $newCartVariant->setSpecialPrice($variantData['specialPrice']);
             }
 
             unset($variantData['title']);
@@ -493,11 +494,26 @@ class CartUtility
             foreach ($variantData as $variantDataKey => $variantDataValue) {
                 if (!is_array($variantDataValue)) {
                     $setter = 'set' . ucfirst($variantDataKey);
-                    $newVariant->$setter($variantDataValue);
+                    $newCartVariant->$setter($variantDataValue);
                 }
             }
+            $data = [
+                'cartProductValues' => $cartProductValues,
+                'newCartVariant' => $newCartVariant,
+            ];
 
-            return $newVariant;
+            $signalSlotDispatcher = $this->objectManager->get(
+                \TYPO3\CMS\Extbase\SignalSlot\Dispatcher::class
+            );
+            $slotReturn = $signalSlotDispatcher->dispatch(
+                __CLASS__,
+                'changeNewCartVariant',
+                [$data]
+            );
+
+            $newCartVariant = $slotReturn[0]['newCartVariant'];
+
+            return $newCartVariant;
         }
     }
 
@@ -838,7 +854,7 @@ class CartUtility
         $data = [
             'productObject' => $productObject,
             'repositoryFields' => $repositoryFields,
-            'cartProductValueSet' => $cartProductValues,
+            'cartProductValues' => $cartProductValues,
         ];
 
         $signalSlotDispatcher = $this->objectManager->get(
@@ -846,11 +862,11 @@ class CartUtility
         );
         $slotReturn = $signalSlotDispatcher->dispatch(
             __CLASS__,
-            'changePreCartProduct',
+            'changeCartProductValues',
             [$data]
         );
 
-        $cartProductValues = $slotReturn[0]['cartProductValueSet'];
+        $cartProductValues = $slotReturn[0]['cartProductValues'];
 
         return $this->createProduct($cartProductValues);
     }
@@ -889,15 +905,20 @@ class CartUtility
     }
 
     /**
+     * Get Variant Details
+     *
+     * @param array $cartProductValues
      * @param int $variantId
      * @param array $conf
+     *
      * @return array
+     *
      * @throws Exception
      */
-    public function getVariantDetails($variantId, &$conf)
+    public function getVariantDetails($cartProductValues, $variantId, &$conf)
     {
         if (isset($conf['repository'])) {
-            return $this->getVariantDetailsFromRepository($variantId, $conf['repository']);
+            return $this->getVariantDetailsFromRepository($cartProductValues, $variantId, $conf['repository']);
         } elseif (isset($conf['db'])) {
             return $this->getVariantDetailsFromTable($variantId, $conf['db']);
         }
@@ -906,6 +927,8 @@ class CartUtility
     }
 
     /**
+     * Get Variant Details From Table
+     *
      * @param int $variantId
      * @param array $databaseSettings
      *
@@ -1023,70 +1046,90 @@ class CartUtility
     }
 
     /**
+     * Get Variant Details From Repository
+     *
+     * @param array $cartProductValues
      * @param int $variantId
      * @param array $repositorySettings
      *
      * @return array $variantData
      */
-    public function getVariantDetailsFromRepository($variantId, $repositorySettings)
+    public function getVariantDetailsFromRepository($cartProductValues, $variantId, $repositorySettings)
     {
         $variantRepository = $this->objectManager->get($repositorySettings['class']);
         $variantObject = $variantRepository->findByUid($variantId);
 
-        $variantData = [];
+        $cartVariantValues = [];
         if ($variantObject) {
             $repositoryFields = $repositorySettings['fields'];
 
             if (isset($repositoryFields['getTitle'])) {
                 $functionName = $repositoryFields['getTitle'];
-                $variantData['title'] = $variantObject->$functionName();
+                $cartVariantValues['title'] = $variantObject->$functionName();
             } else {
-                $variantData['title'] = $variantObject->getTitle();
+                $cartVariantValues['title'] = $variantObject->getTitle();
             }
 
             if (isset($repositoryFields['getSku'])) {
                 $functionName = $repositoryFields['getSku'];
-                $variantData['sku'] = $variantObject->$functionName();
+                $cartVariantValues['sku'] = $variantObject->$functionName();
             } else {
-                $variantData['sku'] = $variantObject->getSku();
+                $cartVariantValues['sku'] = $variantObject->getSku();
             }
 
             if (isset($repositoryFields['getPriceCalcMethod'])) {
                 $functionName = $repositoryFields['getPriceCalcMethod'];
-                $variantData['priceCalcMethod'] = $variantObject->$functionName();
+                $cartVariantValues['priceCalcMethod'] = $variantObject->$functionName();
             } else {
-                $variantData['priceCalcMethod'] = $variantObject->getPriceCalcMethod();
+                $cartVariantValues['priceCalcMethod'] = $variantObject->getPriceCalcMethod();
             }
 
             if (isset($repositoryFields['getPrice'])) {
                 $functionName = $repositoryFields['getPrice'];
-                $variantData['price'] = $variantObject->$functionName();
+                $cartVariantValues['price'] = $variantObject->$functionName();
             } else {
-                $variantData['price'] = $variantObject->getPrice();
+                $cartVariantValues['price'] = $variantObject->getPrice();
             }
 
             if (isset($repositoryFields['getSpecialPrice'])) {
                 $functionName = $repositoryFields['getSpecialPrice'];
                 $frontendUserGroupIds = $this->getFrontendUserGroupIds();
-                $variantData['specialPrice'] = $variantObject->$functionName($frontendUserGroupIds);
+                $cartVariantValues['specialPrice'] = $variantObject->$functionName($frontendUserGroupIds);
             }
 
             if (isset($repositoryFields['hasFeVariants'])) {
-                $variantData['hasFeVariants'] = $repositoryFields['hasFeVariants'];
+                $cartVariantValues['hasFeVariants'] = $repositoryFields['hasFeVariants'];
             }
 
             if (isset($repositoryFields['additional']) && is_array($repositoryFields['additional'])) {
                 foreach ($repositoryFields['additional'] as $additionalKey => $additionalValue) {
                     if ($additionalValue['field']) {
-                        $variantData['additional']['$additionalKey'] = $variantObject->$additionalValue['field'];
+                        $cartVariantValues['additional']['$additionalKey'] = $variantObject->$additionalValue['field'];
                     } elseif ($additionalValue['value']) {
-                        $variantData['additional']['$additionalKey'] = $additionalValue['value'];
+                        $cartVariantValues['additional']['$additionalKey'] = $additionalValue['value'];
                     }
                 }
             }
         }
 
-        return $variantData;
+        $data = [
+            'variantObject' => $variantObject,
+            'repositoryFields' => $repositoryFields,
+            'cartProductValues' => $cartProductValues,
+            'cartVariantValues' => $cartVariantValues,
+        ];
 
+        $signalSlotDispatcher = $this->objectManager->get(
+            \TYPO3\CMS\Extbase\SignalSlot\Dispatcher::class
+        );
+        $slotReturn = $signalSlotDispatcher->dispatch(
+            __CLASS__,
+            'changeCartVariantValues',
+            [$data]
+        );
+
+        $cartVariantValues = $slotReturn[0]['cartVariantValues'];
+
+        return $cartVariantValues;
     }
 }

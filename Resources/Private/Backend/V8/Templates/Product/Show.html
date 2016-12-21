@@ -1,0 +1,138 @@
+{namespace core=TYPO3\CMS\Core\ViewHelpers}
+{namespace cart=Extcode\Cart\ViewHelpers}
+
+<f:layout name="Default"/>
+
+<f:section name="actions">
+    <a class="btn btn-default btn-sm"
+       href="{f:uri.action(action:'list')}"
+       title="{f:translate(key: 'tx_cart.controller.product.action.list')}">
+        <core:icon identifier="actions-document-close" />
+    </a>
+</f:section>
+
+<f:section name="content">
+    <h1>
+        <f:translate key="tx_cartproduct.module.productController.showAction.header"/>
+    </h1>
+    <h2>{product.title} ({product.sku})</h2>
+
+    <f:if condition="{product.images}">
+        <f:for each="{product.images}" as="image">
+            <f:image src="{image.originalResource.originalFile.uid}" title="{image.originalResource.title}"
+                     alt="{image.originalResource.title}" maxWidth="200" maxHeight="200"/>
+        </f:for>
+    </f:if>
+
+    <f:if condition="{product.description}">
+        <div>{product.description}</div>
+    </f:if>
+
+    <f:if condition="{product.variants}">
+        <table class="tx_cartorder typo3-dblist">
+            <tr class="t3-row-header">
+                <th style="width: 75px;">
+                    <f:translate key="tx_cart_domain_model_order_product.sku"/>
+                </th>
+                <f:if condition="{product.beVariantAttribute1}">
+                    <th style="text-align: left;">{product.beVariantAttribute1.title} (
+                        <f:translate key="tx_cart_domain_model_order_product.be_variant_attribute1"/>
+                        )
+                    </th>
+                </f:if>
+                <f:if condition="{product.beVariantAttribute2}">
+                    <th style="text-align: left;">{product.beVariantAttribute2.title} (
+                        <f:translate key="tx_cart_domain_model_order_product.be_variant_attribute2"/>
+                        )
+                    </th>
+                </f:if>
+                <f:if condition="{product.beVariantAttribute3}">
+                    <th style="text-align: left;">{product.beVariantAttribute3.title} (
+                        <f:translate key="tx_cart_domain_model_order_product.be_variant_attribute3"/>
+                        )
+                    </th>
+                </f:if>
+                <th style="width: 75px;">
+                    <f:translate key="tx_cartproduct_domain_model_variant.stock"/>
+                </th>
+                <th style="width: 100px;">
+                    <f:translate key="tx_cartproduct_domain_model_variant.price"/>
+                </th>
+            </tr>
+            <f:for each="{product.variants}" as="variant">
+                <tr class="db_list_normal">
+                    <td style="text-align: right;">
+                        <f:link.action controller="Variant" action="show" arguments="{variant : variant}">
+                            {variant.sku}
+                        </f:link.action>
+                    </td>
+                    <f:if condition="{product.beVariantAttribute1}">
+                        <td>{variant.beVariantAttributeOption1.title}</td>
+                    </f:if>
+                    <f:if condition="{product.beVariantAttribute2}">
+                        <td>{variant.beVariantAttributeOption2.title}</td>
+                    </f:if>
+                    <f:if condition="{product.beVariantAttribute3}">
+                        <td>{variant.beVariantAttributeOption2.title}</td>
+                    </f:if>
+                    <td style="text-align: right;">{variant.stock}</td>
+                    <td style="text-align: right;">
+                        <cart:format.currency currencySign="{orderItem.currency}">{variant.price}</cart:format.currency>
+                    </td>
+                </tr>
+            </f:for>
+        </table>
+    </f:if>
+
+    <f:if condition="{product.relatedProducts}">
+        <table class="tx_cartorder typo3-dblist">
+            <tr class="t3-row-header">
+                <th style="text-align: left;">
+                    <f:translate key="tx_cart_domain_model_order_product.sku"/>
+                </th>
+                <th style="text-align: left;">
+                    <f:translate key="tx_cart_domain_model_order_product.title"/>
+                </th>
+                <th style="width: 75px;">
+                    <f:translate key="tx_cart_domain_model_order_product.stock"/>
+                </th>
+                <th style="width: 100px;">
+                    <f:translate key="tx_cart_domain_model_order_product.price"/>
+                </th>
+            </tr>
+
+            <f:for each="{product.relatedProducts}" as="relatedProduct">
+                <tr class="db_list_normal">
+                    <td>
+                        <f:link.action action="show" arguments="{product : relatedProduct}"> {relatedProduct.sku}
+                        </f:link.action>
+                    </td>
+                    <td>
+                        <f:link.action action="show" arguments="{product : relatedProduct}"> {relatedProduct.title}
+                        </f:link.action>
+                    </td>
+                    <td style="text-align: right;">
+                        {product.stock}
+                        <f:if condition="{product.variants}">(!)</f:if>
+                    </td>
+                    <td style="text-align: right;">
+                        <cart:format.currency currencySign="{orderItem.currency}">{relatedProduct.price}</cart:format.currency>
+                    </td>
+                </tr>
+            </f:for>
+        </table>
+    </f:if>
+
+    <f:if condition="{product.files}">
+        <f:translate key="tx_cart_domain_model_order_product.files"/>
+        :<br>
+        <f:for each="{product.files}" as="file">
+            <a href="{file.originalResource.publicUrl}">
+                <f:if condition="{file.originalResource.title}">
+                    <f:then>{file.originalResource.title}</f:then>
+                    <f:else>{file.originalResource.name}</f:else>
+                </f:if>
+            </a><br>
+        </f:for>
+    </f:if>
+</f:section>

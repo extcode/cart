@@ -1,0 +1,50 @@
+<f:layout name="Default"/>
+
+<f:section name="actions">
+</f:section>
+
+<f:section name="content">
+    <div class="right btn">
+        <f:link.action action="new">New</f:link.action>
+    </div>
+    <div class="clear"><!-- &nbsp --></div>
+
+    <f:render partial="BeVariantAttribute/Filter" arguments="{arguments: arguments, action: 'list'}"/>
+
+    <div class="table-fit">
+        <table class="table table-striped typo3-dblist">
+            <thead>
+            <tr class="t3-row-header">
+                <th style="text-align: left;">
+                    <f:translate key="tx_cart_domain_model_order_product.sku"/>
+                </th>
+                <th style="text-align: left;">
+                    <f:translate key="tx_cart_domain_model_order_product.title"/>
+                </th>
+                <th style="width: 150px; text-align: left;"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <f:for each="{beVariantAttributes}" as="beVariantAttribute">
+                <tr class="db_list_normal">
+                    <td>
+                        <f:link.action action="show" arguments="{beVariantAttribute : beVariantAttribute}"> {beVariantAttribute.sku}
+                        </f:link.action>
+                    </td>
+                    <td>
+                        <f:link.action action="show" arguments="{beVariantAttribute : beVariantAttribute}"> {beVariantAttribute.title}
+                        </f:link.action>
+                    </td>
+                    <td>
+                        <f:link.action action="show" arguments="{beVariantAttribute : beVariantAttribute}">Show</f:link.action>
+                        |
+                        <f:link.action action="edit" arguments="{beVariantAttribute : beVariantAttribute}">Edit</f:link.action>
+                        |
+                        <f:link.action action="delete" arguments="{beVariantAttribute : beVariantAttribute}">Delete</f:link.action>
+                    </td>
+                </tr>
+            </f:for>
+            </tbody>
+        </table>
+    </div>
+</f:section>

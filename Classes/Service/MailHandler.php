@@ -357,15 +357,18 @@ class MailHandler implements SingletonInterface
      * This creates another stand-alone instance of the Fluid StandaloneView
      * to render an e-mail template
      *
-     * @param string $templatePath
+     * @param string $templateSubPath
      * @param string $templateFileName
      * @param string $format
      *
      * @return \TYPO3\CMS\Fluid\View\StandaloneView Fluid instance
      */
-    protected function getEmailStandaloneView($templatePath = '/Mail/', $templateFileName = 'Default', $format = 'html')
-    {
-        $templatePathAndFileName = $templatePath . $templateFileName . '.' . $format;
+    protected function getEmailStandaloneView(
+        $templateSubPath = '/Mail/',
+        $templateFileName = 'Default',
+        $format = 'html'
+    ) {
+        $templateSubPathAndFileName = $templateSubPath . $templateFileName . '.' . $format;
 
         /** @var \TYPO3\CMS\Fluid\View\StandaloneView $view */
         $view = $this->objectManager->get(
@@ -383,7 +386,7 @@ class MailHandler implements SingletonInterface
                         $pathNameValue
                     );
 
-                    $completePath = $templateRootPath . $templatePathAndFileName;
+                    $completePath = $templateRootPath . $templateSubPathAndFileName;
                     if (file_exists($completePath)) {
                         $view->setTemplatePathAndFilename($completePath);
                     }
@@ -397,7 +400,7 @@ class MailHandler implements SingletonInterface
                 'Cannot find Template for MailHandler',
                 [
                     'templateRootPaths' => $this->pluginSettings['view']['templateRootPaths'],
-                    'templatePathAndFileName' => $templatePathAndFileName,
+                    'templatePathAndFileName' => $templateSubPathAndFileName,
                 ]
             );
         }

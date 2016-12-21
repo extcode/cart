@@ -28,6 +28,19 @@ ajaxProduct {
     10 < tt_content.list.20.cart_product
 }
 
+config.tx_extbase {
+    persistence {
+        classes {
+            Extcode\Cart\Domain\Model\Category {
+                mapping {
+                    tableName = sys_category
+                    recordType =
+                }
+            }
+        }
+    }
+}
+
 plugin.tx_cart {
     persistence {
         classes {

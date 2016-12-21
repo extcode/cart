@@ -1078,9 +1078,13 @@
                 <source>Cart: Product Category Image</source>
                 <target>Cart: Prdduktkategoriebild</target>
             </trans-unit>
+            <trans-unit id="tx_cart_domain_model_category.cart_product_list_pid">
+                <source>Cart: Page where Products of this category are listed.</source>
+                <target>Cart: Seite auf der Produkte dieser Kategorie aufgelistet werden.</target>
+            </trans-unit>
             <trans-unit id="tx_cart_domain_model_category.cart_product_single_pid">
-                <source>Cart: Product Detail Page</source>
-                <target>Cart: Produktdetailseite</target>
+                <source>Cart: Page where Products of this category are shown.</source>
+                <target>Cart: Seite auf der Produkte dieser Kategorie angezeigt werden.</target>
             </trans-unit>
 
             <trans-unit id="tx_cart_domain_model_cart">

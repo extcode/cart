@@ -133,41 +133,65 @@ if (TYPO3_MODE === 'BE') {
     );
 }
 
+if (\TYPO3\CMS\Core\Utility\GeneralUtility::compat_version('7.0')) {
+    $iconRegistry = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(
+        \TYPO3\CMS\Core\Imaging\IconRegistry::class
+    );
+    $iconRegistry->registerIcon(
+        'tcarecords-pages-contains-orders',
+        \TYPO3\CMS\Core\Imaging\IconProvider\BitmapIconProvider::class,
+        ['source' => $iconPath . 'pages_orders_icon.png']
+    );
+    $TCA['pages']['ctrl']['typeicon_classes']['contains-orders'] = 'tcarecords-pages-contains-orders';
+
+    $iconRegistry->registerIcon(
+        'tcarecords-pages-contains-products',
+        \TYPO3\CMS\Core\Imaging\IconProvider\BitmapIconProvider::class,
+        ['source' => $iconPath . 'pages_products_icon.png']
+    );
+    $TCA['pages']['ctrl']['typeicon_classes']['contains-products'] = 'tcarecords-pages-contains-products';
+
+    $iconRegistry->registerIcon(
+        'tcarecords-pages-contains-coupons',
+        \TYPO3\CMS\Core\Imaging\IconProvider\BitmapIconProvider::class,
+        ['source' => $iconPath . 'pages_coupons_icon.png']
+    );
+    $TCA['pages']['ctrl']['typeicon_classes']['contains-coupons'] = 'tcarecords-pages-contains-coupons';
+} else {
+    \TYPO3\CMS\Backend\Sprite\SpriteManager::addTcaTypeIcon(
+        'pages',
+        'contains-orders',
+        $iconPath . 'pages_orders_icon.png'
+    );
+
+    \TYPO3\CMS\Backend\Sprite\SpriteManager::addTcaTypeIcon(
+        'pages',
+        'contains-products',
+        $iconPath . 'pages_products_icon.png'
+    );
+
+    \TYPO3\CMS\Backend\Sprite\SpriteManager::addTcaTypeIcon(
+        'pages',
+        'contains-coupons',
+        $iconPath . 'pages_coupons_icon.png'
+    );
+}
+
 $TCA['pages']['columns']['module']['config']['items'][] = [
     'LLL:EXT:' . $_EXTKEY . '/Resources/Private/Language/locallang_db.xlf:tx_cart.module.orders',
     'orders',
     $iconPath . 'pages_orders_icon.png'
 ];
-
-\TYPO3\CMS\Backend\Sprite\SpriteManager::addTcaTypeIcon(
-    'pages',
-    'contains-orders',
-    $iconPath . 'pages_orders_icon.png'
-);
-
 $TCA['pages']['columns']['module']['config']['items'][] = [
     'LLL:EXT:' . $_EXTKEY . '/Resources/Private/Language/locallang_db.xlf:tx_cart.module.products',
     'products',
     $iconPath . 'pages_products_icon.png'
 ];
-
-\TYPO3\CMS\Backend\Sprite\SpriteManager::addTcaTypeIcon(
-    'pages',
-    'contains-products',
-    $iconPath . 'pages_products_icon.png'
-);
-
 $TCA['pages']['columns']['module']['config']['items'][] = [
     'LLL:EXT:' . $_EXTKEY . '/Resources/Private/Language/locallang_db.xlf:tx_cart.module.coupons',
     'coupons',
     $iconPath . 'pages_coupons_icon.png'
 ];
-
-\TYPO3\CMS\Backend\Sprite\SpriteManager::addTcaTypeIcon(
-    'pages',
-    'contains-coupons',
-    $iconPath . 'pages_coupons_icon.png'
-);
 
 $tables = [
     'order_item',

@@ -1,0 +1,32 @@
+{namespace cart=Extcode\Cart\ViewHelpers}
+
+<f:be.container>
+    <cart:includeFile path="../typo3conf/ext/cart/Resources/Public/Stylesheets/Backend/style.css"/>
+    <div class="module-docheader">
+        <div class="module-docheader-bar">
+            <div class="module-docheader-bar-column-left">
+                <f:be.buttons.csh/>
+            </div>
+            <div class="module-docheader-bar-column-right">
+                <f:be.pagePath/>
+                <f:be.pageInfo/>
+            </div>
+        </div>
+        <div class="typo3-docheader-buttons">
+            <div class="module-docheader-bar-column-left">
+                <f:render section="actions"/>
+            </div>
+            <div class="module-docheader-bar-column-right">
+                <span class="btn btn-sm btn-default">
+                    <f:be.buttons.shortcut/>
+                </span>
+            </div>
+        </div>
+    </div>
+    <div id="typo3-docbody">
+        <div id="typo3-inner-docbody">
+            <f:flashMessages/>
+            <f:render section="content"/>
+        </div>
+    </div>
+</f:be.container>

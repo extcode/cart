@@ -1,17 +1,52 @@
-module.tx_cart {
-
-    view {
-        templateRootPaths {
-            0 = EXT:cart/Resources/Private/Backend/Templates/
-        }
-        partialRootPaths {
-            0 = EXT:cart/Resources/Private/Backend/Partials/
-        }
-        layoutRootPaths {
-            0 = EXT:cart/Resources/Private/Backend/Layouts/
+[compatVersion = 6.2]
+    module.tx_cart {
+        view {
+            templateRootPaths {
+                0 = EXT:cart/Resources/Private/Backend/V6/Templates/
+            }
+            partialRootPaths {
+                0 = EXT:cart/Resources/Private/Backend/V6/Partials/
+            }
+            layoutRootPaths {
+                0 = EXT:cart/Resources/Private/Backend/V6/Layouts/
+            }
         }
     }
+[global]
 
+[compatVersion = 7.6]
+    module.tx_cart {
+        view {
+            templateRootPaths {
+                0 = EXT:cart/Resources/Private/Backend/V7/Templates/
+            }
+            partialRootPaths {
+                0 = EXT:cart/Resources/Private/Backend/V7/Partials/
+            }
+            layoutRootPaths {
+                0 = EXT:cart/Resources/Private/Backend/V7/Layouts/
+            }
+        }
+    }
+[global]
+
+[compatVersion = 8.4]
+    module.tx_cart {
+        view {
+            templateRootPaths {
+                0 = EXT:cart/Resources/Private/Backend/V8/Templates/
+            }
+            partialRootPaths {
+                0 = EXT:cart/Resources/Private/Backend/V8/Partials/
+            }
+            layoutRootPaths {
+                0 = EXT:cart/Resources/Private/Backend/V8/Layouts/
+            }
+        }
+    }
+[global]
+
+module.tx_cart {
     persistence {
         storagePid = {$module.tx_cart.persistence.storagePid}
 

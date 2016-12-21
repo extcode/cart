@@ -31,14 +31,31 @@ class Category extends \TYPO3\CMS\Extbase\Domain\Model\Category
     protected $images;
 
     /**
-     * CartProductSinglePid
+     * Cart Product List Pid
+     *
+     * @var int
+     */
+    protected $cartProductListPid;
+
+    /**
+     * Cart Product Single Pid
      *
      * @var int
      */
     protected $cartProductSinglePid;
 
     /**
-     * Returns CartProductSinglePid
+     * Returns Cart Product List Pid
+     *
+     * @return int
+     */
+    public function getCartProductListPid()
+    {
+        return $this->cartProductListPid;
+    }
+
+    /**
+     * Returns Cart Product Single Pid
      *
      * @return int
      */

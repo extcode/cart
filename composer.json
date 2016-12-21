@@ -23,7 +23,7 @@
     },
     "require": {
         "php": ">=5.4.0",
-        "typo3/cms-core": "^6.2 || ^7.6 || ^8.5"
+        "typo3/cms-core": "^6.2 || ^7.6 || ^8.6"
     },
     "require-dev": {
         "namelesscoder/typo3-repository-client": "1.2.x-dev",

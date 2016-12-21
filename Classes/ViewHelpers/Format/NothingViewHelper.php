@@ -24,6 +24,14 @@ namespace Extcode\Cart\ViewHelpers\Format;
  */
 class NothingViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper
 {
+
+    /**
+     * Output is escaped already. We must not escape children, to avoid double encoding.
+     *
+     * @var bool
+     */
+    protected $escapeOutput = false;
+
     /**
      * Render children but do nothing else
      *

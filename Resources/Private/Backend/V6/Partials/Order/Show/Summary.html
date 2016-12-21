@@ -1,0 +1,130 @@
+{namespace cart=Extcode\Cart\ViewHelpers}
+
+<tr class="sum">
+    <td colspan="5">
+        <f:translate key="tx_cart_domain_model_order_item.cart_price"/>
+    </td>
+    <td>
+        <cart:format.currency currencySign="{orderItem.currency}">{orderItem.net}</cart:format.currency>
+    </td>
+    <td>
+        <cart:format.currency currencySign="{orderItem.currency}">{orderItem.gross}</cart:format.currency>
+    </td>
+    <f:for each="{orderItem.orderTax}" as="orderTax">
+        <td>
+            <cart:format.currency currencySign="{orderItem.currency}">{orderTax.tax}</cart:format.currency>
+        </td>
+    </f:for>
+</tr>
+
+<tr>
+    <td colspan="5">
+        <f:translate key="tx_cart_domain_model_order_item.order_shipping"/>: {orderItem.shipping.name}
+    </td>
+    <td>
+        <cart:format.currency currencySign="{orderItem.currency}">{orderItem.shipping.net}</cart:format.currency>
+    </td>
+    <td>
+        <cart:format.currency currencySign="{orderItem.currency}">{orderItem.shipping.gross}</cart:format.currency>
+    </td>
+    <f:for each="{orderItem.orderTotalTax}" as="orderTotalTax">
+        <td>
+            <f:if condition="{0: orderTotalTax.orderTaxClass.id} == {0: orderItem.shipping.orderTaxClass.id}">
+                <f:then>
+                    <cart:format.currency currencySign="{orderItem.currency}">{orderItem.shipping.orderTax.tax}</cart:format.currency>
+                </f:then>
+                <f:else>
+                    <!-- -->
+                </f:else>
+            </f:if>
+        </td>
+    </f:for>
+</tr>
+
+<tr style="border-top: 1px solid #000000;">
+    <td colspan="5">
+        <f:translate key="tx_cart_domain_model_order_item.order_payment"/>: {orderItem.payment.name}
+    </td>
+    <td>
+        <cart:format.currency currencySign="{orderItem.currency}">{orderItem.payment.net}</cart:format.currency>
+    </td>
+    <td>
+        <cart:format.currency currencySign="{orderItem.currency}">{orderItem.payment.gross}</cart:format.currency>
+    </td>
+    <f:for each="{orderItem.orderTotalTax}" as="orderTotalTax">
+        <td>
+            <f:if condition="{0: orderTotalTax.orderTaxClass.id} == {0: orderItem.payment.orderTaxClass.id}">
+                <f:then>
+                    <cart:format.currency currencySign="{orderItem.currency}">{orderItem.payment.orderTax.tax}</cart:format.currency>
+                </f:then>
+                <f:else>
+                    <!-- -->
+                </f:else>
+            </f:if>
+        </td>
+    </f:for>
+</tr>
+
+<f:if condition="{orderItem.discounts}">
+    <f:for each="{orderItem.discounts}" as="orderDiscount">
+        <tr style="border-top: 1px solid #000000;">
+            <td colspan="5">
+                <f:translate key="tx_cart_domain_model_order_discount"/>
+                {orderDiscount.title}
+            </td>
+            <td>
+                <cart:format.currency currencySign="{orderItem.currency}">{orderDiscount.net}</cart:format.currency>
+            </td>
+            <td>
+                <cart:format.currency currencySign="{orderItem.currency}">{orderDiscount.gross}</cart:format.currency>
+            </td>
+            <f:for each="{orderItem.orderTotalTax}" as="orderTotalTax">
+                <td>
+                    <f:if condition="{0: orderTotalTax.orderTaxClass.id} == {0: orderDiscount.orderTaxClass.id}">
+                        <f:then>
+                            <cart:format.currency currencySign="{orderItem.currency}">{orderDiscount.orderTax.tax}</cart:format.currency>
+                        </f:then>
+                        <f:else>
+                            <!-- -->
+                        </f:else>
+                    </f:if>
+                </td>
+            </f:for>
+        </tr>
+    </f:for>
+</f:if>
+
+<tr class="sum">
+    <td colspan="5">
+        <f:translate key="tx_cart_domain_model_order_item.cart_total_price"/>
+    </td>
+    <td>
+        <cart:format.currency currencySign="{orderItem.currency}"
+                           decimalSeparator="{settings.format.currency.decimalSeparator}"
+                           thousandsSeparator="{settings.format.currency.thousandsSeparator}"
+                           prependCurrency="{settings.format.currency.prependCurrency}"
+                           separateCurrency="{settings.format.currency.separateCurrency}"
+                           decimals="{settings.format.currency.decimals}">{orderItem.totalNet}</cart:format.currency>
+    </td>
+    <td>
+        <cart:format.currency currencySign="{orderItem.currency}"
+                           decimalSeparator="{settings.format.currency.decimalSeparator}"
+                           thousandsSeparator="{settings.format.currency.thousandsSeparator}"
+                           prependCurrency="{settings.format.currency.prependCurrency}"
+                           separateCurrency="{settings.format.currency.separateCurrency}"
+                           decimals="{settings.format.currency.decimals}">{orderItem.totalGross}</cart:format.currency>
+    </td>
+    <f:for each="{orderItem.orderTotalTax}" as="orderTotalTax">
+        <td>
+            <cart:format.currency currencySign="{orderItem.currency}"
+                               decimalSeparator="{settings.format.currency.decimalSeparator}"
+                               thousandsSeparator="{settings.format.currency.thousandsSeparator}"
+                               prependCurrency="{settings.format.currency.prependCurrency}"
+                               separateCurrency="{settings.format.currency.separateCurrency}"
+                               decimals="{settings.format.currency.decimals}">{orderTotalTax.tax}</cart:format.currency>
+        </td>
+    </f:for>
+</tr>
+
+
+</div>

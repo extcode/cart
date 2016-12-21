@@ -28,6 +28,29 @@ $newSysCategoryColumns = [
             $GLOBALS['TYPO3_CONF_VARS']['GFX']['imagefile_ext']
         )
     ],
+    'cart_product_list_pid' => [
+        'exclude' => 1,
+        'l10n_mode' => 'mergeIfNotBlank',
+        'label' => $_LLL . ':tx_cart_domain_model_category.cart_product_list_pid',
+        'config' => [
+            'type' => 'group',
+            'internal_type' => 'db',
+            'allowed' => 'pages',
+            'size' => 1,
+            'maxitems' => 1,
+            'minitems' => 0,
+            'show_thumbs' => 1,
+            'default' => 0,
+            'wizards' => [
+                'suggest' => [
+                    'type' => 'suggest',
+                    'default' => [
+                        'searchWholePhrase' => true
+                    ]
+                ],
+            ],
+        ]
+    ],
     'cart_product_single_pid' => [
         'exclude' => 1,
         'l10n_mode' => 'mergeIfNotBlank',
@@ -62,7 +85,7 @@ $newSysCategoryColumns = [
 );
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addToAllTCAtypes(
     'sys_category',
-    'cart_product_single_pid',
+    'cart_product_list_pid, cart_product_single_pid',
     '',
     'after:description'
 );

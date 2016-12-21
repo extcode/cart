@@ -1,0 +1,28 @@
+<div class="cartproduct_module_search">
+    <div class="cartproduct_module_search_inner">
+
+        <f:form action="{action}" name="filter" id="cartproduct_module_search">
+            <div>
+                <label for="sku">
+                    <f:translate key="tx_cart_domain_model_order_product.filter.sku"/>
+                    :
+                </label>
+                <f:form.textfield property="sku" id="sku" value="{arguments.filter.sku}"/>
+            </div>
+            <div>
+                <label for="title">
+                    <f:translate key="tx_cart_domain_model_order_product.filter.title"/>
+                    :
+                </label>
+                <f:form.textfield property="title" id="title" value="{arguments.filter.title}"/>
+            </div>
+            <div class="right">
+                <f:form.submit value="{f:translate(key: 'tx_cartproduct.module.action.filter')}"
+                               class="searchall_submit right"/>
+            </div>
+            <div class="clear"><!--&nbsp;--></div>
+
+        </f:form>
+
+    </div>
+</div>

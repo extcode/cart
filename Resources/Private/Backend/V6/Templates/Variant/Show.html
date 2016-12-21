@@ -1,0 +1,71 @@
+{namespace cart=Extcode\Cart\ViewHelpers}
+
+<f:layout name="Default"/>
+
+<f:section name="actions">
+</f:section>
+
+<f:section name="content">
+    <h1>{variant.product.title} ({variant.product.sku})</h1>
+
+    <f:link.action controller="Variant" action="edit" arguments="{variant : variant}">edit</f:link.action>
+
+    <table class="tx_cartorder typo3-dblist">
+        <tr>
+            <f:if condition="{variant.product.beVariantAttribute1}">
+                <th class="t3-row-header" style="text-align: left;">
+                    <f:translate key="tx_cart_domain_model_order_product.be_variant_attribute1"/>
+                    : {variant.product.beVariantAttribute1.title}
+                </th>
+                <td>{variant.beVariantAttributeOption1.title}</td>
+            </f:if>
+            <f:if condition="{variant.product.beVariantAttribute2}">
+                <th class="t3-row-header" style="text-align: left;">
+                    <f:translate key="tx_cart_domain_model_order_product.be_variant_attribute2"/>
+                    : {variant.product.beVariantAttribute2.title}
+                </th>
+                <td>{variant.beVariantAttributeOption2.title}</td>
+            </f:if>
+            <f:if condition="{variant.product.beVariantAttribute3}">
+                <th class="t3-row-header" style="text-align: left;">
+                    <f:translate key="tx_cart_domain_model_order_product.be_variant_attribute3"/>
+                    : {variant.product.beVariantAttribute3.title}
+                </th>
+                <td>{variant.beVariantAttributeOption3.title}</td>
+            </f:if>
+        </tr>
+    </table>
+
+    <table class="tx_cartorder typo3-dblist">
+        <tr>
+            <th class="t3-row-header" style="text-align: left;">
+                <f:translate key="tx_cart_domain_model_order_product.stock"/>
+            </th>
+            <td>{variant.stock}</td>
+            <td></td>
+        </tr>
+        <tr>
+            <th class="t3-row-header" style="text-align: left;">
+                <f:translate key="tx_cart_domain_model_order_product.price"/>
+            </th>
+            <td>
+                <cart:format.currency currencySign="{orderItem.currency}">{variant.price}</cart:format.currency>
+            </td>
+            <td>{variant.priceMeasure} {variant.priceMeasureUnit}</td>
+        </tr>
+        <tr>
+            <th class="t3-row-header" style="text-align: left;">
+                <f:translate key="tx_cart_domain_model_order_product.base_price"/>
+            </th>
+            <td>
+                <cart:format.currency currencySign="{orderItem.currency}">{variant.basePrice}</cart:format.currency>
+            </td>
+            <td>{variant.product.basePriceMeasure} {variant.product.basePriceMeasureUnit}</td>
+        </tr>
+    </table>
+
+    <f:link.action controller="Product" action="show" arguments="{product : variant.product}">Back to Product
+    </f:link.action>
+    <f:link.action controller="Product" action="list">Back to Product List</f:link.action>
+
+</f:section>

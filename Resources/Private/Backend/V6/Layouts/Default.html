@@ -1,0 +1,43 @@
+{namespace cart=Extcode\Cart\ViewHelpers}
+
+<f:be.container
+        addCssFile="{f:uri.resource(path:'Stylesheets/Backend/style.css')}"
+        enableClickMenu="false"
+        loadExtJs="false"
+        loadExtJsTheme="false"
+        loadPrototype="false"
+        loadScriptaculous="false"
+        enableExtJsDebug="false">
+
+    <div class="overlay"></div>
+
+    <div class="typo3-fullDoc">
+        <div id="typo3-docheader">
+            <div class="typo3-docheader-functions">
+                <div class="left">
+
+                </div>
+                <div class="right">
+                    <f:be.buttons.shortcut />
+                </div>
+            </div>
+            <div class="typo3-docheader-buttons">
+                <div class="left">
+                    <f:be.buttons.csh />
+                    <f:render section="actions"/>
+                </div>
+                <div class="right">
+                    <f:be.pagePath />
+                    <f:be.pageInfo />
+                </div>
+            </div>
+
+        </div>
+        <div id="typo3-docbody">
+            <div id="typo3-inner-docbody">
+                <f:flashMessages renderMode="div" />
+                <f:render section="content" />
+            </div>
+        </div>
+    </div>
+</f:be.container>
