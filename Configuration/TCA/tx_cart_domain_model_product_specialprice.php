@@ -25,15 +25,16 @@ return [
             'disabled' => 'hidden',
             'starttime' => 'starttime',
             'endtime' => 'endtime',
+            'fe_group' => 'frontend_user_group',
         ],
         'searchFields' => 'price',
         'iconfile' => 'EXT:cart/Resources/Public/Icons/Product/SpecialPrice.png'
     ],
     'interface' => [
-        'showRecordFieldList' => 'hidden, starttime, endtime, frontend_user_group, price',
+        'showRecordFieldList' => 'hidden, starttime, endtime, title, frontend_user_group, price',
     ],
     'types' => [
-        '1' => ['showitem' => 'hidden;;1, starttime, endtime, frontend_user_group, price'],
+        '1' => ['showitem' => 'hidden;;1, starttime, endtime, title, frontend_user_group, price'],
     ],
     'palettes' => [
         '1' => ['showitem' => ''],
@@ -120,6 +121,16 @@ return [
                 ],
             ],
         ],
+
+        'title' => [
+            'exclude' => 1,
+            'label' => $_LLL . ':tx_cart_domain_model_product_specialprice.title',
+            'config' => [
+                'type' => 'input',
+                'size' => 30,
+                'eval' => 'trim'
+            ],
+        ],
         'frontend_user_group' => [
             'exclude' => 1,
             'label' => $_LLL . ':tx_cart_domain_model_product_specialprice.frontend_user_group',
@@ -129,7 +140,7 @@ return [
                 'foreign_table' => 'fe_groups',
                 'size' => 1,
                 'items' => [
-                    [$_LLL . ':tx_cart_domain_model_product_specialprice.frontend_user_group.not_available', 0],
+                    ['', 0],
                 ],
                 'minitems' => 0,
                 'maxitems' => 1,

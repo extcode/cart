@@ -1067,6 +1067,14 @@
                 <source>Special Price</source>
                 <target>Spezialpreis</target>
             </trans-unit>
+            <trans-unit id="tx_cart_domain_model_product_specialprice.title">
+                <source>Title</source>
+                <target>Titel</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_product_specialprice.frontend_user_group">
+                <source>Website Usergroup</source>
+                <target>Website-Benutzergruppe</target>
+            </trans-unit>
             <trans-unit id="tx_cart_domain_model_product_specialprice.price">
                 <source>Price</source>
                 <target>Preis</target>

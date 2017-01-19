@@ -24,6 +24,14 @@ namespace Extcode\Cart\Domain\Model\Product;
 class SpecialPrice extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 {
     /**
+     * Title
+     *
+     * @var string
+     * @validate NotEmpty
+     */
+    protected $title = '';
+
+    /**
      * Price
      *
      * @var float
@@ -37,6 +45,27 @@ class SpecialPrice extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * @var \TYPO3\CMS\Extbase\Domain\Model\FrontendUserGroup
      */
     protected $frontendUserGroup;
+
+    /**
+     * Returns the Title
+     *
+     * @return string
+     */
+    public function getTitle()
+    {
+        return $this->title;
+    }
+
+    /**
+     * Sets the Title
+     *
+     * @param string $title
+     * @return void
+     */
+    public function setTitle($title)
+    {
+        $this->title = $title;
+    }
 
     /**
      * Returns the Price

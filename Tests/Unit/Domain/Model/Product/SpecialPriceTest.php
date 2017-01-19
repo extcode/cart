@@ -48,6 +48,32 @@ class SpecialPriceTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
     /**
      * @test
      */
+    public function getTitleInitiallyReturnsEmptyString()
+    {
+        $this->assertSame(
+            '',
+            $this->fixture->getTitle()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function setTitleSetsTitle()
+    {
+        $title = 'Special Price Title';
+
+        $this->fixture->setTitle($title);
+
+        $this->assertSame(
+            $title,
+            $this->fixture->getTitle()
+        );
+    }
+
+    /**
+     * @test
+     */
     public function getPriceInitiallyReturnsZero()
     {
         $this->assertSame(

@@ -1,0 +1,13 @@
+.. ==================================================
+.. FOR YOUR INFORMATION
+.. --------------------------------------------------
+.. -*- coding: utf-8 -*- with BOM.
+
+2.2.0 - 19.01.2017
+------------------
+
+Die neue Version bringt ein neues Titel-Feld für die Spezialpreise mit sich. Damit es es möglich im Frontend dem gesenkten Preis auch einen Grund mitzugeben "Happy Holiday", "Sale Out".
+Weiterhin sieht man jetzt auch am Spezialpreis gleich, ob dieser nur für eine Webseiten Benutzergruppe gilt.
+
+.. IMPORTANT::
+   Es ist eine Aktualisierung der Datenbank erforderlich. Da dieses Feld bisher nicht benutzt wurde, sollte das in der Regel unproblematisch sein.
