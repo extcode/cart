@@ -163,5 +163,11 @@ return [
                 ],
             ],
         ],
+
+        'item' => [
+            'config' => [
+                'type' => 'passthrough',
+            ],
+        ],
     ],
 ];

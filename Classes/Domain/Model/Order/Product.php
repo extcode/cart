@@ -23,7 +23,6 @@ namespace Extcode\Cart\Domain\Model\Order;
  */
 class Product extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 {
-
     /**
      * Item
      *
@@ -172,6 +171,16 @@ class Product extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     protected function initStorageObjects()
     {
         $this->productAdditional = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+    }
+
+    /**
+     * Returns the Order Item
+     *
+     * @return \Extcode\Cart\Domain\Model\Order\Item
+     */
+    public function getItem()
+    {
+        return $this->item;
     }
 
     /**
@@ -421,15 +430,5 @@ class Product extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     public function setProductAdditional(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $productAdditional)
     {
         $this->productAdditional = $productAdditional;
-    }
-
-    /**
-     * Gets Item
-     *
-     * @return \Extcode\Cart\Domain\Model\Order\Item
-     */
-    public function getItem()
-    {
-        return $this->item;
     }
 }

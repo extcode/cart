@@ -186,6 +186,7 @@ return [
                 'type' => 'inline',
                 'readOnly' => 1,
                 'foreign_table' => 'tx_cart_domain_model_order_address',
+                'foreign_field' => 'item',
                 'minitems' => 1,
                 'maxitems' => 1,
                 'appearance' => [
@@ -208,6 +209,7 @@ return [
                 'type' => 'inline',
                 'readOnly' => 1,
                 'foreign_table' => 'tx_cart_domain_model_order_address',
+                'foreign_field' => 'item',
                 'minitems' => 0,
                 'maxitems' => 1,
                 'appearance' => [
@@ -424,6 +426,7 @@ return [
                 'type' => 'inline',
                 'readOnly' => 1,
                 'foreign_table' => 'tx_cart_domain_model_order_payment',
+                'foreign_field' => 'item',
                 'minitems' => 0,
                 'maxitems' => 1,
                 'appearance' => [
@@ -451,6 +454,7 @@ return [
                 'type' => 'inline',
                 'readOnly' => 1,
                 'foreign_table' => 'tx_cart_domain_model_order_shipping',
+                'foreign_field' => 'item',
                 'minitems' => 0,
                 'maxitems' => 1,
                 'appearance' => [

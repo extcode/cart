@@ -24,6 +24,13 @@ namespace Extcode\Cart\Domain\Model\Order;
 class Transaction extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 {
     /**
+     * Payment
+     *
+     * @var \Extcode\Cart\Domain\Model\Order\Payment
+     */
+    protected $payment = null;
+
+    /**
      * txnId
      *
      * @var string
@@ -60,11 +67,14 @@ class Transaction extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     protected $note = '';
 
     /**
-     * Payment
+     * Returns the payment
      *
-     * @var \Extcode\Cart\Domain\Model\Order\Payment
+     * @return \Extcode\Cart\Domain\Model\Order\Payment
      */
-    protected $payment = null;
+    public function getPayment()
+    {
+        return $this->payment;
+    }
 
     /**
      * @return string
@@ -163,15 +173,5 @@ class Transaction extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     public function getNote()
     {
         return $this->note;
-    }
-
-    /**
-     * Returns the payment
-     *
-     * @return \Extcode\Cart\Domain\Model\Order\Payment
-     */
-    public function getPayment()
-    {
-        return $this->payment;
     }
 }

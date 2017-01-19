@@ -79,6 +79,7 @@ return [
                 'eval' => 'trim'
             ],
         ],
+
         'product' => [
             'config' => [
                 'type' => 'passthrough',

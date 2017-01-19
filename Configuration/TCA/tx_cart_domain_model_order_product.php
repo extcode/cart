@@ -175,11 +175,7 @@ return [
                 'rows' => 5
             ],
         ],
-        'item' => [
-            'config' => [
-                'type' => 'passthrough',
-            ],
-        ],
+
         'product_additional' => [
             'exclude' => 0,
             'label' => $_LLL . ':tx_cart_domain_model_order_product.product_additional',
@@ -205,6 +201,12 @@ return [
                         'localize' => false,
                     ],
                 ],
+            ],
+        ],
+
+        'item' => [
+            'config' => [
+                'type' => 'passthrough',
             ],
         ],
     ],

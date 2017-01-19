@@ -94,6 +94,7 @@ return [
                 'rows' => '15'
             ]
         ],
+
         'payment' => [
             'config' => [
                 'type' => 'passthrough',

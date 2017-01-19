@@ -1,3 +1,9 @@
+2.1.0
+    2017-01-19
+    Daniel Lorenz <daniel.lorenz@extco.de>
+
+    * TASK #60: parent relation from addresses, payment and shipping to order
+
 2.0.0
     2016-12-21
     Daniel Lorenz <daniel.lorenz@extco.de>

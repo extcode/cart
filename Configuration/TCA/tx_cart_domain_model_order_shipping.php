@@ -125,5 +125,11 @@ return [
                 'rows' => '15'
             ]
         ],
+
+        'item' => [
+            'config' => [
+                'type' => 'passthrough',
+            ],
+        ],
     ],
 ];

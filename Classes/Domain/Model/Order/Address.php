@@ -23,6 +23,12 @@ namespace Extcode\Cart\Domain\Model\Order;
  */
 class Address extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 {
+    /**
+     * Order Item
+     *
+     * @var \Extcode\Cart\Domain\Model\Order\Item
+     */
+    protected $item = null;
 
     /**
      * Title
@@ -138,6 +144,16 @@ class Address extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
         ];
 
         return $address;
+    }
+
+    /**
+     * Returns the Order Item
+     *
+     * @return \Extcode\Cart\Domain\Model\Order\Item
+     */
+    public function getItem()
+    {
+        return $this->item;
     }
 
     /**

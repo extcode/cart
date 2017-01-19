@@ -159,5 +159,11 @@ return [
                 'eval' => 'trim'
             ],
         ],
+
+        'item' => [
+            'config' => [
+                'type' => 'passthrough',
+            ],
+        ],
     ],
 ];

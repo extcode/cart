@@ -393,6 +393,8 @@ CREATE TABLE tx_cart_domain_model_order_address (
     uid int(11) NOT NULL auto_increment,
     pid int(11) DEFAULT '0' NOT NULL,
 
+    item int(11) unsigned DEFAULT '0' NOT NULL,
+
     title varchar(255) DEFAULT '' NOT NULL,
     salutation varchar(255) DEFAULT '' NOT NULL,
     first_name varchar(255) DEFAULT '' NOT NULL,
@@ -625,6 +627,8 @@ CREATE TABLE tx_cart_domain_model_order_shipping (
     uid int(11) NOT NULL auto_increment,
     pid int(11) DEFAULT '0' NOT NULL,
 
+    item int(11) unsigned DEFAULT '0' NOT NULL,
+
     service_id int(11) DEFAULT '0' NOT NULL,
     name varchar(255) DEFAULT '' NOT NULL,
     status varchar(255) DEFAULT '0' NOT NULL,
@@ -663,6 +667,8 @@ CREATE TABLE tx_cart_domain_model_order_shipping (
 CREATE TABLE tx_cart_domain_model_order_payment (
     uid int(11) NOT NULL auto_increment,
     pid int(11) DEFAULT '0' NOT NULL,
+
+    item int(11) unsigned DEFAULT '0' NOT NULL,
 
     service_id int(11) DEFAULT '0' NOT NULL,
     name varchar(255) DEFAULT '' NOT NULL,

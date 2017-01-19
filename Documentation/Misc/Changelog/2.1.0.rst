@@ -1,0 +1,13 @@
+.. ==================================================
+.. FOR YOUR INFORMATION
+.. --------------------------------------------------
+.. -*- coding: utf-8 -*- with BOM.
+
+2.1.0 - 19.01.2017
+------------------
+
+Die neue Version bringt ein paar Anpassungen in der Datenstruktur mit. Diese erlauben es, von geladenen Objekten wie der Versand- und Lieferadresse aber auch der Datensätze für Zahlungsmittel und Versandart auf die Bestellung zuzugreifen.
+Cart brauchte diese Relation nicht, für die Schnittstellenerweiterungen der Bezahldienstleister (z.B. GiroSolution) sind diese Relationen wichtig um effizient an den Bestelldatensatz zu kommen.
+
+.. IMPORTANT::
+   Es ist eine Aktualisierung der Datenbank erforderlich. Da die Felder bisher nicht benutzt wurden, sollte das in der Regel unproblematisch sein.

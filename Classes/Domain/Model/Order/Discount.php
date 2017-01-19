@@ -23,7 +23,6 @@ namespace Extcode\Cart\Domain\Model\Order;
  */
 class Discount extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 {
-
     /**
      * Item
      *
@@ -141,6 +140,16 @@ class Discount extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
         $this->net = $net;
         $this->taxClass = $taxClass;
         $this->tax = $tax;
+    }
+
+    /**
+     * Returns the Order Item
+     *
+     * @return \Extcode\Cart\Domain\Model\Order\Item
+     */
+    public function getItem()
+    {
+        return $this->item;
     }
 
     /**

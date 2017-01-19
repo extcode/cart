@@ -97,6 +97,7 @@ return [
                 'eval' => 'double2'
             ],
         ],
+
         'item' => [
             'config' => [
                 'type' => 'passthrough',
