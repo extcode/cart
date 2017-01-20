@@ -686,6 +686,10 @@
                 <source>Last edited</source>
                 <target>Zuletzt geändert</target>
             </trans-unit>
+            <trans-unit id="tx_cart.plugin.products.action.product.list.orderBy.sorting">
+                <source>Backend Sorting</source>
+                <target>Backend Sortierung</target>
+            </trans-unit>
             <trans-unit id="tx_cart.plugin.products.action.product.list.orderBy.crdate">
                 <source>Created</source>
                 <target>Erstellt</target>

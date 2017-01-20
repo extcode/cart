@@ -47,6 +47,10 @@
                                         <numIndex index="0">LLL:EXT:cart/Resources/Private/Language/locallang_db.xlf:tx_cart.plugin.products.action.product.list.orderBy.tstamp</numIndex>
                                         <numIndex index="1">tstamp</numIndex>
                                     </numIndex>
+                                    <numIndex index="2">
+                                        <numIndex index="0">LLL:EXT:cart/Resources/Private/Language/locallang_db.xlf:tx_cart.plugin.products.action.product.list.orderBy.sorting</numIndex>
+                                        <numIndex index="1">sorting</numIndex>
+                                    </numIndex>
                                     <numIndex index="3">
                                         <numIndex index="0">LLL:EXT:cart/Resources/Private/Language/locallang_db.xlf:tx_cart.plugin.products.action.product.list.orderBy.crdate</numIndex>
                                         <numIndex index="1">crdate</numIndex>

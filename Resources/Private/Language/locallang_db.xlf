@@ -533,6 +533,9 @@
             <trans-unit id="tx_cart.plugin.products.action.product.list.orderBy.tstamp">
                 <source>Last edited</source>
             </trans-unit>
+            <trans-unit id="tx_cart.plugin.products.action.product.list.orderBy.sorting">
+                <source>Backend Sorting</source>
+            </trans-unit>
             <trans-unit id="tx_cart.plugin.products.action.product.list.orderBy.crdate">
                 <source>Created</source>
             </trans-unit>

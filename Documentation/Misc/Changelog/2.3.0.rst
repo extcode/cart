@@ -1,0 +1,12 @@
+.. ==================================================
+.. FOR YOUR INFORMATION
+.. --------------------------------------------------
+.. -*- coding: utf-8 -*- with BOM.
+
+2.3.0 - 21.01.2017
+------------------
+
+Hat man nur sehr wenige Produkte und nutzt keine Kategorien, ist es eventuell Wünschenswert die Produkte im Backend zu sortieren, um ähnliche Produkte zusammen aufzulisten.
+
+.. IMPORTANT::
+   Es ist eine Aktualisierung der Datenbank erforderlich. Da dieses Feld bisher nicht benutzt wurde, sollte das in der Regel unproblematisch sein.

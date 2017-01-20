@@ -1,3 +1,15 @@
+2.3.0
+    2017-01-21
+    Daniel Lorenz <daniel.lorenz@extco.de>
+
+    * TASK #57: add ability of backend sorting for products
+
+2.2.0
+    2017-01-19
+    Daniel Lorenz <daniel.lorenz@extco.de>
+
+    * TASK #61: special price needs a title
+
 2.1.0
     2017-01-19
     Daniel Lorenz <daniel.lorenz@extco.de>
