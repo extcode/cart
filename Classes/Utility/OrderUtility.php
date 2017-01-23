@@ -184,6 +184,7 @@ class OrderUtility
 
         $orderItem->setFeUser((int)$GLOBALS['TSFE']->fe_user->user['uid']);
 
+        $orderItem->setCurrency($pluginSettings['settings']['format']['currency']['currencySign']);
         $orderItem->setGross($this->cart->getGross());
         $orderItem->setNet($this->cart->getNet());
         $orderItem->setTotalGross($this->cart->getTotalGross());
