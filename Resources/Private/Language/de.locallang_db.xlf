@@ -171,6 +171,10 @@
                 <source>Total Price (Net)</source>
                 <target>Gesamtpreis (Netto)</target>
             </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_item.comment">
+                <source>Comment</source>
+                <target>Bemerkung</target>
+            </trans-unit>
             <trans-unit id="tx_cart_domain_model_order_item.additional_data">
                 <source>Additional Data</source>
                 <target>Zusätzliche Daten</target>

@@ -1,0 +1,13 @@
+.. ==================================================
+.. FOR YOUR INFORMATION
+.. --------------------------------------------------
+.. -*- coding: utf-8 -*- with BOM.
+
+2.3.0 - 25.01.2017
+------------------
+
+Bisher wurde eine eingegebene Bemerkung zur Bestellung nur im aktuellen Order Item gesetzt, aber nicht in der Datenbank gespeichert.
+Das führt zu dem Problem, dass Payment Provider, die später die E-Mails verschicken und das Order Item aus der Datenbank laden müssen, nicht mehr auf diesen Eintrag zugreifen können. Auch im Backend hat der Shopbetreiber keinen Zugriff.
+
+.. IMPORTANT::
+   Es ist eine Aktualisierung der Datenbank erforderlich. Da dieses Feld neu hinzu kommt, sollte das in der Regel unproblematisch sein.

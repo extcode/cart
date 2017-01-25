@@ -140,6 +140,9 @@
             <trans-unit id="tx_cart_domain_model_order_item.total_net">
                 <source>Total Price (Net)</source>
             </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_item.comment">
+                <source>Comment</source>
+            </trans-unit>
             <trans-unit id="tx_cart_domain_model_order_item.additional_data">
                 <source>Additional Data</source>
             </trans-unit>

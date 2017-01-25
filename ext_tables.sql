@@ -366,6 +366,7 @@ CREATE TABLE tx_cart_domain_model_order_item (
     shipping int(11) unsigned DEFAULT '0',
     payment int(11) unsigned DEFAULT '0',
 
+    comment text NOT NULL,
     additional_data text NOT NULL,
 
     tstamp int(11) unsigned DEFAULT '0' NOT NULL,
