@@ -222,35 +222,27 @@ class MailHandler implements SingletonInterface
         \Extcode\Cart\Domain\Model\Order\Address $billingAddress,
         \Extcode\Cart\Domain\Model\Order\Address $shippingAddress = null
     ) {
-        if (empty($this->buyerEmailFrom)) {
+        if (empty($this->buyerEmailFrom) || empty($billingAddress->getEmail())) {
             return;
         }
 
         $status = $orderItem->getPayment()->getStatus();
-        $view = $this->getEmailStandaloneView('/Mail/' . ucfirst($status) . '/', 'Buyer', 'html');
+        $to = 'buyer';
 
-        if ($view->getTemplatePathAndFilename()) {
-            $view->assign('settings', $this->pluginSettings['settings']);
+        $mailBody = $this->renderMailStandaloneView($status, $to, $orderItem, $billingAddress, $shippingAddress);
+        $mailSubject = $this->renderMailStandaloneView($status, $to . 'Subject', $orderItem);
 
-            $view->assign('cart', $this->cart);
-            $view->assign('orderItem', $orderItem);
-            $view->assign('billingAddress', $billingAddress);
-            $view->assign('shippingAddress', $shippingAddress);
-
-            $mailBody = $view->render();
-
+        if (!empty($mailBody) && !empty($mailSubject)) {
             $mail = $this->objectManager->get(
                 \TYPO3\CMS\Core\Mail\MailMessage::class
             );
             $mail->setFrom($this->buyerEmailFrom);
             $mail->setTo($billingAddress->getEmail());
-            $mail->setSubject(
-                \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_cart.mail.buyer.subject', 'Cart')
-            );
+            $mail->setSubject($mailSubject);
             $mail->setBody($mailBody, 'text/html', 'utf-8');
 
             // get and add attachments
-            $attachments = $this->getAttachments($orderItem, 'buyer');
+            $attachments = $this->getAttachments($orderItem, $to);
             foreach ($attachments as $attachment) {
                 $attachmentFile = \TYPO3\CMS\Core\Utility\GeneralUtility::getFileAbsFileName($attachment);
                 if (file_exists($attachmentFile)) {
@@ -276,40 +268,28 @@ class MailHandler implements SingletonInterface
         \Extcode\Cart\Domain\Model\Order\Address $billingAddress,
         \Extcode\Cart\Domain\Model\Order\Address $shippingAddress = null
     ) {
-        if (empty($this->sellerEmailFrom) &&
-            empty($this->sellerEmailTo)
-        ) {
+        if (empty($this->sellerEmailFrom) || empty($this->sellerEmailTo)) {
             return;
         }
 
         $status = $orderItem->getPayment()->getStatus();
-        $view = $this->getEmailStandaloneView('/Mail/' . ucfirst($status) . '/', 'Seller', 'html');
+        $to = 'seller';
 
-        if ($view->getTemplatePathAndFilename()) {
-            $view->assign('settings', $this->pluginSettings['settings']);
+        $mailBody = $this->renderMailStandaloneView($status, $to, $orderItem, $billingAddress, $shippingAddress);
+        $mailSubject = $this->renderMailStandaloneView($status, $to . 'Subject', $orderItem);
 
-            $view->assign('cart', $this->cart);
-            $view->assign('orderItem', $orderItem);
-            $view->assign('billingAddress', $billingAddress);
-            $view->assign('shippingAddress', $shippingAddress);
-
-            $mailToAddresses = explode(',', $this->sellerEmailTo);
-
-            $mailBody = $view->render();
-
+        if (!empty($mailBody) && !empty($mailSubject)) {
             $mail = $this->objectManager->get(
                 \TYPO3\CMS\Core\Mail\MailMessage::class
             );
             $mail->setFrom($this->sellerEmailFrom);
-            $mail->setTo($mailToAddresses);
+            $mail->setTo(explode(',', $this->sellerEmailTo));
             $mail->setReplyTo($billingAddress->getEmail());
-            $mail->setSubject(
-                \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_cart.mail.seller.subject', 'Cart')
-            );
+            $mail->setSubject($mailSubject);
             $mail->setBody($mailBody, 'text/html', 'utf-8');
 
             // get and add attachments
-            $attachments = $this->getAttachments($orderItem, 'seller');
+            $attachments = $this->getAttachments($orderItem, $to);
             foreach ($attachments as $attachment) {
                 $attachmentFile = \TYPO3\CMS\Core\Utility\GeneralUtility::getFileAbsFileName($attachment);
                 if (file_exists($attachmentFile)) {
@@ -354,6 +334,46 @@ class MailHandler implements SingletonInterface
     }
 
     /**
+     * Returns the Mail Body
+     *
+     * @param string $status
+     * @param string $to
+     * @param \Extcode\Cart\Domain\Model\Order\Item $orderItem
+     * @param \Extcode\Cart\Domain\Model\Order\Address $billingAddress
+     * @param \Extcode\Cart\Domain\Model\Order\Address $shippingAddress
+     *
+     * @return string
+     */
+    protected function renderMailStandaloneView(
+        $status,
+        $to,
+        \Extcode\Cart\Domain\Model\Order\Item $orderItem,
+        \Extcode\Cart\Domain\Model\Order\Address $billingAddress = null,
+        \Extcode\Cart\Domain\Model\Order\Address $shippingAddress = null
+    ) {
+        $view = $this->getMailStandaloneView('/Mail/' . ucfirst($status) . '/', ucfirst($to), 'html');
+
+        if ($view->getTemplatePathAndFilename()) {
+            $view->assign('settings', $this->pluginSettings['settings']);
+
+            $view->assign('cart', $this->cart);
+            $view->assign('orderItem', $orderItem);
+
+            if ($billingAddress) {
+                $view->assign('billingAddress', $billingAddress);
+            }
+
+            if ($shippingAddress) {
+                $view->assign('shippingAddress', $shippingAddress);
+            }
+
+            return $view->render();
+        }
+
+        return '';
+    }
+
+    /**
      * This creates another stand-alone instance of the Fluid StandaloneView
      * to render an e-mail template
      *
@@ -363,7 +383,7 @@ class MailHandler implements SingletonInterface
      *
      * @return \TYPO3\CMS\Fluid\View\StandaloneView Fluid instance
      */
-    protected function getEmailStandaloneView(
+    protected function getMailStandaloneView(
         $templateSubPath = '/Mail/',
         $templateFileName = 'Default',
         $format = 'html'

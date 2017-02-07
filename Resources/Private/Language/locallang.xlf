@@ -589,13 +589,11 @@
             </trans-unit>
 
             <trans-unit id="tx_cart.mail.buyer.subject">
-                <source>Subject for Buyer</source>
+                <source>Order confirmation - %s</source>
             </trans-unit>
             <trans-unit id="tx_cart.mail.seller.subject">
-                <source>Subject for Seller</source>
+                <source>Order receipt - %s</source>
             </trans-unit>
-
-
 
             <trans-unit id="tx_cart.module.productController.listAction.header">
                 <source>Product Listing</source>

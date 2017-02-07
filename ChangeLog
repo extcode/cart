@@ -1,3 +1,9 @@
+2.4.0
+    2017-02-07
+    Daniel Lorenz <daniel.lorenz@extco.de>
+
+    * TASK #62: make mail subject configurable
+
 2.3.2
     2017-01-25
     Daniel Lorenz <daniel.lorenz@extco.de>

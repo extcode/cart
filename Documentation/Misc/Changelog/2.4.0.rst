@@ -1,0 +1,16 @@
+.. ==================================================
+.. FOR YOUR INFORMATION
+.. --------------------------------------------------
+.. -*- coding: utf-8 -*- with BOM.
+
+2.4.0 - 07.02.2017
+------------------
+
+Diese Version erlaub es, dass der Betreff in den E-Mails ebenfalls angepasst werden kann. Dies erfolgt über ein HTML-Template.
+Der Betreff kann so je nach Status der Bezahlung unterschiedlich ausfallen.
+Es steht auch der Zugriff auf den Bestelldatensatz zur Verfügung, so dass die Bestell- oder Rechnungsnummer im Betreff aufgenommen werden kann.
+
+.. IMPORTANT::
+   Die Standardübersetzung wurde angepasst!
+
+   Sollte bereits ein eigener Mail-Betreff verwendet werden, sollte dieser auf jeden Fall geprüft werden. Gegebenenfalls sind die BuyerSubject- und SellerSubject-Templates anzupassen.
