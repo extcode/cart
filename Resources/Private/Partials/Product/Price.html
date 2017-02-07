@@ -1,6 +1,6 @@
 {namespace cart=Extcode\Cart\ViewHelpers}
 
-<f:if condition="{product.specialPrices}">
+<cart:product.ifBestSpecialPriceAvailable product="{product}">
     <f:then>
         <div class="regular_price">
             <f:translate key="tx_cart_domain_model_product_product.regular_price"/>:
@@ -34,4 +34,4 @@
             </span>
         </div>
     </f:else>
-</f:if>
+</cart:product.ifBestSpecialPriceAvailable>

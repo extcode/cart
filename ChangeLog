@@ -1,3 +1,9 @@
+2.4.2
+    2017-02-07
+    Daniel Lorenz <daniel.lorenz@extco.de>
+
+    * BUGFIX #70: special price condition fails in some cases
+
 2.4.1
     2017-02-07
     Daniel Lorenz <daniel.lorenz@extco.de>
