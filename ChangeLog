@@ -1,3 +1,9 @@
+2.4.1
+    2017-02-07
+    Daniel Lorenz <daniel.lorenz@extco.de>
+
+    * BUGFIX #69: validation error on special prices without a title
+
 2.4.0
     2017-02-07
     Daniel Lorenz <daniel.lorenz@extco.de>

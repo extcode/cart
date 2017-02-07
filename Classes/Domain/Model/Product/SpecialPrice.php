@@ -27,7 +27,6 @@ class SpecialPrice extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * Title
      *
      * @var string
-     * @validate NotEmpty
      */
     protected $title = '';
 
