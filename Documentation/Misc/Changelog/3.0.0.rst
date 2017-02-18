@@ -7,3 +7,13 @@
 ------------------
 
 Diese Version wird einige Änderungen mit sich bringen. Darunter befinden sich einige neue Funktionen, aber auch ein paar Änderungen, die Anpassungen an bestehenden Installationen erforderlich machen. Dieser ChangeLog-Eintrag sollte daher sorgfältig durchgearbeitet werden.
+
+Mengenrabatt / Staffelpreise
+============================
+
+Eine neue Funktion ist der Mengenrabatt, oder sogenannte Staffelpreise. Damit kann der Einzelpreis der Produkts abhängig von der Anzahl des Produkts im Warenkorb gemacht werden.
+Wie auch bei den Spezialpreisen kann dieser auf Frontend Nutzergruppen eingeschränkt werden.
+Sollten Staffelpreise und Mengenrabatte angegeben sein, wird der für den Käufer günstigste Preis für die weiteren Berechnungen genutzt.
+
+.. IMPORTANT::
+   Es ist eine Aktualisierung der Datenbank erforderlich. Da dieses Feld neu hinzu kommt, sollte das in der Regel unproblematisch sein.

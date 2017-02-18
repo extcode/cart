@@ -118,6 +118,15 @@ class Product extends \Extcode\Cart\Domain\Model\Product\AbstractProduct
     protected $specialPrices;
 
     /**
+     * Product Quantity Discount
+     *
+     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Extcode\Cart\Domain\Model\Product\QuantityDiscount>
+     * @cascade remove
+     */
+    protected $quantityDiscounts;
+
+
+    /**
      * Price Measure
      *
      * @var float
@@ -445,6 +454,16 @@ class Product extends \Extcode\Cart\Domain\Model\Product\AbstractProduct
     }
 
     /**
+     * Returns the Special Prices
+     *
+     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Extcode\Cart\Domain\Model\SpecialPrice>
+     */
+    public function getSpecialPrices()
+    {
+        return $this->specialPrices;
+    }
+
+    /**
      * Adds a Special Price
      *
      * @param \Extcode\Cart\Domain\Model\Product\SpecialPrice $specialPrice
@@ -464,16 +483,6 @@ class Product extends \Extcode\Cart\Domain\Model\Product\AbstractProduct
     public function removeSpecialPrice(\Extcode\Cart\Domain\Model\Product\SpecialPrice $specialPriceToRemove)
     {
         $this->specialPrices->detach($specialPriceToRemove);
-    }
-
-    /**
-     * Returns the Special Prices
-     *
-     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Extcode\Cart\Domain\Model\specialPrice>
-     */
-    public function getSpecialPrices()
-    {
-        return $this->specialPrices;
     }
 
     /**
@@ -536,6 +545,70 @@ class Product extends \Extcode\Cart\Domain\Model\Product\AbstractProduct
         $bestSpecialPricePercentageDiscount = (($this->getBestSpecialPriceDiscount($frontendUserGroupIds)) / $this->price) * 100;
 
         return $bestSpecialPricePercentageDiscount;
+    }
+
+    /**
+     * Returns the Quantity Discounts
+     *
+     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Extcode\Cart\Domain\Model\QuantityDiscount>
+     */
+    public function getQuantityDiscounts()
+    {
+        return $this->quantityDiscounts;
+    }
+
+    /**
+     * Returns the Quantity Discounts as Array
+     *
+     * @return array
+     */
+    public function getQuantityDiscountArray($frontendUserGroupIds = [])
+    {
+        $quantityDiscountArray = [];
+
+        if ($this->getQuantityDiscounts()) {
+            foreach ($this->getQuantityDiscounts() as $quantityDiscount) {
+                if (!$quantityDiscount->getFrontendUserGroup() ||
+                    in_array($quantityDiscount->getFrontendUserGroup(), $frontendUserGroupIds)
+                ) {
+                    array_push($quantityDiscountArray, $quantityDiscount->toArray());
+                }
+            }
+        }
+
+        return $quantityDiscountArray;
+    }
+
+    /**
+     * Adds a Quantity Discount
+     *
+     * @param \Extcode\Cart\Domain\Model\Product\QuantityDiscount $quantityDiscount
+     * @return void
+     */
+    public function addQuantityDiscount(\Extcode\Cart\Domain\Model\Product\QuantityDiscount $quantityDiscount)
+    {
+        $this->quantityDiscounts->attach($quantityDiscount);
+    }
+
+    /**
+     * Removes a Quantity Discount
+     *
+     * @param \Extcode\Cart\Domain\Model\Product\QuantityDiscount $quantityDiscount
+     * @return void
+     */
+    public function removeQuantityDiscount(\Extcode\Cart\Domain\Model\Product\QuantityDiscount $quantityDiscount)
+    {
+        $this->quantityDiscounts->detach($quantityDiscount);
+    }
+
+    /**
+     * Sets the Quantity Discounts
+     *
+     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage $quantityDiscounts
+     */
+    public function setQuantityDiscounts(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $quantityDiscounts)
+    {
+        $this->quantityDiscounts = $quantityDiscounts;
     }
 
     /**

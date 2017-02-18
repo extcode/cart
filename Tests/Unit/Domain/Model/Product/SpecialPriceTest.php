@@ -29,7 +29,7 @@ namespace Extcode\Cart\Tests\Domain\Model\Product;
 class SpecialPriceTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
 {
     /**
-     * Product Tax Class
+     * Product Special Price
      *
      * @var \Extcode\Cart\Domain\Model\Product\SpecialPrice
      */

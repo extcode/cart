@@ -1,6 +1,6 @@
 {namespace cart=Extcode\Cart\ViewHelpers}
 
-<cart:product.ifBestSpecialPriceAvailable product="{product}">
+<f:if condition="{product.specialPrices}">
     <f:then>
         <div class="regular_price">
             <f:translate key="tx_cart_domain_model_product_product.regular_price"/>:
@@ -17,7 +17,7 @@
             </span>
         </div>
         <div class="special_price_percentage_discount">
-            <strong>(Sie sparen: <span class="price"><f:format.number><cart:product.bestSpecialPricePercentageDiscount product="{product}"/></f:format.number></span> %)</strong>
+            <strong>(Sie sparen: <f:format.number><cart:product.bestSpecialPricePercentageDiscount product="{product}"/></f:format.number> %)</strong>
         </div>
     </f:then>
     <f:else>
@@ -34,4 +34,16 @@
             </span>
         </div>
     </f:else>
-</cart:product.ifBestSpecialPriceAvailable>
+</f:if>
+<f:if condition="{product.quantityDiscounts}">
+    <f:then>
+        <div class="quantity_discount">
+            <f:translate key="tx_cart_domain_model_product_product.quantity_discounts"/>:
+            <ul>
+                <f:for each="{product.quantityDiscounts}" as="quantityDiscount">
+                    <li><f:translate key="tx_cart_domain_model_product_product.quantity_discount_from" arguments="{0: quantityDiscount.quantity}"/>: <cart:format.currency>{quantityDiscount.price}</cart:format.currency></li>
+                </f:for>
+            </ul>
+        </div>
+    </f:then>
+</f:if>

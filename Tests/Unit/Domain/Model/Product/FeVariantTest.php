@@ -24,6 +24,8 @@ namespace Extcode\Cart\Tests\Domain\Model\Product;
 class FeVariantTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
 {
     /**
+     * Product Frontend Variant
+     *
      * @var \Extcode\Cart\Domain\Model\Product\FeVariant
      */
     protected $feVariant = null;

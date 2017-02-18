@@ -582,6 +582,9 @@
             <trans-unit id="tx_cart_domain_model_product_product.special_prices">
                 <source>Special Prices</source>
             </trans-unit>
+            <trans-unit id="tx_cart_domain_model_product_product.quantity_discounts">
+                <source>Quantity Discount</source>
+            </trans-unit>
             <trans-unit id="tx_cart_domain_model_product_product.is_net_price">
                 <source>Is Net Price</source>
             </trans-unit>
@@ -610,20 +613,8 @@
             <trans-unit id="tx_cart_domain_model_product_product.div.prices">
                 <source>Prices</source>
             </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_product.special_price">
-                <source>Special Price</source>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_product.tax_class_id">
-                <source>Tax Class</source>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_product.tax_class_id.1">
-                <source>normal</source>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_product.tax_class_id.2">
-                <source>reduced</source>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_product.tax_class_id.3">
-                <source>free</source>
+            <trans-unit id="tx_cart_domain_model_product_product.div.measures">
+                <source>Measures</source>
             </trans-unit>
             <trans-unit id="tx_cart_domain_model_product_product.div.variants">
                 <source>Variants</source>
@@ -878,6 +869,23 @@
             </trans-unit>
             <trans-unit id="tx_cart_domain_model_product_specialprice.price">
                 <source>Price</source>
+            </trans-unit>
+
+            <trans-unit id="tx_cart_domain_model_product_tag">
+                <source>Tag</source>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_product_tag.title">
+                <source>Title</source>
+            </trans-unit>
+
+            <trans-unit id="tx_cart_domain_model_product_quantitydiscount">
+                <source>Quantity Discount</source>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_product_quantitydiscount.price">
+                <source>Price</source>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_product_quantitydiscount.quantity">
+                <source>Quantity (lower bound)</source>
             </trans-unit>
 
             <trans-unit id="tx_cart_domain_model_product_tag">

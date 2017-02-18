@@ -314,6 +314,9 @@ class CartUtility
         if ($cartProductValues['specialPrice'] !== null) {
             $newCartProduct->setSpecialPrice($cartProductValues['specialPrice']);
         }
+        if ($cartProductValues['quantityDiscountArray'] !== null) {
+            $newCartProduct->setQuantityDiscounts($cartProductValues['quantityDiscountArray']);
+        }
 
         if ($cartProductValues['serviceAttribute1'] !== null) {
             $newCartProduct->setServiceAttribute1($cartProductValues['serviceAttribute1']);
@@ -710,6 +713,9 @@ class CartUtility
             if ($row[$databaseSettings['specialPrice']]) {
                 $cartProductValues['specialPrice'] = $row[$databaseSettings['specialPrice']];
             }
+            if ($row[$databaseSettings['getQuantityDiscountArray']]) {
+                $cartProductValues['quantityDiscountArray'] = $row[$databaseSettings['getQuantityDiscountArray']];
+            }
 
             if ($databaseSettings['additional']) {
                 $cartProductValues['additional'] = [];
@@ -806,6 +812,12 @@ class CartUtility
                 $functionName = $repositoryFields['getSpecialPrice'];
                 $frontendUserGroupIds = $this->getFrontendUserGroupIds();
                 $cartProductValues['specialPrice'] = $productObject->$functionName($frontendUserGroupIds);
+            }
+
+            if (isset($repositoryFields['getQuantityDiscountArray'])) {
+                $functionName = $repositoryFields['getQuantityDiscountArray'];
+                $frontendUserGroupIds = $this->getFrontendUserGroupIds();
+                $cartProductValues['quantityDiscountArray'] = $productObject->$functionName($frontendUserGroupIds);
             }
 
             if (isset($repositoryFields['getMinNumber'])) {

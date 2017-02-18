@@ -641,6 +641,14 @@
                 <source>Special Price</source>
                 <target>spezieller Preis</target>
             </trans-unit>
+            <trans-unit id="tx_cart_domain_model_product_product.quantity_discounts">
+                <source>Quantity Discount</source>
+                <target>Mengenrabatt</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_product_product.quantity_discount_from">
+                <source>from %s</source>
+                <target>ab %s</target>
+            </trans-unit>
             <trans-unit id="tx_cart_domain_model_product_product.price.from">
                 <target>ab</target>
             </trans-unit>

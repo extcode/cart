@@ -26,73 +26,74 @@ namespace Extcode\Cart\Tests\Domain\Model\Product;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-class TagTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
+class QuantityDiscountTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
 {
     /**
-     * Product Tag
+     * Product Quantity Discount
      *
-     * @var \Extcode\Cart\Domain\Model\Product\Tag
+     * @var \Extcode\Cart\Domain\Model\Product\QuantityDiscount
      */
-    protected $tag = null;
+    protected $fixture = null;
 
     /**
-     * Title
+     * Set Up
      *
-     * @var string
-     */
-    protected $title = '';
-
-    /**
-     *
+     * @return void
      */
     public function setUp()
     {
-        $this->title = 'Title';
-
-        $this->tag = new \Extcode\Cart\Domain\Model\Product\Tag(
-            $this->title
-        );
+        $this->fixture = new \Extcode\Cart\Domain\Model\Product\QuantityDiscount();
     }
 
     /**
      * @test
      */
-    public function constructCouponWithoutTitleThrowsException()
-    {
-        $this->setExpectedException(
-            'InvalidArgumentException',
-            'You have to specify a valid $title for constructor.',
-            1460206410
-        );
-
-        $this->tag = new \Extcode\Cart\Domain\Model\Product\Tag(
-            null
-        );
-    }
-
-    /**
-     * @test
-     */
-    public function getTitleInitiallyReturnsTitleSetDirectlyByConstructor()
+    public function getPriceInitiallyReturnsZero()
     {
         $this->assertSame(
-            $this->title,
-            $this->tag->getTitle()
+            0.0,
+            $this->fixture->getPrice()
         );
     }
 
     /**
      * @test
      */
-    public function setTitleSetsTitle()
+    public function setPriceSetThePrice()
     {
-        $newTitle = 'new Title';
+        $price = 1.00;
 
-        $this->tag->setTitle($newTitle);
+        $this->fixture->setPrice($price);
 
         $this->assertSame(
-            $newTitle,
-            $this->tag->getTitle()
+            $price,
+            $this->fixture->getPrice()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function getQuantityInitiallyReturnsZero()
+    {
+        $this->assertSame(
+            0,
+            $this->fixture->getQuantity()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function setQuantitySetTheQuantity()
+    {
+        $quantity = 10;
+
+        $this->fixture->setQuantity($quantity);
+
+        $this->assertSame(
+            $quantity,
+            $this->fixture->getQuantity()
         );
     }
 }

@@ -285,10 +285,11 @@ plugin.tx_cart {
     repository {
         class = {$plugin.tx_cart.products.repository.class}
         fields {
-            getMinNumber        = {$plugin.tx_cart.products.repository.fields.getMinNumberInOrder}
-            getMaxNumber        = {$plugin.tx_cart.products.repository.fields.getMaxNumberInOrder}
-            getSpecialPrice     = {$plugin.tx_cart.products.repository.fields.getSpecialPrice}
-            getFeVariants       = {$plugin.tx_cart.products.repository.fields.getFeVariants}
+            getMinNumber             = {$plugin.tx_cart.products.repository.fields.getMinNumberInOrder}
+            getMaxNumber             = {$plugin.tx_cart.products.repository.fields.getMaxNumberInOrder}
+            getSpecialPrice          = {$plugin.tx_cart.products.repository.fields.getSpecialPrice}
+            getQuantityDiscountArray = {$plugin.tx_cart.products.repository.fields.getQuantityDiscountArray}
+            getFeVariants            = {$plugin.tx_cart.products.repository.fields.getFeVariants}
         }
 
         beVariants {
