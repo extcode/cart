@@ -1,0 +1,9 @@
+.. ==================================================
+.. FOR YOUR INFORMATION
+.. --------------------------------------------------
+.. -*- coding: utf-8 -*- with BOM.
+
+3.0.0 - 18.02.2017
+------------------
+
+Diese Version wird einige Änderungen mit sich bringen. Darunter befinden sich einige neue Funktionen, aber auch ein paar Änderungen, die Anpassungen an bestehenden Installationen erforderlich machen. Dieser ChangeLog-Eintrag sollte daher sorgfältig durchgearbeitet werden.
