@@ -23,10 +23,10 @@
     },
     "require": {
         "php": ">=5.4.0",
-        "typo3/cms-core": "^6.2 || ^7.6 || ^8.6"
+        "typo3/cms": "^6.2 || ^7.6 || ^8.6"
     },
     "require-dev": {
-        "namelesscoder/typo3-repository-client": "1.2.x-dev",
+        "namelesscoder/typo3-repository-client": "^1.2.0",
         "mikey179/vfsStream": "~1.6.0",
         "phpunit/phpunit": "~4.8.0"
     },
@@ -46,6 +46,9 @@
         "cart": "self.version"
     },
     "config": {
+        "preferred-install": {
+            "typo3/cms": "source"
+        },
         "vendor-dir": ".Build/vendor",
         "bin-dir": ".Build/bin"
     },
