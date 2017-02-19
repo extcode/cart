@@ -977,7 +977,15 @@
             <trans-unit id="tx_cart_domain_model_product_product.stock">
                 <target>Lagerbestand</target>
             </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_product.tagsh">
+            <trans-unit id="tx_cart_domain_model_product_product.main_category">
+                <source>Main Category</source>
+                <target>Hauptkategorie</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_product_product.categories">
+                <source>Associated Categories</source>
+                <target>Assoziierte Kategorien</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_product_product.tags">
                 <source>Tags</source>
                 <target>Schlagworte</target>
             </trans-unit>

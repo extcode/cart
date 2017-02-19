@@ -756,6 +756,12 @@
             <trans-unit id="tx_cart_domain_model_product_product.stock">
                 <source>Stock</source>
             </trans-unit>
+            <trans-unit id="tx_cart_domain_model_product_product.main_category">
+                <source>Main Category</source>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_product_product.categories">
+                <source>Associated Categories</source>
+            </trans-unit>
             <trans-unit id="tx_cart_domain_model_product_product.tags">
                 <source>Tags</source>
             </trans-unit>

@@ -106,7 +106,7 @@ Soll die bisherige TypoScript Konfiguration genutzt werden und wird das Standard
            ch >
        }
    }
-
+|
 
 Templates
 ^^^^^^^^^
@@ -138,3 +138,20 @@ Die Warenkorbzusammenfassung wird ebenfalls aktuakisiert, denn die Auswahl des L
 
 Durch die Änderung wird nun aber nur noch der ISO-Code aus der TypoScript-Konfiguration in der Bestellung gespeichert. Entsprechend müssen auch die Templates für den E-Mail-Versand und die
 Templates im Backend angepasst werden. Die Default-Templates der Cart-Erweiterung bringen eine entsprechende Änderung mit. Eigene Templates müssen entsprechend angepasst werden.
+
+#58 Produkt-Hauptkategorie und Canonical Tags
+=============================================
+
+Eine weitere Änderung betrifft die Einführung der Hauptkategorien und löst das Duplicate Content Problem.
+Wird ein Produkt mehreren Kategorien zugeordnet und wird nun auf verschiedenen Kategorieseiten in Detailansicht angezeigt, kommt es unweigerlich zu dazu, dass die gleiche Detailseite unter verschiedenen URLs erreichbar ist. Den Nutzer stört das weniger, aber Suchmaschinen strafen das ab.
+Nutzt man die Möglichkeit Produkte verschiedenen Kategorien zuzuordnen, kann man nun eine Hauptkategorie bestimmen. Damit das Canonical Tag dann auch korrekt generiert werden kann, muss man jeder Kategorie, die für Produkte verwendet wird, eine Seite zuweisen, auf der die Detailseiten dieser Kategorie ausgegeben werden sollen.
+Dazu besteht schon seit einiger Zeit die Möglichkeit in den Kategorieeigenschaften.
+
+.. figure:: ../../Images/Changelog/3.0.0/CartKategorieOptionen.png
+   :width: 640
+   :alt: Kategorieoptionen für die Konfiguration der Produktdetailseite dieser Kategorie
+
+Die Ausgabe der Listenansicht beachtet beide Felder, so muss für die assoziierten Kategorien die Hauptkategorie nicht noch einmal ausgewählt werden.
+
+.. NOTE::
+   Wenn das Template der Produktdetailseite durch ein eigenes Template ersetzt wurde, sollte hier noch der CanonicalTag ViewHelper (<cart:canonicalTag product="{product}" />) eingebunden werden.

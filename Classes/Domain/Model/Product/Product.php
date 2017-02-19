@@ -250,6 +250,13 @@ class Product extends \Extcode\Cart\Domain\Model\Product\AbstractProduct
     protected $handleStockInVariants = false;
 
     /**
+     * Main Category
+     *
+     * @var \Extcode\Cart\Domain\Model\Category
+     */
+    protected $mainCategory = null;
+
+    /**
      * Categories
      *
      * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Extcode\Cart\Domain\Model\Category>
@@ -1172,6 +1179,27 @@ class Product extends \Extcode\Cart\Domain\Model\Product\AbstractProduct
     }
 
     /**
+     * Returns the Main Category
+     *
+     * @return \Extcode\Cart\Domain\Model\Category
+     */
+    public function getMainCategory()
+    {
+        return $this->mainCategory;
+    }
+
+    /**
+     * Sets the Main Category
+     *
+     * @param \Extcode\Cart\Domain\Model\Category $mainCategory
+     * @return void
+     */
+    public function setMainCategory($mainCategory)
+    {
+        $this->mainCategory = $mainCategory;
+    }
+
+    /**
      * Adds a Product Category
      *
      * @param \TYPO3\CMS\Extbase\Domain\Model\Category $category
@@ -1194,7 +1222,7 @@ class Product extends \Extcode\Cart\Domain\Model\Product\AbstractProduct
     }
 
     /**
-     * Returns the categories
+     * Returns the Categories
      *
      * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Extcode\Cart\Domain\Model\Category> $categories
      */
@@ -1204,7 +1232,7 @@ class Product extends \Extcode\Cart\Domain\Model\Product\AbstractProduct
     }
 
     /**
-     * Returns the first category
+     * Returns the First Category
      *
      * @return \Extcode\Cart\Domain\Model\Category
      */
@@ -1220,7 +1248,7 @@ class Product extends \Extcode\Cart\Domain\Model\Product\AbstractProduct
     }
 
     /**
-     * Sets the categories
+     * Sets the Categories
      *
      * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\Category> $categories
      */

@@ -34,7 +34,7 @@ return [
         'iconfile' => 'EXT:cart/Resources/Public/Icons/Product/Product.png'
     ],
     'interface' => [
-        'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, product_type, sku, title, header_image, teaser, description, min_number_in_order, max_number_in_order, price, special_prices, quantity_discounts, price_measure, price_measure_unit, base_price_measure_unit, service_attribute1, service_attribute2, service_attribute3, tax_class_id, be_variant_attribute1, be_variant_attribute2, be_variant_attribute3, fe_variants, be_variants, related_products, categories, tags',
+        'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, product_type, sku, title, header_image, teaser, description, min_number_in_order, max_number_in_order, price, special_prices, quantity_discounts, price_measure, price_measure_unit, base_price_measure_unit, service_attribute1, service_attribute2, service_attribute3, tax_class_id, be_variant_attribute1, be_variant_attribute2, be_variant_attribute3, fe_variants, be_variants, related_products, main_category, categories, tags',
     ],
     'types' => [
         '1' => [
@@ -59,7 +59,7 @@ return [
             --div--;' . $_LLL . ':tx_cart_domain_model_product_product.div.related_products,
                 related_products,  
             --div--;' . $_LLL . ':tx_cart_domain_model_product_product.div.tags_categories,
-                tags, categories'
+                tags, main_category, categories'
         ],
     ],
     'palettes' => [

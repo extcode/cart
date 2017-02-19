@@ -224,6 +224,24 @@ foreach ($tables as $table) {
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::makeCategorizable(
     $_EXTKEY,
     'tx_cart_domain_model_product_product',
+    'main_category',
+    [
+        'label' => $_LLL . ':tx_cart_domain_model_product_product.main_category',
+        'fieldConfiguration' => [
+            'minitems' => 0,
+            'maxitems' => 1,
+            'multiple' => false,
+        ]
+    ]
+);
+
+$GLOBALS['TCA']['tx_cart_domain_model_product_product']['main_category']['config']['maxitems'] = 1;
+
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::makeCategorizable(
+    $_EXTKEY,
+    'tx_cart_domain_model_product_product',
     'categories',
-    []
+    [
+        'label' => $_LLL . ':tx_cart_domain_model_product_product.categories'
+    ]
 );

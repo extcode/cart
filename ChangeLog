@@ -4,6 +4,7 @@
 
     * TASK #63: add quantity discounts / graduated prices for products
     * TASK #56: different shipping / payment configurations for different countries
+    * TASK #58: add main category and canonical url for category detail views
 
 2.4.3
     2017-02-18
