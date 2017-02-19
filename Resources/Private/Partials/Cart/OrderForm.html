@@ -6,22 +6,22 @@
     <div class="row top-buffer">
         <div class="col-sm-12 col-md-12 col-lg-4">
             <div class="form-column">
-                <f:render partial="Cart/OrderForm/Address/Billing" arguments="{billingAddress:billingAddress}"/>
+                <f:render partial="Cart/OrderForm/Address/Billing" arguments="{cart:cart, billingAddress:billingAddress}"/>
                 <div class="form-list">
                     <div class="control">
                         <label for="shipping_same_as_billing">
                             <f:form.checkbox name="shipping_same_as_billing"
                                              id="shipping_same_as_billing"
-                                             checked="true"
-                                             value="true"
-                                             title="An dieselbe Adresse versenden"/>
+                                             value="{f:if(condition:'{cart.shippingCountry}',then:'false',else:'true')}"
+                                             title="{f:translate(key:'tx_cart.same_address')}"
+                                             additionalAttributes="{f:if(condition:'{cart.shippingCountry} == \'\'', then: '{checked: \'checked\'}')}"/>
                             <span>
                                 <f:translate key="tx_cart.same_address"/>
                             </span>
                         </label>
                     </div>
                 </div>
-                <f:render partial="Cart/OrderForm/Address/Shipping" arguments="{shippingAddress:shippingAddress}"/>
+                <f:render partial="Cart/OrderForm/Address/Shipping" arguments="{cart:cart, shippingAddress:shippingAddress}"/>
             </div>
         </div>
         <div class="col-sm-12 col-md-8 col-lg-8" style="padding: 0;">

@@ -15,7 +15,10 @@
                                 {shipping.name}
                             </f:then>
                             <f:else>
-                                <f:link.action action="setShipping" arguments="{shippingId:shipping.id}">
+                                <f:link.action action="setShipping"
+                                               arguments="{shippingId:shipping.id}"
+                                               pageType="2278001"
+                                               class="setShipping">
                                     {shipping.name}
                                 </f:link.action>
                             </f:else>

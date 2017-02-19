@@ -93,6 +93,13 @@ plugin.tx_cart {
             decimals           = {$plugin.tx_cart.settings.format.currency.decimals}
         }
 
+        allowedCountries {
+            de = Deutschland
+            at = Österreich
+            ch = Schweiz
+        }
+        defaultCountry = de
+
         showAction {
             media {
                 image {
@@ -205,27 +212,35 @@ plugin.tx_cart {
     }
 
     shippings {
-        preset = 1
-        options {
-            1 {
-                title = Standard
-                extra = 0.00
-                taxClassId = 1
-                status = open
+        de {
+            preset = 1
+            options {
+                1 {
+                    title = Standard
+                    extra = 0.00
+                    taxClassId = 1
+                    status = open
+                }
             }
         }
+        at < .de
+        ch < .de
     }
 
     payments {
-        preset = 1
-        options {
-            1 {
-                title = Vorkasse
-                extra = 0.00
-                taxClassId = 1
-                status = open
+        de {
+            preset = 1
+            options {
+                1 {
+                    title = Vorkasse
+                    extra = 0.00
+                    taxClassId = 1
+                    status = open
+                }
             }
         }
+        at < .de
+        ch < .de
     }
 
     orderNumber = COA

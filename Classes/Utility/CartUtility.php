@@ -145,6 +145,11 @@ class CartUtility
 
         $cart = new \Extcode\Cart\Domain\Model\Cart\Cart($taxClasses, $isNetCart);
 
+        $defaultCountry = $pluginSettings['settings']['defaultCountry'];
+        if ($defaultCountry) {
+            $cart->setBillingCountry($defaultCountry);
+        }
+
         $shippings = $this->parserUtility->parseServices('Shipping', $pluginSettings, $cart);
 
         foreach ($shippings as $shipping) {
@@ -1143,5 +1148,48 @@ class CartUtility
         $cartVariantValues = $slotReturn[0]['cartVariantValues'];
 
         return $cartVariantValues;
+    }
+
+    /**
+     * @param array $cartSettings
+     * @param array $pluginSettings
+     *
+     * @return void
+     */
+    public function updateCartSetCountries(array $cartSettings, array $pluginSettings, $request)
+    {
+        $cart = $this->getCartFromSession($cartSettings, $pluginSettings);
+
+        $billingCountry = $cart->getBillingCountry();
+
+        if ($request->hasArgument('billing_country')) {
+            $billingCountry = $request->getArgument('billing_country');
+        }
+
+        $shippingCountry = $cart->getShippingCountry();
+
+        if ($request->hasArgument('shipping_country')) {
+            $shippingCountry = $request->getArgument('shipping_country');
+        }
+
+        $data = [
+            'cart' => $cart,
+            'billingCountry' => $billingCountry,
+            'shippingCountry' => $shippingCountry,
+        ];
+
+        $signalSlotDispatcher = $this->objectManager->get(
+            \TYPO3\CMS\Extbase\SignalSlot\Dispatcher::class
+        );
+        $signalSlotDispatcher->dispatch(
+            __CLASS__,
+            __FUNCTION__ . 'BeforeUpdateCart',
+            $data
+        );
+
+        $cart->setBillingCountry($billingCountry);
+        $cart->setShippingCountry($shippingCountry);
+
+        $this->sessionHandler->writeToSession($cart, $cartSettings['pid']);
     }
 }

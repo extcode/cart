@@ -1,8 +1,9 @@
 3.0.0
-    2017-02-18
+    2017-02-19
     Daniel Lorenz <daniel.lorenz@extco.de>
 
     * TASK #63: add quantity discounts / graduated prices for products
+    * TASK #56: different shipping / payment configurations for different countries
 
 2.4.3
     2017-02-18

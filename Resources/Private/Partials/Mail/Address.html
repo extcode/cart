@@ -9,7 +9,7 @@
             {billingAddress.street}<br />
             {billingAddress.zip} {billingAddress.city}<br />
             <f:if condition="{billingAddress.country}">
-                {billingAddress.country}<br />
+                <f:translate key="tx_cart.settings.allowed_countries.{billingAddress.country}" default="{billingAddress.country}"/><br />
             </f:if>
             <br />
             {billingAddress.email}<br />
@@ -25,7 +25,7 @@
                     {shippingAddress.street}<br />
                     {shippingAddress.zip} {shippingAddress.city}<br />
                     <f:if condition="{shippingAddress.country}">
-                        {shippingAddress.country}<br />
+                        <f:translate key="tx_cart.settings.allowed_countries.{shippingAddress.country}" default="{shippingAddress.country}"/><br />
                     </f:if>
                 </f:then>
                 <f:else>

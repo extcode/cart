@@ -138,8 +138,25 @@ class ParserUtility
         $services = [];
         $type = strtolower($className) . 's';
 
-        if ($pluginSettings[$type]['options']) {
-            foreach ($pluginSettings[$type]['options'] as $key => $value) {
+        $pluginSettingsType = $pluginSettings[$type];
+        $selectedCountry = $pluginSettings['settings']['defaultCountry'];
+
+        if ($cart->getCountry()) {
+            if ($type == 'payments') {
+                $selectedCountry = $cart->getBillingCountry();
+            } else {
+                $selectedCountry = $cart->getCountry();
+            }
+        }
+
+        if ($selectedCountry) {
+            if (is_array($pluginSettingsType[$selectedCountry]) && is_array($pluginSettingsType[$selectedCountry]['options'])) {
+                $pluginSettingsType = $pluginSettingsType[$selectedCountry];
+            }
+        }
+
+        if ($pluginSettingsType['options']) {
+            foreach ($pluginSettingsType['options'] as $key => $value) {
                 $class = '\\Extcode\\Cart\\Domain\\Model\\Cart\\' . $className;
                 /**
                  * Service
@@ -207,8 +224,7 @@ class ParserUtility
                     }
                 }
 
-                if ($pluginSettings[$type]['preset'] == $key) {
-
+                if ($pluginSettingsType['preset'] == $key) {
                     $service->setIsPreset(true);
                 }
 

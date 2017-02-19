@@ -172,6 +172,20 @@ class Cart
     private $coupons = [];
 
     /**
+     * Billing Country
+     *
+     * @var string
+     */
+    private $billingCountry;
+
+    /**
+     * Shipping Country
+     *
+     * @var string
+     */
+    private $shippingCountry;
+
+    /**
      * __construct
      *
      * @param \Extcode\Cart\Domain\Model\Cart\TaxClass[] $taxClasses
@@ -226,7 +240,9 @@ class Cart
             'orderId',
             'orderNumber',
             'invoiceNumber',
-            'additional'
+            'additional',
+            'billingCountry',
+            'shippingCountry',
         ];
     }
 
@@ -1420,5 +1436,51 @@ class Cart
     public function getIsOrderable()
     {
         return $this->isOrderable();
+    }
+
+    /**
+     * @return string
+     */
+    public function getBillingCountry()
+    {
+        return $this->billingCountry;
+    }
+
+    /**
+     * @param string $billingCountry
+     * @return void
+     */
+    public function setBillingCountry($billingCountry)
+    {
+        $this->billingCountry = $billingCountry;
+    }
+
+    /**
+     * @return string
+     */
+    public function getShippingCountry()
+    {
+        return $this->shippingCountry;
+    }
+
+    /**
+     * @param string $shippingCountry
+     * @return void
+     */
+    public function setShippingCountry($shippingCountry)
+    {
+        $this->shippingCountry = $shippingCountry;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCountry()
+    {
+        if (!empty($this->shippingCountry)) {
+            return $this->shippingCountry;
+        }
+
+        return $this->billingCountry;
     }
 }

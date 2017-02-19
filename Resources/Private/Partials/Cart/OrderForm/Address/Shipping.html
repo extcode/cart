@@ -1,4 +1,4 @@
-<div id="shipping-address" class="bg-light-grey" style="display: none;">
+<div id="shipping-address" class="bg-light-grey" style="{f:if(condition:'{cart.shippingCountry}', then:'', else:'display: none;')}">
     <h5 class="form-title">
         <span><f:translate key="tx_cart.controller.order.action.show_cart.block-header.shipping_address"/></span>
     </h5>
@@ -171,10 +171,12 @@
                                 <f:translate key="tx_cart_domain_model_order_address.country"/>
                             </label>
                             <div class="input-box">
-                                <f:form.textfield id="shippingAddress:country"
-                                                  class="form-control"
-                                                  name="shippingAddress[country]"
-                                                  value="{shippingAddress.country}"/>
+                                <f:form.select id="shippingAddress:country"
+                                               class="form-control"
+                                               name="shippingAddress[country]"
+                                               value="{cart.shippingCountry}"
+                                               options="{settings.allowedCountries}"
+                                               translationKey="tx_cart.settings.allowed_countries"/>
                             </div>
                         </div>
                     </div>

@@ -1,3 +1,5 @@
+{namespace cart=Extcode\Cart\ViewHelpers}
+
 <div id="billing-address" class="billing-address bg-light-grey">
     <h5 class="form-title">
         <span class="num">1</span>
@@ -172,10 +174,12 @@
                                 <f:translate key="tx_cart_domain_model_order_address.country"/>
                             </label>
                             <div class="input-box">
-                                <f:form.textfield id="billingAddress:country"
-                                                  class="form-control"
-                                                  name="billingAddress[country]"
-                                                  value="{billingAddress.country}"/>
+                                <cart:form.select id="billingAddress:country"
+                                               class="form-control"
+                                               name="billingAddress[country]"
+                                               value="{cart.billingCountry}"
+                                               options="{settings.allowedCountries}"
+                                               translationKey="tx_cart.settings.allowed_countries"/>
                             </div>
                         </div>
                     </div>

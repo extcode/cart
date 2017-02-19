@@ -268,6 +268,54 @@ class CartController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     }
 
     /**
+     *
+     */
+    public function updateCountryAction()
+    {
+        $this->cartUtility->updateCartSetCountries($this->settings['cart'], $this->pluginSettings, $this->request);
+
+        $this->cart = $this->cartUtility->getCartFromSession($this->settings['cart'], $this->pluginSettings);
+
+        $this->parseData();
+
+        $paymentId = $this->cart->getPayment()->getId();
+        if ($this->payments[$paymentId]) {
+            $payment = $this->payments[$paymentId];
+            $this->cart->setPayment($payment);
+        } else {
+            foreach ($this->payments as $payment) {
+                if ($payment->getIsPreset()) {
+                    $this->cart->setPayment($payment);
+                }
+            }
+        }
+        $shippingId = $this->cart->getShipping()->getId();
+        if ($this->shippings[$shippingId]) {
+            $shipping = $this->shippings[$shippingId];
+            $this->cart->setShipping($shipping);
+        } else {
+            foreach ($this->shippings as $shipping) {
+                if ($shipping->getIsPreset()) {
+                    $this->cart->setShipping($shipping);
+                }
+            }
+        }
+
+        $this->sessionHandler->writeToSession($this->cart, $this->settings['cart']['pid']);
+
+        $this->updateService();
+
+        $this->view->assign('cart', $this->cart);
+
+        $assignArguments = [
+            'shippings' => $this->shippings,
+            'payments' => $this->payments,
+            'specials' => $this->specials
+        ];
+        $this->view->assignMultiple($assignArguments);
+    }
+
+    /**
      * Action Update Cart
      *
      * @return void
@@ -551,15 +599,15 @@ class CartController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      */
     public function setPaymentAction($paymentId)
     {
-        $cart = $this->cartUtility->getCartFromSession($this->settings['cart'], $this->pluginSettings);
+        $this->cart = $this->cartUtility->getCartFromSession($this->settings['cart'], $this->pluginSettings);
 
-        $this->payments = $this->parserUtility->parseServices('Payment', $this->pluginSettings, $cart);
+        $this->payments = $this->parserUtility->parseServices('Payment', $this->pluginSettings, $this->cart);
 
         $payment = $this->payments[$paymentId];
 
         if ($payment) {
-            if ($payment->isAvailable($cart->getGross())) {
-                $cart->setPayment($payment);
+            if ($payment->isAvailable($this->cart->getGross())) {
+                $this->cart->setPayment($payment);
             } else {
                 $this->addFlashMessage(
                     \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
@@ -573,9 +621,21 @@ class CartController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
             }
         }
 
-        $this->sessionHandler->writeToSession($cart, $this->settings['cart']['pid']);
+        $this->sessionHandler->writeToSession($this->cart, $this->settings['cart']['pid']);
 
-        $this->redirect('showCart');
+        if (isset($_GET['type'])) {
+            $this->view->assign('cart', $this->cart);
+
+            $this->parseData();
+            $assignArguments = [
+                'shippings' => $this->shippings,
+                'payments' => $this->payments,
+                'specials' => $this->specials
+            ];
+            $this->view->assignMultiple($assignArguments);
+        } else {
+            $this->redirect('showCart');
+        }
     }
 
     public function initializeOrderCartAction()

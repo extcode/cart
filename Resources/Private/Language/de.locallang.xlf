@@ -818,6 +818,18 @@
                 <target>Gutscheincode wurde nicht gefunden.</target>
             </trans-unit>
 
+            <trans-unit id="tx_cart.settings.allowed_countries.de">
+                <source>Germany</source>
+                <target>Deutschland</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.settings.allowed_countries.at">
+                <source>Austria</source>
+                <target>Österreich</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.settings.allowed_countries.ch">
+                <source>Switzerland</source>
+                <target>Schweiz</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

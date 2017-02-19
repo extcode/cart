@@ -3,13 +3,13 @@
 .. --------------------------------------------------
 .. -*- coding: utf-8 -*- with BOM.
 
-3.0.0 - 18.02.2017
+3.0.0 - 19.02.2017
 ------------------
 
 Diese Version wird einige Änderungen mit sich bringen. Darunter befinden sich einige neue Funktionen, aber auch ein paar Änderungen, die Anpassungen an bestehenden Installationen erforderlich machen. Dieser ChangeLog-Eintrag sollte daher sorgfältig durchgearbeitet werden.
 
-Mengenrabatt / Staffelpreise
-============================
+#63 Mengenrabatt / Staffelpreise
+================================
 
 Eine neue Funktion ist der Mengenrabatt, oder sogenannte Staffelpreise. Damit kann der Einzelpreis der Produkts abhängig von der Anzahl des Produkts im Warenkorb gemacht werden.
 Wie auch bei den Spezialpreisen kann dieser auf Frontend Nutzergruppen eingeschränkt werden.
@@ -17,3 +17,124 @@ Sollten Staffelpreise und Mengenrabatte angegeben sein, wird der für den Käufe
 
 .. IMPORTANT::
    Es ist eine Aktualisierung der Datenbank erforderlich. Da dieses Feld neu hinzu kommt, sollte das in der Regel unproblematisch sein.
+
+#56 Bezahl- und Versandmethoden nach Rechnungs- oder Lieferland
+===============================================================
+
+Eine neue Funktion ist es, dass die zur Verfügung stehenden Bezahlmethoden und Versandmethoden je nach gewähltem Rechnungsland oder Bestimmungsland unterschiedlich definiert sein können.
+Damit lassen sich verschiedene Versandkosten je nach Bestimmungsland abbilden, aber auch Bezahlmethoden auf einzelne Länder einschränken.
+Als Nebeneffekt dieser Änderung, wird nun auch die Warenkorbseite bei Änderung der Zahlmethode nicht mehr komplett neu geladen. Dies brachte immer Problem mit schon eingegebenen Adressen mit sich.
+
+.. IMPORTANT::
+   Diese Änderung wirkt sich auf die TypoScript Konfiguration, aber auch auf die Darstellung im Front- und Backend aus. Soweit möglich kann mit der bisherigen TypoScript-Konfiguration weiter gearbeitet werden, wenn die neue Konfiguration im eigenen TypoScript nicht verwendet wird.
+   Es ist aber unbedingt zu prüfen, ob die eigenen definierten Bezahl- und Versandmethoden wie gewohnt zur Verfügung stehen.
+   Statt des Freitext-Feldes bringt das Template jetzt ein Auswahlfeld für das Land mit.
+
+TypoScript
+^^^^^^^^^^
+Neu hinzugekommen ist die Konfiguration plugin.tx_cart.settings.allowedCountries, welche die Ausgabe des Auswahlfeldes für die Länder im Warenkorb definiert.
+Durch einen eigenen SelectViewhelper können die Optionen auch übersetzt werden. Dazu im nächsten Absatz mehr.
+Der Parameter plugin.tx_cart.settings.defaultCountry definiert welches Land vorausgewählt werden soll.
+
+::
+
+   plugin.tx_cart {
+       settings {
+           allowedCountries {
+               de = Deutschland
+               at = Österreich
+               ch = Schweiz
+           }
+           defaultCountry = de
+       }
+   }
+
+|
+
+Weiterhin wurde die Konfiguration für die Konfiguration innerhalb von plugin.tx_cart.payments und plugin.tx_cart.shippings um eine Konfigurationsebene erweitert. Die die Konfiguration für das jeweilige Land wiederspiegeln.
+
+::
+
+   plugin.tx_cart {
+       payments {
+           de {
+               preset = 1
+               options {
+                   1 {
+                       title = Vorkasse
+                       extra = 0.00
+                       taxClassId = 1
+                       status = open
+                   }
+               }
+           }
+           at < .de
+           ch < .de
+       }
+       shippings {
+           de {
+               preset = 1
+               options {
+                   1 {
+                       title = Standard
+                       extra = 0.00
+                       taxClassId = 1
+                       status = open
+                   }
+               }
+           }
+           at < .de
+           ch < .de
+       }
+   }
+
+|
+
+Soll die bisherige TypoScript Konfiguration genutzt werden und wird das Standard-TypoScript eingebunden, muss die neue Konfiguration entfernt werden:
+
+::
+
+   plugin.tx_cart {
+       payments {
+           de >
+           at >
+           ch >
+       }
+       shippings {
+           de >
+           at >
+           ch >
+       }
+   }
+
+
+Templates
+^^^^^^^^^
+
+Durch die neue Möglichkeit die Länder über plugin.tx_cart.settings.allowedCountries zu konfigurieren, konnte auch die Eingabe des Landes im Frontend über ein Auswahlfeld realisiert werden.
+Da der SelectViewHelper aus Fluid keine Übersetzung für die Array-Konfiguration ermöglicht, bringt Cart einen eigenen SelectViewHelper mit, der den Fluid SelectViewHelper entsprechend erweitert.
+Gibt man dem selectViewHelper noch das Argument translationKey mit, versucht der SelectViewHelper eine passende Übersetzung zu finden.
+
+::
+
+    <cart:form.select id="billingAddress:country"
+                      class="form-control"
+                      name="billingAddress[country]"
+                      value="{cart.billingCountry}"
+                      options="{settings.allowedCountries}"
+                      translationKey="tx_cart.settings.allowed_countries"/>
+
+|
+
+Im Frontend könnte das dann wie folgt aussehen:
+
+.. figure:: ../../Images/Changelog/3.0.0/SelectViewHelper.png
+   :width: 320
+   :alt: Übersetzte Ausgabe des Auswahlfeldes für das Land durch den SelectViewHelpers
+
+Eine entsprechende Erweiterung des JavaScripts sorgt dafür, dass die Auswahl an den Server übertragen und in der Session gespeichert wird.
+Als Antwort werden die möglichen Zahlungsmethoden übertragen und ggf. die geänderte Zusammenfassung des Warenkorbs.
+Die Warenkorbzusammenfassung wird ebenfalls aktuakisiert, denn die Auswahl des Landes kann Auswirkungen auf die Service- und Versandkosten und den Gesamtpreis haben.
+
+Durch die Änderung wird nun aber nur noch der ISO-Code aus der TypoScript-Konfiguration in der Bestellung gespeichert. Entsprechend müssen auch die Templates für den E-Mail-Versand und die
+Templates im Backend angepasst werden. Die Default-Templates der Cart-Erweiterung bringen eine entsprechende Änderung mit. Eigene Templates müssen entsprechend angepasst werden.

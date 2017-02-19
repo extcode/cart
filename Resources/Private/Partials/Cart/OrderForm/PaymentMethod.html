@@ -15,7 +15,10 @@
                                 {payment.name}
                             </f:then>
                             <f:else>
-                                <f:link.action action="setPayment" arguments="{paymentId:payment.id}">
+                                <f:link.action action="setPayment"
+                                               arguments="{paymentId:payment.id}"
+                                               pageType="2278001"
+                                               class="setPayment">
                                     {payment.name}
                                 </f:link.action>
                             </f:else>

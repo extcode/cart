@@ -815,6 +815,15 @@
                 <source>Coupon code was not found.</source>
             </trans-unit>
 
+            <trans-unit id="tx_cart.settings.allowed_countries.de">
+                <source>Germany</source>
+            </trans-unit>
+            <trans-unit id="tx_cart.settings.allowed_countries.at">
+                <source>Austria</source>
+            </trans-unit>
+            <trans-unit id="tx_cart.settings.allowed_countries.ch">
+                <source>Switzerland</source>
+            </trans-unit>
         </body>
     </file>
 </xliff>

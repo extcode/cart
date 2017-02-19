@@ -908,6 +908,16 @@
             <trans-unit id="tx_cart_domain_model_cart">
                 <source>Cart Session</source>
             </trans-unit>
+
+            <trans-unit id="tx_cart.settings.allowed_countries.de">
+                <source>Germany</source>
+            </trans-unit>
+            <trans-unit id="tx_cart.settings.allowed_countries.at">
+                <source>Austria</source>
+            </trans-unit>
+            <trans-unit id="tx_cart.settings.allowed_countries.ch">
+                <source>Switzerland</source>
+            </trans-unit>
         </body>
     </file>
 </xliff>
