@@ -3,7 +3,7 @@
 .. --------------------------------------------------
 .. -*- coding: utf-8 -*- with BOM.
 
-3.0.0 - 19.02.2017
+3.0.0 - 21.02.2017
 ------------------
 
 Diese Version wird einige Änderungen mit sich bringen. Darunter befinden sich einige neue Funktionen, aber auch ein paar Änderungen, die Anpassungen an bestehenden Installationen erforderlich machen. Dieser ChangeLog-Eintrag sollte daher sorgfältig durchgearbeitet werden.
@@ -106,6 +106,7 @@ Soll die bisherige TypoScript Konfiguration genutzt werden und wird das Standard
            ch >
        }
    }
+
 |
 
 Templates
@@ -155,3 +156,17 @@ Die Ausgabe der Listenansicht beachtet beide Felder, so muss für die assoziiert
 
 .. NOTE::
    Wenn das Template der Produktdetailseite durch ein eigenes Template ersetzt wurde, sollte hier noch der CanonicalTag ViewHelper (<cart:canonicalTag product="{product}" />) eingebunden werden.
+
+
+#73 Ausgabe der komplette Artikelnummer im Warenkorb bei Produkten mit Varianten
+================================================================================
+
+Im Warenkorb und den E-Mails wurde für Produkte mit Varianten nur die Artiḱelnummer (der Variante) ausgegeben. Die Funktion die Artikelnummer der Variante mit vorangestellter Artikelnummer des Produkts gab es bereits, wurde aber in den Templates bisher nicht verwendet.
+Die Änderungen zeigen jetzt die komplette Artikelnummer.
+
+Wenn die Templates:
+
+* cart/Resources/Private/Partials/Cart/ProductForm/ProductList.html
+* cart/Resources/Private/Partials/Mail/ProductList.html
+
+durch eigene Dateien ersetzt wurden, kann in diesen Dateien *{variant.sku}* durch *{variant.completeSku}* ersetzt werden.
