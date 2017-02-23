@@ -8,6 +8,7 @@
     * BUGFIX #73: change output of product variants sku to variants completeSku for products with variants in cart and order mail
     * TASK #68: add signal slot for checking products before adding them to cart
     * TASK #76: realurl improvements
+    * TASK #74: show vat in cart summary and mails
 
 2.4.3
     2017-02-18

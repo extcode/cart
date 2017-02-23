@@ -240,3 +240,15 @@ Eine Beispielkonfiguration (Auszug) für realurl könnte wie folgt aussehen:
 Diese erzeugt unter anderem Links aus dem Produkttitel.
 
 *Eine ausführlichere Dokumentation mit weiteren Beispielen folgt.*
+
+
+#74 Ausgabe der Umsatzsteuer im Warenkorb und E-Mails
+=====================================================
+
+Im Warenkorb und den E-Mails der Standard-Templates wurden bisher die Steuklassen (normal, reduziert, frei) ausgegeben. Nun wird an diesen Stellen die Umsatzsteuer mit der entsprechenden Prozentangabe aus der Konfiguration angezeigt.
+Bisher war dies nur unter Verwendung des f:for-ViewHelpers und f:if-ViewHelpers oder die Anpassung über die Übersetzungsdateien möglich. Eine Konfiguration mit weiteren Steuerklassen war hier schwierig.
+Der neue ViewHelper liefert die richtige Steuerklasse aus der Konfiguration zurück.
+
+.. NOTE::
+   Diese Änderung kann in eigene Templates übernommen werden. Eine Anpassung ist nicht zwingend erforderlich.
+

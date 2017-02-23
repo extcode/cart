@@ -592,6 +592,14 @@
                 <source>free</source>
                 <target>frei</target>
             </trans-unit>
+            <trans-unit id="tx_cart.tax_vat">
+                <source>VAT</source>
+                <target>Umstatzsteuer</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.tax_vat.value">
+                <source>VAT (%s %%)</source>
+                <target>Umstatzsteuer (%s %%)</target>
+            </trans-unit>
 
             <trans-unit id="tx_cart_domain_model_cart_cart.net">
                 <source>Price (net)</source>

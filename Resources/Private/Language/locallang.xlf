@@ -624,6 +624,12 @@
             <trans-unit id="tx_cart.tax_class.3">
                 <source>free</source>
             </trans-unit>
+            <trans-unit id="tx_cart.tax_vat">
+                <source>VAT</source>
+            </trans-unit>
+            <trans-unit id="tx_cart.tax_vat.value">
+                <source>VAT (%s %%)</source>
+            </trans-unit>
 
             <trans-unit id="tx_cart.plugin.form.submit">
                 <source>Add to cart</source>
