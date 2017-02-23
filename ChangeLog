@@ -9,6 +9,7 @@
     * TASK #68: add signal slot for checking products before adding them to cart
     * TASK #76: realurl improvements
     * TASK #74: show vat in cart summary and mails
+    * TASK #77: add signal slot to change order item before saving
 
 2.4.3
     2017-02-18

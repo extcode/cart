@@ -252,3 +252,11 @@ Der neue ViewHelper liefert die richtige Steuerklasse aus der Konfiguration zur�
 .. NOTE::
    Diese Änderung kann in eigene Templates übernommen werden. Eine Anpassung ist nicht zwingend erforderlich.
 
+
+#77 Signal Slot 'changeOrderItemBeforeSaving'
+=============================================
+
+Ein neuer Signal Slot, der es erlaubt vor dem Speichern einer Bestellung diese noch einmal zu bearbeiten.
+
+.. IMPORTANT::
+   Dieser Signal Slot ist dafür gedacht, um zum Beisiel die (neuen) Adressen eines Käufers zu den Kontaktdaten hinzuzufügen. Er sollte nicht genutzt werden, um Änderungen an den Preisen oder Produkten vorzunehmen.

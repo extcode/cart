@@ -224,6 +224,22 @@ class OrderUtility
         $orderItem->setOrderNumber($orderNumber);
         $orderItem->setOrderDate(new \DateTime());
 
+        $data = [
+            'cart' => $this->cart,
+            'orderItem' => $this->orderItem,
+        ];
+
+        $signalSlotDispatcher = $this->objectManager->get(
+            \TYPO3\CMS\Extbase\SignalSlot\Dispatcher::class
+        );
+        $slotReturn = $signalSlotDispatcher->dispatch(
+            __CLASS__,
+            'changeOrderItemBeforeSaving',
+            [$data]
+        );
+
+        $orderItem = $slotReturn[0]['orderItem'];
+
         $this->persistenceManager->persistAll();
 
         $this->cart->setOrderId($orderItem->getUid());
