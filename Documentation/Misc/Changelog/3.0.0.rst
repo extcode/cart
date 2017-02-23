@@ -179,3 +179,64 @@ durch eigene Dateien ersetzt wurden, kann in diesen Dateien *{variant.sku}* durc
 
 Ein neuer Signal Slot, der es erlaubt vor dem Hinzufügen von Produkten eigene Tests durchzuführen.
 Mit diesem Signal Slot ist es möglich Produkte, die hinzugefügt werden sollen zu verändern oder zu entfernen. Eigene Warn- oder Fehlermeldungen werden zu den FlashMessages hinzugefügt.
+
+
+#76 Verbesserungen für lesbare URLs (realurl)
+=============================================
+
+Um noch "saubere" lesbare URLs mit realurl erzeugen zu können wurde die Standard-Action für das Plugin "Cart: Produkt" geändert.
+Die Switchable-Controller-Action "Produkt - Listen- und Detailansicht" hat nun als Standard-Action die Detailansicht, leitet aber auf Listenansich weiter, wenn kein Produkt übergeben wird. Damit ist es möglich, die Angabe der Action für die Detailansicht weg zu lassen.
+
+.. IMPORTANT::
+   Durch diese Änderungen sind alle Stellen, an denen das Plugin mit der Switchable-Controller-Action "Produkt - Listen- und Detailansicht" eingebunden ist, neu zu speichern.
+
+Eine Beispielkonfiguration (Auszug) für realurl könnte wie folgt aussehen:
+
+::
+
+    'fixedPostVars' => [
+        'cartShowCart' => [
+            [
+                'GETvar' => 'tx_cart_cart[action]',
+                'valueMap' => array(
+                    '' => 'showCart',
+                )
+            ],
+            [
+                'GETvar' => 'tx_cart_cart[controller]',
+                'noMatch' => 'bypass'
+            ]
+        ],
+        'cartDetailConfiguration' => [
+            [
+                'GETvar' => 'tx_cart_product[product]',
+                'lookUpTable' => [
+                    'table' => 'tx_cart_domain_model_product_product',
+                    'id_field' => 'uid',
+                    'alias_field' => 'title',
+                    'addWhereClause' => ' AND NOT deleted',
+                    'useUniqueCache' => 1,
+                    'useUniqueCache_conf' => [
+                        'strtolower' => 1,
+                        'spaceCharacter' => '-'
+                    ],
+                    'languageGetVar' => 'L',
+                    'languageExceptionUids' => '',
+                    'languageField' => 'sys_language_uid',
+                    'transOrigPointerField' => 'l10n_parent',
+                    'autoUpdate' => 1,
+                    'expireDays' => 180,
+                ]
+            ],
+            [
+                'GETvar' => 'tx_cart_product[controller]',
+                'noMatch' => 'bypass'
+            ]
+        ],
+    ],
+
+|
+
+Diese erzeugt unter anderem Links aus dem Produkttitel.
+
+*Eine ausführlichere Dokumentation mit weiteren Beispielen folgt.*

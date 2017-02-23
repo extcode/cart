@@ -16,7 +16,7 @@
                                 <items>
                                     <numIndex index="0">
                                         <numIndex index="0">LLL:EXT:cart/Resources/Private/Language/locallang_db.xlf:tx_cart.plugin.products.action.product.list_and_show</numIndex>
-                                        <numIndex index="1">Product->list;Product->show</numIndex>
+                                        <numIndex index="1">Product->show;Product->list</numIndex>
                                     </numIndex>
                                     <numIndex index="1">
                                         <numIndex index="0">LLL:EXT:cart/Resources/Private/Language/locallang_db.xlf:tx_cart.plugin.products.action.product.show</numIndex>

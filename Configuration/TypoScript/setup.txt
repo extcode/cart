@@ -74,6 +74,13 @@ plugin.tx_cart {
         storagePid = {$plugin.tx_cart.persistence.storagePid}
     }
 
+    mvc {
+        callDefaultActionIfActionCantBeResolved = 1
+    }
+    features {
+        skipDefaultArguments = 1
+    }
+
     settings {
         cart {
             pid = {$plugin.tx_cart.settings.cart.pid}

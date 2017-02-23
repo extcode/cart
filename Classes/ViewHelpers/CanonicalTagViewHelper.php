@@ -48,7 +48,6 @@ class CanonicalTagViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractTa
             array('tx_cart_product' =>
                 array(
                     'controller' => 'Product',
-                    'action' => 'show',
                     'product' => $product->getUid()
                 )
             )
