@@ -3,7 +3,7 @@
 .. --------------------------------------------------
 .. -*- coding: utf-8 -*- with BOM.
 
-3.0.0 - 21.02.2017
+3.0.0 - 23.02.2017
 ------------------
 
 Diese Version wird einige Änderungen mit sich bringen. Darunter befinden sich einige neue Funktionen, aber auch ein paar Änderungen, die Anpassungen an bestehenden Installationen erforderlich machen. Dieser ChangeLog-Eintrag sollte daher sorgfältig durchgearbeitet werden.
@@ -17,6 +17,7 @@ Sollten Staffelpreise und Mengenrabatte angegeben sein, wird der für den Käufe
 
 .. IMPORTANT::
    Es ist eine Aktualisierung der Datenbank erforderlich. Da dieses Feld neu hinzu kommt, sollte das in der Regel unproblematisch sein.
+
 
 #56 Bezahl- und Versandmethoden nach Rechnungs- oder Lieferland
 ===============================================================
@@ -140,6 +141,7 @@ Die Warenkorbzusammenfassung wird ebenfalls aktuakisiert, denn die Auswahl des L
 Durch die Änderung wird nun aber nur noch der ISO-Code aus der TypoScript-Konfiguration in der Bestellung gespeichert. Entsprechend müssen auch die Templates für den E-Mail-Versand und die
 Templates im Backend angepasst werden. Die Default-Templates der Cart-Erweiterung bringen eine entsprechende Änderung mit. Eigene Templates müssen entsprechend angepasst werden.
 
+
 #58 Produkt-Hauptkategorie und Canonical Tags
 =============================================
 
@@ -170,3 +172,10 @@ Wenn die Templates:
 * cart/Resources/Private/Partials/Mail/ProductList.html
 
 durch eigene Dateien ersetzt wurden, kann in diesen Dateien *{variant.sku}* durch *{variant.completeSku}* ersetzt werden.
+
+
+#68 Signal Slot 'checkProductsBeforeAddToCart'
+==============================================
+
+Ein neuer Signal Slot, der es erlaubt vor dem Hinzufügen von Produkten eigene Tests durchzuführen.
+Mit diesem Signal Slot ist es möglich Produkte, die hinzugefügt werden sollen zu verändern oder zu entfernen. Eigene Warn- oder Fehlermeldungen werden zu den FlashMessages hinzugefügt.

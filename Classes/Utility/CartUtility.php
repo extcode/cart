@@ -1192,4 +1192,33 @@ class CartUtility
 
         $this->sessionHandler->writeToSession($cart, $cartSettings['pid']);
     }
+
+    /**
+     * @param \Extcode\Cart\Domain\Model\Cart\Cart $cart
+     * @param array $products
+     *
+     * @return array
+     */
+    public function checkProductsBeforeAddToCart(\Extcode\Cart\Domain\Model\Cart\Cart $cart, $products)
+    {
+        $data = [
+            'cart' => $cart,
+            'products' => $products,
+            'errors' => [],
+        ];
+
+        $signalSlotDispatcher = $this->objectManager->get(
+            \TYPO3\CMS\Extbase\SignalSlot\Dispatcher::class
+        );
+        $slotReturn = $signalSlotDispatcher->dispatch(
+            __CLASS__,
+            'checkProductsBeforeAddToCart',
+            [$data]
+        );
+
+        $products = $slotReturn[0]['products'];
+        $errors = $slotReturn[0]['errors'];
+
+        return [$products, $errors];
+    }
 }

@@ -362,6 +362,8 @@ class CartController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
             $this->cart->getTaxClasses()
         );
 
+        list($products, $errors) = $this->cartUtility->checkProductsBeforeAddToCart($this->cart, $products);
+
         $quantity = 0;
         foreach ($products as $product) {
             $quantity += $product->getQuantity();
@@ -392,6 +394,24 @@ class CartController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 
             return json_encode($response);
         } else {
+            if ($errors) {
+                if (is_array($errors)) {
+                    foreach ($errors as $error) {
+                        if ($error['message']) {
+                            $severity = !empty($error['severity']) ? $error['severity'] : $severity = \TYPO3\CMS\Core\Messaging\AbstractMessage::WARNING;
+                            $storeInSession = true;
+
+                            $this->addFlashMessage(
+                                $error['message'],
+                                '',
+                                $severity,
+                                $storeInSession
+                            );
+                        }
+                    }
+                }
+            }
+
             $this->redirect('showCart');
         }
     }

@@ -884,7 +884,6 @@ class OrderUtility
         $typoScriptService = GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Service\\TypoScriptService');
         $pluginTypoScriptSettings = $typoScriptService->convertPlainArrayToTypoScriptArray($pluginSettings);
 
-
         $registry = GeneralUtility::makeInstance('TYPO3\\CMS\\Core\\Registry');
 
         $registryName = 'last' . ucfirst($numberType) . '_' . $pluginSettings['settings']['cart']['pid'];

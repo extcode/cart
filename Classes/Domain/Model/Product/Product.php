@@ -125,7 +125,6 @@ class Product extends \Extcode\Cart\Domain\Model\Product\AbstractProduct
      */
     protected $quantityDiscounts;
 
-
     /**
      * Price Measure
      *
