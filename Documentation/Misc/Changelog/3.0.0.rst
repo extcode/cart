@@ -3,7 +3,7 @@
 .. --------------------------------------------------
 .. -*- coding: utf-8 -*- with BOM.
 
-3.0.0 - 23.02.2017
+3.0.0 - 24.02.2017
 ------------------
 
 Diese Version wird einige Änderungen mit sich bringen. Darunter befinden sich einige neue Funktionen, aber auch ein paar Änderungen, die Anpassungen an bestehenden Installationen erforderlich machen. Dieser ChangeLog-Eintrag sollte daher sorgfältig durchgearbeitet werden.
@@ -260,3 +260,9 @@ Ein neuer Signal Slot, der es erlaubt vor dem Speichern einer Bestellung diese n
 
 .. IMPORTANT::
    Dieser Signal Slot ist dafür gedacht, um zum Beisiel die (neuen) Adressen eines Käufers zu den Kontaktdaten hinzuzufügen. Er sollte nicht genutzt werden, um Änderungen an den Preisen oder Produkten vorzunehmen.
+
+
+#78 Testing Framework für UnitTests
+===================================
+
+Dies hat keine Auswirkung auf die Verwendung von Cart und dient nur zum Testen.
