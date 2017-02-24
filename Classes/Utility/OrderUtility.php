@@ -274,20 +274,10 @@ class OrderUtility
      *
      * @param \Extcode\Cart\Domain\Model\Cart\Cart $cart
      */
-    public function handleStock(\Extcode\Cart\Domain\Model\Cart\Cart $cart)
-    {
-        $data = [
-            'cart' => $cart,
-        ];
-
-        $signalSlotDispatcher = $this->objectManager->get(
-            \TYPO3\CMS\Extbase\SignalSlot\Dispatcher::class
-        );
-        $signalSlotDispatcher->dispatch(
-            __CLASS__,
-            'beforeHandleStock',
-            [$data]
-        );
+    public function handleStock(
+        \Extcode\Cart\Domain\Model\Cart\Cart $cart
+    ) {
+        $this->beforeHandleStock($cart);
 
         /** @var \Extcode\Cart\Domain\Repository\Product\ProductRepository $productProductRepository */
         $productProductRepository = $this->objectManager->get(
@@ -321,6 +311,19 @@ class OrderUtility
 
         $this->persistenceManager->persistAll();
 
+        $this->afterHandleStock($cart);
+    }
+
+    /**
+     * Before Handle Payment
+     *
+     * @param \Extcode\Cart\Domain\Model\Cart\Cart $cart
+     *
+     * @return void
+     */
+    public function beforeHandleStock(
+        \Extcode\Cart\Domain\Model\Cart\Cart $cart
+    ) {
         $data = [
             'cart' => $cart,
         ];
@@ -330,7 +333,31 @@ class OrderUtility
         );
         $signalSlotDispatcher->dispatch(
             __CLASS__,
-            'afterHandleStock',
+            __FUNCTION__,
+            [$data]
+        );
+    }
+
+    /**
+     * After Handle Stock
+     *
+     * @param \Extcode\Cart\Domain\Model\Cart\Cart $cart
+     *
+     * @return void
+     */
+    public function afterHandleStock(
+        \Extcode\Cart\Domain\Model\Cart\Cart $cart
+    ) {
+        $data = [
+            'cart' => $cart,
+        ];
+
+        $signalSlotDispatcher = $this->objectManager->get(
+            \TYPO3\CMS\Extbase\SignalSlot\Dispatcher::class
+        );
+        $signalSlotDispatcher->dispatch(
+            __CLASS__,
+            __FUNCTION__,
             [$data]
         );
     }
@@ -347,6 +374,8 @@ class OrderUtility
         \Extcode\Cart\Domain\Model\Order\Item $orderItem,
         \Extcode\Cart\Domain\Model\Cart\Cart $cart
     ) {
+        $this->beforeHandlePayment($orderItem, $cart);
+
         $payment = $cart->getPayment();
         $provider = $payment->getAdditional('payment_service');
 
@@ -362,11 +391,67 @@ class OrderUtility
         );
         $params = $signalSlotDispatcher->dispatch(
             __CLASS__,
-            __FUNCTION__ . 'AfterOrder',
+            __FUNCTION__,
             [$data]
         );
 
+        $this->afterHandlePayment($orderItem, $cart);
+
         return $params[0]['providerUsed'];
+    }
+
+    /**
+     * Before Handle Payment
+     *
+     * @param \Extcode\Cart\Domain\Model\Order\Item $orderItem
+     * @param \Extcode\Cart\Domain\Model\Cart\Cart $cart
+     *
+     * @return void
+     */
+    public function beforeHandlePayment(
+        \Extcode\Cart\Domain\Model\Order\Item $orderItem,
+        \Extcode\Cart\Domain\Model\Cart\Cart $cart
+    ) {
+        $data = [
+            'orderItem' => $orderItem,
+            'cart' => $cart,
+        ];
+
+        $signalSlotDispatcher = $this->objectManager->get(
+            \TYPO3\CMS\Extbase\SignalSlot\Dispatcher::class
+        );
+        $signalSlotDispatcher->dispatch(
+            __CLASS__,
+            __FUNCTION__,
+            [$data]
+        );
+    }
+
+    /**
+     * After Handle Payment
+     *
+     * @param \Extcode\Cart\Domain\Model\Order\Item $orderItem
+     * @param \Extcode\Cart\Domain\Model\Cart\Cart $cart
+     *
+     * @return void
+     */
+    public function afterHandlePayment(
+        \Extcode\Cart\Domain\Model\Order\Item $orderItem,
+        \Extcode\Cart\Domain\Model\Cart\Cart $cart
+    ) {
+        $data = [
+            'orderItem' => $orderItem,
+            'cart' => $cart,
+        ];
+
+        $signalSlotDispatcher = $this->objectManager->get(
+            \TYPO3\CMS\Extbase\SignalSlot\Dispatcher::class
+        );
+        $signalSlotDispatcher->dispatch(
+            __CLASS__,
+            __FUNCTION__,
+            [$data]
+        );
     }
 
     /**

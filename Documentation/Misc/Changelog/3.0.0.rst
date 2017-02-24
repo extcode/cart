@@ -266,3 +266,13 @@ Ein neuer Signal Slot, der es erlaubt vor dem Speichern einer Bestellung diese n
 ===================================
 
 Dies hat keine Auswirkung auf die Verwendung von Cart und dient nur zum Testen.
+
+
+#78 Signal Slot 'beforeHandlePayment', 'handlePayment' und 'afterHandlePayment'
+===============================================================================
+
+Die neuen Signal Slots, erlauben es vor oder nach dem eigentlichen 'handlePayment' eigene Aktionen durchzuführen.
+
+.. IMPORTANT::
+   Der Signal Slot 'handlePaymentAfterOrder' wurde in 'handlePayment' umbenannt. Wer diesen Signal Slot bereits verwendet muss unbedingt den Aufruf anpassen.
+   Bisher wurden dieser für die Erweiterungen CartPaypal, CartGirosolution, CartPayone und CartSaferpay verwendet. Ein entsprechendes Update dieser Erweiterungen wird ebenfalls bereitgestellt.
