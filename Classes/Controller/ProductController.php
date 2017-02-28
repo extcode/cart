@@ -171,7 +171,7 @@ class ProductController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
      *
      * @param \Extcode\Cart\Domain\Model\Product\Product $product
      *
-     * @dontvalidate $product
+     * @ignorevalidation $product
      *
      * @return void
      */

@@ -273,9 +273,13 @@ class OrderUtility
      * Handle Stock
      *
      * @param \Extcode\Cart\Domain\Model\Cart\Cart $cart
+     * @parem array $pluginSettings
+     *
+     * @return void
      */
     public function handleStock(
-        \Extcode\Cart\Domain\Model\Cart\Cart $cart
+        \Extcode\Cart\Domain\Model\Cart\Cart $cart,
+        $pluginSettings
     ) {
         $this->beforeHandleStock($cart);
 
@@ -290,22 +294,49 @@ class OrderUtility
 
         /** @var \Extcode\Cart\Domain\Model\Cart\Product $cartProduct */
         foreach ($cart->getProducts() as $cartProduct) {
-            if (!$cartProduct->getContentId()) {
-                /** @var \Extcode\Cart\Domain\Model\Product\Product $productProduct */
-                $productProduct = $productProductRepository->findByUid($cartProduct->getProductId());
-                if ($productProduct && $productProduct->getHandleStock()) {
-                    if ($productProduct->getHandleStockInVariants()) {
-                        /** @var \Extcode\Cart\Domain\Model\Cart\BeVariant $cartBeVariant */
-                        foreach ($cartProduct->getBeVariants() as $cartBeVariant) {
-                            /** @var \Extcode\Cart\Domain\Model\Product\BeVariant $productBeVariant */
-                            $productBeVariant = $productBeVariantRepository->findByUid($cartBeVariant->getId());
-                            $productBeVariant->removeFromStock($cartBeVariant->getQuantity());
-                        }
-                    } else {
-                        $productProduct->removeFromStock($cartProduct->getQuantity());
-                    }
+            $productStorageId = $cartProduct->getTableId();
+
+            if ($productStorageId) {
+                $repositoryClass = '';
+
+                if (is_array($pluginSettings['productStorages']) &&
+                    is_array($pluginSettings['productStorages'][$productStorageId]) &&
+                    isset($pluginSettings['productStorages'][$productStorageId]['class'])
+                ) {
+                    $repositoryClass = $pluginSettings['productStorages'][$productStorageId]['class'];
                 }
-                $productProductRepository->update($productProduct);
+
+                if ($repositoryClass == 'Extcode\Cart\Domain\Repository\Product\ProductRepository') {
+                    /** @var \Extcode\Cart\Domain\Model\Product\Product $productProduct */
+                    $productProduct = $productProductRepository->findByUid($cartProduct->getProductId());
+                    if ($productProduct && $productProduct->getHandleStock()) {
+                        if ($productProduct->getHandleStockInVariants()) {
+                            /** @var \Extcode\Cart\Domain\Model\Cart\BeVariant $cartBeVariant */
+                            foreach ($cartProduct->getBeVariants() as $cartBeVariant) {
+                                /** @var \Extcode\Cart\Domain\Model\Product\BeVariant $productBeVariant */
+                                $productBeVariant = $productBeVariantRepository->findByUid($cartBeVariant->getId());
+                                $productBeVariant->removeFromStock($cartBeVariant->getQuantity());
+                            }
+                        } else {
+                            $productProduct->removeFromStock($cartProduct->getQuantity());
+                        }
+                    }
+                    $productProductRepository->update($productProduct);
+                } else {
+                    $data = [
+                        'cartProduct' => $cartProduct,
+                        'productStorageSettings' => $pluginSettings['productStorages'][$productStorageId],
+                    ];
+
+                    $signalSlotDispatcher = $this->objectManager->get(
+                        \TYPO3\CMS\Extbase\SignalSlot\Dispatcher::class
+                    );
+                    $signalSlotDispatcher->dispatch(
+                        __CLASS__,
+                        __FUNCTION__,
+                        [$data]
+                    );
+                }
             }
         }
 

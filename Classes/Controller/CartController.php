@@ -57,6 +57,13 @@ class CartController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     protected $parserUtility;
 
     /**
+     * Product Utility
+     *
+     * @var \Extcode\Cart\Utility\ProductUtility
+     */
+    protected $productUtility;
+
+    /**
      * Cart
      *
      * @var \Extcode\Cart\Domain\Model\Cart\Cart
@@ -150,9 +157,19 @@ class CartController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     }
 
     /**
+     * @param \Extcode\Cart\Utility\ProductUtility $productUtility
+     */
+    public function injectProductUtility(
+        \Extcode\Cart\Utility\ProductUtility $productUtility
+    ) {
+        $this->productUtility = $productUtility;
+    }
+
+    /**
      * @return string
      */
-    protected function getErrorFlashMessage() {
+    protected function getErrorFlashMessage()
+    {
         $getValidationResults = $this->arguments->getValidationResults();
 
         if ($getValidationResults->hasErrors()) {
@@ -356,18 +373,20 @@ class CartController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     {
         $this->cart = $this->cartUtility->getCartFromSession($this->settings['cart'], $this->pluginSettings);
 
-        $products = $this->cartUtility->getProductsFromRequest(
+        $products = $this->productUtility->getProductsFromRequest(
             $this->pluginSettings,
             $this->request,
             $this->cart->getTaxClasses()
         );
 
-        list($products, $errors) = $this->cartUtility->checkProductsBeforeAddToCart($this->cart, $products);
+        list($products, $errors) = $this->productUtility->checkProductsBeforeAddToCart($this->cart, $products);
 
         $quantity = 0;
         foreach ($products as $product) {
-            $quantity += $product->getQuantity();
-            $this->cart->addProduct($product);
+            if ($product instanceof \Extcode\Cart\Domain\Model\Cart\Product) {
+                $quantity += $product->getQuantity();
+                $this->cart->addProduct($product);
+            }
         }
 
         $this->updateService();
@@ -377,8 +396,10 @@ class CartController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $productsChanged = [];
 
         foreach ($products as $product) {
-            $productChanged = $this->cart->getProduct($product->getId());
-            $productsChanged[$product->getId()] = $productChanged->toArray();
+            if ($product instanceof \Extcode\Cart\Domain\Model\Cart\Product) {
+                $productChanged = $this->cart->getProduct($product->getId());
+                $productsChanged[$product->getId()] = $productChanged->toArray();
+            }
         }
 
         if (isset($_GET['type'])) {
@@ -724,7 +745,7 @@ class CartController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
             $shippingAddress
         );
 
-        $this->orderUtility->handleStock($this->cart);
+        $this->orderUtility->handleStock($this->cart, $this->pluginSettings);
 
         $providerUsed = $this->orderUtility->handlePayment($orderItem, $this->cart);
 

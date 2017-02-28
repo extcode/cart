@@ -25,11 +25,8 @@ plugin.tx_cart {
         # cat=plugin.cart//0100; type=text; label= Param productId: Enter the correct parameter name for a unique product number (integer) of your order form. cart uses this number for internal purposes. It can't be a string. The PUID will never be displayed (e.g. tx_myext_pi1|showUid). Default: productId.
         productId = productId
 
-        # cat=plugin.cart//0101; type=text; label= Param tableId: Enter the correct parameter name for a unique product table (integer) of your order form. cart uses this number for internal purposes. It can't be a string. The tableId will never be displayed.
-        tableId =
-
-        # cat=plugin.cart//0102; type=text; label= Param repositoryId: Enter the correct parameter name for a unique product repository (integer) of your order form. cart uses this number for internal purposes. It can't be a string. The tableId will never be displayed.
-        repositoryId =
+        # cat=plugin.cart//0101; type=text; label= Param productStorageId: Enter the correct parameter name for a unique product storage (integer) of your order form. cart uses this number for internal purposes. It can't be a string. The productStorageId will never be displayed.
+        productStorageId =
 
         # cat=plugin.cart//0105; type=text; label= Param contentId: Enter the correct parameter name for the uid of the current tt_content element. This value is only needed if you want to add tt_content elements to your cart. The provided parameter must be equal to the name in your HTML template. Default: contentId.
         contentId = contentId
@@ -48,6 +45,12 @@ plugin.tx_cart {
 
         # cat=plugin.cart//0153; type=text; label= Param Multiple: Enter the correct parameter name if adding multiple products to cart in one form.
         multiple = multiple
+    }
+
+    productStorages {
+        1 {
+            class = Extcode\Cart\Domain\Repository\Product\ProductRepository
+        }
     }
 
     taxClasses {
@@ -76,37 +79,6 @@ plugin.tx_cart {
             calc = 0.00
             # cat=plugin.cart//0182; type=text; label= Tax rate: Enter the name for this tax class item (e.g. free). Value can be displayed.
             name = free
-        }
-      }
-
-      db {
-        # cat=plugin.cart//0200; type=text; label= Table name: Enter the correct table name where the products are stored (e.g. tx_myext).
-        tableName =
-
-        # cat=plugin.cart//0205; type=text; label= Table localisation column: Enter the correct column name where the localisation parent is stored (e.g. l10n_parent | l18n_parent).
-        l10n_parent = l10n_parent
-
-        fields {
-            # cat=plugin.cart//0210; type=text; label= Title column: Enter the correct column name of the table where the product titles are stored (e.g. title).
-            title = title
-            # cat=plugin.cart//0220; type=text; label= Price column: Enter the correct column name of the table where the prices are stored (e.g. price).
-            price = price
-            # cat=plugin.cart//0230; type=text; label= Inherit Price column: Enter the correct column name of the table where the inherit price flag is stored (e.g. inherit_price).
-            inheritPrice =
-            # cat=plugin.cart//0235; type=text; label= Tax class column: Enter the correct column name of the table where the tax classes are stored (e.g. taxclass).
-            taxClassId = taxclass
-            # cat=plugin.cart//0240; type=text; label= SKU column: Enter the correct column name of the table where the SKUs are stored (e.g. sku).
-            sku =
-            # cat=plugin.cart//0243; type=text; label= Variants column: Enter the correct column name of the table where the variants are stored (e.g. variants).
-            variants =
-            # cat=plugin.cart//0250; type=text; label= Service Attribute 1 column: Enter the correct column name of the table where the service attribute 1 are stored (e.g. for weight).
-            serviceAttribute1 =
-            # cat=plugin.cart//0251; type=text; label= Service Attribute 2 column: Enter the correct column name of the table where the service attribute 2 are stored (e.g. for volume).
-            serviceAttribute2 =
-            # cat=plugin.cart//0252; type=text; label= Service Attribute 3 column: Enter the correct column name of the table where the service attribute 3 are stored (e.g. for length).
-            serviceAttribute3 =
-            # cat=plugin.cart//0260; type=text; label= Has FE Variant column: Enter the correct column name of the table where the "has fe variant" attribute are stored (e.g. has_fe_variant).
-            hasFeVariants =
         }
     }
 
@@ -141,46 +113,6 @@ plugin.tx_cart {
         fields {
             acceptTerms = true
             acceptConditions = true
-        }
-    }
-}
-
-plugin.tx_cart {
-    variantRepository {
-        class = Extcode\Cart\Domain\Repository\Product\BeVariantRepository
-    }
-
-    taxClassRepository {
-        class = Extcode\Cart\Domain\Repository\Product\TaxClassRepository
-        fields {
-            getId    = getUid
-            getTitle = getTitle
-            getValue = getValue
-            getCalc  = getCalc
-        }
-    }
-
-    products {
-        repository {
-            class = Extcode\Cart\Domain\Repository\Product\ProductRepository
-
-            fields {
-                getMinNumberInOrder      = getMinNumberInOrder
-                getMaxNumberInOrder      = getMaxNumberInOrder
-                getSpecialPrice          = getBestSpecialPrice
-                getQuantityDiscountArray = getQuantityDiscountArray
-                getFeVariants            = getFeVariants
-            }
-
-            beVariants {
-                repository {
-                    class = Extcode\Cart\Domain\Repository\Product\BeVariantRepository
-
-                    fields {
-                        getSpecialPrice = getBestSpecialPrice
-                    }
-                }
-            }
         }
     }
 }

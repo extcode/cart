@@ -12,6 +12,7 @@
     * TASK #77: add signal slot to change order item before saving
     * TASK #78: use testing framework instead of typo3 source
     * TASK #79: add signal slot before and after handle payment
+    * TASK #80: move external product storage handling to signal slot
 
 2.4.3
     2017-02-18

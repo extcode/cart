@@ -34,13 +34,6 @@ class ParserUtility
     protected $objectManager;
 
     /**
-     * Plugin Settings
-     *
-     * @var array
-     */
-    protected $pluginSettings;
-
-    /**
      * @param \TYPO3\CMS\Extbase\Object\ObjectManagerInterface $objectManager
      */
     public function injectObjectManager(
@@ -150,7 +143,9 @@ class ParserUtility
         }
 
         if ($selectedCountry) {
-            if (is_array($pluginSettingsType[$selectedCountry]) && is_array($pluginSettingsType[$selectedCountry]['options'])) {
+            if (is_array($pluginSettingsType[$selectedCountry]) &&
+                is_array($pluginSettingsType[$selectedCountry]['options'])
+            ) {
                 $pluginSettingsType = $pluginSettingsType[$selectedCountry];
             }
         }
@@ -160,7 +155,7 @@ class ParserUtility
                 $class = '\\Extcode\\Cart\\Domain\\Model\\Cart\\' . $className;
                 /**
                  * Service
-                 * @var \Extcode\Cart\Domain\Model\Cart\Service $service
+                 * @var \Extcode\Cart\Domain\Model\Cart\AbstractService $service
                  */
                 $service = new $class(
                     $key,
@@ -245,75 +240,5 @@ class ParserUtility
         }
 
         return $services;
-    }
-
-    /**
-     * @param array $pluginSettings
-     * @param Request $request Request
-     *
-     * @return array
-     */
-    public function getPreCartProductSet(array $pluginSettings, Request $request)
-    {
-        if (!$this->pluginSettings) {
-            $this->pluginSettings = $pluginSettings;
-        }
-
-        $cartProductValues = [];
-
-        if ($request->hasArgument('productId')) {
-            $cartProductValues['productId'] = intval($request->getArgument('productId'));
-        }
-        if ($request->hasArgument('tableId')) {
-            $cartProductValues['tableId'] = intval($request->getArgument('tableId'));
-        }
-        if ($request->hasArgument('repositoryId')) {
-            $cartProductValues['repositoryId'] = intval($request->getArgument('repositoryId'));
-        }
-        if ($request->hasArgument('contentId')) {
-            $cartProductValues['contentId'] = intval($request->getArgument('contentId'));
-        }
-        if ($request->hasArgument('quantity')) {
-            $quantity = intval($request->getArgument('quantity'));
-            $cartProductValues['quantity'] = $quantity ? $quantity : 1;
-        }
-
-        if ($request->hasArgument('feVariants')) {
-            $requestFeVariants = $request->getArgument('feVariants');
-            if (is_array($requestFeVariants)) {
-                foreach ($requestFeVariants as $requestFeVariantKey => $requestFeVariantValue) {
-                    $cartProductValues['feVariants'][$requestFeVariantKey] = $requestFeVariantValue;
-                }
-            }
-        }
-
-        if ($request->hasArgument('beVariants')) {
-            $requestVariants = $request->getArgument('beVariants');
-            if (is_array($requestVariants)) {
-                foreach ($requestVariants as $requestVariantKey => $requestVariantValue) {
-                    $cartProductValues['beVariants'][$requestVariantKey] = intval($requestVariantValue);
-                }
-            }
-        }
-
-        $data = [
-            'pluginSettings' => $pluginSettings,
-            'request' => $request,
-            'cartProductValues' => $cartProductValues,
-        ];
-
-        $signalSlotDispatcher = $this->objectManager->get(
-            \TYPO3\CMS\Extbase\SignalSlot\Dispatcher::class
-        );
-
-        $slotReturn = $signalSlotDispatcher->dispatch(
-            __CLASS__,
-            'changeCartProductValues',
-            [$data]
-        );
-
-        $cartProductValues = $slotReturn[0]['cartProductValues'];
-
-        return $cartProductValues;
     }
 }

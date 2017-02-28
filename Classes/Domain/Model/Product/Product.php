@@ -548,7 +548,11 @@ class Product extends \Extcode\Cart\Domain\Model\Product\AbstractProduct
      */
     public function getBestSpecialPricePercentageDiscount($frontendUserGroupIds = [])
     {
-        $bestSpecialPricePercentageDiscount = (($this->getBestSpecialPriceDiscount($frontendUserGroupIds)) / $this->price) * 100;
+        $bestSpecialPricePercentageDiscount = 0.0;
+
+        if ($this->price > 0.0) {
+            $bestSpecialPricePercentageDiscount = (($this->getBestSpecialPriceDiscount($frontendUserGroupIds)) / $this->price) * 100;
+        }
 
         return $bestSpecialPricePercentageDiscount;
     }
