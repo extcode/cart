@@ -129,6 +129,7 @@ return [
             'label' => $_LLL . ':tx_cart_domain_model_order_item.order_date',
             'config' => [
                 'type' => 'input',
+                'readOnly' => 1,
                 'size' => '8',
                 'max' => '20',
                 'eval' => 'date',
@@ -151,6 +152,7 @@ return [
             'label' => $_LLL . ':tx_cart_domain_model_order_item.invoice_date',
             'config' => [
                 'type' => 'input',
+                'readOnly' => 1,
                 'size' => '8',
                 'max' => '20',
                 'eval' => 'date',
@@ -173,6 +175,7 @@ return [
             'label' => $_LLL . ':tx_cart_domain_model_order_item.delivery_date',
             'config' => [
                 'type' => 'input',
+                'readOnly' => 1,
                 'size' => '8',
                 'max' => '20',
                 'eval' => 'date',

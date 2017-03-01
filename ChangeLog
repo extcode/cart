@@ -1,5 +1,5 @@
 3.0.0
-    2017-02-24
+    2017-03-01
     Daniel Lorenz <daniel.lorenz@extco.de>
 
     * TASK #63: add quantity discounts / graduated prices for products
@@ -13,6 +13,7 @@
     * TASK #78: use testing framework instead of typo3 source
     * TASK #79: add signal slot before and after handle payment
     * TASK #80: move external product storage handling to signal slot
+    * TASK #82: make *_date fields in order items read only
 
 2.4.3
     2017-02-18
