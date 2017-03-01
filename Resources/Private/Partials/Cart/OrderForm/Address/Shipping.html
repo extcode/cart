@@ -1,3 +1,5 @@
+{namespace cart=Extcode\Cart\ViewHelpers}
+
 <div id="shipping-address" class="bg-light-grey" style="{f:if(condition:'{cart.shippingCountry}', then:'', else:'display: none;')}">
     <h5 class="form-title">
         <span><f:translate key="tx_cart.controller.order.action.show_cart.block-header.shipping_address"/></span>
@@ -171,7 +173,7 @@
                                 <f:translate key="tx_cart_domain_model_order_address.country"/>
                             </label>
                             <div class="input-box">
-                                <f:form.select id="shippingAddress:country"
+                                <cart:form.select id="shippingAddress:country"
                                                class="form-control"
                                                name="shippingAddress[country]"
                                                value="{cart.shippingCountry}"
