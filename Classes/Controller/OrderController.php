@@ -333,25 +333,45 @@ class OrderController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     }
 
     /**
-     * Generate Invoice Number Action
+     * Generate Number Action
      *
      * @param \Extcode\Cart\Domain\Model\Order\Item $orderItem
+     * @param string $numberType
      *
      * @return void
      */
-    public function generateInvoiceNumberAction(\Extcode\Cart\Domain\Model\Order\Item $orderItem)
+    public function generateNumberAction(\Extcode\Cart\Domain\Model\Order\Item $orderItem, $numberType)
     {
-        if (!$orderItem->getInvoiceNumber()) {
-            $invoiceNumber = $this->generateInvoiceNumber($orderItem);
-            $orderItem->setInvoiceNumber($invoiceNumber);
-            $orderItem->setInvoiceDate(new \DateTime());
+        $getter = 'get' . ucfirst($numberType) . 'Number';
+        $setNumberTypeFunction = 'set' . ucfirst($numberType) . 'Number';
+        $setNumberDateFunction = 'set' . ucfirst($numberType) . 'Date';
+
+        if (!$orderItem->$getter()) {
+            $generatedNumber = $this->generateNumber($orderItem, $numberType);
+            $orderItem->$setNumberTypeFunction($generatedNumber);
+            $orderItem->$setNumberDateFunction(new \DateTime());
 
             $this->itemRepository->update($orderItem);
             $this->persistenceManager->persistAll();
 
-            $msg = 'Invoice Number ' . $invoiceNumber . ' was generated.';
+            $msg = 'The generated ' . $numberType . ' Number is: ' . $generatedNumber . '.';
+
+            $msg = LocalizationUtility::translate(
+                'tx_cart.controller.order.action.generate_number_action.' . $numberType . '.success',
+                $this->extensionName,
+                [
+                    0 => $generatedNumber,
+                ]
+            );
 
             $this->addFlashMessage($msg);
+        } else {
+            $msg = LocalizationUtility::translate(
+                'tx_cart.controller.order.action.generate_number_action.' . $numberType . '.already_generated',
+                $this->extensionName
+            );
+
+            $this->addFlashMessage($msg, '', \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR);
         }
 
         $this->redirect('show', null, null, ['orderItem' => $orderItem]);
@@ -440,16 +460,16 @@ class OrderController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     }
 
     /**
-     * Generate an Invoice Number
+     * Generate Number
      *
      * @param \Extcode\Cart\Domain\Model\Order\Item $orderItem
+     * @param string $pdfType
      *
-     * @return int
+     * @return string
      */
-    protected function generateInvoiceNumber(\Extcode\Cart\Domain\Model\Order\Item $orderItem)
+    protected function generateNumber(\Extcode\Cart\Domain\Model\Order\Item $orderItem, $pdfType)
     {
         $this->buildTSFE();
-        $cartConf = $GLOBALS['TSFE']->tmpl->setup['plugin.']['tx_cart.'];
 
         /**
          * @var \TYPO3\CMS\Extbase\Service\TypoScriptService $typoScriptService
@@ -478,9 +498,9 @@ class OrderController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
             ],
         ];
 
-        $invoiceNumber = $this->orderUtility->getInvoiceNumber($pluginTypoScriptSettings);
+        $number = $this->orderUtility->getNumber($pluginTypoScriptSettings, $pdfType);
 
-        return $invoiceNumber;
+        return $number;
     }
 
     /**

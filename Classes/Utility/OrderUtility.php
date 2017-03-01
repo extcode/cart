@@ -992,18 +992,6 @@ class OrderUtility
      * Get Invoice Number
      *
      * @param array $pluginSettings
-     *
-     * @return string
-     */
-    public function getInvoiceNumber(array $pluginSettings)
-    {
-        return $this->getNumber($pluginSettings, 'invoice');
-    }
-
-    /**
-     * Get Invoice Number
-     *
-     * @param array $pluginSettings
      * @param string $numberType
      *
      * @return string

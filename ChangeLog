@@ -14,6 +14,7 @@
     * TASK #79: add signal slot before and after handle payment
     * TASK #80: move external product storage handling to signal slot
     * TASK #82: make *_date fields in order items read only
+    * TASK #81: refactor generate*Number actions
 
 2.4.3
     2017-02-18

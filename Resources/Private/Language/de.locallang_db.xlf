@@ -1114,7 +1114,7 @@
             </trans-unit>
             <trans-unit id="tx_cart_domain_model_product_quantitydiscount.quantity">
                 <source>Quantity (lower bound)</source>
-                <target>Amzahl (untere Grenze)</target>
+                <target>Anzahl (untere Grenze)</target>
             </trans-unit>
 
             <trans-unit id="tx_cart_domain_model_product_tag">

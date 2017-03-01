@@ -35,6 +35,40 @@
             </f:if>
         </td>
     </tr>
+    <f:if condition="{orderItem.deliveryNumber}">
+        <tr>
+            <th style="background-color: #ededed;">
+                &nbsp;
+            </th>
+            <td>
+                &nbsp;
+            </td>
+            <th style="background-color: #ededed; border-left: 1px solid #DDD;">
+                <f:translate key="tx_cart_domain_model_order_item.delivery_number"/>
+                :
+            </th>
+            <td>
+                {orderItem.deliveryNumber}
+            </td>
+        </tr>
+        <tr>
+            <th style="background-color: #ededed;">
+                &nbsp;
+            </th>
+            <td>
+                &nbsp;
+            </td>
+            <th style="background-color: #ededed; border-left: 1px solid #DDD;">
+                <f:translate key="tx_cart_domain_model_order_item.delivery_date"/>
+                :
+            </th>
+            <td>
+                <f:if condition="{orderItem.deliveryDate}">
+                    <f:format.date format="d.m.Y" date="{orderItem.deliveryDate}"/>
+                </f:if>
+            </td>
+        </tr>
+    </f:if>
     <tr>
         <th style="background-color: #ededed;">
             <f:translate key="tx_cart_domain_model_order_item.order_shipping"/>

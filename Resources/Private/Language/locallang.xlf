@@ -252,6 +252,24 @@
             <trans-unit id="tx_cart.controller.order.action.payment_cancel.thank_you">
                 <source>Thank you.</source>
             </trans-unit>
+            <trans-unit id="tx_cart.controller.order.action.generate_number_action.order.success">
+                <source>The generated order number is: %s.</source>
+            </trans-unit>
+            <trans-unit id="tx_cart.controller.order.action.generate_number_action.order.already_generated">
+                <source>An order number already exists!</source>
+            </trans-unit>
+            <trans-unit id="tx_cart.controller.order.action.generate_number_action.invoice.success">
+                <source>The generated invoice number is: %s.</source>
+            </trans-unit>
+            <trans-unit id="tx_cart.controller.order.action.generate_number_action.invoice.already_generated">
+                <source>An invoice number already exists!</source>
+            </trans-unit>
+            <trans-unit id="tx_cart.controller.order.action.generate_number_action.delivery.success">
+                <source>The generated delivery number is: %s.</source>
+            </trans-unit>
+            <trans-unit id="tx_cart.controller.order.action.generate_number_action.delivery.already_generated">
+                <source>An delivery number already exists!</source>
+            </trans-unit>
 
             <trans-unit id="tx_cart.controller.order.actions">
                 <source>Actions</source>
@@ -361,6 +379,12 @@
             </trans-unit>
             <trans-unit id="tx_cart_domain_model_order_item.invoice_date">
                 <source>Invoice Date</source>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_item.delivery_number">
+                <source>Delivery Number</source>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_item.delivery_date">
+                <source>Delivery Date</source>
             </trans-unit>
             <trans-unit id="tx_cart_domain_model_order_item.shipping_address">
                 <source>Shipping Address</source>

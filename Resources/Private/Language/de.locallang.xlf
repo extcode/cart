@@ -161,6 +161,14 @@
                 <source>Invoice Date</source>
                 <target>Rechnungsdatum</target>
             </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_item.delivery_number">
+                <source>Delivery Number</source>
+                <target>Lieferscheinnummer</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_item.delivery_date">
+                <source>Delivery Date</source>
+                <target>Lieferscheindatum</target>
+            </trans-unit>
             <trans-unit id="tx_cart_domain_model_order_item.billing_address">
                 <source>Billing Address</source>
                 <target>Rechnungsadresse</target>
@@ -461,6 +469,30 @@
             <trans-unit id="tx_cart.controller.order.action.payment_cancel.thank_you">
                 <source>Thank you.</source>
                 <target>Vielen Dank.</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.controller.order.action.generate_number_action.order.success">
+                <source>The generated order number is: %s.</source>
+                <target>Die generierte Bestellnummer lautet: %s.</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.controller.order.action.generate_number_action.order.already_generated">
+                <source>An order number already exists!</source>
+                <target>Es existiert bereits eine Bestellnummer.</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.controller.order.action.generate_number_action.invoice.success">
+                <source>The generated invoice number is: %s</source>
+                <target>Die generierte Rechnungsnummer lautet: %s.</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.controller.order.action.generate_number_action.invoice.already_generated">
+                <source>An invoice number already exists!</source>
+                <target>Es existiert bereits eine Rechnungsnummer.</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.controller.order.action.generate_number_action.delivery.success">
+                <source>The generated delivery number is: %s</source>
+                <target>Die generierte Lieferscheinnummer lautet: %s.</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.controller.order.action.generate_number_action.delivery.already_generated">
+                <source>An delivery number already exists!</source>
+                <target>Es existiert bereits eine Lieferscheinnummer.</target>
             </trans-unit>
 
             <trans-unit id="tx_cart.controller.order.actions">
