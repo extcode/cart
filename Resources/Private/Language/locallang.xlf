@@ -209,6 +209,9 @@
             <trans-unit id="tx_cart.same_address">
                 <source>Send it to the same address.</source>
             </trans-unit>
+            <trans-unit id="tx_cart.variants-select.choose">
+                <source>Please choose ...</source>
+            </trans-unit>
 
             <trans-unit id="tx_cart.history_back">
                 <source>back</source>

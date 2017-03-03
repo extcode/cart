@@ -414,6 +414,10 @@
                 <source>Send it to the same address.</source>
                 <target>An die gleiche Adresse versenden.</target>
             </trans-unit>
+            <trans-unit id="tx_cart.variants-select.choose">
+                <source>Please choose ...</source>
+                <target>Bitte auswählen ...</target>
+            </trans-unit>
 
             <trans-unit id="tx_cart.history_back">
                 <source>back</source>

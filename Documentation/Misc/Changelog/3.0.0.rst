@@ -3,7 +3,7 @@
 .. --------------------------------------------------
 .. -*- coding: utf-8 -*- with BOM.
 
-3.0.0 - 01.03.2017
+3.0.0 - 03.03.2017
 ------------------
 
 Diese Version wird einige Änderungen mit sich bringen. Darunter befinden sich einige neue Funktionen, aber auch ein paar Änderungen, die Anpassungen an bestehenden Installationen erforderlich machen. Dieser ChangeLog-Eintrag sollte daher sorgfältig durchgearbeitet werden.
@@ -315,3 +315,19 @@ Für die eigene Produkttabelle oder das eigene Produktrepository kann dann entsp
    Das Formular zum Hinzufügen von Produkten zum Warenkorb kann das optionale Feld 'productStorageId' enthalten. Dieses bestimmt, welche Konfiguration genutzt wird.
    Ist die konfigurierte Klasse eine andere als Extcode\Cart\Domain\Repository\Product\ProductRepository, werden alle registrierten Slots ausgeführt. In der eigenen Klasse muss dann entschieden werden, ob diese für die übergebene productStorageId verantwortlich ist.
    Dann kann mit den aus dem Storage geladenen Daten ein Cart\Product erzeugt und zurückgegeben werden.
+
+
+#10 und #48 Erweiterung des VariantSelectViewHelpers um die Argumente "class", "blank" und "required"
+=====================================================================================================
+
+Der SelectViewHelper hat ein paar neue Argumente bekommen.
+
+* class: fügt die angegebenen CSS-Klassen dem <select> Tag hinzu (optional, Standardwert: '')
+* required: fügt dem <select> Tag das required Attribut hinzu (optional, Standardwert: true)
+* blank: fügt eine Option mit dem angegebenen Argument als Label und leerem Value hinzu (optional. Standardwert: '')
+
+Wenn das Templates:
+
+* cart/Resources/Private/Partials/Product/CartForm.html
+
+durch eine eigene Datei ersetzt wurde oder das blank-Argument nicht verwendet werden soll, dann ist ggf. das entsprechende Template anzupassen.

@@ -46,7 +46,6 @@ class SelectViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\Form\SelectViewHelpe
      */
     protected function renderOptionTag($value, $label, $isSelected)
     {
-
         $output = '<option value="' . htmlspecialchars($value) . '"';
         if ($isSelected) {
             $output .= ' selected="selected"';

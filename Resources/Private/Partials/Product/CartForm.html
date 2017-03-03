@@ -11,10 +11,10 @@
         <f:if condition="{settings.addToCartByAjax}'}">
             <input type="hidden" value="{pid}" name="tx_cart_cart[pid]">
         </f:if>
-        <input type="hidden" value="{product.uid}" name="tx_cart_cart[productId]">
-        <input type="text" value="1" name="tx_cart_cart[quantity]">
+        <input class="form-control" type="hidden" value="{product.uid}" name="tx_cart_cart[productId]">
+        <input class="form-control" type="text" value="1" name="tx_cart_cart[quantity]">
         <f:if condition="{product.beVariants}">
-            <cart:form.variantSelect id="be-variants-select" name="tx_cart_cart[beVariants][1]" product="{product}"/>
+            <cart:form.variantSelect id="be-variants-select" class="form-control" name="tx_cart_cart[beVariants][1]" product="{product}" blank="{f:translate(key: 'tx_cart.variants-select.choose')}"/>
         </f:if>
         <f:if condition="{product.feVariants}">
             <f:for each="{product.feVariants}" as="feVariant">
