@@ -89,7 +89,7 @@ if (TYPO3_MODE === 'BE') {
         'Orders',
         '',
         [
-            'Order' => 'list, export, show, edit, update, generateNumber, generatePdfDocument, downloadPdfDocument',
+            'Order' => 'list, export, show, updatePayment, updateShipping, generateNumber, generatePdfDocument, downloadPdfDocument',
         ],
         [
             'access' => 'user, group',

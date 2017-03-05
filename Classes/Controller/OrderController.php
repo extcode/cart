@@ -48,6 +48,13 @@ class OrderController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     protected $paymentRepository;
 
     /**
+     * Order Shipping Repository
+     *
+     * @var \Extcode\Cart\Domain\Repository\Order\ShippingRepository
+     */
+    protected $shippingRepository;
+
+    /**
      * Cart Repository
      *
      * @var \Extcode\Cart\Domain\Repository\CartRepository
@@ -105,6 +112,15 @@ class OrderController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         \Extcode\Cart\Domain\Repository\Order\PaymentRepository $paymentRepository
     ) {
         $this->paymentRepository = $paymentRepository;
+    }
+
+    /**
+     * @param \Extcode\Cart\Domain\Repository\Order\ShippingRepository $shippingRepository
+     */
+    public function injectShippingRepository(
+        \Extcode\Cart\Domain\Repository\Order\ShippingRepository $shippingRepository
+    ) {
+        $this->shippingRepository = $shippingRepository;
     }
 
     /**
@@ -301,35 +317,66 @@ class OrderController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 
         $this->view->assign('orderItem', $orderItem);
 
+        $paymentStatusOptions = [];
+        $items = $GLOBALS['TCA']['tx_cart_domain_model_order_payment']['columns']['status']['config']['items'];
+        foreach ($items as $item) {
+            $paymentStatusOptions[$item[1]] = LocalizationUtility::translate(
+                $item[0],
+                $this->extensionName
+            );
+        }
+        $this->view->assign('paymentStatusOptions', $paymentStatusOptions);
+
+        $shippingStatusOptions = [];
+        $items = $GLOBALS['TCA']['tx_cart_domain_model_order_shipping']['columns']['status']['config']['items'];
+        foreach ($items as $item) {
+            $shippingStatusOptions[$item[1]] = LocalizationUtility::translate(
+                $item[0],
+                $this->extensionName
+            );
+        }
+        $this->view->assign('shippingStatusOptions', $shippingStatusOptions);
+
         $pdfRendererInstalled = \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::isLoaded('cart_pdf');
         $this->view->assign('pdfRendererInstalled', $pdfRendererInstalled);
     }
 
     /**
-     * Edit Action
-     *
-     * @param \Extcode\Cart\Domain\Model\Order\Item $orderItem
+     * @param \Extcode\Cart\Domain\Model\Order\Payment $payment
      *
      * @return void
      */
-    public function editAction(\Extcode\Cart\Domain\Model\Order\Item $orderItem)
+    public function updatePaymentAction(\Extcode\Cart\Domain\Model\Order\Payment $payment)
     {
-        $this->view->assign('orderItem', $orderItem);
+        $this->paymentRepository->update($payment);
+
+        $msg = LocalizationUtility::translate(
+            'tx_cart.controller.order.action.update_payment_action.success',
+            $this->extensionName
+        );
+
+        $this->addFlashMessage($msg);
+
+        $this->redirect('show', null, null, ['orderItem' => $payment->getItem()]);
     }
 
     /**
-     * Update Action
-     *
-     * @param \Extcode\Cart\Domain\Model\Order\Item $orderItem
+     * @param \Extcode\Cart\Domain\Model\Order\Shipping $shipping
      *
      * @return void
      */
-    public function updateAction(\Extcode\Cart\Domain\Model\Order\Item $orderItem)
+    public function updateShippingAction(\Extcode\Cart\Domain\Model\Order\Shipping $shipping)
     {
-        $this->itemRepository->update($orderItem);
-        $this->persistenceManager->persistAll();
+        $this->shippingRepository->update($shipping);
 
-        $this->redirect('show', null, null, ['orderItem' => $orderItem]);
+        $msg = LocalizationUtility::translate(
+            'tx_cart.controller.order.action.update_shipping_action.success',
+            $this->extensionName
+        );
+
+        $this->addFlashMessage($msg);
+
+        $this->redirect('show', null, null, ['orderItem' => $shipping->getItem()]);
     }
 
     /**
@@ -353,8 +400,6 @@ class OrderController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 
             $this->itemRepository->update($orderItem);
             $this->persistenceManager->persistAll();
-
-            $msg = 'The generated ' . $numberType . ' Number is: ' . $generatedNumber . '.';
 
             $msg = LocalizationUtility::translate(
                 'tx_cart.controller.order.action.generate_number_action.' . $numberType . '.success',

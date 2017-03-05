@@ -1,5 +1,5 @@
 3.0.0
-    2017-03-03
+    2017-03-05
     Daniel Lorenz <daniel.lorenz@extco.de>
 
     * TASK #63: add quantity discounts / graduated prices for products
@@ -17,6 +17,7 @@
     * TASK #81: refactor generate*Number actions
     * TASK #48: required field by variants
     * TASK #10: add empty option to select view helper
+    * TASK #66: update payment and shipping in backend module
 
 2.4.3
     2017-02-18

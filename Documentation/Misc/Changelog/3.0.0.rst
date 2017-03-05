@@ -3,7 +3,7 @@
 .. --------------------------------------------------
 .. -*- coding: utf-8 -*- with BOM.
 
-3.0.0 - 03.03.2017
+3.0.0 - 05.03.2017
 ------------------
 
 Diese Version wird einige Änderungen mit sich bringen. Darunter befinden sich einige neue Funktionen, aber auch ein paar Änderungen, die Anpassungen an bestehenden Installationen erforderlich machen. Dieser ChangeLog-Eintrag sollte daher sorgfältig durchgearbeitet werden.
@@ -331,3 +331,10 @@ Wenn das Templates:
 * cart/Resources/Private/Partials/Product/CartForm.html
 
 durch eine eigene Datei ersetzt wurde oder das blank-Argument nicht verwendet werden soll, dann ist ggf. das entsprechende Template anzupassen.
+
+
+#66 Aktualisierung des Zahlungs- und Versandstatus im Backendmodul
+==================================================================
+
+Es ist nun möglich auch den Zahlungs- und Versandstatus über das Backendmodul zu pflegen und so der Bestellung den entsprechenden Status zu geben.
+Ein Möglichkeit weitere E-Mails an den Käufer zu senden, der über die Statusänderung informiert, ist mit einer der nächsten Versionen geplant.

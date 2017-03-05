@@ -402,6 +402,10 @@
                 <source>update cart</source>
                 <target>Warenkorb aktualisieren</target>
             </trans-unit>
+            <trans-unit id="tx_cart.update_status">
+                <source>update status</source>
+                <target>Status aktualisieren</target>
+            </trans-unit>
             <trans-unit id="tx_cart.add_coupon">
                 <source>add coupon</source>
                 <target>Gutscheincode absenden</target>
@@ -497,6 +501,14 @@
             <trans-unit id="tx_cart.controller.order.action.generate_number_action.delivery.already_generated">
                 <source>An delivery number already exists!</source>
                 <target>Es existiert bereits eine Lieferscheinnummer.</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.controller.order.action.update_payment_action.success">
+                <source>The payment was successfully updated.</source>
+                <target>Die Zahlung wurde erfolgreich aktualisiert.</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.controller.order.action.update_shipping_action.success">
+                <source>The shipping was successfully updated.</source>
+                <target>Der Versand wurde erfolgreich aktualisiert.</target>
             </trans-unit>
 
             <trans-unit id="tx_cart.controller.order.actions">

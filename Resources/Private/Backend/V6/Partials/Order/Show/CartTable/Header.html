@@ -1,0 +1,36 @@
+<tr class="t3-row-header">
+    <th width="100px">
+        <f:translate
+                key="LLL:EXT:cart/Resources/Private/Language/locallang.xlf:tx_cart_domain_model_order_product.sku"/>
+    </th>
+    <th width="300px">
+        <f:translate
+                key="LLL:EXT:cart/Resources/Private/Language/locallang.xlf:tx_cart_domain_model_order_product.title"/>
+    </th>
+    <th width="100px">
+        <f:translate
+                key="LLL:EXT:cart/Resources/Private/Language/locallang.xlf:tx_cart_domain_model_order_product.price"/>
+    </th>
+    <th width="100px">
+        <f:translate
+                key="LLL:EXT:cart/Resources/Private/Language/locallang.xlf:tx_cart_domain_model_order_product.discount"/>
+    </th>
+    <th width="100px">
+        <f:translate
+                key="LLL:EXT:cart/Resources/Private/Language/locallang.xlf:tx_cart_domain_model_order_product.count"/>
+    </th>
+    <th width="100px">
+        <f:translate
+                key="LLL:EXT:cart/Resources/Private/Language/locallang.xlf:tx_cart_domain_model_order_product.net"/>
+    </th>
+    <th width="100px">
+        <f:translate
+                key="LLL:EXT:cart/Resources/Private/Language/locallang.xlf:tx_cart_domain_model_order_product.gross"/>
+    </th>
+    <f:for each="{orderItem.orderTotalTax}" as="orderTotalTax">
+        <td width="100px">
+            <f:translate key="LLL:EXT:cart/Resources/Private/Language/locallang.xlf:plugin.cart.product.tax"
+                         arguments="{0: orderTotalTax.orderTaxClass.name}"/>
+        </td>
+    </f:for>
+</tr>

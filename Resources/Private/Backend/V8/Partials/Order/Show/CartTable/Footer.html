@@ -99,14 +99,29 @@
         <f:translate key="tx_cart_domain_model_order_item.cart_total_price"/>
     </td>
     <td>
-        <cart:format.currency currencySign="{orderItem.currency}">{orderItem.totalNet}</cart:format.currency>
+        <cart:format.currency currencySign="{orderItem.currency}"
+                           decimalSeparator="{settings.format.currency.decimalSeparator}"
+                           thousandsSeparator="{settings.format.currency.thousandsSeparator}"
+                           prependCurrency="{settings.format.currency.prependCurrency}"
+                           separateCurrency="{settings.format.currency.separateCurrency}"
+                           decimals="{settings.format.currency.decimals}">{orderItem.totalNet}</cart:format.currency>
     </td>
     <td>
-        <cart:format.currency currencySign="{orderItem.currency}">{orderItem.totalGross}</cart:format.currency>
+        <cart:format.currency currencySign="{orderItem.currency}"
+                           decimalSeparator="{settings.format.currency.decimalSeparator}"
+                           thousandsSeparator="{settings.format.currency.thousandsSeparator}"
+                           prependCurrency="{settings.format.currency.prependCurrency}"
+                           separateCurrency="{settings.format.currency.separateCurrency}"
+                           decimals="{settings.format.currency.decimals}">{orderItem.totalGross}</cart:format.currency>
     </td>
     <f:for each="{orderItem.orderTotalTax}" as="orderTotalTax">
         <td>
-            <cart:format.currency currencySign="{orderItem.currency}">{orderTotalTax.tax}</cart:format.currency>
+            <cart:format.currency currencySign="{orderItem.currency}"
+                               decimalSeparator="{settings.format.currency.decimalSeparator}"
+                               thousandsSeparator="{settings.format.currency.thousandsSeparator}"
+                               prependCurrency="{settings.format.currency.prependCurrency}"
+                               separateCurrency="{settings.format.currency.separateCurrency}"
+                               decimals="{settings.format.currency.decimals}">{orderTotalTax.tax}</cart:format.currency>
         </td>
     </f:for>
 </tr>

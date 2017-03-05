@@ -200,6 +200,9 @@
             <trans-unit id="tx_cart.update_cart">
                 <source>update cart</source>
             </trans-unit>
+            <trans-unit id="tx_cart.update_status">
+                <source>update status</source>
+            </trans-unit>
             <trans-unit id="tx_cart.add_coupon">
                 <source>add coupon</source>
             </trans-unit>
@@ -272,6 +275,12 @@
             </trans-unit>
             <trans-unit id="tx_cart.controller.order.action.generate_number_action.delivery.already_generated">
                 <source>An delivery number already exists!</source>
+            </trans-unit>
+            <trans-unit id="tx_cart.controller.order.action.update_payment_action.success">
+                <source>The payment was successfully updated.</source>
+            </trans-unit>
+            <trans-unit id="tx_cart.controller.order.action.update_shipping_action.success">
+                <source>The shipping was successfully updated.</source>
             </trans-unit>
 
             <trans-unit id="tx_cart.controller.order.actions">
