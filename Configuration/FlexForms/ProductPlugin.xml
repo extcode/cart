@@ -35,7 +35,7 @@
                     <settings.orderBy>
                         <TCEforms>
                             <label>LLL:EXT:cart/Resources/Private/Language/locallang_db.xlf:tx_cart.plugin.products.action.product.list.orderBy</label>
-                            <displayCond>FIELD:switchableControllerActions:=:Product->list;Product->show</displayCond>
+                            <displayCond>FIELD:switchableControllerActions:=:Product->show;Product->list</displayCond>
                             <config>
                                 <type>select</type>
                                 <items>
@@ -68,7 +68,7 @@
                     <settings.orderDirection>
                         <TCEforms>
                             <label>LLL:EXT:cart/Resources/Private/Language/locallang_db.xlf:tx_cart.plugin.products.action.product.list.orderDirection</label>
-                            <displayCond>FIELD:switchableControllerActions:=:Product->list;Product->show</displayCond>
+                            <displayCond>FIELD:switchableControllerActions:=:Product->show;Product->list</displayCond>
                             <config>
                                 <type>select</type>
                                 <items>
@@ -102,7 +102,7 @@
                         <TCEforms>
                             <exclude>1</exclude>
                             <label>LLL:EXT:cart/Resources/Private/Language/locallang_db.xlf:tx_cart.plugin.products.action.product.list.select.single_pid</label>
-                            <displayCond>FIELD:switchableControllerActions:=:Product->list;Product->show</displayCond>
+                            <displayCond>FIELD:switchableControllerActions:=:Product->show;Product->list</displayCond>
                             <config>
                                 <type>group</type>
                                 <internal_type>db</internal_type>
@@ -139,7 +139,7 @@
                         <TCEforms>
                             <exclude>1</exclude>
                             <label>LLL:EXT:cart/Resources/Private/Language/locallang_db.xlf:tx_cart.plugin.products.action.product.list.categories</label>
-                            <displayCond>FIELD:switchableControllerActions:=:Product->list;Product->show</displayCond>
+                            <displayCond>FIELD:switchableControllerActions:=:Product->show;Product->list</displayCond>
                             <config>
                                 <type>select</type>
                                 <autoSizeMax>50</autoSizeMax>
@@ -164,7 +164,7 @@
                     <settings.listSubcategories>
                         <TCEforms>
                             <label>LLL:EXT:cart/Resources/Private/Language/locallang_db.xlf:tx_cart.plugin.products.action.product.list.subcategories</label>
-                            <displayCond>FIELD:switchableControllerActions:=:Product->list;Product->show</displayCond>
+                            <displayCond>FIELD:switchableControllerActions:=:Product->show;Product->list</displayCond>
                             <config>
                                 <type>check</type>
                             </config>
