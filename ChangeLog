@@ -19,6 +19,7 @@
     * TASK #10: add empty option to select view helper
     * TASK #66: update payment and shipping in backend module
     * BUGFIX #84: error in display condition of ProductPlugin.xml flexform
+    * TASK #49: payment method needs return url
 
 2.4.3
     2017-02-18

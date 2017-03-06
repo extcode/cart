@@ -134,3 +134,12 @@ Der Parameter plugin.tx_cart.settings.defaultCountry definiert welches Land vora
       Text
    Description
       Ist die Bezahlmethode nicht verfügbar, wird die Zahlmethode mit dieser ID verwendet.
+
+.. container:: table-row
+
+   Property
+      plugin.tx_cart.payments.de.options.n.redirects.success.url
+   Data type
+      Text
+   Description
+      Ist für die genutzte Bezahlmethode einer Bestellung die Weiterleitungs-URL konfiguriert, wird nach erfolgreicher Bestellung auf die angegebene URL weitergeleitet statt die Bestätigungsseite anzuzeigen.

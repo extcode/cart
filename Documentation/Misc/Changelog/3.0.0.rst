@@ -338,3 +338,38 @@ durch eine eigene Datei ersetzt wurde oder das blank-Argument nicht verwendet we
 
 Es ist nun möglich auch den Zahlungs- und Versandstatus über das Backendmodul zu pflegen und so der Bestellung den entsprechenden Status zu geben.
 Ein Möglichkeit weitere E-Mails an den Käufer zu senden, der über die Statusänderung informiert, ist mit einer der nächsten Versionen geplant.
+
+
+#49 Weiterleitung nach erfolgreicher Bezahlung
+==============================================
+
+Es ist nun möglich statt der internen Bestellbestätigungsseite eine Weiterleitungs-URL anzugeben.
+
+::
+
+   plugin.tx_cart {
+       payments {
+           de {
+               preset = 1
+               options {
+                   1 {
+                       title = Vorkasse
+                       extra = 0.00
+                       taxClassId = 1
+                       status = open
+                       redirects {
+                          success.url = https://www.example.com/cart/success
+                       }
+                   }
+               }
+           }
+       }
+   }
+
+|
+
+Ist die Weiterleitungs-URL nicht konfiguriert wird die normale bisherige Bestätigungsseite ausgeliefert.
+Die Weiterleitungs-URL kann für jede konfigurierte Bezahlmethode eine andere sein.
+
+.. IMPORTANT::
+   Daten aus dem Warenkorb stehen auf den weitergeleiteten Seiten nicht zur Verfügung.

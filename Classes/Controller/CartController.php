@@ -14,6 +14,7 @@ namespace Extcode\Cart\Controller;
  *
  * The TYPO3 project - inspiring people to share!
  */
+use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 
 /**
  * Cart Controller
@@ -628,7 +629,19 @@ class CartController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 
         $this->sessionHandler->writeToSession($cart, $this->settings['cart']['pid']);
 
-        $this->redirect('showCart');
+        if (isset($_GET['type'])) {
+            $this->view->assign('cart', $this->cart);
+
+            $this->parseData();
+            $assignArguments = [
+                'shippings' => $this->shippings,
+                'payments' => $this->payments,
+                'specials' => $this->specials
+            ];
+            $this->view->assignMultiple($assignArguments);
+        } else {
+            $this->redirect('showCart');
+        }
     }
 
     /**
@@ -759,11 +772,21 @@ class CartController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         }
 
         $paymentId = $this->cart->getPayment()->getId();
-        if (intval($this->pluginSettings['payments']['options'][$paymentId]['preventClearCart']) != 1) {
+        $paymentSettings = $this->parserUtility->getTypePluginSettings($this->pluginSettings, $this->cart, 'payments');
+
+        if (intval($paymentSettings['options'][$paymentId]['preventClearCart']) != 1) {
             $this->cart = $this->cartUtility->getNewCart($this->settings['cart'], $this->pluginSettings);
         }
 
         $this->sessionHandler->writeToSession($this->cart, $this->settings['cart']['pid']);
+
+        if ($paymentSettings['options'][$paymentId] &&
+            $paymentSettings['options'][$paymentId]['redirects'] &&
+            $paymentSettings['options'][$paymentId]['redirects']['success'] &&
+            $paymentSettings['options'][$paymentId]['redirects']['success']['url']
+        ) {
+            $this->redirectToURI($paymentSettings['options'][$paymentId]['redirects']['success']['url'], 0, 200);
+        }
     }
 
     /**

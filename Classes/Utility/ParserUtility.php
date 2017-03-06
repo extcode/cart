@@ -131,24 +131,7 @@ class ParserUtility
         $services = [];
         $type = strtolower($className) . 's';
 
-        $pluginSettingsType = $pluginSettings[$type];
-        $selectedCountry = $pluginSettings['settings']['defaultCountry'];
-
-        if ($cart->getCountry()) {
-            if ($type == 'payments') {
-                $selectedCountry = $cart->getBillingCountry();
-            } else {
-                $selectedCountry = $cart->getCountry();
-            }
-        }
-
-        if ($selectedCountry) {
-            if (is_array($pluginSettingsType[$selectedCountry]) &&
-                is_array($pluginSettingsType[$selectedCountry]['options'])
-            ) {
-                $pluginSettingsType = $pluginSettingsType[$selectedCountry];
-            }
-        }
+        $pluginSettingsType = $this->getTypePluginSettings($pluginSettings, $cart, $type);
 
         if ($pluginSettingsType['options']) {
             foreach ($pluginSettingsType['options'] as $key => $value) {
@@ -240,5 +223,37 @@ class ParserUtility
         }
 
         return $services;
+    }
+
+    /**
+     * @param array $pluginSettings
+     * @param \Extcode\Cart\Domain\Model\Cart\Cart $cart
+     * @param $type
+     *
+     * @return mixed
+     */
+    public function getTypePluginSettings(array $pluginSettings, \Extcode\Cart\Domain\Model\Cart\Cart $cart, $type)
+    {
+        $pluginSettingsType = $pluginSettings[$type];
+        $selectedCountry = $pluginSettings['settings']['defaultCountry'];
+
+        if ($cart->getCountry()) {
+            if ($type == 'payments') {
+                $selectedCountry = $cart->getBillingCountry();
+            } else {
+                $selectedCountry = $cart->getCountry();
+            }
+        }
+
+        if ($selectedCountry) {
+            if (is_array($pluginSettingsType[$selectedCountry]) &&
+                is_array($pluginSettingsType[$selectedCountry]['options'])
+            ) {
+                $pluginSettingsType = $pluginSettingsType[$selectedCountry];
+                return $pluginSettingsType;
+            }
+            return $pluginSettingsType;
+        }
+        return $pluginSettingsType;
     }
 }
