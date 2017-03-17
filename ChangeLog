@@ -21,6 +21,7 @@
     * BUGFIX #84: error in display condition of ProductPlugin.xml flexform
     * TASK #49: payment method needs return url
     * BUGFIX #87: fix php 7 argument exception in ViewHelper
+    * TASK #86: allow to set net price to product prices
 
 2.4.3
     2017-02-18

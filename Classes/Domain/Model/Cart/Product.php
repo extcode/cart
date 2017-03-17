@@ -227,8 +227,7 @@ class Product
         $quantity,
         $isNetPrice = false,
         $feVariant = null
-    )
-    {
+    ) {
         if (!$productType) {
             throw new \InvalidArgumentException(
                 'You have to specify a valid $productType for constructor.',

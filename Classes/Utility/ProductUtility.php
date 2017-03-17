@@ -315,7 +315,7 @@ class ProductUtility
                 $productProduct->getPrice(),
                 $this->taxClasses[$productProduct->getTaxClassId()],
                 $cartProductValues['quantity'],
-                $cartProductValues['isNetPrice'],
+                $productProduct->getIsNetPrice(),
                 $newFeVariant
             );
 
@@ -333,7 +333,7 @@ class ProductUtility
 
             $data = [
                 'cartProductValues' => $cartProductValues,
-                'prodcutProduct' => $productProduct,
+                'productProduct' => $productProduct,
                 'cartProduct' => $cartProduct,
             ];
 

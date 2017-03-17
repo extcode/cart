@@ -373,3 +373,20 @@ Die Weiterleitungs-URL kann für jede konfigurierte Bezahlmethode eine andere se
 
 .. IMPORTANT::
    Daten aus dem Warenkorb stehen auf den weitergeleiteten Seiten nicht zur Verfügung.
+
+
+#86 Netto-Produkt-Preise
+========================
+
+Ein neues Datenbankfeld erlaubt es, auf Produktebene zu definieren, dass es sich bei den Preisen des Produkts um Netto-Preise handelt.
+Dies kann von Produkt zu Produkt festgelegt werden unabhängig davon, ob es sich um einen Brutto- oder Netto-Warenkorb handlet. Cart rechnet
+die Preise entsprechend um.
+
+.. IMPORTANT::
+   Es ist eine Aktualisierung der Datenbank erforderlich. Da dieses Feld neu hinzu kommt, sollte das in der Regel unproblematisch sein.
+
+.. TIP::
+   Damit es nicht zu Komplikationen kommt, sollte man dieses Feld den Redakteuren nur in Ausnahmefällen zur Verfügen stellen und eher einen Wert Brutto (0) oder Netto (1) für alle Produkte einstellen.
+   Dazu kann in der Seiten-TSconfig folgende Zeile hinzugefügt werden:
+
+   TCAdefaults.tx_cart_domain_model_product_product.is_net_price = 1

@@ -16,6 +16,7 @@ CREATE TABLE tx_cart_domain_model_product_product (
     max_number_in_order int(11) unsigned DEFAULT '0' NOT NULL,
 
     price double(11,2) DEFAULT '0.00' NOT NULL,
+    is_net_price tinyint(4) unsigned DEFAULT '0' NOT NULL,
     special_prices int(11) unsigned DEFAULT '0' NOT NULL,
     quantity_discounts int(11) unsigned DEFAULT '0' NOT NULL,
     price_measure double(11,2) DEFAULT '0.00' NOT NULL,

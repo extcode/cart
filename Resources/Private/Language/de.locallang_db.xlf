@@ -875,8 +875,12 @@
             <trans-unit id="tx_cart_domain_model_product_product.max_number_in_order">
                 <target>Maximum Anzahl an Produkten in einer Bestellung</target>
             </trans-unit>
+            <trans-unit id="tx_cart_domain_model_product_product.is_net_price">
+                <source>Price (net)</source>
+                <target>Preis (netto)</target>
+            </trans-unit>
             <trans-unit id="tx_cart_domain_model_product_product.price">
-                <source>Prices</source>
+                <source>Price</source>
                 <target>Preis</target>
             </trans-unit>
             <trans-unit id="tx_cart_domain_model_product_product.special_prices">

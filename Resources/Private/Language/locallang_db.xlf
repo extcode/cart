@@ -576,6 +576,9 @@
             <trans-unit id="tx_cart_domain_model_product_product.sku">
                 <source>SKU</source>
             </trans-unit>
+            <trans-unit id="tx_cart_domain_model_product_product.is_net_price">
+                <source>Price (net)</source>
+            </trans-unit>
             <trans-unit id="tx_cart_domain_model_product_product.price">
                 <source>Price</source>
             </trans-unit>

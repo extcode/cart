@@ -75,7 +75,7 @@ return [
             'canNotCollapse' => 1
         ],
         'prices' => [
-            'showitem' => 'price, tax_class_id, --linebreak--, special_prices, quantity_discounts',
+            'showitem' => 'is_net_price, --linebreak--, price, tax_class_id, --linebreak--, special_prices, quantity_discounts',
             'canNotCollapse' => 1
         ],
         'measures' => [
@@ -251,6 +251,14 @@ return [
                 'size' => 30,
                 'eval' => 'int'
             ]
+        ],
+
+        'is_net_price' => [
+            'exclude' => 1,
+            'label' => $_LLL . ':tx_cart_domain_model_product_product.is_net_price',
+            'config' => [
+                'type' => 'check',
+            ],
         ],
 
         'price' => [

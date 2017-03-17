@@ -103,6 +103,13 @@ class Product extends \Extcode\Cart\Domain\Model\Product\AbstractProduct
     protected $maxNumberInOrder = 0;
 
     /**
+     * Is Net Price
+     *
+     * @var bool
+     */
+    protected $isNetPrice = false;
+
+    /**
      * Price
      *
      * @var float
@@ -436,6 +443,28 @@ class Product extends \Extcode\Cart\Domain\Model\Product\AbstractProduct
         }
 
         $this->maxNumberInOrder = $maxNumberInOrder;
+    }
+
+    /**
+     * Returns the isNetPrice
+     *
+     * @return bool
+     */
+    public function getIsNetPrice()
+    {
+        return $this->isNetPrice;
+    }
+
+    /**
+     * Sets the isNetPrice
+     *
+     * @param bool $isNetPrice
+     *
+     * @return void
+     */
+    public function setIsNetPrice($isNetPrice)
+    {
+        $this->isNetPrice = $isNetPrice;
     }
 
     /**
