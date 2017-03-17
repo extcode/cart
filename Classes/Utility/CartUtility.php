@@ -256,7 +256,7 @@ class CartUtility
      *
      * @return void
      */
-    public function updateCartSetCountries(array $cartSettings, array $pluginSettings, $request)
+    public function updateCountry(array $cartSettings, array $pluginSettings, $request)
     {
         $cart = $this->getCartFromSession($cartSettings, $pluginSettings);
 
@@ -266,7 +266,6 @@ class CartUtility
             $billingCountry = $request->getArgument('billing_country');
         }
 
-        $shippingCountry = $cart->getShippingCountry();
 
         if ($request->hasArgument('shipping_country')) {
             $shippingCountry = $request->getArgument('shipping_country');
@@ -283,7 +282,7 @@ class CartUtility
         );
         $signalSlotDispatcher->dispatch(
             __CLASS__,
-            __FUNCTION__ . 'BeforeUpdateCart',
+            __FUNCTION__,
             $data
         );
 

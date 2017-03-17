@@ -453,7 +453,7 @@ class ProductUtility
                 );
                 $slotReturn = $signalSlotDispatcher->dispatch(
                     __CLASS__,
-                    'changeNewCartBackendVariant',
+                    'changeNewCartBeVariant',
                     [$data]
                 );
 

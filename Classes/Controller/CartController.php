@@ -290,7 +290,7 @@ class CartController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      */
     public function updateCountryAction()
     {
-        $this->cartUtility->updateCartSetCountries($this->settings['cart'], $this->pluginSettings, $this->request);
+        $this->cartUtility->updateCountry($this->settings['cart'], $this->pluginSettings, $this->request);
 
         $this->cart = $this->cartUtility->getCartFromSession($this->settings['cart'], $this->pluginSettings);
 
@@ -737,7 +737,7 @@ class CartController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 
         $this->parseData();
 
-        $this->orderUtility->checkStock($this->cart);
+        $this->orderUtility->checkStock($this->cart, $this->pluginSettings);
 
         $orderItem->setCartPid(intval($GLOBALS['TSFE']->id));
 

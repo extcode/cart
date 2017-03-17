@@ -250,11 +250,61 @@ class OrderUtility
      * Check Stock
      *
      * @param \Extcode\Cart\Domain\Model\Cart\Cart $cart
+     * @parem array $pluginSettings
      */
-    public function checkStock(\Extcode\Cart\Domain\Model\Cart\Cart $cart)
-    {
-        // TODO internal stock check
+    public function checkStock(
+        \Extcode\Cart\Domain\Model\Cart\Cart $cart,
+        $pluginSettings
+    ) {
+        $this->beforeCheckStock($cart);
 
+        /** @var \Extcode\Cart\Domain\Model\Cart\Product $cartProduct */
+        foreach ($cart->getProducts() as $cartProduct) {
+            $productStorageId = $cartProduct->getTableId();
+
+            if ($productStorageId) {
+                $repositoryClass = '';
+
+                if (is_array($pluginSettings['productStorages']) &&
+                    is_array($pluginSettings['productStorages'][$productStorageId]) &&
+                    isset($pluginSettings['productStorages'][$productStorageId]['class'])
+                ) {
+                    $repositoryClass = $pluginSettings['productStorages'][$productStorageId]['class'];
+                }
+
+                if ($repositoryClass == 'Extcode\Cart\Domain\Repository\Product\ProductRepository') {
+                    // TODO internal stock check
+                } else {
+                    $data = [
+                        'cartProduct' => $cartProduct,
+                        'productStorageSettings' => $pluginSettings['productStorages'][$productStorageId],
+                    ];
+
+                    $signalSlotDispatcher = $this->objectManager->get(
+                        \TYPO3\CMS\Extbase\SignalSlot\Dispatcher::class
+                    );
+                    $signalSlotDispatcher->dispatch(
+                        __CLASS__,
+                        __FUNCTION__,
+                        [$data]
+                    );
+                }
+            }
+        }
+
+        $this->afterCheckStock($cart);
+    }
+
+    /**
+     * Before Check Stock
+     *
+     * @param \Extcode\Cart\Domain\Model\Cart\Cart $cart
+     *
+     * @return void
+     */
+    public function beforeCheckStock(
+        \Extcode\Cart\Domain\Model\Cart\Cart $cart
+    ) {
         $data = [
             'cart' => $cart,
         ];
@@ -264,7 +314,31 @@ class OrderUtility
         );
         $signalSlotDispatcher->dispatch(
             __CLASS__,
-            'afterInternalCheckStock',
+            __FUNCTION__,
+            [$data]
+        );
+    }
+
+    /**
+     * After Check Stock
+     *
+     * @param \Extcode\Cart\Domain\Model\Cart\Cart $cart
+     *
+     * @return void
+     */
+    public function afterCheckStock(
+        \Extcode\Cart\Domain\Model\Cart\Cart $cart
+    ) {
+        $data = [
+            'cart' => $cart,
+        ];
+
+        $signalSlotDispatcher = $this->objectManager->get(
+            \TYPO3\CMS\Extbase\SignalSlot\Dispatcher::class
+        );
+        $signalSlotDispatcher->dispatch(
+            __CLASS__,
+            __FUNCTION__,
             [$data]
         );
     }
@@ -346,7 +420,7 @@ class OrderUtility
     }
 
     /**
-     * Before Handle Payment
+     * Before Handle Stock
      *
      * @param \Extcode\Cart\Domain\Model\Cart\Cart $cart
      *
@@ -632,8 +706,7 @@ class OrderUtility
         );
         $signalSlotDispatcher->dispatch(
             __CLASS__,
-            __FUNCTION__ .
-            'BeforeSetAdditionalData',
+            __FUNCTION__ . 'AdditionalData',
             [$data]
         );
 
@@ -839,8 +912,7 @@ class OrderUtility
         );
         $signalSlotDispatcher->dispatch(
             __CLASS__,
-            __FUNCTION__ .
-            'BeforeSetAdditionalData',
+            __FUNCTION__ . 'AdditionalData',
             [$data]
         );
 
