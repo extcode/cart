@@ -3,8 +3,8 @@
 .. --------------------------------------------------
 .. -*- coding: utf-8 -*- with BOM.
 
-Vesandarten
-===========
+Versandarten
+============
 
 Die Versandarten werden über TypoScript für jeden Warenkorb definiert. Das Standard-Template bringt bereits eine Versandart (Standard) mit.
 
