@@ -23,6 +23,12 @@ namespace Extcode\Cart\ViewHelpers\Product;
  */
 class IfBestSpecialPriceAvailableViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractConditionViewHelper
 {
+    /**
+     * Object Manager
+     *
+     * @var \TYPO3\CMS\Extbase\Object\ObjectManager
+     */
+    protected $objectManager;
 
     /**
      * Output is escaped already. We must not escape children, to avoid double encoding.
@@ -32,13 +38,29 @@ class IfBestSpecialPriceAvailableViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHe
     protected $escapeOutput = false;
 
     /**
-     * @param \Extcode\Cart\Domain\Model\Product\Product $product
+     * Initialize arguments.
      *
+     * @return void
+     * @api
+     */
+    public function initializeArguments()
+    {
+        parent::initializeArguments();
+
+        $this->registerArgument(
+            'product',
+            \Extcode\Cart\Domain\Model\Product\Product::class,
+            'product for select options',
+            true
+        );
+    }
+
+    /**
      * @return float
      */
-    public function render(
-        \Extcode\Cart\Domain\Model\Product\Product $product
-    ) {
+    public function render()
+    {
+        $product = $this->arguments['product'];
         $bestSpecialPrice = $product->getBestSpecialPrice($this->getFrontendUserGroupIds());
 
         if ($bestSpecialPrice < $product->getMinPrice()) {
@@ -56,7 +78,9 @@ class IfBestSpecialPriceAvailableViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHe
     protected function getFrontendUserGroupIds()
     {
         if (!$this->objectManager) {
-            $this->objectManager = GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager');
+            $this->objectManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(
+                \TYPO3\CMS\Extbase\Object\ObjectManager::class
+            );
         }
         $feGroupIds = [];
         $feUserId = (int)$GLOBALS['TSFE']->fe_user->user['uid'];
