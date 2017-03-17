@@ -417,11 +417,11 @@ class BeVariant
 
         if ($this->specialPrice &&
             (
-                (($this->specialPrice->getPrice() < $bestPrice) && in_array($this->priceCalcMethod, [0,1,4,5])) ||
-                (($this->specialPrice->getPrice() > $bestPrice) && in_array($this->priceCalcMethod, [2,3]))
+                (($this->specialPrice < $bestPrice) && in_array($this->priceCalcMethod, [0,1,4,5])) ||
+                (($this->specialPrice > $bestPrice) && in_array($this->priceCalcMethod, [2,3]))
             )
         ) {
-            $bestPrice = $this->specialPrice->getPrice();
+            $bestPrice = $this->specialPrice;
         }
 
         return $bestPrice;
