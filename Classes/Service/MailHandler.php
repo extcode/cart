@@ -113,7 +113,25 @@ class MailHandler implements SingletonInterface
             \TYPO3\CMS\Extbase\Configuration\ConfigurationManager::class
         );
 
-        $this->setPluginSettings();
+        $pluginSettings =
+            $this->configurationManager->getConfiguration(
+                \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK,
+                $this->extensionName
+            );
+
+        $this->setPluginSettings($pluginSettings);
+    }
+
+    /**
+     * Sets Plugin Settings
+     *
+     * @param array $pluginSettings
+     *
+     * @return void
+     */
+    public function setPluginSettings($pluginSettings)
+    {
+        $this->pluginSettings = $pluginSettings;
 
         if (!empty($this->pluginSettings['settings'])) {
             if (!empty($this->pluginSettings['settings']['buyer'])
@@ -152,21 +170,6 @@ class MailHandler implements SingletonInterface
     }
 
     /**
-     * Sets Plugin Settings
-     *
-     * @return void
-     */
-    public function setPluginSettings()
-    {
-        $this->pluginSettings =
-            $this->configurationManager->getConfiguration(
-                \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK,
-                $this->extensionName,
-                $this->pluginName
-            );
-    }
-
-    /**
      * Sets Cart
      *
      * @param \Extcode\Cart\Domain\Model\Cart\Cart $cart
@@ -189,6 +192,14 @@ class MailHandler implements SingletonInterface
     }
 
     /**
+     * @return string
+     */
+    public function getBuyerEmailFrom()
+    {
+        return $this->buyerEmailFrom;
+    }
+
+    /**
      * @param string $email
      *
      * @return void
@@ -199,6 +210,14 @@ class MailHandler implements SingletonInterface
     }
 
     /**
+     * @return string
+     */
+    public function getSellerEmailFrom()
+    {
+        return $this->sellerEmailFrom;
+    }
+
+    /**
      * @param string $email
      *
      * @return void
@@ -206,6 +225,14 @@ class MailHandler implements SingletonInterface
     public function setSellerEmailTo($email)
     {
         $this->sellerEmailTo = $email;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSellerEmailTo()
+    {
+        return $this->sellerEmailTo;
     }
 
     /**
@@ -229,7 +256,7 @@ class MailHandler implements SingletonInterface
         $status = $orderItem->getPayment()->getStatus();
         $to = 'buyer';
 
-        $mailBody = $this->renderMailStandaloneView($status, $to, $orderItem, $billingAddress, $shippingAddress);
+        $mailBody = $this->renderMailStandaloneView($status, $to, $orderItem);
         $mailSubject = $this->renderMailStandaloneView($status, $to . 'Subject', $orderItem);
 
         if (!empty($mailBody) && !empty($mailSubject)) {
@@ -275,7 +302,7 @@ class MailHandler implements SingletonInterface
         $status = $orderItem->getPayment()->getStatus();
         $to = 'seller';
 
-        $mailBody = $this->renderMailStandaloneView($status, $to, $orderItem, $billingAddress, $shippingAddress);
+        $mailBody = $this->renderMailStandaloneView($status, $to, $orderItem);
         $mailSubject = $this->renderMailStandaloneView($status, $to . 'Subject', $orderItem);
 
         if (!empty($mailBody) && !empty($mailSubject)) {
@@ -319,11 +346,15 @@ class MailHandler implements SingletonInterface
                 foreach ($this->pluginSettings['mail'][$to]['attachDocuments'] as $pdfType => $pdfData) {
                     $getter = 'get' . ucfirst($pdfType) . 'Pdfs';
                     $pdfs = $orderItem->$getter();
-                    if ($pdfs && is_array($pdfs)) {
-                        $lastOriginalPdf = end($pdfs->toArray())->getOriginalResource();
-                        $lastOriginalPdfPath = PATH_site . $lastOriginalPdf->getPublicUrl();
-                        if (is_file($lastOriginalPdfPath)) {
-                            $attachments[] = $lastOriginalPdfPath;
+                    if ($pdfs && ($pdfs instanceof \TYPO3\CMS\Extbase\Persistence\ObjectStorage)) {
+                        $pdfs = end($pdfs->toArray());
+                        if ($pdfs) {
+                            $lastOriginalPdf = $pdfs->getOriginalResource();
+                            $lastOriginalPdfPath = PATH_site . $lastOriginalPdf->getPublicUrl();
+                            if (is_file($lastOriginalPdfPath)) {
+                                $attachments[] = $lastOriginalPdfPath;
+
+                            }
                         }
                     }
                 }
@@ -334,22 +365,38 @@ class MailHandler implements SingletonInterface
     }
 
     /**
+     * Render OrderItem Mail Content
+     *
+     * @param \Extcode\Cart\Domain\Model\Order\Item $orderItem
+     * @param string $mailTemplateFolder
+     * @param string $mailTo
+     *
+     * @return array
+     */
+    public function renderOrderItemMailContent(
+        \Extcode\Cart\Domain\Model\Order\Item $orderItem,
+        $mailTemplateFolder,
+        $mailTo
+    ) {
+        $mailSubject = $this->renderMailStandaloneView($mailTemplateFolder, $mailTo . 'Subject', $orderItem);
+        $mailBody = $this->renderMailStandaloneView($mailTemplateFolder, $mailTo, $orderItem);
+
+        return [$mailSubject, $mailBody];
+    }
+
+    /**
      * Returns the Mail Body
      *
      * @param string $status
      * @param string $to
      * @param \Extcode\Cart\Domain\Model\Order\Item $orderItem
-     * @param \Extcode\Cart\Domain\Model\Order\Address $billingAddress
-     * @param \Extcode\Cart\Domain\Model\Order\Address $shippingAddress
      *
      * @return string
      */
     protected function renderMailStandaloneView(
         $status,
         $to,
-        \Extcode\Cart\Domain\Model\Order\Item $orderItem,
-        \Extcode\Cart\Domain\Model\Order\Address $billingAddress = null,
-        \Extcode\Cart\Domain\Model\Order\Address $shippingAddress = null
+        \Extcode\Cart\Domain\Model\Order\Item $orderItem
     ) {
         $view = $this->getMailStandaloneView('/Mail/' . ucfirst($status) . '/', ucfirst($to), 'html');
 
@@ -359,12 +406,14 @@ class MailHandler implements SingletonInterface
             $view->assign('cart', $this->cart);
             $view->assign('orderItem', $orderItem);
 
-            if ($billingAddress) {
-                $view->assign('billingAddress', $billingAddress);
+            // ToDo: Remove assign $billingAddress and $shippingAddress to view. Both can be used in view through $orderItem.
+
+            if ($orderItem->getBillingAddress()) {
+                $view->assign('billingAddress', $orderItem->getBillingAddress());
             }
 
-            if ($shippingAddress) {
-                $view->assign('shippingAddress', $shippingAddress);
+            if ($orderItem->getShippingAddress()) {
+                $view->assign('shippingAddress', $orderItem->getShippingAddress());
             }
 
             return $view->render();
