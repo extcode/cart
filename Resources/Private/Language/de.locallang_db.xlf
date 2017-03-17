@@ -663,8 +663,8 @@
                 <target>Darstellungsart</target>
             </trans-unit>
             <trans-unit id="tx_cart.plugin.products.action.product.list_and_show">
-                <source>Product - List and Show View</source>
-                <target>Produkt - Listen- und Detailansicht</target>
+                <source>Product - Show and List View</source>
+                <target>Produkt - Detail- und Listenansicht</target>
             </trans-unit>
             <trans-unit id="tx_cart.plugin.products.action.product.show">
                 <source>Product - Show View</source>
@@ -732,28 +732,6 @@
             </trans-unit>
             <trans-unit id="tx_cart.plugin.products.action.product.flexform">
                 <source>Flexform</source>
-                <target>Flexform</target>
-            </trans-unit>
-
-            <trans-unit id="tx_cart.plugin.products.action.switch">
-                <target>Select Controller and Action</target>
-            </trans-unit>
-            <trans-unit id="tx_cart.plugin.products.action.product.list_and_show">
-                <target>List and Show products</target>
-            </trans-unit>
-            <trans-unit id="tx_cart.plugin.products.action.product.list">
-                <source>List Products</source>
-            </trans-unit>
-            <trans-unit id="tx_cart.plugin.products.action.product.show">
-                <source>Show product</source>
-            </trans-unit>
-            <trans-unit id="tx_cart.plugin.products.action.product.teaser">
-                <target>Teaser product</target>
-            </trans-unit>
-            <trans-unit id="tx_cart.plugin.products.action.product.teaser.select.product">
-                <target>Choose a product to teaser</target>
-            </trans-unit>
-            <trans-unit id="tx_cart.plugin.products.action.product.flexform">
                 <target>Flexform</target>
             </trans-unit>
 

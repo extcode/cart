@@ -516,7 +516,7 @@
                 <source>Display Type</source>
             </trans-unit>
             <trans-unit id="tx_cart.plugin.products.action.product.list_and_show">
-                <source>Product - List and Show View</source>
+                <source>Product - Show and List View</source>
             </trans-unit>
             <trans-unit id="tx_cart.plugin.products.action.product.show">
                 <source>Product - Show View</source>
