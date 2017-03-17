@@ -24,7 +24,6 @@ $pluginNames = [
     'MiniCart',
     'Cart',
     'Product',
-    'ProductPartial',
     'FlexProduct',
     'Order'
 ];
