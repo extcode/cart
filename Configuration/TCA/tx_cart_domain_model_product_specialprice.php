@@ -8,6 +8,8 @@ return [
     'ctrl' => [
         'title' => $_LLL . ':tx_cart_domain_model_product_specialprice',
         'label' => 'price',
+        'label_alt' => 'starttime, endtime',
+        'label_alt_force' => 1,
         'tstamp' => 'tstamp',
         'crdate' => 'crdate',
         'cruser_id' => 'cruser_id',
@@ -34,7 +36,7 @@ return [
         'showRecordFieldList' => 'hidden, starttime, endtime, title, frontend_user_group, price',
     ],
     'types' => [
-        '1' => ['showitem' => 'hidden;;1, starttime, endtime, title, frontend_user_group, price'],
+        '1' => ['showitem' => 'hidden;;1, starttime, endtime, frontend_user_group, title, price'],
     ],
     'palettes' => [
         '1' => ['showitem' => ''],
@@ -100,9 +102,6 @@ return [
                 'eval' => 'datetime',
                 'checkbox' => 0,
                 'default' => 0,
-                'range' => [
-                    'lower' => mktime(0, 0, 0, date('m'), date('d'), date('Y'))
-                ],
             ],
         ],
         'endtime' => [
@@ -116,9 +115,6 @@ return [
                 'eval' => 'datetime',
                 'checkbox' => 0,
                 'default' => 0,
-                'range' => [
-                    'lower' => mktime(0, 0, 0, date('m'), date('d'), date('Y'))
-                ],
             ],
         ],
 
@@ -131,6 +127,17 @@ return [
                 'eval' => 'trim'
             ],
         ],
+        'price' => [
+            'exclude' => 1,
+            'label' => $_LLL . ':tx_cart_domain_model_product_specialprice.price',
+            'config' => [
+                'type' => 'input',
+                'size' => 30,
+                'eval' => 'required,double2',
+                'default' => '0.00',
+            ]
+        ],
+
         'frontend_user_group' => [
             'exclude' => 1,
             'label' => $_LLL . ':tx_cart_domain_model_product_specialprice.frontend_user_group',
@@ -144,16 +151,6 @@ return [
                 ],
                 'minitems' => 0,
                 'maxitems' => 1,
-            ]
-        ],
-        'price' => [
-            'exclude' => 1,
-            'label' => $_LLL . ':tx_cart_domain_model_product_specialprice.price',
-            'config' => [
-                'type' => 'input',
-                'size' => 30,
-                'eval' => 'required,double2',
-                'default' => '0.00',
             ]
         ],
 

@@ -3,6 +3,8 @@
 <f:layout name="Default"/>
 
 <f:section name="main">
+    <cart:canonicalTag product="{product}" />
+
     <cart:format.nothing>
         <cart:titleTag>
             <f:format.htmlentitiesDecode>{product.title}</f:format.htmlentitiesDecode>

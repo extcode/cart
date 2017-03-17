@@ -1,3 +1,28 @@
+3.0.0
+    2017-03-17
+    Daniel Lorenz <daniel.lorenz@extco.de>
+
+    * TASK #63: add quantity discounts / graduated prices for products
+    * TASK #56: different shipping / payment configurations for different countries
+    * TASK #58: add main category and canonical url for category detail views
+    * BUGFIX #73: change output of product variants sku to variants completeSku for products with variants in cart and order mail
+    * TASK #68: add signal slot for checking products before adding them to cart
+    * TASK #76: realurl improvements
+    * TASK #74: show vat in cart summary and mails
+    * TASK #77: add signal slot to change order item before saving
+    * TASK #78: use testing framework instead of typo3 source
+    * TASK #79: add signal slot before and after handle payment
+    * TASK #80: move external product storage handling to signal slot
+    * TASK #82: make *_date fields in order items read only
+    * TASK #81: refactor generate*Number actions
+    * TASK #48: required field by variants
+    * TASK #10: add empty option to select view helper
+    * TASK #66: update payment and shipping in backend module
+    * BUGFIX #84: error in display condition of ProductPlugin.xml flexform
+    * TASK #49: payment method needs return url
+    * BUGFIX #87: fix php 7 argument exception in ViewHelper
+    * TASK #86: allow to set net price to product prices
+
 2.4.4
     2017-03-17
     Daniel Lorenz <daniel.lorenz@extco.de>

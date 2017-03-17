@@ -15,8 +15,6 @@ namespace Extcode\Cart\ViewHelpers\Format;
  * The TYPO3 project - inspiring people to share!
  */
 
-use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
-
 /**
  * Currency ViewHelper
  *
@@ -26,7 +24,7 @@ use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
  * @package cart
  * @author Daniel Lorenz <ext.cart@extco.de>
  */
-class CurrencyViewHelper extends AbstractViewHelper
+class CurrencyViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper
 {
     /**
      * @var \TYPO3\CMS\Extbase\Configuration\ConfigurationManager

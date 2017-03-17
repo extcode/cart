@@ -1,5 +1,78 @@
+function updateCountry(billingCountry, shippingCountry) {
+    var postParams = {
+        'tx_cart_cart[billing_country]': billingCountry,
+        'tx_cart_cart[shipping_country]': shippingCountry
+    };
+
+    $.ajax({
+        async: 'true',
+        url: update_country,
+        type: "POST",
+
+        data: postParams,
+
+        success: function(data)
+        {
+            $('#shipping-method').html($(data).filter('#shipping-method').html());
+            $('#payment-method').html($(data).filter('#payment-method').html());
+            $('#checkout-review-table').html($(data).filter('#checkout-review-table').html());
+        }
+    });
+}
+
+$('#billingAddress\\:country').change(function () {
+    var billingCountry = $(this).val();
+    var shippingCountry = '';
+
+    if(!$("#shipping_same_as_billing").is(':checked')) {
+        shippingCountry = $('#shippingAddress\\:country').val();
+    }
+
+    updateCountry(billingCountry, shippingCountry)
+});
+
+$('#shippingAddress\\:country').change(function () {
+    var billingCountry = $('#billingAddress\\:country').val();
+    var shippingCountry = $(this).val();
+
+    updateCountry(billingCountry, shippingCountry)
+});
+
 $('#shipping_same_as_billing').change(function() {
     $('#shipping-address').toggle(!this.checked);
+
+    var billingCountry = $('#billingAddress\\:country').val();
+    var shippingCountry = '';
+
+    if(!$("#shipping_same_as_billing").is(':checked')) {
+        shippingCountry = $('#shippingAddress\\:country').val();
+    }
+
+    updateCountry(billingCountry, shippingCountry)
+});
+
+$('#payment-method').on('click', '.setPayment', function(e) {
+    var url = $(this).attr('href');
+
+    $.get( url, function( data ) {
+        $('#shipping-method').html($(data).filter('#shipping-method').html());
+        $('#payment-method').html($(data).filter('#payment-method').html());
+        $('#checkout-review').html($(data).filter('#checkout-review').html());
+    });
+
+    e.preventDefault();
+});
+
+$('#shipping-method').on('click', '.setShipping', function(e) {
+    var url = $(this).attr('href');
+
+    $.get( url, function( data ) {
+        $('#shipping-method').html($(data).filter('#shipping-method').html());
+        $('#payment-method').html($(data).filter('#payment-method').html());
+        $('#checkout-review').html($(data).filter('#checkout-review').html());
+    });
+
+    e.preventDefault();
 });
 
 $('#be-variants-select').change(function () {

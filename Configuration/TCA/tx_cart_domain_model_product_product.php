@@ -34,7 +34,7 @@ return [
         'iconfile' => 'EXT:cart/Resources/Public/Icons/Product/Product.png'
     ],
     'interface' => [
-        'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, product_type, sku, title, header_image, teaser, description, min_number_in_order, max_number_in_order, price, special_prices, price_measure, price_measure_unit, base_price_measure_unit, service_attribute1, service_attribute2, service_attribute3, tax_class_id, be_variant_attribute1, be_variant_attribute2, be_variant_attribute3, fe_variants, be_variants, related_products, categories, tags',
+        'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, product_type, sku, title, header_image, teaser, description, min_number_in_order, max_number_in_order, price, special_prices, quantity_discounts, price_measure, price_measure_unit, base_price_measure_unit, service_attribute1, service_attribute2, service_attribute3, tax_class_id, be_variant_attribute1, be_variant_attribute2, be_variant_attribute3, fe_variants, be_variants, related_products, main_category, categories, tags',
     ],
     'types' => [
         '1' => [
@@ -48,6 +48,7 @@ return [
             --div--;' . $_LLL . ':tx_cart_domain_model_product_product.div.prices,
                 --palette--;' . $_LLL . ':tx_cart_domain_model_product_product.palette.minmax;minmax,
                 --palette--;' . $_LLL . ':tx_cart_domain_model_product_product.palette.prices;prices,
+            --div--;' . $_LLL . ':tx_cart_domain_model_product_product.div.measures,    
                 --palette--;' . $_LLL . ':tx_cart_domain_model_product_product.palette.measures;measures,
                 --palette--;' . $_LLL . ':tx_cart_domain_model_product_product.palette.service_attributes;service_attributes,
             --div--;' . $_LLL . ':tx_cart_domain_model_product_product.div.stock,
@@ -58,7 +59,7 @@ return [
             --div--;' . $_LLL . ':tx_cart_domain_model_product_product.div.related_products,
                 related_products,  
             --div--;' . $_LLL . ':tx_cart_domain_model_product_product.div.tags_categories,
-                tags, categories'
+                tags, main_category, categories'
         ],
     ],
     'palettes' => [
@@ -74,7 +75,7 @@ return [
             'canNotCollapse' => 1
         ],
         'prices' => [
-            'showitem' => 'price, tax_class_id, --linebreak--, special_prices',
+            'showitem' => 'is_net_price, --linebreak--, price, tax_class_id, --linebreak--, special_prices, quantity_discounts',
             'canNotCollapse' => 1
         ],
         'measures' => [
@@ -252,6 +253,14 @@ return [
             ]
         ],
 
+        'is_net_price' => [
+            'exclude' => 1,
+            'label' => $_LLL . ':tx_cart_domain_model_product_product.is_net_price',
+            'config' => [
+                'type' => 'check',
+            ],
+        ],
+
         'price' => [
             'exclude' => 1,
             'label' => $_LLL . ':tx_cart_domain_model_product_product.price',
@@ -270,7 +279,28 @@ return [
                 'type' => 'inline',
                 'foreign_table' => 'tx_cart_domain_model_product_specialprice',
                 'foreign_field' => 'product',
-                'foreign_table_where' => ' AND tx_cart_domain_model_product_specialprice.pid=###CURRENT_PID### ORDER BY tx_cart_domain_model_product_specialprice.title ',
+                'foreign_table_where' => ' AND tx_cart_domain_model_product_specialprice.pid=###CURRENT_PID### ',
+                'foreign_default_sortby' => 'price ASC',
+                'maxitems' => 99,
+                'appearance' => [
+                    'collapseAll' => 1,
+                    'levelLinksPosition' => 'top',
+                    'showSynchronizationLink' => 1,
+                    'showPossibleLocalizationRecords' => 1,
+                    'showAllLocalizationLink' => 1
+                ],
+            ],
+        ],
+
+        'quantity_discounts' => [
+            'exclude' => 1,
+            'label' => $_LLL . ':tx_cart_domain_model_product_product.quantity_discounts',
+            'config' => [
+                'type' => 'inline',
+                'foreign_table' => 'tx_cart_domain_model_product_quantitydiscount',
+                'foreign_field' => 'product',
+                'foreign_table_where' => ' AND tx_cart_domain_model_product_quantitydiscount.pid=###CURRENT_PID### ',
+                'foreign_default_sortby' => 'quantity ASC',
                 'maxitems' => 99,
                 'appearance' => [
                     'collapseAll' => 1,

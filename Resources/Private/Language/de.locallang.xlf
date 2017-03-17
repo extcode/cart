@@ -161,6 +161,14 @@
                 <source>Invoice Date</source>
                 <target>Rechnungsdatum</target>
             </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_item.delivery_number">
+                <source>Delivery Number</source>
+                <target>Lieferscheinnummer</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_item.delivery_date">
+                <source>Delivery Date</source>
+                <target>Lieferscheindatum</target>
+            </trans-unit>
             <trans-unit id="tx_cart_domain_model_order_item.billing_address">
                 <source>Billing Address</source>
                 <target>Rechnungsadresse</target>
@@ -394,6 +402,10 @@
                 <source>update cart</source>
                 <target>Warenkorb aktualisieren</target>
             </trans-unit>
+            <trans-unit id="tx_cart.update_status">
+                <source>update status</source>
+                <target>Status aktualisieren</target>
+            </trans-unit>
             <trans-unit id="tx_cart.add_coupon">
                 <source>add coupon</source>
                 <target>Gutscheincode absenden</target>
@@ -405,6 +417,10 @@
             <trans-unit id="tx_cart.same_address">
                 <source>Send it to the same address.</source>
                 <target>An die gleiche Adresse versenden.</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.variants-select.choose">
+                <source>Please choose ...</source>
+                <target>Bitte auswählen ...</target>
             </trans-unit>
 
             <trans-unit id="tx_cart.history_back">
@@ -461,6 +477,38 @@
             <trans-unit id="tx_cart.controller.order.action.payment_cancel.thank_you">
                 <source>Thank you.</source>
                 <target>Vielen Dank.</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.controller.order.action.generate_number_action.order.success">
+                <source>The generated order number is: %s.</source>
+                <target>Die generierte Bestellnummer lautet: %s.</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.controller.order.action.generate_number_action.order.already_generated">
+                <source>An order number already exists!</source>
+                <target>Es existiert bereits eine Bestellnummer.</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.controller.order.action.generate_number_action.invoice.success">
+                <source>The generated invoice number is: %s</source>
+                <target>Die generierte Rechnungsnummer lautet: %s.</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.controller.order.action.generate_number_action.invoice.already_generated">
+                <source>An invoice number already exists!</source>
+                <target>Es existiert bereits eine Rechnungsnummer.</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.controller.order.action.generate_number_action.delivery.success">
+                <source>The generated delivery number is: %s</source>
+                <target>Die generierte Lieferscheinnummer lautet: %s.</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.controller.order.action.generate_number_action.delivery.already_generated">
+                <source>An delivery number already exists!</source>
+                <target>Es existiert bereits eine Lieferscheinnummer.</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.controller.order.action.update_payment_action.success">
+                <source>The payment was successfully updated.</source>
+                <target>Die Zahlung wurde erfolgreich aktualisiert.</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.controller.order.action.update_shipping_action.success">
+                <source>The shipping was successfully updated.</source>
+                <target>Der Versand wurde erfolgreich aktualisiert.</target>
             </trans-unit>
 
             <trans-unit id="tx_cart.controller.order.actions">
@@ -592,6 +640,14 @@
                 <source>free</source>
                 <target>frei</target>
             </trans-unit>
+            <trans-unit id="tx_cart.tax_vat">
+                <source>VAT</source>
+                <target>Umstatzsteuer</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.tax_vat.value">
+                <source>VAT (%s %%)</source>
+                <target>Umstatzsteuer (%s %%)</target>
+            </trans-unit>
 
             <trans-unit id="tx_cart_domain_model_cart_cart.net">
                 <source>Price (net)</source>
@@ -640,6 +696,14 @@
             <trans-unit id="tx_cart_domain_model_product_product.special_price">
                 <source>Special Price</source>
                 <target>spezieller Preis</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_product_product.quantity_discounts">
+                <source>Quantity Discount</source>
+                <target>Mengenrabatt</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_product_product.quantity_discount_from">
+                <source>from %s</source>
+                <target>ab %s</target>
             </trans-unit>
             <trans-unit id="tx_cart_domain_model_product_product.price.from">
                 <target>ab</target>
@@ -810,6 +874,18 @@
                 <target>Gutscheincode wurde nicht gefunden.</target>
             </trans-unit>
 
+            <trans-unit id="tx_cart.settings.allowed_countries.de">
+                <source>Germany</source>
+                <target>Deutschland</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.settings.allowed_countries.at">
+                <source>Austria</source>
+                <target>Österreich</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.settings.allowed_countries.ch">
+                <source>Switzerland</source>
+                <target>Schweiz</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

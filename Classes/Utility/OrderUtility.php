@@ -224,6 +224,22 @@ class OrderUtility
         $orderItem->setOrderNumber($orderNumber);
         $orderItem->setOrderDate(new \DateTime());
 
+        $data = [
+            'cart' => $this->cart,
+            'orderItem' => $this->orderItem,
+        ];
+
+        $signalSlotDispatcher = $this->objectManager->get(
+            \TYPO3\CMS\Extbase\SignalSlot\Dispatcher::class
+        );
+        $slotReturn = $signalSlotDispatcher->dispatch(
+            __CLASS__,
+            'changeOrderItemBeforeSaving',
+            [$data]
+        );
+
+        $orderItem = $slotReturn[0]['orderItem'];
+
         $this->persistenceManager->persistAll();
 
         $this->cart->setOrderId($orderItem->getUid());
@@ -234,11 +250,61 @@ class OrderUtility
      * Check Stock
      *
      * @param \Extcode\Cart\Domain\Model\Cart\Cart $cart
+     * @parem array $pluginSettings
      */
-    public function checkStock(\Extcode\Cart\Domain\Model\Cart\Cart $cart)
-    {
-        // TODO internal stock check
+    public function checkStock(
+        \Extcode\Cart\Domain\Model\Cart\Cart $cart,
+        $pluginSettings
+    ) {
+        $this->beforeCheckStock($cart);
 
+        /** @var \Extcode\Cart\Domain\Model\Cart\Product $cartProduct */
+        foreach ($cart->getProducts() as $cartProduct) {
+            $productStorageId = $cartProduct->getTableId();
+
+            if ($productStorageId) {
+                $repositoryClass = '';
+
+                if (is_array($pluginSettings['productStorages']) &&
+                    is_array($pluginSettings['productStorages'][$productStorageId]) &&
+                    isset($pluginSettings['productStorages'][$productStorageId]['class'])
+                ) {
+                    $repositoryClass = $pluginSettings['productStorages'][$productStorageId]['class'];
+                }
+
+                if ($repositoryClass == 'Extcode\Cart\Domain\Repository\Product\ProductRepository') {
+                    // TODO internal stock check
+                } else {
+                    $data = [
+                        'cartProduct' => $cartProduct,
+                        'productStorageSettings' => $pluginSettings['productStorages'][$productStorageId],
+                    ];
+
+                    $signalSlotDispatcher = $this->objectManager->get(
+                        \TYPO3\CMS\Extbase\SignalSlot\Dispatcher::class
+                    );
+                    $signalSlotDispatcher->dispatch(
+                        __CLASS__,
+                        __FUNCTION__,
+                        [$data]
+                    );
+                }
+            }
+        }
+
+        $this->afterCheckStock($cart);
+    }
+
+    /**
+     * Before Check Stock
+     *
+     * @param \Extcode\Cart\Domain\Model\Cart\Cart $cart
+     *
+     * @return void
+     */
+    public function beforeCheckStock(
+        \Extcode\Cart\Domain\Model\Cart\Cart $cart
+    ) {
         $data = [
             'cart' => $cart,
         ];
@@ -248,7 +314,31 @@ class OrderUtility
         );
         $signalSlotDispatcher->dispatch(
             __CLASS__,
-            'afterInternalCheckStock',
+            __FUNCTION__,
+            [$data]
+        );
+    }
+
+    /**
+     * After Check Stock
+     *
+     * @param \Extcode\Cart\Domain\Model\Cart\Cart $cart
+     *
+     * @return void
+     */
+    public function afterCheckStock(
+        \Extcode\Cart\Domain\Model\Cart\Cart $cart
+    ) {
+        $data = [
+            'cart' => $cart,
+        ];
+
+        $signalSlotDispatcher = $this->objectManager->get(
+            \TYPO3\CMS\Extbase\SignalSlot\Dispatcher::class
+        );
+        $signalSlotDispatcher->dispatch(
+            __CLASS__,
+            __FUNCTION__,
             [$data]
         );
     }
@@ -257,21 +347,15 @@ class OrderUtility
      * Handle Stock
      *
      * @param \Extcode\Cart\Domain\Model\Cart\Cart $cart
+     * @parem array $pluginSettings
+     *
+     * @return void
      */
-    public function handleStock(\Extcode\Cart\Domain\Model\Cart\Cart $cart)
-    {
-        $data = [
-            'cart' => $cart,
-        ];
-
-        $signalSlotDispatcher = $this->objectManager->get(
-            \TYPO3\CMS\Extbase\SignalSlot\Dispatcher::class
-        );
-        $signalSlotDispatcher->dispatch(
-            __CLASS__,
-            'beforeHandleStock',
-            [$data]
-        );
+    public function handleStock(
+        \Extcode\Cart\Domain\Model\Cart\Cart $cart,
+        $pluginSettings
+    ) {
+        $this->beforeHandleStock($cart);
 
         /** @var \Extcode\Cart\Domain\Repository\Product\ProductRepository $productProductRepository */
         $productProductRepository = $this->objectManager->get(
@@ -284,27 +368,67 @@ class OrderUtility
 
         /** @var \Extcode\Cart\Domain\Model\Cart\Product $cartProduct */
         foreach ($cart->getProducts() as $cartProduct) {
-            if (!$cartProduct->getContentId()) {
-                /** @var \Extcode\Cart\Domain\Model\Product\Product $productProduct */
-                $productProduct = $productProductRepository->findByUid($cartProduct->getProductId());
-                if ($productProduct && $productProduct->getHandleStock()) {
-                    if ($productProduct->getHandleStockInVariants()) {
-                        /** @var \Extcode\Cart\Domain\Model\Cart\BeVariant $cartBeVariant */
-                        foreach ($cartProduct->getBeVariants() as $cartBeVariant) {
-                            /** @var \Extcode\Cart\Domain\Model\Product\BeVariant $productBeVariant */
-                            $productBeVariant = $productBeVariantRepository->findByUid($cartBeVariant->getId());
-                            $productBeVariant->removeFromStock($cartBeVariant->getQuantity());
-                        }
-                    } else {
-                        $productProduct->removeFromStock($cartProduct->getQuantity());
-                    }
+            $productStorageId = $cartProduct->getTableId();
+
+            if ($productStorageId) {
+                $repositoryClass = '';
+
+                if (is_array($pluginSettings['productStorages']) &&
+                    is_array($pluginSettings['productStorages'][$productStorageId]) &&
+                    isset($pluginSettings['productStorages'][$productStorageId]['class'])
+                ) {
+                    $repositoryClass = $pluginSettings['productStorages'][$productStorageId]['class'];
                 }
-                $productProductRepository->update($productProduct);
+
+                if ($repositoryClass == 'Extcode\Cart\Domain\Repository\Product\ProductRepository') {
+                    /** @var \Extcode\Cart\Domain\Model\Product\Product $productProduct */
+                    $productProduct = $productProductRepository->findByUid($cartProduct->getProductId());
+                    if ($productProduct && $productProduct->getHandleStock()) {
+                        if ($productProduct->getHandleStockInVariants()) {
+                            /** @var \Extcode\Cart\Domain\Model\Cart\BeVariant $cartBeVariant */
+                            foreach ($cartProduct->getBeVariants() as $cartBeVariant) {
+                                /** @var \Extcode\Cart\Domain\Model\Product\BeVariant $productBeVariant */
+                                $productBeVariant = $productBeVariantRepository->findByUid($cartBeVariant->getId());
+                                $productBeVariant->removeFromStock($cartBeVariant->getQuantity());
+                            }
+                        } else {
+                            $productProduct->removeFromStock($cartProduct->getQuantity());
+                        }
+                    }
+                    $productProductRepository->update($productProduct);
+                } else {
+                    $data = [
+                        'cartProduct' => $cartProduct,
+                        'productStorageSettings' => $pluginSettings['productStorages'][$productStorageId],
+                    ];
+
+                    $signalSlotDispatcher = $this->objectManager->get(
+                        \TYPO3\CMS\Extbase\SignalSlot\Dispatcher::class
+                    );
+                    $signalSlotDispatcher->dispatch(
+                        __CLASS__,
+                        __FUNCTION__,
+                        [$data]
+                    );
+                }
             }
         }
 
         $this->persistenceManager->persistAll();
 
+        $this->afterHandleStock($cart);
+    }
+
+    /**
+     * Before Handle Stock
+     *
+     * @param \Extcode\Cart\Domain\Model\Cart\Cart $cart
+     *
+     * @return void
+     */
+    public function beforeHandleStock(
+        \Extcode\Cart\Domain\Model\Cart\Cart $cart
+    ) {
         $data = [
             'cart' => $cart,
         ];
@@ -314,7 +438,31 @@ class OrderUtility
         );
         $signalSlotDispatcher->dispatch(
             __CLASS__,
-            'afterHandleStock',
+            __FUNCTION__,
+            [$data]
+        );
+    }
+
+    /**
+     * After Handle Stock
+     *
+     * @param \Extcode\Cart\Domain\Model\Cart\Cart $cart
+     *
+     * @return void
+     */
+    public function afterHandleStock(
+        \Extcode\Cart\Domain\Model\Cart\Cart $cart
+    ) {
+        $data = [
+            'cart' => $cart,
+        ];
+
+        $signalSlotDispatcher = $this->objectManager->get(
+            \TYPO3\CMS\Extbase\SignalSlot\Dispatcher::class
+        );
+        $signalSlotDispatcher->dispatch(
+            __CLASS__,
+            __FUNCTION__,
             [$data]
         );
     }
@@ -331,6 +479,8 @@ class OrderUtility
         \Extcode\Cart\Domain\Model\Order\Item $orderItem,
         \Extcode\Cart\Domain\Model\Cart\Cart $cart
     ) {
+        $this->beforeHandlePayment($orderItem, $cart);
+
         $payment = $cart->getPayment();
         $provider = $payment->getAdditional('payment_service');
 
@@ -346,11 +496,67 @@ class OrderUtility
         );
         $params = $signalSlotDispatcher->dispatch(
             __CLASS__,
-            __FUNCTION__ . 'AfterOrder',
+            __FUNCTION__,
             [$data]
         );
 
+        $this->afterHandlePayment($orderItem, $cart);
+
         return $params[0]['providerUsed'];
+    }
+
+    /**
+     * Before Handle Payment
+     *
+     * @param \Extcode\Cart\Domain\Model\Order\Item $orderItem
+     * @param \Extcode\Cart\Domain\Model\Cart\Cart $cart
+     *
+     * @return void
+     */
+    public function beforeHandlePayment(
+        \Extcode\Cart\Domain\Model\Order\Item $orderItem,
+        \Extcode\Cart\Domain\Model\Cart\Cart $cart
+    ) {
+        $data = [
+            'orderItem' => $orderItem,
+            'cart' => $cart,
+        ];
+
+        $signalSlotDispatcher = $this->objectManager->get(
+            \TYPO3\CMS\Extbase\SignalSlot\Dispatcher::class
+        );
+        $signalSlotDispatcher->dispatch(
+            __CLASS__,
+            __FUNCTION__,
+            [$data]
+        );
+    }
+
+    /**
+     * After Handle Payment
+     *
+     * @param \Extcode\Cart\Domain\Model\Order\Item $orderItem
+     * @param \Extcode\Cart\Domain\Model\Cart\Cart $cart
+     *
+     * @return void
+     */
+    public function afterHandlePayment(
+        \Extcode\Cart\Domain\Model\Order\Item $orderItem,
+        \Extcode\Cart\Domain\Model\Cart\Cart $cart
+    ) {
+        $data = [
+            'orderItem' => $orderItem,
+            'cart' => $cart,
+        ];
+
+        $signalSlotDispatcher = $this->objectManager->get(
+            \TYPO3\CMS\Extbase\SignalSlot\Dispatcher::class
+        );
+        $signalSlotDispatcher->dispatch(
+            __CLASS__,
+            __FUNCTION__,
+            [$data]
+        );
     }
 
     /**
@@ -500,8 +706,7 @@ class OrderUtility
         );
         $signalSlotDispatcher->dispatch(
             __CLASS__,
-            __FUNCTION__ .
-            'BeforeSetAdditionalData',
+            __FUNCTION__ . 'AdditionalData',
             [$data]
         );
 
@@ -707,8 +912,7 @@ class OrderUtility
         );
         $signalSlotDispatcher->dispatch(
             __CLASS__,
-            __FUNCTION__ .
-            'BeforeSetAdditionalData',
+            __FUNCTION__ . 'AdditionalData',
             [$data]
         );
 
@@ -860,18 +1064,6 @@ class OrderUtility
      * Get Invoice Number
      *
      * @param array $pluginSettings
-     *
-     * @return string
-     */
-    public function getInvoiceNumber(array $pluginSettings)
-    {
-        return $this->getNumber($pluginSettings, 'invoice');
-    }
-
-    /**
-     * Get Invoice Number
-     *
-     * @param array $pluginSettings
      * @param string $numberType
      *
      * @return string
@@ -883,7 +1075,6 @@ class OrderUtility
          */
         $typoScriptService = GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Service\\TypoScriptService');
         $pluginTypoScriptSettings = $typoScriptService->convertPlainArrayToTypoScriptArray($pluginSettings);
-
 
         $registry = GeneralUtility::makeInstance('TYPO3\\CMS\\Core\\Registry');
 

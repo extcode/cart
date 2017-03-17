@@ -170,10 +170,17 @@ class ProductController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
      * action show
      *
      * @param \Extcode\Cart\Domain\Model\Product\Product $product
+     *
+     * @ignorevalidation $product
+     *
      * @return void
      */
-    public function showAction(\Extcode\Cart\Domain\Model\Product\Product $product)
+    public function showAction(\Extcode\Cart\Domain\Model\Product\Product $product = null)
     {
+        if (empty($product)) {
+            $this->forward('list');
+        }
+
         $this->view->assign('user', $GLOBALS['TSFE']->fe_user->user);
         $this->view->assign('product', $product);
     }

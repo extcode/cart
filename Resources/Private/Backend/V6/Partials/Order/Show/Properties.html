@@ -2,14 +2,12 @@
     <tr>
         <th style="background-color: #ededed;">
             <f:translate key="tx_cart_domain_model_order_item.order_number"/>
-            :
         </th>
         <td>
             {orderItem.orderNumber}
         </td>
         <th style="background-color: #ededed; border-left: 1px solid #DDD;">
             <f:translate key="tx_cart_domain_model_order_item.invoice_number"/>
-            :
         </th>
         <td>
             {orderItem.invoiceNumber}
@@ -18,7 +16,6 @@
     <tr>
         <th style="background-color: #ededed;">
             <f:translate key="tx_cart_domain_model_order_item.order_date"/>
-            :
         </th>
         <td>
             <f:if condition="{orderItem.orderDate}">
@@ -27,7 +24,6 @@
         </td>
         <th style="background-color: #ededed; border-left: 1px solid #DDD;">
             <f:translate key="tx_cart_domain_model_order_item.invoice_date"/>
-            :
         </th>
         <td>
             <f:if condition="{orderItem.invoiceDate}">
@@ -35,17 +31,47 @@
             </f:if>
         </td>
     </tr>
+    <f:if condition="{orderItem.deliveryNumber}">
+        <tr>
+            <th style="background-color: #ededed;">
+                &nbsp;
+            </th>
+            <td>
+                &nbsp;
+            </td>
+            <th style="background-color: #ededed; border-left: 1px solid #DDD;">
+                <f:translate key="tx_cart_domain_model_order_item.delivery_number"/>
+            </th>
+            <td>
+                {orderItem.deliveryNumber}
+            </td>
+        </tr>
+        <tr>
+            <th style="background-color: #ededed;">
+                &nbsp;
+            </th>
+            <td>
+                &nbsp;
+            </td>
+            <th style="background-color: #ededed; border-left: 1px solid #DDD;">
+                <f:translate key="tx_cart_domain_model_order_item.delivery_date"/>
+            </th>
+            <td>
+                <f:if condition="{orderItem.deliveryDate}">
+                    <f:format.date format="d.m.Y" date="{orderItem.deliveryDate}"/>
+                </f:if>
+            </td>
+        </tr>
+    </f:if>
     <tr>
         <th style="background-color: #ededed;">
             <f:translate key="tx_cart_domain_model_order_item.order_shipping"/>
-            :
         </th>
         <td>
             {orderItem.payment.name}
         </td>
         <th style="background-color: #ededed; border-left: 1px solid #DDD;">
             <f:translate key="tx_cart_domain_model_order_item.order_payment"/>
-            :
         </th>
         <td>
             {orderItem.shipping.name}
@@ -56,38 +82,20 @@
             <f:translate key="tx_cart_domain_model_order_payment.status"/>
         </th>
         <td>
-            <f:translate key="tx_cart_domain_model_order_payment.status.{orderItem.payment.status}"/>
+            <f:form action="updatePayment" name="paymentStatus" object="{orderItem.payment}" objectName="payment">
+                <f:form.select property="status" options="{paymentStatusOptions}" optionValueField="value" optionLabelField="label"/>
+                <f:form.submit value="{f:translate(key: 'tx_cart.update_status')}" />
+            </f:form>
         </td>
         <th style="background-color: #ededed; border-left: 1px solid #DDD;">
-            <f:translate key="tx_cart_domain_model_order_payment.status"/>
+            <f:translate key="tx_cart_domain_model_order_shipping.status"/>
         </th>
         <td>
-            <f:translate key="tx_cart_domain_model_order_payment.status.{orderItem.shipping.status}"/>
+            <f:form action="updateShipping" name="shippingStatus" object="{orderItem.shipping}" objectName="shipping">
+                <f:form.select property="status" options="{shippingStatusOptions}" optionValueField="value" optionLabelField="label"/>
+                <f:form.submit value="{f:translate(key: 'tx_cart.update_status')}" />
+            </f:form>
         </td>
     </tr>
 </table>
 <br>
-
-<div>
-    <div class="block-left">
-        <f:if condition="{orderItem.billingAddress}">
-            <strong>
-                <f:translate key="tx_cart_domain_model_order_item.billing_address"/>
-                :
-            </strong>
-            <f:render partial="Order/Show/Address" arguments="{address: orderItem.billingAddress}"/>
-        </f:if>
-    </div>
-
-    <div class="block-right">
-        <f:if condition="{orderItem.shippingAddress}">
-            <strong>
-                <f:translate key="tx_cart_domain_model_order_item.shipping_address"/>
-                :
-            </strong>
-            <f:render partial="Order/Show/Address" arguments="{address: orderItem.shippingAddress}"/>
-        </f:if>
-    </div>
-
-    <div class="clear"><!-- --></div>
-</div>

@@ -1,23 +1,49 @@
+<f:section name="address">
+    <div>
+        <div>
+            <span>{address.salutation} {address.title} {address.firstName} {address.lastName}</span><br/>
+            <f:if condition="{address.company}">
+                <span>{address.company}</span><br/>
+            </f:if>
+            {address.street}<br/>
+            {address.zip} {address.city}<br/>
+            <f:if condition="{address.country}">
+                <f:translate key="tx_cart.settings.allowed_countries.{address.country}" default="{address.country}"/>
+            </f:if>
+        </div>
+        <br/>
+        <div>
+            <f:if condition="{address.email}">
+                {address.email}<br/>
+            </f:if>
+            <f:if condition="{address.phone}">
+                {address.phone}<br/>
+            </f:if>
+            <f:if condition="{address.fax}">
+                {address.fax}<br/>
+            </f:if>
+        </div>
+    </div>
+</f:section>
+
 <div>
-    <div>
-        <span>{address.salutation} {address.title} {address.firstName} {address.lastName}</span><br/>
-        <f:if condition="{address.company}">
-            <span>{address.company}</span><br/>
-        </f:if>
-        {address.street}<br/>
-        {address.zip} {address.city}<br/>
-        {address.country}
-    </div>
-    <br/>
-    <div>
-        <f:if condition="{address.email}">
-            {address.email}<br/>
-        </f:if>
-        <f:if condition="{address.phone}">
-            {address.phone}<br/>
-        </f:if>
-        <f:if condition="{address.fax}">
-            {address.fax}<br/>
+    <div class="block-left">
+        <f:if condition="{orderItem.billingAddress}">
+            <strong>
+                <f:translate key="tx_cart_domain_model_order_item.billing_address"/>:
+            </strong>
+            <f:render section="address" arguments="{address: orderItem.billingAddress}"/>
         </f:if>
     </div>
+
+    <div class="block-right">
+        <f:if condition="{orderItem.shippingAddress}">
+            <strong>
+                <f:translate key="tx_cart_domain_model_order_item.shipping_address"/>:
+            </strong>
+            <f:render section="address" arguments="{address: orderItem.shippingAddress}"/>
+        </f:if>
+    </div>
+
+    <div class="clear"><!-- --></div>
 </div>

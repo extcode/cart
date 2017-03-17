@@ -29,6 +29,8 @@ namespace Extcode\Cart\Tests\Domain\Model\Product;
 class CouponTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
 {
     /**
+     * Product Coupon
+     *
      * @var \Extcode\Cart\Domain\Model\Product\Coupon
      */
     protected $coupon = null;

@@ -48,6 +48,13 @@ class OrderController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     protected $paymentRepository;
 
     /**
+     * Order Shipping Repository
+     *
+     * @var \Extcode\Cart\Domain\Repository\Order\ShippingRepository
+     */
+    protected $shippingRepository;
+
+    /**
      * Cart Repository
      *
      * @var \Extcode\Cart\Domain\Repository\CartRepository
@@ -105,6 +112,15 @@ class OrderController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         \Extcode\Cart\Domain\Repository\Order\PaymentRepository $paymentRepository
     ) {
         $this->paymentRepository = $paymentRepository;
+    }
+
+    /**
+     * @param \Extcode\Cart\Domain\Repository\Order\ShippingRepository $shippingRepository
+     */
+    public function injectShippingRepository(
+        \Extcode\Cart\Domain\Repository\Order\ShippingRepository $shippingRepository
+    ) {
+        $this->shippingRepository = $shippingRepository;
     }
 
     /**
@@ -301,57 +317,106 @@ class OrderController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 
         $this->view->assign('orderItem', $orderItem);
 
+        $paymentStatusOptions = [];
+        $items = $GLOBALS['TCA']['tx_cart_domain_model_order_payment']['columns']['status']['config']['items'];
+        foreach ($items as $item) {
+            $paymentStatusOptions[$item[1]] = LocalizationUtility::translate(
+                $item[0],
+                $this->extensionName
+            );
+        }
+        $this->view->assign('paymentStatusOptions', $paymentStatusOptions);
+
+        $shippingStatusOptions = [];
+        $items = $GLOBALS['TCA']['tx_cart_domain_model_order_shipping']['columns']['status']['config']['items'];
+        foreach ($items as $item) {
+            $shippingStatusOptions[$item[1]] = LocalizationUtility::translate(
+                $item[0],
+                $this->extensionName
+            );
+        }
+        $this->view->assign('shippingStatusOptions', $shippingStatusOptions);
+
         $pdfRendererInstalled = \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::isLoaded('cart_pdf');
         $this->view->assign('pdfRendererInstalled', $pdfRendererInstalled);
     }
 
     /**
-     * Edit Action
-     *
-     * @param \Extcode\Cart\Domain\Model\Order\Item $orderItem
+     * @param \Extcode\Cart\Domain\Model\Order\Payment $payment
      *
      * @return void
      */
-    public function editAction(\Extcode\Cart\Domain\Model\Order\Item $orderItem)
+    public function updatePaymentAction(\Extcode\Cart\Domain\Model\Order\Payment $payment)
     {
-        $this->view->assign('orderItem', $orderItem);
+        $this->paymentRepository->update($payment);
+
+        $msg = LocalizationUtility::translate(
+            'tx_cart.controller.order.action.update_payment_action.success',
+            $this->extensionName
+        );
+
+        $this->addFlashMessage($msg);
+
+        $this->redirect('show', null, null, ['orderItem' => $payment->getItem()]);
     }
 
     /**
-     * Update Action
-     *
-     * @param \Extcode\Cart\Domain\Model\Order\Item $orderItem
+     * @param \Extcode\Cart\Domain\Model\Order\Shipping $shipping
      *
      * @return void
      */
-    public function updateAction(\Extcode\Cart\Domain\Model\Order\Item $orderItem)
+    public function updateShippingAction(\Extcode\Cart\Domain\Model\Order\Shipping $shipping)
     {
-        $this->itemRepository->update($orderItem);
-        $this->persistenceManager->persistAll();
+        $this->shippingRepository->update($shipping);
 
-        $this->redirect('show', null, null, ['orderItem' => $orderItem]);
+        $msg = LocalizationUtility::translate(
+            'tx_cart.controller.order.action.update_shipping_action.success',
+            $this->extensionName
+        );
+
+        $this->addFlashMessage($msg);
+
+        $this->redirect('show', null, null, ['orderItem' => $shipping->getItem()]);
     }
 
     /**
-     * Generate Invoice Number Action
+     * Generate Number Action
      *
      * @param \Extcode\Cart\Domain\Model\Order\Item $orderItem
+     * @param string $numberType
      *
      * @return void
      */
-    public function generateInvoiceNumberAction(\Extcode\Cart\Domain\Model\Order\Item $orderItem)
+    public function generateNumberAction(\Extcode\Cart\Domain\Model\Order\Item $orderItem, $numberType)
     {
-        if (!$orderItem->getInvoiceNumber()) {
-            $invoiceNumber = $this->generateInvoiceNumber($orderItem);
-            $orderItem->setInvoiceNumber($invoiceNumber);
-            $orderItem->setInvoiceDate(new \DateTime());
+        $getter = 'get' . ucfirst($numberType) . 'Number';
+        $setNumberTypeFunction = 'set' . ucfirst($numberType) . 'Number';
+        $setNumberDateFunction = 'set' . ucfirst($numberType) . 'Date';
+
+        if (!$orderItem->$getter()) {
+            $generatedNumber = $this->generateNumber($orderItem, $numberType);
+            $orderItem->$setNumberTypeFunction($generatedNumber);
+            $orderItem->$setNumberDateFunction(new \DateTime());
 
             $this->itemRepository->update($orderItem);
             $this->persistenceManager->persistAll();
 
-            $msg = 'Invoice Number ' . $invoiceNumber . ' was generated.';
+            $msg = LocalizationUtility::translate(
+                'tx_cart.controller.order.action.generate_number_action.' . $numberType . '.success',
+                $this->extensionName,
+                [
+                    0 => $generatedNumber,
+                ]
+            );
 
             $this->addFlashMessage($msg);
+        } else {
+            $msg = LocalizationUtility::translate(
+                'tx_cart.controller.order.action.generate_number_action.' . $numberType . '.already_generated',
+                $this->extensionName
+            );
+
+            $this->addFlashMessage($msg, '', \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR);
         }
 
         $this->redirect('show', null, null, ['orderItem' => $orderItem]);
@@ -440,16 +505,16 @@ class OrderController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     }
 
     /**
-     * Generate an Invoice Number
+     * Generate Number
      *
      * @param \Extcode\Cart\Domain\Model\Order\Item $orderItem
+     * @param string $pdfType
      *
-     * @return int
+     * @return string
      */
-    protected function generateInvoiceNumber(\Extcode\Cart\Domain\Model\Order\Item $orderItem)
+    protected function generateNumber(\Extcode\Cart\Domain\Model\Order\Item $orderItem, $pdfType)
     {
         $this->buildTSFE();
-        $cartConf = $GLOBALS['TSFE']->tmpl->setup['plugin.']['tx_cart.'];
 
         /**
          * @var \TYPO3\CMS\Extbase\Service\TypoScriptService $typoScriptService
@@ -478,9 +543,9 @@ class OrderController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
             ],
         ];
 
-        $invoiceNumber = $this->orderUtility->getInvoiceNumber($pluginTypoScriptSettings);
+        $number = $this->orderUtility->getNumber($pluginTypoScriptSettings, $pdfType);
 
-        return $invoiceNumber;
+        return $number;
     }
 
     /**

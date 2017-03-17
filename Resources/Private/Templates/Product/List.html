@@ -44,7 +44,7 @@
                             <f:if condition="{settings.showPageUids}">
                                 <f:then>
                                     <td>
-                                        <f:link.action pageUid="{settings.showPageUids}" action="show" arguments="{product : product}">
+                                        <f:link.action pageUid="{settings.showPageUids}" arguments="{product : product}">
                                             <f:if condition="{product.images}">
                                                 <f:image src="{product.firstImage.originalResource.originalFile.uid}"
                                                          title="{product.firstImage.originalResource.title}"
@@ -55,14 +55,14 @@
                                         </f:link.action>
                                     </td>
                                     <td>
-                                        <f:link.action pageUid="{settings.showPageUids}" action="show" arguments="{product: product}">
+                                        <f:link.action pageUid="{settings.showPageUids}" arguments="{product: product}">
                                             {product.title}
                                         </f:link.action>
                                     </td>
                                 </f:then>
                                 <f:else>
                                     <td>
-                                        <f:link.action action="show" arguments="{product : product}">
+                                        <f:link.action arguments="{product : product}">
                                             <f:if condition="{product.images}">
                                                 <f:image src="{product.firstImage.originalResource.originalFile.uid}"
                                                          title="{product.firstImage.originalResource.title}"
@@ -73,7 +73,7 @@
                                         </f:link.action>
                                     </td>
                                     <td>
-                                        <f:link.action action="show" arguments="{product: product.uid}">
+                                        <f:link.action arguments="{product: product.uid}">
                                             {product.title}
                                         </f:link.action>
                                     </td>

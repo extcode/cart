@@ -34,13 +34,6 @@ class ParserUtility
     protected $objectManager;
 
     /**
-     * Plugin Settings
-     *
-     * @var array
-     */
-    protected $pluginSettings;
-
-    /**
      * @param \TYPO3\CMS\Extbase\Object\ObjectManagerInterface $objectManager
      */
     public function injectObjectManager(
@@ -138,12 +131,14 @@ class ParserUtility
         $services = [];
         $type = strtolower($className) . 's';
 
-        if ($pluginSettings[$type]['options']) {
-            foreach ($pluginSettings[$type]['options'] as $key => $value) {
+        $pluginSettingsType = $this->getTypePluginSettings($pluginSettings, $cart, $type);
+
+        if ($pluginSettingsType['options']) {
+            foreach ($pluginSettingsType['options'] as $key => $value) {
                 $class = '\\Extcode\\Cart\\Domain\\Model\\Cart\\' . $className;
                 /**
                  * Service
-                 * @var \Extcode\Cart\Domain\Model\Cart\Service $service
+                 * @var \Extcode\Cart\Domain\Model\Cart\AbstractService $service
                  */
                 $service = new $class(
                     $key,
@@ -207,8 +202,7 @@ class ParserUtility
                     }
                 }
 
-                if ($pluginSettings[$type]['preset'] == $key) {
-
+                if ($pluginSettingsType['preset'] == $key) {
                     $service->setIsPreset(true);
                 }
 
@@ -233,71 +227,33 @@ class ParserUtility
 
     /**
      * @param array $pluginSettings
-     * @param Request $request Request
+     * @param \Extcode\Cart\Domain\Model\Cart\Cart $cart
+     * @param $type
      *
-     * @return array
+     * @return mixed
      */
-    public function getPreCartProductSet(array $pluginSettings, Request $request)
+    public function getTypePluginSettings(array $pluginSettings, \Extcode\Cart\Domain\Model\Cart\Cart $cart, $type)
     {
-        if (!$this->pluginSettings) {
-            $this->pluginSettings = $pluginSettings;
-        }
+        $pluginSettingsType = $pluginSettings[$type];
+        $selectedCountry = $pluginSettings['settings']['defaultCountry'];
 
-        $cartProductValues = [];
-
-        if ($request->hasArgument('productId')) {
-            $cartProductValues['productId'] = intval($request->getArgument('productId'));
-        }
-        if ($request->hasArgument('tableId')) {
-            $cartProductValues['tableId'] = intval($request->getArgument('tableId'));
-        }
-        if ($request->hasArgument('repositoryId')) {
-            $cartProductValues['repositoryId'] = intval($request->getArgument('repositoryId'));
-        }
-        if ($request->hasArgument('contentId')) {
-            $cartProductValues['contentId'] = intval($request->getArgument('contentId'));
-        }
-        if ($request->hasArgument('quantity')) {
-            $quantity = intval($request->getArgument('quantity'));
-            $cartProductValues['quantity'] = $quantity ? $quantity : 1;
-        }
-
-        if ($request->hasArgument('feVariants')) {
-            $requestFeVariants = $request->getArgument('feVariants');
-            if (is_array($requestFeVariants)) {
-                foreach ($requestFeVariants as $requestFeVariantKey => $requestFeVariantValue) {
-                    $cartProductValues['feVariants'][$requestFeVariantKey] = $requestFeVariantValue;
-                }
+        if ($cart->getCountry()) {
+            if ($type == 'payments') {
+                $selectedCountry = $cart->getBillingCountry();
+            } else {
+                $selectedCountry = $cart->getCountry();
             }
         }
 
-        if ($request->hasArgument('beVariants')) {
-            $requestVariants = $request->getArgument('beVariants');
-            if (is_array($requestVariants)) {
-                foreach ($requestVariants as $requestVariantKey => $requestVariantValue) {
-                    $cartProductValues['beVariants'][$requestVariantKey] = intval($requestVariantValue);
-                }
+        if ($selectedCountry) {
+            if (is_array($pluginSettingsType[$selectedCountry]) &&
+                is_array($pluginSettingsType[$selectedCountry]['options'])
+            ) {
+                $pluginSettingsType = $pluginSettingsType[$selectedCountry];
+                return $pluginSettingsType;
             }
+            return $pluginSettingsType;
         }
-
-        $data = [
-            'pluginSettings' => $pluginSettings,
-            'request' => $request,
-            'cartProductValues' => $cartProductValues,
-        ];
-
-        $signalSlotDispatcher = $this->objectManager->get(
-            \TYPO3\CMS\Extbase\SignalSlot\Dispatcher::class
-        );
-
-        $slotReturn = $signalSlotDispatcher->dispatch(
-            __CLASS__,
-            'changeCartProductValues',
-            [$data]
-        );
-
-        $cartProductValues = $slotReturn[0]['cartProductValues'];
-
-        return $cartProductValues;
+        return $pluginSettingsType;
     }
 }

@@ -11,6 +11,10 @@
                 <f:render partial="Cart/CouponForm" arguments="{cart:cart}"/>
 
                 <f:render partial="Cart/OrderForm" arguments="{_all}"/>
+
+                <script type="text/javascript">
+                    var update_country = '<f:format.raw><f:uri.action action="updateCountry" pageType="2278001"/></f:format.raw>';
+                </script>
             </f:then>
             <f:else>
                 <f:render partial="Cart/Empty"/>

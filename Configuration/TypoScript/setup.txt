@@ -74,6 +74,13 @@ plugin.tx_cart {
         storagePid = {$plugin.tx_cart.persistence.storagePid}
     }
 
+    mvc {
+        callDefaultActionIfActionCantBeResolved = 1
+    }
+    features {
+        skipDefaultArguments = 1
+    }
+
     settings {
         cart {
             pid = {$plugin.tx_cart.settings.cart.pid}
@@ -92,6 +99,13 @@ plugin.tx_cart {
             separateCurrency   = {$plugin.tx_cart.settings.format.currency.separateCurrency}
             decimals           = {$plugin.tx_cart.settings.format.currency.decimals}
         }
+
+        allowedCountries {
+            de = Deutschland
+            at = Österreich
+            ch = Schweiz
+        }
+        defaultCountry = de
 
         showAction {
             media {
@@ -138,52 +152,29 @@ plugin.tx_cart {
         }
     }
 
-    db {
-        tableName   = {$plugin.tx_cart.db.tableName}
-        l10n_parent = {$plugin.tx_cart.db.l10n_parent}
+    gpValues {
+        productId        = {$plugin.tx_cart.gpValues.productId}
+        productStorageId = {$plugin.tx_cart.gpValues.productStorageId}
 
-        fields {
-            title               = {$plugin.tx_cart.db.fields.title}
-            price               = {$plugin.tx_cart.db.fields.price}
-            inheritPrice        = {$plugin.tx_cart.db.fields.inheritPrice}
-            taxClassId          = {$plugin.tx_cart.db.fields.taxClassId}
-            sku                 = {$plugin.tx_cart.db.fields.sku}
-            serviceAttribute1   = {$plugin.tx_cart.db.fields.serviceAttribute1}
-            serviceAttribute2   = {$plugin.tx_cart.db.fields.serviceAttribute2}
-            serviceAttribute3   = {$plugin.tx_cart.db.fields.serviceAttribute3}
-            hasFeVariants       = {$plugin.tx_cart.db.fields.hasFeVariants}
-            additional {
-            }
-        }
+        contentId        = {$plugin.tx_cart.gpValues.contentId}
 
-        variants {
-            db {
-                table             = {$plugin.tx_cart.db.variants.db.table}
-                fields {
-                    title             = {$plugin.tx_cart.db.variants.db.title}
-                    price             = {$plugin.tx_cart.db.variants.db.price}
-                    specialPrice      = {$plugin.tx_cart.db.variants.db.specialPrice}
-                    priceCalcMethod   = {$plugin.tx_cart.db.variants.db.priceCalcMethod}
-                    inheritPrice      = {$plugin.tx_cart.db.variants.db.inheritPrice}
-                    sku               = {$plugin.tx_cart.db.variants.db.sku}
-                    hasFeVariants     = {$plugin.tx_cart.db.variants.db.hasFeVariants}
-                    taxClassId        = {$plugin.tx_cart.db.variants.db.taxClassId}
-                }
-            }
+        quantity         = {$plugin.tx_cart.gpValues.quantity}
+
+        beVariants.1     = {$plugin.tx_cart.gpValues.beVariants.1}
+        beVariants.2     = {$plugin.tx_cart.gpValues.beVariants.2}
+        beVariants.3     = {$plugin.tx_cart.gpValues.beVariants.3}
+
+        multiple         = {$plugin.tx_cart.gpValues.multiple}
+
+        beVariants {
+            1 = beVariants|1
         }
     }
 
-    gpValues {
-        productId     = {$plugin.tx_cart.gpValues.productId}
-        tableId       = {$plugin.tx_cart.gpValues.tableId}
-        repositoryId  = {$plugin.tx_cart.gpValues.repositoryId}
-        contentId     = {$plugin.tx_cart.gpValues.contentId}
-        quantity      = {$plugin.tx_cart.gpValues.quantity}
-
-        beVariants.1  = {$plugin.tx_cart.gpValues.beVariants.1}
-        beVariants.2  = {$plugin.tx_cart.gpValues.beVariants.2}
-        beVariants.3  = {$plugin.tx_cart.gpValues.beVariants.3}
-        multiple      = {$plugin.tx_cart.gpValues.multiple}
+    productStorages {
+        1 {
+            class = {$plugin.tx_cart.productStorages.1.class}
+        }
     }
 
     taxClasses {
@@ -205,27 +196,35 @@ plugin.tx_cart {
     }
 
     shippings {
-        preset = 1
-        options {
-            1 {
-                title = Standard
-                extra = 0.00
-                taxClassId = 1
-                status = open
+        de {
+            preset = 1
+            options {
+                1 {
+                    title = Standard
+                    extra = 0.00
+                    taxClassId = 1
+                    status = open
+                }
             }
         }
+        at < .de
+        ch < .de
     }
 
     payments {
-        preset = 1
-        options {
-            1 {
-                title = Vorkasse
-                extra = 0.00
-                taxClassId = 1
-                status = open
+        de {
+            preset = 1
+            options {
+                1 {
+                    title = Vorkasse
+                    extra = 0.00
+                    taxClassId = 1
+                    status = open
+                }
             }
         }
+        at < .de
+        ch < .de
     }
 
     orderNumber = COA
@@ -277,36 +276,6 @@ plugin.tx_cart {
 module.tx_cart {
     invoiceNumber < plugin.tx_cart.invoiceNumber
     deliveryNumber < plugin.tx_cart.deliveryNumber
-}
-
-plugin.tx_cart {
-    db >
-
-    repository {
-        class = {$plugin.tx_cart.products.repository.class}
-        fields {
-            getMinNumber        = {$plugin.tx_cart.products.repository.fields.getMinNumberInOrder}
-            getMaxNumber        = {$plugin.tx_cart.products.repository.fields.getMaxNumberInOrder}
-            getSpecialPrice     = {$plugin.tx_cart.products.repository.fields.getSpecialPrice}
-            getFeVariants       = {$plugin.tx_cart.products.repository.fields.getFeVariants}
-        }
-
-        beVariants {
-            repository {
-                class = {$plugin.tx_cart.products.repository.beVariants.repository.class}
-
-                fields {
-                    getSpecialPrice = {$plugin.tx_cart.products.repository.beVariants.repository.fields.getSpecialPrice}
-                }
-            }
-        }
-    }
-
-    gpValues {
-        beVariants {
-            1 = beVariants|1
-        }
-    }
 }
 
 # use this lib to add custom information or content elements to your email template

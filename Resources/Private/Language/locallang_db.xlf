@@ -516,7 +516,7 @@
                 <source>Display Type</source>
             </trans-unit>
             <trans-unit id="tx_cart.plugin.products.action.product.list_and_show">
-                <source>Product - List and Show View</source>
+                <source>Product - Show and List View</source>
             </trans-unit>
             <trans-unit id="tx_cart.plugin.products.action.product.show">
                 <source>Product - Show View</source>
@@ -576,11 +576,17 @@
             <trans-unit id="tx_cart_domain_model_product_product.sku">
                 <source>SKU</source>
             </trans-unit>
+            <trans-unit id="tx_cart_domain_model_product_product.is_net_price">
+                <source>Price (net)</source>
+            </trans-unit>
             <trans-unit id="tx_cart_domain_model_product_product.price">
                 <source>Price</source>
             </trans-unit>
             <trans-unit id="tx_cart_domain_model_product_product.special_prices">
                 <source>Special Prices</source>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_product_product.quantity_discounts">
+                <source>Quantity Discount</source>
             </trans-unit>
             <trans-unit id="tx_cart_domain_model_product_product.is_net_price">
                 <source>Is Net Price</source>
@@ -610,20 +616,8 @@
             <trans-unit id="tx_cart_domain_model_product_product.div.prices">
                 <source>Prices</source>
             </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_product.special_price">
-                <source>Special Price</source>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_product.tax_class_id">
-                <source>Tax Class</source>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_product.tax_class_id.1">
-                <source>normal</source>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_product.tax_class_id.2">
-                <source>reduced</source>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_product.tax_class_id.3">
-                <source>free</source>
+            <trans-unit id="tx_cart_domain_model_product_product.div.measures">
+                <source>Measures</source>
             </trans-unit>
             <trans-unit id="tx_cart_domain_model_product_product.div.variants">
                 <source>Variants</source>
@@ -765,6 +759,12 @@
             <trans-unit id="tx_cart_domain_model_product_product.stock">
                 <source>Stock</source>
             </trans-unit>
+            <trans-unit id="tx_cart_domain_model_product_product.main_category">
+                <source>Main Category</source>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_product_product.categories">
+                <source>Associated Categories</source>
+            </trans-unit>
             <trans-unit id="tx_cart_domain_model_product_product.tags">
                 <source>Tags</source>
             </trans-unit>
@@ -887,6 +887,23 @@
                 <source>Title</source>
             </trans-unit>
 
+            <trans-unit id="tx_cart_domain_model_product_quantitydiscount">
+                <source>Quantity Discount</source>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_product_quantitydiscount.price">
+                <source>Price</source>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_product_quantitydiscount.quantity">
+                <source>Quantity (lower bound)</source>
+            </trans-unit>
+
+            <trans-unit id="tx_cart_domain_model_product_tag">
+                <source>Tag</source>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_product_tag.title">
+                <source>Title</source>
+            </trans-unit>
+
             <trans-unit id="tx_cart_domain_model_category.cart_product_image">
                 <source>Cart: Product Category Image</source>
             </trans-unit>
@@ -899,6 +916,16 @@
 
             <trans-unit id="tx_cart_domain_model_cart">
                 <source>Cart Session</source>
+            </trans-unit>
+
+            <trans-unit id="tx_cart.settings.allowed_countries.de">
+                <source>Germany</source>
+            </trans-unit>
+            <trans-unit id="tx_cart.settings.allowed_countries.at">
+                <source>Austria</source>
+            </trans-unit>
+            <trans-unit id="tx_cart.settings.allowed_countries.ch">
+                <source>Switzerland</source>
             </trans-unit>
         </body>
     </file>

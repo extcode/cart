@@ -16,7 +16,9 @@ CREATE TABLE tx_cart_domain_model_product_product (
     max_number_in_order int(11) unsigned DEFAULT '0' NOT NULL,
 
     price double(11,2) DEFAULT '0.00' NOT NULL,
+    is_net_price tinyint(4) unsigned DEFAULT '0' NOT NULL,
     special_prices int(11) unsigned DEFAULT '0' NOT NULL,
+    quantity_discounts int(11) unsigned DEFAULT '0' NOT NULL,
     price_measure double(11,2) DEFAULT '0.00' NOT NULL,
     price_measure_unit varchar(8) DEFAULT '' NOT NULL,
     base_price_measure double(11,2) DEFAULT '0.00' NOT NULL,
@@ -47,6 +49,7 @@ CREATE TABLE tx_cart_domain_model_product_product (
     related_products int(11) DEFAULT '0' NOT NULL,
     related_products_from int(11) DEFAULT '0' NOT NULL,
 
+    main_category int(11) unsigned DEFAULT '0' NOT NULL,
     categories int(11) unsigned DEFAULT '0' NOT NULL,
     tags int(11) DEFAULT '0' NOT NULL,
 
@@ -122,6 +125,41 @@ CREATE TABLE tx_cart_domain_model_product_specialprice (
     KEY parent (pid),
     KEY t3ver_oid (t3ver_oid,t3ver_wsid),
     KEY language (l10n_parent,sys_language_uid)
+);
+
+#
+# Table structure for table 'tx_cart_domain_model_product_quantitydiscount'
+#
+CREATE TABLE tx_cart_domain_model_product_quantitydiscount (
+    uid int(11) NOT NULL auto_increment,
+    pid int(11) DEFAULT '0' NOT NULL,
+
+    product int(11) unsigned DEFAULT '0' NOT NULL,
+
+    frontend_user_group int(11) unsigned DEFAULT '0' NOT NULL,
+
+    price double(11,2) DEFAULT '0.00' NOT NULL,
+    quantity int(11) unsigned DEFAULT '0' NOT NULL,
+
+    tstamp int(11) unsigned DEFAULT '0' NOT NULL,
+    crdate int(11) unsigned DEFAULT '0' NOT NULL,
+    cruser_id int(11) unsigned DEFAULT '0' NOT NULL,
+    deleted tinyint(4) unsigned DEFAULT '0' NOT NULL,
+    hidden tinyint(4) unsigned DEFAULT '0' NOT NULL,
+
+    t3ver_oid int(11) DEFAULT '0' NOT NULL,
+    t3ver_id int(11) DEFAULT '0' NOT NULL,
+    t3ver_wsid int(11) DEFAULT '0' NOT NULL,
+    t3ver_label varchar(255) DEFAULT '' NOT NULL,
+    t3ver_state tinyint(4) DEFAULT '0' NOT NULL,
+    t3ver_stage int(11) DEFAULT '0' NOT NULL,
+    t3ver_count int(11) DEFAULT '0' NOT NULL,
+    t3ver_tstamp int(11) DEFAULT '0' NOT NULL,
+    t3ver_move_id int(11) DEFAULT '0' NOT NULL,
+
+    PRIMARY KEY (uid),
+    KEY parent (pid),
+    KEY t3ver_oid (t3ver_oid,t3ver_wsid),
 );
 
 #

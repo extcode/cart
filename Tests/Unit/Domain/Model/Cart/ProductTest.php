@@ -510,7 +510,7 @@ class ProductTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
         $product->setSpecialPrice($specialPrice);
 
         $this->assertSame(
-            0.0,
+            $price,
             $product->getSpecialPriceDiscount()
         );
     }
@@ -537,7 +537,7 @@ class ProductTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
         $product->setSpecialPrice($specialPrice);
 
         $this->assertSame(
-            10.0,
+            $price,
             $product->getSpecialPriceDiscount()
         );
     }
@@ -562,7 +562,7 @@ class ProductTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
         );
 
         $this->assertSame(
-            10.0,
+            $price,
             $product->getBestPrice()
         );
     }
@@ -589,7 +589,7 @@ class ProductTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
         $product->setSpecialPrice($specialPrice);
 
         $this->assertSame(
-            10.0,
+            $price,
             $product->getBestPrice()
         );
     }
@@ -616,11 +616,305 @@ class ProductTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
         $product->setSpecialPrice($specialPrice);
 
         $this->assertSame(
-            5.0,
+            $specialPrice,
             $product->getBestPrice()
         );
     }
 
+    /**
+     * @test
+     */
+    public function getQuantityDiscountPriceWithoutQuantityPriceReturnsPrice()
+    {
+        $price = 10.00;
+
+        $product = new \Extcode\Cart\Domain\Model\Cart\Product(
+            $this->productType,
+            $this->productId,
+            null,
+            $this->contentId,
+            $this->sku,
+            $this->title,
+            $price,
+            $this->taxClass,
+            $this->quantity
+        );
+        $product->setQuantityDiscounts([]);
+
+        $this->assertSame(
+            $price,
+            $product->getQuantityDiscountPrice()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function getQuantityDiscountPriceWithLowerQuantityReturnsPrice()
+    {
+        $price = 10.00;
+        $quantityDiscountPrice = 5.00;
+        $quantity = 3;
+
+        $quantityDiscounts = [[
+            'quantity' => $quantity+1,
+            'price' => $quantityDiscountPrice,
+        ]];
+
+        $product = new \Extcode\Cart\Domain\Model\Cart\Product(
+            $this->productType,
+            $this->productId,
+            null,
+            $this->contentId,
+            $this->sku,
+            $this->title,
+            $price,
+            $this->taxClass,
+            $quantity
+        );
+
+        $product->setQuantityDiscounts($quantityDiscounts);
+
+        $this->assertSame(
+            $price,
+            $product->getQuantityDiscountPrice()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function getQuantityDiscountPriceWithSameQuantityReturnsPriceOfQuantityDiscount()
+    {
+        $price = 10.00;
+        $quantityDiscountPrice = 5.00;
+        $quantity = 3;
+
+        $quantityDiscounts = [[
+            'quantity' => $quantity,
+            'price' => $quantityDiscountPrice,
+        ]];
+
+        $product = new \Extcode\Cart\Domain\Model\Cart\Product(
+            $this->productType,
+            $this->productId,
+            null,
+            $this->contentId,
+            $this->sku,
+            $this->title,
+            $price,
+            $this->taxClass,
+            $quantity
+        );
+
+        $product->setQuantityDiscounts($quantityDiscounts);
+
+        $this->assertSame(
+            $quantityDiscountPrice,
+            $product->getQuantityDiscountPrice()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function getQuantityDiscountPriceWithHigherQuantityReturnsPriceOfQuantityDiscount()
+    {
+        $price = 10.00;
+        $quantityDiscountPrice = 5.00;
+        $quantity = 3;
+
+        $quantityDiscounts = [[
+            'quantity' => $quantity-1,
+            'price' => $quantityDiscountPrice,
+        ]];
+
+        $product = new \Extcode\Cart\Domain\Model\Cart\Product(
+            $this->productType,
+            $this->productId,
+            null,
+            $this->contentId,
+            $this->sku,
+            $this->title,
+            $price,
+            $this->taxClass,
+            $quantity
+        );
+
+        $product->setQuantityDiscounts($quantityDiscounts);
+
+        $this->assertSame(
+            $quantityDiscountPrice,
+            $product->getQuantityDiscountPrice()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function getQuantityDiscountPriceWithHigherQuantityReturnsCorrectPriceOfQuantityDiscountArray()
+    {
+        $price = 10.00;
+
+        $quantity = 5;
+        $quantityDiscountPrice = 5.00;
+
+        $quantityDiscounts = [
+            [
+                'quantity' => 3,
+                'price' => 7.00,
+            ],
+            [
+                'quantity' => 4,
+                'price' => 6.00,
+            ],
+            [
+                'quantity' => $quantity,
+                'price' => $quantityDiscountPrice,
+            ],
+            [
+                'quantity' => 6,
+                'price' => 4.00,
+            ],
+            [
+                'quantity' => 7,
+                'price' => 3.00,
+            ],
+        ];
+
+        $product = new \Extcode\Cart\Domain\Model\Cart\Product(
+            $this->productType,
+            $this->productId,
+            null,
+            $this->contentId,
+            $this->sku,
+            $this->title,
+            $price,
+            $this->taxClass,
+            $quantity
+        );
+
+        $product->setQuantityDiscounts($quantityDiscounts);
+
+        $this->assertSame(
+            $quantityDiscountPrice,
+            $product->getQuantityDiscountPrice()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function getBestPriceWithSpecialPriceIsLessThanQuantityPriceArrayReturnsSpecialPrice()
+    {
+        $price = 10.00;
+
+        $specialPrice = 4.00;
+
+        $quantity = 5;
+        $quantityDiscountPrice = 5.00;
+
+        $quantityDiscounts = [
+            [
+                'quantity' => 3,
+                'price' => 7.00,
+            ],
+            [
+                'quantity' => 4,
+                'price' => 6.00,
+            ],
+            [
+                'quantity' => $quantity,
+                'price' => $quantityDiscountPrice,
+            ],
+            [
+                'quantity' => 6,
+                'price' => 4.00,
+            ],
+            [
+                'quantity' => 7,
+                'price' => 3.00,
+            ],
+        ];
+
+        $product = new \Extcode\Cart\Domain\Model\Cart\Product(
+            $this->productType,
+            $this->productId,
+            null,
+            $this->contentId,
+            $this->sku,
+            $this->title,
+            $price,
+            $this->taxClass,
+            $quantity
+        );
+
+        $product->setSpecialPrice($specialPrice);
+
+        $product->setQuantityDiscounts($quantityDiscounts);
+
+        $this->assertSame(
+            $specialPrice,
+            $product->getBestPrice()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function getBestPriceWithSpecialPriceIsGreaterThanQuantityPriceArrayReturnsCorrectPriceOfQuantityDiscounts()
+    {
+        $price = 10.00;
+
+        $specialPrice = 6.00;
+
+        $quantity = 5;
+        $quantityDiscountPrice = 5.00;
+
+        $quantityDiscounts = [
+            [
+                'quantity' => 3,
+                'price' => 7.00,
+            ],
+            [
+                'quantity' => 4,
+                'price' => 6.00,
+            ],
+            [
+                'quantity' => $quantity,
+                'price' => $quantityDiscountPrice,
+            ],
+            [
+                'quantity' => 6,
+                'price' => 4.00,
+            ],
+            [
+                'quantity' => 7,
+                'price' => 3.00,
+            ],
+        ];
+
+        $product = new \Extcode\Cart\Domain\Model\Cart\Product(
+            $this->productType,
+            $this->productId,
+            null,
+            $this->contentId,
+            $this->sku,
+            $this->title,
+            $price,
+            $this->taxClass,
+            $quantity
+        );
+
+        $product->setSpecialPrice($specialPrice);
+
+        $product->setQuantityDiscounts($quantityDiscounts);
+
+        $this->assertSame(
+            $quantityDiscountPrice,
+            $product->getBestPrice()
+        );
+    }
 
     /**
      * @test

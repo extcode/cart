@@ -31,6 +31,8 @@ class ProductTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
 {
 
     /**
+     * Product
+     *
      * @var \Extcode\Cart\Domain\Model\Product\Product
      */
     protected $product = null;

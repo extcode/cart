@@ -1,12 +1,11 @@
 {namespace cart=Extcode\Cart\ViewHelpers}
 
-<f:for each="{taxes}" as="tax" key="tax_class">
+<f:for each="{taxes}" as="tax" key="tax_key">
     <tr>
         <td colspan="3" class="text-right">
-            <f:translate key="tx_cart.tax_class"/>
-            (
-            <f:translate key="tx_cart.tax_class.{tax_class}"/>
-            )
+            <cart:traversable.extract key="{tax_key}" content="{taxClasses}" as="taxClass">
+                <f:translate key="tx_cart.tax_vat.value" arguments="{0: taxClass.value}"/>
+            </cart:traversable.extract>
         </td>
         <td class="text-right last">
             <span class="price">

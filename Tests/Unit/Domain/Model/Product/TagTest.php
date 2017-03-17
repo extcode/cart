@@ -29,6 +29,8 @@ namespace Extcode\Cart\Tests\Domain\Model\Product;
 class TagTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
 {
     /**
+     * Product Tag
+     *
      * @var \Extcode\Cart\Domain\Model\Product\Tag
      */
     protected $tag = null;

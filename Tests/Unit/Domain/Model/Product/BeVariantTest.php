@@ -30,7 +30,7 @@ namespace Extcode\Cart\Tests\Domain\Model\Product;
 class BeVariantTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
 {
     /**
-     * Backend Variant
+     * Product Backend Variant
      *
      * @var \Extcode\Cart\Domain\Model\Product\BeVariant
      */

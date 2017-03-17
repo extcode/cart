@@ -103,6 +103,13 @@ class Product extends \Extcode\Cart\Domain\Model\Product\AbstractProduct
     protected $maxNumberInOrder = 0;
 
     /**
+     * Is Net Price
+     *
+     * @var bool
+     */
+    protected $isNetPrice = false;
+
+    /**
      * Price
      *
      * @var float
@@ -116,6 +123,14 @@ class Product extends \Extcode\Cart\Domain\Model\Product\AbstractProduct
      * @cascade remove
      */
     protected $specialPrices;
+
+    /**
+     * Product Quantity Discount
+     *
+     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Extcode\Cart\Domain\Model\Product\QuantityDiscount>
+     * @cascade remove
+     */
+    protected $quantityDiscounts;
 
     /**
      * Price Measure
@@ -239,6 +254,13 @@ class Product extends \Extcode\Cart\Domain\Model\Product\AbstractProduct
      * @var bool
      */
     protected $handleStockInVariants = false;
+
+    /**
+     * Main Category
+     *
+     * @var \Extcode\Cart\Domain\Model\Category
+     */
+    protected $mainCategory = null;
 
     /**
      * Categories
@@ -424,6 +446,28 @@ class Product extends \Extcode\Cart\Domain\Model\Product\AbstractProduct
     }
 
     /**
+     * Returns the isNetPrice
+     *
+     * @return bool
+     */
+    public function getIsNetPrice()
+    {
+        return $this->isNetPrice;
+    }
+
+    /**
+     * Sets the isNetPrice
+     *
+     * @param bool $isNetPrice
+     *
+     * @return void
+     */
+    public function setIsNetPrice($isNetPrice)
+    {
+        $this->isNetPrice = $isNetPrice;
+    }
+
+    /**
      * Returns the price
      *
      * @return float $price
@@ -442,6 +486,16 @@ class Product extends \Extcode\Cart\Domain\Model\Product\AbstractProduct
     public function setPrice($price)
     {
         $this->price = $price;
+    }
+
+    /**
+     * Returns the Special Prices
+     *
+     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Extcode\Cart\Domain\Model\SpecialPrice>
+     */
+    public function getSpecialPrices()
+    {
+        return $this->specialPrices;
     }
 
     /**
@@ -464,16 +518,6 @@ class Product extends \Extcode\Cart\Domain\Model\Product\AbstractProduct
     public function removeSpecialPrice(\Extcode\Cart\Domain\Model\Product\SpecialPrice $specialPriceToRemove)
     {
         $this->specialPrices->detach($specialPriceToRemove);
-    }
-
-    /**
-     * Returns the Special Prices
-     *
-     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Extcode\Cart\Domain\Model\specialPrice>
-     */
-    public function getSpecialPrices()
-    {
-        return $this->specialPrices;
     }
 
     /**
@@ -533,9 +577,77 @@ class Product extends \Extcode\Cart\Domain\Model\Product\AbstractProduct
      */
     public function getBestSpecialPricePercentageDiscount($frontendUserGroupIds = [])
     {
-        $bestSpecialPricePercentageDiscount = (($this->getBestSpecialPriceDiscount($frontendUserGroupIds)) / $this->price) * 100;
+        $bestSpecialPricePercentageDiscount = 0.0;
+
+        if ($this->price > 0.0) {
+            $bestSpecialPricePercentageDiscount = (($this->getBestSpecialPriceDiscount($frontendUserGroupIds)) / $this->price) * 100;
+        }
 
         return $bestSpecialPricePercentageDiscount;
+    }
+
+    /**
+     * Returns the Quantity Discounts
+     *
+     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Extcode\Cart\Domain\Model\QuantityDiscount>
+     */
+    public function getQuantityDiscounts()
+    {
+        return $this->quantityDiscounts;
+    }
+
+    /**
+     * Returns the Quantity Discounts as Array
+     *
+     * @return array
+     */
+    public function getQuantityDiscountArray($frontendUserGroupIds = [])
+    {
+        $quantityDiscountArray = [];
+
+        if ($this->getQuantityDiscounts()) {
+            foreach ($this->getQuantityDiscounts() as $quantityDiscount) {
+                if (!$quantityDiscount->getFrontendUserGroup() ||
+                    in_array($quantityDiscount->getFrontendUserGroup(), $frontendUserGroupIds)
+                ) {
+                    array_push($quantityDiscountArray, $quantityDiscount->toArray());
+                }
+            }
+        }
+
+        return $quantityDiscountArray;
+    }
+
+    /**
+     * Adds a Quantity Discount
+     *
+     * @param \Extcode\Cart\Domain\Model\Product\QuantityDiscount $quantityDiscount
+     * @return void
+     */
+    public function addQuantityDiscount(\Extcode\Cart\Domain\Model\Product\QuantityDiscount $quantityDiscount)
+    {
+        $this->quantityDiscounts->attach($quantityDiscount);
+    }
+
+    /**
+     * Removes a Quantity Discount
+     *
+     * @param \Extcode\Cart\Domain\Model\Product\QuantityDiscount $quantityDiscount
+     * @return void
+     */
+    public function removeQuantityDiscount(\Extcode\Cart\Domain\Model\Product\QuantityDiscount $quantityDiscount)
+    {
+        $this->quantityDiscounts->detach($quantityDiscount);
+    }
+
+    /**
+     * Sets the Quantity Discounts
+     *
+     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage $quantityDiscounts
+     */
+    public function setQuantityDiscounts(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $quantityDiscounts)
+    {
+        $this->quantityDiscounts = $quantityDiscounts;
     }
 
     /**
@@ -1099,6 +1211,27 @@ class Product extends \Extcode\Cart\Domain\Model\Product\AbstractProduct
     }
 
     /**
+     * Returns the Main Category
+     *
+     * @return \Extcode\Cart\Domain\Model\Category
+     */
+    public function getMainCategory()
+    {
+        return $this->mainCategory;
+    }
+
+    /**
+     * Sets the Main Category
+     *
+     * @param \Extcode\Cart\Domain\Model\Category $mainCategory
+     * @return void
+     */
+    public function setMainCategory($mainCategory)
+    {
+        $this->mainCategory = $mainCategory;
+    }
+
+    /**
      * Adds a Product Category
      *
      * @param \TYPO3\CMS\Extbase\Domain\Model\Category $category
@@ -1121,7 +1254,7 @@ class Product extends \Extcode\Cart\Domain\Model\Product\AbstractProduct
     }
 
     /**
-     * Returns the categories
+     * Returns the Categories
      *
      * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Extcode\Cart\Domain\Model\Category> $categories
      */
@@ -1131,7 +1264,7 @@ class Product extends \Extcode\Cart\Domain\Model\Product\AbstractProduct
     }
 
     /**
-     * Returns the first category
+     * Returns the First Category
      *
      * @return \Extcode\Cart\Domain\Model\Category
      */
@@ -1147,7 +1280,7 @@ class Product extends \Extcode\Cart\Domain\Model\Product\AbstractProduct
     }
 
     /**
-     * Sets the categories
+     * Sets the Categories
      *
      * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\Category> $categories
      */

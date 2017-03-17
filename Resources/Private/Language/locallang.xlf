@@ -200,6 +200,9 @@
             <trans-unit id="tx_cart.update_cart">
                 <source>update cart</source>
             </trans-unit>
+            <trans-unit id="tx_cart.update_status">
+                <source>update status</source>
+            </trans-unit>
             <trans-unit id="tx_cart.add_coupon">
                 <source>add coupon</source>
             </trans-unit>
@@ -208,6 +211,9 @@
             </trans-unit>
             <trans-unit id="tx_cart.same_address">
                 <source>Send it to the same address.</source>
+            </trans-unit>
+            <trans-unit id="tx_cart.variants-select.choose">
+                <source>Please choose ...</source>
             </trans-unit>
 
             <trans-unit id="tx_cart.history_back">
@@ -251,6 +257,30 @@
             </trans-unit>
             <trans-unit id="tx_cart.controller.order.action.payment_cancel.thank_you">
                 <source>Thank you.</source>
+            </trans-unit>
+            <trans-unit id="tx_cart.controller.order.action.generate_number_action.order.success">
+                <source>The generated order number is: %s.</source>
+            </trans-unit>
+            <trans-unit id="tx_cart.controller.order.action.generate_number_action.order.already_generated">
+                <source>An order number already exists!</source>
+            </trans-unit>
+            <trans-unit id="tx_cart.controller.order.action.generate_number_action.invoice.success">
+                <source>The generated invoice number is: %s.</source>
+            </trans-unit>
+            <trans-unit id="tx_cart.controller.order.action.generate_number_action.invoice.already_generated">
+                <source>An invoice number already exists!</source>
+            </trans-unit>
+            <trans-unit id="tx_cart.controller.order.action.generate_number_action.delivery.success">
+                <source>The generated delivery number is: %s.</source>
+            </trans-unit>
+            <trans-unit id="tx_cart.controller.order.action.generate_number_action.delivery.already_generated">
+                <source>An delivery number already exists!</source>
+            </trans-unit>
+            <trans-unit id="tx_cart.controller.order.action.update_payment_action.success">
+                <source>The payment was successfully updated.</source>
+            </trans-unit>
+            <trans-unit id="tx_cart.controller.order.action.update_shipping_action.success">
+                <source>The shipping was successfully updated.</source>
             </trans-unit>
 
             <trans-unit id="tx_cart.controller.order.actions">
@@ -361,6 +391,12 @@
             </trans-unit>
             <trans-unit id="tx_cart_domain_model_order_item.invoice_date">
                 <source>Invoice Date</source>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_item.delivery_number">
+                <source>Delivery Number</source>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_item.delivery_date">
+                <source>Delivery Date</source>
             </trans-unit>
             <trans-unit id="tx_cart_domain_model_order_item.shipping_address">
                 <source>Shipping Address</source>
@@ -624,6 +660,12 @@
             <trans-unit id="tx_cart.tax_class.3">
                 <source>free</source>
             </trans-unit>
+            <trans-unit id="tx_cart.tax_vat">
+                <source>VAT</source>
+            </trans-unit>
+            <trans-unit id="tx_cart.tax_vat.value">
+                <source>VAT (%s %%)</source>
+            </trans-unit>
 
             <trans-unit id="tx_cart.plugin.form.submit">
                 <source>Add to cart</source>
@@ -681,6 +723,12 @@
             </trans-unit>
             <trans-unit id="tx_cart_domain_model_product_product.special_price">
                 <source>Special Price</source>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_product_product.quantity_discounts">
+                <source>Quantity Discount</source>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_product_product.quantity_discount_from">
+                <source>from %s</source>
             </trans-unit>
             <trans-unit id="tx_cart_domain_model_product_product.price.from">
                 <source>from</source>
@@ -809,6 +857,15 @@
                 <source>Coupon code was not found.</source>
             </trans-unit>
 
+            <trans-unit id="tx_cart.settings.allowed_countries.de">
+                <source>Germany</source>
+            </trans-unit>
+            <trans-unit id="tx_cart.settings.allowed_countries.at">
+                <source>Austria</source>
+            </trans-unit>
+            <trans-unit id="tx_cart.settings.allowed_countries.ch">
+                <source>Switzerland</source>
+            </trans-unit>
         </body>
     </file>
 </xliff>

@@ -87,6 +87,13 @@ class Product
     private $specialPrice = null;
 
     /**
+     * Quantity Discounts
+     *
+     * @var array
+     */
+    private $quantityDiscounts = [];
+
+    /**
      * Quantity
      *
      * @var int
@@ -220,8 +227,7 @@ class Product
         $quantity,
         $isNetPrice = false,
         $feVariant = null
-    )
-    {
+    ) {
         if (!$productType) {
             throw new \InvalidArgumentException(
                 'You have to specify a valid $productType for constructor.',
@@ -581,13 +587,55 @@ class Product
     }
 
     /**
+     * Returns Quantity Discounts
+     *
+     * @return array
+     */
+    public function getQuantityDiscounts()
+    {
+        return $this->quantityDiscounts;
+    }
+
+    /**
+     * Returns Quantity Discount Price
+     *
+     * @return float
+     */
+    public function getQuantityDiscountPrice()
+    {
+        $price = $this->getPrice();
+
+        if ($this->getQuantityDiscounts()) {
+            foreach ($this->getQuantityDiscounts() as $quantityDiscount) {
+                if (($quantityDiscount['quantity'] <= $this->getQuantity()) && ($quantityDiscount['price'] < $price)) {
+                    $price = $quantityDiscount['price'];
+                }
+            }
+        }
+
+        return $price;
+    }
+
+    /**
+     * Set Quantity Discounts
+     *
+     * @param array $quantityDiscounts
+     *
+     * @return void
+     */
+    public function setQuantityDiscounts($quantityDiscounts)
+    {
+        $this->quantityDiscounts = $quantityDiscounts;
+    }
+
+    /**
      * Returns Best Price (min of Price and Special Price)
      *
      * @return float
      */
     public function getBestPrice()
     {
-        $bestPrice = $this->price;
+        $bestPrice = $this->getQuantityDiscountPrice();
 
         if ($this->specialPrice && ($this->specialPrice < $bestPrice)) {
             $bestPrice = $this->specialPrice;
@@ -603,7 +651,7 @@ class Product
      */
     public function getDiscount()
     {
-        $discount = $this->price - $this->getBestPrice();
+        $discount = $this->getPrice() - $this->getBestPrice();
 
         return $discount;
     }
@@ -616,8 +664,8 @@ class Product
     public function getSpecialPriceDiscount()
     {
         $discount = 0.0;
-        if (($this->price != 0.0) && ($this->specialPrice)) {
-            $discount = (($this->price - $this->specialPrice) / $this->price) * 100;
+        if (($this->getPrice() != 0.0) && ($this->specialPrice)) {
+            $discount = (($this->getPrice() - $this->specialPrice) / $this->getPrice()) * 100;
         }
         return $discount;
     }
@@ -856,6 +904,7 @@ class Product
             'title' => $this->title,
             'price' => $this->price,
             'specialPrice' => $this->specialPrice,
+            'quantityDiscounts' => $this->quantityDiscounts,
             'taxClass' => $this->taxClass,
             'quantity' => $this->quantity,
             'price_total' => $this->gross,

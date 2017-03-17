@@ -663,8 +663,8 @@
                 <target>Darstellungsart</target>
             </trans-unit>
             <trans-unit id="tx_cart.plugin.products.action.product.list_and_show">
-                <source>Product - List and Show View</source>
-                <target>Produkt - Listen- und Detailansicht</target>
+                <source>Product - Show and List View</source>
+                <target>Produkt - Detail- und Listenansicht</target>
             </trans-unit>
             <trans-unit id="tx_cart.plugin.products.action.product.show">
                 <source>Product - Show View</source>
@@ -735,28 +735,6 @@
                 <target>Flexform</target>
             </trans-unit>
 
-            <trans-unit id="tx_cart.plugin.products.action.switch">
-                <target>Select Controller and Action</target>
-            </trans-unit>
-            <trans-unit id="tx_cart.plugin.products.action.product.list_and_show">
-                <target>List and Show products</target>
-            </trans-unit>
-            <trans-unit id="tx_cart.plugin.products.action.product.list">
-                <source>List Products</source>
-            </trans-unit>
-            <trans-unit id="tx_cart.plugin.products.action.product.show">
-                <source>Show product</source>
-            </trans-unit>
-            <trans-unit id="tx_cart.plugin.products.action.product.teaser">
-                <target>Teaser product</target>
-            </trans-unit>
-            <trans-unit id="tx_cart.plugin.products.action.product.teaser.select.product">
-                <target>Choose a product to teaser</target>
-            </trans-unit>
-            <trans-unit id="tx_cart.plugin.products.action.product.flexform">
-                <target>Flexform</target>
-            </trans-unit>
-
             <trans-unit id="tx_cart_flexform_model_product.title">
                 <target>Titel</target>
             </trans-unit>
@@ -794,6 +772,10 @@
             <trans-unit id="tx_cart_domain_model_product_product.div.prices">
                 <source>Prices</source>
                 <target>Preise</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_product_product.div.measures">
+                <source>Measures</source>
+                <target>Maßangaben</target>
             </trans-unit>
             <trans-unit id="tx_cart_domain_model_product_product.div.variants">
                 <source>Variants</source>
@@ -871,13 +853,21 @@
             <trans-unit id="tx_cart_domain_model_product_product.max_number_in_order">
                 <target>Maximum Anzahl an Produkten in einer Bestellung</target>
             </trans-unit>
+            <trans-unit id="tx_cart_domain_model_product_product.is_net_price">
+                <source>Price (net)</source>
+                <target>Preis (netto)</target>
+            </trans-unit>
             <trans-unit id="tx_cart_domain_model_product_product.price">
-                <source>Prices</source>
+                <source>Price</source>
                 <target>Preis</target>
             </trans-unit>
             <trans-unit id="tx_cart_domain_model_product_product.special_prices">
                 <source>Special Prices</source>
                 <target>Spezialpreise</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_product_product.quantity_discounts">
+                <source>Quantity Discount</source>
+                <target>Mengenrabatt</target>
             </trans-unit>
             <trans-unit id="tx_cart_domain_model_product_product.tax_class_id">
                 <target>Steuerklasse</target>
@@ -969,7 +959,15 @@
             <trans-unit id="tx_cart_domain_model_product_product.stock">
                 <target>Lagerbestand</target>
             </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_product.tagsh">
+            <trans-unit id="tx_cart_domain_model_product_product.main_category">
+                <source>Main Category</source>
+                <target>Hauptkategorie</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_product_product.categories">
+                <source>Associated Categories</source>
+                <target>Assoziierte Kategorien</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_product_product.tags">
                 <source>Tags</source>
                 <target>Schlagworte</target>
             </trans-unit>
@@ -1088,6 +1086,19 @@
                 <target>Preis</target>
             </trans-unit>
 
+            <trans-unit id="tx_cart_domain_model_product_quantitydiscount">
+                <source>Quantity Discount</source>
+                <target>Staffelpreis</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_product_quantitydiscount.price">
+                <source>Price</source>
+                <target>Preis</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_product_quantitydiscount.quantity">
+                <source>Quantity (lower bound)</source>
+                <target>Anzahl (untere Grenze)</target>
+            </trans-unit>
+
             <trans-unit id="tx_cart_domain_model_product_tag">
                 <source>Tag</source>
                 <target>Schlagwort</target>
@@ -1113,6 +1124,19 @@
             <trans-unit id="tx_cart_domain_model_cart">
                 <source>Cart Session</source>
                 <target>Cart Session</target>
+            </trans-unit>
+
+            <trans-unit id="tx_cart.settings.allowed_countries.de">
+                <source>Germany</source>
+                <target>Deutschland</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.settings.allowed_countries.at">
+                <source>Austria</source>
+                <target>Österreich</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.settings.allowed_countries.ch">
+                <source>Switzerland</source>
+                <target>Schweiz</target>
             </trans-unit>
         </body>
     </file>
