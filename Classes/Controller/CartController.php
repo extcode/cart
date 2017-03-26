@@ -605,15 +605,15 @@ class CartController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      */
     public function setShippingAction($shippingId)
     {
-        $cart = $this->cartUtility->getCartFromSession($this->settings['cart'], $this->pluginSettings);
+        $this->cart = $this->cartUtility->getCartFromSession($this->settings['cart'], $this->pluginSettings);
 
-        $this->shippings = $this->parserUtility->parseServices('Shipping', $this->pluginSettings, $cart);
+        $this->shippings = $this->parserUtility->parseServices('Shipping', $this->pluginSettings, $this->cart);
 
         $shipping = $this->shippings[$shippingId];
 
         if ($shipping) {
-            if ($shipping->isAvailable($cart->getGross())) {
-                $cart->setShipping($shipping);
+            if ($shipping->isAvailable($this->cart->getGross())) {
+                $this->cart->setShipping($shipping);
             } else {
                 $this->addFlashMessage(
                     \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
@@ -627,7 +627,7 @@ class CartController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
             }
         }
 
-        $this->sessionHandler->writeToSession($cart, $this->settings['cart']['pid']);
+        $this->sessionHandler->writeToSession($this->cart, $this->settings['cart']['pid']);
 
         if (isset($_GET['type'])) {
             $this->view->assign('cart', $this->cart);

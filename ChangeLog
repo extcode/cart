@@ -1,3 +1,9 @@
+3.0.1
+    2017-03-26
+    Daniel Lorenz <daniel.lorenz@extco.de>
+
+    * TASK #90: changing shipping method throws an error
+
 3.0.0
     2017-03-17
     Daniel Lorenz <daniel.lorenz@extco.de>
