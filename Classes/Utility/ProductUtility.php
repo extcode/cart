@@ -329,6 +329,10 @@ class ProductUtility
             $cartProduct->setServiceAttribute2($productProduct->getServiceAttribute2());
             $cartProduct->setServiceAttribute3($productProduct->getServiceAttribute3());
 
+            if ($productProduct->getProductType() == 'virtual' || $productProduct->getProductType() == 'downloadable') {
+                $cartProduct->setIsVirtualProduct(true);
+            }
+
             $cartProduct->setAdditionalArray($cartProductValues['additional']);
 
             $data = [

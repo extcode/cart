@@ -136,6 +136,13 @@ class Product
     private $error;
 
     /**
+     * Is Virtual Product
+     *
+     * @var bool
+     */
+    private $isVirtualProduct = false;
+
+    /**
      * Service Attribute 1
      *
      * @var float
@@ -201,7 +208,7 @@ class Product
     /**
      * __construct
      *
-     * @param int $productType
+     * @param string $productType
      * @param int $productId
      * @param int $tableId
      * @param int $contentId
@@ -840,6 +847,24 @@ class Product
     public function getError()
     {
         return $this->error;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getIsVirtualProduct()
+    {
+        return $this->isVirtualProduct;
+    }
+
+    /**
+     * @param bool $isVirtualProduct
+     *
+     * @return void
+     */
+    public function setIsVirtualProduct($isVirtualProduct)
+    {
+        $this->isVirtualProduct = $isVirtualProduct;
     }
 
     /**

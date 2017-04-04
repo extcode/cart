@@ -1571,4 +1571,26 @@ class ProductTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
             $this->product->getTax()
         );
     }
+
+    /**
+     * @test
+     */
+    public function getIsVirtualProductInitiallyReturnsFalse()
+    {
+        $this->assertFalse(
+            $this->product->getIsVirtualProduct()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function setIsVirtualProductSetsIsVirtualProduct()
+    {
+        $this->product->setIsVirtualProduct(true);
+
+        $this->assertTrue(
+            $this->product->getIsVirtualProduct()
+        );
+    }
 }

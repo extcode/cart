@@ -585,6 +585,40 @@ class Cart
     }
 
     /**
+     * @return int
+     */
+    public function getCountPhysicalProducts()
+    {
+        $count = 0;
+        if ($this->products) {
+            foreach ($this->products as $product) {
+                if (!$product->getIsVirtualProduct()) {
+                    $count += $product->getQuantity();
+                }
+            }
+        }
+
+        return $count;
+    }
+
+    /**
+     * @return int
+     */
+    public function getCountVirtualProducts()
+    {
+        $count = 0;
+        if ($this->products) {
+            foreach ($this->products as $product) {
+                if ($product->getIsVirtualProduct()) {
+                    $count += $product->getQuantity();
+                }
+            }
+        }
+
+        return $count;
+    }
+
+    /**
      * @return Shipping
      */
     public function getShipping()

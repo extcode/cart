@@ -588,6 +588,13 @@ abstract class AbstractService
                 $condition = $this->cart->getGross();
                 break;
             case 'by_quantity':
+            case 'by_number_of_physical_products':
+                $condition = $this->cart->getCountPhysicalProducts();
+                break;
+            case 'by_number_of_virtual_products':
+                $condition = $this->cart->getCountVirtualProducts();
+                break;
+            case 'by_number_of_all_products':
                 $condition = $this->cart->getCount();
                 break;
             case 'by_service_attribute_1_sum':

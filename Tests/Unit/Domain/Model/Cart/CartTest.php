@@ -247,6 +247,28 @@ class CartTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
     /**
      * @test
      */
+    public function getCountPhysicalProductsInitiallyReturnsZero()
+    {
+        $this->assertSame(
+            0,
+            $this->grossCart->getCountPhysicalProducts()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function getCountVirtualProductsInitiallyReturnsZero()
+    {
+        $this->assertSame(
+            0,
+            $this->grossCart->getCountVirtualProducts()
+        );
+    }
+
+    /**
+     * @test
+     */
     public function getProductsInitiallyReturnsEmptyArray()
     {
         $this->assertCount(
@@ -366,6 +388,69 @@ class CartTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
         $this->assertSame(
             1,
             $this->grossCart->getCount()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function addFirstPhysicalCartProductToCartChangeCountOfPhysicalProducts()
+    {
+        $product = new \Extcode\Cart\Domain\Model\Cart\Product(
+            'simple',
+            1,
+            0,
+            0,
+            1,
+            'First Product',
+            10.00,
+            $this->normalTaxClass,
+            1,
+            false
+        );
+
+        $this->grossCart->addProduct($product);
+
+        $this->assertSame(
+            1,
+            $this->grossCart->getCountPhysicalProducts()
+        );
+
+        $this->assertSame(
+            0,
+            $this->grossCart->getCountVirtualProducts()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function addFirstVirtualCartProductToCartChangeCountOfVirtualProducts()
+    {
+        $product = new \Extcode\Cart\Domain\Model\Cart\Product(
+            'simple',
+            1,
+            0,
+            0,
+            1,
+            'First Product',
+            10.00,
+            $this->normalTaxClass,
+            1,
+            false
+        );
+        $product->setIsVirtualProduct(true);
+
+        $this->grossCart->addProduct($product);
+
+        $this->assertSame(
+            0,
+            $this->grossCart->getCountPhysicalProducts()
+        );
+
+        $this->assertSame(
+            1,
+            $this->grossCart->getCountVirtualProducts()
         );
     }
 
