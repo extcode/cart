@@ -1,3 +1,9 @@
+3.1.1
+    2017-04-05
+    Daniel Lorenz <daniel.lorenz@extco.de>
+
+    * BUGFIX #93: remove not used description1 from tca
+
 3.1.0
     2017-04-04
     Daniel Lorenz <daniel.lorenz@extco.de>

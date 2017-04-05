@@ -271,28 +271,6 @@ return [
                 ],
             ],
         ],
-        'description1' => [
-            'exclude' => 0,
-            'defaultExtras' => 'richtext[*]',
-            'label' => $_LLL . ':tx_cart_domain_model_order_item.description1',
-            'config' => [
-                'type' => 'text',
-                'cols' => 48,
-                'rows' => 15,
-                'eval' => 'required',
-                'wizards' => [
-                    '_PADDING' => 4,
-                    'RTE' => [
-                        'notNewRecords' => 1,
-                        'RTEonly' => 1,
-                        'type' => 'script',
-                        'title' => 'LLL:EXT:cms/locallang_ttc.php:bodytext.W.RTE',
-                        'icon' => 'wizard_rte2.gif',
-                        'script' => 'wizard_rte.php'
-                    ]
-                ]
-            ],
-        ],
         'tax_class' => [
             'exclude' => 0,
             'label' => $_LLL . ':tx_cart_domain_model_order_item.tax_class',
