@@ -2,6 +2,8 @@
 
 defined('TYPO3_MODE') or die();
 
+// configure plugins
+
 \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
     'Extcode.' . $_EXTKEY,
     'MiniCart',
@@ -75,3 +77,8 @@ defined('TYPO3_MODE') or die();
         'Order' => 'list, show',
     ]
 );
+
+// ke_search indexer
+
+$GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['ke_search']['registerIndexerConfiguration'][] = 'EXT:cart/Classes/Hooks/KeSearchIndexer.php:Extcode\Cart\Hooks\KeSearchIndexer';
+$GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['ke_search']['customIndexer'][] = 'EXT:cart/Classes/Hooks/KeSearchIndexer.php:Extcode\Cart\Hooks\KeSearchIndexer';

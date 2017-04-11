@@ -114,6 +114,46 @@ class ProductRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
     }
 
     /**
+     * @param string $indexPids
+     *
+     * @return QueryResultInterface|array|null
+     */
+    public function findAllForIndexer($indexPids)
+    {
+        if (TYPO3_MODE === 'BE') {
+            $query = $this->createQuery();
+
+            $sql = '
+                SELECT tx_cart_domain_model_product_product.*, sys_category.cart_product_single_pid
+                FROM tx_cart_domain_model_product_product
+                LEFT JOIN sys_category_record_mm
+                    ON sys_category_record_mm.uid_foreign = tx_cart_domain_model_product_product.main_category
+                LEFT JOIN sys_category
+                    ON sys_category_record_mm.uid_local = sys_category.uid
+                WHERE
+                  tx_cart_domain_model_product_product.pid IN (?) AND
+                  tx_cart_domain_model_product_product.deleted=0 AND
+                  tx_cart_domain_model_product_product.hidden=0 AND
+                  sys_category.deleted=0 AND
+                  sys_category.hidden=0 AND
+                  sys_category_record_mm.tablenames = "tx_cart_domain_model_product_product" AND
+                  sys_category_record_mm.fieldname = "main_category"';
+
+            $preparedStatement = $this->objectManager->get(
+                \TYPO3\CMS\Core\Database\PreparedStatement::class,
+                $sql,
+                'tx_cart_domain_model_product_product'
+            );
+
+            $query->statement($preparedStatement, [$indexPids]);
+
+            $result = $query->execute(true);
+        }
+
+        return $result;
+    }
+
+    /**
      * @param \Extcode\Cart\Domain\Model\Dto\Product\ProductDemand $demand
      *
      * @return array<\TYPO3\CMS\Extbase\Persistence\Generic\Qom\ConstraintInterface>
@@ -123,7 +163,7 @@ class ProductRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
         $orderings = [];
 
         $orderList = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode(',', $demand->getOrder(), true);
-        
+
         if (!empty($orderList)) {
             foreach ($orderList as $orderItem) {
                 list($orderField, $ascDesc) =
