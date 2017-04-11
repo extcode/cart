@@ -2,8 +2,6 @@
 
 namespace Extcode\Cart\ViewHelpers\Traversable;
 
-use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
-
 /**
  * This file is part of the TYPO3 CMS project.
  *
