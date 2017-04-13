@@ -1,0 +1,74 @@
+cache:
+  key: "$CI_COMMIT_REF_NAME/$CI_JOB_STAGE"
+  paths:
+    - .composer/
+    - .php_cs.cache
+
+before_script:
+  - apk add git --update
+
+stages:
+  - test
+
+.test: &test_php
+  stage: test
+  image: php:$DOCKER_TAG
+  only:
+    - branches
+  before_script:
+    - apk --no-cache add bash curl git mercurial openssh openssl parallel subversion tini
+    - docker-php-ext-install mysqli
+    - export TYPO3_PATH_WEB="$PWD/.Build/Web"
+    - export COMPOSER_CACHE_DIR=.composer
+    - curl -OLs https://composer.github.io/installer.sig
+    - php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+    - php -r "if (hash_file('SHA384', 'composer-setup.php') === trim(file_get_contents('installer.sig'))) { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"
+    - php composer-setup.php --no-ansi --install-dir=/usr/bin --filename=composer
+    - php -r "unlink('composer-setup.php'); unlink('installer.sig');"
+    - composer require typo3/cms="${TYPO3_VERSION}" --update-with-dependencies
+    - composer require nimut/testing-framework
+  script:
+    - .Build/bin/phpunit -c .Build/vendor/nimut/testing-framework/res/Configuration/UnitTests.xml Tests/Unit
+    - find . -name \*.php ! -path "./.Build/*" | parallel --gnu php -d display_errors=stderr -l {} > /dev/null
+
+# Tests in PHP 5.6 and TYPO3 6.2
+test:php56:typo3_62:
+  <<: *test_php
+  variables:
+    DOCKER_TAG: 5.6-alpine
+    TYPO3_VERSION: ^6.2
+
+# Build in PHP 5.6 and TYPO3 7.6
+test:php56:typo3_7:
+  <<: *test_php
+  variables:
+    DOCKER_TAG: 5.6-alpine
+    TYPO3_VERSION: ^7.6
+
+# Build in PHP 7.0 and TYPO3 7.6
+test:php70:typo3_7:
+  <<: *test_php
+  variables:
+    DOCKER_TAG: 7.0-alpine
+    TYPO3_VERSION: ^7.6
+
+# Build in PHP 7.1 and TYPO3 7.6
+test:php71:typo3_7:
+  <<: *test_php
+  variables:
+    DOCKER_TAG: 7.1-alpine
+    TYPO3_VERSION: ^7.6
+
+# Build in PHP 7.0 and TYPO3 8.7
+test:php70:typo3_8:
+  <<: *test_php
+  variables:
+    DOCKER_TAG: 7.0-alpine
+    TYPO3_VERSION: ^8.7
+
+# Build in PHP 7.1 and TYPO3 8.7
+test:php71:typo3_8:
+  <<: *test_php
+  variables:
+    DOCKER_TAG: 7.1-alpine
+    TYPO3_VERSION: ^8.7
