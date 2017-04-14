@@ -26,7 +26,6 @@ namespace Extcode\Cart\Tests\Domain\Model\Product;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-
 class AbstractProductTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
 {
     /**

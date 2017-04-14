@@ -18,12 +18,10 @@ namespace Extcode\Cart\ViewHelpers;
 /**
  * FieldName ViewHelper
  *
- * @package cart
  * @author Daniel Lorenz <ext.cart@extco.de>
  */
 class FieldNameViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper
 {
-
     public function initializeArguments()
     {
         parent::initializeArguments();

@@ -29,7 +29,6 @@ namespace Extcode\Cart\Tests\Domain\Model\Cart;
 /**
  * Tax Class Test
  *
- * @package cart
  * @author Daniel Lorenz
  * @license http://www.gnu.org/licenses/lgpl.html
  *                     GNU Lesser General Public License, version 3 or later
@@ -73,8 +72,6 @@ class TaxClassTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
 
     /**
      * Set Up
-     *
-     * @return void
      */
     public function setUp()
     {
@@ -93,8 +90,6 @@ class TaxClassTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
 
     /**
      * Tear Down
-     *
-     * @return void
      */
     public function tearDown()
     {

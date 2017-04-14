@@ -18,7 +18,6 @@ namespace Extcode\Cart\Tests\Domain\Model\Product;
 /**
  * FeVariant Test
  *
- * @package cart
  * @author Daniel Lorenz <ext.cart@extco.de>
  */
 class FeVariantTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
@@ -76,7 +75,6 @@ class FeVariantTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
     public function setTitleForStringSetsTitle()
     {
         $this->feVariant->setTitle('Title');
-
 
         $this->assertSame(
             'Title',

@@ -18,7 +18,6 @@ namespace Extcode\Cart\Domain\Model\Product;
 /**
  * Product Product Model
  *
- * @package cart
  * @author Daniel Lorenz <ext.cart@extco.de>
  */
 class Product extends \Extcode\Cart\Domain\Model\Product\AbstractProduct
@@ -91,14 +90,14 @@ class Product extends \Extcode\Cart\Domain\Model\Product\AbstractProduct
     /**
      * Min Number In Order
      *
-     * @var integer
+     * @var int
      */
     protected $minNumberInOrder = 0;
 
     /**
      * Max Number in Order
      *
-     * @var integer
+     * @var int
      */
     protected $maxNumberInOrder = 0;
 
@@ -177,7 +176,7 @@ class Product extends \Extcode\Cart\Domain\Model\Product\AbstractProduct
     /**
      * Tax Class Id
      *
-     * @var integer
+     * @var int
      */
     protected $taxClassId = 1;
 
@@ -278,7 +277,6 @@ class Product extends \Extcode\Cart\Domain\Model\Product\AbstractProduct
 
     /**
      * Product constructor.
-     *
      */
     public function __construct()
     {
@@ -300,7 +298,6 @@ class Product extends \Extcode\Cart\Domain\Model\Product\AbstractProduct
      * Set the Product Type
      *
      * @var string $productType
-     * @return void
      */
     public function setProductType($productType)
     {
@@ -331,7 +328,6 @@ class Product extends \Extcode\Cart\Domain\Model\Product\AbstractProduct
      * Sets the Images
      *
      * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference> $images
-     * @return void
      */
     public function setImages($images)
     {
@@ -352,7 +348,6 @@ class Product extends \Extcode\Cart\Domain\Model\Product\AbstractProduct
      * Sets the Files
      *
      * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference> $files
-     * @return void
      */
     public function setFiles($files)
     {
@@ -373,7 +368,6 @@ class Product extends \Extcode\Cart\Domain\Model\Product\AbstractProduct
      * Sets the teaser
      *
      * @param string $teaser
-     * @return void
      */
     public function setTeaser($teaser)
     {
@@ -394,7 +388,6 @@ class Product extends \Extcode\Cart\Domain\Model\Product\AbstractProduct
      * Sets the Product Content
      *
      * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage $productContent
-     * @return void
      */
     public function setProductContent($productContent)
     {
@@ -411,8 +404,6 @@ class Product extends \Extcode\Cart\Domain\Model\Product\AbstractProduct
 
     /**
      * @param int $minNumberInOrder
-     *
-     * @return void
      */
     public function setMinNumberInOrder($minNumberInOrder)
     {
@@ -433,8 +424,6 @@ class Product extends \Extcode\Cart\Domain\Model\Product\AbstractProduct
 
     /**
      * @param int $maxNumberInOrder
-     *
-     * @return void
      */
     public function setMaxNumberInOrder($maxNumberInOrder)
     {
@@ -459,8 +448,6 @@ class Product extends \Extcode\Cart\Domain\Model\Product\AbstractProduct
      * Sets the isNetPrice
      *
      * @param bool $isNetPrice
-     *
-     * @return void
      */
     public function setIsNetPrice($isNetPrice)
     {
@@ -481,7 +468,6 @@ class Product extends \Extcode\Cart\Domain\Model\Product\AbstractProduct
      * Sets the price
      *
      * @param float $price
-     * @return void
      */
     public function setPrice($price)
     {
@@ -502,7 +488,6 @@ class Product extends \Extcode\Cart\Domain\Model\Product\AbstractProduct
      * Adds a Special Price
      *
      * @param \Extcode\Cart\Domain\Model\Product\SpecialPrice $specialPrice
-     * @return void
      */
     public function addSpecialPrice(\Extcode\Cart\Domain\Model\Product\SpecialPrice $specialPrice)
     {
@@ -513,7 +498,6 @@ class Product extends \Extcode\Cart\Domain\Model\Product\AbstractProduct
      * Removes a Special Price
      *
      * @param \Extcode\Cart\Domain\Model\Product\SpecialPrice $specialPriceToRemove
-     * @return void
      */
     public function removeSpecialPrice(\Extcode\Cart\Domain\Model\Product\SpecialPrice $specialPriceToRemove)
     {
@@ -622,7 +606,6 @@ class Product extends \Extcode\Cart\Domain\Model\Product\AbstractProduct
      * Adds a Quantity Discount
      *
      * @param \Extcode\Cart\Domain\Model\Product\QuantityDiscount $quantityDiscount
-     * @return void
      */
     public function addQuantityDiscount(\Extcode\Cart\Domain\Model\Product\QuantityDiscount $quantityDiscount)
     {
@@ -633,7 +616,6 @@ class Product extends \Extcode\Cart\Domain\Model\Product\AbstractProduct
      * Removes a Quantity Discount
      *
      * @param \Extcode\Cart\Domain\Model\Product\QuantityDiscount $quantityDiscount
-     * @return void
      */
     public function removeQuantityDiscount(\Extcode\Cart\Domain\Model\Product\QuantityDiscount $quantityDiscount)
     {
@@ -664,7 +646,6 @@ class Product extends \Extcode\Cart\Domain\Model\Product\AbstractProduct
      * Sets the Price Measure
      *
      * @param float $priceMeasure
-     * @return void
      */
     public function setPriceMeasure($priceMeasure)
     {
@@ -685,7 +666,6 @@ class Product extends \Extcode\Cart\Domain\Model\Product\AbstractProduct
      * Sets the Price Measure Unit
      *
      * @param string $priceMeasureUnit
-     * @return void
      */
     public function setPriceMeasureUnit($priceMeasureUnit)
     {
@@ -706,8 +686,6 @@ class Product extends \Extcode\Cart\Domain\Model\Product\AbstractProduct
      * Sets the Basse Price Measure Unit
      *
      * @param string $basePriceMeasureUnit
-     *
-     * @return void
      */
     public function setBasePriceMeasureUnit($basePriceMeasureUnit)
     {
@@ -781,8 +759,6 @@ class Product extends \Extcode\Cart\Domain\Model\Product\AbstractProduct
      * Sets Service Attribute 1
      *
      * @param float $serviceAttribute1
-     *
-     * @return void
      */
     public function setServiceAttribute1($serviceAttribute1)
     {
@@ -803,8 +779,6 @@ class Product extends \Extcode\Cart\Domain\Model\Product\AbstractProduct
      * Sets Service Attribute 2
      *
      * @param float $serviceAttribute2
-     *
-     * @return void
      */
     public function setServiceAttribute2($serviceAttribute2)
     {
@@ -825,8 +799,6 @@ class Product extends \Extcode\Cart\Domain\Model\Product\AbstractProduct
      * Sets Service Attribute 3
      *
      * @param float $serviceAttribute3
-     *
-     * @return void
      */
     public function setServiceAttribute3($serviceAttribute3)
     {
@@ -836,7 +808,7 @@ class Product extends \Extcode\Cart\Domain\Model\Product\AbstractProduct
     /**
      * Returns Tax Class Id
      *
-     * @return integer
+     * @return int
      */
     public function getTaxClassId()
     {
@@ -846,8 +818,7 @@ class Product extends \Extcode\Cart\Domain\Model\Product\AbstractProduct
     /**
      * Sets Tax Class Id
      *
-     * @param integer $taxClassId
-     * @return void
+     * @param int $taxClassId
      */
     public function setTaxClassId($taxClassId)
     {
@@ -868,7 +839,6 @@ class Product extends \Extcode\Cart\Domain\Model\Product\AbstractProduct
      * Sets the Variant Set 1
      *
      * @param \Extcode\Cart\Domain\Model\Product\BeVariantAttribute $beVariantAttribute1
-     * @return void
      */
     public function setBeVariantAttribute1(\Extcode\Cart\Domain\Model\Product\BeVariantAttribute $beVariantAttribute1)
     {
@@ -889,7 +859,6 @@ class Product extends \Extcode\Cart\Domain\Model\Product\AbstractProduct
      * Sets the Variant Set 2
      *
      * @param \Extcode\Cart\Domain\Model\Product\BeVariantAttribute $beVariantAttribute2
-     * @return void
      */
     public function setBeVariantAttribute2(\Extcode\Cart\Domain\Model\Product\BeVariantAttribute $beVariantAttribute2)
     {
@@ -910,7 +879,6 @@ class Product extends \Extcode\Cart\Domain\Model\Product\AbstractProduct
      * Sets the Variant Set 3
      *
      * @param \Extcode\Cart\Domain\Model\Product\BeVariantAttribute $beVariantAttribute3
-     * @return void
      */
     public function setBeVariantAttribute3(\Extcode\Cart\Domain\Model\Product\BeVariantAttribute $beVariantAttribute3)
     {
@@ -921,7 +889,6 @@ class Product extends \Extcode\Cart\Domain\Model\Product\AbstractProduct
      * Adds a Variant
      *
      * @param \Extcode\Cart\Domain\Model\Product\BeVariant $variant
-     * @return void
      */
     public function addBeVariant(\Extcode\Cart\Domain\Model\Product\BeVariant $variant)
     {
@@ -932,7 +899,6 @@ class Product extends \Extcode\Cart\Domain\Model\Product\AbstractProduct
      * Removes a Variant
      *
      * @param \Extcode\Cart\Domain\Model\Product\BeVariant $variantToRemove
-     * @return void
      */
     public function removeBeVariant(\Extcode\Cart\Domain\Model\Product\BeVariant $variantToRemove)
     {
@@ -963,7 +929,6 @@ class Product extends \Extcode\Cart\Domain\Model\Product\AbstractProduct
      * Adds a Frontend Variant
      *
      * @param \Extcode\Cart\Domain\Model\Product\FeVariant $feVariant
-     * @return void
      */
     public function addFeVariant(\Extcode\Cart\Domain\Model\Product\FeVariant $feVariant)
     {
@@ -974,7 +939,6 @@ class Product extends \Extcode\Cart\Domain\Model\Product\AbstractProduct
      * Removes a Frontend Variant
      *
      * @param \Extcode\Cart\Domain\Model\Product\FeVariant $feVariantToRemove
-     * @return void
      */
     public function removeFeVariant(\Extcode\Cart\Domain\Model\Product\FeVariant $feVariantToRemove)
     {
@@ -1005,7 +969,6 @@ class Product extends \Extcode\Cart\Domain\Model\Product\AbstractProduct
      * Adds a Related Product
      *
      * @param \Extcode\Cart\Domain\Model\Product\Product $relatedProduct
-     * @return void
      */
     public function addRelatedProduct(\Extcode\Cart\Domain\Model\Product\Product $relatedProduct)
     {
@@ -1016,7 +979,6 @@ class Product extends \Extcode\Cart\Domain\Model\Product\AbstractProduct
      * Removes a Related Product
      *
      * @param \Extcode\Cart\Domain\Model\Product\Product $relatedProductToRemove
-     * @return void
      */
     public function removeRelatedProduct(\Extcode\Cart\Domain\Model\Product\Product $relatedProductToRemove)
     {
@@ -1047,7 +1009,6 @@ class Product extends \Extcode\Cart\Domain\Model\Product\AbstractProduct
      * Adds a Related Product (from)
      *
      * @param \Extcode\Cart\Domain\Model\Product\Product $relatedProductFrom
-     * @return void
      */
     public function addRelatedProductFrom(\Extcode\Cart\Domain\Model\Product\Product $relatedProductFrom)
     {
@@ -1058,7 +1019,6 @@ class Product extends \Extcode\Cart\Domain\Model\Product\AbstractProduct
      * Removes a Related Product (from)
      *
      * @param \Extcode\Cart\Domain\Model\Product\Product $relatedProductFromToRemove
-     * @return void
      */
     public function removeRelatedProductFrom(\Extcode\Cart\Domain\Model\Product\Product $relatedProductFromToRemove)
     {
@@ -1157,7 +1117,6 @@ class Product extends \Extcode\Cart\Domain\Model\Product\AbstractProduct
      * Sets Handle Stock
      *
      * @param bool $handleStock
-     * @return void
      */
     public function setHandleStock($handleStock)
     {
@@ -1167,7 +1126,7 @@ class Product extends \Extcode\Cart\Domain\Model\Product\AbstractProduct
     /**
      * Returns Handle Stock In Variants
      *
-     * @return boolean
+     * @return bool
      */
     public function getHandleStockInVariants()
     {
@@ -1177,7 +1136,7 @@ class Product extends \Extcode\Cart\Domain\Model\Product\AbstractProduct
     /**
      * Sets Handle Stock In Variants
      *
-     * @param boolean $handleStockInVariants
+     * @param bool $handleStockInVariants
      */
     public function setHandleStockInVariants($handleStockInVariants)
     {
@@ -1224,7 +1183,6 @@ class Product extends \Extcode\Cart\Domain\Model\Product\AbstractProduct
      * Sets the Main Category
      *
      * @param \Extcode\Cart\Domain\Model\Category $mainCategory
-     * @return void
      */
     public function setMainCategory($mainCategory)
     {
@@ -1235,7 +1193,6 @@ class Product extends \Extcode\Cart\Domain\Model\Product\AbstractProduct
      * Adds a Product Category
      *
      * @param \TYPO3\CMS\Extbase\Domain\Model\Category $category
-     * @return void
      */
     public function addCategory(\TYPO3\CMS\Extbase\Domain\Model\Category $category)
     {
@@ -1246,7 +1203,6 @@ class Product extends \Extcode\Cart\Domain\Model\Product\AbstractProduct
      * Removes a Category
      *
      * @param \TYPO3\CMS\Extbase\Domain\Model\Category $categoryToRemove
-     * @return void
      */
     public function removeCategory(\TYPO3\CMS\Extbase\Domain\Model\Category $categoryToRemove)
     {
@@ -1328,8 +1284,6 @@ class Product extends \Extcode\Cart\Domain\Model\Product\AbstractProduct
      * Sets MeasureUnits
      *
      * @param array $measureUnits
-     *
-     * @return void
      */
     public function setMeasureUnits($measureUnits)
     {
@@ -1340,7 +1294,6 @@ class Product extends \Extcode\Cart\Domain\Model\Product\AbstractProduct
      * Adds a Tag
      *
      * @param \Extcode\Cart\Domain\Model\Product\Tag $tag
-     * @return void
      */
     public function addTag(\Extcode\Cart\Domain\Model\Product\Tag $tag)
     {
@@ -1351,7 +1304,6 @@ class Product extends \Extcode\Cart\Domain\Model\Product\AbstractProduct
      * Removes a Tag
      *
      * @param \Extcode\Cart\Domain\Model\Product\Tag $tagToRemove
-     * @return void
      */
     public function removeTag(\Extcode\Cart\Domain\Model\Product\Tag $tagToRemove)
     {

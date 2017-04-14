@@ -1,6 +1,8 @@
 .Build
 composer.lock
 
+.php_cs.cache
+
 Documentation/_make
 
 .DS_Store

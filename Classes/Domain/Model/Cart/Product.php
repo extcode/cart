@@ -18,7 +18,6 @@ namespace Extcode\Cart\Domain\Model\Cart;
 /**
  * Cart Product Model
  *
- * @package cart
  * @author Daniel Lorenz <ext.cart@extco.de>
  */
 class Product
@@ -300,7 +299,6 @@ class Product
 
     /**
      * @param $cart
-     * @return void
      */
     public function setCart($cart)
     {
@@ -333,7 +331,6 @@ class Product
 
     /**
      * @param string $title
-     * @return void
      */
     public function setTitle($title)
     {
@@ -627,8 +624,6 @@ class Product
      * Set Quantity Discounts
      *
      * @param array $quantityDiscounts
-     *
-     * @return void
      */
     public function setQuantityDiscounts($quantityDiscounts)
     {
@@ -695,7 +690,6 @@ class Product
 
     /**
      * @param int $newQuantity
-     * @return void
      */
     public function changeQuantity($newQuantity)
     {
@@ -799,7 +793,6 @@ class Product
         }
 
         return $aboveRange;
-
     }
 
     /**
@@ -859,8 +852,6 @@ class Product
 
     /**
      * @param bool $isVirtualProduct
-     *
-     * @return void
      */
     public function setIsVirtualProduct($isVirtualProduct)
     {
@@ -962,7 +953,6 @@ class Product
     }
 
     /**
-     * @return void
      */
     private function calcGross()
     {
@@ -985,7 +975,6 @@ class Product
     }
 
     /**
-     * @return void
      */
     private function calcTax()
     {
@@ -997,7 +986,6 @@ class Product
     }
 
     /**
-     * @return void
      */
     private function calcNet()
     {
@@ -1020,7 +1008,6 @@ class Product
     }
 
     /**
-     * @return void
      */
     private function reCalc()
     {
@@ -1051,7 +1038,6 @@ class Product
 
     /**
      * @param $additional
-     * @return void
      */
     public function setAdditionalArray($additional)
     {
@@ -1070,8 +1056,6 @@ class Product
     /**
      * @param string $key
      * @param mixed $value
-     *
-     * @return void
      */
     public function setAdditional($key, $value)
     {
@@ -1088,8 +1072,6 @@ class Product
 
     /**
      * @param int $minNumberInCart
-     *
-     * @return void
      */
     public function setMinNumberInCart($minNumberInCart)
     {
@@ -1112,8 +1094,6 @@ class Product
 
     /**
      * @param int $maxNumberInCart
-     *
-     * @return void
      */
     public function setMaxNumberInCart($maxNumberInCart)
     {

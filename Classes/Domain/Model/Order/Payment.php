@@ -18,7 +18,6 @@ namespace Extcode\Cart\Domain\Model\Order;
 /**
  * Order Payment Model
  *
- * @package cart
  * @author Daniel Lorenz <ext.cart@extco.de>
  */
 class Payment extends \Extcode\Cart\Domain\Model\Order\AbstractService
@@ -51,8 +50,6 @@ class Payment extends \Extcode\Cart\Domain\Model\Order\AbstractService
 
     /**
      * Initializes all \TYPO3\CMS\Extbase\Persistence\ObjectStorage properties.
-     *
-     * @return void
      */
     protected function initStorageObjects()
     {
@@ -87,8 +84,6 @@ class Payment extends \Extcode\Cart\Domain\Model\Order\AbstractService
      * Sets Provider
      *
      * @param string $provider
-     *
-     * @return void
      */
     public function setProvider($provider)
     {
@@ -99,8 +94,6 @@ class Payment extends \Extcode\Cart\Domain\Model\Order\AbstractService
      * Adds a Transaction
      *
      * @param \Extcode\Cart\Domain\Model\Order\Transaction $transaction
-     *
-     * @return void
      */
     public function addTransaction(\Extcode\Cart\Domain\Model\Order\Transaction $transaction)
     {
@@ -111,8 +104,6 @@ class Payment extends \Extcode\Cart\Domain\Model\Order\AbstractService
      * Removes a Transaction
      *
      * @param \Extcode\Cart\Domain\Model\Order\Transaction $transactionsToRemove
-     *
-     * @return void
      */
     public function removeTransaction(\Extcode\Cart\Domain\Model\Order\Transaction $transactionsToRemove)
     {
@@ -133,8 +124,6 @@ class Payment extends \Extcode\Cart\Domain\Model\Order\AbstractService
      * Sets Transaction
      *
      * @param  \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Extcode\Cart\Domain\Model\Order\Transaction> $transactions
-     *
-     * @return void
      */
     public function setTransactions($transactions)
     {

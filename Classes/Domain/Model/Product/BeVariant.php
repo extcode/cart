@@ -18,7 +18,6 @@ namespace Extcode\Cart\Domain\Model\Product;
 /**
  * Product BeVariant Model
  *
- * @package cart
  * @author Daniel Lorenz <ext.cart@extco.de>
  */
 class BeVariant extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
@@ -97,7 +96,6 @@ class BeVariant extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * Product constructor.
-     *
      */
     public function __construct()
     {
@@ -118,8 +116,6 @@ class BeVariant extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * Sets the Product
      *
      * @param \Extcode\Cart\Domain\Model\Product\Product $product
-     *
-     * @return void
      */
     public function setProduct(\Extcode\Cart\Domain\Model\Product\Product $product)
     {
@@ -140,7 +136,6 @@ class BeVariant extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * Sets the Variant Attribute 1
      *
      * @param \Extcode\Cart\Domain\Model\Product\BeVariantAttributeOption $beVariantAttributeOption1
-     * @return void
      */
     public function setBeVariantAttributeOption1(
         \Extcode\Cart\Domain\Model\Product\BeVariantAttributeOption $beVariantAttributeOption1
@@ -162,7 +157,6 @@ class BeVariant extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * Sets the Variant Attribute 2
      *
      * @param \Extcode\Cart\Domain\Model\Product\BeVariantAttributeOption $beVariantAttributeOption2
-     * @return void
      */
     public function setBeVariantAttributeOption2(
         \Extcode\Cart\Domain\Model\Product\BeVariantAttributeOption $beVariantAttributeOption2
@@ -184,7 +178,6 @@ class BeVariant extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * Sets the Variant Attribute 3
      *
      * @param \Extcode\Cart\Domain\Model\Product\BeVariantAttributeOption $beVariantAttributeOption3
-     * @return void
      */
     public function setBeVariantAttributeOption3(
         \Extcode\Cart\Domain\Model\Product\BeVariantAttributeOption $beVariantAttributeOption3
@@ -312,7 +305,6 @@ class BeVariant extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * Sets the price
      *
      * @param float $price
-     * @return void
      */
     public function setPrice($price)
     {
@@ -329,7 +321,6 @@ class BeVariant extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * @param int $priceCalcMethod
-     * @return void
      */
     public function setPriceCalcMethod($priceCalcMethod)
     {
@@ -340,7 +331,6 @@ class BeVariant extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * Adds a Special Price
      *
      * @param \Extcode\Cart\Domain\Model\Product\SpecialPrice $specialPrice
-     * @return void
      */
     public function addSpecialPrice(\Extcode\Cart\Domain\Model\Product\SpecialPrice $specialPrice)
     {
@@ -351,7 +341,6 @@ class BeVariant extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * Removes a Special Price
      *
      * @param \Extcode\Cart\Domain\Model\Product\SpecialPrice $specialPriceToRemove
-     * @return void
      */
     public function removeSpecialPrice(\Extcode\Cart\Domain\Model\Product\SpecialPrice $specialPriceToRemove)
     {
@@ -487,7 +476,7 @@ class BeVariant extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      */
     public function getBasePrice()
     {
-        #TODO: respects different measuring units between variant and product
+        //TODO: respects different measuring units between variant and product
         if (!$this->getProduct()->getBasePriceMeasure() > 0) {
             return null;
         }
@@ -515,7 +504,6 @@ class BeVariant extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * Sets the Price Measure
      *
      * @param float $priceMeasure
-     * @return void
      */
     public function setPriceMeasure($priceMeasure)
     {
@@ -536,7 +524,6 @@ class BeVariant extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * Sets the Price Measure Unit
      *
      * @param string $priceMeasureUnit
-     * @return void
      */
     public function setPriceMeasureUnit($priceMeasureUnit)
     {
@@ -670,7 +657,7 @@ class BeVariant extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
             $skuArray[] = $this->getBeVariantAttributeOption3()->getSku();
         }
 
-        return join('-', $skuArray);
+        return implode('-', $skuArray);
     }
 
     /**
@@ -701,6 +688,6 @@ class BeVariant extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
                 . $this->getBeVariantAttributeOption3()->getTitle();
         }
 
-        return join(' - ', $titleArray);
+        return implode(' - ', $titleArray);
     }
 }

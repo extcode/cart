@@ -18,10 +18,8 @@ namespace Extcode\Cart\Property\Exception;
 /**
  * ResetProperty Exception
  *
- * @package cart
  * @author Daniel Lorenz <ext.cart@extco.de>
  */
 class ResetPropertyException extends \TYPO3\CMS\Extbase\Property\Exception
 {
-
 }

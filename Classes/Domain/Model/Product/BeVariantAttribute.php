@@ -18,7 +18,6 @@ namespace Extcode\Cart\Domain\Model\Product;
 /**
  * Product BeVariantAttribute Model
  *
- * @package cart
  * @author Daniel Lorenz <ext.cart@extco.de>
  */
 class BeVariantAttribute extends \Extcode\Cart\Domain\Model\Product\AbstractProduct
@@ -42,8 +41,6 @@ class BeVariantAttribute extends \Extcode\Cart\Domain\Model\Product\AbstractProd
 
     /**
      * Initializes all \TYPO3\CMS\Extbase\Persistence\ObjectStorage properties.
-     *
-     * @return void
      */
     protected function initStorageObjects()
     {
@@ -54,8 +51,6 @@ class BeVariantAttribute extends \Extcode\Cart\Domain\Model\Product\AbstractProd
      * Adds BeVariantAttributeOption
      *
      * @param \Extcode\Cart\Domain\Model\Product\BeVariantAttributeOption $beVariantAttributeOption
-     *
-     * @return void
      */
     public function addBeVariantAttributeOption(
         \Extcode\Cart\Domain\Model\Product\BeVariantAttributeOption $beVariantAttributeOption
@@ -67,8 +62,6 @@ class BeVariantAttribute extends \Extcode\Cart\Domain\Model\Product\AbstractProd
      * Removes BeVariantAttributeOption
      *
      * @param \Extcode\Cart\Domain\Model\Product\BeVariantAttributeOption $beVariantAttributeOption
-     *
-     * @return void
      */
     public function removeBeVariantAttributeOption(
         \Extcode\Cart\Domain\Model\Product\BeVariantAttributeOption $beVariantAttributeOption
@@ -90,8 +83,6 @@ class BeVariantAttribute extends \Extcode\Cart\Domain\Model\Product\AbstractProd
      * Sets BeVariantAttributeOptions
      *
      * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage $beVariantAttributeOptions
-     *
-     * @return void
      */
     public function setBeVariantAttributeOptions(
         \TYPO3\CMS\Extbase\Persistence\ObjectStorage $beVariantAttributeOptions

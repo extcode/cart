@@ -14,14 +14,12 @@ namespace Extcode\Cart\Controller;
  *
  * The TYPO3 project - inspiring people to share!
  */
-
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 
 /**
  * Order Controller
  *
- * @package cart
  * @author Daniel Lorenz <ext.cart@extco.de>
  */
 class OrderController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
@@ -143,8 +141,6 @@ class OrderController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 
     /**
      * Initialize Action
-     *
-     * @return void
      */
     protected function initializeAction()
     {
@@ -187,8 +183,6 @@ class OrderController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 
     /**
      * Initialize Update Action
-     *
-     * @return void
      */
     public function initializeUpdateAction()
     {
@@ -204,8 +198,6 @@ class OrderController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 
     /**
      * Statistic Action
-     *
-     * @return void
      */
     public function statisticAction()
     {
@@ -244,8 +236,6 @@ class OrderController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 
     /**
      * List Action
-     *
-     * @return void
      */
     public function listAction()
     {
@@ -267,8 +257,6 @@ class OrderController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 
     /**
      * Export Action
-     *
-     * @return void
      */
     public function exportAction()
     {
@@ -298,8 +286,6 @@ class OrderController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      * @param \Extcode\Cart\Domain\Model\Order\Item $orderItem
      *
      * @ignorevalidation $orderItem
-     *
-     * @return void
      */
     public function showAction(\Extcode\Cart\Domain\Model\Order\Item $orderItem)
     {
@@ -343,8 +329,6 @@ class OrderController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 
     /**
      * @param \Extcode\Cart\Domain\Model\Order\Payment $payment
-     *
-     * @return void
      */
     public function updatePaymentAction(\Extcode\Cart\Domain\Model\Order\Payment $payment)
     {
@@ -362,8 +346,6 @@ class OrderController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 
     /**
      * @param \Extcode\Cart\Domain\Model\Order\Shipping $shipping
-     *
-     * @return void
      */
     public function updateShippingAction(\Extcode\Cart\Domain\Model\Order\Shipping $shipping)
     {
@@ -384,8 +366,6 @@ class OrderController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      *
      * @param \Extcode\Cart\Domain\Model\Order\Item $orderItem
      * @param string $numberType
-     *
-     * @return void
      */
     public function generateNumberAction(\Extcode\Cart\Domain\Model\Order\Item $orderItem, $numberType)
     {
@@ -427,8 +407,6 @@ class OrderController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      *
      * @param \Extcode\Cart\Domain\Model\Order\Item $orderItem
      * @param string $pdfType
-     *
-     * @return void
      */
     public function generatePdfDocumentAction(\Extcode\Cart\Domain\Model\Order\Item $orderItem, $pdfType)
     {
@@ -467,8 +445,6 @@ class OrderController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      *
      * @param \Extcode\Cart\Domain\Model\Order\Item $orderItem
      * @param string $pdfType
-     *
-     * @return void
      */
     public function downloadPdfDocumentAction(\Extcode\Cart\Domain\Model\Order\Item $orderItem, $pdfType)
     {
@@ -553,8 +529,6 @@ class OrderController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      *
      * @param \Extcode\Cart\Domain\Model\Order\Item $orderItem
      * @param string $pdfType
-     *
-     * @return void
      */
     protected function generatePdfDocument(\Extcode\Cart\Domain\Model\Order\Item $orderItem, $pdfType)
     {
@@ -575,8 +549,6 @@ class OrderController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      * Build TSFE
      *
      * @param int $pid Page Id
-     *
-     * @return void
      */
     protected function buildTSFE($pid = 1, $typeNum = 0)
     {
@@ -661,8 +633,6 @@ class OrderController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 
     /**
      * Payment Success Action
-     *
-     * @return void
      */
     public function paymentSuccessAction()
     {
@@ -672,7 +642,7 @@ class OrderController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
             $querySettings = $this->objectManager->get(
                 \TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings::class
             );
-            $querySettings->setStoragePageIds(array($this->settings['order']['pid']));
+            $querySettings->setStoragePageIds([$this->settings['order']['pid']]);
             $this->cartRepository->setDefaultQuerySettings($querySettings);
 
             $this->cart = $this->cartRepository->findOneBySHash($hash);
@@ -726,8 +696,6 @@ class OrderController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 
     /**
      * Fail Action
-     *
-     * @return void
      */
     public function paymentCancelAction()
     {
@@ -737,7 +705,7 @@ class OrderController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
             $querySettings = $this->objectManager->get(
                 \TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings::class
             );
-            $querySettings->setStoragePageIds(array($this->settings['order']['pid']));
+            $querySettings->setStoragePageIds([$this->settings['order']['pid']]);
             $this->cartRepository->setDefaultQuerySettings($querySettings);
 
             $this->cart = $this->cartRepository->findOneByFHash($hash);
@@ -792,8 +760,6 @@ class OrderController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      * @paran string $type
      * @param string $class
      * @param string $function
-     *
-     * @return void
      */
     protected function sendMails(\Extcode\Cart\Domain\Model\Order\Item $orderItem, $type, $class, $function)
     {
@@ -844,8 +810,6 @@ class OrderController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      * @param \Extcode\Cart\Domain\Model\Order\Item $orderItem Order Item
      * @param \Extcode\Cart\Domain\Model\Order\Address $billingAddress Billing Address
      * @param \Extcode\Cart\Domain\Model\Order\Address $shippingAddress Shipping Address
-     *
-     * @return void
      */
     protected function sendBuyerMail(
         \Extcode\Cart\Domain\Model\Order\Item $orderItem,
@@ -866,8 +830,6 @@ class OrderController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      * @param \Extcode\Cart\Domain\Model\Order\Item $orderItem Order Item
      * @param \Extcode\Cart\Domain\Model\Order\Address $billingAddress Billing Address
      * @param \Extcode\Cart\Domain\Model\Order\Address $shippingAddress Shipping Address
-     *
-     * @return void
      */
     protected function sendSellerMail(
         \Extcode\Cart\Domain\Model\Order\Item $orderItem,

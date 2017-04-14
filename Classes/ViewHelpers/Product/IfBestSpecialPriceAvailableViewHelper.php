@@ -18,7 +18,6 @@ namespace Extcode\Cart\ViewHelpers\Product;
 /**
  * If SpecialPrice Available ViewHelper
  *
- * @package cart
  * @author Daniel Lorenz <ext.cart@extco.de>
  */
 class IfBestSpecialPriceAvailableViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractConditionViewHelper
@@ -40,7 +39,6 @@ class IfBestSpecialPriceAvailableViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHe
     /**
      * Initialize arguments.
      *
-     * @return void
      * @api
      */
     public function initializeArguments()

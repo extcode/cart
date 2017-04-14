@@ -18,7 +18,6 @@ namespace Extcode\Cart\Domain\Model\Product;
 /**
  * Product SpecialPrice
  *
- * @package cart
  * @author Daniel Lorenz <ext.cart@extco.de>
  */
 class SpecialPrice extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
@@ -60,7 +59,6 @@ class SpecialPrice extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * Sets the Title
      *
      * @param string $title
-     * @return void
      */
     public function setTitle($title)
     {
@@ -81,7 +79,6 @@ class SpecialPrice extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * Sets the Price
      *
      * @param float $price
-     * @return void
      */
     public function setPrice($price)
     {

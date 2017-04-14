@@ -18,7 +18,6 @@ namespace Extcode\Cart\Domain\Model\Product;
 /**
  * Product QuantityDiscount
  *
- * @package cart
  * @author Daniel Lorenz <ext.cart@extco.de>
  */
 class QuantityDiscount extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
@@ -71,8 +70,6 @@ class QuantityDiscount extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * Sets the Price
      *
      * @param float $price
-     *
-     * @return void
      */
     public function setPrice($price)
     {
@@ -93,8 +90,6 @@ class QuantityDiscount extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * Sets the Quantity (lower bound)
      *
      * @param int $quantity
-     *
-     * @return void
      */
     public function setQuantity($quantity)
     {

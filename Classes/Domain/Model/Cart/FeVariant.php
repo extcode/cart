@@ -15,12 +15,9 @@ namespace Extcode\Cart\Domain\Model\Cart;
  * The TYPO3 project - inspiring people to share!
  */
 
-use TYPO3\CMS\Core\Utility\GeneralUtility;
-
 /**
  * Cart FeVariant Model
  *
- * @package cart
  * @author Daniel Lorenz <ext.cart@extco.de>
  */
 class FeVariant
@@ -115,7 +112,7 @@ class FeVariant
         foreach ($this->variantData as $variant) {
             $titleArr[] = $variant['title'];
         }
-        return join($this->titleGlue, $titleArr);
+        return implode($this->titleGlue, $titleArr);
     }
 
     /**
@@ -127,7 +124,7 @@ class FeVariant
         foreach ($this->variantData as $variant) {
             $skuArr[] = $variant['sku'];
         }
-        return join($this->skuGlue, $skuArr);
+        return implode($this->skuGlue, $skuArr);
     }
 
     /**
@@ -139,6 +136,6 @@ class FeVariant
         foreach ($this->variantData as $variant) {
             $valueArr[] = $variant['value'];
         }
-        return join($this->valueGlue, $valueArr);
+        return implode($this->valueGlue, $valueArr);
     }
 }

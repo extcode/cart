@@ -14,14 +14,11 @@ namespace Extcode\Cart\Utility;
  *
  * The TYPO3 project - inspiring people to share!
  */
-
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Mvc\Request;
 
 /**
  * Parser Utility
  *
- * @package cart
  * @author Daniel Lorenz <ext.cart@extco.de>
  */
 class ParserUtility

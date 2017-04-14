@@ -18,7 +18,6 @@ namespace Extcode\Cart\Domain\Model\Order;
 /**
  * Order Discount Model
  *
- * @package cart
  * @author Daniel Lorenz <ext.cart@extco.de>
  */
 class Discount extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity

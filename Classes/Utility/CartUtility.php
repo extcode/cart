@@ -14,15 +14,11 @@ namespace Extcode\Cart\Utility;
  *
  * The TYPO3 project - inspiring people to share!
  */
-
-use \TYPO3\CMS\Core\Utility\GeneralUtility;
-use \TYPO3\CMS\Extbase\Configuration\Exception;
-use \TYPO3\CMS\Extbase\Mvc\Request;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * Cart Utility
  *
- * @package cart
  * @author Daniel Lorenz <ext.cart@extco.de>
  */
 class CartUtility
@@ -98,8 +94,6 @@ class CartUtility
      *
      * @param \Extcode\Cart\Domain\Model\Cart\Cart $cart
      * @param array $cartSettings
-     *
-     * @return void
      */
     public function writeCartToSession($cart, $cartSettings)
     {
@@ -225,7 +219,7 @@ class CartUtility
      */
     protected function getCartProductDataSelect($table, $databaseFields)
     {
-        $select = "";
+        $select = '';
 
         foreach ($databaseFields as $databaseFieldKey => $databaseFieldValue) {
             if ($databaseFieldValue != '' && is_string($databaseFieldValue)) {
@@ -253,8 +247,6 @@ class CartUtility
     /**
      * @param array $cartSettings
      * @param array $pluginSettings
-     *
-     * @return void
      */
     public function updateCountry(array $cartSettings, array $pluginSettings, $request)
     {
@@ -265,7 +257,6 @@ class CartUtility
         if ($request->hasArgument('billing_country')) {
             $billingCountry = $request->getArgument('billing_country');
         }
-
 
         if ($request->hasArgument('shipping_country')) {
             $shippingCountry = $request->getArgument('shipping_country');

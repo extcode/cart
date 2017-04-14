@@ -18,7 +18,6 @@ namespace Extcode\Cart\Domain\Model\Order;
 /**
  * Order Product Model
  *
- * @package cart
  * @author Daniel Lorenz <ext.cart@extco.de>
  */
 class Product extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
@@ -165,8 +164,6 @@ class Product extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * Initializes all \TYPO3\CMS\Extbase\Persistence\ObjectStorage properties.
-     *
-     * @return void
      */
     protected function initStorageObjects()
     {
@@ -197,7 +194,6 @@ class Product extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * Sets the Product Type
      *
      * @var string $productType
-     * @return void
      */
     public function setProductType($productType)
     {
@@ -218,8 +214,6 @@ class Product extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * Sets Additional Data
      *
      * @param string $additionalData
-     *
-     * @return void
      */
     public function setAdditionalData($additionalData)
     {
@@ -240,8 +234,6 @@ class Product extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * Sets Price
      *
      * @param float $price
-     *
-     * @return void
      */
     public function setPrice($price)
     {
@@ -262,8 +254,6 @@ class Product extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * Sets Discount
      *
      * @param float $discount
-     *
-     * @return void
      */
     public function setDiscount($discount)
     {
@@ -284,8 +274,6 @@ class Product extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * Sets Gross
      *
      * @param float $gross
-     *
-     * @return void
      */
     public function setGross($gross)
     {
@@ -306,8 +294,6 @@ class Product extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * Sets Net
      *
      * @param float $net
-     *
-     * @return void
      */
     public function setNet($net)
     {
@@ -348,8 +334,6 @@ class Product extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * Sets Tax Class
      *
      * @param \Extcode\Cart\Domain\Model\Order\TaxClass $taxClass
-     *
-     * @return void
      */
     public function setTaxClass(\Extcode\Cart\Domain\Model\Order\TaxClass $taxClass)
     {
@@ -370,8 +354,6 @@ class Product extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * Sets Tax
      *
      * @param float $tax
-     *
-     * @return void
      */
     public function setTax($tax)
     {
@@ -392,8 +374,6 @@ class Product extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * Adds a ProductAdditional
      *
      * @param \Extcode\Cart\Domain\Model\Order\ProductAdditional $productAdditional
-     *
-     * @return void
      */
     public function addProductAdditional(\Extcode\Cart\Domain\Model\Order\ProductAdditional $productAdditional)
     {
@@ -404,8 +384,6 @@ class Product extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * Removes a ProductAdditional
      *
      * @param \Extcode\Cart\Domain\Model\Order\ProductAdditional $productAdditional
-     *
-     * @return void
      */
     public function removeProductAdditional(\Extcode\Cart\Domain\Model\Order\ProductAdditional $productAdditional)
     {

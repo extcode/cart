@@ -18,7 +18,6 @@ namespace Extcode\Cart\ViewHelpers;
 /**
  * Title Tag ViewHelper
  *
- * @package cart
  * @author Georg Ringer <typo3@ringerge.org>
  * @author Daniel Lorenz <ext.cart@extco.de>
  */
@@ -26,8 +25,6 @@ class TitleTagViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHe
 {
     /**
      * Override the title tag
-     *
-     * @return void
      */
     public function render()
     {

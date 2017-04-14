@@ -14,16 +14,15 @@ namespace Extcode\Cart\ViewHelpers\Traversable;
  *
  * The TYPO3 project - inspiring people to share!
  */
-
-class ExtractViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper {
+class ExtractViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper
+{
 
     /**
      * Initialize arguments
-     *
-     * @return void
      */
-    public function initializeArguments() {
-        $this->registerArgument('as', 'string', 'Which variable to update in the TemplateVariableContainer. If left out, returns the random element instead of updating the variable', FALSE);
+    public function initializeArguments()
+    {
+        $this->registerArgument('as', 'string', 'Which variable to update in the TemplateVariableContainer. If left out, returns the random element instead of updating the variable', false);
     }
 
     /**
@@ -32,7 +31,8 @@ class ExtractViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHel
      *
      * @return array
      */
-    public function render($key, $content = null) {
+    public function render($key, $content = null)
+    {
         if ($content === null) {
             $content = $this->renderChildren();
         }
@@ -43,15 +43,15 @@ class ExtractViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHel
             $result = [];
         }
 
-        if (TRUE === isset($this->arguments['as']) && FALSE === empty($this->arguments['as'])) {
-            if (TRUE === $this->templateVariableContainer->exists($this->arguments['as'])) {
+        if (true === isset($this->arguments['as']) && false === empty($this->arguments['as'])) {
+            if (true === $this->templateVariableContainer->exists($this->arguments['as'])) {
                 $backup = $this->templateVariableContainer->get($this->arguments['as']);
                 $this->templateVariableContainer->remove($this->arguments['as']);
             }
             $this->templateVariableContainer->add($this->arguments['as'], $result);
             $content = $this->renderChildren();
             $this->templateVariableContainer->remove($this->arguments['as']);
-            if (TRUE === isset($backup)) {
+            if (true === isset($backup)) {
                 $this->templateVariableContainer->add($this->arguments['as'], $backup);
             }
             return $content;
@@ -70,7 +70,8 @@ class ExtractViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHel
      *
      * @throws \Exception
      */
-    public function extractByKey($iterator, $key) {
+    public function extractByKey($iterator, $key)
+    {
         if ((is_array($iterator) === false) && ($iterator instanceof \Traversable === false)) {
             throw new \Exception('Traversable object or array expected but received ' . gettype($iterator), 1361532490);
         }

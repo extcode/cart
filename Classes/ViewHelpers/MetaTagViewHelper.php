@@ -14,14 +14,12 @@ namespace Extcode\Cart\ViewHelpers;
  *
  * The TYPO3 project - inspiring people to share!
  */
-
 use TYPO3\CMS\Core\Page\PageRenderer;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * Title Tag ViewHelper
  *
- * @package cart
  * @author Georg Ringer <typo3@ringerge.org>
  * @author Daniel Lorenz <ext.cart@extco.de>
  */
@@ -35,8 +33,6 @@ class MetaTagViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractTagBase
 
     /**
      * Arguments initialization
-     *
-     * @return void
      */
     public function initializeArguments()
     {
@@ -50,7 +46,6 @@ class MetaTagViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractTagBase
      *
      * @param bool $useCurrentDomain If set, current domain is used
      * @param bool $forceAbsoluteUrl If set, absolute url is forced
-     * @return void
      */
     public function render($useCurrentDomain = false, $forceAbsoluteUrl = false)
     {

@@ -1,39 +1,39 @@
 <?php
-$header = <<<'EOF'
-This file is part of PHP CS Fixer.
-(c) Fabien Potencier <fabien@symfony.com>
-    Dariusz Rumiński <dariusz.ruminski@gmail.com>
-This source file is subject to the MIT license that is bundled
-with this source code in the file LICENSE.
-EOF;
+
+if (PHP_SAPI !== 'cli') {
+    die('This script supports command line usage only. Please check your command.');
+}
+$finder = PhpCsFixer\Finder::create()
+    ->in(__DIR__ . '/../');
 return PhpCsFixer\Config::create()
     ->setRiskyAllowed(true)
-    ->setRules(array(
-        '@Symfony' => true,
-        '@Symfony:risky' => true,
-        'array_syntax' => array('syntax' => 'long'),
-        'combine_consecutive_unsets' => true,
-        // one should use PHPUnit methods to set up expected exception instead of annotations
-        'general_phpdoc_annotation_remove' => array('expectedException', 'expectedExceptionMessage', 'expectedExceptionMessageRegExp'),
-        'header_comment' => array('header' => $header),
-        'heredoc_to_nowdoc' => true,
-        'no_extra_consecutive_blank_lines' => array('break', 'continue', 'extra', 'return', 'throw', 'use', 'parenthesis_brace_block', 'square_brace_block', 'curly_brace_block'),
-        'no_short_echo_tag' => true,
-        'no_unreachable_default_argument_value' => true,
-        'no_useless_else' => true,
-        'no_useless_return' => true,
-        'ordered_class_elements' => true,
+    ->setRules([
+        '@PSR2' => true,
+        'no_leading_import_slash' => true,
+        'no_trailing_comma_in_singleline_array' => true,
+        'no_singleline_whitespace_before_semicolons' => true,
+        'no_unused_imports' => true,
+        'concat_space' => ['spacing' => 'one'],
+        'no_whitespace_in_blank_line' => true,
         'ordered_imports' => true,
-        'php_unit_strict' => true,
-        'phpdoc_add_missing_param_annotation' => true,
-        'phpdoc_order' => true,
-        'semicolon_after_instruction' => true,
-        'strict_comparison' => true,
-        'strict_param' => true,
-    ))
-    ->setFinder(
-        PhpCsFixer\Finder::create()
-            ->exclude('tests/Fixtures')
-            ->in(__DIR__ . '/../')
-    )
-;
+        'single_quote' => true,
+        'no_empty_statement' => true,
+        'no_extra_consecutive_blank_lines' => true,
+        'phpdoc_no_package' => true,
+        'phpdoc_scalar' => true,
+        'no_blank_lines_after_phpdoc' => true,
+        'array_syntax' => ['syntax' => 'short'],
+        'whitespace_after_comma_in_array' => true,
+        'function_typehint_space' => true,
+        'hash_to_slash_comment' => true,
+        'no_alias_functions' => true,
+        'lowercase_cast' => true,
+        'no_leading_namespace_whitespace' => true,
+        'native_function_casing' => true,
+        'self_accessor' => true,
+        'no_short_bool_cast' => true,
+        'no_unneeded_control_parentheses' => true,
+        'phpdoc_no_empty_return' => true,
+        'phpdoc_trim' => true
+    ])
+    ->setFinder($finder);

@@ -18,7 +18,6 @@ namespace Extcode\Cart\Domain\Model\Product;
 /**
  * Product Coupon Model
  *
- * @package cart
  * @author Daniel Lorenz <ext.cart@extco.de>
  */
 class Coupon extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
@@ -92,14 +91,14 @@ class Coupon extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Number Available
      *
-     * @var integer
+     * @var int
      */
     protected $numberAvailable = 0;
 
     /**
      * Number Used
      *
-     * @var integer
+     * @var int
      */
     protected $numberUsed = 0;
 
@@ -233,7 +232,6 @@ class Coupon extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * Sets Cart Min Price
      *
      * @param float $cartMinPrice
-     * @return void
      */
     public function setCartMinPrice($cartMinPrice)
     {
@@ -250,7 +248,6 @@ class Coupon extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * @param bool $handleAvailable
-     * @return void
      */
     public function setHandleAvailable($handleAvailable)
     {
@@ -267,7 +264,6 @@ class Coupon extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * @param int $numberAvailable
-     * @return void
      */
     public function setNumberAvailable($numberAvailable)
     {
@@ -286,8 +282,6 @@ class Coupon extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * Increase the number how often the coupon was used
-     *
-     * @return void
      */
     public function incNumberUsed()
     {
@@ -298,7 +292,6 @@ class Coupon extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * Set the number how often the coupon was used
      *
      * @param int $numberUsed
-     * @return void
      */
     public function setNumberUsed($numberUsed)
     {
@@ -306,7 +299,7 @@ class Coupon extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function getIsCombinable()
     {
@@ -314,8 +307,7 @@ class Coupon extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     }
 
     /**
-     * @param boolean $isCombinable
-     * @return void
+     * @param bool $isCombinable
      */
     public function setIsCombinable($isCombinable)
     {
@@ -332,7 +324,7 @@ class Coupon extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
         if ($this->handleAvailable) {
             $available = $this->numberAvailable - $this->numberUsed;
 
-            return ($available > 0);
+            return $available > 0;
         }
 
         return true;

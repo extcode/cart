@@ -18,7 +18,6 @@ namespace Extcode\Cart\Domain\Model\Cart;
 /**
  * Cart CartCoupon
  *
- * @package cart
  * @author Daniel Lorenz <ext.cart@extco.de>
  */
 class CartCoupon implements \Extcode\Cart\Domain\Model\Cart\CartCouponInterface
@@ -51,7 +50,6 @@ class CartCoupon implements \Extcode\Cart\Domain\Model\Cart\CartCouponInterface
      * @var string
      */
     protected $couponType = '';
-
 
     /**
      * Is Combinable
@@ -152,7 +150,6 @@ class CartCoupon implements \Extcode\Cart\Domain\Model\Cart\CartCouponInterface
 
     /**
      * @param \Extcode\Cart\Domain\Model\Cart\Cart $cart
-     * @return void
      */
     public function setCart($cart)
     {

@@ -18,7 +18,6 @@ namespace Extcode\Cart\Controller;
 /**
  * Cart Controller
  *
- * @package cart
  * @author Daniel Lorenz <ext.cart@extco.de>
  */
 class CartController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
@@ -186,8 +185,6 @@ class CartController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 
     /**
      * Action initialize
-     *
-     * @return void
      */
     public function initializeAction()
     {
@@ -214,8 +211,6 @@ class CartController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      * @param \Extcode\Cart\Domain\Model\Order\Item $orderItem OrderItem
      * @param \Extcode\Cart\Domain\Model\Order\Address $billingAddress Billing
      * @param \Extcode\Cart\Domain\Model\Order\Address $shippingAddress Shipping
-     *
-     * @return void
      */
     public function showCartAction(
         \Extcode\Cart\Domain\Model\Order\Item $orderItem = null,
@@ -261,8 +256,6 @@ class CartController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 
     /**
      * Action showMiniCart
-     *
-     * @return void
      */
     public function showMiniCartAction()
     {
@@ -272,8 +265,6 @@ class CartController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 
     /**
      * Action Clear Cart
-     *
-     * @return void
      */
     public function clearCartAction()
     {
@@ -334,8 +325,6 @@ class CartController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 
     /**
      * Action Update Cart
-     *
-     * @return void
      */
     public function updateCartAction()
     {
@@ -459,8 +448,6 @@ class CartController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 
     /**
      * Action Add Coupon
-     *
-     * @return void
      */
     public function addCouponAction()
     {
@@ -538,8 +525,6 @@ class CartController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 
     /**
      * Action Remove Coupon
-     *
-     * @return void
      */
     public function removeCouponAction()
     {
@@ -579,8 +564,6 @@ class CartController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 
     /**
      * Action removeProduct
-     *
-     * @return void
      */
     public function removeProductAction()
     {
@@ -599,8 +582,6 @@ class CartController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      * Action setShipping
      *
      * @param int $shippingId ShippingId
-     *
-     * @return void
      */
     public function setShippingAction($shippingId)
     {
@@ -647,8 +628,6 @@ class CartController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      * Action setPayment
      *
      * @param int $paymentId PaymentId
-     *
-     * @return void
      */
     public function setPaymentAction($paymentId)
     {
@@ -716,8 +695,6 @@ class CartController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      * @param \Extcode\Cart\Domain\Model\Order\Address $shippingAddress
      *
      * @ignorevalidation $shippingAddress
-     *
-     * @return void
      */
     public function orderCartAction(
         \Extcode\Cart\Domain\Model\Order\Item $orderItem = null,
@@ -794,8 +771,6 @@ class CartController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      * @param \Extcode\Cart\Domain\Model\Order\Item $orderItem Order Item
      * @param \Extcode\Cart\Domain\Model\Order\Address $billingAddress Billing Address
      * @param \Extcode\Cart\Domain\Model\Order\Address $shippingAddress Shipping Address
-     *
-     * @return void
      */
     protected function sendMails(
         \Extcode\Cart\Domain\Model\Order\Item $orderItem,
@@ -817,8 +792,6 @@ class CartController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      * @param \Extcode\Cart\Domain\Model\Order\Item $orderItem Order Item
      * @param \Extcode\Cart\Domain\Model\Order\Address $billingAddress Billing Address
      * @param \Extcode\Cart\Domain\Model\Order\Address $shippingAddress Shipping Address
-     *
-     * @return void
      */
     protected function sendBuyerMail(
         \Extcode\Cart\Domain\Model\Order\Item $orderItem,
@@ -839,8 +812,6 @@ class CartController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      * @param \Extcode\Cart\Domain\Model\Order\Item $orderItem Order Item
      * @param \Extcode\Cart\Domain\Model\Order\Address $billingAddress Billing Address
      * @param \Extcode\Cart\Domain\Model\Order\Address $shippingAddress Shipping Address
-     *
-     * @return void
      */
     protected function sendSellerMail(
         \Extcode\Cart\Domain\Model\Order\Item $orderItem,
@@ -857,8 +828,6 @@ class CartController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 
     /**
      * Parse Data
-     *
-     * @return void
      */
     protected function parseData()
     {

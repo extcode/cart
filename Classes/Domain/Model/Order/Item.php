@@ -14,13 +14,11 @@ namespace Extcode\Cart\Domain\Model\Order;
  *
  * The TYPO3 project - inspiring people to share!
  */
-
 use Extcode\Cart\Property\Exception\ResetPropertyException;
 
 /**
  * Order Item Model
  *
- * @package cart
  * @author Daniel Lorenz <ext.cart@extco.de>
  */
 class Item extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
@@ -257,8 +255,6 @@ class Item extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * Initializes all \TYPO3\CMS\Extbase\Persistence\ObjectStorage properties.
-     *
-     * @return void
      */
     protected function initStorageObjects()
     {
@@ -275,7 +271,6 @@ class Item extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * Set Cart Pid
      *
      * @var int $cartPid
-     * @return void
      */
     public function setCartPid($cartPid)
     {
@@ -294,7 +289,6 @@ class Item extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * @param \TYPO3\CMS\Extbase\Domain\Model\FrontendUser $feUser
-     * @return void
      */
     public function setFeUser($feUser)
     {
@@ -353,8 +347,6 @@ class Item extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * Sets Order Date
      *
      * @param \DateTime $orderDate
-     *
-     * @return void
      */
     public function setOrderDate(\DateTime $orderDate)
     {
@@ -405,8 +397,6 @@ class Item extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * Sets Invoice Date
      *
      * @param \DateTime $invoiceDate
-     *
-     * @return void
      */
     public function setInvoiceDate(\DateTime $invoiceDate)
     {
@@ -457,8 +447,6 @@ class Item extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * Sets Delivery Date
      *
      * @param \DateTime $deliveryDate
-     *
-     * @return void
      */
     public function setDeliveryDate(\DateTime $deliveryDate)
     {
@@ -479,8 +467,6 @@ class Item extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * Set Billing Address
      *
      * @param \Extcode\Cart\Domain\Model\Order\Address $billingAddress
-     *
-     * @return void
      */
     public function setBillingAddress(\Extcode\Cart\Domain\Model\Order\Address $billingAddress)
     {
@@ -501,8 +487,6 @@ class Item extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * Set Shopping Address
      *
      * @param \Extcode\Cart\Domain\Model\Order\Address $shippingAddress
-     *
-     * @return void
      */
     public function setShippingAddress(\Extcode\Cart\Domain\Model\Order\Address $shippingAddress)
     {
@@ -511,8 +495,6 @@ class Item extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * Remove Shopping Address
-     *
-     * @return void
      */
     public function removeShippingAddress()
     {
@@ -549,8 +531,6 @@ class Item extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * Sets Currency
      *
      * @param string $currency
-     *
-     * @return void
      */
     public function setCurrency($currency)
     {
@@ -571,7 +551,6 @@ class Item extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * Sets Gross
      *
      * @param float $gross
-     * @return void
      */
     public function setGross($gross)
     {
@@ -592,8 +571,6 @@ class Item extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * Sets Total Gross
      *
      * @param float $totalGross
-     *
-     * @return void
      */
     public function setTotalGross($totalGross)
     {
@@ -614,8 +591,6 @@ class Item extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * Sets Net
      *
      * @param float $net
-     *
-     * @return void
      */
     public function setNet($net)
     {
@@ -636,8 +611,6 @@ class Item extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * Sets Total Net
      *
      * @param float $totalNet
-     *
-     * @return void
      */
     public function setTotalNet($totalNet)
     {
@@ -648,8 +621,6 @@ class Item extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * Sets Payment
      *
      * @param \Extcode\Cart\Domain\Model\Order\Payment $payment
-     *
-     * @return void
      */
     public function setPayment(\Extcode\Cart\Domain\Model\Order\Payment $payment)
     {
@@ -670,8 +641,6 @@ class Item extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * Sets Shipping
      *
      * @param \Extcode\Cart\Domain\Model\Order\Shipping $shipping
-     *
-     * @return void
      */
     public function setShipping(\Extcode\Cart\Domain\Model\Order\Shipping $shipping)
     {
@@ -702,8 +671,6 @@ class Item extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * Sets Order PDF
      *
      * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference>
-     *
-     * @return void
      */
     public function setOrderPdfs($orderPdfs)
     {
@@ -714,8 +681,6 @@ class Item extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * Adds a Order PDF
      *
      * @param \TYPO3\CMS\Extbase\Domain\Model\FileReference $orderPdf
-     *
-     * @return void
      */
     public function addOrderPdf(\TYPO3\CMS\Extbase\Domain\Model\FileReference $orderPdf)
     {
@@ -726,8 +691,6 @@ class Item extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * Removes a Order PDF
      *
      * @param \TYPO3\CMS\Extbase\Domain\Model\FileReference $orderPdfToRemove
-     *
-     * @return void
      */
     public function removeOrderPdf(\TYPO3\CMS\Extbase\Domain\Model\FileReference $orderPdfToRemove)
     {
@@ -748,8 +711,6 @@ class Item extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * Sets Invoice PDFs
      *
      * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference $invoicePdf>
-     *
-     * @return void
      */
     public function setInvoicePdfs($invoicePdfs)
     {
@@ -760,8 +721,6 @@ class Item extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * Adds a Invoice PDF
      *
      * @param \TYPO3\CMS\Extbase\Domain\Model\FileReference $invoicePdf
-     *
-     * @return void
      */
     public function addInvoicePdf(\TYPO3\CMS\Extbase\Domain\Model\FileReference $invoicePdf)
     {
@@ -772,8 +731,6 @@ class Item extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * Removes a Invoice PDF
      *
      * @param \TYPO3\CMS\Extbase\Domain\Model\FileReference $invoicePdfToRemove
-     *
-     * @return void
      */
     public function removeInvoicePdf(\TYPO3\CMS\Extbase\Domain\Model\FileReference $invoicePdfToRemove)
     {
@@ -794,8 +751,6 @@ class Item extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * Sets Delivery PDFs
      *
      * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference $deliveryPdf>
-     *
-     * @return void
      */
     public function setDeliveryPdfs($deliveryPdfs)
     {
@@ -806,8 +761,6 @@ class Item extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * Adds a Delivery PDF
      *
      * @param \TYPO3\CMS\Extbase\Domain\Model\FileReference $deliveryPdf
-     *
-     * @return void
      */
     public function addDeliveryPdf(\TYPO3\CMS\Extbase\Domain\Model\FileReference $deliveryPdf)
     {
@@ -818,8 +771,6 @@ class Item extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * Removes a Delivery PDF
      *
      * @param \TYPO3\CMS\Extbase\Domain\Model\FileReference $deliveryPdfToRemove
-     *
-     * @return void
      */
     public function removeDeliveryPdf(\TYPO3\CMS\Extbase\Domain\Model\FileReference $deliveryPdfToRemove)
     {
@@ -830,8 +781,6 @@ class Item extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * Adds a TaxClass
      *
      * @param \Extcode\Cart\Domain\Model\Order\TaxClass $taxClass
-     *
-     * @return void
      */
     public function addTaxClass(\Extcode\Cart\Domain\Model\Order\TaxClass $taxClass)
     {
@@ -842,8 +791,6 @@ class Item extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * Removes a OrderTaxClass
      *
      * @param \Extcode\Cart\Domain\Model\Order\TaxClass $taxClassToRemove
-     *
-     * @return void
      */
     public function removeTaxClass(\Extcode\Cart\Domain\Model\Order\TaxClass $taxClassToRemove)
     {
@@ -864,8 +811,6 @@ class Item extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * Sets TaxClass
      *
      * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage <\Extcode\Cart\Domain\Model\Order\TaxClass> $taxClass
-     *
-     * @return void
      */
     public function setTaxClass($taxClass)
     {
@@ -876,8 +821,6 @@ class Item extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * Adds a Product
      *
      * @param \Extcode\Cart\Domain\Model\Order\Product $product
-     *
-     * @return void
      */
     public function addProduct(\Extcode\Cart\Domain\Model\Order\Product $product)
     {
@@ -888,8 +831,6 @@ class Item extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * Removes a Product
      *
      * @param \Extcode\Cart\Domain\Model\Order\Product $productToRemove
-     *
-     * @return void
      */
     public function removeProduct(\Extcode\Cart\Domain\Model\Order\Product $productToRemove)
     {
@@ -910,8 +851,6 @@ class Item extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * Sets Product
      *
      * @param  \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Extcode\Cart\Domain\Model\Order\Product> $products
-     *
-     * @return void
      */
     public function setProducts($products)
     {
@@ -922,8 +861,6 @@ class Item extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * Adds a Discount
      *
      * @param \Extcode\Cart\Domain\Model\Order\Discount $discount
-     *
-     * @return void
      */
     public function addDiscount(\Extcode\Cart\Domain\Model\Order\Discount $discount)
     {
@@ -934,8 +871,6 @@ class Item extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * Removes a Discount
      *
      * @param \Extcode\Cart\Domain\Model\Order\Discount $discountToRemove
-     *
-     * @return void
      */
     public function removeDiscount(\Extcode\Cart\Domain\Model\Order\Discount $discountToRemove)
     {
@@ -956,8 +891,6 @@ class Item extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * Sets Discounts
      *
      * @param  \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Extcode\Cart\Domain\Model\Order\Discount> $discounts
-     *
-     * @return void
      */
     public function setDiscounts($discounts)
     {
@@ -968,7 +901,6 @@ class Item extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * Adds a Tax
      *
      * @param \Extcode\Cart\Domain\Model\Order\Tax $tax
-     * @return void
      */
     public function addTax($tax)
     {
@@ -979,7 +911,6 @@ class Item extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * Removes a Tax
      *
      * @param \Extcode\Cart\Domain\Model\Order\Tax $taxToRemove
-     * @return void
      */
     public function removeTax($taxToRemove)
     {
@@ -1000,7 +931,6 @@ class Item extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * Sets the Tax
      *
      * @param  \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Extcode\Cart\Domain\Model\Order\Tax> $tax
-     * @return void
      */
     public function setTax($tax)
     {
@@ -1011,7 +941,6 @@ class Item extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * Adds a TotalTax
      *
      * @param \Extcode\Cart\Domain\Model\Order\Tax $totalTax
-     * @return void
      */
     public function addTotalTax($totalTax)
     {
@@ -1022,7 +951,6 @@ class Item extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * Removes a TotalTax
      *
      * @param \Extcode\Cart\Domain\Model\Order\Tax $totalTaxToRemove
-     * @return void
      */
     public function removeTotalTax($totalTaxToRemove)
     {
@@ -1043,7 +971,6 @@ class Item extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * Sets the TotalTax
      *
      * @param  \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Extcode\Cart\Domain\Model\Order\Tax> $totalTax
-     * @return void
      */
     public function setTotalTax($totalTax)
     {
@@ -1064,7 +991,6 @@ class Item extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * Sets the crdate
      *
      * @param \DateTime $crdate
-     * @return void
      */
     public function setCrdate($crdate)
     {
@@ -1081,7 +1007,6 @@ class Item extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * @param bool $acceptConditions
-     * @return void
      */
     public function setAcceptConditions($acceptConditions)
     {
@@ -1098,7 +1023,6 @@ class Item extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * @param bool $acceptTerms
-     * @return void
      */
     public function setAcceptTerms($acceptTerms)
     {
@@ -1115,7 +1039,6 @@ class Item extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * @param string $comment
-     * @return void
      */
     public function setComment($comment)
     {

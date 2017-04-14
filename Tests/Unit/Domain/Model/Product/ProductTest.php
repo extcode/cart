@@ -26,7 +26,6 @@ namespace Extcode\Cart\Tests\Domain\Model\Product;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-
 class ProductTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
 {
 
@@ -591,8 +590,8 @@ class ProductTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
     {
         $productBackendVariant = $this->getMock(
             'Extcode\\Cart\\Domain\\Model\\Product\\BeVariant',
-            array(),
-            array(),
+            [],
+            [],
             '',
             false
         );
@@ -614,7 +613,7 @@ class ProductTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
      */
     public function isAvailableWithHandleStockAndHandleStockInVariantsIsEnabledAndBackendVariantConfiguredIsAvailableReturnsFalse()
     {
-        $productBackendVariant = $this->getMock('Extcode\\Cart\\Domain\\Model\\Product\\BeVariant', array(), array(), '', false);
+        $productBackendVariant = $this->getMock('Extcode\\Cart\\Domain\\Model\\Product\\BeVariant', [], [], '', false);
         $productBackendVariant->expects($this->any())->method('getIsAvailable')->will($this->returnValue(true));
 
         $product = new \Extcode\Cart\Domain\Model\Product\Product();

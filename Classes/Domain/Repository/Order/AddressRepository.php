@@ -18,10 +18,8 @@ namespace Extcode\Cart\Domain\Repository\Order;
 /**
  * Order Address Repository
  *
- * @package cart
  * @author Daniel Lorenz <ext.cart@extco.de>
  */
 class AddressRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
 {
-
 }

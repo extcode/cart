@@ -18,10 +18,8 @@ namespace Extcode\Cart\Domain\Model\Cart;
 /**
  * Cart Payment Model
  *
- * @package cart
  * @author Daniel Lorenz <ext.cart@extco.de>
  */
 class Payment extends \Extcode\Cart\Domain\Model\Cart\AbstractService
 {
-
 }

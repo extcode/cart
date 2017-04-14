@@ -18,7 +18,6 @@ namespace Extcode\Cart\Domain\Model\Cart;
 /**
  * Cart CartCouponInterface
  *
- * @package cart
  * @author Daniel Lorenz <ext.cart@extco.de>
  */
 interface CartCouponInterface

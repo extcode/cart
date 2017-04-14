@@ -18,7 +18,6 @@ namespace Extcode\Cart\ViewHelpers\Format;
 /**
  * Nothing ViewHelper
  *
- * @package cart
  * @author Georg Ringer <typo3@ringerge.org>
  * @author Daniel Lorenz <ext.cart@extco.de>
  */
@@ -34,8 +33,6 @@ class NothingViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHel
 
     /**
      * Render children but do nothing else
-     *
-     * @return void
      */
     public function render()
     {

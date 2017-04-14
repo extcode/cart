@@ -26,7 +26,6 @@ namespace Extcode\Cart\Tests\Domain\Model\Product;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-
 class BeVariantTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
 {
     /**
@@ -327,11 +326,10 @@ class BeVariantTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
         $specialPrice,
         $expectedBestPrice
     ) {
-
         $specialPriceObj = $this->getMock(
             \Extcode\Cart\Domain\Model\Product\SpecialPrice::class,
-            array(),
-            array(),
+            [],
+            [],
             '',
             false
         );
@@ -383,8 +381,8 @@ class BeVariantTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
     ) {
         $specialPriceObj = $this->getMock(
             \Extcode\Cart\Domain\Model\Product\SpecialPrice::class,
-            array(),
-            array(),
+            [],
+            [],
             '',
             false
         );
@@ -403,8 +401,6 @@ class BeVariantTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
             $this->beVariant->getBestPriceCalculated()
         );
     }
-
-
 
     /**
      * @test

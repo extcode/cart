@@ -14,7 +14,6 @@ namespace Extcode\Cart\ViewHelpers;
  *
  * The TYPO3 project - inspiring people to share!
  */
-
 class CanonicalTagViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractTagBasedViewHelper
 {
 
@@ -27,7 +26,6 @@ class CanonicalTagViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractTa
      * Override the canonical tag
      *
      * @param \Extcode\Cart\Domain\Model\Product\Product $product
-     * @return void
      */
     public function render(\Extcode\Cart\Domain\Model\Product\Product $product)
     {
@@ -44,14 +42,14 @@ class CanonicalTagViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractTa
             return;
         }
 
-        $arguments = array(
-            array('tx_cart_product' =>
-                array(
+        $arguments = [
+            ['tx_cart_product' =>
+                [
                     'controller' => 'Product',
                     'product' => $product->getUid()
-                )
-            )
-        );
+                ]
+            ]
+        ];
 
         $uriBuilder = $this->controllerContext->getUriBuilder();
         $canonicalUrl = $uriBuilder->reset()

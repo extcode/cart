@@ -18,7 +18,6 @@ namespace Extcode\Cart\Domain\Model\Order;
 /**
  * Order AbstractService Model
  *
- * @package cart
  * @author Daniel Lorenz <ext.cart@extco.de>
  */
 abstract class AbstractService extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
@@ -160,8 +159,6 @@ abstract class AbstractService extends \TYPO3\CMS\Extbase\DomainObject\AbstractE
      * Sets Name
      *
      * @param string $name
-     *
-     * @return void
      */
     public function setName($name)
     {
@@ -182,8 +179,6 @@ abstract class AbstractService extends \TYPO3\CMS\Extbase\DomainObject\AbstractE
      * Sets Status
      *
      * @param string $status
-     *
-     * @return void
      */
     public function setStatus($status)
     {
@@ -204,8 +199,6 @@ abstract class AbstractService extends \TYPO3\CMS\Extbase\DomainObject\AbstractE
      * Sets Gross
      *
      * @param float $gross
-     *
-     * @return void
      */
     public function setGross($gross)
     {
@@ -216,8 +209,6 @@ abstract class AbstractService extends \TYPO3\CMS\Extbase\DomainObject\AbstractE
      * Returns Net
      *
      * @return float
-     *
-     * @return void
      */
     public function getNet()
     {
@@ -228,8 +219,6 @@ abstract class AbstractService extends \TYPO3\CMS\Extbase\DomainObject\AbstractE
      * Sets Net
      *
      * @param float $net
-     *
-     * @return void
      */
     public function setNet($net)
     {
@@ -250,8 +239,6 @@ abstract class AbstractService extends \TYPO3\CMS\Extbase\DomainObject\AbstractE
      * Sets Tax Class
      *
      * @param \Extcode\Cart\Domain\Model\Order\TaxClass $taxClass
-     *
-     * @return void
      */
     public function setTaxClass(\Extcode\Cart\Domain\Model\Order\TaxClass $taxClass)
     {
@@ -272,8 +259,6 @@ abstract class AbstractService extends \TYPO3\CMS\Extbase\DomainObject\AbstractE
      * Sets Tax
      *
      * @param float $tax
-     *
-     * @return void
      */
     public function setTax($tax)
     {
@@ -284,8 +269,6 @@ abstract class AbstractService extends \TYPO3\CMS\Extbase\DomainObject\AbstractE
      * Sets Note
      *
      * @param string $note
-     *
-     * @return void
      */
     public function setNote($note)
     {

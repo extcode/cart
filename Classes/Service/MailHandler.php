@@ -14,13 +14,11 @@ namespace Extcode\Cart\Service;
  *
  * The TYPO3 project - inspiring people to share!
  */
-
 use TYPO3\CMS\Core\SingletonInterface;
 
 /**
  * MailHandler
  *
- * @package cart
  * @author Daniel Lorenz <ext.cart@extco.de>
  */
 class MailHandler implements SingletonInterface
@@ -126,8 +124,6 @@ class MailHandler implements SingletonInterface
      * Sets Plugin Settings
      *
      * @param array $pluginSettings
-     *
-     * @return void
      */
     public function setPluginSettings($pluginSettings)
     {
@@ -173,8 +169,6 @@ class MailHandler implements SingletonInterface
      * Sets Cart
      *
      * @param \Extcode\Cart\Domain\Model\Cart\Cart $cart
-     *
-     * @return void
      */
     public function setCart($cart)
     {
@@ -183,8 +177,6 @@ class MailHandler implements SingletonInterface
 
     /**
      * @param string $email
-     *
-     * @return void
      */
     public function setBuyerEmailFrom($email)
     {
@@ -201,8 +193,6 @@ class MailHandler implements SingletonInterface
 
     /**
      * @param string $email
-     *
-     * @return void
      */
     public function setSellerEmailFrom($email)
     {
@@ -219,8 +209,6 @@ class MailHandler implements SingletonInterface
 
     /**
      * @param string $email
-     *
-     * @return void
      */
     public function setSellerEmailTo($email)
     {
@@ -241,8 +229,6 @@ class MailHandler implements SingletonInterface
      * @param \Extcode\Cart\Domain\Model\Order\Item $orderItem Order Item
      * @param \Extcode\Cart\Domain\Model\Order\Address $billingAddress Billing Address
      * @param \Extcode\Cart\Domain\Model\Order\Address $shippingAddress Shipping Address
-     *
-     * @return void
      */
     public function sendBuyerMail(
         \Extcode\Cart\Domain\Model\Order\Item $orderItem,
@@ -287,8 +273,6 @@ class MailHandler implements SingletonInterface
      * @param \Extcode\Cart\Domain\Model\Order\Item $orderItem Order Item
      * @param \Extcode\Cart\Domain\Model\Order\Address $billingAddress Billing Address
      * @param \Extcode\Cart\Domain\Model\Order\Address $shippingAddress Shipping Address
-     *
-     * @return void
      */
     public function sendSellerMail(
         \Extcode\Cart\Domain\Model\Order\Item $orderItem,
@@ -353,7 +337,6 @@ class MailHandler implements SingletonInterface
                             $lastOriginalPdfPath = PATH_site . $lastOriginalPdf->getPublicUrl();
                             if (is_file($lastOriginalPdfPath)) {
                                 $attachments[] = $lastOriginalPdfPath;
-
                             }
                         }
                     }

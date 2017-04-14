@@ -18,7 +18,6 @@ namespace Extcode\Cart\ViewHelpers\Form;
 /**
  * VariantSelect ViewHelper
  *
- * @package cart
  * @author Daniel Lorenz <ext.cart@extco.de>
  */
 class VariantSelectViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper
@@ -38,7 +37,6 @@ class VariantSelectViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractV
     /**
      * Initialize arguments.
      *
-     * @return void
      * @api
      */
     public function initializeArguments()
@@ -82,7 +80,7 @@ class VariantSelectViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractV
             $select[] = 'required ';
         }
 
-        $out = '<select ' . join(' ', $select) . '>';
+        $out = '<select ' . implode(' ', $select) . '>';
 
         if ($this->hasArgument('blank')) {
             $out .= '<option value="">' . $this->arguments['blank'] . '</option>';
@@ -116,7 +114,6 @@ class VariantSelectViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractV
             /**
              * @var \Extcode\Cart\Domain\Model\Product\BeVariant $beVariant
              */
-
             $currencyViewHelper->setRenderChildrenClosure(
                 function () use ($beVariant) {
                     return $beVariant->getPriceCalculated();
@@ -172,7 +169,7 @@ class VariantSelectViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractV
         if ($this->product->getBeVariantAttribute3()) {
             $optionLabelArray[] = $beVariant->getBeVariantAttributeOption3()->getTitle();
         }
-        $optionLabel = join(' - ', $optionLabelArray);
+        $optionLabel = implode(' - ', $optionLabelArray);
 
         return $optionLabel;
     }

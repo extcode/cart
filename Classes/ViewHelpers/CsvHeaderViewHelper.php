@@ -14,13 +14,11 @@ namespace Extcode\Cart\ViewHelpers;
  *
  * The TYPO3 project - inspiring people to share!
  */
-
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * Format array of values to CSV format
  *
- * @package cart
  * @author Daniel Lorenz <ext.cart@extco.de>
  */
 class CsvHeaderViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper
@@ -34,7 +32,6 @@ class CsvHeaderViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewH
      */
     public function render($delim = ',', $quote = '"')
     {
-
         $orderItemArr = [];
 
         $orderItemArr[] = 'FirstName';

@@ -26,7 +26,6 @@ namespace Extcode\Cart\Tests\Domain\Model;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-
 class CategoryTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
 {
 
@@ -54,8 +53,8 @@ class CategoryTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
 
         $category = $this->getAccessibleMock(
             \Extcode\Cart\Domain\Model\Category::class,
-            array('dummy'),
-            array(),
+            ['dummy'],
+            [],
             '',
             false
         );

@@ -14,13 +14,11 @@ namespace Extcode\Cart\Hooks;
  *
  * The TYPO3 project - inspiring people to share!
  */
-
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * Cart Controller
  *
- * @package cart
  * @author Daniel Lorenz <ext.cart@extco.de>
  */
 class KeSearchIndexer
@@ -85,11 +83,11 @@ class KeSearchIndexer
                     $fullContent = $sku . "\n" . $title . "\n" . $teaser . "\n" . $description;
                     $params = '&tx_cart_product[product]=' . $product['uid'];
                     $tags = '#product#';
-                    $additionalFields = array(
+                    $additionalFields = [
                         'sortdate' => $product['crdate'],
                         'orig_uid' => $product['uid'],
                         'orig_pid' => $product['pid'],
-                    );
+                    ];
 
                     $targetPid = $indexerConfig['targetpid'];
                     if (intval($product['cart_product_single_pid'])) {

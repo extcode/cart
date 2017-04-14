@@ -18,7 +18,6 @@ namespace Extcode\Cart\ViewHelpers\Form;
 /**
  * Select ViewHelper
  *
- * @package cart
  * @author Daniel Lorenz <ext.cart@extco.de>
  */
 class SelectViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\Form\SelectViewHelper
@@ -26,7 +25,6 @@ class SelectViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\Form\SelectViewHelpe
     /**
      * Initialize arguments.
      *
-     * @return void
      * @api
      */
     public function initializeArguments()

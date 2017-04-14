@@ -18,7 +18,6 @@ namespace Extcode\Cart\Domain\Model\Product;
 /**
  * Product FeVariant
  *
- * @package cart
  * @author Daniel Lorenz <ext.cart@extco.de>
  */
 class FeVariant extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
@@ -49,7 +48,7 @@ class FeVariant extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Is Required
      *
-     * @var boolean
+     * @var bool
      */
     protected $isRequired = false;
 
@@ -67,8 +66,6 @@ class FeVariant extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * Sets SKU
      *
      * @param string $sku
-     *
-     * @return void
      */
     public function setSku($sku)
     {
@@ -89,8 +86,6 @@ class FeVariant extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * Sets Title
      *
      * @param string $title
-     *
-     * @return void
      */
     public function setTitle($title)
     {
@@ -111,8 +106,6 @@ class FeVariant extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * Sets Description
      *
      * @param string $description
-     *
-     * @return void
      */
     public function setDescription($description)
     {
@@ -122,7 +115,7 @@ class FeVariant extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Returns IsRequired
      *
-     * @return boolean
+     * @return bool
      */
     public function getIsRequired()
     {
@@ -132,9 +125,7 @@ class FeVariant extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Sets IsRequired
      *
-     * @param boolean $isRequired
-     *
-     * @return void
+     * @param bool $isRequired
      */
     public function setIsRequired($isRequired)
     {

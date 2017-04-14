@@ -18,7 +18,6 @@ namespace Extcode\Cart\Domain\Model\Order;
 /**
  * Order Transaction Model
  *
- * @package cart
  * @author Daniel Lorenz <ext.cart@extco.de>
  */
 class Transaction extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
@@ -86,7 +85,6 @@ class Transaction extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * @param string $txnId
-     * @return void
      */
     public function setTxnId($txnId)
     {
@@ -97,8 +95,6 @@ class Transaction extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * Sets TxnTxt
      *
      * @param string $txnTxt
-     *
-     * @return void
      */
     public function setTxnTxt($txnTxt)
     {
@@ -129,8 +125,6 @@ class Transaction extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * Sets Status
      *
      * @param string $status
-     *
-     * @return void
      */
     public function setStatus($status)
     {
@@ -157,8 +151,6 @@ class Transaction extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * Sets Note
      *
      * @param string $note
-     *
-     * @return void
      */
     public function setNote($note)
     {

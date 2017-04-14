@@ -14,13 +14,11 @@ namespace Extcode\Cart\Domain\Repository\Product;
  *
  * The TYPO3 project - inspiring people to share!
  */
-
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 
 /**
  * Product BeVariantAttributeOption Repository
  *
- * @package cart
  * @author Daniel Lorenz <ext.cart@extco.de>
  */
 class BeVariantAttributeOptionRepository extends \TYPO3\CMS\Extbase\Persistence\Repository

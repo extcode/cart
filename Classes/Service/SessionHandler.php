@@ -14,18 +14,15 @@ namespace Extcode\Cart\Service;
  *
  * The TYPO3 project - inspiring people to share!
  */
-
 use TYPO3\CMS\Core\SingletonInterface;
 
 /**
  * SessionHandler
  *
- * @package cart
  * @author Daniel Lorenz <ext.cart@extco.de>
  */
 class SessionHandler implements SingletonInterface
 {
-
     private $prefixKey = 'cart_';
 
     /**
@@ -75,8 +72,6 @@ class SessionHandler implements SingletonInterface
      * Sets own prefix key for session
      *
      * @param string $prefixKey
-     *
-     * @return void
      */
     public function setPrefixKey($prefixKey)
     {

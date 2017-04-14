@@ -29,7 +29,6 @@ namespace Extcode\Cart\Tests\Domain\Model\Cart;
 /**
  * Special Test
  *
- * @package cart
  * @author Daniel Lorenz
  * @license http://www.gnu.org/licenses/lgpl.html
  *                     GNU Lesser General Public License, version 3 or later

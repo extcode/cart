@@ -21,7 +21,6 @@ namespace Extcode\Cart\ViewHelpers\Format;
  * Currency ViewHelper was adapted from Fluid Currency ViewHelper but allows to define default behaviour through
  * TypoScript settings.
  *
- * @package cart
  * @author Daniel Lorenz <ext.cart@extco.de>
  */
 class CurrencyViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper
@@ -43,9 +42,9 @@ class CurrencyViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHe
      * @param string $currencySign (optional) The currency sign, eg $ or €.
      * @param string $decimalSeparator (optional) The separator for the decimal point.
      * @param string $thousandsSeparator (optional) The thousands separator.
-     * @param boolean $prependCurrency (optional) Select if the curreny sign should be prepended
-     * @param boolean $separateCurrency (optional) Separate the currency sign from the number by a single space, defaults to true due to backwards compatibility
-     * @param integer $decimals (optional) Set decimals places.
+     * @param bool $prependCurrency (optional) Select if the curreny sign should be prepended
+     * @param bool $separateCurrency (optional) Separate the currency sign from the number by a single space, defaults to true due to backwards compatibility
+     * @param int $decimals (optional) Set decimals places.
      *
      * @return string the formatted amount.
      */

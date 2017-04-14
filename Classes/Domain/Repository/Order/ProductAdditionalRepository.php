@@ -14,13 +14,11 @@ namespace Extcode\Cart\Domain\Repository\Order;
  *
  * The TYPO3 project - inspiring people to share!
  */
-
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 
 /**
  * Order ProductAdditional Repository
  *
- * @package cart
  * @author Daniel Lorenz <ext.cart@extco.de>
  */
 class ProductAdditionalRepository extends \TYPO3\CMS\Extbase\Persistence\Repository

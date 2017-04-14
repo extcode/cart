@@ -18,7 +18,6 @@ namespace Extcode\Cart\Domain\Repository\Product;
 /**
  * Product TaxClass Repository
  *
- * @package cart
  * @author Daniel Lorenz <ext.cart@extco.de>
  */
 class TaxClassRepository extends \TYPO3\CMS\Extbase\Persistence\Repository

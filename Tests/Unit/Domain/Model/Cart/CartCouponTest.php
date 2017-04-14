@@ -29,7 +29,6 @@ namespace Extcode\Cart\Tests\Domain\Model\Cart;
 /**
  * CartCoupon Test
  *
- * @package cart
  * @author Daniel Lorenz
  * @license http://www.gnu.org/licenses/lgpl.html
  *                     GNU Lesser General Public License, version 3 or later
@@ -318,8 +317,8 @@ class CartCouponTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
 
         $cart = $this->getMock(
             \Extcode\Cart\Domain\Model\Cart\Cart::class,
-            array('getGross'),
-            array(),
+            ['getGross'],
+            [],
             '',
             false
         );
@@ -352,8 +351,8 @@ class CartCouponTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
 
         $cart = $this->getMock(
             'Extcode\\Cart\\Domain\\Model\\Cart\\Cart',
-            array('getGross'),
-            array(),
+            ['getGross'],
+            [],
             '',
             false
         );
@@ -386,8 +385,8 @@ class CartCouponTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
 
         $cart = $this->getMock(
             'Extcode\\Cart\\Domain\\Model\\Cart\\Cart',
-            array('getGross'),
-            array(),
+            ['getGross'],
+            [],
             '',
             false
         );

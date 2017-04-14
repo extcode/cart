@@ -18,7 +18,6 @@ namespace Extcode\Cart\Domain\Model\Cart;
 /**
  * Cart Extra Model
  *
- * @package cart
  * @author Daniel Lorenz <ext.cart@extco.de>
  */
 class Extra
@@ -113,8 +112,6 @@ class Extra
      * Sets Is Net Price
      *
      * @param bool
-     *
-     * @return void
      */
     public function setIsNetPrice($isNetPrice)
     {

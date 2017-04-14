@@ -18,7 +18,6 @@ namespace Extcode\Cart\Domain\Model\Dto\Product;
 /**
  * Data Transfer Object Product
  *
- * @package cart
  * @author Daniel Lorenz <ext.cart@extco.de>
  */
 class ProductDemand extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
@@ -79,8 +78,6 @@ class ProductDemand extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * Sets sku
      *
      * @param mixed $sku
-     *
-     * @return void
      */
     public function setSku($sku)
     {
@@ -101,8 +98,6 @@ class ProductDemand extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * Sets title
      *
      * @param mixed $title
-     *
-     * @return void
      */
     public function setTitle($title)
     {
@@ -119,12 +114,10 @@ class ProductDemand extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * @param mixed $categories
-     *
-     * @return void
      */
     public function setCategories($categories)
     {
-        $this->categories = $categories; 
+        $this->categories = $categories;
     }
 
     /**
@@ -141,8 +134,6 @@ class ProductDemand extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * Sets order
      *
      * @param string $order
-     *
-     * @return void
      */
     public function setOrder($order)
     {
@@ -163,8 +154,6 @@ class ProductDemand extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * Sets action
      *
      * @param string $action
-     *
-     * @return void
      */
     public function setAction($action)
     {
@@ -184,8 +173,6 @@ class ProductDemand extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * Sets class
      *
      * @param string $class
-     *
-     * @return void
      */
     public function setClass($class)
     {
@@ -197,8 +184,6 @@ class ProductDemand extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      *
      * @param string $action
      * @param string $controller
-     *
-     * @return void
      */
     public function setActionAndClass($action, $controller)
     {

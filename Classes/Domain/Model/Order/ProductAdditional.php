@@ -18,7 +18,6 @@ namespace Extcode\Cart\Domain\Model\Order;
 /**
  * Order ProductAdditional Model
  *
- * @package cart
  * @author Daniel Lorenz <ext.cart@extco.de>
  */
 class ProductAdditional extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
@@ -139,8 +138,6 @@ class ProductAdditional extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * Sets Additional Data
      *
      * @param string $additionalData
-     *
-     * @return void
      */
     public function setAdditionalData($additionalData)
     {

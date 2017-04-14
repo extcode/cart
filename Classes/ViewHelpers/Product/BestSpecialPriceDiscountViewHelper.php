@@ -18,7 +18,6 @@ namespace Extcode\Cart\ViewHelpers\Product;
 /**
  * BestSpecialPrice ViewHelper
  *
- * @package cart
  * @author Daniel Lorenz <ext.cart@extco.de>
  */
 class BestSpecialPriceDiscountViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper

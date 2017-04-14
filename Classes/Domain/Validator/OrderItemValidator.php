@@ -24,7 +24,7 @@ class OrderItemValidator extends \TYPO3\CMS\Extbase\Validation\Validator\Abstrac
     /**
      * @var \SplObjectStorage[]
      */
-    protected $propertyValidators = array();
+    protected $propertyValidators = [];
 
     /**
      * Checks if the given value is valid according to the validator, and returns
@@ -39,7 +39,7 @@ class OrderItemValidator extends \TYPO3\CMS\Extbase\Validation\Validator\Abstrac
         $this->result = new \TYPO3\CMS\Extbase\Error\Result();
         if ($this->acceptsEmptyValues === false || $this->isEmpty($value) === false) {
             if (!is_object($value)) {
-                $this->addError('Object expected, %1$s given.', 1241099149, array(gettype($value)));
+                $this->addError('Object expected, %1$s given.', 1241099149, [gettype($value)]);
             } elseif ($this->isValidatedAlready($value) === false) {
                 $this->isValid($value);
             }
@@ -72,7 +72,6 @@ class OrderItemValidator extends \TYPO3\CMS\Extbase\Validation\Validator\Abstrac
      * @param mixed $value The value to be validated
      * @param \Traversable $validators The validators to be called on the value
      * @param string $propertyName Name of ther property to check
-     * @return void
      */
     protected function checkProperty($value, $validators, $propertyName)
     {
@@ -126,7 +125,6 @@ class OrderItemValidator extends \TYPO3\CMS\Extbase\Validation\Validator\Abstrac
      * Checks if the given value is valid according to the property validators.
      *
      * @param mixed $object The value that should be validated
-     * @return void
      * @api
      */
     protected function isValid($object)
@@ -144,7 +142,7 @@ class OrderItemValidator extends \TYPO3\CMS\Extbase\Validation\Validator\Abstrac
      *
      * @param object $object The object containing the property to validate
      * @param string $propertyName Name of the property to validate
-     * @return boolean TRUE if the property value is valid, FALSE if an error occurred
+     * @return bool TRUE if the property value is valid, FALSE if an error occurred
      *
      * @deprecated since Extbase 1.4.0, will be removed two versions after Extbase 6.1
      * @api
@@ -177,7 +175,6 @@ class OrderItemValidator extends \TYPO3\CMS\Extbase\Validation\Validator\Abstrac
      *
      * @param string $propertyName Name of the property to validate
      * @param ValidatorInterface $validator The property validator
-     * @return void
      * @api
      */
     public function addPropertyValidator($propertyName, ValidatorInterface $validator)
@@ -215,7 +212,7 @@ class OrderItemValidator extends \TYPO3\CMS\Extbase\Validation\Validator\Abstrac
     public function getPropertyValidators($propertyName = null)
     {
         if ($propertyName !== null) {
-            return (isset($this->propertyValidators[$propertyName])) ? $this->propertyValidators[$propertyName] : array();
+            return (isset($this->propertyValidators[$propertyName])) ? $this->propertyValidators[$propertyName] : [];
         } else {
             return $this->propertyValidators;
         }
@@ -242,7 +239,6 @@ class OrderItemValidator extends \TYPO3\CMS\Extbase\Validation\Validator\Abstrac
      * Allows to set a container to keep track of validated instances.
      *
      * @param \SplObjectStorage $validatedInstancesContainer A container to keep track of validated instances
-     * @return void
      * @api
      */
     public function setValidatedInstancesContainer(\SplObjectStorage $validatedInstancesContainer)

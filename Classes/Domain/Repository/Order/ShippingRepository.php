@@ -18,10 +18,8 @@ namespace Extcode\Cart\Domain\Repository\Order;
 /**
  * Order Shipping Repository
  *
- * @package cart
  * @author Daniel Lorenz <ext.cart@extco.de>
  */
 class ShippingRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
 {
-
 }

@@ -17,7 +17,6 @@ namespace Extcode\Cart\ViewHelpers;
 /**
  * MapModelPropertiesToTableColumns ViewHelper
  *
- * @package cart
  * @author Daniel Lorenz <ext.cart@extco.de>
  */
 class MapModelPropertiesToTableColumnsViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper

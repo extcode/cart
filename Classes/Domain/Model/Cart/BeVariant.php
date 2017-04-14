@@ -14,13 +14,11 @@ namespace Extcode\Cart\Domain\Model\Cart;
  *
  * The TYPO3 project - inspiring people to share!
  */
-
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * Cart BeVariant Model
  *
- * @package cart
  * @author Daniel Lorenz <ext.cart@extco.de>
  */
 class BeVariant
@@ -334,7 +332,6 @@ class BeVariant
      * Sets the Title Delimiter
      *
      * @param string $titleDelimiter
-     * @return void
      */
     public function setTitleDelimiter($titleDelimiter)
     {
@@ -348,7 +345,6 @@ class BeVariant
      */
     public function getTitle()
     {
-
         return $this->title;
     }
 
@@ -417,8 +413,8 @@ class BeVariant
 
         if ($this->specialPrice &&
             (
-                (($this->specialPrice < $bestPrice) && in_array($this->priceCalcMethod, [0,1,4,5])) ||
-                (($this->specialPrice > $bestPrice) && in_array($this->priceCalcMethod, [2,3]))
+                (($this->specialPrice < $bestPrice) && in_array($this->priceCalcMethod, [0, 1, 4, 5])) ||
+                (($this->specialPrice > $bestPrice) && in_array($this->priceCalcMethod, [2, 3]))
             )
         ) {
             $bestPrice = $this->specialPrice;
@@ -617,8 +613,6 @@ class BeVariant
      * Sets Price Calc Method
      *
      * @param $priceCalcMethod
-     *
-     * @return void
      */
     public function setPriceCalcMethod($priceCalcMethod)
     {
@@ -639,7 +633,6 @@ class BeVariant
      * Sets the SKU Delimiter
      *
      * @param string $skuDelimiter
-     * @return void
      */
     public function setSkuDelimiter($skuDelimiter)
     {
@@ -677,7 +670,6 @@ class BeVariant
             $sku .= $this->skuDelimiter . $this->sku;
         }
 
-
         return $sku;
     }
 
@@ -707,8 +699,6 @@ class BeVariant
      * Sets Has Fe Variants
      *
      * @param $hasFeVariants
-     *
-     * @return void
      */
     public function setHasFeVariants($hasFeVariants)
     {
@@ -796,8 +786,6 @@ class BeVariant
      * Sets Quantity
      *
      * @param $newQuantity
-     *
-     * @return void
      */
     public function setQuantity($newQuantity)
     {
@@ -846,8 +834,6 @@ class BeVariant
 
     /**
      * @param array $newVariants
-     *
-     * @return void
      */
     public function addBeVariants($newVariants)
     {
@@ -858,8 +844,6 @@ class BeVariant
 
     /**
      * @param \Extcode\Cart\Domain\Model\Cart\BeVariant $newBeVariant
-     *
-     * @return void
      */
     public function addBeVariant(\Extcode\Cart\Domain\Model\Cart\BeVariant $newBeVariant)
     {
@@ -942,7 +926,6 @@ class BeVariant
     }
 
     /**
-     * @return void
      */
     private function calcGross()
     {
@@ -965,7 +948,6 @@ class BeVariant
     }
 
     /**
-     * @return void
      */
     private function calcTax()
     {
@@ -979,7 +961,6 @@ class BeVariant
     }
 
     /**
-     * @return void
      */
     private function calcNet()
     {
@@ -1002,7 +983,6 @@ class BeVariant
     }
 
     /**
-     * @return void
      */
     private function reCalc()
     {
@@ -1039,7 +1019,6 @@ class BeVariant
 
     /**
      * @param $additional
-     * @return void
      */
     public function setAdditionalArray($additional)
     {
@@ -1058,7 +1037,6 @@ class BeVariant
     /**
      * @param string $key
      * @param mixed $value
-     * @return void
      */
     public function setAdditional($key, $value)
     {
@@ -1075,8 +1053,6 @@ class BeVariant
 
     /**
      * @param int $min
-     *
-     * @return void
      */
     public function setMin($min)
     {
@@ -1097,8 +1073,6 @@ class BeVariant
 
     /**
      * @param int $max
-     *
-     * @return void
      */
     public function setMax($max)
     {

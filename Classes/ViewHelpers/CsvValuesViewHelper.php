@@ -18,7 +18,6 @@ namespace Extcode\Cart\ViewHelpers;
 /**
  * Format array of values to CSV format
  *
- * @package cart
  * @author Daniel Lorenz <ext.cart@extco.de>
  */
 class CsvValuesViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper

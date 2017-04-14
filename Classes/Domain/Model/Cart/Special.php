@@ -18,10 +18,8 @@ namespace Extcode\Cart\Domain\Model\Cart;
 /**
  * Cart Special Model
  *
- * @package cart
  * @author Daniel Lorenz <ext.cart@extco.de>
  */
 class Special extends \Extcode\Cart\Domain\Model\Cart\AbstractService
 {
-
 }

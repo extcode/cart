@@ -29,7 +29,6 @@ namespace Extcode\Cart\Tests\Domain\Model\Cart;
 /**
  * Variant Test
  *
- * @package cart
  * @author Daniel Lorenz
  * @license http://www.gnu.org/licenses/lgpl.html
  *                     GNU Lesser General Public License, version 3 or later
@@ -90,8 +89,8 @@ class BeVariantTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
 
         $this->product = $this->getMock(
             \Extcode\Cart\Domain\Model\Cart\Product::class,
-            array(),
-            array(),
+            [],
+            [],
             '',
             false
         );
@@ -262,9 +261,9 @@ class BeVariantTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
      */
     public function constructVariantWithCartProductAndVariantThrowsInvalidArgumentException()
     {
-        $cartProduct = $this->getMock('Extcode\\Cart\\Domain\\Model\\Cart\\Product', array(), array(), '', false);
+        $cartProduct = $this->getMock('Extcode\\Cart\\Domain\\Model\\Cart\\Product', [], [], '', false);
         $cartProduct->expects($this->any())->method('getTaxClass')->will($this->returnValue($this->taxClass));
-        $variant = $this->getMock('Extcode\\Cart\\Domain\\Model\\Cart\\BeVariant', array(), array(), '', false);
+        $variant = $this->getMock('Extcode\\Cart\\Domain\\Model\\Cart\\BeVariant', [], [], '', false);
         $variant->expects($this->any())->method('getTaxClass')->will($this->returnValue($this->taxClass));
 
         new \Extcode\Cart\Domain\Model\Cart\BeVariant(
@@ -284,7 +283,7 @@ class BeVariantTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
      */
     public function constructWithoutTitleThrowsException()
     {
-        $cartProduct = $this->getMock('Extcode\\Cart\\Domain\\Model\\Cart\\Product', array(), array(), '', false);
+        $cartProduct = $this->getMock('Extcode\\Cart\\Domain\\Model\\Cart\\Product', [], [], '', false);
         $cartProduct->expects($this->any())->method('getTaxClass')->will($this->returnValue($this->taxClass));
 
         $this->setExpectedException(
@@ -310,7 +309,7 @@ class BeVariantTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
      */
     public function constructWithoutSkuThrowsException()
     {
-        $cartProduct = $this->getMock('Extcode\\Cart\\Domain\\Model\\Cart\\Product', array(), array(), '', false);
+        $cartProduct = $this->getMock('Extcode\\Cart\\Domain\\Model\\Cart\\Product', [], [], '', false);
         $cartProduct->expects($this->any())->method('getTaxClass')->will($this->returnValue($this->taxClass));
 
         $this->setExpectedException(
@@ -336,7 +335,7 @@ class BeVariantTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
      */
     public function constructWithoutQuantityThrowsException()
     {
-        $cartProduct = $this->getMock('Extcode\\Cart\\Domain\\Model\\Cart\\Product', array(), array(), '', false);
+        $cartProduct = $this->getMock('Extcode\\Cart\\Domain\\Model\\Cart\\Product', [], [], '', false);
         $cartProduct->expects($this->any())->method('getTaxClass')->will($this->returnValue($this->taxClass));
 
         $this->setExpectedException(
@@ -491,7 +490,7 @@ class BeVariantTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
         //sets max before because $min and $max are 0 by default
         $this->beVariant->setMax($min);
         $this->beVariant->setMin($min);
-        
+
         $this->beVariant->setMax($max);
     }
 }

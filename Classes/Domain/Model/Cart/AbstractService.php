@@ -18,7 +18,6 @@ namespace Extcode\Cart\Domain\Model\Cart;
 /**
  * Cart Service Model
  *
- * @package cart
  * @author Daniel Lorenz <ext.cart@extco.de>
  */
 abstract class AbstractService
@@ -191,8 +190,6 @@ abstract class AbstractService
 
     /**
      * @param \Extcode\Cart\Domain\Model\Cart\Cart $cart
-     *
-     * @return void
      */
     public function setCart($cart)
     {
@@ -216,8 +213,6 @@ abstract class AbstractService
      * Sets Provider
      *
      * @param string $provider
-     *
-     * @return void
      */
     public function setProvider($provider)
     {
@@ -241,7 +236,6 @@ abstract class AbstractService
     }
 
     /**
-     * @return void
      */
     public function calcAll()
     {
@@ -300,7 +294,6 @@ abstract class AbstractService
     }
 
     /**
-     * @return void
      */
     public function calcGross()
     {
@@ -349,7 +342,6 @@ abstract class AbstractService
     }
 
     /**
-     * @return void
      */
     private function calcNet()
     {
@@ -398,7 +390,6 @@ abstract class AbstractService
     }
 
     /**
-     * @return void
      */
     private function calcTax()
     {
@@ -573,7 +564,6 @@ abstract class AbstractService
     }
 
     /**
-     * @return null
      */
     private function getConditionFromCart()
     {
@@ -631,7 +621,6 @@ abstract class AbstractService
 
     /**
      * @param array $additional
-     * @return void
      */
     public function setAdditionalArray($additional)
     {
@@ -639,7 +628,6 @@ abstract class AbstractService
     }
 
     /**
-     * @return void
      */
     public function unsetAdditionalArray()
     {
@@ -658,7 +646,6 @@ abstract class AbstractService
     /**
      * @param string $key
      * @param mixed $value
-     * @return void
      */
     public function setAdditional($key, $value)
     {
@@ -667,7 +654,6 @@ abstract class AbstractService
 
     /**
      * @param string $key
-     * @return void
      */
     public function unsetAdditional($key)
     {

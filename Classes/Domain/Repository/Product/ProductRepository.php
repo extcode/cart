@@ -14,13 +14,11 @@ namespace Extcode\Cart\Domain\Repository\Product;
  *
  * The TYPO3 project - inspiring people to share!
  */
-
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 
 /**
  * Product Product Repository
  *
- * @package cart
  * @author Daniel Lorenz <ext.cart@extco.de>
  */
 class ProductRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
@@ -80,8 +78,6 @@ class ProductRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
         //$query->getQuerySettings()->setRespectStoragePage(false);
 
         $constraints = [];
-
-
 
         if (!empty($constraints)) {
             $query->matching(

@@ -18,7 +18,6 @@ namespace Extcode\Cart\Domain\Model\Product;
 /**
  * Product Tag Model
  *
- * @package cart
  * @author Daniel Lorenz <ext.cart@extco.de>
  */
 class Tag extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
@@ -61,8 +60,6 @@ class Tag extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * @param string $title
-     *
-     * @return void
      */
     public function setTitle($title)
     {

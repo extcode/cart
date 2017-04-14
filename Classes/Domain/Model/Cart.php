@@ -18,7 +18,6 @@ namespace Extcode\Cart\Domain\Model;
 /**
  * Cart Model
  *
- * @package cart
  * @author Daniel Lorenz <ext.cart@extco.de>
  */
 class Cart extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
@@ -61,7 +60,7 @@ class Cart extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Was Ordered
      *
-     * @var boolean
+     * @var bool
      */
     protected $wasOrdered;
 
@@ -86,8 +85,6 @@ class Cart extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * Sets fHash
-     *
-     * @return void
      */
     public function setFHash($fHash)
     {
@@ -106,8 +103,6 @@ class Cart extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * Sets sHash
-     *
-     * @return void
      */
     public function setSHash($sHash)
     {
@@ -128,8 +123,6 @@ class Cart extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * Sets FeUser
      *
      * @param \TYPO3\CMS\Extbase\Domain\Model\FrontendUser $feUser
-     *
-     * @return void
      */
     public function setFeUser($feUser)
     {
@@ -150,8 +143,6 @@ class Cart extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * Sets Item
      *
      * @param \Extcode\Cart\Domain\Model\Order\Item $orderItem
-     *
-     * @return void
      */
     public function setOrderItem($orderItem)
     {
@@ -172,7 +163,6 @@ class Cart extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * Sets Cart
      *
      * @param \Extcode\Cart\Domain\Model\Cart\Cart $cart
-     * @return void
      */
     public function setCart($cart)
     {
@@ -182,7 +172,7 @@ class Cart extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Returns Was Ordered
      *
-     * @return boolean
+     * @return bool
      */
     public function getWasOrdered()
     {
@@ -192,9 +182,7 @@ class Cart extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Set Was Ordered
      *
-     * @param boolean $wasOrdered
-     *
-     * @return void
+     * @param bool $wasOrdered
      */
     public function setWasOrdered($wasOrdered)
     {

@@ -18,7 +18,6 @@ namespace Extcode\Cart\Domain\Model\Cart;
 /**
  * Cart Cart Model
  *
- * @package cart
  * @author Daniel Lorenz <ext.cart@extco.de>
  */
 class Cart
@@ -248,8 +247,6 @@ class Cart
 
     /**
      * __wakeup
-     *
-     * @return void
      */
     public function __wakeup()
     {
@@ -281,8 +278,6 @@ class Cart
      * Sets Is Net Cart
      *
      * @param bool
-     *
-     * @return void
      */
     public function setIsNetCart($isNetCart)
     {
@@ -305,7 +300,6 @@ class Cart
      * @param string $orderNumber
      *
      * @throws \LogicException
-     * @return void
      */
     public function setOrderNumber($orderNumber)
     {
@@ -335,7 +329,6 @@ class Cart
      * @param string $invoiceNumber
      *
      * @throws \LogicException
-     * @return void
      */
     public function setInvoiceNumber($invoiceNumber)
     {
@@ -361,8 +354,6 @@ class Cart
 
     /**
      * @param $net
-     *
-     * @return void
      */
     public function addNet($net)
     {
@@ -379,8 +370,6 @@ class Cart
 
     /**
      * @param $net
-     *
-     * @return void
      */
     public function setNet($net)
     {
@@ -389,8 +378,6 @@ class Cart
 
     /**
      * @param $net
-     *
-     * @return void
      */
     public function subNet($net)
     {
@@ -399,8 +386,6 @@ class Cart
 
     /**
      * @param $gross
-     *
-     * @return void
      */
     public function addGross($gross)
     {
@@ -417,8 +402,6 @@ class Cart
 
     /**
      * @param $gross
-     *
-     * @return void
      */
     public function setGross($gross)
     {
@@ -427,8 +410,6 @@ class Cart
 
     /**
      * @param $gross
-     *
-     * @return void
      */
     public function subGross($gross)
     {
@@ -438,8 +419,6 @@ class Cart
     /**
      * @param float $tax
      * @param \Extcode\Cart\Domain\Model\Cart\TaxClass $taxClass
-     *
-     * @return void
      */
     public function addTax($tax, $taxClass)
     {
@@ -527,8 +506,6 @@ class Cart
     /**
      * @param int $taxClassId
      * @param float $tax
-     *
-     * @return void
      */
     public function setTax($taxClassId, $tax)
     {
@@ -538,8 +515,6 @@ class Cart
     /**
      * @param float $tax
      * @param \Extcode\Cart\Domain\Model\Cart\TaxClass $taxClass
-     *
-     * @return void
      */
     public function subTax($tax, $taxClass)
     {
@@ -548,8 +523,6 @@ class Cart
 
     /**
      * @param $count
-     *
-     * @return void
      */
     public function addCount($count)
     {
@@ -566,8 +539,6 @@ class Cart
 
     /**
      * @param $count
-     *
-     * @return void
      */
     public function setCount($count)
     {
@@ -576,8 +547,6 @@ class Cart
 
     /**
      * @param $count
-     *
-     * @return void
      */
     public function subCount($count)
     {
@@ -628,8 +597,6 @@ class Cart
 
     /**
      * @param Shipping $shipping
-     *
-     * @return void
      */
     public function setShipping($shipping)
     {
@@ -646,8 +613,6 @@ class Cart
 
     /**
      * @param Payment $payment
-     *
-     * @return void
      */
     public function setPayment($payment)
     {
@@ -664,8 +629,6 @@ class Cart
 
     /**
      * @param Special $newSpecial
-     *
-     * @return void
      */
     public function addSpecial($newSpecial)
     {
@@ -674,7 +637,6 @@ class Cart
 
     /**
      * @param Special $special
-     * @return void
      */
     public function removeSpecial($special)
     {
@@ -720,7 +682,7 @@ class Cart
             foreach ($this->specials as $special) {
                 $gross += $special->getGross();
             }
-        };
+        }
 
         return $gross;
     }
@@ -966,15 +928,15 @@ class Cart
      */
     public function getDiscountTaxes()
     {
-        $taxes = array_map(function($value) { return -1 * $value; }, $this->getCouponTaxes());
+        $taxes = array_map(function ($value) {
+            return -1 * $value;
+        }, $this->getCouponTaxes());
 
         return $taxes;
     }
 
     /**
      * @param \Extcode\Cart\Domain\Model\Cart\Product $newProduct
-     *
-     * @return void
      */
     public function addProduct($newProduct)
     {
@@ -1000,8 +962,6 @@ class Cart
      *
      * @internal param $id
      * @internal param $newQuantity
-     *
-     * @return void
      */
     public function changeProduct($product, $newProduct)
     {
@@ -1032,7 +992,6 @@ class Cart
      * @param $productQuantityArray
      * @internal param $id
      * @internal param $newQuantity
-     * @return void
      */
     public function changeProductsQuantity($productQuantityArray)
     {
@@ -1135,8 +1094,6 @@ class Cart
 
     /**
      * @param \Extcode\Cart\Domain\Model\Cart\Product $newproduct
-     *
-     * @return void
      */
     private function addServiceAttributes($newproduct)
     {
@@ -1156,7 +1113,6 @@ class Cart
     }
 
     /**
-     * @return void
      */
     private function updateServiceAttributes()
     {
@@ -1234,8 +1190,6 @@ class Cart
 
     /**
      * @param \Extcode\Cart\Domain\Model\Cart\Shipping $shipping
-     *
-     * @return void
      */
     public function changeShipping(\Extcode\Cart\Domain\Model\Cart\Shipping $shipping)
     {
@@ -1244,8 +1198,6 @@ class Cart
 
     /**
      * @param \Extcode\Cart\Domain\Model\Cart\Payment $payment
-     *
-     * @return void
      */
     public function changePayment(\Extcode\Cart\Domain\Model\Cart\Payment $payment)
     {
@@ -1254,8 +1206,6 @@ class Cart
 
     /**
      * @param \Extcode\Cart\Domain\Model\Cart\Special[] $specials
-     *
-     * @return void
      */
     public function changeSpecials($specials)
     {
@@ -1263,7 +1213,6 @@ class Cart
     }
 
     /**
-     * @return void
      */
     private function calcAll()
     {
@@ -1274,7 +1223,6 @@ class Cart
     }
 
     /**
-     * @return void
      */
     private function calcCount()
     {
@@ -1287,7 +1235,6 @@ class Cart
     }
 
     /**
-     * @return void
      */
     private function calcGross()
     {
@@ -1300,7 +1247,6 @@ class Cart
     }
 
     /**
-     * @return void
      */
     private function calcNet()
     {
@@ -1313,7 +1259,6 @@ class Cart
     }
 
     /**
-     * @return void
      */
     private function calcTax()
     {
@@ -1326,7 +1271,6 @@ class Cart
     }
 
     /**
-     * @return void
      */
     public function reCalc()
     {
@@ -1348,7 +1292,6 @@ class Cart
 
     /**
      * @param array $additional
-     * @return void
      */
     public function setAdditionalArray($additional)
     {
@@ -1356,7 +1299,6 @@ class Cart
     }
 
     /**
-     * @return void
      */
     public function unsetAdditionalArray()
     {
@@ -1375,8 +1317,6 @@ class Cart
     /**
      * @param string $key
      * @param mixed $value
-     *
-     * @return void
      */
     public function setAdditional($key, $value)
     {
@@ -1385,8 +1325,6 @@ class Cart
 
     /**
      * @param string $key
-     *
-     * @return void
      */
     public function unsetAdditional($key)
     {
@@ -1482,7 +1420,6 @@ class Cart
 
     /**
      * @param string $billingCountry
-     * @return void
      */
     public function setBillingCountry($billingCountry)
     {
@@ -1499,7 +1436,6 @@ class Cart
 
     /**
      * @param string $shippingCountry
-     * @return void
      */
     public function setShippingCountry($shippingCountry)
     {

@@ -18,10 +18,8 @@ namespace Extcode\Cart\Domain\Model\Product;
 /**
  * Product BeVariantAttributeOption Model
  *
- * @package cart
  * @author Daniel Lorenz <ext.cart@extco.de>
  */
 class BeVariantAttributeOption extends \Extcode\Cart\Domain\Model\Product\AbstractProduct
 {
-
 }

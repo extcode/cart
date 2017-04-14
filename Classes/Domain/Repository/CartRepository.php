@@ -18,10 +18,8 @@ namespace Extcode\Cart\Domain\Repository;
 /**
  * Cart Repository
  *
- * @package cart
  * @author Daniel Lorenz <ext.cart@extco.de>
  */
 class CartRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
 {
-
 }

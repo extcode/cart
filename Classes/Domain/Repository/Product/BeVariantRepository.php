@@ -18,10 +18,8 @@ namespace Extcode\Cart\Domain\Repository\Product;
 /**
  * Product Variant Repository
  *
- * @package cart
  * @author Daniel Lorenz <ext.cart@extco.de>
  */
 class BeVariantRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
 {
-
 }

@@ -29,7 +29,6 @@ namespace Extcode\Cart\Tests\Domain\Model\Order;
 /**
  * Item Test
  *
- * @package cart
  * @author Daniel Lorenz
  * @license http://www.gnu.org/licenses/lgpl.html
  *                     GNU Lesser General Public License, version 3 or later
@@ -53,7 +52,6 @@ class ItemTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
      */
     public function setUp()
     {
-
         $this->item = new \Extcode\Cart\Domain\Model\Order\Item(
             $this->cartPid
         );

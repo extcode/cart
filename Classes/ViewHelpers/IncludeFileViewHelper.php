@@ -14,13 +14,11 @@ namespace Extcode\Cart\ViewHelpers;
  *
  * The TYPO3 project - inspiring people to share!
  */
-
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * ViewHelper to include a css/js file
  *
- * @package cart
  * @author Daniel Lorenz <ext.cart@extco.de>
  */
 class IncludeFileViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper
@@ -30,8 +28,7 @@ class IncludeFileViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractVie
      * Include a CSS/JS file
      *
      * @param string $path Path to the CSS/JS file which should be included
-     * @param boolean $compress Define if file should be compressed
-     * @return void
+     * @param bool $compress Define if file should be compressed
      */
     public function render($path, $compress = false)
     {
@@ -46,5 +43,4 @@ class IncludeFileViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractVie
             $pageRenderer->addCssFile($path, 'stylesheet', 'all', '', $compress);
         }
     }
-
 }

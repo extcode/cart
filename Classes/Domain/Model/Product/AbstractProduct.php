@@ -18,7 +18,6 @@ namespace Extcode\Cart\Domain\Model\Product;
 /**
  * Product AbstractProduct Model
  *
- * @package cart
  * @author Daniel Lorenz <ext.cart@extco.de>
  */
 abstract class AbstractProduct extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
@@ -60,8 +59,6 @@ abstract class AbstractProduct extends \TYPO3\CMS\Extbase\DomainObject\AbstractE
      * Sets SKU
      *
      * @param string $sku
-     *
-     * @return void
      */
     public function setSku($sku)
     {
@@ -82,8 +79,6 @@ abstract class AbstractProduct extends \TYPO3\CMS\Extbase\DomainObject\AbstractE
      * Sets Title
      *
      * @param string $title
-     *
-     * @return void
      */
     public function setTitle($title)
     {
@@ -104,8 +99,6 @@ abstract class AbstractProduct extends \TYPO3\CMS\Extbase\DomainObject\AbstractE
      * Sets Description
      *
      * @param string $description
-     *
-     * @return void
      */
     public function setDescription($description)
     {

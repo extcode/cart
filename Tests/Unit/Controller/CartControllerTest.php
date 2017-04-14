@@ -18,7 +18,6 @@ namespace Extcode\Cart\Tests\Controller;
 /**
  * Cart Controller
  *
- * @package cart
  * @author Daniel Lorenz <ext.cart@extco.de>
  */
 class CartControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
@@ -74,8 +73,8 @@ class CartControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
 
         $this->couponRepository = $this->getMock(
             \Extcode\Cart\Domain\Repository\Product\CouponRepository::class,
-            array(),
-            array(),
+            [],
+            [],
             '',
             false
         );
@@ -116,8 +115,8 @@ class CartControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
     {
         $cartUtility = $this->getMock(
             \Extcode\Cart\Utility\CartUtility::class,
-            array('parseServices'),
-            array(),
+            ['parseServices'],
+            [],
             '',
             false
         );
@@ -128,8 +127,8 @@ class CartControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
 
         $sessionHandler = $this->getMock(
             \Extcode\Cart\Service\SessionHandler::class,
-            array(),
-            array(),
+            [],
+            [],
             '',
             false
         );
@@ -176,7 +175,7 @@ class CartControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
     {
         $this->subject->showCartAction();
     }
-    
+
     /**
      * @test
      */
@@ -194,11 +193,11 @@ class CartControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
      */
     public function showCartPassesShippingsPaymentsSpecialsToView()
     {
-        $assignArguments = array(
+        $assignArguments = [
             'shippings' => [],
             'payments' => [],
             'specials' => []
-        );
+        ];
 
         $this->view->expects(self::at(1))->method('assignMultiple')->with($assignArguments);
 
@@ -210,7 +209,7 @@ class CartControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
      */
     public function showCartPassesNewOrderItemAndNewAddressesToView()
     {
-        $assignArguments = array(
+        $assignArguments = [
             'orderItem' => $this->mockedObjectManager->get(
                 \Extcode\Cart\Domain\Model\Order\Item::class
             ),
@@ -220,7 +219,7 @@ class CartControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
             'shippingAddress' => $this->mockedObjectManager->get(
                 \Extcode\Cart\Domain\Model\Order\Address::class
             ),
-        );
+        ];
 
         $this->view->expects(self::at(2))->method('assignMultiple')->with($assignArguments);
 
@@ -234,13 +233,13 @@ class CartControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
     {
         $orderItem = $this->getMock(
             \Extcode\Cart\Domain\Model\Order\Item::class,
-            array(),
-            array(),
+            [],
+            [],
             '',
             false
         );
 
-        $assignArguments = array(
+        $assignArguments = [
             'orderItem' => $orderItem,
             'billingAddress' => $this->mockedObjectManager->get(
                 \Extcode\Cart\Domain\Model\Order\Address::class
@@ -248,7 +247,7 @@ class CartControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
             'shippingAddress' => $this->mockedObjectManager->get(
                 \Extcode\Cart\Domain\Model\Order\Address::class
             ),
-        );
+        ];
 
         $this->view->expects(self::at(2))->method('assignMultiple')->with($assignArguments);
 
@@ -262,13 +261,13 @@ class CartControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
     {
         $billingAddress = $this->getMock(
             \Extcode\Cart\Domain\Model\Order\Address::class,
-            array(),
-            array(),
+            [],
+            [],
             '',
             false
         );
 
-        $assignArguments = array(
+        $assignArguments = [
             'orderItem' => $this->mockedObjectManager->get(
                 \Extcode\Cart\Domain\Model\Order\Item::class
             ),
@@ -276,7 +275,7 @@ class CartControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
             'shippingAddress' => $this->mockedObjectManager->get(
                 \Extcode\Cart\Domain\Model\Order\Address::class
             ),
-        );
+        ];
 
         $this->view->expects(self::at(2))->method('assignMultiple')->with($assignArguments);
 
@@ -290,13 +289,13 @@ class CartControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
     {
         $shippingAddress = $this->getMock(
             \Extcode\Cart\Domain\Model\Order\Address::class,
-            array(),
-            array(),
+            [],
+            [],
             '',
             false
         );
 
-        $assignArguments = array(
+        $assignArguments = [
             'orderItem' => $this->mockedObjectManager->get(
                 \Extcode\Cart\Domain\Model\Order\Item::class
             ),
@@ -304,7 +303,7 @@ class CartControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
                 \Extcode\Cart\Domain\Model\Order\Address::class
             ),
             'shippingAddress' => $shippingAddress
-        );
+        ];
 
         $this->view->expects(self::at(2))->method('assignMultiple')->with($assignArguments);
 

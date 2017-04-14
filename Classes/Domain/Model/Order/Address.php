@@ -18,7 +18,6 @@ namespace Extcode\Cart\Domain\Model\Order;
 /**
  * Order Address Model
  *
- * @package cart
  * @author Daniel Lorenz <ext.cart@extco.de>
  */
 class Address extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
@@ -170,8 +169,6 @@ class Address extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * Sets Title
      *
      * @param string $title
-     *
-     * @return void
      */
     public function setTitle($title)
     {
@@ -188,7 +185,6 @@ class Address extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * @param string $salutation
-     * @return void
      */
     public function setSalutation($salutation)
     {
@@ -205,7 +201,6 @@ class Address extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * @param string $firstName
-     * @return void
      */
     public function setFirstName($firstName)
     {
@@ -226,7 +221,7 @@ class Address extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     public function getSalutationLastName()
     {
         $salutationLastName = [$this->salutation, $this->lastName];
-        return join(' ', array_filter($salutationLastName));
+        return implode(' ', array_filter($salutationLastName));
     }
 
     /**
@@ -235,7 +230,7 @@ class Address extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     public function getTitleLastName()
     {
         $titleLastName = [$this->title, $this->lastName];
-        return join(' ', array_filter($titleLastName));
+        return implode(' ', array_filter($titleLastName));
     }
 
     /**
@@ -244,7 +239,7 @@ class Address extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     public function getSalutationTitleLastName()
     {
         $salutationTitleLastName = [$this->salutation, $this->title, $this->lastName];
-        return join(' ', array_filter($salutationTitleLastName));
+        return implode(' ', array_filter($salutationTitleLastName));
     }
 
     /**
@@ -265,7 +260,7 @@ class Address extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     public function getFullName()
     {
         $fullName = [$this->firstName, $this->lastName];
-        return join(' ', array_filter($fullName));
+        return implode(' ', array_filter($fullName));
     }
 
     /**
@@ -274,7 +269,7 @@ class Address extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     public function getSalutationFullName()
     {
         $salutationFullName = [$this->salutation, $this->firstName, $this->lastName];
-        return join(' ', array_filter($salutationFullName));
+        return implode(' ', array_filter($salutationFullName));
     }
 
     /**
@@ -283,7 +278,7 @@ class Address extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     public function getTitleFullName()
     {
         $titleFullName = [$this->title, $this->firstName, $this->lastName];
-        return join(' ', array_filter($titleFullName));
+        return implode(' ', array_filter($titleFullName));
     }
 
     /**
@@ -292,7 +287,7 @@ class Address extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     public function getSalutationTitleFullName()
     {
         $salutationTitleFullName = [$this->salutation, $this->title, $this->firstName, $this->lastName];
-        return join(' ', array_filter($salutationTitleFullName));
+        return implode(' ', array_filter($salutationTitleFullName));
     }
 
     /**
@@ -305,7 +300,6 @@ class Address extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * @param string $email
-     * @return void
      */
     public function setEmail($email)
     {
@@ -322,7 +316,6 @@ class Address extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * @param string $company
-     * @return void
      */
     public function setCompany($company)
     {
@@ -331,7 +324,6 @@ class Address extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * @param string $lastName
-     * @return void
      */
     public function setLastName($lastName)
     {
@@ -348,7 +340,6 @@ class Address extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * @param string $street
-     * @return void
      */
     public function setStreet($street)
     {
@@ -365,7 +356,6 @@ class Address extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * @param string $city
-     * @return void
      */
     public function setCity($city)
     {
@@ -382,7 +372,6 @@ class Address extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * @param string $zip
-     * @return void
      */
     public function setZip($zip)
     {
@@ -399,7 +388,6 @@ class Address extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * @param string $country
-     * @return void
      */
     public function setCountry($country)
     {
@@ -416,7 +404,6 @@ class Address extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * @param string $phone
-     * @return void
      */
     public function setPhone($phone)
     {
@@ -433,7 +420,6 @@ class Address extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * @param string $fax
-     * @return void
      */
     public function setFax($fax)
     {

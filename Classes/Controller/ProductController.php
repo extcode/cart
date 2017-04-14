@@ -18,7 +18,6 @@ namespace Extcode\Cart\Controller;
 /**
  * Product Controller
  *
- * @package cart
  * @author Daniel Lorenz <ext.cart@extco.de>
  */
 class ProductController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
@@ -64,8 +63,6 @@ class ProductController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 
     /**
      * Action initializer
-     *
-     * @return void
      */
     protected function initializeAction()
     {
@@ -120,8 +117,6 @@ class ProductController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
     /**
      * @param \Extcode\Cart\Domain\Model\Dto\Product\ProductDemand $demand
      * @param array $settings
-     *
-     * @return void
      */
     protected function addCategoriesToDemandObjectFromSettings(&$demand, $settings)
     {
@@ -152,8 +147,6 @@ class ProductController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 
     /**
      * action list
-     *
-     * @return void
      */
     public function listAction()
     {
@@ -172,8 +165,6 @@ class ProductController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
      * @param \Extcode\Cart\Domain\Model\Product\Product $product
      *
      * @ignorevalidation $product
-     *
-     * @return void
      */
     public function showAction(\Extcode\Cart\Domain\Model\Product\Product $product = null)
     {
@@ -189,7 +180,6 @@ class ProductController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
      * action showForm
      *
      * @param \Extcode\Cart\Domain\Model\Product\Product $product
-     * @return void
      */
     public function showFormAction(\Extcode\Cart\Domain\Model\Product\Product $product = null)
     {
@@ -225,8 +215,6 @@ class ProductController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 
     /**
      * action teaser
-     *
-     * @return void
      */
     public function teaserAction()
     {
@@ -236,8 +224,6 @@ class ProductController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 
     /**
      * action flexform
-     *
-     * @return void
      */
     public function flexformAction()
     {

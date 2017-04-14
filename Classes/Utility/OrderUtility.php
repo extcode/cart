@@ -14,13 +14,11 @@ namespace Extcode\Cart\Utility;
  *
  * The TYPO3 project - inspiring people to share!
  */
-
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * Order Utility
  *
- * @package cart
  * @author Daniel Lorenz <ext.cart@extco.de>
  */
 class OrderUtility
@@ -165,8 +163,6 @@ class OrderUtility
      * @param \Extcode\Cart\Domain\Model\Order\Item $orderItem
      * @param \Extcode\Cart\Domain\Model\Order\Address $billingAddress
      * @param \Extcode\Cart\Domain\Model\Order\Address $shippingAddress
-     *
-     * @return void
      */
     public function saveOrderItem(
         array $pluginSettings,
@@ -299,8 +295,6 @@ class OrderUtility
      * Before Check Stock
      *
      * @param \Extcode\Cart\Domain\Model\Cart\Cart $cart
-     *
-     * @return void
      */
     public function beforeCheckStock(
         \Extcode\Cart\Domain\Model\Cart\Cart $cart
@@ -323,8 +317,6 @@ class OrderUtility
      * After Check Stock
      *
      * @param \Extcode\Cart\Domain\Model\Cart\Cart $cart
-     *
-     * @return void
      */
     public function afterCheckStock(
         \Extcode\Cart\Domain\Model\Cart\Cart $cart
@@ -348,8 +340,6 @@ class OrderUtility
      *
      * @param \Extcode\Cart\Domain\Model\Cart\Cart $cart
      * @parem array $pluginSettings
-     *
-     * @return void
      */
     public function handleStock(
         \Extcode\Cart\Domain\Model\Cart\Cart $cart,
@@ -423,8 +413,6 @@ class OrderUtility
      * Before Handle Stock
      *
      * @param \Extcode\Cart\Domain\Model\Cart\Cart $cart
-     *
-     * @return void
      */
     public function beforeHandleStock(
         \Extcode\Cart\Domain\Model\Cart\Cart $cart
@@ -447,8 +435,6 @@ class OrderUtility
      * After Handle Stock
      *
      * @param \Extcode\Cart\Domain\Model\Cart\Cart $cart
-     *
-     * @return void
      */
     public function afterHandleStock(
         \Extcode\Cart\Domain\Model\Cart\Cart $cart
@@ -510,8 +496,6 @@ class OrderUtility
      *
      * @param \Extcode\Cart\Domain\Model\Order\Item $orderItem
      * @param \Extcode\Cart\Domain\Model\Cart\Cart $cart
-     *
-     * @return void
      */
     public function beforeHandlePayment(
         \Extcode\Cart\Domain\Model\Order\Item $orderItem,
@@ -537,8 +521,6 @@ class OrderUtility
      *
      * @param \Extcode\Cart\Domain\Model\Order\Item $orderItem
      * @param \Extcode\Cart\Domain\Model\Cart\Cart $cart
-     *
-     * @return void
      */
     public function afterHandlePayment(
         \Extcode\Cart\Domain\Model\Order\Item $orderItem,
@@ -563,8 +545,6 @@ class OrderUtility
      * Adds a Taxes To Order
      *
      * @param string $type Type of the Tax
-     *
-     * @return void
      */
     protected function addTaxes($type = 'Tax')
     {
@@ -588,8 +568,6 @@ class OrderUtility
 
     /**
      * Add TaxClasses to Order Item
-     *
-     * @return void
      */
     protected function addTaxClasses()
     {
@@ -648,8 +626,6 @@ class OrderUtility
 
     /**
      * Add Products to Order Item
-     *
-     * @return void
      */
     protected function addProducts()
     {
@@ -669,8 +645,6 @@ class OrderUtility
      * Add CartProduct to Order Item
      *
      * @param \Extcode\Cart\Domain\Model\Cart\Product $cartProduct
-     *
-     * @return void
      */
     protected function addProduct(\Extcode\Cart\Domain\Model\Cart\Product $cartProduct)
     {
@@ -763,13 +737,10 @@ class OrderUtility
         $product->addProductAdditional($productAdditional);
     }
 
-
     /**
      * Adds Variants of a CartProduct to Order Item
      *
      * @param \Extcode\Cart\Domain\Model\Cart\Product $product CartProduct
-     *
-     * @return void
      */
     protected function addProductVariants(\Extcode\Cart\Domain\Model\Cart\Product $product)
     {
@@ -791,8 +762,6 @@ class OrderUtility
      *
      * @param \Extcode\Cart\Domain\Model\Cart\BeVariant $variant
      * @param int $level Level
-     *
-     * @return void
      */
     protected function addVariantsOfVariant(\Extcode\Cart\Domain\Model\Cart\BeVariant $variant, $level)
     {
@@ -816,8 +785,6 @@ class OrderUtility
      *
      * @param \Extcode\Cart\Domain\Model\Cart\BeVariant $variant
      * @param int $level Level
-     *
-     * @return void
      */
     protected function addBeVariant(\Extcode\Cart\Domain\Model\Cart\BeVariant $variant, $level)
     {
@@ -927,8 +894,6 @@ class OrderUtility
      * Add Billing Address
      *
      * @param array $billingAddress Data for Billing Address
-     *
-     * @return void
      */
     protected function addBillingAddress(array $billingAddress)
     {
@@ -957,8 +922,6 @@ class OrderUtility
      * Add Shipping Address
      *
      * @param array $shippingAddress Data for Shipping Address
-     *
-     * @return void
      */
     protected function addShippingAddress(array $shippingAddress)
     {
@@ -985,8 +948,6 @@ class OrderUtility
 
     /**
      * Add Payment
-     *
-     * @return void
      */
     protected function addPayment()
     {
@@ -1018,8 +979,6 @@ class OrderUtility
 
     /**
      * Add Shipping
-     *
-     * @return void
      */
     protected function addShipping()
     {
@@ -1099,8 +1058,6 @@ class OrderUtility
      *
      * @param \Extcode\Cart\Domain\Model\Order\Item $orderItem
      * @param $pluginSettings
-     *
-     * @return void
      */
     public function autoGenerateDocuments(\Extcode\Cart\Domain\Model\Order\Item $orderItem, $pluginSettings)
     {
@@ -1130,8 +1087,6 @@ class OrderUtility
      *
      * @param \Extcode\Cart\Domain\Model\Order\Item $orderItem
      * @param string $pdfType
-     *
-     * @return void
      */
     protected function generatePdfDocument(\Extcode\Cart\Domain\Model\Order\Item $orderItem, $pdfType)
     {

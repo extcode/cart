@@ -26,7 +26,6 @@ namespace Extcode\Cart\Tests\Domain\Model\Order;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-
 class TaxTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
 {
     /**

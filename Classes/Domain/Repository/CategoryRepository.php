@@ -18,7 +18,6 @@ namespace Extcode\Cart\Domain\Repository;
 /**
  * Category Repository
  *
- * @package cart
  * @author Daniel Lorenz <ext.cart@extco.de>
  */
 class CategoryRepository extends \TYPO3\CMS\Extbase\Domain\Repository\CategoryRepository
@@ -92,7 +91,6 @@ class CategoryRepository extends \TYPO3\CMS\Extbase\Domain\Repository\CategoryRe
      * @param array $categoriesArray
      * @param array $parentCategory
      * @param array $subcategoriesArray
-     * @return void
      */
     private function getSubcategoriesIds(
         $categoriesArray,
@@ -131,5 +129,4 @@ class CategoryRepository extends \TYPO3\CMS\Extbase\Domain\Repository\CategoryRe
         }
         return $categories;
     }
-
 }

@@ -37,8 +37,6 @@ class SpecialPriceTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
 
     /**
      * Set Up
-     *
-     * @return void
      */
     public function setUp()
     {

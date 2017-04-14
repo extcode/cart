@@ -18,7 +18,6 @@ namespace Extcode\Cart\Domain\Model\Cart;
 /**
  * Cart TaxClass Model
  *
- * @package cart
  * @author Daniel Lorenz <ext.cart@extco.de>
  */
 class TaxClass
