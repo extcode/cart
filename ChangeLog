@@ -1,3 +1,9 @@
+3.4.1
+    2017-05-19
+    Daniel Lorenz <daniel.lorenz@extco.de>
+
+    * BUGFIX #102: use correct object for product title
+
 3.4.0
     2017-04-14
     Daniel Lorenz <daniel.lorenz@extco.de>

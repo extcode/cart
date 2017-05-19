@@ -3,7 +3,7 @@
 <f:section name="main">
     <f:if condition="{products}">
         <f:for each="{products}" as="product">
-            <h3>{cartProduct.title}</h3>
+            <h3>{product.title}</h3>
 
             <f:if condition="{product.firstImage}">
                 <f:image src="{product.firstImage.originalResource.originalFile.uid}"
