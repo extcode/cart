@@ -1,3 +1,9 @@
+3.5.0
+    2017-05-19
+    Daniel Lorenz <daniel.lorenz@extco.de>
+
+    * BUGFIX #104: fix problem summitting the form after setPayment or setShipping action
+
 3.4.1
     2017-05-19
     Daniel Lorenz <daniel.lorenz@extco.de>

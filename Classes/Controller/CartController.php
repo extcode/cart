@@ -208,9 +208,9 @@ class CartController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     /**
      * Action Show Cart
      *
-     * @param \Extcode\Cart\Domain\Model\Order\Item $orderItem OrderItem
-     * @param \Extcode\Cart\Domain\Model\Order\Address $billingAddress Billing
-     * @param \Extcode\Cart\Domain\Model\Order\Address $shippingAddress Shipping
+     * @param \Extcode\Cart\Domain\Model\Order\Item $orderItem
+     * @param \Extcode\Cart\Domain\Model\Order\Address $billingAddress
+     * @param \Extcode\Cart\Domain\Model\Order\Address $shippingAddress
      */
     public function showCartAction(
         \Extcode\Cart\Domain\Model\Order\Item $orderItem = null,
@@ -581,7 +581,7 @@ class CartController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     /**
      * Action setShipping
      *
-     * @param int $shippingId ShippingId
+     * @param int $shippingId
      */
     public function setShippingAction($shippingId)
     {
@@ -627,7 +627,7 @@ class CartController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     /**
      * Action setPayment
      *
-     * @param int $paymentId PaymentId
+     * @param int $paymentId
      */
     public function setPaymentAction($paymentId)
     {

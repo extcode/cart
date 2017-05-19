@@ -57,7 +57,7 @@ $('#payment-method').on('click', '.setPayment', function(e) {
     $.get( url, function( data ) {
         $('#shipping-method').html($(data).filter('#shipping-method').html());
         $('#payment-method').html($(data).filter('#payment-method').html());
-        $('#checkout-review').html($(data).filter('#checkout-review').html());
+        $('#checkout-review-table').html($(data).filter('#checkout-review-table').html());
     });
 
     e.preventDefault();
@@ -69,7 +69,7 @@ $('#shipping-method').on('click', '.setShipping', function(e) {
     $.get( url, function( data ) {
         $('#shipping-method').html($(data).filter('#shipping-method').html());
         $('#payment-method').html($(data).filter('#payment-method').html());
-        $('#checkout-review').html($(data).filter('#checkout-review').html());
+        $('#checkout-review-table').html($(data).filter('#checkout-review-table').html());
     });
 
     e.preventDefault();
