@@ -135,7 +135,7 @@ class ProductUtility
     {
         $cartProduct = null;
 
-        $abstractPlugin = new \TYPO3\CMS\Frontend\Plugin\AbstractPlugin();
+        $abstractPlugin = $this->objectManager->get(\TYPO3\CMS\Frontend\Plugin\AbstractPlugin::class);
 
         $row = $abstractPlugin->pi_getRecord('tt_content', $cartProductValues['contentId']);
 
@@ -150,7 +150,7 @@ class ProductUtility
             );
         }
 
-        $cartProduct = new \Extcode\Cart\Domain\Model\Cart\Product(
+        $cartProduct = $this->objectManager->get(\Extcode\Cart\Domain\Model\Cart\Product::class,
             $cartProductValues['productType'],
             $cartProductValues['productId'],
             null,
@@ -298,12 +298,12 @@ class ProductUtility
 
             $newFeVariant = null;
             if ($cartProductValues['feVariants']) {
-                $newFeVariant = new \Extcode\Cart\Domain\Model\Cart\FeVariant(
+                $newFeVariant = $this->objectManager->get(\Extcode\Cart\Domain\Model\Cart\FeVariant::class,
                     $cartProductValues['feVariants']
                 );
             }
 
-            $cartProduct = new \Extcode\Cart\Domain\Model\Cart\Product(
+            $cartProduct = $this->objectManager->get(\Extcode\Cart\Domain\Model\Cart\Product::class,
                 $productProduct->getProductType(),
                 $cartProductValues['productId'],
                 $cartProductValues['productStorageId'],
@@ -430,7 +430,7 @@ class ProductUtility
 
                 $bestSpecialPrice = $productBackendVariant->getBestSpecialPrice($frontendUserGroupIds);
 
-                $cartBackendVariant = new \Extcode\Cart\Domain\Model\Cart\BeVariant(
+                $cartBackendVariant = $this->objectManager->get(\Extcode\Cart\Domain\Model\Cart\BeVariant::class,
                     $variantId,
                     $product,
                     $variant,

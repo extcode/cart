@@ -134,6 +134,10 @@ class CartControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
         );
         $this->inject($cartUtility, 'sessionHandler', $sessionHandler);
 
+        $mockedObjectManager = clone $this->mockedObjectManager;
+        $mockedObjectManager->method('get')->willReturn(\TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\Extcode\Cart\Domain\Model\Cart\Cart::class, array()));
+        $this->inject($cartUtility, 'objectManager', $mockedObjectManager);
+
         return $cartUtility;
     }
 

@@ -28,161 +28,161 @@ class Cart
      *
      * @var \Extcode\Cart\Domain\Model\Cart\TaxClass[]
      */
-    private $taxClasses;
+    protected $taxClasses;
 
     /**
      * Net
      *
      * @var float
      */
-    private $net;
+    protected $net;
 
     /**
      * Gross
      *
      * @var float
      */
-    private $gross;
+    protected $gross;
 
     /**
      * Taxes
      *
      * @var array
      */
-    private $taxes;
+    protected $taxes;
 
     /**
      * Count
      *
      * @var int
      */
-    private $count;
+    protected $count;
 
     /**
      * Products
      *
      * @var \Extcode\Cart\Domain\Model\Cart\Product[]
      */
-    private $products;
+    protected $products;
 
     /**
      * Shipping
      *
      * @var \Extcode\Cart\Domain\Model\Cart\Shipping
      */
-    private $shipping;
+    protected $shipping;
 
     /**
      * Payment
      *
      * @var \Extcode\Cart\Domain\Model\Cart\Payment
      */
-    private $payment;
+    protected $payment;
 
     /**
      * Specials
      *
      * @var \Extcode\Cart\Domain\Model\Cart\Special[]
      */
-    private $specials;
+    protected $specials;
 
     /**
      * Max Service Attribute 1
      *
      * @var float
      */
-    private $maxServiceAttr1 = 0.0;
+    protected $maxServiceAttr1 = 0.0;
 
     /**
      * Max Service Attribute 2
      *
      * @var float
      */
-    private $maxServiceAttr2 = 0.0;
+    protected $maxServiceAttr2 = 0.0;
 
     /**
      * Max Service Attribute 3
      *
      * @var float
      */
-    private $maxServiceAttr3 = 0.0;
+    protected $maxServiceAttr3 = 0.0;
 
     /**
      * Sum Service Attribute 1
      *
      * @var float
      */
-    private $sumServiceAttr1 = 0.0;
+    protected $sumServiceAttr1 = 0.0;
 
     /**
      * Sum Service Attribute 2
      *
      * @var float
      */
-    private $sumServiceAttr2 = 0.0;
+    protected $sumServiceAttr2 = 0.0;
 
     /**
      * Sum Service Attribute 3
      *
      * @var float
      */
-    private $sumServiceAttr3 = 0.0;
+    protected $sumServiceAttr3 = 0.0;
 
     /**
      * Is Net Cart
      *
      * @var bool
      */
-    private $isNetCart;
+    protected $isNetCart;
 
     /**
      * Order Number
      *
      * @var string
      */
-    private $orderNumber;
+    protected $orderNumber;
 
     /**
      * Invoice Number
      *
      * @var string
      */
-    private $invoiceNumber;
+    protected $invoiceNumber;
 
     /**
      * Additional
      *
      * @var array
      */
-    private $additional = [];
+    protected $additional = [];
 
     /**
      * Order Id
      *
      * @var int
      */
-    private $orderId;
+    protected $orderId;
 
     /**
      * Coupon
      *
      * @var \Extcode\Cart\Domain\Model\Cart\CartCouponInterface[]
      */
-    private $coupons = [];
+    protected $coupons = [];
 
     /**
      * Billing Country
      *
      * @var string
      */
-    private $billingCountry;
+    protected $billingCountry;
 
     /**
      * Shipping Country
      *
      * @var string
      */
-    private $shippingCountry;
+    protected $shippingCountry;
 
     /**
      * __construct
@@ -1095,7 +1095,7 @@ class Cart
     /**
      * @param \Extcode\Cart\Domain\Model\Cart\Product $newproduct
      */
-    private function addServiceAttributes($newproduct)
+    protected function addServiceAttributes($newproduct)
     {
         if ($this->maxServiceAttr1 > $newproduct->getServiceAttribute1()) {
             $this->maxServiceAttr1 = $newproduct->getServiceAttribute1();
@@ -1114,7 +1114,7 @@ class Cart
 
     /**
      */
-    private function updateServiceAttributes()
+    protected function updateServiceAttributes()
     {
         $this->maxServiceAttr1 = 0.0;
         $this->maxServiceAttr2 = 0.0;
@@ -1214,7 +1214,7 @@ class Cart
 
     /**
      */
-    private function calcAll()
+    protected function calcAll()
     {
         $this->calcCount();
         $this->calcGross();
@@ -1224,7 +1224,7 @@ class Cart
 
     /**
      */
-    private function calcCount()
+    protected function calcCount()
     {
         $this->count = 0;
         if ($this->products) {
@@ -1236,7 +1236,7 @@ class Cart
 
     /**
      */
-    private function calcGross()
+    protected function calcGross()
     {
         $this->gross = 0.0;
         if ($this->products) {
@@ -1248,7 +1248,7 @@ class Cart
 
     /**
      */
-    private function calcNet()
+    protected function calcNet()
     {
         $this->net = 0.0;
         if ($this->products) {
@@ -1260,7 +1260,7 @@ class Cart
 
     /**
      */
-    private function calcTax()
+    protected function calcTax()
     {
         $this->taxes = [];
         if ($this->products) {

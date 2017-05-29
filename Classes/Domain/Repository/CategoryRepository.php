@@ -92,7 +92,7 @@ class CategoryRepository extends \TYPO3\CMS\Extbase\Domain\Repository\CategoryRe
      * @param array $parentCategory
      * @param array $subcategoriesArray
      */
-    private function getSubcategoriesIds(
+    protected function getSubcategoriesIds(
         $categoriesArray,
         $parentCategory,
         &$subcategoriesArray
@@ -116,7 +116,7 @@ class CategoryRepository extends \TYPO3\CMS\Extbase\Domain\Repository\CategoryRe
      * @param array $parentCategory
      * @return array $categories
      */
-    private function buildSubcategories($categoriesArray, $parentCategory)
+    protected function buildSubcategories($categoriesArray, $parentCategory)
     {
         $categories = null;
         foreach ($categoriesArray as $category) {

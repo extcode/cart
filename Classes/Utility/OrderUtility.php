@@ -130,7 +130,7 @@ class OrderUtility
      *
      * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<Extcode\Cart\Domain\Model\Order\TaxClass>
      */
-    private $taxClasses;
+    protected $taxClasses;
 
     /**
      * Order Item
@@ -554,7 +554,7 @@ class OrderUtility
              * Order Tax
              * @var $orderTax \Extcode\Cart\Domain\Model\Order\Tax
              */
-            $orderTax = new \Extcode\Cart\Domain\Model\Order\Tax(
+            $orderTax = $this->objectManager->get(\Extcode\Cart\Domain\Model\Order\Tax::class,
                 $cartTax,
                 $this->taxClasses[$cartTaxKey]
             );
@@ -578,7 +578,7 @@ class OrderUtility
             /**
              * @var \Extcode\Cart\Domain\Model\Order\TaxClass $orderTaxClass
              */
-            $orderTaxClass = new \Extcode\Cart\Domain\Model\Order\TaxClass(
+            $orderTaxClass = $this->objectManager->get(\Extcode\Cart\Domain\Model\Order\TaxClass::class,
                 $taxClass->getTitle(),
                 $taxClass->getValue(),
                 $taxClass->getCalc()
@@ -603,7 +603,7 @@ class OrderUtility
          */
         foreach ($this->cart->getCoupons() as $cartCoupon) {
             if ($cartCoupon->getIsUseable()) {
-                $orderDiscount = new \Extcode\Cart\Domain\Model\Order\Discount(
+                $orderDiscount = $this->objectManager->get(\Extcode\Cart\Domain\Model\Order\Discount::class,
                     $cartCoupon->getTitle(),
                     $cartCoupon->getCode(),
                     $cartCoupon->getGross(),
@@ -651,7 +651,7 @@ class OrderUtility
         /**
          * @var \Extcode\Cart\Domain\Model\Order\Product $orderProduct
          */
-        $orderProduct = new \Extcode\Cart\Domain\Model\Order\Product(
+        $orderProduct = $this->objectManager->get(\Extcode\Cart\Domain\Model\Order\Product::class,
             $cartProduct->getSku(),
             $cartProduct->getTitle(),
             $cartProduct->getQuantity()
@@ -724,7 +724,7 @@ class OrderUtility
         /**
          * @var \Extcode\Cart\Domain\Model\Order\ProductAdditional $productAdditional
          */
-        $productAdditional = new \Extcode\Cart\Domain\Model\Order\ProductAdditional(
+        $productAdditional = $this->objectManager->get(\Extcode\Cart\Domain\Model\Order\ProductAdditional::class,
             $productAdditionalType,
             $feVariant['sku'],
             $feVariant['value'],
@@ -789,7 +789,7 @@ class OrderUtility
     protected function addBeVariant(\Extcode\Cart\Domain\Model\Cart\BeVariant $variant, $level)
     {
         /** @var \Extcode\Cart\Domain\Model\Order\Tax $orderTax */
-        $orderTax = new \Extcode\Cart\Domain\Model\Order\Tax(
+        $orderTax = $this->objectManager->get(\Extcode\Cart\Domain\Model\Order\Tax::class,
             $variant->getTax(),
             $this->taxClasses[$variant->getTaxClass()->getId()]
         );
@@ -801,7 +801,7 @@ class OrderUtility
          * Order Product
          * @var \Extcode\Cart\Domain\Model\Order\Product $orderProduct
          */
-        $orderProduct = new \Extcode\Cart\Domain\Model\Order\Product(
+        $orderProduct = $this->objectManager->get(\Extcode\Cart\Domain\Model\Order\Product::class,
             $variant->getCompleteSku(),
             $variant->getCompleteTitle(),
             $variant->getQuantity()
@@ -846,7 +846,7 @@ class OrderUtility
             /**
              * @var \Extcode\Cart\Domain\Model\Order\ProductAdditional $productAdditional
              */
-            $orderProductAdditional = new \Extcode\Cart\Domain\Model\Order\ProductAdditional(
+            $orderProductAdditional = $this->objectManager->get(\Extcode\Cart\Domain\Model\Order\ProductAdditional::class,
                 'variant_' . $count,
                 $variantInner->getCompleteSku(),
                 $variantInner->getTitle()

@@ -27,56 +27,56 @@ class Extra
      *
      * @var int
      */
-    private $id;
+    protected $id;
 
     /**
      * Condition
      *
      * @var float
      */
-    private $condition;
+    protected $condition;
 
     /**
      * Price
      *
      * @var float
      */
-    private $price;
+    protected $price;
 
     /**
      * Gross
      *
      * @var float
      */
-    private $gross;
+    protected $gross;
 
     /**
      * Net
      *
      * @var float
      */
-    private $net;
+    protected $net;
 
     /**
      * TaxClass
      *
      * @var \Extcode\Cart\Domain\Model\Cart\TaxClass
      */
-    private $taxClass;
+    protected $taxClass;
 
     /**
      * Tax
      *
      * @var float
      */
-    private $tax;
+    protected $tax;
 
     /**
      * Is Net Price
      *
      * @var bool
      */
-    private $isNetPrice;
+    protected $isNetPrice;
 
     /**
      * __construct
@@ -220,7 +220,7 @@ class Extra
     /**
      *
      */
-    private function calcGross()
+    protected function calcGross()
     {
         if ($this->isNetPrice == false) {
             $this->gross = $this->price;
@@ -233,7 +233,7 @@ class Extra
     /**
      *
      */
-    private function calcTax()
+    protected function calcTax()
     {
         if ($this->isNetPrice == false) {
             $this->tax = ($this->gross / (1 + $this->taxClass->getCalc())) * ($this->taxClass->getCalc());
@@ -245,7 +245,7 @@ class Extra
     /**
      *
      */
-    private function calcNet()
+    protected function calcNet()
     {
         if ($this->isNetPrice == true) {
             $this->net = $this->price;
@@ -258,7 +258,7 @@ class Extra
     /**
      *
      */
-    private function reCalc()
+    protected function reCalc()
     {
         if ($this->isNetPrice == false) {
             $this->calcGross();
