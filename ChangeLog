@@ -1,3 +1,10 @@
+3.6.0
+    2017-05-30
+    Jan Bergmann <jan.bergmann@dkd.de>
+
+    * Changed 'private' functions/variables from 'private' to 'protected'
+    * Changed class initialization from 'new' to 'objectManager'.
+
 3.5.0
     2017-05-19
     Daniel Lorenz <daniel.lorenz@extco.de>
