@@ -28,7 +28,7 @@ class TaxClass
      * @var int
      * @validate NotEmpty
      */
-    private $id;
+    protected $id;
 
     /**
      * Value
@@ -36,7 +36,7 @@ class TaxClass
      * @var string
      * @validate NotEmpty
      */
-    private $value;
+    protected $value;
 
     /**
      * Calc
@@ -44,7 +44,7 @@ class TaxClass
      * @var float
      * @validate NotEmpty
      */
-    private $calc;
+    protected $calc;
 
     /**
      * Title
@@ -52,7 +52,7 @@ class TaxClass
      * @var string
      * @validate NotEmpty
      */
-    private $title;
+    protected $title;
 
     /**
      * __construct

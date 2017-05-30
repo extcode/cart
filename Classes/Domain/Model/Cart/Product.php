@@ -27,182 +27,182 @@ class Product
      *
      * @var string
      */
-    private $productType;
+    protected $productType;
 
     /**
      * Product Id
      *
      * @var int
      */
-    private $productId;
+    protected $productId;
 
     /**
      * Table Id
      *
      * @var int
      */
-    private $tableId;
+    protected $tableId;
 
     /**
      * Content Id
      *
      * @var int
      */
-    private $contentId;
+    protected $contentId;
 
     /**
      * Cart
      *
      * @var Cart
      */
-    private $cart = null;
+    protected $cart = null;
 
     /**
      * Title
      *
      * @var string
      */
-    private $title;
+    protected $title;
 
     /**
      * SKU
      *
      * @var string
      */
-    private $sku;
+    protected $sku;
 
     /**
      * Price
      *
      * @var float
      */
-    private $price;
+    protected $price;
 
     /**
      * Special Price
      *
      * @var float
      */
-    private $specialPrice = null;
+    protected $specialPrice = null;
 
     /**
      * Quantity Discounts
      *
      * @var array
      */
-    private $quantityDiscounts = [];
+    protected $quantityDiscounts = [];
 
     /**
      * Quantity
      *
      * @var int
      */
-    private $quantity;
+    protected $quantity;
 
     /**
      * Gross
      *
      * @var float
      */
-    private $gross;
+    protected $gross;
 
     /**
      * Net
      *
      * @var float
      */
-    private $net;
+    protected $net;
 
     /**
      * Tax Class
      *
      * @var \Extcode\Cart\Domain\Model\Cart\TaxClass
      */
-    private $taxClass;
+    protected $taxClass;
 
     /**
      * Tax
      *
      * @var float
      */
-    private $tax;
+    protected $tax;
 
     /**
      * Error
      *
      * @var string
      */
-    private $error;
+    protected $error;
 
     /**
      * Is Virtual Product
      *
      * @var bool
      */
-    private $isVirtualProduct = false;
+    protected $isVirtualProduct = false;
 
     /**
      * Service Attribute 1
      *
      * @var float
      */
-    private $serviceAttribute1;
+    protected $serviceAttribute1;
 
     /**
      * Service Attribute 2
      *
      * @var float
      */
-    private $serviceAttribute2;
+    protected $serviceAttribute2;
 
     /**
      * Service Attribute 3
      *
      * @var float
      */
-    private $serviceAttribute3;
+    protected $serviceAttribute3;
 
     /**
      * Is Net Price
      *
      * @var bool
      */
-    private $isNetPrice;
+    protected $isNetPrice;
 
     /**
      * Variants
      *
      * @var array BeVariant
      */
-    private $beVariants;
+    protected $beVariants;
 
     /**
      * Frontend Variant
      *
      * @var \Extcode\Cart\Domain\Model\Cart\FeVariant
      */
-    private $feVariant;
+    protected $feVariant;
 
     /**
      * Additional
      *
      * @var array Additional
      */
-    private $additional = [];
+    protected $additional = [];
 
     /**
      * Min Number In Cart
      *
      * @var int
      */
-    private $minNumberInCart = 0;
+    protected $minNumberInCart = 0;
 
     /**
      * Max Number in Cart
      *
      * @var int
      */
-    private $maxNumberInCart = 0;
+    protected $maxNumberInCart = 0;
 
     /**
      * __construct
@@ -954,7 +954,7 @@ class Product
 
     /**
      */
-    private function calcGross()
+    protected function calcGross()
     {
         if ($this->isNetPrice == false) {
             if ($this->beVariants) {
@@ -976,7 +976,7 @@ class Product
 
     /**
      */
-    private function calcTax()
+    protected function calcTax()
     {
         if ($this->isNetPrice == false) {
             $this->tax = ($this->gross / (1 + $this->taxClass->getCalc())) * ($this->taxClass->getCalc());
@@ -987,7 +987,7 @@ class Product
 
     /**
      */
-    private function calcNet()
+    protected function calcNet()
     {
         if ($this->isNetPrice == true) {
             if ($this->beVariants) {
@@ -1009,7 +1009,7 @@ class Product
 
     /**
      */
-    private function reCalc()
+    protected function reCalc()
     {
         if ($this->beVariants) {
             $quantity = 0;

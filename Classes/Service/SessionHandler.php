@@ -23,7 +23,7 @@ use TYPO3\CMS\Core\SingletonInterface;
  */
 class SessionHandler implements SingletonInterface
 {
-    private $prefixKey = 'cart_';
+    protected $prefixKey = 'cart_';
 
     /**
      * Returns the object stored in the user´s PHP session

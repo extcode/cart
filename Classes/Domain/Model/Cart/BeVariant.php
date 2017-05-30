@@ -29,140 +29,140 @@ class BeVariant
      *
      * @var string
      */
-    private $id = '';
+    protected $id = '';
 
     /**
      * Product
      *
      * @var \Extcode\Cart\Domain\Model\Cart\Product
      */
-    private $product = null;
+    protected $product = null;
 
     /**
      * BeVariant
      *
      * @var \Extcode\Cart\Domain\Model\Cart\BeVariant
      */
-    private $parentBeVariant = null;
+    protected $parentBeVariant = null;
 
     /**
      * Title
      *
      * @var string
      */
-    private $title = '';
+    protected $title = '';
 
     /**
      * Title Delimiter
      *
      * @var string
      */
-    private $titleDelimiter = ' - ';
+    protected $titleDelimiter = ' - ';
 
     /**
      * SKU
      *
      * @var string
      */
-    private $sku = '';
+    protected $sku = '';
 
     /**
      * SKU Delimiter
      *
      * @var string
      */
-    private $skuDelimiter = '-';
+    protected $skuDelimiter = '-';
 
     /**
      * Price Calc Method
      *
      * @var int
      */
-    private $priceCalcMethod = 0;
+    protected $priceCalcMethod = 0;
 
     /**
      * Price
      *
      * @var float
      */
-    private $price = 0.0;
+    protected $price = 0.0;
 
     /**
      * Special Price
      *
      * @var float
      */
-    private $specialPrice = null;
+    protected $specialPrice = null;
 
     /**
      * Quantity
      *
      * @var int
      */
-    private $quantity = 0;
+    protected $quantity = 0;
 
     /**
      * Variants
      *
      * @var \Extcode\Cart\Domain\Model\Cart\BeVariant[]
      */
-    private $beVariants;
+    protected $beVariants;
 
     /**
      * Gross
      *
      * @var float
      */
-    private $gross = 0.0;
+    protected $gross = 0.0;
 
     /**
      * Net
      *
      * @var float
      */
-    private $net = 0.0;
+    protected $net = 0.0;
 
     /**
      * Tax
      *
      * @var float
      */
-    private $tax = 0.0;
+    protected $tax = 0.0;
 
     /**
      * Is Fe Variant
      *
      * @var bool
      */
-    private $isFeVariant = false;
+    protected $isFeVariant = false;
 
     /**
      * Number Of Fe Variant
      *
      * @var int
      */
-    private $hasFeVariants;
+    protected $hasFeVariants;
 
     /**
      * Min
      *
      * @var int
      */
-    private $min = 0;
+    protected $min = 0;
 
     /**
      * Max
      *
      * @var int
      */
-    private $max = 0;
+    protected $max = 0;
 
     /**
      * Additional
      *
      * @var array Additional
      */
-    private $additional = [];
+    protected $additional = [];
 
     /**
      * __construct
@@ -927,7 +927,7 @@ class BeVariant
 
     /**
      */
-    private function calcGross()
+    protected function calcGross()
     {
         if ($this->getIsNetPrice() == false) {
             if ($this->beVariants) {
@@ -949,7 +949,7 @@ class BeVariant
 
     /**
      */
-    private function calcTax()
+    protected function calcTax()
     {
         if ($this->getIsNetPrice() == false) {
             $this->calcGross();
@@ -962,7 +962,7 @@ class BeVariant
 
     /**
      */
-    private function calcNet()
+    protected function calcNet()
     {
         if ($this->getIsNetPrice() == true) {
             if ($this->beVariants) {
@@ -984,7 +984,7 @@ class BeVariant
 
     /**
      */
-    private function reCalc()
+    protected function reCalc()
     {
         if ($this->beVariants) {
             $quantity = 0;

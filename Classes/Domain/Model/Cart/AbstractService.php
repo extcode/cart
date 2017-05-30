@@ -28,140 +28,140 @@ abstract class AbstractService
      *
      * @var \Extcode\Cart\Domain\Model\Cart\Cart
      */
-    private $cart;
+    protected $cart;
 
     /**
      * Id
      *
      * @var int
      */
-    private $id;
+    protected $id;
 
     /**
      * Fall Back ID
      *
      * @var int
      */
-    private $fallBackId;
+    protected $fallBackId;
 
     /**
      * Name
      *
      * @var string
      */
-    private $name;
+    protected $name;
 
     /**
      * Provider
      *
      * @var string
      */
-    private $provider;
+    protected $provider;
 
     /**
      * Tax Class
      *
      * @var \Extcode\Cart\Domain\Model\Cart\TaxClass
      */
-    private $taxClass;
+    protected $taxClass;
 
     /**
      * Status
      *
      * @var string
      */
-    private $status = 0;
+    protected $status = 0;
 
     /**
      * Note
      *
      * @var string
      */
-    private $note;
+    protected $note;
 
     /**
      * ExtraType
      *
      * @var string
      */
-    private $extratype;
+    protected $extratype;
 
     /**
      * Extras
      *
      * @var Extra
      */
-    private $extras;
+    protected $extras;
 
     /**
      * Free From
      *
      * @var float
      */
-    private $freeFrom;
+    protected $freeFrom;
 
     /**
      * Free Until
      *
      * @var float
      */
-    private $freeUntil;
+    protected $freeUntil;
 
     /**
      * Available From
      *
      * @var float
      */
-    private $availableFrom;
+    protected $availableFrom;
 
     /**
      * Available Until
      *
      * @var float
      */
-    private $availableUntil;
+    protected $availableUntil;
 
     /**
      * Is Net Price
      *
      * @var bool
      */
-    private $isNetPrice;
+    protected $isNetPrice;
 
     /**
      * Is Preset
      *
      * @var bool
      */
-    private $isPreset;
+    protected $isPreset;
 
     /**
      * Additional
      *
      * @var array Additional
      */
-    private $additional;
+    protected $additional;
 
     /**
      * Gross
      *
      * @var float
      */
-    private $gross;
+    protected $gross;
 
     /**
      * Net
      *
      * @var float
      */
-    private $net;
+    protected $net;
 
     /**
      * Tax
      *
      * @var float
      */
-    private $tax;
+    protected $tax;
 
     /**
      * __construct
@@ -343,7 +343,7 @@ abstract class AbstractService
 
     /**
      */
-    private function calcNet()
+    protected function calcNet()
     {
         $net = 0.0;
 
@@ -391,7 +391,7 @@ abstract class AbstractService
 
     /**
      */
-    private function calcTax()
+    protected function calcTax()
     {
         $tax = 0.0;
 
@@ -565,7 +565,7 @@ abstract class AbstractService
 
     /**
      */
-    private function getConditionFromCart()
+    protected function getConditionFromCart()
     {
         $condition = null;
 

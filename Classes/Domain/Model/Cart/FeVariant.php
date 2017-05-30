@@ -27,21 +27,21 @@ class FeVariant
      *
      * @var \Extcode\Cart\Domain\Model\Cart\Product
      */
-    private $product = null;
+    protected $product = null;
 
     /**
      * BeVariant
      *
      * @var \Extcode\Cart\Domain\Model\Cart\BeVariant
      */
-    private $beVariant = null;
+    protected $beVariant = null;
 
     /**
      * Variant Data
      *
      * @var array
      */
-    private $variantData = [];
+    protected $variantData = [];
 
     /**
      * Title Glue

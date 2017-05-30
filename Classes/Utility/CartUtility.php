@@ -114,7 +114,7 @@ class CartUtility
 
         $taxClasses = $this->parserUtility->parseTaxClasses($pluginSettings);
 
-        $cart = new \Extcode\Cart\Domain\Model\Cart\Cart($taxClasses, $isNetCart);
+        $cart = $this->objectManager->get(\Extcode\Cart\Domain\Model\Cart\Cart::class, $taxClasses, $isNetCart);
 
         $defaultCountry = $pluginSettings['settings']['defaultCountry'];
         if ($defaultCountry) {
@@ -126,7 +126,7 @@ class CartUtility
         foreach ($shippings as $shipping) {
             /**
              * Shipping
-             * @var \Extcode\Cart\Domain\Model\Shipping $shipping
+             * @var \Extcode\Cart\Domain\Model\Cart\Shipping $shipping
              */
             if ($shipping->getIsPreset()) {
                 if (!$shipping->isAvailable($cart->getGross())) {
@@ -143,7 +143,7 @@ class CartUtility
         foreach ($payments as $payment) {
             /**
              * Payment
-             * @var \Extcode\Cart\Domain\Model\Payment $payment
+             * @var \Extcode\Cart\Domain\Model\Cart\Payment $payment
              */
             if ($payment->getIsPreset()) {
                 if (!$payment->isAvailable($cart->getGross())) {
