@@ -17,7 +17,7 @@ namespace Extcode\Cart\Hooks;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
- * Cart Controller
+ * KeSearch Indexer
  *
  * @author Daniel Lorenz <ext.cart@extco.de>
  */

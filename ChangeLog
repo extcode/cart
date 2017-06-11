@@ -1,3 +1,9 @@
+3.6.1
+    2017-06-11
+    Daniel Lorenz <daniel.lorenz@extco.de>
+
+    * BUGFIX #106: add condition to kesearch_indexerconfig to check if ke_search is installed
+
 3.6.0
     2017-05-30
     Jan Bergmann <jan.bergmann@dkd.de>
