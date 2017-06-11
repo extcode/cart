@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<dataset>
+    <tx_cart_domain_model_product_product>
+        <uid>1</uid>
+        <pid>101</pid>
+        <sku>first</sku>
+        <title>First Product</title>
+        <teaser></teaser>
+        <description></description>
+    </tx_cart_domain_model_product_product>
+    <tx_cart_domain_model_product_product>
+        <uid>2</uid>
+        <pid>101</pid>
+        <sku>second</sku>
+        <title>Second Product</title>
+        <teaser></teaser>
+        <description></description>
+    </tx_cart_domain_model_product_product>
+    <tx_cart_domain_model_product_product>
+        <uid>3</uid>
+        <pid>101</pid>
+        <sku>third</sku>
+        <title>Third Product</title>
+        <teaser></teaser>
+        <description></description>
+    </tx_cart_domain_model_product_product>
+</dataset>

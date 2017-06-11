@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<dataset>
+    <pages>
+        <uid>100</uid>
+        <pid>0</pid>
+        <doktype>254</doktype>
+        <title>Shop</title>
+    </pages>
+    <pages>
+        <uid>101</uid>
+        <pid>100</pid>
+        <doktype>254</doktype>
+        <title>Products</title>
+    </pages>
+    <pages>
+        <uid>102</uid>
+        <pid>100</pid>
+        <doktype>254</doktype>
+        <title>Coupons</title>
+    </pages>
+    <pages>
+        <uid>103</uid>
+        <pid>100</pid>
+        <doktype>254</doktype>
+        <title>Orders</title>
+    </pages>
+</dataset>
