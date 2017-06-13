@@ -121,6 +121,13 @@ class Address extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     protected $fax = '';
 
     /**
+     * Additional
+     *
+     * @var string
+     */
+    protected $additional;
+
+    /**
      * Returns AddressArray
      *
      * @return array
@@ -424,5 +431,21 @@ class Address extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     public function setFax($fax)
     {
         $this->fax = $fax;
+    }
+
+    /**
+     * @return array
+     */
+    public function getAdditional()
+    {
+        return json_decode($this->additional, true);
+    }
+
+    /**
+     * @param array $additional
+     */
+    public function setAdditional($additional)
+    {
+        $this->additional = json_encode($additional);
     }
 }

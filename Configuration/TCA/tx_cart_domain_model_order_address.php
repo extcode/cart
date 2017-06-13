@@ -26,11 +26,11 @@ return [
     ],
     'hideTable' => 1,
     'interface' => [
-        'showRecordFieldList' => 'title, salutation, first_name, last_name, email, company, street, zip, city, country, phone, fax',
+        'showRecordFieldList' => 'title, salutation, first_name, last_name, email, company, street, zip, city, country, phone, fax, additional',
     ],
     'types' => [
         '1' => [
-            'showitem' => 'title, salutation, first_name, last_name, email, company, street, zip, city, country, phone, fax'
+            'showitem' => 'title, salutation, first_name, last_name, email, company, street, zip, city, country, phone, fax, additional'
         ],
     ],
     'palettes' => [
@@ -157,6 +157,27 @@ return [
                 'readOnly' => 1,
                 'size' => 30,
                 'eval' => 'trim'
+            ],
+        ],
+        'additional' => [
+            'exclude' => 0,
+            'label' => $_LLL . ':tx_cart_domain_model_order_address.additional',
+            'config' => [
+                'type' => 'text',
+                'readOnly' => 1,
+                'cols' => 48,
+                'rows' => 15,
+                'appearance' => [
+                    'enabledControls' => [
+                        'info' => false,
+                        'new' => false,
+                        'dragdrop' => false,
+                        'sort' => false,
+                        'hide' => false,
+                        'delete' => false,
+                        'localize' => false,
+                    ],
+                ],
             ],
         ],
 

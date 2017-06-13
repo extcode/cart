@@ -146,6 +146,9 @@
             <trans-unit id="tx_cart_domain_model_order_item.additional_data">
                 <source>Additional Data</source>
             </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_item.additional">
+                <source>Additional Fields</source>
+            </trans-unit>
             <trans-unit id="tx_cart_domain_model_order_item.order_pdfs">
                 <source>Order Confirmations (PDF)</source>
             </trans-unit>
@@ -209,6 +212,9 @@
             </trans-unit>
             <trans-unit id="tx_cart_domain_model_order_address.fax">
                 <source>Fax</source>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_address.additional">
+                <source>Additional Fields</source>
             </trans-unit>
 
             <trans-unit id="tx_cart_domain_model_order_tax">

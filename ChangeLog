@@ -1,3 +1,9 @@
+3.9.0
+    2017-06-13
+    Daniel Lorenz <daniel.lorenz@extco.de>
+
+    * TASK #110: add option to add additional fields to Order\Item and Order\Address
+
 3.8.0
     2017-06-13
     Daniel Lorenz <daniel.lorenz@extco.de>

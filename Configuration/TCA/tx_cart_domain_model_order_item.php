@@ -24,7 +24,7 @@ return [
         'iconfile' => 'EXT:cart/Resources/Public/Icons/Order/Item.png'
     ],
     'interface' => [
-        'showRecordFieldList' => 'pid, cart_pid, fe_user, order_number, invoice_number, delivery_number, billing_address, shipping_address, gross, net, total_gross, total_net, additional_data, tax_class, products, discounts, tax, total_tax, payment, shipping, comment',
+        'showRecordFieldList' => 'pid, cart_pid, fe_user, order_number, invoice_number, delivery_number, billing_address, shipping_address, gross, net, total_gross, total_net, additional, additional_data, tax_class, products, discounts, tax, total_tax, payment, shipping, comment',
     ],
     'types' => [
         '1' => [
@@ -35,6 +35,7 @@ return [
                 --palette--;' . $_LLL . ':tx_cart_domain_model_order_item.palettes.price;price,
                 --palette--;' . $_LLL . ':tx_cart_domain_model_order_item.palettes.total_price;total_price,
                 comment,
+                additional,
                 additional_data,
                 tax_class,
                 products,
@@ -232,6 +233,27 @@ return [
         'comment' => [
             'exclude' => 0,
             'label' => $_LLL . ':tx_cart_domain_model_order_item.comment',
+            'config' => [
+                'type' => 'text',
+                'readOnly' => 1,
+                'cols' => 48,
+                'rows' => 15,
+                'appearance' => [
+                    'enabledControls' => [
+                        'info' => false,
+                        'new' => false,
+                        'dragdrop' => false,
+                        'sort' => false,
+                        'hide' => false,
+                        'delete' => false,
+                        'localize' => false,
+                    ],
+                ],
+            ],
+        ],
+        'additional' => [
+            'exclude' => 0,
+            'label' => $_LLL . ':tx_cart_domain_model_order_item.additional',
             'config' => [
                 'type' => 'text',
                 'readOnly' => 1,

@@ -103,6 +103,13 @@ class Item extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     protected $additionalData;
 
     /**
+     * Additional
+     *
+     * @var string
+     */
+    protected $additional;
+
+    /**
      * Currency
      *
      * @var string
@@ -1043,5 +1050,21 @@ class Item extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     public function setComment($comment)
     {
         $this->comment = $comment;
+    }
+
+    /**
+     * @return array
+     */
+    public function getAdditional()
+    {
+        return json_decode($this->additional, 1);
+    }
+
+    /**
+     * @param array $additional
+     */
+    public function setAdditional($additional)
+    {
+        $this->additional = json_encode($additional);
     }
 }

@@ -685,6 +685,22 @@ class CartController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
                 $this->setDynamicValidation('acceptConditions', $fields['acceptConditions']);
             }
         }
+
+        if ($this->arguments->hasArgument('orderItem')) {
+            $this->arguments->getArgument('orderItem')
+                ->getPropertyMappingConfiguration()
+                ->setTargetTypeForSubProperty('additional', 'array');
+        }
+        if ($this->arguments->hasArgument('billingAddress')) {
+            $this->arguments->getArgument('billingAddress')
+                ->getPropertyMappingConfiguration()
+                ->setTargetTypeForSubProperty('additional', 'array');
+        }
+        if ($this->arguments->hasArgument('shippingAddress')) {
+            $this->arguments->getArgument('shippingAddress')
+                ->getPropertyMappingConfiguration()
+                ->setTargetTypeForSubProperty('additional', 'array');
+        }
     }
 
     /**
