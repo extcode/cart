@@ -83,6 +83,17 @@ class ProductController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
                 $this->searchArguments = $arguments['search'];
             }
         }
+
+        if (!empty($GLOBALS['TSFE']) && is_object($GLOBALS['TSFE'])) {
+            static $cacheTagsSet = false;
+
+            /** @var $typoScriptFrontendController \TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController */
+            $typoScriptFrontendController = $GLOBALS['TSFE'];
+            if (!$cacheTagsSet) {
+                $typoScriptFrontendController->addCacheTags(['tx_cart']);
+                $cacheTagsSet = true;
+            }
+        }
     }
 
     /**

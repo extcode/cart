@@ -19,3 +19,4 @@ Konfiguration
    AjaxConfiguration/Index
    PdfConfiguration/Index
    ServiceAttributeConfiguration/Index
+   Caching/Index
