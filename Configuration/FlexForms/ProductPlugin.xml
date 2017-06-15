@@ -130,7 +130,7 @@
                                 <foreign_table>tx_cart_domain_model_product_product</foreign_table>
                                 <size>3</size>
                                 <minitems>1</minitems>
-                                <maxitems>3</maxitems>
+                                <maxitems>99</maxitems>
                             </config>
                         </TCEforms>
                     </settings.productUids>

@@ -103,8 +103,14 @@ class ProductRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
 
         $query = $this->createQuery();
         $query->matching(
-            $query->in('uid', $uids)
+            $query->in('uid', $uids),
+            $query->logicalAnd(
+                $query->equals('hidden', 0),
+                $query->equals('deleted', 0)
+            )
         );
+
+        $query->setOrderings($this->orderByField('uid', $uids));
 
         return $query->execute();
     }
@@ -174,6 +180,21 @@ class ProductRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
             }
         }
 
+        return $orderings;
+    }
+
+    /**
+     * @param string $field
+     * @param array $values
+     *
+     * @return array
+     */
+    protected function orderByField($field, $values)
+    {
+        $orderings = [];
+        foreach ($values as $value) {
+            $orderings["$field={$value}"] = \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_DESCENDING;
+        }
         return $orderings;
     }
 }
