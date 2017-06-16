@@ -1,3 +1,9 @@
+3.11.1
+    2017-06-16
+    Daniel Lorenz <daniel.lorenz@extco.de>
+
+    * TASK #113: product image relation using wrong fieldname
+
 3.11.0
     2017-06-15
     Daniel Lorenz <daniel.lorenz@extco.de>
