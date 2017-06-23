@@ -554,7 +554,8 @@ class OrderUtility
              * Order Tax
              * @var $orderTax \Extcode\Cart\Domain\Model\Order\Tax
              */
-            $orderTax = $this->objectManager->get(\Extcode\Cart\Domain\Model\Order\Tax::class,
+            $orderTax = $this->objectManager->get(
+                \Extcode\Cart\Domain\Model\Order\Tax::class,
                 $cartTax,
                 $this->taxClasses[$cartTaxKey]
             );
@@ -578,7 +579,8 @@ class OrderUtility
             /**
              * @var \Extcode\Cart\Domain\Model\Order\TaxClass $orderTaxClass
              */
-            $orderTaxClass = $this->objectManager->get(\Extcode\Cart\Domain\Model\Order\TaxClass::class,
+            $orderTaxClass = $this->objectManager->get(
+                \Extcode\Cart\Domain\Model\Order\TaxClass::class,
                 $taxClass->getTitle(),
                 $taxClass->getValue(),
                 $taxClass->getCalc()
@@ -603,7 +605,8 @@ class OrderUtility
          */
         foreach ($this->cart->getCoupons() as $cartCoupon) {
             if ($cartCoupon->getIsUseable()) {
-                $orderDiscount = $this->objectManager->get(\Extcode\Cart\Domain\Model\Order\Discount::class,
+                $orderDiscount = $this->objectManager->get(
+                    \Extcode\Cart\Domain\Model\Order\Discount::class,
                     $cartCoupon->getTitle(),
                     $cartCoupon->getCode(),
                     $cartCoupon->getGross(),
@@ -651,7 +654,8 @@ class OrderUtility
         /**
          * @var \Extcode\Cart\Domain\Model\Order\Product $orderProduct
          */
-        $orderProduct = $this->objectManager->get(\Extcode\Cart\Domain\Model\Order\Product::class,
+        $orderProduct = $this->objectManager->get(
+            \Extcode\Cart\Domain\Model\Order\Product::class,
             $cartProduct->getSku(),
             $cartProduct->getTitle(),
             $cartProduct->getQuantity()
@@ -684,7 +688,7 @@ class OrderUtility
             [$data]
         );
 
-        $orderProduct->setAdditionalData(json_encode($data['additionalArray']));
+        $orderProduct->setAdditional($data['additionalArray']);
 
         $this->productRepository->add($orderProduct);
 
@@ -724,7 +728,8 @@ class OrderUtility
         /**
          * @var \Extcode\Cart\Domain\Model\Order\ProductAdditional $productAdditional
          */
-        $productAdditional = $this->objectManager->get(\Extcode\Cart\Domain\Model\Order\ProductAdditional::class,
+        $productAdditional = $this->objectManager->get(
+            \Extcode\Cart\Domain\Model\Order\ProductAdditional::class,
             $productAdditionalType,
             $feVariant['sku'],
             $feVariant['value'],
@@ -789,7 +794,8 @@ class OrderUtility
     protected function addBeVariant(\Extcode\Cart\Domain\Model\Cart\BeVariant $variant, $level)
     {
         /** @var \Extcode\Cart\Domain\Model\Order\Tax $orderTax */
-        $orderTax = $this->objectManager->get(\Extcode\Cart\Domain\Model\Order\Tax::class,
+        $orderTax = $this->objectManager->get(
+            \Extcode\Cart\Domain\Model\Order\Tax::class,
             $variant->getTax(),
             $this->taxClasses[$variant->getTaxClass()->getId()]
         );
@@ -801,7 +807,8 @@ class OrderUtility
          * Order Product
          * @var \Extcode\Cart\Domain\Model\Order\Product $orderProduct
          */
-        $orderProduct = $this->objectManager->get(\Extcode\Cart\Domain\Model\Order\Product::class,
+        $orderProduct = $this->objectManager->get(
+            \Extcode\Cart\Domain\Model\Order\Product::class,
             $variant->getCompleteSku(),
             $variant->getCompleteTitle(),
             $variant->getQuantity()
@@ -846,11 +853,13 @@ class OrderUtility
             /**
              * @var \Extcode\Cart\Domain\Model\Order\ProductAdditional $productAdditional
              */
-            $orderProductAdditional = $this->objectManager->get(\Extcode\Cart\Domain\Model\Order\ProductAdditional::class,
+            $orderProductAdditional = $this->objectManager->get(
+                \Extcode\Cart\Domain\Model\Order\ProductAdditional::class,
                 'variant_' . $count,
                 $variantInner->getCompleteSku(),
                 $variantInner->getTitle()
             );
+            $orderProductAdditional->setAdditional($variantInner->getAdditionalArray());
             $orderProductAdditional->setPid($this->storagePid);
 
             $this->productAdditionalRepository->add($orderProductAdditional);

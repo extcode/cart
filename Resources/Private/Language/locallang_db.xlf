@@ -147,7 +147,7 @@
                 <source>Additional Data</source>
             </trans-unit>
             <trans-unit id="tx_cart_domain_model_order_item.additional">
-                <source>Additional Fields</source>
+                <source>Additional Data (JSON)</source>
             </trans-unit>
             <trans-unit id="tx_cart_domain_model_order_item.order_pdfs">
                 <source>Order Confirmations (PDF)</source>
@@ -278,6 +278,9 @@
             <trans-unit id="tx_cart_domain_model_order_product.additional_data">
                 <source>Additional Data</source>
             </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_product.additional">
+                <source>Additional Data (JSON)</source>
+            </trans-unit>
             <trans-unit id="tx_cart_domain_model_order_product.product_additional">
                 <source>Product Additional</source>
             </trans-unit>
@@ -326,7 +329,10 @@
                 <source>Value</source>
             </trans-unit>
             <trans-unit id="tx_cart_domain_model_order_productadditional.additional_data">
-                <source>Data</source>
+                <source>Additional Data</source>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_productadditional.additional">
+                <source>Additional Data (JSON)</source>
             </trans-unit>
 
             <trans-unit id="tx_cart_domain_model_order_shipping">

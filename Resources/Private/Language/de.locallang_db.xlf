@@ -180,8 +180,8 @@
                 <target>Zusätzliche Daten</target>
             </trans-unit>
             <trans-unit id="tx_cart_domain_model_order_item.additional">
-                <source>Additional Fields</source>
-                <target>Zusätzliche Felder</target>
+                <source>Additional Data (JSON)</source>
+                <target>Zusätzliche Daten (JSON)</target>
             </trans-unit>
             <trans-unit id="tx_cart_domain_model_order_item.order_pdfs">
                 <source>Order Confirmations (PDF)</source>
@@ -353,6 +353,10 @@
                 <source>Additional Data</source>
                 <target>Zusätzliche Daten</target>
             </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_product.additional">
+                <source>Additional Data (JSON)</source>
+                <target>Zusätzliche Daten (JSON)</target>
+            </trans-unit>
             <trans-unit id="tx_cart_domain_model_order_product.product_additional">
                 <source>Product Additional</source>
                 <target>Product Additional</target>
@@ -404,15 +408,23 @@
             </trans-unit>
             <trans-unit id="tx_cart_domain_model_order_productadditional.additional_type">
                 <source>Type</source>
+                <target>Typ</target>
             </trans-unit>
             <trans-unit id="tx_cart_domain_model_order_productadditional.additional_key">
                 <source>Key</source>
+                <target>Schlüssel</target>
             </trans-unit>
             <trans-unit id="tx_cart_domain_model_order_productadditional.additional_value">
                 <source>Value</source>
+                <target>Wert</target>
             </trans-unit>
             <trans-unit id="tx_cart_domain_model_order_productadditional.additional_data">
-                <source>Data</source>
+                <source>Additional Data</source>
+                <target>Zusätzliche Daten</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_productadditional.additional">
+                <source>Additional Data (JSON)</source>
+                <target>Zusätzliche Daten (JSON)</target>
             </trans-unit>
 
             <trans-unit id="tx_cart_domain_model_order_shipping">

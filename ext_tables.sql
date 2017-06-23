@@ -405,6 +405,7 @@ CREATE TABLE tx_cart_domain_model_order_item (
     payment int(11) unsigned DEFAULT '0',
 
     comment text NOT NULL,
+
     additional text NOT NULL,
     additional_data text NOT NULL,
 
@@ -565,6 +566,7 @@ CREATE TABLE tx_cart_domain_model_order_product (
     tax double(11,2) DEFAULT '0.00' NOT NULL,
     tax_class int(11) unsigned DEFAULT '0' NOT NULL,
 
+    additional text NOT NULL,
     additional_data text NOT NULL,
 
     product_additional int(11) unsigned DEFAULT '0' NOT NULL,
@@ -641,7 +643,9 @@ CREATE TABLE tx_cart_domain_model_order_productadditional (
     additional_type varchar(255) DEFAULT '' NOT NULL,
     additional_key varchar(255) DEFAULT '' NOT NULL,
     additional_value varchar(255) DEFAULT '' NOT NULL,
-    additional_data varchar(255) DEFAULT '' NOT NULL,
+
+    additional text NOT NULL,
+    additional_data text NOT NULL,
 
     tstamp int(11) unsigned DEFAULT '0' NOT NULL,
     crdate int(11) unsigned DEFAULT '0' NOT NULL,

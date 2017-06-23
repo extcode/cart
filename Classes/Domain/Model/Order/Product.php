@@ -123,6 +123,13 @@ class Product extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     protected $productAdditional;
 
     /**
+     * Additional
+     *
+     * @var string
+     */
+    protected $additional;
+
+    /**
      * __construct
      *
      * @param string $sku
@@ -408,5 +415,29 @@ class Product extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     public function setProductAdditional(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $productAdditional)
     {
         $this->productAdditional = $productAdditional;
+    }
+
+    /**
+     * @return array
+     */
+    public function getAdditional()
+    {
+        return json_decode($this->additional, 1);
+    }
+
+    /**
+     * @return string
+     */
+    public function getAdditionalJson()
+    {
+        return $this->additional;
+    }
+
+    /**
+     * @param array $additional
+     */
+    public function setAdditional($additional)
+    {
+        $this->additional = json_encode($additional);
     }
 }

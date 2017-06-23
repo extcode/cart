@@ -1,3 +1,9 @@
+3.12.0
+    2017-06-23
+    Daniel Lorenz <daniel.lorenz@extco.de>
+
+    * TASK #115: add additional (JSON) field in Order\Product and Order\ProductAdditional
+
 3.11.2
     2017-06-23
     Daniel Lorenz <daniel.lorenz@extco.de>

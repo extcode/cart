@@ -26,11 +26,11 @@ return [
     ],
     'hideTable' => 1,
     'interface' => [
-        'showRecordFieldList' => 'additional_type, additional_key, additional_value, additional_data',
+        'showRecordFieldList' => 'additional_type, additional_key, additional_value, additional, additional_data',
     ],
     'types' => [
         '1' => [
-            'showitem' => 'additional_type, additional_key, additional_value, additional_data'
+            'showitem' => 'additional_type, additional_key, additional_value, additional, additional_data'
         ],
     ],
     'palettes' => [
@@ -69,14 +69,46 @@ return [
                 'eval' => 'trim,required'
             ],
         ],
+        'additional' => [
+            'exclude' => 0,
+            'label' => $_LLL . ':tx_cart_domain_model_order_productadditional.additional',
+            'config' => [
+                'type' => 'text',
+                'readOnly' => 1,
+                'cols' => 48,
+                'rows' => 15,
+                'appearance' => [
+                    'enabledControls' => [
+                        'info' => false,
+                        'new' => false,
+                        'dragdrop' => false,
+                        'sort' => false,
+                        'hide' => false,
+                        'delete' => false,
+                        'localize' => false,
+                    ],
+                ],
+            ],
+        ],
         'additional_data' => [
             'exclude' => 0,
             'label' => $_LLL . ':tx_cart_domain_model_order_productadditional.additional_data',
             'config' => [
-                'type' => 'input',
+                'type' => 'text',
                 'readOnly' => 1,
-                'size' => 30,
-                'eval' => 'trim'
+                'cols' => 48,
+                'rows' => 15,
+                'appearance' => [
+                    'enabledControls' => [
+                        'info' => false,
+                        'new' => false,
+                        'dragdrop' => false,
+                        'sort' => false,
+                        'hide' => false,
+                        'delete' => false,
+                        'localize' => false,
+                    ],
+                ],
             ],
         ],
 

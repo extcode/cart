@@ -26,11 +26,11 @@ return [
     ],
     'hideTable' => 1,
     'interface' => [
-        'showRecordFieldList' => 'product_type, sku, title, count, additional_data, product_additional, price, discount, gross, net, tax, tax_class',
+        'showRecordFieldList' => 'product_type, sku, title, count, additional, additional_data, product_additional, price, discount, gross, net, tax, tax_class',
     ],
     'types' => [
         '1' => [
-            'showitem' => 'product_type, sku, title, count, --palette--;' . $_LLL . ':tx_cart_domain_model_order_product.price.group;price, product_additional, additional_data'
+            'showitem' => 'product_type, sku, title, count, --palette--;' . $_LLL . ':tx_cart_domain_model_order_product.price.group;price, product_additional, additional, additional_data'
         ],
     ],
     'palettes' => [
@@ -165,6 +165,27 @@ return [
                 ],
             ],
         ],
+        'additional' => [
+            'exclude' => 0,
+            'label' => $_LLL . ':tx_cart_domain_model_order_product.additional',
+            'config' => [
+                'type' => 'text',
+                'readOnly' => 1,
+                'cols' => 48,
+                'rows' => 15,
+                'appearance' => [
+                    'enabledControls' => [
+                        'info' => false,
+                        'new' => false,
+                        'dragdrop' => false,
+                        'sort' => false,
+                        'hide' => false,
+                        'delete' => false,
+                        'localize' => false,
+                    ],
+                ],
+            ],
+        ],
         'additional_data' => [
             'exclude' => 0,
             'label' => $_LLL . ':tx_cart_domain_model_order_product.additional_data',
@@ -172,7 +193,18 @@ return [
                 'type' => 'text',
                 'readOnly' => 1,
                 'cols' => 48,
-                'rows' => 5
+                'rows' => 15,
+                'appearance' => [
+                    'enabledControls' => [
+                        'info' => false,
+                        'new' => false,
+                        'dragdrop' => false,
+                        'sort' => false,
+                        'hide' => false,
+                        'delete' => false,
+                        'localize' => false,
+                    ],
+                ],
             ],
         ],
 
