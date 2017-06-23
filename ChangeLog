@@ -1,8 +1,15 @@
+3.11.2
+    2017-06-23
+    Daniel Lorenz <daniel.lorenz@extco.de>
+
+    * BUGFIX #114: getCompleteSku doesn't return complete SKU
+    *              adds getCompleteSkuWithoutProduct and getCompleteTitleWithoutProduct getter
+
 3.11.1
     2017-06-16
     Daniel Lorenz <daniel.lorenz@extco.de>
 
-    * TASK #113: product image relation using wrong fieldname
+    * BUGFIX #113: product image relation using wrong fieldname
 
 3.11.0
     2017-06-15

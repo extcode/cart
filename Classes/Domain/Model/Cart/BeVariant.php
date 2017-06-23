@@ -373,6 +373,30 @@ class BeVariant
     }
 
     /**
+     * Gets CompleteTitleWithoutProduct
+     *
+     * @return string
+     */
+    public function getCompleteTitleWithoutProduct()
+    {
+        $title = '';
+        $titleDelimiter = '';
+
+        if ($this->getParentBeVariant()) {
+            $title = $this->getParentBeVariant()->getCompleteTitleWithoutProduct();
+            $titleDelimiter = $this->titleDelimiter;
+        }
+
+        if ($this->isFeVariant) {
+            $title .= $titleDelimiter . $this->id;
+        } else {
+            $title .= $titleDelimiter . $this->title;
+        }
+
+        return $title;
+    }
+
+    /**
      * Gets Price
      *
      * @return float
@@ -659,7 +683,7 @@ class BeVariant
         $sku = '';
 
         if ($this->getParentBeVariant()) {
-            $sku = $this->getParentBeVariant()->getSku();
+            $sku = $this->getParentBeVariant()->getCompleteSku();
         } elseif ($this->getProduct()) {
             $sku = $this->getProduct()->getSku();
         }
@@ -668,6 +692,31 @@ class BeVariant
             $sku .= $this->skuDelimiter . $this->id;
         } else {
             $sku .= $this->skuDelimiter . $this->sku;
+        }
+
+        return $sku;
+    }
+
+    /**
+     * Gets CompleteSkuWithoutProduct
+     *
+     * @return string
+     */
+    public function getCompleteSkuWithoutProduct()
+    {
+        $sku = '';
+
+        $skuDelimiter = '';
+
+        if ($this->getParentBeVariant()) {
+            $sku = $this->getParentBeVariant()->getCompleteSkuWithoutProduct();
+            $skuDelimiter = $this->titleDelimiter;
+        }
+
+        if ($this->isFeVariant) {
+            $sku .= $skuDelimiter . $this->id;
+        } else {
+            $sku .= $skuDelimiter . $this->sku;
         }
 
         return $sku;
