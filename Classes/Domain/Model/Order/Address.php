@@ -40,7 +40,6 @@ class Address extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * Salutation
      *
      * @var string
-     * @validate NotEmpty
      */
     protected $salutation;
 
@@ -48,7 +47,6 @@ class Address extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * FirstName
      *
      * @var string
-     * @validate NotEmpty
      */
     protected $firstName;
 
@@ -56,7 +54,6 @@ class Address extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * LastName
      *
      * @var string
-     * @validate NotEmpty
      */
     protected $lastName;
 
@@ -64,7 +61,6 @@ class Address extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * Email
      *
      * @var string
-     * @validate NotEmpty
      */
     protected $email;
 
@@ -79,7 +75,6 @@ class Address extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * Street
      *
      * @var string
-     * @validate NotEmpty
      */
     protected $street;
 
@@ -87,7 +82,6 @@ class Address extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * Zip
      *
      * @var string
-     * @validate NotEmpty
      */
     protected $zip;
 
@@ -95,7 +89,6 @@ class Address extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * City
      *
      * @var string
-     * @validate NotEmpty
      */
     protected $city;
 
