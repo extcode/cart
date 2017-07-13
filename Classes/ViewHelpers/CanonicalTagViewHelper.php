@@ -14,9 +14,15 @@ namespace Extcode\Cart\ViewHelpers;
  *
  * The TYPO3 project - inspiring people to share!
  */
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+
+/**
+ * adds the canonical tag to header data
+ *
+ * @author Daniel Lorenz <ext.cart@extco.de>
+ */
 class CanonicalTagViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractTagBasedViewHelper
 {
-
     /**
      * @var string
      */
@@ -60,6 +66,26 @@ class CanonicalTagViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractTa
 
         $this->tag->addAttribute('rel', 'canonical');
         $this->tag->addAttribute('href', $canonicalUrl);
-        $GLOBALS['TSFE']->getPageRenderer()->addHeaderData($this->tag->render());
+        $this->getPageRenderer()->addHeaderData($this->tag->render());
+    }
+
+    /**
+     * @return \TYPO3\CMS\Core\Page\PageRenderer
+     */
+    protected function getPageRenderer()
+    {
+        if ('FE' === TYPO3_MODE && is_callable([$this->getTypoScriptFrontendController(), 'getPageRenderer'])) {
+            return $this->getTypoScriptFrontendController()->getPageRenderer();
+        } else {
+            return GeneralUtility::makeInstance('TYPO3\CMS\Core\Page\PageRenderer');
+        }
+    }
+
+    /**
+     * @return \TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController
+     */
+    protected function getTypoScriptFrontendController()
+    {
+        return $GLOBALS['TSFE'];
     }
 }
