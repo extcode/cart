@@ -13,7 +13,7 @@
         </td>
         <td class="col-md-2 text-right">
             <span class="price">
-                <cart:format.currency>{product.bestPrice}</cart:format.currency>
+                <cart:format.currency currencySign="{cart.currencySign}">{product.bestPrice}</cart:format.currency>
             </span>
         </td>
         <td class="col-md-1 text-right">
@@ -22,7 +22,7 @@
         <td class="col-md-2 text-right">
             <f:if condition="{product.quantityIsInRange}">
                 <f:then>
-                    <cart:format.currency>{product.gross}</cart:format.currency>
+                    <cart:format.currency currencySign="{cart.currencySign}">{product.gross}</cart:format.currency>
                 </f:then>
                 <f:else>
                     <f:if condition="{product.quantityBelowRange}">
@@ -60,7 +60,7 @@
                     </p>
                 </td>
                 <td class="col-md-2 text-right">
-                    <cart:format.currency>{variant.bestPriceCalculated}</cart:format.currency>
+                    <cart:format.currency currencySign="{cart.currencySign}">{variant.bestPriceCalculated}</cart:format.currency>
                 </td>
                 <td class="col-md-1">
                     <div class="qty-wrapper">
@@ -74,7 +74,7 @@
                 <td class="col-md-2 text-right">
                     <f:if condition="{product.quantityIsInRange}">
                         <f:then>
-                            <cart:format.currency>{variant.gross}</cart:format.currency>
+                            <cart:format.currency currencySign="{cart.currencySign}">{variant.gross}</cart:format.currency>
                         </f:then>
                         <f:else>
                             <f:if condition="{product.quantityBelowRange}">
@@ -119,7 +119,7 @@
     </tr>
 
     <f:for each="{product.beVariants}" as="variant">
-        <f:render section="variant" arguments="{variant:variant, product:product}"/>
+        <f:render section="variant" arguments="{cart:cart, variant:variant, product:product}"/>
     </f:for>
 
     <tr class="{f:if(condition: product.quantityIsInRange, then: '', else: 'danger')}">
@@ -137,7 +137,7 @@
         <td class="text-right">
             <f:if condition="{product.quantityIsInRange}">
                 <f:then>
-                    <cart:format.currency>{product.gross}</cart:format.currency>
+                    <cart:format.currency currencySign="{cart.currencySign}">{product.gross}</cart:format.currency>
                 </f:then>
             </f:if>
         </td>
@@ -150,10 +150,10 @@
 <f:for each="{products}" as="product">
     <f:if condition="{product.beVariants}">
         <f:then>
-            <f:render section="withVariant" arguments="{product:product}"/>
+            <f:render section="withVariant" arguments="{cart:cart, product:product}"/>
         </f:then>
         <f:else>
-            <f:render section="withoutVariant" arguments="{product:product}"/>
+            <f:render section="withoutVariant" arguments="{cart:cart, product:product}"/>
         </f:else>
     </f:if>
 </f:for>

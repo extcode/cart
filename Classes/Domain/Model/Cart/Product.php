@@ -571,6 +571,18 @@ class Product
     }
 
     /**
+     * @return float
+     */
+    public function getTranslatedPrice()
+    {
+        if ($this->cart) {
+            return $this->cart->translatePrice($this->getPrice());
+        }
+
+        return $this->getPrice();
+    }
+
+    /**
      * Returns Special Price
      *
      * @return float
@@ -578,6 +590,18 @@ class Product
     public function getSpecialPrice()
     {
         return $this->specialPrice;
+    }
+
+    /**
+     * @return float
+     */
+    public function getTranslatedSpecialPrice()
+    {
+        if ($this->cart) {
+            return $this->cart->translatePrice($this->getSpecialPrice());
+        }
+
+        return $this->getSpecialPrice();
     }
 
     /**
@@ -607,7 +631,7 @@ class Product
      */
     public function getQuantityDiscountPrice()
     {
-        $price = $this->getPrice();
+        $price = $this->getTranslatedPrice();
 
         if ($this->getQuantityDiscounts()) {
             foreach ($this->getQuantityDiscounts() as $quantityDiscount) {
@@ -639,8 +663,8 @@ class Product
     {
         $bestPrice = $this->getQuantityDiscountPrice();
 
-        if ($this->specialPrice && ($this->specialPrice < $bestPrice)) {
-            $bestPrice = $this->specialPrice;
+        if ($this->getTranslatedSpecialPrice() && ($this->getTranslatedSpecialPrice() < $bestPrice)) {
+            $bestPrice = $this->getTranslatedSpecialPrice();
         }
 
         return $bestPrice;
@@ -653,7 +677,7 @@ class Product
      */
     public function getDiscount()
     {
-        $discount = $this->getPrice() - $this->getBestPrice();
+        $discount = $this->getTranslatedPrice() - $this->getBestPrice();
 
         return $discount;
     }
@@ -666,8 +690,8 @@ class Product
     public function getSpecialPriceDiscount()
     {
         $discount = 0.0;
-        if (($this->getPrice() != 0.0) && ($this->specialPrice)) {
-            $discount = (($this->getPrice() - $this->specialPrice) / $this->getPrice()) * 100;
+        if (($this->getTranslatedPrice() != 0.0) && ($this->getTranslatedSpecialPrice())) {
+            $discount = (($this->getTranslatedPrice() - $this->getTranslatedSpecialPrice()) / $this->getTranslatedPrice()) * 100;
         }
         return $discount;
     }
@@ -681,11 +705,23 @@ class Product
     }
 
     /**
+     * Returns TaxClass
+     *
      * @return \Extcode\Cart\Domain\Model\Cart\TaxClass
      */
     public function getTaxClass()
     {
         return $this->taxClass;
+    }
+
+    /**
+     * Sets TaxClass
+     *
+     * @param \Extcode\Cart\Domain\Model\Cart\TaxClass $taxClass
+     */
+    public function setTaxClass(\Extcode\Cart\Domain\Model\Cart\TaxClass $taxClass)
+    {
+        $this->taxClass = $taxClass;
     }
 
     /**

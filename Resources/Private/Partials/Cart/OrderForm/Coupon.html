@@ -1,6 +1,6 @@
 {namespace cart=Extcode\Cart\ViewHelpers}
 
-<div id="accept-term" class="bg-light-grey top-buffer">
+<div id="coupons" class="bg-light-grey top-buffer">
     <h5 class="form-title">
         <span class="num">4</span>
         <span><f:translate key="tx_cart.controller.order.action.show_cart.block-header.coupons"/></span>
@@ -14,7 +14,7 @@
                             <li>
                                 <span>{coupon.title}</span><span> - </span>
                                 <span>
-                                    <cart:format.currency>{coupon.discount}</cart:format.currency>
+                                    <cart:format.currency currencySign="{cart.currencySign}">{coupon.translatedDiscount}</cart:format.currency>
                                 </span>
                                 <f:if condition="{coupon.isUseable}">
                                     <f:else>

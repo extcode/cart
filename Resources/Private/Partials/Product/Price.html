@@ -6,14 +6,14 @@
             <f:translate key="tx_cart_domain_model_product_product.regular_price"/>:
             <del>
                 <span class="price">
-                    <cart:format.currency>{product.price}</cart:format.currency>
+                    <cart:format.currency currencyTranslation="{currencyTranslationData.currencyTranslation}" currencySign="{currencyTranslationData.currencySign}">{product.price}</cart:format.currency>
                 </span>
             </del>
         </div>
         <div class="special_price">
             <f:translate key="tx_cart_domain_model_product_product.special_price"/>:
             <span class="price">
-                <cart:format.currency><cart:product.bestSpecialPrice product="{product}"/></cart:format.currency>
+                <cart:format.currency currencyTranslation="{currencyTranslationData.currencyTranslation}" currencySign="{currencyTranslationData.currencySign}"><cart:product.bestSpecialPrice product="{product}"/></cart:format.currency>
             </span>
         </div>
         <div class="special_price_percentage_discount">
@@ -25,10 +25,10 @@
             <span class="price">
                 <f:if condition="{product.beVariants}">
                     <f:then>
-                        <cart:format.currency>{product.beVariants.0.priceCalculated}</cart:format.currency>
+                        <cart:format.currency currencyTranslation="{currencyTranslationData.currencyTranslation}" currencySign="{currencyTranslationData.currencySign}">{product.beVariants.0.priceCalculated}</cart:format.currency>
                     </f:then>
                     <f:else>
-                        <cart:format.currency>{product.minPrice}</cart:format.currency>
+                        <cart:format.currency currencyTranslation="{currencyTranslationData.currencyTranslation}" currencySign="{currencyTranslationData.currencySign}">{product.minPrice}</cart:format.currency>
                     </f:else>
                 </f:if>
             </span>

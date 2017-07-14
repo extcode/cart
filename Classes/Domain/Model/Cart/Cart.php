@@ -185,15 +185,44 @@ class Cart
     protected $shippingCountry;
 
     /**
+     * Currency Code
+     *
+     * @var string
+     */
+    protected $currencyCode;
+
+    /**
+     * Currency Sign
+     *
+     * @var string
+     */
+    protected $currencySign;
+
+    /**
+     * Currency Translation
+     *
+     * @var string
+     */
+    protected $currencyTranslation;
+
+    /**
      * __construct
      *
      * @param \Extcode\Cart\Domain\Model\Cart\TaxClass[] $taxClasses
      * @param bool $isNetCart
+     * @param string $currencyCode
+     * @param string $currencySign
+     * @param float $currencyTranslation
      *
      * @return Cart
      */
-    public function __construct(array $taxClasses, $isNetCart = false)
-    {
+    public function __construct(
+        array $taxClasses,
+        $isNetCart = false,
+        $currencyCode = 'EUR',
+        $currencySign = '€',
+        $currencyTranslation = 1.00
+    ) {
         $this->taxClasses = $taxClasses;
         $this->net = 0.0;
         $this->gross = 0.0;
@@ -208,6 +237,10 @@ class Cart
         $this->sumServiceAttr3 = 0.0;
 
         $this->isNetCart = $isNetCart;
+
+        $this->currencyCode = $currencyCode;
+        $this->currencySign = $currencySign;
+        $this->currencyTranslation = $currencyTranslation;
     }
 
     /**
@@ -219,6 +252,9 @@ class Cart
     {
         return [
             'taxClasses',
+            'currencyCode',
+            'currencySign',
+            'currencyTranslation',
             'net',
             'gross',
             'taxes',
@@ -260,6 +296,23 @@ class Cart
     public function getTaxClasses()
     {
         return $this->taxClasses;
+    }
+
+    /**
+     * Sets the Tax Classes Array
+     *
+     * @param array $taxClasses
+     */
+    public function setTaxClasses($taxClasses)
+    {
+        $this->taxClasses = $taxClasses;
+
+        if ($this->products) {
+            foreach ($this->products as $product) {
+                $taxClassId = $product->getTaxClass()->getId();
+                $product->setTaxClass($taxClasses[$taxClassId]);
+            }
+        }
     }
 
     /**
@@ -1452,5 +1505,66 @@ class Cart
         }
 
         return $this->billingCountry;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCurrencyCode()
+    {
+        return $this->currencyCode;
+    }
+
+    /**
+     * @param string $currencyCode
+     */
+    public function setCurrencyCode($currencyCode)
+    {
+        $this->currencyCode = $currencyCode;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCurrencyTranslation()
+    {
+        return $this->currencyTranslation;
+    }
+
+    /**
+     * @param string $currencyTranslation
+     */
+    public function setCurrencyTranslation($currencyTranslation)
+    {
+        $this->currencyTranslation = $currencyTranslation;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCurrencySign()
+    {
+        return $this->currencySign;
+    }
+
+    /**
+     * @param string $currencySign
+     */
+    public function setCurrencySign($currencySign)
+    {
+        $this->currencySign = $currencySign;
+    }
+
+    /**
+     * @param float $price
+     *
+     * @return float
+     */
+    public function translatePrice($price)
+    {
+        $price = $price / $this->getCurrencyTranslation();
+        $price = round($price * 100.0) / 100.0;
+
+        return $price;
     }
 }

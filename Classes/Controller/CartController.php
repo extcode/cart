@@ -280,9 +280,16 @@ class CartController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      */
     public function updateCountryAction()
     {
+        //ToDo check country is allowed by TypoScript
+
         $this->cartUtility->updateCountry($this->settings['cart'], $this->pluginSettings, $this->request);
 
         $this->cart = $this->cartUtility->getCartFromSession($this->settings['cart'], $this->pluginSettings);
+
+        $taxClasses = $this->parserUtility->parseTaxClasses($this->pluginSettings, $this->cart->getBillingCountry());
+
+        $this->cart->setTaxClasses($taxClasses);
+        $this->cart->reCalc();
 
         $this->parseData();
 
@@ -321,6 +328,42 @@ class CartController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
             'specials' => $this->specials
         ];
         $this->view->assignMultiple($assignArguments);
+    }
+
+    /**
+     *
+     */
+    public function editCurrencyAction()
+    {
+        $this->cart = $this->cartUtility->getCartFromSession($this->settings['cart'], $this->pluginSettings);
+        $this->view->assign('cart', $this->cart);
+    }
+
+    /**
+     *
+     */
+    public function updateCurrencyAction()
+    {
+        $this->cartUtility->updateCurrency($this->settings['cart'], $this->pluginSettings, $this->request);
+
+        $this->cart = $this->cartUtility->getCartFromSession($this->settings['cart'], $this->pluginSettings);
+
+        $this->sessionHandler->writeToSession($this->cart, $this->settings['cart']['pid']);
+
+        $this->updateService();
+
+        if (isset($_GET['type']) && intval($_GET['type']) == 2278003) {
+            $this->view->assign('cart', $this->cart);
+        } elseif (isset($_GET['type']) && intval($_GET['type']) == 2278001) {
+            $this->view->assign('cart', $this->cart);
+
+            $assignArguments = [
+                'shippings' => $this->shippings,
+                'payments' => $this->payments,
+                'specials' => $this->specials
+            ];
+            $this->view->assignMultiple($assignArguments);
+        }
     }
 
     /**

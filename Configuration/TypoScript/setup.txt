@@ -28,6 +28,21 @@ ajaxProduct {
     10 < tt_content.list.20.cart_product
 }
 
+ajaxCurrency = PAGE
+ajaxCurrency {
+    typeNum = 2278003
+
+    config {
+        disableAllHeaderCode = 1
+        xhtml_cleaning = 0
+        admPanel = 0
+        debug = 0
+        no_cache = 1
+    }
+
+    10 < tt_content.list.20.cart_currency
+}
+
 config.tx_extbase {
     persistence {
         classes {
@@ -91,6 +106,22 @@ plugin.tx_cart {
             pid = {$plugin.tx_cart.settings.order.pid}
         }
 
+        allowedCountries {
+            de = Deutschland
+            at = Österreich
+            ch = Schweiz
+        }
+        defaultCountry = de
+
+        currencies {
+            default = 1
+            1 {
+                code = EUR
+                sign = €
+                translation = 1.00
+            }
+        }
+
         format.currency {
             currencySign       = {$plugin.tx_cart.settings.format.currency.currencySign}
             decimalSeparator   = {$plugin.tx_cart.settings.format.currency.decimalSeparator}
@@ -99,13 +130,6 @@ plugin.tx_cart {
             separateCurrency   = {$plugin.tx_cart.settings.format.currency.separateCurrency}
             decimals           = {$plugin.tx_cart.settings.format.currency.decimals}
         }
-
-        allowedCountries {
-            de = Deutschland
-            at = Österreich
-            ch = Schweiz
-        }
-        defaultCountry = de
 
         showAction {
             media {

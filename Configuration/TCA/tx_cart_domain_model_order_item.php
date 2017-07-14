@@ -58,7 +58,7 @@ return [
             'canNotCollapse' => 1
         ],
         'price' => [
-            'showitem' => 'currency, gross, net, --linebreak--, order_tax',
+            'showitem' => 'currency, --linebreak--, currency_code, currency_sign, currency_translation, --linebreak--, gross, net, --linebreak--, order_tax',
             'canNotCollapse' => 1
         ],
         'total_price' => [
@@ -328,6 +328,36 @@ return [
                 'readOnly' => 1,
                 'size' => 30,
                 'eval' => 'required'
+            ],
+        ],
+        'currency_code' => [
+            'exclude' => 0,
+            'label' => $_LLL . ':tx_cart_domain_model_order_item.currency_code',
+            'config' => [
+                'type' => 'input',
+                'readOnly' => 1,
+                'size' => 30,
+                'eval' => 'required'
+            ],
+        ],
+        'currency_sign' => [
+            'exclude' => 0,
+            'label' => $_LLL . ':tx_cart_domain_model_order_item.currency_sign',
+            'config' => [
+                'type' => 'input',
+                'readOnly' => 1,
+                'size' => 30,
+                'eval' => 'required'
+            ],
+        ],
+        'currency_translation' => [
+            'exclude' => 0,
+            'label' => $_LLL . ':tx_cart_domain_model_order_item.currency_translation',
+            'config' => [
+                'type' => 'input',
+                'readOnly' => 1,
+                'size' => 30,
+                'eval' => 'double2,required'
             ],
         ],
         'gross' => [

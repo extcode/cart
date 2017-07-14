@@ -7,7 +7,7 @@
         </td>
         <td class="text-right last">
             <span class="price">
-                <cart:format.currency>{cart.net}</cart:format.currency>
+                <cart:format.currency currencySign="{cart.currencySign}">{cart.net}</cart:format.currency>
             </span>
         </td>
     </tr>
@@ -19,13 +19,13 @@
         </td>
         <td class="text-right last">
             <span class="price">
-                <cart:format.currency>{cart.gross}</cart:format.currency>
+                <cart:format.currency currencySign="{cart.currencySign}">{cart.gross}</cart:format.currency>
             </span>
         </td>
     </tr>
 </f:if>
 <f:if condition="{settings.showCartAction.summary.fields.cart.taxes}">
-    <f:render partial="Cart/OrderForm/TaxList" arguments="{taxClasses: cart.taxClasses, taxes: cart.taxes}"/>
+    <f:render partial="Cart/OrderForm/TaxList" arguments="{taxClasses: cart.taxClasses, taxes: cart.taxes, currencySign: cart.currencySign}"/>
 </f:if>
 
 <f:if condition="{cart.discountGross}">
@@ -36,7 +36,7 @@
             </td>
             <td class="text-right last">
                 <span class="price">
-                    <cart:format.currency>{cart.discountNet}</cart:format.currency>
+                    <cart:format.currency currencySign="{cart.currencySign}">{cart.discountNet}</cart:format.currency>
                 </span>
             </td>
         </tr>
@@ -48,13 +48,13 @@
             </td>
             <td class="text-right last">
                 <span class="price">
-                    <cart:format.currency>{cart.discountGross}</cart:format.currency>
+                    <cart:format.currency currencySign="{cart.currencySign}">{cart.discountGross}</cart:format.currency>
                 </span>
             </td>
         </tr>
     </f:if>
     <f:if condition="{settings.showCartAction.summary.fields.discount.taxes}">
-        <f:render partial="Cart/OrderForm/TaxList" arguments="{taxClasses: cart.taxClasses, taxes: cart.discountTaxes}"/>
+        <f:render partial="Cart/OrderForm/TaxList" arguments="{taxClasses: cart.taxClasses, taxes: cart.discountTaxes, currencySign: cart.currencySign}"/>
     </f:if>
 </f:if>
 
@@ -65,7 +65,7 @@
         </td>
         <td class="text-right last">
             <span class="price">
-                <cart:format.currency>{cart.serviceNet}</cart:format.currency>
+                <cart:format.currency currencySign="{cart.currencySign}">{cart.serviceNet}</cart:format.currency>
             </span>
         </td>
     </tr>
@@ -77,13 +77,13 @@
         </td>
         <td class="text-right last">
             <span class="price">
-                <cart:format.currency>{cart.serviceGross}</cart:format.currency>
+                <cart:format.currency currencySign="{cart.currencySign}">{cart.serviceGross}</cart:format.currency>
             </span>
         </td>
     </tr>
 </f:if>
 <f:if condition="{settings.showCartAction.summary.fields.service.taxes}">
-    <f:render partial="Cart/OrderForm/TaxList" arguments="{taxClasses: cart.taxClasses, taxes: cart.serviceTaxes}"/>
+    <f:render partial="Cart/OrderForm/TaxList" arguments="{taxClasses: cart.taxClasses, taxes: cart.serviceTaxes, currencySign: cart.currencySign}"/>
 </f:if>
 
 <f:if condition="{settings.showCartAction.summary.fields.total.net}">
@@ -93,7 +93,7 @@
         </td>
         <td class="text-right last">
             <span class="price">
-                <cart:format.currency>{cart.totalNet}</cart:format.currency>
+                <cart:format.currency currencySign="{cart.currencySign}">{cart.totalNet}</cart:format.currency>
             </span>
         </td>
     </tr>
@@ -105,11 +105,11 @@
         </td>
         <td class="text-right last">
             <span class="price">
-                <cart:format.currency>{cart.totalGross}</cart:format.currency>
+                <cart:format.currency currencySign="{cart.currencySign}">{cart.totalGross}</cart:format.currency>
             </span>
         </td>
     </tr>
 </f:if>
 <f:if condition="{settings.showCartAction.summary.fields.total.taxes}">
-    <f:render partial="Cart/OrderForm/TaxList" arguments="{taxClasses: cart.taxClasses, taxes: cart.totalTaxes}"/>
+    <f:render partial="Cart/OrderForm/TaxList" arguments="{taxClasses: cart.taxClasses, taxes: cart.totalTaxes, currencySign: cart.currencySign}"/>
 </f:if>

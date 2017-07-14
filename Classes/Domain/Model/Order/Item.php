@@ -118,6 +118,27 @@ class Item extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     protected $currency = '€';
 
     /**
+     * Currency Code
+     *
+     * @var string
+     */
+    protected $currencyCode = '';
+
+    /**
+     * Currency Sign
+     *
+     * @var string
+     */
+    protected $currencySign = '';
+
+    /**
+     * Currency Translation
+     *
+     * @var float
+     */
+    protected $currencyTranslation = 1.00;
+
+    /**
      * Gross
      *
      * @var float
@@ -542,6 +563,66 @@ class Item extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     public function setCurrency($currency)
     {
         $this->currency = $currency;
+    }
+
+    /**
+     * Returns Currency Code
+     *
+     * @return string
+     */
+    public function getCurrencyCode()
+    {
+        return $this->currencyCode;
+    }
+
+    /**
+     * Sets Currency Code
+     *
+     * @param string $currencyCode
+     */
+    public function setCurrencyCode($currencyCode)
+    {
+        $this->currencyCode = $currencyCode;
+    }
+
+    /**
+     * Returns Currency Sign
+     *
+     * @return string
+     */
+    public function getCurrencySign()
+    {
+        return $this->currencySign;
+    }
+
+    /**
+     * Sets Currency Sign
+     *
+     * @param string $currencySign
+     */
+    public function setCurrencySign($currencySign)
+    {
+        $this->currencySign = $currencySign;
+    }
+
+    /**
+     * Returns Currency Translation
+     *
+     * @return float
+     */
+    public function getCurrencyTranslation()
+    {
+        return $this->currencyTranslation;
+    }
+
+    /**
+     * Set Currency Translation
+     *
+     * @param float $currencyTranslation
+     */
+    public function setCurrencyTranslation($currencyTranslation)
+    {
+        $this->currencyTranslation = $currencyTranslation;
     }
 
     /**

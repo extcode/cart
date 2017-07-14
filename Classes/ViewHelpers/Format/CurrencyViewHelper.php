@@ -45,6 +45,7 @@ class CurrencyViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHe
      * @param bool $prependCurrency (optional) Select if the curreny sign should be prepended
      * @param bool $separateCurrency (optional) Separate the currency sign from the number by a single space, defaults to true due to backwards compatibility
      * @param int $decimals (optional) Set decimals places.
+     * @param float $currencyTranslation
      *
      * @return string the formatted amount.
      */
@@ -54,7 +55,8 @@ class CurrencyViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHe
         $thousandsSeparator = null,
         $prependCurrency = null,
         $separateCurrency = null,
-        $decimals = null
+        $decimals = null,
+        $currencyTranslation = 1.00
     ) {
         $settings = $this->templateVariableContainer->get('settings');
 
@@ -98,6 +100,10 @@ class CurrencyViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHe
             $floatToFormat = 0.0;
         } else {
             $floatToFormat = floatval($floatToFormat);
+        }
+
+        if ($currencyTranslation && $currencyTranslation > 0.0) {
+            $floatToFormat = $floatToFormat / $currencyTranslation;
         }
 
         $output = number_format($floatToFormat, $decimals, $decimalSeparator, $thousandsSeparator);

@@ -14,6 +14,7 @@ Konfiguration
    PaymentMethods/Index
    ShippingMethods/Index
    MailConfiguration/Index
+   CurrencyTranslationConfiguration/Index
    ActionConfiguration/Index
    FormatConfiguration/Index
    AjaxConfiguration/Index

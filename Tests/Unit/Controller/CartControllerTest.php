@@ -185,7 +185,7 @@ class CartControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
      */
     public function showCartPassesCartToView()
     {
-        $cart = new \Extcode\Cart\Domain\Model\Cart\Cart([], 0);
+        $cart = new \Extcode\Cart\Domain\Model\Cart\Cart([], false, 'EUR', '€', 1.0);
 
         $this->view->expects(self::once())->method('assign')->with('cart', $cart);
 
@@ -327,7 +327,7 @@ class CartControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
      */
     public function showMiniCartPassesCartToView()
     {
-        $cart = new \Extcode\Cart\Domain\Model\Cart\Cart([], 0);
+        $cart = new \Extcode\Cart\Domain\Model\Cart\Cart([], false, 'EUR', '€', 1.0);
 
         $this->view->expects(self::once())->method('assign')->with('cart', $cart);
 

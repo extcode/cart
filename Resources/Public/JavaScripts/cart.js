@@ -20,6 +20,29 @@ function updateCountry(billingCountry, shippingCountry) {
     });
 }
 
+function updateCurrency(currencyCode, action) {
+    var postParams = {
+        'tx_cart_cart[currencyCode]': currencyCode
+    };
+
+    $.ajax({
+        async: 'true',
+        url: action,
+        type: "POST",
+
+        data: postParams,
+
+        success: function(data)
+        {
+            $('#form-cart').html($(data).filter('#form-cart').html());
+            $('#shipping-method').html($(data).filter('#shipping-method').html());
+            $('#payment-method').html($(data).filter('#payment-method').html());
+            $('#coupons').html($(data).filter('#coupons').html());
+            $('#checkout-review-table').html($(data).filter('#checkout-review-table').html());
+        }
+    });
+}
+
 $('#billingAddress\\:country').change(function () {
     var billingCountry = $(this).val();
     var shippingCountry = '';
@@ -49,6 +72,30 @@ $('#shipping_same_as_billing').change(function() {
     }
 
     updateCountry(billingCountry, shippingCountry)
+});
+
+$('.cart-currency-selector').change(function () {
+    updateCurrency($(this).val(), $(this).closest('form').attr('action'));
+});
+
+$('.currency-selector').change(function () {
+
+    var postParams = {
+        'tx_cart_currency[currencyCode]': $(this).val()
+    };
+
+    $.ajax({
+        async: 'true',
+        url: $(this).closest('form').attr('action'),
+        type: "POST",
+
+        data: postParams,
+
+        success: function(data)
+        {
+            location.reload();
+        }
+    });
 });
 
 $('#payment-method').on('click', '.setPayment', function(e) {

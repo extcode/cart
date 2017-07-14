@@ -23,6 +23,13 @@ namespace Extcode\Cart\Controller;
 class ProductController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 {
     /**
+     * Cart Utility
+     *
+     * @var \Extcode\Cart\Utility\CartUtility
+     */
+    protected $cartUtility;
+
+    /**
      * productRepository
      *
      * @var \Extcode\Cart\Domain\Repository\Product\ProductRepository
@@ -42,6 +49,22 @@ class ProductController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
      * @var array
      */
     protected $searchArguments;
+
+    /**
+     * Plugin Settings
+     *
+     * @var array
+     */
+    protected $pluginSettings;
+
+    /**
+     * @param \Extcode\Cart\Utility\CartUtility $cartUtility
+     */
+    public function injectCartUtility(
+        \Extcode\Cart\Utility\CartUtility $cartUtility
+    ) {
+        $this->cartUtility = $cartUtility;
+    }
 
     /**
      * @param \Extcode\Cart\Domain\Repository\Product\ProductRepository $productRepository
@@ -66,6 +89,10 @@ class ProductController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
      */
     protected function initializeAction()
     {
+        $this->pluginSettings = $this->configurationManager->getConfiguration(
+            \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK
+        );
+
         if (TYPO3_MODE === 'BE') {
             $pageId = (int)\TYPO3\CMS\Core\Utility\GeneralUtility::_GP('id');
 
@@ -168,6 +195,8 @@ class ProductController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 
         $this->view->assign('searchArguments', $this->searchArguments);
         $this->view->assign('products', $products);
+
+        $this->assignCurrencyTranslationData();
     }
 
     /**
@@ -185,6 +214,8 @@ class ProductController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 
         $this->view->assign('user', $GLOBALS['TSFE']->fe_user->user);
         $this->view->assign('product', $product);
+
+        $this->assignCurrencyTranslationData();
     }
 
     /**
@@ -222,6 +253,8 @@ class ProductController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
             $product =  $productRepository->findByUid($productUid);
         }
         $this->view->assign('product', $product);
+
+        $this->assignCurrencyTranslationData();
     }
 
     /**
@@ -231,6 +264,8 @@ class ProductController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
     {
         $products = $this->productRepository->findByUids($this->settings['productUids']);
         $this->view->assign('products', $products);
+
+        $this->assignCurrencyTranslationData();
     }
 
     /**
@@ -242,5 +277,25 @@ class ProductController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         $contentId = $this->contentObj->data['uid'];
 
         $this->view->assign('contentId', $contentId);
+    }
+
+    /**
+     * assigns currency translation array to view
+     */
+    protected function assignCurrencyTranslationData()
+    {
+        if (TYPO3_MODE === 'FE') {
+            $currencyTranslationData = [];
+
+            $cart = $this->cartUtility->getCartFromSession($this->settings['cart'], $this->pluginSettings);
+
+            if ($cart) {
+                $currencyTranslationData['currencyCode'] = $cart->getCurrencyCode();
+                $currencyTranslationData['currencySign'] = $cart->getCurrencySign();
+                $currencyTranslationData['currencyTranslation'] = $cart->getCurrencyTranslation();
+            }
+
+            $this->view->assign('currencyTranslationData', $currencyTranslationData);
+        }
     }
 }

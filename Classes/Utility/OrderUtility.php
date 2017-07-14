@@ -181,6 +181,9 @@ class OrderUtility
         $orderItem->setFeUser((int)$GLOBALS['TSFE']->fe_user->user['uid']);
 
         $orderItem->setCurrency($pluginSettings['settings']['format']['currency']['currencySign']);
+        $orderItem->setCurrencyCode($this->cart->getCurrencyCode());
+        $orderItem->setCurrencySign($this->cart->getCurrencySign());
+        $orderItem->setCurrencyTranslation($this->cart->getCurrencyTranslation());
         $orderItem->setGross($this->cart->getGross());
         $orderItem->setNet($this->cart->getNet());
         $orderItem->setTotalGross($this->cart->getTotalGross());
@@ -663,7 +666,7 @@ class OrderUtility
         $orderProduct->setPid($this->storagePid);
 
         $orderProduct->setProductType($cartProduct->getProductType());
-        $orderProduct->setPrice($cartProduct->getPrice());
+        $orderProduct->setPrice($cartProduct->getTranslatedPrice());
         $orderProduct->setDiscount($cartProduct->getDiscount());
         $orderProduct->setGross($cartProduct->getGross());
         $orderProduct->setNet($cartProduct->getNet());

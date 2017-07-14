@@ -8,10 +8,10 @@
     </f:if>
 
     <div id="product-price">
-        <f:render partial="Product/Price" arguments="{product: product, settings: settings}"></f:render>
+        <f:render partial="Product/Price" arguments="{product: product, settings: settings, currencyTranslationData:currencyTranslationData}"></f:render>
     </div>
 
     <f:if condition="{product.basePriceMeasureUnit}">
-        <f:render partial="Product/BasePrice" arguments="{product: product, settings: settings}"></f:render>
+        <f:render partial="Product/BasePrice" arguments="{product: product, settings: settings, currencyTranslationData:currencyTranslationData}"></f:render>
     </f:if>
 </f:section>

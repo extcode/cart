@@ -25,7 +25,7 @@
                         </f:if>
                     </dt>
                     <dd>
-                        <cart:format.currency>{shipping.gross}</cart:format.currency>
+                        <cart:format.currency currencySign="{cart.currencySign}">{shipping.gross}</cart:format.currency>
                     </dd>
                 </f:for>
             </dl>

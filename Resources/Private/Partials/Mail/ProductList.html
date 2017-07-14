@@ -10,13 +10,13 @@
             </p>
         </td>
         <td style="text-align: right;">
-            <cart:format.currency>{product.bestPrice}</cart:format.currency>
+            <cart:format.currency currencySign="{cart.currencySign}">{product.bestPrice}</cart:format.currency>
         </td>
         <td style="text-align: right;">
             {product.quantity}
         </td>
         <td style="text-align: right;">
-            <cart:format.currency>{product.gross}</cart:format.currency>
+            <cart:format.currency currencySign="{cart.currencySign}">{product.gross}</cart:format.currency>
         </td>
     </tr>
 </f:section>
@@ -39,13 +39,13 @@
                     </p>
                 </td>
                 <td style="text-align: right;">
-                    <cart:format.currency>{variant.priceCalculated}</cart:format.currency>
+                    <cart:format.currency currencySign="{cart.currencySign}">{variant.priceCalculated}</cart:format.currency>
                 </td>
                 <td style="text-align: right;">
                     {variant.quantity}
                 </td>
                 <td style="text-align: right;">
-                    <cart:format.currency>{variant.gross}</cart:format.currency>
+                    <cart:format.currency currencySign="{cart.currencySign}">{variant.gross}</cart:format.currency>
                 </td>
             </tr>
         </f:else>
@@ -84,7 +84,7 @@
             {product.quantity}
         </td>
         <td style="text-align: right;">
-            <cart:format.currency>{product.gross}</cart:format.currency>
+            <cart:format.currency currencySign="{cart.currencySign}">{product.gross}</cart:format.currency>
         </td>
     </tr>
 </f:section>

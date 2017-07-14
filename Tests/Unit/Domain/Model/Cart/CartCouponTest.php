@@ -262,6 +262,30 @@ class CartCouponTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
     /**
      * @test
      */
+    public function getGrossReturnsTranslatedDiscount()
+    {
+        $currencyTranslation = 2.0;
+
+        $cart = $this->getMock(
+            \Extcode\Cart\Domain\Model\Cart\Cart::class,
+            ['getCurrencyTranslation'],
+            [],
+            '',
+            false
+        );
+        $cart->expects($this->any())->method('getCurrencyTranslation')->will($this->returnValue($currencyTranslation));
+
+        $this->coupon->setCart($cart);
+
+        $this->assertSame(
+            5.00,
+            $this->coupon->getGross()
+        );
+    }
+
+    /**
+     * @test
+     */
     public function getNetInitiallyReturnsNetSetIndirectlyByConstructor()
     {
         $net = $this->discount / ($this->taxClass->getCalc() + 1);

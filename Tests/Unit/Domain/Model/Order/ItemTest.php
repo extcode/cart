@@ -104,4 +104,76 @@ class ItemTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
             $this->item->getCurrency()
         );
     }
+
+    /**
+     * @test
+     */
+    public function getCurrencyCodeInitiallyReturnsEmptyString()
+    {
+        $this->assertSame(
+            '',
+            $this->item->getCurrencyCode()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function setCurrencyCodeSetsCurrencyCode()
+    {
+        $this->item->setCurrencyCode('EUR');
+
+        $this->assertSame(
+            'EUR',
+            $this->item->getCurrencyCode()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function getCurrencySignInitiallyReturnsEmptyString()
+    {
+        $this->assertSame(
+            '',
+            $this->item->getCurrencySign()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function setCurrencySignSetsCurrencySign()
+    {
+        $this->item->setCurrencySign('€');
+
+        $this->assertSame(
+            '€',
+            $this->item->getCurrencySign()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function getCurrencyTranslationInitiallyReturnsEmptyString()
+    {
+        $this->assertSame(
+            1.00,
+            $this->item->getCurrencyTranslation()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function setCurrencyTranslationSetsCurrencyTranslation()
+    {
+        $this->item->setCurrencyTranslation('0.50');
+
+        $this->assertSame(
+            '0.50',
+            $this->item->getCurrencyTranslation()
+        );
+    }
 }

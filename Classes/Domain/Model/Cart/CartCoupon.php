@@ -213,13 +213,27 @@ class CartCoupon implements \Extcode\Cart\Domain\Model\Cart\CartCouponInterface
     }
 
     /**
+     * @return float
+     */
+    public function getTranslatedDiscount()
+    {
+        $discount = $this->getDiscount();
+
+        if ($this->cart) {
+            $discount = $this->cart->translatePrice($discount);
+        }
+
+        return $discount;
+    }
+
+    /**
      * Returns Gross of Discount
      *
      * @return float
      */
     public function getGross()
     {
-        return $this->getDiscount();
+        return $this->getTranslatedDiscount();
     }
 
     /**
@@ -229,7 +243,7 @@ class CartCoupon implements \Extcode\Cart\Domain\Model\Cart\CartCouponInterface
      */
     public function getNet()
     {
-        $net = $this->getDiscount() / ($this->getTaxClass()->getCalc() + 1);
+        $net = $this->getTranslatedDiscount() / ($this->getTaxClass()->getCalc() + 1);
         return $net;
     }
 
@@ -250,7 +264,7 @@ class CartCoupon implements \Extcode\Cart\Domain\Model\Cart\CartCouponInterface
      */
     public function getTax()
     {
-        $tax = $this->getDiscount() - ($this->getDiscount() / ($this->getTaxClass()->getCalc() + 1));
+        $tax = $this->getTranslatedDiscount() - ($this->getTranslatedDiscount() / ($this->getTaxClass()->getCalc() + 1));
         return $tax;
     }
 

@@ -112,11 +112,25 @@ class CartUtility
     {
         $isNetCart = intval($cartSettings['isNetCart']) == 0 ? false : true;
 
-        $taxClasses = $this->parserUtility->parseTaxClasses($pluginSettings);
+        $defaultCurrency = [];
+        $defaultCurrencyNum = $pluginSettings['settings']['currencies']['default'];
+        if ($pluginSettings['settings']['currencies'][$defaultCurrencyNum]) {
+            $defaultCurrency = $pluginSettings['settings']['currencies'][$defaultCurrencyNum];
+        }
 
-        $cart = $this->objectManager->get(\Extcode\Cart\Domain\Model\Cart\Cart::class, $taxClasses, $isNetCart);
+        $defaultCountry  = $pluginSettings['settings']['defaultCountry'];
 
-        $defaultCountry = $pluginSettings['settings']['defaultCountry'];
+        $taxClasses = $this->parserUtility->parseTaxClasses($pluginSettings, $defaultCountry);
+
+        $cart = $this->objectManager->get(
+            \Extcode\Cart\Domain\Model\Cart\Cart::class,
+            $taxClasses,
+            $isNetCart,
+            $defaultCurrency['code'],
+            $defaultCurrency['sign'],
+            $defaultCurrency['translation']
+        );
+
         if ($defaultCountry) {
             $cart->setBillingCountry($defaultCountry);
         }
@@ -247,8 +261,9 @@ class CartUtility
     /**
      * @param array $cartSettings
      * @param array $pluginSettings
+     * @param \TYPO3\CMS\Extbase\Mvc\Request $request
      */
-    public function updateCountry(array $cartSettings, array $pluginSettings, $request)
+    public function updateCountry(array $cartSettings, array $pluginSettings, \TYPO3\CMS\Extbase\Mvc\Request $request)
     {
         $cart = $this->getCartFromSession($cartSettings, $pluginSettings);
 
@@ -281,5 +296,78 @@ class CartUtility
         $cart->setShippingCountry($shippingCountry);
 
         $this->sessionHandler->writeToSession($cart, $cartSettings['pid']);
+    }
+
+    /**
+     * @param array $cartSettings
+     * @param array $pluginSettings
+     * @param \TYPO3\CMS\Extbase\Mvc\Request $request
+     */
+    public function updateCurrency(array $cartSettings, array $pluginSettings, \TYPO3\CMS\Extbase\Mvc\Request $request)
+    {
+        $cart = $this->getCartFromSession($cartSettings, $pluginSettings);
+
+        $currencyCode = '';
+
+        if ($request->hasArgument('currencyCode')) {
+            $currencyCode = $request->getArgument('currencyCode');
+        }
+
+        $currencyConfigId = $this->getCurrencyConfigId($currencyCode, $pluginSettings);
+
+        if ($currencyConfigId) {
+            $data = [
+                'cart' => $cart,
+                'currencyCode' => $currencyCode,
+                'currencySign' => $pluginSettings['settings']['currencies'][$currencyConfigId]['sign'],
+                'currencyTranslation' => floatval($pluginSettings['settings']['currencies'][$currencyConfigId]['translation'])
+            ];
+
+            $signalSlotDispatcher = $this->objectManager->get(
+                \TYPO3\CMS\Extbase\SignalSlot\Dispatcher::class
+            );
+            $signalSlotDispatcher->dispatch(
+                __CLASS__,
+                __FUNCTION__,
+                $data
+            );
+
+            $cart->setCurrencyCode($currencyCode);
+            $cart->setCurrencySign(
+                $pluginSettings['settings']['currencies'][$currencyConfigId]['sign']
+            );
+
+            $cart->setCurrencyTranslation(
+                floatval($pluginSettings['settings']['currencies'][$currencyConfigId]['translation'])
+            );
+
+            $cart->reCalc();
+
+            $this->sessionHandler->writeToSession($cart, $cartSettings['pid']);
+        }
+    }
+
+    /**
+     * @param string $currencyCode
+     * @param array $pluginSettings
+     *
+     * @return int
+     */
+    protected function getCurrencyConfigId($currencyCode, $pluginSettings)
+    {
+        if (strlen($currencyCode) == 3) {
+            if (is_array($pluginSettings) &&
+                is_array($pluginSettings['settings']) &&
+                is_array($pluginSettings['settings']['currencies'])
+            ) {
+                foreach ($pluginSettings['settings']['currencies'] as $currencyConfigId => $currency) {
+                    if (is_array($currency) && $currency['code'] == $currencyCode) {
+                        return intval($currencyConfigId);
+                    }
+                }
+            }
+        }
+
+        return 0;
     }
 }

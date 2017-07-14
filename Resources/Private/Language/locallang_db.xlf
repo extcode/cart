@@ -30,6 +30,9 @@
             <trans-unit id="tx_cart.plugin.cart">
                 <source>Cart: Cart</source>
             </trans-unit>
+            <trans-unit id="tx_cart.plugin.currency">
+                <source>Cart: Currency Selector</source>
+            </trans-unit>
             <trans-unit id="tx_cart.plugin.flex_product">
                 <source>Cart: FlexProduct</source>
             </trans-unit>
@@ -127,6 +130,15 @@
             </trans-unit>
             <trans-unit id="tx_cart_domain_model_order_item.currency">
                 <source>Currency</source>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_item.currency_code">
+                <source>Currency Code</source>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_item.currency_sign">
+                <source>Currency Sign</source>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_item.currency_translation">
+                <source>Currency Translation</source>
             </trans-unit>
             <trans-unit id="tx_cart_domain_model_order_item.gross">
                 <source>Price (Gross)</source>

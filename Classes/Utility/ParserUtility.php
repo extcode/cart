@@ -42,18 +42,19 @@ class ParserUtility
     /**
      * Parse Tax Classes
      *
-     * @param array $pluginSettings Plugin Settings
+     * @param array $pluginSettings
+     * @param string countryCode
      *
      * @return array $taxes
      */
-    public function parseTaxClasses(array $pluginSettings)
+    public function parseTaxClasses(array $pluginSettings, $countryCode)
     {
         $taxClasses = [];
 
         if (isset($pluginSettings['taxClassRepository']) && is_array($pluginSettings['taxClassRepository'])) {
             $taxClasses = $this->parseTaxClassesFromRepository($pluginSettings['taxClassRepository']);
         } elseif (isset($pluginSettings['taxClasses']) && is_array($pluginSettings['taxClasses'])) {
-            $taxClasses = $this->parseTaxClassesFromTypoScript($pluginSettings['taxClasses']);
+            $taxClasses = $this->parseTaxClassesFromTypoScript($pluginSettings['taxClasses'], $countryCode);
         }
 
         return $taxClasses;
@@ -62,13 +63,18 @@ class ParserUtility
     /**
      * Parse Tax Classes From TypoScript
      *
-     * @param array $taxClassSettings TypoScript Tax Class Settings
+     * @param array $taxClassSettings
+     * @param string $countryCode
      *
      * @return array $taxes
      */
-    protected function parseTaxClassesFromTypoScript(array $taxClassSettings)
+    protected function parseTaxClassesFromTypoScript(array $taxClassSettings, $countryCode)
     {
         $taxClasses = [];
+
+        if ($countryCode && is_array($taxClassSettings[$countryCode])) {
+            $taxClassSettings = $taxClassSettings[$countryCode];
+        }
 
         foreach ($taxClassSettings as $taxClassKey => $taxClassValue) {
             $taxClasses[$taxClassKey] = $this->objectManager->get(\Extcode\Cart\Domain\Model\Cart\TaxClass::class,

@@ -316,6 +316,11 @@ abstract class AbstractService
             }
         } else {
             $gross = $this->extras[0]->getGross();
+
+            if ($this->cart) {
+                $gross = $this->cart->translatePrice($gross);
+            }
+
             if ($this->getExtraType() == 'each') {
                 $gross = $this->cart->getCount() * $gross;
             }
@@ -364,6 +369,11 @@ abstract class AbstractService
             }
         } else {
             $net = $this->extras[0]->getNet();
+
+            if ($this->cart) {
+                $net = $this->cart->translatePrice($net);
+            }
+
             if ($this->getExtraType() == 'each') {
                 $net = $this->cart->getCount() * $net;
             }
@@ -413,6 +423,11 @@ abstract class AbstractService
             }
         } else {
             $tax = $this->extras[0]->getTax();
+
+            if ($this->cart) {
+                $tax['tax'] = $this->cart->translatePrice($tax['tax']);
+            }
+
             if ($this->getExtraType() == 'each') {
                 $tax = $this->cart->getCount() * $tax['tax'];
             } else {

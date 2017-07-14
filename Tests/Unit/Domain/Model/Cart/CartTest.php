@@ -1141,8 +1141,8 @@ class CartTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
         $firstCoupon->expects($this->any())->method('getTitle')->will($this->returnValue('firstCouponTitle'));
         $firstCoupon->expects($this->any())->method('getDiscount')->will($this->returnValue(10.0));
         $firstCoupon->expects($this->any())->
-            method('getTaxClassId')->
-            will($this->returnValue($this->normalTaxClass->getId()));
+            method('getTaxClass')->
+            will($this->returnValue($this->normalTaxClass));
 
         $secondCoupon = $this->getMock(
             \Extcode\Cart\Domain\Model\Cart\CartCoupon::class,
@@ -1158,8 +1158,8 @@ class CartTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
         $secondCoupon->expects($this->any())->method('getTitle')->will($this->returnValue('secondCouponTitle'));
         $secondCoupon->expects($this->any())->method('getDiscount')->will($this->returnValue(10.0));
         $secondCoupon->expects($this->any())->
-            method('getTaxClassId')->
-            will($this->returnValue($this->normalTaxClass->getId()));
+            method('getTaxClass')->
+            will($this->returnValue($this->normalTaxClass));
         $secondCoupon->expects($this->any())->method('getIsCombinable')->will($this->returnValue(true));
 
         $this->grossCart->addCoupon($firstCoupon);
@@ -1528,12 +1528,13 @@ class CartTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
 
         $cart = $this->getMock(
             'Extcode\\Cart\\Domain\\Model\\Cart\\Cart',
-            ['getCouponGross'],
+            ['getCouponGross', 'getCurrencyTranslation'],
             [],
             '',
             false
         );
         $cart->expects($this->any())->method('getCouponGross')->will($this->returnValue($couponGross));
+        $cart->expects($this->any())->method('getCurrencyTranslation')->will($this->returnValue(1.00));
 
         $product = new \Extcode\Cart\Domain\Model\Cart\Product(
             'simple',
@@ -1567,12 +1568,13 @@ class CartTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
 
         $cart = $this->getMock(
             'Extcode\\Cart\\Domain\\Model\\Cart\\Cart',
-            ['getCouponNet'],
+            ['getCouponNet', 'getCurrencyTranslation'],
             [],
             '',
             false
         );
         $cart->expects($this->any())->method('getCouponNet')->will($this->returnValue($couponNet));
+        $cart->expects($this->any())->method('getCurrencyTranslation')->will($this->returnValue(1.00));
 
         $product = new \Extcode\Cart\Domain\Model\Cart\Product(
             'simple',
@@ -1593,6 +1595,213 @@ class CartTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
         $this->assertSame(
             $subtotalNet,
             $cart->getSubtotalNet()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function getCurrencyCodeInitiallyReturnsString()
+    {
+        $this->assertSame(
+            'EUR',
+            $this->grossCart->getCurrencyCode()
+        );
+
+        $this->assertSame(
+            'EUR',
+            $this->netCart->getCurrencyCode()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function constructorSetsCurrencyCode()
+    {
+        $this->cart = new \Extcode\Cart\Domain\Model\Cart\Cart(
+            $this->taxClasses,
+            false,
+            'USD',
+            '$',
+            1.5
+        );
+
+        $this->assertSame(
+            'USD',
+            $this->cart->getCurrencyCode()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function setCurrencyCodeSetsCurrencyCode()
+    {
+        $this->grossCart->setCurrencyCode('USD');
+
+        $this->assertSame(
+            'USD',
+            $this->grossCart->getCurrencyCode()
+        );
+
+        $this->netCart->setCurrencyCode('USD');
+
+        $this->assertSame(
+            'USD',
+            $this->netCart->getCurrencyCode()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function getCurrencySignInitiallyReturnsString()
+    {
+        $this->assertSame(
+            '€',
+            $this->grossCart->getCurrencySign()
+        );
+
+        $this->assertSame(
+            '€',
+            $this->netCart->getCurrencySign()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function constructorSetsCurrencySign()
+    {
+        $this->cart = new \Extcode\Cart\Domain\Model\Cart\Cart(
+            $this->taxClasses,
+            false,
+            'USD',
+            '$',
+            1.5
+        );
+
+        $this->assertSame(
+            '$',
+            $this->cart->getCurrencySign()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function setCurrencySignSetsCurrencySign()
+    {
+        $this->grossCart->setCurrencySign('$');
+
+        $this->assertSame(
+            '$',
+            $this->grossCart->getCurrencySign()
+        );
+
+        $this->netCart->setCurrencySign('$');
+
+        $this->assertSame(
+            '$',
+            $this->netCart->getCurrencySign()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function getCurrencyTranslationInitiallyReturnsString()
+    {
+        $this->assertSame(
+            1.0,
+            $this->grossCart->getCurrencyTranslation()
+        );
+
+        $this->assertSame(
+            1.0,
+            $this->netCart->getCurrencyTranslation()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function constructorSetsCurrencyTranslation()
+    {
+        $this->cart = new \Extcode\Cart\Domain\Model\Cart\Cart(
+            $this->taxClasses,
+            false,
+            'USD',
+            '$',
+            1.5
+        );
+
+        $this->assertSame(
+            1.5,
+            $this->cart->getCurrencyTranslation()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function setCurrencyTranslationSetsCurrencyTranslation()
+    {
+        $this->grossCart->setCurrencyTranslation(1.5);
+
+        $this->assertSame(
+            1.5,
+            $this->grossCart->getCurrencyTranslation()
+        );
+
+        $this->netCart->setCurrencyTranslation(1.5);
+
+        $this->assertSame(
+            1.5,
+            $this->netCart->getCurrencyTranslation()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function translatePriceReturnsCorrectPrice()
+    {
+        $this->assertSame(
+            5.0,
+            $this->grossCart->translatePrice(5.0)
+        );
+
+        $this->assertSame(
+            5.0,
+            $this->netCart->translatePrice(5.0)
+        );
+
+        $this->grossCart->setCurrencyTranslation(2.0);
+        $this->netCart->setCurrencyTranslation(2.0);
+
+        $this->assertSame(
+            2.5,
+            $this->grossCart->translatePrice(5.0)
+        );
+
+        $this->assertSame(
+            2.5,
+            $this->netCart->translatePrice(5.0)
+        );
+
+        $this->grossCart->setCurrencyTranslation(0.5);
+        $this->netCart->setCurrencyTranslation(0.5);
+
+        $this->assertSame(
+            10.0,
+            $this->grossCart->translatePrice(5.0)
+        );
+
+        $this->assertSame(
+            10.0,
+            $this->netCart->translatePrice(5.0)
         );
     }
 }

@@ -391,6 +391,9 @@ CREATE TABLE tx_cart_domain_model_order_item (
     delivery_pdfs int(11) unsigned DEFAULT '0',
 
     currency varchar(255) DEFAULT '' NOT NULL,
+    currency_code varchar(255) DEFAULT '' NOT NULL,
+    currency_sign varchar(255) DEFAULT '' NOT NULL,
+    currency_translation varchar(255) DEFAULT '' NOT NULL,
     gross double(11,2) DEFAULT '0.00' NOT NULL,
     net double(11,2) DEFAULT '0.00' NOT NULL,
     total_gross double(11,2) DEFAULT '0.00' NOT NULL,

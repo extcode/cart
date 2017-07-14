@@ -8,11 +8,11 @@ defined('TYPO3_MODE') or die();
     'Extcode.' . $_EXTKEY,
     'MiniCart',
     [
-        'Cart' => 'showMiniCart',
+        'Cart' => 'showMiniCart, updateCurrency',
     ],
     // non-cacheable actions
     [
-        'Cart' => 'showMiniCart',
+        'Cart' => 'showMiniCart, updateCurrency',
     ]
 );
 
@@ -20,13 +20,23 @@ defined('TYPO3_MODE') or die();
     'Extcode.' . $_EXTKEY,
     'Cart',
     [
-        'Cart' => 'showCart, clearCart, addProduct, removeProduct, addCoupon, removeCoupon, setShipping, setPayment, updateCountry, updateCart, orderCart',
+        'Cart' => 'showCart, clearCart, addProduct, removeProduct, addCoupon, removeCoupon, setShipping, setPayment, updateCountry, updateCurrency, updateCart, orderCart',
         'Order' => 'paymentSuccess, paymentCancel',
     ],
-    // non-cacheable actions
     [
-        'Cart' => 'showCart, clearCart, addProduct, removeProduct, addCoupon, removeCoupon, setShipping, setPayment, updateCountry, updateCart, orderCart',
+        'Cart' => 'showCart, clearCart, addProduct, removeProduct, addCoupon, removeCoupon, setShipping, setPayment, updateCountry, updateCurrency, updateCart, orderCart',
         'Order' => 'paymentSuccess, paymentCancel',
+    ]
+);
+
+\TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
+    'Extcode.' . $_EXTKEY,
+    'Currency',
+    [
+        'Cart' => 'editCurrency, updateCurrency',
+    ],
+    [
+        'Cart' => 'editCurrency, updateCurrency',
     ]
 );
 
@@ -36,7 +46,6 @@ defined('TYPO3_MODE') or die();
     [
         'Product' => 'show, list, teaser, showForm',
     ],
-    // non-cacheable actions
     [
         'Product' => 'list, showForm',
     ]
@@ -48,7 +57,6 @@ defined('TYPO3_MODE') or die();
     [
         'Product' => 'showForm',
     ],
-    // non-cacheable actions
     [
         'Product' => 'showForm',
     ]
@@ -60,7 +68,6 @@ defined('TYPO3_MODE') or die();
     [
         'Product' => 'flexform',
     ],
-    // non-cacheable actions
     [
         'Product' => '',
     ]
@@ -72,7 +79,6 @@ defined('TYPO3_MODE') or die();
     [
         'Order' => 'list, show',
     ],
-    // non-cacheable actions
     [
         'Order' => 'list, show',
     ]
