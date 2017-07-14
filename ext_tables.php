@@ -75,7 +75,7 @@ if (TYPO3_MODE === 'BE') {
         [],
         [
             'access' => 'user, group',
-            'icon' => $iconPath . 'module.' . (\TYPO3\CMS\Core\Utility\GeneralUtility::compat_version('7.0') ? 'svg' : 'gif'),
+            'icon' => $iconPath . 'module.svg',
             'labels' => $_LLL . ':tx_cart.module.main',
             'navigationComponentId' => 'typo3-pagetree',
         ]
@@ -91,7 +91,7 @@ if (TYPO3_MODE === 'BE') {
         ],
         [
             'access' => 'user, group',
-            'icon' => $iconPath . 'module_orders.' . (\TYPO3\CMS\Core\Utility\GeneralUtility::compat_version('7.0') ? 'svg' : 'png'),
+            'icon' => $iconPath . 'module_orders.svg',
             'labels' => $_LLL . ':tx_cart.module.orders',
             'navigationComponentId' => 'typo3-pagetree',
         ]
@@ -107,7 +107,7 @@ if (TYPO3_MODE === 'BE') {
         ],
         [
             'access' => 'user, group',
-            'icon' => $iconPath . 'module_order_statistics.' . (\TYPO3\CMS\Core\Utility\GeneralUtility::compat_version('7.0') ? 'svg' : 'png'),
+            'icon' => $iconPath . 'module_order_statistics.svg',
             'labels' => $_LLL . ':tx_cart.module.order_statistics',
             'navigationComponentId' => 'typo3-pagetree',
         ]
@@ -124,7 +124,7 @@ if (TYPO3_MODE === 'BE') {
         ],
         [
             'access' => 'user, group',
-            'icon' => $iconPath . 'module_products.' . (\TYPO3\CMS\Core\Utility\GeneralUtility::compat_version('7.0') ? 'svg' : 'png'),
+            'icon' => $iconPath . 'module_products.svg',
             'labels' => $_LLL . ':tx_cart.module.products',
             'navigationComponentId' => 'typo3-pagetree',
         ]

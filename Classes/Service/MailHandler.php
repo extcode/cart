@@ -479,14 +479,6 @@ class MailHandler implements SingletonInterface
 
         if ($this->pluginSettings['view'][$type]) {
             $rootPaths = $this->pluginSettings['view'][$type];
-
-            if (\TYPO3\CMS\Core\Utility\GeneralUtility::compat_version('6.2')) {
-                foreach ($rootPaths as $rootPathsKey => $rootPathsValue) {
-                    $rootPaths[$rootPathsKey] = \TYPO3\CMS\Core\Utility\GeneralUtility::getFileAbsFileName(
-                        $rootPathsValue
-                    );
-                }
-            }
         }
 
         return $rootPaths;

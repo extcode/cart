@@ -50,13 +50,6 @@ test:cgl:
     - find . -name \*.php ! -path "./.Build/*" | parallel --gnu php -d display_errors=stderr -l {} > /dev/null
     - find 'Tests/Functional' -wholename '*Test.php' | parallel --gnu 'echo; echo "Running functional test suite {}"; .Build/bin/phpunit --colors  -c .Build/vendor/nimut/testing-framework/res/Configuration/FunctionalTests.xml {}'
 
-# Tests in PHP 5.6 and TYPO3 6.2
-test:php56:typo3_62:
-  <<: *test_php
-  variables:
-    DOCKER_TAG: 5.6-alpine
-    TYPO3_VERSION: ^6.2
-
 # Build in PHP 5.6 and TYPO3 7.6
 test:php56:typo3_7:
   <<: *test_php
