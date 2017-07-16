@@ -1,11 +1,12 @@
 4.0.0
-    2017-07-15
+    2017-07-16
     Daniel Lorenz <daniel.lorenz@extco.de>
 
     * TASK #99: remove support for php versions 5.4 and 5.5
     * TASK #100: cleanup and update dev-requirements
     * TASK #101: remove TYPO3 6.2 compatibility
     * TASK #92: add currency translation and tax recalculation
+    * TASK #122: add functional tests for parsing taxClass from TypoScript
 
 3.12.4
     2017-07-18

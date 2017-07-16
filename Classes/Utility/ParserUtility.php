@@ -14,7 +14,6 @@ namespace Extcode\Cart\Utility;
  *
  * The TYPO3 project - inspiring people to share!
  */
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * Parser Utility
@@ -43,16 +42,16 @@ class ParserUtility
      * Parse Tax Classes
      *
      * @param array $pluginSettings
-     * @param string countryCode
+     * @param string $countryCode
      *
-     * @return array $taxes
+     * @return array
      */
     public function parseTaxClasses(array $pluginSettings, $countryCode)
     {
         $taxClasses = [];
 
         if (isset($pluginSettings['taxClassRepository']) && is_array($pluginSettings['taxClassRepository'])) {
-            $taxClasses = $this->parseTaxClassesFromRepository($pluginSettings['taxClassRepository']);
+            $taxClasses = $this->loadTaxClassesFromForeignDataStorage($pluginSettings['taxClassRepository'], $countryCode);
         } elseif (isset($pluginSettings['taxClasses']) && is_array($pluginSettings['taxClasses'])) {
             $taxClasses = $this->parseTaxClassesFromTypoScript($pluginSettings['taxClasses'], $countryCode);
         }
@@ -77,7 +76,8 @@ class ParserUtility
         }
 
         foreach ($taxClassSettings as $taxClassKey => $taxClassValue) {
-            $taxClasses[$taxClassKey] = $this->objectManager->get(\Extcode\Cart\Domain\Model\Cart\TaxClass::class,
+            $taxClasses[$taxClassKey] = $this->objectManager->get(
+                \Extcode\Cart\Domain\Model\Cart\TaxClass::class,
                 $taxClassKey,
                 $taxClassValue['value'],
                 $taxClassValue['calc'],
@@ -91,30 +91,37 @@ class ParserUtility
     /**
      * Parse Tax Classes From Repository
      *
-     * @param array $taxClassRepositorySettings TypoScript Tax Class Settings
+     * @param array $taxClassRepositorySettings
+     * @param string $countryCode
      *
-     * @return array $taxes
+     * @return array
      */
-    protected function parseTaxClassesFromRepository(array $taxClassRepositorySettings)
+    protected function loadTaxClassesFromForeignDataStorage(array $taxClassRepositorySettings, $countryCode)
     {
         $taxes = [];
 
-        $objectManager = GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager');
-        $taxClassRepository = $objectManager->get($taxClassRepositorySettings['class']);
-        $taxClassObjects = $taxClassRepository->findAll();
+        $data = [
+            'taxClassRepositorySettings' => $taxClassRepositorySettings,
+            'parsedTaxes' => $taxes
+        ];
 
-        foreach ($taxClassObjects as $taxClassObject) {
-            $taxClassId = $taxClassObject->$taxClassRepositorySettings['fields']['getId']();
-            $taxClassValue = $taxClassObject->$taxClassRepositorySettings['fields']['getValue']();
-            $taxClassCalc = $taxClassObject->$taxClassRepositorySettings['fields']['getCalc']();
-            $taxClassName = $taxClassObject->$taxClassRepositorySettings['fields']['getTitle']();
+        $signalSlotDispatcher = $this->objectManager->get(
+            \TYPO3\CMS\Extbase\SignalSlot\Dispatcher::class
+        );
+        $slotReturn = $signalSlotDispatcher->dispatch(
+            __CLASS__,
+            __FUNCTION__,
+            [$data]
+        );
 
-            $taxes[$taxClassId] = $this->objectManager->get(\Extcode\Cart\Domain\Model\Cart\TaxClass::class,
-                $taxClassId,
-                $taxClassValue,
-                $taxClassCalc,
-                $taxClassName
-            );
+        if (is_array($slotReturn[0]['cartProduct'])) {
+            $parsedTaxes = $slotReturn[0]['cartProduct'];
+
+            foreach ($parsedTaxes as $parsedTaxKey => $parsedTaxValue) {
+                if ($parsedTaxValue instanceof \Extcode\Cart\Domain\Model\Cart\TaxClass) {
+                    $taxes[$parsedTaxKey] = $parsedTaxValue;
+                }
+            }
         }
 
         return $taxes;
@@ -143,7 +150,8 @@ class ParserUtility
                  * Service
                  * @var \Extcode\Cart\Domain\Model\Cart\AbstractService $service
                  */
-                $service = $this->objectManager->get($class,
+                $service = $this->objectManager->get(
+                    $class,
                     $key,
                     $value['title'],
                     $cart->getTaxClass($value['taxClassId']),
@@ -162,7 +170,8 @@ class ParserUtility
                     $service->setExtraType($value['extra']['_typoScriptNodeValue']);
                     unset($value['extra']['_typoScriptNodeValue']);
                     foreach ($value['extra'] as $extraKey => $extraValue) {
-                        $extra = $this->objectManager->get(\Extcode\Cart\Domain\Model\Cart\Extra::class,
+                        $extra = $this->objectManager->get(
+                            \Extcode\Cart\Domain\Model\Cart\Extra::class,
                             $extraKey,
                             $extraValue['value'],
                             $extraValue['extra'],
@@ -173,7 +182,8 @@ class ParserUtility
                     }
                 } elseif (!floatval($value['extra'])) {
                     $service->setExtraType($value['extra']);
-                    $extra = $this->objectManager->get(\Extcode\Cart\Domain\Model\Cart\Extra::class,
+                    $extra = $this->objectManager->get(
+                        \Extcode\Cart\Domain\Model\Cart\Extra::class,
                         0,
                         0,
                         0,
@@ -183,7 +193,8 @@ class ParserUtility
                     $service->addExtra($extra);
                 } else {
                     $service->setExtraType('simple');
-                    $extra = $this->objectManager->get(\Extcode\Cart\Domain\Model\Cart\Extra::class,
+                    $extra = $this->objectManager->get(
+                        \Extcode\Cart\Domain\Model\Cart\Extra::class,
                         0,
                         0,
                         $value['extra'],
@@ -231,7 +242,7 @@ class ParserUtility
     /**
      * @param array $pluginSettings
      * @param \Extcode\Cart\Domain\Model\Cart\Cart $cart
-     * @param $type
+     * @param string $type
      *
      * @return mixed
      */
