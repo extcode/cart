@@ -172,4 +172,188 @@ class ParserUtilityTest extends \TYPO3\CMS\Core\Tests\FunctionalTestCase
             $firstTaxClasses->getTitle()
         );
     }
+
+    /**
+     * @test
+     */
+    public function getTypePluginSettingsReturnsTypeCountrySettings()
+    {
+        $type = 'payment';
+        $country = 'de';
+
+        $pluginSettings = [
+            $type => [
+                'default' => 'de',
+                'de' => [
+                    'preset' => 1,
+                    'options' => [
+                        '1' => [
+                            'title' => 'Payment 1 DE',
+                            'extra' => '0.00',
+                            'taxClassId' => '1',
+                            'status' => 'open'
+                        ],
+                        '2' => [
+                            'title' => 'Payment 2 DE',
+                            'extra' => '0.00',
+                            'taxClassId' => '1',
+                            'status' => 'open'
+                        ],
+                        '3' => [
+                            'title' => 'Payment 3 DE',
+                            'extra' => '0.00',
+                            'taxClassId' => '1',
+                            'status' => 'open'
+                        ]
+                    ]
+                ],
+                'at' => [
+                    'preset' => 1,
+                    'options' => [
+                        '1' => [
+                            'title' => 'Payment 1 AT',
+                            'extra' => '0.00',
+                            'taxClassId' => '1',
+                            'status' => 'open'
+                        ],
+                        '2' => [
+                            'title' => 'Payment 2 AT',
+                            'extra' => '0.00',
+                            'taxClassId' => '1',
+                            'status' => 'open'
+                        ],
+                        '3' => [
+                            'title' => 'Payment 3 AT',
+                            'extra' => '0.00',
+                            'taxClassId' => '1',
+                            'status' => 'open'
+                        ]
+                    ]
+                ],
+            ],
+        ];
+
+        $cart = $this->getMock(
+            \Extcode\Cart\Domain\Model\Cart\Cart::class,
+            ['getCountry'],
+            [],
+            '',
+            false
+        );
+        $cart
+            ->expects($this->any())
+            ->method('getCountry')
+            ->will($this->returnValue($country));
+
+        $parsedData = $this->parserUtility->getTypePluginSettings($pluginSettings, $cart, $type);
+
+        $this->assertInternalType(
+            'array',
+            $parsedData
+        );
+
+        $this->assertEquals(
+            2,
+            count($parsedData)
+        );
+
+        $this->assertEquals(
+            $pluginSettings[$type][$country]['options'],
+            $parsedData['options']
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function getTypeZonePluginSettingsReturnsTypeZoneSettings()
+    {
+        $type = 'payment';
+        $country = 'at';
+
+        $pluginSettings = [
+            $type => [
+                'default' => 'de',
+                'zones' => [
+                    '1' => [
+                        'preset' => 1,
+                        'countries' => 'de',
+                        'options' => [
+                            '1' => [
+                                'title' => 'Payment 1 Zone 1',
+                                'extra' => '0.00',
+                                'taxClassId' => '1',
+                                'status' => 'open'
+                            ],
+                            '2' => [
+                                'title' => 'Payment 2 Zone 1',
+                                'extra' => '0.00',
+                                'taxClassId' => '1',
+                                'status' => 'open'
+                            ],
+                            '3' => [
+                                'title' => 'Payment 3 Zone 1',
+                                'extra' => '0.00',
+                                'taxClassId' => '1',
+                                'status' => 'open'
+                            ]
+                        ]
+                    ],
+                    '2' => [
+                        'preset' => 1,
+                        'countries' => 'at, ch',
+                        'options' => [
+                            '1' => [
+                                'title' => 'Payment 1 Zone 2',
+                                'extra' => '0.00',
+                                'taxClassId' => '1',
+                                'status' => 'open'
+                            ],
+                            '2' => [
+                                'title' => 'Payment 2 Zone 2',
+                                'extra' => '0.00',
+                                'taxClassId' => '1',
+                                'status' => 'open'
+                            ],
+                            '3' => [
+                                'title' => 'Payment 3 Zone 2',
+                                'extra' => '0.00',
+                                'taxClassId' => '1',
+                                'status' => 'open'
+                            ]
+                        ]
+                    ],
+                ],
+            ],
+        ];
+
+        $cart = $this->getMock(
+            \Extcode\Cart\Domain\Model\Cart\Cart::class,
+            ['getCountry'],
+            [],
+            '',
+            false
+        );
+        $cart
+            ->expects($this->any())
+            ->method('getCountry')
+            ->will($this->returnValue($country));
+
+        $parsedData = $this->parserUtility->getTypePluginSettings($pluginSettings, $cart, $type);
+
+        $this->assertInternalType(
+            'array',
+            $parsedData
+        );
+
+        $this->assertEquals(
+            3,
+            count($parsedData)
+        );
+
+        $this->assertEquals(
+            $pluginSettings[$type]['zones']['2']['options'],
+            $parsedData['options']
+        );
+    }
 }

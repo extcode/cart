@@ -244,7 +244,7 @@ class ParserUtility
      * @param \Extcode\Cart\Domain\Model\Cart\Cart $cart
      * @param string $type
      *
-     * @return mixed
+     * @return array
      */
     public function getTypePluginSettings(array $pluginSettings, \Extcode\Cart\Domain\Model\Cart\Cart $cart, $type)
     {
@@ -260,14 +260,41 @@ class ParserUtility
         }
 
         if ($selectedCountry) {
-            if (is_array($pluginSettingsType[$selectedCountry]) &&
-                is_array($pluginSettingsType[$selectedCountry]['options'])
-            ) {
-                $pluginSettingsType = $pluginSettingsType[$selectedCountry];
-                return $pluginSettingsType;
+            if (is_array($pluginSettingsType[$selectedCountry])) {
+                $countrySetting = $pluginSettingsType[$selectedCountry];
+                if (is_array($countrySetting)) {
+                    return $countrySetting;
+                }
             }
+
+            if (is_array($pluginSettingsType['zones'])) {
+                $zoneSetting = $this->getTypeZonesPluginSettings($pluginSettingsType['zones'], $cart);
+                if (is_array($zoneSetting)) {
+                    return $zoneSetting;
+                }
+            }
+
             return $pluginSettingsType;
         }
         return $pluginSettingsType;
+    }
+
+    /**
+     * @param array $zoneSettings
+     * @param \Extcode\Cart\Domain\Model\Cart\Cart $cart
+     *
+     * @return array
+     */
+    public function getTypeZonesPluginSettings(array $zoneSettings, \Extcode\Cart\Domain\Model\Cart\Cart $cart)
+    {
+        foreach ($zoneSettings as $zoneSetting) {
+            $countriesInZones = explode(',', $zoneSetting['countries']);
+
+            if (in_array($cart->getCountry(), $countriesInZones)) {
+                return $zoneSetting;
+            }
+        }
+
+        return [];
     }
 }
