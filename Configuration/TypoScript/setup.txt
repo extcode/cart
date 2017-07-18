@@ -127,8 +127,8 @@ plugin.tx_cart {
         showCartAction {
             validation {
                 fields {
-                    acceptTerms = {$plugin.tx_cart.validation.fields.acceptTerms}
-                    acceptConditions = {$plugin.tx_cart.validation.fields.acceptConditions}
+                    acceptTerms = {$plugin.tx_cart.validation.orderItem.fields.acceptTerms.options.is}
+                    acceptConditions = {$plugin.tx_cart.validation.orderItem.fields.acceptConditions.options.is}
                 }
             }
             summary {
@@ -145,9 +145,67 @@ plugin.tx_cart {
 
     validation {
         orderCartAction {
-            fields {
-                acceptTerms = {$plugin.tx_cart.validation.fields.acceptTerms}
-                acceptConditions = {$plugin.tx_cart.validation.fields.acceptConditions}
+            orderItem {
+                fields {
+                    acceptTerms {
+                        validator = {$plugin.tx_cart.validation.orderItem.fields.acceptTerms.validator}
+                        options.is = {$plugin.tx_cart.validation.orderItem.fields.acceptTerms.options.is}
+                    }
+                    acceptConditions {
+                        validator = {$plugin.tx_cart.validation.orderItem.fields.acceptConditions.validator}
+                        options.is = {$plugin.tx_cart.validation.orderItem.fields.acceptConditions.options.is}
+                    }
+                }
+            }
+            billingAddress {
+                fields {
+                    salutation {
+                        validator = {$plugin.tx_cart.validation.billingAddress.fields.salutation.validator}
+                    }
+                    firstName {
+                        validator = {$plugin.tx_cart.validation.billingAddress.fields.firstName.validator}
+                    }
+                    lastName {
+                        validator = {$plugin.tx_cart.validation.billingAddress.fields.lastName.validator}
+                    }
+                    email {
+                        validator = {$plugin.tx_cart.validation.billingAddress.fields.email.validator}
+                    }
+                    street {
+                        validator = {$plugin.tx_cart.validation.billingAddress.fields.street.validator}
+                    }
+                    zip {
+                        validator = {$plugin.tx_cart.validation.billingAddress.fields.zip.validator}
+                    }
+                    city {
+                        validator = {$plugin.tx_cart.validation.billingAddress.fields.city.validator}
+                    }
+                }
+            }
+            shippingAddress {
+                fields {
+                    salutation {
+                        validator = {$plugin.tx_cart.validation.shippingAddress.fields.salutation.validator}
+                    }
+                    firstName {
+                        validator = {$plugin.tx_cart.validation.shippingAddress.fields.firstName.validator}
+                    }
+                    lastName {
+                        validator = {$plugin.tx_cart.validation.shippingAddress.fields.lastName.validator}
+                    }
+                    email {
+                        validator = {$plugin.tx_cart.validation.shippingAddress.fields.email.validator}
+                    }
+                    street {
+                        validator = {$plugin.tx_cart.validation.shippingAddress.fields.street.validator}
+                    }
+                    zip {
+                        validator = {$plugin.tx_cart.validation.shippingAddress.fields.zip.validator}
+                    }
+                    city {
+                        validator = {$plugin.tx_cart.validation.shippingAddress.fields.city.validator}
+                    }
+                }
             }
         }
     }

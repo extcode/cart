@@ -672,17 +672,29 @@ class CartController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 
     public function initializeOrderCartAction()
     {
-        if ($this->pluginSettings['validation'] &&
-            $this->pluginSettings['validation']['orderCartAction'] &&
-            $this->pluginSettings['validation']['orderCartAction']['fields']
-        ) {
-            $fields = $this->pluginSettings['validation']['orderCartAction']['fields'];
-
-            if (array_key_exists('acceptTerms', $fields)) {
-                $this->setDynamicValidation('acceptTerms', $fields['acceptTerms']);
+        foreach(['orderItem', 'billingAddress', 'shippingAddress'] as $argumentName) {
+            if (!$this->arguments->hasArgument($argumentName)) {
+                continue;
             }
-            if (array_key_exists('acceptConditions', $fields)) {
-                $this->setDynamicValidation('acceptConditions', $fields['acceptConditions']);
+            if ($this->pluginSettings['validation'] &&
+                $this->pluginSettings['validation']['orderCartAction'] &&
+                $this->pluginSettings['validation']['orderCartAction'][$argumentName] &&
+                $this->pluginSettings['validation']['orderCartAction'][$argumentName]['fields']
+            ) {
+                $fields = $this->pluginSettings['validation']['orderCartAction'][$argumentName]['fields'];
+
+                foreach ($fields as $propertyName => $validatorConfiguration) {
+                    $this->setDynamicValidation(
+                        $argumentName,
+                        $propertyName,
+                        [
+                            'validator' => $validatorConfiguration['validator'],
+                            'options' => is_array($validatorConfiguration['options'])
+                                         ? $validatorConfiguration['options']
+                                         : []
+                        ]
+                    );
+                }
             }
         }
 
@@ -860,45 +872,47 @@ class CartController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     /**
      * Sets the dynamic validation rules.
      *
+     * @param string $argumentName
      * @param string $propertyName
-     * @param string $propertyValue
+     * @param array $validatorConfiguration
      * @throws \TYPO3\CMS\Extbase\Validation\Exception\NoSuchValidatorException
      */
-    protected function setDynamicValidation($propertyName, $propertyValue)
+    protected function setDynamicValidation($argumentName, $propertyName, $validatorConfiguration)
     {
-        if ($propertyValue == 'true') {
-            // build custom validation chain
-            /** @var \TYPO3\CMS\Extbase\Validation\ValidatorResolver $validatorResolver */
-            $validatorResolver = $this->objectManager->get(
-                \TYPO3\CMS\Extbase\Validation\ValidatorResolver::class
-            );
+        // build custom validation chain
+        /** @var \TYPO3\CMS\Extbase\Validation\ValidatorResolver $validatorResolver */
+        $validatorResolver = $this->objectManager->get(
+            \TYPO3\CMS\Extbase\Validation\ValidatorResolver::class
+        );
 
-            $booleanValidator = $this->objectManager->get(
-                \TYPO3\CMS\Extbase\Validation\Validator\BooleanValidator::class,
-                [
-                    'is' => $propertyValue,
-                ]
-            );
+        $propertyValidator = $validatorResolver->createValidator(
+            $validatorConfiguration['validator'],
+            $validatorConfiguration['options']
+        );
 
+        if ($argumentName === 'orderItem') {
             /** @var \Extcode\Cart\Domain\Validator\OrderItemValidator $modelValidator */
             $modelValidator = $validatorResolver->createValidator(
                 \Extcode\Cart\Domain\Validator\OrderItemValidator::class
             );
-
-            $modelValidator->addPropertyValidator(
-                $propertyName,
-                $booleanValidator
-            );
-
-            /** @var \TYPO3\CMS\Extbase\Validation\Validator\ConjunctionValidator $baseConjunctionValidator */
-            $baseConjunctionValidator = $this->arguments->getArgument('orderItem')->getValidator();
-            if ($baseConjunctionValidator === null) {
-                $baseConjunctionValidator = $validatorResolver->createValidator(
-                    \TYPO3\CMS\Extbase\Validation\Validator\ConjunctionValidator::class
-                );
-                $this->arguments->getArgument('orderItem')->setValidator($baseConjunctionValidator);
-            }
-            $baseConjunctionValidator->addValidator($modelValidator);
+        } else {
+            /** @var \TYPO3\CMS\Extbase\Validation\Validator\GenericObject $modelValidator */
+            $modelValidator = $validatorResolver->createValidator('GenericObject');
         }
+
+        $modelValidator->addPropertyValidator(
+            $propertyName,
+            $propertyValidator
+        );
+
+        /** @var \TYPO3\CMS\Extbase\Validation\Validator\ConjunctionValidator $baseConjunctionValidator */
+        $baseConjunctionValidator = $this->arguments->getArgument($argumentName)->getValidator();
+        if ($baseConjunctionValidator === null) {
+            $baseConjunctionValidator = $validatorResolver->createValidator(
+                \TYPO3\CMS\Extbase\Validation\Validator\ConjunctionValidator::class
+            );
+            $this->arguments->getArgument($argumentName)->setValidator($baseConjunctionValidator);
+        }
+        $baseConjunctionValidator->addValidator($modelValidator);
     }
 }
