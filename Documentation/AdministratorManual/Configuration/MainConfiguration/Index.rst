@@ -41,3 +41,15 @@ settings.order.pid
       string
    Description
       Definiert die Seite/den Ordner in der die Bestellungen gespeichert werden sollen.
+
+settings.addToCartByAjax
+""""""""""""""""""""""""
+.. container:: table-row
+
+   Property
+      settings.addToCartByAjax
+   Data type
+      boolean
+   Description
+      Schaltet das Hinzufügen von Produkten zum Warenkorb via AJAX ein. Eine Weiterleitung zum Warenkorb erfolgt dann
+      mit dem mitgelieferten JavaScript nicht.

@@ -1,0 +1,29 @@
+.. ==================================================
+.. FOR YOUR INFORMATION
+.. --------------------------------------------------
+.. -*- coding: utf-8 -*- with BOM.
+
+3.12.4 - 18.07.2017
+-------------------
+
+Auf Grund der Art und Weise wie das Formular, um Produkte in den Warenkorb zu legen, einbunden wird, funktioniert die
+Konfiguration zum Hinzufügen über AJAX nicht mehr korrekt.
+Da es eh sehr verwirrend ist, wenn bei der Verwendung mehrere Plugins innerhalb eines Shops das Verhalten unterschiedlich
+konfiguriert wäre, wurde das Feld im Plugin entfernt und nun über TypoScipt gesetzt.
+
+::
+
+   plugin.tx_cart {
+       settings {
+            addToCartByAjax = 1
+       }
+   }
+
+|
+
+Weiterhin fand eine Optimierung bei der URL-Generierung statt. Statt den Page Type per JavaScript anzuhängen wird dieser
+nun direkt im Fluid-ViewHelper gesetzt.
+
+.. IMPORTANT::
+   * Wer Produkte per AJAX zum Warenkorb hinzufügen möchte, muss die neue TypoScript-Konfigurationsvariable setzen.
+   * Ein eigenes Resources/Private/Partials/Product/CartForm.html Template oder JavaScript muss dahingehend angepasst werden.

@@ -14,4 +14,4 @@ Einen Key/Value-Store gibt es in TYPO3 so nicht, so dass in der Datenbank das Ar
 JSON kann sowohl von PHP im Backend als auch im Frontend mit JavaScript verarbeitet werden.
 
 .. IMPORTANT::
-Es ist eine Aktualisierung der Datenbank erforderlich. Da dieses Feld neu hinzu kommt sind keine Probleme zu erwarten.
+   Es ist eine Aktualisierung der Datenbank erforderlich. Da dieses Feld neu hinzu kommt sind keine Probleme zu erwarten.
