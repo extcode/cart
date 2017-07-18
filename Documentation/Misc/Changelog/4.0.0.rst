@@ -1,0 +1,55 @@
+.. ==================================================
+.. FOR YOUR INFORMATION
+.. --------------------------------------------------
+.. -*- coding: utf-8 -*- with BOM.
+
+4.0.0 - 18.07.2017
+------------------
+
+Diese Version wird einige Änderungen mit sich bringen. Darunter befinden sich einige neue Funktionen, aber auch ein paar Änderungen, die Anpassungen an bestehenden Installationen erforderlich machen. Dieser ChangeLog-Eintrag sollte daher sorgfältig durchgearbeitet werden.
+
+#99 Unterstützung nur für die PHP Versionen 5.6 und 7.0+
+========================================================
+
+Da der Support für die PHP Versionen 5.4 und 5.5 ausgelaufen ist und diese Versionen nicht mehr verwendet werden sollten,
+verzichtet Cart auch auf die Unterstützung dieser Versionen, auch wenn TYPO3 v7.6 noch damit laufen sollte.
+Aus dem Blickwinkel Sicherheit, die bei einem Online-Shop eine große Rolle spielt, sollten diese Versionen nicht mehr
+eingesetzt werden.
+
+.. NOTE::
+   Die Tests für diese Versionen wurden ebenfalls entfernt.
+
+#100 cleanup and update dev-requirements
+========================================
+
+Ein paar nicht verwendete Abhängigkeiten wurden aus der composer.json entfernt. Dies sollte keine negativen Auswirkungen haben.
+
+#101 Unterstützung für TYPO3 v6.2 entfernt
+==========================================
+
+Die Unterstützung für TYPO3 v6.2 wurde entfernt. Da Extension-Maintainer in der Regel keine Unterstützung für die
+täglich anfallenden Supportanfragen bekommen, muss dieser Schritt erfolgen.
+Ein Ziel von `coders.care <https://coders.care>`_ ist die Möglichkeit auch :abbr:`SLA (Service Level Agreement)`. für
+Erweiterungen abzuschließen. Für Cart wird geprüft, in wie weit eine Beteiligung an diesem Projekt möglich ist.
+
+.. IMPORTANT::
+   Da der offizielle Support für TYPO3 v6.2 ausgelaufen ist, kann in der aktuellen Weiterentwicklung nur auf die LTS
+   Versionen Rücksicht genommen werden. Sofern in Fehler auch die ältere Version betrifft, wird dieser auch in einem
+   eigenen `Branch 3.x auf github.com <https://github.com/extcode/cart/tree/3.x>`_ behoben. Eine Aktualisierung im TER
+   findet ggf. nicht mehr statt.
+
+#92 Währungsumrechnung und Neuberechnung der Steuern
+====================================================
+
+TODO
+
+#122 Functional Tests für das Parsen von TypoScript
+===================================================
+
+In dieser Version sollen nach und nach Functional Tests eingeführt werden, die das korrekte Verhalten von Funktionen
+absichert. Dazu gehört auch das Parsen von TypoScript-Konfigurationen. Weitere Tests sollen folgen.
+
+#123 Zonenkonfiguration für Bezahl- und Versandmethoden
+=======================================================
+
+TODO

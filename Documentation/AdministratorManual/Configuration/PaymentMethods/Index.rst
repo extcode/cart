@@ -18,6 +18,9 @@ Der Parameter plugin.tx_cart.settings.defaultCountry definiert welches Land vora
 :: important:
    Sollten für verschiedene Länder verschiedene Bezahlmethoden definiert sein, wird die Auswahl der Rechnungsadresse für die erlaubten Bezahlmethoden genutzt. Das Land der Versandadresse, auch wenn eine abweichende Lieferadresse angegeben wurde, wird nicht genutzt.
 
+Länderkonfiguration
+"""""""""""""""""""
+
 ::
 
    plugin.tx_cart {
@@ -31,26 +34,30 @@ Der Parameter plugin.tx_cart.settings.defaultCountry definiert welches Land vora
        }
 
        payments {
-           de {
-               preset = 1
-               options {
-                   1 {
-                       title = Vorkasse
-                       extra = 0.00
-                       taxClassId = 1
-                       status = open
+           countries {
+               de {
+                   preset = 1
+                   options {
+                       1 {
+                           title = Vorkasse
+                           extra = 0.00
+                           taxClassId = 1
+                           status = open
+                       }
                    }
                }
+               at < .de
+               ch < .de
            }
-           at < .de
-           ch < .de
        }
    }
+
+|
 
 .. container:: table-row
 
    Property
-      plugin.tx_cart.payments.de.preset
+      plugin.tx_cart.payments.countries.de.preset
    Data type
       int
    Description
@@ -60,7 +67,7 @@ Der Parameter plugin.tx_cart.settings.defaultCountry definiert welches Land vora
 .. container:: table-row
 
    Property
-      plugin.tx_cart.payments.de.options.1 … options.n
+      plugin.tx_cart.payments.countries.de.options.n
    Data type
       array
    Description
@@ -71,7 +78,7 @@ Der Parameter plugin.tx_cart.settings.defaultCountry definiert welches Land vora
 .. container:: table-row
 
    Property
-      plugin.tx_cart.payments.de.options.n.title
+      plugin.tx_cart.payments.countries.de.options.n.title
    Data type
       Text
    Description
@@ -80,7 +87,7 @@ Der Parameter plugin.tx_cart.settings.defaultCountry definiert welches Land vora
 .. container:: table-row
 
    Property
-      plugin.tx_cart.payments.de.options.n.extra
+      plugin.tx_cart.payments.countries.de.options.n.extra
    Data type
       Text
    Description
@@ -91,7 +98,7 @@ Der Parameter plugin.tx_cart.settings.defaultCountry definiert welches Land vora
 .. container:: table-row
 
    Property
-      plugin.tx_cart.payments.de.options.n.free.from
+      plugin.tx_cart.payments.countries.de.options.n.free.from
    Data type
       Text
    Description
@@ -100,7 +107,7 @@ Der Parameter plugin.tx_cart.settings.defaultCountry definiert welches Land vora
 .. container:: table-row
 
    Property
-      plugin.tx_cart.payments.de.options.n.free.until
+      plugin.tx_cart.payments.countries.de.options.n.free.until
    Data type
       Text
    Description
@@ -109,7 +116,7 @@ Der Parameter plugin.tx_cart.settings.defaultCountry definiert welches Land vora
 .. container:: table-row
 
    Property
-      plugin.tx_cart.payments.de.options.n.available.from
+      plugin.tx_cart.payments.countries.de.options.n.available.from
    Data type
       Text
    Description
@@ -119,7 +126,7 @@ Der Parameter plugin.tx_cart.settings.defaultCountry definiert welches Land vora
 .. container:: table-row
 
    Property
-      plugin.tx_cart.payments.de.options.n.available.until
+      plugin.tx_cart.payments.countries.de.options.n.available.until
    Data type
       Text
    Description
@@ -129,7 +136,7 @@ Der Parameter plugin.tx_cart.settings.defaultCountry definiert welches Land vora
 .. container:: table-row
 
    Property
-      plugin.tx_cart.payments.de.options.n.available.fallBackId
+      plugin.tx_cart.payments.countries.de.options.n.available.fallBackId
    Data type
       Text
    Description
@@ -138,8 +145,59 @@ Der Parameter plugin.tx_cart.settings.defaultCountry definiert welches Land vora
 .. container:: table-row
 
    Property
-      plugin.tx_cart.payments.de.options.n.redirects.success.url
+      plugin.tx_cart.payments.countries.de.options.n.redirects.success.url
    Data type
       Text
    Description
       Ist für die genutzte Bezahlmethode einer Bestellung die Weiterleitungs-URL konfiguriert, wird nach erfolgreicher Bestellung auf die angegebene URL weitergeleitet statt die Bestätigungsseite anzuzeigen.
+
+Zonenkonfiguration
+""""""""""""""""""
+
+Sollte keine individuelle Landeskonfiguration gefunden werden, kann auch mit Zonen (zones) im TypoScript gearbeitet werden.
+Dies erspart jede Menge Konfigurationsarbeit, wenn in viele Länder geliefert werden soll.
+
+::
+
+   plugin.tx_cart {
+       payments {
+           zones {
+               1 {
+                   preset = 1
+                   countries = de,at,ch
+                   options {
+                       1 {
+                           title = Vorkasse
+                           extra = 0.00
+                           taxClassId = 1
+                           status = open
+                       }
+                   }
+               }
+           }
+       }
+   }
+
+|
+
+.. container:: table-row
+
+   Property
+      plugin.tx_cart.payments.zones.n
+   Data type
+      int
+   Description
+      Man kann bis zu n verschiedene Zonen konfigurieren.
+
+.. container:: table-row
+
+   Property
+      plugin.tx_cart.payments.zones.n.countries
+   Data type
+      int
+   Description
+      Liste der Länder, für die diese Konfiguration gültig ist.
+
+.. NOTE::
+   * Es wird erst in der Liste der Länderkonfiguration nach einer passenden Konfiguration gesucht.
+   * Es wird dann die Liste der Zonenkonfigurationen durchgesehen. Die erste passende Konfiguration wird genutzt.

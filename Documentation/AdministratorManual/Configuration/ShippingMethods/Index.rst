@@ -18,6 +18,9 @@ Der Parameter plugin.tx_cart.settings.defaultCountry definiert welches Land vora
 :: important:
    Sollten für verschiedene Länder verschiedene Versandmethoden definiert sein, wird das Land der Lieferadresse genutzt. Nur in dem Fall, dass keine abweichende Lieferadresse angegeben wurde, wird die Auswahl der Rechnungsadresse zu Grunde gelegt.
 
+Länderkonfiguration
+"""""""""""""""""""
+
 ::
 
    plugin.tx_cart {
@@ -31,29 +34,30 @@ Der Parameter plugin.tx_cart.settings.defaultCountry definiert welches Land vora
        }
 
        shippings {
-           de {
-               preset = 1
-               options {
-                   1 {
-                       title = Standard
-                       extra = 0.00
-                       taxClassId = 1
-                       status = open
-                   }
-               }
+           countries {
+              de {
+                  preset = 1
+                  options {
+                      1 {
+                          title = Standard
+                          extra = 0.00
+                          taxClassId = 1
+                          status = open
+                      }
+                  }
+              }
+              at < .de
+              ch < .de
            }
-           at < .de
-           ch < .de
        }
    }
 
-
-Im folgenden
+|
 
 .. container:: table-row
 
    Property
-      plugin.tx_cart.shippings.de.preset
+      plugin.tx_cart.shippings.countries.de.preset
    Data type
       int
    Description
@@ -63,7 +67,7 @@ Im folgenden
 .. container:: table-row
 
    Property
-      plugin.tx_cart.shippings.de.options.1 … options.n
+      plugin.tx_cart.shippings.countries.de.options.n
    Data type
       array
    Description
@@ -74,7 +78,7 @@ Im folgenden
 .. container:: table-row
 
    Property
-      plugin.tx_cart.shippings.de.options.n.title
+      plugin.tx_cart.shippings.countries.de.options.n.title
    Data type
       Text
    Description
@@ -83,7 +87,7 @@ Im folgenden
 .. container:: table-row
 
    Property
-      plugin.tx_cart.shippings.de.options.n.extra
+      plugin.tx_cart.shippings.countries.de.options.n.extra
    Data type
       Text
    Description
@@ -94,7 +98,7 @@ Im folgenden
 .. container:: table-row
 
    Property
-      plugin.tx_cart.shippings.de.options.n.free.from
+      plugin.tx_cart.shippings.countries.de.options.n.free.from
    Data type
       Text
    Description
@@ -104,7 +108,7 @@ Im folgenden
 .. container:: table-row
 
    Property
-      plugin.tx_cart.shippings.de.options.n.free.until
+      plugin.tx_cart.shippings.countries.de.options.n.free.until
    Data type
       Text
    Description
@@ -113,7 +117,7 @@ Im folgenden
 .. container:: table-row
 
    Property
-      plugin.tx_cart.payments.de.options.n.available.from
+      plugin.tx_cart.shippings.countries.de.options.n.available.from
    Data type
       Text
    Description
@@ -123,7 +127,7 @@ Im folgenden
 .. container:: table-row
 
    Property
-      plugin.tx_cart.payments.de.options.n.available.until
+      plugin.tx_cart.shippings.countries.de.options.n.available.until
    Data type
       Text
    Description
@@ -133,8 +137,59 @@ Im folgenden
 .. container:: table-row
 
    Property
-      plugin.tx_cart.payments.de.options.n.available.fallBackId
+      plugin.tx_cart.shippings.countries.de.options.n.available.fallBackId
    Data type
       Text
    Description
       Ist die Versandart nicht verfügbar, wird die Versandart mit dieser ID verwendet.
+
+Zonenkonfiguration
+""""""""""""""""""
+
+Sollte keine individuelle Landeskonfiguration gefunden werden, kann auch mit Zonen (zones) im TypoScript gearbeitet werden.
+Dies erspart jede Menge Konfigurationsarbeit, wenn in viele Länder geliefert werden soll.
+
+::
+
+   plugin.tx_cart {
+       shippings {
+           zones {
+               1 {
+                   preset = 1
+                   countries = de,at,ch
+                   options {
+                       1 {
+                           title = Vorkasse
+                           extra = 0.00
+                           taxClassId = 1
+                           status = open
+                       }
+                   }
+               }
+           }
+       }
+   }
+
+|
+
+.. container:: table-row
+
+   Property
+      plugin.tx_cart.shippings.zones.n
+   Data type
+      int
+   Description
+      Man kann bis zu n verschiedene Zonen konfigurieren.
+
+.. container:: table-row
+
+   Property
+      plugin.tx_cart.shippings.zones.n.countries
+   Data type
+      int
+   Description
+      Liste der Länder, für die diese Konfiguration gültig ist.
+
+.. NOTE::
+   * Es wird erst in der Liste der Länderkonfiguration nach einer passenden Konfiguration gesucht.
+   * Es wird dann die Liste der Zonenkonfigurationen durchgesehen. Die erste passende Konfiguration wird genutzt.

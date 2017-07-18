@@ -262,14 +262,21 @@ class ParserUtility
         if ($selectedCountry) {
             if (is_array($pluginSettingsType[$selectedCountry])) {
                 $countrySetting = $pluginSettingsType[$selectedCountry];
-                if (is_array($countrySetting)) {
+                if (is_array($countrySetting) && !empty($countrySetting)) {
+                    return $countrySetting;
+                }
+            }
+
+            if (is_array($pluginSettingsType['countries'][$selectedCountry])) {
+                $countrySetting = $pluginSettingsType['countries'][$selectedCountry];
+                if (is_array($countrySetting) && !empty($countrySetting)) {
                     return $countrySetting;
                 }
             }
 
             if (is_array($pluginSettingsType['zones'])) {
                 $zoneSetting = $this->getTypeZonesPluginSettings($pluginSettingsType['zones'], $cart);
-                if (is_array($zoneSetting)) {
+                if (is_array($zoneSetting) && !empty($zoneSetting)) {
                     return $zoneSetting;
                 }
             }
@@ -288,6 +295,7 @@ class ParserUtility
     public function getTypeZonesPluginSettings(array $zoneSettings, \Extcode\Cart\Domain\Model\Cart\Cart $cart)
     {
         foreach ($zoneSettings as $zoneSetting) {
+            $zoneSetting['countries'] = preg_replace('/\s+/', '', $zoneSetting['countries']);
             $countriesInZones = explode(',', $zoneSetting['countries']);
 
             if (in_array($cart->getCountry(), $countriesInZones)) {
