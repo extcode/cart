@@ -3,6 +3,10 @@
     <file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2015-02-03T16:30:00Z" product-name="cart">
         <header/>
         <body>
+            <trans-unit id="validator.notempty.empty">
+                <source>The given subject was not empty.</source>
+                <target>Der angegebene Wert ist nicht leer.</target>
+            </trans-unit>
 
             <trans-unit id="tx_cart.plugin.mini_cart.empty_cart">
                 <source>Cart is empty.</source>

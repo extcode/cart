@@ -927,6 +927,10 @@ class CartController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
             \TYPO3\CMS\Extbase\Validation\ValidatorResolver::class
         );
 
+        if ($validatorConfiguration['validator'] == 'Empty') {
+            $validatorConfiguration['validator'] = '\Extcode\Cart\Validation\Validator\EmptyValidator';
+        }
+
         $propertyValidator = $validatorResolver->createValidator(
             $validatorConfiguration['validator'],
             $validatorConfiguration['options']
