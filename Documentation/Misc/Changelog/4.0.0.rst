@@ -53,3 +53,8 @@ absichert. Dazu gehört auch das Parsen von TypoScript-Konfigurationen. Weitere 
 =======================================================
 
 TODO
+
+#117 Konfigurierbare Validierung für Formularfelder
+===================================================
+
+TODO

@@ -9,177 +9,359 @@
             <ul class="form-list">
                 <li class="fields">
                     <div class="field salutation">
-                        <label for="shippingAddress:salutation" class="required">
-                            <f:translate key="tx_cart_domain_model_order_address.salutation"/>
-                            <em>*</em>
-                        </label>
-                        <div class="input-box">
-                            <f:form.textfield id="shippingAddress:salutation"
-                                              class="form-control"
-                                              name="shippingAddress[salutation]"
-                                              value="{shippingAddress.salutation}"
-                                              data="{required:'true'}"/>
-                            <f:form.validationResults for="shippingAddress">
-                                <f:if condition="{validationResults.flattenedErrors.salutation}">
-                                    <div class="validation-error alert alert-danger">{validationResults.flattenedErrors.salutation.0.message}</div>
-                                </f:if>
-                            </f:form.validationResults>
-                        </div>
-                    </div>
-                    <div class="field title">
-                        <label for="shippingAddress:title">
-                            <f:translate key="tx_cart_domain_model_order_address.title"/>
-                        </label>
-                        <div class="input-box">
-                            <f:form.textfield id="shippingAddress:title"
-                                              class="form-control"
-                                              name="shippingAddress[title]"
-                                              value="{shippingAddress.title}"/>
-                        </div>
-                    </div>
-                    <div class="field firstName">
-                        <label for="shippingAddress:firstName" class="required">
-                            <f:translate key="tx_cart_domain_model_order_address.first_name"/>
-                            <em>*</em>
-                        </label>
-                        <div class="input-box">
-                            <f:form.textfield id="shippingAddress:firstName"
-                                              class="form-control"
-                                              name="shippingAddress[firstName]"
-                                              value="{shippingAddress.firstName}"
-                                              data="{required:'true'}"/>
-                            <f:form.validationResults for="shippingAddress">
-                                <f:if condition="{validationResults.flattenedErrors.firstName}">
-                                    <div class="validation-error alert alert-danger">{validationResults.flattenedErrors.firstName.0.message}</div>
-                                </f:if>
-                            </f:form.validationResults>
-                        </div>
-                    </div>
-                    <div class="field lastName">
-                        <label for="shippingAddress:lastName" class="required">
-                            <f:translate key="tx_cart_domain_model_order_address.last_name"/>
-                            <em>*</em>
-                        </label>
-                        <div class="input-box">
-                            <f:form.textfield id="shippingAddress:lastName"
-                                              class="form-control"
-                                              name="shippingAddress[lastName]"
-                                              value="{shippingAddress.lastName}"
-                                              data="{required:'true'}"/>
-                            <f:form.validationResults for="shippingAddress">
-                                <f:if condition="{validationResults.flattenedErrors.lastName}">
-                                    <div class="validation-error alert alert-danger">{validationResults.flattenedErrors.lastName.0.message}</div>
-                                </f:if>
-                            </f:form.validationResults>
-                        </div>
-                    </div>
-                </li>
-                <li>
-                    <label for="shippingAddress:email" class="required">
-                        <f:translate key="tx_cart_domain_model_order_address.email"/>
-                        <em>*</em>
-                    </label>
-                    <div class="input-box">
-                        <f:form.textfield id="shippingAddress:email"
-                                          class="form-control"
-                                          name="shippingAddress[email]"
-                                          value="{shippingAddress.email}"
-                                          type="email"
-                                          data="{required:'true'}"/>
-                        <f:form.validationResults for="shippingAddress">
-                            <f:if condition="{validationResults.flattenedErrors.email}">
-                                <div class="validation-error alert alert-danger">{validationResults.flattenedErrors.email.0.message}</div>
-                            </f:if>
-                        </f:form.validationResults>
-                    </div>
-                </li>
-                <li>
-                    <label for="shippingAddress:company">
-                        <f:translate key="tx_cart_domain_model_order_address.company"/>
-                    </label>
-                    <div class="input-box">
-                        <f:form.textfield id="shippingAddress:company"
-                                          class="form-control"
-                                          name="shippingAddress[company]"
-                                          value="{shippingAddress.company}"/>
-                    </div>
-                </li>
-                <li>
-                    <div class="row">
-                        <div class="col-sm-12 form-columns">
-                            <label for="shippingAddress:street" class="required">
-                                <f:translate key="tx_cart_domain_model_order_address.street"/>
-                                <em>*</em>
-                            </label>
-                            <div class="input-box">
-                                <f:form.textfield id="shippingAddress:street"
-                                                  class="form-control"
-                                                  name="shippingAddress[street]"
-                                                  value="{shippingAddress.street}"
-                                                  data="{required:'true'}"/>
-                                <f:form.validationResults for="shippingAddress">
-                                    <f:if condition="{validationResults.flattenedErrors.street}">
-                                        <div class="validation-error alert alert-danger">{validationResults.flattenedErrors.street.0.message}</div>
-                                    </f:if>
-                                </f:form.validationResults>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-4 form-columns">
-                            <div class="field">
-                                <label for="shippingAddress:zip" class="required">
-                                    <f:translate key="tx_cart_domain_model_order_address.zip"/>
+                        <f:if condition="{0: settings.validation.shippingAddress.fields.salutation.validator} == {0: 'NotEmpty'}">
+                            <f:then>
+                                <label for="shippingAddress:salutation" class="required">
+                                    <f:translate key="tx_cart_domain_model_order_address.salutation"/>
                                     <em>*</em>
                                 </label>
                                 <div class="input-box">
-                                    <f:form.textfield id="shippingAddress:zip"
+                                    <f:form.textfield id="shippingAddress:salutation"
                                                       class="form-control"
-                                                      name="shippingAddress[zip]"
-                                                      value="{shippingAddress.zip}"
+                                                      name="shippingAddress[salutation]"
+                                                      value="{shippingAddress.salutation}"
                                                       data="{required:'true'}"/>
                                     <f:form.validationResults for="shippingAddress">
-                                        <f:if condition="{validationResults.flattenedErrors.zip}">
-                                            <div class="validation-error alert alert-danger">{validationResults.flattenedErrors.zip.0.message}</div>
+                                        <f:if condition="{validationResults.flattenedErrors.salutation}">
+                                            <div class="validation-error alert alert-danger">{validationResults.flattenedErrors.salutation.0.message}</div>
+                                        </f:if>
+                                    </f:form.validationResults>
+                               </div>
+                            </f:then>
+                            <f:else>
+                                <label for="shippingAddress:salutation" class="required">
+                                    <f:translate key="tx_cart_domain_model_order_address.salutation"/>
+                                </label>
+                                <div class="input-box">
+                                    <f:form.textfield id="shippingAddress:salutation"
+                                                      class="form-control"
+                                                      name="shippingAddress[salutation]"
+                                                      value="{shippingAddress.salutation}"/>
+                                </div>
+                            </f:else>
+                        </f:if>
+                    </div>
+
+                    <div class="field title">
+                        <f:if condition="{0: settings.validation.shippingAddress.fields.title.validator} == {0: 'NotEmpty'}">
+                            <f:then>
+                                <label for="shippingAddress:title" class="required">
+                                    <f:translate key="tx_cart_domain_model_order_address.title"/>
+                                    <em>*</em>
+                                </label>
+                                <div class="input-box">
+                                    <f:form.textfield id="shippingAddress:title"
+                                                      class="form-control"
+                                                      name="shippingAddress[title]"
+                                                      value="{shippingAddress.title}"
+                                                      data="{required:'true'}"/>
+                                    <f:form.validationResults for="shippingAddress">
+                                        <f:if condition="{validationResults.flattenedErrors.title}">
+                                            <div class="validation-error alert alert-danger">{validationResults.flattenedErrors.title.0.message}</div>
                                         </f:if>
                                     </f:form.validationResults>
                                 </div>
+                            </f:then>
+                            <f:else>
+                                <label for="shippingAddress:title">
+                                    <f:translate key="tx_cart_domain_model_order_address.title"/>
+                                </label>
+                                <div class="input-box">
+                                    <f:form.textfield id="shippingAddress:title"
+                                                      class="form-control"
+                                                      name="shippingAddress[title]"
+                                                      value="{shippingAddress.title}"/>
+                                </div>
+                            </f:else>
+                        </f:if>
+                    </div>
+
+                    <div class="field firstName">
+                        <f:if condition="{0: settings.validation.shippingAddress.fields.firstName.validator} == {0: 'NotEmpty'}">
+                            <f:then>
+                                <label for="shippingAddress:firstName" class="required">
+                                    <f:translate key="tx_cart_domain_model_order_address.first_name"/>
+                                    <em>*</em>
+                                </label>
+                                <div class="input-box">
+                                    <f:form.textfield id="shippingAddress:firstName"
+                                                      class="form-control"
+                                                      name="shippingAddress[firstName]"
+                                                      value="{shippingAddress.firstName}"
+                                                      data="{required:'true'}"/>
+                                    <f:form.validationResults for="shippingAddress">
+                                        <f:if condition="{validationResults.flattenedErrors.firstName}">
+                                            <div class="validation-error alert alert-danger">{validationResults.flattenedErrors.firstName.0.message}</div>
+                                        </f:if>
+                                    </f:form.validationResults>
+                                </div>
+                            </f:then>
+                            <f:else>
+                                <label for="shippingAddress:firstName" class="required">
+                                    <f:translate key="tx_cart_domain_model_order_address.first_name"/>
+                                </label>
+                                <div class="input-box">
+                                    <f:form.textfield id="shippingAddress:firstName"
+                                                      class="form-control"
+                                                      name="shippingAddress[firstName]"
+                                                      value="{shippingAddress.firstName}"/>
+                                </div>
+                            </f:else>
+                        </f:if>
+                    </div>
+
+                    <div class="field lastName">
+                        <f:if condition="{0: settings.validation.shippingAddress.fields.lastName.validator} == {0: 'NotEmpty'}">
+                            <f:then>
+                                <label for="shippingAddress:lastName" class="required">
+                                    <f:translate key="tx_cart_domain_model_order_address.last_name"/>
+                                    <em>*</em>
+                                </label>
+                                <div class="input-box">
+                                    <f:form.textfield id="shippingAddress:lastName"
+                                                      class="form-control"
+                                                      name="shippingAddress[lastName]"
+                                                      value="{shippingAddress.lastName}"
+                                                      data="{required:'true'}"/>
+                                    <f:form.validationResults for="shippingAddress">
+                                        <f:if condition="{validationResults.flattenedErrors.lastName}">
+                                            <div class="validation-error alert alert-danger">{validationResults.flattenedErrors.lastName.0.message}</div>
+                                        </f:if>
+                                    </f:form.validationResults>
+                                </div>
+                            </f:then>
+                            <f:else>
+                                <label for="shippingAddress:lastName">
+                                    <f:translate key="tx_cart_domain_model_order_address.last_name"/>
+                                </label>
+                                <div class="input-box">
+                                    <f:form.textfield id="shippingAddress:lastName"
+                                                      class="form-control"
+                                                      name="shippingAddress[lastName]"
+                                                      value="{shippingAddress.lastName}"/>
+                                </div>
+                            </f:else>
+                        </f:if>
+                    </div>
+                </li>
+
+                <li>
+                    <f:if condition="{0: settings.validation.shippingAddress.fields.email.validator} == {0: 'NotEmpty'}">
+                        <f:then>
+                            <label for="shippingAddress:email" class="required">
+                                <f:translate key="tx_cart_domain_model_order_address.email"/>
+                                <em>*</em>
+                            </label>
+                            <div class="input-box">
+                                <f:form.textfield id="shippingAddress:email"
+                                                  class="form-control"
+                                                  name="shippingAddress[email]"
+                                                  value="{shippingAddress.email}"
+                                                  type="email"
+                                                  data="{required:'true'}"/>
+                                <f:form.validationResults for="shippingAddress">
+                                    <f:if condition="{validationResults.flattenedErrors.email}">
+                                        <div class="validation-error alert alert-danger">{validationResults.flattenedErrors.email.0.message}</div>
+                                    </f:if>
+                                </f:form.validationResults>
+                            </div>
+                        </f:then>
+                        <f:else>
+                            <label for="shippingAddress:email">
+                                <f:translate key="tx_cart_domain_model_order_address.email"/>
+                            </label>
+                            <div class="input-box">
+                                <f:form.textfield id="shippingAddress:email"
+                                                  class="form-control"
+                                                  name="shippingAddress[email]"
+                                                  value="{shippingAddress.email}"
+                                                  type="email"/>
+                            </div>
+                        </f:else>
+                    </f:if>
+                </li>
+
+                <li>
+                    <f:if condition="{0: settings.validation.shippingAddress.fields.company.validator} == {0: 'NotEmpty'}">
+                        <f:then>
+                            <label for="shippingAddress:company" class="required">
+                                <f:translate key="tx_cart_domain_model_order_address.company"/>
+                                <em>*</em>
+                            </label>
+                            <div class="input-box">
+                                <f:form.textfield id="shippingAddress:company"
+                                                  class="form-control"
+                                                  name="shippingAddress[company]"
+                                                  value="{shippingAddress.company}"
+                                                  data="{required:'true'}"/>
+                                <f:form.validationResults for="shippingAddress">
+                                    <f:if condition="{validationResults.flattenedErrors.company}">
+                                        <div class="validation-error alert alert-danger">{validationResults.flattenedErrors.company.0.message}</div>
+                                    </f:if>
+                                </f:form.validationResults>
+                            </div>
+                        </f:then>
+                        <f:else>
+                            <label for="shippingAddress:company">
+                                <f:translate key="tx_cart_domain_model_order_address.company"/>
+                            </label>
+                            <div class="input-box">
+                                <f:form.textfield id="shippingAddress:company"
+                                                  class="form-control"
+                                                  name="shippingAddress[company]"
+                                                  value="{shippingAddress.company}"/>
+                            </div>
+                        </f:else>
+                    </f:if>
+                </li>
+
+                <li>
+                    <div class="row">
+                        <div class="col-sm-12 form-columns">
+                            <f:if condition="{0: settings.validation.shippingAddress.fields.street.validator} == {0: 'NotEmpty'}">
+                                <f:then>
+                                    <label for="shippingAddress:street" class="required">
+                                        <f:translate key="tx_cart_domain_model_order_address.street"/>
+                                        <em>*</em>
+                                    </label>
+                                    <div class="input-box">
+                                        <f:form.textfield id="shippingAddress:street"
+                                                          class="form-control"
+                                                          name="shippingAddress[street]"
+                                                          value="{shippingAddress.street}"
+                                                          data="{required:'true'}"/>
+                                        <f:form.validationResults for="shippingAddress">
+                                            <f:if condition="{validationResults.flattenedErrors.street}">
+                                                <div class="validation-error alert alert-danger">{validationResults.flattenedErrors.street.0.message}</div>
+                                            </f:if>
+                                        </f:form.validationResults>
+                                    </div>
+                                </f:then>
+                                <f:else>
+                                    <label for="shippingAddress:street">
+                                        <f:translate key="tx_cart_domain_model_order_address.street"/>
+                                    </label>
+                                    <div class="input-box">
+                                        <f:form.textfield id="shippingAddress:street"
+                                                          class="form-control"
+                                                          name="shippingAddress[street]"
+                                                          value="{shippingAddress.street}"/>
+                                    </div>
+                                </f:else>
+                            </f:if>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-4 form-columns">
+                            <div class="field">
+                                <f:if condition="{0: settings.validation.shippingAddress.fields.zip.validator} == {0: 'NotEmpty'}">
+                                    <f:then>
+                                        <label for="shippingAddress:zip" class="required">
+                                            <f:translate key="tx_cart_domain_model_order_address.zip"/>
+                                            <em>*</em>
+                                        </label>
+                                        <div class="input-box">
+                                            <f:form.textfield id="shippingAddress:zip"
+                                                              class="form-control"
+                                                              name="shippingAddress[zip]"
+                                                              value="{shippingAddress.zip}"
+                                                              data="{required:'true'}"/>
+                                            <f:form.validationResults for="shippingAddress">
+                                                <f:if condition="{validationResults.flattenedErrors.zip}">
+                                                    <div class="validation-error alert alert-danger">{validationResults.flattenedErrors.zip.0.message}</div>
+                                                </f:if>
+                                            </f:form.validationResults>
+                                        </div>
+                                    </f:then>
+                                    <f:else>
+                                        <label for="shippingAddress:zip">
+                                            <f:translate key="tx_cart_domain_model_order_address.zip"/>
+                                        </label>
+                                        <div class="input-box">
+                                            <f:form.textfield id="shippingAddress:zip"
+                                                              class="form-control"
+                                                              name="shippingAddress[zip]"
+                                                              value="{shippingAddress.zip}"/>
+                                        </div>
+                                    </f:else>
+                                </f:if>
                             </div>
                         </div>
                         <div class="col-sm-8 form-columns">
                             <div class="field">
-                                <label for="shippingAddress:city" class="required">
-                                    <f:translate key="tx_cart_domain_model_order_address.city"/>
-                                    <em>*</em>
-                                </label>
-                                <div class="input-box">
-                                    <f:form.textfield id="shippingAddress:city"
-                                                      class="form-control"
-                                                      name="shippingAddress[city]"
-                                                      value="{shippingAddress.city}"
-                                                      data="{required:'true'}"/>
-                                    <f:form.validationResults for="shippingAddress">
-                                        <f:if condition="{validationResults.flattenedErrors.lastName}">
-                                            <div class="validation-error alert alert-danger">{validationResults.flattenedErrors.city.0.message}</div>
-                                        </f:if>
-                                    </f:form.validationResults>
-                                </div>
+                                <f:if condition="{0: settings.validation.shippingAddress.fields.city.validator} == {0: 'NotEmpty'}">
+                                    <f:then>
+                                        <label for="shippingAddress:city" class="required">
+                                            <f:translate key="tx_cart_domain_model_order_address.city"/>
+                                            <em>*</em>
+                                        </label>
+                                        <div class="input-box">
+                                            <f:form.textfield id="shippingAddress:city"
+                                                              class="form-control"
+                                                              name="shippingAddress[city]"
+                                                              value="{shippingAddress.city}"
+                                                              data="{required:'true'}"/>
+                                            <f:form.validationResults for="shippingAddress">
+                                                <f:if condition="{validationResults.flattenedErrors.lastName}">
+                                                    <div class="validation-error alert alert-danger">{validationResults.flattenedErrors.city.0.message}</div>
+                                                </f:if>
+                                            </f:form.validationResults>
+                                        </div>
+                                    </f:then>
+                                    <f:else>
+                                        <label for="shippingAddress:city">
+                                            <f:translate key="tx_cart_domain_model_order_address.city"/>
+                                        </label>
+                                        <div class="input-box">
+                                            <f:form.textfield id="shippingAddress:city"
+                                                              class="form-control"
+                                                              name="shippingAddress[city]"
+                                                              value="{shippingAddress.city}"/>
+                                        </div>
+                                    </f:else>
+                                </f:if>
                             </div>
                         </div>
                     </div>
+
                     <div class="row">
                         <div class="col-sm-12 form-columns">
-                            <label for="shippingAddress:country">
-                                <f:translate key="tx_cart_domain_model_order_address.country"/>
-                            </label>
-                            <div class="input-box">
-                                <cart:form.select id="shippingAddress:country"
-                                               class="form-control"
-                                               name="shippingAddress[country]"
-                                               value="{cart.shippingCountry}"
-                                               options="{settings.allowedCountries}"
-                                               translationKey="tx_cart.settings.allowed_countries"/>
-                            </div>
+                            <f:if condition="{0: settings.validation.shippingAddress.fields.country.validator} == {0: 'NotEmpty'}">
+                                <f:then>
+                                    <label for="shippingAddress:country" class="required">
+                                        <f:translate key="tx_cart_domain_model_order_address.country"/>
+                                        <em>*</em>
+                                    </label>
+                                    <div class="input-box">
+                                        <cart:form.select id="shippingAddress:country"
+                                                       class="form-control"
+                                                       name="shippingAddress[country]"
+                                                       value="{cart.shippingCountry}"
+                                                       options="{settings.allowedCountries}"
+                                                       translationKey="tx_cart.settings.allowed_countries"
+                                                       data="{required:'true'}"/>
+                                        <f:form.validationResults for="shippingAddress">
+                                            <f:if condition="{validationResults.flattenedErrors.country}">
+                                                <div class="validation-error alert alert-danger">{validationResults.flattenedErrors.country.0.message}</div>
+                                            </f:if>
+                                        </f:form.validationResults>
+                                    </div>
+                                </f:then>
+                                <f:else>
+                                    <label for="shippingAddress:country">
+                                        <f:translate key="tx_cart_domain_model_order_address.country"/>
+                                    </label>
+                                    <div class="input-box">
+                                        <cart:form.select id="shippingAddress:country"
+                                                          class="form-control"
+                                                          name="shippingAddress[country]"
+                                                          value="{cart.shippingCountry}"
+                                                          options="{settings.allowedCountries}"
+                                                          translationKey="tx_cart.settings.allowed_countries"/>
+                                    </div>
+                                </f:else>
+                            </f:if>
                         </div>
                     </div>
                 </li>

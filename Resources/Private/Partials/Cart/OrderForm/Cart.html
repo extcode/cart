@@ -9,42 +9,42 @@
                 <li class="fields">
                     <div class="field acceptTerms">
                         <label>
-                            <f:if condition="{0: settings.showCartAction.validation.fields.acceptTerms} == {0: 'true'}">
+                            <f:if condition="{0: settings.validation.orderItem.fields.acceptTerms.validator} == {0: 'Boolean'}">
                                 <f:form.checkbox id="orderItem:acceptTerms"
                                                  name="orderItem[acceptTerms]"
                                                  title="{f:translate(key:'tx_cart_domain_model_order_item.accept_terms')}"
                                                  value="1"/>
+                                <span>
+                                    <f:translate key="tx_cart_domain_model_order_item.accept_terms"/>
+                                </span>
+                                <f:form.validationResults for="orderItem">
+                                    <f:if condition="{validationResults.flattenedErrors.acceptTerms}">
+                                        <div class="validation-error alert alert-danger" style="margin-bottom: 0;">
+                                            <f:translate key="tx_cart_domain_model_order_item.accept_terms.error.{validationResults.flattenedErrors.acceptTerms.0.code}" >{validationResults.flattenedErrors.acceptTerms.0.code}</f:translate>
+                                        </div>
+                                    </f:if>
+                                </f:form.validationResults>
                             </f:if>
-                            <span>
-                                <f:translate key="tx_cart_domain_model_order_item.accept_terms"/>
-                            </span>
-                            <f:form.validationResults for="orderItem">
-                                <f:if condition="{validationResults.flattenedErrors.acceptTerms}">
-                                    <div class="validation-error alert alert-danger" style="margin-bottom: 0;">
-                                        <f:translate key="tx_cart_domain_model_order_item.accept_terms.error.{validationResults.flattenedErrors.acceptTerms.0.code}" >{validationResults.flattenedErrors.acceptTerms.0.code}</f:translate>
-                                    </div>
-                                </f:if>
-                            </f:form.validationResults>
                         </label>
                     </div>
                     <div class="field acceptTerms">
                         <label>
-                            <f:if condition="{0: settings.showCartAction.validation.fields.acceptConditions} == {0: 'true'}">
+                            <f:if condition="{0: settings.validation.orderItem.fields.acceptConditions.validator} == {0: 'Boolean'}">
                                 <f:form.checkbox id="orderItem:acceptConditions"
                                                  name="orderItem[acceptConditions]"
                                                  title="{f:translate(key:'tx_cart_domain_model_order_item.accept_conditions')}"
                                                  value="1"/>
+                                <span>
+                                    <f:translate key="tx_cart_domain_model_order_item.accept_conditions"/>
+                                </span>
+                                <f:form.validationResults for="orderItem">
+                                    <f:if condition="{validationResults.flattenedErrors.acceptConditions}">
+                                        <div class="validation-error alert alert-danger" style="margin-bottom: 0;">
+                                            <f:translate key="tx_cart_domain_model_order_item.accept_conditions.error.{validationResults.flattenedErrors.acceptConditions.0.code}" >{validationResults.flattenedErrors.acceptConditions.0.code}</f:translate>
+                                        </div>
+                                    </f:if>
+                                </f:form.validationResults>
                             </f:if>
-                            <span>
-                                <f:translate key="tx_cart_domain_model_order_item.accept_conditions"/>
-                            </span>
-                            <f:form.validationResults for="orderItem">
-                                <f:if condition="{validationResults.flattenedErrors.acceptConditions}">
-                                    <div class="validation-error alert alert-danger" style="margin-bottom: 0;">
-                                        <f:translate key="tx_cart_domain_model_order_item.accept_conditions.error.{validationResults.flattenedErrors.acceptConditions.0.code}" >{validationResults.flattenedErrors.acceptConditions.0.code}</f:translate>
-                                    </div>
-                                </f:if>
-                            </f:form.validationResults>
                         </label>
                     </div>
                 </li>

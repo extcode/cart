@@ -30,7 +30,33 @@ class SelectViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\Form\SelectViewHelpe
     public function initializeArguments()
     {
         parent::initializeArguments();
-        $this->registerArgument('translationKey', 'string', 'If specified, will call the label in locallang file.');
+        $this->registerArgument(
+            'translationKey',
+            'string',
+            'If specified, will call the label in locallang file.'
+        );
+        $this->registerArgument(
+            'required',
+            'bool',
+            'If the field is required or not',
+            false,
+            false
+        );
+    }
+
+    /**
+     * Render the tag.
+     *
+     * @return string rendered tag.
+     * @api
+     */
+    public function render()
+    {
+        if ($this->arguments['required']) {
+            $this->tag->addAttribute('required', 'required');
+        }
+
+        return parent::render();
     }
 
     /**

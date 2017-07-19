@@ -109,35 +109,37 @@ plugin.tx_cart {
         offset =
     }
 
-    validation {
-        orderItem {
-            fields {
-                acceptTerms.validator = Boolean
-                acceptTerms.options.is = true
-                acceptConditions.validator = Boolean
-                acceptConditions.options.is = true
+    settings {
+        validation {
+            orderItem {
+                fields {
+                    acceptTerms.validator = Boolean
+                    acceptTerms.options.is = true
+                    acceptConditions.validator = Boolean
+                    acceptConditions.options.is = true
+                }
             }
-        }
-        billingAddress {
-            fields {
-                salutation.validator = NotEmpty
-                firstName.validator = NotEmpty
-                lastName.validator = NotEmpty
-                email.validator = NotEmpty
-                street.validator = NotEmpty
-                zip.validator = NotEmpty
-                city.validator = NotEmpty
+            billingAddress {
+                fields {
+                    salutation.validator = NotEmpty
+                    firstName.validator = NotEmpty
+                    lastName.validator = NotEmpty
+                    email.validator = NotEmpty
+                    street.validator = NotEmpty
+                    zip.validator = NotEmpty
+                    city.validator = NotEmpty
+                }
             }
-        }
-        shippingAddress {
-            fields {
-                salutation.validator = NotEmpty
-                firstName.validator = NotEmpty
-                lastName.validator = NotEmpty
-                email.validator = NotEmpty
-                street.validator = NotEmpty
-                zip.validator = NotEmpty
-                city.validator = NotEmpty
+            shippingAddress {
+                fields {
+                    salutation.validator = NotEmpty
+                    firstName.validator = NotEmpty
+                    lastName.validator = NotEmpty
+                    email.validator = NotEmpty
+                    street.validator = NotEmpty
+                    zip.validator = NotEmpty
+                    city.validator = NotEmpty
+                }
             }
         }
     }

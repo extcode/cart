@@ -149,12 +149,6 @@ plugin.tx_cart {
         listAction < .showAction
 
         showCartAction {
-            validation {
-                fields {
-                    acceptTerms = {$plugin.tx_cart.validation.orderItem.fields.acceptTerms.options.is}
-                    acceptConditions = {$plugin.tx_cart.validation.orderItem.fields.acceptConditions.options.is}
-                }
-            }
             summary {
                 fields {
                     cart.net = true
@@ -165,69 +159,67 @@ plugin.tx_cart {
                 }
             }
         }
-    }
 
-    validation {
-        orderCartAction {
+        validation {
             orderItem {
                 fields {
                     acceptTerms {
-                        validator = {$plugin.tx_cart.validation.orderItem.fields.acceptTerms.validator}
-                        options.is = {$plugin.tx_cart.validation.orderItem.fields.acceptTerms.options.is}
+                        validator = {$plugin.tx_cart.settings.validation.orderItem.fields.acceptTerms.validator}
+                        options.is = {$plugin.tx_cart.settings.validation.orderItem.fields.acceptTerms.options.is}
                     }
                     acceptConditions {
-                        validator = {$plugin.tx_cart.validation.orderItem.fields.acceptConditions.validator}
-                        options.is = {$plugin.tx_cart.validation.orderItem.fields.acceptConditions.options.is}
+                        validator = {$plugin.tx_cart.settings.validation.orderItem.fields.acceptConditions.validator}
+                        options.is = {$plugin.tx_cart.settings.validation.orderItem.fields.acceptConditions.options.is}
                     }
                 }
             }
             billingAddress {
                 fields {
                     salutation {
-                        validator = {$plugin.tx_cart.validation.billingAddress.fields.salutation.validator}
+                        validator = {$plugin.tx_cart.settings.validation.billingAddress.fields.salutation.validator}
                     }
                     firstName {
-                        validator = {$plugin.tx_cart.validation.billingAddress.fields.firstName.validator}
+                        validator = {$plugin.tx_cart.settings.validation.billingAddress.fields.firstName.validator}
                     }
                     lastName {
-                        validator = {$plugin.tx_cart.validation.billingAddress.fields.lastName.validator}
+                        validator = {$plugin.tx_cart.settings.validation.billingAddress.fields.lastName.validator}
                     }
                     email {
-                        validator = {$plugin.tx_cart.validation.billingAddress.fields.email.validator}
+                        validator = {$plugin.tx_cart.settings.validation.billingAddress.fields.email.validator}
                     }
                     street {
-                        validator = {$plugin.tx_cart.validation.billingAddress.fields.street.validator}
+                        validator = {$plugin.tx_cart.settings.validation.billingAddress.fields.street.validator}
                     }
                     zip {
-                        validator = {$plugin.tx_cart.validation.billingAddress.fields.zip.validator}
+                        validator = {$plugin.tx_cart.settings.validation.billingAddress.fields.zip.validator}
                     }
                     city {
-                        validator = {$plugin.tx_cart.validation.billingAddress.fields.city.validator}
+                        validator = {$plugin.tx_cart.settings.validation.billingAddress.fields.city.validator}
                     }
                 }
             }
             shippingAddress {
                 fields {
                     salutation {
-                        validator = {$plugin.tx_cart.validation.shippingAddress.fields.salutation.validator}
+                        validator = {$plugin.tx_cart.settings.validation.shippingAddress.fields.salutation.validator}
                     }
                     firstName {
-                        validator = {$plugin.tx_cart.validation.shippingAddress.fields.firstName.validator}
+                        validator = {$plugin.tx_cart.settings.validation.shippingAddress.fields.firstName.validator}
                     }
                     lastName {
-                        validator = {$plugin.tx_cart.validation.shippingAddress.fields.lastName.validator}
+                        validator = {$plugin.tx_cart.settings.validation.shippingAddress.fields.lastName.validator}
                     }
                     email {
-                        validator = {$plugin.tx_cart.validation.shippingAddress.fields.email.validator}
+                        validator = {$plugin.tx_cart.settings.validation.shippingAddress.fields.email.validator}
                     }
                     street {
-                        validator = {$plugin.tx_cart.validation.shippingAddress.fields.street.validator}
+                        validator = {$plugin.tx_cart.settings.validation.shippingAddress.fields.street.validator}
                     }
                     zip {
-                        validator = {$plugin.tx_cart.validation.shippingAddress.fields.zip.validator}
+                        validator = {$plugin.tx_cart.settings.validation.shippingAddress.fields.zip.validator}
                     }
                     city {
-                        validator = {$plugin.tx_cart.validation.shippingAddress.fields.city.validator}
+                        validator = {$plugin.tx_cart.settings.validation.shippingAddress.fields.city.validator}
                     }
                 }
             }

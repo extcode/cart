@@ -719,12 +719,11 @@ class CartController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
             if (!$this->arguments->hasArgument($argumentName)) {
                 continue;
             }
-            if ($this->pluginSettings['validation'] &&
-                $this->pluginSettings['validation']['orderCartAction'] &&
-                $this->pluginSettings['validation']['orderCartAction'][$argumentName] &&
-                $this->pluginSettings['validation']['orderCartAction'][$argumentName]['fields']
+            if ($this->settings['validation'] &&
+                $this->settings['validation'][$argumentName] &&
+                $this->settings['validation'][$argumentName]['fields']
             ) {
-                $fields = $this->pluginSettings['validation']['orderCartAction'][$argumentName]['fields'];
+                $fields = $this->settings['validation'][$argumentName]['fields'];
 
                 foreach ($fields as $propertyName => $validatorConfiguration) {
                     $this->setDynamicValidation(
