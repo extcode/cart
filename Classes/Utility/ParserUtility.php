@@ -71,7 +71,8 @@ class ParserUtility
         $taxClasses = [];
 
         foreach ($taxClassSettings as $taxClassKey => $taxClassValue) {
-            $taxClasses[$taxClassKey] = $this->objectManager->get(\Extcode\Cart\Domain\Model\Cart\TaxClass::class,
+            $taxClasses[$taxClassKey] = $this->objectManager->get(
+                \Extcode\Cart\Domain\Model\Cart\TaxClass::class,
                 $taxClassKey,
                 $taxClassValue['value'],
                 $taxClassValue['calc'],
@@ -103,7 +104,8 @@ class ParserUtility
             $taxClassCalc = $taxClassObject->$taxClassRepositorySettings['fields']['getCalc']();
             $taxClassName = $taxClassObject->$taxClassRepositorySettings['fields']['getTitle']();
 
-            $taxes[$taxClassId] = $this->objectManager->get(\Extcode\Cart\Domain\Model\Cart\TaxClass::class,
+            $taxes[$taxClassId] = $this->objectManager->get(
+                \Extcode\Cart\Domain\Model\Cart\TaxClass::class,
                 $taxClassId,
                 $taxClassValue,
                 $taxClassCalc,
@@ -137,7 +139,8 @@ class ParserUtility
                  * Service
                  * @var \Extcode\Cart\Domain\Model\Cart\AbstractService $service
                  */
-                $service = $this->objectManager->get($class,
+                $service = $this->objectManager->get(
+                    $class,
                     $key,
                     $value['title'],
                     $cart->getTaxClass($value['taxClassId']),
@@ -156,7 +159,8 @@ class ParserUtility
                     $service->setExtraType($value['extra']['_typoScriptNodeValue']);
                     unset($value['extra']['_typoScriptNodeValue']);
                     foreach ($value['extra'] as $extraKey => $extraValue) {
-                        $extra = $this->objectManager->get(\Extcode\Cart\Domain\Model\Cart\Extra::class,
+                        $extra = $this->objectManager->get(
+                            \Extcode\Cart\Domain\Model\Cart\Extra::class,
                             $extraKey,
                             $extraValue['value'],
                             $extraValue['extra'],
@@ -167,7 +171,8 @@ class ParserUtility
                     }
                 } elseif (!floatval($value['extra'])) {
                     $service->setExtraType($value['extra']);
-                    $extra = $this->objectManager->get(\Extcode\Cart\Domain\Model\Cart\Extra::class,
+                    $extra = $this->objectManager->get(
+                        \Extcode\Cart\Domain\Model\Cart\Extra::class,
                         0,
                         0,
                         0,
@@ -177,7 +182,8 @@ class ParserUtility
                     $service->addExtra($extra);
                 } else {
                     $service->setExtraType('simple');
-                    $extra = $this->objectManager->get(\Extcode\Cart\Domain\Model\Cart\Extra::class,
+                    $extra = $this->objectManager->get(
+                        \Extcode\Cart\Domain\Model\Cart\Extra::class,
                         0,
                         0,
                         $value['extra'],

@@ -81,9 +81,25 @@ class ActionViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\Link\ActionViewHelpe
 
         $additionalParams['tx_cart_cart[product]' . $fieldName] = 1;
 
-        return parent::render($action, $arguments, $controller, $extensionName, $pluginName, $pageUid, $pageType,
-            $noCache, $noCacheHash, $section, $format, $linkAccessRestrictedPages, $additionalParams, $absolute,
-            $addQueryString, $argumentsToBeExcludedFromQueryString, $addQueryStringMethod);
+        return parent::render(
+            $action,
+            $arguments,
+            $controller,
+            $extensionName,
+            $pluginName,
+            $pageUid,
+            $pageType,
+            $noCache,
+            $noCacheHash,
+            $section,
+            $format,
+            $linkAccessRestrictedPages,
+            $additionalParams,
+            $absolute,
+            $addQueryString,
+            $argumentsToBeExcludedFromQueryString,
+            $addQueryStringMethod
+        );
     }
 
     /**

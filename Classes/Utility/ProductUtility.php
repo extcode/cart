@@ -150,7 +150,8 @@ class ProductUtility
             );
         }
 
-        $cartProduct = $this->objectManager->get(\Extcode\Cart\Domain\Model\Cart\Product::class,
+        $cartProduct = $this->objectManager->get(
+            \Extcode\Cart\Domain\Model\Cart\Product::class,
             $cartProductValues['productType'],
             $cartProductValues['productId'],
             null,
@@ -298,12 +299,14 @@ class ProductUtility
 
             $newFeVariant = null;
             if ($cartProductValues['feVariants']) {
-                $newFeVariant = $this->objectManager->get(\Extcode\Cart\Domain\Model\Cart\FeVariant::class,
+                $newFeVariant = $this->objectManager->get(
+                    \Extcode\Cart\Domain\Model\Cart\FeVariant::class,
                     $cartProductValues['feVariants']
                 );
             }
 
-            $cartProduct = $this->objectManager->get(\Extcode\Cart\Domain\Model\Cart\Product::class,
+            $cartProduct = $this->objectManager->get(
+                \Extcode\Cart\Domain\Model\Cart\Product::class,
                 $productProduct->getProductType(),
                 $cartProductValues['productId'],
                 $cartProductValues['productStorageId'],
@@ -430,7 +433,8 @@ class ProductUtility
 
                 $bestSpecialPrice = $productBackendVariant->getBestSpecialPrice($frontendUserGroupIds);
 
-                $cartBackendVariant = $this->objectManager->get(\Extcode\Cart\Domain\Model\Cart\BeVariant::class,
+                $cartBackendVariant = $this->objectManager->get(
+                    \Extcode\Cart\Domain\Model\Cart\BeVariant::class,
                     $variantId,
                     $product,
                     $variant,
