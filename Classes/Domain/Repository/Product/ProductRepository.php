@@ -95,24 +95,20 @@ class ProductRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
      *
      * @param string $uids
      *
-     * @return QueryResultInterface|array
+     * @return array
      */
     public function findByUids($uids)
     {
         $uids = explode(',', $uids);
 
         $query = $this->createQuery();
+        $query->getQuerySettings()->setRespectStoragePage(false);
+
         $query->matching(
-            $query->in('uid', $uids),
-            $query->logicalAnd(
-                $query->equals('hidden', 0),
-                $query->equals('deleted', 0)
-            )
+            $query->in('uid', $uids)
         );
 
-        $query->setOrderings($this->orderByField('uid', $uids));
-
-        return $query->execute();
+        return $this->orderByField($query->execute(), $uids);
     }
 
     /**
@@ -184,17 +180,27 @@ class ProductRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
     }
 
     /**
-     * @param string $field
-     * @param array $values
+     * @param QueryResultInterface $products
+     * @param array $uids
      *
      * @return array
      */
-    protected function orderByField($field, $values)
+    protected function orderByField(QueryResultInterface $products, $uids)
     {
-        $orderings = [];
-        foreach ($values as $value) {
-            $orderings["$field={$value}"] = \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_DESCENDING;
+        $indexedProducts = [];
+        $orderedProducts = [];
+
+        // Create an associative array
+        foreach ($products as $object) {
+            $indexedProducts[$object->getUid()] = $object;
         }
-        return $orderings;
+        // add to ordered array in right order
+        foreach ($uids as $uid) {
+            if (isset($indexedProducts[$uid])) {
+                $orderedProducts[] = $indexedProducts[$uid];
+            }
+        }
+
+        return $orderedProducts;
     }
 }

@@ -36,7 +36,8 @@ eingesetzt werden.
 #100 Aufräumen der Abhängigkeiten in composer-Installationen
 ============================================================
 
-Ein paar nicht verwendete Abhängigkeiten wurden aus der composer.json entfernt. Dies sollte keine negativen Auswirkungen haben.
+Ein paar nicht verwendete Abhängigkeiten wurden aus der composer.json entfernt. Dies sollte keine negativen Auswirkungen
+haben.
 
 #101 Unterstützung für TYPO3 v6.2 entfernt
 ==========================================
@@ -58,7 +59,8 @@ Erweiterungen abzuschließen. Für Cart wird geprüft, in wie weit eine Beteilig
 TODO
 
 .. IMPORTANT::
-   Da die Währung auch in der Bestellung gespeichert wird, ist eine Aktualisierung der Datenbank erforderlich. Da nur neue Felder hinzukommen ist nicht mit Problemen zu rechnen.
+   Da die Währung auch in der Bestellung gespeichert wird, ist eine Aktualisierung der Datenbank erforderlich. Da nur
+   neue Felder hinzukommen ist nicht mit Problemen zu rechnen.
 
 #122 Functional Tests für das Parsen von TypoScript
 ===================================================
@@ -79,8 +81,18 @@ TODO
 #125 Überarbeitung der E-Mail-Templates
 =======================================
 
-Die E-Mail-Templates wurden dahingehend optimiert, dass die E-Mails in möglichst vielen E-Mail-Programmen und Webanwendungen
-gleich dargestellt werden.
+Die E-Mail-Templates wurden dahingehend optimiert, dass die E-Mails in möglichst vielen E-Mail-Programmen und
+Webanwendungen gleich dargestellt werden.
 
 .. NOTE::
    Eine Anpassung ist nicht zwingend erforderlich.
+
+#126 Sortierung der Produkte im Teaser mit PHP
+==============================================
+
+Die Integration von Doctrine in TYPO3 v8.7 und die daraus folgende Anpassung in extbase führt zu einer Fehlermeldung, da
+Tabellen- und Feldnamen mit Backticks versehen werden. Das Array mit der übergebenen Sortierung wird dadurch falsch
+interpretiert. Eine Lösung ist ohne Umstellung auf Doctrine nicht in Sicht. Doctrine wurde aber erst mit TYPO3 v8.7
+eingeführt und noch ist keine Backport-Extension in Sicht.
+Da im Teaser aber nur wenige Produkte dargestellt werden, ist die Sortierung mit PHP unter dem Gesichtspunkt der
+Resourcennutzung nicht schön, aber zu vertreten.

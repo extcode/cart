@@ -62,7 +62,7 @@ class ProductRepositoryTest extends \TYPO3\CMS\Core\Tests\FunctionalTestCase
      */
     public function findDemandedWithGivenSkuReturnsProducts()
     {
-        $_GET['id'] = 101;
+        $_GET['id'] = 110;
 
         $productDemand = $this->objectManager->get(ProductDemand::class);
         $productDemand->setSku('first');
@@ -80,7 +80,7 @@ class ProductRepositoryTest extends \TYPO3\CMS\Core\Tests\FunctionalTestCase
      */
     public function findDemandedWithGivenTitleReturnsProducts()
     {
-        $_GET['id'] = 101;
+        $_GET['id'] = 110;
 
         $productDemand = $this->objectManager->get(ProductDemand::class);
         $productDemand->setTitle('First');
@@ -100,5 +100,42 @@ class ProductRepositoryTest extends \TYPO3\CMS\Core\Tests\FunctionalTestCase
             3,
             $products
         );
+    }
+
+    /**
+     * @test
+     */
+    public function findByUidsDoesNotRespectStoragePid()
+    {
+        $products = $this->productRepository->findByUids('3,1,2,5,4');
+
+        $this->assertCount(
+            5,
+            $products
+        );
+
+        //product 6 and 7 are hidden or deleted
+        $products = $this->productRepository->findByUids('3,1,2,5,4,6,7');
+
+        $this->assertCount(
+            5,
+            $products
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function findByUidsReturnsCorrectOrder()
+    {
+        $listOfProductIds = [3, 1, 2, 5, 4];
+        $products = $this->productRepository->findByUids(implode(',', $listOfProductIds));
+
+        foreach ($products as $key => $product) {
+            $this->assertSame(
+                $listOfProductIds[$key],
+                $product->getUid()
+            );
+        }
     }
 }
