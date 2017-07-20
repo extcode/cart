@@ -73,6 +73,8 @@ class ParserUtility
 
         if ($countryCode && is_array($taxClassSettings[$countryCode])) {
             $taxClassSettings = $taxClassSettings[$countryCode];
+        } elseif ($taxClassSettings['fallback'] && is_array($taxClassSettings['fallback'])) {
+            $taxClassSettings = $taxClassSettings['fallback'];
         }
 
         foreach ($taxClassSettings as $taxClassKey => $taxClassValue) {

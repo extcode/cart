@@ -176,6 +176,93 @@ class ParserUtilityTest extends \TYPO3\CMS\Core\Tests\FunctionalTestCase
     /**
      * @test
      */
+    public function parsingTaxClassesFromTypoScriptWithNotConfiguredCountryCodeReturnsFallbackArrayOfTaxClasses()
+    {
+        $pluginSettings = [
+            'taxClasses' => [
+                'DE' => [
+                    '1' => [
+                        'value' => '19',
+                        'calc' => '0.19',
+                        'name' => 'DE normal',
+                    ],
+                    '2' => [
+                        'value' => '7',
+                        'calc' => '0.07',
+                        'name' => 'DE reduced',
+                    ],
+                    '3' => [
+                        'value' => '0',
+                        'calc' => '0.00',
+                        'name' => 'DE free',
+                    ],
+                ],
+                'AT' => [
+                    '1' => [
+                        'value' => '20',
+                        'calc' => '0.20',
+                        'name' => 'AT normal',
+                    ],
+                    '2' => [
+                        'value' => '10',
+                        'calc' => '0.10',
+                        'name' => 'AT reduced',
+                    ],
+                    '3' => [
+                        'value' => '0',
+                        'calc' => '0.00',
+                        'name' => 'AT free',
+                    ],
+                ],
+                'fallback' => [
+                    '1' => [
+                        'value' => '0',
+                        'calc' => '0.00',
+                        'name' => 'other normal',
+                    ],
+                    '2' => [
+                        'value' => '0',
+                        'calc' => '0.00',
+                        'name' => 'other reduced',
+                    ],
+                    '3' => [
+                        'value' => '0',
+                        'calc' => '0.00',
+                        'name' => 'other free',
+                    ],
+                ],
+            ],
+        ];
+
+        $countryCode = 'CH';
+
+        $taxClasses = $this->parserUtility->parseTaxClasses($pluginSettings, $countryCode);
+
+        $this->assertInternalType(
+            'array',
+            $taxClasses
+        );
+
+        $this->assertEquals(
+            3,
+            count($taxClasses)
+        );
+
+        $firstTaxClasses = $taxClasses[1];
+        $this->assertInstanceOf(
+            \Extcode\Cart\Domain\Model\Cart\TaxClass::class,
+            $firstTaxClasses
+        );
+
+        $this->assertEquals(
+            $pluginSettings['taxClasses']['fallback']['1']['name'],
+            $firstTaxClasses->getTitle()
+        );
+    }
+
+    /**
+     * @test
+     */
     public function getTypePluginSettingsReturnsTypeCountrySettings()
     {
         $type = 'payment';
