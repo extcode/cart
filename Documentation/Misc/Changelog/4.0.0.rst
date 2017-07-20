@@ -8,6 +8,20 @@
 
 Diese Version wird einige Änderungen mit sich bringen. Darunter befinden sich einige neue Funktionen, aber auch ein paar Änderungen, die Anpassungen an bestehenden Installationen erforderlich machen. Dieser ChangeLog-Eintrag sollte daher sorgfältig durchgearbeitet werden.
 
+Danksagung
+==========
+
+Einige Neuerungen konnten nur durch die finanzielle Unterstützung oder Entwicklung anderer entstehen.
+
+Ein großer Dank geht an den Sponsor Rainer Karnowski von `celmedia.ch <http://celmedia.ch/>`_ für drei Tage
+gesponsorte Arbeit zur Währungsumrechnung (#92).
+Neben der finanziellen Beteiligung an der Entwicklung dieses Features unterstützt er Cart auch auf `https://patreon.com <https://patreon.com/ext_cart>`_.
+
+Weiterhin bedanke ich mich bei:
+
+- `Ralf Zimmermann <https://github.com/tritumRz>`_ für seine Vorarbeit die Validatoren für die Bestellung via TypoScript dynamisch setzen zu können (#117),
+- `Andreas Steiger <https://github.com/11ND11>`_ für seine Unterstützung bei der Überarbeitung der Mail-Templates (#125).
+
 #99 Unterstützung nur für die PHP Versionen 5.6 und 7.0+
 ========================================================
 
@@ -19,8 +33,8 @@ eingesetzt werden.
 .. NOTE::
    Die Tests für diese Versionen wurden ebenfalls entfernt.
 
-#100 cleanup and update dev-requirements
-========================================
+#100 Aufräumen der Abhängigkeiten in composer-Installationen
+============================================================
 
 Ein paar nicht verwendete Abhängigkeiten wurden aus der composer.json entfernt. Dies sollte keine negativen Auswirkungen haben.
 
@@ -43,6 +57,9 @@ Erweiterungen abzuschließen. Für Cart wird geprüft, in wie weit eine Beteilig
 
 TODO
 
+.. IMPORTANT::
+   Da die Währung auch in der Bestellung gespeichert wird, ist eine Aktualisierung der Datenbank erforderlich. Da nur neue Felder hinzukommen ist nicht mit Problemen zu rechnen.
+
 #122 Functional Tests für das Parsen von TypoScript
 ===================================================
 
@@ -58,3 +75,12 @@ TODO
 ===================================================
 
 TODO
+
+#125 Überarbeitung der E-Mail-Templates
+=======================================
+
+Die E-Mail-Templates wurden dahingehend optimiert, dass die E-Mails in möglichst vielen E-Mail-Programmen und Webanwendungen
+gleich dargestellt werden.
+
+.. NOTE::
+   Eine Anpassung ist nicht zwingend erforderlich.
