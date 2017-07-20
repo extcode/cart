@@ -30,7 +30,7 @@ return [
     ],
     'types' => [
         '1' => [
-            'showitem' => 'title, salutation, first_name, last_name, email, company, street, zip, city, country, phone, fax, additional'
+            'showitem' => 'title, salutation, first_name, last_name, email, company, street, zip, city, country, phone, fax, additional',
         ],
     ],
     'palettes' => [
@@ -181,6 +181,16 @@ return [
             ],
         ],
 
+        'discr' => [
+            'exclude' => 0,
+            'label' => $_LLL . ':tx_cart_domain_model_order_address.discr',
+            'config' => [
+                'type' => 'input',
+                'readOnly' => 1,
+                'size' => 30,
+                'eval' => 'trim'
+            ],
+        ],
         'item' => [
             'config' => [
                 'type' => 'passthrough',

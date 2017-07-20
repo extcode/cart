@@ -192,6 +192,9 @@ return [
                 'readOnly' => 1,
                 'foreign_table' => 'tx_cart_domain_model_order_address',
                 'foreign_field' => 'item',
+                'foreign_match_fields' => [
+                    'discr' => 'billing'
+                ],
                 'minitems' => 1,
                 'maxitems' => 1,
                 'appearance' => [
@@ -215,6 +218,9 @@ return [
                 'readOnly' => 1,
                 'foreign_table' => 'tx_cart_domain_model_order_address',
                 'foreign_field' => 'item',
+                'foreign_match_fields' => [
+                    'discr' => 'shipping'
+                ],
                 'minitems' => 0,
                 'maxitems' => 1,
                 'appearance' => [
