@@ -1,17 +1,3 @@
-module.tx_cart {
-    view {
-        templateRootPaths {
-            0 = EXT:cart/Resources/Private/Backend/V8/Templates/
-        }
-        partialRootPaths {
-            0 = EXT:cart/Resources/Private/Backend/V8/Partials/
-        }
-        layoutRootPaths {
-            0 = EXT:cart/Resources/Private/Backend/V8/Layouts/
-        }
-    }
-}
-
 [compatVersion = 7.6]
     module.tx_cart {
         view {
@@ -23,6 +9,22 @@ module.tx_cart {
             }
             layoutRootPaths {
                 0 = EXT:cart/Resources/Private/Backend/V7/Layouts/
+            }
+        }
+    }
+[global]
+
+[compatVersion = 8.7]
+    module.tx_cart {
+        view {
+            templateRootPaths {
+                0 = EXT:cart/Resources/Private/Backend/V8/Templates/
+            }
+            partialRootPaths {
+                0 = EXT:cart/Resources/Private/Backend/V8/Partials/
+            }
+            layoutRootPaths {
+                0 = EXT:cart/Resources/Private/Backend/V8/Layouts/
             }
         }
     }
