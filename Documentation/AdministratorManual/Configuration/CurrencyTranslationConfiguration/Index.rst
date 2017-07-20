@@ -37,23 +37,23 @@ plugin.tx_cart.settings.currency.default
    Default
       1
 
-plugin.tx_cart.settings.currency.1 .. n
-"""""""""""""""""""""""""""""""""""""""
+plugin.tx_cart.settings.currency.n
+""""""""""""""""""""""""""""""""""
 .. container:: table-row
 
    Property
-      plugin.tx_cart.settings.currency.1
+      plugin.tx_cart.settings.currency.n
    Data type
       array
    Description
       Liste der verschiedenen verfügbaren Währungen
 
-plugin.tx_cart.settings.currency.1.code .. n.code
-"""""""""""""""""""""""""""""""""""""""""""""""""
+plugin.tx_cart.settings.currency.n.code
+"""""""""""""""""""""""""""""""""""""""
 .. container:: table-row
 
    Property
-      plugin.tx_cart.settings.currency.1.code
+      plugin.tx_cart.settings.currency.n.code
    Data type
       array
    Description
@@ -62,12 +62,12 @@ plugin.tx_cart.settings.currency.1.code .. n.code
    Default
       EUR
 
-plugin.tx_cart.settings.currency.1.sign .. n.sign
-"""""""""""""""""""""""""""""""""""""""""""""""""
+plugin.tx_cart.settings.currency.n.sign
+"""""""""""""""""""""""""""""""""""""""
 .. container:: table-row
 
    Property
-      plugin.tx_cart.settings.currency.1.sign
+      plugin.tx_cart.settings.currency.n.sign
    Data type
       array
    Description
@@ -75,15 +75,19 @@ plugin.tx_cart.settings.currency.1.sign .. n.sign
    Default
       €
 
-plugin.tx_cart.settings.currency.1.translation .. n.translation
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+plugin.tx_cart.settings.currency.n.translation
+""""""""""""""""""""""""""""""""""""""""""""""
 .. container:: table-row
 
    Property
-      plugin.tx_cart.settings.currency.1.translation
+      plugin.tx_cart.settings.currency.n.translation
    Data type
       array
    Description
-      Währungsumrechnungsfaktor
+      Währungsumrechnungsfaktor. Der Preis der Produkte wird durch diesen Faktor geteilt.
    Default
       1.0
+
+.. NOTE::
+   Im Moment gibt es noch keinen Automatismus den Faktor zu aktualisieren und an einen aktuellen Wert anzupassen. Mit
+   einem kleinen Scheduler-Task sollte aber recht schnell ein entsprechender Service angebunden werden können.
