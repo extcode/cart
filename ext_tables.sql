@@ -442,6 +442,7 @@ CREATE TABLE tx_cart_domain_model_order_address (
     pid int(11) DEFAULT '0' NOT NULL,
 
     item int(11) unsigned DEFAULT '0' NOT NULL,
+    discr varchar(255) DEFAULT 'billing' NOT NULL,
 
     title varchar(255) DEFAULT '' NOT NULL,
     salutation varchar(255) DEFAULT '' NOT NULL,

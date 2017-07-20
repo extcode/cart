@@ -3,7 +3,7 @@
 .. --------------------------------------------------
 .. -*- coding: utf-8 -*- with BOM.
 
-4.0.0 - 18.07.2017
+4.0.0 - 20.07.2017
 ------------------
 
 Diese Version wird einige Änderungen mit sich bringen. Darunter befinden sich einige neue Funktionen, aber auch ein paar Änderungen, die Anpassungen an bestehenden Installationen erforderlich machen. Dieser ChangeLog-Eintrag sollte daher sorgfältig durchgearbeitet werden.
