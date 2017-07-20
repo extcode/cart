@@ -2,20 +2,20 @@
 
 <f:section name="withoutVariant">
     <tr class="{f:if(condition: product.quantityIsInRange, then: '', else: 'danger')}">
-        <td colspan="2">
+        <td colspan="2" style="font-family: Arial, Helvetica, sans-serif; font-size: 12px;">
             <div class="product-name">{product.title} - {product.feVariant.value}</div>
-            <p>
+            <p style="font-family: Arial, Helvetica, sans-serif; font-size: 12px;">
                 <f:translate key="tx_cart_domain_model_order_product.sku.short"/>
                 : {product.sku}
             </p>
         </td>
-        <td style="text-align: right;">
+        <td style="text-align: right; font-family: Arial, Helvetica, sans-serif; font-size: 12px;">
             <cart:format.currency currencySign="{cart.currencySign}">{product.bestPrice}</cart:format.currency>
         </td>
-        <td style="text-align: right;">
+        <td style="text-align: right; font-family: Arial, Helvetica, sans-serif; font-size: 12px;">
             {product.quantity}
         </td>
-        <td style="text-align: right;">
+        <td style="text-align: right; font-family: Arial, Helvetica, sans-serif; font-size: 12px;">
             <cart:format.currency currencySign="{cart.currencySign}">{product.gross}</cart:format.currency>
         </td>
     </tr>
@@ -30,21 +30,23 @@
         </f:then>
         <f:else>
             <tr>
-                <td>&nbsp;</td>
-                <td>
+                <td style="font-family: Arial, Helvetica, sans-serif; font-size: 12px;">
+                    &nbsp;
+                </td>
+                <td style="font-family: Arial, Helvetica, sans-serif; font-size: 12px;">
                     <div class="product-name">{variant.title}</div>
-                    <p>
+                    <p style="font-family: Arial, Helvetica, sans-serif; font-size: 12px;">
                         <f:translate key="tx_cart_domain_model_order_product.sku.short"/>
                         : {variant.completeSku}
                     </p>
                 </td>
-                <td style="text-align: right;">
+                <td style="text-align: right; font-family: Arial, Helvetica, sans-serif; font-size: 12px;">
                     <cart:format.currency currencySign="{cart.currencySign}">{variant.priceCalculated}</cart:format.currency>
                 </td>
-                <td style="text-align: right;">
+                <td style="text-align: right; font-family: Arial, Helvetica, sans-serif; font-size: 12px;">
                     {variant.quantity}
                 </td>
-                <td style="text-align: right;">
+                <td style="text-align: right; font-family: Arial, Helvetica, sans-serif; font-size: 12px;">
                     <cart:format.currency currencySign="{cart.currencySign}">{variant.gross}</cart:format.currency>
                 </td>
             </tr>
@@ -55,16 +57,16 @@
 
 <f:section name="withVariant">
     <tr>
-        <td colspan="2">
+        <td colspan="2" style="font-family: Arial, Helvetica, sans-serif; font-size: 12px;">
             <div class="product-name">{product.title} - {product.feVariant.value}</div>
         </td>
-        <td style="text-align: right;">
+        <td style="text-align: right; font-family: Arial, Helvetica, sans-serif; font-size: 12px;">
             &nbsp;
         </td>
-        <td style="text-align: right;">
+        <td style="text-align: right; font-family: Arial, Helvetica, sans-serif; font-size: 12px;">
             &nbsp;
         </td>
-        <td>
+        <td style="font-family: Arial, Helvetica, sans-serif; font-size: 12px;">
             &nbsp;
         </td>
     </tr>
@@ -74,16 +76,16 @@
     </f:for>
 
     <tr>
-        <td colspan="2">
+        <td colspan="2" style="font-family: Arial, Helvetica, sans-serif; font-size: 12px;">
             &nbsp;
         </td>
-        <td style="text-align: right;">
+        <td style="text-align: right; font-family: Arial, Helvetica, sans-serif; font-size: 12px;">
             &nbsp;
         </td>
-        <td style="text-align: right;">
+        <td style="text-align: right; font-family: Arial, Helvetica, sans-serif; font-size: 12px;">
             {product.quantity}
         </td>
-        <td style="text-align: right;">
+        <td style="text-align: right; font-family: Arial, Helvetica, sans-serif; font-size: 12px;">
             <cart:format.currency currencySign="{cart.currencySign}">{product.gross}</cart:format.currency>
         </td>
     </tr>

@@ -2,12 +2,12 @@
 
 <f:for each="{taxes}" as="tax" key="tax_key">
     <tr>
-        <td colspan="4" style="text-align: right;">
+        <td colspan="4" style="text-align: right; font-family: Arial, Helvetica, sans-serif; font-size: 12px;">
             <cart:traversable.extract key="{tax_key}" content="{taxClasses}" as="taxClass">
                 <f:translate key="tx_cart.tax_vat.value" arguments="{0: taxClass.value}"/>
             </cart:traversable.extract>
         </td>
-        <td style="text-align: right;">
+        <td style="text-align: right; font-family: Arial, Helvetica, sans-serif; font-size: 12px;">
             <span class="price">
                 <cart:format.currency currencySign="{cart.currencySign}">{tax}</cart:format.currency>
             </span>
