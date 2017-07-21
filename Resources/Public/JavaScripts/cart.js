@@ -28,14 +28,14 @@ $('#billingAddress\\:country').change(function () {
         shippingCountry = $('#shippingAddress\\:country').val();
     }
 
-    updateCountry(billingCountry, shippingCountry)
+    updateCountry(billingCountry, shippingCountry);
 });
 
 $('#shippingAddress\\:country').change(function () {
     var billingCountry = $('#billingAddress\\:country').val();
     var shippingCountry = $(this).val();
 
-    updateCountry(billingCountry, shippingCountry)
+    updateCountry(billingCountry, shippingCountry);
 });
 
 $('#shipping_same_as_billing').change(function() {
@@ -48,7 +48,7 @@ $('#shipping_same_as_billing').change(function() {
         shippingCountry = $('#shippingAddress\\:country').val();
     }
 
-    updateCountry(billingCountry, shippingCountry)
+    updateCountry(billingCountry, shippingCountry);
 });
 
 $('#payment-method').on('click', '.setPayment', function(e) {
@@ -118,6 +118,7 @@ $("#add-product-form").submit(function(e) {
             success: function(data)
             {
                 var response = JSON.parse(data);
+                var message = '';
                 if (response.status == "200") {
                     $('#tx-cart-minicart span.count').html(response.count);
                     $('#tx-cart-minicart span.net').html(response.net);
@@ -135,10 +136,10 @@ $("#add-product-form").submit(function(e) {
                         this.reset();
                     });
 
-                    var message = $(".cart_form .form-success").html();
+                    message = $(".cart_form .form-success").html();
                     $(message).appendTo(".cart_form .form-message").delay(2000).fadeOut('slow', function() { $(this).remove(); });
                 } else {
-                    var message = $(".cart_form .form-success").html();
+                    message = $(".cart_form .form-success").html();
                     $(message).appendTo(".cart_form .form-message").delay(2000).fadeOut('slow', function() { $(this).remove(); });
                 }
             }
