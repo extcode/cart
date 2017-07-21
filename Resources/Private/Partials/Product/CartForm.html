@@ -7,6 +7,7 @@
             id="add-product-form"
             extensionName="Cart" pluginName="Cart" controller="Cart" action="addProduct"
             method="post"
+            pageType="{f:if(condition:'{settings.addToCartByAjax}', then:'2278001', else:'')}"
             additionalAttributes="{data-remote: '{settings.addToCartByAjax}'}">
         <f:if condition="{settings.addToCartByAjax}'}">
             <input type="hidden" value="{pid}" name="tx_cart_cart[pid]">

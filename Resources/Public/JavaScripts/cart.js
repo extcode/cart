@@ -110,7 +110,7 @@ $("#add-product-form").submit(function(e) {
     if ($form.data('remote')) {
         $.ajax({
             async: 'true',
-            url: $form.attr('action')+'&type=2278001',
+            url: $form.attr('action'),
             type: "POST",
 
             data: serializedObject,

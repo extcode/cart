@@ -1,0 +1,64 @@
+.. ==================================================
+.. FOR YOUR INFORMATION
+.. --------------------------------------------------
+.. -*- coding: utf-8 -*- with BOM.
+
+3.12.5 - 21.07.2017
+-------------------
+
+Dieses Release-Version behebt einen Fehler beim Speichern der Rechnungs- und Versandadresse. Beide Adressen landen in
+der gleichen Datenbanktabellen. Wegen eines fehlenden Discriminatorfeldes kann dann nicht mehr zwischen den beiden
+Adressen unterschieden werden.
+
+.. Important::
+   Ein neues Feld muss der Adresstabelle in der Datenbank hinzugefügt werden. Dieses Feld wird mit der Zeichenkette
+   "billing" vorbelegt um im Backend die falsch gepflegten Adressen anzeigen lassen zu können. Alle neuere Bestellungen
+   sollten ab jetzt richtig gespeichert werden.
+
+Wer seine alten Bestellungen entsprechend aktualisieren möchte, kann folgende Queries (MySQL) ausführen.
+
+.. ATTENTION::
+   Die erste Query zeigt nur die Bestellungen an, wo es mindestens zwei Adressen gibt. Gelöschte Adressen werden nicht
+   angezeigt.
+   Diese Query kann ohne Veränderung der Daten auf der Datenbank ausgeführt werden. Das Ergebnis sollte dazu genutzt
+   werden, im Backend mindestens exemplarisch zu überprüfen, ob die gefundenen Bestellungen korrekt sind.
+
+    ::
+
+        SELECT
+            address_s.item, address_b.uid, address_b.discr, address_s.uid, address_s.discr
+        FROM
+            tx_cart_domain_model_order_address AS address_s
+        LEFT JOIN
+            tx_cart_domain_model_order_address AS address_b
+            ON address_s.item = address_b.item
+        WHERE
+            address_b.uid < address_s.uid
+            AND address_s.deleted = 0
+            AND address_b.deleted = 0
+            AND address_s.item > 0;
+
+    |
+
+.. DANGER::
+   Die folgende Query verändert die Bestelldaten in der Datenbank. Ein Backup der Datenbank sollte unbedingt vor dem
+   Ausführen erfolgen.
+   Ziel dieser Query ist, für die zweiten Adressen einer Bestellung das neue Datenbankfeld auf "shipping" zu stellen,
+   damit auch im Backend die Versandadresse richtig ausgegeben wird.
+
+    ::
+
+        UPDATE
+            tx_cart_domain_model_order_address as address_s
+        LEFT JOIN
+            tx_cart_domain_model_order_address as address_b
+            ON address_b.item = address_s.item
+        SET
+            address_s.discr = "shipping"
+        WHERE
+            address_b.uid < address_s.uid
+            AND address_b.deleted = 0
+            AND address_s.deleted = 0
+            AND address_b.item > 0;
+
+    |
