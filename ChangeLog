@@ -1,3 +1,9 @@
+4.0.2
+    2017-07-21
+    Andreas Beyl
+
+    * BUGFIX #129: add missing semicolons and fix double-declaration of var message
+
 4.0.1
     2017-07-21
     Daniel Lorenz <daniel.lorenz@extco.de>
