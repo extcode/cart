@@ -175,8 +175,6 @@ class BeVariantTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
      */
     public function getSpecialPricesInitiallyReturnsEmptyObjectStorage()
     {
-        $specialPrices = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
-
         $this->assertInstanceOf(
             \TYPO3\CMS\Extbase\Persistence\ObjectStorage::class,
             $this->beVariant->getSpecialPrices()

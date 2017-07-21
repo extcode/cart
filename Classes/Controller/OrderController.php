@@ -418,9 +418,9 @@ class OrderController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 
                 $this->addFlashMessage(
                     'Invoice Number was generated.',
-                    $messageTitle = '',
-                    $severity = \TYPO3\CMS\Core\Messaging\AbstractMessage::OK,
-                    $storeInSession = true
+                    '',
+                    \TYPO3\CMS\Core\Messaging\AbstractMessage::OK,
+                    true
                 );
 
                 $this->itemRepository->update($orderItem);

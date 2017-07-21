@@ -147,7 +147,7 @@ class ProductController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
             $demand->setOrder($settings['orderBy'] . ' ' . $settings['orderDirection']);
         }
 
-        $this->addCategoriesToDemandObjectFromSettings($demand, $settings);
+        $this->addCategoriesToDemandObjectFromSettings($demand);
 
         return $demand;
     }
@@ -156,7 +156,7 @@ class ProductController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
      * @param \Extcode\Cart\Domain\Model\Dto\Product\ProductDemand $demand
      * @param array $settings
      */
-    protected function addCategoriesToDemandObjectFromSettings(&$demand, $settings)
+    protected function addCategoriesToDemandObjectFromSettings(&$demand)
     {
         if ($this->settings['categoriesList']) {
             $selectedCategories = \TYPO3\CMS\Core\Utility\GeneralUtility::intExplode(

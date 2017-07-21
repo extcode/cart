@@ -643,9 +643,9 @@ class CartController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
                         'tx_cart.controller.cart.action.set_shipping.not_available',
                         $this->extensionName
                     ),
-                    $messageTitle = '',
-                    $severity = \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR,
-                    $storeInSession = true
+                    '',
+                    \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR,
+                    true
                 );
             }
         }

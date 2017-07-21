@@ -92,7 +92,12 @@ class CartTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
     {
         unset($this->grossCart);
         unset($this->netCart);
-        unset($taxClasses);
+
+        unset($this->taxClasses);
+
+        unset($this->normalTaxClass);
+        unset($this->reducedTaxClass);
+        unset($this->freeTaxClass);
     }
 
     /**
