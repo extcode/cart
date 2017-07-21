@@ -165,7 +165,7 @@ $("#add-product-form").submit(function(e) {
             success: function(data)
             {
                 var response = JSON.parse(data);
-                var message = '';
+                var message = "";
                 if (response.status == "200") {
                     $('#tx-cart-minicart span.count').html(response.count);
                     $('#tx-cart-minicart span.net').html(response.net);
