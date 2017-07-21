@@ -176,9 +176,11 @@ class CartController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
                 'tx_cart.error.validation',
                 $this->extensionName
             );
-        } else {
-            $errorMsg = parent::getErrorFlashMessage();
+
+            return $errorMsg;
         }
+
+        $errorMsg = parent::getErrorFlashMessage();
 
         return $errorMsg;
     }
@@ -195,12 +197,12 @@ class CartController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         if (TYPO3_MODE === 'BE') {
             $pageId = (int)\TYPO3\CMS\Core\Utility\GeneralUtility::_GP('id');
 
-            $frameworkConfiguration = $this->configurationManager->getConfiguration(
+            $frameworkConf = $this->configurationManager->getConfiguration(
                 \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK
             );
-            $persistenceConfiguration = ['persistence' => ['storagePid' => $pageId]];
+            $persistenceConf = ['persistence' => ['storagePid' => $pageId]];
             $this->configurationManager->setConfiguration(
-                array_merge($frameworkConfiguration, $persistenceConfiguration)
+                array_merge($frameworkConf, $persistenceConf)
             );
         }
     }
@@ -413,28 +415,15 @@ class CartController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 
         list($products, $errors) = $this->productUtility->checkProductsBeforeAddToCart($this->cart, $products);
 
-        $quantity = 0;
-        foreach ($products as $product) {
-            if ($product instanceof \Extcode\Cart\Domain\Model\Cart\Product) {
-                $quantity += $product->getQuantity();
-                $this->cart->addProduct($product);
-            }
-        }
+        $quantity = $this->addProductsToCart($products);
 
         $this->updateService();
 
         $this->sessionHandler->writeToSession($this->cart, $this->settings['cart']['pid']);
 
-        $productsChanged = [];
-
-        foreach ($products as $product) {
-            if ($product instanceof \Extcode\Cart\Domain\Model\Cart\Product) {
-                $productChanged = $this->cart->getProduct($product->getId());
-                $productsChanged[$product->getId()] = $productChanged->toArray();
-            }
-        }
-
         if (isset($_GET['type'])) {
+            $productsChanged = $this->getChangedProducts($products);
+
             // ToDo: have different response status
             $response = [
                 'status' => '200',
@@ -521,9 +510,9 @@ class CartController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
                             'tx_cart.ok.coupon.added',
                             $this->extensionName
                         ),
-                        $messageTitle = '',
-                        $severity = \TYPO3\CMS\Core\Messaging\AbstractMessage::OK,
-                        $storeInSession = true
+                        '',
+                        \TYPO3\CMS\Core\Messaging\AbstractMessage::OK,
+                        true
                     );
                 }
                 if ($couponWasAdded == -1) {
@@ -532,9 +521,9 @@ class CartController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
                             'tx_cart.error.coupon.already_added',
                             $this->extensionName
                         ),
-                        $messageTitle = '',
-                        $severity = \TYPO3\CMS\Core\Messaging\AbstractMessage::WARNING,
-                        $storeInSession = true
+                        '',
+                        \TYPO3\CMS\Core\Messaging\AbstractMessage::WARNING,
+                        true
                     );
                 }
                 if ($couponWasAdded == -2) {
@@ -543,9 +532,9 @@ class CartController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
                             'tx_cart.error.coupon.not_combinable',
                             $this->extensionName
                         ),
-                        $messageTitle = '',
-                        $severity = \TYPO3\CMS\Core\Messaging\AbstractMessage::WARNING,
-                        $storeInSession = true
+                        '',
+                        \TYPO3\CMS\Core\Messaging\AbstractMessage::WARNING,
+                        true
                     );
                 }
             } else {
@@ -554,9 +543,9 @@ class CartController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
                         'tx_cart.error.coupon.not_accepted',
                         $this->extensionName
                     ),
-                    $messageTitle = '',
-                    $severity = \TYPO3\CMS\Core\Messaging\AbstractMessage::WARNING,
-                    $storeInSession = true
+                    '',
+                    \TYPO3\CMS\Core\Messaging\AbstractMessage::WARNING,
+                    true
                 );
             }
 
@@ -582,9 +571,9 @@ class CartController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
                         'tx_cart.ok.coupon.removed',
                         $this->extensionName
                     ),
-                    $messageTitle = '',
-                    $severity = \TYPO3\CMS\Core\Messaging\AbstractMessage::OK,
-                    $storeInSession = true
+                    '',
+                    \TYPO3\CMS\Core\Messaging\AbstractMessage::OK,
+                    true
                 );
             }
             if ($couponWasRemoved == -1) {
@@ -593,9 +582,9 @@ class CartController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
                         'tx_cart.error.coupon.not_found',
                         $this->extensionName
                     ),
-                    $messageTitle = '',
-                    $severity = \TYPO3\CMS\Core\Messaging\AbstractMessage::WARNING,
-                    $storeInSession = true
+                    '',
+                    \TYPO3\CMS\Core\Messaging\AbstractMessage::WARNING,
+                    true
                 );
             }
 
@@ -689,9 +678,9 @@ class CartController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
                         'tx_cart.controller.cart.action.set_payment.not_available',
                         $this->extensionName
                     ),
-                    $messageTitle = '',
-                    $severity = \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR,
-                    $storeInSession = true
+                    '',
+                    \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR,
+                    true
                 );
             }
         }
@@ -725,14 +714,14 @@ class CartController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
             ) {
                 $fields = $this->settings['validation'][$argumentName]['fields'];
 
-                foreach ($fields as $propertyName => $validatorConfiguration) {
+                foreach ($fields as $propertyName => $validatorConf) {
                     $this->setDynamicValidation(
                         $argumentName,
                         $propertyName,
                         [
-                            'validator' => $validatorConfiguration['validator'],
-                            'options' => is_array($validatorConfiguration['options'])
-                                         ? $validatorConfiguration['options']
+                            'validator' => $validatorConf['validator'],
+                            'options' => is_array($validatorConf['options'])
+                                         ? $validatorConf['options']
                                          : []
                         ]
                     );
@@ -788,9 +777,9 @@ class CartController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $orderItem->setCartPid(intval($GLOBALS['TSFE']->id));
 
         if ($this->request->hasArgument('shipping_same_as_billing')) {
-            $isShippingAddressSameAsBilling = $this->request->getArgument('shipping_same_as_billing');
+            $useSameAddress = $this->request->getArgument('shipping_same_as_billing');
 
-            if ($isShippingAddressSameAsBilling == 'true') {
+            if ($useSameAddress === 'true') {
                 $shippingAddress = null;
                 $orderItem->removeShippingAddress();
             }
@@ -916,10 +905,10 @@ class CartController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      *
      * @param string $argumentName
      * @param string $propertyName
-     * @param array $validatorConfiguration
+     * @param array $validatorConf
      * @throws \TYPO3\CMS\Extbase\Validation\Exception\NoSuchValidatorException
      */
-    protected function setDynamicValidation($argumentName, $propertyName, $validatorConfiguration)
+    protected function setDynamicValidation($argumentName, $propertyName, $validatorConf)
     {
         // build custom validation chain
         /** @var \TYPO3\CMS\Extbase\Validation\ValidatorResolver $validatorResolver */
@@ -927,13 +916,13 @@ class CartController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
             \TYPO3\CMS\Extbase\Validation\ValidatorResolver::class
         );
 
-        if ($validatorConfiguration['validator'] == 'Empty') {
-            $validatorConfiguration['validator'] = '\Extcode\Cart\Validation\Validator\EmptyValidator';
+        if ($validatorConf['validator'] == 'Empty') {
+            $validatorConf['validator'] = '\Extcode\Cart\Validation\Validator\EmptyValidator';
         }
 
         $propertyValidator = $validatorResolver->createValidator(
-            $validatorConfiguration['validator'],
-            $validatorConfiguration['options']
+            $validatorConf['validator'],
+            $validatorConf['options']
         );
 
         if ($argumentName === 'orderItem') {
@@ -951,14 +940,51 @@ class CartController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
             $propertyValidator
         );
 
-        /** @var \TYPO3\CMS\Extbase\Validation\Validator\ConjunctionValidator $baseConjunctionValidator */
-        $baseConjunctionValidator = $this->arguments->getArgument($argumentName)->getValidator();
-        if ($baseConjunctionValidator === null) {
-            $baseConjunctionValidator = $validatorResolver->createValidator(
+        /** @var \TYPO3\CMS\Extbase\Validation\Validator\ConjunctionValidator $conjunctionValidator */
+        $conjunctionValidator = $this->arguments->getArgument($argumentName)->getValidator();
+        if ($conjunctionValidator === null) {
+            $conjunctionValidator = $validatorResolver->createValidator(
                 \TYPO3\CMS\Extbase\Validation\Validator\ConjunctionValidator::class
             );
-            $this->arguments->getArgument($argumentName)->setValidator($baseConjunctionValidator);
+            $this->arguments->getArgument($argumentName)->setValidator($conjunctionValidator);
         }
-        $baseConjunctionValidator->addValidator($modelValidator);
+        $conjunctionValidator->addValidator($modelValidator);
+    }
+
+    /**
+     * returns list of changed products
+     *
+     * @param $products
+     *
+     * @return array
+     */
+    protected function getChangedProducts($products)
+    {
+        $productsChanged = [];
+
+        foreach ($products as $product) {
+            if ($product instanceof \Extcode\Cart\Domain\Model\Cart\Product) {
+                $productChanged = $this->cart->getProduct($product->getId());
+                $productsChanged[$product->getId()] = $productChanged->toArray();
+            }
+        }
+        return $productsChanged;
+    }
+
+    /**
+     * @param $products
+     * @return int
+     */
+    protected function addProductsToCart($products)
+    {
+        $quantity = 0;
+
+        foreach ($products as $product) {
+            if ($product instanceof \Extcode\Cart\Domain\Model\Cart\Product) {
+                $quantity += $product->getQuantity();
+                $this->cart->addProduct($product);
+            }
+        }
+        return $quantity;
     }
 }

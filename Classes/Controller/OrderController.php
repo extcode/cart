@@ -161,12 +161,12 @@ class OrderController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
                 \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::class
             );
 
-            $frameworkConfiguration =
+            $frameworkConf =
                 $configurationManager->getConfiguration(
                     \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK
                 );
-            $persistenceConfiguration = ['persistence' => ['storagePid' => $pageId]];
-            $configurationManager->setConfiguration(array_merge($frameworkConfiguration, $persistenceConfiguration));
+            $persistenceConf = ['persistence' => ['storagePid' => $pageId]];
+            $configurationManager->setConfiguration(array_merge($frameworkConf, $persistenceConf));
 
             $this->settings = $configurationManager->getConfiguration(
                 \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_SETTINGS,
@@ -509,17 +509,17 @@ class OrderController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
             );
 
         if ($cartConfiguration) {
-            $pluginTypoScriptSettings = $typoScriptService->convertTypoScriptArrayToPlainArray($cartConfiguration);
+            $typoScriptSettings = $typoScriptService->convertTypoScriptArrayToPlainArray($cartConfiguration);
         }
 
         //TODO replace it width dynamic var
-        $pluginTypoScriptSettings['settings'] = [
+        $typoScriptSettings['settings'] = [
             'cart' => [
                 'pid' => $orderItem->getCartPid(),
             ],
         ];
 
-        $number = $this->orderUtility->getNumber($pluginTypoScriptSettings, $pdfType);
+        $number = $this->orderUtility->getNumber($typoScriptSettings, $pdfType);
 
         return $number;
     }
