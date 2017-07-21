@@ -49,6 +49,15 @@ $('#billingAddress\\:country').change(function () {
 
     if(!$("#shipping_same_as_billing").is(':checked')) {
         shippingCountry = $('#shippingAddress\\:country').val();
+        $('#shipping-address input').each(function() {
+            if($(this).data("required")) {
+                $(this).attr("required","required");
+            }
+        });
+    } else {
+        $('#shipping-address input').each(function() {
+            $(this).removeAttr("required");
+        });
     }
 
     updateCountry(billingCountry, shippingCountry);
