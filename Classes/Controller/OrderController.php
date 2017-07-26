@@ -412,16 +412,19 @@ class OrderController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     {
         if ($pdfType == 'invoice') {
             if (!$orderItem->getInvoiceNumber()) {
-                $invoiceNumber = $this->generateInvoiceNumber($orderItem);
+                $invoiceNumber = $this->generateNumber($orderItem, $pdfType);
                 $orderItem->setInvoiceNumber($invoiceNumber);
                 $orderItem->setInvoiceDate(new \DateTime());
 
-                $this->addFlashMessage(
-                    'Invoice Number was generated.',
-                    $messageTitle = '',
-                    $severity = \TYPO3\CMS\Core\Messaging\AbstractMessage::OK,
-                    $storeInSession = true
+                $msg = LocalizationUtility::translate(
+                    'tx_cart.controller.order.action.generate_number_action.' . $pdfType . '.success',
+                    $this->extensionName,
+                    [
+                        0 => $invoiceNumber,
+                    ]
                 );
+
+                $this->addFlashMessage($msg);
 
                 $this->itemRepository->update($orderItem);
 

@@ -1,3 +1,9 @@
+3.12.7
+    2017-07-26
+    Daniel Lorenz <https://github.com/extcode>
+
+    * TASK #135: old function was called in OrderController on generate invoice pdf action when no invoice number exists
+
 3.12.6
     2017-07-21
     Andreas Beyl
