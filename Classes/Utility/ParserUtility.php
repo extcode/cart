@@ -262,13 +262,6 @@ class ParserUtility
         }
 
         if ($selectedCountry) {
-            if (is_array($pluginSettingsType[$selectedCountry])) {
-                $countrySetting = $pluginSettingsType[$selectedCountry];
-                if (is_array($countrySetting) && !empty($countrySetting)) {
-                    return $countrySetting;
-                }
-            }
-
             if (is_array($pluginSettingsType['countries'][$selectedCountry])) {
                 $countrySetting = $pluginSettingsType['countries'][$selectedCountry];
                 if (is_array($countrySetting) && !empty($countrySetting)) {
@@ -280,6 +273,13 @@ class ParserUtility
                 $zoneSetting = $this->getTypeZonesPluginSettings($pluginSettingsType['zones'], $cart);
                 if (is_array($zoneSetting) && !empty($zoneSetting)) {
                     return $zoneSetting;
+                }
+            }
+
+            if (is_array($pluginSettingsType[$selectedCountry])) {
+                $countrySetting = $pluginSettingsType[$selectedCountry];
+                if (is_array($countrySetting) && !empty($countrySetting)) {
+                    return $countrySetting;
                 }
             }
 

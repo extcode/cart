@@ -1,3 +1,9 @@
+4.0.8
+    2017-08-10
+    Daniel Lorenz <https://github.com/extcode>
+
+    * BUGFIX #139: configure payments and shippings with grouping countries doesn't work as expected
+
 4.0.7
     2017-08-10
     Daniel Lorenz <https://github.com/extcode>
