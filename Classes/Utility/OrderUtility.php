@@ -380,12 +380,13 @@ class OrderUtility
                                 /** @var \Extcode\Cart\Domain\Model\Product\BeVariant $productBeVariant */
                                 $productBeVariant = $productBeVariantRepository->findByUid($cartBeVariant->getId());
                                 $productBeVariant->removeFromStock($cartBeVariant->getQuantity());
+                                $productBeVariantRepository->update($productBeVariant);
                             }
                         } else {
                             $productProduct->removeFromStock($cartProduct->getQuantity());
+                            $productProductRepository->update($productProduct);
                         }
                     }
-                    $productProductRepository->update($productProduct);
                 } else {
                     $data = [
                         'cartProduct' => $cartProduct,

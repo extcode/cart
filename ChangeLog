@@ -1,3 +1,9 @@
+3.12.8
+    2017-08-10
+    Daniel Lorenz <https://github.com/extcode>
+
+     * BUGFIX #138: handle stock in backend variants does not update the repository
+
 3.12.7
     2017-07-26
     Daniel Lorenz <https://github.com/extcode>
