@@ -154,7 +154,6 @@ class ProductController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 
     /**
      * @param \Extcode\Cart\Domain\Model\Dto\Product\ProductDemand $demand
-     * @param array $settings
      */
     protected function addCategoriesToDemandObjectFromSettings(&$demand)
     {
@@ -237,6 +236,8 @@ class ProductController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
                 'extensionName' => 'Cart',
                 'pluginName' => 'Product',
             ]);
+            $requestBuilder->injectConfigurationManager($configurationManager);
+
             /**
              * @var \TYPO3\CMS\Extbase\Mvc\Web\Request $cartProductRequest
              */
