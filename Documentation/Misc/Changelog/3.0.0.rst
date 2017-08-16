@@ -207,7 +207,7 @@ Eine Beispielkonfiguration (Auszug) für realurl könnte wie folgt aussehen:
                 'noMatch' => 'bypass'
             ]
         ],
-        'cartDetailConfiguration' => [
+        'cartShowCart' => [
             [
                 'GETvar' => 'tx_cart_product[product]',
                 'lookUpTable' => [

@@ -84,6 +84,33 @@ defined('TYPO3_MODE') or die();
     ]
 );
 
+// Icon Registry
+
+if (TYPO3_MODE === 'BE') {
+    $iconRegistry = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(
+        \TYPO3\CMS\Core\Imaging\IconRegistry::class
+    );
+
+    $iconRegistry->registerIcon(
+        'icon-apps-pagetree-page-cart-cart',
+        \TYPO3\CMS\Core\Imaging\IconProvider\SvgIconProvider::class,
+        ['source' => 'EXT:cart/Resources/Public/Icons/icon-apps-pagetree-page-cart-cart.svg']
+    );
+
+    $iconRegistry->registerIcon(
+        'icon-apps-pagetree-page-cart-product',
+        \TYPO3\CMS\Core\Imaging\IconProvider\SvgIconProvider::class,
+        ['source' => 'EXT:cart/Resources/Public/Icons/icon-apps-pagetree-page-cart-product.svg']
+    );
+}
+
+// RealUrlHook
+
+if (TYPO3_MODE === 'FE') {
+    $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['realurl']['ConfigurationReader_postProc'][1499067085] =
+        'EXT:cart/Classes/Hooks/RealUrlHook.php:Extcode\Cart\Hooks\RealUrlHook->postProcessConfiguration';
+}
+
 // ke_search indexer
 
 $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['ke_search']['registerIndexerConfiguration'][] = 'EXT:cart/Classes/Hooks/KeSearchIndexer.php:Extcode\Cart\Hooks\KeSearchIndexer';

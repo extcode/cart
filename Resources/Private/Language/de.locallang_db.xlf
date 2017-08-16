@@ -1170,6 +1170,15 @@
                 <source>Switzerland</source>
                 <target>Schweiz</target>
             </trans-unit>
+
+            <trans-unit id="pages.doktype.181">
+                <source>Cart: Cart</source>
+                <target>Cart: Warenkorb</target>
+            </trans-unit>
+            <trans-unit id="pages.doktype.182">
+                <source>Cart: Product</source>
+                <target>Cart: Produkt</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

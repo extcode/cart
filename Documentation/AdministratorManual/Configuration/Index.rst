@@ -21,3 +21,4 @@ Konfiguration
    PdfConfiguration/Index
    ServiceAttributeConfiguration/Index
    Caching/Index
+   RealUrl/Index
