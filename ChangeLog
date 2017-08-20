@@ -1,3 +1,9 @@
+4.2.0
+    2017-08-20
+    Daniel Lorenz <https://github.com/extcode>
+
+    * TASK #141: add configuration option to hide coupons in cart default template
+
 4.1.0
     2017-08-16
     Daniel Lorenz <https://github.com/extcode>

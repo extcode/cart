@@ -149,6 +149,16 @@ plugin.tx_cart {
         listAction < .showAction
 
         showCartAction {
+            showPartials {
+                couponForm = true
+
+                # if setting shippingAddressForm to false please disable all validations too
+                shippingAddressForm = true
+
+                shippingMethodForm = true
+                paymentMethodForm = true
+            }
+
             summary {
                 fields {
                     cart.net = true

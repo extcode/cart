@@ -7,30 +7,38 @@
         <div class="col-sm-12 col-md-12 col-lg-4">
             <div class="form-column">
                 <f:render partial="Cart/OrderForm/Address/Billing" arguments="{cart:cart, billingAddress:billingAddress}"/>
-                <div class="form-list">
-                    <div class="control">
-                        <label for="shipping_same_as_billing">
-                            <f:form.checkbox name="shipping_same_as_billing"
-                                             id="shipping_same_as_billing"
-                                             value="{f:if(condition:'{cart.shippingCountry}',then:'false',else:'true')}"
-                                             title="{f:translate(key:'tx_cart.same_address')}"
-                                             additionalAttributes="{f:if(condition:'{cart.shippingCountry} == \'\'', then: '{checked: \'checked\'}')}"/>
-                            <span>
-                                <f:translate key="tx_cart.same_address"/>
-                            </span>
-                        </label>
+                <f:if condition="{settings.showCartAction.showPartials.shippingAddressForm}">
+                    <div class="form-list">
+                        <div class="control">
+                            <label for="shipping_same_as_billing">
+                                <f:form.checkbox name="shipping_same_as_billing"
+                                                 id="shipping_same_as_billing"
+                                                 value="{f:if(condition:'{cart.shippingCountry}',then:'false',else:'true')}"
+                                                 title="{f:translate(key:'tx_cart.same_address')}"
+                                                 additionalAttributes="{f:if(condition:'{cart.shippingCountry} == \'\'', then: '{checked: \'checked\'}')}"/>
+                                <span>
+                                    <f:translate key="tx_cart.same_address"/>
+                                </span>
+                            </label>
+                        </div>
                     </div>
-                </div>
-                <f:render partial="Cart/OrderForm/Address/Shipping" arguments="{cart:cart, shippingAddress:shippingAddress}"/>
+                    <f:render partial="Cart/OrderForm/Address/Shipping" arguments="{cart:cart, shippingAddress:shippingAddress}"/>
+                </f:if>
             </div>
         </div>
         <div class="col-sm-12 col-md-8 col-lg-8" style="padding: 0;">
             <div class="">
                 <div class="col-sm-12 col-md-6 col-lg-6">
                     <div class="">
-                        <f:render partial="Cart/OrderForm/ShippingMethod" arguments="{cart:cart, shippings:shippings}"/>
-                        <f:render partial="Cart/OrderForm/PaymentMethod" arguments="{cart:cart, payments:payments}"/>
-                        <f:render partial="Cart/OrderForm/Coupon" arguments="{cart:cart}"/>
+                        <f:if condition="{settings.showCartAction.showPartials.shippingMethodForm}">
+                            <f:render partial="Cart/OrderForm/ShippingMethod" arguments="{cart:cart, shippings:shippings}"/>
+                        </f:if>
+                        <f:if condition="{settings.showCartAction.showPartials.paymentMethodForm}">
+                            <f:render partial="Cart/OrderForm/PaymentMethod" arguments="{cart:cart, payments:payments}"/>
+                        </f:if>
+                        <f:if condition="{settings.showCartAction.showPartials.couponForm}">
+                            <f:render partial="Cart/OrderForm/Coupon" arguments="{cart:cart}"/>
+                        </f:if>
                     </div>
                 </div>
 

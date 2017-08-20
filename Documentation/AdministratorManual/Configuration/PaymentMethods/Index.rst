@@ -10,12 +10,12 @@ Die Bezahlmethoden werden über TypoScript für jeden Warenkorb definiert. Das S
 
 Mit der Definition plugin.tx_cart.settings.allowedCountries wird die Ausgabe des Selektors im Warenkorb definiert. Durch einen eigenen SelectViewhelper können die Optionen auch übersetzt werden.
 
-:: important:
+.. important::
    Das mitgelieferte TypoScript der Erweiterung bringt eine Konfiguration und Übersetzung für den deutschsprachigen Raum mit.
 
 Der Parameter plugin.tx_cart.settings.defaultCountry definiert welches Land vorausgewählt werden soll.
 
-:: important:
+.. important::
    Sollten für verschiedene Länder verschiedene Bezahlmethoden definiert sein, wird die Auswahl der Rechnungsadresse für die erlaubten Bezahlmethoden genutzt. Das Land der Versandadresse, auch wenn eine abweichende Lieferadresse angegeben wurde, wird nicht genutzt.
 
 Länderkonfiguration
@@ -201,3 +201,34 @@ Dies erspart jede Menge Konfigurationsarbeit, wenn in viele Länder geliefert we
 .. NOTE::
    * Es wird erst in der Liste der Länderkonfiguration nach einer passenden Konfiguration gesucht.
    * Es wird dann die Liste der Zonenkonfigurationen durchgesehen. Die erste passende Konfiguration wird genutzt.
+
+Bezahlmethoden deaktivieren
+"""""""""""""""""""""""""""
+
+Im Moment erlaubt es die Verarbeitung nicht ganz auf die Bezahlmethoden zu verzichten. Eine Bezahlmethoden muss immer angegeben
+sein. Wenn es lediglich eine Bezahlmethode gibt, kann der Auswahlblock ausblendet werden.
+
+::
+
+   plugin.tx_cart {
+        settings {
+            showCartAction {
+                showPartials {
+                   paymentMethodForm = false
+                }
+            }
+        }
+   }
+
+|
+
+.. container:: table-row
+
+   Property
+      plugin.tx_cart.settings.showCartAction.showPartials.paymentMethodForm
+   Data type
+      boolean
+   Description
+      Aktiviert/Deaktiviert die Darstellung und Auswahl der konfigurierten Bezahlmethoden im Warenkorb.
+   Default
+      true

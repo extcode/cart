@@ -11,12 +11,16 @@ showCartAction-Konfiguration
    plugin.tx_cart {
        settings {
            showCartAction {
-               validation {
-                   fields {
-                       acceptTerms = true
-                       acceptConditions = true
-                   }
+               showPartials {
+                   couponForm = true
+
+                   # if setting shippingAddressForm to false please disable all validations too
+                   shippingAddressForm = true
+
+                   shippingMethodForm = true
+                   paymentMethodForm = true
                }
+
                summary {
                    fields {
                        cart.net = true
@@ -30,24 +34,36 @@ showCartAction-Konfiguration
        }
    }
 
-settings.showCartAction.validation.fields.acceptTerms
-"""""""""""""""""""""""""""""""""""""""""""""""""""""
 .. container:: table-row
 
    Property
-      settings.showCartAction.validation.fields.acceptTerms
+      plugin.tx_cart.settings.showCartAction.showPartials.paymentMethodForm
    Data type
-      string
+      boolean
    Description
-      Schaltet die Checkbox "AGB akzeptieren" und die Validierung aus/ein.
+      Aktiviert/Deaktiviert die Darstellung und Auswahl der konfigurierten Bezahlmethoden im Warenkorb.
+   Default
+      true
 
-settings.showCartAction.validation.fields.acceptConditions
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 .. container:: table-row
 
    Property
-      settings.showCartAction.validation.fields.acceptConditions
+      plugin.tx_cart.settings.showCartAction.showPartials.shippingMethodForm
    Data type
-      string
+      boolean
    Description
-      Schaltet die Checkbox "Widerrufsbelehrung akzeptieren" und die Validierung aus/ein.
+      Aktiviert/Deaktiviert die Darstellung und Auswahl der konfigurierten Bezahlmethoden im Warenkorb.
+   Default
+      true
+
+.. container:: table-row
+
+   Property
+      plugin.tx_cart.settings.showCartAction.showPartials.couponForm
+   Data type
+      boolean
+   Description
+      Aktiviert/Deaktiviert die Darstellung der Gutscheine im Warenkorb. Es wird sowohl der Block für die Eingabe als
+      auch für die Darstellung ein-/ausgeblendet.
+   Default
+      true

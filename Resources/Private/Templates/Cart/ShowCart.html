@@ -16,7 +16,9 @@
             <f:then>
                 <f:render partial="Cart/ProductForm" arguments="{cart:cart}"/>
 
-                <f:render partial="Cart/CouponForm" arguments="{cart:cart}"/>
+                <f:if condition="{settings.showCartAction.showPartials.couponForm}">
+                    <f:render partial="Cart/CouponForm" arguments="{cart:cart}"/>
+                </f:if>
 
                 <f:render partial="Cart/OrderForm" arguments="{_all}"/>
 
