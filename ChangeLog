@@ -1,3 +1,9 @@
+3.12.9
+    2017-08-31
+    Daniel Lorenz <https://github.com/extcode>
+
+    * BUGFIX #142: wrong access check in Order showAction
+
 3.12.8
     2017-08-10
     Daniel Lorenz <https://github.com/extcode>

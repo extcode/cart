@@ -291,7 +291,7 @@ class OrderController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     {
         if (TYPO3_MODE === 'FE') {
             $feUser = (int)$GLOBALS['TSFE']->fe_user->user['uid'];
-            if ($orderItem->getFeUser() != $feUser) {
+            if ($orderItem->getFeUser()->getUid() !== $feUser) {
                 $this->addFlashMessage(
                     'Access denied.',
                     '',
