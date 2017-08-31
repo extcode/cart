@@ -123,7 +123,7 @@
                             <f:if condition="{0: settings.validation.billingAddress.fields.lastName.validator} == {0: 'NotEmpty'}">
                                 <f:then>
                                     <label for="billingAddress:lastName" class="required">
-                                        <f:translate key="tx_cart_domain_model_order_address.first_name"/>
+                                        <f:translate key="tx_cart_domain_model_order_address.last_name"/>
                                         <em>*</em>
                                     </label>
                                     <div class="input-box">
@@ -141,7 +141,7 @@
                                 </f:then>
                                 <f:else>
                                     <label for="billingAddress:lastName">
-                                        <f:translate key="tx_cart_domain_model_order_address.first_name"/>
+                                        <f:translate key="tx_cart_domain_model_order_address.last_name"/>
                                     </label>
                                     <div class="input-box">
                                         <f:form.textfield id="billingAddress:lastName"
