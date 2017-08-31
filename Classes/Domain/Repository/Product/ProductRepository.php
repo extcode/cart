@@ -66,31 +66,6 @@ class ProductRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
     }
 
     /**
-     * Find all products based on selected categories
-     *
-     * @param array $categories
-     *
-     * @return QueryResultInterface|array
-     */
-    public function findByCategories($categories)
-    {
-        $query = $this->createQuery();
-        //$query->getQuerySettings()->setRespectStoragePage(false);
-
-        $constraints = [];
-
-        if (!empty($constraints)) {
-            $query->matching(
-                $query->logicalAnd($constraints)
-            );
-        }
-
-        $result = $query->execute();
-
-        return $result;
-    }
-
-    /**
      * Find all products based on selected uids
      *
      * @param string $uids

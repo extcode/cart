@@ -1,3 +1,9 @@
+3.12.10
+    2017-08-31
+    Daniel Lorenz <https://github.com/extcode>
+
+    * BUGFIX #143: remove defect and not needed method from repository
+
 3.12.9
     2017-08-31
     Daniel Lorenz <https://github.com/extcode>
