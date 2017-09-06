@@ -6,7 +6,7 @@
         </f:if>
         {address.street}<br/>
         {address.zip} {address.city}<br/>
-        <f:if condition="<f:translate key='tx_cart.settings.allowed_countries.{address.country}'/>">
+        <f:if condition="{f:translate(id: 'tx_cart.settings.allowed_countries.{address.country}')}">    
             <f:then>
                 <f:translate key="tx_cart.settings.allowed_countries.{address.country}"/>
             </f:then>
