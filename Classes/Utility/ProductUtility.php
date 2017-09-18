@@ -284,7 +284,7 @@ class ProductUtility
 
             $feVariants = $productProduct->getFeVariants();
 
-            if ($feVariants) {
+            if (count($feVariants)) {
                 $cartProductValues['feVariants'] = [];
                 foreach ($feVariants as $feVariant) {
                     if ($feVariantValues[$feVariant->getSku()]) {
