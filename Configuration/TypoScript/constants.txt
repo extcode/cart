@@ -125,6 +125,8 @@ plugin.tx_cart {
                     firstName.validator = NotEmpty
                     lastName.validator = NotEmpty
                     email.validator = NotEmpty
+                    phone.validator = Empty
+                    fax.validator = Empty
                     street.validator = NotEmpty
                     zip.validator = NotEmpty
                     city.validator = NotEmpty
@@ -136,6 +138,8 @@ plugin.tx_cart {
                     firstName.validator = NotEmpty
                     lastName.validator = NotEmpty
                     email.validator = NotEmpty
+                    phone.validator = Empty
+                    fax.validator = Empty
                     street.validator = NotEmpty
                     zip.validator = NotEmpty
                     city.validator = NotEmpty

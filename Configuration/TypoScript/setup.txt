@@ -197,6 +197,12 @@ plugin.tx_cart {
                     email {
                         validator = {$plugin.tx_cart.settings.validation.billingAddress.fields.email.validator}
                     }
+                    phone {
+                        validator = {$plugin.tx_cart.settings.validation.billingAddress.fields.phone.validator}
+                    }
+                    fax {
+                        validator = {$plugin.tx_cart.settings.validation.billingAddress.fields.fax.validator}
+                    }
                     street {
                         validator = {$plugin.tx_cart.settings.validation.billingAddress.fields.street.validator}
                     }
@@ -221,6 +227,12 @@ plugin.tx_cart {
                     }
                     email {
                         validator = {$plugin.tx_cart.settings.validation.shippingAddress.fields.email.validator}
+                    }
+                    phone {
+                        validator = {$plugin.tx_cart.settings.validation.shippingAddress.fields.phone.validator}
+                    }
+                    fax {
+                        validator = {$plugin.tx_cart.settings.validation.shippingAddress.fields.fax.validator}
                     }
                     street {
                         validator = {$plugin.tx_cart.settings.validation.shippingAddress.fields.street.validator}

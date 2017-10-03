@@ -233,6 +233,14 @@
                 <source>Email</source>
                 <target>E-Mail</target>
             </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_address.phone">
+                <source>Phone</source>
+                <target>Telefon</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_address.fax">
+                <source>Fax</source>
+                <target>Fax</target>
+            </trans-unit>
             <trans-unit id="tx_cart_domain_model_order_address.company">
                 <source>Company</source>
                 <target>Firma</target>
