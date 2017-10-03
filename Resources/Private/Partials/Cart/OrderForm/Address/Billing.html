@@ -193,6 +193,82 @@
                     </li>
                 </f:if>
 
+                <f:if condition="{0: settings.validation.billingAddress.fields.phone.validator} != {0: 'Empty'}">
+                    <li>
+                        <f:if condition="{0: settings.validation.billingAddress.fields.phone.validator} == {0: 'NotEmpty'}">
+                            <f:then>
+                                <label for="billingAddress:phone" class="required">
+                                    <f:translate key="tx_cart_domain_model_order_address.phone"/>
+                                    <em>*</em>
+                                </label>
+                                <div class="input-box">
+                                    <f:form.textfield id="billingAddress:phone"
+                                                      class="form-control"
+                                                      name="billingAddress[phone]"
+                                                      value="{billingAddress.phone}"
+                                                      type="phone"
+                                                      required="true"/>
+                                    <f:form.validationResults for="billingAddress">
+                                        <f:if condition="{validationResults.flattenedErrors.phone}">
+                                            <div class="validation-error alert alert-danger">{validationResults.flattenedErrors.phone.0.message}</div>
+                                        </f:if>
+                                    </f:form.validationResults>
+                                </div>
+                            </f:then>
+                            <f:else>
+                                <label for="billingAddress:phone">
+                                    <f:translate key="tx_cart_domain_model_order_address.phone"/>
+                                </label>
+                                <div class="input-box">
+                                    <f:form.textfield id="billingAddress:phone"
+                                                      class="form-control"
+                                                      name="billingAddress[phone]"
+                                                      value="{billingAddress.phone}"
+                                                      type="phone"/>
+                                </div>
+                            </f:else>
+                        </f:if>
+                    </li>
+                </f:if>
+
+                <f:if condition="{0: settings.validation.billingAddress.fields.fax.validator} != {0: 'Empty'}">
+                    <li>
+                        <f:if condition="{0: settings.validation.billingAddress.fields.fax.validator} == {0: 'NotEmpty'}">
+                            <f:then>
+                                <label for="billingAddress:fax" class="required">
+                                    <f:translate key="tx_cart_domain_model_order_address.fax"/>
+                                    <em>*</em>
+                                </label>
+                                <div class="input-box">
+                                    <f:form.textfield id="billingAddress:fax"
+                                                      class="form-control"
+                                                      name="billingAddress[fax]"
+                                                      value="{billingAddress.fax}"
+                                                      type="fax"
+                                                      required="true"/>
+                                    <f:form.validationResults for="billingAddress">
+                                        <f:if condition="{validationResults.flattenedErrors.fax}">
+                                            <div class="validation-error alert alert-danger">{validationResults.flattenedErrors.fax.0.message}</div>
+                                        </f:if>
+                                    </f:form.validationResults>
+                                </div>
+                            </f:then>
+                            <f:else>
+                                <label for="billingAddress:fax">
+                                    <f:translate key="tx_cart_domain_model_order_address.fax"/>
+                                </label>
+                                <div class="input-box">
+                                    <f:form.textfield id="billingAddress:fax"
+                                                      class="form-control"
+                                                      name="billingAddress[fax]"
+                                                      value="{billingAddress.fax}"
+                                                      type="fax"/>
+                                </div>
+                            </f:else>
+                        </f:if>
+                    </li>
+                </f:if>
+
                 <f:if condition="{0: settings.validation.billingAddress.fields.company.validator} != {0: 'Empty'}">
                     <li>
                         <f:if condition="{0: settings.validation.billingAddress.fields.company.validator} == {0: 'NotEmpty'}">

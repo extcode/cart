@@ -21,16 +21,16 @@ return [
         'hideTable' => true,
         'delete' => 'deleted',
         'enablecolumns' => [],
-        'searchFields' => 'first_name, last_name, street, street_number, zip, city',
+        'searchFields' => 'first_name, last_name, street, zip, city',
         'iconfile' => 'EXT:cart/Resources/Public/Icons/Order/Address.png'
     ],
     'hideTable' => 1,
     'interface' => [
-        'showRecordFieldList' => 'title, salutation, first_name, last_name, email, company, street, zip, city, country, phone, fax, additional',
+        'showRecordFieldList' => 'title, salutation, first_name, last_name, email, phone, fax, company, street, zip, city, country, phone, fax, additional',
     ],
     'types' => [
         '1' => [
-            'showitem' => 'title, salutation, first_name, last_name, email, company, street, zip, city, country, phone, fax, additional',
+            'showitem' => 'title, salutation, first_name, last_name, email, phone, fax, company, street, zip, city, country, phone, fax, additional',
         ],
     ],
     'palettes' => [

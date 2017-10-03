@@ -449,14 +449,14 @@ CREATE TABLE tx_cart_domain_model_order_address (
     first_name varchar(255) DEFAULT '' NOT NULL,
     last_name varchar(255) DEFAULT '' NOT NULL,
     email varchar(255) DEFAULT '' NOT NULL,
+    phone varchar(255) DEFAULT '' NOT NULL,
+    fax varchar(255) DEFAULT '' NOT NULL,
     company varchar(255) DEFAULT '' NOT NULL,
     street varchar(255) DEFAULT '' NOT NULL,
     streetNumber varchar(255) DEFAULT '' NOT NULL,
     zip varchar(255) DEFAULT '' NOT NULL,
     city varchar(255) DEFAULT '' NOT NULL,
     country varchar(255) DEFAULT '' NOT NULL,
-    phone varchar(255) DEFAULT '' NOT NULL,
-    fax varchar(255) DEFAULT '' NOT NULL,
 
     additional text NOT NULL,
 

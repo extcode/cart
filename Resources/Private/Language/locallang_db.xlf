@@ -204,6 +204,12 @@
             <trans-unit id="tx_cart_domain_model_order_address.email">
                 <source>Email</source>
             </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_address.phone">
+                <source>Phone</source>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_address.fax">
+                <source>Fax</source>
+            </trans-unit>
             <trans-unit id="tx_cart_domain_model_order_address.company">
                 <source>Company</source>
             </trans-unit>
