@@ -216,6 +216,9 @@
             <trans-unit id="tx_cart_domain_model_order_address.street">
                 <source>Street</source>
             </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_address.street_number">
+                <source>Street Number</source>
+            </trans-unit>
             <trans-unit id="tx_cart_domain_model_order_address.zip">
                 <source>Zip</source>
             </trans-unit>

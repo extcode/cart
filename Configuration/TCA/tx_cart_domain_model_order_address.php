@@ -109,6 +109,16 @@ return [
                 'eval' => 'trim'
             ],
         ],
+        'street_number' => [
+            'exclude' => 0,
+            'label' => $_LLL . ':tx_cart_domain_model_order_address.street_number',
+            'config' => [
+                'type' => 'input',
+                'readOnly' => 1,
+                'size' => 30,
+                'eval' => 'trim'
+            ],
+        ],
         'zip' => [
             'exclude' => 0,
             'label' => $_LLL . ':tx_cart_domain_model_order_address.zip',

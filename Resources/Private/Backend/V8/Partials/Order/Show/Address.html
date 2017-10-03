@@ -5,7 +5,7 @@
             <f:if condition="{address.company}">
                 <span>{address.company}</span><br/>
             </f:if>
-            {address.street}<br/>
+            {address.street} {address.streetNumber}<br/>
             {address.zip} {address.city}<br/>
             <f:if condition="{address.country}">
                 <f:translate key="tx_cart.settings.allowed_countries.{address.country}" default="{address.country}"/>

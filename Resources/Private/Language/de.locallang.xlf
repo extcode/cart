@@ -246,8 +246,12 @@
                 <target>Firma</target>
             </trans-unit>
             <trans-unit id="tx_cart_domain_model_order_address.street">
-                <source>Street (or Pack Station)</source>
-                <target>Straße (oder Packstation)</target>
+                <source>Street</source>
+                <target>Straße</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_address.street_number">
+                <source>Street Number</source>
+                <target>Hausnummer</target>
             </trans-unit>
             <trans-unit id="tx_cart_domain_model_order_address.zip">
                 <source>Zip</source>

@@ -306,42 +306,118 @@
                 </f:if>
 
                 <li>
-                    <f:if condition="{0: settings.validation.billingAddress.fields.street.validator} != {0: 'Empty'}">
-                        <div class="row">
-                            <div class="col-sm-12 form-columns">
-                                <f:if condition="{0: settings.validation.billingAddress.fields.street.validator} == {0: 'NotEmpty'}">
-                                    <f:then>
-                                        <label for="billingAddress:street" class="required">
-                                            <f:translate key="tx_cart_domain_model_order_address.street"/>
-                                            <em>*</em>
-                                        </label>
-                                        <div class="input-box">
-                                            <f:form.textfield id="billingAddress:street"
-                                                              class="form-control"
-                                                              name="billingAddress[street]"
-                                                              value="{billingAddress.street}"
-                                                              required="true"/>
-                                            <f:form.validationResults for="billingAddress">
-                                                <f:if condition="{validationResults.flattenedErrors.street}">
-                                                    <div class="validation-error alert alert-danger">{validationResults.flattenedErrors.street.0.message}</div>
-                                                </f:if>
-                                            </f:form.validationResults>
-                                        </div>
-                                    </f:then>
-                                    <f:else>
-                                        <label for="billingAddress:street">
-                                            <f:translate key="tx_cart_domain_model_order_address.street"/>
-                                        </label>
-                                        <div class="input-box">
-                                            <f:form.textfield id="billingAddress:street"
-                                                              class="form-control"
-                                                              name="billingAddress[street]"
-                                                              value="{billingAddress.street}"/>
-                                        </div>
-                                    </f:else>
-                                </f:if>
-                            </div>
-                        </div>
+                    <f:if condition="{0: settings.validation.billingAddress.fields.streetNumber.validator} != {0: 'Empty'}">
+                        <f:then>
+                            <f:if condition="{0: settings.validation.billingAddress.fields.street.validator} != {0: 'Empty'}">
+                                <div class="row">
+                                    <div class="col-sm-8 form-columns">
+                                        <f:if condition="{0: settings.validation.billingAddress.fields.street.validator} == {0: 'NotEmpty'}">
+                                            <f:then>
+                                                <label for="billingAddress:street" class="required">
+                                                    <f:translate key="tx_cart_domain_model_order_address.street"/>
+                                                    <em>*</em>
+                                                </label>
+                                                <div class="input-box">
+                                                    <f:form.textfield id="billingAddress:street"
+                                                                      class="form-control"
+                                                                      name="billingAddress[street]"
+                                                                      value="{billingAddress.street}"
+                                                                      required="true"/>
+                                                    <f:form.validationResults for="billingAddress">
+                                                        <f:if condition="{validationResults.flattenedErrors.street}">
+                                                            <div class="validation-error alert alert-danger">{validationResults.flattenedErrors.street.0.message}</div>
+                                                        </f:if>
+                                                    </f:form.validationResults>
+                                                </div>
+                                            </f:then>
+                                            <f:else>
+                                                <label for="billingAddress:street">
+                                                    <f:translate key="tx_cart_domain_model_order_address.street"/>
+                                                </label>
+                                                <div class="input-box">
+                                                    <f:form.textfield id="billingAddress:street"
+                                                                      class="form-control"
+                                                                      name="billingAddress[street]"
+                                                                      value="{billingAddress.street}"/>
+                                                </div>
+                                            </f:else>
+                                        </f:if>
+                                    </div>
+                                    <div class="col-sm-4 form-columns">
+                                        <f:if condition="{0: settings.validation.billingAddress.fields.streetNumber.validator} == {0: 'NotEmpty'}">
+                                            <f:then>
+                                                <label for="billingAddress:streetNumber" class="required">
+                                                    <f:translate key="tx_cart_domain_model_order_address.street_number"/>
+                                                    <em>*</em>
+                                                </label>
+                                                <div class="input-box">
+                                                    <f:form.textfield id="billingAddress:streetNumber"
+                                                                      class="form-control"
+                                                                      name="billingAddress[streetNumber]"
+                                                                      value="{billingAddress.streetNumber}"
+                                                                      required="true"/>
+                                                    <f:form.validationResults for="billingAddress">
+                                                        <f:if condition="{validationResults.flattenedErrors.street_number}">
+                                                            <div class="validation-error alert alert-danger">{validationResults.flattenedErrors.streetNumber.0.message}</div>
+                                                        </f:if>
+                                                    </f:form.validationResults>
+                                                </div>
+                                            </f:then>
+                                            <f:else>
+                                                <label for="billingAddress:streetNumber">
+                                                    <f:translate key="tx_cart_domain_model_order_address.street_number"/>
+                                                </label>
+                                                <div class="input-box">
+                                                    <f:form.textfield id="billingAddress:streetNumber"
+                                                                      class="form-control"
+                                                                      name="billingAddress[streetNumber]"
+                                                                      value="{billingAddress.streetNumber}"/>
+                                                </div>
+                                            </f:else>
+                                        </f:if>
+                                    </div>
+                                </div>
+                            </f:if>
+                        </f:then>
+                        <f:else>
+                            <f:if condition="{0: settings.validation.billingAddress.fields.street.validator} != {0: 'Empty'}">
+                                <div class="row">
+                                    <div class="col-sm-12 form-columns">
+                                        <f:if condition="{0: settings.validation.billingAddress.fields.street.validator} == {0: 'NotEmpty'}">
+                                            <f:then>
+                                                <label for="billingAddress:street" class="required">
+                                                    <f:translate key="tx_cart_domain_model_order_address.street"/>
+                                                    <em>*</em>
+                                                </label>
+                                                <div class="input-box">
+                                                    <f:form.textfield id="billingAddress:street"
+                                                                      class="form-control"
+                                                                      name="billingAddress[street]"
+                                                                      value="{billingAddress.street}"
+                                                                      required="true"/>
+                                                    <f:form.validationResults for="billingAddress">
+                                                        <f:if condition="{validationResults.flattenedErrors.street}">
+                                                            <div class="validation-error alert alert-danger">{validationResults.flattenedErrors.street.0.message}</div>
+                                                        </f:if>
+                                                    </f:form.validationResults>
+                                                </div>
+                                            </f:then>
+                                            <f:else>
+                                                <label for="billingAddress:street">
+                                                    <f:translate key="tx_cart_domain_model_order_address.street"/>
+                                                </label>
+                                                <div class="input-box">
+                                                    <f:form.textfield id="billingAddress:street"
+                                                                      class="form-control"
+                                                                      name="billingAddress[street]"
+                                                                      value="{billingAddress.street}"/>
+                                                </div>
+                                            </f:else>
+                                        </f:if>
+                                    </div>
+                                </div>
+                            </f:if>
+                        </f:else>
                     </f:if>
 
                     <div class="row">
