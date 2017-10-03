@@ -59,6 +59,7 @@ class AddressTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
         $lastName = 'last name';
         $company = 'company';
         $street = 'street';
+        $streetNumber = 'streetNumber';
         $zip = 'zip';
         $city = 'city';
         $country = 'country';
@@ -73,6 +74,7 @@ class AddressTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
         $address->setLastName($lastName);
         $address->setCompany($company);
         $address->setStreet($street);
+        $address->setStreetNumber($streetNumber);
         $address->setZip($zip);
         $address->setCity($city);
         $address->setCountry($country);
@@ -87,6 +89,7 @@ class AddressTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
             'lastName' => $lastName,
             'company' => $company,
             'street' => $street,
+            'streetNumber' => $streetNumber,
             'zip' => $zip,
             'city' => $city,
             'country' => $country,

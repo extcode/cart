@@ -1,0 +1,13 @@
+.. ==================================================
+.. FOR YOUR INFORMATION
+.. --------------------------------------------------
+.. -*- coding: utf-8 -*- with BOM.
+
+4.3.0 - 03.10.2017
+------------------
+
+Das Feld für die Straße kann nun auf zwei Felder (Straße und Hausnummer) aufgespalten werden, wenn die Werte getrennt
+eingegeben werden sollen.
+
+.. IMPORTANT::
+   Es ist eine Aktualisierung der Datenbank erforderlich. Da dieses Feld neu hinzu kommt sind keine Probleme zu erwarten.

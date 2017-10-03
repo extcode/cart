@@ -8,9 +8,6 @@ Installation
 
 Die Erweiterung wird wie jede andere Erweiterung im TYPO3 CMS installiert.
 
-.. IMPORTANT::
-   Bis zur Version 1.0.0 wird die Erweiterung nicht über das TYPO3 Extension Repository (TER) verfügbar sein.
-
 Versionsverwaltung (github)
 ---------------------------
 Die aktuellste Version lässt sich über github mit den üblichen git-Kommandos herunterladen.

@@ -79,6 +79,13 @@ class Address extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     protected $street;
 
     /**
+     * Street Number
+     *
+     * @var string
+     */
+    protected $streetNumber;
+
+    /**
      * Zip
      *
      * @var string
@@ -134,6 +141,7 @@ class Address extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
             'lastName' => $this->getLastName(),
             'company' => $this->getCompany(),
             'street' => $this->getStreet(),
+            'streetNumber' => $this->getStreetNumber(),
             'zip' => $this->getZip(),
             'city' => $this->getCity(),
             'country' => $this->getCountry(),
@@ -344,6 +352,22 @@ class Address extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     public function setStreet($street)
     {
         $this->street = $street;
+    }
+
+    /**
+     * @return string
+     */
+    public function getStreetNumber()
+    {
+        return $this->streetNumber;
+    }
+
+    /**
+     * @param string $streetNumber
+     */
+    public function setStreetNumber($streetNumber)
+    {
+        $this->streetNumber = $streetNumber;
     }
 
     /**

@@ -6,7 +6,7 @@
                 {billingAddress.company}<br /><br />
             </f:if>
             {billingAddress.salutationTitleFullName}<br />
-            {billingAddress.street}<br />
+            {billingAddress.street} {billingAddress.streetNumber}<br />
             {billingAddress.zip} {billingAddress.city}<br />
             <f:if condition="{billingAddress.country}">
                 <f:translate key="tx_cart.settings.allowed_countries.{billingAddress.country}" default="{billingAddress.country}"/><br />
@@ -22,7 +22,7 @@
                         {shippingAddress.company}<br /><br />
                     </f:if>
                     {shippingAddress.salutationTitleFullName}<br />
-                    {shippingAddress.street}<br />
+                    {shippingAddress.street} {shippingAddress.streetNumber}<br />
                     {shippingAddress.zip} {shippingAddress.city}<br />
                     <f:if condition="{shippingAddress.country}">
                         <f:translate key="tx_cart.settings.allowed_countries.{shippingAddress.country}" default="{shippingAddress.country}"/><br />
