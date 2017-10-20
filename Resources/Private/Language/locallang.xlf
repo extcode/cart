@@ -626,6 +626,15 @@
             <trans-unit id="tx_cart_domain_model_order_address.country">
                 <source>Country</source>
             </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_address.phone">
+                <source>Phone</source>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_address.fax">
+                <source>Fax</source>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_address.additional">
+                <source>Additional Fields</source>
+            </trans-unit>
 
             <trans-unit id="tx_cart.mail.buyer.subject">
                 <source>Order confirmation - %s</source>
