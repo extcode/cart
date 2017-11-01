@@ -450,6 +450,7 @@ class ProductUtility
                 }
 
                 $data = [
+                    'cartProductValues' => $cartProductValues,
                     'productBackendVariant' => $productBackendVariant,
                     'cartBackendVariant' => $cartBackendVariant,
                 ];
