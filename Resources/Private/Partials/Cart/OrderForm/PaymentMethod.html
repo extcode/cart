@@ -9,24 +9,26 @@
         <fieldset>
             <dl class="sp-methods">
                 <f:for each="{payments}" as="payment">
-                    <dt>
-                        <f:if condition="{0: payment.id} == {0: cart.payment.id}">
-                            <f:then>
-                                {payment.name}
-                            </f:then>
-                            <f:else>
-                                <f:link.action action="setPayment"
-                                               arguments="{paymentId:payment.id}"
-                                               pageType="2278001"
-                                               class="setPayment">
+                    <cart:form.isServiceAvailableAtPrice service="{payment}" price="{cart.gross}">
+                        <dt>
+                            <f:if condition="{0: payment.id} == {0: cart.payment.id}">
+                                <f:then>
                                     {payment.name}
-                                </f:link.action>
-                            </f:else>
-                        </f:if>
-                    </dt>
-                    <dd>
-                        <cart:format.currency currencySign="{cart.currencySign}">{payment.gross}</cart:format.currency>
-                    </dd>
+                                </f:then>
+                                <f:else>
+                                    <f:link.action action="setPayment"
+                                                   arguments="{paymentId:payment.id}"
+                                                   pageType="2278001"
+                                                   class="setPayment">
+                                        {payment.name}
+                                    </f:link.action>
+                                </f:else>
+                            </f:if>
+                        </dt>
+                        <dd>
+                            <cart:format.currency currencySign="{cart.currencySign}">{payment.gross}</cart:format.currency>
+                        </dd>
+                    </cart:form.isServiceAvailableAtPrice>
                 </f:for>
             </dl>
         </fieldset>
