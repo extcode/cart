@@ -9,24 +9,26 @@
         <fieldset>
             <dl class="sp-methods">
                 <f:for each="{shippings}" as="shipping">
-                    <dt>
-                        <f:if condition="{0: shipping.id} == {0: cart.shipping.id}">
-                            <f:then>
-                                {shipping.name}
-                            </f:then>
-                            <f:else>
-                                <f:link.action action="setShipping"
-                                               arguments="{shippingId:shipping.id}"
-                                               pageType="2278001"
-                                               class="setShipping">
+                    <cart:form.isServiceAvailableAtPrice service="{shipping}" price="{cart.gross}">
+                        <dt>
+                            <f:if condition="{0: shipping.id} == {0: cart.shipping.id}">
+                                <f:then>
                                     {shipping.name}
-                                </f:link.action>
-                            </f:else>
-                        </f:if>
-                    </dt>
-                    <dd>
-                        <cart:format.currency currencySign="{cart.currencySign}">{shipping.gross}</cart:format.currency>
-                    </dd>
+                                </f:then>
+                                <f:else>
+                                    <f:link.action action="setShipping"
+                                                   arguments="{shippingId:shipping.id}"
+                                                   pageType="2278001"
+                                                   class="setShipping">
+                                        {shipping.name}
+                                    </f:link.action>
+                                </f:else>
+                            </f:if>
+                        </dt>
+                        <dd>
+                            <cart:format.currency currencySign="{cart.currencySign}">{shipping.gross}</cart:format.currency>
+                        </dd>
+                    </cart:form.isServiceAvailableAtPrice>
                 </f:for>
             </dl>
         </fieldset>
