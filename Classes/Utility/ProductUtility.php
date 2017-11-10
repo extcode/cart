@@ -547,6 +547,15 @@ class ProductUtility
                 }
             }
         }
+        
+        if ($request->hasArgument('additional')) {
+            $requestData = $request->getArgument('additional');
+            if (is_array($requestData)) {
+                foreach ($requestData as $requestDataKey => $requestDataValue) {
+                    $cartProductValues['additional'][$requestDataKey] = $requestDataValue;
+                }
+            }
+        }
 
         $data = [
             'pluginSettings' => $pluginSettings,
