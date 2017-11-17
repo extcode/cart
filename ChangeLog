@@ -1,3 +1,9 @@
+4.4.0
+    2017-11-17
+    Daniel Lorenz <https://github.com/extcode>
+
+    * TASK #163: save billing and shipping country to order
+
 4.3.2
     2017-11-03
     Daniel Lorenz <https://github.com/extcode>

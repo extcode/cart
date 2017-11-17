@@ -30,6 +30,14 @@ abstract class AbstractService extends \TYPO3\CMS\Extbase\DomainObject\AbstractE
     protected $item = null;
 
     /**
+     * Service Country
+     *
+     * @var string
+     * @validate NotEmpty
+     */
+    protected $serviceCountry;
+
+    /**
      * Service Id
      *
      * @var int
@@ -100,6 +108,7 @@ abstract class AbstractService extends \TYPO3\CMS\Extbase\DomainObject\AbstractE
     public function toArray()
     {
         $service = [
+            'service_country' => $this->getServiceCountry(),
             'service_id' => $this->getServiceId(),
             'name' => $this->getName(),
             'status' => $this->getStatus(),
@@ -127,6 +136,22 @@ abstract class AbstractService extends \TYPO3\CMS\Extbase\DomainObject\AbstractE
     public function getItem()
     {
         return $this->item;
+    }
+
+    /**
+     * @return string
+     */
+    public function getServiceCountry()
+    {
+        return $this->serviceCountry;
+    }
+
+    /**
+     * @param string $serviceCountry
+     */
+    public function setServiceCountry($serviceCountry)
+    {
+        $this->serviceCountry = $serviceCountry;
     }
 
     /**

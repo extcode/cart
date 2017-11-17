@@ -43,6 +43,7 @@ class AbstractServiceTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
      */
     public function toArrayReturnsArray()
     {
+        $serviceCountry = 'de';
         $serviceId = 1;
         $name = 'name';
         $note = 'note';
@@ -52,6 +53,7 @@ class AbstractServiceTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
         $taxClass = new \Extcode\Cart\Domain\Model\Order\TaxClass('normal', '19', 0.19);
         $tax = 1.60;
 
+        $this->service->setServiceCountry($serviceCountry);
         $this->service->setServiceId($serviceId);
         $this->service->setName($name);
         $this->service->setStatus($status);
@@ -61,6 +63,7 @@ class AbstractServiceTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
         $this->service->setTax($tax);
 
         $serviceArr = [
+            'service_country' => $serviceCountry,
             'service_id' => $serviceId,
             'name' => $name,
             'status' => $status,
