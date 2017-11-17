@@ -825,6 +825,18 @@ class CartController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     }
 
     /**
+     * Action order Finish
+     *
+     * @param \Extcode\Cart\Domain\Model\Order\Item $orderItem
+     * @ignorevalidation $orderItem
+     */
+    public function orderFinishedAction(
+        \Extcode\Cart\Domain\Model\Order\Item $orderItem
+    ) {
+        $this->view->assign('orderItem', $orderItem);
+    }
+
+    /**
      * Send Mails
      *
      * @param \Extcode\Cart\Domain\Model\Order\Item $orderItem Order Item

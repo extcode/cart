@@ -1,3 +1,9 @@
+4.4.1
+    2017-11-18
+    Daniel Lorenz <https://github.com/extcode>
+
+    * TASK #164: add orderFinished action as a redirect endpoint for payment providers
+
 4.4.0
     2017-11-17
     Daniel Lorenz <https://github.com/extcode>
