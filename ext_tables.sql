@@ -683,6 +683,7 @@ CREATE TABLE tx_cart_domain_model_order_shipping (
 
     item int(11) unsigned DEFAULT '0' NOT NULL,
 
+    service_country varchar(255) DEFAULT '' NOT NULL,
     service_id int(11) DEFAULT '0' NOT NULL,
     name varchar(255) DEFAULT '' NOT NULL,
     status varchar(255) DEFAULT '0' NOT NULL,
@@ -724,6 +725,7 @@ CREATE TABLE tx_cart_domain_model_order_payment (
 
     item int(11) unsigned DEFAULT '0' NOT NULL,
 
+    service_country varchar(255) DEFAULT '' NOT NULL,
     service_id int(11) DEFAULT '0' NOT NULL,
     name varchar(255) DEFAULT '' NOT NULL,
     provider varchar(255) DEFAULT '' NOT NULL,

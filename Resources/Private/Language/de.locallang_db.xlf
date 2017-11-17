@@ -459,6 +459,14 @@
                 <source>Order Shipping</source>
                 <target>Versandmethode</target>
             </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_payment.palettes.service">
+                <source>Service TypoScript Configuration</source>
+                <target>Service TypoScript Konfiguration</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_shipping.service_country">
+                <source>Service Country</source>
+                <target>Service Land</target>
+            </trans-unit>
             <trans-unit id="tx_cart_domain_model_order_shipping.service_id">
                 <source>Service ID</source>
                 <target>Service ID</target>
@@ -510,6 +518,14 @@
             <trans-unit id="tx_cart_domain_model_order_payment">
                 <source>Order Payment</source>
                 <target>Bezahlmethode</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_payment.palettes.service">
+                <source>Service TypoScript Configuration</source>
+                <target>Service TypoScript Konfiguration</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_payment.service_country">
+                <source>Service Country</source>
+                <target>Service Land</target>
             </trans-unit>
             <trans-unit id="tx_cart_domain_model_order_payment.service_id">
                 <source>Service ID</source>

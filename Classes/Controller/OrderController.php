@@ -795,12 +795,21 @@ class OrderController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
             $data
         );
 
+        $paymentCountry = $orderItem->getPayment()->getServiceCountry();
         $paymentId = $orderItem->getPayment()->getServiceId();
+
+        if ($paymentCountry) {
+            $serviceSettings = $this->pluginSettings['payments'][$paymentCountry]['options'][$paymentId];
+        } else {
+            $serviceSettings = $this->pluginSettings['payments']['options'][$paymentId];
+        }
+
         $paymentStatus = $orderItem->getPayment()->getStatus();
-        if (intval($this->pluginSettings['payments']['options'][$paymentId]['sendBuyerEmail'][$paymentStatus]) == 1) {
+
+        if (intval($serviceSettings['sendBuyerEmail'][$paymentStatus]) == 1) {
             $this->sendBuyerMail($orderItem, $billingAddress, $shippingAddress);
         }
-        if (intval($this->pluginSettings['payments']['options'][$paymentId]['sendSellerEmail'][$paymentStatus]) == 1) {
+        if (intval($serviceSettings['sendSellerEmail'][$paymentStatus]) == 1) {
             $this->sendSellerMail($orderItem, $billingAddress, $shippingAddress);
         }
 

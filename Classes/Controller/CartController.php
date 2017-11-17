@@ -836,11 +836,19 @@ class CartController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         \Extcode\Cart\Domain\Model\Order\Address $billingAddress,
         \Extcode\Cart\Domain\Model\Order\Address $shippingAddress = null
     ) {
-        $paymentId = $this->cart->getPayment()->getId();
-        if (intval($this->pluginSettings['payments']['options'][$paymentId]['preventBuyerEmail']) != 1) {
+        $paymentCountry = $orderItem->getPayment()->getServiceCountry();
+        $paymentId = $orderItem->getPayment()->getServiceId();
+
+        if ($paymentCountry) {
+            $serviceSettings = $this->pluginSettings['payments'][$paymentCountry]['options'][$paymentId];
+        } else {
+            $serviceSettings = $this->pluginSettings['payments']['options'][$paymentId];
+        }
+
+        if (intval($serviceSettings['preventBuyerEmail']) != 1) {
             $this->sendBuyerMail($orderItem, $billingAddress, $shippingAddress);
         }
-        if (intval($this->pluginSettings['payments']['options'][$paymentId]['preventSellerEmail']) != 1) {
+        if (intval($serviceSettings['preventSellerEmail']) != 1) {
             $this->sendSellerMail($orderItem, $billingAddress, $shippingAddress);
         }
     }

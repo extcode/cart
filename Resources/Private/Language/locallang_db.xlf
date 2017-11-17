@@ -359,6 +359,12 @@
             <trans-unit id="tx_cart_domain_model_order_shipping">
                 <source>Shipping</source>
             </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_payment.palettes.service">
+                <source>Service TypoScript Configuration</source>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_shipping.service_country">
+                <source>Service Country</source>
+            </trans-unit>
             <trans-unit id="tx_cart_domain_model_order_shipping.service_id">
                 <source>Service ID</source>
             </trans-unit>
@@ -398,6 +404,12 @@
 
             <trans-unit id="tx_cart_domain_model_order_payment">
                 <source>Payment</source>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_payment.palettes.service">
+                <source>Service TypoScript Configuration</source>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_payment.service_country">
+                <source>Service Country</source>
             </trans-unit>
             <trans-unit id="tx_cart_domain_model_order_payment.service_id">
                 <source>Service ID</source>

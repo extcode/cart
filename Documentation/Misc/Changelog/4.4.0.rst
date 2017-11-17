@@ -1,0 +1,13 @@
+.. ==================================================
+.. FOR YOUR INFORMATION
+.. --------------------------------------------------
+.. -*- coding: utf-8 -*- with BOM.
+
+4.4.0 - 17.11.2017
+------------------
+
+In der Bestellung werden nun die Ländercodes aus dem TypoScript gespeichert, um in der späteren Verarbeitung auf die
+richtige Konfiguration zugreifen zu können.
+
+.. IMPORTANT::
+   Es ist eine Aktualisierung der Datenbank erforderlich. Da dieses Feld neu hinzu kommt sind keine Probleme zu erwarten.

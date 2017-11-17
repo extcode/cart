@@ -24,19 +24,33 @@ return [
     ],
     'hideTable' => 1,
     'interface' => [
-        'showRecordFieldList' => 'service_id, name, status, gross, net, tax, tax_class, note',
+        'showRecordFieldList' => 'service_country, service_id, name, status, gross, net, tax, tax_class, note',
     ],
     'types' => [
         '1' => [
-            'showitem' => 'service_id, name, status, gross, net, tax, tax_class, note'
+            'showitem' => '--palette--;' . $_LLL . ':tx_cart_domain_model_order_shipping.palettes.service;service, name, status, gross, net, tax, tax_class, note'
         ],
     ],
     'palettes' => [
         '1' => [
             'showitem' => ''
         ],
+        'service' => [
+            'showitem' => 'service_country, service_id',
+            'canNotCollapse' => 0
+        ],
     ],
     'columns' => [
+        'service_country' => [
+            'exclude' => 0,
+            'label' => $_LLL . ':tx_cart_domain_model_order_shipping.service_country',
+            'config' => [
+                'type' => 'input',
+                'readOnly' => 1,
+                'size' => 30,
+                'eval' => ''
+            ],
+        ],
         'service_id' => [
             'exclude' => 0,
             'label' => $_LLL . ':tx_cart_domain_model_order_shipping.service_id',

@@ -975,6 +975,9 @@ class OrderUtility
         );
         $orderPayment->setPid($this->storagePid);
 
+        if ($this->cart->getBillingCountry()) {
+            $orderPayment->setServiceCountry($this->cart->getBillingCountry());
+        }
         $orderPayment->setServiceId($payment->getId());
         $orderPayment->setName($payment->getName());
         $orderPayment->setProvider($payment->getProvider());
@@ -1006,6 +1009,9 @@ class OrderUtility
         );
         $orderShipping->setPid($this->storagePid);
 
+        if ($this->cart->getShippingCountry()) {
+            $orderShipping->setServiceCountry($this->cart->getShippingCountry());
+        }
         $orderShipping->setServiceId($shipping->getId());
         $orderShipping->setName($shipping->getName());
         $orderShipping->setStatus($shipping->getStatus());
