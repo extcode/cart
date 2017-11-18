@@ -165,13 +165,23 @@ return [
                 'foreign_table' => 'tx_cart_domain_model_product_bevariantattributeoption',
                 'foreign_field' => 'be_variant_attribute',
                 'foreign_table_where' => ' AND tx_cart_domain_model_product_bevariantattributeoption.pid=###CURRENT_PID### ORDER BY tx_cart_domain_model_product_bevariantattributeoption.title ',
+                'foreign_sortby' => 'sorting',
                 'maxitems' => 9999,
                 'appearance' => [
                     'collapseAll' => 1,
                     'levelLinksPosition' => 'top',
                     'showSynchronizationLink' => 1,
                     'showPossibleLocalizationRecords' => 1,
-                    'showAllLocalizationLink' => 1
+                    'showAllLocalizationLink' => 1,
+                    'enabledControls' => [
+                        'info' => true,
+                        'new' => true,
+                        'dragdrop' => false,
+                        'sort' => true,
+                        'hide' => false,
+                        'delete' => true,
+                        'localize' => true,
+                    ]
                 ],
             ],
         ],
