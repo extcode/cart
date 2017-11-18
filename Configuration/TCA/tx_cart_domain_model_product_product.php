@@ -488,13 +488,23 @@ return [
                 'foreign_table' => 'tx_cart_domain_model_product_fevariant',
                 'foreign_field' => 'product',
                 'foreign_table_where' => ' AND tx_cart_domain_model_product_fevariant.pid=###CURRENT_PID### ORDER BY tx_cart_domain_model_product_fevariant.title ',
+                'foreign_sortby' => 'sorting',
                 'maxitems' => 9999,
                 'appearance' => [
                     'collapseAll' => 1,
                     'levelLinksPosition' => 'top',
                     'showSynchronizationLink' => 1,
                     'showPossibleLocalizationRecords' => 1,
-                    'showAllLocalizationLink' => 1
+                    'showAllLocalizationLink' => 1,
+                    'enabledControls' => [
+                        'info' => true,
+                        'new' => true,
+                        'dragdrop' => false,
+                        'sort' => true,
+                        'hide' => true,
+                        'delete' => true,
+                        'localize' => true,
+                    ]
                 ],
             ],
         ],
@@ -508,13 +518,23 @@ return [
                 'foreign_table' => 'tx_cart_domain_model_product_bevariant',
                 'foreign_field' => 'product',
                 'foreign_table_where' => ' AND tx_cart_domain_model_product_bevariant.pid=###CURRENT_PID### ORDER BY tx_cart_domain_model_product_bevariant.title ',
+                'foreign_sortby' => 'sorting',
                 'maxitems' => 9999,
                 'appearance' => [
                     'collapseAll' => 1,
                     'levelLinksPosition' => 'top',
                     'showSynchronizationLink' => 1,
                     'showPossibleLocalizationRecords' => 1,
-                    'showAllLocalizationLink' => 1
+                    'showAllLocalizationLink' => 1,
+                    'enabledControls' => [
+                        'info' => true,
+                        'new' => true,
+                        'dragdrop' => false,
+                        'sort' => true,
+                        'hide' => true,
+                        'delete' => true,
+                        'localize' => true,
+                    ]
                 ],
             ],
         ],

@@ -1,0 +1,12 @@
+.. ==================================================
+.. FOR YOUR INFORMATION
+.. --------------------------------------------------
+.. -*- coding: utf-8 -*- with BOM.
+
+4.5.0 - 18.11.2017
+------------------
+
+In der Produktkonfiguration können die Frontend und Backendvarianten sortiert werden.
+
+.. IMPORTANT::
+   Es ist eine Aktualisierung der Datenbank erforderlich. Da dieses Feld neu hinzu kommt sind keine Probleme zu erwarten.
