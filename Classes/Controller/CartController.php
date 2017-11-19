@@ -829,6 +829,8 @@ class CartController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      *
      * @param \Extcode\Cart\Domain\Model\Order\Item $orderItem
      * @ignorevalidation $orderItem
+     *
+     * @deprecated since Cart 4.x, will be removed with Cart 5.x
      */
     public function orderFinishedAction(
         \Extcode\Cart\Domain\Model\Order\Item $orderItem
