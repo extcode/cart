@@ -14,4 +14,6 @@
     <div style="padding-bottom: 20px;">
         <f:render partial="Order/Show/Cart" arguments="{orderItem: orderItem}"/>
     </div>
+    
+    <f:link.action action="list" class="btn btn-default">{f:translate(key: 'tx_cart.history_back')}</f:link.action>
 </f:section>
