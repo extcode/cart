@@ -45,6 +45,7 @@ class CurrencyViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHe
      * @param bool $prependCurrency (optional) Select if the curreny sign should be prepended
      * @param bool $separateCurrency (optional) Separate the currency sign from the number by a single space, defaults to true due to backwards compatibility
      * @param int $decimals (optional) Set decimals places.
+     * @param bool $roundAmountDecimals (optional) Don't set decimals on round values
      * @param float $currencyTranslation
      *
      * @return string the formatted amount.
@@ -56,6 +57,7 @@ class CurrencyViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHe
         $prependCurrency = null,
         $separateCurrency = null,
         $decimals = null,
+        $roundAmountDecimals = null,
         $currencyTranslation = 1.00
     ) {
         $settings = $this->templateVariableContainer->get('settings');
@@ -93,6 +95,11 @@ class CurrencyViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHe
                     $decimals = intval($currencyFormat['decimals']);
                 }
             }
+            if (!$roundAmountDecimals) {
+                if ($currencyFormat['roundFormatDecimals']) {
+                    $roundAmountDecimals = filter_var($currencyFormat['roundAmountDecimals'], FILTER_VALIDATE_BOOLEAN);
+                }
+            }
         }
 
         $floatToFormat = $this->renderChildren();
@@ -104,6 +111,10 @@ class CurrencyViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHe
 
         if ($currencyTranslation && $currencyTranslation > 0.0) {
             $floatToFormat = $floatToFormat / $currencyTranslation;
+        }
+
+        if (!$roundAmountDecimals && floor($floatToFormat) === $floatToFormat) {
+            $decimals = 0;
         }
 
         $output = number_format($floatToFormat, $decimals, $decimalSeparator, $thousandsSeparator);
