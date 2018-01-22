@@ -21,6 +21,7 @@ stages:
   - cgl
   - test
   - analysis
+  - upload
 
 test:cgl:
   image: composer:1.3
@@ -116,3 +117,28 @@ sonarqube-reports:
     SONAR_SOURCES: "./Classes"
   script:
   - unset CI_BUILD_REF && /usr/bin/sonar-scanner-run.sh
+
+ter-upload:
+  image: php:7.1-alpine
+  stage: upload
+  only:
+    - tags
+  before_script:
+    - apk --no-cache add git zlib-dev libxml2-dev
+    - docker-php-ext-install mbstring zip soap
+    - curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+    - export COMPOSER_CACHE_DIR=.composer
+  script:
+    - composer install
+    - composer require namelesscoder/typo3-repository-client
+    - export TYPO3_PATH_WEB="$PWD/.Build/Web"
+    - >
+      if [ -n "$CI_COMMIT_TAG" ] && [ -n "$T3O_USERNAME" ] && [ -n "$T3O_PASSWORD" ]; then
+        echo -e "Preparing upload of release ${CI_COMMIT_TAG} to TER\n"
+        # Cleanup before we upload
+        git reset --hard HEAD && git clean -fx
+        # Upload
+        TAG_MESSAGE=`git tag -n10 -l $CI_COMMIT_TAG | sed 's/^[0-9.]*[ ]*//g'`
+        echo "Uploading release ${CI_COMMIT_TAG} to TER"
+        .Build/bin/upload . "$T3O_USERNAME" "$T3O_PASSWORD" "$TAG_MESSAGE"
+      fi;
