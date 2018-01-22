@@ -1,3 +1,9 @@
+4.6.0
+    2018-01-22
+    Daniel Lorenz <https://github.com/extcode>
+
+    * TASK #168: add sonarqube to gitlab-ci pipeline
+
 4.5.1
     2017-11-21
     Daniel Lorenz <https://github.com/siwa-pparzer>
