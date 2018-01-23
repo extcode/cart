@@ -4,7 +4,7 @@
     "description": "Shopping Cart(s) for TYPO3",
     "homepage": "https://cart.extco.de",
     "license": [
-        "GPL-2.0+"
+        "GPL-2.0-or-later"
     ],
     "keywords": [
         "TYPO3 CMS",

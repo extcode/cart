@@ -1,3 +1,9 @@
+4.7.1
+    2018-01-23
+    Daniel Lorenz <https://github.com/extcode>
+
+    * TASK #170: replace GPL-2.0+ by GPL-2.0-or-later in composer.json
+
 4.7.0
     2018-01-22
     Daniel Lorenz <https://github.com/extcode>
