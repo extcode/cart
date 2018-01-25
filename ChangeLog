@@ -1,3 +1,9 @@
+4.7.2
+    2018-01-25
+    Daniel Lorenz <https://github.com/extcode>
+
+    * TASK #171: checkbox labels missing attribute 'for'
+
 4.7.1
     2018-01-23
     Daniel Lorenz <https://github.com/extcode>
