@@ -89,12 +89,13 @@ class BeVariantTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
 
         $this->product = $this->getMock(
             \Extcode\Cart\Domain\Model\Cart\Product::class,
-            [],
+            ['getTaxClass', 'getPrice', 'getTitle', 'getSku'],
             [],
             '',
             false
         );
         $this->product->expects($this->any())->method('getTaxClass')->will($this->returnValue($this->taxClass));
+        $this->product->expects($this->any())->method('getPrice')->will($this->returnValue(10.00));
         $this->product->expects($this->any())->method('getTitle')->will($this->returnValue('Test Product'));
         $this->product->expects($this->any())->method('getSku')->will($this->returnValue('test-product'));
 
@@ -115,6 +116,8 @@ class BeVariantTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
             $this->price,
             $this->quantity
         );
+
+        $this->product->addBeVariant($this->beVariant);
     }
 
     /**
@@ -492,5 +495,131 @@ class BeVariantTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
         $this->beVariant->setMin($min);
 
         $this->beVariant->setMax($max);
+    }
+
+    /**
+     * @test
+     */
+    public function getParentPriceReturnsProductPriceForCalculationMethodZero()
+    {
+        $this->assertSame(
+            10.00,
+            $this->beVariant->getParentPrice()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function getParentPriceReturnsZeroPriceForCalculationMethodOne()
+    {
+        $this->beVariant->setPriceCalcMethod(1);
+        $this->assertSame(
+            0.00,
+            $this->beVariant->getParentPrice()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function getParentPriceRespectsTheQuantityDiscountsOfProductsForEachVariant()
+    {
+        $quantityDiscounts = [
+            [
+                'quantity' => 3,
+                'price' => 7.00,
+            ],
+            [
+                'quantity' => 4,
+                'price' => 6.00,
+            ],
+            [
+                'quantity' => 5,
+                'price' => 5.00,
+            ],
+            [
+                'quantity' => 6,
+                'price' => 4.00,
+            ],
+            [
+                'quantity' => 7,
+                'price' => 3.00,
+            ],
+            [
+                'quantity' => 8,
+                'price' => 2.50,
+            ],
+        ];
+
+        $product = $this->getAccessibleMock(
+            \Extcode\Cart\Domain\Model\Cart\Product::class,
+            ['getTaxClass', 'getPrice', 'getTitle', 'getSku'],
+            [],
+            '',
+            false
+        );
+        $product->_set('quantityDiscounts', $quantityDiscounts);
+
+        $product->expects($this->any())->method('getTaxClass')->will($this->returnValue($this->taxClass));
+        $product->expects($this->any())->method('getPrice')->will($this->returnValue(10.00));
+        $product->expects($this->any())->method('getTitle')->will($this->returnValue('Test Product'));
+        $product->expects($this->any())->method('getSku')->will($this->returnValue('test-product'));
+
+        $title = 'Test Variant';
+        $sku = 'test-variant-sku';
+        $priceCalcMethod = 0;
+        $price = 1.00;
+
+        $beVariant1 = new \Extcode\Cart\Domain\Model\Cart\BeVariant(
+            '1',
+            $product,
+            null,
+            $title,
+            $sku,
+            $priceCalcMethod,
+            $price,
+            1
+        );
+        $product->addBeVariant($beVariant1);
+
+        $beVariant2 = new \Extcode\Cart\Domain\Model\Cart\BeVariant(
+            '2',
+            $product,
+            null,
+            $title,
+            $sku,
+            $priceCalcMethod,
+            $price,
+            3
+        );
+        $product->addBeVariant($beVariant2);
+
+        $beVariant3 = new \Extcode\Cart\Domain\Model\Cart\BeVariant(
+            '3',
+            $product,
+            null,
+            $title,
+            $sku,
+            $priceCalcMethod,
+            $price,
+            4
+        );
+        $product->addBeVariant($beVariant3);
+
+        $this->assertSame(
+            10.00,
+            $beVariant1->getParentPrice()
+        );
+
+        $this->assertSame(
+            7.00,
+            $beVariant2->getParentPrice()
+        );
+
+        $this->assertSame(
+            6.00,
+            $beVariant3->getParentPrice()
+        );
     }
 }

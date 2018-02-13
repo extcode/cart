@@ -485,7 +485,7 @@ class BeVariant
         if ($this->getParentBeVariant()) {
             $parentPrice = $this->getParentBeVariant()->getBestPrice();
         } elseif ($this->getProduct()) {
-            $parentPrice = $this->getProduct()->getBestPrice();
+            $parentPrice = $this->getProduct()->getBestPrice($this->getQuantity());
         } else {
             $parentPrice = 0;
         }
@@ -544,7 +544,7 @@ class BeVariant
         if ($this->getParentBeVariant()) {
             $parentPrice = $this->getParentBeVariant()->getBestPrice();
         } elseif ($this->getProduct()) {
-            $parentPrice = $this->getProduct()->getBestPrice();
+            $parentPrice = $this->getProduct()->getBestPrice($this->getQuantity());
         } else {
             $parentPrice = 0;
         }
@@ -605,7 +605,7 @@ class BeVariant
         if ($this->getParentBeVariant()) {
             return $this->getParentBeVariant()->getBestPrice();
         } elseif ($this->getProduct()) {
-            return $this->getProduct()->getBestPrice();
+            return $this->getProduct()->getBestPrice($this->getQuantity());
         }
 
         return 0.0;

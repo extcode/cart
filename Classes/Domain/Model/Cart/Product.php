@@ -627,15 +627,19 @@ class Product
     /**
      * Returns Quantity Discount Price
      *
+     * @param int $quantity
+     *
      * @return float
      */
-    public function getQuantityDiscountPrice()
+    public function getQuantityDiscountPrice($quantity = null)
     {
         $price = $this->getTranslatedPrice();
 
+        $quantity = $quantity ? $quantity : $this->getQuantity();
+
         if ($this->getQuantityDiscounts()) {
             foreach ($this->getQuantityDiscounts() as $quantityDiscount) {
-                if (($quantityDiscount['quantity'] <= $this->getQuantity()) && ($quantityDiscount['price'] < $price)) {
+                if (($quantityDiscount['quantity'] <= $quantity) && ($quantityDiscount['price'] < $price)) {
                     $price = $quantityDiscount['price'];
                 }
             }
@@ -657,11 +661,13 @@ class Product
     /**
      * Returns Best Price (min of Price and Special Price)
      *
+     * @param int $quantity
+     *
      * @return float
      */
-    public function getBestPrice()
+    public function getBestPrice($quantity = null)
     {
-        $bestPrice = $this->getQuantityDiscountPrice();
+        $bestPrice = $this->getQuantityDiscountPrice($quantity);
 
         if ($this->getTranslatedSpecialPrice() && ($this->getTranslatedSpecialPrice() < $bestPrice)) {
             $bestPrice = $this->getTranslatedSpecialPrice();
@@ -1015,9 +1021,9 @@ class Product
     protected function calcTax()
     {
         if ($this->isNetPrice == false) {
-            $this->tax = ($this->gross / (1 + $this->taxClass->getCalc())) * ($this->taxClass->getCalc());
+            $this->tax = ($this->gross / (1 + $this->getTaxClass()->getCalc())) * ($this->getTaxClass()->getCalc());
         } else {
-            $this->tax = ($this->net * $this->taxClass->getCalc());
+            $this->tax = ($this->net * $this->getTaxClass()->getCalc());
         }
     }
 
