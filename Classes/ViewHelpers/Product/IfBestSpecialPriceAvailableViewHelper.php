@@ -14,13 +14,15 @@ namespace Extcode\Cart\ViewHelpers\Product;
  *
  * The TYPO3 project - inspiring people to share!
  */
+use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractConditionViewHelper;
+use TYPO3\CMS\Fluid\Core\ViewHelper\Facets\CompilableInterface;
 
 /**
  * If SpecialPrice Available ViewHelper
  *
  * @author Daniel Lorenz <ext.cart@extco.de>
  */
-class IfBestSpecialPriceAvailableViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractConditionViewHelper
+class IfBestSpecialPriceAvailableViewHelper extends AbstractConditionViewHelper implements CompilableInterface
 {
     /**
      * Object Manager
@@ -54,18 +56,15 @@ class IfBestSpecialPriceAvailableViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHe
     }
 
     /**
-     * @return float
+     * @param array|NULL $arguments
+     * @return bool
+     * @api
      */
-    public function render()
+    protected static function evaluateCondition($arguments = null)
     {
-        $product = $this->arguments['product'];
-        $bestSpecialPrice = $product->getBestSpecialPrice($this->getFrontendUserGroupIds());
-
-        if ($bestSpecialPrice < $product->getMinPrice()) {
-            return $this->renderThenChild();
-        } else {
-            return $this->renderElseChild();
-        }
+        $product = $arguments['product'];
+        $bestSpecialPrice = $product->getBestSpecialPrice(self::getFrontendUserGroupIds());
+        return $bestSpecialPrice < $product->getMinPrice();
     }
 
     /**
@@ -73,17 +72,16 @@ class IfBestSpecialPriceAvailableViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHe
      *
      * @return array
      */
-    protected function getFrontendUserGroupIds()
+    protected static function getFrontendUserGroupIds()
     {
-        if (!$this->objectManager) {
-            $this->objectManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(
-                \TYPO3\CMS\Extbase\Object\ObjectManager::class
-            );
-        }
+        $objectManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(
+            \TYPO3\CMS\Extbase\Object\ObjectManager::class
+        );
+
         $feGroupIds = [];
         $feUserId = (int)$GLOBALS['TSFE']->fe_user->user['uid'];
         if ($feUserId) {
-            $frontendUserRepository = $this->objectManager->get(
+            $frontendUserRepository = $objectManager->get(
                 \TYPO3\CMS\Extbase\Domain\Repository\FrontendUserRepository::class
             );
             $feUser = $frontendUserRepository->findByUid($feUserId);

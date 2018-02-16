@@ -1,3 +1,9 @@
+4.7.4
+    2018-02-16
+    Daniel Lorenz <https://github.com/extcode>
+
+    * BUGFIX #159: special price not working correct - render() only called once
+
 4.7.3
     2018-02-13
     Daniel Lorenz <https://github.com/extcode>
