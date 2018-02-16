@@ -932,6 +932,9 @@
             <trans-unit id="tx_cart_domain_model_product_quantitydiscount">
                 <source>Quantity Discount</source>
             </trans-unit>
+            <trans-unit id="tx_cart_domain_model_product_quantitydiscount.frontend_user_group">
+                <source>Website Usergroup</source>
+            </trans-unit>
             <trans-unit id="tx_cart_domain_model_product_quantitydiscount.price">
                 <source>Price</source>
             </trans-unit>

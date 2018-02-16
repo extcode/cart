@@ -1,3 +1,9 @@
+4.7.6
+    2018-02-16
+    Daniel Lorenz <https://github.com/extcode>
+
+    * BUGFIX #177: add translation for tca quantity discount frontend_user_group
+
 4.7.5
     2018-02-16
     Daniel Lorenz <https://github.com/extcode>
