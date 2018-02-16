@@ -1,3 +1,9 @@
+4.7.5
+    2018-02-16
+    Daniel Lorenz <https://github.com/extcode>
+
+    * BUGFIX #176: use user group for special and discount prices
+
 4.7.4
     2018-02-16
     Daniel Lorenz <https://github.com/extcode>

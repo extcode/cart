@@ -383,7 +383,7 @@ class BeVariant extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
             foreach ($this->getSpecialPrices() as $specialPrice) {
                 if ($bestSpecialPrice == null) {
                     if (!$specialPrice->getFrontendUserGroup() ||
-                        in_array($specialPrice->getFrontendUserGroup(), $frontendUserGroupIds)
+                        in_array($specialPrice->getFrontendUserGroup()->getUid(), $frontendUserGroupIds)
                     ) {
                         $bestSpecialPrice = $specialPrice;
                     }
@@ -400,7 +400,7 @@ class BeVariant extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
                     )
                 ) {
                     if (!$specialPrice->getFrontendUserGroup() ||
-                        in_array($specialPrice->getFrontendUserGroup(), $frontendUserGroupIds)
+                        in_array($specialPrice->getFrontendUserGroup()->getUid(), $frontendUserGroupIds)
                     ) {
                         $bestSpecialPrice = $specialPrice;
                     }

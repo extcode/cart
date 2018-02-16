@@ -528,7 +528,7 @@ class Product extends \Extcode\Cart\Domain\Model\Product\AbstractProduct
             foreach ($this->specialPrices as $specialPrice) {
                 if ($specialPrice->getPrice() < $bestSpecialPrice) {
                     if (!$specialPrice->getFrontendUserGroup() ||
-                        in_array($specialPrice->getFrontendUserGroup(), $frontendUserGroupIds)
+                        in_array($specialPrice->getFrontendUserGroup()->getUid(), $frontendUserGroupIds)
                     ) {
                         $bestSpecialPrice = $specialPrice->getPrice();
                     }
@@ -592,7 +592,7 @@ class Product extends \Extcode\Cart\Domain\Model\Product\AbstractProduct
         if ($this->getQuantityDiscounts()) {
             foreach ($this->getQuantityDiscounts() as $quantityDiscount) {
                 if (!$quantityDiscount->getFrontendUserGroup() ||
-                    in_array($quantityDiscount->getFrontendUserGroup(), $frontendUserGroupIds)
+                    in_array($quantityDiscount->getFrontendUserGroup()->getUid(), $frontendUserGroupIds)
                 ) {
                     array_push($quantityDiscountArray, $quantityDiscount->toArray());
                 }
