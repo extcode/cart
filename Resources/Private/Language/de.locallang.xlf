@@ -398,6 +398,15 @@
                 <target>End Datum</target>
             </trans-unit>
 
+            <trans-unit id="tx_cart_domain_model_product.filter.sku">
+                <source>SKU</source>
+                <target>Art.-Nr.</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_product.filter.title">
+                <source>Title</source>
+                <target>Titel</target>
+            </trans-unit>
+
             <trans-unit id="tx_cart.add_product">
                 <source>add to cart</source>
                 <target>in den Warenkorb</target>
@@ -678,7 +687,8 @@
                 <target>Produkt</target>
             </trans-unit>
             <trans-unit id="tx_cart_domain_model_product_product.sku">
-                <target>SKU</target>
+                <source>SKU</source>
+                <target>Art.-Nr.</target>
             </trans-unit>
             <trans-unit id="tx_cart_domain_model_product_product.title">
                 <target>Titel</target>
@@ -818,7 +828,8 @@
                 <target>Variant Set</target>
             </trans-unit>
             <trans-unit id="tx_cart_domain_model_product_productvariantset.sku">
-                <target>SKU</target>
+                <source>SKU</source>
+                <target>Art.-Nr.</target>
             </trans-unit>
             <trans-unit id="tx_cart_domain_model_product_productvariantset.title">
                 <target>Titel</target>
@@ -837,7 +848,8 @@
                 <target>Variant Attribute</target>
             </trans-unit>
             <trans-unit id="tx_cart_domain_model_product_productvariantattribute.sku">
-                <target>SKU</target>
+                <source>SKU</source>
+                <target>Art.-Nr.</target>
             </trans-unit>
             <trans-unit id="tx_cart_domain_model_product_productvariantattribute.title">
                 <target>Titel</target>

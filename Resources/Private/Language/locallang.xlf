@@ -188,6 +188,13 @@
                 <source>End Date</source>
             </trans-unit>
 
+            <trans-unit id="tx_cart_domain_model_product.filter.sku">
+                <source>SKU</source>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_product.filter.title">
+                <source>Title</source>
+            </trans-unit>
+
             <trans-unit id="tx_cart.add_product">
                 <source>add to cart</source>
             </trans-unit>
