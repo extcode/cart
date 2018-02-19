@@ -381,9 +381,42 @@ class CartController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
                     $product = $this->cart->getProductById($productId);
                     if ($product) {
                         if (ctype_digit($quantity)) {
-                            $quantity = intval($quantity);
-                            $product->changeQuantity(intval($quantity));
+                            if ($product->getHandleStock()) {
+                                if ($product->getStock() < $quantity) {
+                                    $this->addFlashMessage(
+                                        \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
+                                            'tx_cart.error.stock_handling.update',
+                                            'cart'
+                                        ),
+                                        '',
+                                        \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR,
+                                        true
+                                    );
+                                } else {
+                                    $product->changeQuantity(intval($quantity));
+                                }
+                            } else {
+                                $product->changeQuantity(intval($quantity));
+                            }
                         } elseif (is_array($quantity)) {
+                            foreach ($quantity as $beVariantId => $beVariantQuantity) {
+                                if ($product->getHandleStock()) {
+                                    $beVariant = $product->getBeVariantById($beVariantId);
+                                    if ($beVariant->getStock() < $beVariantQuantity) {
+                                        unset($quantity[$beVariantId]);
+
+                                        $this->addFlashMessage(
+                                            \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
+                                                'tx_cart.error.stock_handling.update',
+                                                'cart'
+                                            ),
+                                            '',
+                                            \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR,
+                                            true
+                                        );
+                                    }
+                                }
+                            }
                             $product->changeVariantsQuantity($quantity);
                         }
                     }

@@ -3,6 +3,13 @@
     <file source-language="en" datatype="plaintext" original="messages" date="2015-02-03T16:30:00Z" product-name="cart">
         <header/>
         <body>
+            <trans-unit id="tx_cart.error.stock_handling.add">
+                <source>Desired number of this item not available.</source>
+            </trans-unit>
+            <trans-unit id="tx_cart.error.stock_handling.update">
+                <source>Desired number of this item not available.</source>
+            </trans-unit>
+
             <trans-unit id="validator.notempty.empty">
                 <source>The given subject was not empty.</source>
             </trans-unit>

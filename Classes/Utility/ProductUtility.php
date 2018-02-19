@@ -326,6 +326,10 @@ class ProductUtility
             $cartProduct->setSpecialPrice($productProduct->getBestSpecialPrice($frontendUserGroupIds));
             $cartProduct->setQuantityDiscounts($productProduct->getQuantityDiscountArray($frontendUserGroupIds));
 
+            $cartProduct->setStock($productProduct->getStock());
+            $cartProduct->setHandleStock($productProduct->getHandleStock());
+            $cartProduct->setHandleStockInVariants($productProduct->getHandleStockInVariants());
+
             $cartProduct->setServiceAttribute1($productProduct->getServiceAttribute1());
             $cartProduct->setServiceAttribute2($productProduct->getServiceAttribute2());
             $cartProduct->setServiceAttribute3($productProduct->getServiceAttribute3());
@@ -449,6 +453,8 @@ class ProductUtility
                     $cartBackendVariant->setSpecialPrice($bestSpecialPrice->getPrice());
                 }
 
+                $cartBackendVariant->setStock($productBackendVariant->getStock());
+
                 $data = [
                     'cartProductValues' => $cartProductValues,
                     'productBackendVariant' => $productBackendVariant,
@@ -479,10 +485,12 @@ class ProductUtility
      */
     public function checkProductsBeforeAddToCart(\Extcode\Cart\Domain\Model\Cart\Cart $cart, $products)
     {
+        list($errors, $products) = $this->checkStockOfProducts($cart, $products);
+
         $data = [
             'cart' => $cart,
             'products' => $products,
-            'errors' => [],
+            'errors' => $errors,
         ];
 
         $signalSlotDispatcher = $this->objectManager->get(
@@ -568,5 +576,125 @@ class ProductUtility
         $cartProductValues = $slotReturn[0]['cartProductValues'];
 
         return $cartProductValues;
+    }
+
+    /**
+     * @param \Extcode\Cart\Domain\Model\Cart\Cart $cart
+     * @param $productId
+     * @param $backendVariantId
+     *
+     * @return int
+     */
+    protected function getBackendVariantQuantityFromCart(\Extcode\Cart\Domain\Model\Cart\Cart $cart, $productId, $backendVariantId)
+    {
+        if ($cart->getProduct($productId)) {
+            $cartProduct = $cart->getProduct($productId);
+            if ($cartProduct->getBeVariantById($backendVariantId)) {
+                $cartBackendVariant = $cartProduct->getBeVariantById($backendVariantId);
+
+                return $cartBackendVariant->getQuantity();
+            }
+        }
+        return 0;
+    }
+
+    /**
+     * @param \Extcode\Cart\Domain\Model\Cart\Cart $cart
+     * @param $products
+     *
+     * @return array
+     */
+    protected function checkStockOfProducts(\Extcode\Cart\Domain\Model\Cart\Cart $cart, $products)
+    {
+        $errors = [];
+
+        foreach ($products as $productKey => $product) {
+            if ($product->getHandleStock()) {
+                if ($product->getHandleStockInVariants()) {
+                    list($products, $errors) = $this->checkStockOfBackendVariants($cart, $errors, $products, $product, $productKey);
+                } else {
+                    list($products, $errors) = $this->checkStockOfProduct($cart, $errors, $products, $product, $productKey);
+                }
+            }
+        }
+
+        return [$errors, $products];
+    }
+
+    /**
+     * @param \Extcode\Cart\Domain\Model\Cart\Cart $cart
+     * @param array $errors
+     * @param $products
+     * @param $product
+     * @param $productKey
+     *
+     * @return mixed
+     */
+    protected function checkStockOfProduct(\Extcode\Cart\Domain\Model\Cart\Cart $cart, $errors, $products, $product, $productKey)
+    {
+        $qty = $product->getQuantity();
+        if ($cart->getProduct($product->getId())) {
+            $qty += $cart->getProduct($product->getId())->getQuantity();
+        }
+
+        if ($qty > $product->getStock()) {
+            unset($products[$productKey]);
+
+            $message = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
+                'tx_cart.error.stock_handling.add',
+                'cart'
+            );
+            $error = [
+                'message' => $message,
+                'severity' => \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR
+            ];
+
+            array_push($errors, $error);
+        }
+        return [$products, $errors];
+    }
+
+    /**
+     * @param \Extcode\Cart\Domain\Model\Cart\Cart $cart
+     * @param array $errors
+     * @param $products
+     * @param $product
+     * @param $productKey
+     *
+     * @return array
+     */
+    protected function checkStockOfBackendVariants(\Extcode\Cart\Domain\Model\Cart\Cart $cart, $errors, $products, $product, $productKey)
+    {
+        if ($product->getBeVariants()) {
+            foreach ($product->getBeVariants() as $backendVariant) {
+                $qty = $backendVariant->getQuantity();
+                $qty += $this->getBackendVariantQuantityFromCart(
+                    $cart,
+                    $product->getId(),
+                    $backendVariant->getId()
+                );
+
+                if ($qty > $backendVariant->getStock()) {
+                    $product->removeBeVariants([$backendVariant->getId() => 1]);
+                    if ($product->getBeVariants()) {
+                        $products[$productKey] = $product;
+                    } else {
+                        unset($products[$productKey]);
+                    }
+
+                    $message = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
+                        'tx_cart.error.stock_handling.add',
+                        'cart'
+                    );
+                    $error = [
+                        'message' => $message,
+                        'severity' => \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR
+                    ];
+
+                    array_push($errors, $error);
+                }
+            }
+        }
+        return [$products, $errors];
     }
 }

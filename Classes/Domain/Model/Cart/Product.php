@@ -205,6 +205,27 @@ class Product
     protected $maxNumberInCart = 0;
 
     /**
+     * Stock
+     *
+     * @var int
+     */
+    protected $stock = 0;
+
+    /**
+     * Handle Stock
+     *
+     * @var bool
+     */
+    protected $handleStock = false;
+
+    /**
+     * Handle Stock in Variants
+     *
+     * @var bool
+     */
+    protected $handleStockInVariants = false;
+
+    /**
      * __construct
      *
      * @param string $productType
@@ -1144,5 +1165,61 @@ class Product
         }
 
         $this->maxNumberInCart = $maxNumberInCart;
+    }
+
+    /**
+     * @return int
+     */
+    public function getStock()
+    {
+        return $this->stock;
+    }
+
+    /**
+     * @param int $stock
+     */
+    public function setStock($stock)
+    {
+        $this->stock = $stock;
+    }
+
+    /**
+     * Returns Handle Stock
+     *
+     * @return bool
+     */
+    public function getHandleStock()
+    {
+        return $this->handleStock;
+    }
+
+    /**
+     * Sets Handle Stock
+     *
+     * @param bool $handleStock
+     */
+    public function setHandleStock($handleStock)
+    {
+        $this->handleStock = $handleStock;
+    }
+
+    /**
+     * Returns Handle Stock In Variants
+     *
+     * @return bool
+     */
+    public function getHandleStockInVariants()
+    {
+        return $this->handleStockInVariants;
+    }
+
+    /**
+     * Sets Handle Stock In Variants
+     *
+     * @param bool $handleStockInVariants
+     */
+    public function setHandleStockInVariants($handleStockInVariants)
+    {
+        $this->handleStockInVariants = $handleStockInVariants;
     }
 }

@@ -1,3 +1,9 @@
+4.7.8
+    2018-02-19
+    Daniel Lorenz <https://github.com/extcode>
+
+    * BUGFIX #179: check stock when product should be added to cart or number should be updated
+
 4.7.7
     2018-02-18
     Daniel Lorenz <https://github.com/extcode>

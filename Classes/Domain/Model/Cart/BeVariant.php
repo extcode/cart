@@ -165,6 +165,13 @@ class BeVariant
     protected $additional = [];
 
     /**
+     * stock
+     *
+     * @var int
+     */
+    protected $stock = 0;
+
+    /**
      * __construct
      *
      * @param string $id
@@ -1130,5 +1137,25 @@ class BeVariant
         }
 
         $this->max = $max;
+    }
+
+    /**
+     * Returns the Stock
+     *
+     * @return int
+     */
+    public function getStock()
+    {
+        return $this->stock;
+    }
+
+    /**
+     * Set the Stock
+     *
+     * @param int $stock
+     */
+    public function setStock($stock)
+    {
+        $this->stock = $stock;
     }
 }
