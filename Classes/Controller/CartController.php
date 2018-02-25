@@ -221,6 +221,23 @@ class CartController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     ) {
         $this->cart = $this->cartUtility->getCartFromSession($this->settings['cart'], $this->pluginSettings);
 
+        if ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['cart']['showCartActionAfterCartWasLoaded']) {
+            foreach ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['cart']['showCartActionAfterCartWasLoaded'] as $funcRef) {
+                if ($funcRef) {
+                    $params = [
+                        'request' => $this->request,
+                        'settings' => $this->settings,
+                        'cart' => &$this->cart,
+                        'orderItem' => &$orderItem,
+                        'billingAddress' => &$billingAddress,
+                        'shippingAddess' => &$shippingAddress,
+                    ];
+
+                    \TYPO3\CMS\Core\Utility\GeneralUtility::callUserFunction($funcRef, $params, $this);
+                }
+            }
+        }
+
         $this->view->assign('cart', $this->cart);
 
         $this->parseData();

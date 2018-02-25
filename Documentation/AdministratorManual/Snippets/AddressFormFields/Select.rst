@@ -3,10 +3,10 @@
 .. --------------------------------------------------
 .. -*- coding: utf-8 -*- with BOM.
 
-Adress-Formularfelder
-=====================
+Auswahlliste für Formularfelder
+===============================
 
-Die Eingabefelder für die Rechnungs- und Lieferadresse sind alles normale einzeilige Eingabefelder. Manchmal möchte man aber eine DropDown-Auswahl für die Anrede oder das Land umsetzen.
+Die Eingabefelder für die Rechnungs- und Lieferadresse sind alles normale einzeilige Eingabefelder. Manchmal möchte man aber eine Auswahlliste für die Anrede oder das Land umsetzen.
 Das ist recht einfach möglich. Das Beispiel zeigt die Lösung mit einer neuen Konfiguration über TypoScript. Es könnte aber auch einfach über ein Array im Fluid-Template umgesetzt werden.
 
 .. figure:: ../../../Images/Screenshots/AddressFormFields.png

@@ -1,0 +1,17 @@
+.. ==================================================
+.. FOR YOUR INFORMATION
+.. --------------------------------------------------
+.. -*- coding: utf-8 -*- with BOM.
+
+4.8.0 - 25.02.2018
+------------------
+
+In der showCartAction des Warenkorbplugins wird nun ein Hook *showCartActionAfterCartWasLoaded* bereitgestellt, der
+es erlaubt, neben zusätzlichen Änderungen im Warenkorb auch die Rechnungs- und Lieferadresse mit Daten eines
+eingeloggten Nutzers vorauszufüllen.
+
+.. IMPORTANT::
+   Ein Vorausfüllen der Adressfelder mit Daten aus einem eingeloggten Frontend Benutzer wird es nicht geben.
+   Zum einen ist das nicht in jedem Fall gewünscht, zum anderen müsste das FrontendUser Model erweitert werden,
+   um alle relevanten Daten eines Nutzers speichern zu können. Oft werden diese Felder schon an anderer Stelle
+   bereitgestellt.

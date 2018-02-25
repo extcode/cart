@@ -1,3 +1,10 @@
+4.8.0
+    2018-02-25
+    Daniel Lorenz <https://github.com/extcode>
+
+    * TASK #59: use frontend user data for invoice/shipping address
+    * TASK #64: use contacts adresses for invoice/shipping address
+
 4.7.9
     2018-02-25
     Daniel Lorenz <https://github.com/extcode>
