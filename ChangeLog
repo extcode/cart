@@ -1,3 +1,9 @@
+4.7.9
+    2018-02-25
+    Daniel Lorenz <https://github.com/extcode>
+
+    * BUGFIX #182: update sonarqube configuration to version 2.0
+
 4.7.8
     2018-02-19
     Daniel Lorenz <https://github.com/extcode>

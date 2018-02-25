@@ -94,14 +94,14 @@ sonarqube:
   variables:
     SONAR_URL: "https://sonar.extco.de"
     SONAR_PROJECT_NAME: "$CI_PROJECT_NAME"
-    SONAR_PROJECT_KEY: "cart-4.x"
     SONAR_TOKEN: "$SONAR_TOKEN"
     SONAR_PROJECT_VERSION: "$CI_JOB_ID"
     SONAR_ANALYSIS_MODE: "issues"
     SONAR_SOURCES: "./Classes"
     SONAR_GITLAB_PROJECT_ID: "$CI_PROJECT_ID"
   script:
-  - /usr/bin/sonar-scanner-run.sh
+  - echo "sonar.projectKey=cart-4.x" > sonar-project.properties
+  - gitlab-sonar-scanner
   allow_failure: true
 
 sonarqube-reports:
@@ -110,13 +110,13 @@ sonarqube-reports:
   variables:
     SONAR_URL: "https://sonar.extco.de"
     SONAR_PROJECT_NAME: "$CI_PROJECT_NAME"
-    SONAR_PROJECT_KEY: "cart-4.x"
     SONAR_TOKEN: "$SONAR_TOKEN"
     SONAR_PROJECT_VERSION: "$CI_JOB_ID"
     SONAR_ANALYSIS_MODE: "publish"
     SONAR_SOURCES: "./Classes"
   script:
-  - unset CI_BUILD_REF && /usr/bin/sonar-scanner-run.sh
+  - echo "sonar.projectKey=cart-4.x" > sonar-project.properties
+  - gitlab-sonar-scanner
 
 ter-upload:
   image: php:7.1-alpine
