@@ -1,0 +1,40 @@
+.. ==================================================
+.. FOR YOUR INFORMATION
+.. --------------------------------------------------
+.. -*- coding: utf-8 -*- with BOM.
+
+5.0.0 - 19.11.2017
+------------------
+
+.. IMPORTANT::
+   Attention, currently the upgrade documentation is missing. Please do **NOT** upgrade from a previous version!
+
+#150 Sortierung von Frontend- und Backendvarianten
+==================================================
+
+In der Produktkonfiguration können die Frontend und Backendvarianten sortiert werden.
+
+.. IMPORTANT::
+   Es ist eine Aktualisierung der Datenbank erforderlich. Da dieses Feld neu hinzu kommt sind keine Probleme zu erwarten.
+
+#163 Speichern des Rechungs- und Versandländercodes in den Bestelldaten
+=======================================================================
+
+In der Bestellung werden nun die Ländercodes aus dem TypoScript gespeichert, um in der späteren Verarbeitung auf die
+richtige Konfiguration zugreifen zu können.
+
+.. IMPORTANT::
+   Es ist eine Aktualisierung der Datenbank erforderlich. Da dieses Feld neu hinzu kommt sind keine Probleme zu erwarten.
+
+#59 und #64 Füllen der Rechnungs- und Lieferadresse mit Nutzerdaten
+===================================================================
+
+In der showCartAction des Warenkorbplugins wird nun ein Hook *showCartActionAfterCartWasLoaded* bereitgestellt, der
+es erlaubt, neben zusätzlichen Änderungen im Warenkorb auch die Rechnungs- und Lieferadresse mit Daten eines
+eingeloggten Nutzers vorauszufüllen.
+
+.. IMPORTANT::
+   Ein Vorausfüllen der Adressfelder mit Daten aus einem eingeloggten Frontend Benutzer wird es nicht geben.
+   Zum einen ist das nicht in jedem Fall gewünscht, zum anderen müsste das FrontendUser Model erweitert werden,
+   um alle relevanten Daten eines Nutzers speichern zu können. Oft werden diese Felder schon an anderer Stelle
+   bereitgestellt.

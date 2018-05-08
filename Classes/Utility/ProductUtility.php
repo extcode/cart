@@ -213,13 +213,7 @@ class ProductUtility
             $repositoryClass = $this->pluginSettings['productStorages'][$productStorageId]['class'];
         }
 
-        if ($repositoryClass == 'Extcode\Cart\Domain\Repository\Product\ProductRepository') {
-            $cartProduct = $this->createCartProduct($cartProductValues);
-        } else {
-            $cartProduct = $this->loadCartProductFromForeignDataStorage($cartProductValues, $productStorageId);
-        }
-
-        return $cartProduct;
+        return $this->loadCartProductFromForeignDataStorage($cartProductValues, $productStorageId);
     }
 
     /**
@@ -258,220 +252,6 @@ class ProductUtility
     }
 
     /**
-     * Create a CartProduct from array
-     *
-     * @param array $cartProductValues
-     *
-     * @return \Extcode\Cart\Domain\Model\Cart\Product|null
-     */
-    protected function createCartProduct(array $cartProductValues)
-    {
-        $cartProduct = null;
-
-        $productId = intval($cartProductValues['productId']);
-
-        $productRepository = $this->objectManager->get(
-            \Extcode\Cart\Domain\Repository\Product\ProductRepository::class
-        );
-
-        /** @var \Extcode\Cart\Domain\Model\Product\Product $productProduct */
-        $productProduct = $productRepository->findByUid($productId);
-
-        if ($productProduct) {
-            $frontendUserGroupIds = $this->getFrontendUserGroupIds();
-
-            $feVariantValues = $cartProductValues['feVariants'];
-
-            $feVariants = $productProduct->getFeVariants();
-
-            if ($feVariants) {
-                $cartProductValues['feVariants'] = [];
-                foreach ($feVariants as $feVariant) {
-                    if ($feVariantValues[$feVariant->getSku()]) {
-                        $cartProductValues['feVariants'][] = [
-                            'sku' => $feVariant->getSku(),
-                            'title' => $feVariant->getTitle(),
-                            'value' => $feVariantValues[$feVariant->getSku()]
-                        ];
-                    }
-                }
-            }
-
-            $newFeVariant = null;
-            if ($cartProductValues['feVariants']) {
-                $newFeVariant = $this->objectManager->get(
-                    \Extcode\Cart\Domain\Model\Cart\FeVariant::class,
-                    $cartProductValues['feVariants']
-                );
-            }
-
-            $cartProduct = $this->objectManager->get(
-                \Extcode\Cart\Domain\Model\Cart\Product::class,
-                $productProduct->getProductType(),
-                $cartProductValues['productId'],
-                $cartProductValues['productStorageId'],
-                null,
-                $productProduct->getSku(),
-                $productProduct->getTitle(),
-                $productProduct->getPrice(),
-                $this->taxClasses[$productProduct->getTaxClassId()],
-                $cartProductValues['quantity'],
-                $productProduct->getIsNetPrice(),
-                $newFeVariant
-            );
-
-            $cartProduct->setMaxNumberInCart($productProduct->getMaxNumberInOrder());
-            $cartProduct->setMinNumberInCart($productProduct->getMinNumberInOrder());
-
-            $cartProduct->setSpecialPrice($productProduct->getBestSpecialPrice($frontendUserGroupIds));
-            $cartProduct->setQuantityDiscounts($productProduct->getQuantityDiscountArray($frontendUserGroupIds));
-
-            $cartProduct->setServiceAttribute1($productProduct->getServiceAttribute1());
-            $cartProduct->setServiceAttribute2($productProduct->getServiceAttribute2());
-            $cartProduct->setServiceAttribute3($productProduct->getServiceAttribute3());
-
-            if ($productProduct->getProductType() == 'virtual' || $productProduct->getProductType() == 'downloadable') {
-                $cartProduct->setIsVirtualProduct(true);
-            }
-
-            $cartProduct->setAdditionalArray($cartProductValues['additional']);
-
-            $data = [
-                'cartProductValues' => $cartProductValues,
-                'productProduct' => $productProduct,
-                'cartProduct' => $cartProduct,
-            ];
-
-            $signalSlotDispatcher = $this->objectManager->get(
-                \TYPO3\CMS\Extbase\SignalSlot\Dispatcher::class
-            );
-            $slotReturn = $signalSlotDispatcher->dispatch(
-                __CLASS__,
-                'changeNewCartProduct',
-                [$data]
-            );
-
-            $cartProduct = $slotReturn[0]['cartProduct'];
-
-            $newVariantArr = [];
-
-            if ($cartProductValues['beVariants']) {
-                if ($this->pluginSettings['gpValues']['beVariants']) {
-                    foreach ($this->pluginSettings['gpValues']['beVariants'] as $variantsKey => $variantsValue) {
-                        if ($variantsKey == 1) {
-                            $newVariant = $this->createCartBackendVariant(
-                                $cartProduct,
-                                null,
-                                $cartProductValues,
-                                $variantsValue
-                            );
-
-                            if ($newVariant) {
-                                $newVariantArr[$variantsKey] = $newVariant;
-                                $cartProduct->addBeVariant($newVariant);
-                            } else {
-                                break;
-                            }
-                        } else {
-                            $newVariant = $this->createCartBackendVariant(
-                                null,
-                                $newVariantArr[$variantsKey - 1],
-                                $cartProductValues,
-                                $variantsValue
-                            );
-
-                            if ($newVariant) {
-                                $newVariantArr[$variantsKey] = $newVariant;
-                                $newVariantArr[$variantsKey - 1]->addBeVariant($newVariant);
-                            } else {
-                                break;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-        return $cartProduct;
-    }
-
-    /**
-     * Get Variant From Repository
-     *
-     * @param \Extcode\Cart\Domain\Model\Cart\Product $product
-     * @param \Extcode\Cart\Domain\Model\Cart\BeVariant $variant
-     * @param $cartProductValues
-     * @param $variantsValue
-     *
-     * @return \Extcode\Cart\Domain\Model\Cart\BeVariant|null
-     */
-    protected function createCartBackendVariant(
-        $product,
-        $variant,
-        $cartProductValues,
-        $variantsValue
-    ) {
-        $cartBackendVariant = null;
-
-        list($pluginSettingsVariantsName, $pluginSettingsVariantsKey, $remainder) = explode('|', $variantsValue, 3);
-
-        $variantsValue = $cartProductValues[$pluginSettingsVariantsName][$pluginSettingsVariantsKey];
-        // if value is a integer, get details from database
-        if (!is_int($variantsValue) ? (ctype_digit($variantsValue)) : true) {
-            $variantId = $variantsValue;
-            // creating a new Variant and using Price and Taxclass form CartProduct
-
-            // get further data of variant
-            $variantRepository = $this->objectManager->get(
-                \Extcode\Cart\Domain\Repository\Product\BeVariantRepository::class
-            );
-            /** @var \Extcode\Cart\Domain\Model\Product\BeVariant $productBackendVariant */
-            $productBackendVariant = $variantRepository->findByUid($variantId);
-
-            if ($productBackendVariant) {
-                $frontendUserGroupIds = $this->getFrontendUserGroupIds();
-
-                $bestSpecialPrice = $productBackendVariant->getBestSpecialPrice($frontendUserGroupIds);
-
-                $cartBackendVariant = $this->objectManager->get(
-                    \Extcode\Cart\Domain\Model\Cart\BeVariant::class,
-                    $variantId,
-                    $product,
-                    $variant,
-                    $productBackendVariant->getTitle(),
-                    $productBackendVariant->getSku(),
-                    $productBackendVariant->getPriceCalcMethod(),
-                    $productBackendVariant->getPrice(),
-                    $cartProductValues['quantity']
-                );
-
-                if ($bestSpecialPrice) {
-                    $cartBackendVariant->setSpecialPrice($bestSpecialPrice->getPrice());
-                }
-
-                $data = [
-                    'cartProductValues' => $cartProductValues,
-                    'productBackendVariant' => $productBackendVariant,
-                    'cartBackendVariant' => $cartBackendVariant,
-                ];
-
-                $signalSlotDispatcher = $this->objectManager->get(
-                    \TYPO3\CMS\Extbase\SignalSlot\Dispatcher::class
-                );
-                $slotReturn = $signalSlotDispatcher->dispatch(
-                    __CLASS__,
-                    'changeNewCartBeVariant',
-                    [$data]
-                );
-
-                $cartBackendVariant = $slotReturn[0]['cartBackendVariant'];
-            }
-        }
-
-        return $cartBackendVariant;
-    }
-
-    /**
      * @param \Extcode\Cart\Domain\Model\Cart\Cart $cart
      * @param array $products
      *
@@ -479,10 +259,12 @@ class ProductUtility
      */
     public function checkProductsBeforeAddToCart(\Extcode\Cart\Domain\Model\Cart\Cart $cart, $products)
     {
+        list($errors, $products) = $this->checkStockOfProducts($cart, $products);
+
         $data = [
             'cart' => $cart,
             'products' => $products,
-            'errors' => [],
+            'errors' => $errors,
         ];
 
         $signalSlotDispatcher = $this->objectManager->get(
@@ -568,5 +350,125 @@ class ProductUtility
         $cartProductValues = $slotReturn[0]['cartProductValues'];
 
         return $cartProductValues;
+    }
+
+    /**
+     * @param \Extcode\Cart\Domain\Model\Cart\Cart $cart
+     * @param $productId
+     * @param $backendVariantId
+     *
+     * @return int
+     */
+    protected function getBackendVariantQuantityFromCart(\Extcode\Cart\Domain\Model\Cart\Cart $cart, $productId, $backendVariantId)
+    {
+        if ($cart->getProduct($productId)) {
+            $cartProduct = $cart->getProduct($productId);
+            if ($cartProduct->getBeVariantById($backendVariantId)) {
+                $cartBackendVariant = $cartProduct->getBeVariantById($backendVariantId);
+
+                return $cartBackendVariant->getQuantity();
+            }
+        }
+        return 0;
+    }
+
+    /**
+     * @param \Extcode\Cart\Domain\Model\Cart\Cart $cart
+     * @param $products
+     *
+     * @return array
+     */
+    protected function checkStockOfProducts(\Extcode\Cart\Domain\Model\Cart\Cart $cart, $products)
+    {
+        $errors = [];
+
+        foreach ($products as $productKey => $product) {
+            if ($product->isHandleStock()) {
+                if ($product->isHandleStockInVariants()) {
+                    list($products, $errors) = $this->checkStockOfBackendVariants($cart, $errors, $products, $product, $productKey);
+                } else {
+                    list($products, $errors) = $this->checkStockOfProduct($cart, $errors, $products, $product, $productKey);
+                }
+            }
+        }
+
+        return [$errors, $products];
+    }
+
+    /**
+     * @param \Extcode\Cart\Domain\Model\Cart\Cart $cart
+     * @param array $errors
+     * @param $products
+     * @param $product
+     * @param $productKey
+     *
+     * @return mixed
+     */
+    protected function checkStockOfProduct(\Extcode\Cart\Domain\Model\Cart\Cart $cart, $errors, $products, $product, $productKey)
+    {
+        $qty = $product->getQuantity();
+        if ($cart->getProduct($product->getId())) {
+            $qty += $cart->getProduct($product->getId())->getQuantity();
+        }
+
+        if ($qty > $product->getStock()) {
+            unset($products[$productKey]);
+
+            $message = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
+                'tx_cart.error.stock_handling.add',
+                'cart'
+            );
+            $error = [
+                'message' => $message,
+                'severity' => \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR
+            ];
+
+            array_push($errors, $error);
+        }
+        return [$products, $errors];
+    }
+
+    /**
+     * @param \Extcode\Cart\Domain\Model\Cart\Cart $cart
+     * @param array $errors
+     * @param $products
+     * @param $product
+     * @param $productKey
+     *
+     * @return array
+     */
+    protected function checkStockOfBackendVariants(\Extcode\Cart\Domain\Model\Cart\Cart $cart, $errors, $products, $product, $productKey)
+    {
+        if ($product->getBeVariants()) {
+            foreach ($product->getBeVariants() as $backendVariant) {
+                $qty = $backendVariant->getQuantity();
+                $qty += $this->getBackendVariantQuantityFromCart(
+                    $cart,
+                    $product->getId(),
+                    $backendVariant->getId()
+                );
+
+                if ($qty > $backendVariant->getStock()) {
+                    $product->removeBeVariants([$backendVariant->getId() => 1]);
+                    if ($product->getBeVariants()) {
+                        $products[$productKey] = $product;
+                    } else {
+                        unset($products[$productKey]);
+                    }
+
+                    $message = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
+                        'tx_cart.error.stock_handling.add',
+                        'cart'
+                    );
+                    $error = [
+                        'message' => $message,
+                        'severity' => \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR
+                    ];
+
+                    array_push($errors, $error);
+                }
+            }
+        }
+        return [$products, $errors];
     }
 }

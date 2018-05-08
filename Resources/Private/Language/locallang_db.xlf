@@ -17,9 +17,6 @@
             <trans-unit id="tx_cart.module.order_statistics">
                 <source>Order Statistics</source>
             </trans-unit>
-            <trans-unit id="tx_cart.module.products">
-                <source>Products</source>
-            </trans-unit>
             <trans-unit id="tx_cart.module.coupons">
                 <source>Coupons</source>
             </trans-unit>
@@ -359,11 +356,13 @@
             <trans-unit id="tx_cart_domain_model_order_shipping">
                 <source>Shipping</source>
             </trans-unit>
-            <trans-unit id="tx_cart_domain_model_order_payment.palettes.service">
+            <trans-unit id="tx_cart_domain_model_order_shipping.palettes.service">
                 <source>Service TypoScript Configuration</source>
+                <target>Service TypoScript Konfiguration</target>
             </trans-unit>
             <trans-unit id="tx_cart_domain_model_order_shipping.service_country">
                 <source>Service Country</source>
+                <target>Service Land</target>
             </trans-unit>
             <trans-unit id="tx_cart_domain_model_order_shipping.service_id">
                 <source>Service ID</source>
@@ -407,9 +406,11 @@
             </trans-unit>
             <trans-unit id="tx_cart_domain_model_order_payment.palettes.service">
                 <source>Service TypoScript Configuration</source>
+                <target>Service TypoScript Konfiguration</target>
             </trans-unit>
             <trans-unit id="tx_cart_domain_model_order_payment.service_country">
                 <source>Service Country</source>
+                <target>Service Land</target>
             </trans-unit>
             <trans-unit id="tx_cart_domain_model_order_payment.service_id">
                 <source>Service ID</source>
@@ -557,403 +558,18 @@
                 <source>Number of Coupons used</source>
             </trans-unit>
 
-            <trans-unit id="tx_cart.plugin.products.action.switch">
-                <source>Display Type</source>
-            </trans-unit>
-            <trans-unit id="tx_cart.plugin.products.action.product.list_and_show">
-                <source>Product - Show and List View</source>
-            </trans-unit>
-            <trans-unit id="tx_cart.plugin.products.action.product.show">
-                <source>Product - Show View</source>
-            </trans-unit>
-            <trans-unit id="tx_cart.plugin.products.action.product.teaser">
-                <source>Product - Teaser View</source>
-            </trans-unit>
-            <trans-unit id="tx_cart.plugin.products.action.product.list.select.single_pid">
-                <source>Product Detail Page</source>
-            </trans-unit>
-            <trans-unit id="tx_cart.plugin.products.action.product.list.orderBy">
-                <source>Sort by</source>
-            </trans-unit>
-            <trans-unit id="tx_cart.plugin.products.action.product.list.orderBy.uid">
-                <source>Uid</source>
-            </trans-unit>
-            <trans-unit id="tx_cart.plugin.products.action.product.list.orderBy.tstamp">
-                <source>Last edited</source>
-            </trans-unit>
-            <trans-unit id="tx_cart.plugin.products.action.product.list.orderBy.sorting">
-                <source>Backend Sorting</source>
-            </trans-unit>
-            <trans-unit id="tx_cart.plugin.products.action.product.list.orderBy.crdate">
-                <source>Created</source>
-            </trans-unit>
-            <trans-unit id="tx_cart.plugin.products.action.product.list.orderBy.title">
-                <source>Title</source>
-            </trans-unit>
-            <trans-unit id="tx_cart.plugin.products.action.product.list.orderDirection">
-                <source>Sort direction</source>
-            </trans-unit>
-            <trans-unit id="tx_cart.plugin.products.action.product.list.orderDirection.asc">
-                <source>Ascending</source>
-            </trans-unit>
-            <trans-unit id="tx_cart.plugin.products.action.product.list.orderDirection.desc">
-                <source>Descending</source>
-            </trans-unit>
-            <trans-unit id="tx_cart.plugin.products.action.product.list.categories">
-                <source>Categories</source>
-            </trans-unit>
-            <trans-unit id="tx_cart.plugin.products.action.product.list.subcategories">
-                <source>Subcategories</source>
-            </trans-unit>
-            <trans-unit id="tx_cart.plugin.products.action.product.teaser.select.product">
-                <source>Choose teaser product</source>
-            </trans-unit>
             <trans-unit id="tx_cart.plugin.products.action.product.flexform">
                 <source>Flexform</source>
             </trans-unit>
 
-            <trans-unit id="tx_cart_domain_model_product_product.title">
-                <source>Title</source>
+            <trans-unit id="tx_cart_domain_model_tag">
+                <source>Tag</source>
             </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_product.sku">
-                <source>SKU</source>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_product.is_net_price">
-                <source>Price (net)</source>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_product.price">
-                <source>Price</source>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_product.special_prices">
-                <source>Special Prices</source>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_product.quantity_discounts">
-                <source>Quantity Discount</source>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_product.is_net_price">
-                <source>Is Net Price</source>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_product.tax_class_id">
-                <source>Tax Class</source>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_product.tax_class_id.1">
-                <source>normal</source>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_product.tax_class_id.2">
-                <source>reduced</source>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_product.tax_class_id.3">
-                <source>free</source>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_product.attributes">
-                <source>Additional Attributes</source>
-            </trans-unit>
-
-            <trans-unit id="tx_cart_domain_model_product_product.div.descriptions">
-                <source>Description</source>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_product.div.images_and_files">
-                <source>Images / Files</source>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_product.div.prices">
-                <source>Prices</source>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_product.div.measures">
-                <source>Measures</source>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_product.div.variants">
-                <source>Variants</source>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_product.div.related_products">
-                <source>Related Products</source>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_product.div.tags_categories">
-                <source>Tags and Categories</source>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_product.div.stock">
-                <source>Stock</source>
-            </trans-unit>
-
-            <trans-unit id="tx_cart_domain_model_product_product.palette.prices">
-                <source>Prices</source>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_product.palette.measures">
-                <source>Measures</source>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_product.palette.service_attributes">
-                <source>Service Attributes</source>
-            </trans-unit>
-
-            <trans-unit id="tx_cart_domain_model_product_product">
-                <source>Product</source>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_product.product_type">
-                <source>Type</source>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_product.product_type.simple">
-                <source>simple</source>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_product.product_type.configurable">
-                <source>configurable</source>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_product.product_type.virtual">
-                <source>virtual</source>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_product.product_type.downloadable">
-                <source>downloadable</source>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_product.sku">
-                <source>SKU</source>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_product.title">
-                <source>Title</source>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_product.teaser">
-                <source>Teaser</source>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_product.description">
-                <source>Description</source>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_product.product_content">
-                <source>Content</source>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_product.min_number_in_order">
-                <source>Minimum numbers of product items per order</source>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_product.max_number_in_order">
-                <source>Maximum number of product items per order</source>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_product.price">
-                <source>Price</source>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_product.price_measure">
-                <source>Price Measure</source>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_product.price_measure_unit">
-                <source>Price Measure Unit</source>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_product.base_price_measure_unit">
-                <source>Base Price Measure Unit</source>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_product.measure.no_measuring_unit">
-                <source>No Measuring Unit</source>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_product.measure.weight">
-                <source>Weight</source>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_product.measure.volume">
-                <source>Volume</source>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_product.measure.length">
-                <source>Length</source>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_product.measure.area">
-                <source>Area</source>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_product.service_attribute1">
-                <source>Attribute 1</source>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_product.service_attribute2">
-                <source>Attribute 2</source>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_product.service_attribute3">
-                <source>Attribute 3</source>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_product.tax_class">
-                <source>Tax Class</source>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_product.be_variants">
-                <source>Backend Variants</source>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_product.be_variant_attributes">
-                <source>Backend Variant Attributes</source>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_product.be_variant_attribute1">
-                <source>Backend Variant Attribute 1</source>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_product.be_variant_attribute2">
-                <source>Backend Variant Attribute 2</source>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_product.be_variant_attribute3">
-                <source>Backend Variant Attribute 3</source>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_product.fe_variants">
-                <source>Frontend Variants</source>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_product.related_products">
-                <source>Related Products</source>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_product.related_products_from">
-                <source>Related Products (from)</source>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_product.images">
-                <source>Images</source>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_product.files">
-                <source>Files</source>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_product.handle_stock">
-                <source>Stock handling</source>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_product.handle_stock_in_variants">
-                <source>Stock handling in variants</source>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_product.stock">
-                <source>Stock</source>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_product.main_category">
-                <source>Main Category</source>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_product.categories">
-                <source>Associated Categories</source>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_product.tags">
+            <trans-unit id="tx_cart_domain_model_tags">
                 <source>Tags</source>
             </trans-unit>
-
-            <trans-unit id="tx_cart_domain_model_product_taxclass">
-                <source>Tax Class</source>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_taxclass.title">
+            <trans-unit id="tx_cart_domain_model_tag.title">
                 <source>Title</source>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_taxclass.value">
-                <source>Value</source>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_taxclass.calc">
-                <source>Calc</source>
-            </trans-unit>
-
-            <trans-unit id="tx_cart_domain_model_product_bevariantattribute">
-                <source>Backend Variant Attribute</source>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_bevariantattribute.sku">
-                <source>SKU</source>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_bevariantattribute.title">
-                <source>Title</source>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_bevariantattribute.description">
-                <source>Description</source>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_bevariantattribute.be_variant">
-                <source>Backend Variant</source>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_bevariantattribute.be_variant_attribute_options">
-                <source>Backend Variant Attribute Options</source>
-            </trans-unit>
-
-            <trans-unit id="tx_cart_domain_model_product_bevariantattributeoption">
-                <source>Backend Variant Attribute Option</source>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_bevariantattributeoption.sku">
-                <source>SKU</source>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_bevariantattributeoption.title">
-                <source>Title</source>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_bevariantattributeoption.description">
-                <source>Description</source>
-            </trans-unit>
-
-            <trans-unit id="tx_cart_domain_model_product_bevariant.palette.variants">
-                <source>Variants</source>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_bevariant">
-                <source>Backend Variant</source>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_bevariant.be_variant_attribute_option1">
-                <source>Backend Variant Attribute Option 1</source>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_bevariant.be_variant_attribute_option2">
-                <source>Backend Variant Attribute Option 2</source>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_bevariant.be_variant_attribute_option3">
-                <source>Backend Variant Attribute Option 3</source>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_bevariant.stock">
-                <source>Stock</source>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_bevariant.price_calc_method">
-                <source>Price Calc Method</source>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_bevariant.price_calc_method.0">
-                <source>0: Product Price</source>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_bevariant.price_calc_method.1">
-                <source>1: Variant Price</source>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_bevariant.price_calc_method.2">
-                <source>2: Product Price - Variant Price</source>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_bevariant.price_calc_method.3">
-                <source>3: Product Price - (Variant Price %)</source>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_bevariant.price_calc_method.4">
-                <source>4: Product Price + Variant Price</source>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_bevariant.price_calc_method.5">
-                <source>5: Product Price + (Variant Price %)</source>
-            </trans-unit>
-
-            <trans-unit id="tx_cart_domain_model_product_fevariant">
-                <source>Frontend Variant</source>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_fevariant.is_required">
-                <source>is Required</source>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_fevariant.sku">
-                <source>SKU</source>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_fevariant.title">
-                <source>Title</source>
-            </trans-unit>
-
-            <trans-unit id="tx_cart_domain_model_product_specialprice">
-                <source>Special Price</source>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_specialprice.title">
-                <source>Title</source>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_specialprice.frontend_user_group">
-                <source>Website Usergroup</source>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_specialprice.price">
-                <source>Price</source>
-            </trans-unit>
-
-            <trans-unit id="tx_cart_domain_model_product_tag">
-                <source>Tag</source>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_tag.title">
-                <source>Title</source>
-            </trans-unit>
-
-            <trans-unit id="tx_cart_domain_model_product_quantitydiscount">
-                <source>Quantity Discount</source>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_quantitydiscount.price">
-                <source>Price</source>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_quantitydiscount.quantity">
-                <source>Quantity (lower bound)</source>
-            </trans-unit>
-
-            <trans-unit id="tx_cart_domain_model_product_tag">
-                <source>Tag</source>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_tag.title">
-                <source>Title</source>
-            </trans-unit>
-
-            <trans-unit id="tx_cart_domain_model_category.cart_product_image">
-                <source>Cart: Product Category Image</source>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_category.cart_product_list_pid">
-                <source>Cart: Page where Products of this category are listed.</source>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_category.cart_product_single_pid">
-                <source>Cart: Page where Products of this category are shown.</source>
             </trans-unit>
 
             <trans-unit id="tx_cart_domain_model_cart">

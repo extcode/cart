@@ -18,6 +18,7 @@ return [
         'versioningWS' => 2,
         'versioning_followPages' => true,
         'origUid' => 't3_origuid',
+
         'delete' => 'deleted',
         'enablecolumns' => [
             'disabled' => 'hidden',

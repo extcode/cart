@@ -1,0 +1,14 @@
+.. ==================================================
+.. FOR YOUR INFORMATION
+.. --------------------------------------------------
+.. -*- coding: utf-8 -*- with BOM.
+
+0.22.0 - 26.07.2016
+-------------------
+
+Diese Version nimmt einige Änderungen für die spätere Integration von CartPdf vor. Diese Erweiterung soll es erlauben,
+aus den Bestelldaten Rechnungen im PDF-Format zu generieren, aus dem Backend-Modul zu versenden, oder gleich der Bestellung
+anzufügen.
+
+.. IMPORTANT::
+   * Diese Version fügt der Bestellung noch die SeitenId des Warenkorbs hinzu, um später möglichst auf die gleiche TypoScript Konfiguration zugreifen zu können. Bisherige Bestellungen bleiben von dieser Änderung unberührt und müssen ggf. über die Datenbank angepasst werden.

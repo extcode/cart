@@ -1,36 +1,40 @@
-{namespace cart=Extcode\Cart\ViewHelpers}
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:cart="http://typo3.org/ns/Extcode/Cart/ViewHelpers"
+      data-namespace-typo3-fluid="true">
 
-<div id="shipping-method" class="bg-light-grey">
-    <h5 class="form-title">
-        <span class="num">2</span>
+<div id="checkout-step-shipping-method" class="checkout-step bg-light-grey">
+    <h5 class="checkout-step-title">
+        <span class="checkout-step-number"></span>
         <span><f:translate key="tx_cart.controller.order.action.show_cart.block-header.shipping_method"/></span>
     </h5>
-    <div class="form-content">
+    <div class="checkout-step-content">
         <fieldset>
-            <dl class="sp-methods">
+            <div class="method-list checkout-step-content-list">
                 <f:for each="{shippings}" as="shipping">
                     <cart:form.isServiceAvailableAtPrice service="{shipping}" price="{cart.gross}">
-                        <dt>
+                        <div class="method-item-name">
                             <f:if condition="{0: shipping.id} == {0: cart.shipping.id}">
                                 <f:then>
                                     {shipping.name}
                                 </f:then>
                                 <f:else>
-                                    <f:link.action action="setShipping"
+                                    <f:link.action controller="Cart\Shipping"
+                                                   action="update"
                                                    arguments="{shippingId:shipping.id}"
                                                    pageType="2278001"
-                                                   class="setShipping">
+                                                   class="set-shipping">
                                         {shipping.name}
                                     </f:link.action>
                                 </f:else>
                             </f:if>
-                        </dt>
-                        <dd>
+                        </div>
+                        <div class="method-item-info">
                             <cart:format.currency currencySign="{cart.currencySign}">{shipping.gross}</cart:format.currency>
-                        </dd>
+                        </div>
                     </cart:form.isServiceAvailableAtPrice>
                 </f:for>
-            </dl>
+            </div>
         </fieldset>
     </div>
 </div>
+</html>

@@ -1,10 +1,12 @@
-{namespace cart=Extcode\Cart\ViewHelpers}
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:cart="http://typo3.org/ns/Extcode/Cart/ViewHelpers"
+      data-namespace-typo3-fluid="true">
 
-<tr>
-    <td>
+<tr class="tx-cart-order-item">
+    <td class="order-number">
         {orderItem.orderNumber}
     </td>
-    <td>
+    <td class="order-date">
         <f:if condition="{orderItem.orderDate}">
             <f:then>
                 <f:format.date format="d.m.Y" date="{orderItem.orderDate}"/>
@@ -14,10 +16,10 @@
             </f:else>
         </f:if>
     </td>
-    <td>
+    <td class="order-invoice-number">
         {orderItem.invoiceNumber}
     </td>
-    <td>
+    <td class="order-invoice-date">
         <f:if condition="{orderItem.invoiceDate}">
             <f:then>
                 <f:format.date format="d.m.Y" date="{orderItem.invoiceDate}"/>
@@ -27,12 +29,13 @@
             </f:else>
         </f:if>
     </td>
-    <td style="width: 75px; text-align: right;">
+    <td class="order-total-gross">
         <cart:format.currency>{orderItem.totalGross}</cart:format.currency>
     </td>
     <td>
         <f:link.action action="show" arguments="{orderItem : orderItem}">
-            show
+            <f:translate key='tx_cart.controller.order.action.show'/>
         </f:link.action>
     </td>
 </tr>
+</html>

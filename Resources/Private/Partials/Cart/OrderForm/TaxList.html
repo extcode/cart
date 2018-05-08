@@ -1,7 +1,9 @@
-{namespace cart=Extcode\Cart\ViewHelpers}
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:cart="http://typo3.org/ns/Extcode/Cart/ViewHelpers"
+      data-namespace-typo3-fluid="true">
 
 <f:for each="{taxes}" as="tax" key="tax_key">
-    <tr>
+    <tr class="taxes">
         <td colspan="3" class="text-right">
             <cart:traversable.extract key="{tax_key}" content="{taxClasses}" as="taxClass">
                 <f:translate key="tx_cart.tax_vat.value" arguments="{0: taxClass.value}"/>
@@ -14,3 +16,4 @@
         </td>
     </tr>
 </f:for>
+</html>

@@ -1,39 +1,22 @@
-.bg-light-grey {
-    background-color: #efefef;
-}
+/* General */
 
-.tx-cart form#form-order .form-title .num, .tx-cart form#form-cart .form-title .num {
-    background: #333;
-    color: #fff;
-    display: inline-block;
-    width: 20px;
-    border-radius: 50%;
-    text-align: center;
-    height: 20px;
-    line-height: 20px;
-    font-size: 0.75em;
-    vertical-align: middle;
-    margin-right: 10px;
-    margin-top: -3px;
-}
+.tx-cart { counter-reset: step; }
 
-.tx-cart h5.form-title {
-    background: #ccc;
+.tx-cart label, .tx-cart label em { display: inline; }
+
+.tx-cart .bg-light-grey { background-color: #efefef; }
+
+.tx-cart .border-left-grey { border-left: 1px solid #ddd; }
+
+.tx-cart .clear-padding { padding: 0 !important; }
+
+.top-buffer { margin-top: 2em; }
+
+.tx-cart .typo3-messages{
     margin: 0;
-    padding: 0 20px;
-    line-height: 2;
+    padding: 0;
+    list-style: none;
 }
-
-/*
- * OPTIONAL BEGIN
- */
-#form-order h5 {padding: 10px} #accept-term fieldset {padding: 16px 8px 18px 8px}
-span.price {min-width: 65px; display: block}
-label, label em {display: inline}
-.tx-cart li, .tx-cart ul {list-style-type: none;}
-.tx-cart ul {list-style-type: none; padding: 0px 8px 2px 8px}
-.tx-cart fieldset dl {margin-left: 8px}
-.tx-cart fieldset dl dd, .tx-cart fieldset dl dd ul { margin-left: 0px ! important; padding-left: 0px ! important;}
 
 .form-control-inline {
     min-width: 0;
@@ -41,8 +24,62 @@ label, label em {display: inline}
     display: inline;
 }
 
-.top-buffer { margin-top:20px; }
+.tx-cart .field { margin-bottom: 0.5em; }
 
-/*
- * OPTIONAL END
- */
+.tx-cart .price { min-width: 65px; display: block }
+
+.order-total-gross {
+    width: 75px;
+    text-align: right;
+}
+
+/* Checkout */
+
+.tx-cart .checkout-step-title {
+    background: #ccc;
+    margin: 0;
+    padding: 0 2em;
+    line-height: 2;
+}
+
+.tx-cart .checkout-step-content { padding: 1em; }
+
+.tx-cart .checkout-step-number::before {
+    counter-increment: step;
+    content: counter(step);
+}
+
+.tx-cart #form-order .checkout-step-number, .tx-cart #form-cart .checkout-step-number {
+    background: #333;
+    color: #fff;
+    display: inline-block;
+    width: 2em;
+    border-radius: 50%;
+    text-align: center;
+    height: 2em;
+    line-height: 2em;
+    font-size: 0.75em;
+    vertical-align: middle;
+    margin-right: 1em;
+    margin-top: -3px;
+}
+
+.shipping-same-as-billing-wrapper { margin: 1em 0; }
+
+.tx-cart .checkout-step-content-list .checkout-step-fields .field .validation-error { margin-bottom: 0; }
+
+#form-order .checkout-step-title { padding: 10px }
+
+.method-item-name { font-weight: bold; }
+
+.checkout-step-table, .checkout-review-table, .checkout-product-table, .show-properties.table  { width: 100%; }
+
+.checkout-review-column { margin: 1em -1em; }
+
+.coupon-hint.not-usable { color: red; }
+
+/* Order History*/
+
+.show-properties.table { margin-bottom: 1em; }
+
+.order-history-detail .column { padding-bottom: 2em; }

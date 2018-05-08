@@ -165,6 +165,13 @@ class BeVariant
     protected $additional = [];
 
     /**
+     * stock
+     *
+     * @var int
+     */
+    protected $stock = 0;
+
+    /**
      * __construct
      *
      * @param string $id
@@ -175,8 +182,6 @@ class BeVariant
      * @param int $priceCalcMethod
      * @param float $price
      * @param int $quantity
-     *
-     * @return \Extcode\Cart\Domain\Model\Cart\BeVariant
      */
     public function __construct(
         $id,
@@ -485,7 +490,7 @@ class BeVariant
         if ($this->getParentBeVariant()) {
             $parentPrice = $this->getParentBeVariant()->getBestPrice();
         } elseif ($this->getProduct()) {
-            $parentPrice = $this->getProduct()->getBestPrice();
+            $parentPrice = $this->getProduct()->getBestPrice($this->getQuantity());
         } else {
             $parentPrice = 0;
         }
@@ -544,7 +549,7 @@ class BeVariant
         if ($this->getParentBeVariant()) {
             $parentPrice = $this->getParentBeVariant()->getBestPrice();
         } elseif ($this->getProduct()) {
-            $parentPrice = $this->getProduct()->getBestPrice();
+            $parentPrice = $this->getProduct()->getBestPrice($this->getQuantity());
         } else {
             $parentPrice = 0;
         }
@@ -605,7 +610,7 @@ class BeVariant
         if ($this->getParentBeVariant()) {
             return $this->getParentBeVariant()->getBestPrice();
         } elseif ($this->getProduct()) {
-            return $this->getProduct()->getBestPrice();
+            return $this->getProduct()->getBestPrice($this->getQuantity());
         }
 
         return 0.0;
@@ -1130,5 +1135,25 @@ class BeVariant
         }
 
         $this->max = $max;
+    }
+
+    /**
+     * Returns the Stock
+     *
+     * @return int
+     */
+    public function getStock()
+    {
+        return $this->stock;
+    }
+
+    /**
+     * Set the Stock
+     *
+     * @param int $stock
+     */
+    public function setStock($stock)
+    {
+        $this->stock = $stock;
     }
 }

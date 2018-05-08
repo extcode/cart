@@ -1,80 +1,122 @@
-<div id="checkout-review" class="bg-light-grey">
-    <h5 class="form-title">
-        <span class="num">5</span>
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+        data-namespace-typo3-fluid="true">
+
+<div id="checkout-step-review" class="checkout-step bg-light-grey">
+    <h5 class="checkout-step-title">
+        <span class="checkout-step-number"></span>
         <f:translate key="tx_cart.controller.order.action.show_cart.block-header.order_overview"/>
     </h5>
-    <div class="form-content">
-        <fieldset>
-            <ul class="form-list">
-                <li class="fields">
-                    <div class="field acceptTerms">
-                        <label>
-                            <f:if condition="{0: settings.validation.orderItem.fields.acceptTerms.validator} == {0: 'Boolean'}">
-                                <f:form.checkbox id="orderItem:acceptTerms"
-                                                 name="orderItem[acceptTerms]"
-                                                 title="{f:translate(key:'tx_cart_domain_model_order_item.accept_terms')}"
-                                                 value="1"/>
-                                <span>
-                                    <f:translate key="tx_cart_domain_model_order_item.accept_terms"/>
-                                </span>
-                                <f:form.validationResults for="orderItem">
-                                    <f:if condition="{validationResults.flattenedErrors.acceptTerms}">
-                                        <div class="validation-error alert alert-danger" style="margin-bottom: 0;">
-                                            <f:translate key="tx_cart_domain_model_order_item.accept_terms.error.{validationResults.flattenedErrors.acceptTerms.0.code}" >{validationResults.flattenedErrors.acceptTerms.0.code}</f:translate>
-                                        </div>
+    <div class="checkout-step-content">
+        <div class="row">
+            <div class="col-sm-12 column">
+                <div class="checkout-step-content-list">
+                    <fieldset>
+                        <div class="checkout-step-fields">
+                            <div class="field accept-terms">
+                                <label for="orderItem-acceptTerms">
+                                    <f:if condition="{0: settings.validation.orderItem.fields.acceptTerms.validator} == {0: 'Boolean'}">
+                                        <f:form.checkbox id="orderItem-acceptTerms"
+                                                         name="orderItem[acceptTerms]"
+                                                         title="{f:translate(key:'tx_cart_domain_model_order_item.accept_terms')}"
+                                                         value="1"/>
+                                        <span>
+                                            <f:if condition="{settings.cart.acceptTerms.pid}">
+                                                <f:then>
+                                                    <f:format.raw><f:translate key="tx_cart_domain_model_order_item.accept_terms_with_link" arguments="{0: '{f:uri.page(pageUid: \'{settings.cart.acceptTerms.pid}\')}', 1:'_blank'}"/></f:format.raw>
+                                                </f:then>
+                                                <f:else>
+                                                    <f:translate key="tx_cart_domain_model_order_item.accept_terms"/>
+                                                </f:else>
+                                            </f:if>
+                                        </span>
+                                        <f:form.validationResults for="orderItem">
+                                            <f:if condition="{validationResults.flattenedErrors.acceptTerms}">
+                                                <div class="validation-error alert alert-danger">
+                                                    <f:translate key="tx_cart_domain_model_order_item.accept_terms.error.{validationResults.flattenedErrors.acceptTerms.0.code}">{validationResults.flattenedErrors.acceptTerms.0.code}</f:translate>
+                                                </div>
+                                            </f:if>
+                                        </f:form.validationResults>
                                     </f:if>
-                                </f:form.validationResults>
-                            </f:if>
-                        </label>
-                    </div>
-                    <div class="field acceptTerms">
-                        <label>
-                            <f:if condition="{0: settings.validation.orderItem.fields.acceptConditions.validator} == {0: 'Boolean'}">
-                                <f:form.checkbox id="orderItem:acceptConditions"
-                                                 name="orderItem[acceptConditions]"
-                                                 title="{f:translate(key:'tx_cart_domain_model_order_item.accept_conditions')}"
-                                                 value="1"/>
-                                <span>
-                                    <f:translate key="tx_cart_domain_model_order_item.accept_conditions"/>
-                                </span>
-                                <f:form.validationResults for="orderItem">
-                                    <f:if condition="{validationResults.flattenedErrors.acceptConditions}">
-                                        <div class="validation-error alert alert-danger" style="margin-bottom: 0;">
-                                            <f:translate key="tx_cart_domain_model_order_item.accept_conditions.error.{validationResults.flattenedErrors.acceptConditions.0.code}" >{validationResults.flattenedErrors.acceptConditions.0.code}</f:translate>
-                                        </div>
+                                </label>
+                            </div>
+                            <div class="field accept-terms">
+                                <label for="orderItem-acceptConditions">
+                                    <f:if condition="{0: settings.validation.orderItem.fields.acceptConditions.validator} == {0: 'Boolean'}">
+                                        <f:form.checkbox id="orderItem-acceptConditions"
+                                                         name="orderItem[acceptConditions]"
+                                                         title="{f:translate(key:'tx_cart_domain_model_order_item.accept_conditions')}"
+                                                         value="1"/>
+                                        <span>
+                                            <f:if condition="{settings.cart.acceptConditions.pid}">
+                                                <f:then>
+                                                    <f:format.raw><f:translate key="tx_cart_domain_model_order_item.accept_conditions_with_link" arguments="{0: '{f:uri.page(pageUid: \'{settings.cart.acceptConditions.pid}\')}', 1:'_blank'}"/></f:format.raw>
+                                                </f:then>
+                                                <f:else>
+                                                    <f:translate key="tx_cart_domain_model_order_item.accept_conditions"/>
+                                                </f:else>
+                                            </f:if>
+                                        </span>
+                                        <f:form.validationResults for="orderItem">
+                                            <f:if condition="{validationResults.flattenedErrors.acceptConditions}">
+                                                <div class="validation-error alert alert-danger">
+                                                    <f:translate key="tx_cart_domain_model_order_item.accept_conditions.error.{validationResults.flattenedErrors.acceptConditions.0.code}">{validationResults.flattenedErrors.acceptConditions.0.code}</f:translate>
+                                                </div>
+                                            </f:if>
+                                        </f:form.validationResults>
                                     </f:if>
-                                </f:form.validationResults>
-                            </f:if>
-                        </label>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <label>
+                                <span>
+                                    <f:translate key="tx_cart_domain_model_order_item.comment"/>
+                                </span>
+                            </label>
+
+                            <f:form.textarea
+                                    id="orderItem-comment"
+                                    class="form-control"
+                                    name="orderItem[comment]"
+                                    value="{orderItem.comment}"/>
+                        </div>
+                    </fieldset>
+
+                    <div class="checkout-step-fields">
+                        <div class="checkout-step-field">
+                            <table class="checkout-step-table data-table">
+                                <thead>
+                                    <tr>
+                                        <th class="text-right">
+                                            &nbsp;
+                                        </th>
+                                        <th>
+                                            &nbsp;
+                                        </th>
+                                        <th>
+                                            &nbsp;
+                                        </th>
+                                        <th class="text-right">
+                                            <f:translate key="tx_cart_domain_model_order_product.total"/>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <colgroup>
+                                    <col/>
+                                    <col width="1"/>
+                                    <col width="1"/>
+                                    <col width="1"/>
+                                </colgroup>
+                                <tbody>
+                                <f:render partial="Cart/OrderForm/Summary" arguments="{cart:cart}"/>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
-                </li>
-                <li>
-                    <label><span><f:translate key="tx_cart_domain_model_order_item.comment"/></span></label>
-
-                    <f:form.textarea
-                            id="orderItem:comment"
-                            class="form-control"
-                            name="orderItem[comment]"
-                            value="{orderItem.comment}"/>
-
-                </li>
-            </ul>
-        </fieldset>
-    </div>
-
-    <div class="row">
-        <div class="col-sm-12" style="margin: 10px -10px;">
-            <table id="checkout-review-table" class="data-table" style="width: 100%">
-                <colgroup>
-                    <col/>
-                    <col width="1"/>
-                    <col width="1"/>
-                    <col width="1"/>
-                </colgroup>
-                <tbody>
-                <f:render partial="Cart/OrderForm/Summary" arguments="{cart:cart}"/>
-                </tbody>
-            </table>
+                </div>
+            </div>
         </div>
     </div>
 </div>
+</html>

@@ -63,7 +63,6 @@ class TaxClass
      * @param string $title
      *
      * @throws \InvalidArgumentException
-     * @return \Extcode\Cart\Domain\Model\Cart\TaxClass
      */
     public function __construct($id, $value, $calc, $title)
     {

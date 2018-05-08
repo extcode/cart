@@ -1,13 +1,16 @@
-<table class="tx-cart table" width="100%">
-    <tr>
-        <th style="background-color: #ededed;">
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      data-namespace-typo3-fluid="true">
+
+<table class="order-properties-table table data-table">
+    <tr class="properties-number">
+        <th class="bg-light-grey">
             <f:translate key="tx_cart_domain_model_order_item.order_number"/>
             :
         </th>
         <td>
             {orderItem.orderNumber}
         </td>
-        <th style="background-color: #ededed; border-left: 1px solid #DDD;">
+        <th class="bg-light-grey border-left-grey">
             <f:translate key="tx_cart_domain_model_order_item.invoice_number"/>
             :
         </th>
@@ -15,8 +18,8 @@
             {orderItem.invoiceNumber}
         </td>
     </tr>
-    <tr>
-        <th style="background-color: #ededed;">
+    <tr class="properties-date">
+        <th class="bg-light-grey">
             <f:translate key="tx_cart_domain_model_order_item.order_date"/>
             :
         </th>
@@ -25,7 +28,7 @@
                 <f:format.date format="d.m.Y" date="{orderItem.orderDate}"/>
             </f:if>
         </td>
-        <th style="background-color: #ededed; border-left: 1px solid #DDD;">
+        <th class="bg-light-grey border-left-grey">
             <f:translate key="tx_cart_domain_model_order_item.invoice_date"/>
             :
         </th>
@@ -35,38 +38,37 @@
             </f:if>
         </td>
     </tr>
-    <tr>
-        <th style="background-color: #ededed;">
-            <f:translate key="tx_cart_domain_model_order_item.order_shipping"/>
+    <tr class="properties-shipping-payment">
+        <th class="bg-light-grey">
+            <f:translate key="tx_cart_domain_model_order_item.order_payment"/>
             :
         </th>
         <td>
             {orderItem.payment.name}
         </td>
-        <th style="background-color: #ededed; border-left: 1px solid #DDD;">
-            <f:translate key="tx_cart_domain_model_order_item.order_payment"/>
+        <th class="bg-light-grey border-left-grey">
+            <f:translate key="tx_cart_domain_model_order_item.order_shipping"/>
             :
         </th>
         <td>
             {orderItem.shipping.name}
         </td>
     </tr>
-    <tr>
-        <th style="background-color: #ededed;">
+    <tr class="properties-status">
+        <th class="bg-light-grey">
             <f:translate key="tx_cart_domain_model_order_payment.status"/>
         </th>
         <td>
             <f:translate key="tx_cart_domain_model_order_payment.status.{orderItem.payment.status}"/>
         </td>
-        <th style="background-color: #ededed; border-left: 1px solid #DDD;">
-            <f:translate key="tx_cart_domain_model_order_payment.status"/>
+        <th class="bg-light-grey border-left-grey">
+            <f:translate key="tx_cart_domain_model_order_shipping.status"/>
         </th>
         <td>
-            <f:translate key="tx_cart_domain_model_order_payment.status.{orderItem.shipping.status}"/>
+            <f:translate key="tx_cart_domain_model_order_shipping.status.{orderItem.shipping.status}"/>
         </td>
     </tr>
 </table>
-<br>
 
 <div>
     <div class="block-left">
@@ -91,3 +93,4 @@
 
     <div class="clear"><!-- --></div>
 </div>
+</html>

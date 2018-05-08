@@ -1,0 +1,27 @@
+.. ==================================================
+.. FOR YOUR INFORMATION
+.. --------------------------------------------------
+.. -*- coding: utf-8 -*- with BOM.
+
+5.0.0 - 19.11.2017
+------------------
+
+.. IMPORTANT::
+   Achtung, momentan fehlt die Upgrade-Dokumentation. Bitte **NICHT** von einer früheren Version auf diese Version aktualisieren!
+
+#150 Sortierung von Frontend- und Backendvarianten
+==================================================
+
+In der Produktkonfiguration können die Frontend und Backendvarianten sortiert werden.
+
+.. IMPORTANT::
+   Es ist eine Aktualisierung der Datenbank erforderlich. Da dieses Feld neu hinzu kommt sind keine Probleme zu erwarten.
+
+#163 Speichern des Rechungs- und Versandländercodes in den Bestelldaten
+=======================================================================
+
+In der Bestellung werden nun die Ländercodes aus dem TypoScript gespeichert, um in der späteren Verarbeitung auf die
+richtige Konfiguration zugreifen zu können.
+
+.. IMPORTANT::
+   Es ist eine Aktualisierung der Datenbank erforderlich. Da dieses Feld neu hinzu kommt sind keine Probleme zu erwarten.

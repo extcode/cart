@@ -1,0 +1,27 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      data-namespace-typo3-fluid="true">
+
+<f:layout name="Plain"/>
+<f:section name="main">
+    <table style="width: 100%; border-collapse: collapse;">
+        <tbody>
+        <tr>
+            <td height="10" style="font-size:10px; line-height:10px;">   </td><!-- Spacer -->
+        </tr>
+        <tr>
+            <td style="vertical-align: top; text-align: left;">
+                <p style="font-family: Arial, Helvetica, sans-serif; font-size: 12px; margin:15px 0 5px 0; padding:0px; font-weight: bold;">
+                    {data.header}
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td style="vertical-align: top; text-align: left; font-family: Arial, Helvetica, sans-serif; font-size: 12px; margin:0; padding:0;">
+                <f:format.html>{data.bodytext}</f:format.html>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+</f:section>
+</html>

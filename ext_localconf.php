@@ -8,11 +8,13 @@ defined('TYPO3_MODE') or die();
     'Extcode.' . $_EXTKEY,
     'MiniCart',
     [
-        'Cart' => 'showMiniCart, updateCurrency',
+        'Cart\CartPreview' => 'show',
+        'Cart\Currency' => 'update',
     ],
     // non-cacheable actions
     [
-        'Cart' => 'showMiniCart, updateCurrency',
+        'Cart\CartPreview' => 'show',
+        'Cart\Currency' => 'update',
     ]
 );
 
@@ -20,12 +22,26 @@ defined('TYPO3_MODE') or die();
     'Extcode.' . $_EXTKEY,
     'Cart',
     [
-        'Cart' => 'showCart, clearCart, addProduct, removeProduct, addCoupon, removeCoupon, setShipping, setPayment, updateCountry, updateCurrency, updateCart, orderCart, orderFinished',
-        'Order' => 'paymentSuccess, paymentCancel',
+        'Cart\Cart' => 'show, clear, update',
+        'Cart\Country' => 'update',
+        'Cart\Coupon' => 'add, remove',
+        'Cart\Currency' => 'update',
+        'Cart\Order' => 'create',
+        'Cart\Payment' => 'update',
+        'Cart\Product' => 'add, remove',
+        'Cart\Shipping' => 'update',
+        'Order\Order' => 'update',
     ],
     [
-        'Cart' => 'showCart, clearCart, addProduct, removeProduct, addCoupon, removeCoupon, setShipping, setPayment, updateCountry, updateCurrency, updateCart, orderCart, orderFinished',
-        'Order' => 'paymentSuccess, paymentCancel',
+        'Cart\Cart' => 'show, clear, update',
+        'Cart\Country' => 'update',
+        'Cart\Coupon' => 'add, remove',
+        'Cart\Currency' => 'update',
+        'Cart\Order' => 'create',
+        'Cart\Payment' => 'update',
+        'Cart\Product' => 'add, remove',
+        'Cart\Shipping' => 'update',
+        'Order\Order' => 'paymentSuccess, paymentCancel',
     ]
 );
 
@@ -33,32 +49,10 @@ defined('TYPO3_MODE') or die();
     'Extcode.' . $_EXTKEY,
     'Currency',
     [
-        'Cart' => 'editCurrency, updateCurrency',
+        'Cart/Currency' => 'edit, update',
     ],
     [
-        'Cart' => 'editCurrency, updateCurrency',
-    ]
-);
-
-\TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-    'Extcode.' . $_EXTKEY,
-    'Product',
-    [
-        'Product' => 'show, list, teaser, showForm',
-    ],
-    [
-        'Product' => 'list, showForm',
-    ]
-);
-
-\TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-    'Extcode.' . $_EXTKEY,
-    'ProductPartial',
-    [
-        'Product' => 'showForm',
-    ],
-    [
-        'Product' => 'showForm',
+        'Cart/Currency' => 'edit, update',
     ]
 );
 
@@ -96,22 +90,8 @@ if (TYPO3_MODE === 'BE') {
         \TYPO3\CMS\Core\Imaging\IconProvider\SvgIconProvider::class,
         ['source' => 'EXT:cart/Resources/Public/Icons/icon-apps-pagetree-page-cart-cart.svg']
     );
-
-    $iconRegistry->registerIcon(
-        'icon-apps-pagetree-page-cart-product',
-        \TYPO3\CMS\Core\Imaging\IconProvider\SvgIconProvider::class,
-        ['source' => 'EXT:cart/Resources/Public/Icons/icon-apps-pagetree-page-cart-product.svg']
-    );
 }
 
-// RealUrlHook
-
-if (TYPO3_MODE === 'FE') {
-    $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['realurl']['ConfigurationReader_postProc'][1499067085] =
-        'EXT:cart/Classes/Hooks/RealUrlHook.php:Extcode\Cart\Hooks\RealUrlHook->postProcessConfiguration';
-}
-
-// ke_search indexer
-
-$GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['ke_search']['registerIndexerConfiguration'][] = 'EXT:cart/Classes/Hooks/KeSearchIndexer.php:Extcode\Cart\Hooks\KeSearchIndexer';
-$GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['ke_search']['customIndexer'][] = 'EXT:cart/Classes/Hooks/KeSearchIndexer.php:Extcode\Cart\Hooks\KeSearchIndexer';
+// register "cart:" namespace
+$GLOBALS['TYPO3_CONF_VARS']['SYS']['fluid']['namespaces']['cart'][]
+    = 'Extcode\\Cart\\ViewHelpers';

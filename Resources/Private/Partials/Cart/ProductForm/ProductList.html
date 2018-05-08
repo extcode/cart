@@ -1,4 +1,6 @@
-{namespace cart=Extcode\Cart\ViewHelpers}
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:cart="http://typo3.org/ns/Extcode/Cart/ViewHelpers"
+      data-namespace-typo3-fluid="true">
 
 <f:section name="withoutVariant">
     <tr class="{f:if(condition: product.quantityIsInRange, then: '', else: 'danger')}">
@@ -26,16 +28,16 @@
                 </f:then>
                 <f:else>
                     <f:if condition="{product.quantityBelowRange}">
-                        Mindestbestellmenge nicht erreicht.
+                        <f:translate key='tx_cart.quantityBelowRange'/>
                     </f:if>
                     <f:if condition="{product.quantityAboveRange}">
-                        Maximalbestellmenge überschritten.
+                        <f:translate key='tx_cart.quantityAboveRange'/>
                     </f:if>
                 </f:else>
             </f:if>
         </td>
         <td class="last col-md-1 text-right">
-            <f:link.action action="removeProduct" arguments="{product: product.id}">
+            <f:link.action controller="Cart\Product" action="remove" arguments="{product: product.id}">
                 <span class="delete-link btn btn-danger" title="<f:translate key='tx_cart.remove_product'/>">x</span>
             </f:link.action>
         </td>
@@ -78,23 +80,22 @@
                         </f:then>
                         <f:else>
                             <f:if condition="{product.quantityBelowRange}">
-                                Mindestbestellmenge nicht erreicht.
+                                <f:translate key='tx_cart.quantityBelowRange'/>
                             </f:if>
                             <f:if condition="{product.quantityAboveRange}">
-                                Maximalbestellmenge überschritten.
+                                <f:translate key='tx_cart.quantityAboveRange'/>
                             </f:if>
                         </f:else>
                     </f:if>
                 </td>
                 <td class="last col-md-1 text-right">
-                    <cart:link.action action="removeProduct" product="{variant.product}" beVariant="{variant}">
+                    <cart:link.action controller="Cart\Product" action="remove" product="{variant.product}" beVariant="{variant}">
                         <span class="delete-link btn btn-danger" title="<f:translate key='tx_cart.remove_product'/>">x</span>
                     </cart:link.action>
                 </td>
             </tr>
         </f:else>
     </f:if>
-
 </f:section>
 
 <f:section name="withVariant">
@@ -157,4 +158,4 @@
         </f:else>
     </f:if>
 </f:for>
-
+</html>

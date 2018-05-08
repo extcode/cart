@@ -2,30 +2,31 @@
 
 namespace Extcode\Cart\ViewHelpers;
 
-/**
- * This file is part of the TYPO3 CMS project.
- *
- * It is free software; you can redistribute it and/or modify it under
- * the terms of the GNU General Public License, either version 2
- * of the License, or any later version.
- *
- * For the full copyright and license information, please read the
- * LICENSE.txt file that was distributed with this source code.
- *
- * The TYPO3 project - inspiring people to share!
- */
 use TYPO3\CMS\Core\Page\PageRenderer;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractTagBasedViewHelper;
 
 /**
- * Title Tag ViewHelper
+ * ViewHelper to render meta tags
  *
- * @author Georg Ringer <typo3@ringerge.org>
- * @author Daniel Lorenz <ext.cart@extco.de>
+ * # Example: Basic Example: product title as og:title meta tag
+ * <code>
+ * <cart:metaTag property="og:title" content="{product.title}" />
+ * </code>
+ * <output>
+ * <meta property="og:title" content="TYPO3 is awesome" />
+ * </output>
+ *
+ * # Example: Force the attribute "name"
+ * <code>
+ * <cart:metaTag name="keywords" content="{product.tags}" />
+ * </code>
+ * <output>
+ * <meta name="keywords" content="tag 1, tag 2" />
+ * </output>
  */
-class MetaTagViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractTagBasedViewHelper
+class MetaTagViewHelper extends AbstractTagBasedViewHelper
 {
-
     /**
      * @var string
      */
@@ -39,16 +40,18 @@ class MetaTagViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractTagBase
         $this->registerTagAttribute('property', 'string', 'Property of meta tag');
         $this->registerTagAttribute('name', 'string', 'Content of meta tag using the name attribute');
         $this->registerTagAttribute('content', 'string', 'Content of meta tag');
+        $this->registerArgument('useCurrentDomain', 'boolean', 'Use current domain', false, false);
+        $this->registerArgument('forceAbsoluteUrl', 'boolean', 'Force absolut domain', false, false);
     }
 
     /**
      * Renders a meta tag
-     *
-     * @param bool $useCurrentDomain If set, current domain is used
-     * @param bool $forceAbsoluteUrl If set, absolute url is forced
      */
-    public function render($useCurrentDomain = false, $forceAbsoluteUrl = false)
+    public function render()
     {
+        $useCurrentDomain = $this->arguments['useCurrentDomain'];
+        $forceAbsoluteUrl = $this->arguments['forceAbsoluteUrl'];
+
         // set current domain
         if ($useCurrentDomain) {
             $this->tag->addAttribute('content', GeneralUtility::getIndpEnv('TYPO3_REQUEST_URL'));

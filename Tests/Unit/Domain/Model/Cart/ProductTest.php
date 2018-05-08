@@ -804,6 +804,59 @@ class ProductTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
     /**
      * @test
      */
+    public function getQuantityDiscountPriceWithGivenQuantityReturnsCorrectPriceOfQuantityDiscountArray()
+    {
+        $price = 10.00;
+
+        $quantity = 5;
+        $quantityDiscountPrice = 5.00;
+
+        $quantityDiscounts = [
+            [
+                'quantity' => 3,
+                'price' => 7.00,
+            ],
+            [
+                'quantity' => 4,
+                'price' => 6.00,
+            ],
+            [
+                'quantity' => $quantity,
+                'price' => $quantityDiscountPrice,
+            ],
+            [
+                'quantity' => 6,
+                'price' => 4.00,
+            ],
+            [
+                'quantity' => 7,
+                'price' => 3.00,
+            ],
+        ];
+
+        $product = new \Extcode\Cart\Domain\Model\Cart\Product(
+            $this->productType,
+            $this->productId,
+            null,
+            $this->contentId,
+            $this->sku,
+            $this->title,
+            $price,
+            $this->taxClass,
+            $quantity
+        );
+
+        $product->setQuantityDiscounts($quantityDiscounts);
+
+        $this->assertSame(
+            $quantityDiscountPrice,
+            $product->getQuantityDiscountPrice($quantity)
+        );
+    }
+
+    /**
+     * @test
+     */
     public function getBestPriceWithSpecialPriceIsLessThanQuantityPriceArrayReturnsSpecialPrice()
     {
         $price = 10.00;
@@ -912,6 +965,63 @@ class ProductTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
         $this->assertSame(
             $quantityDiscountPrice,
             $product->getBestPrice()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function getBestPriceWithSpecialPriceIsGreaterThanGivenQuantityPriceArrayReturnsCorrectPriceOfQuantityDiscounts()
+    {
+        $price = 10.00;
+
+        $specialPrice = 6.00;
+
+        $quantity = 5;
+        $quantityDiscountPrice = 5.00;
+
+        $quantityDiscounts = [
+            [
+                'quantity' => 3,
+                'price' => 7.00,
+            ],
+            [
+                'quantity' => 4,
+                'price' => 6.00,
+            ],
+            [
+                'quantity' => $quantity,
+                'price' => $quantityDiscountPrice,
+            ],
+            [
+                'quantity' => 6,
+                'price' => 4.00,
+            ],
+            [
+                'quantity' => 7,
+                'price' => 3.00,
+            ],
+        ];
+
+        $product = new \Extcode\Cart\Domain\Model\Cart\Product(
+            $this->productType,
+            $this->productId,
+            null,
+            $this->contentId,
+            $this->sku,
+            $this->title,
+            $price,
+            $this->taxClass,
+            $quantity
+        );
+
+        $product->setSpecialPrice($specialPrice);
+
+        $product->setQuantityDiscounts($quantityDiscounts);
+
+        $this->assertSame(
+            $quantityDiscountPrice,
+            $product->getBestPrice($quantity)
         );
     }
 

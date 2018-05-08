@@ -1,0 +1,17 @@
+.. ==================================================
+.. FOR YOUR INFORMATION
+.. --------------------------------------------------
+.. -*- coding: utf-8 -*- with BOM.
+
+0.23.0 - 01.08.2016
+-------------------
+
+Diese Version entfernt den AJAX-Request über den eID Mechanismus und fügt alternativ die Möglichkeit über eine typeNum-TypoScript-Konfiguration ein.
+Hintergrund ist der fehlende TYPO3-Bootstrap bei der eID Variante. Dieser ist sehr komplex und müsste zu großen Teilen nachprogrammiert werden, um alle Möglichkeiten die TYPO3 bietet offen zu halten.
+Der spezielle Seitentyp (numType) bietet langfristig mehr Möglichkeiten ohne die Fehleranfälligkeit der eigenen Implementierung.
+
+.. IMPORTANT::
+   * Diese Version entfernt die entsprechende Konfiguration für den eID-Dispatcher und alle dazugehörigen Klassen. Sollte das Hinzufügen von Produkten über diesen Weg erfolgen, muss die eigene TypoScript-Konfiguration und das eigenen JavaScript überprüft werden.
+   * Das mitgelieferte TypoScript bringt eine Konfiguration füe den Seitentyp 2278001 mit. Sollte das Standard-Typoscript nicht verwendet werden, ist diese Konfiguration zu adaptieren.
+   * Wird nicht das mitgelieferte JavaScript verwendet werden, muss die URL, an die das Formular für das Hinzufügen eines neuen Produktes gesendet wird, angepasst werden.
+   * Die Antwort ist nach wie vor ein JSON-Objekt uns ist so aufgebaut wie zuvor. Weiterhin wurde in die Antwort die aktualisierten Produkte aufgenommen.

@@ -213,8 +213,6 @@ class Cart
      * @param string $currencyCode
      * @param string $currencySign
      * @param float $currencyTranslation
-     *
-     * @return Cart
      */
     public function __construct(
         array $taxClasses,
@@ -813,7 +811,7 @@ class Cart
      */
     public function toJson()
     {
-        json_encode($this->toArray());
+        return json_encode($this->toArray());
     }
 
     /**

@@ -1,61 +1,15 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      data-namespace-typo3-fluid="true">
+
 <f:layout name="Mail"/>
 
 <f:section name="main">
-    <table width="600" cellspacing="0" border="0" style="font-family: Arial, Helvetica, sans-serif; font-size: 12px;">
-        <tr>
-            <td height="10" style="font-size:10px; line-height:10px;">   </td><!-- Spacer -->
-        </tr>
-        <tr>
-            <td width="600" height="34" style="background-color:#2d4554; color:#fff; padding:10px 5px; font-family: Arial, Helvetica, sans-serif; font-size: 12px;">
-                <b><f:translate key="tx_cart.mail.order_information" />:</b>
-            </td>
-        </tr>
-    </table>
+    <f:render partial="Mail/OrderInformation" arguments="{_all}"/>
 
-    <f:render partial="Mail/Address" arguments="{billingAddress: billingAddress, shippingAddress: shippingAddress}"/>
-
-    <table width="600" cellspacing="0" border="0" style="font-family: Arial, Helvetica, sans-serif; font-size: 12px;">
-        <tr>
-            <td height="10" style="font-size:10px; line-height:10px;">   </td><!-- Spacer -->
-        </tr>
-        <tr>
-            <td width="600" height="34" style="background-color:#2d4554; color:#fff; padding:10px 5px; font-family: Arial, Helvetica, sans-serif; font-size: 12px;">
-                <b><f:translate key="tx_cart.mail.order_summary" />:</b>
-            </td>
-        </tr>
-    </table>
-
-    <table cellspacing="0" border="0" style="font-family: Arial, Helvetica, sans-serif; font-size: 12px;">
-        <tbody>
-        <f:if condition="{orderItem.orderNumber}">
-            <tr>
-                <td colspan="2" style="font-family: Arial, Helvetica, sans-serif; font-size: 12px;"><b><f:translate key="tx_cart_domain_model_order_item.order_number" /></b></td>
-                <td style="font-family: Arial, Helvetica, sans-serif; font-size: 12px;">: {orderItem.orderNumber}</td>
-            </tr>
-        </f:if>
-        <tr>
-            <td colspan="2" style="font-family: Arial, Helvetica, sans-serif; font-size: 12px;"><b><f:translate key="tx_cart_domain_model_order_item.order_date" /></b></td>
-            <td style="font-family: Arial, Helvetica, sans-serif; font-size: 12px;">: <f:format.date format="d.m.Y" date="{orderItem.orderDate}" /></td>
-        </tr>
-        <tr>
-            <td colspan="2" style="font-family: Arial, Helvetica, sans-serif; font-size: 12px;"><b><f:translate key="tx_cart.mail.payment_method" /></b></td>
-            <td style="font-family: Arial, Helvetica, sans-serif; font-size: 12px;">: {orderItem.payment.name}</td>
-        </tr>
-        <tr>
-            <td colspan="2" style="font-family: Arial, Helvetica, sans-serif; font-size: 12px;"><b><f:translate key="tx_cart.mail.shipping_method" /></b></td>
-            <td style="font-family: Arial, Helvetica, sans-serif; font-size: 12px;">: {orderItem.shipping.name}</td>
-        </tr>
-        <f:if condition="{orderItem.comment}">
-            <tr>
-                <td colspan="2" style="font-family: Arial, Helvetica, sans-serif; font-size: 12px;"><b><f:translate key="tx_cart_domain_model_order_item.comment" /></b></td>
-                <td style="font-family: Arial, Helvetica, sans-serif; font-size: 12px;">: {orderItem.comment}</td>
-            </tr>
-        </f:if>
-        <tr>
-            <td height="10" style="font-size:10px; line-height:10px;">   </td><!-- Spacer -->
-        </tr>
-        </tbody>
-    </table>
+    <f:render partial="Mail/OrderSummary" arguments="{_all}"/>
 
     <f:render partial="Mail/Cart" arguments="{cart: cart}"/>
+
+    <f:render partial="Mail/Footer" arguments="{_all}"/>
 </f:section>
+</html>

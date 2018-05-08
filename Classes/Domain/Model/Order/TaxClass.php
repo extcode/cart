@@ -53,8 +53,6 @@ class TaxClass extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * @param string $title
      * @param string $value
      * @param float $calc
-     *
-     * @return \Extcode\Cart\Domain\Model\Order\TaxClass
      */
     public function __construct(
         $title,

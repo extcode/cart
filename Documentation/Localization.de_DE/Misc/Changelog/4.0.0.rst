@@ -1,0 +1,268 @@
+.. ==================================================
+.. FOR YOUR INFORMATION
+.. --------------------------------------------------
+.. -*- coding: utf-8 -*- with BOM.
+
+4.0.0 - 20.07.2017
+------------------
+
+Diese Version wird einige Änderungen mit sich bringen. Darunter befinden sich einige neue Funktionen, aber auch ein paar Änderungen, die Anpassungen an bestehenden Installationen erforderlich machen. Dieser ChangeLog-Eintrag sollte daher sorgfältig durchgearbeitet werden.
+
+Danksagung
+==========
+
+Einige Neuerungen konnten nur durch die finanzielle Unterstützung oder Entwicklung anderer entstehen.
+
+Ein großer Dank geht an den Sponsor Rainer Karnowski von `celmedia.ch <http://celmedia.ch/>`_ für drei Tage
+gesponsorte Arbeit zur Währungsumrechnung (#92).
+Neben der finanziellen Beteiligung an der Entwicklung dieses Features unterstützt er Cart auch auf `https://patreon.com <https://patreon.com/ext_cart>`_.
+
+Weiterhin bedanke ich mich bei:
+
+- `Ralf Zimmermann <https://github.com/tritumRz>`_ für seine Vorarbeit die Validatoren für die Bestellung via TypoScript dynamisch setzen zu können (#117),
+- `Andreas Steiger <https://github.com/11ND11>`_ für seine Unterstützung bei der Überarbeitung der Mail-Templates (#125).
+
+#99 Unterstützung nur für die PHP Versionen 5.6 und 7.0+
+========================================================
+
+Da der Support für die PHP Versionen 5.4 und 5.5 ausgelaufen ist und diese Versionen nicht mehr verwendet werden sollten,
+verzichtet Cart auch auf die Unterstützung dieser Versionen, auch wenn TYPO3 v7.6 noch damit laufen sollte.
+Aus dem Blickwinkel Sicherheit, die bei einem Online-Shop eine große Rolle spielt, sollten diese Versionen nicht mehr
+eingesetzt werden.
+
+.. NOTE::
+   Die Tests für diese Versionen wurden ebenfalls entfernt.
+
+#100 Aufräumen der Abhängigkeiten in composer-Installationen
+============================================================
+
+Ein paar nicht verwendete Abhängigkeiten wurden aus der composer.json entfernt. Dies sollte keine negativen Auswirkungen
+haben.
+
+#101 Unterstützung für TYPO3 v6.2 entfernt
+==========================================
+
+Die Unterstützung für TYPO3 v6.2 wurde entfernt. Da Extension-Maintainer in der Regel keine Unterstützung für die
+täglich anfallenden Supportanfragen bekommen, muss dieser Schritt erfolgen.
+Ein Ziel von `coders.care <https://coders.care>`_ ist die Möglichkeit auch :abbr:`SLA (Service Level Agreement)`. für
+Erweiterungen abzuschließen. Für Cart wird geprüft, in wie weit eine Beteiligung an diesem Projekt möglich ist.
+
+.. IMPORTANT::
+   Da der offizielle Support für TYPO3 v6.2 ausgelaufen ist, kann in der aktuellen Weiterentwicklung nur auf die LTS
+   Versionen Rücksicht genommen werden. Sofern in Fehler auch die ältere Version betrifft, wird dieser auch in einem
+   eigenen `Branch 3.x auf github.com <https://github.com/extcode/cart/tree/3.x>`_ behoben. Eine Aktualisierung im TER
+   findet ggf. nicht mehr statt.
+
+#92 Währungsumrechnung und Neuberechnung der Steuern
+====================================================
+
+Das neue Feature bringt ein neues Plugin und eine neue Action im Warenkorb mit, mit der der Kunde die angezeigte Währung
+im Warenkorb wechseln kann. Diese wird wie folgt konfiguriert.
+
+::
+
+    plugin.tx_cart {
+        settings {
+            currencies {
+                default = 1
+                1 {
+                    code = EUR
+                    sign = €
+                    translation = 1.00
+                }
+                2 {
+                    code = CHF
+                    sign = CHF
+                    translation = 1.07123704
+                }
+            }
+        }
+    }
+
+|
+
+Man kann hier beliebig viele Währungen anlegen. Der Währungscode wird für einige Payment Anbieter und den Request
+benötigt. Das Währungssymbol wird dann beim Nutzer ausgegeben. Der Währungsumrechnungsfaktor gibt hier an, wie die
+Preise der Produkte in die Fremdwährung umgerechet werden.
+
+Beispiel:
+
+Das Produkt ist mit 10.00 € gepflegt. Der Umrechnungsfaktor für Schweizer Franken ist mit 1.07123704 angegeben, dann
+ist der resultierende Preis 9,34 CHF. Der Preis wird also durch den Faktor dividiert.
+
+.. NOTE::
+   Im Moment gibt es noch keinen Automatismus den Faktor zu aktualisieren und an einen aktuellen Wert anzupassen. Mit
+   einem kleinen Scheduler-Task sollte aber recht schnell ein entsprechender Service angebunden werden können.
+
+.. IMPORTANT::
+   Da die Währung auch in der Bestellung gespeichert wird, ist eine Aktualisierung der Datenbank erforderlich. Da nur
+   neue Felder hinzukommen ist nicht mit Problemen zu rechnen.
+
+#122 Functional Tests für das Parsen von TypoScript
+===================================================
+
+In dieser Version sollen nach und nach Functional Tests eingeführt werden, die das korrekte Verhalten von Funktionen
+absichert. Dazu gehört auch das Parsen von TypoScript-Konfigurationen. Weitere Tests sollen folgen.
+
+#123 Zonenkonfiguration für Bezahl- und Versandmethoden
+=======================================================
+
+Neben der noch recht neuen Konfiguration für verschiedene Länder Bezahl- und Versandmethoden konfigurieren zu können ist
+es manchmal gewünscht in viele Länder liefern zu können ohne jeweils eine eigene Konfiguration zu hinterlegen. Daher
+können nun Zonenkonfigurationen hinterlegt werden. Diese werden genutzt, falls es keine direkte Konfiguration für dieses
+Land gibt.
+
+::
+
+    plugin.tx_cart {
+        shippings {
+            countries {
+                de {
+                    preset = 1
+                    options {
+                        1 {
+                            title = Standard
+                            extra = 4.95
+                            taxClassId = 1
+                            status = open
+                        }
+                    }
+                }
+            }
+            zones {
+                1 {
+                    preset = 1
+                    countries = at,ch
+                    options {
+                        1 {
+                            title = Standard
+                            extra = 10.95
+                            taxClassId = 1
+                            status = open
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+|
+
+Die Konfiguration einer Zone entspricht der Konfiguration für Länder, erfordert aber eine zusätzlich Konfiguration,
+für welche Länder diese Zonenkonfiguration gültig ist.
+
+.. NOTE::
+   Um die Konfiguration übersichtlicher gestalten zu können wurde die Länderspezifische Konfiguration noch einmal in countries
+   gruppiert. Die Anpassung dieser Konfiguration ist aktuell noch nicht zwingend erforderlich, soll aber in den kommenden
+   Versionen der Standard werden.
+
+#117 Konfigurierbare Validierung für Formularfelder
+===================================================
+
+Da nicht alle Integrationen des Warenkorbs alle Felder für die Adresseingabe als Pflichtfelder benötigen, wurden die
+Validatoren im Model entfernt. Damit trotzdem eine serverseitige Konfiguration stattfindet, werden diese im Controller
+dynamisch hinzugefügt. Die Standardkonfiguration, die die Cart setup.txt spiegelt die bisherige Konfiguration im Model
+wieder.
+
+::
+
+    plugin.tx_cart {
+        settings {
+            validation {
+                orderItem {
+                    fields {
+                        acceptTerms {
+                            validator = Boolean
+                            options.is = true
+                        }
+                        acceptConditions {
+                            validator = Boolean
+                            options.is = true
+                        }
+                    }
+                }
+                billingAddress {
+                    fields {
+                        salutation {
+                            validator = NotEmpty
+                        }
+                        firstName {
+                            validator = NotEmpty
+                        }
+                        lastName {
+                            validator = NotEmpty
+                        }
+                        email {
+                            validator = NotEmpty
+                        }
+                        street {
+                            validator = NotEmpty
+                        }
+                        zip {
+                            validator = NotEmpty
+                        }
+                        city {
+                            validator = NotEmpty
+                        }
+                    }
+                }
+                shippingAddress {
+                    fields {
+                        salutation {
+                            validator = NotEmpty
+                        }
+                        firstName {
+                            validator = NotEmpty
+                        }
+                        lastName {
+                            validator = NotEmpty
+                        }
+                        email {
+                            validator = NotEmpty
+                        }
+                        street {
+                            validator = NotEmpty
+                        }
+                        zip {
+                            validator = NotEmpty
+                        }
+                        city {
+                            validator = NotEmpty
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+|
+
+Um ein Feld von den Pflichtfeldern auszunehmen, kann einfach die Konfiguration entfernt aus dem TypoScript entfernt
+werden. Andererseits können aber auch andere Felder zu den Pflichtfeldern hinzugefügt werden.
+Die angepassten Templates nutzen die Konfiguration im TypoScript ebenfalls und fügen entsprechend das Asterix (*) zum
+Label hinzu und das required-Attribut am Eingabefeld. Eine Anpassung des Templates ist dafür also nicht zwingend
+notwendig.
+
+.. NOTE::
+   Cart bringt auch einen eigenen Empty Validator mit, der prüft, ob ein Feld auch wirklich leer bleibt. Zusätzlich
+   wird das Feld nicht im Frontend dargestellt, wenn der Empty Validator verwendet wird.
+
+
+#125 Überarbeitung der E-Mail-Templates
+=======================================
+
+Die E-Mail-Templates wurden dahingehend optimiert, dass die E-Mails in möglichst vielen E-Mail-Programmen und
+Webanwendungen gleich dargestellt werden.
+
+.. NOTE::
+   Eine Anpassung ist nicht zwingend erforderlich.
+
+#126 Sortierung der Produkte im Teaser mit PHP
+==============================================
+
+Die Integration von Doctrine in TYPO3 v8.7 und die daraus folgende Anpassung in extbase führt zu einer Fehlermeldung, da
+Tabellen- und Feldnamen mit Backticks versehen werden. Das Array mit der übergebenen Sortierung wird dadurch falsch
+interpretiert. Eine Lösung ist ohne Umstellung auf Doctrine nicht in Sicht. Doctrine wurde aber erst mit TYPO3 v8.7
+eingeführt und noch ist keine Backport-Extension in Sicht.
+Da im Teaser aber nur wenige Produkte dargestellt werden, ist die Sortierung mit PHP unter dem Gesichtspunkt der
+Resourcennutzung nicht schön, aber zu vertreten.

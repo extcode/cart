@@ -139,7 +139,7 @@ class VariantSelectViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractV
                 $data .= ' data-special-price-percentage-discount="' . $specialPricePercentageDiscount . '"';
             }
             $disabled = '';
-            if (!$beVariant->getIsAvailable() && $beVariant->getProduct()->getHandleStockInVariants()) {
+            if (!$beVariant->getIsAvailable() && $beVariant->getProduct()->isHandleStockInVariants()) {
                 $disabled = 'disabled';
             }
 

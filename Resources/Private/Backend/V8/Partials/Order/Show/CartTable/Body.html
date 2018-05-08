@@ -1,4 +1,6 @@
-{namespace cart=Extcode\Cart\ViewHelpers}
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:cart="http://typo3.org/ns/Extcode/Cart/ViewHelpers"
+      data-namespace-typo3-fluid="true">
 
 <f:section name="product">
     <tr>
@@ -42,3 +44,4 @@
     <f:render section="product"
               arguments="{product: product, currencySign: orderItem.currency}"/>
 </f:for>
+</html>

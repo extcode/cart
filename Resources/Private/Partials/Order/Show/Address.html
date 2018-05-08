@@ -1,23 +1,32 @@
-<div>
-    <div>
-        <span>{address.salutation} {address.title} {address.firstName} {address.lastName}</span><br/>
-        <f:if condition="{address.company}">
-            <span>{address.company}</span><br/>
-        </f:if>
-        {address.street} {address.streetNumber}<br/>
-        {address.zip} {address.city}<br/>
-        {address.country}
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      data-namespace-typo3-fluid="true">
+
+<div class="show-address">
+    <div class="address-block">
+        <p>
+            <span>{address.salutation} {address.title} {address.firstName} {address.lastName}</span><br/>
+            <f:if condition="{address.company}">
+                <span>{address.company}</span><br/>
+            </f:if>
+            {address.street} {address.streetNumber}<br/>
+            {address.zip} {address.city}<br/>
+            <f:if condition="{address.country}">
+                <f:translate key="tx_cart.settings.allowed_countries.{address.country}" default="{address.country}"/>
+            </f:if>
+        </p>
     </div>
-    <br/>
-    <div>
-        <f:if condition="{address.email}">
-            {address.email}<br/>
-        </f:if>
-        <f:if condition="{address.phone}">
-            {address.phone}<br/>
-        </f:if>
-        <f:if condition="{address.fax}">
-            {address.fax}<br/>
-        </f:if>
+    <div class="address-block">
+        <p>
+            <f:if condition="{address.email}">
+                {address.email}<br/>
+            </f:if>
+            <f:if condition="{address.phone}">
+                {address.phone}<br/>
+            </f:if>
+            <f:if condition="{address.fax}">
+                {address.fax}<br/>
+            </f:if>
+        </p>
     </div>
 </div>
+</html>

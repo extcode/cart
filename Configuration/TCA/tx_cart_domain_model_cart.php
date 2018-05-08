@@ -16,10 +16,12 @@ return [
         'versioningWS' => 2,
         'versioning_followPages' => true,
         'origUid' => 't3_origuid',
+
         'hideTable' => true,
         'delete' => 'deleted',
         'enablecolumns' => [],
         'searchFields' => '',
+        'iconfile' => 'EXT:cart/Resources/Public/Icons/Cart.svg'
     ],
     'interface' => [
         'showRecordFieldList' => 'pid, f_hash, s_hash, fe_user, was_ordered, order_item, cart',

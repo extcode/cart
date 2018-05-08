@@ -1,6 +1,6 @@
 ajaxCart = PAGE
 ajaxCart {
-    typeNum = 2278001
+    typeNum = {$plugin.tx_cart.settings.addToCartByAjax}
 
     config {
         disableAllHeaderCode = 1
@@ -11,21 +11,6 @@ ajaxCart {
     }
 
     10 < tt_content.list.20.cart_cart
-}
-
-ajaxProduct = PAGE
-ajaxProduct {
-    typeNum = 2278002
-
-    config {
-        disableAllHeaderCode = 1
-        xhtml_cleaning = 0
-        admPanel = 0
-        debug = 0
-        no_cache = 1
-    }
-
-    10 < tt_content.list.20.cart_product
 }
 
 ajaxCurrency = PAGE
@@ -43,46 +28,15 @@ ajaxCurrency {
     10 < tt_content.list.20.cart_currency
 }
 
-config.tx_extbase {
-    persistence {
-        classes {
-            Extcode\Cart\Domain\Model\Category {
-                mapping {
-                    tableName = sys_category
-                    recordType =
-                }
-            }
-        }
-    }
-}
-
-plugin.tx_cart {
-    persistence {
-        classes {
-            Extcode\Cart\Domain\Model\Category {
-                mapping {
-                    tableName = sys_category
-                }
-            }
-        }
-    }
-}
-
 page.includeCSS.tx_cart = EXT:cart/Resources/Public/Stylesheets/cart.css
 page.includeJSFooter.tx_cart = EXT:cart/Resources/Public/JavaScripts/cart.js
 
 plugin.tx_cart {
 
     view {
-        templateRootPaths {
-            0 = {$plugin.tx_cart.view.templateRootPath}
-        }
-        partialRootPaths {
-            0 = {$plugin.tx_cart.view.partialRootPath}
-        }
-        layoutRootPaths {
-            0 = {$plugin.tx_cart.view.layoutRootPath}
-        }
+        templateRootPaths.0 = {$plugin.tx_cart.view.templateRootPath}
+        partialRootPaths.0 = {$plugin.tx_cart.view.partialRootPath}
+        layoutRootPaths.0 = {$plugin.tx_cart.view.layoutRootPath}
     }
 
     persistence {
@@ -96,10 +50,36 @@ plugin.tx_cart {
         skipDefaultArguments = 1
     }
 
+    finishers {
+        order {
+            100 {
+                class = Extcode\Cart\Domain\Finisher\OrderFinisher
+            }
+            110 {
+                class = Extcode\Cart\Domain\Finisher\OrderNumberFinisher
+            }
+            200 {
+                class = Extcode\Cart\Domain\Finisher\StockFinisher
+            }
+            300 {
+                class = Extcode\Cart\Domain\Finisher\PaymentFinisher
+            }
+            400 {
+                class = Extcode\Cart\Domain\Finisher\EmailFinisher
+            }
+            500 {
+                class = Extcode\Cart\Domain\Finisher\ClearCartFinisher
+            }
+        }
+    }
+
     settings {
         cart {
             pid = {$plugin.tx_cart.settings.cart.pid}
             isNetCart = {$plugin.tx_cart.settings.cart.isNetCart}
+
+            acceptTerms.pid = {$plugin.tx_cart.settings.cart.acceptTerms.pid}
+            acceptConditions.pid = {$plugin.tx_cart.settings.cart.acceptConditions.pid}
         }
 
         order {
@@ -254,31 +234,6 @@ plugin.tx_cart {
         }
     }
 
-    gpValues {
-        productId        = {$plugin.tx_cart.gpValues.productId}
-        productStorageId = {$plugin.tx_cart.gpValues.productStorageId}
-
-        contentId        = {$plugin.tx_cart.gpValues.contentId}
-
-        quantity         = {$plugin.tx_cart.gpValues.quantity}
-
-        beVariants.1     = {$plugin.tx_cart.gpValues.beVariants.1}
-        beVariants.2     = {$plugin.tx_cart.gpValues.beVariants.2}
-        beVariants.3     = {$plugin.tx_cart.gpValues.beVariants.3}
-
-        multiple         = {$plugin.tx_cart.gpValues.multiple}
-
-        beVariants {
-            1 = beVariants|1
-        }
-    }
-
-    productStorages {
-        1 {
-            class = {$plugin.tx_cart.productStorages.1.class}
-        }
-    }
-
     taxClasses {
         1 {
             value = {$plugin.tx_cart.taxClasses.1.value}
@@ -380,29 +335,53 @@ module.tx_cart {
     deliveryNumber < plugin.tx_cart.deliveryNumber
 }
 
+
 # use this lib to add custom information or content elements to your email template
-lib.cartMailHeader = COA
+
+temp.cartMailContentElement = RECORDS
+temp.cartMailContentElement {
+    tables = tt_content
+    dontCheckPid = 1
+    conf.tt_content = FLUIDTEMPLATE
+    conf.tt_content {
+        templateRootPaths.10 = EXT:cart/Resources/Private/Templates/Mail/
+        partialRootPaths.10 = EXT:cart/Resources/Private/Partials/Mail/
+        layoutRootPaths.10 = EXT:cart/Resources/Private/Layouts/
+        templateName = ContentElement
+    }
+}
+
+lib.cartMailHeader < temp.cartMailContentElement
 lib.cartMailHeader {
+    source = {$plugin.tx_cart.uids.lib.cartMailHeader}
 }
 
-# use this lib to add custom information or content elements to your email template
-lib.cartMailFooter = COA
+lib.cartMailFooter < temp.cartMailContentElement
 lib.cartMailFooter {
+    source = {$plugin.tx_cart.uids.lib.cartMailFooter}
 }
 
-lib.cartProduct = COA
-lib.cartProduct.showForm = USER
-lib.cartProduct.showForm {
-    userFunc = TYPO3\CMS\Extbase\Core\Bootstrap->run
-    vendorName = Extcode
-    extensionName = Cart
-    pluginName = ProductPartial
+lib.cartMailFooterSignature < temp.cartMailContentElement
+lib.cartMailFooterSignature {
+    source = {$plugin.tx_cart.uids.lib.cartMailFooterSignature}
+}
 
-    controller = Product
-    action = showForm
+lib.cartMailFooterTermsOfService < temp.cartMailContentElement
+lib.cartMailFooterTermsOfService {
+    source = {$plugin.tx_cart.uids.lib.cartMailFooterTermsOfService}
+}
 
-    settings =< plugin.tx_cart.settings
-    persistence =< plugin.tx_cart.persistence
-    view =< plugin.tx_cart.view
-    update =< plugin.tx_cart.update
+lib.cartMailFooterRevocation < temp.cartMailContentElement
+lib.cartMailFooterRevocation {
+    source = {$plugin.tx_cart.uids.lib.cartMailFooterRevocation}
+}
+
+lib.cartMailFooterDataProtection < temp.cartMailContentElement
+lib.cartMailFooterDataProtection {
+    source = {$plugin.tx_cart.uids.lib.cartMailFooterDataProtection}
+}
+
+lib.cartMailFooterImpress < temp.cartMailContentElement
+lib.cartMailFooterImpress {
+    source = {$plugin.tx_cart.uids.lib.cartMailFooterImpress}
 }

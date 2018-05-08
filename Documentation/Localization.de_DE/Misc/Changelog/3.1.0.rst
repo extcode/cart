@@ -1,0 +1,22 @@
+.. ==================================================
+.. FOR YOUR INFORMATION
+.. --------------------------------------------------
+.. -*- coding: utf-8 -*- with BOM.
+
+3.1.0 - 04.04.2017
+------------------
+
+Diese Version beinhaltet eine Fehlerbehebung für den Versandkostenfilter by_quantity. Dieser wird in der Regel für die
+Staffelung von Versandkosten eingesetzt und hat bisher sowohl physische als auch virtuelle Produkte gezählt. Da virtuelle
+und Download-Produkte nicht verschickt werden müssen, sollten dafür auch keine Versandkosten berechnet werden.
+Das Verhalten von by_quantity wurde dahingehend angepasst. Weiterhin kommen die neuen Bedingungen:
+
+* by_number_of_physical_products (entspricht by_quantity)
+* by_number_of_virtual_products
+* by_number_of_all_products
+
+hinzu.
+
+.. IMPORTANT::
+   Da sich das Verhalten ändert, müssten für die Fälle, in denen by_quantity auch alle virtuellen Produkte einbezieht,
+   der neue TypoScript-Wert by_number_of_all_products genutzt werden.

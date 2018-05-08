@@ -1,0 +1,12 @@
+.. ==================================================
+.. FOR YOUR INFORMATION
+.. --------------------------------------------------
+.. -*- coding: utf-8 -*- with BOM.
+
+0.18.0 - 18.07.2016
+-------------------
+
+Diese Version erlaubt das Hinzufügen von Produkten mit Frontend Varianten über einen AJAX-Submit. Bisher wurden die Produktformularfelder ignoriert.
+
+.. IMPORTANT::
+   Diese Version ändert die Parameter die im AJAX-Request an den Server geschickt werden. Sollte nicht die cart.js genutzt werden, muss die eigene JavaScript-Funktion entspechend angepasst werden.

@@ -32,7 +32,7 @@ class SessionHandler implements SingletonInterface
      *
      * @return \Extcode\Cart\Domain\Model\Cart\Cart
      */
-    public function restoreFromSession($key)
+    public function restore($key)
     {
         $sessionData = $GLOBALS['TSFE']->fe_user->getKey('ses', $this->prefixKey . $key);
         return unserialize($sessionData);
@@ -46,7 +46,7 @@ class SessionHandler implements SingletonInterface
      *
      * @return SessionHandler $this
      */
-    public function writeToSession(\Extcode\Cart\Domain\Model\Cart\Cart $cart, $key)
+    public function write(\Extcode\Cart\Domain\Model\Cart\Cart $cart, $key)
     {
         $sessionData = serialize($cart);
         $GLOBALS['TSFE']->fe_user->setKey('ses', $this->prefixKey . $key, $sessionData);
@@ -61,7 +61,7 @@ class SessionHandler implements SingletonInterface
      *
      * @return SessionHandler $this
      */
-    public function cleanUpSession($key)
+    public function clear($key)
     {
         $GLOBALS['TSFE']->fe_user->setKey('ses', $this->prefixKey . $key, null);
         $GLOBALS['TSFE']->fe_user->storeSessionData();

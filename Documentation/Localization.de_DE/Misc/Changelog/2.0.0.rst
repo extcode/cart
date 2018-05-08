@@ -1,0 +1,18 @@
+.. ==================================================
+.. FOR YOUR INFORMATION
+.. --------------------------------------------------
+.. -*- coding: utf-8 -*- with BOM.
+
+2.0.0 - 21.12.2016
+------------------
+
+TYPO3 v8.5 wurde veröffentlicht und es geht weiter. Das ist ein Grund nun auch Cart für die nächste LTS-Version frei zu geben.
+Leider enthält diese Version noch einen Fehler (https://forge.typo3.org/issues/79045), der erst heute behoben wurde, also nach der Veröffentlichung.
+
+Weiterhin wurde die Lagerverwaltung weiterentwickelt, so dass diese fur Produkte und Backend Varianten funktioniert.
+
+.. IMPORTANT::
+   Es gab leider ein paar Umbenennungen in den neu eingeführten SignalSlots, um das Namensschema und den Aufruf zu vereinheitlichen.
+
+.. IMPORTANT::
+   Es ist eine Aktualisierung der Datenbank erforderlich. Da die Felder bisher nicht benutzt wurden, sollte das in der Regel unproblematisch sein.

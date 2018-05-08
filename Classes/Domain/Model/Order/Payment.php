@@ -40,8 +40,6 @@ class Payment extends \Extcode\Cart\Domain\Model\Order\AbstractService
 
     /**
      * __construct
-     *
-     * @return \Extcode\Cart\Domain\Model\Order\Payment
      */
     public function __construct()
     {

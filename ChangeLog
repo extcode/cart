@@ -1,20 +1,25 @@
-4.5.0
-    2017-11-18
-    Daniel Lorenz <https://github.com/siwa-pparzer>
-
-    * TASK #150: add sorting to tables
-
-4.4.1
-    2017-11-18
-    Daniel Lorenz <https://github.com/extcode>
-
-    * TASK #164: add orderFinished action as a redirect endpoint for payment providers
-
-4.4.0
-    2017-11-17
+5.0.0
+    2018-02-13
     Daniel Lorenz <https://github.com/extcode>
 
     * TASK #163: save billing and shipping country to order
+    * TASK #150: add sorting to tables
+    * TASK #145: order view template bugs
+    * TASK #168: add sonarqube to gitlab-ci pipeline
+    * TASK #169: add ter upload to gitlab-ci pipeline
+    * TASK #170: replace GPL-2.0+ by GPL-2.0-or-later in composer.json
+    * TASK #171: checkbox labels missing attribute 'for'
+    * BUGFIX #174: wrong price calculation for configurable products with discount prices
+    * BUGFIX #159: special price not working correct - render() only called once
+    * BUGFIX #176: use user group for special and discount prices
+    * BUGFIX #177: add translation for tca quantity discount frontend_user_group
+    * BUGFIX #178: add translations for products module
+    * TASK #180: add edit link to product module
+    * BUGFIX #182: update sonarqube configuration to version 2.0
+    * BUGFIX #179: check stock when product should be added to cart or number should be updated
+    * TASK #59: use frontend user data for invoice/shipping address
+    * TASK #64: use contacts adresses for invoice/shipping address
+    * TASK #188: extract products from cart extension
 
 4.3.2
     2017-11-03

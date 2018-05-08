@@ -3,26 +3,29 @@
 .. --------------------------------------------------
 .. -*- coding: utf-8 -*- with BOM.
 
-Einführung
-----------
+Introduction
+------------
 
-Cart ist eine Erweiterung, um einen einfachen Online-Shop in TYPO3 zu realisieren.
+Cart is an extension providing a shopping solution for TYPO3.
 
-Fokus
+Focus
 =====
 
-Der Fokus liegt bei kleineren bis mittleren Shops für Nutzer, die bereits ein TYPO3 für die Internetseiten nutzen und eine einfache Shopping-Lösung benötigen.
-Cart ist dabei nicht auf eine maximale Anzahl an Produkten beschränkt. Die Beschränkung liegt hier eher in der Anzahl der zu verwaltenden Bestellungen. Derzeit ist keine Anbindung an eine Warenwirtschaft geplant.
-Auch ist die Anzahl der Module, die diesen Shop erweitern noch sehr eingeschränkt. Mit CartPaypal und CartGirosolution wird es die ersten Zahlungsanbieter geben. Mit CartPdf können Rechnungen im PDF-Format erzeugt werden.
+The focus of Cart are TYPO3 webpages with the need for a shopping solution.
+Cart has no restriction on the maximum number of products. The restriction is more likely the number of orders to be
+managed. Providing APIs to good economy systems are not planned.
+The number of modules to add more functionality to Cart is still limited. There are some payment provider extensions
+available. An other extension generates PDF documents for order confirmation,
+invoices or delivery notes.
+The focus in the development of Cart is that despite all the possibilities (variants, front-end variants, coupons, ...) in the first installation remains very simple.
+In addition, finishers, signal slots and hooks should offer the opportunity to expand the shopping cart by own functions
+or to control the order processing.
 
-Der Fokus in der Entwicklung von Cart ist, dass trotz aller Möglichkeiten (Varianten, Frontend Varianten, Gutscheine, ...) in der ersten Installation sehr einfach bleibt.
-Weiterhin sollen verschiedene SignalSlots die Erweiterung oder den Eingriff im Ablauf ermöglichen.
+Examples
+========
 
-Beispiele
-=========
-
-Hörgeräte ISMA
-^^^^^^^^^^^^^^
+Hörgeräte ISMA (hearing aid)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. figure:: ../Images/Examples/hoergeraete-isma.de.png
    :width: 320
@@ -30,8 +33,8 @@ Hörgeräte ISMA
 
 `www.hoergeraete-isma.de <https://www.hoergeraete-isma.de/shop>`__
 
-Weingut Isele
-^^^^^^^^^^^^^
+Weingut Isele (winery)
+^^^^^^^^^^^^^^^^^^^^^^
 
 .. figure:: ../Images/Examples/weingut-isele.de.png
    :width: 320
@@ -41,9 +44,9 @@ Weingut Isele
 
 
 .. toctree::
-    :maxdepth: 5
-    :titlesonly:
+   :maxdepth: 5
+   :titlesonly:
 
-    Support/Index
-    Sponsoring/Index
-    NoteOfThanks/Index
+   Support/Index
+   Sponsoring/Index
+   NoteOfThanks/Index

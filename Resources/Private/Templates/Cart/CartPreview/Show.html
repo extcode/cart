@@ -1,0 +1,18 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      data-namespace-typo3-fluid="true">
+
+<f:layout name="Plain"/>
+
+<f:section name="main">
+    <div id="cart-preview" class="tx-cart cart-preview">
+        <div class="cart-preview-content">
+            <span class="cart-preview-count">{cart.count}</span> <f:translate key="tx_cart.plugin.mini_cart.products_in_cart" />
+        </div>
+        <div class="btn btn-default checkout-link" style="{f:if(condition:'{cart.count}>0',then:'display: block;',else:'display: none;')}" data-link-to-checkout>
+            <f:link.page pageUid="{settings.cart.pid}" class="btn btn-default btn-primary">
+                <f:translate key="tx_cart.plugin.mini_cart.go_to_checkout"/>
+            </f:link.page>
+        </div>
+    </div>
+</f:section>
+</html>

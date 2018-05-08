@@ -3,6 +3,15 @@
     <file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2015-02-03T16:30:00Z" product-name="cart">
         <header/>
         <body>
+            <trans-unit id="tx_cart.error.stock_handling.add">
+                <source>Desired number of this item not available.</source>
+                <target>Gewünschte Anzahl dieses Artikels nicht verfügbar.</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.error.stock_handling.update">
+                <source>Desired number of this item not available.</source>
+                <target>Gewünschte Anzahl dieses Artikels nicht verfügbar.</target>
+            </trans-unit>
+
             <trans-unit id="validator.notempty.empty">
                 <source>The given subject was not empty.</source>
                 <target>Der angegebene Wert ist nicht leer.</target>
@@ -61,9 +70,90 @@
                 <source>Dear %s,</source>
                 <target>Sehr geehrte(r) %s,</target>
             </trans-unit>
-            <trans-unit id="tx_cart.mail.signature">
-                <source>Sincerely yours</source>
-                <target>Mit freundlichen Grüßen</target>
+
+            <trans-unit id="tx_cart_domain_model_cart_product.title">
+                <source>Product</source>
+                <target>Produkt</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_cart_product.sku">
+                <source>Stock Keeping Unit</source>
+                <target>Artikelnummer</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_cart_product.sku.short">
+                <source>SKU</source>
+                <target>Art.-Nr.</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_cart_product.count">
+                <source>Quantity</source>
+                <target>Anzahl</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_cart_product.price">
+                <source>Price</source>
+                <target>Preis</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_cart_product.price_net">
+                <source>Price (net)</source>
+                <target>Preis (netto)</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_cart_product.price_gross">
+                <source>Price (gross)</source>
+                <target>Preis (brutto)</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_cart_product.price_per_unit">
+                <source>Price per unit</source>
+                <target>Stückpreis</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_cart_product.price_per_unit_net">
+                <source>Price per unit (net)</source>
+                <target>Stückpreis (netto)</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_cart_product.price_per_unit_gross">
+                <source>Price per unit (gross)</source>
+                <target>Stückpreis (brutto)</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_cart_product.price_subtotal">
+                <source>Subtotal</source>
+                <target>Zwischensumme</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_cart_product.price_subtotal_net">
+                <source>Subtotal (net)</source>
+                <target>Zwischensumme (net)</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_cart_product.price_subtotal_gross">
+                <source>Subtotal (gross)</source>
+                <target>Zwischensumme (gross)</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_cart_product.tax">
+                <source>Tax (%s)</source>
+                <target>Umsatzsteuer (%s)</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_cart_product.discount">
+                <source>Discount</source>
+                <target>Rabatt</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_cart_product.total_net">
+                <source>Total Price (net)</source>
+                <target>Gesamtpreis (netto)</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_cart_product.total_gross">
+                <source>Total Price (gross)</source>
+                <target>Gesamtpreis (brutto)</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_cart_product.service_net">
+                <source>Service- and Shipping costs (net)</source>
+                <target>Service- und Versandkosten (netto)</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_cart_product.service_gross">
+                <source>Service- and Shipping costs (gross)</source>
+                <target>Service- und Versandkosten (brutto)</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_cart_product.discount_net">
+                <source>Discount (net)</source>
+                <target>Rabatt (netto)</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_cart_product.discount_gross">
+                <source>Discount (gross)</source>
+                <target>Rabatt (brutto)</target>
             </trans-unit>
 
             <trans-unit id="tx_cart_domain_model_order_product.title">
@@ -89,6 +179,10 @@
             <trans-unit id="tx_cart_domain_model_order_product.price_total">
                 <source>Subtotal</source>
                 <target>Zwischensumme</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_product.total">
+                <source>Total</source>
+                <target>Summe</target>
             </trans-unit>
             <trans-unit id="tx_cart_domain_model_order_product.tax">
                 <source>Tax (%s)</source>
@@ -197,6 +291,10 @@
                 <source>I have read the general terms and agree to them.</source>
                 <target>Ich habe die Allgemeinen Geschäftsbedingungen gelesen und stimme diesen zu.</target>
             </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_item.accept_terms_with_link">
+                <source>I have read the <![CDATA[<a href="%1$s" target="%2$s">general terms</a>]]> and agree to them.</source>
+                <target>Ich habe die <![CDATA[<a href="%1$s" target="%2$s">Allgemeinen Geschäftsbedingungen</a>]]> gelesen und stimme diesen zu.</target>
+            </trans-unit>
             <trans-unit id="tx_cart_domain_model_order_item.accept_terms.error.1361959228">
                 <source>You have to agree to the general terms.</source>
                 <target>Sie müssen den Allgemeinen Geschäftsbedingungen zustimmen.</target>
@@ -204,6 +302,10 @@
             <trans-unit id="tx_cart_domain_model_order_item.accept_conditions">
                 <source>I have read the conditions and agree to them.</source>
                 <target>Ich habe die Widerrufsbelehrung gelesen und stimme dieser zu.</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_item.accept_conditions_with_link">
+                <source>I have read the <![CDATA[<a href="%1$s" target="%2$s">conditions</a>]]> and agree to them.</source>
+                <target>Ich habe die <![CDATA[<a href="%1$s" target="%2$s">Widerrufsbelehrung</a>]]> gelesen und stimme dieser zu.</target>
             </trans-unit>
             <trans-unit id="tx_cart_domain_model_order_item.accept_conditions.error.1361959228">
                 <source>You have to agree to the conditions.</source>
@@ -445,8 +547,8 @@
             </trans-unit>
 
             <trans-unit id="tx_cart.error.validation">
-                <source>A validation error has occurred.</source>
-                <target>Ein Validierungsfehler ist aufgetreten.</target>
+                <source>An error has occurred. Please check your entries.</source>
+                <target>Es ist ein Fehler aufgetreten. Bitte prüfen Sie Ihre Eingaben.</target>
             </trans-unit>
 
             <trans-unit id="tx_cart.controller.cart.action.set_payment.not_available">
@@ -607,8 +709,8 @@
                 <target>Gutscheine</target>
             </trans-unit>
             <trans-unit id="tx_cart.controller.order.action.show_cart.block-header.order_overview">
-                <source>Order Overvier</source>
-                <target>Bestellübersicht</target>
+                <source>Check and Order</source>
+                <target>Prüfen und Bestellen</target>
             </trans-unit>
             <trans-unit id="tx_cart.controller.order.action.show_cart.coupons.not_available">
                 <source>No coupon code was entered.</source>
@@ -618,9 +720,13 @@
                 <source>Thank you for your order.</source>
                 <target>Vielen Dank für Ihre Bestellung.</target>
             </trans-unit>
-            <trans-unit id="tx_cart.controller.order.action.order_cart.thank_you_order_number">
-                <source>Your order number is: %1$s</source>
-                <target>Ihre Bestellnummer lautet: %1$s</target>
+            <trans-unit id="tx_cart.mail.order_summary">
+                <source>Order Summary</source>
+                <target>Bestellübersicht</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.order.history_empty">
+                <source>No orders found.</source>
+                <target>Keine Bestellungen vorhanden.</target>
             </trans-unit>
 
             <trans-unit id="tx_cart.module.productController.listAction.header">
@@ -674,118 +780,21 @@
                 <target>Preis (brutto)</target>
             </trans-unit>
 
-            <trans-unit id="tx_cart_domain_model_product_product">
-                <target>Produkt</target>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_product.sku">
-                <target>SKU</target>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_product.title">
-                <target>Titel</target>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_product.teaser">
-                <target>Teaser</target>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_product.description">
-                <target>Beschreibung</target>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_product.price">
-                <source>Price</source>
-                <target>Preis</target>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_product.unit_price">
-                <source>Unit Price</source>
-                <target>Stückpreis</target>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_product.count">
-                <source>Count</source>
-                <target>Anzahl</target>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_product.subtotal">
-                <source>Subtotal</source>
-                <target>Zwischensumme</target>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_product.regular_price">
-                <source>Regular Price</source>
-                <target>regulärer Preis</target>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_product.special_price">
-                <source>Special Price</source>
-                <target>spezieller Preis</target>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_product.quantity_discounts">
-                <source>Quantity Discount</source>
-                <target>Mengenrabatt</target>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_product.quantity_discount_from">
-                <source>from %s</source>
-                <target>ab %s</target>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_product.price.from">
-                <target>ab</target>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_product.tax_class">
-                <target>Steuerklasse</target>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_productbe_variant_attributes">
-                <target>Variant Set</target>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_product.be_variant_attribute1">
-                <target>Variante 1</target>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_product.be_variant_attribute2">
-                <target>Variante 2</target>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_product.be_variant_attribute3">
-                <target>Variante 3</target>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_product.variants">
-                <target>Variants</target>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_product.related_products">
-                <target>Related Products</target>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_product.images">
-                <target>Bilder</target>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_product.files">
-                <target>Dateien</target>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_product.stock">
-                <target>Lagerbestand</target>
-            </trans-unit>
-
-            <trans-unit id="tx_cart_domain_model_product_product_coupon">
+            <trans-unit id="tx_cart_domain_model_product_coupon">
                 <source>Coupon</source>
                 <target>Gutschein</target>
             </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_product_coupon.code">
+            <trans-unit id="tx_cart_domain_model_product_coupon.code">
                 <source>Coupon Code</source>
                 <target>Gutschein-Code</target>
             </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_product_coupon.code.not_useable">
+            <trans-unit id="tx_cart_domain_model_product_coupon.code.not_useable">
                 <source>Coupon Code is not useable.</source>
                 <target>Gutschein-Code ist nicht verwendbar.</target>
             </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_product_coupon.cart_min_price">
+            <trans-unit id="tx_cart_domain_model_product_coupon.cart_min_price">
                 <source>Minimum Order Value</source>
                 <target>Mindestbestellwert</target>
-            </trans-unit>
-
-            <trans-unit id="tx_cart_domain_model_product_productvariantset">
-                <target>Variant Set</target>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_productvariantset.sku">
-                <target>Sku</target>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_productvariantset.title">
-                <target>Title</target>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_productvariantset.description">
-                <target>Description</target>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_productvariantset.be_variant_attribute_options">
-                <target>Variantattribute</target>
             </trans-unit>
 
             <trans-unit id="tx_cart.plugin.form.submit">
@@ -799,70 +808,6 @@
             <trans-unit id="tx_cart.plugin.form.submit.error">
                 <source>The product could not be added to the shopping cart.</source>
                 <target>Das Produkt konnte nicht in den Warenkorb gelegt werden.</target>
-            </trans-unit>
-
-            <trans-unit id="tx_cart_domain_model_product_producttaxclass">
-                <target>Tax Class</target>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_producttaxclass.title">
-                <target>Name</target>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_producttaxclass.value">
-                <target>Value</target>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_producttaxclass.calc">
-                <target>Calc</target>
-            </trans-unit>
-
-            <trans-unit id="tx_cart_domain_model_product_productvariantset">
-                <target>Variant Set</target>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_productvariantset.sku">
-                <target>SKU</target>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_productvariantset.title">
-                <target>Titel</target>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_productvariantset.description">
-                <target>Beschreibung</target>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_productvariantset.variant">
-                <target>Variant</target>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_productvariantset.variantattributes">
-                <target>Variant Attribute</target>
-            </trans-unit>
-
-            <trans-unit id="tx_cart_domain_model_product_productvariantattribute">
-                <target>Variant Attribute</target>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_productvariantattribute.sku">
-                <target>SKU</target>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_productvariantattribute.title">
-                <target>Titel</target>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_productvariantattribute.description">
-                <target>Beschreibung</target>
-            </trans-unit>
-
-            <trans-unit id="tx_cart_domain_model_product_productvariant">
-                <target>Variant</target>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_productvariant.be_variant_attribute_option1">
-                <target>Attribut 1</target>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_productvariant.be_variant_attribute_option2">
-                <target>Attribut 2</target>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_productvariant.be_variant_attribute_option3">
-                <target>Attribut 3</target>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_productvariant.stock">
-                <target>Lagerbestand</target>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_product.price">
-                <target>Preis</target>
             </trans-unit>
 
             <trans-unit id="tx_cart.ok.coupon.added">
@@ -888,6 +833,15 @@
             <trans-unit id="tx_cart.error.coupon.not_found">
                 <source>Coupon code was not found.</source>
                 <target>Gutscheincode wurde nicht gefunden.</target>
+            </trans-unit>
+
+            <trans-unit id="tx_cart.quantityBelowRange">
+                <source>Minimum order not reached.</source>
+                <target>Mindestbestellmenge nicht erreicht.</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.quantityAboveRange">
+                <source>Maximum order quantity exceeded.</source>
+                <target>Maximalbestellmenge überschritten.</target>
             </trans-unit>
 
             <trans-unit id="tx_cart.settings.allowed_countries.de">

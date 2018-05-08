@@ -3,6 +3,13 @@
     <file source-language="en" datatype="plaintext" original="messages" date="2015-02-03T16:30:00Z" product-name="cart">
         <header/>
         <body>
+            <trans-unit id="tx_cart.error.stock_handling.add">
+                <source>Desired number of this item not available.</source>
+            </trans-unit>
+            <trans-unit id="tx_cart.error.stock_handling.update">
+                <source>Desired number of this item not available.</source>
+            </trans-unit>
+
             <trans-unit id="validator.notempty.empty">
                 <source>The given subject was not empty.</source>
             </trans-unit>
@@ -38,6 +45,10 @@
             <trans-unit id="tx_cart.mail.order_summary">
                 <source>Order Summary</source>
             </trans-unit>
+            <trans-unit id="tx_cart.order.history_empty">
+                <source>No orders found.</source>
+            </trans-unit>
+
             <trans-unit id="tx_cart.mail.payment_method">
                 <source>Payment method</source>
             </trans-unit>
@@ -47,8 +58,69 @@
             <trans-unit id="tx_cart.mail.salutation">
                 <source>Dear %s,</source>
             </trans-unit>
-            <trans-unit id="tx_cart.mail.signature">
-                <source>Sincerely yours</source>
+
+            <trans-unit id="tx_cart_domain_model_cart_product.title">
+                <source>Product</source>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_cart_product.sku">
+                <source>Stock Keeping Unit</source>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_cart_product.sku.short">
+                <source>SKU</source>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_cart_product.count">
+                <source>Quantity</source>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_cart_product.price">
+                <source>Price</source>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_cart_product.price_net">
+                <source>Price (net)</source>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_cart_product.price_gross">
+                <source>Price (gross)</source>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_cart_product.price_per_unit">
+                <source>Price per unit</source>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_cart_product.price_per_unit_net">
+                <source>Price per unit (net)</source>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_cart_product.price_per_unit_gross">
+                <source>Price per unit (gross)</source>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_cart_product.price_subtotal">
+                <source>Subtotal</source>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_cart_product.price_subtotal_net">
+                <source>Subtotal (net)</source>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_cart_product.price_subtotal_gross">
+                <source>Subtotal (gross)</source>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_cart_product.tax">
+                <source>Tax (%s)</source>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_cart_product.discount">
+                <source>Discount</source>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_cart_product.total_net">
+                <source>Total Price (net)</source>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_cart_product.total_gross">
+                <source>Total Price (gross)</source>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_cart_product.service_net">
+                <source>Service- and Shipping costs (net)</source>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_cart_product.service_gross">
+                <source>Service- and Shipping costs (gross)</source>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_cart_product.discount_net">
+                <source>Discount (net)</source>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_cart_product.discount_gross">
+                <source>Discount (gross)</source>
             </trans-unit>
 
             <trans-unit id="tx_cart_domain_model_order_product.title">
@@ -70,7 +142,10 @@
                 <source>Price (gross)</source>
             </trans-unit>
             <trans-unit id="tx_cart_domain_model_order_product.price_total">
-                <source>Subtotal</source>#
+                <source>Subtotal</source>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_product.total">
+                <source>Total</source>
             </trans-unit>
             <trans-unit id="tx_cart_domain_model_order_product.tax">
                 <source>Tax (%s)</source>
@@ -188,6 +263,13 @@
                 <source>End Date</source>
             </trans-unit>
 
+            <trans-unit id="tx_cart_domain_model_product.filter.sku">
+                <source>SKU</source>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_product.filter.title">
+                <source>Title</source>
+            </trans-unit>
+
             <trans-unit id="tx_cart.add_product">
                 <source>add to cart</source>
             </trans-unit>
@@ -224,7 +306,7 @@
             </trans-unit>
 
             <trans-unit id="tx_cart.error.validation">
-                <source>A validation error has occurred.</source>
+                <source>An error has occurred. Please check your entries.</source>
             </trans-unit>
 
             <trans-unit id="tx_cart.controller.cart.action.set_payment.not_available">
@@ -347,7 +429,7 @@
                 <source>Coupons</source>
             </trans-unit>
             <trans-unit id="tx_cart.controller.order.action.show_cart.block-header.order_overview">
-                <source>Order Overvier</source>
+                <source>Check and Order</source>
             </trans-unit>
             <trans-unit id="tx_cart.controller.order.action.show_cart.coupons.not_available">
                 <source>No coupon code was entered.</source>
@@ -458,11 +540,17 @@
             <trans-unit id="tx_cart_domain_model_order_item.accept_terms">
                 <source>I have read the general terms and agree to them.</source>
             </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_item.accept_terms_with_link">
+                <source>I have read the <![CDATA[<a href="%1$s" target="%2$s">general terms</a>]]> and agree to them.</source>
+            </trans-unit>
             <trans-unit id="tx_cart_domain_model_order_item.accept_terms.error.1361959228">
                 <source>You have to agree to the general terms.</source>
             </trans-unit>
             <trans-unit id="tx_cart_domain_model_order_item.accept_conditions">
                 <source>I have read the conditions and agree to them.</source>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_item.accept_conditions_with_link">
+                <source>I have read the <![CDATA[<a href="%1$s" target="%2$s">conditions</a>]]> and agree to them.</source>
             </trans-unit>
             <trans-unit id="tx_cart_domain_model_order_item.accept_conditions.error.1361959228">
                 <source>You have to agree to the conditions.</source>
@@ -867,6 +955,13 @@
             </trans-unit>
             <trans-unit id="tx_cart.error.coupon.not_found">
                 <source>Coupon code was not found.</source>
+            </trans-unit>
+
+            <trans-unit id="tx_cart.quantityBelowRange">
+                <source>Minimum order not reached.</source>
+            </trans-unit>
+            <trans-unit id="tx_cart.quantityAboveRange">
+                <source>Maximum order quantity exceeded.</source>
             </trans-unit>
 
             <trans-unit id="tx_cart.settings.allowed_countries.de">

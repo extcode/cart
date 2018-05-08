@@ -30,8 +30,7 @@ class RealUrlHook
      */
     public function postProcessConfiguration(&$parameters, ConfigurationReader $configurationReader)
     {
-        if (!isset($parameters['configuration']['fixedPostVars']['cartShowProduct']) ||
-            !isset($parameters['configuration']['fixedPostVars']['cartShowCart'])
+        if (!isset($parameters['configuration']['fixedPostVars']['cartShowCart'])
         ) {
             return;
         }
@@ -49,9 +48,6 @@ class RealUrlHook
             switch ((int)$pageRecord['doktype']) {
                 case 181:
                     $parameters['configuration']['fixedPostVars'][$targetPageId] = 'cartShowCart';
-                    break;
-                case 182:
-                    $parameters['configuration']['fixedPostVars'][$targetPageId] = 'cartShowProduct';
                     break;
             }
         }

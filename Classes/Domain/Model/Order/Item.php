@@ -273,8 +273,6 @@ class Item extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     /**
      * __construct
-     *
-     * @return \Extcode\Cart\Domain\Model\Order\Item
      */
     public function __construct()
     {
@@ -291,6 +289,7 @@ class Item extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
         $this->taxClass = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
         $this->tax = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
         $this->totalTax = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+        $this->orderPdfs = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
         $this->invoicePdfs = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
         $this->deliveryPdfs = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
     }

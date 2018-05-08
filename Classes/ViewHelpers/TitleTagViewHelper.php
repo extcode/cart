@@ -2,33 +2,39 @@
 
 namespace Extcode\Cart\ViewHelpers;
 
-/**
- * This file is part of the TYPO3 CMS project.
- *
- * It is free software; you can redistribute it and/or modify it under
- * the terms of the GNU General Public License, either version 2
- * of the License, or any later version.
- *
- * For the full copyright and license information, please read the
- * LICENSE.txt file that was distributed with this source code.
- *
- * The TYPO3 project - inspiring people to share!
- */
+use TYPO3\CMS\Fluid\Core\Rendering\RenderingContextInterface;
+use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
+use TYPO3\CMS\Fluid\Core\ViewHelper\Facets\CompilableInterface;
+use TYPO3Fluid\Fluid\Core\ViewHelper\Traits\CompileWithRenderStatic;
 
 /**
- * Title Tag ViewHelper
+ * ViewHelper to render the page title
  *
- * @author Georg Ringer <typo3@ringerge.org>
- * @author Daniel Lorenz <ext.cart@extco.de>
+ * # Example: Basic Example
+ * # Description: Render the content of the VH as page title
+ * <code>
+ *    <cart:titleTag>{product.title}</n:titleTag>
+ * </code>
+ * <output>
+ *    <title>TYPO3 is awesome</title>
+ * </output>
  */
-class TitleTagViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper
+class TitleTagViewHelper extends AbstractViewHelper implements CompilableInterface
 {
+    use CompileWithRenderStatic;
+
     /**
-     * Override the title tag
+     * @param array $arguments
+     * @param \Closure $renderChildrenClosure
+     * @param RenderingContextInterface $renderingContext
      */
-    public function render()
-    {
-        $content = trim($this->renderChildren());
+    public static function renderStatic(
+        array $arguments,
+        \Closure $renderChildrenClosure,
+        RenderingContextInterface $renderingContext
+    ) {
+        $content = trim($renderChildrenClosure());
+
         if (!empty($content)) {
             $GLOBALS['TSFE']->altPageTitle = $content;
             $GLOBALS['TSFE']->indexedDocTitle = $content;

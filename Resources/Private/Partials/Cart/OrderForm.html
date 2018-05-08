@@ -1,18 +1,22 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      data-namespace-typo3-fluid="true">
+
 <f:form id="form-order" class="form"
         name="orderItem"
         object="{orderItem}"
-        action="orderCart"
+        controller="Cart\Order"
+        action="create"
         method="post">
     <div class="row top-buffer">
         <div class="col-sm-12 col-md-12 col-lg-4">
-            <div class="form-column">
+            <div class="column">
                 <f:render partial="Cart/OrderForm/Address/Billing" arguments="{cart:cart, billingAddress:billingAddress}"/>
                 <f:if condition="{settings.showCartAction.showPartials.shippingAddressForm}">
-                    <div class="form-list">
+                    <div class="form-list shipping-same-as-billing-wrapper">
                         <div class="control">
-                            <label for="shipping_same_as_billing">
+                            <label for="shipping-same-as-billing">
                                 <f:form.checkbox name="shipping_same_as_billing"
-                                                 id="shipping_same_as_billing"
+                                                 id="shipping-same-as-billing"
                                                  value="{f:if(condition:'{cart.shippingCountry}',then:'false',else:'true')}"
                                                  title="{f:translate(key:'tx_cart.same_address')}"
                                                  additionalAttributes="{f:if(condition:'{cart.shippingCountry} == \'\'', then: '{checked: \'checked\'}')}"/>
@@ -26,25 +30,23 @@
                 </f:if>
             </div>
         </div>
-        <div class="col-sm-12 col-md-8 col-lg-8" style="padding: 0;">
-            <div class="">
+        <div class="col-sm-12 col-md-8 col-lg-8 clear-padding">
+            <div>
                 <div class="col-sm-12 col-md-6 col-lg-6">
-                    <div class="">
-                        <f:if condition="{settings.showCartAction.showPartials.shippingMethodForm}">
-                            <f:render partial="Cart/OrderForm/ShippingMethod" arguments="{cart:cart, shippings:shippings}"/>
-                        </f:if>
-                        <f:if condition="{settings.showCartAction.showPartials.paymentMethodForm}">
-                            <f:render partial="Cart/OrderForm/PaymentMethod" arguments="{cart:cart, payments:payments}"/>
-                        </f:if>
-                        <f:if condition="{settings.showCartAction.showPartials.couponForm}">
-                            <f:render partial="Cart/OrderForm/Coupon" arguments="{cart:cart}"/>
-                        </f:if>
-                    </div>
+                    <f:if condition="{settings.showCartAction.showPartials.shippingMethodForm}">
+                        <f:render partial="Cart/OrderForm/ShippingMethod" arguments="{cart:cart, shippings:shippings}"/>
+                    </f:if>
+                    <f:if condition="{settings.showCartAction.showPartials.paymentMethodForm}">
+                        <f:render partial="Cart/OrderForm/PaymentMethod" arguments="{cart:cart, payments:payments}"/>
+                    </f:if>
+                    <f:if condition="{settings.showCartAction.showPartials.couponForm}">
+                        <f:render partial="Cart/OrderForm/Coupon" arguments="{cart:cart}"/>
+                    </f:if>
                 </div>
 
                 <div class="col-sm-12 col-md-6 col-lg-6">
-                    <div class="form-column">
-                        <f:render partial="Cart/OrderForm/Cart" arguments="{cart: cart}"/>
+                    <div class="column">
+                        <f:render partial="Cart/OrderForm/Cart" arguments="{cart: cart, settings: settings}"/>
 
                         <f:if condition="{cart.isOrderable}">
                             <f:then>
@@ -62,3 +64,4 @@
         </div>
     </div>
 </f:form>
+</html>

@@ -1,3 +1,6 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      data-namespace-typo3-fluid="true">
+
 <table class="tx-cart table" width="100%">
     <tr>
         <th style="background-color: #ededed;">
@@ -65,13 +68,13 @@
     </f:if>
     <tr>
         <th style="background-color: #ededed;">
-            <f:translate key="tx_cart_domain_model_order_item.order_shipping"/>
+            <f:translate key="tx_cart_domain_model_order_item.order_payment"/>
         </th>
         <td>
             {orderItem.payment.name}
         </td>
         <th style="background-color: #ededed; border-left: 1px solid #DDD;">
-            <f:translate key="tx_cart_domain_model_order_item.order_payment"/>
+            <f:translate key="tx_cart_domain_model_order_item.order_shipping"/>
         </th>
         <td>
             {orderItem.shipping.name}
@@ -82,7 +85,7 @@
             <f:translate key="tx_cart_domain_model_order_payment.status"/>
         </th>
         <td>
-            <f:form action="updatePayment" name="paymentStatus" object="{orderItem.payment}" objectName="payment">
+            <f:form controller="Backend\Order\Payment" action="update" name="paymentStatus" object="{orderItem.payment}" objectName="payment">
                 <f:form.select property="status" options="{paymentStatusOptions}" optionValueField="value" optionLabelField="label"/>
                 <f:form.submit value="{f:translate(key: 'tx_cart.update_status')}" />
             </f:form>
@@ -91,7 +94,7 @@
             <f:translate key="tx_cart_domain_model_order_shipping.status"/>
         </th>
         <td>
-            <f:form action="updateShipping" name="shippingStatus" object="{orderItem.shipping}" objectName="shipping">
+            <f:form controller="Backend\Order\Shipping" action="update" name="shippingStatus" object="{orderItem.shipping}" objectName="shipping">
                 <f:form.select property="status" options="{shippingStatusOptions}" optionValueField="value" optionLabelField="label"/>
                 <f:form.submit value="{f:translate(key: 'tx_cart.update_status')}" />
             </f:form>
@@ -99,3 +102,4 @@
     </tr>
 </table>
 <br>
+</html>

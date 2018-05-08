@@ -1,9 +1,11 @@
-{namespace cart=Extcode\Cart\ViewHelpers}
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      data-namespace-typo3-fluid="true">
 
 <f:if condition="{settings.currencies -> f:count()} > 1">
     <f:form class="form form-currency"
             name="currency"
-            action="updateCurrency"
+            controller="Cart\Currency"
+            action="update"
             pageType="2278001"
             method="post">
         <div class="row top-buffer">
@@ -19,3 +21,4 @@
         </div>
     </f:form>
 </f:if>
+</html>

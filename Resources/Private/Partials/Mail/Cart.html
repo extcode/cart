@@ -1,3 +1,6 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      data-namespace-typo3-fluid="true">
+
 <table width="600" style="width: 100%; border-collapse: collapse; font-family: Arial, Helvetica, sans-serif; font-size:12px;" border="1">
     <colgroup>
         <col span="2"/>
@@ -6,25 +9,26 @@
         <col width="1"/>
     </colgroup>
     <thead>
-    <tr class="first last" style="background-color:#3b7eb0; color:#fff;">
-        <th rowspan="1" colspan="2" style="text-align: left; padding: 3px; font-family: Arial, Helvetica, sans-serif; font-size: 12px;">
+    <tr class="first last" style="background-color:#2d4554; color:#fff;">
+        <th rowspan="1" height="34" colspan="2" valign="center" style="text-align: left; padding: 0 10px; margin: 0; font-family: Arial, Helvetica, sans-serif; font-size: 12px; border: none;">
             <f:translate key="tx_cart_domain_model_order_product.title"/>
         </th>
-        <th colspan="1" class="a-center" style="padding: 3px; font-family: Arial, Helvetica, sans-serif; font-size: 12px;">
+        <th colspan="1" height="34" class="a-center" valign="center" style="padding: 0 10px; margin: 0; font-family: Arial, Helvetica, sans-serif; font-size: 12px; border: none;">
             <f:translate key="tx_cart_domain_model_order_product.price"/>
         </th>
 
-        <th rowspan="1" class="a-center" style="padding: 3px; font-family: Arial, Helvetica, sans-serif; font-size: 12px;">
+        <th rowspan="1" height="34" class="a-center" valign="center" style="padding: 0 10px; margin: 0; font-family: Arial, Helvetica, sans-serif; font-size: 12px; border: none;">
             <f:translate key="tx_cart_domain_model_order_product.count"/>
         </th>
 
-        <th colspan="1" class="a-center" style="padding: 3px; font-family: Arial, Helvetica, sans-serif; font-size: 12px;">
+        <th colspan="1" height="34" class="a-center" valign="center" style="padding: 0 10px; margin: 0; font-family: Arial, Helvetica, sans-serif; font-size: 12px; border: none;">
             <f:translate key="tx_cart_domain_model_order_product.price_total"/>
         </th>
     </tr>
     </thead>
     <tbody>
         <f:render partial="Mail/ProductList" arguments="{products: cart.products}"/>
-        <f:render partial="Mail/Summary" arguments="{cart: cart}"/>
+        <f:render partial="Mail/CartSummary" arguments="{cart: cart}"/>
     </tbody>
 </table>
+</html>

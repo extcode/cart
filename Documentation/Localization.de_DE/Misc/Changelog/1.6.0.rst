@@ -1,0 +1,12 @@
+.. ==================================================
+.. FOR YOUR INFORMATION
+.. --------------------------------------------------
+.. -*- coding: utf-8 -*- with BOM.
+
+1.6.0 - 08.11.2016
+------------------
+
+In dieser Version werden Datenbankfelder für zufällig generierte Hash-Werte hinzugefügt, die einige Zahlungsanbieter für die Rücksprungadressen in die TYPO3 Seite benötigen.
+
+.. IMPORTANT::
+   Es ist eine Aktualisierung der Datenbank erforderlich. Da die Felder bisher nicht benutzt wurden, sollte das in der Regel unproblematisch sein.

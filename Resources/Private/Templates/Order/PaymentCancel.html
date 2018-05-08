@@ -1,11 +1,17 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      data-namespace-typo3-fluid="true">
+
 <f:layout name="Default"/>
 
 <f:section name="main">
     <f:flashMessages/>
 
     <f:if condition="{orderItem}">
-        <div class="col-sm-12 col-md-12 col-lg-12">
-            <f:translate key="tx_cart.controller.order.action.payment_cancel.thank_you"/>
+        <div class="payment-cancel-message">
+            <div class="alert alert-danger">
+                <f:translate key="tx_cart.controller.order.action.payment_cancel.thank_you"/>
+            </div>
         </div>
     </f:if>
 </f:section>
+</html>

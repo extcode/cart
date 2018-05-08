@@ -6,13 +6,12 @@
 Sponsoring
 ==========
 
-Gibt es eine Funktion, die in Cart noch nicht umgesetzt wurde, können Sie mich jederzeit kontaktieren.
+If there is a feature that has not yet been implemented in Cart, you can contact me at any time.
 
-Es gibt auch die Möglichkeit unabhängig von neuen Funktionen die Weiterentwicklung zu unterstützen. Es fallen auch
-unabhängig von neuen Funktionen Kosten für Server und Hardware an:
+There is also the possibility to support the further development independently of new functions.
 
 *  `paypal.me <https://paypal.me/extcart>`_
 *  `patreon.com <https://patreon.com/ext_cart>`_
 
-Sponsoren
----------
+Sponsors
+--------

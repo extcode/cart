@@ -3,13 +3,13 @@
 .. --------------------------------------------------
 .. -*- coding: utf-8 -*- with BOM.
 
-Danksagung
-==========
+Note of thanks
+==============
 
-Ein großer Dank geht and die `Tritum GmbH <tritum.de>`__ für die vielen Stunden, die ich an Cart arbeiten durfte.
+A big thank you goes `Tritum GmbH <tritum.de>`__ for the many hours I was allowed to work on Cart.
 
-Insbesonder möchte ich Björn danken. Er hat immer ein offenes Ohr. Er hat bei vielen Fragen und Entscheidungen
-seine Meinung mit beigesteuert. Ohne ihn wäre Cart sicher nicht das, was es heute ist.
+In particular, I would like to thank Björn. He always has an open ear. He contributed his opinion to many questions
+and decisions. Without him, Cart would not be what it is today.
 
-Ein weiterer Dank geht an die Beta-Tester für die vielen Rückmeldungen und das Verständnis, wenn dann doch noch einmal
-Änderungen am Datenmodell gemacht wurden.
+Another thanks goes to the testers for their feedback and understanding when I made changes to the data model again and
+again.

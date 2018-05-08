@@ -62,8 +62,6 @@ class FeVariant
      * __construct
      *
      * @param array $variantData
-     *
-     * @return \Extcode\Cart\Domain\Model\Cart\FeVariant
      */
     public function __construct(
         $variantData = []

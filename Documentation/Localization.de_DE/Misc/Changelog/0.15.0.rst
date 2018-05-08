@@ -1,0 +1,17 @@
+.. ==================================================
+.. FOR YOUR INFORMATION
+.. --------------------------------------------------
+.. -*- coding: utf-8 -*- with BOM.
+
+0.15.0 - 17.07.2016
+-------------------
+
+Diese Version bringt die Möglichkeit mit, für Produkte einen Typ festzulegen.
+
+.. IMPORTANT::
+   * Diese Version ändert die Datenbank und fügt ein neues Feld hinzu. Da leider nicht bekannt ist, welchen Typ die einzelnen Produkte haben, wird für die Produkttabelle der Typ "einfaches Produkt" gesetzt.
+   * Alle konfigurierbaren Produkte müssen entsprechend aktualisiert werden.
+   * Alle Flexform-Produkte müssen aktualisiert werden.
+
+.. NOTE::
+   Für die bestellten Produkte bleibt der Typ leer. Diese werden nicht angepasst.

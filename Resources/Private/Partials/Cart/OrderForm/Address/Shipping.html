@@ -1,24 +1,26 @@
-{namespace cart=Extcode\Cart\ViewHelpers}
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:cart="http://typo3.org/ns/Extcode/Cart/ViewHelpers"
+      data-namespace-typo3-fluid="true">
 
-<div id="shipping-address" class="bg-light-grey" style="{f:if(condition:'{cart.shippingCountry}', then:'', else:'display: none;')}">
-    <h5 class="form-title">
+<div id="checkout-step-shipping-address" class="checkout-step bg-light-grey" style="{f:if(condition:'{cart.shippingCountry}', then:'', else:'display: none;')}" data-ajax-country data-ajax-currency>
+    <h5 class="checkout-step-title">
+        <span class="checkout-step-number"></span>
         <span><f:translate key="tx_cart.controller.order.action.show_cart.block-header.shipping_address"/></span>
     </h5>
-    <div class="form-content">
+    <div class="checkout-step-content">
         <fieldset>
-            <ul class="form-list">
-                <li class="fields">
-
+            <div class="checkout-step-content-list">
+                <div class="checkout-step-fields">
                     <f:if condition="{0: settings.validation.shippingAddress.fields.salutation.validator} != {0: 'Empty'}">
                         <div class="field salutation">
                             <f:if condition="{0: settings.validation.shippingAddress.fields.salutation.validator} == {0: 'NotEmpty'}">
                                 <f:then>
-                                    <label for="shippingAddress:salutation" class="required">
+                                    <label for="shippingAddress-salutation" class="required">
                                         <f:translate key="tx_cart_domain_model_order_address.salutation"/>
                                         <em>*</em>
                                     </label>
                                     <div class="input-box">
-                                        <f:form.textfield id="shippingAddress:salutation"
+                                        <f:form.textfield id="shippingAddress-salutation"
                                                           class="form-control"
                                                           name="shippingAddress[salutation]"
                                                           value="{shippingAddress.salutation}"
@@ -31,11 +33,11 @@
                                    </div>
                                 </f:then>
                                 <f:else>
-                                    <label for="shippingAddress:salutation" class="required">
+                                    <label for="shippingAddress-salutation" class="required">
                                         <f:translate key="tx_cart_domain_model_order_address.salutation"/>
                                     </label>
                                     <div class="input-box">
-                                        <f:form.textfield id="shippingAddress:salutation"
+                                        <f:form.textfield id="shippingAddress-salutation"
                                                           class="form-control"
                                                           name="shippingAddress[salutation]"
                                                           value="{shippingAddress.salutation}"/>
@@ -49,12 +51,12 @@
                         <div class="field title">
                             <f:if condition="{0: settings.validation.shippingAddress.fields.title.validator} == {0: 'NotEmpty'}">
                                 <f:then>
-                                    <label for="shippingAddress:title" class="required">
+                                    <label for="shippingAddress-title" class="required">
                                         <f:translate key="tx_cart_domain_model_order_address.title"/>
                                         <em>*</em>
                                     </label>
                                     <div class="input-box">
-                                        <f:form.textfield id="shippingAddress:title"
+                                        <f:form.textfield id="shippingAddress-title"
                                                           class="form-control"
                                                           name="shippingAddress[title]"
                                                           value="{shippingAddress.title}"
@@ -67,11 +69,11 @@
                                     </div>
                                 </f:then>
                                 <f:else>
-                                    <label for="shippingAddress:title">
+                                    <label for="shippingAddress-title">
                                         <f:translate key="tx_cart_domain_model_order_address.title"/>
                                     </label>
                                     <div class="input-box">
-                                        <f:form.textfield id="shippingAddress:title"
+                                        <f:form.textfield id="shippingAddress-title"
                                                           class="form-control"
                                                           name="shippingAddress[title]"
                                                           value="{shippingAddress.title}"/>
@@ -82,15 +84,15 @@
                     </f:if>
 
                     <f:if condition="{0: settings.validation.shippingAddress.fields.firstName.validator} != {0: 'Empty'}">
-                        <div class="field firstName">
+                        <div class="field first-name">
                             <f:if condition="{0: settings.validation.shippingAddress.fields.firstName.validator} == {0: 'NotEmpty'}">
                                 <f:then>
-                                    <label for="shippingAddress:firstName" class="required">
+                                    <label for="shippingAddress-firstName" class="required">
                                         <f:translate key="tx_cart_domain_model_order_address.first_name"/>
                                         <em>*</em>
                                     </label>
                                     <div class="input-box">
-                                        <f:form.textfield id="shippingAddress:firstName"
+                                        <f:form.textfield id="shippingAddress-firstName"
                                                           class="form-control"
                                                           name="shippingAddress[firstName]"
                                                           value="{shippingAddress.firstName}"
@@ -103,11 +105,11 @@
                                     </div>
                                 </f:then>
                                 <f:else>
-                                    <label for="shippingAddress:firstName" class="required">
+                                    <label for="shippingAddress-firstName" class="required">
                                         <f:translate key="tx_cart_domain_model_order_address.first_name"/>
                                     </label>
                                     <div class="input-box">
-                                        <f:form.textfield id="shippingAddress:firstName"
+                                        <f:form.textfield id="shippingAddress-firstName"
                                                           class="form-control"
                                                           name="shippingAddress[firstName]"
                                                           value="{shippingAddress.firstName}"/>
@@ -118,15 +120,15 @@
                     </f:if>
 
                     <f:if condition="{0: settings.validation.shippingAddress.fields.lastName.validator} != {0: 'Empty'}">
-                        <div class="field lastName">
+                        <div class="field last-name">
                             <f:if condition="{0: settings.validation.shippingAddress.fields.lastName.validator} == {0: 'NotEmpty'}">
                                 <f:then>
-                                    <label for="shippingAddress:lastName" class="required">
+                                    <label for="shippingAddress-lastName" class="required">
                                         <f:translate key="tx_cart_domain_model_order_address.last_name"/>
                                         <em>*</em>
                                     </label>
                                     <div class="input-box">
-                                        <f:form.textfield id="shippingAddress:lastName"
+                                        <f:form.textfield id="shippingAddress-lastName"
                                                           class="form-control"
                                                           name="shippingAddress[lastName]"
                                                           value="{shippingAddress.lastName}"
@@ -139,11 +141,11 @@
                                     </div>
                                 </f:then>
                                 <f:else>
-                                    <label for="shippingAddress:lastName">
+                                    <label for="shippingAddress-lastName">
                                         <f:translate key="tx_cart_domain_model_order_address.last_name"/>
                                     </label>
                                     <div class="input-box">
-                                        <f:form.textfield id="shippingAddress:lastName"
+                                        <f:form.textfield id="shippingAddress-lastName"
                                                           class="form-control"
                                                           name="shippingAddress[lastName]"
                                                           value="{shippingAddress.lastName}"/>
@@ -152,18 +154,18 @@
                             </f:if>
                         </div>
                     </f:if>
-                </li>
+                </div>
 
                 <f:if condition="{0: settings.validation.shippingAddress.fields.email.validator} != {0: 'Empty'}">
-                    <li>
+                    <div class="field">
                         <f:if condition="{0: settings.validation.shippingAddress.fields.email.validator} == {0: 'NotEmpty'}">
                             <f:then>
-                                <label for="shippingAddress:email" class="required">
+                                <label for="shippingAddress-email" class="required">
                                     <f:translate key="tx_cart_domain_model_order_address.email"/>
                                     <em>*</em>
                                 </label>
                                 <div class="input-box">
-                                    <f:form.textfield id="shippingAddress:email"
+                                    <f:form.textfield id="shippingAddress-email"
                                                       class="form-control"
                                                       name="shippingAddress[email]"
                                                       value="{shippingAddress.email}"
@@ -177,11 +179,11 @@
                                 </div>
                             </f:then>
                             <f:else>
-                                <label for="shippingAddress:email">
+                                <label for="shippingAddress-email">
                                     <f:translate key="tx_cart_domain_model_order_address.email"/>
                                 </label>
                                 <div class="input-box">
-                                    <f:form.textfield id="shippingAddress:email"
+                                    <f:form.textfield id="shippingAddress-email"
                                                       class="form-control"
                                                       name="shippingAddress[email]"
                                                       value="{shippingAddress.email}"
@@ -189,19 +191,19 @@
                                 </div>
                             </f:else>
                         </f:if>
-                    </li>
+                    </div>
                 </f:if>
 
                 <f:if condition="{0: settings.validation.shippingAddress.fields.phone.validator} != {0: 'Empty'}">
-                    <li>
+                    <div class="field">
                         <f:if condition="{0: settings.validation.shippingAddress.fields.phone.validator} == {0: 'NotEmpty'}">
                             <f:then>
-                                <label for="shippingAddress:phone" class="required">
+                                <label for="shippingAddress-phone" class="required">
                                     <f:translate key="tx_cart_domain_model_order_address.phone"/>
                                     <em>*</em>
                                 </label>
                                 <div class="input-box">
-                                    <f:form.textfield id="shippingAddress:phone"
+                                    <f:form.textfield id="shippingAddress-phone"
                                                       class="form-control"
                                                       name="shippingAddress[phone]"
                                                       value="{shippingAddress.phone}"
@@ -215,11 +217,11 @@
                                 </div>
                             </f:then>
                             <f:else>
-                                <label for="shippingAddress:phone">
+                                <label for="shippingAddress-phone">
                                     <f:translate key="tx_cart_domain_model_order_address.phone"/>
                                 </label>
                                 <div class="input-box">
-                                    <f:form.textfield id="shippingAddress:phone"
+                                    <f:form.textfield id="shippingAddress-phone"
                                                       class="form-control"
                                                       name="shippingAddress[phone]"
                                                       value="{shippingAddress.phone}"
@@ -227,19 +229,19 @@
                                 </div>
                             </f:else>
                         </f:if>
-                    </li>
+                    </div>
                 </f:if>
 
                 <f:if condition="{0: settings.validation.shippingAddress.fields.fax.validator} != {0: 'Empty'}">
-                    <li>
+                    <div class="field">
                         <f:if condition="{0: settings.validation.shippingAddress.fields.fax.validator} == {0: 'NotEmpty'}">
                             <f:then>
-                                <label for="shippingAddress:fax" class="required">
+                                <label for="shippingAddress-fax" class="required">
                                     <f:translate key="tx_cart_domain_model_order_address.fax"/>
                                     <em>*</em>
                                 </label>
                                 <div class="input-box">
-                                    <f:form.textfield id="shippingAddress:fax"
+                                    <f:form.textfield id="shippingAddress-fax"
                                                       class="form-control"
                                                       name="shippingAddress[fax]"
                                                       value="{shippingAddress.fax}"
@@ -253,11 +255,11 @@
                                 </div>
                             </f:then>
                             <f:else>
-                                <label for="shippingAddress:fax">
+                                <label for="shippingAddress-fax">
                                     <f:translate key="tx_cart_domain_model_order_address.fax"/>
                                 </label>
                                 <div class="input-box">
-                                    <f:form.textfield id="shippingAddress:fax"
+                                    <f:form.textfield id="shippingAddress-fax"
                                                       class="form-control"
                                                       name="shippingAddress[fax]"
                                                       value="{shippingAddress.fax}"
@@ -265,19 +267,19 @@
                                 </div>
                             </f:else>
                         </f:if>
-                    </li>
+                    </div>
                 </f:if>
 
                 <f:if condition="{0: settings.validation.shippingAddress.fields.company.validator} != {0: 'Empty'}">
-                    <li>
+                    <div class="field">
                         <f:if condition="{0: settings.validation.shippingAddress.fields.company.validator} == {0: 'NotEmpty'}">
                             <f:then>
-                                <label for="shippingAddress:company" class="required">
+                                <label for="shippingAddress-company" class="required">
                                     <f:translate key="tx_cart_domain_model_order_address.company"/>
                                     <em>*</em>
                                 </label>
                                 <div class="input-box">
-                                    <f:form.textfield id="shippingAddress:company"
+                                    <f:form.textfield id="shippingAddress-company"
                                                       class="form-control"
                                                       name="shippingAddress[company]"
                                                       value="{shippingAddress.company}"
@@ -290,34 +292,34 @@
                                 </div>
                             </f:then>
                             <f:else>
-                                <label for="shippingAddress:company">
+                                <label for="shippingAddress-company">
                                     <f:translate key="tx_cart_domain_model_order_address.company"/>
                                 </label>
                                 <div class="input-box">
-                                    <f:form.textfield id="shippingAddress:company"
+                                    <f:form.textfield id="shippingAddress-company"
                                                       class="form-control"
                                                       name="shippingAddress[company]"
                                                       value="{shippingAddress.company}"/>
                                 </div>
                             </f:else>
                         </f:if>
-                    </li>
+                    </div>
                 </f:if>
 
-                <li>
+                <div class="field">
                     <f:if condition="{0: settings.validation.shippingAddress.fields.streetNumber.validator} != {0: 'Empty'}">
                         <f:then>
                             <f:if condition="{0: settings.validation.shippingAddress.fields.street.validator} != {0: 'Empty'}">
                                 <div class="row">
-                                    <div class="col-sm-8 form-columns">
+                                    <div class="col-sm-8 column">
                                         <f:if condition="{0: settings.validation.shippingAddress.fields.street.validator} == {0: 'NotEmpty'}">
                                             <f:then>
-                                                <label for="shippingAddress:street" class="required">
+                                                <label for="shippingAddress-street" class="required">
                                                     <f:translate key="tx_cart_domain_model_order_address.street"/>
                                                     <em>*</em>
                                                 </label>
                                                 <div class="input-box">
-                                                    <f:form.textfield id="shippingAddress:street"
+                                                    <f:form.textfield id="shippingAddress-street"
                                                                       class="form-control"
                                                                       name="shippingAddress[street]"
                                                                       value="{shippingAddress.street}"
@@ -330,11 +332,11 @@
                                                 </div>
                                             </f:then>
                                             <f:else>
-                                                <label for="shippingAddress:street">
+                                                <label for="shippingAddress-street">
                                                     <f:translate key="tx_cart_domain_model_order_address.street"/>
                                                 </label>
                                                 <div class="input-box">
-                                                    <f:form.textfield id="shippingAddress:street"
+                                                    <f:form.textfield id="shippingAddress-street"
                                                                       class="form-control"
                                                                       name="shippingAddress[street]"
                                                                       value="{shippingAddress.street}"/>
@@ -342,15 +344,15 @@
                                             </f:else>
                                         </f:if>
                                     </div>
-                                    <div class="col-sm-4 form-columns">
+                                    <div class="col-sm-4 column">
                                         <f:if condition="{0: settings.validation.shippingAddress.fields.streetNumber.validator} == {0: 'NotEmpty'}">
                                             <f:then>
-                                                <label for="shippingAddress:streetNumber" class="required">
+                                                <label for="shippingAddress-streetNumber" class="required">
                                                     <f:translate key="tx_cart_domain_model_order_address.street_number"/>
                                                     <em>*</em>
                                                 </label>
                                                 <div class="input-box">
-                                                    <f:form.textfield id="shippingAddress:streetNumber"
+                                                    <f:form.textfield id="shippingAddress-streetNumber"
                                                                       class="form-control"
                                                                       name="shippingAddress[streetNumber]"
                                                                       value="{shippingAddress.streetNumber}"
@@ -363,11 +365,11 @@
                                                 </div>
                                             </f:then>
                                             <f:else>
-                                                <label for="shippingAddress:streetNumber">
+                                                <label for="shippingAddress-streetNumber">
                                                     <f:translate key="tx_cart_domain_model_order_address.street_number"/>
                                                 </label>
                                                 <div class="input-box">
-                                                    <f:form.textfield id="shippingAddress:streetNumber"
+                                                    <f:form.textfield id="shippingAddress-streetNumber"
                                                                       class="form-control"
                                                                       name="shippingAddress[streetNumber]"
                                                                       value="{shippingAddress.streetNumber}"/>
@@ -381,15 +383,15 @@
                         <f:else>
                             <f:if condition="{0: settings.validation.shippingAddress.fields.street.validator} != {0: 'Empty'}">
                                 <div class="row">
-                                    <div class="col-sm-12 form-columns">
+                                    <div class="col-sm-12 column">
                                         <f:if condition="{0: settings.validation.shippingAddress.fields.street.validator} == {0: 'NotEmpty'}">
                                             <f:then>
-                                                <label for="shippingAddress:street" class="required">
+                                                <label for="shippingAddress-street" class="required">
                                                     <f:translate key="tx_cart_domain_model_order_address.street"/>
                                                     <em>*</em>
                                                 </label>
                                                 <div class="input-box">
-                                                    <f:form.textfield id="shippingAddress:street"
+                                                    <f:form.textfield id="shippingAddress-street"
                                                                       class="form-control"
                                                                       name="shippingAddress[street]"
                                                                       value="{shippingAddress.street}"
@@ -402,11 +404,11 @@
                                                 </div>
                                             </f:then>
                                             <f:else>
-                                                <label for="shippingAddress:street">
+                                                <label for="shippingAddress-street">
                                                     <f:translate key="tx_cart_domain_model_order_address.street"/>
                                                 </label>
                                                 <div class="input-box">
-                                                    <f:form.textfield id="shippingAddress:street"
+                                                    <f:form.textfield id="shippingAddress-street"
                                                                       class="form-control"
                                                                       name="shippingAddress[street]"
                                                                       value="{shippingAddress.street}"/>
@@ -421,16 +423,16 @@
 
                     <div class="row">
                         <f:if condition="{0: settings.validation.shippingAddress.fields.zip.validator} != {0: 'Empty'}">
-                            <div class="col-sm-4 form-columns">
+                            <div class="col-sm-4 column">
                                 <div class="field">
                                     <f:if condition="{0: settings.validation.shippingAddress.fields.zip.validator} == {0: 'NotEmpty'}">
                                         <f:then>
-                                            <label for="shippingAddress:zip" class="required">
+                                            <label for="shippingAddress-zip" class="required">
                                                 <f:translate key="tx_cart_domain_model_order_address.zip"/>
                                                 <em>*</em>
                                             </label>
                                             <div class="input-box">
-                                                <f:form.textfield id="shippingAddress:zip"
+                                                <f:form.textfield id="shippingAddress-zip"
                                                                   class="form-control"
                                                                   name="shippingAddress[zip]"
                                                                   value="{shippingAddress.zip}"
@@ -443,11 +445,11 @@
                                             </div>
                                         </f:then>
                                         <f:else>
-                                            <label for="shippingAddress:zip">
+                                            <label for="shippingAddress-zip">
                                                 <f:translate key="tx_cart_domain_model_order_address.zip"/>
                                             </label>
                                             <div class="input-box">
-                                                <f:form.textfield id="shippingAddress:zip"
+                                                <f:form.textfield id="shippingAddress-zip"
                                                                   class="form-control"
                                                                   name="shippingAddress[zip]"
                                                                   value="{shippingAddress.zip}"/>
@@ -458,16 +460,16 @@
                             </div>
                         </f:if>
                         <f:if condition="{0: settings.validation.shippingAddress.fields.city.validator} != {0: 'Empty'}">
-                            <div class="col-sm-8 form-columns">
+                            <div class="col-sm-8 column">
                                 <div class="field">
                                     <f:if condition="{0: settings.validation.shippingAddress.fields.city.validator} == {0: 'NotEmpty'}">
                                         <f:then>
-                                            <label for="shippingAddress:city" class="required">
+                                            <label for="shippingAddress-city" class="required">
                                                 <f:translate key="tx_cart_domain_model_order_address.city"/>
                                                 <em>*</em>
                                             </label>
                                             <div class="input-box">
-                                                <f:form.textfield id="shippingAddress:city"
+                                                <f:form.textfield id="shippingAddress-city"
                                                                   class="form-control"
                                                                   name="shippingAddress[city]"
                                                                   value="{shippingAddress.city}"
@@ -480,11 +482,11 @@
                                             </div>
                                         </f:then>
                                         <f:else>
-                                            <label for="shippingAddress:city">
+                                            <label for="shippingAddress-city">
                                                 <f:translate key="tx_cart_domain_model_order_address.city"/>
                                             </label>
                                             <div class="input-box">
-                                                <f:form.textfield id="shippingAddress:city"
+                                                <f:form.textfield id="shippingAddress-city"
                                                                   class="form-control"
                                                                   name="shippingAddress[city]"
                                                                   value="{shippingAddress.city}"/>
@@ -498,47 +500,50 @@
 
                     <f:if condition="{0: settings.validation.shippingAddress.fields.country.validator} != {0: 'Empty'}">
                         <div class="row">
-                            <div class="col-sm-12 form-columns">
-                                <f:if condition="{0: settings.validation.shippingAddress.fields.country.validator} == {0: 'NotEmpty'}">
-                                    <f:then>
-                                        <label for="shippingAddress:country" class="required">
-                                            <f:translate key="tx_cart_domain_model_order_address.country"/>
-                                            <em>*</em>
-                                        </label>
-                                        <div class="input-box">
-                                            <cart:form.select id="shippingAddress:country"
-                                                           class="form-control"
-                                                           name="shippingAddress[country]"
-                                                           value="{cart.shippingCountry}"
-                                                           options="{settings.allowedCountries}"
-                                                           translationKey="tx_cart.settings.allowed_countries"
-                                                           data="{required:'true'}"/>
-                                            <f:form.validationResults for="shippingAddress">
-                                                <f:if condition="{validationResults.flattenedErrors.country}">
-                                                    <div class="validation-error alert alert-danger">{validationResults.flattenedErrors.country.0.message}</div>
-                                                </f:if>
-                                            </f:form.validationResults>
-                                        </div>
-                                    </f:then>
-                                    <f:else>
-                                        <label for="shippingAddress:country">
-                                            <f:translate key="tx_cart_domain_model_order_address.country"/>
-                                        </label>
-                                        <div class="input-box">
-                                            <cart:form.select id="shippingAddress:country"
-                                                              class="form-control"
-                                                              name="shippingAddress[country]"
-                                                              value="{cart.shippingCountry}"
-                                                              options="{settings.allowedCountries}"
-                                                              translationKey="tx_cart.settings.allowed_countries"/>
-                                        </div>
-                                    </f:else>
-                                </f:if>
+                            <div class="col-sm-12 column">
+                                <div class="field">
+                                    <f:if condition="{0: settings.validation.shippingAddress.fields.country.validator} == {0: 'NotEmpty'}">
+                                        <f:then>
+                                            <label for="shippingAddress-country" class="required">
+                                                <f:translate key="tx_cart_domain_model_order_address.country"/>
+                                                <em>*</em>
+                                            </label>
+                                            <div class="input-box">
+                                                <cart:form.select id="shippingAddress-country"
+                                                               class="form-control"
+                                                               name="shippingAddress[country]"
+                                                               value="{cart.shippingCountry}"
+                                                               options="{settings.allowedCountries}"
+                                                               translationKey="tx_cart.settings.allowed_countries"
+                                                               data="{required:'true'}"/>
+                                                <f:form.validationResults for="shippingAddress">
+                                                    <f:if condition="{validationResults.flattenedErrors.country}">
+                                                        <div class="validation-error alert alert-danger">{validationResults.flattenedErrors.country.0.message}</div>
+                                                    </f:if>
+                                                </f:form.validationResults>
+                                            </div>
+                                        </f:then>
+                                        <f:else>
+                                            <label for="shippingAddress-country">
+                                                <f:translate key="tx_cart_domain_model_order_address.country"/>
+                                            </label>
+                                            <div class="input-box">
+                                                <cart:form.select id="shippingAddress-country"
+                                                                  class="form-control"
+                                                                  name="shippingAddress[country]"
+                                                                  value="{cart.shippingCountry}"
+                                                                  options="{settings.allowedCountries}"
+                                                                  translationKey="tx_cart.settings.allowed_countries"/>
+                                            </div>
+                                        </f:else>
+                                    </f:if>
+                                </div>
                             </div>
                         </div>
                     </f:if>
-                </li>
-            </ul>
+                </div>
+            </div>
         </fieldset>
     </div>
 </div>
+</html>

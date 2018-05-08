@@ -1,0 +1,13 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      data-namespace-typo3-fluid="true">
+
+<p style="font-family: Arial, Helvetica, sans-serif; font-size: 12px;">
+    <f:translate key="tx_cart.mail.salutation" arguments="{0: orderItem.billingAddress.salutationOrTitleLastName}"/>
+</p>
+
+<p style="font-family: Arial, Helvetica, sans-serif; font-size: 12px;">
+    <b><f:translate key="tx_cart.mail.thank_you_for_order" /></b> <f:translate key="tx_cart.mail.thank_you_for_order_note" />
+</p>
+
+<f:cObject typoscriptObjectPath="lib.cartMailHeader" />
+</html>

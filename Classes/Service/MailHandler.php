@@ -24,20 +24,6 @@ use TYPO3\CMS\Core\SingletonInterface;
 class MailHandler implements SingletonInterface
 {
     /**
-     * Extension Name
-     *
-     * @var string
-     */
-    protected $extensionName = 'Cart';
-
-    /**
-     * Plugin Name
-     *
-     * @var string
-     */
-    protected $pluginName = 'Cart';
-
-    /**
      * Object Manager
      *
      * @var \TYPO3\CMS\Extbase\Object\ObjectManager
@@ -55,7 +41,6 @@ class MailHandler implements SingletonInterface
      * Configuration Manager
      *
      * @var \TYPO3\CMS\Extbase\Configuration\ConfigurationManager
-     * @inject
      */
     protected $configurationManager;
 
@@ -100,7 +85,7 @@ class MailHandler implements SingletonInterface
     public function __construct()
     {
         $this->objectManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(
-            'TYPO3\CMS\Extbase\Object\ObjectManager'
+            \TYPO3\CMS\Extbase\Object\ObjectManager::class
         );
 
         $this->logManager = $this->objectManager->get(
@@ -111,23 +96,19 @@ class MailHandler implements SingletonInterface
             \TYPO3\CMS\Extbase\Configuration\ConfigurationManager::class
         );
 
-        $pluginSettings =
-            $this->configurationManager->getConfiguration(
-                \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK,
-                $this->extensionName
-            );
-
-        $this->setPluginSettings($pluginSettings);
+        $this->setPluginSettings();
     }
 
     /**
      * Sets Plugin Settings
-     *
-     * @param array $pluginSettings
      */
-    public function setPluginSettings($pluginSettings)
+    public function setPluginSettings()
     {
-        $this->pluginSettings = $pluginSettings;
+        $this->pluginSettings =
+            $this->configurationManager->getConfiguration(
+                \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK,
+                'Cart'
+            );
 
         if (!empty($this->pluginSettings['settings'])) {
             if (!empty($this->pluginSettings['settings']['buyer'])
@@ -226,16 +207,12 @@ class MailHandler implements SingletonInterface
     /**
      * Send a Mail to Buyer
      *
-     * @param \Extcode\Cart\Domain\Model\Order\Item $orderItem Order Item
-     * @param \Extcode\Cart\Domain\Model\Order\Address $billingAddress Billing Address
-     * @param \Extcode\Cart\Domain\Model\Order\Address $shippingAddress Shipping Address
+     * @param \Extcode\Cart\Domain\Model\Order\Item $orderItem
      */
     public function sendBuyerMail(
-        \Extcode\Cart\Domain\Model\Order\Item $orderItem,
-        \Extcode\Cart\Domain\Model\Order\Address $billingAddress,
-        \Extcode\Cart\Domain\Model\Order\Address $shippingAddress = null
+        \Extcode\Cart\Domain\Model\Order\Item $orderItem
     ) {
-        if (empty($this->buyerEmailFrom) || empty($billingAddress->getEmail())) {
+        if (empty($this->buyerEmailFrom) || empty($orderItem->getBillingAddress()->getEmail())) {
             return;
         }
 
@@ -250,7 +227,7 @@ class MailHandler implements SingletonInterface
                 \TYPO3\CMS\Core\Mail\MailMessage::class
             );
             $mail->setFrom($this->buyerEmailFrom);
-            $mail->setTo($billingAddress->getEmail());
+            $mail->setTo($orderItem->getBillingAddress()->getEmail());
             $mail->setSubject($mailSubject);
             $mail->setBody($mailBody, 'text/html', 'utf-8');
 
@@ -270,14 +247,10 @@ class MailHandler implements SingletonInterface
     /**
      * Send a Mail to Seller
      *
-     * @param \Extcode\Cart\Domain\Model\Order\Item $orderItem Order Item
-     * @param \Extcode\Cart\Domain\Model\Order\Address $billingAddress Billing Address
-     * @param \Extcode\Cart\Domain\Model\Order\Address $shippingAddress Shipping Address
+     * @param \Extcode\Cart\Domain\Model\Order\Item $orderItem
      */
     public function sendSellerMail(
-        \Extcode\Cart\Domain\Model\Order\Item $orderItem,
-        \Extcode\Cart\Domain\Model\Order\Address $billingAddress,
-        \Extcode\Cart\Domain\Model\Order\Address $shippingAddress = null
+        \Extcode\Cart\Domain\Model\Order\Item $orderItem
     ) {
         if (empty($this->sellerEmailFrom) || empty($this->sellerEmailTo)) {
             return;
@@ -295,7 +268,7 @@ class MailHandler implements SingletonInterface
             );
             $mail->setFrom($this->sellerEmailFrom);
             $mail->setTo(explode(',', $this->sellerEmailTo));
-            $mail->setReplyTo($billingAddress->getEmail());
+            $mail->setReplyTo($orderItem->getBillingAddress()->getEmail());
             $mail->setSubject($mailSubject);
             $mail->setBody($mailBody, 'text/html', 'utf-8');
 
@@ -388,16 +361,6 @@ class MailHandler implements SingletonInterface
 
             $view->assign('cart', $this->cart);
             $view->assign('orderItem', $orderItem);
-
-            // ToDo: Remove assign $billingAddress and $shippingAddress to view. Both can be used in view through $orderItem.
-
-            if ($orderItem->getBillingAddress()) {
-                $view->assign('billingAddress', $orderItem->getBillingAddress());
-            }
-
-            if ($orderItem->getShippingAddress()) {
-                $view->assign('shippingAddress', $orderItem->getShippingAddress());
-            }
 
             return $view->render();
         }

@@ -9,50 +9,6 @@ plugin.tx_cart {
         storagePid =
     }
 
-    # cat=plugin.cart//0070; type=text; label= Service Attribute 1 symbol (e.g. Weight: g, kg, lbs).
-    main.service_attribute_1_symbol =
-
-    # cat=plugin.cart//0071; type=text; label= Service Attribute 2 symbol (e.g. Volume: l, gal).
-    main.service_attribute_2_symbol =
-
-    # cat=plugin.cart//0072; type=text; label= Service Attribute 3 symbol (e.g. Length: m, cm, inch).
-    main.service_attribute_3_symbol =
-
-    # cat=plugin.cart//0090; type=text; label= Enter the uid of the page where cart plugin resides (e.g. 10).
-    main.pid =
-
-    gpValues {
-        # cat=plugin.cart//0100; type=text; label= Param productId: Enter the correct parameter name for a unique product number (integer) of your order form. cart uses this number for internal purposes. It can't be a string. The PUID will never be displayed (e.g. tx_myext_pi1|showUid). Default: productId.
-        productId = productId
-
-        # cat=plugin.cart//0101; type=text; label= Param productStorageId: Enter the correct parameter name for a unique product storage (integer) of your order form. cart uses this number for internal purposes. It can't be a string. The productStorageId will never be displayed.
-        productStorageId =
-
-        # cat=plugin.cart//0105; type=text; label= Param contentId: Enter the correct parameter name for the uid of the current tt_content element. This value is only needed if you want to add tt_content elements to your cart. The provided parameter must be equal to the name in your HTML template. Default: contentId.
-        contentId = contentId
-
-        # cat=plugin.cart//0110; type=text; label= Param Quantity: Enter the correct parameter name for the quantity/amount field of your order form. The provided parameter must be equal to the name in your HTML template. Default: quantity.
-        quantity = quantity
-
-        beVariants {
-            # cat=plugin.cart//0150; type=text; label= Param Variants: Enter the correct parameter name for the variant 1.
-            1 =
-            # cat=plugin.cart//0151; type=text; label= Param Variants: Enter the correct parameter name for the variant 2.
-            2 =
-            # cat=plugin.cart//0152; type=text; label= Param Variants: Enter the correct parameter name for the variant 3.
-            3 =
-        }
-
-        # cat=plugin.cart//0153; type=text; label= Param Multiple: Enter the correct parameter name if adding multiple products to cart in one form.
-        multiple = multiple
-    }
-
-    productStorages {
-        1 {
-            class = Extcode\Cart\Domain\Repository\Product\ProductRepository
-        }
-    }
-
     taxClasses {
         1 {
             # cat=plugin.cart//0160; type=text; label= Tax rate: Enter the tax value for this tax class item (e.g. 19). Value will be displayed.
@@ -110,6 +66,16 @@ plugin.tx_cart {
     }
 
     settings {
+        cart {
+            pid =
+            isNetCart =
+
+            acceptTerms.pid =
+            acceptConditions.pid =
+        }
+
+        addToCartByAjax = 2278001
+
         validation {
             orderItem {
                 fields {

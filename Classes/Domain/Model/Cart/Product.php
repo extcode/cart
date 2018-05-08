@@ -205,6 +205,27 @@ class Product
     protected $maxNumberInCart = 0;
 
     /**
+     * Stock
+     *
+     * @var int
+     */
+    protected $stock = 0;
+
+    /**
+     * Handle Stock
+     *
+     * @var bool
+     */
+    protected $handleStock = false;
+
+    /**
+     * Handle Stock in Variants
+     *
+     * @var bool
+     */
+    protected $handleStockInVariants = false;
+
+    /**
      * __construct
      *
      * @param string $productType
@@ -347,7 +368,6 @@ class Product
 
     /**
      * @param array $newVariants
-     * @return mixed
      */
     public function addBeVariants($newVariants)
     {
@@ -358,7 +378,6 @@ class Product
 
     /**
      * @param \Extcode\Cart\Domain\Model\Cart\BeVariant $newVariant
-     * @return mixed
      */
     public function addBeVariant(\Extcode\Cart\Domain\Model\Cart\BeVariant $newVariant)
     {
@@ -467,7 +486,6 @@ class Product
 
     /**
      * @param $variantId
-     * @return array
      */
     public function removeVariantById($variantId)
     {
@@ -478,7 +496,6 @@ class Product
 
     /**
      * @param $variantId
-     * @return array
      */
     public function removeVariant($variantId)
     {
@@ -627,15 +644,19 @@ class Product
     /**
      * Returns Quantity Discount Price
      *
+     * @param int $quantity
+     *
      * @return float
      */
-    public function getQuantityDiscountPrice()
+    public function getQuantityDiscountPrice($quantity = null)
     {
         $price = $this->getTranslatedPrice();
 
+        $quantity = $quantity ? $quantity : $this->getQuantity();
+
         if ($this->getQuantityDiscounts()) {
             foreach ($this->getQuantityDiscounts() as $quantityDiscount) {
-                if (($quantityDiscount['quantity'] <= $this->getQuantity()) && ($quantityDiscount['price'] < $price)) {
+                if (($quantityDiscount['quantity'] <= $quantity) && ($quantityDiscount['price'] < $price)) {
                     $price = $quantityDiscount['price'];
                 }
             }
@@ -657,11 +678,13 @@ class Product
     /**
      * Returns Best Price (min of Price and Special Price)
      *
+     * @param int $quantity
+     *
      * @return float
      */
-    public function getBestPrice()
+    public function getBestPrice($quantity = null)
     {
-        $bestPrice = $this->getQuantityDiscountPrice();
+        $bestPrice = $this->getQuantityDiscountPrice($quantity);
 
         if ($this->getTranslatedSpecialPrice() && ($this->getTranslatedSpecialPrice() < $bestPrice)) {
             $bestPrice = $this->getTranslatedSpecialPrice();
@@ -985,7 +1008,7 @@ class Product
      */
     public function toJson()
     {
-        json_encode($this->toArray());
+        return json_encode($this->toArray());
     }
 
     /**
@@ -1015,9 +1038,9 @@ class Product
     protected function calcTax()
     {
         if ($this->isNetPrice == false) {
-            $this->tax = ($this->gross / (1 + $this->taxClass->getCalc())) * ($this->taxClass->getCalc());
+            $this->tax = ($this->gross / (1 + $this->getTaxClass()->getCalc())) * ($this->getTaxClass()->getCalc());
         } else {
-            $this->tax = ($this->net * $this->taxClass->getCalc());
+            $this->tax = ($this->net * $this->getTaxClass()->getCalc());
         }
     }
 
@@ -1138,5 +1161,61 @@ class Product
         }
 
         $this->maxNumberInCart = $maxNumberInCart;
+    }
+
+    /**
+     * @return int
+     */
+    public function getStock()
+    {
+        return $this->stock;
+    }
+
+    /**
+     * @param int $stock
+     */
+    public function setStock($stock)
+    {
+        $this->stock = $stock;
+    }
+
+    /**
+     * Returns Handle Stock
+     *
+     * @return bool
+     */
+    public function isHandleStock()
+    {
+        return $this->handleStock;
+    }
+
+    /**
+     * Sets Handle Stock
+     *
+     * @param bool $handleStock
+     */
+    public function setHandleStock($handleStock)
+    {
+        $this->handleStock = $handleStock;
+    }
+
+    /**
+     * Returns Handle Stock In Variants
+     *
+     * @return bool
+     */
+    public function isHandleStockInVariants()
+    {
+        return $this->handleStockInVariants;
+    }
+
+    /**
+     * Sets Handle Stock In Variants
+     *
+     * @param bool $handleStockInVariants
+     */
+    public function setHandleStockInVariants($handleStockInVariants)
+    {
+        $this->handleStockInVariants = $handleStockInVariants;
     }
 }

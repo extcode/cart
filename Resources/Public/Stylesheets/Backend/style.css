@@ -9,7 +9,7 @@
     margin: 15px;
 }
 
-#module_cartorders_search_form label {
+#module_cartorders_search_form label, #module_cartproducts_search_form label {
     width: 150px;
     display: inline-block;
 }

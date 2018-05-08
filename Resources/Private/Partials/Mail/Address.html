@@ -1,9 +1,12 @@
-<table style="font-size:12px;">
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      data-namespace-typo3-fluid="true">
+
+<table style="text-align: left; padding: 0;margin: 0; font-family: Arial, Helvetica, sans-serif; font-size: 12px;">
     <tr>
         <td style="width:300px; vertical-align:top; font-family: Arial, Helvetica, sans-serif; font-size: 12px;">
-            <b><f:translate key="tx_cart_domain_model_cart.billing_address" />:</b><br />
+            <b><f:translate key="tx_cart_domain_model_cart.billing_address" />:</b><br /><br />
             <f:if condition="{billingAddress.company}">
-                {billingAddress.company}<br /><br />
+                {billingAddress.company}<br />
             </f:if>
             {billingAddress.salutationTitleFullName}<br />
             {billingAddress.street} {billingAddress.streetNumber}<br />
@@ -15,11 +18,11 @@
             {billingAddress.email}<br />
         </td>
         <td style="width:300px; vertical-align:top; font-family: Arial, Helvetica, sans-serif; font-size: 12px;">
-            <b><f:translate key="tx_cart_domain_model_cart.shipping_address" />:</b><br />
+            <b><f:translate key="tx_cart_domain_model_cart.shipping_address" />:</b><br /><br />
             <f:if condition="{shippingAddress}">
                 <f:then>
                     <f:if condition="{shippingAddress.company}">
-                        {shippingAddress.company}<br /><br />
+                        {shippingAddress.company}<br />
                     </f:if>
                     {shippingAddress.salutationTitleFullName}<br />
                     {shippingAddress.street} {shippingAddress.streetNumber}<br />
@@ -35,3 +38,4 @@
         </td>
     </tr>
 </table>
+</html>

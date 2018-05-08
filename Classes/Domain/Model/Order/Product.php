@@ -135,8 +135,6 @@ class Product extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * @param string $sku
      * @param string $title
      * @param int $count
-     *
-     * @return \Extcode\Cart\Domain\Model\Order\Product
      */
     public function __construct(
         $sku,

@@ -88,8 +88,6 @@ class Extra
      * @param bool $isNetPrice
      *
      * @internal param $gross
-     *
-     * @return Extra
      */
     public function __construct(
         $id,

@@ -1,44 +1,47 @@
-{namespace cart=Extcode\Cart\ViewHelpers}
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:cart="http://typo3.org/ns/Extcode/Cart/ViewHelpers"
+      data-namespace-typo3-fluid="true">
 
-<div id="coupons" class="bg-light-grey top-buffer">
-    <h5 class="form-title">
-        <span class="num">4</span>
+<div id="checkout-step-coupon" class="checkout-step bg-light-grey top-buffer">
+    <h5 class="checkout-step-title">
+        <span class="checkout-step-number"></span>
         <span><f:translate key="tx_cart.controller.order.action.show_cart.block-header.coupons"/></span>
     </h5>
-    <div class="form-content">
-        <fieldset>
+    <div class="checkout-step-content">
+        <div class="coupon-list-container">
             <f:if condition="{cart.coupons}">
                 <f:then>
-                    <ul>
+                    <div class="coupon-list checkout-step-content-list">
                         <f:for each="{cart.coupons}" as="coupon">
-                            <li>
+                            <div class="coupon-item">
                                 <span>{coupon.title}</span><span> - </span>
                                 <span>
                                     <cart:format.currency currencySign="{cart.currencySign}">{coupon.translatedDiscount}</cart:format.currency>
                                 </span>
                                 <f:if condition="{coupon.isUseable}">
                                     <f:else>
-                                        <span style="color: red;">
-                                            <f:translate key="tx_cart_domain_model_product_product_coupon.code.not_useable"/>
-                                            <f:translate key="tx_cart_domain_model_product_product_coupon.cart_min_price"/>: <cart:format.currency>{coupon.cartMinPrice}</cart:format.currency>
+                                        <span class="coupon-hint not-usable">
+                                            <f:translate key="tx_cart_domain_model_product_coupon.code.not_useable"/>
+                                            <f:translate key="tx_cart_domain_model_product_coupon.cart_min_price"/>: <cart:format.currency>{coupon.cartMinPrice}</cart:format.currency>
                                         </span>
                                     </f:else>
                                 </f:if>
                                 <span class="remove-coupon-link">
-                                    <f:link.action action="removeCoupon" arguments="{couponCode: coupon.code}">
+                                    <f:link.action controller="Cart\Coupon" action="remove" arguments="{couponCode: coupon.code}">
                                         <span class="delete-link btn btn-danger" title="<f:translate key='tx_cart.remove_coupon'/>">x</span>
                                     </f:link.action>
                                 </span>
-                            </li>
+                            </div>
                         </f:for>
-                    </ul>
+                    </div>
                 </f:then>
                 <f:else>
-                    <dl>
+                    <div class="coupon-hint not-available">
                         <f:translate key="tx_cart.controller.order.action.show_cart.coupons.not_available"/>
-                    </dl>
+                    </div>
                 </f:else>
             </f:if>
-        </fieldset>
+        </div>
     </div>
 </div>
+</html>

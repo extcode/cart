@@ -14,6 +14,7 @@ namespace Extcode\Cart\ViewHelpers\Product;
  *
  * The TYPO3 project - inspiring people to share!
  */
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * BestSpecialPrice ViewHelper

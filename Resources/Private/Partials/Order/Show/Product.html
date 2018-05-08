@@ -1,37 +1,40 @@
-{namespace cart=Extcode\Cart\ViewHelpers}
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:cart="http://typo3.org/ns/Extcode/Cart/ViewHelpers"
+      data-namespace-typo3-fluid="true">
 
-<tr>
-    <td>
+<tr class="show-product">
+    <td class="product-sku">
         {product.sku}
     </td>
-    <td>
+    <td class="product-title">
         {product.title}
     </td>
-    <td>
+    <td class="product-price">
         <cart:format.currency>{product.price}</cart:format.currency>
     </td>
-    <td>
+    <td class="product-discount">
         <cart:format.currency>{product.discount}</cart:format.currency>
     </td>
-    <td>
+    <td class="product-count">
         {product.count}
     </td>
-    <td>
+    <td class="product-net">
         <cart:format.currency>{product.net}</cart:format.currency>
     </td>
-    <td>
+    <td class="product-gross">
         <cart:format.currency>{product.gross}</cart:format.currency>
     </td>
     <f:for each="{product.orderItem.orderTotalTax}" as="orderTotalTax">
-        <td>
+        <td class="order-tax">
             <f:if condition="{0: orderTotalTax.orderTaxClass.id} == {0: {product.orderTaxClass.id}}">
                 <f:then>
                     <cart:format.currency>{product.orderTax.tax}</cart:format.currency>
                 </f:then>
                 <f:else>
-                    <!-- -->
+                    &nbsp;
                 </f:else>
             </f:if>
         </td>
     </f:for>
 </tr>
+</html>

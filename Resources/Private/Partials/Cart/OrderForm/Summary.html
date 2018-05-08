@@ -1,7 +1,9 @@
-{namespace cart=Extcode\Cart\ViewHelpers}
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:cart="http://typo3.org/ns/Extcode/Cart/ViewHelpers"
+      data-namespace-typo3-fluid="true">
 
 <f:if condition="{settings.showCartAction.summary.fields.cart.net}">
-    <tr class="first">
+    <tr class="first cart-net">
         <td colspan="3" class="text-right">
             <f:translate key="tx_cart_domain_model_cart_cart.net"/>
         </td>
@@ -13,7 +15,7 @@
     </tr>
 </f:if>
 <f:if condition="{settings.showCartAction.summary.fields.cart.gross}">
-    <tr>
+    <tr class="cart-gross">
         <td colspan="3" class="text-right">
             <f:translate key="tx_cart_domain_model_cart_cart.gross"/>
         </td>
@@ -30,7 +32,7 @@
 
 <f:if condition="{cart.discountGross}">
     <f:if condition="{settings.showCartAction.summary.fields.discount.net}">
-        <tr>
+        <tr class="discount-net">
             <td colspan="3" class="text-right">
                 <f:translate key="tx_cart_domain_model_order_product.discount_net"/>
             </td>
@@ -42,7 +44,7 @@
         </tr>
     </f:if>
     <f:if condition="{settings.showCartAction.summary.fields.discount.gross}">
-        <tr>
+        <tr class="discount-gross">
             <td colspan="3" class="text-right">
                 <f:translate key="tx_cart_domain_model_order_product.discount_gross"/>
             </td>
@@ -59,7 +61,7 @@
 </f:if>
 
 <f:if condition="{settings.showCartAction.summary.fields.service.net}">
-    <tr>
+    <tr class="service-net">
         <td colspan="3" class="text-right">
             <f:translate key="tx_cart_domain_model_order_product.service_net"/>
         </td>
@@ -71,7 +73,7 @@
     </tr>
 </f:if>
 <f:if condition="{settings.showCartAction.summary.fields.service.gross}">
-    <tr>
+    <tr class="service-gross">
         <td colspan="3" class="text-right">
             <f:translate key="tx_cart_domain_model_order_product.service_gross"/>
         </td>
@@ -87,7 +89,7 @@
 </f:if>
 
 <f:if condition="{settings.showCartAction.summary.fields.total.net}">
-    <tr>
+    <tr class="total-net">
         <td colspan="3" class="text-right">
             <f:translate key="tx_cart_domain_model_order_product.total_net"/>
         </td>
@@ -99,7 +101,7 @@
     </tr>
 </f:if>
 <f:if condition="{settings.showCartAction.summary.fields.total.gross}">
-    <tr>
+    <tr class="total-gross">
         <td colspan="3" class="text-right">
             <f:translate key="tx_cart_domain_model_order_product.total_gross"/>
         </td>
@@ -113,3 +115,4 @@
 <f:if condition="{settings.showCartAction.summary.fields.total.taxes}">
     <f:render partial="Cart/OrderForm/TaxList" arguments="{taxClasses: cart.taxClasses, taxes: cart.totalTaxes, currencySign: cart.currencySign}"/>
 </f:if>
+</html>

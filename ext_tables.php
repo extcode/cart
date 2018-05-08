@@ -23,7 +23,6 @@ $pluginNames = [
     'MiniCart',
     'Cart',
     'Currency',
-    'Product',
     'FlexProduct',
     'Order',
 ];
@@ -89,7 +88,10 @@ if (TYPO3_MODE === 'BE') {
         'Orders',
         '',
         [
-            'Order' => 'list, export, show, updatePayment, updateShipping, generateNumber, generatePdfDocument, downloadPdfDocument',
+            'Backend\Order\Order' => 'list, export, show, generateNumber, generatePdfDocument, downloadPdfDocument',
+            'Backend\Order\Payment' => 'update',
+            'Backend\Order\Shipping' => 'update',
+            'Backend\Order\Document' => 'download, create',
         ],
         [
             'access' => 'user, group',
@@ -105,29 +107,12 @@ if (TYPO3_MODE === 'BE') {
         'OrderStatistics',
         '',
         [
-            'Order' => 'statistic',
+            'Backend\Statistic' => 'show',
         ],
         [
             'access' => 'user, group',
             'icon' => $iconPath . 'module_order_statistics.svg',
             'labels' => $_LLL . ':tx_cart.module.order_statistics',
-            'navigationComponentId' => 'typo3-pagetree',
-        ]
-    );
-
-    \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerModule(
-        'Extcode.' . $_EXTKEY,
-        'Cart',
-        'Products',
-        '',
-        [
-            'Product' => 'list, show,',
-            'Variant' => 'list, show, edit, update',
-        ],
-        [
-            'access' => 'user, group',
-            'icon' => $iconPath . 'module_products.svg',
-            'labels' => $_LLL . ':tx_cart.module.products',
             'navigationComponentId' => 'typo3-pagetree',
         ]
     );
@@ -144,13 +129,6 @@ $iconRegistry->registerIcon(
 $TCA['pages']['ctrl']['typeicon_classes']['contains-orders'] = 'tcarecords-pages-contains-orders';
 
 $iconRegistry->registerIcon(
-    'tcarecords-pages-contains-products',
-    \TYPO3\CMS\Core\Imaging\IconProvider\BitmapIconProvider::class,
-    ['source' => $iconPath . 'pages_products_icon.png']
-);
-$TCA['pages']['ctrl']['typeicon_classes']['contains-products'] = 'tcarecords-pages-contains-products';
-
-$iconRegistry->registerIcon(
     'tcarecords-pages-contains-coupons',
     \TYPO3\CMS\Core\Imaging\IconProvider\BitmapIconProvider::class,
     ['source' => $iconPath . 'pages_coupons_icon.png']
@@ -161,11 +139,6 @@ $TCA['pages']['columns']['module']['config']['items'][] = [
     'LLL:EXT:' . $_EXTKEY . '/Resources/Private/Language/locallang_db.xlf:tx_cart.module.orders',
     'orders',
     $iconPath . 'pages_orders_icon.png'
-];
-$TCA['pages']['columns']['module']['config']['items'][] = [
-    'LLL:EXT:' . $_EXTKEY . '/Resources/Private/Language/locallang_db.xlf:tx_cart.module.products',
-    'products',
-    $iconPath . 'pages_products_icon.png'
 ];
 $TCA['pages']['columns']['module']['config']['items'][] = [
     'LLL:EXT:' . $_EXTKEY . '/Resources/Private/Language/locallang_db.xlf:tx_cart.module.coupons',
@@ -184,14 +157,6 @@ $tables = [
     'order_payment',
     'order_transaction',
     'product_coupon',
-    'product_product',
-    'product_specialprice',
-    'product_taxclass',
-    'product_fevariant',
-    'product_bevariant',
-    'product_bevariantattribute',
-    'product_bevariantattributeoption',
-    'product_tag',
 ];
 
 foreach ($tables as $table) {
