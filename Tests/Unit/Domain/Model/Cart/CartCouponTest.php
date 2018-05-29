@@ -2,41 +2,18 @@
 
 namespace Extcode\Cart\Tests\Domain\Model\Cart;
 
-/***************************************************************
- *  Copyright notice
- *
- *  (c) 2015 Daniel Lorenz <ext.cart@extco.de>, extco.de
- *
- *  All rights reserved
- *
- *  This script is part of the TYPO3 project. The TYPO3 project is
- *  free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 3 of the License, or
- *  (at your option) any later version.
- *
- *  The GNU General Public License can be found at
- *  http://www.gnu.org/copyleft/gpl.html.
- *
- *  This script is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  This copyright notice MUST APPEAR in all copies of the script!
- ***************************************************************/
-
 /**
- * CartCoupon Test
+ * This file is part of the "cart_products" Extension for TYPO3 CMS.
  *
- * @author Daniel Lorenz
- * @license http://www.gnu.org/licenses/lgpl.html
- *                     GNU Lesser General Public License, version 3 or later
+ * For the full copyright and license information, please read the
+ * LICENSE.txt file that was distributed with this source code.
  */
-class CartCouponTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
+use Nimut\TestingFramework\TestCase\UnitTestCase;
+
+class CartCouponTest extends UnitTestCase
 {
     /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
+     * @var \Extcode\Cart\Domain\Model\Cart\CartCoupon
      */
     protected $coupon = null;
 
@@ -107,7 +84,7 @@ class CartCouponTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
      */
     public function constructCouponWithoutTitleThrowsException()
     {
-        $this->setExpectedException(
+        $this->expectException(
             'InvalidArgumentException',
             'You have to specify a valid $title for constructor.',
             1448230010
@@ -128,7 +105,7 @@ class CartCouponTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
      */
     public function constructCouponWithoutCodeThrowsException()
     {
-        $this->setExpectedException(
+        $this->expectException(
             'InvalidArgumentException',
             'You have to specify a valid $code for constructor.',
             1448230020
@@ -149,7 +126,7 @@ class CartCouponTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
      */
     public function constructCouponWithoutCouponTypeThrowsException()
     {
-        $this->setExpectedException(
+        $this->expectException(
             'InvalidArgumentException',
             'You have to specify a valid $couponType for constructor.',
             1468928203
@@ -170,7 +147,7 @@ class CartCouponTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
      */
     public function constructCouponWithoutDiscountThrowsException()
     {
-        $this->setExpectedException(
+        $this->expectException(
             'InvalidArgumentException',
             'You have to specify a valid $discount for constructor.',
             1448230030
@@ -191,7 +168,7 @@ class CartCouponTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
      */
     public function constructCouponWithoutTaxClassThrowsException()
     {
-        $this->setExpectedException(
+        $this->expectException(
             'InvalidArgumentException',
             'You have to specify a valid $taxClass for constructor.',
             1448230040
@@ -222,7 +199,7 @@ class CartCouponTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
      */
     public function constructorSetsIsCombinable()
     {
-        $coupon = new \Extcode\Cart\Domain\Model\Cart\CartCoupon(
+        $this->coupon = new \Extcode\Cart\Domain\Model\Cart\CartCoupon(
             $this->title,
             $this->code,
             $this->couponType,
@@ -233,7 +210,7 @@ class CartCouponTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
         );
 
         $this->assertTrue(
-            $coupon->getIsCombinable()
+            $this->coupon->getIsCombinable()
         );
     }
 
@@ -266,13 +243,10 @@ class CartCouponTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
     {
         $currencyTranslation = 2.0;
 
-        $cart = $this->getMock(
-            \Extcode\Cart\Domain\Model\Cart\Cart::class,
-            ['getCurrencyTranslation'],
-            [],
-            '',
-            false
-        );
+        $cart = $this->getMockBuilder(\Extcode\Cart\Domain\Model\Cart\Cart::class)
+            ->setMethods(['getCurrencyTranslation'])
+            ->setConstructorArgs([[$this->taxClass]])
+            ->getMock();
         $cart->expects($this->any())->method('getCurrencyTranslation')->will($this->returnValue($currencyTranslation));
 
         $this->coupon->setCart($cart);
@@ -339,13 +313,10 @@ class CartCouponTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
         $discount = 5.00;
         $cartMinPrice = 9.99;
 
-        $cart = $this->getMock(
-            \Extcode\Cart\Domain\Model\Cart\Cart::class,
-            ['getGross'],
-            [],
-            '',
-            false
-        );
+        $cart = $this->getMockBuilder(\Extcode\Cart\Domain\Model\Cart\Cart::class)
+            ->setMethods(['getGross'])
+            ->setConstructorArgs([[$this->taxClass]])
+            ->getMock();
         $cart->expects($this->any())->method('getGross')->will($this->returnValue($gross));
 
         $coupon = new \Extcode\Cart\Domain\Model\Cart\CartCoupon(
@@ -373,13 +344,10 @@ class CartCouponTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
         $discount = 5.00;
         $cartMinPrice = 10.00;
 
-        $cart = $this->getMock(
-            'Extcode\\Cart\\Domain\\Model\\Cart\\Cart',
-            ['getGross'],
-            [],
-            '',
-            false
-        );
+        $cart = $this->getMockBuilder(\Extcode\Cart\Domain\Model\Cart\Cart::class)
+            ->setMethods(['getGross'])
+            ->setConstructorArgs([[$this->taxClass]])
+            ->getMock();
         $cart->expects($this->any())->method('getGross')->will($this->returnValue($gross));
 
         $coupon = new \Extcode\Cart\Domain\Model\Cart\CartCoupon(
@@ -407,13 +375,10 @@ class CartCouponTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
         $discount = 5.00;
         $cartMinPrice = 10.01;
 
-        $cart = $this->getMock(
-            'Extcode\\Cart\\Domain\\Model\\Cart\\Cart',
-            ['getGross'],
-            [],
-            '',
-            false
-        );
+        $cart = $this->getMockBuilder(\Extcode\Cart\Domain\Model\Cart\Cart::class)
+            ->setMethods(['getGross'])
+            ->setConstructorArgs([[$this->taxClass]])
+            ->getMock();
         $cart->expects($this->any())->method('getGross')->will($this->returnValue($gross));
 
         $coupon = new \Extcode\Cart\Domain\Model\Cart\CartCoupon(

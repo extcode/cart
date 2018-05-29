@@ -763,6 +763,21 @@ class Product
     }
 
     /**
+     * @param array $newQuantities
+     */
+    public function changeQuantities($newQuantities)
+    {
+        foreach ($newQuantities as $newQuantityKey => $newQuantityValue) {
+            if ($newQuantityValue === 0) {
+                $this->removeVariantById($newQuantityKey);
+            } else {
+                $this->getBeVariant($newQuantityKey)->setQuantity($newQuantityValue);
+                $this->reCalc();
+            }
+        }
+    }
+
+    /**
      * @return int
      */
     public function getQuantity()

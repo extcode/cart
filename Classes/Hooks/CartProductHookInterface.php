@@ -2,6 +2,10 @@
 
 namespace Extcode\Cart\Hooks;
 
+use Extcode\Cart\Domain\Model\Cart\Cart;
+use Extcode\Cart\Domain\Model\Cart\Product;
+use TYPO3\CMS\Extbase\Mvc\Web\Request;
+
 /**
  * CheckAvailability Hook Interface
  *
@@ -10,16 +14,26 @@ namespace Extcode\Cart\Hooks;
 interface CartProductHookInterface
 {
     /**
-     * @param array $params
-     * @return bool
+     * @param Request $request
+     * @param Product $cartProduct,
+     * @param Cart $cart
+     *
+     * @return \Extcode\Cart\Domain\Model\Dto\AvailabilityResponse
      */
-    public function checkAvailability(array $params);
+    public function checkAvailability(
+        Request $request,
+        Product $cartProduct,
+        Cart $cart
+    ) : \Extcode\Cart\Domain\Model\Dto\AvailabilityResponse;
 
     /**
-     * @param array $requestArguments
-     * @param array $taxClasses
+     * @param Request $request
+     * @param Cart $cart
      *
      * @return bool
      */
-    public function getProductFromRequest(array $requestArguments, array $taxClasses);
+    public function getProductFromRequest(
+        Request $request,
+        Cart $cart
+    );
 }

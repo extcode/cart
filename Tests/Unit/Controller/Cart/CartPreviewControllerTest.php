@@ -3,24 +3,14 @@
 namespace Extcode\Cart\Tests\Controller\Cart;
 
 /**
- * This file is part of the TYPO3 CMS project.
- *
- * It is free software; you can redistribute it and/or modify it under
- * the terms of the GNU General Public License, either version 2
- * of the License, or any later version.
+ * This file is part of the "cart_products" Extension for TYPO3 CMS.
  *
  * For the full copyright and license information, please read the
  * LICENSE.txt file that was distributed with this source code.
- *
- * The TYPO3 project - inspiring people to share!
  */
+use Nimut\TestingFramework\TestCase\UnitTestCase;
 
-/**
- * CartPreview Controller Test
- *
- * @author Daniel Lorenz <ext.cart@extco.de>
- */
-class CartPreviewControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
+class CartPreviewControllerTest extends UnitTestCase
 {
     /**
      * @var \TYPO3\CMS\Extbase\Object\ObjectManagerInterface
@@ -56,27 +46,23 @@ class CartPreviewControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
         $this->subject
             ->expects($this->any())
             ->method('parseData')
-            ->will($this->returnValue(void));
+            ->will($this->returnValue('void'));
 
         $this->setUpSettings();
 
-        $this->mockedObjectManager = $this->getMock(
+        $this->mockedObjectManager = $this->getMockBuilder(
             \TYPO3\CMS\Extbase\Object\ObjectManagerInterface::class
-        );
+        )->getMock();
         $this->inject($this->subject, 'objectManager', $this->mockedObjectManager);
 
-        $this->view = $this->getMock(
+        $this->view = $this->getMockBuilder(
             \TYPO3\CMS\Extbase\Mvc\View\ViewInterface::class
-        );
+        )->getMock();
         $this->inject($this->subject, 'view', $this->view);
 
-        $sessionHandler = $this->getMock(
-            \Extcode\Cart\Service\SessionHandler::class,
-            [],
-            [],
-            '',
-            false
-        );
+        $sessionHandler = $this->getMockBuilder(
+            \Extcode\Cart\Service\SessionHandler::class
+        )->getMock();
         $this->inject($this->subject, 'sessionHandler', $sessionHandler);
 
         $parserUtility = $this->getParserUtility();
@@ -92,13 +78,9 @@ class CartPreviewControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
      */
     protected function getParserUtility()
     {
-        $parserUtility = $this->getMock(
-            \Extcode\Cart\Utility\ParserUtility::class,
-            ['parseTaxClasses'],
-            [],
-            '',
-            false
-        );
+        $parserUtility = $this->getMockBuilder(\Extcode\Cart\Utility\ParserUtility::class)
+            ->setMethods(['parseTaxClasses'])
+            ->getMock();
         $parserUtility
             ->expects($this->any())
             ->method('parseTaxClasses')
@@ -111,13 +93,9 @@ class CartPreviewControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
      */
     protected function getCartUtility()
     {
-        $cartUtility = $this->getMock(
-            \Extcode\Cart\Utility\CartUtility::class,
-            ['parseServices'],
-            [],
-            '',
-            false
-        );
+        $cartUtility = $this->getMockBuilder(\Extcode\Cart\Utility\CartUtility::class)
+            ->setMethods(['parseServices'])
+            ->getMock();
         $cartUtility
             ->expects($this->any())
             ->method('parseServices')
@@ -136,9 +114,11 @@ class CartPreviewControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
     protected function setUpConfiguration()
     {
         $configuration = [];
-        $configurationManager = $this->getMock(
+        $configurationManager = $this->getMockBuilder(
             \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::class
-        );
+        )
+            ->setMethods(['getConfiguration', 'setConfiguration', 'getContentObject', 'setContentObject', 'isFeatureEnabled'])
+            ->getMock();
         $configurationManager
             ->expects($this->any())
             ->method('getConfiguration')

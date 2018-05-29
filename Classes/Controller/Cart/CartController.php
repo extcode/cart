@@ -22,7 +22,6 @@ namespace Extcode\Cart\Controller\Cart;
  */
 class CartController extends ActionController
 {
-
     /**
      * Stock Utility
      *
@@ -137,18 +136,22 @@ class CartController extends ActionController
         foreach ($updateQuantities as $productId => $quantity) {
             $cartProduct = $this->cart->getProductById($productId);
             if ($cartProduct) {
-                if ($this->stockUtility->checkAvailability($cartProduct, $quantity)) {
-                    $cartProduct->changeQuantity($quantity);
+                $availabilityResponse = $this->stockUtility->checkAvailability($this->request, $cartProduct, $this->cart, 'update');
+                if ($availabilityResponse->isAvailable()) {
+                    if (is_array($quantity)) {
+                        $cartProduct->changeQuantities($quantity);
+                    } else {
+                        $cartProduct->changeQuantity($quantity);
+                    }
                 } else {
-                    $this->addFlashMessage(
-                        \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
-                            'tx_cart.error.stock_handling.update',
-                            'cart'
-                        ),
-                        '',
-                        \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR,
-                        true
-                    );
+                    foreach ($availabilityResponse->getMessages() as $message) {
+                        $this->addFlashMessage(
+                            $message->getMessage(),
+                            $message->getTitle(),
+                            $message->getSeverity(),
+                            true
+                        );
+                    }
                 }
             }
         }

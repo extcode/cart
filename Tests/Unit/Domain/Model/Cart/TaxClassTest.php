@@ -2,38 +2,15 @@
 
 namespace Extcode\Cart\Tests\Domain\Model\Cart;
 
-/***************************************************************
- *  Copyright notice
- *
- *  (c) 2015 Daniel Lorenz <ext.cart@extco.de>, extco.de
- *
- *  All rights reserved
- *
- *  This script is part of the TYPO3 project. The TYPO3 project is
- *  free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 3 of the License, or
- *  (at your option) any later version.
- *
- *  The GNU General Public License can be found at
- *  http://www.gnu.org/copyleft/gpl.html.
- *
- *  This script is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  This copyright notice MUST APPEAR in all copies of the script!
- ***************************************************************/
-
 /**
- * Tax Class Test
+ * This file is part of the "cart_products" Extension for TYPO3 CMS.
  *
- * @author Daniel Lorenz
- * @license http://www.gnu.org/licenses/lgpl.html
- *                     GNU Lesser General Public License, version 3 or later
+ * For the full copyright and license information, please read the
+ * LICENSE.txt file that was distributed with this source code.
  */
-class TaxClassTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
+use Nimut\TestingFramework\TestCase\UnitTestCase;
+
+class TaxClassTest extends UnitTestCase
 {
     /**
      * Tax Class
@@ -106,7 +83,7 @@ class TaxClassTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
      */
     public function constructTaxClassWithoutIdThrowsException()
     {
-        $this->setExpectedException(
+        $this->expectException(
             'InvalidArgumentException',
             'You have to specify a valid $id for constructor.',
             1413981328
@@ -125,7 +102,7 @@ class TaxClassTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
      */
     public function constructTaxClassWithoutValueThrowsException()
     {
-        $this->setExpectedException(
+        $this->expectException(
             'InvalidArgumentException',
             'You have to specify a valid $value for constructor.',
             1413981329
@@ -144,7 +121,7 @@ class TaxClassTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
      */
     public function constructTaxClassWithoutCalcThrowsException()
     {
-        $this->setExpectedException(
+        $this->expectException(
             'InvalidArgumentException',
             'You have to specify a valid $calc for constructor.',
             1413981330
@@ -163,7 +140,7 @@ class TaxClassTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
      */
     public function constructTaxClassWithoutTitleThrowsException()
     {
-        $this->setExpectedException(
+        $this->expectException(
             'InvalidArgumentException',
             'You have to specify a valid $title for constructor.',
             1413981331

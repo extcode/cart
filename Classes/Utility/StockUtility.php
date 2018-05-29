@@ -64,20 +64,17 @@ class StockUtility
     }
 
     /**
-     * Check Stock
-     *
+     * @param \TYPO3\CMS\Extbase\Mvc\Web\Request
      * @param \Extcode\Cart\Domain\Model\Cart\Product $cartProduct
-     * @param mixed $quantity
+     * @param \Extcode\Cart\Domain\Model\Cart\Cart $cart
+     * @param string $mode
      */
     public function checkAvailability(
+        \TYPO3\CMS\Extbase\Mvc\Web\Request $request,
         \Extcode\Cart\Domain\Model\Cart\Product $cartProduct,
-        $quantity
+        \Extcode\Cart\Domain\Model\Cart\Cart $cart,
+        string $mode
     ) {
-        $params = [
-            'cartProduct' => $cartProduct,
-            'quantity' => $quantity,
-        ];
-
         $productType = $cartProduct->getProductType();
         if (empty($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['cart'][$productType])) {
             // TODO: throw own exception
@@ -91,7 +88,7 @@ class StockUtility
             throw new \UnexpectedValueException($className . ' must implement interface ' . CartProductHookInterface::class, 123);
         }
 
-        return $hookObject->checkAvailability($params);
+        return $hookObject->checkAvailability($request, $cartProduct, $cart, $mode);
     }
 
     /**

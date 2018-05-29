@@ -39,6 +39,13 @@ class ProductController extends ActionController
     protected $productUtility;
 
     /**
+     * Stock Utility
+     *
+     * @var \Extcode\Cart\Utility\StockUtility
+     */
+    protected $stockUtility;
+
+    /**
      * GpValues
      *
      * @var array
@@ -71,6 +78,15 @@ class ProductController extends ActionController
     }
 
     /**
+     * @param \Extcode\Cart\Utility\StockUtility $stockUtility
+     */
+    public function injectStockUtility(
+        \Extcode\Cart\Utility\StockUtility $stockUtility
+    ) {
+        $this->stockUtility = $stockUtility;
+    }
+
+    /**
      * Action Add
      *
      * @return string
@@ -98,10 +114,25 @@ class ProductController extends ActionController
             throw new \UnexpectedValueException($className . ' must implement interface ' . CartProductHookInterface::class, 123);
         }
 
-        list($errors, $products) = $hookObject->getProductFromRequest(
-            $this->request->getArguments(),
-            $this->cart->getTaxClasses()
+        list($errors, $cartProducts) = $hookObject->getProductFromRequest(
+            $this->request,
+            $this->cart
         );
+
+        $errors = [];
+
+        foreach ($cartProducts as $cartProductKey => $cartProduct) {
+            $availabilityResponse = $this->stockUtility->checkAvailability(
+                $this->request,
+                $cartProduct,
+                $this->cart,
+                'add'
+            );
+
+            if (!$availabilityResponse->isAvailable()) {
+                $errors = array_merge($errors, $availabilityResponse->getMessages());
+            }
+        }
 
         if (!empty($errors)) {
             $messageBody = '';
@@ -109,10 +140,10 @@ class ProductController extends ActionController
             $severity = \TYPO3\CMS\Core\Messaging\AbstractMessage::OK;
 
             foreach ($errors as $error) {
-                if ($error['$severity'] >= $severity) {
-                    $severity = $error['$severity'];
-                    $messageBody = $error['messageBody'];
-                    $messageTitle = $error['messageTitle'];
+                if ($error->getSeverity() >= $severity) {
+                    $severity = $error->getSeverity();
+                    $messageBody = $error->getMessage();
+                    $messageTitle = $error->getTitle();
                 }
             }
 
@@ -135,10 +166,12 @@ class ProductController extends ActionController
                     $severity,
                     true
                 );
+
+                $this->redirect('show', 'Cart\Cart');
             }
         }
 
-        $quantity = $this->addProductsToCart($products);
+        $quantity = $this->addProductsToCart($cartProducts);
 
         $this->updateService();
 
@@ -192,7 +225,7 @@ class ProductController extends ActionController
     }
 
     /**
-     * @param $products
+     * @param array $products
      * @return int
      */
     protected function addProductsToCart($products)

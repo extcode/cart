@@ -23,11 +23,10 @@
     },
     "require": {
         "php": ">=7.0.0",
-        "typo3/cms": "^8.7"
+        "typo3/cms-core": "^8.7"
     },
     "require-dev": {
-        "nimut/testing-framework": "^1.0",
-        "phpunit/phpunit": "~4.8.0",
+        "nimut/testing-framework": "^2.0 || ^3.0",
         "friendsofphp/php-cs-fixer": "^2.0"
     },
     "autoload": {
