@@ -34,7 +34,7 @@ class OrderUtility
      * Persistence Manager
      *
      * @var \TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager
-     * @inject
+     * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected $persistenceManager;
 
@@ -42,7 +42,7 @@ class OrderUtility
      * Item Repository
      *
      * @var \Extcode\Cart\Domain\Repository\Order\ItemRepository
-     * @inject
+     * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected $orderItemRepository;
 
@@ -50,7 +50,7 @@ class OrderUtility
      * Product Coupon Repository
      *
      * @var \Extcode\Cart\Domain\Repository\Product\CouponRepository
-     * @inject
+     * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected $productCouponRepository;
 
@@ -58,7 +58,7 @@ class OrderUtility
      * Order Discount Repository
      *
      * @var \Extcode\Cart\Domain\Repository\Order\DiscountRepository
-     * @inject
+     * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected $orderDiscountRepository;
 
@@ -66,7 +66,7 @@ class OrderUtility
      * Product Repository
      *
      * @var \Extcode\Cart\Domain\Repository\Order\ProductRepository
-     * @inject
+     * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected $productRepository;
 
@@ -74,7 +74,7 @@ class OrderUtility
      * Product Additional Repository
      *
      * @var \Extcode\Cart\Domain\Repository\Order\ProductAdditionalRepository
-     * @inject
+     * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected $productAdditionalRepository;
 
@@ -82,7 +82,7 @@ class OrderUtility
      * Address Repository
      *
      * @var \Extcode\Cart\Domain\Repository\Order\AddressRepository
-     * @inject
+     * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected $addressRepository;
 
@@ -90,7 +90,7 @@ class OrderUtility
      * Payment Repository
      *
      * @var \Extcode\Cart\Domain\Repository\Order\PaymentRepository
-     * @inject
+     * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected $paymentRepository;
 
@@ -98,7 +98,7 @@ class OrderUtility
      * Shipping Repository
      *
      * @var \Extcode\Cart\Domain\Repository\Order\ShippingRepository
-     * @inject
+     * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected $shippingRepository;
 
@@ -106,7 +106,7 @@ class OrderUtility
      * Tax Class Repository
      *
      * @var \Extcode\Cart\Domain\Repository\Order\TaxClassRepository
-     * @inject
+     * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected $taxClassRepository;
 
@@ -114,7 +114,7 @@ class OrderUtility
      * Order Tax Repository
      *
      * @var \Extcode\Cart\Domain\Repository\Order\TaxRepository
-     * @inject
+     * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected $taxRepository;
 

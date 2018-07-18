@@ -82,7 +82,7 @@ class Item extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Billing Address
      *
-     * @lazy
+     * @TYPO3\CMS\Extbase\Annotation\ORM\Lazy
      * @var \Extcode\Cart\Domain\Model\Order\Address
      */
     protected $billingAddress;
@@ -90,7 +90,7 @@ class Item extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Shipping Address
      *
-     * @lazy
+     * @TYPO3\CMS\Extbase\Annotation\ORM\Lazy
      * @var \Extcode\Cart\Domain\Model\Order\Address
      */
     protected $shippingAddress;
@@ -173,7 +173,7 @@ class Item extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * TaxClass
      *
-     * @lazy
+     * @TYPO3\CMS\Extbase\Annotation\ORM\Lazy
      * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<Extcode\Cart\Domain\Model\Order\TaxClass>
      */
     protected $taxClass;
@@ -196,7 +196,7 @@ class Item extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * Products
      *
      * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<Extcode\Cart\Domain\Model\Order\Product>
-     * @lazy
+     * @TYPO3\CMS\Extbase\Annotation\ORM\Lazy
      */
     protected $products;
 
@@ -204,7 +204,7 @@ class Item extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * Discounts
      *
      * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<Extcode\Cart\Domain\Model\Order\Discount>
-     * @lazy
+     * @TYPO3\CMS\Extbase\Annotation\ORM\Lazy
      */
     protected $discounts;
 

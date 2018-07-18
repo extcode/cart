@@ -33,8 +33,8 @@ class Payment extends \Extcode\Cart\Domain\Model\Order\AbstractService
     /**
      * Transactions
      *
-     * @lazy
      * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<Extcode\Cart\Domain\Model\Order\Transaction>
+     * @TYPO3\CMS\Extbase\Annotation\ORM\Lazy
      */
     protected $transactions = null;
 

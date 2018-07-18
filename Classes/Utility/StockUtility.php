@@ -95,7 +95,7 @@ class StockUtility
      * Check Stock
      *
      * @param \Extcode\Cart\Domain\Model\Cart\Cart $cart
-     * @parem array $pluginSettings
+     * @param array $pluginSettings
      */
     public function checkStock(
         \Extcode\Cart\Domain\Model\Cart\Cart $cart,
@@ -175,7 +175,7 @@ class StockUtility
      * Handle Stock
      *
      * @param \Extcode\Cart\Domain\Model\Cart\Cart $cart
-     * @parem array $pluginSettings
+     * @param array $pluginSettings
      */
     public function handleStock(
         \Extcode\Cart\Domain\Model\Cart\Cart $cart,

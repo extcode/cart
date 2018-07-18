@@ -27,7 +27,7 @@ class CurrencyViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHe
 {
     /**
      * @var \TYPO3\CMS\Extbase\Configuration\ConfigurationManager
-     * @inject
+     * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected $configurationManager;
 
@@ -38,26 +38,68 @@ class CurrencyViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHe
      */
     protected $escapeOutput = false;
 
+    public function initializeArguments()
+    {
+        parent::initializeArguments();
+
+        $this->registerArgument(
+            'currencySign',
+            'string',
+            'The currency sign. (e.g. $ or €)',
+            false
+        );
+        $this->registerArgument(
+            'decimalSeparator',
+            'string',
+            'The decimal point separator.',
+            false
+        );
+        $this->registerArgument(
+            'thousandsSeparator',
+            'string',
+            'The thousands separator',
+            false
+        );
+        $this->registerArgument(
+            'prependCurrency',
+            'bool',
+            'Select if the curreny sign should be prepended',
+            false
+        );
+        $this->registerArgument(
+            'separateCurrency',
+            'bool',
+            'Separate the currency sign from the number by a single space.',
+            false
+        );
+        $this->registerArgument(
+            'decimals',
+            'int',
+            'Set decimals places.',
+            false
+        );
+        $this->registerArgument(
+            'currencyTranslation',
+            'float',
+            'Set decimals places.',
+            false,
+            1.00
+        );
+    }
+
     /**
-     * @param string $currencySign (optional) The currency sign, eg $ or €.
-     * @param string $decimalSeparator (optional) The separator for the decimal point.
-     * @param string $thousandsSeparator (optional) The thousands separator.
-     * @param bool $prependCurrency (optional) Select if the curreny sign should be prepended
-     * @param bool $separateCurrency (optional) Separate the currency sign from the number by a single space, defaults to true due to backwards compatibility
-     * @param int $decimals (optional) Set decimals places.
-     * @param float $currencyTranslation
-     *
      * @return string the formatted amount.
      */
-    public function render(
-        $currencySign = null,
-        $decimalSeparator = null,
-        $thousandsSeparator = null,
-        $prependCurrency = null,
-        $separateCurrency = null,
-        $decimals = null,
-        $currencyTranslation = 1.00
-    ) {
+    public function render()
+    {
+        $currencySign = $this->arguments['currencySign'];
+        $decimalSeparator = $this->arguments['decimalSeparator'];
+        $thousandsSeparator = $this->arguments['thousandsSeparator'];
+        $prependCurrency = $this->arguments['prependCurrency'];
+        $separateCurrency = $this->arguments['separateCurrency'];
+        $decimals = $this->arguments['decimals'];
+        $currencyTranslation = $this->arguments['currencyTranslation'];
+
         $settings = $this->templateVariableContainer->get('settings');
 
         if ($settings && $settings['format'] && $settings['format']['currency']) {

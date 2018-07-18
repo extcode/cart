@@ -161,7 +161,7 @@ class OrderController extends \Extcode\Cart\Controller\Backend\ActionController
      *
      * @param \Extcode\Cart\Domain\Model\Order\Item $orderItem
      *
-     * @ignorevalidation $orderItem
+     * @TYPO3\CMS\Extbase\Annotation\IgnoreValidation $orderItem
      */
     public function showAction(\Extcode\Cart\Domain\Model\Order\Item $orderItem)
     {
@@ -294,7 +294,7 @@ class OrderController extends \Extcode\Cart\Controller\Backend\ActionController
     protected function buildTSFE($pid = 1, $typeNum = 0)
     {
         if (!is_object($GLOBALS['TT'])) {
-            $GLOBALS['TT'] = new \TYPO3\CMS\Core\TimeTracker\NullTimeTracker;
+            $GLOBALS['TT'] = new \TYPO3\CMS\Core\TimeTracker\TimeTracker(false);
             $GLOBALS['TT']->start();
         }
 

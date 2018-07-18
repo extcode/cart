@@ -23,15 +23,22 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  */
 class IncludeFileViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper
 {
+    public function initializeArguments()
+    {
+        parent::initializeArguments();
+
+        $this->registerArgument('path', 'string', 'Path to the CSS/JS file which should be included', true);
+        $this->registerArgument('compress', 'bool', 'Define if file should be compressed', false, false);
+    }
 
     /**
      * Include a CSS/JS file
-     *
-     * @param string $path Path to the CSS/JS file which should be included
-     * @param bool $compress Define if file should be compressed
      */
-    public function render($path, $compress = false)
+    public function render()
     {
+        $path = $this->arguments['path'];
+        $compress = $this->arguments['compress'];
+
         $pageRenderer = GeneralUtility::makeInstance('TYPO3\\CMS\\Core\\Page\\PageRenderer');
         if (TYPO3_MODE === 'FE') {
             $path = $GLOBALS['TSFE']->tmpl->getFileName($path);

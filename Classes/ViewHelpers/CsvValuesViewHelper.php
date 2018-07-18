@@ -14,6 +14,7 @@ namespace Extcode\Cart\ViewHelpers;
  *
  * The TYPO3 project - inspiring people to share!
  */
+use TYPO3\CMS\Core\Utility\CsvUtility;
 
 /**
  * Format array of values to CSV format
@@ -42,6 +43,6 @@ class CsvValuesViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewH
         $orderItemArr[] = $orderItem->getOrderNumber();
         $orderItemArr[] = $orderItem->getInvoiceNumber();
 
-        return \TYPO3\CMS\Core\Utility\GeneralUtility::csvValues($orderItemArr, $delim, $quote);
+        return CsvUtility::csvValues($orderItemArr, $delim, $quote);
     }
 }

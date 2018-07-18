@@ -57,15 +57,22 @@ use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
  */
 class SetViewHelper extends AbstractViewHelper
 {
+    public function initializeArguments()
+    {
+        parent::initializeArguments();
+
+        $this->registerArgument('name', 'string', 'Name of variable to set.', true);
+        $this->registerArgument('value', 'mixed', 'Value of variable to set.', true);
+    }
 
     /**
      * Set (override) the variable in $name.
-     *
-     * @param string $name
-     * @param mixed $value
      */
-    public function render($name, $value = null)
+    public function render()
     {
+        $name = $this->arguments['name'];
+        $value = $this->arguments['value'];
+
         if (null === $value) {
             $value = $this->renderChildren();
         }

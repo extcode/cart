@@ -110,7 +110,7 @@ class OrderController extends ActionController
      * @param \Extcode\Cart\Domain\Model\Order\Address $billingAddress
      * @param \Extcode\Cart\Domain\Model\Order\Address $shippingAddress
      *
-     * @ignorevalidation $shippingAddress
+     * @TYPO3\CMS\Extbase\Annotation\IgnoreValidation $shippingAddress
      */
     public function createAction(
         \Extcode\Cart\Domain\Model\Order\Item $orderItem = null,

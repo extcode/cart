@@ -22,11 +22,10 @@
         "issues": "https://github.com/extcode/cart/issues"
     },
     "require": {
-        "php": ">=7.0.0",
-        "typo3/cms-core": "^8.7"
+        "typo3/cms-core": "^8.7 || ^9.3"
     },
     "require-dev": {
-        "nimut/testing-framework": "^2.0 || ^3.0",
+        "nimut/testing-framework": "^2.0 || ^3.0 || ^4.0",
         "friendsofphp/php-cs-fixer": "^2.0"
     },
     "autoload": {
@@ -46,16 +45,12 @@
         "vendor-dir": ".Build/vendor",
         "bin-dir": ".Build/bin"
     },
-    "scripts": {
-        "post-autoload-dump": [
-            "mkdir -p .Build/Web/typo3conf/ext/",
-            "[ -L .Build/Web/typo3conf/ext/cart ] || ln -snvf ../../../../. .Build/Web/typo3conf/ext/cart"
-        ]
-    },
     "extra": {
         "typo3/cms": {
+            "extension-key": "cart",
             "cms-package-dir": "{$vendor-dir}/typo3/cms",
-            "web-dir": ".Build/Web"
+            "app-dir": ".Build",
+            "web-dir": ".Build/public"
         }
     }
 }

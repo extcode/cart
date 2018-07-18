@@ -3,7 +3,6 @@
 defined('TYPO3_MODE') or die();
 
 $extPath = \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($_EXTKEY);
-$extRelPath = \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath($_EXTKEY);
 
 $tcaPath = $extPath . 'Configuration/TCA/';
 $iconPath = 'EXT:' . $_EXTKEY . '/Resources/Public/Icons/';

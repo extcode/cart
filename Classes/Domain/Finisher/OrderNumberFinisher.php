@@ -26,7 +26,6 @@ class OrderNumberFinisher extends AbstractFinisher
      * Item Repository
      *
      * @var \Extcode\Cart\Domain\Repository\Order\ItemRepository
-     * @inject
      */
     protected $orderItemRepository;
 

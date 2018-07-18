@@ -50,14 +50,24 @@ use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
  */
 class GetViewHelper extends AbstractViewHelper
 {
+    public function initializeArguments()
+    {
+        parent::initializeArguments();
+
+        $this->registerArgument('name', 'string', 'Name of variable to get.', true);
+        $this->registerArgument('useRawKeys', 'bool', 'Value of variable to set.', false, false);
+    }
 
     /**
-     * @param string $name
-     * @param bool $useRawKeys
+     * Get the value of $name.
+     *
      * @return mixed
      */
-    public function render($name, $useRawKeys = false)
+    public function render()
     {
+        $name = $this->arguments['name'];
+        $useRawKeys = $this->arguments['useRawKeys'];
+
         if (false === strpos($name, '.')) {
             if (true === $this->templateVariableContainer->exists($name)) {
                 return $this->templateVariableContainer->get($name);

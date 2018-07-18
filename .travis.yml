@@ -5,10 +5,14 @@ sudo: false
 matrix:
   fast_finish: true
   include:
+    - php: 7.0
+      env: TYPO3_VERSION=^8.7
     - php: 7.1
       env: TYPO3_VERSION=^8.7
-    - php: 7
+    - php: 7.2
       env: TYPO3_VERSION=^8.7
+    - php: 7.2
+      env: TYPO3_VERSION=^9.3
 
 cache:
   directories:
@@ -30,7 +34,7 @@ before_install:
   - composer --version
 
 before_script:
-  - composer require typo3/cms=$TYPO3_VERSION
+  - composer require typo3/cms-core=$TYPO3_VERSION
   - git checkout composer.json
   - export TYPO3_PATH_WEB="$PWD/.Build/Web"
 
@@ -56,4 +60,4 @@ script:
     export typo3DatabaseHost="localhost";
     export typo3DatabaseUsername="root";
     export typo3DatabasePassword="";
-    find 'Tests/Functional' -wholename '*Test.php' | parallel --gnu 'echo; echo "Running functional test suite {}"; .Build/bin/phpunit --colors  -c .Build/vendor/nimut/testing-framework/res/Configuration/FunctionalTests.xml {}'
+#    find 'Tests/Functional' -wholename '*Test.php' | parallel --gnu 'echo; echo "Running functional test suite {}"; .Build/bin/phpunit --colors  -c .Build/vendor/nimut/testing-framework/res/Configuration/FunctionalTests.xml {}'
