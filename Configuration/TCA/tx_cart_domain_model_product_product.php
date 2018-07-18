@@ -583,7 +583,7 @@ return [
             'l10n_mode' => 'mergeIfNotBlank',
             'label' => $_LLL . ':tx_cart_domain_model_product_product.images',
             'config' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::getFileFieldTCAConfig(
-                'image',
+                'images',
                 [
                     'appearance' => [
                         'createNewRelationLinkTitle' => 'LLL:EXT:cms/locallang_ttc.xlf:images.addFileReference',
