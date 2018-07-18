@@ -25,20 +25,6 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 class ProductController extends ActionController
 {
     /**
-     * Order Utility
-     *
-     * @var \Extcode\Cart\Utility\OrderUtility
-     */
-    protected $orderUtility;
-
-    /**
-     * Product Utility
-     *
-     * @var \Extcode\Cart\Utility\ProductUtility
-     */
-    protected $productUtility;
-
-    /**
      * Stock Utility
      *
      * @var \Extcode\Cart\Utility\StockUtility
@@ -58,24 +44,6 @@ class ProductController extends ActionController
      * @var array
      */
     protected $taxClasses = [];
-
-    /**
-     * @param \Extcode\Cart\Utility\OrderUtility $orderUtility
-     */
-    public function injectOrderUtility(
-        \Extcode\Cart\Utility\OrderUtility $orderUtility
-    ) {
-        $this->orderUtility = $orderUtility;
-    }
-
-    /**
-     * @param \Extcode\Cart\Utility\ProductUtility $productUtility
-     */
-    public function injectProductUtility(
-        \Extcode\Cart\Utility\ProductUtility $productUtility
-    ) {
-        $this->productUtility = $productUtility;
-    }
 
     /**
      * @param \Extcode\Cart\Utility\StockUtility $stockUtility
