@@ -72,6 +72,23 @@
                 <target>Absender-E-Mail-Adresse für E-Mail an den Käufer</target>
             </trans-unit>
 
+            <trans-unit id="tx_cart.tax_class_id">
+                <source>Tax Class</source>
+                <target>Steuerklasse</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.tax_class_id.1">
+                <source>normal</source>
+                <target>normal</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.tax_class_id.2">
+                <source>reduced</source>
+                <target>reduziert</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.tax_class_id.3">
+                <source>free</source>
+                <target>frei</target>
+            </trans-unit>
+
             <trans-unit id="tx_cart_domain_model_order_item">
                 <source>Order</source>
                 <target>Bestellung</target>

@@ -56,6 +56,19 @@
                 <source>Sender email address for email to the Buyer</source>
             </trans-unit>
 
+            <trans-unit id="tx_cart.tax_class_id">
+                <source>Tax Class</source>
+            </trans-unit>
+            <trans-unit id="tx_cart.tax_class_id.1">
+                <source>normal</source>
+            </trans-unit>
+            <trans-unit id="tx_cart.tax_class_id.2">
+                <source>reduced</source>
+            </trans-unit>
+            <trans-unit id="tx_cart.tax_class_id.3">
+                <source>free</source>
+            </trans-unit>
+
             <trans-unit id="tx_cart_domain_model_order_item">
                 <source>Order</source>
             </trans-unit>
