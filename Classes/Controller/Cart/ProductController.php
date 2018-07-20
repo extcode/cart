@@ -146,11 +146,18 @@ class ProductController extends ActionController
         $this->sessionHandler->write($this->cart, $this->settings['cart']['pid']);
 
         if (isset($_GET['type'])) {
-            // TODO: add json response
+            $productsChanged = $this->getChangedProducts($cartProducts);
 
-            return;
-        } else {
-            // TODO: add flash message response and redirect
+            $response = [
+                'status' => '200',
+                'added' => $quantity,
+                'count' => $this->cart->getCount(),
+                'net' => $this->cart->getNet(),
+                'gross' => $this->cart->getGross(),
+                'productsChanged' => $productsChanged,
+            ];
+
+            return json_encode($response);
         }
 
         $this->redirect('show', 'Cart\Cart');
