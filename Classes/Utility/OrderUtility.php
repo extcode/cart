@@ -34,7 +34,6 @@ class OrderUtility
      * Persistence Manager
      *
      * @var \TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager
-     * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected $persistenceManager;
 
@@ -42,7 +41,6 @@ class OrderUtility
      * Item Repository
      *
      * @var \Extcode\Cart\Domain\Repository\Order\ItemRepository
-     * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected $orderItemRepository;
 
@@ -50,7 +48,6 @@ class OrderUtility
      * Product Coupon Repository
      *
      * @var \Extcode\Cart\Domain\Repository\Product\CouponRepository
-     * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected $productCouponRepository;
 
@@ -58,7 +55,6 @@ class OrderUtility
      * Order Discount Repository
      *
      * @var \Extcode\Cart\Domain\Repository\Order\DiscountRepository
-     * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected $orderDiscountRepository;
 
@@ -66,7 +62,6 @@ class OrderUtility
      * Product Repository
      *
      * @var \Extcode\Cart\Domain\Repository\Order\ProductRepository
-     * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected $productRepository;
 
@@ -74,7 +69,6 @@ class OrderUtility
      * Product Additional Repository
      *
      * @var \Extcode\Cart\Domain\Repository\Order\ProductAdditionalRepository
-     * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected $productAdditionalRepository;
 
@@ -82,7 +76,6 @@ class OrderUtility
      * Address Repository
      *
      * @var \Extcode\Cart\Domain\Repository\Order\AddressRepository
-     * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected $addressRepository;
 
@@ -90,7 +83,6 @@ class OrderUtility
      * Payment Repository
      *
      * @var \Extcode\Cart\Domain\Repository\Order\PaymentRepository
-     * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected $paymentRepository;
 
@@ -98,7 +90,6 @@ class OrderUtility
      * Shipping Repository
      *
      * @var \Extcode\Cart\Domain\Repository\Order\ShippingRepository
-     * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected $shippingRepository;
 
@@ -106,7 +97,6 @@ class OrderUtility
      * Tax Class Repository
      *
      * @var \Extcode\Cart\Domain\Repository\Order\TaxClassRepository
-     * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected $taxClassRepository;
 
@@ -114,7 +104,6 @@ class OrderUtility
      * Order Tax Repository
      *
      * @var \Extcode\Cart\Domain\Repository\Order\TaxRepository
-     * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected $taxRepository;
 
@@ -153,6 +142,105 @@ class OrderUtility
         \TYPO3\CMS\Extbase\Object\ObjectManagerInterface $objectManager
     ) {
         $this->objectManager = $objectManager;
+    }
+
+    /**
+     * @param \Extcode\Cart\Domain\Repository\Order\ItemRepository
+     */
+    public function injectOrderItemRepository(
+        \Extcode\Cart\Domain\Repository\Order\ItemRepository $orderItemRepository
+    ) {
+        $this->orderItemRepository = $orderItemRepository;
+    }
+
+    /**
+     * @param \Extcode\Cart\Domain\Repository\Order\DiscountRepository
+     */
+    public function injectOrderDiscountRepository(
+        \Extcode\Cart\Domain\Repository\Order\DiscountRepository $orderDiscountRepository
+    ) {
+        $this->orderDiscountRepository = $orderDiscountRepository;
+    }
+
+    /**
+     * @param \Extcode\Cart\Domain\Repository\Order\AddressRepository
+     */
+    public function injectOrderAddressRepository(
+        \Extcode\Cart\Domain\Repository\Order\AddressRepository $addressRepository
+    ) {
+        $this->addressRepository = $addressRepository;
+    }
+
+    /**
+     * @param \Extcode\Cart\Domain\Repository\Order\ProductRepository
+     */
+    public function injectOrderProductRepository(
+        \Extcode\Cart\Domain\Repository\Order\ProductRepository $productRepository
+    ) {
+        $this->productRepository = $productRepository;
+    }
+
+    /**
+     * @param \Extcode\Cart\Domain\Repository\Order\ProductAdditionalRepository
+     */
+    public function injectOrderProductAdditionalRepository(
+        \Extcode\Cart\Domain\Repository\Order\ProductAdditionalRepository $productAdditionalRepository
+    ) {
+        $this->productAdditionalRepository = $productAdditionalRepository;
+    }
+
+    /**
+     * @param \Extcode\Cart\Domain\Repository\Order\PaymentRepository
+     */
+    public function injectOrderPaymentRepository(
+        \Extcode\Cart\Domain\Repository\Order\PaymentRepository $paymentRepository
+    ) {
+        $this->paymentRepository = $paymentRepository;
+    }
+
+    /**
+     * @param \Extcode\Cart\Domain\Repository\Order\ShippingRepository
+     */
+    public function injectOrderShippingRepository(
+        \Extcode\Cart\Domain\Repository\Order\ShippingRepository $shippingRepository
+    ) {
+        $this->shippingRepository = $shippingRepository;
+    }
+
+    /**
+     * @param \Extcode\Cart\Domain\Repository\Order\TaxClassRepository
+     */
+    public function injectOrderTaxClassRepository(
+        \Extcode\Cart\Domain\Repository\Order\TaxClassRepository $taxClassRepository
+    ) {
+        $this->taxClassRepository = $taxClassRepository;
+    }
+
+    /**
+     * @param \Extcode\Cart\Domain\Repository\Order\TaxRepository
+     */
+    public function injectOrderTaxRepository(
+        \Extcode\Cart\Domain\Repository\Order\TaxRepository $taxRepository
+    ) {
+        $this->taxRepository = $taxRepository;
+    }
+
+    /**
+     * @param \TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager $persistenceManager
+     */
+    public function injectPersistenceManager(
+        \TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager $persistenceManager
+    ) {
+        $this->persistenceManager = $persistenceManager;
+    }
+
+    /**
+     * @param \Extcode\Cart\Domain\Repository\Product\CouponRepository
+     */
+    public function injectProductCouponRepository(
+        \Extcode\Cart\Domain\Repository\Product\CouponRepository $productCouponRepository
+    ) {
+        $this->productCouponRepository = $productCouponRepository;
     }
 
     /**
