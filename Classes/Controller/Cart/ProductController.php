@@ -102,11 +102,11 @@ class ProductController extends ActionController
             }
         }
 
-        if (!empty($errors)) {
-            $messageBody = '';
-            $messageTitle = '';
-            $severity = \TYPO3\CMS\Core\Messaging\AbstractMessage::OK;
+        $messageBody = '';
+        $messageTitle = '';
+        $severity = \TYPO3\CMS\Core\Messaging\AbstractMessage::OK;
 
+        if (!empty($errors)) {
             foreach ($errors as $error) {
                 if ($error->getSeverity() >= $severity) {
                     $severity = $error->getSeverity();
@@ -117,7 +117,7 @@ class ProductController extends ActionController
 
             if (isset($_GET['type'])) {
                 $response = [
-                    'status' => '200',
+                    'status' => '412',
                     'count' => $this->cart->getCount(),
                     'net' => $this->cart->getNet(),
                     'gross' => $this->cart->getGross(),
@@ -145,6 +145,12 @@ class ProductController extends ActionController
 
         $this->sessionHandler->write($this->cart, $this->settings['cart']['pid']);
 
+        $messageBody = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
+            'tx_cart.success.stock_handling.add.' . ($quantity == 1 ? 'one' : 'more'),
+            'cart',
+            [$quantity]
+        );
+
         if (isset($_GET['type'])) {
             $productsChanged = $this->getChangedProducts($cartProducts);
 
@@ -155,10 +161,20 @@ class ProductController extends ActionController
                 'net' => $this->cart->getNet(),
                 'gross' => $this->cart->getGross(),
                 'productsChanged' => $productsChanged,
+                'messageBody' => $messageBody,
+                'messageTitle' => $messageTitle,
+                'severity' => $severity
             ];
 
             return json_encode($response);
         }
+
+        $this->addFlashMessage(
+            $messageBody,
+            $messageTitle,
+            $severity,
+            true
+        );
 
         $this->redirect('show', 'Cart\Cart');
     }

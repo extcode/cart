@@ -40,7 +40,9 @@ class RealUrlHook
             $pageRecord = $this->getTypoScriptFrontendController()->page;
         } else {
             $targetPageId = $parameters['urlParameters']['id'];
-            $pageRepository = GeneralUtility::makeInstance('TYPO3\\CMS\\Frontend\\Page\\PageRepository');
+            $pageRepository = GeneralUtility::makeInstance(
+                \TYPO3\CMS\Frontend\Page\PageRepository::class
+            );
             $pageRecord = $pageRepository->getPage($parameters['urlParameters']['id']);
         }
 

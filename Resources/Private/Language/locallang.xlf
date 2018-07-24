@@ -9,6 +9,12 @@
             <trans-unit id="tx_cart.error.stock_handling.update">
                 <source>Desired number of this item not available.</source>
             </trans-unit>
+            <trans-unit id="tx_cart.success.stock_handling.add.one">
+                <source>Item was added to cart.</source>
+            </trans-unit>
+            <trans-unit id="tx_cart.success.stock_handling.add.more">
+                <source>%s Items were added to cart.</source>
+            </trans-unit>
 
             <trans-unit id="validator.notempty.empty">
                 <source>The given subject was not empty.</source>

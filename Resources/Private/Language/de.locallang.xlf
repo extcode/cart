@@ -11,6 +11,14 @@
                 <source>Desired number of this item not available.</source>
                 <target>Gewünschte Anzahl dieses Artikels nicht verfügbar.</target>
             </trans-unit>
+            <trans-unit id="tx_cart.success.stock_handling.add.one">
+                <source>Item was added to cart.</source>
+                <target>Artikel wurde zum Warenkorb hinzugefügt</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.success.stock_handling.add.more">
+                <source>Items were added to cart.</source>
+                <target>%s Artikel wurden zum Warenkorb hinzugefügt</target>
+            </trans-unit>
 
             <trans-unit id="validator.notempty.empty">
                 <source>The given subject was not empty.</source>
