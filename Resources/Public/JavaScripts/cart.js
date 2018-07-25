@@ -49,15 +49,6 @@ $("#billingAddress-country").change(function () {
 
     if(!$("#shipping-same-as-billing").is(":checked")) {
         shippingCountry = $("#shippingAddress-country").val();
-        $("#checkout-step-shipping-address input").each(function() {
-            if($(this).data("required")) {
-                $(this).attr("required","required");
-            }
-        });
-    } else {
-        $("checkout-step-shipping-address input").each(function() {
-            $(this).removeAttr("required");
-        });
     }
 
     updateCountry(billingCountry, shippingCountry);
@@ -77,7 +68,18 @@ $("#shipping-same-as-billing").change(function() {
     var shippingCountry = "";
 
     if(!$("#shipping-same-as-billing").is(":checked")) {
+        $("#checkout-step-shipping-address input, #checkout-step-shipping-address select").each(function() {
+            if($(this).data("disable-shipping")) {
+                $(this).prop("disabled", false);
+            }
+        });
         shippingCountry = $("#shippingAddress-country").val();
+    } else {
+        $("#checkout-step-shipping-address input, #checkout-step-shipping-address select").each(function() {
+            if($(this).data("disable-shipping")) {
+                $(this).prop("disabled", true);
+            }
+        });
     }
 
     updateCountry(billingCountry, shippingCountry);
