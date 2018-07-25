@@ -34,16 +34,6 @@ class ProductTest extends UnitTestCase
     protected $productId;
 
     /**
-     * @var int
-     */
-    protected $tableId;
-
-    /**
-     * @var int
-     */
-    protected $contentId;
-
-    /**
      * @var string
      */
     protected $title;
@@ -72,8 +62,6 @@ class ProductTest extends UnitTestCase
 
         $this->productType = 'simple';
         $this->productId = 1001;
-        $this->tableId = 1002;
-        $this->contentId = 1003;
         $this->title = 'Test Product';
         $this->sku = 'test-product-sku';
         $this->price = 10.00;
@@ -82,8 +70,6 @@ class ProductTest extends UnitTestCase
         $this->product = new \Extcode\Cart\Domain\Model\Cart\Product(
             $this->productType,
             $this->productId,
-            $this->tableId,
-            $this->contentId,
             $this->sku,
             $this->title,
             $this->price,
@@ -99,9 +85,8 @@ class ProductTest extends UnitTestCase
     {
         unset($this->product);
 
+        unset($this->productType);
         unset($this->productId);
-        unset($this->tableId);
-        unset($this->contentId);
         unset($this->title);
         unset($this->sku);
         unset($this->price);
@@ -124,8 +109,6 @@ class ProductTest extends UnitTestCase
         new \Extcode\Cart\Domain\Model\Cart\Product(
             null,
             $this->productId,
-            $this->tableId,
-            $this->contentId,
             $this->sku,
             $this->title,
             $this->price,
@@ -148,8 +131,6 @@ class ProductTest extends UnitTestCase
         new \Extcode\Cart\Domain\Model\Cart\Product(
             $this->productType,
             null,
-            $this->tableId,
-            $this->contentId,
             $this->sku,
             $this->title,
             $this->price,
@@ -172,8 +153,6 @@ class ProductTest extends UnitTestCase
         new \Extcode\Cart\Domain\Model\Cart\Product(
             $this->productType,
             $this->productId,
-            $this->tableId,
-            $this->contentId,
             null,
             $this->title,
             $this->price,
@@ -196,8 +175,6 @@ class ProductTest extends UnitTestCase
         new \Extcode\Cart\Domain\Model\Cart\Product(
             $this->productType,
             $this->productId,
-            $this->tableId,
-            $this->contentId,
             $this->sku,
             null,
             $this->price,
@@ -220,8 +197,6 @@ class ProductTest extends UnitTestCase
         new \Extcode\Cart\Domain\Model\Cart\Product(
             $this->productType,
             $this->productId,
-            $this->tableId,
-            $this->contentId,
             $this->sku,
             $this->title,
             null,
@@ -244,8 +219,6 @@ class ProductTest extends UnitTestCase
         new \Extcode\Cart\Domain\Model\Cart\Product(
             $this->productType,
             $this->productId,
-            $this->tableId,
-            $this->contentId,
             $this->sku,
             $this->title,
             $this->price,
@@ -268,8 +241,6 @@ class ProductTest extends UnitTestCase
         new \Extcode\Cart\Domain\Model\Cart\Product(
             $this->productType,
             $this->productId,
-            $this->tableId,
-            $this->contentId,
             $this->sku,
             $this->title,
             $this->price,
@@ -303,24 +274,11 @@ class ProductTest extends UnitTestCase
     /**
      * @test
      */
-    public function getTableIdReturnsTableIdSetByConstructor()
-    {
-        $this->assertSame(
-            $this->tableId,
-            $this->product->getTableId()
-        );
-    }
-
-    /**
-     * @test
-     */
     public function getIdForTableProductReturnsTableProductIdSetIndirectlyByConstructor()
     {
         $product = new \Extcode\Cart\Domain\Model\Cart\Product(
             $this->productType,
             $this->productId,
-            $this->tableId,
-            null,
             $this->sku,
             $this->title,
             $this->price,
@@ -329,42 +287,8 @@ class ProductTest extends UnitTestCase
         );
 
         $this->assertSame(
-            't_' . $this->tableId . '_' . $this->productId,
+            $this->productType . '_' . $this->productId,
             $product->getId()
-        );
-    }
-
-    /**
-     * @test
-     */
-    public function getIdForFlexformProductReturnsTableProductIdSetIndirectlyByConstructor()
-    {
-        $product = new \Extcode\Cart\Domain\Model\Cart\Product(
-            $this->productType,
-            $this->productId,
-            null,
-            $this->contentId,
-            $this->sku,
-            $this->title,
-            $this->price,
-            $this->taxClass,
-            $this->quantity
-        );
-
-        $this->assertSame(
-            'c_' . $this->contentId . '_' . $this->productId,
-            $product->getId()
-        );
-    }
-
-    /**
-     * @test
-     */
-    public function getContentIdReturnsContentIdSetByConstructor()
-    {
-        $this->assertSame(
-            $this->contentId,
-            $this->product->getContentId()
         );
     }
 
@@ -423,8 +347,6 @@ class ProductTest extends UnitTestCase
         $product = new \Extcode\Cart\Domain\Model\Cart\Product(
             $this->productType,
             $this->productId,
-            null,
-            $this->contentId,
             $this->sku,
             $this->title,
             $price,
@@ -449,8 +371,6 @@ class ProductTest extends UnitTestCase
         $product = new \Extcode\Cart\Domain\Model\Cart\Product(
             $this->productType,
             $this->productId,
-            null,
-            $this->contentId,
             $this->sku,
             $this->title,
             $price,
@@ -475,8 +395,6 @@ class ProductTest extends UnitTestCase
         $product = new \Extcode\Cart\Domain\Model\Cart\Product(
             $this->productType,
             $this->productId,
-            null,
-            $this->contentId,
             $this->sku,
             $this->title,
             $price,
@@ -502,8 +420,6 @@ class ProductTest extends UnitTestCase
         $product = new \Extcode\Cart\Domain\Model\Cart\Product(
             $this->productType,
             $this->productId,
-            null,
-            $this->contentId,
             $this->sku,
             $this->title,
             $price,
@@ -528,8 +444,6 @@ class ProductTest extends UnitTestCase
         $product = new \Extcode\Cart\Domain\Model\Cart\Product(
             $this->productType,
             $this->productId,
-            null,
-            $this->contentId,
             $this->sku,
             $this->title,
             $price,
@@ -554,8 +468,6 @@ class ProductTest extends UnitTestCase
         $product = new \Extcode\Cart\Domain\Model\Cart\Product(
             $this->productType,
             $this->productId,
-            null,
-            $this->contentId,
             $this->sku,
             $this->title,
             $price,
@@ -581,8 +493,6 @@ class ProductTest extends UnitTestCase
         $product = new \Extcode\Cart\Domain\Model\Cart\Product(
             $this->productType,
             $this->productId,
-            null,
-            $this->contentId,
             $this->sku,
             $this->title,
             $price,
@@ -607,8 +517,6 @@ class ProductTest extends UnitTestCase
         $product = new \Extcode\Cart\Domain\Model\Cart\Product(
             $this->productType,
             $this->productId,
-            null,
-            $this->contentId,
             $this->sku,
             $this->title,
             $price,
@@ -640,8 +548,6 @@ class ProductTest extends UnitTestCase
         $product = new \Extcode\Cart\Domain\Model\Cart\Product(
             $this->productType,
             $this->productId,
-            null,
-            $this->contentId,
             $this->sku,
             $this->title,
             $price,
@@ -674,8 +580,6 @@ class ProductTest extends UnitTestCase
         $product = new \Extcode\Cart\Domain\Model\Cart\Product(
             $this->productType,
             $this->productId,
-            null,
-            $this->contentId,
             $this->sku,
             $this->title,
             $price,
@@ -708,8 +612,6 @@ class ProductTest extends UnitTestCase
         $product = new \Extcode\Cart\Domain\Model\Cart\Product(
             $this->productType,
             $this->productId,
-            null,
-            $this->contentId,
             $this->sku,
             $this->title,
             $price,
@@ -761,8 +663,6 @@ class ProductTest extends UnitTestCase
         $product = new \Extcode\Cart\Domain\Model\Cart\Product(
             $this->productType,
             $this->productId,
-            null,
-            $this->contentId,
             $this->sku,
             $this->title,
             $price,
@@ -814,8 +714,6 @@ class ProductTest extends UnitTestCase
         $product = new \Extcode\Cart\Domain\Model\Cart\Product(
             $this->productType,
             $this->productId,
-            null,
-            $this->contentId,
             $this->sku,
             $this->title,
             $price,
@@ -869,8 +767,6 @@ class ProductTest extends UnitTestCase
         $product = new \Extcode\Cart\Domain\Model\Cart\Product(
             $this->productType,
             $this->productId,
-            null,
-            $this->contentId,
             $this->sku,
             $this->title,
             $price,
@@ -926,8 +822,6 @@ class ProductTest extends UnitTestCase
         $product = new \Extcode\Cart\Domain\Model\Cart\Product(
             $this->productType,
             $this->productId,
-            null,
-            $this->contentId,
             $this->sku,
             $this->title,
             $price,
@@ -983,8 +877,6 @@ class ProductTest extends UnitTestCase
         $product = new \Extcode\Cart\Domain\Model\Cart\Product(
             $this->productType,
             $this->productId,
-            null,
-            $this->contentId,
             $this->sku,
             $this->title,
             $price,
@@ -1032,8 +924,6 @@ class ProductTest extends UnitTestCase
         $net_fixture = new \Extcode\Cart\Domain\Model\Cart\Product(
             $this->productType,
             $this->productId,
-            $this->tableId,
-            $this->contentId,
             $this->sku,
             $this->title,
             $this->price,
@@ -1219,8 +1109,6 @@ class ProductTest extends UnitTestCase
         $this->product = new \Extcode\Cart\Domain\Model\Cart\Product(
             $this->productType,
             $this->productId,
-            $this->tableId,
-            $this->contentId,
             $this->sku,
             $this->title,
             $this->price,
@@ -1249,8 +1137,6 @@ class ProductTest extends UnitTestCase
         $this->product = new \Extcode\Cart\Domain\Model\Cart\Product(
             $this->productType,
             $this->productId,
-            $this->tableId,
-            $this->contentId,
             $this->sku,
             $this->title,
             $this->price,
@@ -1279,8 +1165,6 @@ class ProductTest extends UnitTestCase
         $this->product = new \Extcode\Cart\Domain\Model\Cart\Product(
             $this->productType,
             $this->productId,
-            $this->tableId,
-            $this->contentId,
             $this->sku,
             $this->title,
             $this->price,
@@ -1309,8 +1193,6 @@ class ProductTest extends UnitTestCase
         $this->product = new \Extcode\Cart\Domain\Model\Cart\Product(
             $this->productType,
             $this->productId,
-            $this->tableId,
-            $this->contentId,
             $this->sku,
             $this->title,
             $this->price,
@@ -1339,8 +1221,6 @@ class ProductTest extends UnitTestCase
         $this->product = new \Extcode\Cart\Domain\Model\Cart\Product(
             $this->productType,
             $this->productId,
-            $this->tableId,
-            $this->contentId,
             $this->sku,
             $this->title,
             $this->price,
@@ -1369,8 +1249,6 @@ class ProductTest extends UnitTestCase
         $this->product = new \Extcode\Cart\Domain\Model\Cart\Product(
             $this->productType,
             $this->productId,
-            $this->tableId,
-            $this->contentId,
             $this->sku,
             $this->title,
             $this->price,
@@ -1398,8 +1276,6 @@ class ProductTest extends UnitTestCase
         $this->product = new \Extcode\Cart\Domain\Model\Cart\Product(
             $this->productType,
             $this->productId,
-            $this->tableId,
-            $this->contentId,
             $this->sku,
             $this->title,
             $this->price,
@@ -1427,8 +1303,6 @@ class ProductTest extends UnitTestCase
         $this->product = new \Extcode\Cart\Domain\Model\Cart\Product(
             $this->productType,
             $this->productId,
-            $this->tableId,
-            $this->contentId,
             $this->sku,
             $this->title,
             $this->price,
@@ -1456,8 +1330,6 @@ class ProductTest extends UnitTestCase
         $this->product = new \Extcode\Cart\Domain\Model\Cart\Product(
             $this->productType,
             $this->productId,
-            $this->tableId,
-            $this->contentId,
             $this->sku,
             $this->title,
             $this->price,
@@ -1485,8 +1357,6 @@ class ProductTest extends UnitTestCase
         $this->product = new \Extcode\Cart\Domain\Model\Cart\Product(
             $this->productType,
             $this->productId,
-            $this->tableId,
-            $this->contentId,
             $this->sku,
             $this->title,
             $this->price,
@@ -1514,8 +1384,6 @@ class ProductTest extends UnitTestCase
         $this->product = new \Extcode\Cart\Domain\Model\Cart\Product(
             $this->productType,
             $this->productId,
-            $this->tableId,
-            $this->contentId,
             $this->sku,
             $this->title,
             $this->price,
@@ -1536,8 +1404,6 @@ class ProductTest extends UnitTestCase
         $this->product = new \Extcode\Cart\Domain\Model\Cart\Product(
             $this->productType,
             $this->productId,
-            $this->tableId,
-            $this->contentId,
             $this->sku,
             $this->title,
             $this->price,
@@ -1566,8 +1432,6 @@ class ProductTest extends UnitTestCase
         $this->product = new \Extcode\Cart\Domain\Model\Cart\Product(
             $this->productType,
             $this->productId,
-            $this->tableId,
-            $this->contentId,
             $this->sku,
             $this->title,
             $this->price,
@@ -1588,8 +1452,6 @@ class ProductTest extends UnitTestCase
         $this->product = new \Extcode\Cart\Domain\Model\Cart\Product(
             $this->productType,
             $this->productId,
-            $this->tableId,
-            $this->contentId,
             $this->sku,
             $this->title,
             $this->price,
@@ -1618,8 +1480,6 @@ class ProductTest extends UnitTestCase
         $this->product = new \Extcode\Cart\Domain\Model\Cart\Product(
             $this->productType,
             $this->productId,
-            $this->tableId,
-            $this->contentId,
             $this->sku,
             $this->title,
             $this->price,
@@ -1640,8 +1500,6 @@ class ProductTest extends UnitTestCase
         $this->product = new \Extcode\Cart\Domain\Model\Cart\Product(
             $this->productType,
             $this->productId,
-            $this->tableId,
-            $this->contentId,
             $this->sku,
             $this->title,
             $this->price,

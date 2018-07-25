@@ -58,17 +58,6 @@ defined('TYPO3_MODE') or die();
 
 \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
     'Extcode.' . $_EXTKEY,
-    'FlexProduct',
-    [
-        'Product' => 'flexform',
-    ],
-    [
-        'Product' => '',
-    ]
-);
-
-\TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-    'Extcode.' . $_EXTKEY,
     'Order',
     [
         'Order' => 'list, show',

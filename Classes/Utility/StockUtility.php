@@ -95,33 +95,26 @@ class StockUtility
      * Check Stock
      *
      * @param \Extcode\Cart\Domain\Model\Cart\Cart $cart
-     * @param array $pluginSettings
      */
     public function checkStock(
-        \Extcode\Cart\Domain\Model\Cart\Cart $cart,
-        $pluginSettings
+        \Extcode\Cart\Domain\Model\Cart\Cart $cart
     ) {
         $this->beforeCheckStock($cart);
 
         /** @var \Extcode\Cart\Domain\Model\Cart\Product $cartProduct */
         foreach ($cart->getProducts() as $cartProduct) {
-            $productStorageId = $cartProduct->getTableId();
+            $data = [
+                'cartProduct' => $cartProduct,
+            ];
 
-            if ($productStorageId) {
-                $data = [
-                    'cartProduct' => $cartProduct,
-                    'productStorageSettings' => $pluginSettings['productStorages'][$productStorageId],
-                ];
-
-                $signalSlotDispatcher = $this->objectManager->get(
-                    \TYPO3\CMS\Extbase\SignalSlot\Dispatcher::class
-                );
-                $signalSlotDispatcher->dispatch(
-                    __CLASS__,
-                    __FUNCTION__,
-                    [$data]
-                );
-            }
+            $signalSlotDispatcher = $this->objectManager->get(
+                \TYPO3\CMS\Extbase\SignalSlot\Dispatcher::class
+            );
+            $signalSlotDispatcher->dispatch(
+                __CLASS__,
+                __FUNCTION__,
+                [$data]
+            );
         }
 
         $this->afterCheckStock($cart);
@@ -178,30 +171,24 @@ class StockUtility
      * @param array $pluginSettings
      */
     public function handleStock(
-        \Extcode\Cart\Domain\Model\Cart\Cart $cart,
-        $pluginSettings
+        \Extcode\Cart\Domain\Model\Cart\Cart $cart
     ) {
         $this->beforeHandleStock($cart);
 
         /** @var \Extcode\Cart\Domain\Model\Cart\Product $cartProduct */
         foreach ($cart->getProducts() as $cartProduct) {
-            $productStorageId = $cartProduct->getTableId();
+            $data = [
+                'cartProduct' => $cartProduct
+            ];
 
-            if ($productStorageId) {
-                $data = [
-                    'cartProduct' => $cartProduct,
-                    'productStorageSettings' => $pluginSettings['productStorages'][$productStorageId],
-                ];
-
-                $signalSlotDispatcher = $this->objectManager->get(
-                    \TYPO3\CMS\Extbase\SignalSlot\Dispatcher::class
-                );
-                $signalSlotDispatcher->dispatch(
-                    __CLASS__,
-                    __FUNCTION__,
-                    [$data]
-                );
-            }
+            $signalSlotDispatcher = $this->objectManager->get(
+                \TYPO3\CMS\Extbase\SignalSlot\Dispatcher::class
+            );
+            $signalSlotDispatcher->dispatch(
+                __CLASS__,
+                __FUNCTION__,
+                [$data]
+            );
         }
 
         $this->persistenceManager->persistAll();

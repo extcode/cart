@@ -37,20 +37,6 @@ class Product
     protected $productId;
 
     /**
-     * Table Id
-     *
-     * @var int
-     */
-    protected $tableId;
-
-    /**
-     * Content Id
-     *
-     * @var int
-     */
-    protected $contentId;
-
-    /**
      * Cart
      *
      * @var Cart
@@ -230,8 +216,6 @@ class Product
      *
      * @param string $productType
      * @param int $productId
-     * @param int $tableId
-     * @param int $contentId
      * @param string $sku
      * @param string $title
      * @param float $price
@@ -245,8 +229,6 @@ class Product
     public function __construct(
         $productType,
         $productId,
-        $tableId,
-        $contentId,
         $sku,
         $title,
         $price,
@@ -300,8 +282,6 @@ class Product
 
         $this->productType = $productType;
         $this->productId = $productId;
-        $this->tableId = $tableId != null ? $tableId : 0;
-        $this->contentId = $contentId;
         $this->sku = $sku;
         $this->title = $title;
         $this->price = $price;
@@ -531,32 +511,11 @@ class Product
     }
 
     /**
-     * @return int
-     */
-    public function getTableId()
-    {
-        return $this->tableId;
-    }
-
-    /**
-     * @return int
-     */
-    public function getContentId()
-    {
-        return $this->contentId;
-    }
-
-    /**
      * @return string
      */
     public function getId()
     {
-        if (!$this->contentId) {
-            $id = $this->getTableProductId();
-        } else {
-            $id = $this->getContentProductId();
-        }
-        return $id;
+        return $id = $this->getTableProductId();
     }
 
     /**
@@ -564,19 +523,11 @@ class Product
      */
     protected function getTableProductId()
     {
-        $tableProductId = $this->getTableId() . '_' . $this->getProductId();
+        $tableProductId = $this->getProductType() . '_' . $this->getProductId();
         if ($this->getFeVariant()) {
             $tableProductId .= '_' . $this->getFeVariant()->getId();
         }
-        return 't_' . $tableProductId;
-    }
-
-    /**
-     * @return string
-     */
-    protected function getContentProductId()
-    {
-        return 'c_' . $this->getContentId() . '_' . $this->getProductId();
+        return $tableProductId;
     }
 
     /**
@@ -986,9 +937,8 @@ class Product
     public function toArray()
     {
         $productArr = [
+            'productType' => $this->productType,
             'productId' => $this->productId,
-            'tableId' => $this->tableId,
-            'contentId' => $this->contentId,
             'id' => $this->getId(),
             'sku' => $this->sku,
             'title' => $this->title,

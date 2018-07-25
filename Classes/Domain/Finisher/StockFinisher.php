@@ -42,6 +42,6 @@ class StockFinisher extends AbstractFinisher
     {
         $cart = $this->finisherContext->getCart();
 
-        $this->stockUtility->handleStock($cart, $this->settings);
+        $this->stockUtility->handleStock($cart);
     }
 }

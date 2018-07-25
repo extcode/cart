@@ -30,9 +30,6 @@
             <trans-unit id="tx_cart.plugin.currency">
                 <source>Cart: Currency Selector</source>
             </trans-unit>
-            <trans-unit id="tx_cart.plugin.flex_product">
-                <source>Cart: FlexProduct</source>
-            </trans-unit>
             <trans-unit id="tx_cart.plugin.product">
                 <source>Cart: Product</source>
             </trans-unit>

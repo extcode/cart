@@ -70,8 +70,6 @@ class BeVariantTest extends UnitTestCase
                 [
                     'Cart',
                     1,
-                    1,
-                    0,
                     'SKU',
                     'TITLE',
                     10.00,

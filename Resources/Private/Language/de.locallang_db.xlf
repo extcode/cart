@@ -38,10 +38,6 @@
                 <source>Cart: Currency Selector</source>
                 <target>Cart: Währungsauswahl</target>
             </trans-unit>
-            <trans-unit id="tx_cart.plugin.flex_product">
-                <source>Cart: FlexProduct</source>
-                <target>Cart: FlexProdukt</target>
-            </trans-unit>
             <trans-unit id="tx_cart.plugin.product">
                 <source>Cart: Product</source>
                 <target>Cart: Produkt</target>

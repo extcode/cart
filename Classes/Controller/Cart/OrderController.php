@@ -127,7 +127,7 @@ class OrderController extends ActionController
             $this->redirect('show', 'Cart\Cart');
         }
 
-        $this->stockUtility->checkStock($this->cart, $this->pluginSettings);
+        $this->stockUtility->checkStock($this->cart);
 
         $orderItem->setCartPid(intval($GLOBALS['TSFE']->id));
 
