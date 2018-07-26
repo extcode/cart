@@ -356,7 +356,7 @@
                                                                       value="{shippingAddress.streetNumber}"
                                                                       required="true"/>
                                                     <f:form.validationResults for="shippingAddress">
-                                                        <f:if condition="{validationResults.flattenedErrors.street_number}">
+                                                        <f:if condition="{validationResults.flattenedErrors.streetNumber}">
                                                             <div class="validation-error alert alert-danger">{validationResults.flattenedErrors.streetNumber.0.message}</div>
                                                         </f:if>
                                                     </f:form.validationResults>
@@ -473,7 +473,7 @@
                                                                   value="{shippingAddress.city}"
                                                                   data="{required:'true'}"/>
                                                 <f:form.validationResults for="shippingAddress">
-                                                    <f:if condition="{validationResults.flattenedErrors.lastName}">
+                                                    <f:if condition="{validationResults.flattenedErrors.city}">
                                                         <div class="validation-error alert alert-danger">{validationResults.flattenedErrors.city.0.message}</div>
                                                     </f:if>
                                                 </f:form.validationResults>
