@@ -358,7 +358,7 @@
                                                                       value="{billingAddress.streetNumber}"
                                                                       required="true"/>
                                                     <f:form.validationResults for="billingAddress">
-                                                        <f:if condition="{validationResults.flattenedErrors.street_number}">
+                                                        <f:if condition="{validationResults.flattenedErrors.streetNumber}">
                                                             <div class="validation-error alert alert-danger">{validationResults.flattenedErrors.streetNumber.0.message}</div>
                                                         </f:if>
                                                     </f:form.validationResults>
