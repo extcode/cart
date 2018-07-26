@@ -22,7 +22,9 @@
                                                           class="form-control"
                                                           name="shippingAddress[salutation]"
                                                           value="{shippingAddress.salutation}"
-                                                          data="{required:'true'}"/>
+                                                          required="true"
+                                                          disabled="true"
+                                                          data="{disable-shipping:'true'}"/>
                                         <f:form.validationResults for="shippingAddress">
                                             <f:if condition="{validationResults.flattenedErrors.salutation}">
                                                 <div class="validation-error alert alert-danger">{validationResults.flattenedErrors.salutation.0.message}</div>
@@ -38,7 +40,9 @@
                                         <f:form.textfield id="shippingAddress:salutation"
                                                           class="form-control"
                                                           name="shippingAddress[salutation]"
-                                                          value="{shippingAddress.salutation}"/>
+                                                          value="{shippingAddress.salutation}"
+                                                          disabled="true"
+                                                          data="{disable-shipping:'true'}"/>
                                     </div>
                                 </f:else>
                             </f:if>
@@ -58,7 +62,9 @@
                                                           class="form-control"
                                                           name="shippingAddress[title]"
                                                           value="{shippingAddress.title}"
-                                                          data="{required:'true'}"/>
+                                                          required="true"
+                                                          disabled="true"
+                                                          data="{disable-shipping:'true'}"/>
                                         <f:form.validationResults for="shippingAddress">
                                             <f:if condition="{validationResults.flattenedErrors.title}">
                                                 <div class="validation-error alert alert-danger">{validationResults.flattenedErrors.title.0.message}</div>
@@ -74,7 +80,9 @@
                                         <f:form.textfield id="shippingAddress:title"
                                                           class="form-control"
                                                           name="shippingAddress[title]"
-                                                          value="{shippingAddress.title}"/>
+                                                          value="{shippingAddress.title}"
+                                                          disabled="true"
+                                                          data="{disable-shipping:'true'}"/>
                                     </div>
                                 </f:else>
                             </f:if>
@@ -94,7 +102,9 @@
                                                           class="form-control"
                                                           name="shippingAddress[firstName]"
                                                           value="{shippingAddress.firstName}"
-                                                          data="{required:'true'}"/>
+                                                          required="true"
+                                                          disabled="true"
+                                                          data="{disable-shipping:'true'}"/>
                                         <f:form.validationResults for="shippingAddress">
                                             <f:if condition="{validationResults.flattenedErrors.firstName}">
                                                 <div class="validation-error alert alert-danger">{validationResults.flattenedErrors.firstName.0.message}</div>
@@ -110,7 +120,9 @@
                                         <f:form.textfield id="shippingAddress:firstName"
                                                           class="form-control"
                                                           name="shippingAddress[firstName]"
-                                                          value="{shippingAddress.firstName}"/>
+                                                          value="{shippingAddress.firstName}"
+                                                          disabled="true"
+                                                          data="{disable-shipping:'true'}"/>
                                     </div>
                                 </f:else>
                             </f:if>
@@ -130,7 +142,9 @@
                                                           class="form-control"
                                                           name="shippingAddress[lastName]"
                                                           value="{shippingAddress.lastName}"
-                                                          data="{required:'true'}"/>
+                                                          required="true"
+                                                          disabled="true"
+                                                          data="{disable-shipping:'true'}"/>
                                         <f:form.validationResults for="shippingAddress">
                                             <f:if condition="{validationResults.flattenedErrors.lastName}">
                                                 <div class="validation-error alert alert-danger">{validationResults.flattenedErrors.lastName.0.message}</div>
@@ -146,7 +160,9 @@
                                         <f:form.textfield id="shippingAddress:lastName"
                                                           class="form-control"
                                                           name="shippingAddress[lastName]"
-                                                          value="{shippingAddress.lastName}"/>
+                                                          value="{shippingAddress.lastName}"
+                                                          disabled="true"
+                                                          data="{disable-shipping:'true'}"/>
                                     </div>
                                 </f:else>
                             </f:if>
@@ -168,7 +184,9 @@
                                                       name="shippingAddress[email]"
                                                       value="{shippingAddress.email}"
                                                       type="email"
-                                                      data="{required:'true'}"/>
+                                                      required="true"
+                                                      disabled="true"
+                                                      data="{disable-shipping:'true'}"/>
                                     <f:form.validationResults for="shippingAddress">
                                         <f:if condition="{validationResults.flattenedErrors.email}">
                                             <div class="validation-error alert alert-danger">{validationResults.flattenedErrors.email.0.message}</div>
@@ -185,7 +203,9 @@
                                                       class="form-control"
                                                       name="shippingAddress[email]"
                                                       value="{shippingAddress.email}"
-                                                      type="email"/>
+                                                      type="email"
+                                                      disabled="true"
+                                                      data="{disable-shipping:'true'}"/>
                                 </div>
                             </f:else>
                         </f:if>
@@ -206,7 +226,9 @@
                                                       name="shippingAddress[phone]"
                                                       value="{shippingAddress.phone}"
                                                       type="phone"
-                                                      data="{required:'true'}"/>
+                                                      required="true"
+                                                      disabled="true"
+                                                      data="{disable-shipping:'true'}"/>
                                     <f:form.validationResults for="shippingAddress">
                                         <f:if condition="{validationResults.flattenedErrors.phone}">
                                             <div class="validation-error alert alert-danger">{validationResults.flattenedErrors.phone.0.message}</div>
@@ -223,7 +245,9 @@
                                                       class="form-control"
                                                       name="shippingAddress[phone]"
                                                       value="{shippingAddress.phone}"
-                                                      type="phone"/>
+                                                      type="phone"
+                                                      disabled="true"
+                                                      data="{disable-shipping:'true'}"/>
                                 </div>
                             </f:else>
                         </f:if>
@@ -244,7 +268,9 @@
                                                       name="shippingAddress[fax]"
                                                       value="{shippingAddress.fax}"
                                                       type="fax"
-                                                      data="{required:'true'}"/>
+                                                      required="true"
+                                                      disabled="true"
+                                                      data="{disable-shipping:'true'}"/>
                                     <f:form.validationResults for="shippingAddress">
                                         <f:if condition="{validationResults.flattenedErrors.fax}">
                                             <div class="validation-error alert alert-danger">{validationResults.flattenedErrors.fax.0.message}</div>
@@ -261,7 +287,9 @@
                                                       class="form-control"
                                                       name="shippingAddress[fax]"
                                                       value="{shippingAddress.fax}"
-                                                      type="fax"/>
+                                                      type="fax"
+                                                      disabled="true"
+                                                      data="{disable-shipping:'true'}"/>
                                 </div>
                             </f:else>
                         </f:if>
@@ -281,7 +309,9 @@
                                                       class="form-control"
                                                       name="shippingAddress[company]"
                                                       value="{shippingAddress.company}"
-                                                      data="{required:'true'}"/>
+                                                      required="true"
+                                                      disabled="true"
+                                                      data="{disable-shipping:'true'}"/>
                                     <f:form.validationResults for="shippingAddress">
                                         <f:if condition="{validationResults.flattenedErrors.company}">
                                             <div class="validation-error alert alert-danger">{validationResults.flattenedErrors.company.0.message}</div>
@@ -297,7 +327,9 @@
                                     <f:form.textfield id="shippingAddress:company"
                                                       class="form-control"
                                                       name="shippingAddress[company]"
-                                                      value="{shippingAddress.company}"/>
+                                                      value="{shippingAddress.company}"
+                                                      disabled="true"
+                                                      data="{disable-shipping:'true'}"/>
                                 </div>
                             </f:else>
                         </f:if>
@@ -321,7 +353,9 @@
                                                                       class="form-control"
                                                                       name="shippingAddress[street]"
                                                                       value="{shippingAddress.street}"
-                                                                      data="{required:'true'}"/>
+                                                                      required="true"
+                                                                      disabled="true"
+                                                                      data="{disable-shipping:'true'}"/>
                                                     <f:form.validationResults for="shippingAddress">
                                                         <f:if condition="{validationResults.flattenedErrors.street}">
                                                             <div class="validation-error alert alert-danger">{validationResults.flattenedErrors.street.0.message}</div>
@@ -337,7 +371,9 @@
                                                     <f:form.textfield id="shippingAddress:street"
                                                                       class="form-control"
                                                                       name="shippingAddress[street]"
-                                                                      value="{shippingAddress.street}"/>
+                                                                      value="{shippingAddress.street}"
+                                                                      disabled="true"
+                                                                      data="{disable-shipping:'true'}"/>
                                                 </div>
                                             </f:else>
                                         </f:if>
@@ -354,7 +390,9 @@
                                                                       class="form-control"
                                                                       name="shippingAddress[streetNumber]"
                                                                       value="{shippingAddress.streetNumber}"
-                                                                      required="true"/>
+                                                                      required="true"
+                                                                      disabled="true"
+                                                                      data="{disable-shipping:'true'}"/>
                                                     <f:form.validationResults for="shippingAddress">
                                                         <f:if condition="{validationResults.flattenedErrors.street_number}">
                                                             <div class="validation-error alert alert-danger">{validationResults.flattenedErrors.streetNumber.0.message}</div>
@@ -370,7 +408,9 @@
                                                     <f:form.textfield id="shippingAddress:streetNumber"
                                                                       class="form-control"
                                                                       name="shippingAddress[streetNumber]"
-                                                                      value="{shippingAddress.streetNumber}"/>
+                                                                      value="{shippingAddress.streetNumber}"
+                                                                      disabled="true"
+                                                                      data="{disable-shipping:'true'}"/>
                                                 </div>
                                             </f:else>
                                         </f:if>
@@ -393,7 +433,9 @@
                                                                       class="form-control"
                                                                       name="shippingAddress[street]"
                                                                       value="{shippingAddress.street}"
-                                                                      data="{required:'true'}"/>
+                                                                      required="true"
+                                                                      disabled="true"
+                                                                      data="{disable-shipping:'true'}"/>
                                                     <f:form.validationResults for="shippingAddress">
                                                         <f:if condition="{validationResults.flattenedErrors.street}">
                                                             <div class="validation-error alert alert-danger">{validationResults.flattenedErrors.street.0.message}</div>
@@ -409,7 +451,9 @@
                                                     <f:form.textfield id="shippingAddress:street"
                                                                       class="form-control"
                                                                       name="shippingAddress[street]"
-                                                                      value="{shippingAddress.street}"/>
+                                                                      value="{shippingAddress.street}"
+                                                                      disabled="true"
+                                                                      data="{disable-shipping:'true'}"/>
                                                 </div>
                                             </f:else>
                                         </f:if>
@@ -434,7 +478,9 @@
                                                                   class="form-control"
                                                                   name="shippingAddress[zip]"
                                                                   value="{shippingAddress.zip}"
-                                                                  data="{required:'true'}"/>
+                                                                  required="true"
+                                                                  disabled="true"
+                                                                  data="{disable-shipping:'true'}"/>
                                                 <f:form.validationResults for="shippingAddress">
                                                     <f:if condition="{validationResults.flattenedErrors.zip}">
                                                         <div class="validation-error alert alert-danger">{validationResults.flattenedErrors.zip.0.message}</div>
@@ -450,7 +496,9 @@
                                                 <f:form.textfield id="shippingAddress:zip"
                                                                   class="form-control"
                                                                   name="shippingAddress[zip]"
-                                                                  value="{shippingAddress.zip}"/>
+                                                                  value="{shippingAddress.zip}"
+                                                                  disabled="true"
+                                                                  data="{disable-shipping:'true'}"/>
                                             </div>
                                         </f:else>
                                     </f:if>
@@ -471,7 +519,9 @@
                                                                   class="form-control"
                                                                   name="shippingAddress[city]"
                                                                   value="{shippingAddress.city}"
-                                                                  data="{required:'true'}"/>
+                                                                  required="true"
+                                                                  disabled="true"
+                                                                  data="{disable-shipping:'true'}"/>
                                                 <f:form.validationResults for="shippingAddress">
                                                     <f:if condition="{validationResults.flattenedErrors.lastName}">
                                                         <div class="validation-error alert alert-danger">{validationResults.flattenedErrors.city.0.message}</div>
@@ -487,7 +537,9 @@
                                                 <f:form.textfield id="shippingAddress:city"
                                                                   class="form-control"
                                                                   name="shippingAddress[city]"
-                                                                  value="{shippingAddress.city}"/>
+                                                                  value="{shippingAddress.city}"
+                                                                  disabled="true"
+                                                                  data="{disable-shipping:'true'}"/>
                                             </div>
                                         </f:else>
                                     </f:if>
@@ -507,12 +559,14 @@
                                         </label>
                                         <div class="input-box">
                                             <cart:form.select id="shippingAddress:country"
-                                                           class="form-control"
-                                                           name="shippingAddress[country]"
-                                                           value="{cart.shippingCountry}"
-                                                           options="{settings.allowedCountries}"
-                                                           translationKey="tx_cart.settings.allowed_countries"
-                                                           data="{required:'true'}"/>
+                                                              class="form-control"
+                                                              name="shippingAddress[country]"
+                                                              value="{cart.shippingCountry}"
+                                                              options="{settings.allowedCountries}"
+                                                              translationKey="tx_cart.settings.allowed_countries"
+                                                              required="true"
+                                                              disabled="true"
+                                                              data="{disable-shipping:'true'}"/>
                                             <f:form.validationResults for="shippingAddress">
                                                 <f:if condition="{validationResults.flattenedErrors.country}">
                                                     <div class="validation-error alert alert-danger">{validationResults.flattenedErrors.country.0.message}</div>
@@ -530,7 +584,9 @@
                                                               name="shippingAddress[country]"
                                                               value="{cart.shippingCountry}"
                                                               options="{settings.allowedCountries}"
-                                                              translationKey="tx_cart.settings.allowed_countries"/>
+                                                              translationKey="tx_cart.settings.allowed_countries"
+                                                              disabled="true"
+                                                              data="{disable-shipping:'true'}"/>
                                         </div>
                                     </f:else>
                                 </f:if>
