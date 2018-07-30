@@ -121,27 +121,27 @@ $iconRegistry = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(
 );
 $iconRegistry->registerIcon(
     'tcarecords-pages-contains-orders',
-    \TYPO3\CMS\Core\Imaging\IconProvider\BitmapIconProvider::class,
-    ['source' => $iconPath . 'pages_orders_icon.png']
+    \TYPO3\CMS\Core\Imaging\IconProvider\SvgIconProvider::class,
+    ['source' => $iconPath . 'pages_orders_icon.svg']
 );
 $TCA['pages']['ctrl']['typeicon_classes']['contains-orders'] = 'tcarecords-pages-contains-orders';
 
 $iconRegistry->registerIcon(
     'tcarecords-pages-contains-coupons',
-    \TYPO3\CMS\Core\Imaging\IconProvider\BitmapIconProvider::class,
-    ['source' => $iconPath . 'pages_coupons_icon.png']
+    \TYPO3\CMS\Core\Imaging\IconProvider\SvgIconProvider::class,
+    ['source' => $iconPath . 'pages_coupons_icon.svg']
 );
 $TCA['pages']['ctrl']['typeicon_classes']['contains-coupons'] = 'tcarecords-pages-contains-coupons';
 
 $TCA['pages']['columns']['module']['config']['items'][] = [
     'LLL:EXT:' . $_EXTKEY . '/Resources/Private/Language/locallang_db.xlf:tx_cart.module.orders',
     'orders',
-    $iconPath . 'pages_orders_icon.png'
+    $iconPath . 'pages_orders_icon.svg'
 ];
 $TCA['pages']['columns']['module']['config']['items'][] = [
     'LLL:EXT:' . $_EXTKEY . '/Resources/Private/Language/locallang_db.xlf:tx_cart.module.coupons',
     'coupons',
-    $iconPath . 'pages_coupons_icon.png'
+    $iconPath . 'pages_coupons_icon.svg'
 ];
 
 $tables = [
