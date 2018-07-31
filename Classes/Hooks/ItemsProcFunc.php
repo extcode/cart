@@ -41,7 +41,7 @@ class ItemsProcFunc
         $extKey = $this->getExtKey($config['flexParentDatabaseRow']['list_type']);
 
         if ($pageId > 0) {
-            $templateLayouts = $this->templateLayoutsUtility->getAvailableTemplateLayouts($pageId, $extKey);
+            $templateLayouts = $this->templateLayoutsUtility->getAvailableTemplateLayouts($pageId, $extKey, $config['config']['itemsProcFuncConf']);
 
             $templateLayouts = $this->reduceTemplateLayouts($templateLayouts, $currentColPos);
             foreach ($templateLayouts as $layout) {

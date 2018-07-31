@@ -23,21 +23,30 @@ class TemplateLayout implements SingletonInterface
      *
      * @param int $pageUid
      * @param string $extKey
+     * @param string $pluginName
      * @return array
      */
-    public function getAvailableTemplateLayouts($pageUid, $extKey)
+    public function getAvailableTemplateLayouts($pageUid, $extKey, $pluginName)
     {
         $templateLayouts = [];
+        $pluginName = GeneralUtility::camelCaseToLowerCaseUnderscored($pluginName);
 
-        // Check if the layouts are extended by ext_tables
-        if (isset($GLOBALS['TYPO3_CONF_VARS']['EXT'][$extKey]['templateLayouts'])
-            && is_array($GLOBALS['TYPO3_CONF_VARS']['EXT'][$extKey]['templateLayouts'])
-        ) {
-            $templateLayouts = $GLOBALS['TYPO3_CONF_VARS']['EXT'][$extKey]['templateLayouts'];
+        if (!empty($pluginName)) {
+            if (isset($GLOBALS['TYPO3_CONF_VARS']['EXT'][$extKey]['templateLayouts'][$pluginName])
+                && is_array($GLOBALS['TYPO3_CONF_VARS']['EXT'][$extKey]['templateLayouts'][$pluginName])
+            ) {
+                $templateLayouts = $GLOBALS['TYPO3_CONF_VARS']['EXT'][$extKey]['templateLayouts'][$pluginName];
+            }
+        } else {
+            if (isset($GLOBALS['TYPO3_CONF_VARS']['EXT'][$extKey]['templateLayouts'])
+                && is_array($GLOBALS['TYPO3_CONF_VARS']['EXT'][$extKey]['templateLayouts'])
+            ) {
+                $templateLayouts = $GLOBALS['TYPO3_CONF_VARS']['EXT'][$extKey]['templateLayouts'];
+            }
         }
 
         // Add TsConfig values
-        foreach ($this->getTemplateLayoutsFromTsConfig($pageUid, $extKey) as $templateKey => $title) {
+        foreach ($this->getTemplateLayoutsFromTsConfig($pageUid, $extKey, $pluginName) as $templateKey => $title) {
             if (GeneralUtility::isFirstPartOfStr($title, '--div--')) {
                 $optGroupParts = GeneralUtility::trimExplode(',', $title, true, 2);
                 $title = $optGroupParts[1];
@@ -53,15 +62,29 @@ class TemplateLayout implements SingletonInterface
      * Get template layouts defined in TsConfig
      *
      * @param $pageUid
+     * @param string $pluginName
      * @return array
      */
-    protected function getTemplateLayoutsFromTsConfig($pageUid, $extKey)
+    protected function getTemplateLayoutsFromTsConfig($pageUid, $extKey, $pluginName)
     {
         $templateLayouts = [];
         $pagesTsConfig = BackendUtility::getPagesTSconfig($pageUid);
         $extKey = 'tx_' . preg_replace('/_/', '', $extKey) . '.';
-        if (isset($pagesTsConfig[$extKey]['templateLayouts.']) && is_array($pagesTsConfig[$extKey]['templateLayouts.'])) {
-            $templateLayouts = $pagesTsConfig[$extKey]['templateLayouts.'];
+
+        if (!empty($pluginName)) {
+            $pluginName .= '.';
+            if (isset($pagesTsConfig[$extKey]['templateLayouts.']) &&
+                isset($pagesTsConfig[$extKey]['templateLayouts.'][$pluginName]) &&
+                is_array($pagesTsConfig[$extKey]['templateLayouts.'][$pluginName])
+            ) {
+                $templateLayouts = $pagesTsConfig[$extKey]['templateLayouts.'][$pluginName];
+            }
+        } else {
+            if (isset($pagesTsConfig[$extKey]['templateLayouts.']) &&
+                is_array($pagesTsConfig[$extKey]['templateLayouts.'])
+            ) {
+                $templateLayouts = $pagesTsConfig[$extKey]['templateLayouts.'];
+            }
         }
         return $templateLayouts;
     }
