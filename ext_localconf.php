@@ -70,14 +70,28 @@ defined('TYPO3_MODE') or die();
 // Icon Registry
 
 if (TYPO3_MODE === 'BE') {
+    $icons = [
+        'apps-pagetree-folder-cart-coupons' => 'apps_pagetree_folder_cart_coupons.svg',
+        'apps-pagetree-folder-cart-orders' => 'apps_pagetree_folder_cart_orders.svg',
+        'apps-pagetree-page-cart-cart' => 'apps_pagetree_page_cart_cart.svg',
+    ];
+
     $iconRegistry = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(
         \TYPO3\CMS\Core\Imaging\IconRegistry::class
     );
 
-    $iconRegistry->registerIcon(
-        'icon-apps-pagetree-page-cart-cart',
-        \TYPO3\CMS\Core\Imaging\IconProvider\SvgIconProvider::class,
-        ['source' => 'EXT:cart/Resources/Public/Icons/icon-apps-pagetree-page-cart-cart.svg']
+    foreach ($icons as $identifier => $fileName) {
+        $iconRegistry->registerIcon(
+            $identifier,
+            \TYPO3\CMS\Core\Imaging\IconProvider\SvgIconProvider::class,
+            [
+                'source' => 'EXT:cart/Resources/Public/Icons/' . $fileName,
+            ]
+        );
+    }
+
+    $iconRegistry = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(
+        \TYPO3\CMS\Core\Imaging\IconRegistry::class
     );
 }
 

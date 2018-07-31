@@ -116,32 +116,18 @@ if (TYPO3_MODE === 'BE') {
     );
 }
 
-$iconRegistry = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(
-    \TYPO3\CMS\Core\Imaging\IconRegistry::class
-);
-$iconRegistry->registerIcon(
-    'tcarecords-pages-contains-orders',
-    \TYPO3\CMS\Core\Imaging\IconProvider\SvgIconProvider::class,
-    ['source' => $iconPath . 'pages_orders_icon.svg']
-);
-$TCA['pages']['ctrl']['typeicon_classes']['contains-orders'] = 'tcarecords-pages-contains-orders';
-
-$iconRegistry->registerIcon(
-    'tcarecords-pages-contains-coupons',
-    \TYPO3\CMS\Core\Imaging\IconProvider\SvgIconProvider::class,
-    ['source' => $iconPath . 'pages_coupons_icon.svg']
-);
-$TCA['pages']['ctrl']['typeicon_classes']['contains-coupons'] = 'tcarecords-pages-contains-coupons';
+$TCA['pages']['ctrl']['typeicon_classes']['contains-coupons'] = 'apps-pagetree-folder-cart-coupons';
+$TCA['pages']['ctrl']['typeicon_classes']['contains-orders'] = 'apps-pagetree-folder-cart-orders';
 
 $TCA['pages']['columns']['module']['config']['items'][] = [
     'LLL:EXT:' . $_EXTKEY . '/Resources/Private/Language/locallang_db.xlf:tx_cart.module.orders',
     'orders',
-    $iconPath . 'pages_orders_icon.svg'
+    $iconPath . 'pagetree_folder_cart_orders.svg'
 ];
 $TCA['pages']['columns']['module']['config']['items'][] = [
     'LLL:EXT:' . $_EXTKEY . '/Resources/Private/Language/locallang_db.xlf:tx_cart.module.coupons',
     'coupons',
-    $iconPath . 'pages_coupons_icon.svg'
+    $iconPath . 'pagetree_folder_cart_coupons.svg'
 ];
 
 $tables = [

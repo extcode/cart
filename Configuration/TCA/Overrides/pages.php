@@ -7,8 +7,8 @@ call_user_func(function () {
     $GLOBALS['TCA']['pages']['columns']['doktype']['config']['items'][] = [
         $_LLL . 'pages.doktype.181',
         181,
-        'icon-apps-pagetree-page-cart-cart'
+        'apps-pagetree-page-cart-cart'
     ];
 
-    $GLOBALS['TCA']['pages']['ctrl']['typeicon_classes'][181] = 'icon-apps-pagetree-page-cart-cart';
+    $GLOBALS['TCA']['pages']['ctrl']['typeicon_classes'][181] = 'apps-pagetree-page-cart-cart';
 });
