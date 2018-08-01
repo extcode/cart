@@ -26,7 +26,7 @@ return [
             'endtime' => 'endtime',
         ],
         'searchFields' => 'title',
-        'iconfile' => 'EXT:cart/Resources/Public/Icons/Tag.png'
+        'iconfile' => 'EXT:cart/Resources/Public/Icons/Tag.svg'
     ],
     'hideTable' => 1,
     'interface' => [
