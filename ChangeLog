@@ -1,3 +1,9 @@
+4.8.1
+    2018-08-02
+    Daniel Lorenz <https://github.com/extcode>
+
+    * BUGFIX #190: fix update shipping and payment status on same billing and shipping addresses
+
 4.8.0
     2018-02-25
     Daniel Lorenz <https://github.com/extcode>

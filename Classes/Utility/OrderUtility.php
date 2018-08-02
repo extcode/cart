@@ -1011,6 +1011,8 @@ class OrderUtility
 
         if ($this->cart->getShippingCountry()) {
             $orderShipping->setServiceCountry($this->cart->getShippingCountry());
+        } elseif ($this->cart->getBillingCountry()) {
+            $orderShipping->setServiceCountry($this->cart->getBillingCountry());
         }
         $orderShipping->setServiceId($shipping->getId());
         $orderShipping->setName($shipping->getName());
