@@ -33,7 +33,6 @@ abstract class AbstractService extends \TYPO3\CMS\Extbase\DomainObject\AbstractE
      * Service Country
      *
      * @var string
-     * @validate NotEmpty
      */
     protected $serviceCountry;
 
