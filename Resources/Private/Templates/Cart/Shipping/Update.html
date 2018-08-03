@@ -3,16 +3,5 @@
 
 <f:render partial="Cart/OrderForm/ShippingMethod" arguments="{cart:cart, shippings:shippings}"/>
 <f:render partial="Cart/OrderForm/PaymentMethod" arguments="{cart:cart, payments:payments}"/>
-
-<table id="checkout-review-table" class="checkout-review-table data-table" data-ajax-country data-ajax-currency>
-    <colgroup>
-        <col/>
-        <col width="1"/>
-        <col width="1"/>
-        <col width="1"/>
-    </colgroup>
-    <tbody>
-    <f:render partial="Cart/OrderForm/Summary" arguments="{cart:cart}"/>
-    </tbody>
-</table>
+<f:render partial="Cart/OrderForm/Summary" arguments="{cart:cart}"/>
 </html>

@@ -15,7 +15,7 @@ function updateCountry(billingCountry, shippingCountry) {
         {
             $("#checkout-step-shipping-method").html($(data).filter("#checkout-step-shipping-method").html());
             $("#checkout-step-payment-method").html($(data).filter("#checkout-step-shipping-method").html());
-            $("#checkout-review-table").html($(data).filter("#checkout-review-table").html());
+            $("#checkout-step-summary").html($(data).filter("#checkout-step-summary").html());
         }
     });
 }
@@ -38,7 +38,7 @@ function updateCurrency(currencyCode, action) {
             $("#checkout-step-shipping-method").html($(data).filter("#checkout-step-shipping-method").html());
             $("#checkout-step-payment-method").html($(data).filter("#checkout-step-payment-method").html());
             $("#checkout-step-coupon").html($(data).filter("#checkout-step-coupon").html());
-            $("#checkout-review-table").html($(data).filter("#checkout-review-table").html());
+            $("#checkout-step-summary").html($(data).filter("#checkout-step-summary").html());
         }
     });
 }
@@ -109,25 +109,25 @@ $(".currency-selector").change(function () {
     });
 });
 
-$("#checkout-step-payment-method").on("click", ".setPayment", function(e) {
+$("#checkout-step-payment-method").on("click", ".set-payment", function(e) {
     var url = $(this).attr("href");
 
     $.get( url, function( data ) {
         $("#checkout-step-shipping-method").html($(data).filter("#checkout-step-shipping-method").html());
         $("#checkout-step-payment-method").html($(data).filter("#checkout-step-payment-method").html());
-        $("#checkout-review-table").html($(data).filter("#checkout-review-table").html());
+        $("#checkout-step-summary").html($(data).filter("#checkout-step-summary").html());
     });
 
     e.preventDefault();
 });
 
-$("#checkout-step-shipping-method").on("click", ".setShipping", function(e) {
+$("#checkout-step-shipping-method").on("click", ".set-shipping", function(e) {
     var url = $(this).attr("href");
 
     $.get( url, function( data ) {
         $("#checkout-step-shipping-method").html($(data).filter("#checkout-step-shipping-method").html());
         $("#checkout-step-payment-method").html($(data).filter("#checkout-step-payment-method").html());
-        $("#checkout-review-table").html($(data).filter("#checkout-review-table").html());
+        $("#checkout-step-summary").html($(data).filter("#checkout-step-summary").html());
     });
 
     e.preventDefault();

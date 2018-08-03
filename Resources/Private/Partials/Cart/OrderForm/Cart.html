@@ -83,37 +83,7 @@
                         </div>
                     </fieldset>
 
-                    <div class="checkout-step-fields">
-                        <div class="checkout-step-field">
-                            <table class="checkout-step-table data-table">
-                                <thead>
-                                    <tr>
-                                        <th class="text-right">
-                                            &nbsp;
-                                        </th>
-                                        <th>
-                                            &nbsp;
-                                        </th>
-                                        <th>
-                                            &nbsp;
-                                        </th>
-                                        <th class="text-right">
-                                            <f:translate key="tx_cart_domain_model_order_product.total"/>
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <colgroup>
-                                    <col/>
-                                    <col width="1"/>
-                                    <col width="1"/>
-                                    <col width="1"/>
-                                </colgroup>
-                                <tbody>
-                                <f:render partial="Cart/OrderForm/Summary" arguments="{cart:cart}"/>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
+                    <f:render partial="Cart/OrderForm/Summary" arguments="{cart:cart}"/>
                 </div>
             </div>
         </div>
