@@ -141,7 +141,7 @@ class ProductController extends ActionController
 
         $quantity = $this->addProductsToCart($cartProducts);
 
-        $this->updateService();
+        $this->cartUtility->updateService($this->cart, $this->pluginSettings);
 
         $this->sessionHandler->write($this->cart, $this->settings['cart']['pid']);
 
@@ -188,7 +188,7 @@ class ProductController extends ActionController
             $this->cart = $this->sessionHandler->restore($this->settings['cart']['pid']);
             $this->cart->removeProductById($this->request->getArgument('product'));
 
-            $this->updateService();
+            $this->cartUtility->updateService($this->cart, $this->pluginSettings);
 
             $this->sessionHandler->write($this->cart, $this->settings['cart']['pid']);
         }

@@ -49,7 +49,7 @@ class CurrencyController extends ActionController
 
         $this->sessionHandler->write($this->cart, $this->settings['cart']['pid']);
 
-        $this->updateService();
+        $this->cartUtility->updateService($this->cart, $this->pluginSettings);
 
         if (isset($_GET['type']) && intval($_GET['type']) == 2278003) {
             $this->view->assign('cart', $this->cart);

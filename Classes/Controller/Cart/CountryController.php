@@ -65,7 +65,7 @@ class CountryController extends ActionController
 
         $this->sessionHandler->write($this->cart, $this->settings['cart']['pid']);
 
-        $this->updateService();
+        $this->cartUtility->updateService($this->cart, $this->pluginSettings);
 
         $this->view->assign('cart', $this->cart);
 

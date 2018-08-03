@@ -115,27 +115,6 @@ class ActionController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControlle
         );
     }
 
-    protected function updateService()
-    {
-        $this->parseData();
-
-        if (!$this->cart->getPayment()->isAvailable($this->cart->getGross())) {
-            $fallBackId = $this->cart->getPayment()->getFallBackId();
-            if ($fallBackId) {
-                $payment = $this->cartUtility->getServiceById($this->payments, $fallBackId);
-                $this->cart->setPayment($payment);
-            }
-        }
-
-        if (!$this->cart->getShipping()->isAvailable($this->cart->getGross())) {
-            $fallBackId = $this->cart->getShipping()->getFallBackId();
-            if ($fallBackId) {
-                $shipping = $this->cartUtility->getServiceById($this->shippings, $fallBackId);
-                $this->cart->setShipping($shipping);
-            }
-        }
-    }
-
     /**
      * Parse Data
      */
