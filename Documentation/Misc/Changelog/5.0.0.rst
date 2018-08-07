@@ -3,13 +3,29 @@
 .. --------------------------------------------------
 .. -*- coding: utf-8 -*- with BOM.
 
-5.0.0 - 19.11.2017
+5.0.0 - 03.08.2018
 ------------------
 
 .. IMPORTANT::
-   Attention, currently the upgrade documentation is missing. Please do **NOT** upgrade from a previous version!
+   **Please read the documentation carefully! Please make a backup of your filesystem and database!** If possible test the update in a test copy of your TYPO3 instance.
 
-#150 Sortierung von Frontend- und Backendvarianten
+Extracting products to an own cart_products extension
+====================================================
+
+In the last month, we had a lot of projects where we extending the product table
+to the customer needs. In some cases we come to the result that an own product model
+respecting the customer domain would be a better solution.
+So I decide to extract all product related code to an own extension. If you updating
+from Cart 4.x you have to install the cart_products extension as well.
+
+Steps:
+
+-
+-
+-
+-
+
+Sortierung von Frontend- und Backendvarianten
 ==================================================
 
 In der Produktkonfiguration können die Frontend und Backendvarianten sortiert werden.
@@ -17,7 +33,7 @@ In der Produktkonfiguration können die Frontend und Backendvarianten sortiert w
 .. IMPORTANT::
    Es ist eine Aktualisierung der Datenbank erforderlich. Da dieses Feld neu hinzu kommt sind keine Probleme zu erwarten.
 
-#163 Speichern des Rechungs- und Versandländercodes in den Bestelldaten
+Speichern des Rechungs- und Versandländercodes in den Bestelldaten
 =======================================================================
 
 In der Bestellung werden nun die Ländercodes aus dem TypoScript gespeichert, um in der späteren Verarbeitung auf die

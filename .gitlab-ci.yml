@@ -79,7 +79,7 @@ test:php72:typo3_9:
   <<: *test_php
   variables:
     DOCKER_TAG: 7.2-alpine
-    TYPO3_VERSION: ^9.2
+    TYPO3_VERSION: ^9.3
 
 sonarqube:
   stage: analysis
