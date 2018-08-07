@@ -44,26 +44,8 @@ CREATE TABLE tx_cart_domain_model_order_item (
     additional text NOT NULL,
     additional_data text NOT NULL,
 
-    tstamp int(11) unsigned DEFAULT '0' NOT NULL,
-    crdate int(11) unsigned DEFAULT '0' NOT NULL,
-    cruser_id int(11) unsigned DEFAULT '0' NOT NULL,
-    deleted tinyint(4) unsigned DEFAULT '0' NOT NULL,
-
-    t3ver_oid int(11) DEFAULT '0' NOT NULL,
-    t3ver_id int(11) DEFAULT '0' NOT NULL,
-    t3ver_wsid int(11) DEFAULT '0' NOT NULL,
-    t3ver_label varchar(255) DEFAULT '' NOT NULL,
-    t3ver_state tinyint(4) DEFAULT '0' NOT NULL,
-    t3ver_stage int(11) DEFAULT '0' NOT NULL,
-    t3ver_count int(11) DEFAULT '0' NOT NULL,
-    t3ver_tstamp int(11) DEFAULT '0' NOT NULL,
-    t3ver_move_id int(11) DEFAULT '0' NOT NULL,
-
-    t3_origuid int(11) DEFAULT '0' NOT NULL,
-
-    PRIMARY KEY (uid),
-    KEY parent (pid),
-    KEY t3ver_oid (t3ver_oid,t3ver_wsid)
+    INDEX `parent` (pid), INDEX `t3ver_oid` (t3ver_oid,t3ver_wsid),
+    PRIMARY KEY (uid)
 );
 
 #
@@ -92,26 +74,8 @@ CREATE TABLE tx_cart_domain_model_order_address (
 
     additional text NOT NULL,
 
-    tstamp int(11) unsigned DEFAULT '0' NOT NULL,
-    crdate int(11) unsigned DEFAULT '0' NOT NULL,
-    cruser_id int(11) unsigned DEFAULT '0' NOT NULL,
-    deleted tinyint(4) unsigned DEFAULT '0' NOT NULL,
-
-    t3ver_oid int(11) DEFAULT '0' NOT NULL,
-    t3ver_id int(11) DEFAULT '0' NOT NULL,
-    t3ver_wsid int(11) DEFAULT '0' NOT NULL,
-    t3ver_label varchar(255) DEFAULT '' NOT NULL,
-    t3ver_state tinyint(4) DEFAULT '0' NOT NULL,
-    t3ver_stage int(11) DEFAULT '0' NOT NULL,
-    t3ver_count int(11) DEFAULT '0' NOT NULL,
-    t3ver_tstamp int(11) DEFAULT '0' NOT NULL,
-    t3ver_move_id int(11) DEFAULT '0' NOT NULL,
-
-    t3_origuid int(11) DEFAULT '0' NOT NULL,
-
-    PRIMARY KEY (uid),
-    KEY parent (pid),
-    KEY t3ver_oid (t3ver_oid,t3ver_wsid)
+    INDEX `parent` (pid), INDEX `t3ver_oid` (t3ver_oid,t3ver_wsid),
+    PRIMARY KEY (uid)
 );
 
 #
@@ -127,26 +91,8 @@ CREATE TABLE tx_cart_domain_model_order_taxclass (
     value varchar(255) DEFAULT '' NOT NULL,
     calc double(11,2) DEFAULT '0.00' NOT NULL,
 
-    tstamp int(11) unsigned DEFAULT '0' NOT NULL,
-    crdate int(11) unsigned DEFAULT '0' NOT NULL,
-    cruser_id int(11) unsigned DEFAULT '0' NOT NULL,
-    deleted tinyint(4) unsigned DEFAULT '0' NOT NULL,
-
-    t3ver_oid int(11) DEFAULT '0' NOT NULL,
-    t3ver_id int(11) DEFAULT '0' NOT NULL,
-    t3ver_wsid int(11) DEFAULT '0' NOT NULL,
-    t3ver_label varchar(255) DEFAULT '' NOT NULL,
-    t3ver_state tinyint(4) DEFAULT '0' NOT NULL,
-    t3ver_stage int(11) DEFAULT '0' NOT NULL,
-    t3ver_count int(11) DEFAULT '0' NOT NULL,
-    t3ver_tstamp int(11) DEFAULT '0' NOT NULL,
-    t3ver_move_id int(11) DEFAULT '0' NOT NULL,
-
-    t3_origuid int(11) DEFAULT '0' NOT NULL,
-
-    PRIMARY KEY (uid),
-    KEY parent (pid),
-    KEY t3ver_oid (t3ver_oid,t3ver_wsid)
+    INDEX `parent` (pid), INDEX `t3ver_oid` (t3ver_oid,t3ver_wsid),
+    PRIMARY KEY (uid)
 );
 
 #
@@ -159,26 +105,8 @@ CREATE TABLE tx_cart_domain_model_order_tax (
     tax double(11,2) DEFAULT '0.00' NOT NULL,
     tax_class int(11) unsigned DEFAULT '0' NOT NULL,
 
-    tstamp int(11) unsigned DEFAULT '0' NOT NULL,
-    crdate int(11) unsigned DEFAULT '0' NOT NULL,
-    cruser_id int(11) unsigned DEFAULT '0' NOT NULL,
-    deleted tinyint(4) unsigned DEFAULT '0' NOT NULL,
-
-    t3ver_oid int(11) DEFAULT '0' NOT NULL,
-    t3ver_id int(11) DEFAULT '0' NOT NULL,
-    t3ver_wsid int(11) DEFAULT '0' NOT NULL,
-    t3ver_label varchar(255) DEFAULT '' NOT NULL,
-    t3ver_state tinyint(4) DEFAULT '0' NOT NULL,
-    t3ver_stage int(11) DEFAULT '0' NOT NULL,
-    t3ver_count int(11) DEFAULT '0' NOT NULL,
-    t3ver_tstamp int(11) DEFAULT '0' NOT NULL,
-    t3ver_move_id int(11) DEFAULT '0' NOT NULL,
-
-    t3_origuid int(11) DEFAULT '0' NOT NULL,
-
-    PRIMARY KEY (uid),
-    KEY parent (pid),
-    KEY t3ver_oid (t3ver_oid,t3ver_wsid)
+    INDEX `parent` (pid), INDEX `t3ver_oid` (t3ver_oid,t3ver_wsid),
+    PRIMARY KEY (uid)
 );
 
 #
@@ -207,26 +135,8 @@ CREATE TABLE tx_cart_domain_model_order_product (
 
     product_additional int(11) unsigned DEFAULT '0' NOT NULL,
 
-    tstamp int(11) unsigned DEFAULT '0' NOT NULL,
-    crdate int(11) unsigned DEFAULT '0' NOT NULL,
-    cruser_id int(11) unsigned DEFAULT '0' NOT NULL,
-    deleted tinyint(4) unsigned DEFAULT '0' NOT NULL,
-
-    t3ver_oid int(11) DEFAULT '0' NOT NULL,
-    t3ver_id int(11) DEFAULT '0' NOT NULL,
-    t3ver_wsid int(11) DEFAULT '0' NOT NULL,
-    t3ver_label varchar(255) DEFAULT '' NOT NULL,
-    t3ver_state tinyint(4) DEFAULT '0' NOT NULL,
-    t3ver_stage int(11) DEFAULT '0' NOT NULL,
-    t3ver_count int(11) DEFAULT '0' NOT NULL,
-    t3ver_tstamp int(11) DEFAULT '0' NOT NULL,
-    t3ver_move_id int(11) DEFAULT '0' NOT NULL,
-
-    t3_origuid int(11) DEFAULT '0' NOT NULL,
-
-    PRIMARY KEY (uid),
-    KEY parent (pid),
-    KEY t3ver_oid (t3ver_oid,t3ver_wsid)
+    INDEX `parent` (pid), INDEX `t3ver_oid` (t3ver_oid,t3ver_wsid),
+    PRIMARY KEY (uid)
 );
 
 #
@@ -245,26 +155,8 @@ CREATE TABLE tx_cart_domain_model_order_discount (
     tax_class_id int(11) unsigned DEFAULT '1' NOT NULL,
     tax double(11,2) DEFAULT '0.00' NOT NULL,
 
-    tstamp int(11) unsigned DEFAULT '0' NOT NULL,
-    crdate int(11) unsigned DEFAULT '0' NOT NULL,
-    cruser_id int(11) unsigned DEFAULT '0' NOT NULL,
-    deleted tinyint(4) unsigned DEFAULT '0' NOT NULL,
-
-    t3ver_oid int(11) DEFAULT '0' NOT NULL,
-    t3ver_id int(11) DEFAULT '0' NOT NULL,
-    t3ver_wsid int(11) DEFAULT '0' NOT NULL,
-    t3ver_label varchar(255) DEFAULT '' NOT NULL,
-    t3ver_state tinyint(4) DEFAULT '0' NOT NULL,
-    t3ver_stage int(11) DEFAULT '0' NOT NULL,
-    t3ver_count int(11) DEFAULT '0' NOT NULL,
-    t3ver_tstamp int(11) DEFAULT '0' NOT NULL,
-    t3ver_move_id int(11) DEFAULT '0' NOT NULL,
-
-    t3_origuid int(11) DEFAULT '0' NOT NULL,
-
-    PRIMARY KEY (uid),
-    KEY parent (pid),
-    KEY t3ver_oid (t3ver_oid,t3ver_wsid)
+    INDEX `parent` (pid), INDEX `t3ver_oid` (t3ver_oid,t3ver_wsid),
+    PRIMARY KEY (uid)
 );
 
 #
@@ -283,26 +175,8 @@ CREATE TABLE tx_cart_domain_model_order_productadditional (
     additional text NOT NULL,
     additional_data text NOT NULL,
 
-    tstamp int(11) unsigned DEFAULT '0' NOT NULL,
-    crdate int(11) unsigned DEFAULT '0' NOT NULL,
-    cruser_id int(11) unsigned DEFAULT '0' NOT NULL,
-    deleted tinyint(4) unsigned DEFAULT '0' NOT NULL,
-
-    t3ver_oid int(11) DEFAULT '0' NOT NULL,
-    t3ver_id int(11) DEFAULT '0' NOT NULL,
-    t3ver_wsid int(11) DEFAULT '0' NOT NULL,
-    t3ver_label varchar(255) DEFAULT '' NOT NULL,
-    t3ver_state tinyint(4) DEFAULT '0' NOT NULL,
-    t3ver_stage int(11) DEFAULT '0' NOT NULL,
-    t3ver_count int(11) DEFAULT '0' NOT NULL,
-    t3ver_tstamp int(11) DEFAULT '0' NOT NULL,
-    t3ver_move_id int(11) DEFAULT '0' NOT NULL,
-
-    t3_origuid int(11) DEFAULT '0' NOT NULL,
-
-    PRIMARY KEY (uid),
-    KEY parent (pid),
-    KEY t3ver_oid (t3ver_oid,t3ver_wsid)
+    INDEX `parent` (pid), INDEX `t3ver_oid` (t3ver_oid,t3ver_wsid),
+    PRIMARY KEY (uid)
 );
 
 
@@ -326,26 +200,8 @@ CREATE TABLE tx_cart_domain_model_order_shipping (
 
     note text NOT NULL,
 
-    tstamp int(11) unsigned DEFAULT '0' NOT NULL,
-    crdate int(11) unsigned DEFAULT '0' NOT NULL,
-    cruser_id int(11) unsigned DEFAULT '0' NOT NULL,
-    deleted tinyint(4) unsigned DEFAULT '0' NOT NULL,
-
-    t3ver_oid int(11) DEFAULT '0' NOT NULL,
-    t3ver_id int(11) DEFAULT '0' NOT NULL,
-    t3ver_wsid int(11) DEFAULT '0' NOT NULL,
-    t3ver_label varchar(255) DEFAULT '' NOT NULL,
-    t3ver_state tinyint(4) DEFAULT '0' NOT NULL,
-    t3ver_stage int(11) DEFAULT '0' NOT NULL,
-    t3ver_count int(11) DEFAULT '0' NOT NULL,
-    t3ver_tstamp int(11) DEFAULT '0' NOT NULL,
-    t3ver_move_id int(11) DEFAULT '0' NOT NULL,
-
-    t3_origuid int(11) DEFAULT '0' NOT NULL,
-
-    PRIMARY KEY (uid),
-    KEY parent (pid),
-    KEY t3ver_oid (t3ver_oid,t3ver_wsid)
+    INDEX `parent` (pid), INDEX `t3ver_oid` (t3ver_oid,t3ver_wsid),
+    PRIMARY KEY (uid)
 );
 
 #
@@ -371,26 +227,8 @@ CREATE TABLE tx_cart_domain_model_order_payment (
 
     transactions int(11) unsigned DEFAULT '0' NOT NULL,
 
-    tstamp int(11) unsigned DEFAULT '0' NOT NULL,
-    crdate int(11) unsigned DEFAULT '0' NOT NULL,
-    cruser_id int(11) unsigned DEFAULT '0' NOT NULL,
-    deleted tinyint(4) unsigned DEFAULT '0' NOT NULL,
-
-    t3ver_oid int(11) DEFAULT '0' NOT NULL,
-    t3ver_id int(11) DEFAULT '0' NOT NULL,
-    t3ver_wsid int(11) DEFAULT '0' NOT NULL,
-    t3ver_label varchar(255) DEFAULT '' NOT NULL,
-    t3ver_state tinyint(4) DEFAULT '0' NOT NULL,
-    t3ver_stage int(11) DEFAULT '0' NOT NULL,
-    t3ver_count int(11) DEFAULT '0' NOT NULL,
-    t3ver_tstamp int(11) DEFAULT '0' NOT NULL,
-    t3ver_move_id int(11) DEFAULT '0' NOT NULL,
-
-    t3_origuid int(11) DEFAULT '0' NOT NULL,
-
-    PRIMARY KEY (uid),
-    KEY parent (pid),
-    KEY t3ver_oid (t3ver_oid,t3ver_wsid)
+    INDEX `parent` (pid), INDEX `t3ver_oid` (t3ver_oid,t3ver_wsid),
+    PRIMARY KEY (uid)
 );
 
 #
@@ -409,25 +247,8 @@ CREATE TABLE tx_cart_domain_model_order_transaction (
     external_status_code varchar(255) DEFAULT '' NOT NULL,
     note text NOT NULL,
 
-    tstamp int(11) unsigned DEFAULT '0' NOT NULL,
-    crdate int(11) unsigned DEFAULT '0' NOT NULL,
-    cruser_id int(11) unsigned DEFAULT '0' NOT NULL,
-    deleted tinyint(4) unsigned DEFAULT '0' NOT NULL,
-
-    t3ver_oid int(11) DEFAULT '0' NOT NULL,
-    t3ver_id int(11) DEFAULT '0' NOT NULL,
-    t3ver_wsid int(11) DEFAULT '0' NOT NULL,
-    t3ver_label varchar(255) DEFAULT '' NOT NULL,
-    t3ver_state tinyint(4) DEFAULT '0' NOT NULL,
-    t3ver_stage int(11) DEFAULT '0' NOT NULL,
-    t3ver_count int(11) DEFAULT '0' NOT NULL,
-    t3ver_tstamp int(11) DEFAULT '0' NOT NULL,
-    t3ver_move_id int(11) DEFAULT '0' NOT NULL,
-
-    t3_origuid int(11) DEFAULT '0' NOT NULL,
-
-    PRIMARY KEY (uid),
-    KEY parent (pid)
+    INDEX `parent` (pid)
+    PRIMARY KEY (uid)
 );
 
 #
@@ -449,29 +270,8 @@ CREATE TABLE tx_cart_domain_model_product_coupon (
     number_available int(11) DEFAULT '0' NOT NULL,
     number_used int(11) DEFAULT '0' NOT NULL,
 
-    tstamp int(11) unsigned DEFAULT '0' NOT NULL,
-    crdate int(11) unsigned DEFAULT '0' NOT NULL,
-    cruser_id int(11) unsigned DEFAULT '0' NOT NULL,
-    deleted tinyint(4) unsigned DEFAULT '0' NOT NULL,
-    hidden tinyint(4) unsigned DEFAULT '0' NOT NULL,
-    starttime int(11) unsigned DEFAULT '0' NOT NULL,
-    endtime int(11) unsigned DEFAULT '0' NOT NULL,
-
-    t3ver_oid int(11) DEFAULT '0' NOT NULL,
-    t3ver_id int(11) DEFAULT '0' NOT NULL,
-    t3ver_wsid int(11) DEFAULT '0' NOT NULL,
-    t3ver_label varchar(255) DEFAULT '' NOT NULL,
-    t3ver_state tinyint(4) DEFAULT '0' NOT NULL,
-    t3ver_stage int(11) DEFAULT '0' NOT NULL,
-    t3ver_count int(11) DEFAULT '0' NOT NULL,
-    t3ver_tstamp int(11) DEFAULT '0' NOT NULL,
-    t3ver_move_id int(11) DEFAULT '0' NOT NULL,
-
-    t3_origuid int(11) DEFAULT '0' NOT NULL,
-
-    PRIMARY KEY (uid),
-    KEY parent (pid),
-    KEY t3ver_oid (t3ver_oid,t3ver_wsid)
+    INDEX `parent` (pid), INDEX `t3ver_oid` (t3ver_oid,t3ver_wsid),
+    PRIMARY KEY (uid)
 );
 
 #
@@ -492,25 +292,8 @@ CREATE TABLE tx_cart_domain_model_cart (
 
     was_ordered tinyint(4) unsigned DEFAULT '0' NOT NULL,
 
-    tstamp int(11) unsigned DEFAULT '0' NOT NULL,
-    crdate int(11) unsigned DEFAULT '0' NOT NULL,
-    cruser_id int(11) unsigned DEFAULT '0' NOT NULL,
-    deleted tinyint(4) unsigned DEFAULT '0' NOT NULL,
-
-    t3ver_oid int(11) DEFAULT '0' NOT NULL,
-    t3ver_id int(11) DEFAULT '0' NOT NULL,
-    t3ver_wsid int(11) DEFAULT '0' NOT NULL,
-    t3ver_label varchar(255) DEFAULT '' NOT NULL,
-    t3ver_state tinyint(4) DEFAULT '0' NOT NULL,
-    t3ver_stage int(11) DEFAULT '0' NOT NULL,
-    t3ver_count int(11) DEFAULT '0' NOT NULL,
-    t3ver_tstamp int(11) DEFAULT '0' NOT NULL,
-    t3ver_move_id int(11) DEFAULT '0' NOT NULL,
-
-    t3_origuid int(11) DEFAULT '0' NOT NULL,
-
-    PRIMARY KEY (uid),
-    KEY parent (pid)
+    INDEX `parent` (pid),
+    PRIMARY KEY (uid)
 );
 
 #
@@ -555,32 +338,10 @@ CREATE TABLE tx_cart_domain_model_tag (
 
     title varchar(255) DEFAULT '' NOT NULL,
 
-    tstamp int(11) unsigned DEFAULT '0' NOT NULL,
-    crdate int(11) unsigned DEFAULT '0' NOT NULL,
-    cruser_id int(11) unsigned DEFAULT '0' NOT NULL,
-    deleted tinyint(4) unsigned DEFAULT '0' NOT NULL,
-    hidden tinyint(4) unsigned DEFAULT '0' NOT NULL,
-    starttime int(11) unsigned DEFAULT '0' NOT NULL,
-    endtime int(11) unsigned DEFAULT '0' NOT NULL,
+    KEY language (l10n_parent,sys_language_uid),
 
-    t3ver_oid int(11) DEFAULT '0' NOT NULL,
-    t3ver_id int(11) DEFAULT '0' NOT NULL,
-    t3ver_wsid int(11) DEFAULT '0' NOT NULL,
-    t3ver_label varchar(255) DEFAULT '' NOT NULL,
-    t3ver_state tinyint(4) DEFAULT '0' NOT NULL,
-    t3ver_stage int(11) DEFAULT '0' NOT NULL,
-    t3ver_count int(11) DEFAULT '0' NOT NULL,
-    t3ver_tstamp int(11) DEFAULT '0' NOT NULL,
-    t3ver_move_id int(11) DEFAULT '0' NOT NULL,
-
-    sys_language_uid int(11) DEFAULT '0' NOT NULL,
-    l10n_parent int(11) DEFAULT '0' NOT NULL,
-    l10n_diffsource mediumblob,
-
-    PRIMARY KEY (uid),
-    KEY parent (pid),
-    KEY t3ver_oid (t3ver_oid,t3ver_wsid),
-    KEY language (l10n_parent,sys_language_uid)
+    INDEX `parent` (pid), INDEX `t3ver_oid` (t3ver_oid,t3ver_wsid),
+    PRIMARY KEY (uid)
 );
 
 #
@@ -645,32 +406,10 @@ CREATE TABLE tx_cart_domain_model_product_product (
 
     sorting int(11) DEFAULT '0' NOT NULL,
 
-    tstamp int(11) unsigned DEFAULT '0' NOT NULL,
-    crdate int(11) unsigned DEFAULT '0' NOT NULL,
-    cruser_id int(11) unsigned DEFAULT '0' NOT NULL,
-    deleted tinyint(4) unsigned DEFAULT '0' NOT NULL,
-    hidden tinyint(4) unsigned DEFAULT '0' NOT NULL,
-    starttime int(11) unsigned DEFAULT '0' NOT NULL,
-    endtime int(11) unsigned DEFAULT '0' NOT NULL,
+    KEY language (l10n_parent,sys_language_uid),
 
-    t3ver_oid int(11) DEFAULT '0' NOT NULL,
-    t3ver_id int(11) DEFAULT '0' NOT NULL,
-    t3ver_wsid int(11) DEFAULT '0' NOT NULL,
-    t3ver_label varchar(255) DEFAULT '' NOT NULL,
-    t3ver_state tinyint(4) DEFAULT '0' NOT NULL,
-    t3ver_stage int(11) DEFAULT '0' NOT NULL,
-    t3ver_count int(11) DEFAULT '0' NOT NULL,
-    t3ver_tstamp int(11) DEFAULT '0' NOT NULL,
-    t3ver_move_id int(11) DEFAULT '0' NOT NULL,
-
-    sys_language_uid int(11) DEFAULT '0' NOT NULL,
-    l10n_parent int(11) DEFAULT '0' NOT NULL,
-    l10n_diffsource mediumblob,
-
-    PRIMARY KEY (uid),
-    KEY parent (pid),
-    KEY t3ver_oid (t3ver_oid,t3ver_wsid),
-    KEY language (l10n_parent,sys_language_uid)
+    INDEX `parent` (pid), INDEX `t3ver_oid` (t3ver_oid,t3ver_wsid),
+    PRIMARY KEY (uid)
 );
 
 #
@@ -689,32 +428,10 @@ CREATE TABLE tx_cart_domain_model_product_specialprice (
 
     price double(11,2) DEFAULT '0.00' NOT NULL,
 
-    tstamp int(11) unsigned DEFAULT '0' NOT NULL,
-    crdate int(11) unsigned DEFAULT '0' NOT NULL,
-    cruser_id int(11) unsigned DEFAULT '0' NOT NULL,
-    deleted tinyint(4) unsigned DEFAULT '0' NOT NULL,
-    hidden tinyint(4) unsigned DEFAULT '0' NOT NULL,
-    starttime int(11) unsigned DEFAULT '0' NOT NULL,
-    endtime int(11) unsigned DEFAULT '0' NOT NULL,
+    KEY language (l10n_parent,sys_language_uid),
 
-    t3ver_oid int(11) DEFAULT '0' NOT NULL,
-    t3ver_id int(11) DEFAULT '0' NOT NULL,
-    t3ver_wsid int(11) DEFAULT '0' NOT NULL,
-    t3ver_label varchar(255) DEFAULT '' NOT NULL,
-    t3ver_state tinyint(4) DEFAULT '0' NOT NULL,
-    t3ver_stage int(11) DEFAULT '0' NOT NULL,
-    t3ver_count int(11) DEFAULT '0' NOT NULL,
-    t3ver_tstamp int(11) DEFAULT '0' NOT NULL,
-    t3ver_move_id int(11) DEFAULT '0' NOT NULL,
-
-    sys_language_uid int(11) DEFAULT '0' NOT NULL,
-    l10n_parent int(11) DEFAULT '0' NOT NULL,
-    l10n_diffsource mediumblob,
-
-    PRIMARY KEY (uid),
-    KEY parent (pid),
-    KEY t3ver_oid (t3ver_oid,t3ver_wsid),
-    KEY language (l10n_parent,sys_language_uid)
+    INDEX `parent` (pid), INDEX `t3ver_oid` (t3ver_oid,t3ver_wsid),
+    PRIMARY KEY (uid)
 );
 
 #
@@ -731,25 +448,8 @@ CREATE TABLE tx_cart_domain_model_product_quantitydiscount (
     price double(11,2) DEFAULT '0.00' NOT NULL,
     quantity int(11) unsigned DEFAULT '0' NOT NULL,
 
-    tstamp int(11) unsigned DEFAULT '0' NOT NULL,
-    crdate int(11) unsigned DEFAULT '0' NOT NULL,
-    cruser_id int(11) unsigned DEFAULT '0' NOT NULL,
-    deleted tinyint(4) unsigned DEFAULT '0' NOT NULL,
-    hidden tinyint(4) unsigned DEFAULT '0' NOT NULL,
-
-    t3ver_oid int(11) DEFAULT '0' NOT NULL,
-    t3ver_id int(11) DEFAULT '0' NOT NULL,
-    t3ver_wsid int(11) DEFAULT '0' NOT NULL,
-    t3ver_label varchar(255) DEFAULT '' NOT NULL,
-    t3ver_state tinyint(4) DEFAULT '0' NOT NULL,
-    t3ver_stage int(11) DEFAULT '0' NOT NULL,
-    t3ver_count int(11) DEFAULT '0' NOT NULL,
-    t3ver_tstamp int(11) DEFAULT '0' NOT NULL,
-    t3ver_move_id int(11) DEFAULT '0' NOT NULL,
-
-    PRIMARY KEY (uid),
-    KEY parent (pid),
-    KEY t3ver_oid (t3ver_oid,t3ver_wsid),
+    INDEX `parent` (pid), INDEX `t3ver_oid` (t3ver_oid,t3ver_wsid),
+    PRIMARY KEY (uid)
 );
 
 #
@@ -766,32 +466,10 @@ CREATE TABLE tx_cart_domain_model_product_bevariantattribute (
     title varchar(255) DEFAULT '' NOT NULL,
     description text NOT NULL,
 
-    tstamp int(11) unsigned DEFAULT '0' NOT NULL,
-    crdate int(11) unsigned DEFAULT '0' NOT NULL,
-    cruser_id int(11) unsigned DEFAULT '0' NOT NULL,
-    deleted tinyint(4) unsigned DEFAULT '0' NOT NULL,
-    hidden tinyint(4) unsigned DEFAULT '0' NOT NULL,
-    starttime int(11) unsigned DEFAULT '0' NOT NULL,
-    endtime int(11) unsigned DEFAULT '0' NOT NULL,
+    KEY language (l10n_parent,sys_language_uid),
 
-    t3ver_oid int(11) DEFAULT '0' NOT NULL,
-    t3ver_id int(11) DEFAULT '0' NOT NULL,
-    t3ver_wsid int(11) DEFAULT '0' NOT NULL,
-    t3ver_label varchar(255) DEFAULT '' NOT NULL,
-    t3ver_state tinyint(4) DEFAULT '0' NOT NULL,
-    t3ver_stage int(11) DEFAULT '0' NOT NULL,
-    t3ver_count int(11) DEFAULT '0' NOT NULL,
-    t3ver_tstamp int(11) DEFAULT '0' NOT NULL,
-    t3ver_move_id int(11) DEFAULT '0' NOT NULL,
-
-    sys_language_uid int(11) DEFAULT '0' NOT NULL,
-    l10n_parent int(11) DEFAULT '0' NOT NULL,
-    l10n_diffsource mediumblob,
-
-    PRIMARY KEY (uid),
-    KEY parent (pid),
-    KEY t3ver_oid (t3ver_oid,t3ver_wsid),
-    KEY language (l10n_parent,sys_language_uid)
+    INDEX `parent` (pid), INDEX `t3ver_oid` (t3ver_oid,t3ver_wsid),
+    PRIMARY KEY (uid)
 );
 
 #
@@ -809,32 +487,10 @@ CREATE TABLE tx_cart_domain_model_product_bevariantattributeoption (
 
     sorting int(11) DEFAULT '0' NOT NULL,
 
-    tstamp int(11) unsigned DEFAULT '0' NOT NULL,
-    crdate int(11) unsigned DEFAULT '0' NOT NULL,
-    cruser_id int(11) unsigned DEFAULT '0' NOT NULL,
-    deleted tinyint(4) unsigned DEFAULT '0' NOT NULL,
-    hidden tinyint(4) unsigned DEFAULT '0' NOT NULL,
-    starttime int(11) unsigned DEFAULT '0' NOT NULL,
-    endtime int(11) unsigned DEFAULT '0' NOT NULL,
+    KEY language (l10n_parent,sys_language_uid),
 
-    t3ver_oid int(11) DEFAULT '0' NOT NULL,
-    t3ver_id int(11) DEFAULT '0' NOT NULL,
-    t3ver_wsid int(11) DEFAULT '0' NOT NULL,
-    t3ver_label varchar(255) DEFAULT '' NOT NULL,
-    t3ver_state tinyint(4) DEFAULT '0' NOT NULL,
-    t3ver_stage int(11) DEFAULT '0' NOT NULL,
-    t3ver_count int(11) DEFAULT '0' NOT NULL,
-    t3ver_tstamp int(11) DEFAULT '0' NOT NULL,
-    t3ver_move_id int(11) DEFAULT '0' NOT NULL,
-
-    sys_language_uid int(11) DEFAULT '0' NOT NULL,
-    l10n_parent int(11) DEFAULT '0' NOT NULL,
-    l10n_diffsource mediumblob,
-
-    PRIMARY KEY (uid),
-    KEY parent (pid),
-    KEY t3ver_oid (t3ver_oid,t3ver_wsid),
-    KEY language (l10n_parent,sys_language_uid)
+    INDEX `parent` (pid), INDEX `t3ver_oid` (t3ver_oid,t3ver_wsid),
+    PRIMARY KEY (uid)
 );
 
 #
@@ -853,16 +509,8 @@ CREATE TABLE tx_cart_domain_model_product_fevariant (
 
     sorting int(11) DEFAULT '0' NOT NULL,
 
-    tstamp int(11) unsigned DEFAULT '0' NOT NULL,
-    crdate int(11) unsigned DEFAULT '0' NOT NULL,
-    cruser_id int(11) unsigned DEFAULT '0' NOT NULL,
-    deleted tinyint(4) unsigned DEFAULT '0' NOT NULL,
-    hidden tinyint(4) unsigned DEFAULT '0' NOT NULL,
-    starttime int(11) unsigned DEFAULT '0' NOT NULL,
-    endtime int(11) unsigned DEFAULT '0' NOT NULL,
-
-    PRIMARY KEY (uid),
-    KEY parent (pid)
+    INDEX `parent` (pid)
+    PRIMARY KEY (uid)
 );
 
 #
@@ -889,32 +537,10 @@ CREATE TABLE tx_cart_domain_model_product_bevariant (
     stock int(11) unsigned DEFAULT '0' NOT NULL,
     sorting int(11) DEFAULT '0' NOT NULL,
 
-    tstamp int(11) unsigned DEFAULT '0' NOT NULL,
-    crdate int(11) unsigned DEFAULT '0' NOT NULL,
-    cruser_id int(11) unsigned DEFAULT '0' NOT NULL,
-    deleted tinyint(4) unsigned DEFAULT '0' NOT NULL,
-    hidden tinyint(4) unsigned DEFAULT '0' NOT NULL,
-    starttime int(11) unsigned DEFAULT '0' NOT NULL,
-    endtime int(11) unsigned DEFAULT '0' NOT NULL,
+    KEY language (l10n_parent,sys_language_uid),
 
-    t3ver_oid int(11) DEFAULT '0' NOT NULL,
-    t3ver_id int(11) DEFAULT '0' NOT NULL,
-    t3ver_wsid int(11) DEFAULT '0' NOT NULL,
-    t3ver_label varchar(255) DEFAULT '' NOT NULL,
-    t3ver_state tinyint(4) DEFAULT '0' NOT NULL,
-    t3ver_stage int(11) DEFAULT '0' NOT NULL,
-    t3ver_count int(11) DEFAULT '0' NOT NULL,
-    t3ver_tstamp int(11) DEFAULT '0' NOT NULL,
-    t3ver_move_id int(11) DEFAULT '0' NOT NULL,
-
-    sys_language_uid int(11) DEFAULT '0' NOT NULL,
-    l10n_parent int(11) DEFAULT '0' NOT NULL,
-    l10n_diffsource mediumblob,
-
-    PRIMARY KEY (uid),
-    KEY parent (pid),
-    KEY t3ver_oid (t3ver_oid,t3ver_wsid),
-    KEY language (l10n_parent,sys_language_uid)
+    INDEX `parent` (pid), INDEX `t3ver_oid` (t3ver_oid,t3ver_wsid),
+    PRIMARY KEY (uid)
 );
 
 #
@@ -926,32 +552,10 @@ CREATE TABLE tx_cart_domain_model_product_tag (
 
     title varchar(255) DEFAULT '' NOT NULL,
 
-    tstamp int(11) unsigned DEFAULT '0' NOT NULL,
-    crdate int(11) unsigned DEFAULT '0' NOT NULL,
-    cruser_id int(11) unsigned DEFAULT '0' NOT NULL,
-    deleted tinyint(4) unsigned DEFAULT '0' NOT NULL,
-    hidden tinyint(4) unsigned DEFAULT '0' NOT NULL,
-    starttime int(11) unsigned DEFAULT '0' NOT NULL,
-    endtime int(11) unsigned DEFAULT '0' NOT NULL,
+    KEY language (l10n_parent,sys_language_uid),
 
-    t3ver_oid int(11) DEFAULT '0' NOT NULL,
-    t3ver_id int(11) DEFAULT '0' NOT NULL,
-    t3ver_wsid int(11) DEFAULT '0' NOT NULL,
-    t3ver_label varchar(255) DEFAULT '' NOT NULL,
-    t3ver_state tinyint(4) DEFAULT '0' NOT NULL,
-    t3ver_stage int(11) DEFAULT '0' NOT NULL,
-    t3ver_count int(11) DEFAULT '0' NOT NULL,
-    t3ver_tstamp int(11) DEFAULT '0' NOT NULL,
-    t3ver_move_id int(11) DEFAULT '0' NOT NULL,
-
-    sys_language_uid int(11) DEFAULT '0' NOT NULL,
-    l10n_parent int(11) DEFAULT '0' NOT NULL,
-    l10n_diffsource mediumblob,
-
-    PRIMARY KEY (uid),
-    KEY parent (pid),
-    KEY t3ver_oid (t3ver_oid,t3ver_wsid),
-    KEY language (l10n_parent,sys_language_uid)
+    INDEX `parent` (pid), INDEX `t3ver_oid` (t3ver_oid,t3ver_wsid),
+    PRIMARY KEY (uid)
 );
 
 #

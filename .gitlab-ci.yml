@@ -53,27 +53,6 @@ test:cgl:
     - find . -name \*.php ! -path "./.Build/*" | parallel --gnu php -d display_errors=stderr -l {} > /dev/null
 #    - find 'Tests/Functional' -wholename '*Test.php' | parallel --gnu 'echo; echo "Running functional test suite {}"; .Build/bin/phpunit --colors  -c .Build/vendor/nimut/testing-framework/res/Configuration/FunctionalTests.xml {}'
 
-# Build in PHP 7.0 and TYPO3 8.7
-test:php70:typo3_8:
-  <<: *test_php
-  variables:
-    DOCKER_TAG: 7.0-alpine
-    TYPO3_VERSION: ^8.7
-
-# Build in PHP 7.1 and TYPO3 8.7
-test:php71:typo3_8:
-  <<: *test_php
-  variables:
-    DOCKER_TAG: 7.1-alpine
-    TYPO3_VERSION: ^8.7
-
-# Build in PHP 7.2 and TYPO3 8.7
-test:php72:typo3_8:
-  <<: *test_php
-  variables:
-    DOCKER_TAG: 7.2-alpine
-    TYPO3_VERSION: ^8.7
-
 # Build in PHP 7.2 and TYPO3 9.2
 test:php72:typo3_9:
   <<: *test_php
@@ -93,7 +72,7 @@ sonarqube:
     SONAR_SOURCES: "./Classes"
     SONAR_GITLAB_PROJECT_ID: "$CI_PROJECT_ID"
   script:
-  - echo "sonar.projectKey=cart-5.x" > sonar-project.properties
+  - echo "sonar.projectKey=cart-6.x" > sonar-project.properties
   - gitlab-sonar-scanner
   allow_failure: true
 
@@ -109,7 +88,7 @@ sonarqube-reports:
     SONAR_SOURCES: "./Classes"
     SONAR_TESTS: "./Tests"
   script:
-  - echo "sonar.projectKey=cart-5.x" > sonar-project.properties
+  - echo "sonar.projectKey=cart-6.x" > sonar-project.properties
   - gitlab-sonar-scanner
 
 ter-upload:

@@ -5,7 +5,7 @@ $EM_CONF[$_EXTKEY] = [
     'description' => 'Shopping Cart(s) for TYPO3',
     'category' => 'plugin',
     'shy' => false,
-    'version' => '5.0.0.alpha',
+    'version' => '6.0.0.alpha',
     'dependencies' => '',
     'conflicts' => '',
     'priority' => '',
@@ -24,7 +24,7 @@ $EM_CONF[$_EXTKEY] = [
     'CGLcompliance_note' => null,
     'constraints' => [
         'depends' => [
-            'typo3' => '8.7.0-9.3.99',
+            'typo3' => '9.3.3-9.3.99',
         ],
         'conflicts' => [],
         'suggests' => [],
