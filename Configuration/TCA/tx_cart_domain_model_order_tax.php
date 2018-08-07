@@ -20,7 +20,7 @@ return [
         'delete' => 'deleted',
         'enablecolumns' => [],
         'searchFields' => '',
-        'iconfile' => 'EXT:cart/Resources/Public/Icons/Order/Tax.png'
+        'iconfile' => 'EXT:cart/Resources/Public/Icons/Order/Tax.svg'
     ],
     'hideTable' => 1,
     'interface' => [

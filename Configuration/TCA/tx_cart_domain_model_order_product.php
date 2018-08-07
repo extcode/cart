@@ -22,7 +22,7 @@ return [
         'delete' => 'deleted',
         'enablecolumns' => [],
         'searchFields' => 'sku,title',
-        'iconfile' => 'EXT:cart/Resources/Public/Icons/Order/Product.png'
+        'iconfile' => 'EXT:cart/Resources/Public/Icons/Order/Product.svg'
     ],
     'hideTable' => 1,
     'interface' => [
