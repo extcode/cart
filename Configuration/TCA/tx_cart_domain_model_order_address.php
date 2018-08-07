@@ -22,7 +22,7 @@ return [
         'delete' => 'deleted',
         'enablecolumns' => [],
         'searchFields' => 'first_name, last_name, street, zip, city',
-        'iconfile' => 'EXT:cart/Resources/Public/Icons/Order/Address.png'
+        'iconfile' => 'EXT:cart/Resources/Public/Icons/Order/Address.svg'
     ],
     'hideTable' => 1,
     'interface' => [

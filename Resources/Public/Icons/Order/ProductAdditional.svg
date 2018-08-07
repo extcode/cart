@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg version="1.1" id="Ebene_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 16 16" style="enable-background:new 0 0 16 16;" xml:space="preserve">
+<path fill="#1C3C4C" d="M14,3v10H2V3H14 M15,2H1v12h14V2z"/>
+<path fill="#1C3C4C" d="M3,4h2v2H3V4z M3,7h2v2H3V7z M3,10h2v2H3V10z"/>
+<polygon fill="#1C3C4C" points="6,4 13,4 13,5 11,5 11,6 6,6 "/>
+<polygon fill="#1C3C4C" points="6,7 13,7 13,8 11,8 11,9 6,9 "/>
+<polygon fill="#1C3C4C" points="6,10 13,10 13,11 11,11 11,12 6,12 "/>
+</svg>

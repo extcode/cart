@@ -21,7 +21,7 @@ return [
         'delete' => 'deleted',
         'enablecolumns' => [],
         'searchFields' => 'order_number, invoice_number',
-        'iconfile' => 'EXT:cart/Resources/Public/Icons/Order/Item.png'
+        'iconfile' => 'EXT:cart/Resources/Public/Icons/Order/Item.svg'
     ],
     'interface' => [
         'showRecordFieldList' => 'pid, cart_pid, fe_user, order_number, invoice_number, delivery_number, billing_address, shipping_address, gross, net, total_gross, total_net, additional, additional_data, tax_class, products, discounts, tax, total_tax, payment, shipping, comment',
