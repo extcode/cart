@@ -22,7 +22,8 @@
         "issues": "https://github.com/extcode/cart/issues"
     },
     "require": {
-        "typo3/cms-core": "^8.7 || ^9.3"
+        "php": ">=7.0.0 <7.3",
+        "typo3/cms-core": "^8.7"
     },
     "require-dev": {
         "nimut/testing-framework": "^2.0 || ^3.0 || ^4.0",

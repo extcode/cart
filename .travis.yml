@@ -11,8 +11,6 @@ matrix:
       env: TYPO3_VERSION=^8.7
     - php: 7.2
       env: TYPO3_VERSION=^8.7
-    - php: 7.2
-      env: TYPO3_VERSION=^9.3
 
 cache:
   directories:

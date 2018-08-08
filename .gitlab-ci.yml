@@ -74,13 +74,6 @@ test:php72:typo3_8:
     DOCKER_TAG: 7.2-alpine
     TYPO3_VERSION: ^8.7
 
-# Build in PHP 7.2 and TYPO3 9.2
-test:php72:typo3_9:
-  <<: *test_php
-  variables:
-    DOCKER_TAG: 7.2-alpine
-    TYPO3_VERSION: ^9.3
-
 sonarqube:
   stage: analysis
   image: ciricihq/gitlab-sonar-scanner
