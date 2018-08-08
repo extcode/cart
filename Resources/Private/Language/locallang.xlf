@@ -790,158 +790,17 @@
                 <source>Price (gross)</source>
             </trans-unit>
 
-            <trans-unit id="tx_cart_domain_model_product_product.filter.sku">
-                <source>SKU</source>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_product.filter.title">
-                <source>Tilte</source>
-            </trans-unit>
-
-            <trans-unit id="tx_cart_domain_model_product_product">
-                <source>Product</source>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_product.sku">
-                <source>Sku</source>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_product.title">
-                <source>Title</source>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_product.teaser">
-                <source>Teaser</source>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_product.description">
-                <source>Description</source>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_product.price">
-                <source>Price</source>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_product.unit_price">
-                <source>Unit Price</source>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_product.count">
-                <source>Count</source>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_product.subtotal">
-                <source>Subtotal</source>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_product.regular_price">
-                <source>Regular Price</source>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_product.special_price">
-                <source>Special Price</source>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_product.quantity_discounts">
-                <source>Quantity Discount</source>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_product.quantity_discount_from">
-                <source>from %s</source>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_product.price.from">
-                <source>from</source>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_product.tax_class">
-                <source>Tax Class</source>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_productbe_variant_attributes">
-                <source>Variant Set</source>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_product.be_variant_attribute1">
-                <source>Variant Set 1</source>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_product.be_variant_attribute2">
-                <source>Variant Set 2</source>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_product.be_variant_attribute3">
-                <source>Variant Set 3</source>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_product.variants">
-                <source>Variants</source>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_product.related_products">
-                <source>Related Products</source>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_product.images">
-                <source>Images</source>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_product.files">
-                <source>Files</source>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_product.stock">
-                <source>Stock</source>
-            </trans-unit>
-
-            <trans-unit id="tx_cart_domain_model_product_product_coupon">
+            <trans-unit id="tx_cart_domain_model_coupon">
                 <source>Coupon</source>
             </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_product_coupon.code">
+            <trans-unit id="tx_cart_domain_model_coupon.code">
                 <source>Coupon Code</source>
             </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_product_coupon.code.not_useable">
+            <trans-unit id="tx_cart_domain_model_coupon.code.not_useable">
                 <source>Coupon Code is not useable.</source>
             </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_product_coupon.cart_min_price">
+            <trans-unit id="tx_cart_domain_model_coupon.cart_min_price">
                 <source>Minimum Order Value</source>
-            </trans-unit>
-
-            <trans-unit id="tx_cart_domain_model_product_productvariantset">
-                <source>Variant Set</source>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_productvariantset.sku">
-                <source>Sku</source>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_productvariantset.title">
-                <source>Title</source>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_productvariantset.description">
-                <source>Description</source>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_productvariantset.be_variant_attribute_options">
-                <source>Variant Attributes</source>
-            </trans-unit>
-
-            <trans-unit id="tx_cart_domain_model_product_producttaxclass">
-                <source>Tax Class</source>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_producttaxclass.name">
-                <source>Name</source>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_producttaxclass.value">
-                <source>Value</source>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_producttaxclass.calc">
-                <source>Calc</source>
-            </trans-unit>
-
-            <trans-unit id="tx_cart_domain_model_product_productvariantattribute">
-                <source>Variant Attribute</source>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_productvariantattribute.sku">
-                <source>Sku</source>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_productvariantattribute.title">
-                <source>Title</source>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_productvariantattribute.description">
-                <source>Description</source>
-            </trans-unit>
-
-            <trans-unit id="tx_cart_domain_model_product_productvariant">
-                <source>Variant</source>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_productvariant.be_variant_attribute_option1">
-                <source>Variant Attribute 1</source>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_productvariant.be_variant_attribute_option2">
-                <source>Variant Attribute 2</source>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_productvariant.be_variant_attribute_option3">
-                <source>Variant Attribute 3</source>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_productvariant.stock">
-                <source>Stock</source>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_productvariant.price">
-                <source>Price</source>
             </trans-unit>
 
             <trans-unit id="tx_cart.ok.coupon.added">

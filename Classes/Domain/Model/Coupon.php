@@ -1,6 +1,6 @@
 <?php
 
-namespace Extcode\Cart\Domain\Model\Product;
+namespace Extcode\Cart\Domain\Model;
 
 /**
  * This file is part of the TYPO3 CMS project.
@@ -16,7 +16,7 @@ namespace Extcode\Cart\Domain\Model\Product;
  */
 
 /**
- * Product Coupon Model
+ * Coupon Model
  *
  * @author Daniel Lorenz <ext.cart@extco.de>
  */

@@ -21,8 +21,8 @@
                                 <f:if condition="{coupon.isUseable}">
                                     <f:else>
                                         <span class="coupon-hint not-usable">
-                                            <f:translate key="tx_cart_domain_model_product_coupon.code.not_useable"/>
-                                            <f:translate key="tx_cart_domain_model_product_coupon.cart_min_price"/>: <cart:format.currency>{coupon.cartMinPrice}</cart:format.currency>
+                                            <f:translate key="tx_cart_domain_model_coupon.code.not_useable"/>
+                                            <f:translate key="tx_cart_domain_model_coupon.cart_min_price"/>: <cart:format.currency>{coupon.cartMinPrice}</cart:format.currency>
                                         </span>
                                     </f:else>
                                 </f:if>
