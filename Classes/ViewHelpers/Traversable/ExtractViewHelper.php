@@ -22,17 +22,19 @@ class ExtractViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHel
      */
     public function initializeArguments()
     {
+        $this->registerArgument('key', 'string', 'Key', true);
+        $this->registerArgument('content', '\Traversable', 'Content', false);
         $this->registerArgument('as', 'string', 'Which variable to update in the TemplateVariableContainer. If left out, returns the random element instead of updating the variable', false);
     }
 
     /**
-     * @param string $key
-     * @param \Traversable $content
-     *
      * @return array
      */
-    public function render($key, $content = null)
+    public function render()
     {
+        $key = $this->arguments['key'];
+        $content = $this->arguments['content'];
+
         if ($content === null) {
             $content = $this->renderChildren();
         }

@@ -35,13 +35,6 @@ class SelectViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\Form\SelectViewHelpe
             'string',
             'If specified, will call the label in locallang file.'
         );
-        $this->registerArgument(
-            'required',
-            'bool',
-            'If the field is required or not',
-            false,
-            false
-        );
     }
 
     /**
