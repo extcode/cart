@@ -247,7 +247,7 @@ CREATE TABLE tx_cart_domain_model_order_transaction (
     external_status_code varchar(255) DEFAULT '' NOT NULL,
     note text NOT NULL,
 
-    INDEX `parent` (pid)
+    INDEX `parent` (pid),
     PRIMARY KEY (uid)
 );
 
@@ -509,7 +509,7 @@ CREATE TABLE tx_cart_domain_model_product_fevariant (
 
     sorting int(11) DEFAULT '0' NOT NULL,
 
-    INDEX `parent` (pid)
+    INDEX `parent` (pid),
     PRIMARY KEY (uid)
 );
 
