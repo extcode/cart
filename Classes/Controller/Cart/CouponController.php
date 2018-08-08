@@ -23,15 +23,15 @@ namespace Extcode\Cart\Controller\Cart;
 class CouponController extends ActionController
 {
     /**
-     * @var \Extcode\Cart\Domain\Repository\Product\CouponRepository
+     * @var \Extcode\Cart\Domain\Repository\CouponRepository
      */
     protected $couponRepository;
 
     /**
-     * @param \Extcode\Cart\Domain\Repository\Product\CouponRepository $couponRepository
+     * @param \Extcode\Cart\Domain\Repository\CouponRepository $couponRepository
      */
     public function injectCouponRepository(
-        \Extcode\Cart\Domain\Repository\Product\CouponRepository $couponRepository
+        \Extcode\Cart\Domain\Repository\CouponRepository $couponRepository
     ) {
         $this->couponRepository = $couponRepository;
     }
@@ -46,7 +46,7 @@ class CouponController extends ActionController
 
             $couponCode = $this->request->getArgument('couponCode');
 
-            /** @var \Extcode\Cart\Domain\Model\Product\Coupon $coupon */
+            /** @var \Extcode\Cart\Domain\Model\Coupon $coupon */
             $coupon = $this->couponRepository->findOneByCode($couponCode);
             if ($coupon && $coupon->getIsAvailable()) {
                 $newCartCoupon = $this->objectManager->get(

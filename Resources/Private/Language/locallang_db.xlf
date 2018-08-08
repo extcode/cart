@@ -519,52 +519,52 @@
                 <source>Order Address</source>
             </trans-unit>
 
-            <trans-unit id="tx_cart_domain_model_product_coupon">
+            <trans-unit id="tx_cart_domain_model_coupon">
                 <source>Coupon</source>
             </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_coupon.title">
+            <trans-unit id="tx_cart_domain_model_coupon.title">
                 <source>Title</source>
             </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_coupon.code">
+            <trans-unit id="tx_cart_domain_model_coupon.code">
                 <source>Code</source>
             </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_coupon.coupon_type">
+            <trans-unit id="tx_cart_domain_model_coupon.coupon_type">
                 <source>Type</source>
             </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_coupon.coupon_type.cartdiscount">
+            <trans-unit id="tx_cart_domain_model_coupon.coupon_type.cartdiscount">
                 <source>Cart Discount</source>
             </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_coupon.is_relative_discount">
+            <trans-unit id="tx_cart_domain_model_coupon.is_relative_discount">
                 <source>Is Relative Discount</source>
             </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_coupon.discount">
+            <trans-unit id="tx_cart_domain_model_coupon.discount">
                 <source>Discount</source>
             </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_coupon.tax_class_id">
+            <trans-unit id="tx_cart_domain_model_coupon.tax_class_id">
                 <source>Tax Class</source>
             </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_coupon.tax_class_id.1">
+            <trans-unit id="tx_cart_domain_model_coupon.tax_class_id.1">
                 <source>normal</source>
             </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_coupon.tax_class_id.2">
+            <trans-unit id="tx_cart_domain_model_coupon.tax_class_id.2">
                 <source>reduced</source>
             </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_coupon.tax_class_id.3">
+            <trans-unit id="tx_cart_domain_model_coupon.tax_class_id.3">
                 <source>free</source>
             </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_coupon.cart_min_price">
+            <trans-unit id="tx_cart_domain_model_coupon.cart_min_price">
                 <source>Minimum Price in Cart</source>
             </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_coupon.is_combinable">
+            <trans-unit id="tx_cart_domain_model_coupon.is_combinable">
                 <source>Is Combinable with other Coupons</source>
             </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_coupon.handle_available">
+            <trans-unit id="tx_cart_domain_model_coupon.handle_available">
                 <source>Handle number coupons availability</source>
             </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_coupon.number_available">
+            <trans-unit id="tx_cart_domain_model_coupon.number_available">
                 <source>Number of Coupons available</source>
             </trans-unit>
-            <trans-unit id="tx_cart_domain_model_product_coupon.number_used">
+            <trans-unit id="tx_cart_domain_model_coupon.number_used">
                 <source>Number of Coupons used</source>
             </trans-unit>
 

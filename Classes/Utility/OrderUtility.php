@@ -45,11 +45,11 @@ class OrderUtility
     protected $orderItemRepository;
 
     /**
-     * Product Coupon Repository
+     * Coupon Repository
      *
-     * @var \Extcode\Cart\Domain\Repository\Product\CouponRepository
+     * @var \Extcode\Cart\Domain\Repository\CouponRepository
      */
-    protected $productCouponRepository;
+    protected $couponRepository;
 
     /**
      * Order Discount Repository
@@ -235,12 +235,12 @@ class OrderUtility
     }
 
     /**
-     * @param \Extcode\Cart\Domain\Repository\Product\CouponRepository
+     * @param \Extcode\Cart\Domain\Repository\CouponRepository
      */
-    public function injectProductCouponRepository(
-        \Extcode\Cart\Domain\Repository\Product\CouponRepository $productCouponRepository
+    public function injectCouponRepository(
+        \Extcode\Cart\Domain\Repository\CouponRepository $couponRepository
     ) {
-        $this->productCouponRepository = $productCouponRepository;
+        $this->couponRepository = $couponRepository;
     }
 
     /**
@@ -393,9 +393,9 @@ class OrderUtility
 
                 $this->orderItem->addDiscount($orderDiscount);
 
-                $coupon = $this->productCouponRepository->findOneByCode($cartCoupon->getCode());
+                $coupon = $this->couponRepository->findOneByCode($cartCoupon->getCode());
                 $coupon->incNumberUsed();
-                $this->productCouponRepository->update($coupon);
+                $this->couponRepository->update($coupon);
             }
         }
     }

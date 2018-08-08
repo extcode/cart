@@ -13,9 +13,9 @@ use Nimut\TestingFramework\TestCase\UnitTestCase;
 class CouponTest extends UnitTestCase
 {
     /**
-     * Product Coupon
+     * Coupon
      *
-     * @var \Extcode\Cart\Domain\Model\Product\Coupon
+     * @var \Extcode\Cart\Domain\Model\Coupon
      */
     protected $coupon = null;
 
@@ -65,7 +65,7 @@ class CouponTest extends UnitTestCase
         $this->discount = 10.00;
         $this->taxClassId = 1;
 
-        $this->coupon = new \Extcode\Cart\Domain\Model\Product\Coupon(
+        $this->coupon = new \Extcode\Cart\Domain\Model\Coupon(
             $this->title,
             $this->code,
             $this->couponType,
@@ -85,7 +85,7 @@ class CouponTest extends UnitTestCase
             1456840910
         );
 
-        $this->coupon = new \Extcode\Cart\Domain\Model\Product\Coupon(
+        $this->coupon = new \Extcode\Cart\Domain\Model\Coupon(
             null,
             $this->code,
             $this->couponType,
@@ -105,7 +105,7 @@ class CouponTest extends UnitTestCase
             1456840920
         );
 
-        $this->coupon = new \Extcode\Cart\Domain\Model\Product\Coupon(
+        $this->coupon = new \Extcode\Cart\Domain\Model\Coupon(
             $this->title,
             null,
             $this->couponType,
@@ -125,7 +125,7 @@ class CouponTest extends UnitTestCase
             1468927505
         );
 
-        $this->coupon = new \Extcode\Cart\Domain\Model\Product\Coupon(
+        $this->coupon = new \Extcode\Cart\Domain\Model\Coupon(
             $this->title,
             $this->code,
             null,
@@ -145,7 +145,7 @@ class CouponTest extends UnitTestCase
             1456840930
         );
 
-        $this->coupon = new \Extcode\Cart\Domain\Model\Product\Coupon(
+        $this->coupon = new \Extcode\Cart\Domain\Model\Coupon(
             $this->title,
             $this->code,
             $this->couponType,
@@ -165,7 +165,7 @@ class CouponTest extends UnitTestCase
             1456840940
         );
 
-        $this->coupon = new \Extcode\Cart\Domain\Model\Product\Coupon(
+        $this->coupon = new \Extcode\Cart\Domain\Model\Coupon(
             $this->title,
             $this->code,
             $this->couponType,

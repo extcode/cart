@@ -6,7 +6,7 @@ $_LLL = 'LLL:EXT:cart/Resources/Private/Language/locallang_db.xlf';
 
 return [
     'ctrl' => [
-        'title' => $_LLL . ':tx_cart_domain_model_product_coupon',
+        'title' => $_LLL . ':tx_cart_domain_model_coupon',
         'label' => 'code',
         'label_alt' => 'title',
         'label_alt_force' => 1,
@@ -26,7 +26,7 @@ return [
             'endtime' => 'endtime',
         ],
         'searchFields' => 'title',
-        'iconfile' => 'EXT:cart/Resources/Public/Icons/tx_cart_domain_model_product_coupon.svg'
+        'iconfile' => 'EXT:cart/Resources/Public/Icons/tx_cart_domain_model_coupon.svg'
     ],
     'hideTable' => 1,
     'interface' => [
@@ -84,7 +84,7 @@ return [
         ],
         'title' => [
             'exclude' => 0,
-            'label' => $_LLL . ':tx_cart_domain_model_product_coupon.title',
+            'label' => $_LLL . ':tx_cart_domain_model_coupon.title',
             'config' => [
                 'type' => 'input',
                 'size' => 30,
@@ -93,7 +93,7 @@ return [
         ],
         'code' => [
             'exclude' => 0,
-            'label' => $_LLL . ':tx_cart_domain_model_product_coupon.code',
+            'label' => $_LLL . ':tx_cart_domain_model_coupon.code',
             'config' => [
                 'type' => 'input',
                 'size' => 30,
@@ -102,12 +102,12 @@ return [
         ],
         'coupon_type' => [
             'exclude' => 1,
-            'label' => $_LLL . ':tx_cart_domain_model_product_coupon.coupon_type',
+            'label' => $_LLL . ':tx_cart_domain_model_coupon.coupon_type',
             'config' => [
                 'type' => 'select',
                 'renderType' => 'selectSingle',
                 'items' => [
-                    [$_LLL . ':tx_cart_domain_model_product_coupon.coupon_type.cartdiscount', 'cartdiscount'],
+                    [$_LLL . ':tx_cart_domain_model_coupon.coupon_type.cartdiscount', 'cartdiscount'],
                 ],
                 'default' => 'simple',
                 'size' => 1,
@@ -117,7 +117,7 @@ return [
         ],
         'discount' => [
             'exclude' => 0,
-            'label' => $_LLL . ':tx_cart_domain_model_product_coupon.discount',
+            'label' => $_LLL . ':tx_cart_domain_model_coupon.discount',
             'config' => [
                 'type' => 'input',
                 'size' => 30,
@@ -126,11 +126,11 @@ return [
         ],
         'tax_class_id' => [
             'exclude' => 1,
-            'label' => $_LLL . ':tx_cart_domain_model_product_coupon.tax_class_id',
+            'label' => $_LLL . ':tx_cart_domain_model_coupon.tax_class_id',
             'config' => [
                 'type' => 'select',
                 'items' => [
-                    [$_LLL . ':tx_cart_domain_model_product_coupon.tax_class_id.1', 1],
+                    [$_LLL . ':tx_cart_domain_model_coupon.tax_class_id.1', 1],
                 ],
                 'size' => 1,
                 'minitems' => 1,
@@ -139,7 +139,7 @@ return [
         ],
         'cart_min_price' => [
             'exclude' => 0,
-            'label' => $_LLL . ':tx_cart_domain_model_product_coupon.cart_min_price',
+            'label' => $_LLL . ':tx_cart_domain_model_coupon.cart_min_price',
             'config' => [
                 'type' => 'input',
                 'size' => 30,
@@ -148,21 +148,21 @@ return [
         ],
         'is_combinable' => [
             'exclude' => 1,
-            'label' => $_LLL . ':tx_cart_domain_model_product_coupon.is_combinable',
+            'label' => $_LLL . ':tx_cart_domain_model_coupon.is_combinable',
             'config' => [
                 'type' => 'check',
             ],
         ],
         'is_relative_discount' => [
             'exclude' => 1,
-            'label' => $_LLL . ':tx_cart_domain_model_product_coupon.is_relative_discount',
+            'label' => $_LLL . ':tx_cart_domain_model_coupon.is_relative_discount',
             'config' => [
                 'type' => 'check',
             ],
         ],
         'handle_available' => [
             'exclude' => 1,
-            'label' => $_LLL . ':tx_cart_domain_model_product_coupon.handle_available',
+            'label' => $_LLL . ':tx_cart_domain_model_coupon.handle_available',
             'config' => [
                 'type' => 'check',
             ],
@@ -170,7 +170,7 @@ return [
         'number_available' => [
             'exclude' => 0,
             'displayCond' => 'FIELD:handle_available:REQ:TRUE',
-            'label' => $_LLL . ':tx_cart_domain_model_product_coupon.number_available',
+            'label' => $_LLL . ':tx_cart_domain_model_coupon.number_available',
             'config' => [
                 'type' => 'input',
                 'size' => 30,
@@ -180,7 +180,7 @@ return [
         ],
         'number_used' => [
             'exclude' => 0,
-            'label' => $_LLL . ':tx_cart_domain_model_product_coupon.number_used',
+            'label' => $_LLL . ':tx_cart_domain_model_coupon.number_used',
             'config' => [
                 'type' => 'input',
                 'size' => 30,

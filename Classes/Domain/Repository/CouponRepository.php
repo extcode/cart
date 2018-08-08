@@ -1,6 +1,6 @@
 <?php
 
-namespace Extcode\Cart\Domain\Repository\Product;
+namespace Extcode\Cart\Domain\Repository;
 
 /**
  * This file is part of the TYPO3 CMS project.
