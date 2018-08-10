@@ -20,7 +20,7 @@ return [
         'delete' => 'deleted',
         'enablecolumns' => [],
         'searchFields' => 'txn_id',
-        'iconfile' => 'EXT:cart/Resources/Public/Icons/Order/Transaction.png'
+        'iconfile' => 'EXT:cart/Resources/Public/Icons/Order/Transaction.svg'
     ],
     'hideTable' => 1,
     'interface' => [
