@@ -76,7 +76,6 @@ if (TYPO3_MODE === 'BE') {
             'access' => 'user, group',
             'icon' => $iconPath . 'module.svg',
             'labels' => $_LLL . ':tx_cart.module.main',
-            'navigationComponentId' => 'typo3-pagetree',
         ]
     );
 
@@ -95,7 +94,6 @@ if (TYPO3_MODE === 'BE') {
             'access' => 'user, group',
             'icon' => $iconPath . 'module_orders.svg',
             'labels' => $_LLL . ':tx_cart.module.orders',
-            'navigationComponentId' => 'typo3-pagetree',
         ]
     );
 
@@ -111,7 +109,6 @@ if (TYPO3_MODE === 'BE') {
             'access' => 'user, group',
             'icon' => $iconPath . 'module_order_statistics.svg',
             'labels' => $_LLL . ':tx_cart.module.order_statistics',
-            'navigationComponentId' => 'typo3-pagetree',
         ]
     );
 }
