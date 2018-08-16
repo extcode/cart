@@ -40,7 +40,7 @@ abstract class AbstractService extends \TYPO3\CMS\Extbase\DomainObject\AbstractE
      * Service Id
      *
      * @var int
-     * @validate NotEmpty
+     * @TYPO3\CMS\Extbase\Annotation\Validate NotEmpty
      */
     protected $serviceId;
 
@@ -48,7 +48,7 @@ abstract class AbstractService extends \TYPO3\CMS\Extbase\DomainObject\AbstractE
      * Name
      *
      * @var string
-     * @validate NotEmpty
+     * @TYPO3\CMS\Extbase\Annotation\Validate NotEmpty
      */
     protected $name = '';
 
@@ -56,7 +56,7 @@ abstract class AbstractService extends \TYPO3\CMS\Extbase\DomainObject\AbstractE
      * Status
      *
      * @var string
-     * @validate NotEmpty
+     * @TYPO3\CMS\Extbase\Annotation\Validate NotEmpty
      */
     protected $status = 'open';
 
@@ -64,7 +64,7 @@ abstract class AbstractService extends \TYPO3\CMS\Extbase\DomainObject\AbstractE
      * Net
      *
      * @var float
-     * @validate NotEmpty
+     * @TYPO3\CMS\Extbase\Annotation\Validate NotEmpty
      */
     protected $net = 0.0;
 
@@ -72,7 +72,7 @@ abstract class AbstractService extends \TYPO3\CMS\Extbase\DomainObject\AbstractE
      * Gross
      *
      * @var float
-     * @validate NotEmpty
+     * @TYPO3\CMS\Extbase\Annotation\Validate NotEmpty
      */
     protected $gross = 0.0;
 
@@ -80,7 +80,7 @@ abstract class AbstractService extends \TYPO3\CMS\Extbase\DomainObject\AbstractE
      * Order Tax Class
      *
      * @var \Extcode\Cart\Domain\Model\Order\TaxClass
-     * @validate NotEmpty
+     * @TYPO3\CMS\Extbase\Annotation\Validate NotEmpty
      */
     protected $taxClass;
 
@@ -88,7 +88,7 @@ abstract class AbstractService extends \TYPO3\CMS\Extbase\DomainObject\AbstractE
      * Tax
      *
      * @var float
-     * @validate NotEmpty
+     * @TYPO3\CMS\Extbase\Annotation\Validate NotEmpty
      */
     protected $tax = 0.0;
 

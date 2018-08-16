@@ -26,7 +26,7 @@ class ProductAdditional extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * Additional Type
      *
      * @var string
-     * @validate NotEmpty
+     * @TYPO3\CMS\Extbase\Annotation\Validate NotEmpty
      */
     protected $additionalType;
 
@@ -34,7 +34,7 @@ class ProductAdditional extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * Additional Key
      *
      * @var string
-     * @validate NotEmpty
+     * @TYPO3\CMS\Extbase\Annotation\Validate NotEmpty
      */
     protected $additionalKey;
 
@@ -42,7 +42,7 @@ class ProductAdditional extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * Additional Value
      *
      * @var string
-     * @validate NotEmpty
+     * @TYPO3\CMS\Extbase\Annotation\Validate NotEmpty
      */
     protected $additionalValue;
 

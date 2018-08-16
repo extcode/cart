@@ -26,7 +26,7 @@ class Coupon extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * Title
      *
      * @var string
-     * @validate NotEmpty
+     * @TYPO3\CMS\Extbase\Annotation\Validate NotEmpty
      */
     protected $title = '';
 
@@ -34,7 +34,7 @@ class Coupon extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * Code
      *
      * @var string
-     * @validate NotEmpty
+     * @TYPO3\CMS\Extbase\Annotation\Validate NotEmpty
      */
     protected $code = '';
 
@@ -42,7 +42,7 @@ class Coupon extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * Coupon Type
      *
      * @var string
-     * @validate NotEmpty
+     * @TYPO3\CMS\Extbase\Annotation\Validate NotEmpty
      */
     protected $couponType = '';
 

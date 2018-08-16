@@ -33,7 +33,7 @@ class Transaction extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * txnId
      *
      * @var string
-     * @validate NotEmpty
+     * @TYPO3\CMS\Extbase\Annotation\Validate NotEmpty
      */
     protected $txnId = '';
 

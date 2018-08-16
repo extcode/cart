@@ -40,7 +40,7 @@ class Product extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * Sku
      *
      * @var string
-     * @validate NotEmpty
+     * @TYPO3\CMS\Extbase\Annotation\Validate NotEmpty
      */
     protected $sku;
 
@@ -48,7 +48,7 @@ class Product extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * Title
      *
      * @var string
-     * @validate NotEmpty
+     * @TYPO3\CMS\Extbase\Annotation\Validate NotEmpty
      */
     protected $title;
 
@@ -56,7 +56,7 @@ class Product extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * Count
      *
      * @var int
-     * @validate NotEmpty
+     * @TYPO3\CMS\Extbase\Annotation\Validate NotEmpty
      */
     protected $count = 0;
 
@@ -64,7 +64,7 @@ class Product extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * Price
      *
      * @var float
-     * @validate NotEmpty
+     * @TYPO3\CMS\Extbase\Annotation\Validate NotEmpty
      */
     protected $price = 0.0;
 
@@ -72,7 +72,7 @@ class Product extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * Discount
      *
      * @var float
-     * @validate NotEmpty
+     * @TYPO3\CMS\Extbase\Annotation\Validate NotEmpty
      */
     protected $discount = 0.0;
 
@@ -80,7 +80,7 @@ class Product extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * Gross
      *
      * @var float
-     * @validate NotEmpty
+     * @TYPO3\CMS\Extbase\Annotation\Validate NotEmpty
      */
     protected $gross = 0.0;
 
@@ -88,7 +88,7 @@ class Product extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * Gross
      *
      * @var float
-     * @validate NotEmpty
+     * @TYPO3\CMS\Extbase\Annotation\Validate NotEmpty
      */
     protected $net = 0.0;
 
@@ -96,7 +96,7 @@ class Product extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * Order Tax Class
      *
      * @var \Extcode\Cart\Domain\Model\Order\TaxClass
-     * @validate NotEmpty
+     * @TYPO3\CMS\Extbase\Annotation\Validate NotEmpty
      */
     protected $taxClass;
 
@@ -104,7 +104,7 @@ class Product extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * Tax
      *
      * @var float
-     * @validate NotEmpty
+     * @TYPO3\CMS\Extbase\Annotation\Validate NotEmpty
      */
     protected $tax = 0.0;
 

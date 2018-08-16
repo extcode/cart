@@ -33,7 +33,7 @@ class Discount extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * Title
      *
      * @var string
-     * @validate NotEmpty
+     * @TYPO3\CMS\Extbase\Annotation\Validate NotEmpty
      */
     protected $title = '';
 
@@ -41,7 +41,7 @@ class Discount extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * Code
      *
      * @var string
-     * @validate NotEmpty
+     * @TYPO3\CMS\Extbase\Annotation\Validate NotEmpty
      */
     protected $code = '';
 
@@ -49,7 +49,7 @@ class Discount extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * Gross
      *
      * @var float
-     * @validate NotEmpty
+     * @TYPO3\CMS\Extbase\Annotation\Validate NotEmpty
      */
     protected $gross = 0.0;
 
@@ -57,7 +57,7 @@ class Discount extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * Net
      *
      * @var float
-     * @validate NotEmpty
+     * @TYPO3\CMS\Extbase\Annotation\Validate NotEmpty
      */
     protected $net = 0.0;
 
@@ -65,7 +65,7 @@ class Discount extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * Tax Class
      *
      * @var \Extcode\Cart\Domain\Model\Cart\TaxClass
-     * @validate NotEmpty
+     * @TYPO3\CMS\Extbase\Annotation\Validate NotEmpty
      */
     protected $taxClass;
 
@@ -73,7 +73,7 @@ class Discount extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * Tax
      *
      * @var float
-     * @validate NotEmpty
+     * @TYPO3\CMS\Extbase\Annotation\Validate NotEmpty
      */
     protected $tax = 0.0;
 
