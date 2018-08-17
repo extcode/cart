@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="messages" date="2018-08-17T10:25:00Z" product-name="cart">
+		<header/>
+		<body>
+
+			<trans-unit id="tcarecords-pages-contains.cart_coupons">
+				<source>Cart: Coupons</source>
+			</trans-unit>
+			<trans-unit id="tcarecords-pages-contains.cart_orders">
+				<source>Cart: Orders</source>
+			</trans-unit>
+
+		</body>
+	</file>
+</xliff>

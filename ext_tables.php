@@ -119,12 +119,12 @@ $TCA['pages']['ctrl']['typeicon_classes']['contains-coupons'] = 'apps-pagetree-f
 $TCA['pages']['ctrl']['typeicon_classes']['contains-orders'] = 'apps-pagetree-folder-cart-orders';
 
 $TCA['pages']['columns']['module']['config']['items'][] = [
-    'LLL:EXT:' . $_EXTKEY . '/Resources/Private/Language/locallang_db.xlf:tx_cart.module.orders',
-    'orders',
-    $iconPath . 'pagetree_folder_cart_orders.svg'
+    'LLL:EXT:' . $_EXTKEY . '/Resources/Private/Language/locallang_be.xlf:tcarecords-pages-contains.cart_coupons',
+    'coupons',
+    'apps-pagetree-folder-cart-coupons'
 ];
 $TCA['pages']['columns']['module']['config']['items'][] = [
-    'LLL:EXT:' . $_EXTKEY . '/Resources/Private/Language/locallang_db.xlf:tx_cart.module.coupons',
-    'coupons',
-    $iconPath . 'pagetree_folder_cart_coupons.svg'
+    'LLL:EXT:' . $_EXTKEY . '/Resources/Private/Language/locallang_be.xlf:tcarecords-pages-contains.cart_orders',
+    'orders',
+    'apps-pagetree-folder-cart-orders'
 ];
