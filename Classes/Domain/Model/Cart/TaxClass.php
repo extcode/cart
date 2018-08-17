@@ -26,7 +26,7 @@ class TaxClass
      * Id
      *
      * @var int
-     * @TYPO3\CMS\Extbase\Annotation\Validate NotEmpty
+     * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
      */
     protected $id;
 
@@ -34,7 +34,7 @@ class TaxClass
      * Value
      *
      * @var string
-     * @TYPO3\CMS\Extbase\Annotation\Validate NotEmpty
+     * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
      */
     protected $value;
 
@@ -42,7 +42,7 @@ class TaxClass
      * Calc
      *
      * @var float
-     * @TYPO3\CMS\Extbase\Annotation\Validate NotEmpty
+     * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
      */
     protected $calc;
 
@@ -50,7 +50,7 @@ class TaxClass
      * Title
      *
      * @var string
-     * @TYPO3\CMS\Extbase\Annotation\Validate NotEmpty
+     * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
      */
     protected $title;
 

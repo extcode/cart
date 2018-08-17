@@ -113,7 +113,7 @@ class Item extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * Currency
      *
      * @var string
-     * @TYPO3\CMS\Extbase\Annotation\Validate NotEmpty
+     * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
      */
     protected $currency = '€';
 
@@ -142,7 +142,7 @@ class Item extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * Gross
      *
      * @var float
-     * @TYPO3\CMS\Extbase\Annotation\Validate NotEmpty
+     * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
      */
     protected $gross = 0.0;
 
@@ -150,7 +150,7 @@ class Item extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * Total Gross
      *
      * @var float
-     * @TYPO3\CMS\Extbase\Annotation\Validate NotEmpty
+     * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
      */
     protected $totalGross = 0.0;
 
@@ -158,7 +158,7 @@ class Item extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * Net
      *
      * @var float
-     * @TYPO3\CMS\Extbase\Annotation\Validate NotEmpty
+     * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
      */
     protected $net = 0.0;
 
@@ -166,7 +166,7 @@ class Item extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * Total Net
      *
      * @var float
-     * @TYPO3\CMS\Extbase\Annotation\Validate NotEmpty
+     * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
      */
     protected $totalNet = 0.0;
 

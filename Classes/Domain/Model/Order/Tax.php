@@ -26,7 +26,7 @@ class Tax extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * Tax
      *
      * @var float
-     * @TYPO3\CMS\Extbase\Annotation\Validate NotEmpty
+     * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
      */
     protected $tax;
 
@@ -34,7 +34,7 @@ class Tax extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * TaxClass
      *
      * @var \Extcode\Cart\Domain\Model\Order\TaxClass
-     * @TYPO3\CMS\Extbase\Annotation\Validate NotEmpty
+     * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
      */
     protected $taxClass;
 
