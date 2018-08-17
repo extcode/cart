@@ -94,6 +94,7 @@ if (TYPO3_MODE === 'BE') {
             'access' => 'user, group',
             'icon' => $iconPath . 'module_orders.svg',
             'labels' => $_LLL . ':tx_cart.module.orders',
+            'navigationComponentId' => 'TYPO3/CMS/Backend/PageTree/PageTreeElement',
         ]
     );
 
@@ -109,6 +110,7 @@ if (TYPO3_MODE === 'BE') {
             'access' => 'user, group',
             'icon' => $iconPath . 'module_order_statistics.svg',
             'labels' => $_LLL . ':tx_cart.module.order_statistics',
+            'navigationComponentId' => 'TYPO3/CMS/Backend/PageTree/PageTreeElement',
         ]
     );
 }
