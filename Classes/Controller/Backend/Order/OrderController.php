@@ -161,7 +161,7 @@ class OrderController extends \Extcode\Cart\Controller\Backend\ActionController
      *
      * @param \Extcode\Cart\Domain\Model\Order\Item $orderItem
      *
-     * @TYPO3\CMS\Extbase\Annotation\IgnoreValidation $orderItem
+     * @TYPO3\CMS\Extbase\Annotation\IgnoreValidation("orderItem")
      */
     public function showAction(\Extcode\Cart\Domain\Model\Order\Item $orderItem)
     {
