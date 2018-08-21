@@ -659,7 +659,7 @@
 
             <trans-unit id="tx_cart_domain_model_coupon">
                 <source>Coupons</source>
-                <target>Coupons</target>
+                <target>Gutscheine</target>
             </trans-unit>
             <trans-unit id="tx_cart_domain_model_coupon.title">
                 <source>Title</source>
