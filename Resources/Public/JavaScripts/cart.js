@@ -14,7 +14,7 @@ function updateCountry(billingCountry, shippingCountry) {
         success: function(data)
         {
             $("#checkout-step-shipping-method").html($(data).filter("#checkout-step-shipping-method").html());
-            $("#checkout-step-payment-method").html($(data).filter("#checkout-step-shipping-method").html());
+            $("#checkout-step-payment-method").html($(data).filter("#checkout-step-payment-method").html());
             $("#checkout-step-summary").html($(data).filter("#checkout-step-summary").html());
         }
     });
