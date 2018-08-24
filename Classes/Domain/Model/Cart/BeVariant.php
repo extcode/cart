@@ -731,8 +731,6 @@ class BeVariant
      * Sets Sku
      *
      * @param $sku
-     *
-     * @return void
      */
     public function setSku($sku)
     {
