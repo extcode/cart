@@ -38,10 +38,11 @@ class ItemsProcFunc
         $currentColPos = $config['flexParentDatabaseRow']['colPos'];
         $pageId = $this->getPageId($config['flexParentDatabaseRow']['pid']);
 
-        $extKey = $this->getExtKey($config['flexParentDatabaseRow']['list_type']);
+        $extKey = $config['config']['extKey'];
+        $pluginName = $config['config']['pluginName'];
 
         if ($pageId > 0) {
-            $templateLayouts = $this->templateLayoutsUtility->getAvailableTemplateLayouts($pageId, $extKey, $config['config']['itemsProcFuncConf']);
+            $templateLayouts = $this->templateLayoutsUtility->getAvailableTemplateLayouts($pageId, $extKey, $pluginName);
 
             $templateLayouts = $this->reduceTemplateLayouts($templateLayouts, $currentColPos);
             foreach ($templateLayouts as $layout) {
