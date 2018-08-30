@@ -11,6 +11,13 @@
 				<source>Cart: Orders</source>
 			</trans-unit>
 
+			<trans-unit id="tx_cart.plugin.cart.title">
+				<source>Cart: Cart</source>
+			</trans-unit>
+			<trans-unit id="tx_cart.plugin.cart.description">
+				<source>shows complete order form</source>
+			</trans-unit>
+
 		</body>
 	</file>
 </xliff>
