@@ -13,6 +13,15 @@
 				<target>Cart: Bestellungen</target>
 			</trans-unit>
 
+			<trans-unit id="tx_cart.plugin.cart.title">
+				<source>Cart: Cart</source>
+				<source>Cart: Warenkorb</source>
+			</trans-unit>
+			<trans-unit id="tx_cart.plugin.cart.description">
+				<source>shows complete cart and order form</source>
+				<target>zeigt den Warenkorb und das Bestellformular</target>
+			</trans-unit>
+
 		</body>
 	</file>
 </xliff>

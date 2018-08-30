@@ -74,6 +74,7 @@ if (TYPO3_MODE === 'BE') {
         'apps-pagetree-folder-cart-coupons' => 'apps_pagetree_folder_cart_coupons.svg',
         'apps-pagetree-folder-cart-orders' => 'apps_pagetree_folder_cart_orders.svg',
         'apps-pagetree-page-cart-cart' => 'apps_pagetree_page_cart_cart.svg',
+        'ext-cart-wizard-icon' => 'cart_plugin_wizard.svg',
     ];
 
     $iconRegistry = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(
@@ -94,6 +95,12 @@ if (TYPO3_MODE === 'BE') {
         \TYPO3\CMS\Core\Imaging\IconRegistry::class
     );
 }
+
+// TSconfig
+
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPageTSConfig('
+    <INCLUDE_TYPOSCRIPT: source="FILE:EXT:cart/Configuration/TSconfig/ContentElementWizard.txt">
+');
 
 // register "cart:" namespace
 $GLOBALS['TYPO3_CONF_VARS']['SYS']['fluid']['namespaces']['cart'][]
