@@ -107,15 +107,15 @@ class OrderController extends ActionController
      * Action order Cart
      *
      * @param \Extcode\Cart\Domain\Model\Order\Item $orderItem
-     * @param \Extcode\Cart\Domain\Model\Order\Address $billingAddress
-     * @param \Extcode\Cart\Domain\Model\Order\Address $shippingAddress
+     * @param \Extcode\Cart\Domain\Model\Order\BillingAddress $billingAddress
+     * @param \Extcode\Cart\Domain\Model\Order\ShippingAddress $shippingAddress
      *
      * @TYPO3\CMS\Extbase\Annotation\IgnoreValidation("shippingAddress")
      */
     public function createAction(
         \Extcode\Cart\Domain\Model\Order\Item $orderItem = null,
-        \Extcode\Cart\Domain\Model\Order\Address $billingAddress = null,
-        \Extcode\Cart\Domain\Model\Order\Address $shippingAddress = null
+        \Extcode\Cart\Domain\Model\Order\BillingAddress $billingAddress = null,
+        \Extcode\Cart\Domain\Model\Order\ShippingAddress $shippingAddress = null
     ) {
         if (($orderItem == null) || ($billingAddress == null)) {
             $this->redirect('show', 'Cart\Cart');

@@ -1,6 +1,6 @@
 <?php
 
-namespace Extcode\Cart\Domain\Repository\Order;
+namespace Extcode\Cart\Domain\Model\Order;
 
 /**
  * This file is part of the TYPO3 CMS project.
@@ -16,10 +16,10 @@ namespace Extcode\Cart\Domain\Repository\Order;
  */
 
 /**
- * Order Address Repository
+ * Order Shipping Address Model
  *
  * @author Daniel Lorenz <ext.cart@extco.de>
  */
-class AddressRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
+class ShippingAddress extends \Extcode\Cart\Domain\Model\Order\AbstractAddress
 {
 }

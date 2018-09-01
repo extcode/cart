@@ -355,6 +355,10 @@
                 <source>Company</source>
                 <target>Firma</target>
             </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_address.tax_identification_number">
+                <source>Tax Identification Number</source>
+                <target>Umsatzsteueridentifikationsnummer</target>
+            </trans-unit>
             <trans-unit id="tx_cart_domain_model_order_address.street">
                 <source>Street</source>
                 <target>Straße</target>

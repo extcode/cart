@@ -75,7 +75,7 @@ class OrderUtility
     /**
      * Address Repository
      *
-     * @var \Extcode\Cart\Domain\Repository\Order\AddressRepository
+     * @var \Extcode\Cart\Domain\Repository\Order\BillingAddressRepository
      */
     protected $addressRepository;
 
@@ -163,12 +163,21 @@ class OrderUtility
     }
 
     /**
-     * @param \Extcode\Cart\Domain\Repository\Order\AddressRepository
+     * @param \Extcode\Cart\Domain\Repository\Order\BillingAddressRepository
      */
-    public function injectOrderAddressRepository(
-        \Extcode\Cart\Domain\Repository\Order\AddressRepository $addressRepository
+    public function injectBillingOrderAddressRepository(
+        \Extcode\Cart\Domain\Repository\Order\BillingAddressRepository $billingAddressRepository
     ) {
-        $this->addressRepository = $addressRepository;
+        $this->billingAddressRepository = $billingAddressRepository;
+    }
+
+    /**
+     * @param \Extcode\Cart\Domain\Repository\Order\ShippingAddressRepository
+     */
+    public function injectShippingOrderAddressRepository(
+        \Extcode\Cart\Domain\Repository\Order\ShippingAddressRepository $shippingAddressRepository
+    ) {
+        $this->shippingAddressRepository = $shippingAddressRepository;
     }
 
     /**
@@ -681,10 +690,10 @@ class OrderUtility
     {
         /**
          * Order Address
-         * @var \Extcode\Cart\Domain\Model\Order\Address $orderAddress
+         * @var \Extcode\Cart\Domain\Model\Order\BillingAddress $orderAddress
          */
         $orderAddress = $this->objectManager->get(
-            \Extcode\Cart\Domain\Model\Order\Address::class
+            \Extcode\Cart\Domain\Model\Order\BillingAddress::class
         );
         $orderAddress->setPid($this->storagePid);
 
@@ -709,10 +718,10 @@ class OrderUtility
     {
         /**
          * Order Address
-         * @var \Extcode\Cart\Domain\Model\Order\Address $orderAddress
+         * @var \Extcode\Cart\Domain\Model\Order\ShippingAddress $orderAddress
          */
         $orderAddress = $this->objectManager->get(
-            \Extcode\Cart\Domain\Model\Order\Address::class
+            \Extcode\Cart\Domain\Model\Order\ShippingAddress::class
         );
         $orderAddress->setPid($this->storagePid);
 

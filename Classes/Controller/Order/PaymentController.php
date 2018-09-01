@@ -184,16 +184,10 @@ class PaymentController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
     protected function sendMails(\Extcode\Cart\Domain\Model\Order\Item $orderItem, $type, $class, $function)
     {
         $billingAddress = $orderItem->getBillingAddress();
-        if ($billingAddress instanceof \TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy) {
-            $billingAddress = $billingAddress->_loadRealInstance();
-        }
 
         $shippingAddress = null;
         if ($orderItem->getShippingAddress()) {
             $shippingAddress = $orderItem->getShippingAddress();
-            if ($shippingAddress instanceof \TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy) {
-                $shippingAddress = $shippingAddress->_loadRealInstance();
-            }
         }
 
         $data = [

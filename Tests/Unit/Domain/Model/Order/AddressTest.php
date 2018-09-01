@@ -13,7 +13,7 @@ use Nimut\TestingFramework\TestCase\UnitTestCase;
 class AddressTest extends UnitTestCase
 {
     /**
-     * @var \Extcode\Cart\Domain\Model\Order\Address
+     * @var \Extcode\Cart\Domain\Model\Order\AbstractAddress
      */
     protected $address;
 
@@ -22,7 +22,9 @@ class AddressTest extends UnitTestCase
      */
     public function setUp()
     {
-        $this->address = new \Extcode\Cart\Domain\Model\Order\Address();
+        $this->address = $this->getMockForAbstractClass(
+            \Extcode\Cart\Domain\Model\Order\AbstractAddress::class
+        );
     }
 
     /**
@@ -44,20 +46,19 @@ class AddressTest extends UnitTestCase
         $phone = 'phone';
         $fax = 'fax';
 
-        $address = new \Extcode\Cart\Domain\Model\Order\Address();
-        $address->setSalutation($salutation);
-        $address->setTitle($title);
-        $address->setFirstName($firstName);
-        $address->setLastName($lastName);
-        $address->setCompany($company);
-        $address->setStreet($street);
-        $address->setStreetNumber($streetNumber);
-        $address->setZip($zip);
-        $address->setCity($city);
-        $address->setCountry($country);
-        $address->setEmail($email);
-        $address->setPhone($phone);
-        $address->setFax($fax);
+        $this->address->setSalutation($salutation);
+        $this->address->setTitle($title);
+        $this->address->setFirstName($firstName);
+        $this->address->setLastName($lastName);
+        $this->address->setCompany($company);
+        $this->address->setStreet($street);
+        $this->address->setStreetNumber($streetNumber);
+        $this->address->setZip($zip);
+        $this->address->setCity($city);
+        $this->address->setCountry($country);
+        $this->address->setEmail($email);
+        $this->address->setPhone($phone);
+        $this->address->setFax($fax);
 
         $addressArray = [
             'salutation' => $salutation,
@@ -77,7 +78,7 @@ class AddressTest extends UnitTestCase
 
         $this->assertSame(
             $addressArray,
-            $address->toArray()
+            $this->address->toArray()
         );
     }
 

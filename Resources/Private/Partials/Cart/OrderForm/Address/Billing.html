@@ -274,7 +274,7 @@
                     <div class="field">
                         <f:if condition="{0: settings.validation.billingAddress.fields.company.validator} == {0: 'NotEmpty'}">
                             <f:then>
-                                <label for="billingAddress:company" class="required">
+                                <label for="billingAddress-company" class="required">
                                     <f:translate key="tx_cart_domain_model_order_address.company"/>
                                     <em>*</em>
                                 </label>
@@ -292,7 +292,7 @@
                                 </div>
                             </f:then>
                             <f:else>
-                                <label for="billingAddress:company">
+                                <label for="billingAddress-company">
                                     <f:translate key="tx_cart_domain_model_order_address.company"/>
                                 </label>
                                 <div class="input-box">
@@ -300,6 +300,42 @@
                                                       class="form-control"
                                                       name="billingAddress[company]"
                                                       value="{billingAddress.company}"/>
+                                </div>
+                            </f:else>
+                        </f:if>
+                    </div>
+                </f:if>
+
+                <f:if condition="{0: settings.validation.billingAddress.fields.taxIdentificationNumber.validator} != {0: 'Empty'}">
+                    <div class="field">
+                        <f:if condition="{0: settings.validation.billingAddress.fields.taxIdentificationNumber.validator} == {0: 'NotEmpty'}">
+                            <f:then>
+                                <label for="billingAddress-taxIdentificationNumber" class="required">
+                                    <f:translate key="tx_cart_domain_model_order_address.tax_identification_number"/>
+                                    <em>*</em>
+                                </label>
+                                <div class="input-box">
+                                    <f:form.textfield id="billingAddress-taxIdentificationNumber"
+                                                      class="form-control"
+                                                      name="billingAddress[taxIdentificationNumber]"
+                                                      value="{billingAddress.taxIdentificationNumber}"
+                                                      required="true"/>
+                                    <f:form.validationResults for="billingAddress">
+                                        <f:if condition="{validationResults.flattenedErrors.taxIdentificationNumber}">
+                                            <div class="validation-error alert alert-danger">{validationResults.flattenedErrors.taxIdentificationNumber.0.message}</div>
+                                        </f:if>
+                                    </f:form.validationResults>
+                                </div>
+                            </f:then>
+                            <f:else>
+                                <label for="billingAddress-taxIdentificationNumber">
+                                    <f:translate key="tx_cart_domain_model_order_address.tax_identification_number"/>
+                                </label>
+                                <div class="input-box">
+                                    <f:form.textfield id="billingAddress-taxIdentificationNumber"
+                                                      class="form-control"
+                                                      name="billingAddress[taxIdentificationNumber]"
+                                                      value="{billingAddress.taxIdentificationNumber}"/>
                                 </div>
                             </f:else>
                         </f:if>
