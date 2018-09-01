@@ -187,10 +187,10 @@ class CartControllerTest extends UnitTestCase
                 \Extcode\Cart\Domain\Model\Order\Item::class
             ),
             'billingAddress' => $this->mockedObjectManager->get(
-                \Extcode\Cart\Domain\Model\Order\Address::class
+                \Extcode\Cart\Domain\Model\Order\BillingAddress::class
             ),
             'shippingAddress' => $this->mockedObjectManager->get(
-                \Extcode\Cart\Domain\Model\Order\Address::class
+                \Extcode\Cart\Domain\Model\Order\ShippingAddress::class
             ),
         ];
 
@@ -210,10 +210,10 @@ class CartControllerTest extends UnitTestCase
         $assignArguments = [
             'orderItem' => $orderItem,
             'billingAddress' => $this->mockedObjectManager->get(
-                \Extcode\Cart\Domain\Model\Order\Address::class
+                \Extcode\Cart\Domain\Model\Order\BillingAddress::class
             ),
             'shippingAddress' => $this->mockedObjectManager->get(
-                \Extcode\Cart\Domain\Model\Order\Address::class
+                \Extcode\Cart\Domain\Model\Order\ShippingAddress::class
             ),
         ];
 
@@ -227,7 +227,7 @@ class CartControllerTest extends UnitTestCase
      */
     public function showCartPassesBillingAddressItemToView()
     {
-        $billingAddress = $this->getMockBuilder(\Extcode\Cart\Domain\Model\Order\Address::class)
+        $billingAddress = $this->getMockBuilder(\Extcode\Cart\Domain\Model\Order\BillingAddress::class)
             ->getMock();
 
         $assignArguments = [
@@ -236,7 +236,7 @@ class CartControllerTest extends UnitTestCase
             ),
             'billingAddress' => $billingAddress,
             'shippingAddress' => $this->mockedObjectManager->get(
-                \Extcode\Cart\Domain\Model\Order\Address::class
+                \Extcode\Cart\Domain\Model\Order\ShippingAddress::class
             ),
         ];
 
@@ -250,7 +250,7 @@ class CartControllerTest extends UnitTestCase
      */
     public function showCartPassesShippingAddressItemToView()
     {
-        $shippingAddress = $this->getMockBuilder(\Extcode\Cart\Domain\Model\Order\Address::class)
+        $shippingAddress = $this->getMockBuilder(\Extcode\Cart\Domain\Model\Order\ShippingAddress::class)
             ->getMock();
 
         $assignArguments = [
@@ -258,7 +258,7 @@ class CartControllerTest extends UnitTestCase
                 \Extcode\Cart\Domain\Model\Order\Item::class
             ),
             'billingAddress' => $this->mockedObjectManager->get(
-                \Extcode\Cart\Domain\Model\Order\Address::class
+                \Extcode\Cart\Domain\Model\Order\BillingAddress::class
             ),
             'shippingAddress' => $shippingAddress
         ];

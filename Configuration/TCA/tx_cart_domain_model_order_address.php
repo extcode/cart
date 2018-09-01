@@ -10,6 +10,7 @@ return [
         'label' => 'uid',
         'label_alt' => 'first_name, last_name, street, street_number, zip, city',
         'label_alt_force' => 1,
+        'type' => 'record_type',
         'tstamp' => 'tstamp',
         'crdate' => 'crdate',
         'cruser_id' => 'cruser_id',
@@ -29,7 +30,10 @@ return [
         'showRecordFieldList' => 'title, salutation, first_name, last_name, email, phone, fax, company, street, zip, city, country, phone, fax, additional',
     ],
     'types' => [
-        '1' => [
+        '\Extcode\Cart\Domain\Model\Order\BillingAddress' => [
+            'showitem' => 'title, salutation, first_name, last_name, email, phone, fax, company, street, zip, city, country, phone, fax, additional, tax_identification_number',
+        ],
+        '\Extcode\Cart\Domain\Model\Order\ShippingAddress' => [
             'showitem' => 'title, salutation, first_name, last_name, email, phone, fax, company, street, zip, city, country, phone, fax, additional',
         ],
     ],
@@ -39,6 +43,19 @@ return [
         ],
     ],
     'columns' => [
+        'record_type' => [
+            'label' => $_LLL . ':tx_cart_domain_model_order_address.record_type',
+            'config' => [
+                'type' => 'select',
+                'renderType' => 'selectSingle',
+                'readOnly' => 1,
+                'items' => [
+                    [$_LLL . ':tx_cart_domain_model_order_address.record_type.billing', '\Extcode\Cart\Domain\Model\Order\BillingAddress'],
+                    [$_LLL . ':tx_cart_domain_model_order_address.record_type.shipping', '\Extcode\Cart\Domain\Model\Order\ShippingAddress'],
+                ],
+                'default' => '\Extcode\Cart\Domain\Model\Order\BillingAddress'
+            ]
+        ],
         'title' => [
             'exclude' => 0,
             'label' => $_LLL . ':tx_cart_domain_model_order_address.title',
@@ -92,6 +109,16 @@ return [
         'company' => [
             'exclude' => 0,
             'label' => $_LLL . ':tx_cart_domain_model_order_address.company',
+            'config' => [
+                'type' => 'input',
+                'readOnly' => 1,
+                'size' => 30,
+                'eval' => 'trim'
+            ],
+        ],
+        'tax_identification_number' => [
+            'exclude' => 0,
+            'label' => $_LLL . ':tx_cart_domain_model_order_address.tax_identification_number',
             'config' => [
                 'type' => 'input',
                 'readOnly' => 1,
@@ -191,16 +218,6 @@ return [
             ],
         ],
 
-        'discr' => [
-            'exclude' => 0,
-            'label' => $_LLL . ':tx_cart_domain_model_order_address.discr',
-            'config' => [
-                'type' => 'input',
-                'readOnly' => 1,
-                'size' => 30,
-                'eval' => 'trim'
-            ],
-        ],
         'item' => [
             'config' => [
                 'type' => 'passthrough',

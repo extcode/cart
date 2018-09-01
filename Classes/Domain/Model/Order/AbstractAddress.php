@@ -20,7 +20,7 @@ namespace Extcode\Cart\Domain\Model\Order;
  *
  * @author Daniel Lorenz <ext.cart@extco.de>
  */
-class Address extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
+abstract class AbstractAddress extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 {
     /**
      * Order Item

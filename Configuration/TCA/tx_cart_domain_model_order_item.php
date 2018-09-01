@@ -193,7 +193,7 @@ return [
                 'foreign_table' => 'tx_cart_domain_model_order_address',
                 'foreign_field' => 'item',
                 'foreign_match_fields' => [
-                    'discr' => 'billing'
+                    'record_type' => '\Extcode\Cart\Domain\Model\Order\BillingAddress'
                 ],
                 'minitems' => 1,
                 'maxitems' => 1,
@@ -219,7 +219,7 @@ return [
                 'foreign_table' => 'tx_cart_domain_model_order_address',
                 'foreign_field' => 'item',
                 'foreign_match_fields' => [
-                    'discr' => 'shipping'
+                    'record_type' => '\Extcode\Cart\Domain\Model\Order\ShippingAddress'
                 ],
                 'minitems' => 0,
                 'maxitems' => 1,

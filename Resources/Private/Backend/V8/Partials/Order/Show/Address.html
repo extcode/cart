@@ -26,6 +26,12 @@
                 {address.fax}<br/>
             </f:if>
         </div>
+        <f:if condition="{address.taxIdentificationNumber}">
+            <br/>
+            <div>
+                {address.taxIdentificationNumber}
+            </div>
+        </f:if>
     </div>
 </f:section>
 

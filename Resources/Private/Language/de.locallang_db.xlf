@@ -245,6 +245,18 @@
                 <target>Bezahlung</target>
             </trans-unit>
 
+            <trans-unit id="tx_cart_domain_model_order_address.record_type">
+                <source>Record Type</source>
+                <target>Datensatztyp</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_address.record_type.billing">
+                <source>Billing Address</source>
+                <target>Rechnungsadresse</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_address.record_type.shipping">
+                <source>Shipping Address</source>
+                <target>Lieferadresse</target>
+            </trans-unit>
             <trans-unit id="tx_cart_domain_model_order_address.title">
                 <source>Title</source>
                 <target>Titel</target>
@@ -276,6 +288,10 @@
             <trans-unit id="tx_cart_domain_model_order_address.company">
                 <source>Company</source>
                 <target>Firma</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_address.tax_identification_number">
+                <source>Tax Identification Number</source>
+                <target>Umsatzsteueridentifikationsnummer</target>
             </trans-unit>
             <trans-unit id="tx_cart_domain_model_order_address.street">
                 <source>Street</source>

@@ -42,13 +42,13 @@ class CartController extends ActionController
      * Action Show
      *
      * @param \Extcode\Cart\Domain\Model\Order\Item $orderItem
-     * @param \Extcode\Cart\Domain\Model\Order\Address $billingAddress
-     * @param \Extcode\Cart\Domain\Model\Order\Address $shippingAddress
+     * @param \Extcode\Cart\Domain\Model\Order\BillingAddress $billingAddress
+     * @param \Extcode\Cart\Domain\Model\Order\ShippingAddress $shippingAddress
      */
     public function showAction(
         \Extcode\Cart\Domain\Model\Order\Item $orderItem = null,
-        \Extcode\Cart\Domain\Model\Order\Address $billingAddress = null,
-        \Extcode\Cart\Domain\Model\Order\Address $shippingAddress = null
+        \Extcode\Cart\Domain\Model\Order\BillingAddress $billingAddress = null,
+        \Extcode\Cart\Domain\Model\Order\ShippingAddress $shippingAddress = null
     ) {
         $this->restoreSession();
 
@@ -87,12 +87,12 @@ class CartController extends ActionController
         }
         if ($billingAddress == null) {
             $billingAddress = $this->objectManager->get(
-                \Extcode\Cart\Domain\Model\Order\Address::class
+                \Extcode\Cart\Domain\Model\Order\BillingAddress::class
             );
         }
         if ($shippingAddress == null) {
             $shippingAddress = $this->objectManager->get(
-                \Extcode\Cart\Domain\Model\Order\Address::class
+                \Extcode\Cart\Domain\Model\Order\ShippingAddress::class
             );
         }
 

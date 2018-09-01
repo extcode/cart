@@ -82,16 +82,14 @@ class Item extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Billing Address
      *
-     * @TYPO3\CMS\Extbase\Annotation\ORM\Lazy
-     * @var \Extcode\Cart\Domain\Model\Order\Address
+     * @var \Extcode\Cart\Domain\Model\Order\BillingAddress
      */
     protected $billingAddress;
 
     /**
      * Shipping Address
      *
-     * @TYPO3\CMS\Extbase\Annotation\ORM\Lazy
-     * @var \Extcode\Cart\Domain\Model\Order\Address
+     * @var \Extcode\Cart\Domain\Model\Order\ShippingAddress
      */
     protected $shippingAddress;
 
@@ -483,7 +481,7 @@ class Item extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Gets Billing Address
      *
-     * @return \Extcode\Cart\Domain\Model\Order\Address
+     * @return \Extcode\Cart\Domain\Model\Order\BillingAddress
      */
     public function getBillingAddress()
     {
@@ -493,9 +491,9 @@ class Item extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Set Billing Address
      *
-     * @param \Extcode\Cart\Domain\Model\Order\Address $billingAddress
+     * @param \Extcode\Cart\Domain\Model\Order\BillingAddress $billingAddress
      */
-    public function setBillingAddress(\Extcode\Cart\Domain\Model\Order\Address $billingAddress)
+    public function setBillingAddress(\Extcode\Cart\Domain\Model\Order\BillingAddress $billingAddress)
     {
         $this->billingAddress = $billingAddress;
     }
@@ -503,7 +501,7 @@ class Item extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Gets Shipping Address
      *
-     * @return \Extcode\Cart\Domain\Model\Order\Address
+     * @return \Extcode\Cart\Domain\Model\Order\ShippingAddress
      */
     public function getShippingAddress()
     {
@@ -513,9 +511,9 @@ class Item extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Set Shopping Address
      *
-     * @param \Extcode\Cart\Domain\Model\Order\Address $shippingAddress
+     * @param \Extcode\Cart\Domain\Model\Order\ShippingAddress $shippingAddress
      */
-    public function setShippingAddress(\Extcode\Cart\Domain\Model\Order\Address $shippingAddress)
+    public function setShippingAddress(\Extcode\Cart\Domain\Model\Order\ShippingAddress $shippingAddress)
     {
         $this->shippingAddress = $shippingAddress;
     }

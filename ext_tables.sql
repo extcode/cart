@@ -72,9 +72,9 @@ CREATE TABLE tx_cart_domain_model_order_item (
 CREATE TABLE tx_cart_domain_model_order_address (
     uid int(11) NOT NULL auto_increment,
     pid int(11) DEFAULT '0' NOT NULL,
+    record_type varchar(255) DEFAULT '' NOT NULL,
 
     item int(11) unsigned DEFAULT '0' NOT NULL,
-    discr varchar(255) DEFAULT 'billing' NOT NULL,
 
     title varchar(255) DEFAULT '' NOT NULL,
     salutation varchar(255) DEFAULT '' NOT NULL,
@@ -84,6 +84,7 @@ CREATE TABLE tx_cart_domain_model_order_address (
     phone varchar(255) DEFAULT '' NOT NULL,
     fax varchar(255) DEFAULT '' NOT NULL,
     company varchar(255) DEFAULT '' NOT NULL,
+    tax_identification_number varchar(255) DEFAULT '' NOT NULL,
     street varchar(255) DEFAULT '' NOT NULL,
     street_number varchar(255) DEFAULT '' NOT NULL,
     zip varchar(255) DEFAULT '' NOT NULL,
