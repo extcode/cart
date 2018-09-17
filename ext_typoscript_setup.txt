@@ -51,7 +51,7 @@ config.tx_extbase.persistence.classes {
     Extcode\Cart\Domain\Model\Order\ShippingAddress {
         mapping {
             tableName = tx_cart_domain_model_order_address
-            recordType = Extcode\Cart\Domain\Model\Order\ShippingAddress
+            recordType = \Extcode\Cart\Domain\Model\Order\ShippingAddress
         }
     }
 }

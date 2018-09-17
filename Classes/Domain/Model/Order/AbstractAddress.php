@@ -164,6 +164,14 @@ abstract class AbstractAddress extends \TYPO3\CMS\Extbase\DomainObject\AbstractE
     }
 
     /**
+     * @param Item $item
+     */
+    public function setItem(Item $item)
+    {
+        $this->item = $item;
+    }
+
+    /**
      * Get Title
      *
      * @return string

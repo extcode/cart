@@ -77,7 +77,14 @@ class OrderUtility
      *
      * @var \Extcode\Cart\Domain\Repository\Order\BillingAddressRepository
      */
-    protected $addressRepository;
+    protected $billingAddressRepository;
+
+    /**
+     * Address Repository
+     *
+     * @var \Extcode\Cart\Domain\Repository\Order\ShippingAddressRepository
+     */
+    protected $shippingAddressRepository;
 
     /**
      * Payment Repository
@@ -165,7 +172,7 @@ class OrderUtility
     /**
      * @param \Extcode\Cart\Domain\Repository\Order\BillingAddressRepository
      */
-    public function injectBillingOrderAddressRepository(
+    public function injectOrderBillingAddressRepository(
         \Extcode\Cart\Domain\Repository\Order\BillingAddressRepository $billingAddressRepository
     ) {
         $this->billingAddressRepository = $billingAddressRepository;
@@ -174,7 +181,7 @@ class OrderUtility
     /**
      * @param \Extcode\Cart\Domain\Repository\Order\ShippingAddressRepository
      */
-    public function injectShippingOrderAddressRepository(
+    public function injectOrderShippingAddressRepository(
         \Extcode\Cart\Domain\Repository\Order\ShippingAddressRepository $shippingAddressRepository
     ) {
         $this->shippingAddressRepository = $shippingAddressRepository;
@@ -269,6 +276,15 @@ class OrderUtility
         $this->cart = $cart;
         $this->orderItem = $orderItem;
 
+        if ($orderItem->getBillingAddress()) {
+            $billingAddress = $orderItem->getBillingAddress();
+            $this->billingAddressRepository->add($billingAddress);
+        }
+        if ($orderItem->getShippingAddress()) {
+            $shippingAddress = $orderItem->getShippingAddress();
+            $this->shippingAddressRepository->add($shippingAddress);
+        }
+
         $orderItem->setPid($this->storagePid);
 
         $orderItem->setFeUser((int)$GLOBALS['TSFE']->fe_user->user['uid']);
@@ -283,8 +299,6 @@ class OrderUtility
         $orderItem->setTotalNet($this->cart->getTotalNet());
 
         if (!$orderItem->_isDirty()) {
-            $this->orderItemRepository->add($orderItem);
-
             $this->addTaxClasses();
 
             $this->addTaxes('TotalTax');
@@ -302,6 +316,8 @@ class OrderUtility
             if ($this->cart->getShipping()) {
                 $this->addShipping();
             }
+
+            $this->orderItemRepository->add($orderItem);
         }
 
         $data = [
@@ -319,6 +335,30 @@ class OrderUtility
         );
 
         $orderItem = $slotReturn[0]['orderItem'];
+
+        $this->persistenceManager->persistAll();
+
+        // fix passthrough relation
+        if ($orderItem->getBillingAddress()) {
+            $billingAddress = $orderItem->getBillingAddress();
+            $billingAddress->setItem($orderItem);
+            $this->billingAddressRepository->update($billingAddress);
+        }
+        if ($orderItem->getShippingAddress()) {
+            $shippingAddress = $orderItem->getShippingAddress();
+            $shippingAddress->setItem($orderItem);
+            $this->shippingAddressRepository->update($shippingAddress);
+        }
+        if ($orderItem->getPayment()) {
+            $payment = $orderItem->getPayment();
+            $payment->setItem($orderItem);
+            $this->paymentRepository->update($payment);
+        }
+        if ($orderItem->getShipping()) {
+            $shipping = $orderItem->getShipping();
+            $shipping->setItem($orderItem);
+            $this->shippingRepository->update($shipping);
+        }
 
         $this->persistenceManager->persistAll();
     }
@@ -679,62 +719,6 @@ class OrderUtility
         $this->productRepository->add($orderProduct);
 
         $this->orderItem->addProduct($orderProduct);
-    }
-
-    /**
-     * Add Billing Address
-     *
-     * @param array $billingAddress Data for Billing Address
-     */
-    protected function addBillingAddress(array $billingAddress)
-    {
-        /**
-         * Order Address
-         * @var \Extcode\Cart\Domain\Model\Order\BillingAddress $orderAddress
-         */
-        $orderAddress = $this->objectManager->get(
-            \Extcode\Cart\Domain\Model\Order\BillingAddress::class
-        );
-        $orderAddress->setPid($this->storagePid);
-
-        if ($billingAddress['title']) {
-            $orderAddress->setTitle($billingAddress['title']);
-        }
-        $orderAddress->setSalutation($billingAddress['salutation']);
-        $orderAddress->setFirstName($billingAddress['firstName']);
-        $orderAddress->setLastName($billingAddress['lastName']);
-
-        $this->addressRepository->add($orderAddress);
-
-        $this->orderItem->setBillingAddress($orderAddress);
-    }
-
-    /**
-     * Add Shipping Address
-     *
-     * @param array $shippingAddress Data for Shipping Address
-     */
-    protected function addShippingAddress(array $shippingAddress)
-    {
-        /**
-         * Order Address
-         * @var \Extcode\Cart\Domain\Model\Order\ShippingAddress $orderAddress
-         */
-        $orderAddress = $this->objectManager->get(
-            \Extcode\Cart\Domain\Model\Order\ShippingAddress::class
-        );
-        $orderAddress->setPid($this->storagePid);
-
-        if ($shippingAddress['title']) {
-            $orderAddress->setTitle($shippingAddress['title']);
-        }
-        $orderAddress->setSalutation($shippingAddress['salutation']);
-        $orderAddress->setFirstName($shippingAddress['firstName']);
-        $orderAddress->setLastName($shippingAddress['lastName']);
-
-        $this->addressRepository->add($orderAddress);
-
-        $this->orderItem->setBillingAddress($orderAddress);
     }
 
     /**
