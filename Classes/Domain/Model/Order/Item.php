@@ -249,18 +249,25 @@ class Item extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     protected $crdate;
 
     /**
-     * Accept Terms
+     * Accept Terms and Conditions
      *
      * @var bool
      */
-    protected $acceptTerms = false;
+    protected $acceptTermsAndConditions = false;
 
     /**
-     * Accept Conditions
+     * Accept Revocation Instruction
      *
      * @var bool
      */
-    protected $acceptConditions = false;
+    protected $acceptRevocationInstruction  = false;
+
+    /**
+     * Accept Privacy Policy
+     *
+     * @var bool
+     */
+    protected $acceptPrivacyPolicy  = false;
 
     /**
      * Comment
@@ -1085,33 +1092,49 @@ class Item extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * @return bool
      */
-    public function getAcceptConditions()
+    public function isAcceptTermsAndConditions()
     {
-        return $this->acceptConditions;
+        return $this->acceptTermsAndConditions;
     }
 
     /**
-     * @param bool $acceptConditions
+     * @param bool $acceptTermsAndConditions
      */
-    public function setAcceptConditions($acceptConditions)
+    public function setAcceptTermsAndConditions($acceptTermsAndConditions)
     {
-        $this->acceptConditions = $acceptConditions;
+        $this->acceptTermsAndConditions = $acceptTermsAndConditions;
     }
 
     /**
      * @return bool
      */
-    public function getAcceptTerms()
+    public function isAcceptRevocationInstruction()
     {
-        return $this->acceptTerms;
+        return $this->acceptRevocationInstruction;
     }
 
     /**
-     * @param bool $acceptTerms
+     * @param bool $acceptRevocationInstruction
      */
-    public function setAcceptTerms($acceptTerms)
+    public function setAcceptRevocationInstruction($acceptRevocationInstruction)
     {
-        $this->acceptTerms = $acceptTerms;
+        $this->acceptRevocationInstruction = $acceptRevocationInstruction;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isAcceptPrivacyPolicy()
+    {
+        return $this->acceptPrivacyPolicy;
+    }
+
+    /**
+     * @param bool $acceptPrivacyPolicy
+     */
+    public function setAcceptPrivacyPolicy($acceptPrivacyPolicy)
+    {
+        $this->acceptPrivacyPolicy = $acceptPrivacyPolicy;
     }
 
     /**

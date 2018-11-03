@@ -295,29 +295,41 @@
                 <source>Comment</source>
                 <target>Bemerkung</target>
             </trans-unit>
-            <trans-unit id="tx_cart_domain_model_order_item.accept_terms">
-                <source>I have read the general terms and agree to them.</source>
+            <trans-unit id="tx_cart_domain_model_order_item.accept_terms_and_conditions">
+                <source>I have read the general terms and conditions agree to them.</source>
                 <target>Ich habe die Allgemeinen Geschäftsbedingungen gelesen und stimme diesen zu.</target>
             </trans-unit>
-            <trans-unit id="tx_cart_domain_model_order_item.accept_terms_with_link">
-                <source>I have read the <![CDATA[<a href="%1$s" target="%2$s">general terms</a>]]> and agree to them.</source>
+            <trans-unit id="tx_cart_domain_model_order_item.accept_terms_and_conditions_with_link">
+                <source>I have read the <![CDATA[<a href="%1$s" target="%2$s">general terms and conditions</a>]]> and agree to them.</source>
                 <target>Ich habe die <![CDATA[<a href="%1$s" target="%2$s">Allgemeinen Geschäftsbedingungen</a>]]> gelesen und stimme diesen zu.</target>
             </trans-unit>
-            <trans-unit id="tx_cart_domain_model_order_item.accept_terms.error.1361959228">
+            <trans-unit id="tx_cart_domain_model_order_item.accept_terms_and_conditions.error.1361959228">
                 <source>You have to agree to the general terms.</source>
                 <target>Sie müssen den Allgemeinen Geschäftsbedingungen zustimmen.</target>
             </trans-unit>
-            <trans-unit id="tx_cart_domain_model_order_item.accept_conditions">
-                <source>I have read the conditions and agree to them.</source>
+            <trans-unit id="tx_cart_domain_model_order_item.accept_revocation_instruction">
+                <source>I have read the revocation instruction and agree to them.</source>
                 <target>Ich habe die Widerrufsbelehrung gelesen und stimme dieser zu.</target>
             </trans-unit>
-            <trans-unit id="tx_cart_domain_model_order_item.accept_conditions_with_link">
-                <source>I have read the <![CDATA[<a href="%1$s" target="%2$s">conditions</a>]]> and agree to them.</source>
+            <trans-unit id="tx_cart_domain_model_order_item.accept_revocation_instruction_with_link">
+                <source>I have read the <![CDATA[<a href="%1$s" target="%2$s">revocation instruction</a>]]> and agree to them.</source>
                 <target>Ich habe die <![CDATA[<a href="%1$s" target="%2$s">Widerrufsbelehrung</a>]]> gelesen und stimme dieser zu.</target>
             </trans-unit>
-            <trans-unit id="tx_cart_domain_model_order_item.accept_conditions.error.1361959228">
-                <source>You have to agree to the conditions.</source>
+            <trans-unit id="tx_cart_domain_model_order_item.accept_revocation_instruction.error.1361959228">
+                <source>You have to agree to the revocation instruction.</source>
                 <target>Sie müssen der Widerrufsbelehrung zustimmen.</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_item.accept_privacy_policy">
+                <source>I have read the privacy policy and agree to them.</source>
+                <target>Ich habe die Datenschutzerklärung gelesen und stimme dieser zu.</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_item.accept_privacy_policy_with_link">
+                <source>I have read the <![CDATA[<a href="%1$s" target="%2$s">privacy policy</a>]]> and agree to them.</source>
+                <target>Ich habe die <![CDATA[<a href="%1$s" target="%2$s">Datenschutzerklärung</a>]]> gelesen und stimme dieser zu.</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_item.accept_privacy_policy.error.1361959228">
+                <source>You have to agree to the privacy policy.</source>
+                <target>Sie müssen der Datenschutzerklärung zustimmen.</target>
             </trans-unit>
 
             <trans-unit id="tx_cart_domain_model_order_address">
