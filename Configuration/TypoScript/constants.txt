@@ -70,8 +70,9 @@ plugin.tx_cart {
             pid =
             isNetCart =
 
-            acceptTerms.pid =
-            acceptConditions.pid =
+            acceptTermsAndConditions.pid =
+            acceptRevocationInstruction.pid =
+            acceptPrivacyPolicy.pid =
         }
 
         addToCartByAjax = 2278001
