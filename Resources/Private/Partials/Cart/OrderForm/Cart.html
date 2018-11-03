@@ -13,26 +13,26 @@
                     <fieldset>
                         <div class="checkout-step-fields">
                             <div class="field accept-terms">
-                                <label for="orderItem-acceptTerms">
-                                    <f:if condition="{0: settings.validation.orderItem.fields.acceptTerms.validator} == {0: 'Boolean'}">
-                                        <f:form.checkbox id="orderItem-acceptTerms"
-                                                         name="orderItem[acceptTerms]"
-                                                         title="{f:translate(key:'tx_cart_domain_model_order_item.accept_terms')}"
+                                <label for="orderItem-acceptTermsAndConditions">
+                                    <f:if condition="{0: settings.validation.orderItem.fields.acceptTermsAndConditions.validator} == {0: 'Boolean'}">
+                                        <f:form.checkbox id="orderItem-acceptTermsAndConditions"
+                                                         name="orderItem[acceptTermsAndConditions]"
+                                                         title="{f:translate(key:'tx_cart_domain_model_order_item.accept_terms_and_conditions')}"
                                                          value="1"/>
                                         <span>
-                                            <f:if condition="{settings.cart.acceptTerms.pid}">
+                                            <f:if condition="{settings.cart.acceptTermsAndConditions.pid}">
                                                 <f:then>
-                                                    <f:format.raw><f:translate key="tx_cart_domain_model_order_item.accept_terms_with_link" arguments="{0: '{f:uri.page(pageUid: \'{settings.cart.acceptTerms.pid}\')}', 1:'_blank'}"/></f:format.raw>
+                                                    <f:format.raw><f:translate key="tx_cart_domain_model_order_item.accept_terms_and_conditions_with_link" arguments="{0: '{f:uri.page(pageUid: \'{settings.cart.acceptTermsAndConditions.pid}\')}', 1:'_blank'}"/></f:format.raw>
                                                 </f:then>
                                                 <f:else>
-                                                    <f:translate key="tx_cart_domain_model_order_item.accept_terms"/>
+                                                    <f:translate key="tx_cart_domain_model_order_item.accept_terms_and_conditions_and_conditions"/>
                                                 </f:else>
                                             </f:if>
                                         </span>
                                         <f:form.validationResults for="orderItem">
-                                            <f:if condition="{validationResults.flattenedErrors.acceptTerms}">
+                                            <f:if condition="{validationResults.flattenedErrors.acceptTermsAndConditions}">
                                                 <div class="validation-error alert alert-danger">
-                                                    <f:translate key="tx_cart_domain_model_order_item.accept_terms.error.{validationResults.flattenedErrors.acceptTerms.0.code}">{validationResults.flattenedErrors.acceptTerms.0.code}</f:translate>
+                                                    <f:translate key="tx_cart_domain_model_order_item.accept_terms_and_conditions.error.{validationResults.flattenedErrors.acceptTermsAndConditions.0.code}">{validationResults.flattenedErrors.acceptTermsAndConditions.0.code}</f:translate>
                                                 </div>
                                             </f:if>
                                         </f:form.validationResults>
@@ -40,26 +40,53 @@
                                 </label>
                             </div>
                             <div class="field accept-terms">
-                                <label for="orderItem-acceptConditions">
-                                    <f:if condition="{0: settings.validation.orderItem.fields.acceptConditions.validator} == {0: 'Boolean'}">
-                                        <f:form.checkbox id="orderItem-acceptConditions"
-                                                         name="orderItem[acceptConditions]"
-                                                         title="{f:translate(key:'tx_cart_domain_model_order_item.accept_conditions')}"
+                                <label for="orderItem-acceptRevocationInstruction">
+                                    <f:if condition="{0: settings.validation.orderItem.fields.acceptRevocationInstruction.validator} == {0: 'Boolean'}">
+                                        <f:form.checkbox id="orderItem-acceptRevocationInstruction"
+                                                         name="orderItem[acceptRevocationInstruction]"
+                                                         title="{f:translate(key:'tx_cart_domain_model_order_item.accept_revocation_instruction')}"
                                                          value="1"/>
                                         <span>
-                                            <f:if condition="{settings.cart.acceptConditions.pid}">
+                                            <f:if condition="{settings.cart.acceptRevocationInstruction.pid}">
                                                 <f:then>
-                                                    <f:format.raw><f:translate key="tx_cart_domain_model_order_item.accept_conditions_with_link" arguments="{0: '{f:uri.page(pageUid: \'{settings.cart.acceptConditions.pid}\')}', 1:'_blank'}"/></f:format.raw>
+                                                    <f:format.raw><f:translate key="tx_cart_domain_model_order_item.accept_revocation_instruction_with_link" arguments="{0: '{f:uri.page(pageUid: \'{settings.cart.acceptRevocationInstruction.pid}\')}', 1:'_blank'}"/></f:format.raw>
                                                 </f:then>
                                                 <f:else>
-                                                    <f:translate key="tx_cart_domain_model_order_item.accept_conditions"/>
+                                                    <f:translate key="tx_cart_domain_model_order_item.accept_revocation_instruction"/>
                                                 </f:else>
                                             </f:if>
                                         </span>
                                         <f:form.validationResults for="orderItem">
-                                            <f:if condition="{validationResults.flattenedErrors.acceptConditions}">
+                                            <f:if condition="{validationResults.flattenedErrors.acceptRevocationInstruction}">
                                                 <div class="validation-error alert alert-danger">
-                                                    <f:translate key="tx_cart_domain_model_order_item.accept_conditions.error.{validationResults.flattenedErrors.acceptConditions.0.code}">{validationResults.flattenedErrors.acceptConditions.0.code}</f:translate>
+                                                    <f:translate key="tx_cart_domain_model_order_item.accept_revocation_instruction.error.{validationResults.flattenedErrors.acceptRevocationInstruction.0.code}">{validationResults.flattenedErrors.acceptRevocationInstruction.0.code}</f:translate>
+                                                </div>
+                                            </f:if>
+                                        </f:form.validationResults>
+                                    </f:if>
+                                </label>
+                            </div>
+                            <div class="field accept-terms">
+                                <label for="orderItem-acceptPrivacyPolicy">
+                                    <f:if condition="{0: settings.validation.orderItem.fields.acceptPrivacyPolicy.validator} == {0: 'Boolean'}">
+                                        <f:form.checkbox id="orderItem-acceptPrivacyPolicy"
+                                                         name="orderItem[acceptPrivacyPolicy]"
+                                                         title="{f:translate(key:'tx_cart_domain_model_order_item.accept_privacy_policy')}"
+                                                         value="1"/>
+                                        <span>
+                                            <f:if condition="{settings.cart.acceptPrivacyPolicy.pid}">
+                                                <f:then>
+                                                    <f:format.raw><f:translate key="tx_cart_domain_model_order_item.accept_privacy_policy_with_link" arguments="{0: '{f:uri.page(pageUid: \'{settings.cart.acceptPrivacyPolicy.pid}\')}', 1:'_blank'}"/></f:format.raw>
+                                                </f:then>
+                                                <f:else>
+                                                    <f:translate key="tx_cart_domain_model_order_item.accept_privacy_policy"/>
+                                                </f:else>
+                                            </f:if>
+                                        </span>
+                                        <f:form.validationResults for="orderItem">
+                                            <f:if condition="{validationResults.flattenedErrors.acceptPrivacyPolicy}">
+                                                <div class="validation-error alert alert-danger">
+                                                    <f:translate key="tx_cart_domain_model_order_item.accept_privacy_policy.error.{validationResults.flattenedErrors.acceptPrivacyPolicy.0.code}">{validationResults.flattenedErrors.acceptPrivacyPolicy.0.code}</f:translate>
                                                 </div>
                                             </f:if>
                                         </f:form.validationResults>

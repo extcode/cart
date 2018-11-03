@@ -78,8 +78,9 @@ plugin.tx_cart {
             pid = {$plugin.tx_cart.settings.cart.pid}
             isNetCart = {$plugin.tx_cart.settings.cart.isNetCart}
 
-            acceptTerms.pid = {$plugin.tx_cart.settings.cart.acceptTerms.pid}
-            acceptConditions.pid = {$plugin.tx_cart.settings.cart.acceptConditions.pid}
+            acceptTermsAndConditions.pid = {$plugin.tx_cart.settings.cart.acceptTermsAndConditions.pid}
+            acceptRevocationInstruction.pid = {$plugin.tx_cart.settings.cart.acceptRevocationInstruction.pid}
+            acceptPrivacyPolicy.pid = {$plugin.tx_cart.settings.cart.acceptPrivacyPolicy.pid}
         }
 
         order {
@@ -153,13 +154,17 @@ plugin.tx_cart {
         validation {
             orderItem {
                 fields {
-                    acceptTerms {
-                        validator = {$plugin.tx_cart.settings.validation.orderItem.fields.acceptTerms.validator}
-                        options.is = {$plugin.tx_cart.settings.validation.orderItem.fields.acceptTerms.options.is}
+                    acceptTermsAndConditions {
+                        validator = {$plugin.tx_cart.settings.validation.orderItem.fields.acceptTermsAndConditions.validator}
+                        options.is = {$plugin.tx_cart.settings.validation.orderItem.fields.acceptTermsAndConditions.options.is}
                     }
-                    acceptConditions {
-                        validator = {$plugin.tx_cart.settings.validation.orderItem.fields.acceptConditions.validator}
-                        options.is = {$plugin.tx_cart.settings.validation.orderItem.fields.acceptConditions.options.is}
+                    acceptRevocationInstruction {
+                        validator = {$plugin.tx_cart.settings.validation.orderItem.fields.acceptRevocationInstruction.validator}
+                        options.is = {$plugin.tx_cart.settings.validation.orderItem.fields.acceptRevocationInstruction.options.is}
+                    }
+                    acceptPrivacyPolicy {
+                        validator = {$plugin.tx_cart.settings.validation.orderItem.fields.acceptPrivacyPolicy.validator}
+                        options.is = {$plugin.tx_cart.settings.validation.orderItem.fields.acceptPrivacyPolicy.options.is}
                     }
                 }
             }
