@@ -9,3 +9,6 @@ Documentation/_make
 .idea
 
 var/
+
+phpunit.coverage.xml
+phpunit.report.xml

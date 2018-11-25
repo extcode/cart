@@ -18,19 +18,53 @@ before_script:
   - apk add git --update
 
 stages:
-  - cgl
+  - lint
   - test
   - analysis
   - upload
 
-test:cgl:
+lint:cgl:
   image: composer:1.6
-  stage: cgl
+  stage: lint
   before_script:
-  - composer remove typo3/cms-core --no-update
-  - composer install
+    - composer remove typo3/cms-core --no-update
+    - composer install --no-progress --no-ansi --no-interaction
   script:
-  - .Build/bin/php-cs-fixer fix --config=Build/.php_cs -v --dry-run --using-cache=no --path-mode=intersection ./
+    - .Build/bin/php-cs-fixer fix --config=Build/.php_cs.dist -v --dry-run --using-cache=no --path-mode=intersection ./
+
+lint:typoscriptcgl:
+  stage: lint
+  image: composer:1.6
+  script:
+    - composer remove typo3/cms-core --no-update
+    - composer install --no-progress --no-ansi --no-interaction
+    - .Build/bin/typoscript-lint -c tslint.yaml
+
+lint:yaml:
+  stage: lint
+  image: python:alpine3.7
+  before_script:
+    - pip install yamllint==1.10.0
+  script:
+    - yamllint -c Build/yamllint.yaml Configuration/ Resources/ .travis.yml
+
+lint:php70:
+  stage: lint
+  image: php:7.0-alpine
+  script:
+    - find . -name \*.php -exec php -l "{}" \;
+
+lint:php71:
+  stage: lint
+  image: php:7.1-alpine
+  script:
+    - find . -name \*.php -exec php -l "{}" \;
+
+lint:php72:
+  stage: lint
+  image: php:7.2-alpine
+  script:
+    - find . -name \*.php -exec php -l "{}" \;
 
 .test: &test_php
   stage: test
@@ -40,7 +74,12 @@ test:cgl:
   only:
     - branches
   before_script:
-    - apk --no-cache add bash curl git mercurial openssh openssl parallel subversion tini
+    - apk add --no-cache bash curl git mercurial openssh openssl parallel subversion tini
+    - >
+      if [[ "$COVERAGE" == "1" ]]; then
+        apk add --no-cache $PHPIZE_DEPS
+        pecl install xdebug && docker-php-ext-enable xdebug
+      fi
     - docker-php-ext-install mysqli
     - wget https://composer.github.io/installer.sig -O - -q | tr -d '\n' > installer.sig
     - php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
@@ -49,9 +88,21 @@ test:cgl:
     - php -r "unlink('composer-setup.php'); unlink('installer.sig');"
     - composer require typo3/cms-core="${TYPO3_VERSION}"
   script:
-    - .Build/bin/phpunit -c .Build/vendor/nimut/testing-framework/res/Configuration/UnitTests.xml Tests/Unit
-    - find . -name \*.php ! -path "./.Build/*" | parallel --gnu php -d display_errors=stderr -l {} > /dev/null
+    - >
+      if [[ "$COVERAGE" == "0" ]]; then
+        .Build/bin/phpunit -c Build/UnitTests.xml Tests/Unit
+      fi
+    - >
+      if [[ "$COVERAGE" == "1" ]]; then
+        .Build/bin/phpunit --coverage-clover=phpunit.coverage.xml --log-junit=phpunit.report.xml -c Build/UnitTests.xml Tests/Unit
+      fi
 #    - find 'Tests/Functional' -wholename '*Test.php' | parallel --gnu 'echo; echo "Running functional test suite {}"; .Build/bin/phpunit --colors  -c .Build/vendor/nimut/testing-framework/res/Configuration/FunctionalTests.xml {}'
+  artifacts:
+    paths:
+      - phpunit.coverage.xml
+      - phpunit.report.xml
+    expire_in: 1 day
+    when: always
 
 # Build in PHP 7.0 and TYPO3 8.7
 test:php70:typo3_8:
@@ -59,6 +110,7 @@ test:php70:typo3_8:
   variables:
     DOCKER_TAG: 7.0-alpine
     TYPO3_VERSION: ^8.7
+    COVERAGE: 0
 
 # Build in PHP 7.1 and TYPO3 8.7
 test:php71:typo3_8:
@@ -66,6 +118,7 @@ test:php71:typo3_8:
   variables:
     DOCKER_TAG: 7.1-alpine
     TYPO3_VERSION: ^8.7
+    COVERAGE: 0
 
 # Build in PHP 7.2 and TYPO3 8.7
 test:php72:typo3_8:
@@ -73,6 +126,7 @@ test:php72:typo3_8:
   variables:
     DOCKER_TAG: 7.2-alpine
     TYPO3_VERSION: ^8.7
+    COVERAGE: 1
 
 sonarqube:
   stage: analysis
@@ -86,8 +140,8 @@ sonarqube:
     SONAR_SOURCES: "./Classes"
     SONAR_GITLAB_PROJECT_ID: "$CI_PROJECT_ID"
   script:
-  - echo "sonar.projectKey=cart-5.x" > sonar-project.properties
-  - gitlab-sonar-scanner
+    - echo "sonar.projectKey=cart-5.x" > sonar-project.properties
+    - gitlab-sonar-scanner -Dsonar.php.coverage.reportPath=phpunit.coverage.xml -Dsonar.php.tests.reportPath=phpunit.report.xml
   allow_failure: true
 
 sonarqube-reports:
@@ -102,8 +156,8 @@ sonarqube-reports:
     SONAR_SOURCES: "./Classes"
     SONAR_TESTS: "./Tests"
   script:
-  - echo "sonar.projectKey=cart-5.x" > sonar-project.properties
-  - gitlab-sonar-scanner
+    - echo "sonar.projectKey=cart-5.x" > sonar-project.properties
+    - gitlab-sonar-scanner -Dsonar.php.coverage.reportPath=phpunit.coverage.xml -Dsonar.php.tests.reportPath=phpunit.report.xml
 
 ter-upload:
   image: php:7.1-alpine
@@ -116,7 +170,7 @@ ter-upload:
     - curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
     - export COMPOSER_CACHE_DIR=.composer
   script:
-    - composer install
+    - composer install --no-progress --no-ansi --no-interaction
     - composer require namelesscoder/typo3-repository-client
     - export TYPO3_PATH_WEB="$PWD/.Build/Web"
     - >

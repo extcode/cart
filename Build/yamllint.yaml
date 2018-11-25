@@ -1,0 +1,23 @@
+extends: default
+
+rules:
+  line-length: disable
+  document-start: disable
+  braces:
+    min-spaces-inside-empty: 1
+    max-spaces-inside-empty: 1
+  brackets:
+    min-spaces-inside-empty: 1
+    max-spaces-inside-empty: 1
+  comments:
+    level: error
+    min-spaces-from-content: 1
+  comments-indentation:
+    level: error
+  empty-lines:
+    max: 1
+  empty-values:
+    forbid-in-block-mappings: true
+    forbid-in-flow-mappings: true
+  indentation:
+    spaces: 2
