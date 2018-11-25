@@ -46,7 +46,7 @@ script:
   - >
     echo;
     echo "Running php-cs-fixer";
-    .Build/bin/php-cs-fixer fix --config=Build/.php_cs -v --dry-run --using-cache=no --path-mode=intersection ./;
+    .Build/bin/php-cs-fixer fix --config=Build/.php_cs.dist -v --dry-run --using-cache=no --path-mode=intersection ./;
 
   - >
     echo;
