@@ -5,7 +5,7 @@ defined('TYPO3_MODE') or die();
 // configure plugins
 
 \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-    'Extcode.' . $_EXTKEY,
+    'Extcode.cart',
     'MiniCart',
     [
         'Cart\CartPreview' => 'show',
@@ -19,7 +19,7 @@ defined('TYPO3_MODE') or die();
 );
 
 \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-    'Extcode.' . $_EXTKEY,
+    'Extcode.cart',
     'Cart',
     [
         'Cart\Cart' => 'show, clear, update',
@@ -46,7 +46,7 @@ defined('TYPO3_MODE') or die();
 );
 
 \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-    'Extcode.' . $_EXTKEY,
+    'Extcode.cart',
     'Currency',
     [
         'Cart/Currency' => 'edit, update',
@@ -57,7 +57,7 @@ defined('TYPO3_MODE') or die();
 );
 
 \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-    'Extcode.' . $_EXTKEY,
+    'Extcode.cart',
     'Order',
     [
         'Order' => 'list, show',
@@ -103,5 +103,4 @@ if (TYPO3_MODE === 'BE') {
 ');
 
 // register "cart:" namespace
-$GLOBALS['TYPO3_CONF_VARS']['SYS']['fluid']['namespaces']['cart'][]
-    = 'Extcode\\Cart\\ViewHelpers';
+$GLOBALS['TYPO3_CONF_VARS']['SYS']['fluid']['namespaces']['cart'][] = 'Extcode\\Cart\\ViewHelpers';

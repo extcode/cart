@@ -2,50 +2,8 @@
 
 defined('TYPO3_MODE') or die();
 
-$extPath = \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($_EXTKEY);
-
-$tcaPath = $extPath . 'Configuration/TCA/';
-$iconPath = 'EXT:' . $_EXTKEY . '/Resources/Public/Icons/';
-
-$_LLL = 'LLL:EXT:' . $_EXTKEY . '/Resources/Private/Language/locallang_db.xlf';
-
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addStaticFile(
-    $_EXTKEY,
-    'Configuration/TypoScript',
-    'Shopping Cart - Cart'
-);
-
-/**
- * Register Frontend Plugins
- */
-$pluginNames = [
-    'MiniCart',
-    'Cart',
-    'Currency',
-    'Order',
-];
-
-foreach ($pluginNames as $pluginName) {
-    $pluginSignature = strtolower(str_replace('_', '', $_EXTKEY)) . '_' . strtolower($pluginName);
-    \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
-        'Extcode.' . $_EXTKEY,
-        $pluginName,
-        $_LLL . ':tx_cart.plugin.' . strtolower(preg_replace('/[A-Z]/', '_$0', lcfirst($pluginName)))
-    );
-    $TCA['tt_content']['types']['list']['subtypes_excludelist'][$pluginSignature] = 'select_key';
-
-    $flexFormPath = 'EXT:' . $_EXTKEY . '/Configuration/FlexForms/' . $pluginName . 'Plugin.xml';
-    if (file_exists(\TYPO3\CMS\Core\Utility\GeneralUtility::getFileAbsFileName($flexFormPath))) {
-        $TCA['tt_content']['types']['list']['subtypes_addlist'][$pluginSignature] = 'pi_flexform';
-        \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPiFlexFormValue(
-            $pluginSignature,
-            'FILE:' . $flexFormPath
-        );
-    }
-}
-$TCA['tt_content']['types']['list']['subtypes_excludelist']['cart_minicart'] = 'select_key,pages,recursive';
-$TCA['tt_content']['types']['list']['subtypes_excludelist']['cart_currency'] = 'select_key,pages,recursive';
-$TCA['tt_content']['types']['list']['subtypes_excludelist']['cart_flexproduct'] = 'select_key,pages,recursive';
+$iconPath = 'EXT:cart/Resources/Public/Icons/';
+$_LLL_db = 'LLL:EXT:cart/Resources/Private/Language/locallang_db.xlf:';
 
 /**
  * Register Backend Modules
@@ -67,7 +25,7 @@ if (TYPO3_MODE === 'BE') {
 
     // add Main Module
     \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerModule(
-        'Extcode.' . $_EXTKEY,
+        'Extcode.cart',
         'Cart',
         '',
         '',
@@ -75,13 +33,13 @@ if (TYPO3_MODE === 'BE') {
         [
             'access' => 'user, group',
             'icon' => $iconPath . 'module.svg',
-            'labels' => $_LLL . ':tx_cart.module.main',
+            'labels' => $_LLL_db . 'tx_cart.module.main',
             'navigationComponentId' => 'typo3-pagetree',
         ]
     );
 
     \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerModule(
-        'Extcode.' . $_EXTKEY,
+        'Extcode.cart',
         'Cart',
         'Orders',
         '',
@@ -94,13 +52,13 @@ if (TYPO3_MODE === 'BE') {
         [
             'access' => 'user, group',
             'icon' => $iconPath . 'module_orders.svg',
-            'labels' => $_LLL . ':tx_cart.module.orders',
+            'labels' => $_LLL_db . 'tx_cart.module.orders',
             'navigationComponentId' => 'typo3-pagetree',
         ]
     );
 
     \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerModule(
-        'Extcode.' . $_EXTKEY,
+        'Extcode.cart',
         'Cart',
         'OrderStatistics',
         '',
@@ -110,22 +68,8 @@ if (TYPO3_MODE === 'BE') {
         [
             'access' => 'user, group',
             'icon' => $iconPath . 'module_order_statistics.svg',
-            'labels' => $_LLL . ':tx_cart.module.order_statistics',
+            'labels' => $_LLL_db . 'tx_cart.module.order_statistics',
             'navigationComponentId' => 'typo3-pagetree',
         ]
     );
 }
-
-$TCA['pages']['ctrl']['typeicon_classes']['contains-coupons'] = 'apps-pagetree-folder-cart-coupons';
-$TCA['pages']['ctrl']['typeicon_classes']['contains-orders'] = 'apps-pagetree-folder-cart-orders';
-
-$TCA['pages']['columns']['module']['config']['items'][] = [
-    'LLL:EXT:' . $_EXTKEY . '/Resources/Private/Language/locallang_be.xlf:tcarecords-pages-contains.cart_coupons',
-    'coupons',
-    'apps-pagetree-folder-cart-coupons'
-];
-$TCA['pages']['columns']['module']['config']['items'][] = [
-    'LLL:EXT:' . $_EXTKEY . '/Resources/Private/Language/locallang_be.xlf:tcarecords-pages-contains.cart_orders',
-    'orders',
-    'apps-pagetree-folder-cart-orders'
-];
