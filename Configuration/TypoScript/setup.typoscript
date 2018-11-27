@@ -53,22 +53,22 @@ plugin.tx_cart {
     finishers {
         order {
             100 {
-                class = Extcode\Cart\Domain\Finisher\OrderFinisher
+                class = Extcode\Cart\Domain\Finisher\Order\OrderFinisher
             }
             110 {
-                class = Extcode\Cart\Domain\Finisher\OrderNumberFinisher
+                class = Extcode\Cart\Domain\Finisher\Order\OrderNumberFinisher
             }
             200 {
-                class = Extcode\Cart\Domain\Finisher\StockFinisher
+                class = Extcode\Cart\Domain\Finisher\Order\StockFinisher
             }
             300 {
-                class = Extcode\Cart\Domain\Finisher\PaymentFinisher
+                class = Extcode\Cart\Domain\Finisher\Order\PaymentFinisher
             }
             400 {
-                class = Extcode\Cart\Domain\Finisher\EmailFinisher
+                class = Extcode\Cart\Domain\Finisher\Order\EmailFinisher
             }
             500 {
-                class = Extcode\Cart\Domain\Finisher\ClearCartFinisher
+                class = Extcode\Cart\Domain\Finisher\Order\ClearCartFinisher
             }
         }
     }
