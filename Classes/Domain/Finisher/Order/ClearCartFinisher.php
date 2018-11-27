@@ -1,6 +1,6 @@
 <?php
 
-namespace Extcode\Cart\Domain\Finisher;
+namespace Extcode\Cart\Domain\Finisher\Order;
 
 /**
  * This file is part of the TYPO3 CMS project.
@@ -20,7 +20,7 @@ namespace Extcode\Cart\Domain\Finisher;
  *
  * @author Daniel Lorenz <ext.cart@extco.de>
  */
-class ClearCartFinisher extends AbstractFinisher
+class ClearCartFinisher extends \Extcode\Cart\Domain\Finisher\AbstractFinisher
 {
     /**
      * Session Handler

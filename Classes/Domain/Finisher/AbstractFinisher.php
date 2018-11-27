@@ -20,7 +20,7 @@ namespace Extcode\Cart\Domain\Finisher;
  *
  * @author Daniel Lorenz <ext.cart@extco.de>
  */
-abstract class AbstractFinisher
+abstract class AbstractFinisher implements FinisherInterface
 {
     /**
      * Object Manager
@@ -47,7 +47,7 @@ abstract class AbstractFinisher
     protected $shortFinisherIdentifier = '';
 
     /**
-     * @var \Extcode\Cart\Domain\Finisher\FinisherContext
+     * @var FinisherContext
      */
     protected $finisherContext;
 
@@ -78,8 +78,9 @@ abstract class AbstractFinisher
     /**
      * Executes the finisher
      *
-     * @param FinisherContext $finisherContext The Finisher context that contains the current Form Runtime and Response
-     * @api
+     * @param FinisherContext $finisherContext
+     *
+     * @return string|null
      */
     final public function execute(FinisherContext $finisherContext)
     {
@@ -89,7 +90,7 @@ abstract class AbstractFinisher
 
         $this->settings = $this->finisherContext->getSettings();
 
-        $this->executeInternal();
+        return $this->executeInternal();
     }
 
     /**
@@ -97,7 +98,7 @@ abstract class AbstractFinisher
      *
      * Override and fill with your own implementation!
      *
-     * @api
+     * @return string|null
      */
     abstract protected function executeInternal();
 }
