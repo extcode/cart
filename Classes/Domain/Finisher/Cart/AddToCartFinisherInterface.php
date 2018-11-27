@@ -1,6 +1,6 @@
 <?php
 
-namespace Extcode\Cart\Hooks;
+namespace Extcode\Cart\Domain\Finisher\Cart;
 
 use Extcode\Cart\Domain\Model\Cart\Cart;
 use Extcode\Cart\Domain\Model\Cart\Product;
@@ -11,7 +11,7 @@ use TYPO3\CMS\Extbase\Mvc\Web\Request;
  *
  * @author Daniel Lorenz <ext.cart@extco.de>
  */
-interface CartProductHookInterface
+interface AddToCartFinisherInterface
 {
     /**
      * @param Request $request

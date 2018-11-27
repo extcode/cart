@@ -14,7 +14,7 @@ namespace Extcode\Cart\Controller\Cart;
  *
  * The TYPO3 project - inspiring people to share!
  */
-use Extcode\Cart\Hooks\CartProductHookInterface;
+use Extcode\Cart\Domain\Finisher\Cart\AddToCartFinisherInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
@@ -70,16 +70,16 @@ class ProductController extends ActionController
 
         $this->cart = $this->cartUtility->getCartFromSession($this->pluginSettings);
 
-        if (empty($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['cart'][$productType])) {
+        if (empty($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['cart'][$productType]['Cart']['AddToCartFinisher'])) {
             // TODO: throw own exception
             throw new \Exception('Hook is not configured for this product type!');
         }
 
-        $className = $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['cart'][$productType];
+        $className = $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['cart'][$productType]['Cart']['AddToCartFinisher'];
 
         $hookObject = GeneralUtility::makeInstance($className);
-        if (!$hookObject instanceof CartProductHookInterface) {
-            throw new \UnexpectedValueException($className . ' must implement interface ' . CartProductHookInterface::class, 123);
+        if (!$hookObject instanceof AddToCartFinisherInterface) {
+            throw new \UnexpectedValueException($className . ' must implement interface ' . AddToCartFinisherInterface::class, 123);
         }
 
         list($errors, $cartProducts) = $hookObject->getProductFromRequest(
