@@ -59,10 +59,16 @@ class OrderItemValidator extends \TYPO3\CMS\Extbase\Validation\Validator\Abstrac
      */
     protected function getPropertyValue(\Extcode\Cart\Domain\Model\Order\Item $item, $propertyName)
     {
-        $getter = 'get' . ucfirst($propertyName);
-        $propertyValue = $item->$getter();
+        $methodPrefixes = ['get', 'is'];
 
-        return $propertyValue;
+        foreach ($methodPrefixes as $methodPrefix) {
+            $getter = $methodPrefix . ucfirst($propertyName);
+            if (method_exists($item, $getter)) {
+                return $item->$getter();
+            }
+        }
+
+        return null;
     }
 
     /**
