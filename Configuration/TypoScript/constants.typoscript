@@ -80,10 +80,12 @@ plugin.tx_cart {
         validation {
             orderItem {
                 fields {
-                    acceptTerms.validator = Boolean
-                    acceptTerms.options.is = true
-                    acceptConditions.validator = Boolean
-                    acceptConditions.options.is = true
+                    acceptTermsAndConditions.validator = Boolean
+                    acceptTermsAndConditions.options.is = true
+                    acceptRevocationInstruction.validator = Boolean
+                    acceptRevocationInstruction.options.is = true
+                    acceptPrivacyPolicy.validator = Boolean
+                    acceptPrivacyPolicy.options.is = true
                 }
             }
             billingAddress {
