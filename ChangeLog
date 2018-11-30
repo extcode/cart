@@ -1,5 +1,5 @@
-5.0.0
-    2018-02-13
+6.0.0
+    2018-11-30
     Daniel Lorenz <https://github.com/extcode>
 
     * TASK #163: save billing and shipping country to order
@@ -20,6 +20,12 @@
     * TASK #59: use frontend user data for invoice/shipping address
     * TASK #64: use contacts adresses for invoice/shipping address
     * TASK #188: extract products from cart extension
+    * TASK #207: add tax identification number for billing address
+    * TASK #213: extend accept terms and condition checkboxes
+    * TASK #217: add FinisherInterface class and restructure finisher
+    * TASK #218: rename and move CartProductHook
+
+    and some more
 
 4.3.2
     2017-11-03

@@ -20,7 +20,7 @@ EXT: Cart
       |release|
 
    :Language:
-      en
+      en (de)
 
    :Description:
       Cart is an extension providing a shopping solution for TYPO3.
@@ -29,7 +29,7 @@ EXT: Cart
       cart, shop, shopping, e-commerce, ecommerce, checkout, payment
 
    :Copyright:
-      2017
+      2018
 
    :Author:
       Daniel Lorenz
@@ -45,7 +45,7 @@ EXT: Cart
       |today|
 
    The content of this document is related to TYPO3,
-   a GNU/GPL CMS/Framework available from `www.typo3.org <https://typo3.org/>`__.
+   a GNU/GPL CMS/Framework available from `www.typo3.org <https://typo3.org/>`_.
 
    **Table of Contents**
 

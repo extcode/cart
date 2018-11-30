@@ -3,54 +3,7 @@
 .. --------------------------------------------------
 .. -*- coding: utf-8 -*- with BOM.
 
-5.0.0 - 03.08.2018
+5.0.0 - 30.11.2018
 ------------------
 
-.. IMPORTANT::
-   **Please read the documentation carefully! Please make a backup of your filesystem and database!** If possible test the update in a test copy of your TYPO3 instance.
-
-Extracting products to an own cart_products extension
-====================================================
-
-In the last month, we had a lot of projects where we extending the product table
-to the customer needs. In some cases we come to the result that an own product model
-respecting the customer domain would be a better solution.
-So I decide to extract all product related code to an own extension. If you updating
-from Cart 4.x you have to install the cart_products extension as well.
-
-Steps:
-
--
--
--
--
-
-Sortierung von Frontend- und Backendvarianten
-==================================================
-
-In der Produktkonfiguration können die Frontend und Backendvarianten sortiert werden.
-
-.. IMPORTANT::
-   Es ist eine Aktualisierung der Datenbank erforderlich. Da dieses Feld neu hinzu kommt sind keine Probleme zu erwarten.
-
-Speichern des Rechungs- und Versandländercodes in den Bestelldaten
-=======================================================================
-
-In der Bestellung werden nun die Ländercodes aus dem TypoScript gespeichert, um in der späteren Verarbeitung auf die
-richtige Konfiguration zugreifen zu können.
-
-.. IMPORTANT::
-   Es ist eine Aktualisierung der Datenbank erforderlich. Da dieses Feld neu hinzu kommt sind keine Probleme zu erwarten.
-
-#59 und #64 Füllen der Rechnungs- und Lieferadresse mit Nutzerdaten
-===================================================================
-
-In der showCartAction des Warenkorbplugins wird nun ein Hook *showCartActionAfterCartWasLoaded* bereitgestellt, der
-es erlaubt, neben zusätzlichen Änderungen im Warenkorb auch die Rechnungs- und Lieferadresse mit Daten eines
-eingeloggten Nutzers vorauszufüllen.
-
-.. IMPORTANT::
-   Ein Vorausfüllen der Adressfelder mit Daten aus einem eingeloggten Frontend Benutzer wird es nicht geben.
-   Zum einen ist das nicht in jedem Fall gewünscht, zum anderen müsste das FrontendUser Model erweitert werden,
-   um alle relevanten Daten eines Nutzers speichern zu können. Oft werden diese Felder schon an anderer Stelle
-   bereitgestellt.
+The version 5.0.0 is a release for TYPO3 v8.7 only and skipped for TYPO3 v9. `Release information for 6.0.0 - 30.11.2018 <6.0.0.html>`_.

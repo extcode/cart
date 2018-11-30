@@ -3,13 +3,11 @@
 .. --------------------------------------------------
 .. -*- coding: utf-8 -*- with BOM.
 
-Administrator Manual
-====================
+Cart Configuration
+==================
 
 .. toctree::
    :maxdepth: 5
    :titlesonly:
 
-   Installation/Index
-   Configuration/Index
-   Snippets/Index
+   Checkbox/Index

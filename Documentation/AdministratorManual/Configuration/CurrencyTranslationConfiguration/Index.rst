@@ -24,8 +24,8 @@ TypoScript konfigurieren.
         }
     }
 
-plugin.tx_cart.settings.currency.default
-""""""""""""""""""""""""""""""""""""""""
+settings.currency.default
+"""""""""""""""""""""""""
 .. container:: table-row
 
    Property
@@ -37,8 +37,8 @@ plugin.tx_cart.settings.currency.default
    Default
       1
 
-plugin.tx_cart.settings.currency.n
-""""""""""""""""""""""""""""""""""
+settings.currency.n
+"""""""""""""""""""
 .. container:: table-row
 
    Property
@@ -48,8 +48,8 @@ plugin.tx_cart.settings.currency.n
    Description
       Liste der verschiedenen verfügbaren Währungen
 
-plugin.tx_cart.settings.currency.n.code
-"""""""""""""""""""""""""""""""""""""""
+settings.currency.n.code
+""""""""""""""""""""""""
 .. container:: table-row
 
    Property
@@ -62,8 +62,8 @@ plugin.tx_cart.settings.currency.n.code
    Default
       EUR
 
-plugin.tx_cart.settings.currency.n.sign
-"""""""""""""""""""""""""""""""""""""""
+settings.currency.n.sign
+""""""""""""""""""""""""
 .. container:: table-row
 
    Property
@@ -75,8 +75,8 @@ plugin.tx_cart.settings.currency.n.sign
    Default
       €
 
-plugin.tx_cart.settings.currency.n.translation
-""""""""""""""""""""""""""""""""""""""""""""""
+currency.n.translation
+""""""""""""""""""""""
 .. container:: table-row
 
    Property

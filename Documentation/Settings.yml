@@ -1,0 +1,10 @@
+# This is the project specific Settings.yml file.
+# Place Sphinx specific build information here.
+# Settings given here will replace the settings of 'conf.py'.
+
+---
+conf.py:
+  copyright: 2013-2021
+  project: Cart
+  version: 6.0
+  release: 6.0.0

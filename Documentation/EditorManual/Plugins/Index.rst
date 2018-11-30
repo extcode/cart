@@ -7,10 +7,9 @@ Plugins
 =======
 
 .. toctree::
-        :maxdepth: 5
-        :titlesonly:
+   :maxdepth: 5
+   :titlesonly:
 
-        Product/Index
-        Cart/Index
-        MiniCart/Index
-        Order/Index
+   Cart/Index
+   MiniCart/Index
+   Order/Index
