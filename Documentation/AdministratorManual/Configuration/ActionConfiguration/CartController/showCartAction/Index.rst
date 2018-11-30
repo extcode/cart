@@ -34,6 +34,9 @@ showCartAction-Konfiguration
        }
    }
 
+settings.showCartAction.showPartials.paymentMethodForm
+""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 .. container:: table-row
 
    Property
@@ -45,6 +48,10 @@ showCartAction-Konfiguration
    Default
       true
 
+
+settings.showCartAction.showPartials.shippingMethodForm
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 .. container:: table-row
 
    Property
@@ -55,6 +62,9 @@ showCartAction-Konfiguration
       Aktiviert/Deaktiviert die Darstellung und Auswahl der konfigurierten Bezahlmethoden im Warenkorb.
    Default
       true
+
+settings.showCartAction.showPartials.couponForm
+"""""""""""""""""""""""""""""""""""""""""""""""
 
 .. container:: table-row
 

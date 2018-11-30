@@ -7,9 +7,8 @@ Module
 ======
 
 .. toctree::
-        :maxdepth: 5
-        :titlesonly:
+   :maxdepth: 5
+   :titlesonly:
 
-        Orders/Index
-        OrderStatistics/Index
-        Products/Index
+   Orders/Index
+   OrderStatistics/Index

@@ -11,5 +11,4 @@ Datensätze
    :titlesonly:
 
    Orders/Index
-   Products/Index
    Coupons/Index

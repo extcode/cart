@@ -3,17 +3,18 @@
 .. --------------------------------------------------
 .. -*- coding: utf-8 -*- with BOM.
 
-Konfiguration
+Configuration
 =============
 
 .. toctree::
    :maxdepth: 5
    :titlesonly:
 
-   MainConfiguration/Index
+   Main/Index
+   Cart/Index
+   Order/Index
    PaymentMethods/Index
    ShippingMethods/Index
-   MailConfiguration/Index
    CurrencyTranslationConfiguration/Index
    ActionConfiguration/Index
    FormatConfiguration/Index

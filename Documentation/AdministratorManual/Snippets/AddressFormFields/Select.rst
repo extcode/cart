@@ -10,11 +10,11 @@ Die Eingabefelder für die Rechnungs- und Lieferadresse sind alles normale einze
 Das ist recht einfach möglich. Das Beispiel zeigt die Lösung mit einer neuen Konfiguration über TypoScript. Es könnte aber auch einfach über ein Array im Fluid-Template umgesetzt werden.
 
 .. figure:: ../../../Images/Screenshots/AddressFormFields.png
-    :width: 320
+   :width: 320
    :alt: Beispiel mit DropDown-Auswahl für Anrede und Land
 
 
-    Als erstes legt man eine neue Konfiguration an:
+Als erstes legt man eine neue Konfiguration an:
 
 ::
 

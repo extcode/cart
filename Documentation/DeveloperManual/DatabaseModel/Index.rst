@@ -22,16 +22,6 @@ Die Funktionen werden im Warenkorb nicht benötigt.
 
 *ER Diagram*
 
-Produkten (Product)
--------------------
-
-Die Modelle im Verzeichnis Product werden für die Repräsentation der Produkte benötigt. Produkte (Product) können durch
-Varianten (Variant) und FeVarianten (FeVariant) angepasst werden. Weiterhin können Produkte sogenannte
-Streichpreise (SpecialPrice) haben. Coupons (Coupon) gehören nicht direkt zum Produkt, werden aber auf Seite der
-Produkte verwaltet.
-
-*ER Diagram*
-
 Bestellungen (Order)
 --------------------
 

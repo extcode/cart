@@ -29,11 +29,11 @@ Download and install the extension with the extension manager module.
 
 ### 2.2 Upgrade
 
-Attention, Cart version 5.x brings a lot of features and changes.
+**Attention**, Cart version 5.x brings a lot of features and changes.
 Not all changes are fully documented. Some of the changes may breaking your
 shop integration. especially when you extend Cart with own features.
 
-**Please read the documentation carefully! Please make a backup of your filesystem
+**If upgrading from cart version 4.8.1 or earlier: Please read the documentation very carefully! Please make a backup of your filesystem
 and database!** If possible test the update in a test copy of your TYPO3 instance.
 
 ## 3. Administration
@@ -42,7 +42,7 @@ and database!** If possible test the update in a test copy of your TYPO3 instanc
 
 | Cart          | TYPO3      | PHP       | Support/Development                     |
 | ------------- | ---------- | ----------|---------------------------------------- |
-| 6.x.x         | 9.x        | 7.2       | Features, Bugfixes, Security Updates    |
+| 6.x.x         | 9.5        | 7.2       | Features, Bugfixes, Security Updates    |
 | 5.x.x         | 8.7        | 7.0 - 7.2 | Features _(in certain circumstances with feature toogle)_, Bugfixes, Security Updates    |
 | 4.x.x         | 7.6 - 8.7  | 5.6 - 7.2 | Bugfixes, Security Updates              |
 | 3.x.x         | 6.2 - 8.7  | 5.6 - 7.0 | Security Updates                        |
