@@ -136,6 +136,7 @@ ter-upload:
   stage: upload
   only:
     - tags
+  when: manual
   before_script:
     - apk --no-cache add git zlib-dev libxml2-dev
     - docker-php-ext-install mbstring zip soap
