@@ -22,25 +22,65 @@ namespace Extcode\Cart\ViewHelpers;
 class MapModelPropertiesToTableColumnsViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper
 {
     /**
+     * @var \TYPO3\CMS\Extbase\Object\ObjectManager
+     */
+    protected $objectManager;
+
+    /**
+     * @var \TYPO3\CMS\Extbase\Configuration\ConfigurationManager
+     */
+    protected $configurationManager;
+
+    /**
+     * @var array
+     */
+    protected $configuration;
+
+    /**
+     * Arguments initialization
+     */
+    public function initializeArguments()
+    {
+        parent::initializeArguments();
+
+        $this->registerArgument(
+            'class',
+            'string',
+            'class',
+            true
+        );
+        $this->registerArgument(
+            'table',
+            'string',
+            'table',
+            true
+        );
+        $this->registerArgument(
+            'data',
+            'string',
+            'data',
+            false
+        );
+    }
+
+    /**
      * render
      *
-     * @param string $class
-     * @param string $table
-     * @param object $data
      * @return array
      */
-    public function render($class = '', $table = '', $data)
+    public function render()
     {
-        $configurationManager = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Configuration\\ConfigurationManager');
-        $conf = $configurationManager->getConfiguration(
-            \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK
-        );
+        $class = $this->arguments['class'];
+        $table = $this->arguments['table'];
+        $data = $this->arguments['data'];
 
-        if (isset($conf['persistence']['classes'][$class]['mapping']) &&
-            $conf['persistence']['classes'][$class]['mapping']['tableName'] == $table
+        $this->getConfiguration();
+
+        if (isset($this->configuration['persistence']['classes'][$class]['mapping']) &&
+            $this->configuration['persistence']['classes'][$class]['mapping']['tableName'] == $table
         ) {
             $mapping = [];
-            foreach ($conf['persistence']['classes'][$class]['mapping']['columns'] as $tableColumn => $modelPropertyData) {
+            foreach ($this->configuration['persistence']['classes'][$class]['mapping']['columns'] as $tableColumn => $modelPropertyData) {
                 $modelProperty = $modelPropertyData['mapOnProperty'];
                 $mapping[$modelProperty] = $tableColumn;
             }
@@ -58,5 +98,18 @@ class MapModelPropertiesToTableColumnsViewHelper extends \TYPO3\CMS\Fluid\Core\V
         } else {
             return $data;
         }
+    }
+
+    protected function getConfiguration()
+    {
+        $this->objectManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(
+            \TYPO3\CMS\Extbase\Object\ObjectManager::class
+        );
+        $this->configurationManager = $this->objectManager->get(
+            \TYPO3\CMS\Extbase\Configuration\ConfigurationManager::class
+        );
+        $this->configuration = $this->configurationManager->getConfiguration(
+            \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK
+        );
     }
 }

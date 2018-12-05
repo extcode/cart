@@ -1,3 +1,9 @@
+6.0.1
+    2018-12-05
+    Daniel Lorenz <https://github.com/extcode>
+
+    * BUGFIX #222: initialize arguments in ViewHelper
+
 6.0.0
     2018-11-30
     Daniel Lorenz <https://github.com/extcode>

@@ -24,16 +24,45 @@ use TYPO3\CMS\Core\Utility\CsvUtility;
 class CsvValuesViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper
 {
     /**
+     * Arguments initialization
+     */
+    public function initializeArguments()
+    {
+        parent::initializeArguments();
+
+        $this->registerArgument(
+            'orderItem',
+            \Extcode\Cart\Domain\Model\Order\Item::class,
+            'orderItem',
+            true
+        );
+        $this->registerArgument(
+            'delim',
+            'string',
+            'delim',
+            false,
+            ','
+        );
+        $this->registerArgument(
+            'quote',
+            'string',
+            'quote',
+            false,
+            '"'
+        );
+    }
+
+    /**
      * Format OrderItem to CSV format
-     *
-     * @param \Extcode\Cart\Domain\Model\Order\Item $orderItem Order Item
-     * @param string $delim Delimiter
-     * @param string $quote Quote Style
      *
      * @return string
      */
-    public function render(\Extcode\Cart\Domain\Model\Order\Item $orderItem, $delim = ',', $quote = '"')
+    public function render()
     {
+        $orderItem = $this->arguments['orderItem'];
+        $delim = $this->arguments['delim'];
+        $quote = $this->arguments['quote'];
+
         $orderItemArr = [];
 
         $orderItemArr[] = $orderItem->getBillingAddress()->getSalutation();

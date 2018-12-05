@@ -24,14 +24,38 @@ use TYPO3\CMS\Core\Utility\CsvUtility;
 class CsvHeaderViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper
 {
     /**
+     * Arguments initialization
+     */
+    public function initializeArguments()
+    {
+        parent::initializeArguments();
+
+        $this->registerArgument(
+            'delim',
+            'string',
+            'delim',
+            false,
+            ','
+        );
+        $this->registerArgument(
+            'quote',
+            'string',
+            'quote',
+            false,
+            '"'
+        );
+    }
+
+    /**
      * Format OrderItem to CSV format
      *
-     * @param string $delim
-     * @param string $quote
      * @return string
      */
-    public function render($delim = ',', $quote = '"')
+    public function render()
     {
+        $delim = $this->arguments['delim'];
+        $quote = $this->arguments['quote'];
+
         $orderItemArr = [];
 
         $orderItemArr[] = 'FirstName';
