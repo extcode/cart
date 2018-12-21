@@ -1,13 +1,13 @@
 module.tx_cart {
     view {
         templateRootPaths {
-            0 = EXT:cart/Resources/Private/Backend/V8/Templates/
+            0 = EXT:cart/Resources/Private/Backend/Templates/
         }
         partialRootPaths {
-            0 = EXT:cart/Resources/Private/Backend/V8/Partials/
+            0 = EXT:cart/Resources/Private/Backend/Partials/
         }
         layoutRootPaths {
-            0 = EXT:cart/Resources/Private/Backend/V8/Layouts/
+            0 = EXT:cart/Resources/Private/Backend/Layouts/
         }
     }
 }
