@@ -3,6 +3,7 @@
     <file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2015-02-03T16:30:00Z" product-name="cart">
         <header/>
         <body>
+
             <trans-unit id="tx_cart.error.stock_handling.add">
                 <source>Desired number of this item not available.</source>
                 <target>Gewünschte Anzahl dieses Artikels nicht verfügbar.</target>
@@ -880,6 +881,12 @@
                 <source>Switzerland</source>
                 <target>Schweiz</target>
             </trans-unit>
+
+            <trans-unit id="tx_cart.add_to_cart_finisher.message.status.200.body">
+                <source>The product was added to cart.</source>
+                <target>Das Produkt wurde zum Warenkorb hinzugefügt.</target>
+            </trans-unit>
+
         </body>
     </file>
 </xliff>

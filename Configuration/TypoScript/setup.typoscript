@@ -390,3 +390,11 @@ lib.cartMailFooterImpress < temp.cartMailContentElement
 lib.cartMailFooterImpress {
     source = {$plugin.tx_cart.uids.lib.cartMailFooterImpress}
 }
+
+plugin.tx_form.settings.yamlConfigurations {
+    1543219101 = EXT:cart/Configuration/Yaml/FormSetup.yaml
+}
+
+module.tx_form.settings.yamlConfigurations {
+    1543219101 = EXT:cart/Configuration/Yaml/FormSetup.yaml
+}

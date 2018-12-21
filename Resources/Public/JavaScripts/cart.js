@@ -1,3 +1,58 @@
+// global function
+;(function (window, document, $, undefined) {
+    'use strict';
+
+    var W = $(window),
+        U = typeof undefined,
+        D = $(document),
+        toTopEl = '#to-top',
+        $navBar = $('.nav-bar');
+
+    W.scroll(function () {
+        // when scrolled, show to-top link
+        showToTopLink(W, toTopEl);
+    });
+
+    D.ready(function () {
+        $('[data-add-to-cart="form"]').click(function (e) {
+            e.preventDefault();
+            $.get(
+                $(this).attr('href'),
+                function(data){
+                    $('[data-add-to-cart="result"]').html(data);
+                });
+        });
+    });
+
+    D.ajaxComplete(function () {
+        $('[data-add-to-cart-uri]').submit(function (e) {
+            e.preventDefault();
+            $('[data-add-to-cart-uri]').unbind( "submit" );
+
+            var form = $(this);
+            var url = form.attr('data-add-to-cart-uri');
+
+            var data = new FormData( this );
+            var submitButton = $("button[type='submit']", form);
+            data.append($(submitButton).attr('name'), $(submitButton).attr('value'));
+
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: data,
+                processData: false,
+                contentType: false,
+                success: function(data)
+                {
+                    handleAddToCartSuccessResponse(form, data);
+                }
+            });
+
+        });
+    });
+
+}(window, document, jQuery));
+
 function updateCountry(billingCountry, shippingCountry) {
     var postParams = {
         "tx_cart_cart[billing_country]": billingCountry,
@@ -160,50 +215,54 @@ $.fn.serializeObject = function()
     return o;
 };
 
+function handleAddToCartSuccessResponse(form, data) {
+    var messageBlock;
+    var messageTimeout = form.find('[data-ajax-message-timeout]').data('ajax-message-timeout');
+
+    if (!messageTimeout) {
+        messageTimeout = 3000;
+    }
+
+    var response = JSON.parse(data);
+    if (response.status === "200") {
+        $("#cart-preview .cart-preview-count").html(response.count);
+        $("#cart-preview .net").html(response.net);
+        $("#cart-preview .gross").html(response.gross);
+
+        if (response.count > 0) {
+            $("#link-to-checkout").show();
+        } else {
+            $("#link-to-checkout").hide();
+        }
+
+        $(document).trigger("status.cartWasChanged", [true]);
+
+        form.each(function () {
+            this.reset();
+        });
+
+        form.find('[data-ajax-success-message]').html(response.messageBody);
+        form.find('[data-ajax-success-block]').show().delay(messageTimeout).fadeOut("slow");
+    } else {
+        form.find('[data-ajax-error-message]').html(response.messageBody);
+        form.find('[data-ajax-error-block]').show().delay(messageTimeout).fadeOut("slow");
+    }
+}
+
 $("[data-ajax='1']").submit(function(e) {
-    var $form = $(this);
-    var serializedObject = $form.serializeObject();
+    var form = $(this);
+    var serializedObject = form.serializeObject();
 
     $.ajax({
         async: "true",
-        url: $form.attr("action"),
+        url: form.attr("action"),
         type: "POST",
 
         data: serializedObject,
 
         success: function(data)
         {
-            var messageBlock;
-            var messageTimeout = $form.find('[data-ajax-message-timeout]').data('ajax-message-timeout');
-
-            if (!messageTimeout) {
-                messageTimeout = 3000;
-            }
-
-            var response = JSON.parse(data);
-            if (response.status === "200") {
-                $("#cart-preview .cart-preview-count").html(response.count);
-                $("#cart-preview .net").html(response.net);
-                $("#cart-preview .gross").html(response.gross);
-
-                if (response.count > 0) {
-                    $("#link-to-checkout").show();
-                } else {
-                    $("#link-to-checkout").hide();
-                }
-
-                $(document).trigger("status.cartWasChanged",[true]);
-
-                $form.each(function(){
-                    this.reset();
-                });
-
-                $form.find('[data-ajax-success-message]').html(response.messageBody);
-                $form.find('[data-ajax-success-block]').show().delay(messageTimeout).fadeOut("slow");
-            } else {
-                $form.find('[data-ajax-error-message]').html(response.messageBody);
-                $form.find('[data-ajax-error-block]').show().delay(messageTimeout).fadeOut("slow");
-            }
+            handleAddToCartSuccessResponse(form, data);
         }
     });
 
