@@ -1,0 +1,41 @@
+TYPO3:
+  CMS:
+    Form:
+      prototypes:
+        cart:
+          __inheritances:
+            10: 'TYPO3.CMS.Form.prototypes.standard'
+          finishersDefinition:
+            AddToCart:
+              implementationClassName: 'Extcode\Cart\Domain\Finisher\Form\AddToCartFinisher'
+              formEditor:
+                iconIdentifier: 't3-form-icon-finisher'
+                label: 'AddToCart'
+                predefinedDefaults:
+                  options: [ ]
+          formElementsDefinition:
+            Form:
+              formEditor:
+                editors:
+                  900:
+                    selectOptions:
+                      10: null
+                      20: null
+                      30: null
+                      40: null
+                      50: null
+                      60: null
+
+                propertyCollections:
+                  finishers:
+                    500:
+                      identifier: 'AddToCart'
+                      editors:
+                        __inheritances:
+                          10: 'TYPO3.CMS.Form.mixins.formElementMixins.BaseCollectionEditorsMixin'
+                        181:
+                          label: 'AddToCart'
+                        9999: null
+              renderingOptions:
+                templateRootPaths:
+                  1543219101: 'EXT:cart/Resources/Private/Extensions/form/Frontend/Templates/'

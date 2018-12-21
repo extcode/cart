@@ -12,6 +12,7 @@ use Extcode\Cart\Utility\TemplateLayout;
 use TYPO3\CMS\Backend\Utility\BackendUtility as BackendUtilityCore;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\StringUtility;
+use TYPO3\CMS\Extbase\Object\ObjectManager;
 
 /**
  * Userfunc to render alternative label for media elements
@@ -51,6 +52,34 @@ class ItemsProcFunc
                     $layout[1]
                 ];
                 array_push($config['items'], $additionalLayout);
+            }
+        }
+    }
+
+    public function user_formDefinition(array &$config)
+    {
+        if ($config['field'] !== 'form_definition') {
+            return;
+        }
+
+        $prototypeName = 'cart';
+        if (is_array($config['config']['itemsProcFuncConfig']) && !empty($config['config']['itemsProcFuncConfig']['prototypeName'])) {
+            $prototypeName = $config['config']['itemsProcFuncConfig']['prototypeName'];
+        }
+
+        $formPersistenceManager = GeneralUtility::makeInstance(ObjectManager::class)->get(
+            \TYPO3\CMS\Form\Mvc\Persistence\FormPersistenceManager::class
+        );
+        $availableForms = $formPersistenceManager->listForms();
+
+        foreach ($availableForms as $availableForm) {
+            $form = $formPersistenceManager->load($availableForm['persistenceIdentifier']);
+
+            if ($form['prototypeName'] === $prototypeName) {
+                $config['items'][] = [
+                    0 => $availableForm['name'],
+                    1 => $availableForm['persistenceIdentifier']
+                ];
             }
         }
     }
