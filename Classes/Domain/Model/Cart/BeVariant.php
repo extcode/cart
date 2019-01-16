@@ -897,7 +897,7 @@ class BeVariant
     /**
      * @param \Extcode\Cart\Domain\Model\Cart\BeVariant $newBeVariant
      */
-    public function addBeVariant(\Extcode\Cart\Domain\Model\Cart\BeVariant $newBeVariant)
+    public function addBeVariant(self $newBeVariant)
     {
         $newBeVariantId = $newBeVariant->getId();
 
