@@ -3,7 +3,7 @@
 .. --------------------------------------------------
 .. -*- coding: utf-8 -*- with BOM.
 
-6.1.0 - 21.12.2018
+5.1.0 - 21.12.2018
 ------------------
 
 In order to allow to individualize products when adding them to the cart, a new addToCart finisher for the form framework
