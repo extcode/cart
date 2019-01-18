@@ -2,6 +2,7 @@
     2019-01-18
     Daniel Lorenz <https://github.com/extcode>
 
+    * BUGFIX #229: parse payment and shipping method for updating currency
     * BUGFIX #228: fix javascript variable update_country in template
     * BUGFIX #227: unit tests fails on self_accessor
 
