@@ -56,6 +56,8 @@ class CurrencyController extends ActionController
         } elseif (isset($_GET['type']) && intval($_GET['type']) == 2278001) {
             $this->view->assign('cart', $this->cart);
 
+            $this->parseData();
+
             $assignArguments = [
                 'shippings' => $this->shippings,
                 'payments' => $this->payments,
