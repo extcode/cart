@@ -1,0 +1,12 @@
+.. ==================================================
+.. FOR YOUR INFORMATION
+.. --------------------------------------------------
+.. -*- coding: utf-8 -*- with BOM.
+
+5.0.1 - 21.12.2018
+------------------
+
+All Changes
+===========
+
+    2018-12-21 [BUGFIX] missing template for order statistic module (by extcode)

@@ -1,0 +1,15 @@
+.. ==================================================
+.. FOR YOUR INFORMATION
+.. --------------------------------------------------
+.. -*- coding: utf-8 -*- with BOM.
+
+5.1.2 - 21.12.2018
+------------------
+
+All Changes
+===========
+
+    2019-01-19 [TASK] Remove ChangeLog file and add an rst (by extcode)
+    2019-01-18 [BUGFIX] parse payment and shipping method for updating currency (by extcode)
+    2019-01-18 [BUGFIX] fix javascript variable update_country in template (by extcode)
+    2019-01-18 [BUGFIX] unit tests fails on self_accessor (by extcode)
