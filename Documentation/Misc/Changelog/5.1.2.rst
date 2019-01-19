@@ -9,6 +9,7 @@
 All Changes
 ===========
 
+    2019-01-19 [BUGFIX] Show mail address configuration in cart plugin flexform (by extcode)
     2019-01-19 [BUGFIX] Fix controller name in plugin configuration (by extcode)
     2019-01-19 [TASK] Remove ChangeLog file and add an rst (by extcode)
     2019-01-18 [BUGFIX] parse payment and shipping method for updating currency (by extcode)
