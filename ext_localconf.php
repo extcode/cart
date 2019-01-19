@@ -49,10 +49,10 @@ defined('TYPO3_MODE') or die();
     'Extcode.cart',
     'Currency',
     [
-        'Cart/Currency' => 'edit, update',
+        'Cart\Currency' => 'edit, update',
     ],
     [
-        'Cart/Currency' => 'edit, update',
+        'Cart\Currency' => 'edit, update',
     ]
 );
 
@@ -60,10 +60,10 @@ defined('TYPO3_MODE') or die();
     'Extcode.cart',
     'Order',
     [
-        'Order' => 'list, show',
+        'Order\Order' => 'list, show',
     ],
     [
-        'Order' => 'list, show',
+        'Order\Order' => 'list, show',
     ]
 );
 
