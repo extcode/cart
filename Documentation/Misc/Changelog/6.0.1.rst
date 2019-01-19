@@ -1,0 +1,12 @@
+.. ==================================================
+.. FOR YOUR INFORMATION
+.. --------------------------------------------------
+.. -*- coding: utf-8 -*- with BOM.
+
+6.0.1 - 05.12.2018
+------------------
+
+All Changes
+===========
+
+    2018-12-05 [BUGFIX] initialize arguments in ViewHelper (by extcode)

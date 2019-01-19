@@ -12,3 +12,8 @@ cart product. They have no intended impact on the price or stock handling.
 
 This feature supports all product extension but it's implemented for cart_events first. It allows to use different forms
 to get some more information from the participants like first and last name, twitter handle or preferred food.
+
+All Changes
+===========
+
+    2018-12-21 [FEATURE] add addToCart form framework finisher (by extcode)
