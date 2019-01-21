@@ -9,4 +9,4 @@
 All Changes
 ===========
 
-    2018-12-05 [BUGFIX] initialize arguments in ViewHelper (by extcode)
+   - 2018-12-05 [BUGFIX] initialize arguments in ViewHelper (by extcode)
