@@ -9,5 +9,6 @@
 All Changes
 ===========
 
-    2019-01-21 [BUGFIX] Fix accept_terms_and_conditions label (by oliverbeck)
-    2019-01-21 [TASK] Add ViewHelper to show additionalData in views (by extcode)
+   - 2019-01-21 [BUGFIX] Fix list of changes in changelog (by extcode)
+   - 2019-01-21 [BUGFIX] Fix accept_terms_and_conditions label (by oliverbeck)
+   - 2019-01-21 [TASK] Add ViewHelper to show additionalData in views (by extcode)
