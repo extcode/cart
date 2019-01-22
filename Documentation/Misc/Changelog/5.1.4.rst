@@ -1,0 +1,12 @@
+.. ==================================================
+.. FOR YOUR INFORMATION
+.. --------------------------------------------------
+.. -*- coding: utf-8 -*- with BOM.
+
+5.1.4 - 22.01.2018
+------------------
+
+All Changes
+===========
+
+   - 2019-01-22 [BUGFIX] Fix BaseCollectionEditorsMixin error in form setup (by extcode)
