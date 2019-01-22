@@ -31,11 +31,10 @@ TYPO3:
                     500:
                       identifier: 'AddToCart'
                       editors:
-                        __inheritances:
-                          10: 'TYPO3.CMS.Form.mixins.formElementMixins.BaseCollectionEditorsMixin'
-                        181:
+                        100:
+                          identifier: 'header'
+                          templateName: 'Inspector-CollectionElementHeaderEditor'
                           label: 'AddToCart'
-                        9999: null
               renderingOptions:
                 templateRootPaths:
                   1543219101: 'EXT:cart/Resources/Private/Extensions/form/Frontend/Templates/'
