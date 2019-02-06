@@ -745,6 +745,11 @@
                 <source>Thank you for your order.</source>
                 <target>Vielen Dank für Ihre Bestellung.</target>
             </trans-unit>
+            <trans-unit id="tx_cart.controller.order.action.order_cart.thank_you_order_number">
+                <source>Your order number is: %1$s</source>
+                <target>Ihre Bestellnummer lautet: %1$s</target>
+            </trans-unit>
+
             <trans-unit id="tx_cart.mail.order_summary">
                 <source>Order Summary</source>
                 <target>Bestellübersicht</target>
