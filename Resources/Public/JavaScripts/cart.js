@@ -8,11 +8,6 @@
         toTopEl = '#to-top',
         $navBar = $('.nav-bar');
 
-    W.scroll(function () {
-        // when scrolled, show to-top link
-        showToTopLink(W, toTopEl);
-    });
-
     D.ready(function () {
         $('[data-add-to-cart="form"]').click(function (e) {
             e.preventDefault();
