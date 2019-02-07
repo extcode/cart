@@ -51,7 +51,7 @@ and database!** If possible test the update in a test copy of your TYPO3 instanc
 
 ### 3.2. Changelog
 
-Please have a look into the [official extension documentation in changelog chapter](https://docs.typo3.org/typo3cms/extensions/cart/Misc/Changelog/Index.html)
+Please have a look into the [official extension documentation in changelog chapter](https://docs.typo3.org/typo3cms/extensions/cart/Changelog/Index.html)
 
 ### 3.3. Release Management
 

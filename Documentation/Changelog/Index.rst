@@ -3,7 +3,13 @@
 .. --------------------------------------------------
 .. -*- coding: utf-8 -*- with BOM.
 
-1.0.0 - 16.08.2016
-------------------
+ChangeLog
+=========
 
-Erste Veröffentlichung der Erweiterung im TER.
+.. toctree::
+   :maxdepth: 5
+   :titlesonly:
+
+   6.1
+   6.0
+   5.0

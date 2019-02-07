@@ -57,4 +57,4 @@ EXT: Cart
    EditorManual/Index
    DeveloperManual/Index
    AdministratorManual/Index
-   Misc/Index
+   Changelog/Index

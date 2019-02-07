@@ -1,9 +1,0 @@
-.. ==================================================
-.. FOR YOUR INFORMATION
-.. --------------------------------------------------
-.. -*- coding: utf-8 -*- with BOM.
-
-0.21.1 - 21.07.2016
--------------------
-
-Diese Version führt travis-ci.org für das automatisierte Testen ein. Damit sollen die Tests mit jedem Commit in allen unterstützten TYPO3 Versionen abgedeckt werden.
