@@ -3,8 +3,8 @@
 .. --------------------------------------------------
 .. -*- coding: utf-8 -*- with BOM.
 
-5.0.0 - 30.11.2018
-------------------
+6.0 Changes
+===========
 
 .. IMPORTANT::
    **If upgrading from cart version 4.8.1 or earlier: Please read the documentation very carefully! Please make a backup of your filesystem and database!** If possible test the update in a test copy of your TYPO3 instance.
