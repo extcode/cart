@@ -137,16 +137,12 @@ class OrderController extends ActionController
         $billingAddress->setPid($storagePid);
         $orderItem->setBillingAddress($billingAddress);
 
-        if ($this->request->hasArgument('shipping_same_as_billing')) {
-            $useSameAddress = $this->request->getArgument('shipping_same_as_billing');
-
-            if ($useSameAddress === 'true') {
-                $shippingAddress = null;
-                $orderItem->removeShippingAddress();
-            } else {
-                $shippingAddress->setPid($storagePid);
-                $orderItem->setShippingAddress($shippingAddress);
-            }
+        if ($this->cart->isShippingSameAsBilling()) {
+            $shippingAddress = null;
+            $orderItem->removeShippingAddress();
+        } else {
+            $shippingAddress->setPid($storagePid);
+            $orderItem->setShippingAddress($shippingAddress);
         }
 
         $this->invokeFinishers($orderItem);
