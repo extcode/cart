@@ -175,6 +175,10 @@ class CartUtility
             $billingCountry = $request->getArgument('billing_country');
         }
 
+        if ($request->hasArgument('shipping_same_as_billing')) {
+            $shippingSameAsBilling = $request->getArgument('shipping_same_as_billing') === 'true';
+        }
+
         if ($request->hasArgument('shipping_country')) {
             $shippingCountry = $request->getArgument('shipping_country');
         }
@@ -183,6 +187,7 @@ class CartUtility
             'cart' => $cart,
             'billingCountry' => $billingCountry,
             'shippingCountry' => $shippingCountry,
+            'shippingSameAsBilling' => $shippingSameAsBilling,
         ];
 
         $signalSlotDispatcher = $this->objectManager->get(
@@ -195,6 +200,7 @@ class CartUtility
         );
 
         $cart->setBillingCountry($billingCountry);
+        $cart->setShippingSameAsBilling($shippingSameAsBilling);
         $cart->setShippingCountry($shippingCountry);
 
         $sessionHandler->write($cart, $cartSettings['pid']);
@@ -286,6 +292,7 @@ class CartUtility
 
         if ($defaultCountry) {
             $cart->setBillingCountry($defaultCountry);
+            $cart->setShippingCountry($defaultCountry);
         }
 
         $this->setShipping($pluginSettings, $cart);

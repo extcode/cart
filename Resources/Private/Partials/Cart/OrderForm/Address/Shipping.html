@@ -2,7 +2,7 @@
       xmlns:cart="http://typo3.org/ns/Extcode/Cart/ViewHelpers"
       data-namespace-typo3-fluid="true">
 
-<div id="checkout-step-shipping-address" class="checkout-step bg-light-grey" style="{f:if(condition:'{cart.shippingCountry}', then:'', else:'display: none;')}" data-ajax-country data-ajax-currency>
+<div id="checkout-step-shipping-address" class="checkout-step bg-light-grey" style="{f:if(condition:'{cart.shippingSameAsBilling}', then:'display: none;')}" data-ajax-country data-ajax-currency>
     <h5 class="checkout-step-title">
         <span class="checkout-step-number"></span>
         <span><f:translate key="tx_cart.controller.order.action.show_cart.block-header.shipping_address"/></span>
@@ -25,7 +25,7 @@
                                                           name="shippingAddress[salutation]"
                                                           value="{shippingAddress.salutation}"
                                                           required="true"
-                                                          disabled="true"
+                                                          disabled="{f:if(condition:'{cart.shippingSameAsBilling}', then:'true')}"
                                                           data="{disable-shipping:'true'}"/>
                                         <f:form.validationResults for="shippingAddress">
                                             <f:if condition="{validationResults.flattenedErrors.salutation}">
@@ -43,7 +43,7 @@
                                                           class="form-control"
                                                           name="shippingAddress[salutation]"
                                                           value="{shippingAddress.salutation}"
-                                                          disabled="true"
+                                                          disabled="{f:if(condition:'{cart.shippingSameAsBilling}', then:'true')}"
                                                           data="{disable-shipping:'true'}"/>
                                     </div>
                                 </f:else>
@@ -65,7 +65,7 @@
                                                           name="shippingAddress[title]"
                                                           value="{shippingAddress.title}"
                                                           required="true"
-                                                          disabled="true"
+                                                          disabled="{f:if(condition:'{cart.shippingSameAsBilling}', then:'true')}"
                                                           data="{disable-shipping:'true'}"/>
                                         <f:form.validationResults for="shippingAddress">
                                             <f:if condition="{validationResults.flattenedErrors.title}">
@@ -83,7 +83,7 @@
                                                           class="form-control"
                                                           name="shippingAddress[title]"
                                                           value="{shippingAddress.title}"
-                                                          disabled="true"
+                                                          disabled="{f:if(condition:'{cart.shippingSameAsBilling}', then:'true')}"
                                                           data="{disable-shipping:'true'}"/>
                                     </div>
                                 </f:else>
@@ -105,7 +105,7 @@
                                                           name="shippingAddress[firstName]"
                                                           value="{shippingAddress.firstName}"
                                                           required="true"
-                                                          disabled="true"
+                                                          disabled="{f:if(condition:'{cart.shippingSameAsBilling}', then:'true')}"
                                                           data="{disable-shipping:'true'}"/>
                                         <f:form.validationResults for="shippingAddress">
                                             <f:if condition="{validationResults.flattenedErrors.firstName}">
@@ -123,7 +123,7 @@
                                                           class="form-control"
                                                           name="shippingAddress[firstName]"
                                                           value="{shippingAddress.firstName}"
-                                                          disabled="true"
+                                                          disabled="{f:if(condition:'{cart.shippingSameAsBilling}', then:'true')}"
                                                           data="{disable-shipping:'true'}"/>
                                     </div>
                                 </f:else>
@@ -145,7 +145,7 @@
                                                           name="shippingAddress[lastName]"
                                                           value="{shippingAddress.lastName}"
                                                           required="true"
-                                                          disabled="true"
+                                                          disabled="{f:if(condition:'{cart.shippingSameAsBilling}', then:'true')}"
                                                           data="{disable-shipping:'true'}"/>
                                         <f:form.validationResults for="shippingAddress">
                                             <f:if condition="{validationResults.flattenedErrors.lastName}">
@@ -163,7 +163,7 @@
                                                           class="form-control"
                                                           name="shippingAddress[lastName]"
                                                           value="{shippingAddress.lastName}"
-                                                          disabled="true"
+                                                          disabled="{f:if(condition:'{cart.shippingSameAsBilling}', then:'true')}"
                                                           data="{disable-shipping:'true'}"/>
                                     </div>
                                 </f:else>
@@ -187,7 +187,7 @@
                                                       value="{shippingAddress.email}"
                                                       type="email"
                                                       required="true"
-                                                      disabled="true"
+                                                      disabled="{f:if(condition:'{cart.shippingSameAsBilling}', then:'true')}"
                                                       data="{disable-shipping:'true'}"/>
                                     <f:form.validationResults for="shippingAddress">
                                         <f:if condition="{validationResults.flattenedErrors.email}">
@@ -206,7 +206,7 @@
                                                       name="shippingAddress[email]"
                                                       value="{shippingAddress.email}"
                                                       type="email"
-                                                      disabled="true"
+                                                      disabled="{f:if(condition:'{cart.shippingSameAsBilling}', then:'true')}"
                                                       data="{disable-shipping:'true'}"/>
                                 </div>
                             </f:else>
@@ -229,7 +229,7 @@
                                                       value="{shippingAddress.phone}"
                                                       type="phone"
                                                       required="true"
-                                                      disabled="true"
+                                                      disabled="{f:if(condition:'{cart.shippingSameAsBilling}', then:'true')}"
                                                       data="{disable-shipping:'true'}"/>
                                     <f:form.validationResults for="shippingAddress">
                                         <f:if condition="{validationResults.flattenedErrors.phone}">
@@ -248,7 +248,7 @@
                                                       name="shippingAddress[phone]"
                                                       value="{shippingAddress.phone}"
                                                       type="phone"
-                                                      disabled="true"
+                                                      disabled="{f:if(condition:'{cart.shippingSameAsBilling}', then:'true')}"
                                                       data="{disable-shipping:'true'}"/>
                                 </div>
                             </f:else>
@@ -271,7 +271,7 @@
                                                       value="{shippingAddress.fax}"
                                                       type="fax"
                                                       required="true"
-                                                      disabled="true"
+                                                      disabled="{f:if(condition:'{cart.shippingSameAsBilling}', then:'true')}"
                                                       data="{disable-shipping:'true'}"/>
                                     <f:form.validationResults for="shippingAddress">
                                         <f:if condition="{validationResults.flattenedErrors.fax}">
@@ -290,7 +290,7 @@
                                                       name="shippingAddress[fax]"
                                                       value="{shippingAddress.fax}"
                                                       type="fax"
-                                                      disabled="true"
+                                                      disabled="{f:if(condition:'{cart.shippingSameAsBilling}', then:'true')}"
                                                       data="{disable-shipping:'true'}"/>
                                 </div>
                             </f:else>
@@ -312,7 +312,7 @@
                                                       name="shippingAddress[company]"
                                                       value="{shippingAddress.company}"
                                                       required="true"
-                                                      disabled="true"
+                                                      disabled="{f:if(condition:'{cart.shippingSameAsBilling}', then:'true')}"
                                                       data="{disable-shipping:'true'}"/>
                                     <f:form.validationResults for="shippingAddress">
                                         <f:if condition="{validationResults.flattenedErrors.company}">
@@ -330,7 +330,7 @@
                                                       class="form-control"
                                                       name="shippingAddress[company]"
                                                       value="{shippingAddress.company}"
-                                                      disabled="true"
+                                                      disabled="{f:if(condition:'{cart.shippingSameAsBilling}', then:'true')}"
                                                       data="{disable-shipping:'true'}"/>
                                 </div>
                             </f:else>
@@ -356,7 +356,7 @@
                                                                       name="shippingAddress[street]"
                                                                       value="{shippingAddress.street}"
                                                                       required="true"
-                                                                      disabled="true"
+                                                                      disabled="{f:if(condition:'{cart.shippingSameAsBilling}', then:'true')}"
                                                                       data="{disable-shipping:'true'}"/>
                                                     <f:form.validationResults for="shippingAddress">
                                                         <f:if condition="{validationResults.flattenedErrors.street}">
@@ -374,7 +374,7 @@
                                                                       class="form-control"
                                                                       name="shippingAddress[street]"
                                                                       value="{shippingAddress.street}"
-                                                                      disabled="true"
+                                                                      disabled="{f:if(condition:'{cart.shippingSameAsBilling}', then:'true')}"
                                                                       data="{disable-shipping:'true'}"/>
                                                 </div>
                                             </f:else>
@@ -393,7 +393,7 @@
                                                                       name="shippingAddress[streetNumber]"
                                                                       value="{shippingAddress.streetNumber}"
                                                                       required="true"
-                                                                      disabled="true"
+                                                                      disabled="{f:if(condition:'{cart.shippingSameAsBilling}', then:'true')}"
                                                                       data="{disable-shipping:'true'}"/>
                                                     <f:form.validationResults for="shippingAddress">
                                                         <f:if condition="{validationResults.flattenedErrors.streetNumber}">
@@ -411,7 +411,7 @@
                                                                       class="form-control"
                                                                       name="shippingAddress[streetNumber]"
                                                                       value="{shippingAddress.streetNumber}"
-                                                                      disabled="true"
+                                                                      disabled="{f:if(condition:'{cart.shippingSameAsBilling}', then:'true')}"
                                                                       data="{disable-shipping:'true'}"/>
                                                 </div>
                                             </f:else>
@@ -436,7 +436,7 @@
                                                                       name="shippingAddress[street]"
                                                                       value="{shippingAddress.street}"
                                                                       required="true"
-                                                                      disabled="true"
+                                                                      disabled="{f:if(condition:'{cart.shippingSameAsBilling}', then:'true')}"
                                                                       data="{disable-shipping:'true'}"/>
                                                     <f:form.validationResults for="shippingAddress">
                                                         <f:if condition="{validationResults.flattenedErrors.street}">
@@ -454,7 +454,7 @@
                                                                       class="form-control"
                                                                       name="shippingAddress[street]"
                                                                       value="{shippingAddress.street}"
-                                                                      disabled="true"
+                                                                      disabled="{f:if(condition:'{cart.shippingSameAsBilling}', then:'true')}"
                                                                       data="{disable-shipping:'true'}"/>
                                                 </div>
                                             </f:else>
@@ -481,7 +481,7 @@
                                                                   name="shippingAddress[zip]"
                                                                   value="{shippingAddress.zip}"
                                                                   required="true"
-                                                                  disabled="true"
+                                                                  disabled="{f:if(condition:'{cart.shippingSameAsBilling}', then:'true')}"
                                                                   data="{disable-shipping:'true'}"/>
                                                 <f:form.validationResults for="shippingAddress">
                                                     <f:if condition="{validationResults.flattenedErrors.zip}">
@@ -499,7 +499,7 @@
                                                                   class="form-control"
                                                                   name="shippingAddress[zip]"
                                                                   value="{shippingAddress.zip}"
-                                                                  disabled="true"
+                                                                  disabled="{f:if(condition:'{cart.shippingSameAsBilling}', then:'true')}"
                                                                   data="{disable-shipping:'true'}"/>
                                             </div>
                                         </f:else>
@@ -522,7 +522,7 @@
                                                                   name="shippingAddress[city]"
                                                                   value="{shippingAddress.city}"
                                                                   required="true"
-                                                                  disabled="true"
+                                                                  disabled="{f:if(condition:'{cart.shippingSameAsBilling}', then:'true')}"
                                                                   data="{disable-shipping:'true'}"/>
                                                 <f:form.validationResults for="shippingAddress">
                                                     <f:if condition="{validationResults.flattenedErrors.city}">
@@ -540,7 +540,7 @@
                                                                   class="form-control"
                                                                   name="shippingAddress[city]"
                                                                   value="{shippingAddress.city}"
-                                                                  disabled="true"
+                                                                  disabled="{f:if(condition:'{cart.shippingSameAsBilling}', then:'true')}"
                                                                   data="{disable-shipping:'true'}"/>
                                             </div>
                                         </f:else>
@@ -568,7 +568,7 @@
                                                                   options="{settings.allowedCountries}"
                                                                   translationKey="tx_cart.settings.allowed_countries"
                                                                   required="true"
-                                                                  disabled="true"
+                                                                  disabled="{f:if(condition:'{cart.shippingSameAsBilling}', then:'true')}"
                                                                   data="{disable-shipping:'true'}"/>
                                                 <f:form.validationResults for="shippingAddress">
                                                     <f:if condition="{validationResults.flattenedErrors.country}">
@@ -588,7 +588,7 @@
                                                                   value="{cart.shippingCountry}"
                                                                   options="{settings.allowedCountries}"
                                                                   translationKey="tx_cart.settings.allowed_countries"
-                                                                  disabled="true"
+                                                                  disabled="{f:if(condition:'{cart.shippingSameAsBilling}', then:'true')}"
                                                                   data="{disable-shipping:'true'}"/>
                                             </div>
                                         </f:else>

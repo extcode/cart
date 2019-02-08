@@ -178,6 +178,13 @@ class Cart
     protected $billingCountry;
 
     /**
+     * Shipping Same As Billing
+     *
+     * @var bool
+     */
+    protected $shippingSameAsBilling = true;
+
+    /**
      * Shipping Country
      *
      * @var string
@@ -275,6 +282,7 @@ class Cart
             'invoiceNumber',
             'additional',
             'billingCountry',
+            'shippingSameAsBilling',
             'shippingCountry',
         ];
     }
@@ -1478,10 +1486,30 @@ class Cart
     }
 
     /**
+     * @return bool
+     */
+    public function isShippingSameAsBilling(): bool
+    {
+        return $this->shippingSameAsBilling;
+    }
+
+    /**
+     * @param bool $shippingSameAsBilling
+     */
+    public function setShippingSameAsBilling(bool $shippingSameAsBilling): void
+    {
+        $this->shippingSameAsBilling = $shippingSameAsBilling;
+    }
+
+    /**
      * @return string
      */
     public function getShippingCountry()
     {
+        if ($this->isShippingSameAsBilling()) {
+            return $this->getBillingCountry();
+        }
+
         return $this->shippingCountry;
     }
 

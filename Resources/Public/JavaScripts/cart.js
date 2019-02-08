@@ -50,6 +50,7 @@
 
 function updateCountry(billingCountry, shippingCountry) {
     var postParams = {
+        "tx_cart_cart[shipping_same_as_billing]": $("#shipping-same-as-billing").is(":checked"),
         "tx_cart_cart[billing_country]": billingCountry,
         "tx_cart_cart[shipping_country]": shippingCountry
     };
@@ -115,7 +116,7 @@ $("#shipping-same-as-billing").change(function() {
     $("#checkout-step-shipping-address").toggle(!this.checked);
 
     var billingCountry = $("#billingAddress-country").val();
-    var shippingCountry = "";
+    var shippingCountry = $("#shippingAddress-country").val();
 
     if(!$("#shipping-same-as-billing").is(":checked")) {
         $("#checkout-step-shipping-address input, #checkout-step-shipping-address select").each(function() {
@@ -123,7 +124,6 @@ $("#shipping-same-as-billing").change(function() {
                 $(this).prop("disabled", false);
             }
         });
-        shippingCountry = $("#shippingAddress-country").val();
     } else {
         $("#checkout-step-shipping-address input, #checkout-step-shipping-address select").each(function() {
             if($(this).data("disable-shipping")) {
