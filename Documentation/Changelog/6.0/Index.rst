@@ -7,7 +7,7 @@
    **If upgrading from cart version 4.8.1 or earlier: Please read the documentation very carefully! Please make a backup of your filesystem and database!** If possible test the update in a test copy of your TYPO3 instance.
 
 Extracting products to an own cart_products extension
-=====================================================
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 In the last month, there where a lot of projects where the product table was extended
 to the customer needs. In some cases I come to the result that an own product model
@@ -109,7 +109,7 @@ If you extend or override classes, use hooks or signal slots you have to check t
 moved to another location.
 
 Sortierung von Frontend- und Backendvarianten
-=============================================
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 In der Produktkonfiguration können die Frontend und Backendvarianten sortiert werden.
 
@@ -117,7 +117,7 @@ In der Produktkonfiguration können die Frontend und Backendvarianten sortiert w
    Es ist eine Aktualisierung der Datenbank erforderlich. Da dieses Feld neu hinzu kommt sind keine Probleme zu erwarten.
 
 Speichern des Rechungs- und Versandländercodes in den Bestelldaten
-==================================================================
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 In der Bestellung werden nun die Ländercodes aus dem TypoScript gespeichert, um in der späteren Verarbeitung auf die
 richtige Konfiguration zugreifen zu können.
@@ -126,7 +126,7 @@ richtige Konfiguration zugreifen zu können.
    Es ist eine Aktualisierung der Datenbank erforderlich. Da dieses Feld neu hinzu kommt sind keine Probleme zu erwarten.
 
 #59 und #64 Füllen der Rechnungs- und Lieferadresse mit Nutzerdaten
-===================================================================
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 In der showCartAction des Warenkorbplugins wird nun ein Hook *showCartActionAfterCartWasLoaded* bereitgestellt, der
 es erlaubt, neben zusätzlichen Änderungen im Warenkorb auch die Rechnungs- und Lieferadresse mit Daten eines
