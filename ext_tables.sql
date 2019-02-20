@@ -39,10 +39,10 @@ CREATE TABLE tx_cart_domain_model_order_item (
     shipping int(11) unsigned DEFAULT '0',
     payment int(11) unsigned DEFAULT '0',
 
-    comment text NOT NULL,
+    comment text,
 
-    additional text NOT NULL,
-    additional_data text NOT NULL,
+    additional text,
+    additional_data text,
 
     INDEX `parent` (pid), INDEX `t3ver_oid` (t3ver_oid,t3ver_wsid),
     PRIMARY KEY (uid)
@@ -73,7 +73,7 @@ CREATE TABLE tx_cart_domain_model_order_address (
     city varchar(255) DEFAULT '' NOT NULL,
     country varchar(255) DEFAULT '' NOT NULL,
 
-    additional text NOT NULL,
+    additional text,
 
     INDEX `parent` (pid), INDEX `t3ver_oid` (t3ver_oid,t3ver_wsid),
     PRIMARY KEY (uid)
@@ -103,6 +103,8 @@ CREATE TABLE tx_cart_domain_model_order_tax (
     uid int(11) NOT NULL auto_increment,
     pid int(11) DEFAULT '0' NOT NULL,
 
+    item int(11) unsigned DEFAULT '0' NOT NULL,
+
     tax double(11,2) DEFAULT '0.00' NOT NULL,
     tax_class int(11) unsigned DEFAULT '0' NOT NULL,
 
@@ -131,8 +133,8 @@ CREATE TABLE tx_cart_domain_model_order_product (
     tax double(11,2) DEFAULT '0.00' NOT NULL,
     tax_class int(11) unsigned DEFAULT '0' NOT NULL,
 
-    additional text NOT NULL,
-    additional_data text NOT NULL,
+    additional text,
+    additional_data text,
 
     product_additional int(11) unsigned DEFAULT '0' NOT NULL,
 
@@ -199,7 +201,7 @@ CREATE TABLE tx_cart_domain_model_order_shipping (
     tax double(11,2) DEFAULT '0.00' NOT NULL,
     tax_class int(11) unsigned DEFAULT '0' NOT NULL,
 
-    note text NOT NULL,
+    note text,
 
     INDEX `parent` (pid), INDEX `t3ver_oid` (t3ver_oid,t3ver_wsid),
     PRIMARY KEY (uid)
@@ -224,7 +226,7 @@ CREATE TABLE tx_cart_domain_model_order_payment (
     tax double(11,2) DEFAULT '0.00' NOT NULL,
     tax_class int(11) unsigned DEFAULT '0' NOT NULL,
 
-    note text NOT NULL,
+    note text,
 
     transactions int(11) unsigned DEFAULT '0' NOT NULL,
 
@@ -243,10 +245,10 @@ CREATE TABLE tx_cart_domain_model_order_transaction (
 
     provider varchar(20) DEFAULT ''  NOT NULL,
     txn_id varchar(255) DEFAULT ''  NOT NULL,
-    txn_txt text NOT NULL,
+    txn_txt text,
     status varchar(255) DEFAULT 'unknown' NOT NULL,
     external_status_code varchar(255) DEFAULT '' NOT NULL,
-    note text NOT NULL,
+    note text,
 
     INDEX `parent` (pid),
     PRIMARY KEY (uid)
@@ -289,7 +291,7 @@ CREATE TABLE tx_cart_domain_model_cart (
 
     order_item int(11) unsigned DEFAULT '0' NOT NULL,
 
-    cart text NOT NULL,
+    cart text,
 
     was_ordered tinyint(4) unsigned DEFAULT '0' NOT NULL,
 

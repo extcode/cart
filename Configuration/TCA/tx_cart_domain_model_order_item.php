@@ -413,7 +413,9 @@ return [
                 'type' => 'inline',
                 'readOnly' => 1,
                 'foreign_table' => 'tx_cart_domain_model_order_tax',
+                'foreign_field' => 'item',
                 'maxitems' => 9999,
+                'default' => 0,
             ],
         ],
         'total_tax' => [
@@ -423,7 +425,9 @@ return [
                 'type' => 'inline',
                 'readOnly' => 1,
                 'foreign_table' => 'tx_cart_domain_model_order_tax',
+                'foreign_field' => 'item',
                 'maxitems' => 9999,
+                'default' => 0,
             ],
         ],
         'products' => [

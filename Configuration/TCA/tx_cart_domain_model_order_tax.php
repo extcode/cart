@@ -59,5 +59,11 @@ return [
                 'maxitems' => 1,
             ],
         ],
+
+        'item' => [
+            'config' => [
+                'type' => 'passthrough',
+            ],
+        ],
     ],
 ];
