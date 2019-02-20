@@ -212,6 +212,7 @@ class CartUtility
             \Extcode\Cart\Utility\ParserUtility::class
         );
 
+        $cart->getPayment()->setCart($cart);
         if (!$cart->getPayment()->isAvailable($cart->getGross())) {
             $payments = $parserUtility->parseServices('Payment', $pluginSettings, $cart);
             $fallBackId = $cart->getPayment()->getFallBackId();
@@ -221,6 +222,7 @@ class CartUtility
             }
         }
 
+        $cart->getShipping()->setCart($cart);
         if (!$cart->getShipping()->isAvailable($cart->getGross())) {
             $shippings = $parserUtility->parseServices('Shipping', $pluginSettings, $cart);
             $fallBackId = $cart->getShipping()->getFallBackId();
@@ -313,9 +315,9 @@ class CartUtility
         foreach ($shippings as $shipping) {
             /**
              * Shipping
-             * @var \Extcode\Cart\Domain\Model\Cart\Shipping $shipping
+             * @var \Extcode\Cart\Domain\Model\Cart\Service $shipping
              */
-            if ($shipping->getIsPreset()) {
+            if ($shipping->isPreset()) {
                 if (!$shipping->isAvailable($cart->getGross())) {
                     $fallBackId = $shipping->getFallBackId();
                     $shipping = $this->getServiceById($shippings, $fallBackId);
@@ -337,9 +339,9 @@ class CartUtility
         foreach ($payments as $payment) {
             /**
              * Payment
-             * @var \Extcode\Cart\Domain\Model\Cart\Payment $payment
+             * @var \Extcode\Cart\Domain\Model\Cart\Service $payment
              */
-            if ($payment->getIsPreset()) {
+            if ($payment->isPreset()) {
                 if (!$payment->isAvailable($cart->getGross())) {
                     $fallBackId = $payment->getFallBackId();
                     $payment = $this->getServiceById($payments, $fallBackId);

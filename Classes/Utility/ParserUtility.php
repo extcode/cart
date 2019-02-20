@@ -14,6 +14,7 @@ namespace Extcode\Cart\Utility;
  *
  * The TYPO3 project - inspiring people to share!
  */
+use Extcode\Cart\Domain\Model\Cart\ServiceInterface;
 
 /**
  * Parser Utility
@@ -132,109 +133,48 @@ class ParserUtility
     /**
      * Parse Services
      *
-     * @param string $className
+     * @param string $serviceType
      * @param array $pluginSettings Plugin Settings
      * @param \Extcode\Cart\Domain\Model\Cart\Cart $cart
      *
      * @return array
      */
-    public function parseServices($className, array $pluginSettings, \Extcode\Cart\Domain\Model\Cart\Cart $cart)
-    {
+    public function parseServices(
+        string $serviceType,
+        array $pluginSettings,
+        \Extcode\Cart\Domain\Model\Cart\Cart $cart
+    ) {
         $services = [];
-        $type = strtolower($className) . 's';
+        $type = strtolower($serviceType) . 's';
 
         $pluginSettingsType = $this->getTypePluginSettings($pluginSettings, $cart, $type);
 
         if ($pluginSettingsType['options']) {
-            foreach ($pluginSettingsType['options'] as $key => $value) {
-                $class = 'Extcode\\Cart\\Domain\\Model\\Cart\\' . $className;
-                /**
-                 * Service
-                 * @var \Extcode\Cart\Domain\Model\Cart\AbstractService $service
-                 */
-                $service = $this->objectManager->get(
-                    $class,
-                    $key,
-                    $value['title'],
-                    $cart->getTaxClass($value['taxClassId']),
-                    $value['status'],
-                    $value['note'],
-                    $cart->getIsNetCart()
-                );
+            foreach ($pluginSettingsType['options'] as $serviceKey => $serviceConfig) {
+                $className = 'Extcode\\Cart\\Domain\\Model\\Cart\\' . $serviceType;
 
-                if ($className == 'Payment') {
-                    if ($value['provider']) {
-                        $service->setProvider($value['provider']);
-                    }
-                }
-
-                if (is_array($value['extra'])) {
-                    $service->setExtraType($value['extra']['_typoScriptNodeValue']);
-                    unset($value['extra']['_typoScriptNodeValue']);
-                    foreach ($value['extra'] as $extraKey => $extraValue) {
-                        $extra = $this->objectManager->get(
-                            \Extcode\Cart\Domain\Model\Cart\Extra::class,
-                            $extraKey,
-                            $extraValue['value'],
-                            $extraValue['extra'],
-                            $cart->getTaxClass($value['taxClassId']),
-                            $cart->getIsNetCart()
-                        );
-                        $service->addExtra($extra);
-                    }
-                } elseif (!floatval($value['extra'])) {
-                    $service->setExtraType($value['extra']);
-                    $extra = $this->objectManager->get(
-                        \Extcode\Cart\Domain\Model\Cart\Extra::class,
-                        0,
-                        0,
-                        0,
-                        $cart->getTaxClass($value['taxClassId']),
-                        $cart->getIsNetCart()
-                    );
-                    $service->addExtra($extra);
+                if ($serviceConfig['className']) {
+                    $className = $serviceConfig['className'];
                 } else {
-                    $service->setExtraType('simple');
-                    $extra = $this->objectManager->get(
-                        \Extcode\Cart\Domain\Model\Cart\Extra::class,
-                        0,
-                        0,
-                        $value['extra'],
-                        $cart->getTaxClass($value['taxClassId']),
-                        $cart->getIsNetCart()
-                    );
-                    $service->addExtra($extra);
+                    $className = \Extcode\Cart\Domain\Model\Cart\Service::class;
                 }
 
-                if ($value['free']) {
-                    $service->setFreeFrom($value['free']['from']);
-                    $service->setFreeUntil($value['free']['until']);
-                }
-                if ($value['available']) {
-                    $service->setAvailableFrom($value['available']['from']);
-                    $service->setAvailableUntil($value['available']['until']);
-                    if ($value['available']['fallBackId']) {
-                        $service->setFallBackId($value['available']['fallBackId']);
-                    }
+                $service = $this->objectManager->get(
+                    $className,
+                    (int)$serviceKey,
+                    $serviceConfig
+                );
+                if (!$service instanceof ServiceInterface) {
+                    throw new \UnexpectedValueException($className . ' must implement interface ' . ServiceInterface::class, 123);
                 }
 
-                if ($pluginSettingsType['preset'] == $key) {
-                    $service->setIsPreset(true);
-                }
-
-                $additional = [];
-                if ($value['additional.']) {
-                    foreach ($value['additional'] as $additionalKey => $additionalValue) {
-                        if ($additionalValue['value']) {
-                            $additional[$additionalKey] = $additionalValue['value'];
-                        }
-                    }
-                }
-
-                $service->setAdditionalArray($additional);
                 $service->setCart($cart);
 
-                $services[$key] = $service;
+                if ($pluginSettingsType['preset'] == $serviceKey) {
+                    $service->setPreset(true);
+                }
+
+                $services[$serviceKey] = $service;
             }
         }
 

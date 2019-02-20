@@ -68,14 +68,14 @@ class Cart
     /**
      * Shipping
      *
-     * @var \Extcode\Cart\Domain\Model\Cart\Shipping
+     * @var ServiceInterface
      */
     protected $shipping;
 
     /**
      * Payment
      *
-     * @var \Extcode\Cart\Domain\Model\Cart\Payment
+     * @var ServiceInterface
      */
     protected $payment;
 
@@ -647,33 +647,33 @@ class Cart
     }
 
     /**
-     * @return Shipping
+     * @return ServiceInterface
      */
-    public function getShipping()
+    public function getShipping(): ServiceInterface
     {
         return $this->shipping;
     }
 
     /**
-     * @param Shipping $shipping
+     * @param ServiceInterface $shipping
      */
-    public function setShipping($shipping)
+    public function setShipping(ServiceInterface $shipping)
     {
         $this->shipping = $shipping;
     }
 
     /**
-     * @return Payment
+     * @return ServiceInterface
      */
-    public function getPayment()
+    public function getPayment(): ServiceInterface
     {
         return $this->payment;
     }
 
     /**
-     * @param Payment $payment
+     * @param ServiceInterface $payment
      */
-    public function setPayment($payment)
+    public function setPayment(ServiceInterface $payment)
     {
         $this->payment = $payment;
     }
@@ -800,7 +800,7 @@ class Cart
         }
 
         if ($this->shipping) {
-            $cartArray['payment'] = $this->shipping->getName();
+            $cartArray['shipping'] = $this->shipping->getName();
         }
 
         if ($this->specials) {
@@ -1248,23 +1248,23 @@ class Cart
     }
 
     /**
-     * @param \Extcode\Cart\Domain\Model\Cart\Shipping $shipping
+     * @param \Extcode\Cart\Domain\Model\Cart\Service $shipping
      */
-    public function changeShipping(\Extcode\Cart\Domain\Model\Cart\Shipping $shipping)
+    public function changeShipping(\Extcode\Cart\Domain\Model\Cart\Service $shipping)
     {
         $this->shipping = $shipping;
     }
 
     /**
-     * @param \Extcode\Cart\Domain\Model\Cart\Payment $payment
+     * @param \Extcode\Cart\Domain\Model\Cart\Service $payment
      */
-    public function changePayment(\Extcode\Cart\Domain\Model\Cart\Payment $payment)
+    public function changePayment(\Extcode\Cart\Domain\Model\Cart\Service $payment)
     {
         $this->payment = $payment;
     }
 
     /**
-     * @param \Extcode\Cart\Domain\Model\Cart\Special[] $specials
+     * @param \Extcode\Cart\Domain\Model\Cart\Service[] $specials
      */
     public function changeSpecials($specials)
     {

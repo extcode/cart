@@ -11,7 +11,7 @@
         <fieldset>
             <div class="method-list checkout-step-content-list">
                 <f:for each="{shippings}" as="shipping">
-                    <cart:form.isServiceAvailableAtPrice service="{shipping}" price="{cart.gross}">
+                    <f:if condition="{shipping.available}">
                         <div class="method-item-name">
                             <f:if condition="{0: shipping.id} == {0: cart.shipping.id}">
                                 <f:then>
@@ -31,7 +31,7 @@
                         <div class="method-item-info">
                             <cart:format.currency currencySign="{cart.currencySign}">{shipping.gross}</cart:format.currency>
                         </div>
-                    </cart:form.isServiceAvailableAtPrice>
+                    </f:if>
                 </f:for>
             </div>
         </fieldset>

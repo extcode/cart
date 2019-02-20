@@ -79,6 +79,11 @@ class Extra
     protected $isNetPrice;
 
     /**
+     * @var string
+     */
+    protected $extraType;
+
+    /**
      * __construct
      *
      * @param int $id
@@ -86,6 +91,7 @@ class Extra
      * @param float $price
      * @param \Extcode\Cart\Domain\Model\Cart\TaxClass $taxClass
      * @param bool $isNetPrice
+     * @param string $extraType
      *
      * @internal param $gross
      */
@@ -94,7 +100,8 @@ class Extra
         $condition,
         $price,
         \Extcode\Cart\Domain\Model\Cart\TaxClass $taxClass,
-        $isNetPrice = false
+        $isNetPrice = false,
+        $extraType = ''
     ) {
         $this->id = $id;
         $this->condition = $condition;
@@ -103,35 +110,39 @@ class Extra
 
         $this->isNetPrice = $isNetPrice;
 
+        $this->extraType = $extraType;
+
         $this->reCalc();
     }
 
     /**
-     * Sets Is Net Price
-     *
      * @param bool
      */
-    public function setIsNetPrice($isNetPrice)
+    public function setIsNetPrice(bool $isNetPrice)
     {
         $this->isNetPrice = $isNetPrice;
     }
 
     /**
-     * Gets Is Net Price
-     *
      * @return bool
      */
-    public function getIsNetPrice()
+    public function getIsNetPrice(): bool
     {
         return $this->isNetPrice;
     }
 
     /**
-     * Gets Id
-     *
+     * @return string
+     */
+    public function getExtraType(): string
+    {
+        return $this->extraType;
+    }
+
+    /**
      * @return int
      */
-    public function getId()
+    public function getId():int
     {
         return $this->id;
     }

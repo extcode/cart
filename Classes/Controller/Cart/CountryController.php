@@ -46,7 +46,7 @@ class CountryController extends ActionController
             $this->cart->setPayment($payment);
         } else {
             foreach ($this->payments as $payment) {
-                if ($payment->getIsPreset()) {
+                if ($payment->isPreset()) {
                     $this->cart->setPayment($payment);
                 }
             }
@@ -57,7 +57,7 @@ class CountryController extends ActionController
             $this->cart->setShipping($shipping);
         } else {
             foreach ($this->shippings as $shipping) {
-                if ($shipping->getIsPreset()) {
+                if ($shipping->isPreset()) {
                     $this->cart->setShipping($shipping);
                 }
             }
