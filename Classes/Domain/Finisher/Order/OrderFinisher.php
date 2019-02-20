@@ -46,9 +46,7 @@ class OrderFinisher extends \Extcode\Cart\Domain\Finisher\AbstractFinisher
         $this->orderUtility->saveOrderItem(
             $this->settings,
             $cart,
-            $orderItem,
-            null,
-            null
+            $orderItem
         );
     }
 }

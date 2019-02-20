@@ -19,3 +19,13 @@ Breaking Changes
    :glob:
 
    Breaking-*
+
+Important
+^^^^^^^^^
+
+.. toctree::
+   :maxdepth: 1
+   :titlesonly:
+   :glob:
+
+   Important-*
