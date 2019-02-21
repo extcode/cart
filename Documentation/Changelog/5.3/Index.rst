@@ -1,7 +1,7 @@
 
 .. include:: ../../Includes.txt
 
-5.2 Changes
+5.3 Changes
 ===========
 
 **Table of contents**
@@ -10,12 +10,12 @@
    :local:
    :depth: 1
 
-Breaking Changes
-^^^^^^^^^^^^^^^^
+Important
+^^^^^^^^^
 
 .. toctree::
    :maxdepth: 1
    :titlesonly:
    :glob:
 
-   Breaking-*
+   Important-*
