@@ -163,6 +163,14 @@ class OrderController extends ActionController
     }
 
     /**
+     * @param \Extcode\Cart\Domain\Model\Order\Item $orderItem
+     */
+    public function showAction(\Extcode\Cart\Domain\Model\Order\Item $orderItem)
+    {
+        $this->view->assign('orderItem', $orderItem);
+    }
+
+    /**
      * Executes all finishers of this form
      *
      * @param \Extcode\Cart\Domain\Model\Order\Item $orderItem
