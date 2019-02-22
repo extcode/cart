@@ -30,7 +30,7 @@ defined('TYPO3_MODE') or die();
         'Cart\Payment' => 'update',
         'Cart\Product' => 'add, remove',
         'Cart\Shipping' => 'update',
-        'Order\Order' => 'update',
+        'Order\Payment' => 'update',
     ],
     [
         'Cart\Cart' => 'show, clear, update',
@@ -41,7 +41,7 @@ defined('TYPO3_MODE') or die();
         'Cart\Payment' => 'update',
         'Cart\Product' => 'add, remove',
         'Cart\Shipping' => 'update',
-        'Order\Order' => 'paymentSuccess, paymentCancel',
+        'Order\Payment' => 'update',
     ]
 );
 
