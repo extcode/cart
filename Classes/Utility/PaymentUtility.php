@@ -67,7 +67,9 @@ class PaymentUtility
         $this->beforeHandlePayment($orderItem, $cart);
 
         $payment = $cart->getPayment();
-        $provider = $payment->getAdditional('payment_service');
+        if (method_exists($payment, 'getProvider')) {
+            $provider = $payment->getProvider();
+        }
 
         $data = [
             'orderItem' => $orderItem,

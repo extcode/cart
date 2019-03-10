@@ -748,14 +748,17 @@ class OrderUtility
         }
         $orderPayment->setServiceId($payment->getId());
         $orderPayment->setName($payment->getName());
-        $orderPayment->setProvider($payment->getProvider());
+        if (method_exists($payment, 'getProvider')) {
+            $orderPayment->setProvider($payment->getProvider());
+        }
         $orderPayment->setStatus($payment->getStatus());
         $orderPayment->setGross($payment->getGross());
         $orderPayment->setNet($payment->getNet());
         $orderPayment->setTaxClass($this->taxClasses[$payment->getTaxClass()->getId()]);
         $orderPayment->setTax($payment->getTax());
-        $orderPayment->setNote($payment->getNote());
-
+        if (method_exists($payment, 'getNote')) {
+            $orderPayment->setNote($payment->getNote());
+        }
         $this->paymentRepository->add($orderPayment);
 
         $this->orderItem->setPayment($orderPayment);
@@ -789,7 +792,9 @@ class OrderUtility
         $orderShipping->setNet($shipping->getNet());
         $orderShipping->setTaxClass($this->taxClasses[$shipping->getTaxClass()->getId()]);
         $orderShipping->setTax($shipping->getTax());
-        $orderShipping->setNote($shipping->getNote());
+        if (method_exists($shipping, 'getNote')) {
+            $orderShipping->setNote($shipping->getNote());
+        }
 
         $this->shippingRepository->add($orderShipping);
 

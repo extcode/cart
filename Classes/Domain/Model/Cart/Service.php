@@ -92,6 +92,22 @@ class Service implements ServiceInterface
     /**
      * @return string
      */
+    public function getStatus(): string
+    {
+        return $this->config['status'] ?: 'open';
+    }
+
+    /**
+     * @return string
+     */
+    public function getProvider(): string
+    {
+        return $this->config['provider'] ?: '';
+    }
+
+    /**
+     * @return string
+     */
     public function getName(): string
     {
         return $this->config['title'];

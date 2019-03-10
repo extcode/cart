@@ -49,6 +49,16 @@ interface ServiceInterface
     /**
      * @return string
      */
+    public function getStatus(): string;
+
+    /**
+     * @return string
+     */
+    public function getProvider(): string;
+
+    /**
+     * @return string
+     */
     public function getName(): string;
 
     /**
