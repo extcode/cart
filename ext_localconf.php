@@ -104,3 +104,8 @@ if (TYPO3_MODE === 'BE') {
 
 // register "cart:" namespace
 $GLOBALS['TYPO3_CONF_VARS']['SYS']['fluid']['namespaces']['cart'][] = 'Extcode\\Cart\\ViewHelpers';
+
+if (TYPO3_MODE === 'FE') {
+    $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['cart']['MailAttachmentsHook'][] =
+        \Extcode\Cart\Hooks\MailAttachmentHook::class;
+}
