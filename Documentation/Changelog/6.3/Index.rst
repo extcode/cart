@@ -1,4 +1,3 @@
-
 .. include:: ../../Includes.txt
 
 6.3 Changes

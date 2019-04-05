@@ -14,7 +14,17 @@ namespace Extcode\Cart\Service;
  *
  * The TYPO3 project - inspiring people to share!
  */
+use Extcode\Cart\Domain\Model\Cart\Cart;
+use Extcode\Cart\Domain\Model\Order\Item;
+use Extcode\Cart\Hooks\MailAttachmentHookInterface;
+use TYPO3\CMS\Core\Log\LogManager;
+use TYPO3\CMS\Core\Mail\MailMessage;
 use TYPO3\CMS\Core\SingletonInterface;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Configuration\ConfigurationManager;
+use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
+use TYPO3\CMS\Extbase\Object\ObjectManager;
+use TYPO3\CMS\Fluid\View\StandaloneView;
 
 /**
  * MailHandler
@@ -24,76 +34,60 @@ use TYPO3\CMS\Core\SingletonInterface;
 class MailHandler implements SingletonInterface
 {
     /**
-     * Object Manager
-     *
-     * @var \TYPO3\CMS\Extbase\Object\ObjectManager
+     * @var ObjectManager
      */
     protected $objectManager;
 
     /**
-     * Log Manager
-     *
-     * @var \TYPO3\CMS\Core\Log\LogManager
+     * @var LogManager
      */
     protected $logManager;
 
     /**
-     * Configuration Manager
-     *
-     * @var \TYPO3\CMS\Extbase\Configuration\ConfigurationManager
+     * @var ConfigurationManager
      */
     protected $configurationManager;
 
     /**
-     * Plugin Settings
-     *
      * @var array
      */
-    protected $pluginSettings;
+    protected $pluginSettings = [];
 
     /**
-     * Cart
-     *
-     * @var \Extcode\Cart\Domain\Model\Cart\Cart
+     * @var Cart
      */
     protected $cart;
 
     /**
-     * Buyer Email From Address
-     *
      * @var string
      */
-    protected $buyerEmailFrom;
+    protected $buyerEmailFrom = '';
 
     /**
-     * Seller Email From Address
-     *
      * @var string
      */
-    protected $sellerEmailFrom;
+    protected $sellerEmailFrom = '';
 
     /**
-     * Seller Email To Address
-     *
      * @var string
      */
-    protected $sellerEmailTo;
+    protected $sellerEmailTo = '';
 
     /**
      * MailHandler constructor
      */
     public function __construct()
     {
-        $this->objectManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(
-            \TYPO3\CMS\Extbase\Object\ObjectManager::class
+        $this->objectManager = GeneralUtility::makeInstance(
+            ObjectManager::class
         );
 
         $this->logManager = $this->objectManager->get(
-            \TYPO3\CMS\Core\Log\LogManager::class
+            LogManager::class
         );
 
         $this->configurationManager = $this->objectManager->get(
-            \TYPO3\CMS\Extbase\Configuration\ConfigurationManager::class
+            ConfigurationManager::class
         );
 
         $this->setPluginSettings();
@@ -106,7 +100,7 @@ class MailHandler implements SingletonInterface
     {
         $this->pluginSettings =
             $this->configurationManager->getConfiguration(
-                \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK,
+                ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK,
                 'Cart'
             );
 
@@ -147,11 +141,9 @@ class MailHandler implements SingletonInterface
     }
 
     /**
-     * Sets Cart
-     *
-     * @param \Extcode\Cart\Domain\Model\Cart\Cart $cart
+     * @param Cart $cart
      */
-    public function setCart($cart)
+    public function setCart(Cart $cart)
     {
         $this->cart = $cart;
     }
@@ -159,7 +151,7 @@ class MailHandler implements SingletonInterface
     /**
      * @param string $email
      */
-    public function setBuyerEmailFrom($email)
+    public function setBuyerEmailFrom(string $email)
     {
         $this->buyerEmailFrom = $email;
     }
@@ -167,7 +159,7 @@ class MailHandler implements SingletonInterface
     /**
      * @return string
      */
-    public function getBuyerEmailFrom()
+    public function getBuyerEmailFrom(): string
     {
         return $this->buyerEmailFrom;
     }
@@ -175,7 +167,7 @@ class MailHandler implements SingletonInterface
     /**
      * @param string $email
      */
-    public function setSellerEmailFrom($email)
+    public function setSellerEmailFrom(string $email)
     {
         $this->sellerEmailFrom = $email;
     }
@@ -183,7 +175,7 @@ class MailHandler implements SingletonInterface
     /**
      * @return string
      */
-    public function getSellerEmailFrom()
+    public function getSellerEmailFrom(): string
     {
         return $this->sellerEmailFrom;
     }
@@ -191,7 +183,7 @@ class MailHandler implements SingletonInterface
     /**
      * @param string $email
      */
-    public function setSellerEmailTo($email)
+    public function setSellerEmailTo(string $email)
     {
         $this->sellerEmailTo = $email;
     }
@@ -199,7 +191,7 @@ class MailHandler implements SingletonInterface
     /**
      * @return string
      */
-    public function getSellerEmailTo()
+    public function getSellerEmailTo(): string
     {
         return $this->sellerEmailTo;
     }
@@ -207,11 +199,10 @@ class MailHandler implements SingletonInterface
     /**
      * Send a Mail to Buyer
      *
-     * @param \Extcode\Cart\Domain\Model\Order\Item $orderItem
+     * @param Item $orderItem
      */
-    public function sendBuyerMail(
-        \Extcode\Cart\Domain\Model\Order\Item $orderItem
-    ) {
+    public function sendBuyerMail(Item $orderItem)
+    {
         if (empty($this->buyerEmailFrom) || empty($orderItem->getBillingAddress()->getEmail())) {
             return;
         }
@@ -223,20 +214,20 @@ class MailHandler implements SingletonInterface
         $mailSubject = $this->renderMailStandaloneView($status, $to . 'Subject', $orderItem);
 
         if (!empty($mailBody) && !empty($mailSubject)) {
-            $mail = $this->objectManager->get(
-                \TYPO3\CMS\Core\Mail\MailMessage::class
-            );
+            $mail = $this->objectManager->get(MailMessage::class);
             $mail->setFrom($this->buyerEmailFrom);
             $mail->setTo($orderItem->getBillingAddress()->getEmail());
             $mail->setSubject($mailSubject);
             $mail->setBody($mailBody, 'text/html', 'utf-8');
 
-            // get and add attachments
-            $attachments = $this->getAttachments($orderItem, $to);
-            foreach ($attachments as $attachment) {
-                $attachmentFile = \TYPO3\CMS\Core\Utility\GeneralUtility::getFileAbsFileName($attachment);
-                if (file_exists($attachmentFile)) {
-                    $mail->attach(\Swift_Attachment::fromPath($attachmentFile));
+            if ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['cart']['MailAttachmentsHook']) {
+                foreach ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['cart']['MailAttachmentsHook'] as $className) {
+                    $_procObj = GeneralUtility::makeInstance($className);
+                    if (!$_procObj instanceof MailAttachmentHookInterface) {
+                        throw new \UnexpectedValueException($className . ' must implement interface ' . MailAttachmentHookInterface::class, 123);
+                    }
+
+                    $mail = $_procObj->getMailAttachments($mail, $orderItem, $to);
                 }
             }
 
@@ -247,11 +238,10 @@ class MailHandler implements SingletonInterface
     /**
      * Send a Mail to Seller
      *
-     * @param \Extcode\Cart\Domain\Model\Order\Item $orderItem
+     * @param Item $orderItem
      */
-    public function sendSellerMail(
-        \Extcode\Cart\Domain\Model\Order\Item $orderItem
-    ) {
+    public function sendSellerMail(Item $orderItem)
+    {
         if (empty($this->sellerEmailFrom) || empty($this->sellerEmailTo)) {
             return;
         }
@@ -263,21 +253,18 @@ class MailHandler implements SingletonInterface
         $mailSubject = $this->renderMailStandaloneView($status, $to . 'Subject', $orderItem);
 
         if (!empty($mailBody) && !empty($mailSubject)) {
-            $mail = $this->objectManager->get(
-                \TYPO3\CMS\Core\Mail\MailMessage::class
-            );
+            $mail = $this->objectManager->get(MailMessage::class);
             $mail->setFrom($this->sellerEmailFrom);
             $mail->setTo(explode(',', $this->sellerEmailTo));
             $mail->setReplyTo($orderItem->getBillingAddress()->getEmail());
             $mail->setSubject($mailSubject);
             $mail->setBody($mailBody, 'text/html', 'utf-8');
 
-            // get and add attachments
-            $attachments = $this->getAttachments($orderItem, $to);
-            foreach ($attachments as $attachment) {
-                $attachmentFile = \TYPO3\CMS\Core\Utility\GeneralUtility::getFileAbsFileName($attachment);
-                if (file_exists($attachmentFile)) {
-                    $mail->attach(\Swift_Attachment::fromPath($attachmentFile));
+            if ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['cart']['getMailAttachmentsHook']) {
+                foreach ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['cart']['getMailAttachmentsHook'] as $_classRef) {
+                    $_procObj = &GeneralUtility::makeInstance($_classRef);
+
+                    $mail = $_procObj->getMailAttachments($mail, $orderItem, $to);
                 }
             }
 
@@ -286,53 +273,18 @@ class MailHandler implements SingletonInterface
     }
 
     /**
-     * @param \Extcode\Cart\Domain\Model\Order\Item $orderItem
-     * @param string $to
-     *
-     * @return array
-     */
-    protected function getAttachments(\Extcode\Cart\Domain\Model\Order\Item $orderItem, $to)
-    {
-        $attachments = [];
-
-        if ($this->pluginSettings['mail'] && $this->pluginSettings['mail'][$to]) {
-            if ($this->pluginSettings['mail'][$to]['attachments']) {
-                $attachments = $this->pluginSettings['mail'][$to]['attachments'];
-            }
-            if ($this->pluginSettings['mail'][$to]['attachDocuments']) {
-                foreach ($this->pluginSettings['mail'][$to]['attachDocuments'] as $pdfType => $pdfData) {
-                    $getter = 'get' . ucfirst($pdfType) . 'Pdfs';
-                    $pdfs = $orderItem->$getter();
-                    if ($pdfs && ($pdfs instanceof \TYPO3\CMS\Extbase\Persistence\ObjectStorage)) {
-                        $pdfs = end($pdfs->toArray());
-                        if ($pdfs) {
-                            $lastOriginalPdf = $pdfs->getOriginalResource();
-                            $lastOriginalPdfPath = PATH_site . $lastOriginalPdf->getPublicUrl();
-                            if (is_file($lastOriginalPdfPath)) {
-                                $attachments[] = $lastOriginalPdfPath;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-        return $attachments;
-    }
-
-    /**
      * Render OrderItem Mail Content
      *
-     * @param \Extcode\Cart\Domain\Model\Order\Item $orderItem
+     * @param Item $orderItem
      * @param string $mailTemplateFolder
      * @param string $mailTo
      *
      * @return array
      */
     public function renderOrderItemMailContent(
-        \Extcode\Cart\Domain\Model\Order\Item $orderItem,
-        $mailTemplateFolder,
-        $mailTo
+        Item $orderItem,
+        string $mailTemplateFolder,
+        string $mailTo
     ) {
         $mailSubject = $this->renderMailStandaloneView($mailTemplateFolder, $mailTo . 'Subject', $orderItem);
         $mailBody = $this->renderMailStandaloneView($mailTemplateFolder, $mailTo, $orderItem);
@@ -345,14 +297,14 @@ class MailHandler implements SingletonInterface
      *
      * @param string $status
      * @param string $to
-     * @param \Extcode\Cart\Domain\Model\Order\Item $orderItem
+     * @param Item $orderItem
      *
      * @return string
      */
     protected function renderMailStandaloneView(
-        $status,
-        $to,
-        \Extcode\Cart\Domain\Model\Order\Item $orderItem
+        string $status,
+        string $to,
+        Item $orderItem
     ) {
         $view = $this->getMailStandaloneView('/Mail/' . ucfirst($status) . '/', ucfirst($to), 'html');
 
@@ -376,19 +328,16 @@ class MailHandler implements SingletonInterface
      * @param string $templateFileName
      * @param string $format
      *
-     * @return \TYPO3\CMS\Fluid\View\StandaloneView Fluid instance
+     * @return StandaloneView
      */
     protected function getMailStandaloneView(
-        $templateSubPath = '/Mail/',
-        $templateFileName = 'Default',
-        $format = 'html'
+        string $templateSubPath = '/Mail/',
+        string $templateFileName = 'Default',
+        string $format = 'html'
     ) {
         $templateSubPathAndFileName = $templateSubPath . $templateFileName . '.' . $format;
 
-        /** @var \TYPO3\CMS\Fluid\View\StandaloneView $view */
-        $view = $this->objectManager->get(
-            \TYPO3\CMS\Fluid\View\StandaloneView::class
-        );
+        $view = $this->objectManager->get(StandaloneView::class);
         $view->setFormat($format);
 
         if ($this->pluginSettings['view']) {
@@ -397,7 +346,7 @@ class MailHandler implements SingletonInterface
 
             if ($this->pluginSettings['view']['templateRootPaths']) {
                 foreach ($this->pluginSettings['view']['templateRootPaths'] as $pathNameKey => $pathNameValue) {
-                    $templateRootPath = \TYPO3\CMS\Core\Utility\GeneralUtility::getFileAbsFileName(
+                    $templateRootPath = GeneralUtility::getFileAbsFileName(
                         $pathNameValue
                     );
 
@@ -429,21 +378,16 @@ class MailHandler implements SingletonInterface
     /**
      * Returns the Partial Root Path
      *
-     * For TYPO3 Version 6.2 it resolves the absolute file names
-     *
      * @var string $type
-     * @return array
      *
-     * @deprecated will be removed with support for TYPO3 6.2
+     * @return array
      */
     protected function resolveRootPaths($type)
     {
-        $rootPaths = [];
-
         if ($this->pluginSettings['view'][$type]) {
-            $rootPaths = $this->pluginSettings['view'][$type];
+            return $this->pluginSettings['view'][$type];
         }
 
-        return $rootPaths;
+        return [];
     }
 }
