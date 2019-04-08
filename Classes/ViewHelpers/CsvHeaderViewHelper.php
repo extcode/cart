@@ -23,6 +23,14 @@ use TYPO3\CMS\Core\Utility\CsvUtility;
  */
 class CsvHeaderViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper
 {
+
+    /**
+     * Output is escaped already. We must not escape children, to avoid double encoding.
+     *
+     * @var bool
+     */
+    protected $escapeOutput = false;
+
     /**
      * Arguments initialization
      */
@@ -58,10 +66,15 @@ class CsvHeaderViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewH
 
         $orderItemArr = [];
 
+        $orderItemArr[] = 'Order Number';
+        $orderItemArr[] = 'Order Date';
+        $orderItemArr[] = 'Invoice Number';
+        $orderItemArr[] = 'Invoice Date';
+
+        $orderItemArr[] = 'Salutation';
+        $orderItemArr[] = 'Title';
         $orderItemArr[] = 'FirstName';
         $orderItemArr[] = 'LastName';
-        $orderItemArr[] = 'OrderNumber';
-        $orderItemArr[] = 'InvoiceNumber';
 
         return CsvUtility::csvValues($orderItemArr, $delim, $quote);
     }
