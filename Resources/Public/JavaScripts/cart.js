@@ -225,9 +225,9 @@ function handleAddToCartSuccessResponse(form, data) {
         $("#cart-preview .gross").html(response.gross);
 
         if (response.count > 0) {
-            $("#link-to-checkout").show();
+            $(".checkout-link").show();
         } else {
-            $("#link-to-checkout").hide();
+            $(".checkout-link").hide();
         }
 
         $(document).trigger("status.cartWasChanged", [true]);
