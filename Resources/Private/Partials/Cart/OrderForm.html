@@ -10,8 +10,8 @@
     <div class="row top-buffer">
         <div class="col-sm-12 col-md-12 col-lg-4">
             <div class="column">
-                <f:render partial="Cart/OrderForm/Address/Billing" arguments="{cart:cart, billingAddress:billingAddress}"/>
                 <f:if condition="{settings.showCartAction.showPartials.shippingAddressForm}">
+                    <f:render partial="Cart/OrderForm/Address/Billing" arguments="{cart:cart, billingAddress:billingAddress}"/>
                     <div class="form-list shipping-same-as-billing-wrapper">
                         <div class="control">
                             <label for="shipping-same-as-billing">
@@ -30,7 +30,7 @@
                 </f:if>
             </div>
         </div>
-        <div class="col-sm-12 col-md-8 col-lg-8 clear-padding">
+        <div class="col-sm-12 col-md-12 col-lg-8 clear-padding">
             <div class="row">
                 <div class="col-sm-12 col-md-6 col-lg-6">
                     <f:if condition="{settings.showCartAction.showPartials.shippingMethodForm}">
