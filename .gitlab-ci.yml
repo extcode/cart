@@ -66,6 +66,12 @@ lint:php72:
   script:
     - find . -name \*.php -exec php -l "{}" \;
 
+lint:php73:
+  stage: lint
+  image: php:7.3-alpine
+  script:
+    - find . -name \*.php -exec php -l "{}" \;
+
 .test: &test_php
   stage: test
   services:
@@ -126,6 +132,14 @@ test:php72:typo3_8:
   variables:
     DOCKER_TAG: 7.2-alpine
     TYPO3_VERSION: ^8.7
+    COVERAGE: 0
+
+# Build in PHP 7.3 and TYPO3 8.7
+test:php73:typo3_8:
+  <<: *test_php
+  variables:
+    DOCKER_TAG: 7.3-alpine
+    TYPO3_VERSION: ^8.7
     COVERAGE: 1
 
 sonarqube:
@@ -160,7 +174,7 @@ sonarqube-reports:
     - gitlab-sonar-scanner -Dsonar.php.coverage.reportPath=phpunit.coverage.xml -Dsonar.php.tests.reportPath=phpunit.report.xml
 
 ter-upload:
-  image: php:7.1-alpine
+  image: php:7.3-alpine
   stage: upload
   only:
     - tags
