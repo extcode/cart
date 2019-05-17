@@ -1,7 +1,4 @@
-.. ==================================================
-.. FOR YOUR INFORMATION
-.. --------------------------------------------------
-.. -*- coding: utf-8 -*- with BOM.
+.. include:: ../Includes.txt
 
 ChangeLog
 =========
@@ -10,6 +7,7 @@ ChangeLog
    :maxdepth: 5
    :titlesonly:
 
+   6.5/Index
    6.4/Index
    6.3/Index
    6.2/Index
