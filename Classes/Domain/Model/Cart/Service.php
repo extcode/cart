@@ -6,8 +6,6 @@ namespace Extcode\Cart\Domain\Model\Cart;
 class Service implements ServiceInterface
 {
     /**
-     * Object Manager
-     *
      * @var \TYPO3\CMS\Extbase\Object\ObjectManager
      */
     protected $objectManager;
@@ -25,7 +23,7 @@ class Service implements ServiceInterface
     /**
      * @var array
      */
-    protected $config;
+    protected $config = [];
 
     /**
      * @var float
@@ -225,8 +223,8 @@ class Service implements ServiceInterface
             );
         }
 
-        if (is_array($this->config['extras'])) {
-            $extraType = $this->config['extra'];
+        if (is_array($this->config['extras'] && isset($this->config['extrasType']))) {
+            $extraType = $this->config['extrasType'];
 
             if ($extraType === 'each') {
                 return $this->objectManager->get(

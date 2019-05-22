@@ -110,7 +110,7 @@ test:php72:typo3_9:
   variables:
     DOCKER_TAG: 7.2-alpine
     TYPO3_VERSION: ^9.5
-    COVERAGE: 0
+    COVERAGE: 1
 
 # Build in PHP 7.3 and TYPO3 9.5
 test:php73:typo3_9:

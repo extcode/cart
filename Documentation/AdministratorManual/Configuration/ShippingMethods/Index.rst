@@ -1,99 +1,19 @@
-.. ==================================================
-.. FOR YOUR INFORMATION
-.. --------------------------------------------------
-.. -*- coding: utf-8 -*- with BOM.
+.. include:: ../../../Includes.txt
 
-Versandarten
-============
+Shipping methods
+================
 
-Die Versandarten werden über TypoScript für jeden Warenkorb definiert. Das Standard-Template bringt bereits eine Versandart (Standard) mit.
+The shipping methods are defined via TypoScript for each shopping cart. The standard template already comes with a shipping method (standard).
 
-Mit der Definition plugin.tx_cart.settings.allowedCountries wird die Ausgabe des Selektors im Warenkorb definiert. Durch einen eigenen SelectViewhelper können die Optionen auch übersetzt werden.
+With the definition plugin.tx_cart.settings.allowedCountries the output of the selector in the shopping cart is defined. The options can also be translated by an own SelectViewhelper.
 
 .. important::
-   Das mitgelieferte TypoScript der Erweiterung bringt eine Konfiguration und Übersetzung für den deutschsprachigen Raum mit.
+   The provided TypoScript of the extension provides a configuration and translation for the German-speaking area.
 
-Der Parameter plugin.tx_cart.settings.defaultCountry definiert welches Land vorausgewählt werden soll.
+The parameter plugin.tx_cart.settings.defaultCountry defines which country should be preselected.
 
 .. important::
-   Sollten für verschiedene Länder verschiedene Versandmethoden definiert sein, wird das Land der Lieferadresse genutzt. Nur in dem Fall, dass keine abweichende Lieferadresse angegeben wurde, wird die Auswahl der Rechnungsadresse zu Grunde gelegt.
-
-Länderkonfiguration
-"""""""""""""""""""
-
-::
-
-   plugin.tx_cart {
-       settings {
-           allowedCountries {
-               de = Deutschland
-               at = Österreich
-               ch = Schweiz
-           }
-           defaultCountry = de
-       }
-
-       shippings {
-           countries {
-              de {
-                  preset = 1
-                  options {
-                      1 {
-                          title = Standard
-                          extra = 0.00
-                          taxClassId = 1
-                          status = open
-                      }
-                  }
-              }
-              at < .de
-              ch < .de
-           }
-       }
-   }
-
-|
-
-.. container:: table-row
-
-   Property
-      plugin.tx_cart.shippings.countries.de.preset
-   Data type
-      int
-   Description
-      Definiert welche Versandart standardmäßig gewählt wird, sofern der Nutzer noch keine andere Versandart ausgewählt hat.
-      Sollte beim Wechsel des Bestimmungslands die Versandmethode nicht definiert sein, wird ebenfalls die hier für das Bestimmungsland definierte Versandart ausgewählt.
-
-.. container:: table-row
-
-   Property
-      plugin.tx_cart.shippings.countries.de.options.n
-   Data type
-      array
-   Description
-      Man kann bis zu n verschiedene Versandarten konfigurieren.
-   Default
-      options.1
-
-.. container:: table-row
-
-   Property
-      plugin.tx_cart.shippings.countries.de.options.n.title
-   Data type
-      Text
-   Description
-      Name der Versandart (z.B.: Express).
-
-.. container:: table-row
-
-   Property
-      plugin.tx_cart.shippings.countries.de.options.n.extra
-   Data type
-      Text
-   Description
-      Kosten für die Versand, die dem Kunden in Rechnung gestellt werden sollen (z.B.: 1.50).
-   Default
-      0.00
+   If different shipping methods are defined for different countries, the country of the delivery address is used. Only in the case that no different delivery address has been specified, the selection of the billing address is used as a basis.
 
 .. container:: table-row
 
@@ -224,3 +144,10 @@ sein. Wenn es lediglich eine Versandart gibt, kann der Auswahlblock ausblendet w
       Aktiviert/Deaktiviert die Darstellung und Auswahl der konfigurierten Versandarten im Warenkorb.
    Default
       true
+
+.. toctree::
+   :maxdepth: 5
+   :titlesonly:
+
+   MainConfiguration/Index
+   FlexPrices/Index

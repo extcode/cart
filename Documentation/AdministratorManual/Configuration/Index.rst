@@ -1,7 +1,4 @@
-.. ==================================================
-.. FOR YOUR INFORMATION
-.. --------------------------------------------------
-.. -*- coding: utf-8 -*- with BOM.
+.. include:: ../../Includes.txt
 
 Configuration
 =============
@@ -13,6 +10,7 @@ Configuration
    Main/Index
    Cart/Index
    Order/Index
+   ServiceMethods/Index
    PaymentMethods/Index
    ShippingMethods/Index
    CurrencyTranslationConfiguration/Index
