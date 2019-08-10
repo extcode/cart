@@ -1,32 +1,16 @@
 <?php
+
 namespace Extcode\Cart\Tests\Unit\Validation\Validator;
 
-/*                                                                        *
- * This script belongs to the Extbase framework.                          *
- *                                                                        *
- * It is free software; you can redistribute it and/or modify it under    *
- * the terms of the GNU Lesser General Public License as published by the *
- * Free Software Foundation, either version 3 of the License, or (at your *
- * option) any later version.                                             *
- *                                                                        *
- * This script is distributed in the hope that it will be useful, but     *
- * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHAN-    *
- * TABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser       *
- * General Public License for more details.                               *
- *                                                                        *
- * You should have received a copy of the GNU Lesser General Public       *
- * License along with the script.                                         *
- * If not, see http://www.gnu.org/licenses/lgpl.html                      *
- *                                                                        *
- * The TYPO3 project - inspiring people to share!                         *
- *                                                                        */
-
 /**
- * Empty Validator
+ * This file is part of the "cart_products" Extension for TYPO3 CMS.
  *
- * @author Daniel Lorenz <ext.cart@extco.de>
+ * For the full copyright and license information, please read the
+ * LICENSE.txt file that was distributed with this source code.
  */
-class EmptyValidatorTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
+use Nimut\TestingFramework\TestCase\UnitTestCase;
+
+class EmptyValidatorTest extends UnitTestCase
 {
     /**
      * @var string

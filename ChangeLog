@@ -1,3 +1,9 @@
+4.8.2
+    2019-08-10
+    Daniel Gohlke <https://github.com/extcode>
+
+    * BUGFIX #257: change to nimut/testing-framework (v2.x)
+
 4.8.1
     2018-08-02
     Daniel Lorenz <https://github.com/extcode>

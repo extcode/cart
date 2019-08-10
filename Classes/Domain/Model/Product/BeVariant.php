@@ -391,7 +391,7 @@ class BeVariant extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
                 }
 
                 if ((
-                        ($specialPrice->getPrice() < $bestSpecialPrice->getPrice()) &&
+                    ($specialPrice->getPrice() < $bestSpecialPrice->getPrice()) &&
                         in_array($this->priceCalcMethod, [0, 1, 4, 5])
                     ) ||
                     (
@@ -425,7 +425,7 @@ class BeVariant extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
         if ($bestSpecialPrice) {
             if ((
-                    ($bestSpecialPrice->getPrice() < $bestPrice) &&
+                ($bestSpecialPrice->getPrice() < $bestPrice) &&
                     in_array($this->priceCalcMethod, [0, 1, 4, 5])
                 ) ||
                 (

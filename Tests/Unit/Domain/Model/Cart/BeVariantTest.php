@@ -2,38 +2,15 @@
 
 namespace Extcode\Cart\Tests\Domain\Model\Cart;
 
-/***************************************************************
- *  Copyright notice
- *
- *  (c) 2015 Daniel Lorenz <ext.cart@extco.de>, extco.de
- *
- *  All rights reserved
- *
- *  This script is part of the TYPO3 project. The TYPO3 project is
- *  free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 3 of the License, or
- *  (at your option) any later version.
- *
- *  The GNU General Public License can be found at
- *  http://www.gnu.org/copyleft/gpl.html.
- *
- *  This script is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  This copyright notice MUST APPEAR in all copies of the script!
- ***************************************************************/
-
 /**
- * Variant Test
+ * This file is part of the "cart_products" Extension for TYPO3 CMS.
  *
- * @author Daniel Lorenz
- * @license http://www.gnu.org/licenses/lgpl.html
- *                     GNU Lesser General Public License, version 3 or later
+ * For the full copyright and license information, please read the
+ * LICENSE.txt file that was distributed with this source code.
  */
-class BeVariantTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
+use Nimut\TestingFramework\TestCase\UnitTestCase;
+
+class BeVariantTest extends UnitTestCase
 {
     /**
      * @var \Extcode\Cart\Domain\Model\Cart\TaxClass
@@ -87,17 +64,22 @@ class BeVariantTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
     {
         $this->taxClass = new \Extcode\Cart\Domain\Model\Cart\TaxClass(1, '19', 0.19, 'normal');
 
-        $this->product = $this->getMock(
-            \Extcode\Cart\Domain\Model\Cart\Product::class,
-            ['getTaxClass', 'getPrice', 'getTitle', 'getSku'],
-            [],
-            '',
-            false
-        );
-        $this->product->expects($this->any())->method('getTaxClass')->will($this->returnValue($this->taxClass));
-        $this->product->expects($this->any())->method('getPrice')->will($this->returnValue(10.00));
-        $this->product->expects($this->any())->method('getTitle')->will($this->returnValue('Test Product'));
-        $this->product->expects($this->any())->method('getSku')->will($this->returnValue('test-product'));
+        $this->product = $this->getMockBuilder(\Extcode\Cart\Domain\Model\Cart\Product::class)
+            ->setMethods(['getBestPrice'])
+            ->setConstructorArgs(
+                [
+                    'Cart',
+                    1,
+                    0,
+                    0,
+                    'SKU',
+                    'TITLE',
+                    10.00,
+                    $this->taxClass,
+                    1,
+                ]
+            )->getMock();
+        $this->product->expects($this->any())->method('getBestPrice')->will($this->returnValue(10.00));
 
         $this->id = '1';
         $this->title = 'Test Variant';
@@ -264,15 +246,10 @@ class BeVariantTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
      */
     public function constructVariantWithCartProductAndVariantThrowsInvalidArgumentException()
     {
-        $cartProduct = $this->getMock('Extcode\\Cart\\Domain\\Model\\Cart\\Product', [], [], '', false);
-        $cartProduct->expects($this->any())->method('getTaxClass')->will($this->returnValue($this->taxClass));
-        $variant = $this->getMock('Extcode\\Cart\\Domain\\Model\\Cart\\BeVariant', [], [], '', false);
-        $variant->expects($this->any())->method('getTaxClass')->will($this->returnValue($this->taxClass));
-
         new \Extcode\Cart\Domain\Model\Cart\BeVariant(
             $this->id,
-            $cartProduct,
-            $variant,
+            $this->product,
+            $this->beVariant,
             $this->sku,
             $this->title,
             $this->priceCalcMethod,
@@ -286,10 +263,7 @@ class BeVariantTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
      */
     public function constructWithoutTitleThrowsException()
     {
-        $cartProduct = $this->getMock('Extcode\\Cart\\Domain\\Model\\Cart\\Product', [], [], '', false);
-        $cartProduct->expects($this->any())->method('getTaxClass')->will($this->returnValue($this->taxClass));
-
-        $this->setExpectedException(
+        $this->expectException(
             'InvalidArgumentException',
             'You have to specify a valid $title for constructor.',
             1437166475
@@ -297,7 +271,7 @@ class BeVariantTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
 
         new \Extcode\Cart\Domain\Model\Cart\BeVariant(
             1,
-            $cartProduct,
+            $this->product,
             null,
             null,
             'test-variant-sku',
@@ -312,10 +286,7 @@ class BeVariantTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
      */
     public function constructWithoutSkuThrowsException()
     {
-        $cartProduct = $this->getMock('Extcode\\Cart\\Domain\\Model\\Cart\\Product', [], [], '', false);
-        $cartProduct->expects($this->any())->method('getTaxClass')->will($this->returnValue($this->taxClass));
-
-        $this->setExpectedException(
+        $this->expectException(
             'InvalidArgumentException',
             'You have to specify a valid $sku for constructor.',
             1437166615
@@ -323,7 +294,7 @@ class BeVariantTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
 
         new \Extcode\Cart\Domain\Model\Cart\BeVariant(
             1,
-            $cartProduct,
+            $this->product,
             null,
             'Test Variant',
             null,
@@ -338,10 +309,7 @@ class BeVariantTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
      */
     public function constructWithoutQuantityThrowsException()
     {
-        $cartProduct = $this->getMock('Extcode\\Cart\\Domain\\Model\\Cart\\Product', [], [], '', false);
-        $cartProduct->expects($this->any())->method('getTaxClass')->will($this->returnValue($this->taxClass));
-
-        $this->setExpectedException(
+        $this->expectException(
             'InvalidArgumentException',
             'You have to specify a valid $quantity for constructor.',
             1437166805
@@ -349,7 +317,7 @@ class BeVariantTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
 
         new \Extcode\Cart\Domain\Model\Cart\BeVariant(
             1,
-            $cartProduct,
+            $this->product,
             null,
             'Test Variant',
             'test-variant-sku',
