@@ -395,6 +395,7 @@ class Product
                 $variant->setQuantity($newQuantity);
             }
         } else {
+            $newVariant->setProduct($this);
             $this->beVariants[$newVariantsId] = $newVariant;
         }
 

@@ -278,8 +278,6 @@ class BeVariant
     }
 
     /**
-     * Gets Product
-     *
      * @return \Extcode\Cart\Domain\Model\Cart\Product
      */
     public function getProduct()
@@ -288,13 +286,27 @@ class BeVariant
     }
 
     /**
-     * Gets Parent Variant
-     *
+     * @var \Extcode\Cart\Domain\Model\Cart\Product $product
+     */
+    public function setProduct(\Extcode\Cart\Domain\Model\Cart\Product $product)
+    {
+        $this->product = $product;
+    }
+
+    /**
      * @return \Extcode\Cart\Domain\Model\Cart\BeVariant
      */
     public function getParentBeVariant()
     {
         return $this->parentBeVariant;
+    }
+
+    /**
+     * @var \Extcode\Cart\Domain\Model\Cart\BeVariant $parentBeVariant
+     */
+    public function setParentBeVariant(self $parentBeVariant)
+    {
+        $this->parentBeVariant = $parentBeVariant;
     }
 
     /**

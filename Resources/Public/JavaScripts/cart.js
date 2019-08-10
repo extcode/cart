@@ -13,6 +13,7 @@ function updateCountry(billingCountry, shippingCountry) {
 
         success: function(data)
         {
+            $("#form-cart").html($(data).filter("#form-cart").html());
             $("#shipping-method").html($(data).filter("#shipping-method").html());
             $("#payment-method").html($(data).filter("#payment-method").html());
             $("#checkout-review-table").html($(data).filter("#checkout-review-table").html());

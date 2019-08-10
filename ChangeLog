@@ -2,6 +2,7 @@
     2019-08-10
     Daniel Gohlke <https://github.com/extcode>
 
+    * BUGFIX #256: change country only changes tax for first product variant
     * BUGFIX #257: change to nimut/testing-framework (v2.x)
 
 4.8.1
