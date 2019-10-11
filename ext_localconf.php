@@ -13,8 +13,8 @@ defined('TYPO3_MODE') or die();
     ],
     // non-cacheable actions
     [
-        'Cart\CartPreview' => 'show',
-        'Cart\Currency' => 'update',
+//         'Cart\CartPreview' => 'show',
+//         'Cart\Currency' => 'update',
     ]
 );
 
