@@ -6,5 +6,5 @@
 conf.py:
   copyright: 2013-2021
   project: Cart
-  version: 6.5
-  release: 6.5.1
+  version: 6.6
+  release: 6.6.0

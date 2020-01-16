@@ -13,7 +13,7 @@
     ],
     "authors": [
         {
-            "name": "Daniel Lorenz",
+            "name": "Daniel Gohlke",
             "email": "ext.cart@extco.de",
             "role": "Developer"
         }
@@ -22,7 +22,7 @@
         "issues": "https://github.com/extcode/cart/issues"
     },
     "require": {
-        "php": "^7.2 <7.4",
+        "php": ">=7.2.0 <7.5",
         "typo3/cms-core": "^9.5",
         "typo3/cms-form": "^9.5"
     },
