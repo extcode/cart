@@ -42,7 +42,7 @@
         }
     },
     "replace": {
-        "cart": "self.version"
+        "extcode/cart": "self.version"
     },
     "config": {
         "vendor-dir": ".Build/vendor",
