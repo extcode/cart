@@ -287,7 +287,13 @@ class OrderUtility
 
         $orderItem->setPid($this->storagePid);
 
-        $orderItem->setFeUser((int)$GLOBALS['TSFE']->fe_user->user['uid']);
+        $feUserId = (int)$GLOBALS['TSFE']->fe_user->user['uid'];
+        if ($feUserId) {
+            $frontendUserRepository = $this->objectManager->get(
+                \TYPO3\CMS\Extbase\Domain\Repository\FrontendUserRepository::class
+            );
+            $orderItem->setFeUser($frontendUserRepository->findByUid($feUserId));
+        }
 
         $orderItem->setCurrency($pluginSettings['settings']['format']['currency']['currencySign']);
         $orderItem->setCurrencyCode($this->cart->getCurrencyCode());
