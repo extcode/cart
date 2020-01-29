@@ -22,6 +22,9 @@ namespace Extcode\Cart\Controller\Cart;
  */
 class CurrencyController extends ActionController
 {
+    const AJAX_CART_TYPE_NUM = '2278001';
+    const AJAX_CURRENCY_TYPE_NUM = '2278003';
+
     /**
      * Currency Utility
      *
@@ -51,9 +54,10 @@ class CurrencyController extends ActionController
 
         $this->cartUtility->updateService($this->cart, $this->pluginSettings);
 
-        if (isset($_GET['type']) && intval($_GET['type']) == 2278003) {
+        $pageType = $GLOBALS['TYPO3_REQUEST']->getAttribute('routing')->getPageType();
+        if ($pageType === self::AJAX_CURRENCY_TYPE_NUM) {
             $this->view->assign('cart', $this->cart);
-        } elseif (isset($_GET['type']) && intval($_GET['type']) == 2278001) {
+        } elseif ($pageType === self::AJAX_CART_TYPE_NUM) {
             $this->view->assign('cart', $this->cart);
 
             $this->parseData();

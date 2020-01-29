@@ -10,6 +10,7 @@ use TYPO3\CMS\Form\Domain\Finishers\AbstractFinisher;
 
 class AddToCartFinisher extends AbstractFinisher
 {
+    const AJAX_CART_TYPE_NUM = '2278001';
 
     /**
      * @var Cart
@@ -83,7 +84,8 @@ class AddToCartFinisher extends AbstractFinisher
             $messageTitle = $this->getStatusMessageTitle($formValues);
             $severity = \TYPO3\CMS\Core\Messaging\AbstractMessage::OK;
 
-            if (isset($_GET['type'])) {
+            $pageType = $GLOBALS['TYPO3_REQUEST']->getAttribute('routing')->getPageType();
+            if ($pageType === self::AJAX_CART_TYPE_NUM) {
                 $response = [
                     'status' => $status,
                     'added' => $quantity,
@@ -155,7 +157,7 @@ class AddToCartFinisher extends AbstractFinisher
      * @param string $status
      * @return string|null
      */
-    protected function getStatusMessageBody(array $formValues, string $status = '200')
+    protected function getStatusMessageBody(array $formValues, $status = '200')
     {
         $messageBody = LocalizationUtility::translate(
             'tx_cart.add_to_cart_finisher.' . $formValues['productType'] . '.message.status.' . $status . '.body',
@@ -175,7 +177,7 @@ class AddToCartFinisher extends AbstractFinisher
      * @param string $status
      * @return string|null
      */
-    protected function getStatusMessageTitle(array $formValues, string $status = '200')
+    protected function getStatusMessageTitle(array $formValues, $status = '200')
     {
         $messageTitle = LocalizationUtility::translate(
             'tx_cart.add_to_cart_finisher.' . $formValues['productType'] . '.message.status.' . $status . '.title',

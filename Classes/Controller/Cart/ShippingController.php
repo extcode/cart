@@ -22,6 +22,8 @@ namespace Extcode\Cart\Controller\Cart;
  */
 class ShippingController extends ActionController
 {
+    const AJAX_CART_TYPE_NUM = '2278001';
+
     /**
      * Action update
      *
@@ -53,7 +55,8 @@ class ShippingController extends ActionController
 
         $this->sessionHandler->write($this->cart, $this->settings['cart']['pid']);
 
-        if (isset($_GET['type'])) {
+        $pageType = $GLOBALS['TYPO3_REQUEST']->getAttribute('routing')->getPageType();
+        if ($pageType === self::AJAX_CART_TYPE_NUM) {
             $this->view->assign('cart', $this->cart);
 
             $this->parseData();

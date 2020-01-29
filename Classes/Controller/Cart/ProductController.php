@@ -24,6 +24,8 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  */
 class ProductController extends ActionController
 {
+    const AJAX_CART_TYPE_NUM = '2278001';
+
     /**
      * Stock Utility
      *
@@ -115,7 +117,8 @@ class ProductController extends ActionController
                 }
             }
 
-            if (isset($_GET['type'])) {
+            $pageType = $GLOBALS['TYPO3_REQUEST']->getAttribute('routing')->getPageType();
+            if ($pageType === self::AJAX_CART_TYPE_NUM) {
                 $response = [
                     'status' => '412',
                     'count' => $this->cart->getCount(),
@@ -151,7 +154,8 @@ class ProductController extends ActionController
             [$quantity]
         );
 
-        if (isset($_GET['type'])) {
+        $pageType = $GLOBALS['TYPO3_REQUEST']->getAttribute('routing')->getPageType();
+        if ($pageType === self::AJAX_CART_TYPE_NUM) {
             $productsChanged = $this->getChangedProducts($cartProducts);
 
             $response = [
