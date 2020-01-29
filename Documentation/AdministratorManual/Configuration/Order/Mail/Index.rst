@@ -3,11 +3,11 @@
 .. --------------------------------------------------
 .. -*- coding: utf-8 -*- with BOM.
 
-E-Mail-Konfiguration
+E-mail Configuration
 ====================
 
-Für den Versand der E-Mails müssen E-Mail-Adressen konfiguriert werden. Das kann im Backend über das Plugin geschehen,
-aber auch über TypoScript konfiguriert werden.
+E-mail addresses must be configured for sending e-mails. This can be done in the backend via the plugin,
+but also configured via TypoScript.
 
 ::
 
@@ -15,6 +15,7 @@ aber auch über TypoScript konfiguriert werden.
        mail {
            buyer {
                fromAddress = cart.buyer.sender@extco.de
+               bccAddress = cart.buyer.bcc1@extco.de, cart.buyer.bcc2@extco.de
                attachments {
                    1 = EXT:theme_cart/Resources/Public/Files/AGB.pdf
                }
@@ -22,6 +23,7 @@ aber auch über TypoScript konfiguriert werden.
            seller {
                fromAddress = cart.seller.sender@extco.de
                toAddress = cart.seller.receiver@extco.de
+               bccAddress = cart.seller.bcc1@extco.de, cart.seller.bcc2@extco.de
            }
        }
    }
@@ -35,7 +37,19 @@ mail.buyer.fromAddress
    Data type
       string
    Description
-      Definiert mit welcher Absender-Adresse die E-Mails an den Käufer gesendet werden.
+      Defines from which sender address the e-mails are sent to the buyer.
+
+mail.buyer.bccAddress
+"""""""""""""""""""""
+.. container:: table-row
+
+   Property
+      plugin.tx_cart.mail.buyer.bccAddress
+   Data type
+      string
+   Description
+      Defines to which addresses the e-mail should be sent in BCC (Blind Carbon Copy).
+      Multiple recipients can be given separated by commas.
 
 mail.buyer.attachments
 """"""""""""""""""""""
@@ -46,7 +60,8 @@ mail.buyer.attachments
    Data type
       array
    Description
-      Definiert einen E-Mail-Anhang/mehrere E-Mail-Anhänge die an den Käufer geschickt werden. Dies können zum Beispiel Dokumente mit den Allgemeinen Geschäftsbedingungen sein.
+      Defines one or more e-mail attachments to be sent to the buyer.
+      These can be, for example, documents with the general terms and conditions.
 
 mail.buyer.attachDocuments
 """"""""""""""""""""""""""
@@ -57,7 +72,8 @@ mail.buyer.attachDocuments
    Data type
       array
    Description
-      Definiert einen E-Mail-Anhang/mehrere E-Mail-Anhänge der generierten PDF-Dokumente die an den Käufer geschickt werden. Dies kann die Bestellbestätigung, die Rechnung oder ein eigenes Dokument sein.
+      Defines one or more e-mail attachments of the generated PDF documents to be sent to the buyer.
+      This can be the order confirmation, the invoice or a separate document.
 
 mail.seller.fromAddress
 """""""""""""""""""""""
@@ -68,7 +84,7 @@ mail.seller.fromAddress
    Data type
       string
    Description
-      Definiert mit welcher Absender-Adresse die E-Mails an den Verkäufer/Shopbetreiber gesendet werden.
+      Defines from which sender address the e-mails are sent to the seller/shop operator.
 
 mail.seller.toAddress
 """""""""""""""""""""
@@ -79,7 +95,20 @@ mail.seller.toAddress
    Data type
       string
    Description
-      Definiert an welche Empfänger-Adressen die E-Mails an den Verkäufer/Shopbetreiber gesendet werden. Sollen die E-Mails an mehrere Empfänger gehen, können diese kommasepariert angegeben werden.
+      Defines to which recipient addresses the e-mails to the seller/shop operator are sent.
+      Multiple recipients can be given separated by commas.
+
+mail.seller.bccAddress
+"""""""""""""""""""""
+.. container:: table-row
+
+   Property
+      plugin.tx_cart.mail.buyer.bccAddress
+   Data type
+      string
+   Description
+      Defines to which addresses the e-mail should be sent in BCC (Blind Carbon Copy).
+      Multiple recipients can be given separated by commas.
 
 mail.seller.attachments
 """""""""""""""""""""""
@@ -90,7 +119,8 @@ mail.seller.attachments
    Data type
       array
    Description
-      Definiert einen E-Mail-Anhang/mehrere E-Mail-Anhänge die an den Verkäufer/Shopbetreiber geschickt werden.
+      Defines one or more e-mail attachments to be sent to the buyer.
+      These can be, for example, documents with the general terms and conditions.
 
 mail.seller.attachDocuments
 """""""""""""""""""""""""""
@@ -101,4 +131,5 @@ mail.seller.attachDocuments
    Data type
       array
    Description
-      Definiert einen E-Mail-Anhang/mehrere E-Mail-Anhänge der generierten PDF-Dokumente die an den Verkäufer/Shopbetreiber geschickt werden. Dies kann die Bestellbestätigung, die Rechnung, der Lieferschein oder ein eigenes Dokument sein.
+      Defines one or more e-mail attachments of the generated PDF documents to be sent to the buyer.
+      This can be the order confirmation, the invoice or a separate document.
