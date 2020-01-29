@@ -60,12 +60,28 @@
                 <target>Absender-E-Mail-Adresse für E-Mail an den Verkäufer</target>
             </trans-unit>
             <trans-unit id="tx_cart.flexform.seller.email_to_address">
-                <source>Receiver email address for email to the Seller</source>
-                <target>Empfänger-E-Mail-Adresse für E-Mail an den Verkäufer</target>
+                <source>Receiver email addresses (seperated by comma) for email to the Seller</source>
+                <target>Empfänger-E-Mail-Adressen (durch Komma getrennt) für E-Mail an den Verkäufer</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.flexform.seller.email_bcc_address">
+                <source>BCC email addresses (seperated by comma) for email to the Seller</source>
+                <target>BCC E-Mail-Adressen (durch Komma getrennt) für E-Mail an den Verkäufer</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.flexform.seller.email_bcc_address.description">
+                <source>The recipients of e-mails sent to one or more e-mail addresses separated by commas and listed in the so-called BCC (Blind Carbon Copy) field will receive a copy of the sent e-mail without their address being visible to the other specified recipients. (Source: Wikipedia)</source>
+                <target>Die Empfänger von E-Mails an eine oder mehrere durch Kommata getrennte E-Mail-Adressen, die im sogenannten BCC-Feld (von englisch: Blind Carbon Copy, dt. sinngemäß Blindkopie) aufgeführt wurden, erhalten eine Kopie der gesendeten E-Mail, ohne dass ihre Adresse für die anderen angegebenen Empfänger sichtbar wird.  (Quelle: Wikipedia)</target>
             </trans-unit>
             <trans-unit id="tx_cart.flexform.buyer.email_from_address">
                 <source>Sender email address for email to the Buyer</source>
                 <target>Absender-E-Mail-Adresse für E-Mail an den Käufer</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.flexform.buyer.email_bcc_address">
+                <source>BCC email addresses (seperated by comma) for email to the Buyer</source>
+                <target>BCC E-Mail-Adressen (durch Komma getrennt) für E-Mail an den Käufer</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.flexform.buyer.email_bcc_address.description">
+                <source>The recipients of e-mails sent to one or more e-mail addresses separated by commas and listed in the so-called BCC (Blind Carbon Copy) field will receive a copy of the sent e-mail without their address being visible to the other specified recipients. (Source: Wikipedia)</source>
+                <target>Die Empfänger von E-Mails an eine oder mehrere durch Kommata getrennte E-Mail-Adressen, die im sogenannten BCC-Feld (von englisch: Blind Carbon Copy, dt. sinngemäß Blindkopie) aufgeführt wurden, erhalten eine Kopie der gesendeten E-Mail, ohne dass ihre Adresse für die anderen angegebenen Empfänger sichtbar wird. (Quelle: Wikipedia)</target>
             </trans-unit>
 
             <trans-unit id="tx_cart.tax_class_id">

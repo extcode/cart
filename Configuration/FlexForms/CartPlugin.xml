@@ -30,6 +30,17 @@
                             </config>
                         </TCEforms>
                     </settings.seller.emailToAddress>
+                    <settings.seller.emailBccAddress>
+                        <TCEforms>
+                            <label>
+                                LLL:EXT:cart/Resources/Private/Language/locallang_db.xml:tx_cart.flexform.seller.email_bcc_address
+                            </label>
+                            <description>LLL:EXT:cart/Resources/Private/Language/locallang_db.xml:tx_cart.flexform.seller.email_bcc_address.description</description>
+                            <config>
+                                <type>input</type>
+                            </config>
+                        </TCEforms>
+                    </settings.seller.emailBccAddress>
                     <settings.buyer.emailFromAddress>
                         <TCEforms>
                             <label>
@@ -40,6 +51,17 @@
                             </config>
                         </TCEforms>
                     </settings.buyer.emailFromAddress>
+                    <settings.buyer.emailBccAddress>
+                        <TCEforms>
+                            <label>
+                                LLL:EXT:cart/Resources/Private/Language/locallang_db.xml:tx_cart.flexform.buyer.email_bcc_address
+                            </label>
+                            <description>LLL:EXT:cart/Resources/Private/Language/locallang_db.xml:tx_cart.flexform.buyer.email_bcc_address.description</description>
+                            <config>
+                                <type>input</type>
+                            </config>
+                        </TCEforms>
+                    </settings.buyer.emailBccAddress>
                 </el>
             </ROOT>
         </sDEF>

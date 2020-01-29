@@ -47,10 +47,22 @@
                 <source>Sender email address for email to the Seller</source>
             </trans-unit>
             <trans-unit id="tx_cart.flexform.seller.email_to_address">
-                <source>Receiver email address for email to the Seller</source>
+                <source>Receiver email addresses (seperated by comma) for email to the Seller</source>
+            </trans-unit>
+            <trans-unit id="tx_cart.flexform.seller.email_bcc_address">
+                <source>BCC email addresses (seperated by comma) for email to the Seller</source>
+            </trans-unit>
+            <trans-unit id="tx_cart.flexform.seller.email_bcc_address.description">
+                <source>The recipients of e-mails sent to one or more e-mail addresses separated by commas and listed in the so-called BCC (Blind Carbon Copy) field will receive a copy of the sent e-mail without their address being visible to the other specified recipients. (Source: Wikipedia)</source>
             </trans-unit>
             <trans-unit id="tx_cart.flexform.buyer.email_from_address">
                 <source>Sender email address for email to the Buyer</source>
+            </trans-unit>
+            <trans-unit id="tx_cart.flexform.buyer.email_bcc_address">
+                <source>BCC email addresses (seperated by comma) for email to the Buyer</source>
+            </trans-unit>
+            <trans-unit id="tx_cart.flexform.buyer.email_bcc_address.description">
+                <source>The recipients of e-mails sent to one or more e-mail addresses separated by commas and listed in the so-called BCC (Blind Carbon Copy) field will receive a copy of the sent e-mail without their address being visible to the other specified recipients. (Source: Wikipedia)</source>
             </trans-unit>
 
             <trans-unit id="tx_cart.tax_class_id">

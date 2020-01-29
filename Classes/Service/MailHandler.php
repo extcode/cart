@@ -66,12 +66,22 @@ class MailHandler implements SingletonInterface
     /**
      * @var string
      */
+    protected $buyerEmailBcc = '';
+
+    /**
+     * @var string
+     */
     protected $sellerEmailFrom = '';
 
     /**
      * @var string
      */
     protected $sellerEmailTo = '';
+
+    /**
+     * @var string
+     */
+    protected $sellerEmailBcc = '';
 
     /**
      * MailHandler constructor
@@ -116,6 +126,17 @@ class MailHandler implements SingletonInterface
                 $this->setBuyerEmailFrom($this->pluginSettings['mail']['buyer']['fromAddress']);
             }
 
+            if (!empty($this->pluginSettings['settings']['buyer'])
+                && !empty($this->pluginSettings['settings']['buyer']['emailBccAddress'])
+            ) {
+                $this->setBuyerEmailBcc($this->pluginSettings['settings']['buyer']['emailBccAddress']);
+            } elseif (!empty($this->pluginSettings['mail'])
+                && !empty($this->pluginSettings['mail']['buyer'])
+                && !empty($this->pluginSettings['mail']['buyer']['bccAddress'])
+            ) {
+                $this->setBuyerEmailBcc($this->pluginSettings['mail']['buyer']['bccAddress']);
+            }
+
             if (!empty($this->pluginSettings['settings']['seller'])
                 && !empty($this->pluginSettings['settings']['seller']['emailFromAddress'])
             ) {
@@ -137,6 +158,17 @@ class MailHandler implements SingletonInterface
             ) {
                 $this->setSellerEmailTo($this->pluginSettings['mail']['seller']['toAddress']);
             }
+
+            if (!empty($this->pluginSettings['settings']['seller'])
+                && !empty($this->pluginSettings['settings']['seller']['emailBccAddress'])
+            ) {
+                $this->setSellerEmailBcc($this->pluginSettings['settings']['seller']['emailBccAddress']);
+            } elseif (!empty($this->pluginSettings['mail'])
+                && !empty($this->pluginSettings['mail']['seller'])
+                && !empty($this->pluginSettings['mail']['seller']['bccAddress'])
+            ) {
+                $this->setSellerEmailBcc($this->pluginSettings['mail']['seller']['bccAddress']);
+            }
         }
     }
 
@@ -151,7 +183,7 @@ class MailHandler implements SingletonInterface
     /**
      * @param string $email
      */
-    public function setBuyerEmailFrom(string $email)
+    public function setBuyerEmailFrom(string $email): void
     {
         $this->buyerEmailFrom = $email;
     }
@@ -165,9 +197,25 @@ class MailHandler implements SingletonInterface
     }
 
     /**
+     * @param string $buyerEmailBcc
+     */
+    public function setBuyerEmailBcc(string $buyerEmailBcc): void
+    {
+        $this->buyerEmailBcc = $buyerEmailBcc;
+    }
+
+    /**
+     * @return string
+     */
+    public function getBuyerEmailBcc(): string
+    {
+        return $this->buyerEmailBcc;
+    }
+
+    /**
      * @param string $email
      */
-    public function setSellerEmailFrom(string $email)
+    public function setSellerEmailFrom(string $email): void
     {
         $this->sellerEmailFrom = $email;
     }
@@ -183,7 +231,7 @@ class MailHandler implements SingletonInterface
     /**
      * @param string $email
      */
-    public function setSellerEmailTo(string $email)
+    public function setSellerEmailTo(string $email): void
     {
         $this->sellerEmailTo = $email;
     }
@@ -194,6 +242,22 @@ class MailHandler implements SingletonInterface
     public function getSellerEmailTo(): string
     {
         return $this->sellerEmailTo;
+    }
+
+    /**
+     * @param string $sellerEmailBcc
+     */
+    public function setSellerEmailBcc(string $sellerEmailBcc): void
+    {
+        $this->sellerEmailBcc = $sellerEmailBcc;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSellerEmailBcc(): string
+    {
+        return $this->sellerEmailBcc;
     }
 
     /**
@@ -217,6 +281,9 @@ class MailHandler implements SingletonInterface
             $mail = $this->objectManager->get(MailMessage::class);
             $mail->setFrom($this->buyerEmailFrom);
             $mail->setTo($orderItem->getBillingAddress()->getEmail());
+            if ($this->buyerEmailBcc) {
+                $mail->setBcc(explode(',', $this->buyerEmailBcc));
+            }
             $mail->setSubject($mailSubject);
             $mail->setBody($mailBody, 'text/html', 'utf-8');
 
@@ -256,6 +323,9 @@ class MailHandler implements SingletonInterface
             $mail = $this->objectManager->get(MailMessage::class);
             $mail->setFrom($this->sellerEmailFrom);
             $mail->setTo(explode(',', $this->sellerEmailTo));
+            if ($this->sellerEmailBcc) {
+                $mail->setBcc(explode(',', $this->sellerEmailBcc));
+            }
             $mail->setReplyTo($orderItem->getBillingAddress()->getEmail());
             $mail->setSubject($mailSubject);
             $mail->setBody($mailBody, 'text/html', 'utf-8');
