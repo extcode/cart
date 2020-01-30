@@ -8,7 +8,7 @@ depend on the amount of products in cart. The cart extension provides a service 
 default implementation which can handle different kinds of dependencies.
 A common condition is the amount of physical products in cart.
 
-::
+.. code-block:: typoscript
 
    plugin.tx_cart {
        shippings {
@@ -19,22 +19,22 @@ A common condition is the amount of physical products in cart.
                       1 {
                           title = Standard
 
-                          extraType = by_number_of_physical_products
-                          extras {
+                          extra = by_price
+                          extra {
                               1 {
-                                  value = 0
+                                  value = 0.00
                                   extra = 1.50
                               }
                               2 {
-                                  value = 1
+                                  value = 5.00
                                   extra = 3.00
                               }
                               3 {
-                                  value = 4
+                                  value = 10.00
                                   extra = 4.00
                               }
                               4 {
-                                  value = 8
+                                  value = 80.00
                                   extra = 5.00
                               }
                           }
@@ -54,7 +54,7 @@ A common condition is the amount of physical products in cart.
 .. container:: table-row
 
    Property
-      plugin.tx_cart.shipping.countries.de.options.N.extraType
+      plugin.tx_cart.shipping.countries.de.options.N.extra
    Data type
       string
    Description
@@ -88,7 +88,17 @@ A common condition is the amount of physical products in cart.
    Description
       Defines the extra value.
 
-::
+Sometimes the shipping method has some special rules.
+In Germany the Post provides the so called "Bücherversand" for books. Some rules
+apply to this shipping method.
+* The weight is included in the price calculation.
+* Certain lengths and widths must not be exceeded.
+* Furthermore only books may be sent.
+Such special rules cannot be mapped using TypoScript configurations. Therefore, a
+separate service class can be implemented for a method, which can then return the
+calculated price to the shopping cart.
+
+.. code-block:: typoscript
 
    plugin.tx_cart {
        shippings {
@@ -98,14 +108,12 @@ A common condition is the amount of physical products in cart.
                   options {
                       1 {
                           title = Standard
-                          className = \\MyVendor\MyExtension\Service
+                          className = \\MyVendor\\MyExtension\\MyShippingService
                           taxClassId = 1
                           status = open
                       }
                   }
               }
-              at < .de
-              ch < .de
            }
        }
    }

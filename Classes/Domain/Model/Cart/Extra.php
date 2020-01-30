@@ -96,12 +96,12 @@ class Extra
      * @internal param $gross
      */
     public function __construct(
-        $id,
-        $condition,
-        $price,
+        int $id,
+        float $condition,
+        float $price,
         \Extcode\Cart\Domain\Model\Cart\TaxClass $taxClass,
-        $isNetPrice = false,
-        $extraType = ''
+        bool $isNetPrice = false,
+        string $extraType = ''
     ) {
         $this->id = $id;
         $this->condition = $condition;

@@ -69,7 +69,7 @@ Zonenkonfiguration
 Sollte keine individuelle Landeskonfiguration gefunden werden, kann auch mit Zonen (zones) im TypoScript gearbeitet werden.
 Dies erspart jede Menge Konfigurationsarbeit, wenn in viele Länder geliefert werden soll.
 
-::
+.. code-block:: typoscript
 
    plugin.tx_cart {
        shippings {
@@ -120,7 +120,7 @@ Versandarten deaktivieren
 Im Moment erlaubt es die Verarbeitung nicht ganz auf die Versandarten zu verzichten. Eine Versandart muss immer angegeben
 sein. Wenn es lediglich eine Versandart gibt, kann der Auswahlblock ausblendet werden.
 
-::
+.. code-block:: typoscript
 
    plugin.tx_cart {
         settings {

@@ -223,15 +223,15 @@ class Service implements ServiceInterface
             );
         }
 
-        if (is_array($this->config['extras'] && isset($this->config['extrasType']))) {
-            $extraType = $this->config['extrasType'];
+        if (is_array($this->config['extra']) && isset($this->config['extra']['_typoScriptNodeValue'])) {
+            $extraType = $this->config['extra']['_typoScriptNodeValue'];
 
             if ($extraType === 'each') {
                 return $this->objectManager->get(
                     \Extcode\Cart\Domain\Model\Cart\Extra::class,
                     0,
                     0,
-                    (float)$this->config['extras']['extra'],
+                    (float)$this->config['extra']['extra'],
                     $this->cart->getTaxClass($this->config['taxClassId']),
                     $this->cart->getIsNetCart(),
                     $extraType
@@ -240,12 +240,12 @@ class Service implements ServiceInterface
 
             $conditionValue = $this->getConditionValueFromCart($extraType);
 
-            foreach ($this->config['extras'] as $extraKey => $extraValue) {
-                if ($extraValue['value'] < $conditionValue) {
+            foreach ($this->config['extra'] as $extraKey => $extraValue) {
+                if (is_array($extraValue) && ((float)$extraValue['value'] <= (float)$conditionValue)) {
                     $extra = $this->objectManager->get(
                         \Extcode\Cart\Domain\Model\Cart\Extra::class,
                         $extraKey,
-                        $extraValue['value'],
+                        (float)$extraValue['value'],
                         (float)$extraValue['extra'],
                         $this->cart->getTaxClass($this->config['taxClassId']),
                         $this->cart->getIsNetCart(),
@@ -315,43 +315,41 @@ class Service implements ServiceInterface
      */
     protected function getConditionValueFromCart(string $extraType)
     {
-        $condition = null;
-
         switch ($extraType) {
             case 'by_price':
-                $condition = $this->cart->getGross();
+                return $this->cart->getGross();
                 break;
             case 'by_quantity':
             case 'by_number_of_physical_products':
-                $condition = $this->cart->getCountPhysicalProducts();
+                return $this->cart->getCountPhysicalProducts();
                 break;
             case 'by_number_of_virtual_products':
-                $condition = $this->cart->getCountVirtualProducts();
+                return $this->cart->getCountVirtualProducts();
                 break;
             case 'by_number_of_all_products':
-                $condition = $this->cart->getCount();
+                return $this->cart->getCount();
                 break;
             case 'by_service_attribute_1_sum':
-                $condition = $this->cart->getSumServiceAttribute1();
+                return $this->cart->getSumServiceAttribute1();
                 break;
             case 'by_service_attribute_1_max':
-                $condition = $this->cart->getMaxServiceAttribute1();
+                return $this->cart->getMaxServiceAttribute1();
                 break;
             case 'by_service_attribute_2_sum':
-                $condition = $this->cart->getSumServiceAttribute2();
+                return $this->cart->getSumServiceAttribute2();
                 break;
             case 'by_service_attribute_2_max':
-                $condition = $this->cart->getMaxServiceAttribute2();
+                return $this->cart->getMaxServiceAttribute2();
                 break;
             case 'by_service_attribute_3_sum':
-                $condition = $this->cart->getSumServiceAttribute3();
+                return $this->cart->getSumServiceAttribute3();
                 break;
             case 'by_service_attribute_3_max':
-                $condition = $this->cart->getMaxServiceAttribute3();
+                return $this->cart->getMaxServiceAttribute3();
                 break;
             default:
         }
 
-        return $condition;
+        return null;
     }
 }
