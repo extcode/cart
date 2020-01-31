@@ -24,11 +24,11 @@ compatibility reasons. However, a path segment other than `updatecart.html` or `
 
 .. code-block:: yaml
 
-routeEnhancers:
-  PageTypeSuffix:
-    type: PageType
-    map:
-      updatecart.html: 2278001
-      updatecurrency.html: 2278003
+   routeEnhancers:
+     PageTypeSuffix:
+       type: PageType
+       map:
+         updatecart.html: 2278001
+         updatecurrency.html: 2278003
 
 .. index:: Fluid, TypoScript

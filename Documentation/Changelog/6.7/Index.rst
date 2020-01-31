@@ -9,6 +9,16 @@
    :local:
    :depth: 1
 
+Important
+^^^^^^^^^
+
+.. toctree::
+   :maxdepth: 1
+   :titlesonly:
+   :glob:
+
+   Important-*
+
 Features
 ^^^^^^^^
 
@@ -18,13 +28,3 @@ Features
    :glob:
 
    Feature-*
-
-Breaking Changes
-^^^^^^^^^^^^^^^^
-
-.. toctree::
-   :maxdepth: 1
-   :titlesonly:
-   :glob:
-
-   Breaking-*
