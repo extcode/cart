@@ -1,14 +1,9 @@
-.. ==================================================
-.. FOR YOUR INFORMATION
-.. --------------------------------------------------
-.. -*- coding: utf-8 -*- with BOM.
+.. include:: ../../../Includes.txt
 
 AJAX Konfiguration
 ==================
 
 Um Produkte per AJAX-Request in den Warenkorb zu legen, wird eine Konfiguration für einen eigenen Seitentyp benötigt, denn in diesem Fall möchte man nicht die komplett gerenderte Seite als Antwort erhalten, sondern lediglich ein JSON-Objekt,
-
-
 
 ::
 

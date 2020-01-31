@@ -8,3 +8,13 @@
 .. contents::
    :local:
    :depth: 1
+
+Features
+^^^^^^^^
+
+.. toctree::
+   :maxdepth: 1
+   :titlesonly:
+   :glob:
+
+   Feature-*

@@ -1,12 +1,9 @@
-.. ==================================================
-.. FOR YOUR INFORMATION
-.. --------------------------------------------------
-.. -*- coding: utf-8 -*- with BOM.
+.. include:: ../../../../Includes.txt
 
-E-mail Configuration
+Email Configuration
 ====================
 
-E-mail addresses must be configured for sending e-mails. This can be done in the backend via the plugin,
+Email addresses must be configured for sending emails. This can be done in the backend via the plugin,
 but also configured via TypoScript.
 
 ::
