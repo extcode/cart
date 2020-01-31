@@ -592,6 +592,9 @@ abstract class AbstractService
             case 'by_price':
                 $condition = $this->cart->getGross();
                 break;
+            case 'by_price_of_physical_products':
+                $condition = $this->getPriceOfPhysicalProducts();
+                break;
             case 'by_quantity':
             case 'by_number_of_physical_products':
                 $condition = $this->cart->getCountPhysicalProducts();
@@ -691,5 +694,22 @@ abstract class AbstractService
     public function getStatus()
     {
         return $this->status;
+    }
+
+    /**
+     * @return float
+     */
+    protected function getPriceOfPhysicalProducts(): float
+    {
+        $condition = 0.0;
+
+        if ($this->cart->getProducts()) {
+            foreach ($this->cart->getProducts() as $product) {
+                if (!$product->getIsVirtualProduct()) {
+                    $condition += $product->getGross();
+                }
+            }
+        }
+        return $condition;
     }
 }

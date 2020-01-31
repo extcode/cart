@@ -57,17 +57,18 @@ A common condition is the amount of physical products in cart.
    Data type
       string
    Description
-      * by_price:
-      * by_quantity:
-      * by_number_of_physical_products:
-      * by_number_of_virtual_products:
-      * by_number_of_all_products:
-      * by_service_attribute_1_sum:
-      * by_service_attribute_1_max:
-      * by_service_attribute_2_sum:
-      * by_service_attribute_2_max:
-      * by_service_attribute_3_sum:
-      * by_service_attribute_3_max:
+      * by_price
+      * by_price_of_physical_products
+      * by_quantity
+      * by_number_of_physical_products
+      * by_number_of_virtual_products
+      * by_number_of_all_products
+      * by_service_attribute_1_sum
+      * by_service_attribute_1_max
+      * by_service_attribute_2_sum
+      * by_service_attribute_2_max
+      * by_service_attribute_3_sum
+      * by_service_attribute_3_max
 
 .. container:: table-row
 
