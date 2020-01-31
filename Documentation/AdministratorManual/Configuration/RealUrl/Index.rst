@@ -1,7 +1,4 @@
-.. ==================================================
-.. FOR YOUR INFORMATION
-.. --------------------------------------------------
-.. -*- coding: utf-8 -*- with BOM.
+.. include:: ../../../Includes.txt
 
 RealURL
 =======
@@ -11,48 +8,46 @@ soll hier eine Beispielkonfiguration gezeigt werden:
 
 ::
 
-    'fixedPostVars' => [
-        'cartShowCart' => [
-            [
-                'GETvar' => 'tx_cart_cart[action]',
-                'valueMap' => array(
-                    '' => 'showCart',
-                )
-            ],
-            [
-                'GETvar' => 'tx_cart_cart[controller]',
-                'noMatch' => 'bypass'
-            ]
-        ],
-        'cartShowProduct' => [
-            [
-                'GETvar' => 'tx_cart_product[product]',
-                'lookUpTable' => [
-                    'table' => 'tx_cart_domain_model_product_product',
-                    'id_field' => 'uid',
-                    'alias_field' => 'title',
-                    'addWhereClause' => ' AND NOT deleted',
-                    'useUniqueCache' => 1,
-                    'useUniqueCache_conf' => [
-                        'strtolower' => 1,
-                        'spaceCharacter' => '-'
-                    ],
-                    'languageGetVar' => 'L',
-                    'languageExceptionUids' => '',
-                    'languageField' => 'sys_language_uid',
-                    'transOrigPointerField' => 'l10n_parent',
-                    'autoUpdate' => 1,
-                    'expireDays' => 180,
-                ]
-            ],
-            [
-                'GETvar' => 'tx_cart_product[controller]',
-                'noMatch' => 'bypass'
-            ]
-        ],
-    ],
-
-|
+   'fixedPostVars' => [
+       'cartShowCart' => [
+           [
+               'GETvar' => 'tx_cart_cart[action]',
+               'valueMap' => array(
+                   '' => 'showCart',
+               )
+           ],
+           [
+               'GETvar' => 'tx_cart_cart[controller]',
+               'noMatch' => 'bypass'
+           ]
+       ],
+       'cartShowProduct' => [
+           [
+               'GETvar' => 'tx_cart_product[product]',
+               'lookUpTable' => [
+                   'table' => 'tx_cart_domain_model_product_product',
+                   'id_field' => 'uid',
+                   'alias_field' => 'title',
+                   'addWhereClause' => ' AND NOT deleted',
+                   'useUniqueCache' => 1,
+                   'useUniqueCache_conf' => [
+                       'strtolower' => 1,
+                       'spaceCharacter' => '-'
+                   ],
+                   'languageGetVar' => 'L',
+                   'languageExceptionUids' => '',
+                   'languageField' => 'sys_language_uid',
+                   'transOrigPointerField' => 'l10n_parent',
+                   'autoUpdate' => 1,
+                   'expireDays' => 180,
+               ]
+           ],
+           [
+               'GETvar' => 'tx_cart_product[controller]',
+               'noMatch' => 'bypass'
+           ]
+       ],
+   ],
 
 Diese Variablen müssten nun jeder Seite zugeordnet werden, in der sich das Warenkorb-Plugin oder das Produkt-Plugin (Detailseite)
 befindet. Für Redakteure ist dies so nicht zu pflegen, so dass es die Möglichkeit gibt, den Seiten in den Seiteneigenschaften

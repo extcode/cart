@@ -1,35 +1,32 @@
-.. ==================================================
-.. FOR YOUR INFORMATION
-.. --------------------------------------------------
-.. -*- coding: utf-8 -*- with BOM.
+.. include:: ../../../../Includes.txt
 
 Checkbox Configuration
 ======================
 
 ::
 
-    plugin.tx_cart {
-        settings {
-            cart {
-                acceptTermsAndConditions.pid = {$plugin.tx_cart.settings.cart.acceptTermsAndConditions.pid}
-                acceptRevocationInstruction.pid = {$plugin.tx_cart.settings.cart.acceptRevocationInstruction.pid}
-                acceptPrivacyPolicy.pid = {$plugin.tx_cart.settings.cart.acceptPrivacyPolicy.pid}
-            }
+   plugin.tx_cart {
+       settings {
+           cart {
+               acceptTermsAndConditions.pid = {$plugin.tx_cart.settings.cart.acceptTermsAndConditions.pid}
+               acceptRevocationInstruction.pid = {$plugin.tx_cart.settings.cart.acceptRevocationInstruction.pid}
+               acceptPrivacyPolicy.pid = {$plugin.tx_cart.settings.cart.acceptPrivacyPolicy.pid}
+           }
 
-            validation {
-                orderItem {
-                    fields {
-                        acceptTermsAndConditions.validator = Boolean
-                        acceptTermsAndConditions.options.is = true
-                        acceptRevocationInstruction.validator = Boolean
-                        acceptRevocationInstruction.options.is = true
-                        acceptPrivacyPolicy.validator = Boolean
-                        acceptPrivacyPolicy.options.is = true
-                    }
-                }
-            }
-        }
-    }
+           validation {
+               orderItem {
+                   fields {
+                       acceptTermsAndConditions.validator = Boolean
+                       acceptTermsAndConditions.options.is = true
+                       acceptRevocationInstruction.validator = Boolean
+                       acceptRevocationInstruction.options.is = true
+                       acceptPrivacyPolicy.validator = Boolean
+                       acceptPrivacyPolicy.options.is = true
+                   }
+               }
+           }
+       }
+   }
 
 settings.cart.acceptTermsAndConditions.pid
 """"""""""""""""""""""""""""""""""""""""""

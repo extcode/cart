@@ -1,7 +1,4 @@
-.. ==================================================
-.. FOR YOUR INFORMATION
-.. --------------------------------------------------
-.. -*- coding: utf-8 -*- with BOM.
+.. include:: ../../Includes.txt
 
 Installation
 ============
@@ -23,7 +20,7 @@ Latest version from git
 -----------------------
 You can get the latest version from git by using the git command:
 
-.. code-block:: bash
+::
 
    git clone git@github.com:extcode/cart.git
 

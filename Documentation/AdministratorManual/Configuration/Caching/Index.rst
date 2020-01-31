@@ -1,7 +1,4 @@
-.. ==================================================
-.. FOR YOUR INFORMATION
-.. --------------------------------------------------
-.. -*- coding: utf-8 -*- with BOM.
+.. include:: ../../../Includes.txt
 
 Caching
 =======
@@ -13,7 +10,7 @@ PageTS:
 
 ::
 
-    # clearCacheCmd for product folder with page id 35
-    [globalVar = TSFE:id=35]
-        TCEMAIN.clearCacheCmd = cacheTag:tx_cart
-    [end]
+   # clearCacheCmd for product folder with page id 35
+   [globalVar = TSFE:id=35]
+       TCEMAIN.clearCacheCmd = cacheTag:tx_cart
+   [end]

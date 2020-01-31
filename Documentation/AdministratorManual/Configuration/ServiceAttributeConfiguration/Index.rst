@@ -1,7 +1,4 @@
-.. ==================================================
-.. FOR YOUR INFORMATION
-.. --------------------------------------------------
-.. -*- coding: utf-8 -*- with BOM.
+.. include:: ../../../Includes.txt
 
 Service Attribute Konfiguration
 ===============================
@@ -21,9 +18,6 @@ erweitert werden.
          }
       }
    }
-
-|
-
 
 Dann stehen im Cart-Model folgende Getter zur Verfügung:
 

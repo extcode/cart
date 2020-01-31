@@ -1,7 +1,4 @@
-.. ==================================================
-.. FOR YOUR INFORMATION
-.. --------------------------------------------------
-.. -*- coding: utf-8 -*- with BOM.
+.. include:: ../../../Includes.txt
 
 Versandarten
 ============
@@ -51,8 +48,6 @@ Länderkonfiguration
            }
        }
    }
-
-|
 
 .. container:: table-row
 
@@ -170,8 +165,6 @@ Dies erspart jede Menge Konfigurationsarbeit, wenn in viele Länder geliefert we
        }
    }
 
-|
-
 .. container:: table-row
 
    Property
@@ -212,8 +205,6 @@ sein. Wenn es lediglich eine Versandart gibt, kann der Auswahlblock ausblendet w
         }
    }
 
-|
-
 .. container:: table-row
 
    Property
@@ -224,3 +215,9 @@ sein. Wenn es lediglich eine Versandart gibt, kann der Auswahlblock ausblendet w
       Aktiviert/Deaktiviert die Darstellung und Auswahl der konfigurierten Versandarten im Warenkorb.
    Default
       true
+
+.. toctree::
+   :maxdepth: 5
+   :titlesonly:
+
+   FlexPrices/Index

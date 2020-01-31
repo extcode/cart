@@ -1,7 +1,4 @@
-.. ==================================================
-.. FOR YOUR INFORMATION
-.. --------------------------------------------------
-.. -*- coding: utf-8 -*- with BOM.
+.. include:: ../../../Includes.txt
 
 Bezahlmethoden
 ==============
@@ -51,8 +48,6 @@ Länderkonfiguration
            }
        }
    }
-
-|
 
 .. container:: table-row
 
@@ -178,8 +173,6 @@ Dies erspart jede Menge Konfigurationsarbeit, wenn in viele Länder geliefert we
        }
    }
 
-|
-
 .. container:: table-row
 
    Property
@@ -219,8 +212,6 @@ sein. Wenn es lediglich eine Bezahlmethode gibt, kann der Auswahlblock ausblende
             }
         }
    }
-
-|
 
 .. container:: table-row
 

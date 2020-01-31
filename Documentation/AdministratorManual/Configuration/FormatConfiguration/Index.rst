@@ -1,15 +1,10 @@
-.. ==================================================
-.. FOR YOUR INFORMATION
-.. --------------------------------------------------
-.. -*- coding: utf-8 -*- with BOM.
+.. include:: ../../../Includes.txt
 
 Format Konfiguration
 ====================
 
 Um die Templates etwas einfacher zu gestalten, können über TypoScript die Formatangaben für die Preisausgabe konfiguriert
 werden. Diese TypoScript-Angaben werden dann im <cart:format.currency>-ViewHelper verwendet.
-
-
 
 ::
 
