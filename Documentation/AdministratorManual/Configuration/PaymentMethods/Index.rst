@@ -75,7 +75,7 @@ Zonenkonfiguration
 Sollte keine individuelle Landeskonfiguration gefunden werden, kann auch mit Zonen (zones) im TypoScript gearbeitet werden.
 Dies erspart jede Menge Konfigurationsarbeit, wenn in viele Länder geliefert werden soll.
 
-.. code-block:: typoscript
+::
 
    plugin.tx_cart {
        payments {
@@ -95,8 +95,6 @@ Dies erspart jede Menge Konfigurationsarbeit, wenn in viele Länder geliefert we
            }
        }
    }
-
-|
 
 .. container:: table-row
 
@@ -126,7 +124,7 @@ Bezahlmethoden deaktivieren
 Im Moment erlaubt es die Verarbeitung nicht ganz auf die Bezahlmethoden zu verzichten. Eine Bezahlmethoden muss immer angegeben
 sein. Wenn es lediglich eine Bezahlmethode gibt, kann der Auswahlblock ausblendet werden.
 
-.. code-block:: typoscript
+::
 
    plugin.tx_cart {
         settings {
@@ -137,8 +135,6 @@ sein. Wenn es lediglich eine Bezahlmethode gibt, kann der Auswahlblock ausblende
             }
         }
    }
-
-|
 
 .. container:: table-row
 

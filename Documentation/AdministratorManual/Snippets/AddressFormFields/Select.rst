@@ -15,36 +15,30 @@ Als erstes legt man eine neue Konfiguration an:
 
 ::
 
-    plugin.tx_cart {
-        settings {
-            salutations {
-                Frau = Frau
-                Herr = Herr
-            }
-            countries {
-                DE = Deutschland
-                AT = Österreich
-                CH = Schweiz
-            }
-        }
-    }
-
-|
+   plugin.tx_cart {
+       settings {
+           salutations {
+               Frau = Frau
+               Herr = Herr
+           }
+           countries {
+               DE = Deutschland
+               AT = Österreich
+               CH = Schweiz
+           }
+       }
+   }
 
 In den Adressdateien Partials/Cart/OrderForm/Address/Billing.html und Partials/Cart/OrderForm/Address/Shipping.html können dann die Textfelder durch den jeweilige Select-Element
 
 ::
 
-<f:form.select id="billingAddress:salutation" class="form-control" name="billingAddress[salutation]" options="{settings.salutations}" />
-
-|
+   <f:form.select id="billingAddress:salutation" class="form-control" name="billingAddress[salutation]" options="{settings.salutations}" />
 
 oder
 
 ::
 
-<f:form.select id="billingAddress:country" class="form-control" name="billingAddress[country]" options="{settings.countries}" />
-
-|
+   <f:form.select id="billingAddress:country" class="form-control" name="billingAddress[country]" options="{settings.countries}" />
 
 ausgetauscht werden.

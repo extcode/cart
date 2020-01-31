@@ -24,7 +24,7 @@ The description
 
 can be used for both `payment` and `shipping`
 
-.. code-block:: typoscript
+::
 
    # ServiceMethod = payment
    plugin.tx_cart.payment.countries.de.preset = 1

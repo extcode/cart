@@ -8,18 +8,18 @@ TypoScript konfigurieren.
 
 ::
 
-    plugin.tx_cart {
-        settings {
-            currencies {
-                default = 1
-                1 {
-                    code = EUR
-                    sign = €
-                    translation = 1.00
-                }
-            }
-        }
-    }
+   plugin.tx_cart {
+       settings {
+           currencies {
+               default = 1
+               1 {
+                   code = EUR
+                   sign = €
+                   translation = 1.00
+               }
+           }
+       }
+   }
 
 settings.currency.default
 """""""""""""""""""""""""

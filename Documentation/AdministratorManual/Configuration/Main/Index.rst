@@ -5,19 +5,19 @@ Main Configuration
 
 ::
 
-    plugin.tx_cart {
-        settings {
-            cart {
-                pid =
-                isNetCart =
-            }
-            order {
-                pid =
-            }
+   plugin.tx_cart {
+       settings {
+           cart {
+               pid =
+               isNetCart =
+           }
+           order {
+               pid =
+           }
 
-            addToCartByAjax
-        }
-    }
+           addToCartByAjax
+       }
+   }
 
 settings.cart.pid
 """""""""""""""""

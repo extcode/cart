@@ -3,7 +3,7 @@
 Main configuration
 ==================
 
-.. code-block:: typoscript
+::
 
    plugin.tx_cart {
        settings {
