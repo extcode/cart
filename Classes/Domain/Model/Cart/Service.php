@@ -319,6 +319,9 @@ class Service implements ServiceInterface
             case 'by_price':
                 return $this->cart->getGross();
                 break;
+            case 'by_price_of_physical_products':
+                return $this->getPriceOfPhysicalProducts();
+                break;
             case 'by_quantity':
             case 'by_number_of_physical_products':
                 return $this->cart->getCountPhysicalProducts();
@@ -351,5 +354,23 @@ class Service implements ServiceInterface
         }
 
         return null;
+    }
+
+    /**
+     * @return float
+     */
+    protected function getPriceOfPhysicalProducts(): float
+    {
+        $gross = 0.0;
+
+        if ($this->cart->getProducts()) {
+            foreach ($this->cart->getProducts() as $product) {
+                if (!$product->getIsVirtualProduct()) {
+                    $gross += $product->getGross();
+                }
+            }
+        }
+
+        return $gross;
     }
 }

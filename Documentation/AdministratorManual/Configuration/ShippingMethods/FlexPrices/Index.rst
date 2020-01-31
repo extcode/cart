@@ -2,7 +2,7 @@
 
 ..  _configuration_shipping_method_flex_price:
 
-Flex prices
+Flex Prices
 ===========
 
 Sometimes you won't configure fix prices for an service methods. Especially the shipping costs can
@@ -59,6 +59,7 @@ A common condition is the amount of physical products in cart.
       string
    Description
       * by_price:
+      * by_price_of_physical_products:
       * by_quantity:
       * by_number_of_physical_products:
       * by_number_of_virtual_products:
