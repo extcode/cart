@@ -20,6 +20,7 @@ before_script:
 stages:
   - lint
   - test
+  - documentation
   - analysis
   - upload
 
@@ -127,6 +128,23 @@ test:php74:typo3_9:
     DOCKER_TAG: 7.4-alpine
     TYPO3_VERSION: ^9.5
     COVERAGE: 1
+
+documentation:
+  stage: documentation
+  image:
+    name: t3docs/render-documentation:v2.4.0
+    entrypoint: [""]
+  before_script:
+    - cp -a ${CI_PROJECT_DIR}/. /PROJECT
+    - mkdir -p ${CI_PROJECT_DIR}/Documentation-GENERATED-temp
+  script:
+    - cd /ALL/venv
+    - /ALL/Menu/mainmenu.sh makehtml-no-cache -c resultdir ${CI_PROJECT_DIR}/Documentation-GENERATED-temp
+  artifacts:
+    paths:
+      - ${CI_PROJECT_DIR}/Documentation-GENERATED-temp/Result/project/0.0.0
+    expire_in: 1 day
+    when: always
 
 sonarqube:
   stage: analysis
