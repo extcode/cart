@@ -1,96 +1,42 @@
 <?php
+declare(strict_types = 1);
 
 namespace Extcode\Cart\Domain\Model\Cart;
 
-/**
- * This file is part of the TYPO3 CMS project.
- *
- * It is free software; you can redistribute it and/or modify it under
- * the terms of the GNU General Public License, either version 2
- * of the License, or any later version.
- *
- * For the full copyright and license information, please read the
- * LICENSE.txt file that was distributed with this source code.
- *
- * The TYPO3 project - inspiring people to share!
- */
-
-/**
- * Cart TaxClass Model
- *
- * @author Daniel Lorenz <ext.cart@extco.de>
- */
 class TaxClass
 {
     /**
-     * Id
-     *
      * @var int
      * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
      */
     protected $id;
 
     /**
-     * Value
-     *
      * @var string
      * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
      */
     protected $value;
 
     /**
-     * Calc
-     *
      * @var float
      * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
      */
     protected $calc;
 
     /**
-     * Title
-     *
      * @var string
      * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
      */
     protected $title;
 
     /**
-     * __construct
-     *
      * @param int $id
      * @param string $value
      * @param float $calc
      * @param string $title
-     *
-     * @throws \InvalidArgumentException
      */
-    public function __construct($id, $value, $calc, $title)
+    public function __construct(int $id, string $value, float $calc, string $title)
     {
-        if (!$id) {
-            throw new \InvalidArgumentException(
-                'You have to specify a valid $id for constructor.',
-                1413981328
-            );
-        }
-        if (empty($value) && ($value !== '0')) {
-            throw new \InvalidArgumentException(
-                'You have to specify a valid $value for constructor.',
-                1413981329
-            );
-        }
-        if (($calc === null) || ($calc < 0.0)) {
-            throw new \InvalidArgumentException(
-                'You have to specify a valid $calc for constructor.',
-                1413981330
-            );
-        }
-        if (empty($title) && ($title !== '0')) {
-            throw new \InvalidArgumentException(
-                'You have to specify a valid $title for constructor.',
-                1413981331
-            );
-        }
-
         $this->id = $id;
         $this->value = $value;
         $this->calc = $calc;
@@ -98,41 +44,33 @@ class TaxClass
     }
 
     /**
-     * Gets Id
-     *
      * @return int
      */
-    public function getId()
+    public function getId(): int
     {
         return $this->id;
     }
 
     /**
-     * Gets Value
-     *
-     * @return mixed|string
+     * @return string
      */
-    public function getValue()
+    public function getValue(): string
     {
         return $this->value;
     }
 
     /**
-     * Gets Calc
-     *
-     * @return int
+     * @return float
      */
-    public function getCalc()
+    public function getCalc(): float
     {
         return $this->calc;
     }
 
     /**
-     * Gets Title
-     *
      * @return string
      */
-    public function getTitle()
+    public function getTitle(): string
     {
         return $this->title;
     }

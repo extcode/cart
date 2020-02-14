@@ -10,3 +10,4 @@ Developer Manual
    DatabaseModel/Index
    Hooks/Index
    SignalSlots/Index
+   Interfaces/Index

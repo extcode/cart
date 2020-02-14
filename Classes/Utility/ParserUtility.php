@@ -15,6 +15,7 @@ namespace Extcode\Cart\Utility;
  * The TYPO3 project - inspiring people to share!
  */
 use Extcode\Cart\Domain\Model\Cart\ServiceInterface;
+use Extcode\Cart\Service\TaxClassServiceInterface;
 
 /**
  * Parser Utility
@@ -49,85 +50,20 @@ class ParserUtility
      */
     public function parseTaxClasses(array $pluginSettings, $countryCode)
     {
-        $taxClasses = [];
-
-        if (isset($pluginSettings['taxClassRepository']) && is_array($pluginSettings['taxClassRepository'])) {
-            $taxClasses = $this->loadTaxClassesFromForeignDataStorage($pluginSettings['taxClassRepository'], $countryCode);
-        } elseif (isset($pluginSettings['taxClasses']) && is_array($pluginSettings['taxClasses'])) {
-            $taxClasses = $this->parseTaxClassesFromTypoScript($pluginSettings['taxClasses'], $countryCode);
+        if ($pluginSettings['taxClasses']['className']) {
+            $className = $pluginSettings['taxClasses']['className'];
+        } else {
+            $className = \Extcode\Cart\Service\TaxClassService::class;
         }
 
-        return $taxClasses;
-    }
-
-    /**
-     * Parse Tax Classes From TypoScript
-     *
-     * @param array $taxClassSettings
-     * @param string $countryCode
-     *
-     * @return array $taxes
-     */
-    protected function parseTaxClassesFromTypoScript(array $taxClassSettings, $countryCode)
-    {
-        $taxClasses = [];
-
-        if ($countryCode && is_array($taxClassSettings[$countryCode])) {
-            $taxClassSettings = $taxClassSettings[$countryCode];
-        } elseif ($taxClassSettings['fallback'] && is_array($taxClassSettings['fallback'])) {
-            $taxClassSettings = $taxClassSettings['fallback'];
-        }
-
-        foreach ($taxClassSettings as $taxClassKey => $taxClassValue) {
-            $taxClasses[$taxClassKey] = $this->objectManager->get(
-                \Extcode\Cart\Domain\Model\Cart\TaxClass::class,
-                $taxClassKey,
-                $taxClassValue['value'],
-                $taxClassValue['calc'],
-                $taxClassValue['name']
-            );
-        }
-
-        return $taxClasses;
-    }
-
-    /**
-     * Parse Tax Classes From Repository
-     *
-     * @param array $taxClassRepositorySettings
-     * @param string $countryCode
-     *
-     * @return array
-     */
-    protected function loadTaxClassesFromForeignDataStorage(array $taxClassRepositorySettings, $countryCode)
-    {
-        $taxes = [];
-
-        $data = [
-            'taxClassRepositorySettings' => $taxClassRepositorySettings,
-            'parsedTaxes' => $taxes
-        ];
-
-        $signalSlotDispatcher = $this->objectManager->get(
-            \TYPO3\CMS\Extbase\SignalSlot\Dispatcher::class
+        $service = $this->objectManager->get(
+            $className
         );
-        $slotReturn = $signalSlotDispatcher->dispatch(
-            __CLASS__,
-            __FUNCTION__,
-            [$data]
-        );
-
-        if (is_array($slotReturn[0]['cartProduct'])) {
-            $parsedTaxes = $slotReturn[0]['cartProduct'];
-
-            foreach ($parsedTaxes as $parsedTaxKey => $parsedTaxValue) {
-                if ($parsedTaxValue instanceof \Extcode\Cart\Domain\Model\Cart\TaxClass) {
-                    $taxes[$parsedTaxKey] = $parsedTaxValue;
-                }
-            }
+        if (!$service instanceof TaxClassServiceInterface) {
+            throw new \UnexpectedValueException($className . ' must implement interface ' . TaxClassServiceInterface::class, 123);
         }
 
-        return $taxes;
+        return $service->getTaxClasses($countryCode);
     }
 
     /**
@@ -151,8 +87,6 @@ class ParserUtility
 
         if ($pluginSettingsType['options']) {
             foreach ($pluginSettingsType['options'] as $serviceKey => $serviceConfig) {
-                $className = 'Extcode\\Cart\\Domain\\Model\\Cart\\' . $serviceType;
-
                 if ($serviceConfig['className']) {
                     $className = $serviceConfig['className'];
                 } else {
