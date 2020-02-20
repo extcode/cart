@@ -39,7 +39,10 @@ class TaxClassService implements TaxClassServiceInterface
     public function injectConfigurationManager(ConfigurationManagerInterface $configurationManager)
     {
         $this->configurationManager = $configurationManager;
-        $this->settings = $this->configurationManager->getConfiguration(ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK);
+        $this->settings = $this->configurationManager->getConfiguration(
+            ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK,
+            'Cart'
+        );
     }
 
     /**
