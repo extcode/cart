@@ -1366,20 +1366,25 @@ class CartTest extends UnitTestCase
             true
         );
 
-        $this->grossCart->addCoupon($firstCoupon);
-
         $taxes = [];
         $taxes[$this->normalTaxClass->getId()] = $tax;
-        $this->assertArraySubset(
-            $taxes,
-            $this->grossCart->getCouponTaxes()
+
+        $this->grossCart->addCoupon($firstCoupon);
+        $result = $this->grossCart->getCouponTaxes();
+        $this->assertTrue(
+            empty(array_diff_key($taxes, $result)) && empty(array_diff_key($result, $taxes))
+        );
+        $this->assertTrue(
+            empty(array_diff_assoc($taxes, $result)) && empty(array_diff_assoc($result, $taxes))
         );
 
         $this->netCart->addCoupon($firstCoupon);
-
-        $this->assertArraySubset(
-            $taxes,
-            $this->netCart->getCouponTaxes()
+        $result = $this->netCart->getCouponTaxes();
+        $this->assertTrue(
+            empty(array_diff_key($taxes, $result)) && empty(array_diff_key($result, $taxes))
+        );
+        $this->assertTrue(
+            empty(array_diff_assoc($taxes, $result)) && empty(array_diff_assoc($result, $taxes))
         );
     }
 

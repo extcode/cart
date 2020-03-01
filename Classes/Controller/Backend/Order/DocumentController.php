@@ -9,6 +9,7 @@ namespace Extcode\Cart\Controller\Backend\Order;
  * LICENSE file that was distributed with this source code.
  */
 
+use TYPO3\CMS\Core\Core\Environment;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 
 class DocumentController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
@@ -91,7 +92,7 @@ class DocumentController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
         $getter = 'get' . ucfirst($pdfType) . 'Pdfs';
         $pdfs = $orderItem->$getter();
         $originalPdf = end($pdfs->toArray())->getOriginalResource();
-        $file = PATH_site . $originalPdf->getPublicUrl();
+        $file = Environment::getPublicPath() . '/' . $originalPdf->getPublicUrl();
 
         $fileName = $originalPdf->getName();
 

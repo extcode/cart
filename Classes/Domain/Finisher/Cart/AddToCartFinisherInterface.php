@@ -11,7 +11,7 @@ namespace Extcode\Cart\Domain\Finisher\Cart;
 
 use Extcode\Cart\Domain\Model\Cart\Cart;
 use Extcode\Cart\Domain\Model\Cart\Product;
-use TYPO3\CMS\Extbase\Mvc\Web\Request;
+use TYPO3\CMS\Extbase\Mvc\Request;
 
 interface AddToCartFinisherInterface
 {
@@ -32,10 +32,10 @@ interface AddToCartFinisherInterface
      * @param Request $request
      * @param Cart $cart
      *
-     * @return bool
+     * @return array
      */
     public function getProductFromRequest(
         Request $request,
         Cart $cart
-    );
+    ): array;
 }

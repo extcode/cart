@@ -114,7 +114,7 @@ class OrderUtility
     /**
      * Tax Classes
      *
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<Extcode\Cart\Domain\Model\Order\TaxClass>
+     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Extcode\Cart\Domain\Model\Order\TaxClass>
      */
     protected $taxClasses;
 
@@ -814,12 +814,12 @@ class OrderUtility
     public function getNumber(array $pluginSettings, $numberType)
     {
         /**
-         * @var \TYPO3\CMS\Extbase\Service\TypoScriptService $typoScriptService
+         * @var \TYPO3\CMS\Core\TypoScript\TypoScriptService $typoScriptService
          */
-        $typoScriptService = GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Service\\TypoScriptService');
+        $typoScriptService = GeneralUtility::makeInstance(\TYPO3\CMS\Core\TypoScript\TypoScriptService::class);
         $pluginTypoScriptSettings = $typoScriptService->convertPlainArrayToTypoScriptArray($pluginSettings);
 
-        $registry = GeneralUtility::makeInstance('TYPO3\\CMS\\Core\\Registry');
+        $registry = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Registry::class);
 
         $registryName = 'last' . ucfirst($numberType) . '_' . $pluginSettings['settings']['cart']['pid'];
 
@@ -827,7 +827,7 @@ class OrderUtility
         $number = $number ? $number + 1 : 1;
         $registry->set('tx_cart', $registryName, $number);
 
-        $cObjRenderer = GeneralUtility::makeInstance('TYPO3\\CMS\\Frontend\\ContentObject\\ContentObjectRenderer');
+        $cObjRenderer = GeneralUtility::makeInstance(\TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer::class);
         $cObjRenderer->start([$numberType . 'Number' => $number]);
         $number = $cObjRenderer->cObjGetSingle(
             $pluginTypoScriptSettings[$numberType . 'Number'],

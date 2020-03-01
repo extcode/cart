@@ -77,7 +77,7 @@ class ParserUtility
 
         if ($pluginSettingsType['options']) {
             foreach ($pluginSettingsType['options'] as $serviceKey => $serviceConfig) {
-                if ($serviceConfig['className']) {
+                if (!empty($serviceConfig['className'])) {
                     $className = $serviceConfig['className'];
                 } else {
                     $className = \Extcode\Cart\Domain\Model\Cart\Service::class;
@@ -118,7 +118,7 @@ class ParserUtility
         $selectedCountry = $pluginSettings['settings']['defaultCountry'];
 
         if ($cart->getCountry()) {
-            if ($type == 'payments') {
+            if ($type === 'payments') {
                 $selectedCountry = $cart->getBillingCountry();
             } else {
                 $selectedCountry = $cart->getCountry();
@@ -126,14 +126,14 @@ class ParserUtility
         }
 
         if ($selectedCountry) {
-            if (is_array($pluginSettingsType['countries'][$selectedCountry])) {
+            if (!empty($pluginSettingsType['countries']) && is_array($pluginSettingsType['countries'][$selectedCountry])) {
                 $countrySetting = $pluginSettingsType['countries'][$selectedCountry];
                 if (is_array($countrySetting) && !empty($countrySetting)) {
                     return $countrySetting;
                 }
             }
 
-            if (is_array($pluginSettingsType['zones'])) {
+            if (!empty($pluginSettingsType['zones']) && is_array($pluginSettingsType['zones'])) {
                 $zoneSetting = $this->getTypeZonesPluginSettings($pluginSettingsType['zones'], $cart);
                 if (is_array($zoneSetting) && !empty($zoneSetting)) {
                     return $zoneSetting;

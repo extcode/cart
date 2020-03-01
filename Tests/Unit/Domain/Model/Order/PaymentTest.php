@@ -28,13 +28,19 @@ class PaymentTest extends UnitTestCase
      */
     public function toArrayReturnsArray()
     {
-        $provider = 'provider';
+        $provider = 'test_provider';
 
         $this->payment->setProvider($provider);
 
-        $this->assertArraySubset(
-            ['provider' => $provider],
-            $this->payment->toArray()
+        $result = $this->payment->toArray();
+
+        $this->assertArrayHasKey(
+            'provider',
+            $result
+        );
+        $this->assertEquals(
+            $provider,
+            $result['provider']
         );
     }
 

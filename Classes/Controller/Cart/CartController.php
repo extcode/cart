@@ -41,6 +41,22 @@ class CartController extends ActionController
     ) {
         $this->restoreSession();
 
+        if ($orderItem === null) {
+            $orderItem = $this->objectManager->get(
+                \Extcode\Cart\Domain\Model\Order\Item::class
+            );
+        }
+        if ($billingAddress === null) {
+            $billingAddress = $this->objectManager->get(
+                \Extcode\Cart\Domain\Model\Order\BillingAddress::class
+            );
+        }
+        if ($shippingAddress === null) {
+            $shippingAddress = $this->objectManager->get(
+                \Extcode\Cart\Domain\Model\Order\ShippingAddress::class
+            );
+        }
+
         if ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['cart']['showCartActionAfterCartWasLoaded']) {
             foreach ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['cart']['showCartActionAfterCartWasLoaded'] as $funcRef) {
                 if ($funcRef) {
@@ -68,22 +84,6 @@ class CartController extends ActionController
             'specials' => $this->specials
         ];
         $this->view->assignMultiple($assignArguments);
-
-        if ($orderItem == null) {
-            $orderItem = $this->objectManager->get(
-                \Extcode\Cart\Domain\Model\Order\Item::class
-            );
-        }
-        if ($billingAddress == null) {
-            $billingAddress = $this->objectManager->get(
-                \Extcode\Cart\Domain\Model\Order\BillingAddress::class
-            );
-        }
-        if ($shippingAddress == null) {
-            $shippingAddress = $this->objectManager->get(
-                \Extcode\Cart\Domain\Model\Order\ShippingAddress::class
-            );
-        }
 
         $assignArguments = [
             'orderItem' => $orderItem,

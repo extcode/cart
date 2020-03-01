@@ -104,28 +104,28 @@ lint:php74:
     expire_in: 1 day
     when: always
 
-# Build in PHP 7.2 and TYPO3 9.5
-test:php72:typo3_9:
+# Build in PHP 7.2 and TYPO3 10.4
+test:php72:typo3_10:
   <<: *test_php
   variables:
     DOCKER_TAG: 7.2-alpine
-    TYPO3_VERSION: ^9.5
+    TYPO3_VERSION: ^10.4
     COVERAGE: 0
 
-# Build in PHP 7.3 and TYPO3 9.5
-test:php73:typo3_9:
+# Build in PHP 7.3 and TYPO3 10.4
+test:php73:typo3_10:
   <<: *test_php
   variables:
     DOCKER_TAG: 7.3-alpine
-    TYPO3_VERSION: ^9.5
+    TYPO3_VERSION: ^10.4
     COVERAGE: 0
 
-# Build in PHP 7.4 and TYPO3 9.5
-test:php74:typo3_9:
+# Build in PHP 7.4 and TYPO3 10.4
+test:php74:typo3_10:
   <<: *test_php
   variables:
     DOCKER_TAG: 7.4-alpine
-    TYPO3_VERSION: ^9.5
+    TYPO3_VERSION: ^10.4
     COVERAGE: 1
 
 documentation:
@@ -157,7 +157,7 @@ sonarqube:
     SONAR_SOURCES: "./Classes"
     SONAR_GITLAB_PROJECT_ID: "$CI_PROJECT_ID"
   script:
-    - echo "sonar.projectKey=cart-6.x" > sonar-project.properties
+    - echo "sonar.projectKey=cart-7.x" > sonar-project.properties
     - gitlab-sonar-scanner -Dsonar.php.coverage.reportPath=phpunit.coverage.xml -Dsonar.php.tests.reportPath=phpunit.report.xml
   allow_failure: true
 
@@ -173,5 +173,5 @@ sonarqube-reports:
     SONAR_SOURCES: "./Classes"
     SONAR_TESTS: "./Tests"
   script:
-    - echo "sonar.projectKey=cart-6.x" > sonar-project.properties
+    - echo "sonar.projectKey=cart-7.x" > sonar-project.properties
     - gitlab-sonar-scanner -Dsonar.php.coverage.reportPath=phpunit.coverage.xml -Dsonar.php.tests.reportPath=phpunit.report.xml

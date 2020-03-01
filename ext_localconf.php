@@ -5,65 +5,65 @@ defined('TYPO3_MODE') or die();
 // configure plugins
 
 \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-    'Extcode.cart',
+    'Cart',
     'MiniCart',
     [
-        'Cart\CartPreview' => 'show',
-        'Cart\Currency' => 'update',
+        \Extcode\Cart\Controller\Cart\CartPreviewController::class => 'show',
+        \Extcode\Cart\Controller\Cart\CurrencyController::class => 'update',
     ],
     // non-cacheable actions
     [
-        'Cart\CartPreview' => 'show',
-        'Cart\Currency' => 'update',
+        \Extcode\Cart\Controller\Cart\CartPreviewController::class => 'show',
+        \Extcode\Cart\Controller\Cart\CurrencyController::class => 'update',
     ]
 );
 
 \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-    'Extcode.cart',
+    'Cart',
     'Cart',
     [
-        'Cart\Cart' => 'show, clear, update',
-        'Cart\Country' => 'update',
-        'Cart\Coupon' => 'add, remove',
-        'Cart\Currency' => 'update',
-        'Cart\Order' => 'show, create',
-        'Cart\Payment' => 'update',
-        'Cart\Product' => 'add, remove',
-        'Cart\Shipping' => 'update',
-        'Order\Payment' => 'update',
+        \Extcode\Cart\Controller\Cart\CartController::class => 'show, clear, update',
+        \Extcode\Cart\Controller\Cart\CountryController::class => 'update',
+        \Extcode\Cart\Controller\Cart\CouponController::class => 'add, remove',
+        \Extcode\Cart\Controller\Cart\CurrencyController::class => 'update',
+        \Extcode\Cart\Controller\Cart\OrderController::class => 'show, create',
+        \Extcode\Cart\Controller\Cart\PaymentController::class => 'update',
+        \Extcode\Cart\Controller\Cart\ProductController::class => 'add, remove',
+        \Extcode\Cart\Controller\Cart\ShippingController::class => 'update',
+        \Extcode\Cart\Controller\Order\PaymentController::class => 'update',
     ],
     [
-        'Cart\Cart' => 'show, clear, update',
-        'Cart\Country' => 'update',
-        'Cart\Coupon' => 'add, remove',
-        'Cart\Currency' => 'update',
-        'Cart\Order' => 'show, create',
-        'Cart\Payment' => 'update',
-        'Cart\Product' => 'add, remove',
-        'Cart\Shipping' => 'update',
-        'Order\Payment' => 'update',
+        \Extcode\Cart\Controller\Cart\CartController::class => 'show, clear, update',
+        \Extcode\Cart\Controller\Cart\CountryController::class => 'update',
+        \Extcode\Cart\Controller\Cart\CouponController::class => 'add, remove',
+        \Extcode\Cart\Controller\Cart\CurrencyController::class => 'update',
+        \Extcode\Cart\Controller\Cart\OrderController::class => 'show, create',
+        \Extcode\Cart\Controller\Cart\PaymentController::class => 'update',
+        \Extcode\Cart\Controller\Cart\ProductController::class => 'add, remove',
+        \Extcode\Cart\Controller\Cart\ShippingController::class => 'update',
+        \Extcode\Cart\Controller\Order\PaymentController::class => 'update',
     ]
 );
 
 \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-    'Extcode.cart',
+    'Cart',
     'Currency',
     [
-        'Cart\Currency' => 'edit, update',
+        \Extcode\Cart\Controller\Cart\CurrencyController::class => 'edit, update',
     ],
     [
-        'Cart\Currency' => 'edit, update',
+        \Extcode\Cart\Controller\Cart\CurrencyController::class => 'edit, update',
     ]
 );
 
 \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-    'Extcode.cart',
+    'Cart',
     'Order',
     [
-        'Order\Order' => 'list, show',
+        \Extcode\Cart\Controller\Order\Order::class => 'list, show',
     ],
     [
-        'Order\Order' => 'list, show',
+        \Extcode\Cart\Controller\Order\Order::class => 'list, show',
     ]
 );
 

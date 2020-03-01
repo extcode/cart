@@ -28,11 +28,12 @@ ajaxCurrency {
     10 < tt_content.list.20.cart_currency
 }
 
-page.includeCSS.tx_cart = EXT:cart/Resources/Public/Stylesheets/cart.css
-page.includeJSFooter.tx_cart = EXT:cart/Resources/Public/JavaScripts/cart.js
+page {
+    includeCSS.tx_cart = EXT:cart/Resources/Public/Stylesheets/cart.css
+    includeJSFooter.tx_cart = EXT:cart/Resources/Public/JavaScripts/cart.js
+}
 
 plugin.tx_cart {
-
     view {
         templateRootPaths.0 = {$plugin.tx_cart.view.templateRootPath}
         partialRootPaths.0 = {$plugin.tx_cart.view.partialRootPath}
@@ -104,24 +105,30 @@ plugin.tx_cart {
         }
 
         format.currency {
-            currencySign       = {$plugin.tx_cart.settings.format.currency.currencySign}
-            decimalSeparator   = {$plugin.tx_cart.settings.format.currency.decimalSeparator}
+            currencySign = {$plugin.tx_cart.settings.format.currency.currencySign}
+            decimalSeparator = {$plugin.tx_cart.settings.format.currency.decimalSeparator}
             thousandsSeparator = {$plugin.tx_cart.settings.format.currency.thousandsSeparator}
-            prependCurrency    = {$plugin.tx_cart.settings.format.currency.prependCurrency}
-            separateCurrency   = {$plugin.tx_cart.settings.format.currency.separateCurrency}
-            decimals           = {$plugin.tx_cart.settings.format.currency.decimals}
+            prependCurrency = {$plugin.tx_cart.settings.format.currency.prependCurrency}
+            separateCurrency = {$plugin.tx_cart.settings.format.currency.separateCurrency}
+            decimals = {$plugin.tx_cart.settings.format.currency.decimals}
         }
 
         showAction {
             media {
                 image {
                     size {
-                        small.maxWidth = 100
-                        small.maxHeight =
-                        medium.maxWidth = 300
-                        medium.maxHeight =
-                        large.maxWidth = 600
-                        large.maxHeight =
+                        small {
+                            maxWidth = 100
+                            maxHeight =
+                        }
+                        medium {
+                            maxWidth = 300
+                            maxHeight =
+                        }
+                        large {
+                            maxWidth = 600
+                            maxHeight =
+                        }
                     }
                 }
             }
@@ -142,8 +149,10 @@ plugin.tx_cart {
 
             summary {
                 fields {
-                    cart.net = true
-                    cart.taxes = true
+                    cart {
+                        net = true
+                        taxes = true
+                    }
                     discount.gross = true
                     service.gross = true
                     total.gross = true
@@ -295,10 +304,14 @@ plugin.tx_cart {
         10.value = {$plugin.tx_cart.orderNumber.prefix}
 
         20 = TEXT
-        20.current = 1
-        20.setCurrent.field = orderNumber
-        20.setCurrent.wrap = | + {$plugin.tx_cart.orderNumber.offset}
-        20.prioriCalc = intval
+        20 {
+            current = 1
+            setCurrent {
+                field = orderNumber
+                wrap = | + {$plugin.tx_cart.orderNumber.offset}
+            }
+            prioriCalc = intval
+        }
 
         30 = TEXT
         30.value = {$plugin.tx_cart.orderNumber.suffix}
@@ -310,10 +323,14 @@ plugin.tx_cart {
         10.value = {$plugin.tx_cart.invoiceNumber.prefix}
 
         20 = TEXT
-        20.current = 1
-        20.setCurrent.field = invoiceNumber
-        20.setCurrent.wrap = | + {$plugin.tx_cart.invoiceNumber.offset}
-        20.prioriCalc = intval
+        20 {
+            current = 1
+            setCurrent {
+                field = invoiceNumber
+                wrap = | + {$plugin.tx_cart.invoiceNumber.offset}
+            }
+            prioriCalc = intval
+        }
 
         30 = TEXT
         30.value = {$plugin.tx_cart.invoiceNumber.suffix}
@@ -325,10 +342,14 @@ plugin.tx_cart {
         10.value = {$plugin.tx_cart.deliveryNumber.prefix}
 
         20 = TEXT
-        20.current = 1
-        20.setCurrent.field = deliveryNumber
-        20.setCurrent.wrap = | + {$plugin.tx_cart.deliveryNumber.offset}
-        20.prioriCalc = intval
+        20 {
+            current = 1
+            setCurrent {
+                field = deliveryNumber
+                wrap = | + {$plugin.tx_cart.deliveryNumber.offset}
+            }
+            prioriCalc = intval
+        }
 
         30 = TEXT
         30.value = {$plugin.tx_cart.deliveryNumber.suffix}
@@ -356,39 +377,41 @@ temp.cartMailContentElement {
     }
 }
 
-lib.cartMailHeader < temp.cartMailContentElement
-lib.cartMailHeader {
-    source = {$plugin.tx_cart.uids.lib.cartMailHeader}
-}
+lib {
+    cartMailHeader < temp.cartMailContentElement
+    cartMailHeader {
+        source = {$plugin.tx_cart.uids.lib.cartMailHeader}
+    }
 
-lib.cartMailFooter < temp.cartMailContentElement
-lib.cartMailFooter {
-    source = {$plugin.tx_cart.uids.lib.cartMailFooter}
-}
+    cartMailFooter < temp.cartMailContentElement
+    cartMailFooter {
+        source = {$plugin.tx_cart.uids.lib.cartMailFooter}
+    }
 
-lib.cartMailFooterSignature < temp.cartMailContentElement
-lib.cartMailFooterSignature {
-    source = {$plugin.tx_cart.uids.lib.cartMailFooterSignature}
-}
+    cartMailFooterSignature < temp.cartMailContentElement
+    cartMailFooterSignature {
+        source = {$plugin.tx_cart.uids.lib.cartMailFooterSignature}
+    }
 
-lib.cartMailFooterTermsOfService < temp.cartMailContentElement
-lib.cartMailFooterTermsOfService {
-    source = {$plugin.tx_cart.uids.lib.cartMailFooterTermsOfService}
-}
+    cartMailFooterTermsOfService < temp.cartMailContentElement
+    cartMailFooterTermsOfService {
+        source = {$plugin.tx_cart.uids.lib.cartMailFooterTermsOfService}
+    }
 
-lib.cartMailFooterRevocation < temp.cartMailContentElement
-lib.cartMailFooterRevocation {
-    source = {$plugin.tx_cart.uids.lib.cartMailFooterRevocation}
-}
+    cartMailFooterRevocation < temp.cartMailContentElement
+    cartMailFooterRevocation {
+        source = {$plugin.tx_cart.uids.lib.cartMailFooterRevocation}
+    }
 
-lib.cartMailFooterDataProtection < temp.cartMailContentElement
-lib.cartMailFooterDataProtection {
-    source = {$plugin.tx_cart.uids.lib.cartMailFooterDataProtection}
-}
+    cartMailFooterDataProtection < temp.cartMailContentElement
+    cartMailFooterDataProtection {
+        source = {$plugin.tx_cart.uids.lib.cartMailFooterDataProtection}
+    }
 
-lib.cartMailFooterImpress < temp.cartMailContentElement
-lib.cartMailFooterImpress {
-    source = {$plugin.tx_cart.uids.lib.cartMailFooterImpress}
+    cartMailFooterImpress < temp.cartMailContentElement
+    cartMailFooterImpress {
+        source = {$plugin.tx_cart.uids.lib.cartMailFooterImpress}
+    }
 }
 
 plugin.tx_form.settings.yamlConfigurations {

@@ -75,11 +75,11 @@
         "php": ">=7.2.0 <7.5",
         "ext-json": "*",
         "ext-openssl": "*",
-        "typo3/cms-core": "^9.5",
-        "typo3/cms-form": "^9.5"
+        "typo3/cms-core": "^10.4",
+        "typo3/cms-form": "^10.4"
     },
     "require-dev": {
-        "typo3/testing-framework": "^4.0",
+        "typo3/testing-framework": "^6.0",
         "friendsofphp/php-cs-fixer": "^2.14",
         "helmich/typo3-typoscript-lint": "^2.0",
         "overtrue/phplint": "^1.1"

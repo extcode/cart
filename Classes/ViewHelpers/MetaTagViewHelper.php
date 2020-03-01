@@ -9,9 +9,9 @@ namespace Extcode\Cart\ViewHelpers;
  * LICENSE file that was distributed with this source code.
  */
 
-use TYPO3\CMS\Core\Page\PageRenderer;
+use TYPO3\CMS\Core\MetaTag\MetaTagManagerRegistry;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractTagBasedViewHelper;
+use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 /**
  * ViewHelper to render meta tags
@@ -23,16 +23,8 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractTagBasedViewHelper;
  * <output>
  * <meta property="og:title" content="TYPO3 is awesome" />
  * </output>
- *
- * # Example: Force the attribute "name"
- * <code>
- * <cart:metaTag name="keywords" content="{product.tags}" />
- * </code>
- * <output>
- * <meta name="keywords" content="tag 1, tag 2" />
- * </output>
  */
-class MetaTagViewHelper extends AbstractTagBasedViewHelper
+class MetaTagViewHelper extends AbstractViewHelper
 {
     /**
      * @var string
@@ -41,63 +33,27 @@ class MetaTagViewHelper extends AbstractTagBasedViewHelper
 
     public function initializeArguments()
     {
-        $this->registerTagAttribute(
+        $this->registerArgument(
             'property',
             'string',
-            'Property of meta tag'
+            'Property of meta tag',
+            true
         );
-        $this->registerTagAttribute(
-            'name',
-            'string',
-            'Content of meta tag using the name attribute'
-        );
-        $this->registerTagAttribute(
+        $this->registerArgument(
             'content',
             'string',
-            'Content of meta tag'
-        );
-        $this->registerArgument(
-            'useCurrentDomain',
-            'boolean',
-            'Use current domain',
-            false,
-            false
-        );
-        $this->registerArgument(
-            'forceAbsoluteUrl',
-            'boolean',
-            'Force absolut domain',
-            false,
-            false
+            'Content of meta tag',
+            true
         );
     }
 
     public function render()
     {
-        $useCurrentDomain = $this->arguments['useCurrentDomain'];
-        $forceAbsoluteUrl = $this->arguments['forceAbsoluteUrl'];
-
-        // set current domain
-        if ($useCurrentDomain) {
-            $this->tag->addAttribute('content', GeneralUtility::getIndpEnv('TYPO3_REQUEST_URL'));
-        }
-
-        // prepend current domain
-        if ($forceAbsoluteUrl) {
-            $path = $this->arguments['content'];
-            if (!GeneralUtility::isFirstPartOfStr($path, GeneralUtility::getIndpEnv('TYPO3_SITE_URL'))) {
-                $this->tag->addAttribute(
-                    'content',
-                    rtrim(GeneralUtility::getIndpEnv('TYPO3_SITE_URL'), '/')
-                    . '/'
-                    . ltrim($this->arguments['content'], '/')
-                );
-            }
-        }
-
-        if ($useCurrentDomain || (isset($this->arguments['content']) && !empty($this->arguments['content']))) {
-            $pageRenderer = GeneralUtility::makeInstance(PageRenderer::class);
-            $pageRenderer->addMetaTag($this->tag->render());
-        }
+        $metaTagManager = GeneralUtility::makeInstance(MetaTagManagerRegistry::class)
+            ->getManagerForProperty($this->arguments['property']);
+        $metaTagManager->addProperty(
+            $this->arguments['property'],
+            $this->arguments['content']
+        );
     }
 }

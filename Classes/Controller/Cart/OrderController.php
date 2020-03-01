@@ -27,23 +27,12 @@ class OrderController extends ActionController
         $this->stockUtility = $stockUtility;
     }
 
-    /**
-     * @return string
-     */
     protected function getErrorFlashMessage()
     {
-        $getValidationResults = $this->arguments->getValidationResults();
-
-        if ($getValidationResults->hasErrors()) {
-            $errorMsg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
-                'tx_cart.error.validation',
-                $this->extensionName
-            );
-
-            return $errorMsg;
-        }
-
-        $errorMsg = parent::getErrorFlashMessage();
+        $errorMsg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
+            'tx_cart.error.validation',
+            'Cart'
+        );
 
         return $errorMsg;
     }

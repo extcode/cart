@@ -16,7 +16,7 @@
                                 <label for="orderItem-acceptTermsAndConditions">
                                     <f:if condition="{0: settings.validation.orderItem.fields.acceptTermsAndConditions.validator} == {0: 'Boolean'}">
                                         <f:form.checkbox id="orderItem-acceptTermsAndConditions"
-                                                         name="orderItem[acceptTermsAndConditions]"
+                                                         property="acceptTermsAndConditions"
                                                          title="{f:translate(key:'tx_cart_domain_model_order_item.accept_terms_and_conditions')}"
                                                          value="1"/>
                                         <span>
@@ -43,7 +43,7 @@
                                 <label for="orderItem-acceptRevocationInstruction">
                                     <f:if condition="{0: settings.validation.orderItem.fields.acceptRevocationInstruction.validator} == {0: 'Boolean'}">
                                         <f:form.checkbox id="orderItem-acceptRevocationInstruction"
-                                                         name="orderItem[acceptRevocationInstruction]"
+                                                         property="acceptRevocationInstruction"
                                                          title="{f:translate(key:'tx_cart_domain_model_order_item.accept_revocation_instruction')}"
                                                          value="1"/>
                                         <span>
@@ -70,7 +70,7 @@
                                 <label for="orderItem-acceptPrivacyPolicy">
                                     <f:if condition="{0: settings.validation.orderItem.fields.acceptPrivacyPolicy.validator} == {0: 'Boolean'}">
                                         <f:form.checkbox id="orderItem-acceptPrivacyPolicy"
-                                                         name="orderItem[acceptPrivacyPolicy]"
+                                                         property="acceptPrivacyPolicy"
                                                          title="{f:translate(key:'tx_cart_domain_model_order_item.accept_privacy_policy')}"
                                                          value="1"/>
                                         <span>

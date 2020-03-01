@@ -2,71 +2,69 @@
 
 defined('TYPO3_MODE') or die();
 
-$iconPath = 'EXT:cart/Resources/Public/Icons/';
 $_LLL_db = 'LLL:EXT:cart/Resources/Private/Language/locallang_db.xlf:';
 
 /**
  * Register Backend Modules
  */
 if (TYPO3_MODE === 'BE') {
-    if (!isset($TBE_MODULES['Cart'])) {
+    if (!isset($GLOBALS['TBE_MODULES']['_configuration']['Cart'])) {
         $temp_TBE_MODULES = [];
-        foreach ($TBE_MODULES as $key => $val) {
-            if ($key == 'file') {
-                $temp_TBE_MODULES[$key] = $val;
+
+        foreach ($GLOBALS['TBE_MODULES']['_configuration'] as $key => $val) {
+            $temp_TBE_MODULES[$key] = $val;
+            if ($key === 'file') {
                 $temp_TBE_MODULES['Cart'] = '';
-            } else {
-                $temp_TBE_MODULES[$key] = $val;
             }
         }
 
-        $TBE_MODULES = $temp_TBE_MODULES;
+        $GLOBALS['TBE_MODULES']['_configuration'] = $temp_TBE_MODULES;
     }
 
     // add Main Module
     \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerModule(
-        'Extcode.cart',
+        'Cart',
         'Cart',
         '',
         '',
         [],
         [
             'access' => 'user, group',
-            'icon' => $iconPath . 'module.svg',
+            'icon' => 'EXT:cart/Resources/Public/Icons/module.svg',
             'labels' => $_LLL_db . 'tx_cart.module.main',
         ]
     );
 
     \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerModule(
-        'Extcode.cart',
+        'Cart',
         'Cart',
         'Orders',
         '',
         [
-            'Backend\Order\Order' => 'list, export, show, generateNumber, generatePdfDocument, downloadPdfDocument',
-            'Backend\Order\Payment' => 'update',
-            'Backend\Order\Shipping' => 'update',
-            'Backend\Order\Document' => 'download, create',
+            \Extcode\Cart\Controller\Backend\Order\OrderController::class => 'list, export, show, generateNumber, generatePdfDocument, downloadPdfDocument',
+            \Extcode\Cart\Controller\Backend\Order\PaymentController::class => 'update',
+            \Extcode\Cart\Controller\Backend\Order\ShippingController::class => 'update',
+            \Extcode\Cart\Controller\Backend\Order\DocumentController::class => 'download, create',
         ],
         [
             'access' => 'user, group',
-            'icon' => $iconPath . 'module_orders.svg',
+            'icon' => 'EXT:cart/Resources/Public/Icons/module_orders.svg',
             'labels' => $_LLL_db . 'tx_cart.module.orders',
             'navigationComponentId' => 'TYPO3/CMS/Backend/PageTree/PageTreeElement',
         ]
     );
 
     \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerModule(
-        'Extcode.cart',
+        'Cart',
         'Cart',
         'OrderStatistics',
         '',
         [
-            'Backend\Statistic' => 'show',
+            \Extcode\Cart\Controller\Backend\StatisticController::class => 'show',
         ],
         [
             'access' => 'user, group',
-            'icon' => $iconPath . 'module_order_statistics.svg',
+            'icon' => 'EXT:cart/Resources/Public/Icons/module_order_statistics.svg',
             'labels' => $_LLL_db . 'tx_cart.module.order_statistics',
             'navigationComponentId' => 'TYPO3/CMS/Backend/PageTree/PageTreeElement',
         ]
