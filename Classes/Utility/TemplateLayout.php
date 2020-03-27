@@ -2,19 +2,17 @@
 
 namespace Extcode\Cart\Utility;
 
-/**
- * This file is part of the "cart" Extension for TYPO3 CMS.
+/*
+ * This file is part of the package extcode/cart.
  *
  * For the full copyright and license information, please read the
- * LICENSE.txt file that was distributed with this source code.
+ * LICENSE file that was distributed with this source code.
  */
+
 use TYPO3\CMS\Backend\Utility\BackendUtility;
 use TYPO3\CMS\Core\SingletonInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
-/**
- * TemplateLayout utility class
- */
 class TemplateLayout implements SingletonInterface
 {
 

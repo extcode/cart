@@ -2,15 +2,17 @@
 
 namespace Extcode\Cart\Domain\Finisher\Cart;
 
+/*
+ * This file is part of the package extcode/cart.
+ *
+ * For the full copyright and license information, please read the
+ * LICENSE file that was distributed with this source code.
+ */
+
 use Extcode\Cart\Domain\Model\Cart\Cart;
 use Extcode\Cart\Domain\Model\Cart\Product;
 use TYPO3\CMS\Extbase\Mvc\Web\Request;
 
-/**
- * CheckAvailability Hook Interface
- *
- * @author Daniel Lorenz <ext.cart@extco.de>
- */
 interface AddToCartFinisherInterface
 {
     /**

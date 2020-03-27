@@ -2,12 +2,13 @@
 
 namespace Extcode\Cart\Tests\Domain\Model\Cart;
 
-/**
- * This file is part of the "cart_products" Extension for TYPO3 CMS.
+/*
+ * This file is part of the package extcode/cart.
  *
  * For the full copyright and license information, please read the
- * LICENSE.txt file that was distributed with this source code.
+ * LICENSE file that was distributed with this source code.
  */
+
 use Nimut\TestingFramework\TestCase\UnitTestCase;
 
 class SpecialTest extends UnitTestCase

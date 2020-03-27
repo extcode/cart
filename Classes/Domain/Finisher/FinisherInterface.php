@@ -3,12 +3,13 @@ declare(strict_types = 1);
 
 namespace Extcode\Cart\Domain\Finisher;
 
-/**
- * Finisher that can be attached to a form in order to be invoked
- * as soon as the complete form is submitted
+/*
+ * This file is part of the package extcode/cart.
  *
- * Scope: frontend
+ * For the full copyright and license information, please read the
+ * LICENSE file that was distributed with this source code.
  */
+
 interface FinisherInterface
 {
     /**
