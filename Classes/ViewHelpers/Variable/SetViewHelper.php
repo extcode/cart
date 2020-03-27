@@ -2,10 +2,10 @@
 namespace Extcode\Cart\ViewHelpers\Variable;
 
 /*
- * This file is part of the FluidTYPO3/Vhs project under GPLv2 or later.
+ * This file is part of the package extcode/cart.
  *
  * For the full copyright and license information, please read the
- * LICENSE.md file that was distributed with this source code.
+ * LICENSE file that was distributed with this source code.
  */
 
 use TYPO3\CMS\Extbase\Reflection\ObjectAccess;
@@ -52,8 +52,6 @@ use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
  *
  * Using as `{value -> v:variable.set(name: 'myVar')}` makes `{myVar}` contain
  * `{value}`.
- *
- * @author Claus Due <claus@namelesscoder.net>
  */
 class SetViewHelper extends AbstractViewHelper
 {

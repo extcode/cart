@@ -2,21 +2,19 @@
 
 namespace Extcode\Cart\Hooks;
 
-/**
- * This file is part of the "cart_books" Extension for TYPO3 CMS.
+/*
+ * This file is part of the package extcode/cart.
  *
  * For the full copyright and license information, please read the
- * LICENSE.txt file that was distributed with this source code.
+ * LICENSE file that was distributed with this source code.
  */
+
 use Extcode\Cart\Utility\TemplateLayout;
 use TYPO3\CMS\Backend\Utility\BackendUtility as BackendUtilityCore;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\StringUtility;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
 
-/**
- * Userfunc to render alternative label for media elements
- */
 class ItemsProcFunc
 {
 
