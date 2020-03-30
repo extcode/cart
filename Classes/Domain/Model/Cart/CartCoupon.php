@@ -82,52 +82,19 @@ class CartCoupon implements \Extcode\Cart\Domain\Model\Cart\CartCouponInterface
      * @param string $code
      * @param string $couponType
      * @param float $discount
-     * @param \Extcode\Cart\Domain\Model\Cart\TaxClass $taxClass
+     * @param TaxClass $taxClass
      * @param float $cartMinPrice
      * @param bool $isCombinable
-     *
-     * @throws \InvalidArgumentException
      */
     public function __construct(
-        $title,
-        $code,
-        $couponType,
-        $discount,
-        $taxClass,
-        $cartMinPrice,
-        $isCombinable = false
+        string $title,
+        string $code,
+        string $couponType,
+        float $discount,
+        TaxClass $taxClass,
+        float $cartMinPrice,
+        bool $isCombinable = false
     ) {
-        if (!$title) {
-            throw new \InvalidArgumentException(
-                'You have to specify a valid $title for constructor.',
-                1448230010
-            );
-        }
-        if (!$code) {
-            throw new \InvalidArgumentException(
-                'You have to specify a valid $code for constructor.',
-                1448230020
-            );
-        }
-        if (!$couponType) {
-            throw new \InvalidArgumentException(
-                'You have to specify a valid $couponType for constructor.',
-                1468928203
-            );
-        }
-        if (!$discount) {
-            throw new \InvalidArgumentException(
-                'You have to specify a valid $discount for constructor.',
-                1448230030
-            );
-        }
-        if (!$taxClass) {
-            throw new \InvalidArgumentException(
-                'You have to specify a valid $taxClass for constructor.',
-                1448230040
-            );
-        }
-
         $this->title = $title;
         $this->code = $code;
         $this->couponType = $couponType;

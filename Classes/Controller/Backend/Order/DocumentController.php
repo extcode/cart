@@ -14,18 +14,14 @@ use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 class DocumentController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 {
     /**
-     * Persistence Manager
-     *
      * @var \TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager
      */
-    protected $persistenceManager;
+    protected $persistenceManager = null;
 
     /**
-     * Order Item Repository
-     *
      * @var \Extcode\Cart\Domain\Repository\Order\ItemRepository
      */
-    protected $itemRepository;
+    protected $itemRepository = null;
 
     /**
      * @param \TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager $persistenceManager

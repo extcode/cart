@@ -9,7 +9,7 @@ namespace Extcode\Cart\Tests\Domain\Model\Cart;
  * LICENSE file that was distributed with this source code.
  */
 
-use Nimut\TestingFramework\TestCase\UnitTestCase;
+use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 class ProductTest extends UnitTestCase
 {
@@ -101,11 +101,7 @@ class ProductTest extends UnitTestCase
      */
     public function constructCartProductWithoutProductTypeThrowsException()
     {
-        $this->expectException(
-            'InvalidArgumentException',
-            'You have to specify a valid $productType for constructor.',
-            1468754400
-        );
+        $this->expectException(\TypeError::class);
 
         new \Extcode\Cart\Domain\Model\Cart\Product(
             null,
@@ -123,11 +119,7 @@ class ProductTest extends UnitTestCase
      */
     public function constructCartProductWithoutProductIdThrowsException()
     {
-        $this->expectException(
-            'InvalidArgumentException',
-            'You have to specify a valid $productId for constructor.',
-            1413999100
-        );
+        $this->expectException(\TypeError::class);
 
         new \Extcode\Cart\Domain\Model\Cart\Product(
             $this->productType,
@@ -145,11 +137,7 @@ class ProductTest extends UnitTestCase
      */
     public function constructCartProductWithoutSkuThrowsException()
     {
-        $this->expectException(
-            'InvalidArgumentException',
-            'You have to specify a valid $sku for constructor.',
-            1413999110
-        );
+        $this->expectException(\TypeError::class);
 
         new \Extcode\Cart\Domain\Model\Cart\Product(
             $this->productType,
@@ -167,11 +155,7 @@ class ProductTest extends UnitTestCase
      */
     public function constructCartProductWithoutTitleThrowsException()
     {
-        $this->expectException(
-            'InvalidArgumentException',
-            'You have to specify a valid $title for constructor.',
-            1413999120
-        );
+        $this->expectException(\TypeError::class);
 
         new \Extcode\Cart\Domain\Model\Cart\Product(
             $this->productType,
@@ -189,11 +173,7 @@ class ProductTest extends UnitTestCase
      */
     public function constructCartProductWithoutPriceThrowsException()
     {
-        $this->expectException(
-            'InvalidArgumentException',
-            'You have to specify a valid $price for constructor.',
-            1413999130
-        );
+        $this->expectException(\TypeError::class);
 
         new \Extcode\Cart\Domain\Model\Cart\Product(
             $this->productType,
@@ -211,11 +191,7 @@ class ProductTest extends UnitTestCase
      */
     public function constructCartProductWithoutTaxClassThrowsException()
     {
-        $this->expectException(
-            'InvalidArgumentException',
-            'You have to specify a valid $taxClass for constructor.',
-            1413999140
-        );
+        $this->expectException(\TypeError::class);
 
         new \Extcode\Cart\Domain\Model\Cart\Product(
             $this->productType,
@@ -233,11 +209,7 @@ class ProductTest extends UnitTestCase
      */
     public function constructCartProductWithoutQuantityThrowsException()
     {
-        $this->expectException(
-            'InvalidArgumentException',
-            'You have to specify a valid $quantity for constructor.',
-            1413999150
-        );
+        $this->expectException(\TypeError::class);
 
         new \Extcode\Cart\Domain\Model\Cart\Product(
             $this->productType,
@@ -1016,10 +988,11 @@ class ProductTest extends UnitTestCase
 
     /**
      * @test
-     * @expectedException \InvalidArgumentException
      */
     public function throwsInvalidArgumentExceptionIfMinNumberIsGreaterThanMaxNumber()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         $minNumber = 2;
         $maxNumber = 1;
 
@@ -1029,10 +1002,11 @@ class ProductTest extends UnitTestCase
 
     /**
      * @test
-     * @expectedException \InvalidArgumentException
      */
     public function throwsInvalidArgumentExceptionIfMinNumberIsNegativ()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         $minNumber = -1;
         $maxNumber = 1;
 
@@ -1087,10 +1061,11 @@ class ProductTest extends UnitTestCase
 
     /**
      * @test
-     * @expectedException \InvalidArgumentException
      */
     public function throwsInvalidArgumentExceptionIfMaxNumberIsLesserThanMinNUmber()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         $minNumber = 2;
         $maxNumber = 1;
 

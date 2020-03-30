@@ -23,19 +23,10 @@ class Tag extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * __construct
      *
      * @param string $title
-     *
-     * @throws \InvalidArgumentException
      */
     public function __construct(
-        $title
+        string $title
     ) {
-        if (!$title) {
-            throw new \InvalidArgumentException(
-                'You have to specify a valid $title for constructor.',
-                1460206410
-            );
-        }
-
         $this->title = $title;
     }
 

@@ -9,7 +9,7 @@ namespace Extcode\Cart\Tests\Domain\Model\Order;
  * LICENSE file that was distributed with this source code.
  */
 
-use Nimut\TestingFramework\TestCase\UnitTestCase;
+use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 class ProductTest extends UnitTestCase
 {
@@ -60,11 +60,7 @@ class ProductTest extends UnitTestCase
      */
     public function constructProductWithoutSkuThrowsException()
     {
-        $this->expectException(
-            'InvalidArgumentException',
-            'You have to specify a valid $sku for constructor.',
-            1456830010
-        );
+        $this->expectException(\TypeError::class);
 
         $this->product = new \Extcode\Cart\Domain\Model\Order\Product(
             null,
@@ -78,11 +74,7 @@ class ProductTest extends UnitTestCase
      */
     public function constructProductWithoutTitleThrowsException()
     {
-        $this->expectException(
-            'InvalidArgumentException',
-            'You have to specify a valid $title for constructor.',
-            1456830020
-        );
+        $this->expectException(\TypeError::class);
 
         $this->product = new \Extcode\Cart\Domain\Model\Order\Product(
             $this->sku,
@@ -96,11 +88,7 @@ class ProductTest extends UnitTestCase
      */
     public function constructProductWithoutCountThrowsException()
     {
-        $this->expectException(
-            'InvalidArgumentException',
-            'You have to specify a valid $count for constructor.',
-            1456830030
-        );
+        $this->expectException(\TypeError::class);
 
         $this->product = new \Extcode\Cart\Domain\Model\Order\Product(
             $this->sku,

@@ -99,47 +99,14 @@ class Coupon extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * @param string $couponType
      * @param float $discount
      * @param int $taxClassId
-     *
-     * @throws \InvalidArgumentException
      */
     public function __construct(
-        $title,
-        $code,
-        $couponType,
-        $discount,
-        $taxClassId
+        string $title,
+        string $code,
+        string $couponType,
+        float $discount,
+        int $taxClassId
     ) {
-        if (!$title) {
-            throw new \InvalidArgumentException(
-                'You have to specify a valid $title for constructor.',
-                1456840910
-            );
-        }
-        if (!$code) {
-            throw new \InvalidArgumentException(
-                'You have to specify a valid $code for constructor.',
-                1456840920
-            );
-        }
-        if (!$couponType) {
-            throw new \InvalidArgumentException(
-                'You have to specify a valid $couponType for constructor.',
-                1468927505
-            );
-        }
-        if (!$discount) {
-            throw new \InvalidArgumentException(
-                'You have to specify a valid $discount for constructor.',
-                1456840930
-            );
-        }
-        if (!$taxClassId) {
-            throw new \InvalidArgumentException(
-                'You have to specify a valid $taxClassId for constructor.',
-                1456840940
-            );
-        }
-
         $this->title = $title;
         $this->code = $code;
         $this->couponType = $couponType;

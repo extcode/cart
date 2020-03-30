@@ -9,7 +9,7 @@ namespace Extcode\Cart\Tests\Domain\Model\Cart;
  * LICENSE file that was distributed with this source code.
  */
 
-use Nimut\TestingFramework\TestCase\UnitTestCase;
+use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 class CartCouponTest extends UnitTestCase
 {
@@ -85,11 +85,7 @@ class CartCouponTest extends UnitTestCase
      */
     public function constructCouponWithoutTitleThrowsException()
     {
-        $this->expectException(
-            'InvalidArgumentException',
-            'You have to specify a valid $title for constructor.',
-            1448230010
-        );
+        $this->expectException(\TypeError::class);
 
         $this->coupon = new \Extcode\Cart\Domain\Model\Cart\CartCoupon(
             null,
@@ -106,11 +102,7 @@ class CartCouponTest extends UnitTestCase
      */
     public function constructCouponWithoutCodeThrowsException()
     {
-        $this->expectException(
-            'InvalidArgumentException',
-            'You have to specify a valid $code for constructor.',
-            1448230020
-        );
+        $this->expectException(\TypeError::class);
 
         $this->coupon = new \Extcode\Cart\Domain\Model\Cart\CartCoupon(
             $this->title,
@@ -127,11 +119,7 @@ class CartCouponTest extends UnitTestCase
      */
     public function constructCouponWithoutCouponTypeThrowsException()
     {
-        $this->expectException(
-            'InvalidArgumentException',
-            'You have to specify a valid $couponType for constructor.',
-            1468928203
-        );
+        $this->expectException(\TypeError::class);
 
         $this->coupon = new \Extcode\Cart\Domain\Model\Cart\CartCoupon(
             $this->title,
@@ -148,11 +136,7 @@ class CartCouponTest extends UnitTestCase
      */
     public function constructCouponWithoutDiscountThrowsException()
     {
-        $this->expectException(
-            'InvalidArgumentException',
-            'You have to specify a valid $discount for constructor.',
-            1448230030
-        );
+        $this->expectException(\TypeError::class);
 
         $this->coupon = new \Extcode\Cart\Domain\Model\Cart\CartCoupon(
             $this->title,
@@ -169,11 +153,7 @@ class CartCouponTest extends UnitTestCase
      */
     public function constructCouponWithoutTaxClassThrowsException()
     {
-        $this->expectException(
-            'InvalidArgumentException',
-            'You have to specify a valid $taxClass for constructor.',
-            1448230040
-        );
+        $this->expectException(\TypeError::class);
 
         $this->coupon = new \Extcode\Cart\Domain\Model\Cart\CartCoupon(
             $this->title,

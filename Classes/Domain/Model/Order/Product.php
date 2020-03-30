@@ -126,29 +126,10 @@ class Product extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * @param int $count
      */
     public function __construct(
-        $sku,
-        $title,
-        $count
+        string $sku,
+        string $title,
+        int $count
     ) {
-        if (!$sku) {
-            throw new \InvalidArgumentException(
-                'You have to specify a valid $sku for constructor.',
-                1456830010
-            );
-        }
-        if (!$title) {
-            throw new \InvalidArgumentException(
-                'You have to specify a valid $title for constructor.',
-                1456830020
-            );
-        }
-        if (!$count) {
-            throw new \InvalidArgumentException(
-                'You have to specify a valid $count for constructor.',
-                1456830030
-            );
-        }
-
         $this->sku = $sku;
         $this->title = $title;
         $this->count = $count;

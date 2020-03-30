@@ -170,8 +170,8 @@ class BeVariant
      * __construct
      *
      * @param string $id
-     * @param \Extcode\Cart\Domain\Model\Cart\Product $product
-     * @param \Extcode\Cart\Domain\Model\Cart\BeVariant $beVariant
+     * @param Product $product
+     * @param BeVariant $beVariant
      * @param string $title
      * @param string $sku
      * @param int $priceCalcMethod
@@ -179,14 +179,14 @@ class BeVariant
      * @param int $quantity
      */
     public function __construct(
-        $id,
-        $product = null,
-        $beVariant = null,
-        $title,
-        $sku,
-        $priceCalcMethod,
-        $price,
-        $quantity = 0
+        string $id,
+        Product $product = null,
+        self $beVariant = null,
+        string $title,
+        string $sku,
+        int $priceCalcMethod,
+        float $price,
+        int $quantity = 0
     ) {
         if ($product === null && $beVariant === null) {
             throw new \InvalidArgumentException;
@@ -194,13 +194,6 @@ class BeVariant
 
         if ($product != null && $beVariant != null) {
             throw new \InvalidArgumentException;
-        }
-
-        if (!$title) {
-            throw new \InvalidArgumentException(
-                'You have to specify a valid $title for constructor.',
-                1437166475
-            );
         }
 
         if (!$sku) {

@@ -53,7 +53,7 @@ class FeVariant
      * @param array $variantData
      */
     public function __construct(
-        $variantData = []
+        array $variantData = []
     ) {
         $this->variantData = $variantData;
     }

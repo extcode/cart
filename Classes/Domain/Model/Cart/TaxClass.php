@@ -42,8 +42,12 @@ class TaxClass
      * @param float $calc
      * @param string $title
      */
-    public function __construct(int $id, string $value, float $calc, string $title)
-    {
+    public function __construct(
+        int $id,
+        string $value,
+        float $calc,
+        string $title
+    ) {
         $this->id = $id;
         $this->value = $value;
         $this->calc = $calc;

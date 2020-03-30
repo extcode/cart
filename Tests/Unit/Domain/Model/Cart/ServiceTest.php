@@ -9,7 +9,7 @@ namespace Extcode\Cart\Tests\Domain\Model\Cart;
  * LICENSE file that was distributed with this source code.
  */
 
-use Nimut\TestingFramework\TestCase\UnitTestCase;
+use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 class ServiceTest extends UnitTestCase
 {

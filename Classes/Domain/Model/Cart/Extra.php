@@ -78,7 +78,7 @@ class Extra
      * @param int $id
      * @param float $condition
      * @param float $price
-     * @param \Extcode\Cart\Domain\Model\Cart\TaxClass $taxClass
+     * @param TaxClass $taxClass
      * @param bool $isNetPrice
      * @param string $extraType
      *
@@ -88,7 +88,7 @@ class Extra
         int $id,
         float $condition,
         float $price,
-        \Extcode\Cart\Domain\Model\Cart\TaxClass $taxClass,
+        TaxClass $taxClass,
         bool $isNetPrice = false,
         string $extraType = ''
     ) {

@@ -9,7 +9,7 @@ namespace Extcode\Cart\Tests\Domain\Model\Order;
  * LICENSE file that was distributed with this source code.
  */
 
-use Nimut\TestingFramework\TestCase\UnitTestCase;
+use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 class TaxTest extends UnitTestCase
 {
@@ -52,11 +52,7 @@ class TaxTest extends UnitTestCase
      */
     public function constructTaxWithoutTaxThrowsException()
     {
-        $this->expectException(
-            'InvalidArgumentException',
-            'You have to specify a valid $tax for constructor.',
-            1456836510
-        );
+        $this->expectException(\TypeError::class);
 
         new \Extcode\Cart\Domain\Model\Order\Tax(
             null,
@@ -69,11 +65,7 @@ class TaxTest extends UnitTestCase
      */
     public function constructTaxWithoutTaxClassThrowsException()
     {
-        $this->expectException(
-            'InvalidArgumentException',
-            'You have to specify a valid $taxClass for constructor.',
-            1456836520
-        );
+        $this->expectException(\TypeError::class);
 
         new \Extcode\Cart\Domain\Model\Order\Tax(
             $this->tax,

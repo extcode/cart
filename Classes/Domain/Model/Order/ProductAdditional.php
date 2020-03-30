@@ -52,42 +52,23 @@ class ProductAdditional extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * __construct
      *
-     * @param string $additionalType
-     * @param string $additionalKey
-     * @param string $additionalValue
-     * @param string $additionalData
+     * @param string $type
+     * @param string $key
+     * @param string $value
+     * @param string $data
      *
      * @throws \InvalidArgumentException
      */
     public function __construct(
-        $additionalType,
-        $additionalKey,
-        $additionalValue,
-        $additionalData = ''
+        string $type,
+        string $key,
+        string $value,
+        string $data = ''
     ) {
-        if (!$additionalType) {
-            throw new \InvalidArgumentException(
-                'You have to specify a valid $additionalType for constructor.',
-                1456828210
-            );
-        }
-        if (!$additionalKey) {
-            throw new \InvalidArgumentException(
-                'You have to specify a valid $additionalKey for constructor.',
-                1456828220
-            );
-        }
-        if (!$additionalValue) {
-            throw new \InvalidArgumentException(
-                'You have to specify a valid $additionalValue for constructor.',
-                1456828230
-            );
-        }
-
-        $this->additionalType = $additionalType;
-        $this->additionalKey = $additionalKey;
-        $this->additionalValue = $additionalValue;
-        $this->additionalData = $additionalData;
+        $this->additionalType = $type;
+        $this->additionalKey = $key;
+        $this->additionalValue = $value;
+        $this->additionalData = $data;
     }
 
     /**

@@ -38,7 +38,7 @@ class Cart
      *
      * @var array
      */
-    protected $taxes;
+    protected $taxes = [];
 
     /**
      * Count
@@ -52,7 +52,7 @@ class Cart
      *
      * @var \Extcode\Cart\Domain\Model\Cart\Product[]
      */
-    protected $products;
+    protected $products = [];
 
     /**
      * Shipping
@@ -212,10 +212,10 @@ class Cart
      */
     public function __construct(
         array $taxClasses,
-        $isNetCart = false,
-        $currencyCode = 'EUR',
-        $currencySign = '€',
-        $currencyTranslation = 1.00
+        bool $isNetCart = false,
+        string $currencyCode = 'EUR',
+        string $currencySign = '€',
+        float $currencyTranslation = 1.00
     ) {
         $this->taxClasses = $taxClasses;
         $this->net = 0.0;
@@ -470,7 +470,11 @@ class Cart
      */
     public function addTax($tax, $taxClass)
     {
-        $this->taxes[$taxClass->getId()] += $tax;
+        if (array_key_exists($taxClass->getId(), $this->taxes)) {
+            $this->taxes[$taxClass->getId()] += $tax;
+        } else {
+            $this->taxes[$taxClass->getId()] = $tax;
+        }
     }
 
     /**
@@ -849,20 +853,18 @@ class Cart
      */
     public function addCoupon(\Extcode\Cart\Domain\Model\Cart\CartCouponInterface $coupon)
     {
-        if ($this->coupons[$coupon->getCode()]) {
-            $returnCode = -1;
-        } else {
-            if ((!empty($this->coupons)) && (!$this->areCouponsCombinable() || !$coupon->getIsCombinable())) {
-                $returnCode = -2;
-            } else {
-                $coupon->setCart($this);
-                $this->coupons[$coupon->getCode()] = $coupon;
-
-                $returnCode = 1;
-            }
+        if (!empty($this->coupons) && array_key_exists($coupon->getCode(), $this->coupons)) {
+            return -1;
         }
 
-        return $returnCode;
+        if (!empty($this->coupons) && (!$this->areCouponsCombinable() || !$coupon->getIsCombinable())) {
+            return -2;
+        }
+
+        $coupon->setCart($this);
+        $this->coupons[$coupon->getCode()] = $coupon;
+
+        return 1;
     }
 
     /**
@@ -937,7 +939,11 @@ class Cart
             foreach ($this->coupons as $coupon) {
                 if ($coupon->getIsUseable()) {
                     $tax = $coupon->getTax();
-                    $taxes[$coupon->getTaxClass()->getId()] += $tax;
+                    if (array_key_exists($coupon->getTaxClass()->getId(), $taxes)) {
+                        $taxes[$coupon->getTaxClass()->getId()] += $tax;
+                    } else {
+                        $taxes[$coupon->getTaxClass()->getId()] = $tax;
+                    }
                 }
             }
         }
@@ -989,11 +995,10 @@ class Cart
     public function addProduct($newProduct)
     {
         $id = $newProduct->getId();
-        $product = $this->products[$id];
 
-        if ($product) {
+        if (!empty($product) && array_key_exists($id, $this->products)) {
             // change $newproduct in cart
-            $this->changeProduct($product, $newProduct);
+            $this->changeProduct($this->products[$id], $newProduct);
             $this->calcAll();
         } else {
             // $newproduct is not in cart

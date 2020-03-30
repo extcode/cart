@@ -9,7 +9,7 @@ namespace Extcode\Cart\Tests\Domain\Model\Order;
  * LICENSE file that was distributed with this source code.
  */
 
-use Nimut\TestingFramework\TestCase\UnitTestCase;
+use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 class ProductAdditionalTest extends UnitTestCase
 {
@@ -60,11 +60,7 @@ class ProductAdditionalTest extends UnitTestCase
      */
     public function constructProductAdditionalWithoutAdditionalTypeThrowsException()
     {
-        $this->expectException(
-            'InvalidArgumentException',
-            'You have to specify a valid $additionalType for constructor.',
-            1456828210
-        );
+        $this->expectException(\TypeError::class);
 
         $this->productAdditional = new \Extcode\Cart\Domain\Model\Order\ProductAdditional(
             null,
@@ -78,11 +74,7 @@ class ProductAdditionalTest extends UnitTestCase
      */
     public function constructProductAdditionalWithoutAdditionalKeyThrowsException()
     {
-        $this->expectException(
-            'InvalidArgumentException',
-            'You have to specify a valid $additionalKey for constructor.',
-            1456828220
-        );
+        $this->expectException(\TypeError::class);
 
         $this->productAdditional = new \Extcode\Cart\Domain\Model\Order\ProductAdditional(
             $this->additionalType,
@@ -96,11 +88,7 @@ class ProductAdditionalTest extends UnitTestCase
      */
     public function constructProductAdditionalWithoutAdditionalValueThrowsException()
     {
-        $this->expectException(
-            'InvalidArgumentException',
-            'You have to specify a valid $additionalValue for constructor.',
-            1456828230
-        );
+        $this->expectException(\TypeError::class);
 
         $this->productAdditional = new \Extcode\Cart\Domain\Model\Order\ProductAdditional(
             $this->additionalType,

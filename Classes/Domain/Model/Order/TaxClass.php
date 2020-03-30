@@ -44,29 +44,10 @@ class TaxClass extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * @param float $calc
      */
     public function __construct(
-        $title,
-        $value,
-        $calc
+        string $title,
+        string $value,
+        float $calc
     ) {
-        if (!$title) {
-            throw new \InvalidArgumentException(
-                'You have to specify a valid $title for constructor.',
-                1456830910
-            );
-        }
-        if (empty($value) && $value !== '0') {
-            throw new \InvalidArgumentException(
-                'You have to specify a valid $value for constructor.',
-                1456830920
-            );
-        }
-        if ($calc === null) {
-            throw new \InvalidArgumentException(
-                'You have to specify a valid $calc for constructor.',
-                1456830930
-            );
-        }
-
         $this->title = $title;
         $this->value = $value;
         $this->calc = $calc;

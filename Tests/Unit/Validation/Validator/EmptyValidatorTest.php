@@ -9,7 +9,7 @@ namespace Extcode\Cart\Tests\Unit\Validation\Validator;
  * LICENSE file that was distributed with this source code.
  */
 
-use Nimut\TestingFramework\TestCase\UnitTestCase;
+use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 class EmptyValidatorTest extends UnitTestCase
 {

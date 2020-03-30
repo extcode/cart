@@ -9,7 +9,7 @@ namespace Extcode\Cart\Tests\Domain\Model\Order;
  * LICENSE file that was distributed with this source code.
  */
 
-use Nimut\TestingFramework\TestCase\UnitTestCase;
+use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 class DiscountTest extends UnitTestCase
 {
@@ -88,11 +88,7 @@ class DiscountTest extends UnitTestCase
      */
     public function constructDiscountWithoutTitleThrowsException()
     {
-        $this->expectException(
-            'InvalidArgumentException',
-            'You have to specify a valid $title for constructor.',
-            1455452810
-        );
+        $this->expectException(\TypeError::class);
 
         new \Extcode\Cart\Domain\Model\Order\Discount(
             null,
@@ -109,11 +105,7 @@ class DiscountTest extends UnitTestCase
      */
     public function constructDiscountWithoutCodeThrowsException()
     {
-        $this->expectException(
-            'InvalidArgumentException',
-            'You have to specify a valid $code for constructor.',
-            1455452820
-        );
+        $this->expectException(\TypeError::class);
 
         new \Extcode\Cart\Domain\Model\Order\Discount(
             $this->title,
@@ -130,11 +122,7 @@ class DiscountTest extends UnitTestCase
      */
     public function constructDiscountWithoutGrossThrowsException()
     {
-        $this->expectException(
-            'InvalidArgumentException',
-            'You have to specify a valid $gross for constructor.',
-            1468779204
-        );
+        $this->expectException(\TypeError::class);
 
         new \Extcode\Cart\Domain\Model\Order\Discount(
             $this->title,
@@ -151,11 +139,7 @@ class DiscountTest extends UnitTestCase
      */
     public function constructDiscountWithoutNetThrowsException()
     {
-        $this->expectException(
-            'InvalidArgumentException',
-            'You have to specify a valid $net for constructor.',
-            1468779221
-        );
+        $this->expectException(\TypeError::class);
 
         new \Extcode\Cart\Domain\Model\Order\Discount(
             $this->title,
@@ -172,11 +156,7 @@ class DiscountTest extends UnitTestCase
      */
     public function constructDiscountWithoutTaxClassThrowsException()
     {
-        $this->expectException(
-            'InvalidArgumentException',
-            'You have to specify a valid $taxClass for constructor.',
-            1455452840
-        );
+        $this->expectException(\TypeError::class);
 
         new \Extcode\Cart\Domain\Model\Order\Discount(
             $this->title,
@@ -193,11 +173,7 @@ class DiscountTest extends UnitTestCase
      */
     public function constructDiscountWithoutTaxThrowsException()
     {
-        $this->expectException(
-            'InvalidArgumentException',
-            'You have to specify a valid $tax for constructor.',
-            1455452850
-        );
+        $this->expectException(\TypeError::class);
 
         new \Extcode\Cart\Domain\Model\Order\Discount(
             $this->title,

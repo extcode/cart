@@ -9,7 +9,7 @@ namespace Extcode\Cart\Tests\Domain\Model\Cart;
  * LICENSE file that was distributed with this source code.
  */
 
-use Nimut\TestingFramework\TestCase\UnitTestCase;
+use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 class BeVariantTest extends UnitTestCase
 {
@@ -63,6 +63,8 @@ class BeVariantTest extends UnitTestCase
      */
     public function setUp()
     {
+        $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['cart']['changeVariantDiscount'] = 0;
+
         $this->taxClass = new \Extcode\Cart\Domain\Model\Cart\TaxClass(1, '19', 0.19, 'normal');
 
         $this->product = $this->getMockBuilder(\Extcode\Cart\Domain\Model\Cart\Product::class)
@@ -223,10 +225,11 @@ class BeVariantTest extends UnitTestCase
 
     /**
      * @test
-     * @expectedException \InvalidArgumentException
      */
     public function constructVariantWithoutCartProductOrVariantThrowsInvalidArgumentException()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         new \Extcode\Cart\Domain\Model\Cart\BeVariant(
             $this->id,
             null,
@@ -241,10 +244,11 @@ class BeVariantTest extends UnitTestCase
 
     /**
      * @test
-     * @expectedException \InvalidArgumentException
      */
     public function constructVariantWithCartProductAndVariantThrowsInvalidArgumentException()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         new \Extcode\Cart\Domain\Model\Cart\BeVariant(
             $this->id,
             $this->product,
@@ -262,11 +266,7 @@ class BeVariantTest extends UnitTestCase
      */
     public function constructWithoutTitleThrowsException()
     {
-        $this->expectException(
-            'InvalidArgumentException',
-            'You have to specify a valid $title for constructor.',
-            1437166475
-        );
+        $this->expectException(\TypeError::class);
 
         new \Extcode\Cart\Domain\Model\Cart\BeVariant(
             1,
@@ -285,11 +285,7 @@ class BeVariantTest extends UnitTestCase
      */
     public function constructWithoutSkuThrowsException()
     {
-        $this->expectException(
-            'InvalidArgumentException',
-            'You have to specify a valid $sku for constructor.',
-            1437166615
-        );
+        $this->expectException(\TypeError::class);
 
         new \Extcode\Cart\Domain\Model\Cart\BeVariant(
             1,
@@ -308,11 +304,7 @@ class BeVariantTest extends UnitTestCase
      */
     public function constructWithoutQuantityThrowsException()
     {
-        $this->expectException(
-            'InvalidArgumentException',
-            'You have to specify a valid $quantity for constructor.',
-            1437166805
-        );
+        $this->expectException(\TypeError::class);
 
         new \Extcode\Cart\Domain\Model\Cart\BeVariant(
             1,
@@ -373,10 +365,11 @@ class BeVariantTest extends UnitTestCase
 
     /**
      * @test
-     * @expectedException \InvalidArgumentException
      */
     public function throwsInvalidArgumentExceptionIfMinIsGreaterThanMax()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         $min = 2;
         $max = 1;
 
@@ -386,10 +379,11 @@ class BeVariantTest extends UnitTestCase
 
     /**
      * @test
-     * @expectedException \InvalidArgumentException
      */
     public function throwsInvalidArgumentExceptionIfMinIsNegativ()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         $min = -1;
         $max = 1;
 
@@ -450,10 +444,11 @@ class BeVariantTest extends UnitTestCase
 
     /**
      * @test
-     * @expectedException \InvalidArgumentException
      */
     public function throwsInvalidArgumentExceptionIfMaxIsLesserThanMin()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         $min = 2;
         $max = 1;
 

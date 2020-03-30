@@ -9,6 +9,8 @@ namespace Extcode\Cart\Domain\Model\Order;
  * LICENSE file that was distributed with this source code.
  */
 
+use Extcode\Cart\Domain\Model\Cart\TaxClass;
+
 class Discount extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 {
     /**
@@ -71,57 +73,19 @@ class Discount extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      *
      * @param string $title
      * @param string $code
-     * @param float $discount
-     * @param \Extcode\Cart\Domain\Model\Cart\TaxClass $taxClass
+     * @param float $gross
+     * @param float $net
+     * @param TaxClass $taxClass
      * @param float $tax
-     *
-     * @throws \InvalidArgumentException
      */
     public function __construct(
-        $title,
-        $code,
-        $gross,
-        $net,
-        $taxClass,
-        $tax
+        string $title,
+        string $code,
+        float $gross,
+        float $net,
+        TaxClass $taxClass,
+        float $tax
     ) {
-        if (!$title) {
-            throw new \InvalidArgumentException(
-                'You have to specify a valid $title for constructor.',
-                1455452810
-            );
-        }
-        if (!$code) {
-            throw new \InvalidArgumentException(
-                'You have to specify a valid $code for constructor.',
-                1455452820
-            );
-        }
-        if (!$gross) {
-            throw new \InvalidArgumentException(
-                'You have to specify a valid $gross for constructor.',
-                1468779204
-            );
-        }
-        if (!$net) {
-            throw new \InvalidArgumentException(
-                'You have to specify a valid $net for constructor.',
-                1468779221
-            );
-        }
-        if (!$taxClass) {
-            throw new \InvalidArgumentException(
-                'You have to specify a valid $taxClass for constructor.',
-                1455452840
-            );
-        }
-        if (!$tax) {
-            throw new \InvalidArgumentException(
-                'You have to specify a valid $tax for constructor.',
-                1455452850
-            );
-        }
-
         $this->title = $title;
         $this->code = $code;
         $this->gross = $gross;

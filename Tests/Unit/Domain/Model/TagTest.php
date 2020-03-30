@@ -9,7 +9,7 @@ namespace Extcode\Cart\Tests\Domain\Model;
  * LICENSE file that was distributed with this source code.
  */
 
-use Nimut\TestingFramework\TestCase\UnitTestCase;
+use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 class TagTest extends UnitTestCase
 {
@@ -44,11 +44,7 @@ class TagTest extends UnitTestCase
      */
     public function constructCouponWithoutTitleThrowsException()
     {
-        $this->expectException(
-            'InvalidArgumentException',
-            'You have to specify a valid $title for constructor.',
-            1460206410
-        );
+        $this->expectException(\TypeError::class);
 
         $this->tag = new \Extcode\Cart\Domain\Model\Tag(
             null

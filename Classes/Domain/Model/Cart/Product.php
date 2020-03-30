@@ -149,7 +149,7 @@ class Product
      *
      * @var array BeVariant
      */
-    protected $beVariants;
+    protected $beVariants = [];
 
     /**
      * Frontend Variant
@@ -208,67 +208,22 @@ class Product
      * @param string $sku
      * @param string $title
      * @param float $price
-     * @param \Extcode\Cart\Domain\Model\Cart\TaxClass $taxClass
+     * @param TaxClass $taxClass
      * @param int $quantity
      * @param bool $isNetPrice
-     * @param \Extcode\Cart\Domain\Model\Cart\FeVariant $feVariant
-     *
-     * @throws \InvalidArgumentException
+     * @param FeVariant $feVariant
      */
     public function __construct(
-        $productType,
-        $productId,
-        $sku,
-        $title,
-        $price,
-        $taxClass,
-        $quantity,
-        $isNetPrice = false,
-        $feVariant = null
+        string $productType,
+        int $productId,
+        string $sku,
+        string $title,
+        float $price,
+        TaxClass $taxClass,
+        int $quantity,
+        bool $isNetPrice = false,
+        FeVariant $feVariant = null
     ) {
-        if (!$productType) {
-            throw new \InvalidArgumentException(
-                'You have to specify a valid $productType for constructor.',
-                1468754400
-            );
-        }
-        if (!$productId) {
-            throw new \InvalidArgumentException(
-                'You have to specify a valid $productId for constructor.',
-                1413999100
-            );
-        }
-        if (!$sku) {
-            throw new \InvalidArgumentException(
-                'You have to specify a valid $sku for constructor.',
-                1413999110
-            );
-        }
-        if (!$title) {
-            throw new \InvalidArgumentException(
-                'You have to specify a valid $title for constructor.',
-                1413999120
-            );
-        }
-        if ($price === null) {
-            throw new \InvalidArgumentException(
-                'You have to specify a valid $price for constructor.',
-                1413999130
-            );
-        }
-        if (!$taxClass) {
-            throw new \InvalidArgumentException(
-                'You have to specify a valid $taxClass for constructor.',
-                1413999140
-            );
-        }
-        if (!$quantity) {
-            throw new \InvalidArgumentException(
-                'You have to specify a valid $quantity for constructor.',
-                1413999150
-            );
-        }
-
         $this->productType = $productType;
         $this->productId = $productId;
         $this->sku = $sku;
@@ -351,10 +306,9 @@ class Product
     public function addBeVariant(\Extcode\Cart\Domain\Model\Cart\BeVariant $newVariant)
     {
         $newVariantsId = $newVariant->getId();
-        /** @var \Extcode\Cart\Domain\Model\Cart\BeVariant $variant */
-        $variant = $this->beVariants[$newVariantsId];
 
-        if ($variant) {
+        if (!empty($this->beVariants) && array_key_exists($newVariantsId, $this->beVariants)) {
+            $variant = $this->beVariants[$newVariantsId];
             if ($variant->getBeVariants()) {
                 $variant->addBeVariants($newVariant->getBeVariants());
             } else {

@@ -65,8 +65,10 @@ class Service implements ServiceInterface
      * @param int $id
      * @param array $config
      */
-    public function __construct(int $id, array $config)
-    {
+    public function __construct(
+        int $id,
+        array $config
+    ) {
         $this->id = $id;
         $this->config = $config;
     }
