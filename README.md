@@ -62,9 +62,10 @@ News uses **semantic versioning** which basically means for you, that
 
 ## 4. Sponsoring
 
-*  Ask for an invoice.
-*  [Patreon](https://patreon.com/ext_cart)
-*  [PayPal.Me](https://paypal.me/extcart)
+* Ask for an invoice.
+* [GitHub Sponsors](https://github.com/sponsors/extcode)
+* [PayPal.Me](https://paypal.me/extcart)
+* [Patreon](https://patreon.com/ext_cart)
 
 [1]: https://docs.typo3.org/typo3cms/extensions/cart/
 [2]: https://getcomposer.org/
