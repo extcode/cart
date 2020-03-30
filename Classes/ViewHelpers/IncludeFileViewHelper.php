@@ -9,9 +9,10 @@ namespace Extcode\Cart\ViewHelpers;
  * LICENSE file that was distributed with this source code.
  */
 
+use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
-class IncludeFileViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper
+class IncludeFileViewHelper extends AbstractViewHelper
 {
     public function initializeArguments()
     {

@@ -9,7 +9,9 @@ namespace Extcode\Cart\ViewHelpers;
  * LICENSE file that was distributed with this source code.
  */
 
-class FieldNameViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper
+use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
+
+class FieldNameViewHelper extends AbstractViewHelper
 {
     public function initializeArguments()
     {

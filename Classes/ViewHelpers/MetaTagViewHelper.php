@@ -11,7 +11,7 @@ namespace Extcode\Cart\ViewHelpers;
 
 use TYPO3\CMS\Core\Page\PageRenderer;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractTagBasedViewHelper;
+use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractTagBasedViewHelper;
 
 /**
  * ViewHelper to render meta tags
@@ -39,9 +39,6 @@ class MetaTagViewHelper extends AbstractTagBasedViewHelper
      */
     protected $tagName = 'meta';
 
-    /**
-     * Arguments initialization
-     */
     public function initializeArguments()
     {
         $this->registerTagAttribute('property', 'string', 'Property of meta tag');
@@ -51,9 +48,6 @@ class MetaTagViewHelper extends AbstractTagBasedViewHelper
         $this->registerArgument('forceAbsoluteUrl', 'boolean', 'Force absolut domain', false, false);
     }
 
-    /**
-     * Renders a meta tag
-     */
     public function render()
     {
         $useCurrentDomain = $this->arguments['useCurrentDomain'];

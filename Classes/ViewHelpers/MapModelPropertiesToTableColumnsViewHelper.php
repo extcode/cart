@@ -9,7 +9,9 @@ namespace Extcode\Cart\ViewHelpers;
  * LICENSE file that was distributed with this source code.
  */
 
-class MapModelPropertiesToTableColumnsViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper
+use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
+
+class MapModelPropertiesToTableColumnsViewHelper extends AbstractViewHelper
 {
     /**
      * @var \TYPO3\CMS\Extbase\Object\ObjectManager
@@ -26,9 +28,6 @@ class MapModelPropertiesToTableColumnsViewHelper extends \TYPO3\CMS\Fluid\Core\V
      */
     protected $configuration;
 
-    /**
-     * Arguments initialization
-     */
     public function initializeArguments()
     {
         parent::initializeArguments();

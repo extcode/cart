@@ -9,12 +9,10 @@ namespace Extcode\Cart\ViewHelpers\Traversable;
  * LICENSE file that was distributed with this source code.
  */
 
-class ExtractViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper
-{
+use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
-    /**
-     * Initialize arguments
-     */
+class ExtractViewHelper extends AbstractViewHelper
+{
     public function initializeArguments()
     {
         $this->registerArgument('key', 'string', 'Key', true);

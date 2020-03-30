@@ -9,7 +9,9 @@ namespace Extcode\Cart\ViewHelpers\Format;
  * LICENSE file that was distributed with this source code.
  */
 
-class NothingViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper
+use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
+
+class NothingViewHelper extends AbstractViewHelper
 {
 
     /**
@@ -19,9 +21,6 @@ class NothingViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHel
      */
     protected $escapeOutput = false;
 
-    /**
-     * Render children but do nothing else
-     */
     public function render()
     {
         $this->renderChildren();

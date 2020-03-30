@@ -9,9 +9,10 @@ namespace Extcode\Cart\ViewHelpers;
  * LICENSE file that was distributed with this source code.
  */
 
+use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 use TYPO3\CMS\Core\Utility\CsvUtility;
 
-class CsvHeaderViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper
+class CsvHeaderViewHelper extends AbstractViewHelper
 {
 
     /**
@@ -21,9 +22,6 @@ class CsvHeaderViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewH
      */
     protected $escapeOutput = false;
 
-    /**
-     * Arguments initialization
-     */
     public function initializeArguments()
     {
         parent::initializeArguments();

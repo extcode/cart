@@ -9,7 +9,9 @@ namespace Extcode\Cart\ViewHelpers\Format;
  * LICENSE file that was distributed with this source code.
  */
 
-class CurrencyViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper
+use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
+
+class CurrencyViewHelper extends AbstractViewHelper
 {
     /**
      * @var \TYPO3\CMS\Extbase\Configuration\ConfigurationManager

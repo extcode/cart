@@ -9,7 +9,9 @@ namespace Extcode\Cart\ViewHelpers;
  * LICENSE file that was distributed with this source code.
  */
 
-class AdditionalJsonViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper
+use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
+
+class AdditionalJsonViewHelper extends AbstractViewHelper
 {
     /**
      * Output is escaped already. We must not escape children, to avoid double encoding.
@@ -18,11 +20,6 @@ class AdditionalJsonViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\Abstract
      */
     protected $escapeOutput = false;
 
-    /**
-     * Initialize arguments.
-     *
-     * @api
-     */
     public function initializeArguments()
     {
         parent::initializeArguments();

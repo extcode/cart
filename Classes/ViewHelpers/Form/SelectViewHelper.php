@@ -11,11 +11,6 @@ namespace Extcode\Cart\ViewHelpers\Form;
 
 class SelectViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\Form\SelectViewHelper
 {
-    /**
-     * Initialize arguments.
-     *
-     * @api
-     */
     public function initializeArguments()
     {
         parent::initializeArguments();
