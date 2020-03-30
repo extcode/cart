@@ -15,8 +15,18 @@ class ActionViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\Link\ActionViewHelpe
     {
         parent::initializeArguments();
 
-        $this->registerArgument('product', '\Extcode\Cart\Domain\Model\Cart\Product', 'product', false);
-        $this->registerArgument('beVariant', '\Extcode\Cart\Domain\Model\Cart\BeVariant', 'beVariant', false);
+        $this->registerArgument(
+            'product',
+            \Extcode\Cart\Domain\Model\Cart\Product::class,
+            'product',
+            false
+        );
+        $this->registerArgument(
+            'beVariant',
+            \Extcode\Cart\Domain\Model\Cart\BeVariant::class,
+            'beVariant',
+            false
+        );
     }
 
     /**

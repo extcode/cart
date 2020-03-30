@@ -59,8 +59,18 @@ class SetViewHelper extends AbstractViewHelper
     {
         parent::initializeArguments();
 
-        $this->registerArgument('name', 'string', 'Name of variable to set.', true);
-        $this->registerArgument('value', 'mixed', 'Value of variable to set.', true);
+        $this->registerArgument(
+            'name',
+            'string',
+            'Name of variable to set.',
+            true
+        );
+        $this->registerArgument(
+            'value',
+            'mixed',
+            'Value of variable to set.',
+            true
+        );
     }
 
     /**

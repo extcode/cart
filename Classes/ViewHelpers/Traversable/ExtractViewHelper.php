@@ -15,9 +15,26 @@ class ExtractViewHelper extends AbstractViewHelper
 {
     public function initializeArguments()
     {
-        $this->registerArgument('key', 'string', 'Key', true);
-        $this->registerArgument('content', '\Traversable', 'Content', false);
-        $this->registerArgument('as', 'string', 'Which variable to update in the TemplateVariableContainer. If left out, returns the random element instead of updating the variable', false);
+        parent::initializeArguments();
+
+        $this->registerArgument(
+            'key',
+            'string',
+            'Key',
+            true
+        );
+        $this->registerArgument(
+            'content',
+            \Traversable::class,
+            'Content',
+            false
+        );
+        $this->registerArgument(
+            'as',
+            'string',
+            'Which variable to update in the TemplateVariableContainer. If left out, returns the random element instead of updating the variable',
+            false
+        );
     }
 
     /**

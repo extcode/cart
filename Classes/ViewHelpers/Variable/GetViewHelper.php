@@ -52,8 +52,19 @@ class GetViewHelper extends AbstractViewHelper
     {
         parent::initializeArguments();
 
-        $this->registerArgument('name', 'string', 'Name of variable to get.', true);
-        $this->registerArgument('useRawKeys', 'bool', 'Value of variable to set.', false, false);
+        $this->registerArgument(
+            'name',
+            'string',
+            'Name of variable to get.',
+            true
+        );
+        $this->registerArgument(
+            'useRawKeys',
+            'bool',
+            'Value of variable to set.',
+            false,
+            false
+        );
     }
 
     /**

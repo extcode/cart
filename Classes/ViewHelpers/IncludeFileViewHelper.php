@@ -9,8 +9,8 @@ namespace Extcode\Cart\ViewHelpers;
  * LICENSE file that was distributed with this source code.
  */
 
-use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 class IncludeFileViewHelper extends AbstractViewHelper
 {
@@ -18,8 +18,19 @@ class IncludeFileViewHelper extends AbstractViewHelper
     {
         parent::initializeArguments();
 
-        $this->registerArgument('path', 'string', 'Path to the CSS/JS file which should be included', true);
-        $this->registerArgument('compress', 'bool', 'Define if file should be compressed', false, false);
+        $this->registerArgument(
+            'path',
+            'string',
+            'Path to the CSS/JS file which should be included',
+            true
+        );
+        $this->registerArgument(
+            'compress',
+            'bool',
+            'Define if file should be compressed',
+            false,
+            false
+        );
     }
 
     /**

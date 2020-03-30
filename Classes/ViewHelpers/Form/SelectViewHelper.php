@@ -14,6 +14,7 @@ class SelectViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\Form\SelectViewHelpe
     public function initializeArguments()
     {
         parent::initializeArguments();
+
         $this->registerArgument(
             'translationKey',
             'string',

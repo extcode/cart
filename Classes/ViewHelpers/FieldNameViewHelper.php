@@ -17,8 +17,20 @@ class FieldNameViewHelper extends AbstractViewHelper
     {
         parent::initializeArguments();
 
-        $this->registerArgument('product', '\Extcode\Cart\Domain\Model\Cart\Product', 'product', false, 0);
-        $this->registerArgument('variant', '\Extcode\Cart\Domain\Model\Cart\BeVariant', 'variant', false, 0);
+        $this->registerArgument(
+            'product',
+            \Extcode\Cart\Domain\Model\Cart\Product::class,
+            'product',
+            false,
+            0
+        );
+        $this->registerArgument(
+            'variant',
+            \Extcode\Cart\Domain\Model\Cart\BeVariant::class,
+            'variant',
+            false,
+            0
+        );
     }
 
     public function render()
