@@ -6,7 +6,7 @@ cache:
 
 variables:
   COMPOSER_CACHE_DIR: ".composer"
-  TYPO3_PATH_WEB: "$CI_PROJECT_DIR/.Build/Web"
+  TYPO3_PATH_WEB: "$CI_PROJECT_DIR/.build/Web"
   MYSQL_DATABASE: "typo3"
   MYSQL_ROOT_PASSWORD: "joh316"
   typo3DatabaseName: "typo3"
@@ -30,7 +30,7 @@ lint:cgl:
     - composer remove typo3/cms-core --no-update
     - composer install --no-progress --no-ansi --no-interaction
   script:
-    - .Build/bin/php-cs-fixer fix --config=Build/.php_cs.dist -v --dry-run --using-cache=no --path-mode=intersection ./
+    - .build/bin/php-cs-fixer fix --config=Build/.php_cs.dist -v --dry-run --using-cache=no --path-mode=intersection ./
 
 lint:typoscriptcgl:
   stage: lint
@@ -38,7 +38,7 @@ lint:typoscriptcgl:
   script:
     - composer remove typo3/cms-core --no-update
     - composer install --no-progress --no-ansi --no-interaction
-    - .Build/bin/typoscript-lint -c tslint.yaml
+    - .build/bin/typoscript-lint -c Build/typoscriptlint.yaml Configuration
 
 lint:yaml:
   stage: lint
@@ -90,13 +90,13 @@ lint:php74:
   script:
     - >
       if [[ "$COVERAGE" == "0" ]]; then
-        .Build/bin/phpunit -c Build/UnitTests.xml Tests/Unit
+        .build/bin/phpunit -c Build/UnitTests.xml
       fi
     - >
       if [[ "$COVERAGE" == "1" ]]; then
-        .Build/bin/phpunit --coverage-clover=phpunit.coverage.xml --log-junit=phpunit.report.xml -c Build/UnitTests.xml Tests/Unit
+        .build/bin/phpunit --coverage-clover=phpunit.coverage.xml --log-junit=phpunit.report.xml -c Build/UnitTests.xml
       fi
-#    - find 'Tests/Functional' -wholename '*Test.php' | parallel --gnu 'echo; echo "Running functional test suite {}"; .Build/bin/phpunit --colors  -c .Build/vendor/nimut/testing-framework/res/Configuration/FunctionalTests.xml {}'
+    - typo3DatabaseDriver=pdo_sqlite .build/bin/phpunit -c Build/FunctionalTests.xml
   artifacts:
     paths:
       - phpunit.coverage.xml
