@@ -21,6 +21,35 @@
     "support": {
         "issues": "https://github.com/extcode/cart/issues"
     },
+    "autoload": {
+        "psr-4": {
+            "Extcode\\Cart\\": "Classes/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Extcode\\Cart\\Tests\\": "Tests"
+        }
+    },
+    "config": {
+        "bin-dir": ".build/bin",
+        "discard-changes": true,
+        "optimize-autoloader": true,
+        "vendor-dir": ".build/vendor"
+    },
+    "extra": {
+        "typo3/cms": {
+            "extension-key": "cart",
+            "app-dir": ".build",
+            "web-dir": ".build/public"
+        }
+    },
+    "scripts": {
+        "post-autoload-dump": [
+            "mkdir -p .build/public/typo3conf/ext/",
+            "[ -L .build/public/typo3conf/ext/cart ] || ln -snvf ../../../../. .build/public/typo3conf/ext/cart"
+        ]
+    },
     "require": {
         "php": ">=7.2.0 <7.5",
         "ext-openssl": "*",
@@ -32,30 +61,5 @@
         "friendsofphp/php-cs-fixer": "^2.14",
         "helmich/typo3-typoscript-lint": "^2.0",
         "overtrue/phplint": "^1.1"
-    },
-    "autoload": {
-        "psr-4": {
-            "Extcode\\Cart\\": "Classes/"
-        }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "Extcode\\Cart\\Tests\\": "Tests"
-        }
-    },
-    "replace": {
-        "extcode/cart": "self.version"
-    },
-    "config": {
-        "vendor-dir": ".Build/vendor",
-        "bin-dir": ".Build/bin"
-    },
-    "extra": {
-        "typo3/cms": {
-            "extension-key": "cart",
-            "cms-package-dir": "{$vendor-dir}/typo3/cms",
-            "app-dir": ".Build",
-            "web-dir": ".Build/public"
-        }
     }
 }

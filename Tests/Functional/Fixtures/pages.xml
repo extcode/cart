@@ -1,48 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <dataset>
     <pages>
-        <uid>100</uid>
+        <uid>1</uid>
         <pid>0</pid>
-        <doktype>254</doktype>
-        <title>Shop</title>
-    </pages>
-
-    <pages>
-        <uid>110</uid>
-        <pid>100</pid>
-        <doktype>254</doktype>
-        <title>Products</title>
-    </pages>
-    <pages>
-        <uid>111</uid>
-        <pid>110</pid>
-        <doktype>254</doktype>
-        <title>Products 1</title>
-    </pages>
-    <pages>
-        <uid>112</uid>
-        <pid>110</pid>
-        <doktype>254</doktype>
-        <title>Products 2</title>
-    </pages>
-    <pages>
-        <uid>113</uid>
-        <pid>110</pid>
-        <doktype>254</doktype>
-        <title>Products 3</title>
-    </pages>
-
-    <pages>
-        <uid>120</uid>
-        <pid>100</pid>
-        <doktype>254</doktype>
-        <title>Coupons</title>
-    </pages>
-
-    <pages>
-        <uid>130</uid>
-        <pid>100</pid>
-        <doktype>254</doktype>
-        <title>Orders</title>
+        <title>Startseite</title>
     </pages>
 </dataset>
