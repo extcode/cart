@@ -9,53 +9,41 @@ namespace Extcode\Cart\Domain\Model;
  * LICENSE file that was distributed with this source code.
  */
 
+use Extcode\Cart\Domain\Model\Order\Item;
+use TYPO3\CMS\Extbase\Domain\Model\FrontendUser;
+
 class Cart extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 {
     /**
-     * fHash
-     *
      * @var string
      */
-    protected $fHash;
+    protected $fHash = '';
 
     /**
-     * sHash
-     *
      * @var string
      */
-    protected $sHash;
+    protected $sHash = '';
 
     /**
-     * FeUser
-     *
      * @var \TYPO3\CMS\Extbase\Domain\Model\FrontendUser
      */
-    protected $feUser;
+    protected $feUser = null;
 
     /**
-     * Item
-     *
      * @var \Extcode\Cart\Domain\Model\Order\Item
      */
-    protected $orderItem;
+    protected $orderItem = null;
 
     /**
-     * Cart
-     *
-     * @var string
+     * @var \Extcode\Cart\Domain\Model\Cart\Cart
      */
-    protected $cart;
+    protected $cart = null;
 
     /**
-     * Was Ordered
-     *
      * @var bool
      */
-    protected $wasOrdered;
+    protected $wasOrdered = false;
 
-    /**
-     * Cart constructor
-     */
     public function __construct()
     {
         $this->fHash = bin2hex(openssl_random_pseudo_bytes(32));
@@ -63,117 +51,81 @@ class Cart extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     }
 
     /**
-     * Returns fHash
-     *
      * @return string
      */
-    public function getFHash()
+    public function getFHash(): string
     {
         return $this->fHash;
     }
 
     /**
-     * Sets fHash
-     */
-    public function setFHash($fHash)
-    {
-        $this->fHash = $fHash;
-    }
-
-    /**
-     * Returns sHash
-     *
      * @return string
      */
-    public function getSHash()
+    public function getSHash(): string
     {
         return $this->sHash;
     }
 
     /**
-     * Sets sHash
+     * @return FrontendUser|null
      */
-    public function setSHash($sHash)
-    {
-        $this->sHash = $sHash;
-    }
-
-    /**
-     * Returns FeUser
-     *
-     * @return \TYPO3\CMS\Extbase\Domain\Model\FrontendUser
-     */
-    public function getFeUser()
+    public function getFeUser(): ?FrontendUser
     {
         return $this->feUser;
     }
 
     /**
-     * Sets FeUser
-     *
-     * @param \TYPO3\CMS\Extbase\Domain\Model\FrontendUser $feUser
+     * @param FrontendUser $feUser
      */
-    public function setFeUser($feUser)
+    public function setFeUser(FrontendUser $feUser)
     {
         $this->feUser = $feUser;
     }
 
     /**
-     * Returns Item
-     *
-     * @return \Extcode\Cart\Domain\Model\Order\Item
+     * @return Item|null
      */
-    public function getOrderItem()
+    public function getOrderItem(): ?Item
     {
         return $this->orderItem;
     }
 
     /**
-     * Sets Item
-     *
-     * @param \Extcode\Cart\Domain\Model\Order\Item $orderItem
+     * @param Item $orderItem
      */
-    public function setOrderItem($orderItem)
+    public function setOrderItem(Item $orderItem)
     {
         $this->orderItem = $orderItem;
     }
 
     /**
-     * Returns Cart
-     *
-     * @return \Extcode\Cart\Domain\Model\Cart\Cart
+     * @return \Extcode\Cart\Domain\Model\Cart\Cart|null
      */
-    public function getCart()
+    public function getCart(): ?\Extcode\Cart\Domain\Model\Cart\Cart
     {
         return unserialize($this->cart);
     }
 
     /**
-     * Sets Cart
-     *
      * @param \Extcode\Cart\Domain\Model\Cart\Cart $cart
      */
-    public function setCart($cart)
+    public function setCart(\Extcode\Cart\Domain\Model\Cart\Cart $cart)
     {
         $this->cart = serialize($cart);
     }
 
     /**
-     * Returns Was Ordered
-     *
      * @return bool
      */
-    public function getWasOrdered()
+    public function getWasOrdered(): bool
     {
         return $this->wasOrdered;
     }
 
     /**
-     * Set Was Ordered
-     *
      * @param bool $wasOrdered
      */
-    public function setWasOrdered($wasOrdered)
+    public function setWasOrdered(bool $wasOrdered)
     {
         $this->wasOrdered = $wasOrdered;
     }

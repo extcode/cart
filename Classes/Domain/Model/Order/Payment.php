@@ -9,46 +9,30 @@ namespace Extcode\Cart\Domain\Model\Order;
  * LICENSE file that was distributed with this source code.
  */
 
+use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
+
 class Payment extends \Extcode\Cart\Domain\Model\Order\AbstractService
 {
-
     /**
-     * Provider
-     *
      * @var string
      */
     protected $provider = '';
 
     /**
-     * Transactions
-     *
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<Extcode\Cart\Domain\Model\Order\Transaction>
+     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Extcode\Cart\Domain\Model\Order\Transaction>
      * @TYPO3\CMS\Extbase\Annotation\ORM\Lazy
      */
     protected $transactions = null;
 
-    /**
-     * __construct
-     */
     public function __construct()
-    {
-        $this->initStorageObjects();
-    }
-
-    /**
-     * Initializes all \TYPO3\CMS\Extbase\Persistence\ObjectStorage properties.
-     */
-    protected function initStorageObjects()
     {
         $this->transactions = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
     }
 
     /**
-     * Returns PaymentArray
-     *
      * @return array
      */
-    public function toArray()
+    public function toArray(): array
     {
         $payment = parent::toArray();
 
@@ -58,61 +42,49 @@ class Payment extends \Extcode\Cart\Domain\Model\Order\AbstractService
     }
 
     /**
-     * Returns Provider
-     *
-     * @return string
+     * @return string|null
      */
-    public function getProvider()
+    public function getProvider(): ?string
     {
         return $this->provider;
     }
 
     /**
-     * Sets Provider
-     *
      * @param string $provider
      */
-    public function setProvider($provider)
+    public function setProvider(string $provider)
     {
         $this->provider = $provider;
     }
 
     /**
-     * Adds a Transaction
-     *
-     * @param \Extcode\Cart\Domain\Model\Order\Transaction $transaction
+     * @param Transaction $transaction
      */
-    public function addTransaction(\Extcode\Cart\Domain\Model\Order\Transaction $transaction)
+    public function addTransaction(Transaction $transaction)
     {
         $this->transactions->attach($transaction);
     }
 
     /**
-     * Removes a Transaction
-     *
-     * @param \Extcode\Cart\Domain\Model\Order\Transaction $transactionsToRemove
+     * @param Transaction $transaction
      */
-    public function removeTransaction(\Extcode\Cart\Domain\Model\Order\Transaction $transactionsToRemove)
+    public function removeTransaction(Transaction $transaction)
     {
-        $this->transactions->detach($transactionsToRemove);
+        $this->transactions->detach($transaction);
     }
 
     /**
-     * Returns transactions
-     *
-     * @return  \TYPO3\CMS\Extbase\Persistence\ObjectStorage
+     * @return ObjectStorage
      */
-    public function getTransactions()
+    public function getTransactions(): ObjectStorage
     {
         return $this->transactions;
     }
 
     /**
-     * Sets Transaction
-     *
-     * @param  \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Extcode\Cart\Domain\Model\Order\Transaction> $transactions
+     * @param ObjectStorage<\Extcode\Cart\Domain\Model\Order\Transaction> $transactions
      */
-    public function setTransactions($transactions)
+    public function setTransactions(ObjectStorage $transactions)
     {
         $this->transactions = $transactions;
     }

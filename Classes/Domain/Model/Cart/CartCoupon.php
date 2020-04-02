@@ -11,73 +11,52 @@ namespace Extcode\Cart\Domain\Model\Cart;
 
 class CartCoupon implements \Extcode\Cart\Domain\Model\Cart\CartCouponInterface
 {
-
     /**
-     * Cart
-     *
      * @var \Extcode\Cart\Domain\Model\Cart\Cart
      */
     protected $cart = null;
 
     /**
-     * Title
-     *
      * @var string
      */
     protected $title = '';
 
     /**
-     * Code
-     *
      * @var string
      */
     protected $code = '';
 
     /**
-     * Coupon Type
-     *
      * @var string
      */
     protected $couponType = '';
 
     /**
-     * Is Combinable
-     *
      * @var bool
      */
     protected $isCombinable = false;
 
     /**
-     * Is Relative Discount
-     *
      * @var bool
      */
     protected $isRelativeDiscount = false;
 
     /**
-     * Discount
-     *
      * @var float
      */
     protected $discount;
 
     /**
-     * Tax Class
-     *
      * @var \Extcode\Cart\Domain\Model\Cart\TaxClass
      */
     protected $taxClass;
 
     /**
-     * Cart Min Price
-     *
      * @var float
      */
     protected $cartMinPrice = 0.0;
 
     /**
-     * __construct
-     *
      * @param string $title
      * @param string $code
      * @param string $couponType
@@ -105,57 +84,49 @@ class CartCoupon implements \Extcode\Cart\Domain\Model\Cart\CartCouponInterface
     }
 
     /**
-     * @param \Extcode\Cart\Domain\Model\Cart\Cart $cart
+     * @param Cart $cart
      */
-    public function setCart($cart)
+    public function setCart(Cart $cart)
     {
         $this->cart = $cart;
     }
 
     /**
-     * Gets Title
-     *
      * @return string
      */
-    public function getTitle()
+    public function getTitle(): string
     {
         return $this->title;
     }
 
     /**
-     * Gets Code
-     *
      * @return string
      */
-    public function getCode()
+    public function getCode(): string
     {
         return $this->code;
     }
 
     /**
-     * Gets Coupon Type
-     *
      * @return string
      */
-    public function getCouponType()
+    public function getCouponType(): string
     {
         return $this->couponType;
     }
 
     /**
-     * Returns is Combinable
      * @return bool
      */
-    public function getIsCombinable()
+    public function getIsCombinable(): bool
     {
         return $this->isCombinable;
     }
 
     /**
-     * Returns is Relative Discount
      * @return bool
      */
-    public function getIsRelativeDiscount()
+    public function getIsRelativeDiscount(): bool
     {
         return $this->isRelativeDiscount;
     }
@@ -163,7 +134,7 @@ class CartCoupon implements \Extcode\Cart\Domain\Model\Cart\CartCouponInterface
     /**
      * @return float
      */
-    public function getDiscount()
+    public function getDiscount(): float
     {
         return $this->discount;
     }
@@ -171,7 +142,7 @@ class CartCoupon implements \Extcode\Cart\Domain\Model\Cart\CartCouponInterface
     /**
      * @return float
      */
-    public function getTranslatedDiscount()
+    public function getTranslatedDiscount(): float
     {
         $discount = $this->getDiscount();
 
@@ -183,63 +154,51 @@ class CartCoupon implements \Extcode\Cart\Domain\Model\Cart\CartCouponInterface
     }
 
     /**
-     * Returns Gross of Discount
-     *
      * @return float
      */
-    public function getGross()
+    public function getGross(): float
     {
         return $this->getTranslatedDiscount();
     }
 
     /**
-     * Returns Net of Discount
-     *
      * @return float
      */
-    public function getNet()
+    public function getNet(): float
     {
         $net = $this->getTranslatedDiscount() / ($this->getTaxClass()->getCalc() + 1);
         return $net;
     }
 
     /**
-     * Returns Tax Class
-     *
-     * @return \Extcode\Cart\Domain\Model\Cart\TaxClass
+     * @return TaxClass
      */
-    public function getTaxClass()
+    public function getTaxClass(): TaxClass
     {
         return $this->taxClass;
     }
 
     /**
-     * Returns Tax of Discount
-     *
      * @return float
      */
-    public function getTax()
+    public function getTax(): float
     {
         $tax = $this->getTranslatedDiscount() - ($this->getTranslatedDiscount() / ($this->getTaxClass()->getCalc() + 1));
         return $tax;
     }
 
     /**
-     * Returns Cart Min Price
-     *
      * @return float
      */
-    public function getCartMinPrice()
+    public function getCartMinPrice(): float
     {
         return $this->cartMinPrice;
     }
 
     /**
-     * Return Is Useable For A Given Price
-     *
      * @return bool
      */
-    public function getIsUseable()
+    public function getIsUseable(): bool
     {
         $isUseable = $this->cartMinPrice <= $this->cart->getGross();
         return $isUseable;

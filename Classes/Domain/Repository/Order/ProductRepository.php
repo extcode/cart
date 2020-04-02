@@ -16,7 +16,7 @@ class ProductRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
     /**
      * Find all products
      *
-     * @param array $arguments Plugin Variables
+     * @param array $arguments
      *
      * @return QueryResultInterface|array
      */

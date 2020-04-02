@@ -14,63 +14,47 @@ use Extcode\Cart\Domain\Model\Cart\TaxClass;
 class Discount extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 {
     /**
-     * Item
-     *
      * @var \Extcode\Cart\Domain\Model\Order\Item
      */
     protected $item;
 
     /**
-     * Title
-     *
      * @var string
      * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
      */
     protected $title = '';
 
     /**
-     * Code
-     *
      * @var string
      * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
      */
     protected $code = '';
 
     /**
-     * Gross
-     *
      * @var float
      * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
      */
     protected $gross = 0.0;
 
     /**
-     * Net
-     *
      * @var float
      * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
      */
     protected $net = 0.0;
 
     /**
-     * Tax Class
-     *
      * @var \Extcode\Cart\Domain\Model\Cart\TaxClass
      * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
      */
     protected $taxClass;
 
     /**
-     * Tax
-     *
      * @var float
      * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
      */
     protected $tax = 0.0;
 
     /**
-     * __construct
-     *
      * @param string $title
      * @param string $code
      * @param float $gross
@@ -95,71 +79,57 @@ class Discount extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     }
 
     /**
-     * Returns the Order Item
-     *
-     * @return \Extcode\Cart\Domain\Model\Order\Item
+     * @return Item|null
      */
-    public function getItem()
+    public function getItem(): ?Item
     {
         return $this->item;
     }
 
     /**
-     * Returns Title
-     *
      * @return string
      */
-    public function getTitle()
+    public function getTitle(): string
     {
         return $this->title;
     }
 
     /**
-     * Returns Code
-     *
      * @return string
      */
-    public function getCode()
+    public function getCode(): string
     {
         return $this->code;
     }
 
     /**
-     * Returns Gross
-     *
      * @return float
      */
-    public function getGross()
+    public function getGross(): float
     {
         return $this->gross;
     }
 
     /**
-     * Returns Net
-     *
      * @return float
      */
-    public function getNet()
+    public function getNet(): float
     {
         return $this->net;
     }
 
     /**
-     * Returns TaxClass
-     *
-     * @return \Extcode\Cart\Domain\Model\Cart\TaxClass
+     * @return TaxClass|null
      */
-    public function getTaxClass()
+    public function getTaxClass(): ?TaxClass
     {
         return $this->taxClass;
     }
 
     /**
-     * Returns Tax
-     *
      * @return float
      */
-    public function getTax()
+    public function getTax(): float
     {
         return $this->tax;
     }

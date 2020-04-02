@@ -12,69 +12,51 @@ namespace Extcode\Cart\Domain\Model\Cart;
 class Extra
 {
     /**
-     * Id
-     *
      * @var int
      */
     protected $id;
 
     /**
-     * Condition
-     *
      * @var float
      */
-    protected $condition;
+    protected $condition = 0.0;
 
     /**
-     * Price
-     *
      * @var float
      */
-    protected $price;
+    protected $price = 0.0;
 
     /**
-     * Gross
-     *
      * @var float
      */
-    protected $gross;
+    protected $gross = 0.0;
 
     /**
-     * Net
-     *
      * @var float
      */
-    protected $net;
+    protected $net = 0.0;
 
     /**
-     * TaxClass
-     *
      * @var \Extcode\Cart\Domain\Model\Cart\TaxClass
      */
-    protected $taxClass;
+    protected $taxClass = null;
 
     /**
-     * Tax
-     *
      * @var float
      */
-    protected $tax;
+    protected $tax = 0.0;
 
     /**
-     * Is Net Price
-     *
      * @var bool
      */
-    protected $isNetPrice;
+    protected $isNetPrice = false;
 
     /**
      * @var string
      */
-    protected $extraType;
+    protected $extraType = '';
 
     /**
-     * __construct
-     *
      * @param int $id
      * @param float $condition
      * @param float $price
@@ -131,29 +113,25 @@ class Extra
     /**
      * @return int
      */
-    public function getId():int
+    public function getId(): int
     {
         return $this->id;
     }
 
     /**
-     * Gets Condition
-     *
      * @return float
      */
-    public function getCondition()
+    public function getCondition(): float
     {
         return $this->condition;
     }
 
     /**
-     * Less Or Equal
-     *
      * @param $condition
      *
      * @return bool
      */
-    public function leq($condition)
+    public function leq($condition): bool
     {
         if ($condition < $this->condition) {
             return false;
@@ -165,15 +143,15 @@ class Extra
     /**
      * @return float
      */
-    public function getPrice()
+    public function getPrice(): float
     {
         return $this->price;
     }
 
     /**
-     * @param $price
+     * @param float $price
      */
-    public function setPrice($price)
+    public function setPrice(float $price)
     {
         $this->price = $price;
 
@@ -183,7 +161,7 @@ class Extra
     /**
      * @return float
      */
-    public function getGross()
+    public function getGross(): float
     {
         $this->calcGross();
         return $this->gross;
@@ -192,7 +170,7 @@ class Extra
     /**
      * @return float
      */
-    public function getNet()
+    public function getNet(): float
     {
         $this->calcNet();
         return $this->net;
@@ -201,23 +179,20 @@ class Extra
     /**
      * @return array
      */
-    public function getTax()
+    public function getTax(): array
     {
         $this->calcTax();
         return ['taxclassid' => $this->taxClass->getId(), 'tax' => $this->tax];
     }
 
     /**
-     * @return \Extcode\Cart\Domain\Model\Cart\TaxClass
+     * @return TaxClass
      */
-    public function getTaxClass()
+    public function getTaxClass(): TaxClass
     {
         return $this->taxClass;
     }
 
-    /**
-     *
-     */
     protected function calcGross()
     {
         if ($this->isNetPrice == false) {
@@ -228,9 +203,6 @@ class Extra
         }
     }
 
-    /**
-     *
-     */
     protected function calcTax()
     {
         if ($this->isNetPrice == false) {
@@ -240,9 +212,6 @@ class Extra
         }
     }
 
-    /**
-     *
-     */
     protected function calcNet()
     {
         if ($this->isNetPrice == true) {
@@ -253,9 +222,6 @@ class Extra
         }
     }
 
-    /**
-     *
-     */
     protected function reCalc()
     {
         if ($this->isNetPrice == false) {

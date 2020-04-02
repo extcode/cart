@@ -16,12 +16,12 @@ class ProductAdditionalRepository extends \TYPO3\CMS\Extbase\Persistence\Reposit
     /**
      * Count all by Category
      *
-     * @param array $arguments Plugin Variables
+     * @param array $arguments
      * @param string $additionalType
      *
      * @return QueryResultInterface|array
      */
-    public function findAllByAdditionalType(array $arguments = [], $additionalType)
+    public function findAllByAdditionalType(array $arguments = [], string $additionalType)
     {
         // settings
         $query = $this->createQuery();

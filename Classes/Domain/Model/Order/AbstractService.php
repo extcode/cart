@@ -12,88 +12,64 @@ namespace Extcode\Cart\Domain\Model\Order;
 abstract class AbstractService extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 {
     /**
-     * Order Item
-     *
      * @var \Extcode\Cart\Domain\Model\Order\Item
      */
     protected $item = null;
 
     /**
-     * Service Country
-     *
      * @var string
      */
-    protected $serviceCountry;
+    protected $serviceCountry = '';
 
     /**
-     * Service Id
-     *
      * @var int
      * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
      */
     protected $serviceId;
 
     /**
-     * Name
-     *
      * @var string
      * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
      */
     protected $name = '';
 
     /**
-     * Status
-     *
      * @var string
      * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
      */
     protected $status = 'open';
 
     /**
-     * Net
-     *
      * @var float
-     * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
      */
     protected $net = 0.0;
 
     /**
-     * Gross
-     *
      * @var float
-     * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
      */
     protected $gross = 0.0;
 
     /**
-     * Order Tax Class
-     *
-     * @var \Extcode\Cart\Domain\Model\Order\TaxClass
+     * @var TaxClass
      * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
      */
     protected $taxClass;
 
     /**
-     * Tax
-     *
      * @var float
      * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
      */
     protected $tax = 0.0;
 
     /**
-     * Note
-     *
      * @var string
      */
     protected $note = '';
 
     /**
-     * Returns ShippingArray
-     *
      * @return array
      */
-    public function toArray()
+    public function toArray(): array
     {
         $service = [
             'service_country' => $this->getServiceCountry(),
@@ -119,9 +95,9 @@ abstract class AbstractService extends \TYPO3\CMS\Extbase\DomainObject\AbstractE
     /**
      * Returns the Order Item
      *
-     * @return \Extcode\Cart\Domain\Model\Order\Item
+     * @return Item|null
      */
-    public function getItem()
+    public function getItem(): ?Item
     {
         return $this->item;
     }
@@ -137,7 +113,7 @@ abstract class AbstractService extends \TYPO3\CMS\Extbase\DomainObject\AbstractE
     /**
      * @return string
      */
-    public function getServiceCountry()
+    public function getServiceCountry(): string
     {
         return $this->serviceCountry;
     }
@@ -145,15 +121,15 @@ abstract class AbstractService extends \TYPO3\CMS\Extbase\DomainObject\AbstractE
     /**
      * @param string $serviceCountry
      */
-    public function setServiceCountry($serviceCountry)
+    public function setServiceCountry(string $serviceCountry)
     {
         $this->serviceCountry = $serviceCountry;
     }
 
     /**
-     * @return int
+     * @return int|null
      */
-    public function getServiceId()
+    public function getServiceId(): ?int
     {
         return $this->serviceId;
     }
@@ -161,37 +137,31 @@ abstract class AbstractService extends \TYPO3\CMS\Extbase\DomainObject\AbstractE
     /**
      * @param int $serviceId
      */
-    public function setServiceId($serviceId)
+    public function setServiceId(int $serviceId)
     {
         $this->serviceId = $serviceId;
     }
 
     /**
-     * Returns Name
-     *
      * @return string
      */
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
 
     /**
-     * Sets Name
-     *
      * @param string $name
      */
-    public function setName($name)
+    public function setName(string $name)
     {
         $this->name = $name;
     }
 
     /**
-     * Returns Status
-     *
      * @return string
      */
-    public function getStatus()
+    public function getStatus(): string
     {
         return $this->status;
     }
@@ -201,107 +171,87 @@ abstract class AbstractService extends \TYPO3\CMS\Extbase\DomainObject\AbstractE
      *
      * @param string $status
      */
-    public function setStatus($status)
+    public function setStatus(string $status)
     {
         $this->status = $status;
     }
 
     /**
-     * Returns Gross
-     *
      * @return float
      */
-    public function getGross()
+    public function getGross(): float
     {
         return $this->gross;
     }
 
     /**
-     * Sets Gross
-     *
      * @param float $gross
      */
-    public function setGross($gross)
+    public function setGross(float $gross)
     {
         $this->gross = $gross;
     }
 
     /**
-     * Returns Net
-     *
      * @return float
      */
-    public function getNet()
+    public function getNet(): float
     {
         return $this->net;
     }
 
     /**
-     * Sets Net
-     *
      * @param float $net
      */
-    public function setNet($net)
+    public function setNet(float $net)
     {
         $this->net = $net;
     }
 
     /**
-     * Gets Tax Class
-     *
-     * @return \Extcode\Cart\Domain\Model\Order\TaxClass
+     * @return TaxClass|null
      */
-    public function getTaxClass()
+    public function getTaxClass(): ?TaxClass
     {
         return $this->taxClass;
     }
 
     /**
-     * Sets Tax Class
-     *
-     * @param \Extcode\Cart\Domain\Model\Order\TaxClass $taxClass
+     * @param TaxClass $taxClass
      */
-    public function setTaxClass(\Extcode\Cart\Domain\Model\Order\TaxClass $taxClass)
+    public function setTaxClass(TaxClass $taxClass)
     {
         $this->taxClass = $taxClass;
     }
 
     /**
-     * Gets Tax
-     *
      * @return float
      */
-    public function getTax()
+    public function getTax(): float
     {
         return $this->tax;
     }
 
     /**
-     * Sets Tax
-     *
      * @param float $tax
      */
-    public function setTax($tax)
+    public function setTax(float $tax)
     {
         $this->tax = $tax;
     }
 
     /**
-     * Sets Note
-     *
      * @param string $note
      */
-    public function setNote($note)
+    public function setNote(string $note)
     {
         $this->note = $note;
     }
 
     /**
-     * Gets Note
-     *
      * @return string
      */
-    public function getNote()
+    public function getNote(): string
     {
         return $this->note;
     }

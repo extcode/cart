@@ -113,7 +113,8 @@ class AddressTest extends UnitTestCase
      */
     public function getSalutationInitiallyReturnsEmptyString()
     {
-        $this->assertNull(
+        $this->assertSame(
+            '',
             $this->address->getSalutation()
         );
     }
@@ -137,7 +138,8 @@ class AddressTest extends UnitTestCase
      */
     public function getFirstNameInitiallyReturnsEmptyString()
     {
-        $this->assertNull(
+        $this->assertSame(
+            '',
             $this->address->getFirstName()
         );
     }
@@ -161,7 +163,8 @@ class AddressTest extends UnitTestCase
      */
     public function getLastNameInitiallyReturnsEmptyString()
     {
-        $this->assertNull(
+        $this->assertSame(
+            '',
             $this->address->getLastName()
         );
     }
@@ -430,7 +433,8 @@ class AddressTest extends UnitTestCase
      */
     public function getStreetInitiallyReturnsEmptyString()
     {
-        $this->assertNull(
+        $this->assertSame(
+            '',
             $this->address->getStreet()
         );
     }
@@ -454,7 +458,8 @@ class AddressTest extends UnitTestCase
      */
     public function getZipInitiallyReturnsEmptyString()
     {
-        $this->assertNull(
+        $this->assertSame(
+            '',
             $this->address->getZip()
         );
     }
@@ -478,7 +483,8 @@ class AddressTest extends UnitTestCase
      */
     public function getCityInitiallyReturnsEmptyString()
     {
-        $this->assertNull(
+        $this->assertSame(
+            '',
             $this->address->getCity()
         );
     }
@@ -502,7 +508,8 @@ class AddressTest extends UnitTestCase
      */
     public function getCountryInitiallyReturnsEmptyString()
     {
-        $this->assertNull(
+        $this->assertSame(
+            '',
             $this->address->getCountry()
         );
     }
@@ -526,7 +533,8 @@ class AddressTest extends UnitTestCase
      */
     public function getEmailInitiallyReturnsEmptyString()
     {
-        $this->assertNull(
+        $this->assertSame(
+            '',
             $this->address->getEmail()
         );
     }

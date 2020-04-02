@@ -12,65 +12,65 @@ namespace Extcode\Cart\Domain\Model\Cart;
 interface CartCouponInterface
 {
     /**
-     * Gets Title
+     * Returns the coupon title.
      *
      * @return string
      */
-    public function getTitle();
+    public function getTitle(): string;
 
     /**
-     * Gets Code
+     * Returns the coupon code.
      *
      * @return string
      */
-    public function getCode();
+    public function getCode(): string;
 
     /**
-     * Returns is Combinable
+     * Returns true if a coupon can be combined with other coupons.
      *
      * @return bool
      */
-    public function getIsCombinable();
+    public function getIsCombinable(): bool;
 
     /**
      * Returns the Discount
      *
      * @return float
      */
-    public function getDiscount();
+    public function getDiscount(): float;
 
     /**
      * Returns Gross of Discount
      *
      * @return float
      */
-    public function getGross();
+    public function getGross(): float;
 
     /**
      * Returns Net of Discount
      *
      * @return float
      */
-    public function getNet();
+    public function getNet(): float;
 
     /**
      * Returns Tax Class
      *
-     * @return \Extcode\Cart\Domain\Model\Cart\TaxClass
+     * @return TaxClass
      */
-    public function getTaxClass();
+    public function getTaxClass(): TaxClass;
 
     /**
      * Returns Tax of Discount
      *
      * @return float
      */
-    public function getTax();
+    public function getTax(): float;
 
     /**
-     * Return Is Useable For A Given Price
+     * Returns true if a voucher is applicable.
      *
      * @return bool
      */
-    public function getIsUseable();
+    public function getIsUseable(): bool;
 }

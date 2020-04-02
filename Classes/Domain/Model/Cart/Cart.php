@@ -11,199 +11,142 @@ namespace Extcode\Cart\Domain\Model\Cart;
 
 class Cart
 {
-
     /**
-     * Tax Classes
-     *
      * @var \Extcode\Cart\Domain\Model\Cart\TaxClass[]
      */
     protected $taxClasses;
 
     /**
-     * Net
-     *
      * @var float
      */
     protected $net;
 
     /**
-     * Gross
-     *
      * @var float
      */
     protected $gross;
 
     /**
-     * Taxes
-     *
      * @var array
      */
     protected $taxes = [];
 
     /**
-     * Count
-     *
      * @var int
      */
     protected $count;
 
     /**
-     * Products
-     *
      * @var \Extcode\Cart\Domain\Model\Cart\Product[]
      */
     protected $products = [];
 
     /**
-     * Shipping
-     *
      * @var ServiceInterface
      */
     protected $shipping;
 
     /**
-     * Payment
-     *
      * @var ServiceInterface
      */
     protected $payment;
 
     /**
-     * Specials
-     *
      * @var \Extcode\Cart\Domain\Model\Cart\Special[]
      */
     protected $specials;
 
     /**
-     * Max Service Attribute 1
-     *
      * @var float
      */
     protected $maxServiceAttr1 = 0.0;
 
     /**
-     * Max Service Attribute 2
-     *
      * @var float
      */
     protected $maxServiceAttr2 = 0.0;
 
     /**
-     * Max Service Attribute 3
-     *
      * @var float
      */
     protected $maxServiceAttr3 = 0.0;
 
     /**
-     * Sum Service Attribute 1
-     *
      * @var float
      */
     protected $sumServiceAttr1 = 0.0;
 
     /**
-     * Sum Service Attribute 2
-     *
      * @var float
      */
     protected $sumServiceAttr2 = 0.0;
 
     /**
-     * Sum Service Attribute 3
-     *
      * @var float
      */
     protected $sumServiceAttr3 = 0.0;
 
     /**
-     * Is Net Cart
-     *
      * @var bool
      */
     protected $isNetCart;
 
     /**
-     * Order Number
-     *
      * @var string
      */
     protected $orderNumber;
 
     /**
-     * Invoice Number
-     *
      * @var string
      */
     protected $invoiceNumber;
 
     /**
-     * Additional
-     *
      * @var array
      */
     protected $additional = [];
 
     /**
-     * Order Id
-     *
      * @var int
      */
     protected $orderId;
 
     /**
-     * Coupon
-     *
      * @var \Extcode\Cart\Domain\Model\Cart\CartCouponInterface[]
      */
     protected $coupons = [];
 
     /**
-     * Billing Country
-     *
      * @var string
      */
-    protected $billingCountry;
+    protected $billingCountry = '';
 
     /**
-     * Shipping Same As Billing
-     *
      * @var bool
      */
     protected $shippingSameAsBilling = true;
 
     /**
-     * Shipping Country
-     *
      * @var string
      */
-    protected $shippingCountry;
+    protected $shippingCountry = '';
 
     /**
-     * Currency Code
-     *
      * @var string
      */
-    protected $currencyCode;
+    protected $currencyCode = '';
 
     /**
-     * Currency Sign
-     *
      * @var string
      */
-    protected $currencySign;
+    protected $currencySign = '';
 
     /**
-     * Currency Translation
-     *
-     * @var string
+     * @var float
      */
-    protected $currencyTranslation;
+    protected $currencyTranslation = 1.0;
 
     /**
-     * __construct
-     *
      * @param \Extcode\Cart\Domain\Model\Cart\TaxClass[] $taxClasses
      * @param bool $isNetCart
      * @param string $currencyCode
@@ -772,7 +715,7 @@ class Cart
     /**
      * @return array
      */
-    public function toArray()
+    public function toArray(): array
     {
         $cartArray = [
             'net' => $this->net,
@@ -810,7 +753,7 @@ class Cart
     /**
      * @return string
      */
-    public function toJson()
+    public function toJson(): string
     {
         return json_encode($this->toArray());
     }
@@ -820,7 +763,7 @@ class Cart
      *
      * @return array
      */
-    public function getCoupons()
+    public function getCoupons(): array
     {
         return $this->coupons;
     }
@@ -828,30 +771,26 @@ class Cart
     /**
      * @return bool
      */
-    protected function areCouponsCombinable()
+    protected function areCouponsCombinable(): bool
     {
-        $areCombinable = true;
-
         if ($this->coupons) {
             foreach ($this->coupons as $coupon) {
                 if (!$coupon->getIsCombinable()) {
-                    $areCombinable = false;
+                    return false;
                     break;
                 }
             }
         }
 
-        return $areCombinable;
+        return true;
     }
 
     /**
-     * Adds a Coupon to Cart
-     *
-     * @param \Extcode\Cart\Domain\Model\Cart\CartCouponInterface $coupon
+     * @param CartCouponInterface $coupon
      *
      * @return int
      */
-    public function addCoupon(\Extcode\Cart\Domain\Model\Cart\CartCouponInterface $coupon)
+    public function addCoupon(CartCouponInterface $coupon): int
     {
         if (!empty($this->coupons) && array_key_exists($coupon->getCode(), $this->coupons)) {
             return -1;
@@ -868,30 +807,25 @@ class Cart
     }
 
     /**
-     * Remove Coupon with a given Coupon Code from Cart
-     *
      * @param string $couponCode
+     *
      * @return int
      */
-    public function removeCoupon($couponCode)
+    public function removeCoupon(string $couponCode): int
     {
         if (!$this->coupons[$couponCode]) {
-            $returnCode = -1;
-        } else {
-            unset($this->coupons[$couponCode]);
-
-            $returnCode = 1;
+            return -1;
         }
 
-        return $returnCode;
+        unset($this->coupons[$couponCode]);
+
+        return 1;
     }
 
     /**
-     * Returns Coupon Gross
-     *
      * @return float
      */
-    public function getCouponGross()
+    public function getCouponGross(): float
     {
         $gross = 0.0;
 
@@ -907,11 +841,9 @@ class Cart
     }
 
     /**
-     * Returns Coupon Net
-     *
      * @return float
      */
-    public function getCouponNet()
+    public function getCouponNet(): float
     {
         $net = 0.0;
 
@@ -927,11 +859,9 @@ class Cart
     }
 
     /**
-     * Returns Coupon Taxes
-     *
      * @return array
      */
-    public function getCouponTaxes()
+    public function getCouponTaxes(): array
     {
         $taxes = [];
 
@@ -952,11 +882,9 @@ class Cart
     }
 
     /**
-     * Returns Discount Gross of Coupon Gross for Views
-     *
      * @return float
      */
-    public function getDiscountGross()
+    public function getDiscountGross(): float
     {
         $gross = -1 * $this->getCouponGross();
 
@@ -964,11 +892,9 @@ class Cart
     }
 
     /**
-     * Returns Discount Net of Coupon Net for Views
-     *
      * @return float
      */
-    public function getDiscountNet()
+    public function getDiscountNet(): float
     {
         $net = -1 * $this->getCouponNet();
 
@@ -990,13 +916,13 @@ class Cart
     }
 
     /**
-     * @param \Extcode\Cart\Domain\Model\Cart\Product $newProduct
+     * @param Product $newProduct
      */
-    public function addProduct($newProduct)
+    public function addProduct(Product $newProduct)
     {
         $id = $newProduct->getId();
 
-        if (!empty($product) && array_key_exists($id, $this->products)) {
+        if (!empty($this->products) && array_key_exists($id, $this->products)) {
             // change $newproduct in cart
             $this->changeProduct($this->products[$id], $newProduct);
             $this->calcAll();
@@ -1010,13 +936,10 @@ class Cart
     }
 
     /**
-     * @param \Extcode\Cart\Domain\Model\Cart\Product $product
-     * @param \Extcode\Cart\Domain\Model\Cart\Product $newProduct
-     *
-     * @internal param $id
-     * @internal param $newQuantity
+     * @param Product $product
+     * @param Product $newProduct
      */
-    public function changeProduct($product, $newProduct)
+    public function changeProduct(Product $product, Product $newProduct)
     {
         $newQuantity = $product->getQuantity() + $newProduct->getQuantity();
 
@@ -1042,11 +965,9 @@ class Cart
     }
 
     /**
-     * @param $productQuantityArray
-     * @internal param $id
-     * @internal param $newQuantity
+     * @param array $productQuantityArray
      */
-    public function changeProductsQuantity($productQuantityArray)
+    public function changeProductsQuantity(array $productQuantityArray)
     {
         foreach ($productQuantityArray as $productPuid => $quantity) {
             $product = $this->products[$productPuid];
@@ -1088,27 +1009,18 @@ class Cart
     }
 
     /**
-     * @param array|string $productParams
+     * @param array $products
      *
-     * @return bool
+     * @return int
      */
-    public function removeProductById($productParams)
+    public function removeProductByIds(array $products): int
     {
-        if (is_array($productParams)) {
-            $productId = key($productParams);
-            $product = $this->products[$productId];
-            if ($product) {
-                $this->removeproduct($product, $productParams[$productId]);
-            } else {
-                return -1;
-            }
-        } elseif (is_string($productParams)) {
-            $product = $this->products[$productParams];
-            if ($product) {
-                $this->removeproduct($product);
-            } else {
-                return -1;
-            }
+        $productId = key($products);
+        $product = $this->products[$productId];
+        if ($product) {
+            $this->removeProduct($product, $products[$productId]);
+        } else {
+            return -1;
         }
 
         $this->updateServiceAttributes();
@@ -1117,15 +1029,33 @@ class Cart
     }
 
     /**
-     * @param \Extcode\Cart\Domain\Model\Cart\Product $product
+     * @param string $product
      *
+     * @return int
+     */
+    public function removeProductById(string $product): int
+    {
+        $product = $this->products[$product];
+        if ($product) {
+            $this->removeProduct($product);
+        } else {
+            return -1;
+        }
+
+        $this->updateServiceAttributes();
+
+        return true;
+    }
+
+    /**
+     * @param Product $product
      * @param array $productVariantIds
      *
      * @return bool
      */
-    public function removeproduct($product, $productVariantIds = null)
+    public function removeProduct(Product $product, array $productVariantIds = [])
     {
-        if (is_array($productVariantIds)) {
+        if (is_array($productVariantIds) && !empty($productVariantIds)) {
             $product->removeBeVariants($productVariantIds);
 
             if (!$product->getBeVariants()) {
@@ -1146,27 +1076,25 @@ class Cart
     }
 
     /**
-     * @param \Extcode\Cart\Domain\Model\Cart\Product $newproduct
+     * @param Product $newProduct
      */
-    protected function addServiceAttributes($newproduct)
+    protected function addServiceAttributes(Product $newProduct)
     {
-        if ($this->maxServiceAttr1 > $newproduct->getServiceAttribute1()) {
-            $this->maxServiceAttr1 = $newproduct->getServiceAttribute1();
+        if ($this->maxServiceAttr1 > $newProduct->getServiceAttribute1()) {
+            $this->maxServiceAttr1 = $newProduct->getServiceAttribute1();
         }
-        if ($this->maxServiceAttr2 > $newproduct->getServiceAttribute2()) {
-            $this->maxServiceAttr2 = $newproduct->getServiceAttribute2();
+        if ($this->maxServiceAttr2 > $newProduct->getServiceAttribute2()) {
+            $this->maxServiceAttr2 = $newProduct->getServiceAttribute2();
         }
-        if ($this->maxServiceAttr3 > $newproduct->getServiceAttribute3()) {
-            $this->maxServiceAttr3 = $newproduct->getServiceAttribute3();
+        if ($this->maxServiceAttr3 > $newProduct->getServiceAttribute3()) {
+            $this->maxServiceAttr3 = $newProduct->getServiceAttribute3();
         }
 
-        $this->sumServiceAttr1 += $newproduct->getServiceAttribute1() * $newproduct->getQuantity();
-        $this->sumServiceAttr2 += $newproduct->getServiceAttribute2() * $newproduct->getQuantity();
-        $this->sumServiceAttr3 += $newproduct->getServiceAttribute3() * $newproduct->getQuantity();
+        $this->sumServiceAttr1 += $newProduct->getServiceAttribute1() * $newProduct->getQuantity();
+        $this->sumServiceAttr2 += $newProduct->getServiceAttribute2() * $newProduct->getQuantity();
+        $this->sumServiceAttr3 += $newProduct->getServiceAttribute3() * $newProduct->getQuantity();
     }
 
-    /**
-     */
     protected function updateServiceAttributes()
     {
         $this->maxServiceAttr1 = 0.0;
@@ -1196,7 +1124,7 @@ class Cart
     /**
      * @return float
      */
-    public function getMaxServiceAttribute1()
+    public function getMaxServiceAttribute1(): float
     {
         return $this->maxServiceAttr1;
     }
@@ -1204,7 +1132,7 @@ class Cart
     /**
      * @return float
      */
-    public function getMaxServiceAttribute2()
+    public function getMaxServiceAttribute2(): float
     {
         return $this->maxServiceAttr2;
     }
@@ -1212,7 +1140,7 @@ class Cart
     /**
      * @return float
      */
-    public function getMaxServiceAttribute3()
+    public function getMaxServiceAttribute3(): float
     {
         return $this->maxServiceAttr3;
     }
@@ -1220,7 +1148,7 @@ class Cart
     /**
      * @return float
      */
-    public function getSumServiceAttribute1()
+    public function getSumServiceAttribute1(): float
     {
         return $this->sumServiceAttr1;
     }
@@ -1228,7 +1156,7 @@ class Cart
     /**
      * @return float
      */
-    public function getSumServiceAttribute2()
+    public function getSumServiceAttribute2(): float
     {
         return $this->sumServiceAttr2;
     }
@@ -1236,37 +1164,35 @@ class Cart
     /**
      * @return float
      */
-    public function getSumServiceAttribute3()
+    public function getSumServiceAttribute3(): float
     {
         return $this->sumServiceAttr3;
     }
 
     /**
-     * @param \Extcode\Cart\Domain\Model\Cart\Service $shipping
+     * @param Service $shipping
      */
-    public function changeShipping(\Extcode\Cart\Domain\Model\Cart\Service $shipping)
+    public function changeShipping(Service $shipping)
     {
         $this->shipping = $shipping;
     }
 
     /**
-     * @param \Extcode\Cart\Domain\Model\Cart\Service $payment
+     * @param Service $payment
      */
-    public function changePayment(\Extcode\Cart\Domain\Model\Cart\Service $payment)
+    public function changePayment(Service $payment)
     {
         $this->payment = $payment;
     }
 
     /**
-     * @param \Extcode\Cart\Domain\Model\Cart\Service[] $specials
+     * @param Service[] $specials
      */
-    public function changeSpecials($specials)
+    public function changeSpecials(array $specials)
     {
         $this->specials = $specials;
     }
 
-    /**
-     */
     protected function calcAll()
     {
         $this->calcCount();
@@ -1275,8 +1201,6 @@ class Cart
         $this->calcNet();
     }
 
-    /**
-     */
     protected function calcCount()
     {
         $this->count = 0;
@@ -1287,8 +1211,6 @@ class Cart
         }
     }
 
-    /**
-     */
     protected function calcGross()
     {
         $this->gross = 0.0;
@@ -1299,8 +1221,6 @@ class Cart
         }
     }
 
-    /**
-     */
     protected function calcNet()
     {
         $this->net = 0.0;
@@ -1311,8 +1231,6 @@ class Cart
         }
     }
 
-    /**
-     */
     protected function calcTax()
     {
         $this->taxes = [];
@@ -1323,8 +1241,6 @@ class Cart
         }
     }
 
-    /**
-     */
     public function reCalc()
     {
         $this->calcCount();
@@ -1338,7 +1254,7 @@ class Cart
     /**
      * @return array
      */
-    public function getAdditionalArray()
+    public function getAdditionalArray(): array
     {
         return $this->additional;
     }
@@ -1346,23 +1262,21 @@ class Cart
     /**
      * @param array $additional
      */
-    public function setAdditionalArray($additional)
+    public function setAdditionalArray(array $additional)
     {
         $this->additional = $additional;
     }
 
-    /**
-     */
     public function unsetAdditionalArray()
     {
         $this->additional = [];
     }
 
     /**
-     * @param $key
+     * @param string $key
      * @return mixed
      */
-    public function getAdditional($key)
+    public function getAdditional(string $key)
     {
         return $this->additional[$key];
     }
@@ -1371,7 +1285,7 @@ class Cart
      * @param string $key
      * @param mixed $value
      */
-    public function setAdditional($key, $value)
+    public function setAdditional(string $key, $value)
     {
         $this->additional[$key] = $value;
     }
@@ -1379,7 +1293,7 @@ class Cart
     /**
      * @param string $key
      */
-    public function unsetAdditional($key)
+    public function unsetAdditional(string $key)
     {
         if ($this->additional[$key]) {
             unset($this->additional[$key]);
@@ -1389,7 +1303,7 @@ class Cart
     /**
      * @param int $orderId
      */
-    public function setOrderId($orderId)
+    public function setOrderId(int $orderId)
     {
         $this->orderId = $orderId;
     }
@@ -1397,7 +1311,7 @@ class Cart
     /**
      * @return int
      */
-    public function getOrderId()
+    public function getOrderId(): int
     {
         return $this->orderId;
     }
@@ -1405,7 +1319,7 @@ class Cart
     /**
      * @return float
      */
-    public function getSubtotalGross()
+    public function getSubtotalGross(): float
     {
         return $this->gross - $this->getCouponGross();
     }
@@ -1413,7 +1327,7 @@ class Cart
     /**
      * @return float
      */
-    public function getTotalGross()
+    public function getTotalGross(): float
     {
         return $this->gross - $this->getCouponGross() + $this->getServiceGross();
     }
@@ -1421,7 +1335,7 @@ class Cart
     /**
      * @return float
      */
-    public function getSubtotalNet()
+    public function getSubtotalNet(): float
     {
         return $this->net - $this->getCouponNet();
     }
@@ -1429,7 +1343,7 @@ class Cart
     /**
      * @return float
      */
-    public function getTotalNet()
+    public function getTotalNet(): float
     {
         return $this->net - $this->getCouponNet() + $this->getServiceNet();
     }
@@ -1437,7 +1351,7 @@ class Cart
     /**
      * @return bool
      */
-    protected function isOrderable()
+    protected function isOrderable(): bool
     {
         $isOrderable = true;
 
@@ -1458,7 +1372,7 @@ class Cart
     /**
      * @return bool
      */
-    public function getIsOrderable()
+    public function getIsOrderable(): bool
     {
         return $this->isOrderable();
     }
@@ -1466,7 +1380,7 @@ class Cart
     /**
      * @return string
      */
-    public function getBillingCountry()
+    public function getBillingCountry(): string
     {
         return $this->billingCountry;
     }
@@ -1474,7 +1388,7 @@ class Cart
     /**
      * @param string $billingCountry
      */
-    public function setBillingCountry($billingCountry)
+    public function setBillingCountry(string $billingCountry)
     {
         $this->billingCountry = $billingCountry;
     }
@@ -1490,7 +1404,7 @@ class Cart
     /**
      * @param bool $shippingSameAsBilling
      */
-    public function setShippingSameAsBilling(bool $shippingSameAsBilling): void
+    public function setShippingSameAsBilling(bool $shippingSameAsBilling)
     {
         $this->shippingSameAsBilling = $shippingSameAsBilling;
     }
@@ -1498,7 +1412,7 @@ class Cart
     /**
      * @return string
      */
-    public function getShippingCountry()
+    public function getShippingCountry(): string
     {
         if ($this->isShippingSameAsBilling()) {
             return $this->getBillingCountry();
@@ -1510,7 +1424,7 @@ class Cart
     /**
      * @param string $shippingCountry
      */
-    public function setShippingCountry($shippingCountry)
+    public function setShippingCountry(string $shippingCountry)
     {
         $this->shippingCountry = $shippingCountry;
     }
@@ -1518,7 +1432,7 @@ class Cart
     /**
      * @return string
      */
-    public function getCountry()
+    public function getCountry(): string
     {
         if (!empty($this->shippingCountry)) {
             return $this->shippingCountry;
@@ -1530,7 +1444,7 @@ class Cart
     /**
      * @return string
      */
-    public function getCurrencyCode()
+    public function getCurrencyCode(): string
     {
         return $this->currencyCode;
     }
@@ -1538,23 +1452,23 @@ class Cart
     /**
      * @param string $currencyCode
      */
-    public function setCurrencyCode($currencyCode)
+    public function setCurrencyCode(string $currencyCode)
     {
         $this->currencyCode = $currencyCode;
     }
 
     /**
-     * @return string
+     * @return float
      */
-    public function getCurrencyTranslation()
+    public function getCurrencyTranslation(): float
     {
         return $this->currencyTranslation;
     }
 
     /**
-     * @param string $currencyTranslation
+     * @param float $currencyTranslation
      */
-    public function setCurrencyTranslation($currencyTranslation)
+    public function setCurrencyTranslation(float $currencyTranslation)
     {
         $this->currencyTranslation = $currencyTranslation;
     }
@@ -1562,7 +1476,7 @@ class Cart
     /**
      * @return string
      */
-    public function getCurrencySign()
+    public function getCurrencySign(): string
     {
         return $this->currencySign;
     }
@@ -1570,7 +1484,7 @@ class Cart
     /**
      * @param string $currencySign
      */
-    public function setCurrencySign($currencySign)
+    public function setCurrencySign(string $currencySign)
     {
         $this->currencySign = $currencySign;
     }
@@ -1580,7 +1494,7 @@ class Cart
      *
      * @return float
      */
-    public function translatePrice($price)
+    public function translatePrice($price): float
     {
         $price = $price / $this->getCurrencyTranslation();
         $price = round($price * 100.0) / 100.0;

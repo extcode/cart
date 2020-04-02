@@ -12,44 +12,36 @@ namespace Extcode\Cart\Domain\Model\Cart;
 class FeVariant
 {
     /**
-     * Product
-     *
      * @var \Extcode\Cart\Domain\Model\Cart\Product
      */
     protected $product = null;
 
     /**
-     * BeVariant
-     *
      * @var \Extcode\Cart\Domain\Model\Cart\BeVariant
      */
     protected $beVariant = null;
 
     /**
-     * Variant Data
-     *
      * @var array
      */
     protected $variantData = [];
 
     /**
-     * Title Glue
+     * @var string
      */
     protected $titleGlue = ' ';
 
     /**
-     * SKU Glue
+     * @var string
      */
     protected $skuGlue = '-';
 
     /**
-     * Value Glue
+     * @var string
      */
     protected $valueGlue = ' ';
 
     /**
-     * __construct
-     *
      * @param array $variantData
      */
     public function __construct(
@@ -61,31 +53,31 @@ class FeVariant
     /**
      * @return string
      */
-    public function getId()
+    public function getId(): string
     {
         return sha1(json_encode($this->variantData));
     }
 
     /**
-     * @return \Extcode\Cart\Domain\Model\Cart\Product
+     * @return Product
      */
-    public function getProduct()
+    public function getProduct(): ?Product
     {
         return $this->product;
     }
 
     /**
-     * @return \Extcode\Cart\Domain\Model\Cart\BeVariant
+     * @return BeVariant
      */
-    public function getVariant()
+    public function getVariant(): ?BeVariant
     {
-        return $this->variant;
+        return $this->beVariant;
     }
 
     /**
      * @return array
      */
-    public function getVariantData()
+    public function getVariantData(): array
     {
         return $this->variantData;
     }
@@ -93,7 +85,7 @@ class FeVariant
     /**
      * @return string
      */
-    public function getTitle()
+    public function getTitle(): string
     {
         $titleArr = [];
         foreach ($this->variantData as $variant) {
@@ -105,7 +97,7 @@ class FeVariant
     /**
      * @return string
      */
-    public function getSku()
+    public function getSku(): string
     {
         $skuArr = [];
         foreach ($this->variantData as $variant) {
@@ -117,7 +109,7 @@ class FeVariant
     /**
      * @return string
      */
-    public function getValue()
+    public function getValue(): string
     {
         $valueArr = [];
         foreach ($this->variantData as $variant) {

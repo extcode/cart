@@ -180,7 +180,12 @@ class ProductController extends ActionController
     {
         if ($this->request->hasArgument('product')) {
             $this->cart = $this->sessionHandler->restore($this->settings['cart']['pid']);
-            $this->cart->removeProductById($this->request->getArgument('product'));
+            $productArgument = $this->request->getArgument('product');
+            if (is_array($productArgument)) {
+                $this->cart->removeProductByIds($productArgument);
+            } else {
+                $this->cart->removeProductById($productArgument);
+            }
 
             $this->cartUtility->updateService($this->cart, $this->pluginSettings);
 

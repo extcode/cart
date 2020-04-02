@@ -12,88 +12,61 @@ namespace Extcode\Cart\Domain\Model;
 class Coupon extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 {
     /**
-     * Title
-     *
      * @var string
-     * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
      */
     protected $title = '';
 
     /**
-     * Code
-     *
      * @var string
-     * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
      */
     protected $code = '';
 
     /**
-     * Coupon Type
-     *
      * @var string
-     * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
      */
     protected $couponType = '';
 
     /**
-     * Discount
-     *
      * @var float
      */
     protected $discount = 0.0;
 
     /**
-     * Tax Class Id
-     *
      * @var int
      */
     protected $taxClassId;
 
     /**
-     * Cart Min Price
-     *
      * @var float
      */
     protected $cartMinPrice = 0.0;
 
     /**
-     * Is Combinable
-     *
      * @var bool
      */
     protected $isCombinable = false;
 
     /**
-     * Is Relative Discount
-     *
      * @var bool
      */
     protected $isRelativeDiscount = false;
 
     /**
-     * Handle Available
-     *
      * @var bool
      */
     protected $handleAvailable = false;
 
     /**
-     * Number Available
-     *
      * @var int
      */
     protected $numberAvailable = 0;
 
     /**
-     * Number Used
-     *
      * @var int
      */
     protected $numberUsed = 0;
 
     /**
-     * __construct
-     *
      * @param string $title
      * @param string $code
      * @param string $couponType
@@ -115,81 +88,65 @@ class Coupon extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     }
 
     /**
-     * Gets Title
-     *
      * @return string
      */
-    public function getTitle()
+    public function getTitle(): string
     {
         return $this->title;
     }
 
     /**
-     * Gets Code
-     *
      * @return string
      */
-    public function getCode()
+    public function getCode(): string
     {
         return $this->code;
     }
 
     /**
-     * Gets Coupon Type
-     *
      * @return string
      */
-    public function getCouponType()
+    public function getCouponType(): string
     {
         return $this->couponType;
     }
 
     /**
-     * Is Relative Discount
-     *
      * @return bool
      */
-    public function isRelativeDiscount()
+    public function isRelativeDiscount(): bool
     {
         return $this->isRelativeDiscount;
     }
 
     /**
-     * Gets Discount
-     *
      * @return float
      */
-    public function getDiscount()
+    public function getDiscount(): float
     {
         return $this->discount;
     }
 
     /**
-     * Gets Tax Class Id
-     *
      * @return int
      */
-    public function getTaxClassId()
+    public function getTaxClassId(): int
     {
         return $this->taxClassId;
     }
 
     /**
-     * Returns Cart Min Price
-     *
      * @return float
      */
-    public function getCartMinPrice()
+    public function getCartMinPrice(): float
     {
         return $this->cartMinPrice;
     }
 
     /**
-     * Sets Cart Min Price
-     *
      * @param float $cartMinPrice
      */
-    public function setCartMinPrice($cartMinPrice)
+    public function setCartMinPrice(float $cartMinPrice)
     {
         $this->cartMinPrice = $cartMinPrice;
     }
@@ -197,7 +154,7 @@ class Coupon extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * @return bool
      */
-    public function getHandleAvailable()
+    public function getHandleAvailable(): bool
     {
         return $this->handleAvailable;
     }
@@ -205,7 +162,7 @@ class Coupon extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * @param bool $handleAvailable
      */
-    public function setHandleAvailable($handleAvailable)
+    public function setHandleAvailable(bool $handleAvailable)
     {
         $this->handleAvailable = $handleAvailable;
     }
@@ -213,7 +170,7 @@ class Coupon extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * @return int
      */
-    public function getNumberAvailable()
+    public function getNumberAvailable(): int
     {
         return $this->numberAvailable;
     }
@@ -221,17 +178,15 @@ class Coupon extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * @param int $numberAvailable
      */
-    public function setNumberAvailable($numberAvailable)
+    public function setNumberAvailable(int $numberAvailable)
     {
         $this->numberAvailable = $numberAvailable;
     }
 
     /**
-     * Returns the number how often the coupon was used
-     *
      * @return int
      */
-    public function getNumberUsed()
+    public function getNumberUsed(): int
     {
         return $this->numberUsed;
     }
@@ -245,11 +200,9 @@ class Coupon extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     }
 
     /**
-     * Set the number how often the coupon was used
-     *
      * @param int $numberUsed
      */
-    public function setNumberUsed($numberUsed)
+    public function setNumberUsed(int $numberUsed)
     {
         $this->numberUsed = $numberUsed;
     }
@@ -257,7 +210,7 @@ class Coupon extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * @return bool
      */
-    public function getIsCombinable()
+    public function getIsCombinable(): bool
     {
         return $this->isCombinable;
     }
@@ -265,17 +218,15 @@ class Coupon extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * @param bool $isCombinable
      */
-    public function setIsCombinable($isCombinable)
+    public function setIsCombinable(bool $isCombinable)
     {
         $this->isCombinable = $isCombinable;
     }
 
     /**
-     * Gets Is Available
-     *
      * @return bool
      */
-    public function getIsAvailable()
+    public function getIsAvailable(): bool
     {
         if ($this->handleAvailable) {
             $available = $this->numberAvailable - $this->numberUsed;

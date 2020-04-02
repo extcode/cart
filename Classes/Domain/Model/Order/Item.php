@@ -10,340 +10,262 @@ namespace Extcode\Cart\Domain\Model\Order;
  */
 
 use Extcode\Cart\Property\Exception\ResetPropertyException;
+use TYPO3\CMS\Extbase\Domain\Model\FileReference;
+use TYPO3\CMS\Extbase\Domain\Model\FrontendUser;
+use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 
 class Item extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 {
     /**
-     * Cart Pid
-     *
      * @var int
      */
     protected $cartPid = 0;
 
     /**
-     * FeUser
-     *
      * @var \TYPO3\CMS\Extbase\Domain\Model\FrontendUser
      */
     protected $feUser = null;
 
     /**
-     * Order Number
-     *
      * @var string
      */
     protected $orderNumber;
 
     /**
-     * Order Date
-     *
      * @var \DateTime
      */
     protected $orderDate = null;
 
     /**
-     * Invoice Number
-     *
      * @var string
      */
     protected $invoiceNumber;
 
     /**
-     * Invoice Date
-     *
      * @var \DateTime
      */
     protected $invoiceDate = null;
 
     /**
-     * Delivery Number
-     *
      * @var string
      */
     protected $deliveryNumber;
 
     /**
-     * Delivery Date
-     *
      * @var \DateTime
      */
     protected $deliveryDate = null;
 
     /**
-     * Billing Address
-     *
-     * @var \Extcode\Cart\Domain\Model\Order\BillingAddress
+     * @var BillingAddress
      */
     protected $billingAddress;
 
     /**
-     * Shipping Address
-     *
-     * @var \Extcode\Cart\Domain\Model\Order\ShippingAddress
+     * @var ShippingAddress
      */
     protected $shippingAddress;
 
     /**
-     * Additional Data
-     *
      * @var string
      */
     protected $additionalData;
 
     /**
-     * Additional
-     *
      * @var string
      */
     protected $additional;
 
     /**
-     * Currency
-     *
      * @var string
      * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
      */
     protected $currency = '€';
 
     /**
-     * Currency Code
-     *
      * @var string
      */
     protected $currencyCode = '';
 
     /**
-     * Currency Sign
-     *
      * @var string
      */
     protected $currencySign = '';
 
     /**
-     * Currency Translation
-     *
      * @var float
      */
     protected $currencyTranslation = 1.00;
 
     /**
-     * Gross
-     *
      * @var float
      * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
      */
     protected $gross = 0.0;
 
     /**
-     * Total Gross
-     *
      * @var float
      * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
      */
     protected $totalGross = 0.0;
 
     /**
-     * Net
-     *
      * @var float
      * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
      */
     protected $net = 0.0;
 
     /**
-     * Total Net
-     *
      * @var float
      * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
      */
     protected $totalNet = 0.0;
 
     /**
-     * TaxClass
-     *
      * @TYPO3\CMS\Extbase\Annotation\ORM\Lazy
      * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Extcode\Cart\Domain\Model\Order\TaxClass>
      */
     protected $taxClass;
 
     /**
-     * Tax
-     *
      * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Extcode\Cart\Domain\Model\Order\Tax>
      */
     protected $tax;
 
     /**
-     * TotalTax
-     *
      * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Extcode\Cart\Domain\Model\Order\Tax>
      */
     protected $totalTax;
 
     /**
-     * Products
-     *
      * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Extcode\Cart\Domain\Model\Order\Product>
      * @TYPO3\CMS\Extbase\Annotation\ORM\Lazy
      */
     protected $products;
 
     /**
-     * Discounts
-     *
      * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Extcode\Cart\Domain\Model\Order\Discount>
      * @TYPO3\CMS\Extbase\Annotation\ORM\Lazy
      */
     protected $discounts;
 
     /**
-     * Payment
-     *
      * @var \Extcode\Cart\Domain\Model\Order\Payment
      */
     protected $payment;
 
     /**
-     * Shipping
-     *
      * @var \Extcode\Cart\Domain\Model\Order\Shipping
      */
     protected $shipping;
 
     /**
-     * Order Pdf
-     *
      * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference>
      */
     protected $orderPdfs;
 
     /**
-     * Invoice Pdf
-     *
      * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference>
      */
     protected $invoicePdfs;
 
     /**
-     * Delivery Pdf
-     *
      * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference>
      */
     protected $deliveryPdfs;
 
     /**
-     * crdate
-     *
      * @var \DateTime
      */
     protected $crdate;
 
     /**
-     * Accept Terms and Conditions
-     *
      * @var bool
      */
     protected $acceptTermsAndConditions = false;
 
     /**
-     * Accept Revocation Instruction
-     *
      * @var bool
      */
-    protected $acceptRevocationInstruction  = false;
+    protected $acceptRevocationInstruction = false;
 
     /**
-     * Accept Privacy Policy
-     *
      * @var bool
      */
-    protected $acceptPrivacyPolicy  = false;
+    protected $acceptPrivacyPolicy = false;
 
     /**
-     * Comment
-     *
      * @var string
      */
-    protected $comment;
+    protected $comment = '';
 
-    /**
-     * __construct
-     */
     public function __construct()
     {
         $this->initStorageObjects();
     }
 
     /**
-     * Initializes all \TYPO3\CMS\Extbase\Persistence\ObjectStorage properties.
+     * Initializes all ObjectStorages.
      */
     protected function initStorageObjects()
     {
-        $this->products = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
-        $this->discounts = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
-        $this->taxClass = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
-        $this->tax = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
-        $this->totalTax = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
-        $this->orderPdfs = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
-        $this->invoicePdfs = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
-        $this->deliveryPdfs = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+        $this->products = new ObjectStorage();
+        $this->discounts = new ObjectStorage();
+        $this->taxClass = new ObjectStorage();
+        $this->tax = new ObjectStorage();
+        $this->totalTax = new ObjectStorage();
+        $this->orderPdfs = new ObjectStorage();
+        $this->invoicePdfs = new ObjectStorage();
+        $this->deliveryPdfs = new ObjectStorage();
     }
 
     /**
-     * Set Cart Pid
-     *
      * @var int $cartPid
      */
-    public function setCartPid($cartPid)
+    public function setCartPid(int $cartPid)
     {
         $this->cartPid = $cartPid;
     }
 
     /**
-     * Get Cart Pid
-     *
      * @return int
      */
-    public function getCartPid()
+    public function getCartPid(): int
     {
         return $this->cartPid;
     }
 
     /**
-     * @param \TYPO3\CMS\Extbase\Domain\Model\FrontendUser $feUser
+     * @param FrontendUser $feUser
      */
-    public function setFeUser($feUser)
+    public function setFeUser(FrontendUser $feUser)
     {
         $this->feUser = $feUser;
     }
 
     /**
-     * @return \TYPO3\CMS\Extbase\Domain\Model\FrontendUser
+     * @return FrontendUser|null
      */
-    public function getFeUser()
+    public function getFeUser(): ?FrontendUser
     {
         return $this->feUser;
     }
 
     /**
-     * Returns the orderNumber
-     *
-     * @return string $orderNumber
+     * @return string|null
      */
-    public function getOrderNumber()
+    public function getOrderNumber(): ?string
     {
         return $this->orderNumber;
     }
 
     /**
-     * Sets the orderNumber
-     *
      * @param string $orderNumber
      * @return string
      *
      * @throws ResetPropertyException
      */
-    public function setOrderNumber($orderNumber)
+    public function setOrderNumber(string $orderNumber): string
     {
         if (!$this->orderNumber) {
             $this->orderNumber = $orderNumber;
@@ -356,18 +278,14 @@ class Item extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     }
 
     /**
-     * Gets Order Date
-     *
-     * @return \DateTime
+     * @return \DateTime|null
      */
-    public function getOrderDate()
+    public function getOrderDate(): ?\DateTime
     {
         return $this->orderDate;
     }
 
     /**
-     * Sets Order Date
-     *
      * @param \DateTime $orderDate
      */
     public function setOrderDate(\DateTime $orderDate)
@@ -376,24 +294,20 @@ class Item extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     }
 
     /**
-     * Returns the invoiceNumber
-     *
-     * @return string
+     * @return string|null
      */
-    public function getInvoiceNumber()
+    public function getInvoiceNumber(): ?string
     {
         return $this->invoiceNumber;
     }
 
     /**
-     * Sets the invoiceNumber
-     *
      * @param string $invoiceNumber
      *
      * @return string
      * @throws ResetPropertyException
      */
-    public function setInvoiceNumber($invoiceNumber)
+    public function setInvoiceNumber(string $invoiceNumber): string
     {
         if (!$this->invoiceNumber) {
             $this->invoiceNumber = $invoiceNumber;
@@ -406,18 +320,14 @@ class Item extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     }
 
     /**
-     * Gets Invoice Date
-     *
-     * @return \DateTime
+     * @return \DateTime|null
      */
-    public function getInvoiceDate()
+    public function getInvoiceDate(): ?\DateTime
     {
         return $this->invoiceDate;
     }
 
     /**
-     * Sets Invoice Date
-     *
      * @param \DateTime $invoiceDate
      */
     public function setInvoiceDate(\DateTime $invoiceDate)
@@ -426,24 +336,20 @@ class Item extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     }
 
     /**
-     * Returns the deliveryNumber
-     *
-     * @return string
+     * @return string|null
      */
-    public function getDeliveryNumber()
+    public function getDeliveryNumber(): ?string
     {
         return $this->deliveryNumber;
     }
 
     /**
-     * Sets the deliveryNumber
-     *
      * @param string $deliveryNumber
      *
      * @return string
      * @throws ResetPropertyException
      */
-    public function setDeliveryNumber($deliveryNumber)
+    public function setDeliveryNumber(string $deliveryNumber): string
     {
         if (!$this->deliveryNumber) {
             $this->deliveryNumber = $deliveryNumber;
@@ -456,18 +362,14 @@ class Item extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     }
 
     /**
-     * Gets Delivery Date
-     *
-     * @return \DateTime
+     * @return \DateTime|null
      */
-    public function getDeliveryDate()
+    public function getDeliveryDate(): ?\DateTime
     {
         return $this->deliveryDate;
     }
 
     /**
-     * Sets Delivery Date
-     *
      * @param \DateTime $deliveryDate
      */
     public function setDeliveryDate(\DateTime $deliveryDate)
@@ -476,41 +378,33 @@ class Item extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     }
 
     /**
-     * Gets Billing Address
-     *
-     * @return \Extcode\Cart\Domain\Model\Order\BillingAddress
+     * @return BillingAddress|null
      */
-    public function getBillingAddress()
+    public function getBillingAddress(): ?BillingAddress
     {
         return $this->billingAddress;
     }
 
     /**
-     * Set Billing Address
-     *
-     * @param \Extcode\Cart\Domain\Model\Order\BillingAddress $billingAddress
+     * @param BillingAddress $billingAddress
      */
-    public function setBillingAddress(\Extcode\Cart\Domain\Model\Order\BillingAddress $billingAddress)
+    public function setBillingAddress(BillingAddress $billingAddress)
     {
         $this->billingAddress = $billingAddress;
     }
 
     /**
-     * Gets Shipping Address
-     *
-     * @return \Extcode\Cart\Domain\Model\Order\ShippingAddress
+     * @return ShippingAddress|null
      */
-    public function getShippingAddress()
+    public function getShippingAddress(): ?ShippingAddress
     {
         return $this->shippingAddress;
     }
 
     /**
-     * Set Shopping Address
-     *
-     * @param \Extcode\Cart\Domain\Model\Order\ShippingAddress $shippingAddress
+     * @param ShippingAddress $shippingAddress
      */
-    public function setShippingAddress(\Extcode\Cart\Domain\Model\Order\ShippingAddress $shippingAddress)
+    public function setShippingAddress(ShippingAddress $shippingAddress)
     {
         $this->shippingAddress = $shippingAddress;
     }
@@ -526,7 +420,7 @@ class Item extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * @return string
      */
-    public function getAdditionalData()
+    public function getAdditionalData(): string
     {
         return $this->additionalData;
     }
@@ -534,214 +428,172 @@ class Item extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * @param string $additionalData
      */
-    public function setAdditionalData($additionalData)
+    public function setAdditionalData(string $additionalData)
     {
         $this->additionalData = $additionalData;
     }
 
     /**
-     * Returns Currency
-     *
      * @return string
      */
-    public function getCurrency()
+    public function getCurrency(): string
     {
         return $this->currency;
     }
 
     /**
-     * Sets Currency
-     *
      * @param string $currency
      */
-    public function setCurrency($currency)
+    public function setCurrency(string $currency)
     {
         $this->currency = $currency;
     }
 
     /**
-     * Returns Currency Code
-     *
      * @return string
      */
-    public function getCurrencyCode()
+    public function getCurrencyCode(): string
     {
         return $this->currencyCode;
     }
 
     /**
-     * Sets Currency Code
-     *
      * @param string $currencyCode
      */
-    public function setCurrencyCode($currencyCode)
+    public function setCurrencyCode(string $currencyCode)
     {
         $this->currencyCode = $currencyCode;
     }
 
     /**
-     * Returns Currency Sign
-     *
      * @return string
      */
-    public function getCurrencySign()
+    public function getCurrencySign(): string
     {
         return $this->currencySign;
     }
 
     /**
-     * Sets Currency Sign
-     *
      * @param string $currencySign
      */
-    public function setCurrencySign($currencySign)
+    public function setCurrencySign(string $currencySign)
     {
         $this->currencySign = $currencySign;
     }
 
     /**
-     * Returns Currency Translation
-     *
      * @return float
      */
-    public function getCurrencyTranslation()
+    public function getCurrencyTranslation(): float
     {
         return $this->currencyTranslation;
     }
 
     /**
-     * Set Currency Translation
-     *
      * @param float $currencyTranslation
      */
-    public function setCurrencyTranslation($currencyTranslation)
+    public function setCurrencyTranslation(float $currencyTranslation)
     {
         $this->currencyTranslation = $currencyTranslation;
     }
 
     /**
-     * Returns Gross
-     *
      * @return float $gross
      */
-    public function getGross()
+    public function getGross(): float
     {
         return $this->gross;
     }
 
     /**
-     * Sets Gross
-     *
      * @param float $gross
      */
-    public function setGross($gross)
+    public function setGross(float $gross)
     {
         $this->gross = $gross;
     }
 
     /**
-     * Returns Total Gross
-     *
      * @return float $totalGross
      */
-    public function getTotalGross()
+    public function getTotalGross(): float
     {
         return $this->totalGross;
     }
 
     /**
-     * Sets Total Gross
-     *
      * @param float $totalGross
      */
-    public function setTotalGross($totalGross)
+    public function setTotalGross(float $totalGross)
     {
         $this->totalGross = $totalGross;
     }
 
     /**
-     * Returns Met
-     *
      * @return float $net
      */
-    public function getNet()
+    public function getNet(): float
     {
         return $this->net;
     }
 
     /**
-     * Sets Net
-     *
      * @param float $net
      */
-    public function setNet($net)
+    public function setNet(float $net)
     {
         $this->net = $net;
     }
 
     /**
-     * Returns Total Net
-     *
      * @return float $totalNet
      */
-    public function getTotalNet()
+    public function getTotalNet(): float
     {
         return $this->totalNet;
     }
 
     /**
-     * Sets Total Net
-     *
      * @param float $totalNet
      */
-    public function setTotalNet($totalNet)
+    public function setTotalNet(float $totalNet)
     {
         $this->totalNet = $totalNet;
     }
 
     /**
-     * Sets Payment
-     *
-     * @param \Extcode\Cart\Domain\Model\Order\Payment $payment
+     * @param Payment $payment
      */
-    public function setPayment(\Extcode\Cart\Domain\Model\Order\Payment $payment)
+    public function setPayment(Payment $payment)
     {
         $this->payment = $payment;
     }
 
     /**
-     * Gets Payment
-     *
-     * @return \Extcode\Cart\Domain\Model\Order\Payment
+     * @return Payment|null
      */
-    public function getPayment()
+    public function getPayment(): ?Payment
     {
         return $this->payment;
     }
 
     /**
-     * Sets Shipping
-     *
-     * @param \Extcode\Cart\Domain\Model\Order\Shipping $shipping
+     * @param Shipping $shipping
      */
-    public function setShipping(\Extcode\Cart\Domain\Model\Order\Shipping $shipping)
+    public function setShipping(Shipping $shipping)
     {
         $this->shipping = $shipping;
     }
 
     /**
-     * Gets Shipping
-     *
-     * @return \Extcode\Cart\Domain\Model\Order\Shipping
+     * @return Shipping|null
      */
-    public function getShipping()
+    public function getShipping(): ?Shipping
     {
         return $this->shipping;
     }
 
     /**
-     * Returns Order PDF
-     *
      * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference>
      */
     public function getOrderPdfs()
@@ -750,9 +602,7 @@ class Item extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     }
 
     /**
-     * Sets Order PDF
-     *
-     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference>
+     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference> $orderPdfs
      */
     public function setOrderPdfs($orderPdfs)
     {
@@ -760,28 +610,22 @@ class Item extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     }
 
     /**
-     * Adds a Order PDF
-     *
-     * @param \TYPO3\CMS\Extbase\Domain\Model\FileReference $orderPdf
+     * @param FileReference $orderPdf
      */
-    public function addOrderPdf(\TYPO3\CMS\Extbase\Domain\Model\FileReference $orderPdf)
+    public function addOrderPdf(FileReference $orderPdf)
     {
         $this->orderPdfs->attach($orderPdf);
     }
 
     /**
-     * Removes a Order PDF
-     *
-     * @param \TYPO3\CMS\Extbase\Domain\Model\FileReference $orderPdfToRemove
+     * @param FileReference $orderPdf
      */
-    public function removeOrderPdf(\TYPO3\CMS\Extbase\Domain\Model\FileReference $orderPdfToRemove)
+    public function removeOrderPdf(FileReference $orderPdf)
     {
-        $this->orderPdfs->detach($orderPdfToRemove);
+        $this->orderPdfs->detach($orderPdf);
     }
 
     /**
-     * Returns Invoice PDFs
-     *
      * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference>
      */
     public function getInvoicePdfs()
@@ -790,9 +634,7 @@ class Item extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     }
 
     /**
-     * Sets Invoice PDFs
-     *
-     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference $invoicePdf>
+     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference> $invoicePdf
      */
     public function setInvoicePdfs($invoicePdfs)
     {
@@ -800,28 +642,22 @@ class Item extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     }
 
     /**
-     * Adds a Invoice PDF
-     *
-     * @param \TYPO3\CMS\Extbase\Domain\Model\FileReference $invoicePdf
+     * @param FileReference $invoicePdf
      */
-    public function addInvoicePdf(\TYPO3\CMS\Extbase\Domain\Model\FileReference $invoicePdf)
+    public function addInvoicePdf(FileReference $invoicePdf)
     {
         $this->invoicePdfs->attach($invoicePdf);
     }
 
     /**
-     * Removes a Invoice PDF
-     *
-     * @param \TYPO3\CMS\Extbase\Domain\Model\FileReference $invoicePdfToRemove
+     * @param FileReference $invoicePdf
      */
-    public function removeInvoicePdf(\TYPO3\CMS\Extbase\Domain\Model\FileReference $invoicePdfToRemove)
+    public function removeInvoicePdf(FileReference $invoicePdf)
     {
-        $this->invoicePdfs->detach($invoicePdfToRemove);
+        $this->invoicePdfs->detach($invoicePdf);
     }
 
     /**
-     * Returns Delivery PDFs
-     *
      * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference>
      */
     public function getDeliveryPdfs()
@@ -830,9 +666,7 @@ class Item extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     }
 
     /**
-     * Sets Delivery PDFs
-     *
-     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference $deliveryPdf>
+     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference> $deliveryPdfs
      */
     public function setDeliveryPdfs($deliveryPdfs)
     {
@@ -840,49 +674,39 @@ class Item extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     }
 
     /**
-     * Adds a Delivery PDF
-     *
-     * @param \TYPO3\CMS\Extbase\Domain\Model\FileReference $deliveryPdf
+     * @param FileReference $deliveryPdf
      */
-    public function addDeliveryPdf(\TYPO3\CMS\Extbase\Domain\Model\FileReference $deliveryPdf)
+    public function addDeliveryPdf(FileReference $deliveryPdf)
     {
         $this->deliveryPdfs->attach($deliveryPdf);
     }
 
     /**
-     * Removes a Delivery PDF
-     *
-     * @param \TYPO3\CMS\Extbase\Domain\Model\FileReference $deliveryPdfToRemove
+     * @param FileReference $deliveryPdf
      */
-    public function removeDeliveryPdf(\TYPO3\CMS\Extbase\Domain\Model\FileReference $deliveryPdfToRemove)
+    public function removeDeliveryPdf(FileReference $deliveryPdf)
     {
-        $this->deliveryPdfs->detach($deliveryPdfToRemove);
+        $this->deliveryPdfs->detach($deliveryPdf);
     }
 
     /**
-     * Adds a TaxClass
-     *
-     * @param \Extcode\Cart\Domain\Model\Order\TaxClass $taxClass
+     * @param TaxClass $taxClass
      */
-    public function addTaxClass(\Extcode\Cart\Domain\Model\Order\TaxClass $taxClass)
+    public function addTaxClass(TaxClass $taxClass)
     {
         $this->taxClass->attach($taxClass);
     }
 
     /**
-     * Removes a OrderTaxClass
-     *
-     * @param \Extcode\Cart\Domain\Model\Order\TaxClass $taxClassToRemove
+     * @param TaxClass $taxClass
      */
-    public function removeTaxClass(\Extcode\Cart\Domain\Model\Order\TaxClass $taxClassToRemove)
+    public function removeTaxClass(TaxClass $taxClass)
     {
-        $this->taxClass->detach($taxClassToRemove);
+        $this->taxClass->detach($taxClass);
     }
 
     /**
-     * Returns TaxClass
-     *
-     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Extcode\Cart\Domain\Model\Order\TaxClass> $taxClass
+     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Extcode\Cart\Domain\Model\Order\TaxClass>
      */
     public function getTaxClass()
     {
@@ -890,9 +714,7 @@ class Item extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     }
 
     /**
-     * Sets TaxClass
-     *
-     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage <\Extcode\Cart\Domain\Model\Order\TaxClass> $taxClass
+     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Extcode\Cart\Domain\Model\Order\TaxClass> $taxClass
      */
     public function setTaxClass($taxClass)
     {
@@ -900,29 +722,23 @@ class Item extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     }
 
     /**
-     * Adds a Product
-     *
-     * @param \Extcode\Cart\Domain\Model\Order\Product $product
+     * @param Product $product
      */
-    public function addProduct(\Extcode\Cart\Domain\Model\Order\Product $product)
+    public function addProduct(Product $product)
     {
         $this->products->attach($product);
     }
 
     /**
-     * Removes a Product
-     *
-     * @param \Extcode\Cart\Domain\Model\Order\Product $productToRemove
+     * @param Product $product
      */
-    public function removeProduct(\Extcode\Cart\Domain\Model\Order\Product $productToRemove)
+    public function removeProduct(Product $product)
     {
-        $this->products->detach($productToRemove);
+        $this->products->detach($product);
     }
 
     /**
-     * Returns product
-     *
-     * @return  \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Extcode\Cart\Domain\Model\Order\Product> $products
+     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Extcode\Cart\Domain\Model\Order\Product>
      */
     public function getProducts()
     {
@@ -930,9 +746,7 @@ class Item extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     }
 
     /**
-     * Sets Product
-     *
-     * @param  \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Extcode\Cart\Domain\Model\Order\Product> $products
+     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Extcode\Cart\Domain\Model\Order\Product> $products
      */
     public function setProducts($products)
     {
@@ -940,29 +754,23 @@ class Item extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     }
 
     /**
-     * Adds a Discount
-     *
-     * @param \Extcode\Cart\Domain\Model\Order\Discount $discount
+     * @param Discount $discount
      */
-    public function addDiscount(\Extcode\Cart\Domain\Model\Order\Discount $discount)
+    public function addDiscount(Discount $discount)
     {
         $this->discounts->attach($discount);
     }
 
     /**
-     * Removes a Discount
-     *
-     * @param \Extcode\Cart\Domain\Model\Order\Discount $discountToRemove
+     * @param Discount $discount
      */
-    public function removeDiscount(\Extcode\Cart\Domain\Model\Order\Discount $discountToRemove)
+    public function removeDiscount(Discount $discount)
     {
-        $this->discounts->detach($discountToRemove);
+        $this->discounts->detach($discount);
     }
 
     /**
-     * Returns Discounts
-     *
-     * @return  \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Extcode\Cart\Domain\Model\Order\Discount> $discount
+     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Extcode\Cart\Domain\Model\Order\Discount>
      */
     public function getDiscounts()
     {
@@ -970,9 +778,7 @@ class Item extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     }
 
     /**
-     * Sets Discounts
-     *
-     * @param  \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Extcode\Cart\Domain\Model\Order\Discount> $discounts
+     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Extcode\Cart\Domain\Model\Order\Discount> $discounts
      */
     public function setDiscounts($discounts)
     {
@@ -980,29 +786,23 @@ class Item extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     }
 
     /**
-     * Adds a Tax
-     *
-     * @param \Extcode\Cart\Domain\Model\Order\Tax $tax
+     * @param Tax $tax
      */
-    public function addTax($tax)
+    public function addTax(Tax $tax)
     {
         $this->tax->attach($tax);
     }
 
     /**
-     * Removes a Tax
-     *
-     * @param \Extcode\Cart\Domain\Model\Order\Tax $taxToRemove
+     * @param Tax $tax
      */
-    public function removeTax($taxToRemove)
+    public function removeTax(Tax $tax)
     {
-        $this->tax->detach($taxToRemove);
+        $this->tax->detach($tax);
     }
 
     /**
-     * Returns the Tax
-     *
-     * @return  \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Extcode\Cart\Domain\Model\OrderTax>
+     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Extcode\Cart\Domain\Model\Order\Tax>
      */
     public function getTax()
     {
@@ -1010,39 +810,31 @@ class Item extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     }
 
     /**
-     * Sets the Tax
-     *
-     * @param  \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Extcode\Cart\Domain\Model\Order\Tax> $tax
+     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Extcode\Cart\Domain\Model\Order\Tax> $taxes
      */
-    public function setTax($tax)
+    public function setTax($taxes)
     {
-        $this->tax = $tax;
+        $this->tax = $taxes;
     }
 
     /**
-     * Adds a TotalTax
-     *
-     * @param \Extcode\Cart\Domain\Model\Order\Tax $totalTax
+     * @param \Extcode\Cart\Domain\Model\Order\Tax $tax
      */
-    public function addTotalTax($totalTax)
+    public function addTotalTax($tax)
     {
-        $this->totalTax->attach($totalTax);
+        $this->totalTax->attach($tax);
     }
 
     /**
-     * Removes a TotalTax
-     *
-     * @param \Extcode\Cart\Domain\Model\Order\Tax $totalTaxToRemove
+     * @param \Extcode\Cart\Domain\Model\Order\Tax $tax
      */
-    public function removeTotalTax($totalTaxToRemove)
+    public function removeTotalTax($tax)
     {
-        $this->totalTax->detach($totalTaxToRemove);
+        $this->totalTax->detach($tax);
     }
 
     /**
-     * Returns the TotalTax
-     *
-     * @return  \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Extcode\Cart\Domain\Model\Order\Tax> $totalTax
+     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Extcode\Cart\Domain\Model\Order\Tax>
      */
     public function getTotalTax()
     {
@@ -1050,31 +842,25 @@ class Item extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     }
 
     /**
-     * Sets the TotalTax
-     *
-     * @param  \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Extcode\Cart\Domain\Model\Order\Tax> $totalTax
+     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Extcode\Cart\Domain\Model\Order\Tax> $taxes
      */
-    public function setTotalTax($totalTax)
+    public function setTotalTax($taxes)
     {
-        $this->totalTax = $totalTax;
+        $this->totalTax = $taxes;
     }
 
     /**
-     * Returns the crdate
-     *
-     * @return \DateTime $crdate
+     * @return \DateTime|null
      */
-    public function getCrdate()
+    public function getCrdate(): ?\DateTime
     {
         return $this->crdate;
     }
 
     /**
-     * Sets the crdate
-     *
      * @param \DateTime $crdate
      */
-    public function setCrdate($crdate)
+    public function setCrdate(\DateTime $crdate)
     {
         $this->crdate = $crdate;
     }
@@ -1082,7 +868,7 @@ class Item extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * @return bool
      */
-    public function isAcceptTermsAndConditions()
+    public function isAcceptTermsAndConditions(): bool
     {
         return $this->acceptTermsAndConditions;
     }
@@ -1090,7 +876,7 @@ class Item extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * @param bool $acceptTermsAndConditions
      */
-    public function setAcceptTermsAndConditions($acceptTermsAndConditions)
+    public function setAcceptTermsAndConditions(bool $acceptTermsAndConditions)
     {
         $this->acceptTermsAndConditions = $acceptTermsAndConditions;
     }
@@ -1098,7 +884,7 @@ class Item extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * @return bool
      */
-    public function isAcceptRevocationInstruction()
+    public function isAcceptRevocationInstruction(): bool
     {
         return $this->acceptRevocationInstruction;
     }
@@ -1106,7 +892,7 @@ class Item extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * @param bool $acceptRevocationInstruction
      */
-    public function setAcceptRevocationInstruction($acceptRevocationInstruction)
+    public function setAcceptRevocationInstruction(bool $acceptRevocationInstruction)
     {
         $this->acceptRevocationInstruction = $acceptRevocationInstruction;
     }
@@ -1114,7 +900,7 @@ class Item extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * @return bool
      */
-    public function isAcceptPrivacyPolicy()
+    public function isAcceptPrivacyPolicy(): bool
     {
         return $this->acceptPrivacyPolicy;
     }
@@ -1122,7 +908,7 @@ class Item extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * @param bool $acceptPrivacyPolicy
      */
-    public function setAcceptPrivacyPolicy($acceptPrivacyPolicy)
+    public function setAcceptPrivacyPolicy(bool $acceptPrivacyPolicy)
     {
         $this->acceptPrivacyPolicy = $acceptPrivacyPolicy;
     }
@@ -1130,7 +916,7 @@ class Item extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * @return string
      */
-    public function getComment()
+    public function getComment(): string
     {
         return $this->comment;
     }
@@ -1138,7 +924,7 @@ class Item extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * @param string $comment
      */
-    public function setComment($comment)
+    public function setComment(string $comment)
     {
         $this->comment = $comment;
     }
@@ -1146,23 +932,15 @@ class Item extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * @return array
      */
-    public function getAdditional()
+    public function getAdditional(): array
     {
         return json_decode($this->additional, 1);
     }
 
     /**
-     * @return string
-     */
-    public function getAdditionalJson()
-    {
-        return $this->additional;
-    }
-
-    /**
      * @param array $additional
      */
-    public function setAdditional($additional)
+    public function setAdditional(array $additional)
     {
         $this->additional = json_encode($additional);
     }

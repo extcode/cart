@@ -12,115 +12,85 @@ namespace Extcode\Cart\Domain\Model\Order;
 class Product extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 {
     /**
-     * Item
-     *
      * @var \Extcode\Cart\Domain\Model\Order\Item
      */
     protected $item;
 
     /**
-     * Product Type
-     *
      * @var string
      */
     protected $productType = '';
 
     /**
-     * Sku
-     *
      * @var string
      * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
      */
-    protected $sku;
+    protected $sku = '';
 
     /**
-     * Title
-     *
      * @var string
      * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
      */
-    protected $title;
+    protected $title = '';
 
     /**
-     * Count
-     *
      * @var int
      * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
      */
     protected $count = 0;
 
     /**
-     * Price
-     *
      * @var float
      * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
      */
     protected $price = 0.0;
 
     /**
-     * Discount
-     *
      * @var float
      * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
      */
     protected $discount = 0.0;
 
     /**
-     * Gross
-     *
      * @var float
      * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
      */
     protected $gross = 0.0;
 
     /**
-     * Gross
-     *
      * @var float
      * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
      */
     protected $net = 0.0;
 
     /**
-     * Order Tax Class
-     *
      * @var \Extcode\Cart\Domain\Model\Order\TaxClass
      * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
      */
     protected $taxClass;
 
     /**
-     * Tax
-     *
      * @var float
      * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
      */
     protected $tax = 0.0;
 
     /**
-     * Additional Data
-     *
      * @var string
      */
-    protected $additionalData;
+    protected $additionalData = '';
 
     /**
-     * Product Additional
-     *
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<Extcode\Cart\Domain\Model\Order\ProductAdditional>
+     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Extcode\Cart\Domain\Model\Order\ProductAdditional>
      */
     protected $productAdditional;
 
     /**
-     * Additional
-     *
      * @var string
      */
-    protected $additional;
+    protected $additional = '';
 
     /**
-     * __construct
-     *
      * @param string $sku
      * @param string $title
      * @param int $count
@@ -146,228 +116,182 @@ class Product extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     }
 
     /**
-     * Returns the Order Item
-     *
-     * @return \Extcode\Cart\Domain\Model\Order\Item
+     * @return Item|null
      */
-    public function getItem()
+    public function getItem(): ?Item
     {
         return $this->item;
     }
 
     /**
-     * Returns the Product Type
-     *
      * @return string
      */
-    public function getProductType()
+    public function getProductType(): string
     {
         return $this->productType;
     }
 
     /**
-     * Sets the Product Type
-     *
      * @var string $productType
      */
-    public function setProductType($productType)
+    public function setProductType(string $productType)
     {
         $this->productType = $productType;
     }
 
     /**
-     * Gets Additional Data
-     *
      * @return string
      */
-    public function getAdditionalData()
+    public function getAdditionalData(): string
     {
         return $this->additionalData;
     }
 
     /**
-     * Sets Additional Data
-     *
      * @param string $additionalData
      */
-    public function setAdditionalData($additionalData)
+    public function setAdditionalData(string $additionalData)
     {
         $this->additionalData = $additionalData;
     }
 
     /**
-     * Gets Count
-     *
      * @return int
      */
-    public function getCount()
+    public function getCount(): int
     {
         return $this->count;
     }
 
     /**
-     * Sets Price
-     *
      * @param float $price
      */
-    public function setPrice($price)
+    public function setPrice(float $price)
     {
         $this->price = $price;
     }
 
     /**
-     * Gets Price
-     *
      * @return float
      */
-    public function getPrice()
+    public function getPrice(): float
     {
         return $this->price;
     }
 
     /**
-     * Sets Discount
-     *
      * @param float $discount
      */
-    public function setDiscount($discount)
+    public function setDiscount(float $discount)
     {
         $this->discount = $discount;
     }
 
     /**
-     * Gets Discount
-     *
      * @return float
      */
-    public function getDiscount()
+    public function getDiscount(): float
     {
         return $this->discount;
     }
 
     /**
-     * Sets Gross
-     *
      * @param float $gross
      */
-    public function setGross($gross)
+    public function setGross(float $gross)
     {
         $this->gross = $gross;
     }
 
     /**
-     * Gets Gross
-     *
      * @return float
      */
-    public function getGross()
+    public function getGross(): float
     {
         return $this->gross;
     }
 
     /**
-     * Sets Net
-     *
      * @param float $net
      */
-    public function setNet($net)
+    public function setNet(float $net)
     {
         $this->net = $net;
     }
 
     /**
-     * Gets Net
-     *
      * @return float
      */
-    public function getNet()
+    public function getNet(): float
     {
         return $this->net;
     }
 
     /**
-     * Gets Sku
-     *
      * @return string
      */
-    public function getSku()
+    public function getSku(): string
     {
         return $this->sku;
     }
 
     /**
-     * Gets Tax Class
-     *
-     * @return \Extcode\Cart\Domain\Model\Order\TaxClass
+     * @return TaxClass|null
      */
-    public function getTaxClass()
+    public function getTaxClass(): ?TaxClass
     {
         return $this->taxClass;
     }
 
     /**
-     * Sets Tax Class
-     *
-     * @param \Extcode\Cart\Domain\Model\Order\TaxClass $taxClass
+     * @param TaxClass $taxClass
      */
-    public function setTaxClass(\Extcode\Cart\Domain\Model\Order\TaxClass $taxClass)
+    public function setTaxClass(TaxClass $taxClass)
     {
         $this->taxClass = $taxClass;
     }
 
     /**
-     * Gets Tax
-     *
      * @return float
      */
-    public function getTax()
+    public function getTax(): float
     {
         return $this->tax;
     }
 
     /**
-     * Sets Tax
-     *
      * @param float $tax
      */
-    public function setTax($tax)
+    public function setTax(float $tax)
     {
         $this->tax = $tax;
     }
 
     /**
-     * Gets Title
-     *
      * @return string
      */
-    public function getTitle()
+    public function getTitle(): string
     {
         return $this->title;
     }
 
     /**
-     * Adds a ProductAdditional
-     *
-     * @param \Extcode\Cart\Domain\Model\Order\ProductAdditional $productAdditional
+     * @param ProductAdditional $productAdditional
      */
-    public function addProductAdditional(\Extcode\Cart\Domain\Model\Order\ProductAdditional $productAdditional)
+    public function addProductAdditional(ProductAdditional $productAdditional)
     {
         $this->productAdditional->attach($productAdditional);
     }
 
     /**
-     * Removes a ProductAdditional
-     *
-     * @param \Extcode\Cart\Domain\Model\Order\ProductAdditional $productAdditional
+     * @param ProductAdditional $productAdditional
      */
-    public function removeProductAdditional(\Extcode\Cart\Domain\Model\Order\ProductAdditional $productAdditional)
+    public function removeProductAdditional(ProductAdditional $productAdditional)
     {
         $this->productAdditional->detach($productAdditional);
     }
 
     /**
-     * Returns the ProductAdditional
-     *
      * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Extcode\Cart\Domain\Model\Order\ProductAdditional>
      */
     public function getProductAdditional()
@@ -376,8 +300,6 @@ class Product extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     }
 
     /**
-     * Sets the ProductAdditional
-     *
      * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Extcode\Cart\Domain\Model\Order\ProductAdditional> $productAdditional
      */
     public function setProductAdditional(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $productAdditional)
@@ -388,23 +310,15 @@ class Product extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * @return array
      */
-    public function getAdditional()
+    public function getAdditional(): array
     {
         return json_decode($this->additional, 1);
     }
 
     /**
-     * @return string
-     */
-    public function getAdditionalJson()
-    {
-        return $this->additional;
-    }
-
-    /**
      * @param array $additional
      */
-    public function setAdditional($additional)
+    public function setAdditional(array $additional)
     {
         $this->additional = json_encode($additional);
     }

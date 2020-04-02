@@ -12,197 +12,147 @@ namespace Extcode\Cart\Domain\Model\Cart;
 class Product
 {
     /**
-     * Product Type
-     *
      * @var string
      */
     protected $productType;
 
     /**
-     * Product Id
-     *
      * @var int
      */
     protected $productId;
 
     /**
-     * Cart
-     *
      * @var Cart
      */
     protected $cart = null;
 
     /**
-     * Title
-     *
      * @var string
      */
     protected $title;
 
     /**
-     * SKU
-     *
      * @var string
      */
     protected $sku;
 
     /**
-     * Price
-     *
      * @var float
      */
     protected $price;
 
     /**
-     * Special Price
-     *
      * @var float
      */
     protected $specialPrice = null;
 
     /**
-     * Quantity Discounts
-     *
      * @var array
      */
     protected $quantityDiscounts = [];
 
     /**
-     * Quantity
-     *
      * @var int
      */
     protected $quantity;
 
     /**
-     * Gross
-     *
      * @var float
      */
     protected $gross;
 
     /**
-     * Net
-     *
      * @var float
      */
     protected $net;
 
     /**
-     * Tax Class
-     *
      * @var \Extcode\Cart\Domain\Model\Cart\TaxClass
      */
     protected $taxClass;
 
     /**
-     * Tax
-     *
      * @var float
      */
     protected $tax;
 
     /**
-     * Error
-     *
      * @var string
      */
     protected $error;
 
     /**
-     * Is Virtual Product
-     *
      * @var bool
      */
     protected $isVirtualProduct = false;
 
     /**
-     * Service Attribute 1
-     *
      * @var float
      */
     protected $serviceAttribute1;
 
     /**
-     * Service Attribute 2
-     *
      * @var float
      */
     protected $serviceAttribute2;
 
     /**
-     * Service Attribute 3
-     *
      * @var float
      */
     protected $serviceAttribute3;
 
     /**
-     * Is Net Price
-     *
      * @var bool
      */
-    protected $isNetPrice;
+    protected $isNetPrice = false;
 
     /**
-     * Variants
-     *
      * @var array BeVariant
      */
     protected $beVariants = [];
 
     /**
-     * Frontend Variant
-     *
      * @var \Extcode\Cart\Domain\Model\Cart\FeVariant
      */
-    protected $feVariant;
+    protected $feVariant = null;
 
     /**
-     * Additional
-     *
      * @var array Additional
      */
     protected $additional = [];
 
     /**
-     * Min Number In Cart
-     *
      * @var int
      */
     protected $minNumberInCart = 0;
 
     /**
-     * Max Number in Cart
-     *
      * @var int
      */
     protected $maxNumberInCart = 0;
 
     /**
-     * Stock
+     * Number of products in stock.
      *
      * @var int
      */
     protected $stock = 0;
 
     /**
-     * Handle Stock
+     * Is the stock management active for this product?
      *
      * @var bool
      */
     protected $handleStock = false;
 
     /**
-     * Handle Stock in Variants
+     * Is the stock management for this product covered in the backend variants?
      *
      * @var bool
      */
     protected $handleStockInVariants = false;
 
     /**
-     * __construct
-     *
      * @param string $productType
      * @param int $productId
      * @param string $sku
@@ -243,17 +193,25 @@ class Product
     }
 
     /**
-     * @param $cart
+     * @param Cart $cart
      */
-    public function setCart($cart)
+    public function setCart(Cart $cart)
     {
         $this->cart = $cart;
     }
 
     /**
+     * @return string
+     */
+    public function getSku(): string
+    {
+        return $this->sku;
+    }
+
+    /**
      * @param string $sku
      */
-    public function setSku($sku)
+    public function setSku(string $sku)
     {
         $this->sku = $sku;
     }
@@ -261,15 +219,7 @@ class Product
     /**
      * @return string
      */
-    public function getSku()
-    {
-        return $this->sku;
-    }
-
-    /**
-     * @return string
-     */
-    public function getTitle()
+    public function getTitle(): string
     {
         return $this->title;
     }
@@ -277,7 +227,7 @@ class Product
     /**
      * @param string $title
      */
-    public function setTitle($title)
+    public function setTitle(string $title)
     {
         $this->title = $title;
     }
@@ -285,7 +235,7 @@ class Product
     /**
      * @return bool
      */
-    public function getIsNetPrice()
+    public function getIsNetPrice(): bool
     {
         return $this->isNetPrice;
     }
@@ -293,7 +243,7 @@ class Product
     /**
      * @param array $newVariants
      */
-    public function addBeVariants($newVariants)
+    public function addBeVariants(array $newVariants)
     {
         foreach ($newVariants as $newVariant) {
             $this->addBeVariant($newVariant);
@@ -301,9 +251,9 @@ class Product
     }
 
     /**
-     * @param \Extcode\Cart\Domain\Model\Cart\BeVariant $newVariant
+     * @param BeVariant $newVariant
      */
-    public function addBeVariant(\Extcode\Cart\Domain\Model\Cart\BeVariant $newVariant)
+    public function addBeVariant(BeVariant $newVariant)
     {
         $newVariantsId = $newVariant->getId();
 
@@ -326,7 +276,7 @@ class Product
     /**
      * @param array $variantQuantity
      */
-    public function changeVariantsQuantity($variantQuantity)
+    public function changeVariantsQuantity(array $variantQuantity)
     {
         foreach ($variantQuantity as $variantId => $quantity) {
             /** @var \Extcode\Cart\Domain\Model\Cart\BeVariant $variant */
@@ -344,9 +294,9 @@ class Product
     }
 
     /**
-     * @return \Extcode\Cart\Domain\Model\Cart\FeVariant
+     * @return FeVariant|null
      */
-    public function getFeVariant()
+    public function getFeVariant(): ?FeVariant
     {
         return $this->feVariant;
     }
@@ -354,34 +304,34 @@ class Product
     /**
      * @return array
      */
-    public function getBeVariants()
+    public function getBeVariants(): array
     {
         return $this->beVariants;
     }
 
     /**
-     * @param $variantId
-     * @return \Extcode\Cart\Domain\Model\Cart\BeVariant
+     * @param string $variantId
+     * @return BeVariant|null
      */
-    public function getBeVariantById($variantId)
+    public function getBeVariantById(string $variantId): ?BeVariant
     {
         return $this->beVariants[$variantId];
     }
 
     /**
-     * @param $variantId
-     * @return \Extcode\Cart\Domain\Model\Cart\BeVariant
+     * @param string $variantId
+     * @return BeVariant
      */
-    public function getBeVariant($variantId)
+    public function getBeVariant(string $variantId): ?BeVariant
     {
         return $this->getBeVariantById($variantId);
     }
 
     /**
-     * @param $variantsArray
-     * @return bool|int
+     * @param array $variantsArray
+     * @return int
      */
-    public function removeBeVariants($variantsArray)
+    public function removeBeVariants(array $variantsArray): int
     {
         foreach ($variantsArray as $variantId => $value) {
             /** @var \Extcode\Cart\Domain\Model\Cart\BeVariant $variant */
@@ -405,13 +355,13 @@ class Product
             }
         }
 
-        return true;
+        return 1;
     }
 
     /**
-     * @param $variantId
+     * @param string $variantId
      */
-    public function removeVariantById($variantId)
+    public function removeVariantById(string $variantId)
     {
         unset($this->beVariants[$variantId]);
 
@@ -419,19 +369,19 @@ class Product
     }
 
     /**
-     * @param $variantId
+     * @param string $variantId
      */
-    public function removeVariant($variantId)
+    public function removeVariant(string $variantId)
     {
         $this->removeVariantById($variantId);
     }
 
     /**
-     * @param $variantId
-     * @param $newQuantity
+     * @param string $variantId
+     * @param int $newQuantity
      * @internal param $id
      */
-    public function changeVariantById($variantId, $newQuantity)
+    public function changeVariantById(string $variantId, int $newQuantity)
     {
         $this->beVariants[$variantId]->changeQuantity($newQuantity);
 
@@ -441,7 +391,7 @@ class Product
     /**
      * @return string
      */
-    public function getProductType()
+    public function getProductType(): string
     {
         return $this->productType;
     }
@@ -449,7 +399,7 @@ class Product
     /**
      * @return int
      */
-    public function getProductId()
+    public function getProductId(): int
     {
         return $this->productId;
     }
@@ -457,7 +407,7 @@ class Product
     /**
      * @return string
      */
-    public function getId()
+    public function getId(): string
     {
         return $id = $this->getTableProductId();
     }
@@ -465,7 +415,7 @@ class Product
     /**
      * @return string
      */
-    protected function getTableProductId()
+    protected function getTableProductId(): string
     {
         $tableProductId = $this->getProductType() . '_' . $this->getProductId();
         if ($this->getFeVariant()) {
@@ -477,7 +427,7 @@ class Product
     /**
      * @return float
      */
-    public function getPrice()
+    public function getPrice(): float
     {
         return $this->price;
     }
@@ -485,7 +435,7 @@ class Product
     /**
      * @return float
      */
-    public function getTranslatedPrice()
+    public function getTranslatedPrice(): float
     {
         if ($this->cart) {
             return $this->cart->translatePrice($this->getPrice());
@@ -497,17 +447,17 @@ class Product
     /**
      * Returns Special Price
      *
-     * @return float
+     * @return float|null
      */
-    public function getSpecialPrice()
+    public function getSpecialPrice(): ?float
     {
         return $this->specialPrice;
     }
 
     /**
-     * @return float
+     * @return float|null
      */
-    public function getTranslatedSpecialPrice()
+    public function getTranslatedSpecialPrice(): ?float
     {
         if ($this->cart) {
             return $this->cart->translatePrice($this->getSpecialPrice());
@@ -521,7 +471,7 @@ class Product
      *
      * @param float $specialPrice
      */
-    public function setSpecialPrice($specialPrice)
+    public function setSpecialPrice(float $specialPrice)
     {
         $this->specialPrice = $specialPrice;
     }
@@ -531,7 +481,7 @@ class Product
      *
      * @return array
      */
-    public function getQuantityDiscounts()
+    public function getQuantityDiscounts(): array
     {
         return $this->quantityDiscounts;
     }
@@ -543,7 +493,7 @@ class Product
      *
      * @return float
      */
-    public function getQuantityDiscountPrice($quantity = null)
+    public function getQuantityDiscountPrice(int $quantity = null): float
     {
         $price = $this->getTranslatedPrice();
 
@@ -565,7 +515,7 @@ class Product
      *
      * @param array $quantityDiscounts
      */
-    public function setQuantityDiscounts($quantityDiscounts)
+    public function setQuantityDiscounts(array $quantityDiscounts)
     {
         $this->quantityDiscounts = $quantityDiscounts;
     }
@@ -577,7 +527,7 @@ class Product
      *
      * @return float
      */
-    public function getBestPrice($quantity = null)
+    public function getBestPrice(int $quantity = null)
     {
         $bestPrice = $this->getQuantityDiscountPrice($quantity);
 
@@ -593,7 +543,7 @@ class Product
      *
      * @return float
      */
-    public function getDiscount()
+    public function getDiscount(): float
     {
         $discount = $this->getTranslatedPrice() - $this->getBestPrice();
 
@@ -605,7 +555,7 @@ class Product
      *
      * @return float
      */
-    public function getSpecialPriceDiscount()
+    public function getSpecialPriceDiscount(): float
     {
         $discount = 0.0;
         if (($this->getTranslatedPrice() != 0.0) && ($this->getTranslatedSpecialPrice())) {
@@ -617,27 +567,23 @@ class Product
     /**
      * @return float
      */
-    public function getPriceTax()
+    public function getPriceTax(): float
     {
         return ($this->getBestPrice() / (1 + $this->taxClass->getCalc())) * ($this->taxClass->getCalc());
     }
 
     /**
-     * Returns TaxClass
-     *
-     * @return \Extcode\Cart\Domain\Model\Cart\TaxClass
+     * @return TaxClass
      */
-    public function getTaxClass()
+    public function getTaxClass(): TaxClass
     {
         return $this->taxClass;
     }
 
     /**
-     * Sets TaxClass
-     *
-     * @param \Extcode\Cart\Domain\Model\Cart\TaxClass $taxClass
+     * @param TaxClass $taxClass
      */
-    public function setTaxClass(\Extcode\Cart\Domain\Model\Cart\TaxClass $taxClass)
+    public function setTaxClass(TaxClass $taxClass)
     {
         $this->taxClass = $taxClass;
     }
@@ -645,11 +591,11 @@ class Product
     /**
      * @param int $newQuantity
      */
-    public function changeQuantity($newQuantity)
+    public function changeQuantity(int $newQuantity)
     {
         if ($this->quantity != $newQuantity) {
             if ($newQuantity === 0) {
-                $this->cart->removeproduct($this);
+                $this->cart->removeProduct($this);
             } else {
                 $this->quantity = $newQuantity;
                 $this->reCalc();
@@ -660,7 +606,7 @@ class Product
     /**
      * @param array $newQuantities
      */
-    public function changeQuantities($newQuantities)
+    public function changeQuantities(array $newQuantities)
     {
         foreach ($newQuantities as $newQuantityKey => $newQuantityValue) {
             if ($newQuantityValue === 0) {
@@ -675,7 +621,7 @@ class Product
     /**
      * @return int
      */
-    public function getQuantity()
+    public function getQuantity(): int
     {
         return $this->quantity;
     }
@@ -689,7 +635,7 @@ class Product
      *
      * @return int
      */
-    protected function isQuantityLeavingRange()
+    protected function isQuantityLeavingRange(): int
     {
         $outOfRange = 0;
 
@@ -708,19 +654,19 @@ class Product
      *
      * @return bool
      */
-    protected function isQuantityInRange()
+    protected function isQuantityInRange(): bool
     {
-        $inRange = true;
         if ($this->isQuantityLeavingRange() != 0) {
-            $inRange = false;
+            return false;
         }
-        return $inRange;
+
+        return true;
     }
 
     /**
      * @return bool
      */
-    public function getQuantityIsInRange()
+    public function getQuantityIsInRange(): bool
     {
         return $this->isQuantityInRange();
     }
@@ -728,7 +674,7 @@ class Product
     /**
      * @return int
      */
-    public function getQuantityIsLeavingRange()
+    public function getQuantityIsLeavingRange(): int
     {
         return $this->isQuantityLeavingRange();
     }
@@ -737,15 +683,13 @@ class Product
      * Returns true if Quantity in cart is below Min Number In Cart
      * @return bool
      */
-    public function getQuantityBelowRange()
+    public function getQuantityBelowRange(): bool
     {
-        $belowRange = false;
-
         if ($this->quantity < $this->minNumberInCart) {
-            $belowRange = true;
+            return true;
         }
 
-        return $belowRange;
+        return false;
     }
 
     /**
@@ -753,21 +697,19 @@ class Product
      *
      * @return bool
      */
-    public function getQuantityAboveRange()
+    public function getQuantityAboveRange(): bool
     {
-        $aboveRange = false;
-
         if (($this->maxNumberInCart > 0) && ($this->quantity > $this->maxNumberInCart)) {
-            $aboveRange = true;
+            return true;
         }
 
-        return $aboveRange;
+        return false;
     }
 
     /**
      * @return float
      */
-    public function getGross()
+    public function getGross(): float
     {
         $gross = 0.0;
         if ($this->isQuantityInRange()) {
@@ -780,7 +722,7 @@ class Product
     /**
      * @return float
      */
-    public function getNet()
+    public function getNet(): float
     {
         $net = 0.0;
         if ($this->isQuantityInRange()) {
@@ -793,7 +735,7 @@ class Product
     /**
      * @return float
      */
-    public function getTax()
+    public function getTax(): float
     {
         $tax = 0.0;
         if ($this->isQuantityInRange()) {
@@ -814,7 +756,7 @@ class Product
     /**
      * @return bool
      */
-    public function getIsVirtualProduct()
+    public function getIsVirtualProduct(): bool
     {
         return $this->isVirtualProduct;
     }
@@ -822,15 +764,15 @@ class Product
     /**
      * @param bool $isVirtualProduct
      */
-    public function setIsVirtualProduct($isVirtualProduct)
+    public function setIsVirtualProduct(bool $isVirtualProduct)
     {
         $this->isVirtualProduct = $isVirtualProduct;
     }
 
     /**
-     * @return float
+     * @return float|null
      */
-    public function getServiceAttribute1()
+    public function getServiceAttribute1(): ?float
     {
         return $this->serviceAttribute1;
     }
@@ -838,15 +780,15 @@ class Product
     /**
      * @param float $serviceAttribute1
      */
-    public function setServiceAttribute1($serviceAttribute1)
+    public function setServiceAttribute1(float $serviceAttribute1)
     {
-        $this->serviceAttribute1 = floatval($serviceAttribute1);
+        $this->serviceAttribute1 = $serviceAttribute1;
     }
 
     /**
-     * @return float
+     * @return float|null
      */
-    public function getServiceAttribute2()
+    public function getServiceAttribute2(): ?float
     {
         return $this->serviceAttribute2;
     }
@@ -854,15 +796,15 @@ class Product
     /**
      * @param float $serviceAttribute2
      */
-    public function setServiceAttribute2($serviceAttribute2)
+    public function setServiceAttribute2(float $serviceAttribute2)
     {
-        $this->serviceAttribute2 = floatval($serviceAttribute2);
+        $this->serviceAttribute2 = $serviceAttribute2;
     }
 
     /**
-     * @return float
+     * @return float|null
      */
-    public function getServiceAttribute3()
+    public function getServiceAttribute3(): ?float
     {
         return $this->serviceAttribute3;
     }
@@ -870,15 +812,15 @@ class Product
     /**
      * @param float $serviceAttribute3
      */
-    public function setServiceAttribute3($serviceAttribute3)
+    public function setServiceAttribute3(float $serviceAttribute3)
     {
-        $this->serviceAttribute3 = floatval($serviceAttribute3);
+        $this->serviceAttribute3 = $serviceAttribute3;
     }
 
     /**
      * @return array
      */
-    public function toArray()
+    public function toArray(): array
     {
         $productArr = [
             'productType' => $this->productType,
@@ -915,13 +857,11 @@ class Product
     /**
      * @return string
      */
-    public function toJson()
+    public function toJson(): string
     {
         return json_encode($this->toArray());
     }
 
-    /**
-     */
     protected function calcGross()
     {
         if ($this->isNetPrice == false) {
@@ -942,8 +882,6 @@ class Product
         }
     }
 
-    /**
-     */
     protected function calcTax()
     {
         if ($this->isNetPrice == false) {
@@ -953,8 +891,6 @@ class Product
         }
     }
 
-    /**
-     */
     protected function calcNet()
     {
         if ($this->isNetPrice == true) {
@@ -975,8 +911,6 @@ class Product
         }
     }
 
-    /**
-     */
     protected function reCalc()
     {
         if ($this->beVariants) {
@@ -999,24 +933,24 @@ class Product
     /**
      * @return array
      */
-    public function getAdditionalArray()
+    public function getAdditionalArray(): array
     {
         return $this->additional;
     }
 
     /**
-     * @param $additional
+     * @param array $additional
      */
-    public function setAdditionalArray($additional)
+    public function setAdditionalArray(array $additional)
     {
         $this->additional = $additional;
     }
 
     /**
-     * @param $key
+     * @param string $key
      * @return mixed
      */
-    public function getAdditional($key)
+    public function getAdditional(string $key)
     {
         return $this->additional[$key];
     }
@@ -1033,7 +967,7 @@ class Product
     /**
      * @return int
      */
-    public function getMinNumberInCart()
+    public function getMinNumberInCart(): int
     {
         return $this->minNumberInCart;
     }
@@ -1041,7 +975,7 @@ class Product
     /**
      * @param int $minNumberInCart
      */
-    public function setMinNumberInCart($minNumberInCart)
+    public function setMinNumberInCart(int $minNumberInCart)
     {
         if ($minNumberInCart < 0 ||
             ($this->maxNumberInCart > 0 && $minNumberInCart > $this->maxNumberInCart)
@@ -1055,7 +989,7 @@ class Product
     /**
      * @return int
      */
-    public function getMaxNumberInCart()
+    public function getMaxNumberInCart(): int
     {
         return $this->maxNumberInCart;
     }
@@ -1063,7 +997,7 @@ class Product
     /**
      * @param int $maxNumberInCart
      */
-    public function setMaxNumberInCart($maxNumberInCart)
+    public function setMaxNumberInCart(int $maxNumberInCart)
     {
         if ($maxNumberInCart < 0 || $maxNumberInCart < $this->minNumberInCart) {
             throw new \InvalidArgumentException;
@@ -1075,7 +1009,7 @@ class Product
     /**
      * @return int
      */
-    public function getStock()
+    public function getStock(): int
     {
         return $this->stock;
     }
@@ -1083,47 +1017,39 @@ class Product
     /**
      * @param int $stock
      */
-    public function setStock($stock)
+    public function setStock(int $stock)
     {
         $this->stock = $stock;
     }
 
     /**
-     * Returns Handle Stock
-     *
      * @return bool
      */
-    public function isHandleStock()
+    public function isHandleStock(): bool
     {
         return $this->handleStock;
     }
 
     /**
-     * Sets Handle Stock
-     *
      * @param bool $handleStock
      */
-    public function setHandleStock($handleStock)
+    public function setHandleStock(bool $handleStock)
     {
         $this->handleStock = $handleStock;
     }
 
     /**
-     * Returns Handle Stock In Variants
-     *
      * @return bool
      */
-    public function isHandleStockInVariants()
+    public function isHandleStockInVariants(): bool
     {
         return $this->handleStockInVariants;
     }
 
     /**
-     * Sets Handle Stock In Variants
-     *
      * @param bool $handleStockInVariants
      */
-    public function setHandleStockInVariants($handleStockInVariants)
+    public function setHandleStockInVariants(bool $handleStockInVariants)
     {
         $this->handleStockInVariants = $handleStockInVariants;
     }

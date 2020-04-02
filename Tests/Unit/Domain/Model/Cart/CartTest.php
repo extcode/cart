@@ -1588,7 +1588,7 @@ class CartTest extends UnitTestCase
     /**
      * @test
      */
-    public function getCurrencyTranslationInitiallyReturnsString()
+    public function getCurrencyTranslationInitiallyReturnsFloat()
     {
         $this->assertSame(
             1.0,
@@ -1606,7 +1606,7 @@ class CartTest extends UnitTestCase
      */
     public function constructorSetsCurrencyTranslation()
     {
-        $this->cart = new \Extcode\Cart\Domain\Model\Cart\Cart(
+        $cart = new \Extcode\Cart\Domain\Model\Cart\Cart(
             $this->taxClasses,
             false,
             'USD',
@@ -1616,7 +1616,7 @@ class CartTest extends UnitTestCase
 
         $this->assertSame(
             1.5,
-            $this->cart->getCurrencyTranslation()
+            $cart->getCurrencyTranslation()
         );
     }
 

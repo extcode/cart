@@ -14,12 +14,12 @@ class BillingAddress extends \Extcode\Cart\Domain\Model\Order\AbstractAddress
     /**
      * @var string
      */
-    protected $taxIdentificationNumber;
+    protected $taxIdentificationNumber = '';
 
     /**
      * @return string
      */
-    public function getTaxIdentificationNumber()
+    public function getTaxIdentificationNumber(): string
     {
         return $this->taxIdentificationNumber;
     }
@@ -27,7 +27,7 @@ class BillingAddress extends \Extcode\Cart\Domain\Model\Order\AbstractAddress
     /**
      * @param string $taxIdentificationNumber
      */
-    public function setTaxIdentificationNumber($taxIdentificationNumber)
+    public function setTaxIdentificationNumber(string $taxIdentificationNumber)
     {
         $this->taxIdentificationNumber = $taxIdentificationNumber;
     }

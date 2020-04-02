@@ -11,34 +11,25 @@ namespace Extcode\Cart\Domain\Model\Order;
 
 class TaxClass extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 {
-
     /**
-     * Title
-     *
      * @var string
      * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
      */
-    protected $title;
+    protected $title = '';
 
     /**
-     * Value
-     *
      * @var string
      * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
      */
-    protected $value;
+    protected $value = '';
 
     /**
-     * Calc
-     *
      * @var float
      * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
      */
     protected $calc = 0.0;
 
     /**
-     * __construct
-     *
      * @param string $title
      * @param string $value
      * @param float $calc
@@ -54,47 +45,37 @@ class TaxClass extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     }
 
     /**
-     * Returns TaxClassArray
-     *
      * @return array
      */
-    public function toArray()
+    public function toArray(): array
     {
-        $taxClassArray = [
+        return [
             'title' => $this->getTitle(),
             'value' => $this->getValue(),
             'calc' => $this->getCalc(),
         ];
-
-        return $taxClassArray;
     }
 
     /**
-     * Gets Calc
-     *
      * @return float
      */
-    public function getCalc()
+    public function getCalc(): float
     {
         return $this->calc;
     }
 
     /**
-     * Gets Title
-     *
      * @return string
      */
-    public function getTitle()
+    public function getTitle(): string
     {
         return $this->title;
     }
 
     /**
-     * Gets Value
-     *
      * @return string
      */
-    public function getValue()
+    public function getValue(): string
     {
         return $this->value;
     }

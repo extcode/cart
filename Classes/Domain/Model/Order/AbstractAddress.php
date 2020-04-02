@@ -12,116 +12,84 @@ namespace Extcode\Cart\Domain\Model\Order;
 abstract class AbstractAddress extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 {
     /**
-     * Order Item
-     *
      * @var \Extcode\Cart\Domain\Model\Order\Item
      */
     protected $item = null;
 
     /**
-     * Title
-     *
      * @var string
      */
     protected $title = '';
 
     /**
-     * Salutation
-     *
      * @var string
      */
-    protected $salutation;
+    protected $salutation = '';
 
     /**
-     * FirstName
-     *
      * @var string
      */
-    protected $firstName;
+    protected $firstName = '';
 
     /**
-     * LastName
-     *
      * @var string
      */
-    protected $lastName;
+    protected $lastName = '';
 
     /**
-     * Email
-     *
      * @var string
      */
-    protected $email;
+    protected $email = '';
 
     /**
-     * Company
-     *
      * @var string
      */
     protected $company = '';
 
     /**
-     * Street
-     *
      * @var string
      */
-    protected $street;
+    protected $street = '';
 
     /**
-     * Street Number
-     *
      * @var string
      */
-    protected $streetNumber;
+    protected $streetNumber = '';
 
     /**
-     * Zip
-     *
      * @var string
      */
-    protected $zip;
+    protected $zip = '';
 
     /**
-     * City
-     *
      * @var string
      */
-    protected $city;
+    protected $city = '';
 
     /**
-     * Country
-     *
      * @var string
      */
-    protected $country;
+    protected $country = '';
 
     /**
-     * Phone
-     *
      * @var string
      */
     protected $phone = '';
 
     /**
-     * Fax
-     *
      * @var string
      */
     protected $fax = '';
 
     /**
-     * Additional
-     *
      * @var string
      */
-    protected $additional;
+    protected $additional = '';
 
     /**
-     * Returns AddressArray
-     *
      * @return array
      */
-    public function toArray()
+    public function toArray(): array
     {
         $address = [
             'salutation' => $this->getSalutation(),
@@ -143,11 +111,9 @@ abstract class AbstractAddress extends \TYPO3\CMS\Extbase\DomainObject\AbstractE
     }
 
     /**
-     * Returns the Order Item
-     *
-     * @return \Extcode\Cart\Domain\Model\Order\Item
+     * @return Item|null
      */
-    public function getItem()
+    public function getItem(): ?Item
     {
         return $this->item;
     }
@@ -161,21 +127,17 @@ abstract class AbstractAddress extends \TYPO3\CMS\Extbase\DomainObject\AbstractE
     }
 
     /**
-     * Get Title
-     *
      * @return string
      */
-    public function getTitle()
+    public function getTitle(): string
     {
         return $this->title;
     }
 
     /**
-     * Sets Title
-     *
      * @param string $title
      */
-    public function setTitle($title)
+    public function setTitle(string $title)
     {
         $this->title = $title;
     }
@@ -183,7 +145,7 @@ abstract class AbstractAddress extends \TYPO3\CMS\Extbase\DomainObject\AbstractE
     /**
      * @return string
      */
-    public function getSalutation()
+    public function getSalutation(): string
     {
         return $this->salutation;
     }
@@ -191,7 +153,7 @@ abstract class AbstractAddress extends \TYPO3\CMS\Extbase\DomainObject\AbstractE
     /**
      * @param string $salutation
      */
-    public function setSalutation($salutation)
+    public function setSalutation(string $salutation)
     {
         $this->salutation = $salutation;
     }
@@ -199,7 +161,7 @@ abstract class AbstractAddress extends \TYPO3\CMS\Extbase\DomainObject\AbstractE
     /**
      * @return string
      */
-    public function getFirstName()
+    public function getFirstName(): string
     {
         return $this->firstName;
     }
@@ -207,7 +169,7 @@ abstract class AbstractAddress extends \TYPO3\CMS\Extbase\DomainObject\AbstractE
     /**
      * @param string $firstName
      */
-    public function setFirstName($firstName)
+    public function setFirstName(string $firstName)
     {
         $this->firstName = $firstName;
     }
@@ -215,15 +177,23 @@ abstract class AbstractAddress extends \TYPO3\CMS\Extbase\DomainObject\AbstractE
     /**
      * @return string
      */
-    public function getLastName()
+    public function getLastName(): string
     {
         return $this->lastName;
     }
 
     /**
+     * @param string $lastName
+     */
+    public function setLastName(string $lastName)
+    {
+        $this->lastName = $lastName;
+    }
+
+    /**
      * @return string
      */
-    public function getSalutationLastName()
+    public function getSalutationLastName(): string
     {
         $salutationLastName = [$this->salutation, $this->lastName];
         return implode(' ', array_filter($salutationLastName));
@@ -232,7 +202,7 @@ abstract class AbstractAddress extends \TYPO3\CMS\Extbase\DomainObject\AbstractE
     /**
      * @return string
      */
-    public function getTitleLastName()
+    public function getTitleLastName(): string
     {
         $titleLastName = [$this->title, $this->lastName];
         return implode(' ', array_filter($titleLastName));
@@ -241,7 +211,7 @@ abstract class AbstractAddress extends \TYPO3\CMS\Extbase\DomainObject\AbstractE
     /**
      * @return string
      */
-    public function getSalutationTitleLastName()
+    public function getSalutationTitleLastName(): string
     {
         $salutationTitleLastName = [$this->salutation, $this->title, $this->lastName];
         return implode(' ', array_filter($salutationTitleLastName));
@@ -250,19 +220,19 @@ abstract class AbstractAddress extends \TYPO3\CMS\Extbase\DomainObject\AbstractE
     /**
      * @return string
      */
-    public function getSalutationOrTitleLastName()
+    public function getSalutationOrTitleLastName(): string
     {
         if ($this->title) {
             return $this->getTitleLastName();
-        } else {
-            return $this->getSalutationLastName();
         }
+
+        return $this->getSalutationLastName();
     }
 
     /**
      * @return string
      */
-    public function getFullName()
+    public function getFullName(): string
     {
         $fullName = [$this->firstName, $this->lastName];
         return implode(' ', array_filter($fullName));
@@ -271,7 +241,7 @@ abstract class AbstractAddress extends \TYPO3\CMS\Extbase\DomainObject\AbstractE
     /**
      * @return string
      */
-    public function getSalutationFullName()
+    public function getSalutationFullName(): string
     {
         $salutationFullName = [$this->salutation, $this->firstName, $this->lastName];
         return implode(' ', array_filter($salutationFullName));
@@ -280,7 +250,7 @@ abstract class AbstractAddress extends \TYPO3\CMS\Extbase\DomainObject\AbstractE
     /**
      * @return string
      */
-    public function getTitleFullName()
+    public function getTitleFullName(): string
     {
         $titleFullName = [$this->title, $this->firstName, $this->lastName];
         return implode(' ', array_filter($titleFullName));
@@ -289,7 +259,7 @@ abstract class AbstractAddress extends \TYPO3\CMS\Extbase\DomainObject\AbstractE
     /**
      * @return string
      */
-    public function getSalutationTitleFullName()
+    public function getSalutationTitleFullName(): string
     {
         $salutationTitleFullName = [$this->salutation, $this->title, $this->firstName, $this->lastName];
         return implode(' ', array_filter($salutationTitleFullName));
@@ -298,7 +268,7 @@ abstract class AbstractAddress extends \TYPO3\CMS\Extbase\DomainObject\AbstractE
     /**
      * @return string
      */
-    public function getEmail()
+    public function getEmail(): string
     {
         return $this->email;
     }
@@ -306,7 +276,7 @@ abstract class AbstractAddress extends \TYPO3\CMS\Extbase\DomainObject\AbstractE
     /**
      * @param string $email
      */
-    public function setEmail($email)
+    public function setEmail(string $email)
     {
         $this->email = $email;
     }
@@ -314,7 +284,7 @@ abstract class AbstractAddress extends \TYPO3\CMS\Extbase\DomainObject\AbstractE
     /**
      * @return string
      */
-    public function getCompany()
+    public function getCompany(): string
     {
         return $this->company;
     }
@@ -322,23 +292,15 @@ abstract class AbstractAddress extends \TYPO3\CMS\Extbase\DomainObject\AbstractE
     /**
      * @param string $company
      */
-    public function setCompany($company)
+    public function setCompany(string $company)
     {
         $this->company = $company;
     }
 
     /**
-     * @param string $lastName
-     */
-    public function setLastName($lastName)
-    {
-        $this->lastName = $lastName;
-    }
-
-    /**
      * @return string
      */
-    public function getStreet()
+    public function getStreet(): string
     {
         return $this->street;
     }
@@ -346,7 +308,7 @@ abstract class AbstractAddress extends \TYPO3\CMS\Extbase\DomainObject\AbstractE
     /**
      * @param string $street
      */
-    public function setStreet($street)
+    public function setStreet(string $street)
     {
         $this->street = $street;
     }
@@ -354,7 +316,7 @@ abstract class AbstractAddress extends \TYPO3\CMS\Extbase\DomainObject\AbstractE
     /**
      * @return string
      */
-    public function getStreetNumber()
+    public function getStreetNumber(): string
     {
         return $this->streetNumber;
     }
@@ -362,7 +324,7 @@ abstract class AbstractAddress extends \TYPO3\CMS\Extbase\DomainObject\AbstractE
     /**
      * @param string $streetNumber
      */
-    public function setStreetNumber($streetNumber)
+    public function setStreetNumber(string $streetNumber)
     {
         $this->streetNumber = $streetNumber;
     }
@@ -370,7 +332,7 @@ abstract class AbstractAddress extends \TYPO3\CMS\Extbase\DomainObject\AbstractE
     /**
      * @return string
      */
-    public function getCity()
+    public function getCity(): string
     {
         return $this->city;
     }
@@ -378,7 +340,7 @@ abstract class AbstractAddress extends \TYPO3\CMS\Extbase\DomainObject\AbstractE
     /**
      * @param string $city
      */
-    public function setCity($city)
+    public function setCity(string $city)
     {
         $this->city = $city;
     }
@@ -386,7 +348,7 @@ abstract class AbstractAddress extends \TYPO3\CMS\Extbase\DomainObject\AbstractE
     /**
      * @return string
      */
-    public function getZip()
+    public function getZip(): string
     {
         return $this->zip;
     }
@@ -394,7 +356,7 @@ abstract class AbstractAddress extends \TYPO3\CMS\Extbase\DomainObject\AbstractE
     /**
      * @param string $zip
      */
-    public function setZip($zip)
+    public function setZip(string $zip)
     {
         $this->zip = $zip;
     }
@@ -402,7 +364,7 @@ abstract class AbstractAddress extends \TYPO3\CMS\Extbase\DomainObject\AbstractE
     /**
      * @return string
      */
-    public function getCountry()
+    public function getCountry(): string
     {
         return $this->country;
     }
@@ -410,7 +372,7 @@ abstract class AbstractAddress extends \TYPO3\CMS\Extbase\DomainObject\AbstractE
     /**
      * @param string $country
      */
-    public function setCountry($country)
+    public function setCountry(string $country)
     {
         $this->country = $country;
     }
@@ -418,7 +380,7 @@ abstract class AbstractAddress extends \TYPO3\CMS\Extbase\DomainObject\AbstractE
     /**
      * @return string
      */
-    public function getPhone()
+    public function getPhone(): string
     {
         return $this->phone;
     }
@@ -426,7 +388,7 @@ abstract class AbstractAddress extends \TYPO3\CMS\Extbase\DomainObject\AbstractE
     /**
      * @param string $phone
      */
-    public function setPhone($phone)
+    public function setPhone(string $phone)
     {
         $this->phone = $phone;
     }
@@ -434,7 +396,7 @@ abstract class AbstractAddress extends \TYPO3\CMS\Extbase\DomainObject\AbstractE
     /**
      * @return string
      */
-    public function getFax()
+    public function getFax(): string
     {
         return $this->fax;
     }
@@ -442,7 +404,7 @@ abstract class AbstractAddress extends \TYPO3\CMS\Extbase\DomainObject\AbstractE
     /**
      * @param string $fax
      */
-    public function setFax($fax)
+    public function setFax(string $fax)
     {
         $this->fax = $fax;
     }
@@ -450,7 +412,7 @@ abstract class AbstractAddress extends \TYPO3\CMS\Extbase\DomainObject\AbstractE
     /**
      * @return array
      */
-    public function getAdditional()
+    public function getAdditional(): array
     {
         return json_decode($this->additional, true);
     }
@@ -458,7 +420,7 @@ abstract class AbstractAddress extends \TYPO3\CMS\Extbase\DomainObject\AbstractE
     /**
      * @param array $additional
      */
-    public function setAdditional($additional)
+    public function setAdditional(array $additional)
     {
         $this->additional = json_encode($additional);
     }

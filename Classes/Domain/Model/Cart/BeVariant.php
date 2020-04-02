@@ -11,164 +11,114 @@ namespace Extcode\Cart\Domain\Model\Cart;
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
-/**
- * Cart BeVariant Model
- *
- * @author Daniel Lorenz <ext.cart@extco.de>
- */
 class BeVariant
 {
-
     /**
-     * Id
-     *
      * @var string
      */
     protected $id = '';
 
     /**
-     * Product
-     *
      * @var \Extcode\Cart\Domain\Model\Cart\Product
      */
     protected $product = null;
 
     /**
-     * BeVariant
-     *
      * @var \Extcode\Cart\Domain\Model\Cart\BeVariant
      */
     protected $parentBeVariant = null;
 
     /**
-     * Title
-     *
      * @var string
      */
     protected $title = '';
 
     /**
-     * Title Delimiter
-     *
      * @var string
      */
     protected $titleDelimiter = ' - ';
 
     /**
-     * SKU
-     *
      * @var string
      */
     protected $sku = '';
 
     /**
-     * SKU Delimiter
-     *
      * @var string
      */
     protected $skuDelimiter = '-';
 
     /**
-     * Price Calc Method
-     *
      * @var int
      */
     protected $priceCalcMethod = 0;
 
     /**
-     * Price
-     *
      * @var float
      */
     protected $price = 0.0;
 
     /**
-     * Special Price
-     *
      * @var float
      */
-    protected $specialPrice = null;
+    protected $specialPrice;
 
     /**
-     * Quantity
-     *
      * @var int
      */
     protected $quantity = 0;
 
     /**
-     * Variants
-     *
      * @var \Extcode\Cart\Domain\Model\Cart\BeVariant[]
      */
-    protected $beVariants;
+    protected $beVariants = [];
 
     /**
-     * Gross
-     *
      * @var float
      */
     protected $gross = 0.0;
 
     /**
-     * Net
-     *
      * @var float
      */
     protected $net = 0.0;
 
     /**
-     * Tax
-     *
      * @var float
      */
     protected $tax = 0.0;
 
     /**
-     * Is Fe Variant
-     *
      * @var bool
      */
     protected $isFeVariant = false;
 
     /**
-     * Number Of Fe Variant
-     *
      * @var int
      */
     protected $hasFeVariants;
 
     /**
-     * Min
-     *
      * @var int
      */
     protected $min = 0;
 
     /**
-     * Max
-     *
      * @var int
      */
     protected $max = 0;
 
     /**
-     * Additional
-     *
      * @var array Additional
      */
     protected $additional = [];
 
     /**
-     * stock
-     *
      * @var int
      */
     protected $stock = 0;
 
     /**
-     * __construct
-     *
      * @param string $id
      * @param Product $product
      * @param BeVariant $beVariant
@@ -196,20 +146,6 @@ class BeVariant
             throw new \InvalidArgumentException;
         }
 
-        if (!$sku) {
-            throw new \InvalidArgumentException(
-                'You have to specify a valid $sku for constructor.',
-                1437166615
-            );
-        }
-
-        if (!$quantity) {
-            throw new \InvalidArgumentException(
-                'You have to specify a valid $quantity for constructor.',
-                1437166805
-            );
-        }
-
         $this->id = $id;
 
         if ($product != null) {
@@ -232,7 +168,7 @@ class BeVariant
     /**
      * @return array
      */
-    public function toArray()
+    public function toArray(): array
     {
         $variantArr = [
             'id' => $this->id,
@@ -264,31 +200,31 @@ class BeVariant
     }
 
     /**
-     * @return \Extcode\Cart\Domain\Model\Cart\Product
+     * @return Product|null
      */
-    public function getProduct()
+    public function getProduct(): ?Product
     {
         return $this->product;
     }
 
     /**
-     * @var \Extcode\Cart\Domain\Model\Cart\Product $product
+     * @var Product $product
      */
-    public function setProduct(\Extcode\Cart\Domain\Model\Cart\Product $product)
+    public function setProduct(Product $product)
     {
         $this->product = $product;
     }
 
     /**
-     * @return \Extcode\Cart\Domain\Model\Cart\BeVariant
+     * @return BeVariant
      */
-    public function getParentBeVariant()
+    public function getParentBeVariant(): ?self
     {
         return $this->parentBeVariant;
     }
 
     /**
-     * @var \Extcode\Cart\Domain\Model\Cart\BeVariant $parentBeVariant
+     * @var BeVariant $parentBeVariant
      */
     public function setParentBeVariant(self $parentBeVariant)
     {
@@ -296,11 +232,9 @@ class BeVariant
     }
 
     /**
-     * Gets Is Net Price
-     *
      * @return bool
      */
-    public function getIsNetPrice()
+    public function getIsNetPrice(): bool
     {
         $isNetPrice = false;
 
@@ -314,51 +248,41 @@ class BeVariant
     }
 
     /**
-     * Gets Id
-     *
-     * @return int
+     * @return string
      */
-    public function getId()
+    public function getId(): string
     {
         return $this->id;
     }
 
     /**
-     * Returns the Title Delimiter
-     *
      * @return string
      */
-    public function getTitleDelimiter()
+    public function getTitleDelimiter(): string
     {
         return $this->titleDelimiter;
     }
 
     /**
-     * Sets the Title Delimiter
-     *
      * @param string $titleDelimiter
      */
-    public function setTitleDelimiter($titleDelimiter)
+    public function setTitleDelimiter(string $titleDelimiter)
     {
         $this->titleDelimiter = $titleDelimiter;
     }
 
     /**
-     * Gets Title
-     *
      * @return string
      */
-    public function getTitle()
+    public function getTitle(): string
     {
         return $this->title;
     }
 
     /**
-     * Gets Complete Title
-     *
      * @return string
      */
-    public function getCompleteTitle()
+    public function getCompleteTitle(): string
     {
         $title = '';
 
@@ -382,7 +306,7 @@ class BeVariant
      *
      * @return string
      */
-    public function getCompleteTitleWithoutProduct()
+    public function getCompleteTitleWithoutProduct(): string
     {
         $title = '';
         $titleDelimiter = '';
@@ -402,31 +326,25 @@ class BeVariant
     }
 
     /**
-     * Gets Price
-     *
      * @return float
      */
-    public function getPrice()
+    public function getPrice(): float
     {
         return $this->price;
     }
 
     /**
-     * Returns Special Price
-     *
-     * @return float
+     * @return float|null
      */
-    public function getSpecialPrice()
+    public function getSpecialPrice(): ?float
     {
         return $this->specialPrice;
     }
 
     /**
-     * Sets Special Price
-     *
      * @param float $specialPrice
      */
-    public function setSpecialPrice($specialPrice)
+    public function setSpecialPrice(float $specialPrice)
     {
         $this->specialPrice = $specialPrice;
     }
@@ -436,7 +354,7 @@ class BeVariant
      *
      * @return float
      */
-    public function getBestPrice()
+    public function getBestPrice(): float
     {
         $bestPrice = $this->price;
 
@@ -453,11 +371,9 @@ class BeVariant
     }
 
     /**
-     * Gets Discount
-     *
      * @return float
      */
-    public function getDiscount()
+    public function getDiscount(): float
     {
         $discount = $this->getPriceCalculated() - $this->getBestPriceCalculated();
 
@@ -465,11 +381,9 @@ class BeVariant
     }
 
     /**
-     * Returns Special Price
-     *
      * @return float
      */
-    public function getSpecialPriceDiscount()
+    public function getSpecialPriceDiscount(): float
     {
         $discount = 0.0;
         if (($this->price != 0.0) && ($this->specialPrice)) {
@@ -479,11 +393,9 @@ class BeVariant
     }
 
     /**
-     * Gets Price Calculated
-     *
      * @return float
      */
-    public function getPriceCalculated()
+    public function getPriceCalculated(): float
     {
         $price = $this->getBestPrice();
 
@@ -538,11 +450,9 @@ class BeVariant
     }
 
     /**
-     * Gets Best Price Calculated
-     *
      * @return float
      */
-    public function getBestPriceCalculated()
+    public function getBestPriceCalculated(): float
     {
         $price = $this->getBestPrice();
 
@@ -597,11 +507,9 @@ class BeVariant
     }
 
     /**
-     * Gets Parent Price
-     *
      * @return float
      */
-    public function getParentPrice()
+    public function getParentPrice(): float
     {
         if ($this->priceCalcMethod == 1) {
             return 0.0;
@@ -609,7 +517,9 @@ class BeVariant
 
         if ($this->getParentBeVariant()) {
             return $this->getParentBeVariant()->getBestPrice();
-        } elseif ($this->getProduct()) {
+        }
+
+        if ($this->getProduct()) {
             return $this->getProduct()->getBestPrice($this->getQuantity());
         }
 
@@ -617,11 +527,9 @@ class BeVariant
     }
 
     /**
-     * Sets Price
-     *
-     * @param $price
+     * @param float $price
      */
-    public function setPrice($price)
+    public function setPrice(float $price)
     {
         $this->price = $price;
 
@@ -629,61 +537,49 @@ class BeVariant
     }
 
     /**
-     * Gets Price Calc Method
-     *
      * @return int
      */
-    public function getPriceCalcMethod()
+    public function getPriceCalcMethod(): int
     {
         return $this->priceCalcMethod;
     }
 
     /**
-     * Sets Price Calc Method
-     *
-     * @param $priceCalcMethod
+     * @param int $priceCalcMethod
      */
-    public function setPriceCalcMethod($priceCalcMethod)
+    public function setPriceCalcMethod(int $priceCalcMethod)
     {
         $this->priceCalcMethod = $priceCalcMethod;
     }
 
     /**
-     * Returns the SKU Delimiter
-     *
      * @return string
      */
-    public function getSkuDelimiter()
+    public function getSkuDelimiter(): string
     {
         return $this->skuDelimiter;
     }
 
     /**
-     * Sets the SKU Delimiter
-     *
      * @param string $skuDelimiter
      */
-    public function setSkuDelimiter($skuDelimiter)
+    public function setSkuDelimiter(string $skuDelimiter)
     {
         $this->skuDelimiter = $skuDelimiter;
     }
 
     /**
-     * Gets Sku
-     *
      * @return string
      */
-    public function getSku()
+    public function getSku(): string
     {
         return $this->sku;
     }
 
     /**
-     * Gets CompleteSku
-     *
      * @return string
      */
-    public function getCompleteSku()
+    public function getCompleteSku(): string
     {
         $sku = '';
 
@@ -703,11 +599,9 @@ class BeVariant
     }
 
     /**
-     * Gets CompleteSkuWithoutProduct
-     *
      * @return string
      */
-    public function getCompleteSkuWithoutProduct()
+    public function getCompleteSkuWithoutProduct(): string
     {
         $sku = '';
 
@@ -728,103 +622,83 @@ class BeVariant
     }
 
     /**
-     * Sets Sku
-     *
-     * @param $sku
+     * @param string $sku
      */
-    public function setSku($sku)
+    public function setSku(string $sku)
     {
         $this->sku = $sku;
     }
 
     /**
-     * Gets Has Fe Variants
-     *
      * @return int
      */
-    public function getHasFeVariants()
+    public function getHasFeVariants(): int
     {
         return $this->hasFeVariants;
     }
 
     /**
-     * Sets Has Fe Variants
-     *
-     * @param $hasFeVariants
+     * @param int $hasFeVariants
      */
-    public function setHasFeVariants($hasFeVariants)
+    public function setHasFeVariants(int $hasFeVariants)
     {
         $this->hasFeVariants = $hasFeVariants;
     }
 
     /**
-     * Gets Is Fe Variant
-     *
      * @return bool
      */
-    public function getIsFeVariant()
+    public function getIsFeVariant(): bool
     {
         return $this->isFeVariant;
     }
 
     /**
-     * Sets Is Fe Variant
-     *
      * @param bool $isFeVariant
      */
-    public function setIsFeVariant($isFeVariant)
+    public function setIsFeVariant(bool $isFeVariant)
     {
         $this->isFeVariant = $isFeVariant;
     }
 
     /**
-     * Gets Quantity
-     *
      * @return int
      */
-    public function getQuantity()
+    public function getQuantity(): int
     {
         return $this->quantity;
     }
 
     /**
-     * Gets Gross
-     *
      * @return float
      */
-    public function getGross()
+    public function getGross(): float
     {
         $this->calcGross();
         return $this->gross;
     }
 
     /**
-     * Gets Net
-     *
      * @return float
      */
-    public function getNet()
+    public function getNet(): float
     {
         $this->calcNet();
         return $this->net;
     }
 
     /**
-     * Gets Tax
-     *
      * @return float
      */
-    public function getTax()
+    public function getTax(): float
     {
         return $this->tax;
     }
 
     /**
-     * Gets TaxClass
-     *
-     * @return \Extcode\Cart\Domain\Model\Cart\TaxClass
+     * @return TaxClass
      */
-    public function getTaxClass()
+    public function getTaxClass() :TaxClass
     {
         if ($this->getParentBeVariant()) {
             $taxClass = $this->getParentBeVariant()->getTaxClass();
@@ -835,11 +709,9 @@ class BeVariant
     }
 
     /**
-     * Sets Quantity
-     *
-     * @param $newQuantity
+     * @param int $newQuantity
      */
-    public function setQuantity($newQuantity)
+    public function setQuantity(int $newQuantity)
     {
         $this->quantity = $newQuantity;
 
@@ -847,9 +719,9 @@ class BeVariant
     }
 
     /**
-     * @param $newQuantity
+     * @param int $newQuantity
      */
-    public function changeQuantity($newQuantity)
+    public function changeQuantity(int $newQuantity)
     {
         $this->quantity = $newQuantity;
 
@@ -864,11 +736,11 @@ class BeVariant
     }
 
     /**
-     * @param $variantQuantityArray
+     * @param array $variantQuantityArray
      * @internal param $id
      * @internal param $newQuantity
      */
-    public function changeVariantsQuantity($variantQuantityArray)
+    public function changeVariantsQuantity(array $variantQuantityArray)
     {
         foreach ($variantQuantityArray as $beVariantId => $quantity) {
             /** @var \Extcode\Cart\Domain\Model\Cart\BeVariant $beVariant */
@@ -887,7 +759,7 @@ class BeVariant
     /**
      * @param array $newVariants
      */
-    public function addBeVariants($newVariants)
+    public function addBeVariants(array $newVariants)
     {
         foreach ($newVariants as $newVariant) {
             $this->addBeVariant($newVariant);
@@ -921,36 +793,36 @@ class BeVariant
     /**
      * @return array
      */
-    public function getBeVariants()
+    public function getBeVariants(): array
     {
         return $this->beVariants;
     }
 
     /**
-     * @param $beVariantId
+     * @param int $beVariantId
      *
-     * @return \Extcode\Cart\Domain\Model\Cart\BeVariant
+     * @return BeVariant|null
      */
-    public function getBeVariantById($beVariantId)
+    public function getBeVariantById(int $beVariantId): ?self
     {
         return $this->beVariants[$beVariantId];
     }
 
     /**
-     * @param $beVariantId
+     * @param int $beVariantId
      *
-     * @return \Extcode\Cart\Domain\Model\Cart\BeVariant
+     * @return BeVariant|null
      */
-    public function getBeVariant($beVariantId)
+    public function getBeVariant(int $beVariantId): ?self
     {
         return $this->getBeVariantById($beVariantId);
     }
 
     /**
-     * @param $beVariantsArray
+     * @param array $beVariantsArray
      * @return bool|int
      */
-    public function removeBeVariants($beVariantsArray)
+    public function removeBeVariants(array $beVariantsArray)
     {
         foreach ($beVariantsArray as $beVariantId => $value) {
             /** @var \Extcode\Cart\Domain\Model\Cart\BeVariant $beVariant */
@@ -977,8 +849,6 @@ class BeVariant
         return true;
     }
 
-    /**
-     */
     protected function calcGross()
     {
         if ($this->getIsNetPrice() == false) {
@@ -999,8 +869,6 @@ class BeVariant
         }
     }
 
-    /**
-     */
     protected function calcTax()
     {
         if ($this->getIsNetPrice() == false) {
@@ -1012,8 +880,6 @@ class BeVariant
         }
     }
 
-    /**
-     */
     protected function calcNet()
     {
         if ($this->getIsNetPrice() == true) {
@@ -1034,8 +900,6 @@ class BeVariant
         }
     }
 
-    /**
-     */
     protected function reCalc()
     {
         if ($this->beVariants) {
@@ -1064,24 +928,24 @@ class BeVariant
     /**
      * @return array
      */
-    public function getAdditionalArray()
+    public function getAdditionalArray(): array
     {
         return $this->additional;
     }
 
     /**
-     * @param $additional
+     * @param array $additional
      */
-    public function setAdditionalArray($additional)
+    public function setAdditionalArray(array $additional)
     {
         $this->additional = $additional;
     }
 
     /**
-     * @param $key
+     * @param string $key
      * @return mixed
      */
-    public function getAdditional($key)
+    public function getAdditional(string $key)
     {
         return $this->additional[$key];
     }
@@ -1098,7 +962,7 @@ class BeVariant
     /**
      * @return int
      */
-    public function getMin()
+    public function getMin(): int
     {
         return $this->min;
     }
@@ -1106,7 +970,7 @@ class BeVariant
     /**
      * @param int $min
      */
-    public function setMin($min)
+    public function setMin(int $min)
     {
         if ($min < 0 || $min > $this->max) {
             throw new \InvalidArgumentException;
@@ -1118,7 +982,7 @@ class BeVariant
     /**
      * @return int
      */
-    public function getMax()
+    public function getMax(): int
     {
         return $this->max;
     }
@@ -1126,7 +990,7 @@ class BeVariant
     /**
      * @param int $max
      */
-    public function setMax($max)
+    public function setMax(int $max)
     {
         if ($max < 0 || $max < $this->min) {
             throw new \InvalidArgumentException;
@@ -1136,21 +1000,17 @@ class BeVariant
     }
 
     /**
-     * Returns the Stock
-     *
      * @return int
      */
-    public function getStock()
+    public function getStock(): int
     {
         return $this->stock;
     }
 
     /**
-     * Set the Stock
-     *
      * @param int $stock
      */
-    public function setStock($stock)
+    public function setStock(int $stock)
     {
         $this->stock = $stock;
     }

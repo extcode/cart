@@ -10,7 +10,7 @@ namespace Extcode\Cart\Domain\Finisher;
  */
 
 use Extcode\Cart\Domain\Model\Cart\Cart;
-use Extcode\Cart\Domain\Model\Order;
+use Extcode\Cart\Domain\Model\Order\Item;
 use TYPO3\CMS\Extbase\Mvc\Controller\ControllerContext;
 
 class FinisherContext
@@ -25,16 +25,17 @@ class FinisherContext
     /**
      * @var array
      */
-    protected $settings;
+    protected $settings = [];
 
     /**
      * @var \Extcode\Cart\Domain\Model\Cart\Cart
      */
-    protected $cart;
+    protected $cart = null;
+
     /**
      * @var \Extcode\Cart\Domain\Model\Order\Item
      */
-    protected $orderItem;
+    protected $orderItem = null;
 
     /**
      * The assigned controller context which might be needed by the finisher.
@@ -45,14 +46,14 @@ class FinisherContext
 
     /**
      * @param Cart $cart
-     * @param Order\Item $orderItem
+     * @param Item $orderItem
      * @param ControllerContext $controllerContext
      * @internal
      */
     public function __construct(
         $settings,
         Cart $cart,
-        Order\Item $orderItem,
+        Item $orderItem,
         ControllerContext $controllerContext
     ) {
         $this->settings = $settings;
@@ -77,7 +78,7 @@ class FinisherContext
      * @return bool
      * @internal
      */
-    public function isCancelled()
+    public function isCancelled(): bool
     {
         return $this->cancelled;
     }
@@ -85,7 +86,7 @@ class FinisherContext
     /**
      * @return array
      */
-    public function getSettings()
+    public function getSettings(): array
     {
         return $this->settings;
     }
@@ -99,19 +100,19 @@ class FinisherContext
     }
 
     /**
-     * @return Order\Item
+     * @return Item
      * @api
      */
-    public function getOrderItem()
+    public function getOrderItem(): Item
     {
         return $this->orderItem;
     }
 
     /**
-     * @param Order\Item $orderItem
+     * @param Item $orderItem
      * @api
      */
-    public function setOrderItem(Order\Item $orderItem)
+    public function setOrderItem(Item $orderItem)
     {
         $this->orderItem = $orderItem;
     }

@@ -12,46 +12,34 @@ namespace Extcode\Cart\Domain\Model\Order;
 class ProductAdditional extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 {
     /**
-     * Additional Type
-     *
      * @var string
      * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
      */
     protected $additionalType;
 
     /**
-     * Additional Key
-     *
      * @var string
      * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
      */
     protected $additionalKey;
 
     /**
-     * Additional Value
-     *
      * @var string
      * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
      */
     protected $additionalValue;
 
     /**
-     * Additional Data
-     *
      * @var string
      */
     protected $additionalData = '';
 
     /**
-     * Additional
-     *
      * @var string
      */
     protected $additional;
 
     /**
-     * __construct
-     *
      * @param string $type
      * @param string $key
      * @param string $value
@@ -72,51 +60,41 @@ class ProductAdditional extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     }
 
     /**
-     * Returns Additional Type
-     *
      * @return string
      */
-    public function getAdditionalType()
+    public function getAdditionalType(): string
     {
         return $this->additionalType;
     }
 
     /**
-     * Returns Additional Key
-     *
      * @return string
      */
-    public function getAdditionalKey()
+    public function getAdditionalKey(): string
     {
         return $this->additionalKey;
     }
 
     /**
-     * Returns Additional Value
-     *
      * @return string
      */
-    public function getAdditionalValue()
+    public function getAdditionalValue(): string
     {
         return $this->additionalValue;
     }
 
     /**
-     * Returns Additional Data
-     *
      * @return string
      */
-    public function getAdditionalData()
+    public function getAdditionalData(): string
     {
         return $this->additionalData;
     }
 
     /**
-     * Sets Additional Data
-     *
      * @param string $additionalData
      */
-    public function setAdditionalData($additionalData)
+    public function setAdditionalData(string $additionalData)
     {
         $this->additionalData = $additionalData;
     }
@@ -124,23 +102,15 @@ class ProductAdditional extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * @return array
      */
-    public function getAdditional()
+    public function getAdditional(): array
     {
         return json_decode($this->additional, 1);
     }
 
     /**
-     * @return string
-     */
-    public function getAdditionalJson()
-    {
-        return $this->additional;
-    }
-
-    /**
      * @param array $additional
      */
-    public function setAdditional($additional)
+    public function setAdditional(array $additional)
     {
         $this->additional = json_encode($additional);
     }

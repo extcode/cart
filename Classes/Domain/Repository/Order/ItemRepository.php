@@ -20,11 +20,11 @@ class ItemRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
     /**
      * Find a order by a given orderNumber
      *
-     * @param string $orderNumber Order Number
+     * @param string $orderNumber
      *
      * @return QueryResultInterface|array
      */
-    public function findOneByOrderNumber($orderNumber)
+    public function findOneByOrderNumber(string $orderNumber)
     {
         $query = $this->createQuery();
 
@@ -46,7 +46,7 @@ class ItemRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
      *
      * @return QueryResultInterface|array
      */
-    public function findAll($searchArguments = [])
+    public function findAll(array $searchArguments = [])
     {
         // settings
         $query = $this->createQuery();

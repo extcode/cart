@@ -12,16 +12,11 @@ namespace Extcode\Cart\Domain\Model;
 class Tag extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 {
     /**
-     * Title
-     *
      * @var string
-     * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
      */
     protected $title;
 
     /**
-     * __construct
-     *
      * @param string $title
      */
     public function __construct(
@@ -33,7 +28,7 @@ class Tag extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * @return string
      */
-    public function getTitle()
+    public function getTitle(): string
     {
         return $this->title;
     }
@@ -41,7 +36,7 @@ class Tag extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * @param string $title
      */
-    public function setTitle($title)
+    public function setTitle(string $title)
     {
         $this->title = $title;
     }

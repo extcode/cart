@@ -12,24 +12,18 @@ namespace Extcode\Cart\Domain\Model\Order;
 class Tax extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 {
     /**
-     * Tax
-     *
      * @var float
      * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
      */
     protected $tax;
 
     /**
-     * TaxClass
-     *
      * @var \Extcode\Cart\Domain\Model\Order\TaxClass
      * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
      */
     protected $taxClass;
 
     /**
-     * __construct
-     *
      * @param float $tax
      * @param TaxClass $taxClass
      */
@@ -42,21 +36,17 @@ class Tax extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     }
 
     /**
-     * Gets Tax
-     *
      * @return float
      */
-    public function getTax()
+    public function getTax(): float
     {
         return $this->tax;
     }
 
     /**
-     * Gets Tax Class
-     *
-     * @return \Extcode\Cart\Domain\Model\Order\TaxClass
+     * @return TaxClass
      */
-    public function getTaxClass()
+    public function getTaxClass(): TaxClass
     {
         return $this->taxClass;
     }

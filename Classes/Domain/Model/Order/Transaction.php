@@ -12,54 +12,40 @@ namespace Extcode\Cart\Domain\Model\Order;
 class Transaction extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 {
     /**
-     * Payment
-     *
      * @var \Extcode\Cart\Domain\Model\Order\Payment
      */
     protected $payment = null;
 
     /**
-     * txnId
-     *
      * @var string
      * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
      */
     protected $txnId = '';
 
     /**
-     * TxnTxt
-     *
      * @var string
      */
     protected $txnTxt = '';
 
     /**
-     * Status
-     *
      * @var string
      */
     protected $status = '';
 
     /**
-     * External Status Code
-     *
      * @var string
      */
     protected $externalStatusCode = '';
 
     /**
-     * TxnTxt
-     *
      * @var string
      */
     protected $note = '';
 
     /**
-     * Returns the payment
-     *
-     * @return \Extcode\Cart\Domain\Model\Order\Payment
+     * @return Payment|null
      */
-    public function getPayment()
+    public function getPayment(): ?Payment
     {
         return $this->payment;
     }
@@ -67,7 +53,7 @@ class Transaction extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * @return string
      */
-    public function getTxnId()
+    public function getTxnId(): string
     {
         return $this->txnId;
     }
@@ -75,47 +61,39 @@ class Transaction extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * @param string $txnId
      */
-    public function setTxnId($txnId)
+    public function setTxnId(string $txnId)
     {
         $this->txnId = $txnId;
     }
 
     /**
-     * Sets TxnTxt
-     *
-     * @param string $txnTxt
-     */
-    public function setTxnTxt($txnTxt)
-    {
-        $this->txnTxt = $txnTxt;
-    }
-
-    /**
-     * Gets TxnTxt
-     *
      * @return string
      */
-    public function getTxnTxt()
+    public function getTxnTxt(): string
     {
         return $this->txnTxt;
     }
 
     /**
-     * Returns Status
-     *
+     * @param string $txnTxt
+     */
+    public function setTxnTxt(string $txnTxt)
+    {
+        $this->txnTxt = $txnTxt;
+    }
+
+    /**
      * @return string
      */
-    public function getStatus()
+    public function getStatus(): string
     {
         return $this->status;
     }
 
     /**
-     * Sets Status
-     *
      * @param string $status
      */
-    public function setStatus($status)
+    public function setStatus(string $status)
     {
         $this->status = $status;
     }
@@ -123,7 +101,7 @@ class Transaction extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * @return string
      */
-    public function getExternalStatusCode()
+    public function getExternalStatusCode(): string
     {
         return $this->externalStatusCode;
     }
@@ -131,28 +109,24 @@ class Transaction extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * @param string $externalStatusCode
      */
-    public function setExternalStatusCode($externalStatusCode)
+    public function setExternalStatusCode(string $externalStatusCode)
     {
         $this->externalStatusCode = $externalStatusCode;
     }
 
     /**
-     * Sets Note
-     *
-     * @param string $note
+     * @return string
      */
-    public function setNote($note)
+    public function getNote(): string
     {
-        $this->note = $note;
+        return $this->note;
     }
 
     /**
-     * Gets Note
-     *
-     * @return string
+     * @param string $note
      */
-    public function getNote()
+    public function setNote(string $note)
     {
-        return $this->note;
+        $this->note = $note;
     }
 }

@@ -217,13 +217,13 @@ class Service implements ServiceInterface
     }
 
     /**
-     * @return \Extcode\Cart\Domain\Model\Cart\Extra
+     * @return Extra
      */
     protected function getExtra()
     {
         if ($this->isFree()) {
             return $this->objectManager->get(
-                \Extcode\Cart\Domain\Model\Cart\Extra::class,
+                Extra::class,
                 0,
                 0,
                 0.0,
@@ -237,7 +237,7 @@ class Service implements ServiceInterface
 
             if ($extraType === 'each') {
                 return $this->objectManager->get(
-                    \Extcode\Cart\Domain\Model\Cart\Extra::class,
+                    Extra::class,
                     0,
                     0,
                     (float)$this->config['extra']['extra'],
@@ -252,7 +252,7 @@ class Service implements ServiceInterface
             foreach ($this->config['extra'] as $extraKey => $extraValue) {
                 if (is_array($extraValue) && ((float)$extraValue['value'] <= (float)$conditionValue)) {
                     $extra = $this->objectManager->get(
-                        \Extcode\Cart\Domain\Model\Cart\Extra::class,
+                        Extra::class,
                         $extraKey,
                         (float)$extraValue['value'],
                         (float)$extraValue['extra'],
@@ -267,7 +267,7 @@ class Service implements ServiceInterface
         }
 
         return $this->objectManager->get(
-            \Extcode\Cart\Domain\Model\Cart\Extra::class,
+            Extra::class,
             0,
             0,
             (float)$this->config['extra'],

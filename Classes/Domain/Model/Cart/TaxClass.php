@@ -14,25 +14,21 @@ class TaxClass
 {
     /**
      * @var int
-     * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
      */
     protected $id;
 
     /**
      * @var string
-     * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
      */
     protected $value;
 
     /**
      * @var float
-     * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
      */
     protected $calc;
 
     /**
      * @var string
-     * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
      */
     protected $title;
 

@@ -9,6 +9,8 @@ namespace Extcode\Cart\Domain\Model\Dto;
  * LICENSE file that was distributed with this source code.
  */
 
+use TYPO3\CMS\Core\Messaging\FlashMessage;
+
 class AvailabilityResponse extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 {
     /**
@@ -54,10 +56,10 @@ class AvailabilityResponse extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntit
     }
 
     /**
-     * @param \TYPO3\CMS\Core\Messaging\FlashMessage $message
+     * @param FlashMessage $message
      */
-    public function addMessage(\TYPO3\CMS\Core\Messaging\FlashMessage $message)
+    public function addMessage(FlashMessage $message)
     {
-        array_push($this->messages, $message);
+        $this->messages[] = $message;
     }
 }

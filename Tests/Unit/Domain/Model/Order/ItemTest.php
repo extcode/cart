@@ -14,8 +14,6 @@ use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 class ItemTest extends UnitTestCase
 {
     /**
-     * Cart Pid
-     *
      * @var int
      */
     protected $cartPid = 1;
@@ -30,9 +28,7 @@ class ItemTest extends UnitTestCase
      */
     public function setUp()
     {
-        $this->item = new \Extcode\Cart\Domain\Model\Order\Item(
-            $this->cartPid
-        );
+        $this->item = new \Extcode\Cart\Domain\Model\Order\Item();
     }
 
     /**
@@ -51,10 +47,10 @@ class ItemTest extends UnitTestCase
      */
     public function setCartPidSetsCartPid()
     {
-        $this->item->setCartPid('1');
+        $this->item->setCartPid(1);
 
         $this->assertSame(
-            '1',
+            1,
             $this->item->getCartPid()
         );
     }
@@ -147,10 +143,10 @@ class ItemTest extends UnitTestCase
      */
     public function setCurrencyTranslationSetsCurrencyTranslation()
     {
-        $this->item->setCurrencyTranslation('0.50');
+        $this->item->setCurrencyTranslation(0.50);
 
         $this->assertSame(
-            '0.50',
+            0.50,
             $this->item->getCurrencyTranslation()
         );
     }
