@@ -18,10 +18,7 @@ class PaymentTest extends UnitTestCase
      */
     protected $payment;
 
-    /**
-     *
-     */
-    public function setUp()
+    public function setUp(): void
     {
         $this->payment = new \Extcode\Cart\Domain\Model\Order\Payment();
     }

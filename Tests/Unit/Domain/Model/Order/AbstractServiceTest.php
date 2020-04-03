@@ -18,7 +18,7 @@ class AbstractServiceTest extends UnitTestCase
      */
     protected $service = null;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->service = $this->getMockForAbstractClass('\Extcode\Cart\Domain\Model\Order\AbstractService');
     }

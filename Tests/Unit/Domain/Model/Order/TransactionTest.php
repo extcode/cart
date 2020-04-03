@@ -18,10 +18,7 @@ class TransactionTest extends UnitTestCase
      */
     protected $transaction = null;
 
-    /**
-     *
-     */
-    public function setUp()
+    public function setUp(): void
     {
         $this->transaction = new \Extcode\Cart\Domain\Model\Order\Transaction();
     }

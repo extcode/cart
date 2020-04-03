@@ -58,10 +58,7 @@ class BeVariantTest extends UnitTestCase
      */
     protected $quantity;
 
-    /**
-     * Set Up
-     */
-    public function setUp()
+    public function setUp(): void
     {
         $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['cart']['changeVariantDiscount'] = 0;
 

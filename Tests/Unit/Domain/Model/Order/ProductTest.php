@@ -39,10 +39,7 @@ class ProductTest extends UnitTestCase
      */
     protected $count = 0;
 
-    /**
-     *
-     */
-    public function setUp()
+    public function setUp(): void
     {
         $this->sku = 'sku';
         $this->title = 'title';

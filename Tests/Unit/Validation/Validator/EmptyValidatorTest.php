@@ -41,7 +41,7 @@ class EmptyValidatorTest extends UnitTestCase
         $this->validator = $this->getValidator($options);
     }
 
-    public function setup()
+    public function setUp(): void
     {
         $this->validator = $this->getMockBuilder($this->validatorClassName)
             ->setMethods(['translateErrorMessage'])

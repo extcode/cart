@@ -28,10 +28,7 @@ class ServiceTest extends UnitTestCase
      */
     protected $service;
 
-    /**
-     *
-     */
-    public function setUp()
+    public function setUp(): void
     {
         $this->config = [
             'title' => 'Standard',

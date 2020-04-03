@@ -48,10 +48,7 @@ class TaxClassTest extends UnitTestCase
      */
     private $title;
 
-    /**
-     * Set Up
-     */
-    public function setUp()
+    public function setUp(): void
     {
         $this->id = 1;
         $this->value = '19';
@@ -66,10 +63,7 @@ class TaxClassTest extends UnitTestCase
         );
     }
 
-    /**
-     * Tear Down
-     */
-    public function tearDown()
+    public function tearDown(): void
     {
         unset($this->id);
         unset($this->value);

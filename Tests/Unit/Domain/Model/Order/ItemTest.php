@@ -23,10 +23,7 @@ class ItemTest extends UnitTestCase
      */
     protected $item;
 
-    /**
-     *
-     */
-    public function setUp()
+    public function setUp(): void
     {
         $this->item = new \Extcode\Cart\Domain\Model\Order\Item();
     }

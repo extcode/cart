@@ -18,10 +18,7 @@ class AddressTest extends UnitTestCase
      */
     protected $address;
 
-    /**
-     *
-     */
-    public function setUp()
+    public function setUp(): void
     {
         $this->address = $this->getMockForAbstractClass(
             \Extcode\Cart\Domain\Model\Order\AbstractAddress::class

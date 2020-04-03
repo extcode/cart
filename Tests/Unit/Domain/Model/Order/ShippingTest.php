@@ -18,10 +18,7 @@ class ShippingTest extends UnitTestCase
      */
     protected $shipping;
 
-    /**
-     *
-     */
-    public function setUp()
+    public function setUp(): void
     {
         $this->shipping = new \Extcode\Cart\Domain\Model\Order\Shipping();
     }

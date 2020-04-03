@@ -39,10 +39,7 @@ class ProductAdditionalTest extends UnitTestCase
      */
     protected $productAdditional = null;
 
-    /**
-     *
-     */
-    public function setUp()
+    public function setUp(): void
     {
         $this->additionalType = 'additional-type';
         $this->additionalKey = 'additional-key';

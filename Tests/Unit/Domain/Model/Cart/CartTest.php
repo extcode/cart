@@ -44,10 +44,7 @@ class CartTest extends UnitTestCase
      */
     protected $taxClasses = [];
 
-    /**
-     *
-     */
-    public function setUp()
+    public function setUp(): void
     {
         $this->normalTaxClass = new \Extcode\Cart\Domain\Model\Cart\TaxClass(1, '19', 0.19, 'Normal');
         $this->reducedTaxClass = new \Extcode\Cart\Domain\Model\Cart\TaxClass(2, '7%', 0.07, 'Reduced');
@@ -63,10 +60,7 @@ class CartTest extends UnitTestCase
         $this->netCart = new \Extcode\Cart\Domain\Model\Cart\Cart($this->taxClasses, true);
     }
 
-    /**
-     *
-     */
-    public function tearDown()
+    public function tearDown(): void
     {
         unset($this->grossCart);
         unset($this->netCart);
@@ -774,7 +768,7 @@ class CartTest extends UnitTestCase
                 ]
             )->getMock();
         $product->expects($this->any())->method('getBestPrice')->will($this->returnValue(10.00));
-        $product->expects($this->any())->method('getId')->will($this->returnValue(1));
+        $product->expects($this->any())->method('getId')->will($this->returnValue('simple_1'));
         $product->expects($this->any())->method('getQuantityIsInRange')->will($this->returnValue(true));
 
         $this->grossCart->addProduct($product);
@@ -793,7 +787,7 @@ class CartTest extends UnitTestCase
                 ]
             )->getMock();
         $product->expects($this->any())->method('getBestPrice')->will($this->returnValue(10.00));
-        $product->expects($this->any())->method('getId')->will($this->returnValue(2));
+        $product->expects($this->any())->method('getId')->will($this->returnValue('simple_2'));
         $product->expects($this->any())->method('getQuantityIsInRange')->will($this->returnValue(true));
 
         $this->grossCart->addProduct($product);
@@ -812,7 +806,7 @@ class CartTest extends UnitTestCase
                 ]
             )->getMock();
         $product->expects($this->any())->method('getBestPrice')->will($this->returnValue(10.00));
-        $product->expects($this->any())->method('getId')->will($this->returnValue(3));
+        $product->expects($this->any())->method('getId')->will($this->returnValue('simple_3'));
         $product->expects($this->any())->method('getQuantityIsInRange')->will($this->returnValue(true));
 
         $this->grossCart->addProduct($product);
@@ -843,7 +837,7 @@ class CartTest extends UnitTestCase
                 ]
             )->getMock();
         $product->expects($this->any())->method('getBestPrice')->will($this->returnValue(10.00));
-        $product->expects($this->any())->method('getId')->will($this->returnValue(1));
+        $product->expects($this->any())->method('getId')->will($this->returnValue('simple_1'));
         $product->expects($this->any())->method('getQuantityIsInRange')->will($this->returnValue(true));
 
         $this->grossCart->addProduct($product);
@@ -862,7 +856,7 @@ class CartTest extends UnitTestCase
                 ]
             )->getMock();
         $product->expects($this->any())->method('getBestPrice')->will($this->returnValue(10.00));
-        $product->expects($this->any())->method('getId')->will($this->returnValue(2));
+        $product->expects($this->any())->method('getId')->will($this->returnValue('simple_2'));
         $product->expects($this->any())->method('getQuantityIsInRange')->will($this->returnValue(false));
 
         $this->grossCart->addProduct($product);
@@ -881,7 +875,7 @@ class CartTest extends UnitTestCase
                 ]
             )->getMock();
         $product->expects($this->any())->method('getBestPrice')->will($this->returnValue(10.00));
-        $product->expects($this->any())->method('getId')->will($this->returnValue(3));
+        $product->expects($this->any())->method('getId')->will($this->returnValue('simple_3'));
         $product->expects($this->any())->method('getQuantityIsInRange')->will($this->returnValue(true));
 
         $this->grossCart->addProduct($product);

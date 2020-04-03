@@ -32,10 +32,7 @@ class TaxTest extends UnitTestCase
      */
     protected $taxClass;
 
-    /**
-     *
-     */
-    public function setUp()
+    public function setUp(): void
     {
         $this->taxClass = new \Extcode\Cart\Domain\Model\Order\TaxClass('normal', '19', 0.19);
 

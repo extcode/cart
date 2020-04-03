@@ -58,10 +58,7 @@ class CartCouponTest extends UnitTestCase
      */
     protected $cartMinPrice = 0.0;
 
-    /**
-     *
-     */
-    public function setUp()
+    public function setUp(): void
     {
         $this->taxClass = new \Extcode\Cart\Domain\Model\Cart\TaxClass(1, '19', 0.19, 'normal');
 
