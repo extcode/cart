@@ -8,4 +8,3 @@ Module
    :titlesonly:
 
    Orders/Index
-   OrderStatistics/Index

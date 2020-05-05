@@ -17,10 +17,6 @@
                 <source>Orders</source>
                 <target>Bestellungen</target>
             </trans-unit>
-            <trans-unit id="tx_cart.module.order_statistics">
-                <source>Order Statistics</source>
-                <target>Bestellstatistik</target>
-            </trans-unit>
             <trans-unit id="tx_cart.module.coupons">
                 <source>Coupons</source>
                 <target>Gutscheine</target>

@@ -14,9 +14,6 @@
             <trans-unit id="tx_cart.module.orders">
                 <source>Orders</source>
             </trans-unit>
-            <trans-unit id="tx_cart.module.order_statistics">
-                <source>Order Statistics</source>
-            </trans-unit>
             <trans-unit id="tx_cart.module.coupons">
                 <source>Coupons</source>
             </trans-unit>

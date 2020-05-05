@@ -710,9 +710,6 @@
                 <source>Download Delivery Note Document</source>
                 <target>Lieferschein herunterladen</target>
             </trans-unit>
-            <trans-unit id="tx_cart.controller.order.action.statistic">
-                <source>Statistic of Orders</source>
-            </trans-unit>
             <trans-unit id="tx_cart.controller.order.action.show_cart.block-header.billing_address">
                 <source>Billing Address</source>
                 <target>Rechnungsadresse</target>

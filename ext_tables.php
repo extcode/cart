@@ -53,20 +53,4 @@ if (TYPO3_MODE === 'BE') {
             'navigationComponentId' => 'TYPO3/CMS/Backend/PageTree/PageTreeElement',
         ]
     );
-
-    \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerModule(
-        'Cart',
-        'Cart',
-        'OrderStatistics',
-        '',
-        [
-            \Extcode\Cart\Controller\Backend\StatisticController::class => 'show',
-        ],
-        [
-            'access' => 'user, group',
-            'icon' => 'EXT:cart/Resources/Public/Icons/module_order_statistics.svg',
-            'labels' => $_LLL_db . 'tx_cart.module.order_statistics',
-            'navigationComponentId' => 'TYPO3/CMS/Backend/PageTree/PageTreeElement',
-        ]
-    );
 }
