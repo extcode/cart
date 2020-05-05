@@ -1,22 +1,36 @@
 .. include:: ../Includes.txt
 
+============
 Introduction
-------------
+============
 
 Cart is an extension providing a shopping solution for TYPO3.
 
-Focus
-=====
+Description
+===========
 
-The focus of Cart are TYPO3 webpages with the need for a shopping solution.
-Cart has no restriction on the maximum number of products. The restriction is more likely the number of orders to be
-managed. Providing APIs to good economy systems are not planned.
-The number of modules to add more functionality to Cart is still limited. There are some payment provider extensions
-available. An other extension generates PDF documents for order confirmation,
-invoices or delivery notes.
-The focus in the development of Cart is that despite all the possibilities (variants, front-end variants, coupons, ...) in the first installation remains very simple.
-In addition, finishers, signal slots and hooks should offer the opportunity to expand the shopping cart by own functions
-or to control the order processing.
+The extension is a small but powerful extension which "solely" adds a shopping cart to your TYPO3 installation and is
+well suited for content commerce.
+
+The extension allows you to add products to a cart and handles the order process completely.
+There are other awesome extensions like extcode/cart-products, extcode/cart-events, and extcode/cart-books to
+handle different types of products.
+
+Furthermore, you will find some payment provider extensions like extcode/cart-payone, extcode/cart-paypal,
+extcode/cart-saverpay, and more to add payment methods to the checkout process.
+
+Features
+========
+
+- makes intensive use of the TYPO3 Core API functionality
+- very well expandable
+  - several hooks, signal slots, and interfaces
+  - API (finisher pipeline) to process the order with possibility to register own tasks
+  - API to add payment providers
+  - API to connect your own product extensions
+- highly configurable through TypoScript
+- proved Bootstrap templates
+- backend module to show and utilize orders
 
 Examples
 ========

@@ -1,19 +1,27 @@
-# Cart
-
-[![Build Status](https://travis-ci.org/extcode/cart.svg?branch=master)](https://travis-ci.org/extcode/cart)
+[![Build Status](https://travis-ci.org/extcode/cart.svg?branch=6.x)](https://travis-ci.org/extcode/cart)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/5b5b6e0c8ac143c381026061abf3c9e8)](https://www.codacy.com/app/extcode/cart?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=extcode/cart&amp;utm_campaign=Badge_Grade)
 
-Cart is a small but powerful extension which "solely" adds a shopping cart to your TYPO3 installation.
-The extension allows you to add products to cart and handle a complete order process.
-I provide some other extensions like CartProducts, CartEvents and CartBooks to handle different types of products. 
-I provide some payment provider extensions to handle payments on order.
-Cart 6.x provides an API to connect an own product storage extension or a further payment provider.
+The extension is a small but powerful extension which "solely" adds a shopping cart to your TYPO3 installation and is
+well suited for content commerce.
+
+The extension allows you to add products to a cart and handles the order process completely.
+There are other awesome extensions like `extcode/cart-products`, `extcode/cart-events`, and `extcode/cart-books` to
+handle different types of products.
+
+Furthermore, you will find some payment provider extensions like `extcode/cart-payone`, `extcode/cart-paypal`,
+`extcode/cart-saverpay`, and more to add payment methods to the checkout process.
 
 ## 1. Features
 
--
--
--
+- makes intensive use of the TYPO3 Core API functionality
+- very well expandable
+  - several hooks, signal slots, and interfaces
+  - API (finisher pipeline) to process the order with possibility to register own tasks
+  - API to add payment providers
+  - API to connect your own product extensions
+- highly configurable through TypoScript
+- proved Bootstrap templates
+- backend module to show and utilize orders
 
 ## 2. Installation / Upgrade
 
@@ -21,7 +29,8 @@ Cart 6.x provides an API to connect an own product storage extension or a furthe
 
 #### Installation using Composer
 
-The recommended way to install the extension is by using [Composer][2]. In your Composer based TYPO3 project root, just do `composer require extcode/cart`. 
+The recommended way to install the extension is by using [Composer][2].
+In your Composer based TYPO3 project root, just do `composer require extcode/cart`. 
 
 #### Installation as extension from TYPO3 Extension Repository (TER)
 
@@ -42,9 +51,10 @@ and database!** If possible test the update in a test copy of your TYPO3 instanc
 
 | Cart          | TYPO3      | PHP       | Support/Development                     |
 | ------------- | ---------- | ----------|---------------------------------------- |
-| 6.x.x         | 9.5        | 7.2       | Features, Bugfixes, Security Updates    |
-| 5.x.x         | 8.7        | 7.0 - 7.2 | Features _(in certain circumstances with feature toogle)_, Bugfixes, Security Updates    |
-| 4.x.x         | 7.6 - 8.7  | 5.6 - 7.2 | Bugfixes, Security Updates              |
+| 7.x.x         | 10.4       | 7.2 - 7.4 | Features, Bugfixes, Security Updates    |
+| 6.x.x         | 9.5        | 7.2 - 7.4 | Features _(in certain circumstances with feature toogle)_, Bugfixes, Security Updates    |
+| 5.x.x         | 8.7        | 7.0 - 7.4 | Bugfixes, Security Updates              |
+| 4.x.x         | 7.6 - 8.7  | 5.6 - 7.2 | Security Updates                        |
 | 3.x.x         | 6.2 - 8.7  | 5.6 - 7.0 | Security Updates                        |
 | 2.x.x         |            |           |                                         |
 | 1.x.x         |            |           |                                         |
