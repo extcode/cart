@@ -13,11 +13,6 @@ namespace Extcode\Cart\Domain\Model\Cart;
 class Service implements ServiceInterface
 {
     /**
-     * @var \TYPO3\CMS\Extbase\Object\ObjectManager
-     */
-    protected $objectManager;
-
-    /**
      * @var Cart
      */
     protected $cart;
@@ -51,15 +46,6 @@ class Service implements ServiceInterface
      * @var bool
      */
     protected $preset = false;
-
-    /**
-     * @param \TYPO3\CMS\Extbase\Object\ObjectManagerInterface $objectManager
-     */
-    public function injectObjectManager(
-        \TYPO3\CMS\Extbase\Object\ObjectManagerInterface $objectManager
-    ) {
-        $this->objectManager = $objectManager;
-    }
 
     /**
      * @param int $id
@@ -222,8 +208,7 @@ class Service implements ServiceInterface
     protected function getExtra()
     {
         if ($this->isFree()) {
-            return $this->objectManager->get(
-                Extra::class,
+            return new Extra(
                 0,
                 0,
                 0.0,
@@ -236,8 +221,7 @@ class Service implements ServiceInterface
             $extraType = $this->config['extra']['_typoScriptNodeValue'];
 
             if ($extraType === 'each') {
-                return $this->objectManager->get(
-                    Extra::class,
+                return new Extra(
                     0,
                     0,
                     (float)$this->config['extra']['extra'],
@@ -251,8 +235,7 @@ class Service implements ServiceInterface
 
             foreach ($this->config['extra'] as $extraKey => $extraValue) {
                 if (is_array($extraValue) && ((float)$extraValue['value'] <= (float)$conditionValue)) {
-                    $extra = $this->objectManager->get(
-                        Extra::class,
+                    $extra = new Extra(
                         $extraKey,
                         (float)$extraValue['value'],
                         (float)$extraValue['extra'],
@@ -266,8 +249,7 @@ class Service implements ServiceInterface
             return $extra;
         }
 
-        return $this->objectManager->get(
-            Extra::class,
+        return new Extra(
             0,
             0,
             (float)$this->config['extra'],
