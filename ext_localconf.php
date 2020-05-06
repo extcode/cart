@@ -110,6 +110,11 @@ if (TYPO3_MODE === 'FE') {
         \Extcode\Cart\Hooks\MailAttachmentHook::class;
 }
 
+// view paths for TYPO3 Mail API
+$GLOBALS['TYPO3_CONF_VARS']['MAIL']['templateRootPaths']['1588829280'] = 'EXT:cart/Resources/Private/Templates/';
+$GLOBALS['TYPO3_CONF_VARS']['MAIL']['partialRootPaths']['1588829280'] = 'EXT:cart/Resources/Private/Partials/';
+
+// view paths for TYPO3 Dashboard
 call_user_func(static function () {
     if (TYPO3_MODE === 'BE') {
         \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTypoScriptSetup(

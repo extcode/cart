@@ -13,13 +13,13 @@ use Extcode\Cart\Domain\Model\Cart\Cart;
 use Extcode\Cart\Domain\Model\Order\Item;
 use Extcode\Cart\Hooks\MailAttachmentHookInterface;
 use TYPO3\CMS\Core\Log\LogManager;
-use TYPO3\CMS\Core\Mail\MailMessage;
+use TYPO3\CMS\Core\Mail\FluidEmail;
+use TYPO3\CMS\Core\Mail\Mailer;
 use TYPO3\CMS\Core\SingletonInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManager;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
-use TYPO3\CMS\Fluid\View\StandaloneView;
 
 class MailHandler implements SingletonInterface
 {
@@ -262,22 +262,22 @@ class MailHandler implements SingletonInterface
         }
 
         $status = $orderItem->getPayment()->getStatus();
-        $to = 'buyer';
 
-        $mailBody = $this->renderMailStandaloneView($status, $to, $orderItem);
-        $mailSubject = $this->renderMailStandaloneView($status, $to . 'Subject', $orderItem);
+        $email = GeneralUtility::makeInstance(FluidEmail::class)
+            ->to($orderItem->getBillingAddress()->getEmail())
+            ->from($this->buyerEmailFrom)
+            ->setTemplate('Mail/' . ucfirst($status) . '/Buyer')
+            ->format(\TYPO3\CMS\Core\Mail\FluidEmail::FORMAT_HTML)
+            ->assign('settings', $this->pluginSettings['settings'])
+            ->assign('cart', $this->cart)
+            ->assign('orderItem', $orderItem);
 
-        if (!empty($mailBody) && !empty($mailSubject)) {
-            $mail = $this->objectManager->get(MailMessage::class);
-            $mail->setFrom($this->buyerEmailFrom);
-            $mail->setTo($orderItem->getBillingAddress()->getEmail());
-            if ($this->buyerEmailBcc) {
-                $mail->setBcc(explode(',', $this->buyerEmailBcc));
-            }
-            $mail->setSubject($mailSubject);
-            $mail->setBody($mailBody, 'text/html', 'utf-8');
+        if ($this->buyerEmailBcc) {
+            $email->bcc(explode(',', $this->buyerEmailBcc));
+        }
 
-            if ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['cart']['MailAttachmentsHook']) {
+        /*
+           if ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['cart']['MailAttachmentsHook']) {
                 foreach ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['cart']['MailAttachmentsHook'] as $className) {
                     $_procObj = GeneralUtility::makeInstance($className);
                     if (!$_procObj instanceof MailAttachmentHookInterface) {
@@ -287,9 +287,13 @@ class MailHandler implements SingletonInterface
                     $mail = $_procObj->getMailAttachments($mail, $orderItem, $to);
                 }
             }
+         */
 
-            $mail->send();
+        if ($GLOBALS['TYPO3_REQUEST'] instanceof ServerRequestInterface) {
+            $email->setRequest($GLOBALS['TYPO3_REQUEST']);
         }
+
+        GeneralUtility::makeInstance(Mailer::class)->send($email);
     }
 
     /**
@@ -304,25 +308,25 @@ class MailHandler implements SingletonInterface
         }
 
         $status = $orderItem->getPayment()->getStatus();
-        $to = 'seller';
 
-        $mailBody = $this->renderMailStandaloneView($status, $to, $orderItem);
-        $mailSubject = $this->renderMailStandaloneView($status, $to . 'Subject', $orderItem);
+        $email = GeneralUtility::makeInstance(FluidEmail::class)
+            ->to($orderItem->getBillingAddress()->getEmail())
+            ->from($this->buyerEmailFrom)
+            ->setTemplate('Mail/' . ucfirst($status) . '/Seller')
+            ->format(\TYPO3\CMS\Core\Mail\FluidEmail::FORMAT_HTML)
+            ->assign('settings', $this->pluginSettings['settings'])
+            ->assign('cart', $this->cart)
+            ->assign('orderItem', $orderItem);
 
-        if (!empty($mailBody) && !empty($mailSubject)) {
-            $mail = $this->objectManager->get(MailMessage::class);
-            $mail->setFrom($this->sellerEmailFrom);
-            $mail->setTo(explode(',', $this->sellerEmailTo));
-            if ($orderItem->getBillingAddress()->getEmail()) {
-                $mail->setReplyTo($orderItem->getBillingAddress()->getEmail());
-            }
-            if ($this->sellerEmailBcc) {
-                $mail->setBcc(explode(',', $this->sellerEmailBcc));
-            }
-            $mail->setReplyTo($orderItem->getBillingAddress()->getEmail());
-            $mail->setSubject($mailSubject);
-            $mail->setBody($mailBody, 'text/html', 'utf-8');
+        if ($orderItem->getBillingAddress()->getEmail()) {
+            $email->replyTo($orderItem->getBillingAddress()->getEmail());
+        }
+        if ($this->sellerEmailBcc) {
+            $bcc = explode(',', $this->sellerEmailBcc);
+            $email->bcc(...$bcc);
+        }
 
+        /*
             if ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['cart']['getMailAttachmentsHook']) {
                 foreach ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['cart']['getMailAttachmentsHook'] as $_classRef) {
                     $_procObj = &GeneralUtility::makeInstance($_classRef);
@@ -330,127 +334,12 @@ class MailHandler implements SingletonInterface
                     $mail = $_procObj->getMailAttachments($mail, $orderItem, $to);
                 }
             }
+        */
 
-            $mail->send();
-        }
-    }
-
-    /**
-     * Render OrderItem Mail Content
-     *
-     * @param Item $orderItem
-     * @param string $mailTemplateFolder
-     * @param string $mailTo
-     *
-     * @return array
-     */
-    public function renderOrderItemMailContent(
-        Item $orderItem,
-        string $mailTemplateFolder,
-        string $mailTo
-    ) {
-        $mailSubject = $this->renderMailStandaloneView($mailTemplateFolder, $mailTo . 'Subject', $orderItem);
-        $mailBody = $this->renderMailStandaloneView($mailTemplateFolder, $mailTo, $orderItem);
-
-        return [$mailSubject, $mailBody];
-    }
-
-    /**
-     * Returns the Mail Body
-     *
-     * @param string $status
-     * @param string $to
-     * @param Item $orderItem
-     *
-     * @return string
-     */
-    protected function renderMailStandaloneView(
-        string $status,
-        string $to,
-        Item $orderItem
-    ) {
-        $view = $this->getMailStandaloneView('/Mail/' . ucfirst($status) . '/', ucfirst($to), 'html');
-
-        if ($view->getTemplatePathAndFilename()) {
-            $view->assign('settings', $this->pluginSettings['settings']);
-
-            $view->assign('cart', $this->cart);
-            $view->assign('orderItem', $orderItem);
-
-            return $view->render();
+        if ($GLOBALS['TYPO3_REQUEST'] instanceof ServerRequestInterface) {
+            $email->setRequest($GLOBALS['TYPO3_REQUEST']);
         }
 
-        return '';
-    }
-
-    /**
-     * This creates another stand-alone instance of the Fluid StandaloneView
-     * to render an e-mail template
-     *
-     * @param string $templateSubPath
-     * @param string $templateFileName
-     * @param string $format
-     *
-     * @return StandaloneView
-     */
-    protected function getMailStandaloneView(
-        string $templateSubPath = '/Mail/',
-        string $templateFileName = 'Default',
-        string $format = 'html'
-    ) {
-        $templateSubPathAndFileName = $templateSubPath . $templateFileName . '.' . $format;
-
-        $view = $this->objectManager->get(StandaloneView::class);
-        $view->setFormat($format);
-
-        if ($this->pluginSettings['view']) {
-            $view->setLayoutRootPaths($this->resolveRootPaths('layoutRootPaths'));
-            $view->setPartialRootPaths($this->resolveRootPaths('partialRootPaths'));
-
-            if ($this->pluginSettings['view']['templateRootPaths']) {
-                foreach ($this->pluginSettings['view']['templateRootPaths'] as $pathNameKey => $pathNameValue) {
-                    $templateRootPath = GeneralUtility::getFileAbsFileName(
-                        $pathNameValue
-                    );
-
-                    $completePath = $templateRootPath . $templateSubPathAndFileName;
-                    if (file_exists($completePath)) {
-                        $view->setTemplatePathAndFilename($completePath);
-                    }
-                }
-            }
-        }
-
-        if (!$view->getTemplatePathAndFilename()) {
-            $logger = $this->logManager->getLogger(__CLASS__);
-            $logger->error(
-                'Cannot find Template for MailHandler',
-                [
-                    'templateRootPaths' => $this->pluginSettings['view']['templateRootPaths'],
-                    'templatePathAndFileName' => $templateSubPathAndFileName,
-                ]
-            );
-        }
-
-        // set controller extension name for translation
-        $view->getRequest()->setControllerExtensionName('Cart');
-
-        return $view;
-    }
-
-    /**
-     * Returns the Partial Root Path
-     *
-     * @var string $type
-     *
-     * @return array
-     */
-    protected function resolveRootPaths($type)
-    {
-        if ($this->pluginSettings['view'][$type]) {
-            return $this->pluginSettings['view'][$type];
-        }
-
-        return [];
+        GeneralUtility::makeInstance(Mailer::class)->send($email);
     }
 }

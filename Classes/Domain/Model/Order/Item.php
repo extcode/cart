@@ -57,6 +57,11 @@ class Item extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     protected $deliveryDate = null;
 
     /**
+     * @var bool
+     */
+    protected $shippingSameAsBilling = false;
+
+    /**
      * @var BillingAddress
      */
     protected $billingAddress;
@@ -375,6 +380,22 @@ class Item extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     public function setDeliveryDate(\DateTime $deliveryDate)
     {
         $this->deliveryDate = $deliveryDate;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isShippingSameAsBilling(): bool
+    {
+        return $this->shippingSameAsBilling;
+    }
+
+    /**
+     * @param bool $shippingSameAsBilling
+     */
+    public function setShippingSameAsBilling(bool $shippingSameAsBilling): void
+    {
+        $this->shippingSameAsBilling = $shippingSameAsBilling;
     }
 
     /**
