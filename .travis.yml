@@ -33,6 +33,7 @@ before_install:
 
 before_script:
   - composer require typo3/cms-core=$TYPO3_VERSION
+  - composer require typo3/cms-dashboard="${TYPO3_VERSION}"
   - git checkout composer.json
   - export TYPO3_PATH_WEB="$PWD/.build/Web"
 
