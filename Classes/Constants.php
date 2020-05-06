@@ -1,14 +1,14 @@
 <?php
 declare(strict_types = 1);
 
+namespace Extcode\Cart;
+
 /*
- * This file is part of the package t3g/blog.
+ * This file is part of the package extcode/cart
  *
  * For the full copyright and license information, please read the
  * LICENSE file that was distributed with this source code.
  */
-
-namespace Extcode\Cart;
 
 class Constants
 {
@@ -16,4 +16,7 @@ class Constants
      * Named constants for "magic numbers" of the field doktype.
      */
     public const DOKTYPE_CART_CART = 181;
+
+    public const LANGUAGE_PATH = 'LLL:EXT:cart/Resources/Private/Language/locallang.xlf';
+    public const LANGUAGE_BE_PATH = 'LLL:EXT:cart/Resources/Private/Language/locallang_be.xlf';
 }

@@ -1,0 +1,61 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+
+  Extcode\Cart\Widgets\:
+    resource: '../Classes/Widgets/*'
+
+  extcode.cart.provider.payment_paid_shipping_open:
+    class: 'Extcode\Cart\Widgets\Provider\OrderItemsProvider'
+    arguments:
+      $queryBuilder: '@querybuilder.tx_cart_domain_model_order_item'
+      $options:
+        filter:
+          payment:
+            status: 'paid'
+          shipping:
+            status: 'open'
+
+  extcode.cart.provider.orders_per_day:
+    class: 'Extcode\Cart\Widgets\Provider\OrdersPerDayProvider'
+    arguments:
+      $queryBuilder: '@querybuilder.tx_cart_domain_model_order_item'
+      $options:
+        filter:
+          payment:
+            status: 'paid'
+          shipping:
+            status: 'open'
+
+  dashboard.widget.extcode.cart.payment_paid_shipping_open:
+    class: 'Extcode\Cart\Widgets\PaymentPaidShippingOpen'
+    arguments:
+      $dataProvider: '@extcode.cart.provider.payment_paid_shipping_open'
+      $view: '@dashboard.views.widget'
+    tags:
+      - name: 'dashboard.widget'
+        identifier: 'PaymentPaidShippingOpen'
+        groupNames: 'cart'
+        title: 'LLL:EXT:cart/Resources/Private/Language/locallang_be.xlf:dashboard.widgets.payment_paid_shipping_open.title'
+        description: 'LLL:EXT:cart/Resources/Private/Language/locallang_be.xlf:dashboard.widgets.payment_paid_shipping_open.description'
+        iconIdentifier: 'content-widget-list'
+        height: 'large'
+        width: 'medium'
+
+  dashboard.widget.extcode.cart.orders_per_day:
+    class: 'TYPO3\CMS\Dashboard\Widgets\BarChartWidget'
+    arguments:
+      $view: '@dashboard.views.widget'
+      $dataProvider: '@extcode.cart.provider.orders_per_day'
+    tags:
+      - name: 'dashboard.widget'
+        identifier: 'OrdersPerDay'
+        groupNames: 'cart'
+        iconIdentifier: 'content-widget-chart-bar'
+        title: 'LLL:EXT:cart/Resources/Private/Language/locallang_be.xlf:dashboard.widgets.orders_per_day.title'
+        description: 'LLL:EXT:cart/Resources/Private/Language/locallang_be.xlf:dashboard.widgets.orders_per_day.description'
+        additionalCssClasses: 'dashboard-item--chart'
+        height: 'medium'
+        width: 'medium'

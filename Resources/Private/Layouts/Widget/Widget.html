@@ -1,0 +1,18 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+<div class="widget-content-title">
+    <f:render section="title" optional="true">
+        <span>{f:translate(id: configuration.title, default: configuration.title)}</span>
+    </f:render>
+</div>
+
+<div class="widget-content-main">
+    <f:render section="main" optional="true"/>
+</div>
+
+<f:variable name="footer" value="{f:render(section:'footer', optional: 'true')}"/>
+<f:if condition="{footer -> f:spaceless()}">
+    <div class="widget-content-footer">
+        {footer -> f:format.raw()}
+    </div>
+</f:if>
+</html>

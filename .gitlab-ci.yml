@@ -87,6 +87,7 @@ lint:php74:
     - php composer-setup.php --no-ansi --install-dir=/usr/bin --filename=composer
     - php -r "unlink('composer-setup.php'); unlink('installer.sig');"
     - composer require typo3/cms-core="${TYPO3_VERSION}"
+    - composer require typo3/cms-dashboard="${TYPO3_VERSION}"
   script:
     - >
       if [[ "$COVERAGE" == "0" ]]; then

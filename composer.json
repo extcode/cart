@@ -83,5 +83,8 @@
         "friendsofphp/php-cs-fixer": "^2.14",
         "helmich/typo3-typoscript-lint": "^2.0",
         "overtrue/phplint": "^1.1"
+    },
+    "suggest": {
+        "typo3/cms-dashboard": "^10.4"
     }
 }

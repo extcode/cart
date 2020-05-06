@@ -109,3 +109,18 @@ if (TYPO3_MODE === 'FE') {
     $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['cart']['MailAttachmentsHook'][] =
         \Extcode\Cart\Hooks\MailAttachmentHook::class;
 }
+
+call_user_func(static function () {
+    if (TYPO3_MODE === 'BE') {
+        \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTypoScriptSetup(
+            '
+module.tx_dashboard {
+    view {
+        templateRootPaths.1588697552 = EXT:cart/Resources/Private/Templates/
+        partialRootPaths.1588697552 = EXT:cart/Resources/Private/Partials/
+        layoutRootPaths.1588697552 = EXT:cart/Resources/Private/Layouts/
+    }
+}'
+        );
+    }
+});

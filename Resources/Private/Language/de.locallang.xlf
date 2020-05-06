@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-    <file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2015-02-03T16:30:00Z" product-name="cart">
+    <file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2020-05-06T13:18:00Z" product-name="cart">
         <header/>
         <body>
 
@@ -498,6 +498,11 @@
             <trans-unit id="tx_cart.mail.seller.subject">
                 <source>Order receipt - %s</source>
                 <target>Bestelleingang - %s</target>
+            </trans-unit>
+
+            <trans-unit id="tx_cart.format.date">
+                <source>Y-m-d</source>
+                <target>d.m.Y</target>
             </trans-unit>
 
             <trans-unit id="filter">

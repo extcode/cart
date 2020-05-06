@@ -1,6 +1,6 @@
 .. include:: ../../Includes.txt
 
-6.8 Changes
+7.0 Changes
 ===========
 
 **Table of contents**
@@ -18,3 +18,13 @@ Breaking Changes
    :glob:
 
    Breaking-*
+
+Features
+^^^^^^^^
+
+.. toctree::
+   :maxdepth: 1
+   :titlesonly:
+   :glob:
+
+   Feature-*
