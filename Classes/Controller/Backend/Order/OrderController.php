@@ -40,7 +40,7 @@ class OrderController extends \Extcode\Cart\Controller\Backend\ActionController
      *
      * @var array
      */
-    protected $searchArguments;
+    protected $searchArguments = [];
 
     /**
      * Plugin Settings
