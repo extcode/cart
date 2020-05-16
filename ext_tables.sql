@@ -121,6 +121,7 @@ CREATE TABLE tx_cart_domain_model_order_product (
 
     item int(11) unsigned DEFAULT '0' NOT NULL,
 
+    product_id int(11) unsigned DEFAULT '0' NOT NULL,
     product_type varchar(255) DEFAULT '' NOT NULL,
 
     sku varchar(255) DEFAULT '' NOT NULL,

@@ -114,7 +114,7 @@ class OrderUtility
     /**
      * Tax Classes
      *
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<Extcode\Cart\Domain\Model\Order\TaxClass>
+     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Extcode\Cart\Domain\Model\Order\TaxClass>
      */
     protected $taxClasses;
 
@@ -481,6 +481,7 @@ class OrderUtility
         $orderProduct->setPid($this->storagePid);
 
         $orderProduct->setProductType($cartProduct->getProductType());
+        $orderProduct->setProductId($cartProduct->getProductId());
         $orderProduct->setPrice($cartProduct->getTranslatedPrice());
         $orderProduct->setDiscount($cartProduct->getDiscount());
         $orderProduct->setGross($cartProduct->getGross());
