@@ -25,7 +25,7 @@ class OrderController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      *
      * @var array
      */
-    protected $searchArguments;
+    protected $searchArguments = [];
 
     /**
      * Plugin Settings
