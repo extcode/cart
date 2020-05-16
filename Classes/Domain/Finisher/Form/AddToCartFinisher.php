@@ -18,8 +18,6 @@ use TYPO3\CMS\Form\Domain\Finishers\AbstractFinisher;
 
 class AddToCartFinisher extends AbstractFinisher
 {
-    const AJAX_CART_TYPE_NUM = '2278001';
-
     /**
      * @var Cart
      */
@@ -93,7 +91,7 @@ class AddToCartFinisher extends AbstractFinisher
             $severity = \TYPO3\CMS\Core\Messaging\AbstractMessage::OK;
 
             $pageType = $GLOBALS['TYPO3_REQUEST']->getAttribute('routing')->getPageType();
-            if ($pageType === self::AJAX_CART_TYPE_NUM) {
+            if (in_array((int)$pageType, $this->pluginSettings['settings']['jsonResponseForPageTypes'])) {
                 $response = [
                     'status' => $status,
                     'added' => $quantity,

@@ -47,6 +47,7 @@ plugin.tx_cart {
     mvc {
         callDefaultActionIfActionCantBeResolved = 1
     }
+
     features {
         skipDefaultArguments = 1
     }
@@ -86,6 +87,10 @@ plugin.tx_cart {
 
         order {
             pid = {$plugin.tx_cart.settings.order.pid}
+        }
+
+        jsonResponseForPageTypes {
+            addToCartByAjax = {$plugin.tx_cart.settings.addToCartByAjax}
         }
 
         allowedCountries {
