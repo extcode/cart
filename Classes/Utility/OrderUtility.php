@@ -481,6 +481,7 @@ class OrderUtility
         $orderProduct->setPid($this->storagePid);
 
         $orderProduct->setProductType($cartProduct->getProductType());
+        $orderProduct->setProductId($cartProduct->getProductId());
         $orderProduct->setPrice($cartProduct->getTranslatedPrice());
         $orderProduct->setDiscount($cartProduct->getDiscount());
         $orderProduct->setGross($cartProduct->getGross());

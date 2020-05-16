@@ -26,11 +26,11 @@ return [
     ],
     'hideTable' => 1,
     'interface' => [
-        'showRecordFieldList' => 'product_type, sku, title, count, additional, additional_data, product_additional, price, discount, gross, net, tax, tax_class',
+        'showRecordFieldList' => 'product_id, product_type, sku, title, count, additional, additional_data, product_additional, price, discount, gross, net, tax, tax_class',
     ],
     'types' => [
         '1' => [
-            'showitem' => 'product_type, sku, title, count, --palette--;' . $_LLL . ':tx_cart_domain_model_order_product.price.group;price, product_additional, additional, additional_data'
+            'showitem' => 'product_id, product_type, sku, title, count, --palette--;' . $_LLL . ':tx_cart_domain_model_order_product.price.group;price, product_additional, additional, additional_data'
         ],
     ],
     'palettes' => [
@@ -43,6 +43,16 @@ return [
         ],
     ],
     'columns' => [
+        'product_id' => [
+            'exclude' => 0,
+            'label' => $_LLL . ':tx_cart_domain_model_order_product.product_id',
+            'config' => [
+                'type' => 'input',
+                'readOnly' => 1,
+                'size' => 30,
+                'eval' => 'trim,required'
+            ],
+        ],
         'product_type' => [
             'exclude' => 1,
             'label' => $_LLL . ':tx_cart_domain_model_order_product.product_type',

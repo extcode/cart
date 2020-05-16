@@ -17,6 +17,11 @@ class Product extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     protected $item;
 
     /**
+     * @var int
+     */
+    protected $productId = 0;
+
+    /**
      * @var string
      */
     protected $productType = '';
@@ -121,6 +126,22 @@ class Product extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     public function getItem(): ?Item
     {
         return $this->item;
+    }
+
+    /**
+     * @return int
+     */
+    public function getProductId(): int
+    {
+        return $this->productId;
+    }
+
+    /**
+     * @param int $productId
+     */
+    public function setProductId(int $productId): void
+    {
+        $this->productId = $productId;
     }
 
     /**
