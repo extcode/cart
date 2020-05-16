@@ -50,7 +50,7 @@ class CartController extends ActionController
                         'cart' => &$this->cart,
                         'orderItem' => &$orderItem,
                         'billingAddress' => &$billingAddress,
-                        'shippingAddess' => &$shippingAddress,
+                        'shippingAddress' => &$shippingAddress,
                     ];
 
                     \TYPO3\CMS\Core\Utility\GeneralUtility::callUserFunction($funcRef, $params, $this);
