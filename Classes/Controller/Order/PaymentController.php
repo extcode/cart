@@ -167,7 +167,7 @@ class PaymentController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
      * Send Mails
      *
      * @param \Extcode\Cart\Domain\Model\Order\Item $orderItem
-     * @paran string $type
+     * @param string $type
      * @param string $class
      * @param string $function
      */
