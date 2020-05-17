@@ -827,7 +827,9 @@ class OrderUtility
         /**
          * @var \TYPO3\CMS\Extbase\Service\TypoScriptService $typoScriptService
          */
-        $typoScriptService = GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Service\\TypoScriptService');
+        $typoScriptService = GeneralUtility::makeInstance(
+            \TYPO3\CMS\Extbase\Service\TypoScriptService::class
+        );
         $pluginTypoScriptSettings = $typoScriptService->convertPlainArrayToTypoScriptArray($pluginSettings);
 
         $registry = GeneralUtility::makeInstance('TYPO3\\CMS\\Core\\Registry');
