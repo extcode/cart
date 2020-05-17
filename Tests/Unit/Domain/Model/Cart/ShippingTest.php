@@ -1,6 +1,6 @@
 <?php
 
-namespace Extcode\Cart\Tests\Domain\Model\Cart;
+namespace Extcode\Cart\Tests\Unit\Domain\Model\Cart;
 
 /*
  * This file is part of the package extcode/cart.
