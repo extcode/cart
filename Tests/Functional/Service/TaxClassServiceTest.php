@@ -7,7 +7,7 @@
  * LICENSE file that was distributed with this source code.
  */
 
-namespace Extcode\Cart\Tests\Functional\Utility;
+namespace Extcode\Cart\Tests\Functional\Service;
 
 use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
 
