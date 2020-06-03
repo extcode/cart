@@ -50,7 +50,7 @@ abstract class AbstractService extends \TYPO3\CMS\Extbase\DomainObject\AbstractE
     protected $gross = 0.0;
 
     /**
-     * @var TaxClass
+     * @var \Extcode\Cart\Domain\Model\Order\TaxClass
      * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
      */
     protected $taxClass;
