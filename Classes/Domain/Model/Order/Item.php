@@ -57,12 +57,12 @@ class Item extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     protected $deliveryDate = null;
 
     /**
-     * @var BillingAddress
+     * @var \Extcode\Cart\Domain\Model\Order\BillingAddress
      */
     protected $billingAddress;
 
     /**
-     * @var ShippingAddress
+     * @var \Extcode\Cart\Domain\Model\Order\ShippingAddress
      */
     protected $shippingAddress;
 
