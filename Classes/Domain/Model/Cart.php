@@ -35,7 +35,7 @@ class Cart extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     protected $orderItem = null;
 
     /**
-     * @var \Extcode\Cart\Domain\Model\Cart\Cart
+     * @var string
      */
     protected $cart = null;
 
