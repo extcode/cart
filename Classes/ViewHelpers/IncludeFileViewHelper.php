@@ -43,7 +43,9 @@ class IncludeFileViewHelper extends AbstractViewHelper
 
         $pageRenderer = GeneralUtility::makeInstance('TYPO3\\CMS\\Core\\Page\\PageRenderer');
         if (TYPO3_MODE === 'FE') {
-            $path = $GLOBALS['TSFE']->tmpl->getFileName($path);
+            /** @var \TYPO3\CMS\Frontend\Resource\FilePathSanitizer $sanitizer */
+        	$sanitizer = GeneralUtility::makeInstance(\TYPO3\CMS\Frontend\Resource\FilePathSanitizer::class);
+            $path = $sanitizer->sanitize($path);
         }
 
         if (strtolower(substr($path, -3)) === '.js') {
