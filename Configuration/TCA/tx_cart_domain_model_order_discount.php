@@ -80,6 +80,7 @@ return [
             'label' => $_LLL . ':tx_cart_domain_model_order_discount.tax_class_id',
             'config' => [
                 'type' => 'select',
+                'renderType' => 'selectSingle',
                 'items' => [
                     [$_LLL . ':tx_cart_domain_model_order_discount.tax_class_id.1', 1],
                 ],
