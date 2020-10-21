@@ -30,10 +30,10 @@ return [
         'showRecordFieldList' => 'title, salutation, first_name, last_name, email, phone, fax, company, street, zip, city, country, phone, fax, additional',
     ],
     'types' => [
-        '\Extcode\Cart\Domain\Model\Order\BillingAddress' => [
+        \Extcode\Cart\Domain\Model\Order\BillingAddress::class => [
             'showitem' => 'title, salutation, first_name, last_name, email, phone, fax, company, street, zip, city, country, phone, fax, additional, tax_identification_number',
         ],
-        '\Extcode\Cart\Domain\Model\Order\ShippingAddress' => [
+        \Extcode\Cart\Domain\Model\Order\ShippingAddress::class => [
             'showitem' => 'title, salutation, first_name, last_name, email, phone, fax, company, street, zip, city, country, phone, fax, additional',
         ],
     ],
