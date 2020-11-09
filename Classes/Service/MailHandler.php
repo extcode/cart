@@ -295,7 +295,8 @@ class MailHandler implements SingletonInterface
             ->assign('orderItem', $orderItem);
 
         if ($this->getBuyerEmailBcc()) {
-            $email->bcc(explode(',', $this->getBuyerEmailBcc()));
+            $bcc = GeneralUtility::trimExplode(',', $this->getBuyerEmailBcc(), true);
+            $email->bcc(...$bcc);
         }
         if ($this->getbuyerEmailReplyTo()) {
             $email->replyTo($this->getbuyerEmailReplyTo());
@@ -332,8 +333,9 @@ class MailHandler implements SingletonInterface
 
         $status = $orderItem->getPayment()->getStatus();
 
+        $to = GeneralUtility::trimExplode(',', $this->getSellerEmailTo(), true);
         $email = GeneralUtility::makeInstance(FluidEmail::class)
-            ->to($this->getSellerEmailTo())
+            ->to(...$to)
             ->from($this->getSellerEmailFrom())
             ->setTemplate('Mail/' . ucfirst($status) . '/Seller')
             ->format(FluidEmail::FORMAT_HTML)
@@ -345,7 +347,7 @@ class MailHandler implements SingletonInterface
             $email->replyTo($orderItem->getBillingAddress()->getEmail());
         }
         if ($this->getSellerEmailBcc()) {
-            $bcc = explode(',', $this->getSellerEmailBcc());
+            $bcc = GeneralUtility::trimExplode(',', $this->sellerEmailBcc, true);
             $email->bcc(...$bcc);
         }
 
