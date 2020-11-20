@@ -1,6 +1,3 @@
-imports:
-  - {resource: Backend/Widgets.yaml}
-
 services:
   _defaults:
     autowire: true

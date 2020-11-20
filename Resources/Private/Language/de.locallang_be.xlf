@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-    <file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2020-05-06T09:45:00Z" product-name="cart">
+    <file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2020-11-20T08:10:00Z" product-name="cart">
         <header/>
         <body>
 
@@ -45,6 +45,14 @@
             <trans-unit id="dashboard.widgets.orders_per_day.description">
                 <source>Orders per Day</source>
                 <target>Bestellung pro Tag</target>
+            </trans-unit>
+            <trans-unit id="dashboard.widgets.turnover_per_day.title">
+                <source>Turnover per Day</source>
+                <target>Umsatz pro Tag</target>
+            </trans-unit>
+            <trans-unit id="dashboard.widgets.turnover_per_day.description">
+                <source>Turnover per Day</source>
+                <target>Umsatz pro Tag</target>
             </trans-unit>
 
         </body>

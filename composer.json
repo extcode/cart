@@ -23,7 +23,8 @@
     },
     "autoload": {
         "psr-4": {
-            "Extcode\\Cart\\": "Classes/"
+            "Extcode\\Cart\\": "Classes/",
+            "Extcode\\Cart\\Configuration\\": "Configuration/"
         }
     },
     "autoload-dev": {
