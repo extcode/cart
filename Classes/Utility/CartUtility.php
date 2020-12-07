@@ -159,9 +159,9 @@ class CartUtility
 
         $data = [
             'cart' => $cart,
-            'billingCountry' => $billingCountry,
-            'shippingCountry' => $shippingCountry,
-            'shippingSameAsBilling' => $shippingSameAsBilling,
+            'billingCountry' => &$billingCountry,
+            'shippingCountry' => &$shippingCountry,
+            'shippingSameAsBilling' => &$shippingSameAsBilling,
         ];
 
         $signalSlotDispatcher = GeneralUtility::makeInstance(
