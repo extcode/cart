@@ -105,6 +105,7 @@ return [
             'label' => $_LLL . ':tx_cart_domain_model_order_item.fe_user',
             'config' => [
                 'type' => 'select',
+                'renderType' => 'selectSingle',
                 'readOnly' => 1,
                 'foreign_table' => 'fe_users',
                 'size' => 1,
@@ -193,7 +194,7 @@ return [
                 'foreign_table' => 'tx_cart_domain_model_order_address',
                 'foreign_field' => 'item',
                 'foreign_match_fields' => [
-                    'record_type' => '\Extcode\Cart\Domain\Model\Order\BillingAddress'
+                    'record_type' => '\\' . \Extcode\Cart\Domain\Model\Order\BillingAddress::class
                 ],
                 'minitems' => 1,
                 'maxitems' => 1,
@@ -219,7 +220,7 @@ return [
                 'foreign_table' => 'tx_cart_domain_model_order_address',
                 'foreign_field' => 'item',
                 'foreign_match_fields' => [
-                    'record_type' => '\Extcode\Cart\Domain\Model\Order\ShippingAddress'
+                    'record_type' => '\\' . \Extcode\Cart\Domain\Model\Order\ShippingAddress::class
                 ],
                 'minitems' => 0,
                 'maxitems' => 1,

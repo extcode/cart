@@ -50,10 +50,10 @@ return [
                 'renderType' => 'selectSingle',
                 'readOnly' => 1,
                 'items' => [
-                    [$_LLL . ':tx_cart_domain_model_order_address.record_type.billing', '\Extcode\Cart\Domain\Model\Order\BillingAddress'],
-                    [$_LLL . ':tx_cart_domain_model_order_address.record_type.shipping', '\Extcode\Cart\Domain\Model\Order\ShippingAddress'],
+                    [$_LLL . ':tx_cart_domain_model_order_address.record_type.billing', '\\' . \Extcode\Cart\Domain\Model\Order\BillingAddress::class],
+                    [$_LLL . ':tx_cart_domain_model_order_address.record_type.shipping', '\\' . \Extcode\Cart\Domain\Model\Order\ShippingAddress::class],
                 ],
-                'default' => '\Extcode\Cart\Domain\Model\Order\BillingAddress'
+                'default' => '\\' . \Extcode\Cart\Domain\Model\Order\BillingAddress::class
             ]
         ],
         'title' => [
