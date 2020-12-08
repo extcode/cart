@@ -29,15 +29,6 @@ class StockUtility
     protected $cart;
 
     /**
-     * @param \TYPO3\CMS\Extbase\Object\ObjectManagerInterface $objectManager
-     */
-    public function injectObjectManager(
-        \TYPO3\CMS\Extbase\Object\ObjectManagerInterface $objectManager
-    ) {
-        $this->objectManager = $objectManager;
-    }
-
-    /**
      * @param \TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager $persistenceManager
      */
     public function injectPersistenceManager(

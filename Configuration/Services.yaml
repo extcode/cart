@@ -8,6 +8,24 @@ services:
     resource: '../Classes/*'
     exclude: '../Classes/Widgets/*'
 
+  Extcode\Cart\Domain\Finisher\Order\ClearCartFinisher:
+    public: true
+
+  Extcode\Cart\Domain\Finisher\Order\EmailFinisher:
+    public: true
+
+  Extcode\Cart\Domain\Finisher\Order\OrderFinisher:
+    public: true
+
+  Extcode\Cart\Domain\Finisher\Order\OrderNumberFinisher:
+    public: true
+
+  Extcode\Cart\Domain\Finisher\Order\PaymentFinisher:
+    public: true
+
+  Extcode\Cart\Domain\Finisher\Order\StockFinisher:
+    public: true
+
   querybuilder.tx_cart_domain_model_order_item:
     class: 'TYPO3\CMS\Core\Database\Query\QueryBuilder'
     factory:
