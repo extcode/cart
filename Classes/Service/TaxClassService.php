@@ -12,15 +12,11 @@ namespace Extcode\Cart\Service;
 
 use Extcode\Cart\Domain\Model\Cart\TaxClass;
 use TYPO3\CMS\Core\Log\LogManager;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 
 class TaxClassService implements TaxClassServiceInterface
 {
-    /**
-     * @var \TYPO3\CMS\Extbase\Object\ObjectManager
-     */
-    protected $objectManager;
-
     /**
      * @var ConfigurationManagerInterface
      */
@@ -30,15 +26,6 @@ class TaxClassService implements TaxClassServiceInterface
      * @var array
      */
     protected $settings;
-
-    /**
-     * @param \TYPO3\CMS\Extbase\Object\ObjectManagerInterface $objectManager
-     */
-    public function injectObjectManager(
-        \TYPO3\CMS\Extbase\Object\ObjectManagerInterface $objectManager
-    ) {
-        $this->objectManager = $objectManager;
-    }
 
     /**
      * @param ConfigurationManagerInterface $configurationManager
@@ -68,7 +55,7 @@ class TaxClassService implements TaxClassServiceInterface
 
         foreach ($taxClassSettings as $taxClassKey => $taxClassValue) {
             if ($this->isValidTaxClassConfig($taxClassKey, $taxClassValue)) {
-                $taxClasses[$taxClassKey] = $this->objectManager->get(
+                $taxClasses[$taxClassKey] = GeneralUtility::makeInstance(
                     TaxClass::class,
                     (int)$taxClassKey,
                     $taxClassValue['value'],
@@ -93,7 +80,7 @@ class TaxClassService implements TaxClassServiceInterface
             empty($value['calc']) ||
             !is_numeric($value['calc'])
         ) {
-            $logger = $this->objectManager->get(LogManager::class)->getLogger(__CLASS__);
+            $logger = GeneralUtility::makeInstance(LogManager::class)->getLogger(__CLASS__);
             $logger->error('Can\'t create tax class object for \'' . $key . '\'.', []);
 
             return false;

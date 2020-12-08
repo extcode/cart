@@ -37,7 +37,7 @@ class ActionController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControlle
             $GLOBALS['BE_USER']->getPagePermsClause(1)
         );
 
-        $configurationManager = $this->objectManager->get(
+        $configurationManager = GeneralUtility::makeInstance(
             \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::class
         );
 

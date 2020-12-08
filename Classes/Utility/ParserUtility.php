@@ -11,25 +11,10 @@ namespace Extcode\Cart\Utility;
 
 use Extcode\Cart\Domain\Model\Cart\ServiceInterface;
 use Extcode\Cart\Service\TaxClassServiceInterface;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 class ParserUtility
 {
-    /**
-     * Object Manager
-     *
-     * @var \TYPO3\CMS\Extbase\Object\ObjectManager
-     */
-    protected $objectManager;
-
-    /**
-     * @param \TYPO3\CMS\Extbase\Object\ObjectManagerInterface $objectManager
-     */
-    public function injectObjectManager(
-        \TYPO3\CMS\Extbase\Object\ObjectManagerInterface $objectManager
-    ) {
-        $this->objectManager = $objectManager;
-    }
-
     /**
      * Parse Tax Classes
      *
@@ -46,7 +31,7 @@ class ParserUtility
             $className = \Extcode\Cart\Service\TaxClassService::class;
         }
 
-        $service = $this->objectManager->get(
+        $service = GeneralUtility::makeInstance(
             $className
         );
         if (!$service instanceof TaxClassServiceInterface) {
@@ -83,7 +68,7 @@ class ParserUtility
                     $className = \Extcode\Cart\Domain\Model\Cart\Service::class;
                 }
 
-                $service = $this->objectManager->get(
+                $service = GeneralUtility::makeInstance(
                     $className,
                     (int)$serviceKey,
                     $serviceConfig

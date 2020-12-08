@@ -16,16 +16,10 @@ use TYPO3\CMS\Core\Mail\MailMessage;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManager;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
-use TYPO3\CMS\Extbase\Object\ObjectManager;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 
 class MailAttachmentHook implements MailAttachmentHookInterface
 {
-    /**
-     * @var ObjectManager
-     */
-    protected $objectManager;
-
     /**
      * @var ConfigurationManager
      */
@@ -41,11 +35,7 @@ class MailAttachmentHook implements MailAttachmentHookInterface
      */
     public function __construct()
     {
-        $this->objectManager = GeneralUtility::makeInstance(
-            ObjectManager::class
-        );
-
-        $this->configurationManager = $this->objectManager->get(
+        $this->configurationManager = GeneralUtility::makeInstance(
             ConfigurationManager::class
         );
 

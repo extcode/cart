@@ -10,6 +10,7 @@ namespace Extcode\Cart\Controller\Backend\Order;
  */
 
 use TYPO3\CMS\Core\Core\Environment;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 
 class DocumentController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
@@ -50,7 +51,7 @@ class DocumentController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
      */
     public function createAction(\Extcode\Cart\Domain\Model\Order\Item $orderItem, $pdfType)
     {
-        if ($pdfType == 'invoice' && !$orderItem->getInvoiceNumber()) {
+        if ($pdfType === 'invoice' && !$orderItem->getInvoiceNumber()) {
             $invoiceNumber = $this->generateNumber($orderItem, $pdfType);
             $orderItem->setInvoiceNumber($invoiceNumber);
             $orderItem->setInvoiceDate(new \DateTime());
@@ -127,12 +128,12 @@ class DocumentController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
      */
     protected function generatePdfDocument(\Extcode\Cart\Domain\Model\Order\Item $orderItem, $pdfType)
     {
-        $extensionManagerUtility = $this->objectManager->get(
+        $extensionManagerUtility = GeneralUtility::makeInstance(
             \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::class
         );
 
         if ($extensionManagerUtility->isLoaded('cart_pdf')) {
-            $pdfService = $this->objectManager->get(
+            $pdfService = GeneralUtility::makeInstance(
                 \Extcode\CartPdf\Service\PdfService::class
             );
 

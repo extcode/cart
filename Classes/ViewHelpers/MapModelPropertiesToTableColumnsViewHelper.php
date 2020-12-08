@@ -9,15 +9,11 @@ namespace Extcode\Cart\ViewHelpers;
  * LICENSE file that was distributed with this source code.
  */
 
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 class MapModelPropertiesToTableColumnsViewHelper extends AbstractViewHelper
 {
-    /**
-     * @var \TYPO3\CMS\Extbase\Object\ObjectManager
-     */
-    protected $objectManager;
-
     /**
      * @var \TYPO3\CMS\Extbase\Configuration\ConfigurationManager
      */
@@ -91,10 +87,7 @@ class MapModelPropertiesToTableColumnsViewHelper extends AbstractViewHelper
 
     protected function getConfiguration()
     {
-        $this->objectManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(
-            \TYPO3\CMS\Extbase\Object\ObjectManager::class
-        );
-        $this->configurationManager = $this->objectManager->get(
+        $this->configurationManager = GeneralUtility::makeInstance(
             \TYPO3\CMS\Extbase\Configuration\ConfigurationManager::class
         );
         $this->configuration = $this->configurationManager->getConfiguration(

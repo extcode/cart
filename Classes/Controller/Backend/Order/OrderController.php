@@ -249,11 +249,11 @@ class OrderController extends \Extcode\Cart\Controller\Backend\ActionController
         /**
          * @var \TYPO3\CMS\Extbase\Service\TypoScriptService $typoScriptService
          */
-        $typoScriptService = $this->objectManager->get(
+        $typoScriptService = GeneralUtility::makeInstance(
             \TYPO3\CMS\Extbase\Service\TypoScriptService::class
         );
 
-        $configurationManager = $this->objectManager->get(
+        $configurationManager = GeneralUtility::makeInstance(
             \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::class
         );
 

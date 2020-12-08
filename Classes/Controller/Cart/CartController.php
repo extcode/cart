@@ -9,6 +9,8 @@ namespace Extcode\Cart\Controller\Cart;
  * LICENSE file that was distributed with this source code.
  */
 
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+
 class CartController extends ActionController
 {
     /**
@@ -42,17 +44,17 @@ class CartController extends ActionController
         $this->restoreSession();
 
         if ($orderItem === null) {
-            $orderItem = $this->objectManager->get(
+            $orderItem = GeneralUtility::makeInstance(
                 \Extcode\Cart\Domain\Model\Order\Item::class
             );
         }
         if ($billingAddress === null) {
-            $billingAddress = $this->objectManager->get(
+            $billingAddress = GeneralUtility::makeInstance(
                 \Extcode\Cart\Domain\Model\Order\BillingAddress::class
             );
         }
         if ($shippingAddress === null) {
-            $shippingAddress = $this->objectManager->get(
+            $shippingAddress = GeneralUtility::makeInstance(
                 \Extcode\Cart\Domain\Model\Order\ShippingAddress::class
             );
         }

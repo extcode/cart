@@ -9,15 +9,10 @@ namespace Extcode\Cart\Utility;
  * LICENSE file that was distributed with this source code.
  */
 
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+
 class PaymentUtility
 {
-    /**
-     * Object Manager
-     *
-     * @var \TYPO3\CMS\Extbase\Object\ObjectManager
-     */
-    protected $objectManager;
-
     /**
      * Cart
      *
@@ -31,15 +26,6 @@ class PaymentUtility
      * @var \Extcode\Cart\Domain\Model\Order\Item
      */
     protected $orderItem;
-
-    /**
-     * @param \TYPO3\CMS\Extbase\Object\ObjectManagerInterface $objectManager
-     */
-    public function injectObjectManager(
-        \TYPO3\CMS\Extbase\Object\ObjectManagerInterface $objectManager
-    ) {
-        $this->objectManager = $objectManager;
-    }
 
     /**
      * Handle Payment
@@ -67,7 +53,7 @@ class PaymentUtility
             'providerUsed' => false,
         ];
 
-        $signalSlotDispatcher = $this->objectManager->get(
+        $signalSlotDispatcher = GeneralUtility::makeInstance(
             \TYPO3\CMS\Extbase\SignalSlot\Dispatcher::class
         );
         $params = $signalSlotDispatcher->dispatch(
@@ -96,7 +82,7 @@ class PaymentUtility
             'cart' => $cart,
         ];
 
-        $signalSlotDispatcher = $this->objectManager->get(
+        $signalSlotDispatcher = GeneralUtility::makeInstance(
             \TYPO3\CMS\Extbase\SignalSlot\Dispatcher::class
         );
         $signalSlotDispatcher->dispatch(
@@ -121,7 +107,7 @@ class PaymentUtility
             'cart' => $cart,
         ];
 
-        $signalSlotDispatcher = $this->objectManager->get(
+        $signalSlotDispatcher = GeneralUtility::makeInstance(
             \TYPO3\CMS\Extbase\SignalSlot\Dispatcher::class
         );
         $signalSlotDispatcher->dispatch(

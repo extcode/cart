@@ -9,15 +9,11 @@
 
 namespace Extcode\Cart\Tests\Functional\Utility;
 
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
 
 class ParserUtilityTest extends FunctionalTestCase
 {
-    /**
-     * @var \TYPO3\CMS\Extbase\Object\ObjectManagerInterface
-     */
-    protected $objectManager;
-
     /**
      * @var \Extcode\Cart\Utility\ParserUtility
      */
@@ -34,11 +30,7 @@ class ParserUtilityTest extends FunctionalTestCase
     {
         parent::setUp();
 
-        $this->objectManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(
-            \TYPO3\CMS\Extbase\Object\ObjectManager::class
-        );
-
-        $this->parserUtility = $this->objectManager->get(
+        $this->parserUtility = GeneralUtility::makeInstance(
             \Extcode\Cart\Utility\ParserUtility::class
         );
     }

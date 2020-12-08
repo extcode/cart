@@ -9,6 +9,8 @@ namespace Extcode\Cart\Controller\Cart;
  * LICENSE file that was distributed with this source code.
  */
 
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+
 class OrderController extends ActionController
 {
     /**
@@ -155,7 +157,7 @@ class OrderController extends ActionController
      */
     protected function invokeFinishers(\Extcode\Cart\Domain\Model\Order\Item $orderItem)
     {
-        $finisherContext = $this->objectManager->get(
+        $finisherContext = GeneralUtility::makeInstance(
             \Extcode\Cart\Domain\Finisher\FinisherContext::class,
             $this->pluginSettings,
             $this->cart,
@@ -171,13 +173,13 @@ class OrderController extends ActionController
                 $finisherClass = $finisherConfig['class'];
 
                 if (class_exists($finisherClass)) {
-                    $finisher = $this->objectManager->get($finisherClass);
+                    $finisher = GeneralUtility::makeInstance($finisherClass);
                     $finisher->execute($finisherContext);
                     if ($finisherContext->isCancelled()) {
                         break;
                     }
                 } else {
-                    $logManager = $this->objectManager->get(
+                    $logManager = GeneralUtility::makeInstance(
                         \TYPO3\CMS\Core\Log\LogManager::class
                     );
                     $logger = $logManager->getLogger(__CLASS__);
@@ -199,7 +201,7 @@ class OrderController extends ActionController
     {
         // build custom validation chain
         /** @var \TYPO3\CMS\Extbase\Validation\ValidatorResolver $validatorResolver */
-        $validatorResolver = $this->objectManager->get(
+        $validatorResolver = GeneralUtility::makeInstance(
             \TYPO3\CMS\Extbase\Validation\ValidatorResolver::class
         );
 

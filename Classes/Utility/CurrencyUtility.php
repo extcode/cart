@@ -9,24 +9,10 @@ namespace Extcode\Cart\Utility;
  * LICENSE file that was distributed with this source code.
  */
 
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+
 class CurrencyUtility
 {
-    /**
-     * Object Manager
-     *
-     * @var \TYPO3\CMS\Extbase\Object\ObjectManager
-     */
-    protected $objectManager;
-
-    /**
-     * @param \TYPO3\CMS\Extbase\Object\ObjectManagerInterface $objectManager
-     */
-    public function injectObjectManager(
-        \TYPO3\CMS\Extbase\Object\ObjectManagerInterface $objectManager
-    ) {
-        $this->objectManager = $objectManager;
-    }
-
     /**
      * @param array $cartSettings
      * @param array $pluginSettings
@@ -34,7 +20,7 @@ class CurrencyUtility
      */
     public function updateCurrency(array $cartSettings, array $pluginSettings, \TYPO3\CMS\Extbase\Mvc\Request $request)
     {
-        $sessionHandler = $this->objectManager->get(
+        $sessionHandler = GeneralUtility::makeInstance(
             \Extcode\Cart\Service\SessionHandler::class
         );
         $cart = $sessionHandler->restore($cartSettings['pid']);
@@ -55,7 +41,7 @@ class CurrencyUtility
                 'currencyTranslation' => floatval($pluginSettings['settings']['currencies'][$currencyConfigId]['translation'])
             ];
 
-            $signalSlotDispatcher = $this->objectManager->get(
+            $signalSlotDispatcher = GeneralUtility::makeInstance(
                 \TYPO3\CMS\Extbase\SignalSlot\Dispatcher::class
             );
             $signalSlotDispatcher->dispatch(

@@ -9,15 +9,11 @@
 
 namespace Extcode\Cart\Tests\Functional\Service;
 
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
 
 class TaxClassServiceTest extends FunctionalTestCase
 {
-    /**
-     * @var \TYPO3\CMS\Extbase\Object\ObjectManagerInterface
-     */
-    protected $objectManager;
-
     /**
      * @var \Extcode\Cart\Service\TaxClassService
      */
@@ -34,11 +30,7 @@ class TaxClassServiceTest extends FunctionalTestCase
     {
         parent::setUp();
 
-        $this->objectManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(
-            \TYPO3\CMS\Extbase\Object\ObjectManager::class
-        );
-
-        $this->taxClassService = $this->objectManager->get(
+        $this->taxClassService = GeneralUtility::makeInstance(
             \Extcode\Cart\Service\TaxClassService::class
         );
     }

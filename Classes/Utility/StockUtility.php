@@ -15,13 +15,6 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 class StockUtility
 {
     /**
-     * Object Manager
-     *
-     * @var \TYPO3\CMS\Extbase\Object\ObjectManager
-     */
-    protected $objectManager;
-
-    /**
      * Persistence Manager
      *
      * @var \TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager
@@ -97,7 +90,7 @@ class StockUtility
                 'cartProduct' => $cartProduct,
             ];
 
-            $signalSlotDispatcher = $this->objectManager->get(
+            $signalSlotDispatcher = GeneralUtility::makeInstance(
                 \TYPO3\CMS\Extbase\SignalSlot\Dispatcher::class
             );
             $signalSlotDispatcher->dispatch(
@@ -122,7 +115,7 @@ class StockUtility
             'cart' => $cart,
         ];
 
-        $signalSlotDispatcher = $this->objectManager->get(
+        $signalSlotDispatcher = GeneralUtility::makeInstance(
             \TYPO3\CMS\Extbase\SignalSlot\Dispatcher::class
         );
         $signalSlotDispatcher->dispatch(
@@ -144,7 +137,7 @@ class StockUtility
             'cart' => $cart,
         ];
 
-        $signalSlotDispatcher = $this->objectManager->get(
+        $signalSlotDispatcher = GeneralUtility::makeInstance(
             \TYPO3\CMS\Extbase\SignalSlot\Dispatcher::class
         );
         $signalSlotDispatcher->dispatch(
@@ -171,7 +164,7 @@ class StockUtility
                 'cartProduct' => $cartProduct
             ];
 
-            $signalSlotDispatcher = $this->objectManager->get(
+            $signalSlotDispatcher = GeneralUtility::makeInstance(
                 \TYPO3\CMS\Extbase\SignalSlot\Dispatcher::class
             );
             $signalSlotDispatcher->dispatch(
@@ -198,7 +191,7 @@ class StockUtility
             'cart' => $cart,
         ];
 
-        $signalSlotDispatcher = $this->objectManager->get(
+        $signalSlotDispatcher = GeneralUtility::makeInstance(
             \TYPO3\CMS\Extbase\SignalSlot\Dispatcher::class
         );
         $signalSlotDispatcher->dispatch(
@@ -220,7 +213,7 @@ class StockUtility
             'cart' => $cart,
         ];
 
-        $signalSlotDispatcher = $this->objectManager->get(
+        $signalSlotDispatcher = GeneralUtility::makeInstance(
             \TYPO3\CMS\Extbase\SignalSlot\Dispatcher::class
         );
         $signalSlotDispatcher->dispatch(

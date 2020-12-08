@@ -14,13 +14,6 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 class CartUtility
 {
     /**
-     * Object Manager
-     *
-     * @var \TYPO3\CMS\Extbase\Object\ObjectManager
-     */
-    protected $objectManager;
-
-    /**
      * Session Handler
      *
      * @var \Extcode\Cart\Service\SessionHandler
@@ -33,15 +26,6 @@ class CartUtility
      * @var \Extcode\Cart\Utility\ParserUtility
      */
     protected $parserUtility;
-
-    /**
-     * @param \TYPO3\CMS\Extbase\Object\ObjectManagerInterface $objectManager
-     */
-    public function injectObjectManager(
-        \TYPO3\CMS\Extbase\Object\ObjectManagerInterface $objectManager
-    ) {
-        $this->objectManager = $objectManager;
-    }
 
     /**
      * @param \Extcode\Cart\Service\SessionHandler $sessionHandler
@@ -154,7 +138,7 @@ class CartUtility
      */
     public function updateCountry(array $cartSettings, array $pluginSettings, \TYPO3\CMS\Extbase\Mvc\Request $request)
     {
-        $sessionHandler = $this->objectManager->get(
+        $sessionHandler = GeneralUtility::makeInstance(
             \Extcode\Cart\Service\SessionHandler::class
         );
         $cart = $sessionHandler->restore($cartSettings['pid']);
@@ -180,7 +164,7 @@ class CartUtility
             'shippingSameAsBilling' => $shippingSameAsBilling,
         ];
 
-        $signalSlotDispatcher = $this->objectManager->get(
+        $signalSlotDispatcher = GeneralUtility::makeInstance(
             \TYPO3\CMS\Extbase\SignalSlot\Dispatcher::class
         );
         $signalSlotDispatcher->dispatch(
@@ -198,7 +182,7 @@ class CartUtility
 
     public function updateService(\Extcode\Cart\Domain\Model\Cart\Cart $cart, $pluginSettings)
     {
-        $parserUtility = $this->objectManager->get(
+        $parserUtility = GeneralUtility::makeInstance(
             \Extcode\Cart\Utility\ParserUtility::class
         );
 
@@ -273,7 +257,7 @@ class CartUtility
         $taxClasses = $this->parserUtility->parseTaxClasses($pluginSettings, $defaultCountry);
 
         /** @var \Extcode\Cart\Domain\Model\Cart\Cart $cart */
-        $cart = $this->objectManager->get(
+        $cart = GeneralUtility::makeInstance(
             \Extcode\Cart\Domain\Model\Cart\Cart::class,
             $taxClasses,
             $isNetCart,

@@ -14,13 +14,6 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 class OrderUtility
 {
     /**
-     * Object Manager
-     *
-     * @var \TYPO3\CMS\Extbase\Object\ObjectManager
-     */
-    protected $objectManager;
-
-    /**
      * Persistence Manager
      *
      * @var \TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager
@@ -131,15 +124,6 @@ class OrderUtility
      * @var int
      */
     protected $storagePid = null;
-
-    /**
-     * @param \TYPO3\CMS\Extbase\Object\ObjectManagerInterface $objectManager
-     */
-    public function injectObjectManager(
-        \TYPO3\CMS\Extbase\Object\ObjectManagerInterface $objectManager
-    ) {
-        $this->objectManager = $objectManager;
-    }
 
     /**
      * @param \Extcode\Cart\Domain\Repository\Order\ItemRepository
@@ -279,7 +263,7 @@ class OrderUtility
 
         $feUserId = (int)$GLOBALS['TSFE']->fe_user->user['uid'];
         if ($feUserId) {
-            $frontendUserRepository = $this->objectManager->get(
+            $frontendUserRepository = GeneralUtility::makeInstance(
                 \TYPO3\CMS\Extbase\Domain\Repository\FrontendUserRepository::class
             );
             $orderItem->setFeUser($frontendUserRepository->findByUid($feUserId));
@@ -321,7 +305,7 @@ class OrderUtility
             'orderItem' => $this->orderItem,
         ];
 
-        $signalSlotDispatcher = $this->objectManager->get(
+        $signalSlotDispatcher = GeneralUtility::makeInstance(
             \TYPO3\CMS\Extbase\SignalSlot\Dispatcher::class
         );
         $slotReturn = $signalSlotDispatcher->dispatch(
@@ -372,7 +356,7 @@ class OrderUtility
              * Order Tax
              * @var $orderTax \Extcode\Cart\Domain\Model\Order\Tax
              */
-            $orderTax = $this->objectManager->get(
+            $orderTax = GeneralUtility::makeInstance(
                 \Extcode\Cart\Domain\Model\Order\Tax::class,
                 $cartTax,
                 $this->taxClasses[$cartTaxKey]
@@ -397,7 +381,7 @@ class OrderUtility
             /**
              * @var \Extcode\Cart\Domain\Model\Order\TaxClass $orderTaxClass
              */
-            $orderTaxClass = $this->objectManager->get(
+            $orderTaxClass = GeneralUtility::makeInstance(
                 \Extcode\Cart\Domain\Model\Order\TaxClass::class,
                 $taxClass->getTitle(),
                 $taxClass->getValue(),
@@ -423,7 +407,7 @@ class OrderUtility
          */
         foreach ($this->cart->getCoupons() as $cartCoupon) {
             if ($cartCoupon->getIsUseable()) {
-                $orderDiscount = $this->objectManager->get(
+                $orderDiscount = GeneralUtility::makeInstance(
                     \Extcode\Cart\Domain\Model\Order\Discount::class,
                     $cartCoupon->getTitle(),
                     $cartCoupon->getCode(),
@@ -472,7 +456,7 @@ class OrderUtility
         /**
          * @var \Extcode\Cart\Domain\Model\Order\Product $orderProduct
          */
-        $orderProduct = $this->objectManager->get(
+        $orderProduct = GeneralUtility::makeInstance(
             \Extcode\Cart\Domain\Model\Order\Product::class,
             $cartProduct->getSku(),
             $cartProduct->getTitle(),
@@ -498,7 +482,7 @@ class OrderUtility
             'storagePid' => $this->storagePid,
         ];
 
-        $signalSlotDispatcher = $this->objectManager->get(
+        $signalSlotDispatcher = GeneralUtility::makeInstance(
             \TYPO3\CMS\Extbase\SignalSlot\Dispatcher::class
         );
         $signalSlotDispatcher->dispatch(
@@ -547,7 +531,7 @@ class OrderUtility
         /**
          * @var \Extcode\Cart\Domain\Model\Order\ProductAdditional $productAdditional
          */
-        $productAdditional = $this->objectManager->get(
+        $productAdditional = GeneralUtility::makeInstance(
             \Extcode\Cart\Domain\Model\Order\ProductAdditional::class,
             $productAdditionalType,
             $feVariant['sku'],
@@ -613,7 +597,7 @@ class OrderUtility
     protected function addBeVariant(\Extcode\Cart\Domain\Model\Cart\BeVariant $variant, $level)
     {
         /** @var \Extcode\Cart\Domain\Model\Order\Tax $orderTax */
-        $orderTax = $this->objectManager->get(
+        $orderTax = GeneralUtility::makeInstance(
             \Extcode\Cart\Domain\Model\Order\Tax::class,
             $variant->getTax(),
             $this->taxClasses[$variant->getTaxClass()->getId()]
@@ -626,7 +610,7 @@ class OrderUtility
          * Order Product
          * @var \Extcode\Cart\Domain\Model\Order\Product $orderProduct
          */
-        $orderProduct = $this->objectManager->get(
+        $orderProduct = GeneralUtility::makeInstance(
             \Extcode\Cart\Domain\Model\Order\Product::class,
             $variant->getCompleteSku(),
             $variant->getCompleteTitle(),
@@ -672,7 +656,7 @@ class OrderUtility
             /**
              * @var \Extcode\Cart\Domain\Model\Order\ProductAdditional $productAdditional
              */
-            $orderProductAdditional = $this->objectManager->get(
+            $orderProductAdditional = GeneralUtility::makeInstance(
                 \Extcode\Cart\Domain\Model\Order\ProductAdditional::class,
                 'variant_' . $count,
                 $variantInner->getCompleteSku(),
@@ -702,7 +686,7 @@ class OrderUtility
             'storagePid' => $this->storagePid,
         ];
 
-        $signalSlotDispatcher = $this->objectManager->get(
+        $signalSlotDispatcher = GeneralUtility::makeInstance(
             \TYPO3\CMS\Extbase\SignalSlot\Dispatcher::class
         );
         $signalSlotDispatcher->dispatch(
@@ -729,7 +713,7 @@ class OrderUtility
          * Order Payment
          * @var $orderPayment \Extcode\Cart\Domain\Model\Order\Payment
          */
-        $orderPayment = $this->objectManager->get(
+        $orderPayment = GeneralUtility::makeInstance(
             \Extcode\Cart\Domain\Model\Order\Payment::class
         );
         $orderPayment->setPid($this->storagePid);
@@ -766,7 +750,7 @@ class OrderUtility
          * Order Shipping
          * @var $orderShipping \Extcode\Cart\Domain\Model\Order\Shipping
          */
-        $orderShipping = $this->objectManager->get(
+        $orderShipping = GeneralUtility::makeInstance(
             \Extcode\Cart\Domain\Model\Order\Shipping::class
         );
         $orderShipping->setPid($this->storagePid);

@@ -13,7 +13,6 @@ use Extcode\Cart\Utility\TemplateLayout;
 use TYPO3\CMS\Backend\Utility\BackendUtility as BackendUtilityCore;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\StringUtility;
-use TYPO3\CMS\Extbase\Object\ObjectManager;
 
 class ItemsProcFunc
 {
@@ -65,7 +64,7 @@ class ItemsProcFunc
             $prototypeName = $config['config']['itemsProcFuncConfig']['prototypeName'];
         }
 
-        $formPersistenceManager = GeneralUtility::makeInstance(ObjectManager::class)->get(
+        $formPersistenceManager = GeneralUtility::makeInstance(
             \TYPO3\CMS\Form\Mvc\Persistence\FormPersistenceManager::class
         );
         $availableForms = $formPersistenceManager->listForms();

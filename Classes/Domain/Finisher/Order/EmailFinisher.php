@@ -9,6 +9,8 @@ namespace Extcode\Cart\Domain\Finisher\Order;
  * LICENSE file that was distributed with this source code.
  */
 
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+
 class EmailFinisher extends \Extcode\Cart\Domain\Finisher\AbstractFinisher
 {
     /**
@@ -49,7 +51,7 @@ class EmailFinisher extends \Extcode\Cart\Domain\Finisher\AbstractFinisher
         \Extcode\Cart\Domain\Model\Order\Item $orderItem
     ) {
         /* @var \Extcode\Cart\Service\MailHandler $mailHandler*/
-        $mailHandler = $this->objectManager->get(
+        $mailHandler = GeneralUtility::makeInstance(
             \Extcode\Cart\Service\MailHandler::class
         );
         $mailHandler->setCart($this->cart);
@@ -65,7 +67,7 @@ class EmailFinisher extends \Extcode\Cart\Domain\Finisher\AbstractFinisher
         \Extcode\Cart\Domain\Model\Order\Item $orderItem
     ) {
         /* @var \Extcode\Cart\Service\MailHandler $mailHandler*/
-        $mailHandler = $this->objectManager->get(
+        $mailHandler = GeneralUtility::makeInstance(
             \Extcode\Cart\Service\MailHandler::class
         );
         $mailHandler->setCart($this->cart);

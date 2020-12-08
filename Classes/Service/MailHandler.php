@@ -19,15 +19,9 @@ use TYPO3\CMS\Core\SingletonInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManager;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
-use TYPO3\CMS\Extbase\Object\ObjectManager;
 
 class MailHandler implements SingletonInterface
 {
-    /**
-     * @var ObjectManager
-     */
-    protected $objectManager;
-
     /**
      * @var LogManager
      */
@@ -78,15 +72,11 @@ class MailHandler implements SingletonInterface
      */
     public function __construct()
     {
-        $this->objectManager = GeneralUtility::makeInstance(
-            ObjectManager::class
-        );
-
-        $this->logManager = $this->objectManager->get(
+        $this->logManager = GeneralUtility::makeInstance(
             LogManager::class
         );
 
-        $this->configurationManager = $this->objectManager->get(
+        $this->configurationManager = GeneralUtility::makeInstance(
             ConfigurationManager::class
         );
 

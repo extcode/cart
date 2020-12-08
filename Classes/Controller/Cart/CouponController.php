@@ -9,6 +9,8 @@ namespace Extcode\Cart\Controller\Cart;
  * LICENSE file that was distributed with this source code.
  */
 
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+
 class CouponController extends ActionController
 {
     /**
@@ -38,7 +40,7 @@ class CouponController extends ActionController
             /** @var \Extcode\Cart\Domain\Model\Coupon $coupon */
             $coupon = $this->couponRepository->findOneByCode($couponCode);
             if ($coupon && $coupon->getIsAvailable()) {
-                $newCartCoupon = $this->objectManager->get(
+                $newCartCoupon = GeneralUtility::makeInstance(
                     \Extcode\Cart\Domain\Model\Cart\CartCoupon::class,
                     $coupon->getTitle(),
                     $coupon->getCode(),
