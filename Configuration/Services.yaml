@@ -26,6 +26,9 @@ services:
   Extcode\Cart\Domain\Finisher\Order\StockFinisher:
     public: true
 
+  Extcode\Cart\Service\TaxClassService:
+    public: true
+
   querybuilder.tx_cart_domain_model_order_item:
     class: 'TYPO3\CMS\Core\Database\Query\QueryBuilder'
     factory:
