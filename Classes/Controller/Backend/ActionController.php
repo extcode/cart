@@ -27,7 +27,7 @@ class ActionController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControlle
     {
         $this->pluginSettings =
             $this->configurationManager->getConfiguration(
-                \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK
+                \TYPO3\CMS\Extbase\Configuration\ConfigurationManager::CONFIGURATION_TYPE_FRAMEWORK
             );
 
         $pageId = (int)(GeneralUtility::_GET('id')) ? GeneralUtility::_GET('id') : 1;
@@ -38,18 +38,18 @@ class ActionController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControlle
         );
 
         $configurationManager = GeneralUtility::makeInstance(
-            \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::class
+            \TYPO3\CMS\Extbase\Configuration\ConfigurationManager::class
         );
 
         $frameworkConf =
             $configurationManager->getConfiguration(
-                \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK
+                \TYPO3\CMS\Extbase\Configuration\ConfigurationManager::CONFIGURATION_TYPE_FRAMEWORK
             );
         $persistenceConf = ['persistence' => ['storagePid' => $pageId]];
         $configurationManager->setConfiguration(array_merge($frameworkConf, $persistenceConf));
 
         $this->settings = $configurationManager->getConfiguration(
-            \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_SETTINGS,
+            \TYPO3\CMS\Extbase\Configuration\ConfigurationManager::CONFIGURATION_TYPE_SETTINGS,
             $this->request->getControllerExtensionName(),
             $this->request->getPluginName()
         );

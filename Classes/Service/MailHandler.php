@@ -18,7 +18,6 @@ use TYPO3\CMS\Core\Mail\Mailer;
 use TYPO3\CMS\Core\SingletonInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManager;
-use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 
 class MailHandler implements SingletonInterface
 {
@@ -90,7 +89,7 @@ class MailHandler implements SingletonInterface
     {
         $this->pluginSettings =
             $this->configurationManager->getConfiguration(
-                ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK,
+                ConfigurationManager::CONFIGURATION_TYPE_FRAMEWORK,
                 'Cart'
             );
 

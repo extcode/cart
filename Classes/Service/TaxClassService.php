@@ -13,6 +13,7 @@ namespace Extcode\Cart\Service;
 use Extcode\Cart\Domain\Model\Cart\TaxClass;
 use TYPO3\CMS\Core\Log\LogManager;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Configuration\ConfigurationManager;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 
 class TaxClassService implements TaxClassServiceInterface
@@ -30,11 +31,11 @@ class TaxClassService implements TaxClassServiceInterface
     /**
      * @param ConfigurationManagerInterface $configurationManager
      */
-    public function injectConfigurationManager(ConfigurationManagerInterface $configurationManager)
+    public function injectConfigurationManager(ConfigurationManager $configurationManager)
     {
         $this->configurationManager = $configurationManager;
         $this->settings = $this->configurationManager->getConfiguration(
-            ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK,
+            ConfigurationManager::CONFIGURATION_TYPE_FRAMEWORK,
             'Cart'
         );
     }

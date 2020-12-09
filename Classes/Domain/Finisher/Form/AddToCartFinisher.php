@@ -54,7 +54,7 @@ class AddToCartFinisher extends AbstractFinisher
     {
         $this->configurationManager = $configurationManager;
         $this->pluginSettings = $this->configurationManager->getConfiguration(
-            ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK,
+            ConfigurationManager::CONFIGURATION_TYPE_FRAMEWORK,
             'Cart'
         );
     }

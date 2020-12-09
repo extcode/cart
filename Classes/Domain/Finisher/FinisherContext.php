@@ -45,13 +45,14 @@ class FinisherContext
     protected $controllerContext;
 
     /**
+     * @param array $settings
      * @param Cart $cart
      * @param Item $orderItem
      * @param ControllerContext $controllerContext
      * @internal
      */
     public function __construct(
-        $settings,
+        array $settings,
         Cart $cart,
         Item $orderItem,
         ControllerContext $controllerContext

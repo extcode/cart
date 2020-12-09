@@ -15,7 +15,6 @@ use TYPO3\CMS\Core\Core\Environment;
 use TYPO3\CMS\Core\Mail\MailMessage;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManager;
-use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 
 class MailAttachmentHook implements MailAttachmentHookInterface
@@ -40,7 +39,7 @@ class MailAttachmentHook implements MailAttachmentHookInterface
         );
 
         $this->pluginSettings = $this->configurationManager->getConfiguration(
-            ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK,
+            ConfigurationManager::CONFIGURATION_TYPE_FRAMEWORK,
             'Cart'
         );
     }

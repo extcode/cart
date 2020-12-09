@@ -254,12 +254,12 @@ class OrderController extends \Extcode\Cart\Controller\Backend\ActionController
         );
 
         $configurationManager = GeneralUtility::makeInstance(
-            \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::class
+            \TYPO3\CMS\Extbase\Configuration\ConfigurationManager::class
         );
 
         $cartConfiguration =
             $configurationManager->getConfiguration(
-                \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK
+                \TYPO3\CMS\Extbase\Configuration\ConfigurationManager::CONFIGURATION_TYPE_FRAMEWORK
             );
 
         if ($cartConfiguration) {

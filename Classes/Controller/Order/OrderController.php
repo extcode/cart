@@ -50,7 +50,7 @@ class OrderController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     {
         $this->pluginSettings =
             $this->configurationManager->getConfiguration(
-                \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK
+                \TYPO3\CMS\Extbase\Configuration\ConfigurationManager::CONFIGURATION_TYPE_FRAMEWORK
             );
     }
 
