@@ -11,16 +11,16 @@ namespace Extcode\Cart\Hooks;
  */
 
 use Extcode\Cart\Domain\Model\Order\Item;
-use TYPO3\CMS\Core\Mail\MailMessage;
+use TYPO3\CMS\Core\Mail\FluidEmail;
 
 interface MailAttachmentHookInterface
 {
     /**
-     * @param MailMessage $mailMessage
+     * @param FluidEmail $mailMessage
      * @param Item $item
      * @param string $type = ['buyer' | 'seller']
      *
-     * @return MailMessage
+     * @return FluidEmail
      */
-    public function getMailAttachments(MailMessage $mailMessage, Item $item, string $type): MailMessage;
+    public function getMailAttachments(FluidEmail $mailMessage, Item $item, string $type): FluidEmail;
 }

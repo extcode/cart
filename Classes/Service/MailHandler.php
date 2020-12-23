@@ -12,6 +12,7 @@ namespace Extcode\Cart\Service;
 use Extcode\Cart\Domain\Model\Cart\Cart;
 use Extcode\Cart\Domain\Model\Order\Item;
 use Extcode\Cart\Hooks\MailAttachmentHookInterface;
+use Psr\Http\Message\ServerRequestInterface;
 use TYPO3\CMS\Core\Log\LogManager;
 use TYPO3\CMS\Core\Mail\FluidEmail;
 use TYPO3\CMS\Core\Mail\Mailer;
@@ -265,18 +266,16 @@ class MailHandler implements SingletonInterface
             $email->bcc(explode(',', $this->buyerEmailBcc));
         }
 
-        /*
-           if ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['cart']['MailAttachmentsHook']) {
-                foreach ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['cart']['MailAttachmentsHook'] as $className) {
-                    $_procObj = GeneralUtility::makeInstance($className);
-                    if (!$_procObj instanceof MailAttachmentHookInterface) {
-                        throw new \UnexpectedValueException($className . ' must implement interface ' . MailAttachmentHookInterface::class, 123);
-                    }
-
-                    $mail = $_procObj->getMailAttachments($mail, $orderItem, $to);
+        if ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['cart']['MailAttachmentsHook']) {
+            foreach ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['cart']['MailAttachmentsHook'] as $className) {
+                $mailAttachmentHook = GeneralUtility::makeInstance($className);
+                if (!$mailAttachmentHook instanceof MailAttachmentHookInterface) {
+                    throw new \UnexpectedValueException($className . ' must implement interface ' . MailAttachmentHookInterface::class, 123);
                 }
+
+                $email = $mailAttachmentHook->getMailAttachments($email, $orderItem, 'buyer');
             }
-         */
+        }
 
         if ($GLOBALS['TYPO3_REQUEST'] instanceof ServerRequestInterface) {
             $email->setRequest($GLOBALS['TYPO3_REQUEST']);
@@ -299,8 +298,8 @@ class MailHandler implements SingletonInterface
         $status = $orderItem->getPayment()->getStatus();
 
         $email = GeneralUtility::makeInstance(FluidEmail::class)
-            ->to($orderItem->getBillingAddress()->getEmail())
-            ->from($this->buyerEmailFrom)
+            ->to($this->sellerEmailTo)
+            ->from($this->sellerEmailFrom)
             ->setTemplate('Mail/' . ucfirst($status) . '/Seller')
             ->format(\TYPO3\CMS\Core\Mail\FluidEmail::FORMAT_HTML)
             ->assign('settings', $this->pluginSettings['settings'])
@@ -315,15 +314,17 @@ class MailHandler implements SingletonInterface
             $email->bcc(...$bcc);
         }
 
-        /*
-            if ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['cart']['getMailAttachmentsHook']) {
-                foreach ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['cart']['getMailAttachmentsHook'] as $_classRef) {
-                    $_procObj = &GeneralUtility::makeInstance($_classRef);
+        if ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['cart']['MailAttachmentsHook']) {
+            foreach ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['cart']['MailAttachmentsHook'] as $className) {
+                $mailAttachmentHook = GeneralUtility::makeInstance($className);
 
-                    $mail = $_procObj->getMailAttachments($mail, $orderItem, $to);
+                if (!$mailAttachmentHook instanceof MailAttachmentHookInterface) {
+                    throw new \UnexpectedValueException($className . ' must implement interface ' . MailAttachmentHookInterface::class, 123);
                 }
+
+                $email = $mailAttachmentHook->getMailAttachments($email, $orderItem, 'seller');
             }
-        */
+        }
 
         if ($GLOBALS['TYPO3_REQUEST'] instanceof ServerRequestInterface) {
             $email->setRequest($GLOBALS['TYPO3_REQUEST']);

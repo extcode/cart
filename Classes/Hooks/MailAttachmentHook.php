@@ -12,7 +12,7 @@ namespace Extcode\Cart\Hooks;
 
 use Extcode\Cart\Domain\Model\Order\Item;
 use TYPO3\CMS\Core\Core\Environment;
-use TYPO3\CMS\Core\Mail\MailMessage;
+use TYPO3\CMS\Core\Mail\FluidEmail;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManager;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
@@ -45,13 +45,13 @@ class MailAttachmentHook implements MailAttachmentHookInterface
     }
 
     /**
-     * @param MailMessage $mailMessage
+     * @param FluidEmail $mailMessage
      * @param Item $item
      * @param string $type = ['buyer' | 'seller']
      *
-     * @return MailMessage
+     * @return FluidEmail
      */
-    public function getMailAttachments(MailMessage $mailMessage, Item $item, string $type): MailMessage
+    public function getMailAttachments(FluidEmail $mailMessage, Item $item, string $type): FluidEmail
     {
         if ($this->pluginSettings['mail'] && $this->pluginSettings['mail'][$type]) {
             if ($this->pluginSettings['mail'][$type]['attachments']) {
@@ -60,7 +60,7 @@ class MailAttachmentHook implements MailAttachmentHookInterface
                 foreach ($attachments as $attachment) {
                     $attachmentFile = GeneralUtility::getFileAbsFileName($attachment);
                     if (file_exists($attachmentFile)) {
-                        $mailMessage->attach(\Swift_Attachment::fromPath($attachmentFile));
+                        $mailMessage->attachFromPath($attachmentFile);
                     }
                 }
             }
@@ -75,7 +75,7 @@ class MailAttachmentHook implements MailAttachmentHookInterface
                             $lastOriginalPdf = $pdfs->getOriginalResource();
                             $lastOriginalPdfPath = Environment::getPublicPath() . '/' . $lastOriginalPdf->getPublicUrl();
                             if (is_file($lastOriginalPdfPath)) {
-                                $mailMessage->attach(\Swift_Attachment::fromPath($lastOriginalPdfPath));
+                                $mailMessage->attachFromPath($lastOriginalPdfPath);
                             }
                         }
                     }

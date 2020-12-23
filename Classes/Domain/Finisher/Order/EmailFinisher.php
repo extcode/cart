@@ -50,7 +50,6 @@ class EmailFinisher extends \Extcode\Cart\Domain\Finisher\AbstractFinisher
     protected function sendBuyerMail(
         \Extcode\Cart\Domain\Model\Order\Item $orderItem
     ) {
-        /* @var \Extcode\Cart\Service\MailHandler $mailHandler*/
         $mailHandler = GeneralUtility::makeInstance(
             \Extcode\Cart\Service\MailHandler::class
         );
@@ -66,7 +65,6 @@ class EmailFinisher extends \Extcode\Cart\Domain\Finisher\AbstractFinisher
     protected function sendSellerMail(
         \Extcode\Cart\Domain\Model\Order\Item $orderItem
     ) {
-        /* @var \Extcode\Cart\Service\MailHandler $mailHandler*/
         $mailHandler = GeneralUtility::makeInstance(
             \Extcode\Cart\Service\MailHandler::class
         );
