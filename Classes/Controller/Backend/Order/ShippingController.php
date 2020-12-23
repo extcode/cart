@@ -9,37 +9,35 @@ namespace Extcode\Cart\Controller\Backend\Order;
  * LICENSE file that was distributed with this source code.
  */
 
+use Extcode\Cart\Domain\Model\Order\Shipping;
+use Extcode\Cart\Domain\Repository\Order\ShippingRepository;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 
 class ShippingController extends \Extcode\Cart\Controller\Backend\ActionController
 {
-
     /**
-     * Order Shipping Repository
-     *
-     * @var \Extcode\Cart\Domain\Repository\Order\ShippingRepository
+     * @var ShippingRepository
      */
     protected $shippingRepository;
 
     /**
-     * @param \Extcode\Cart\Domain\Repository\Order\ShippingRepository $shippingRepository
+     * @param ShippingRepository $shippingRepository
      */
-    public function injectShippingRepository(
-        \Extcode\Cart\Domain\Repository\Order\ShippingRepository $shippingRepository
-    ) {
+    public function injectShippingRepository(ShippingRepository $shippingRepository)
+    {
         $this->shippingRepository = $shippingRepository;
     }
 
     /**
-     * @param \Extcode\Cart\Domain\Model\Order\Shipping $shipping
+     * @param Shipping $shipping
      */
-    public function updateAction(\Extcode\Cart\Domain\Model\Order\Shipping $shipping)
+    public function updateAction(Shipping $shipping)
     {
         $this->shippingRepository->update($shipping);
 
         $msg = LocalizationUtility::translate(
             'tx_cart.controller.order.action.update_shipping_action.success',
-            $this->extensionName
+            'Cart'
         );
 
         $this->addFlashMessage($msg);
