@@ -60,10 +60,10 @@ defined('TYPO3_MODE') or die();
     'Cart',
     'Order',
     [
-        \Extcode\Cart\Controller\Order\Order::class => 'list, show',
+        \Extcode\Cart\Controller\Order\OrderController::class => 'list, show',
     ],
     [
-        \Extcode\Cart\Controller\Order\Order::class => 'list, show',
+        \Extcode\Cart\Controller\Order\OrderController::class => 'list, show',
     ]
 );
 
