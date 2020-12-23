@@ -9,76 +9,71 @@ namespace Extcode\Cart\Controller\Backend\Order;
  * LICENSE file that was distributed with this source code.
  */
 
+use Extcode\Cart\Domain\Model\Order\Item as OrderItem;
+use Extcode\Cart\Domain\Repository\Order\ItemRepository as OrderItemRepository;
+use Extcode\Cart\Utility\OrderUtility;
+use TYPO3\CMS\Core\Messaging\AbstractMessage;
+use TYPO3\CMS\Core\Site\SiteFinder;
+use TYPO3\CMS\Core\TimeTracker\TimeTracker;
+use TYPO3\CMS\Core\TypoScript\TypoScriptService;
+use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Configuration\ConfigurationManager;
+use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
+use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
 class OrderController extends \Extcode\Cart\Controller\Backend\ActionController
 {
     /**
-     * Persistence Manager
-     *
-     * @var \TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager
+     * @var PersistenceManager
      */
     protected $persistenceManager;
 
     /**
-     * Order Item Repository
-     *
-     * @var \Extcode\Cart\Domain\Repository\Order\ItemRepository
+     * @var OrderItemRepository
      */
     protected $itemRepository;
 
     /**
-     * Order Utility
-     *
-     * @var \Extcode\Cart\Utility\OrderUtility
+     * @var OrderUtility
      */
     protected $orderUtility;
 
     /**
-     * Search Arguments
-     *
      * @var array
      */
     protected $searchArguments = [];
 
     /**
-     * Plugin Settings
-     *
      * @var array
      */
     protected $pluginSettings;
 
     /**
-     * @param \TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager $persistenceManager
+     * @param PersistenceManager $persistenceManager
      */
-    public function injectPersistenceManager(
-        \TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager $persistenceManager
-    ) {
+    public function injectPersistenceManager(PersistenceManager $persistenceManager)
+    {
         $this->persistenceManager = $persistenceManager;
     }
 
     /**
-     * @param \Extcode\Cart\Domain\Repository\Order\ItemRepository $itemRepository
+     * @param OrderItemRepository $itemRepository
      */
-    public function injectItemRepository(
-        \Extcode\Cart\Domain\Repository\Order\ItemRepository $itemRepository
-    ) {
+    public function injectItemRepository(OrderItemRepository $itemRepository)
+    {
         $this->itemRepository = $itemRepository;
     }
 
     /**
-     * @param \Extcode\Cart\Utility\OrderUtility $orderUtility
+     * @param OrderUtility $orderUtility
      */
-    public function injectOrderUtility(
-        \Extcode\Cart\Utility\OrderUtility $orderUtility
-    ) {
+    public function injectOrderUtility(OrderUtility $orderUtility)
+    {
         $this->orderUtility = $orderUtility;
     }
 
-    /**
-     * Initialize Action
-     */
     protected function initializeAction()
     {
         parent::initializeAction();
@@ -89,9 +84,6 @@ class OrderController extends \Extcode\Cart\Controller\Backend\ActionController
         }
     }
 
-    /**
-     * Initialize Update Action
-     */
     public function initializeUpdateAction()
     {
         if ($this->request->hasArgument('orderItem')) {
@@ -104,9 +96,6 @@ class OrderController extends \Extcode\Cart\Controller\Backend\ActionController
         }
     }
 
-    /**
-     * List Action
-     */
     public function listAction()
     {
         $orderItems = $this->itemRepository->findAll($this->searchArguments);
@@ -117,18 +106,15 @@ class OrderController extends \Extcode\Cart\Controller\Backend\ActionController
         $this->view->assign('paymentStatus', $this->getPaymentStatus());
         $this->view->assign('shippingStatus', $this->getShippingStatus());
 
-        $pdfRendererInstalled = \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::isLoaded('cart_pdf');
+        $pdfRendererInstalled = ExtensionManagementUtility::isLoaded('cart_pdf');
         $this->view->assign('pdfRendererInstalled', $pdfRendererInstalled);
     }
 
-    /**
-     * Export Action
-     */
     public function exportAction()
     {
         $format = $this->request->getFormat();
 
-        if ($format == 'csv') {
+        if ($format === 'csv') {
             $title = 'Order-Export-' . date('Y-m-d_H-i');
             $filename = $title . '.' . $format;
 
@@ -142,31 +128,17 @@ class OrderController extends \Extcode\Cart\Controller\Backend\ActionController
         $this->view->assign('searchArguments', $this->searchArguments);
         $this->view->assign('orderItems', $orderItems);
 
-        $pdfRendererInstalled = \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::isLoaded('cart_pdf');
+        $pdfRendererInstalled = ExtensionManagementUtility::isLoaded('cart_pdf');
         $this->view->assign('pdfRendererInstalled', $pdfRendererInstalled);
     }
 
     /**
-     * Show Action
-     *
-     * @param \Extcode\Cart\Domain\Model\Order\Item $orderItem
+     * @param OrderItem $orderItem
      *
      * @TYPO3\CMS\Extbase\Annotation\IgnoreValidation("orderItem")
      */
-    public function showAction(\Extcode\Cart\Domain\Model\Order\Item $orderItem)
+    public function showAction(OrderItem $orderItem)
     {
-        if (TYPO3_MODE === 'FE') {
-            $feUser = (int)$GLOBALS['TSFE']->fe_user->user['uid'];
-            if ($orderItem->getFeUser()->getUid() !== $feUser) {
-                $this->addFlashMessage(
-                    'Access denied.',
-                    '',
-                    \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR
-                );
-                $this->redirect('list');
-            }
-        }
-
         $this->view->assign('orderItem', $orderItem);
 
         $paymentStatusOptions = [];
@@ -174,7 +146,7 @@ class OrderController extends \Extcode\Cart\Controller\Backend\ActionController
         foreach ($items as $item) {
             $paymentStatusOptions[$item[1]] = LocalizationUtility::translate(
                 $item[0],
-                $this->extensionName
+                'Cart'
             );
         }
         $this->view->assign('paymentStatusOptions', $paymentStatusOptions);
@@ -184,22 +156,20 @@ class OrderController extends \Extcode\Cart\Controller\Backend\ActionController
         foreach ($items as $item) {
             $shippingStatusOptions[$item[1]] = LocalizationUtility::translate(
                 $item[0],
-                $this->extensionName
+                'Cart'
             );
         }
         $this->view->assign('shippingStatusOptions', $shippingStatusOptions);
 
-        $pdfRendererInstalled = \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::isLoaded('cart_pdf');
+        $pdfRendererInstalled = ExtensionManagementUtility::isLoaded('cart_pdf');
         $this->view->assign('pdfRendererInstalled', $pdfRendererInstalled);
     }
 
     /**
-     * Generate Number Action
-     *
-     * @param \Extcode\Cart\Domain\Model\Order\Item $orderItem
+     * @param OrderItem $orderItem
      * @param string $numberType
      */
-    public function generateNumberAction(\Extcode\Cart\Domain\Model\Order\Item $orderItem, $numberType)
+    public function generateNumberAction(OrderItem $orderItem, $numberType)
     {
         $getter = 'get' . ucfirst($numberType) . 'Number';
         $setNumberTypeFunction = 'set' . ucfirst($numberType) . 'Number';
@@ -215,7 +185,7 @@ class OrderController extends \Extcode\Cart\Controller\Backend\ActionController
 
             $msg = LocalizationUtility::translate(
                 'tx_cart.controller.order.action.generate_number_action.' . $numberType . '.success',
-                $this->extensionName,
+                'Cart',
                 [
                     0 => $generatedNumber,
                 ]
@@ -225,42 +195,34 @@ class OrderController extends \Extcode\Cart\Controller\Backend\ActionController
         } else {
             $msg = LocalizationUtility::translate(
                 'tx_cart.controller.order.action.generate_number_action.' . $numberType . '.already_generated',
-                $this->extensionName
+                'Cart'
             );
 
-            $this->addFlashMessage($msg, '', \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR);
+            $this->addFlashMessage($msg, '', AbstractMessage::ERROR);
         }
 
         $this->redirect('show', 'Backend\Order\Order', null, ['orderItem' => $orderItem]);
     }
 
     /**
-     * Generate Number
-     *
-     * @param \Extcode\Cart\Domain\Model\Order\Item $orderItem
+     * @param OrderItem $orderItem
      * @param string $pdfType
      *
      * @return string
      */
-    protected function generateNumber(\Extcode\Cart\Domain\Model\Order\Item $orderItem, $pdfType)
+    protected function generateNumber(OrderItem $orderItem, $pdfType)
     {
-        $this->buildTSFE();
+        $this->buildTSFE((int)GeneralUtility::_GP('id'));
 
-        /**
-         * @var \TYPO3\CMS\Extbase\Service\TypoScriptService $typoScriptService
-         */
         $typoScriptService = GeneralUtility::makeInstance(
-            \TYPO3\CMS\Extbase\Service\TypoScriptService::class
+            TypoScriptService::class
         );
 
-        $configurationManager = GeneralUtility::makeInstance(
-            \TYPO3\CMS\Extbase\Configuration\ConfigurationManager::class
-        );
+        $configurationManager = GeneralUtility::makeInstance(ConfigurationManager::class);
 
-        $cartConfiguration =
-            $configurationManager->getConfiguration(
-                \TYPO3\CMS\Extbase\Configuration\ConfigurationManager::CONFIGURATION_TYPE_FRAMEWORK
-            );
+        $cartConfiguration = $configurationManager->getConfiguration(
+            ConfigurationManager::CONFIGURATION_TYPE_FRAMEWORK
+        );
 
         if ($cartConfiguration) {
             $typoScriptSettings = $typoScriptService->convertTypoScriptArrayToPlainArray($cartConfiguration);
@@ -277,26 +239,24 @@ class OrderController extends \Extcode\Cart\Controller\Backend\ActionController
     }
 
     /**
-     * Build TSFE
-     *
-     * @param int $pid Page Id
+     * @param int $pid
      */
-    protected function buildTSFE($pid = 1, $typeNum = 0)
+    protected function buildTSFE($pid = 1)
     {
         if (!is_object($GLOBALS['TT'])) {
-            $GLOBALS['TT'] = new \TYPO3\CMS\Core\TimeTracker\TimeTracker(false);
+            $GLOBALS['TT'] = new TimeTracker(false);
             $GLOBALS['TT']->start();
         }
 
+        $siteFinder = GeneralUtility::makeInstance(SiteFinder::class);
+        $siteLanguages = $siteFinder->getSiteByPageId($pid)->getLanguages();
+
         $GLOBALS['TSFE'] = GeneralUtility::makeInstance(
-            'TYPO3\\CMS\\Frontend\\Controller\\TypoScriptFrontendController',
+            TypoScriptFrontendController::class,
             $GLOBALS['TYPO3_CONF_VARS'],
             $pid,
-            $typeNum
+            $siteLanguages[0]
         );
-        $GLOBALS['TSFE']->connectToDB();
-        $GLOBALS['TSFE']->initFEuser();
-        $GLOBALS['TSFE']->id = $pid;
     }
 
     /**
