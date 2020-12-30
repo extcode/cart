@@ -9,46 +9,44 @@ namespace Extcode\Cart\Domain\Finisher\Order;
  * LICENSE file that was distributed with this source code.
  */
 
-class OrderNumberFinisher extends \Extcode\Cart\Domain\Finisher\AbstractFinisher
+use Extcode\Cart\Domain\Repository\Order\ItemRepository as OrderItemRepository;
+use Extcode\Cart\Event\ProcessOrderCreateEvent;
+use Extcode\Cart\Utility\OrderUtility;
+use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
+
+class OrderNumberFinisher
 {
     /**
-     * Item Repository
-     *
-     * @var \Extcode\Cart\Domain\Repository\Order\ItemRepository
+     * @var PersistenceManager
+     */
+    protected $persistenceManager;
+
+    /**
+     * @var OrderItemRepository
      */
     protected $orderItemRepository;
 
     /**
-     * Order Utility
-     *
-     * @var \Extcode\Cart\Utility\OrderUtility
+     * @var OrderUtility
      */
     protected $orderUtility;
 
-    /**
-     * @param \Extcode\Cart\Domain\Repository\Order\ItemRepository $orderItemRepository
-     */
-    public function injectOrderItemRepository(
-        \Extcode\Cart\Domain\Repository\Order\ItemRepository $orderItemRepository
+    public function __construct(
+        PersistenceManager $persistenceManager,
+        OrderItemRepository $orderItemRepository,
+        OrderUtility $orderUtility
     ) {
+        $this->persistenceManager = $persistenceManager;
         $this->orderItemRepository = $orderItemRepository;
-    }
-
-    /**
-     * @param \Extcode\Cart\Utility\OrderUtility $orderUtility
-     */
-    public function injectOrderUtility(
-        \Extcode\Cart\Utility\OrderUtility $orderUtility
-    ) {
         $this->orderUtility = $orderUtility;
     }
 
-    public function executeInternal()
+    public function __invoke(ProcessOrderCreateEvent $event): void
     {
-        $cart = $this->finisherContext->getCart();
-        $orderItem = $this->finisherContext->getOrderItem();
+        $cart = $event->getCart();
+        $orderItem = $event->getOrderItem();
 
-        $orderNumber = $this->orderUtility->getNumber($this->settings, 'order');
+        $orderNumber = $this->orderUtility->getNumber($event->getSettings(), 'order');
 
         $orderItem->setOrderNumber($orderNumber);
         $orderItem->setOrderDate(new \DateTime());
@@ -56,8 +54,6 @@ class OrderNumberFinisher extends \Extcode\Cart\Domain\Finisher\AbstractFinisher
         $this->orderItemRepository->update($orderItem);
 
         $this->persistenceManager->persistAll();
-
-        $this->finisherContext->setOrderItem($orderItem);
 
         $cart->setOrderId($orderItem->getUid());
         $cart->setOrderNumber($orderItem->getOrderNumber());

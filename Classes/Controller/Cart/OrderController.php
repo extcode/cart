@@ -9,25 +9,18 @@ namespace Extcode\Cart\Controller\Cart;
  * LICENSE file that was distributed with this source code.
  */
 
+use Extcode\Cart\Event\ProcessOrderCheckStockEvent;
+use Extcode\Cart\Event\ProcessOrderCreateEvent;
+use Extcode\Cart\Event\ProcessOrderCreateEventInterface;
+use Psr\EventDispatcher\EventDispatcherInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 class OrderController extends ActionController
 {
     /**
-     * Stock Utility
-     *
-     * @var \Extcode\Cart\Utility\StockUtility
+     * @var EventDispatcherInterface
      */
-    protected $stockUtility;
-
-    /**
-     * @param \Extcode\Cart\Utility\StockUtility $stockUtility
-     */
-    public function injectStockUtility(
-        \Extcode\Cart\Utility\StockUtility $stockUtility
-    ) {
-        $this->stockUtility = $stockUtility;
-    }
+    protected $eventDispatcher;
 
     protected function getErrorFlashMessage()
     {
@@ -37,6 +30,16 @@ class OrderController extends ActionController
         );
 
         return $errorMsg;
+    }
+
+    /**
+     * @param EventDispatcherInterface|null $eventDispatcher
+     */
+    public function __construct(EventDispatcherInterface $eventDispatcher = null)
+    {
+        if ($eventDispatcher !== null) {
+            $this->eventDispatcher = $eventDispatcher;
+        }
     }
 
     public function initializeCreateAction()
@@ -97,17 +100,17 @@ class OrderController extends ActionController
         \Extcode\Cart\Domain\Model\Order\BillingAddress $billingAddress = null,
         \Extcode\Cart\Domain\Model\Order\ShippingAddress $shippingAddress = null
     ) {
-        if (($orderItem == null) || ($billingAddress == null)) {
+        if (($orderItem === null) || ($billingAddress === null)) {
             $this->redirect('show', 'Cart\Cart');
         }
 
         $this->cart = $this->sessionHandler->restore($this->settings['cart']['pid']);
 
-        if ($this->cart->getCount() == 0) {
+        if ($this->cart->getCount() === 0) {
             $this->redirect('show', 'Cart\Cart');
         }
 
-        $this->stockUtility->checkStock($this->cart);
+        $this->eventDispatcher->dispatch(new ProcessOrderCheckStockEvent($this->cart));
 
         $orderItem->setCartPid(intval($GLOBALS['TSFE']->id));
 
@@ -125,7 +128,24 @@ class OrderController extends ActionController
             $orderItem->setShippingAddress($shippingAddress);
         }
 
-        $this->invokeFinishers($orderItem);
+        $payment = $this->cart->getPayment();
+        if (method_exists($payment, 'getProvider')) {
+            $provider = $payment->getProvider();
+        }
+
+        if ($provider) {
+            if (method_exists($payment, 'getProcessOrderCreateEvent')) {
+                $processOrderCreateEventClassName = $payment->getProcessOrderCreateEvent();
+                if ($processOrderCreateEventClassName) {
+                    $processOrderCreateEvent = new $processOrderCreateEventClassName($this->cart, $orderItem, $this->pluginSettings);
+                    if ($processOrderCreateEvent instanceof ProcessOrderCreateEventInterface) {
+                        $this->eventDispatcher->dispatch($processOrderCreateEvent);
+                    }
+                }
+            }
+        } else {
+            $this->eventDispatcher->dispatch(new ProcessOrderCreateEvent($this->cart, $orderItem, $this->pluginSettings));
+        }
 
         $this->view->assign('cart', $this->cart);
         $this->view->assign('orderItem', $orderItem);
@@ -151,45 +171,6 @@ class OrderController extends ActionController
     }
 
     /**
-     * Executes all finishers of this form
-     *
-     * @param \Extcode\Cart\Domain\Model\Order\Item $orderItem
-     */
-    protected function invokeFinishers(\Extcode\Cart\Domain\Model\Order\Item $orderItem)
-    {
-        $finisherContext = GeneralUtility::makeInstance(
-            \Extcode\Cart\Domain\Finisher\FinisherContext::class,
-            $this->pluginSettings,
-            $this->cart,
-            $orderItem,
-            $this->getControllerContext()
-        );
-
-        if (is_array($this->pluginSettings['finishers']) &&
-            is_array($this->pluginSettings['finishers']['order'])
-        ) {
-            ksort($this->pluginSettings['finishers']['order']);
-            foreach ($this->pluginSettings['finishers']['order'] as $finisherConfig) {
-                $finisherClass = $finisherConfig['class'];
-
-                if (class_exists($finisherClass)) {
-                    $finisher = GeneralUtility::makeInstance($finisherClass);
-                    $finisher->execute($finisherContext);
-                    if ($finisherContext->isCancelled()) {
-                        break;
-                    }
-                } else {
-                    $logManager = GeneralUtility::makeInstance(
-                        \TYPO3\CMS\Core\Log\LogManager::class
-                    );
-                    $logger = $logManager->getLogger(__CLASS__);
-                    $logger->error('Can\'t find Finisher class \'' . $finisherClass . '\'.', []);
-                }
-            }
-        }
-    }
-
-    /**
      * Sets the dynamic validation rules.
      *
      * @param string $argumentName
@@ -205,7 +186,7 @@ class OrderController extends ActionController
             \TYPO3\CMS\Extbase\Validation\ValidatorResolver::class
         );
 
-        if ($validatorConf['validator'] == 'Empty') {
+        if ($validatorConf['validator'] === 'Empty') {
             $validatorConf['validator'] = '\Extcode\Cart\Validation\Validator\EmptyValidator';
         }
 

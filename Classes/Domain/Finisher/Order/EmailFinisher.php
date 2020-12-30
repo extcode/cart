@@ -9,9 +9,10 @@ namespace Extcode\Cart\Domain\Finisher\Order;
  * LICENSE file that was distributed with this source code.
  */
 
+use Extcode\Cart\Event\ProcessOrderCreateEvent;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
-class EmailFinisher extends \Extcode\Cart\Domain\Finisher\AbstractFinisher
+class EmailFinisher
 {
     /**
      * Cart
@@ -20,18 +21,19 @@ class EmailFinisher extends \Extcode\Cart\Domain\Finisher\AbstractFinisher
      */
     protected $cart;
 
-    public function executeInternal()
+    public function __invoke(ProcessOrderCreateEvent $event): void
     {
-        $this->cart = $this->finisherContext->getCart();
-        $orderItem = $this->finisherContext->getOrderItem();
+        $this->cart = $event->getCart();
+        $orderItem = $event->getOrderItem();
+        $settings = $event->getSettings();
 
         $paymentCountry = $orderItem->getPayment()->getServiceCountry();
         $paymentId = $orderItem->getPayment()->getServiceId();
 
         if ($paymentCountry) {
-            $serviceSettings = $this->settings['payments'][$paymentCountry]['options'][$paymentId];
+            $serviceSettings = $settings['payments'][$paymentCountry]['options'][$paymentId];
         } else {
-            $serviceSettings = $this->settings['payments']['options'][$paymentId];
+            $serviceSettings = $settings['payments']['options'][$paymentId];
         }
 
         if (intval($serviceSettings['preventBuyerEmail']) != 1) {

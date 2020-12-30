@@ -52,29 +52,6 @@ plugin.tx_cart {
         skipDefaultArguments = 1
     }
 
-    finishers {
-        order {
-            100 {
-                class = Extcode\Cart\Domain\Finisher\Order\OrderFinisher
-            }
-            110 {
-                class = Extcode\Cart\Domain\Finisher\Order\OrderNumberFinisher
-            }
-            200 {
-                class = Extcode\Cart\Domain\Finisher\Order\StockFinisher
-            }
-            300 {
-                class = Extcode\Cart\Domain\Finisher\Order\PaymentFinisher
-            }
-            400 {
-                class = Extcode\Cart\Domain\Finisher\Order\EmailFinisher
-            }
-            500 {
-                class = Extcode\Cart\Domain\Finisher\Order\ClearCartFinisher
-            }
-        }
-    }
-
     settings {
         cart {
             pid = {$plugin.tx_cart.settings.cart.pid}

@@ -9,33 +9,30 @@ namespace Extcode\Cart\Domain\Finisher\Order;
  * LICENSE file that was distributed with this source code.
  */
 
-class OrderFinisher extends \Extcode\Cart\Domain\Finisher\AbstractFinisher
+use Extcode\Cart\Event\ProcessOrderCreateEvent;
+use Extcode\Cart\Utility\OrderUtility;
+
+class OrderFinisher
 {
     /**
-     * Order Utility
-     *
-     * @var \Extcode\Cart\Utility\OrderUtility
+     * @var OrderUtility
      */
     protected $orderUtility;
 
     /**
-     * @param \Extcode\Cart\Utility\OrderUtility $orderUtility
+     * @param OrderUtility $orderUtility
      */
-    public function injectOrderUtility(
-        \Extcode\Cart\Utility\OrderUtility $orderUtility
-    ) {
+    public function __construct(OrderUtility $orderUtility)
+    {
         $this->orderUtility = $orderUtility;
     }
 
-    public function executeInternal()
+    public function __invoke(ProcessOrderCreateEvent $event): void
     {
-        $cart = $this->finisherContext->getCart();
-        $orderItem = $this->finisherContext->getOrderItem();
-
         $this->orderUtility->saveOrderItem(
-            $this->settings,
-            $cart,
-            $orderItem
+            $event->getSettings(),
+            $event->getCart(),
+            $event->getOrderItem()
         );
     }
 }

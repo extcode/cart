@@ -9,22 +9,34 @@ services:
     exclude: '../Classes/Widgets/*'
 
   Extcode\Cart\Domain\Finisher\Order\ClearCartFinisher:
-    public: true
+    tags:
+      - name: event.listener
+        identifier: 'cart-clear-cart-finisher'
+        event: Extcode\Cart\Event\ProcessOrderCreateEvent
 
   Extcode\Cart\Domain\Finisher\Order\EmailFinisher:
-    public: true
+    tags:
+      - name: event.listener
+        identifier: 'cart-email-finisher'
+        event: Extcode\Cart\Event\ProcessOrderCreateEvent
+        after: 'cart-order-finisher'
+        before: 'cart-clear-cart-finisher'
 
   Extcode\Cart\Domain\Finisher\Order\OrderFinisher:
-    public: true
+    tags:
+      - name: event.listener
+        identifier: 'cart-order-finisher'
+        event: Extcode\Cart\Event\ProcessOrderCreateEvent
+        before: 'cart-order-number-finisher'
 
   Extcode\Cart\Domain\Finisher\Order\OrderNumberFinisher:
-    public: true
-
-  Extcode\Cart\Domain\Finisher\Order\PaymentFinisher:
-    public: true
-
-  Extcode\Cart\Domain\Finisher\Order\StockFinisher:
-    public: true
+    arguments:
+      $persistenceManager: '@TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager'
+    tags:
+      - name: event.listener
+        identifier: 'cart-order-number-finisher'
+        event: Extcode\Cart\Event\ProcessOrderCreateEvent
+        after: 'cart-order-finisher'
 
   Extcode\Cart\Service\TaxClassService:
     public: true

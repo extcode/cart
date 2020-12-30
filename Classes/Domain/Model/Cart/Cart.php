@@ -777,7 +777,6 @@ class Cart
             foreach ($this->coupons as $coupon) {
                 if (!$coupon->getIsCombinable()) {
                     return false;
-                    break;
                 }
             }
         }

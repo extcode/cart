@@ -8,6 +8,7 @@ Developer Manual
    :titlesonly:
 
    DatabaseModel/Index
+   Events/Index
    Hooks/Index
    SignalSlots/Index
    Interfaces/Index

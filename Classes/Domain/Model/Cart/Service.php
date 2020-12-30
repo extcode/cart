@@ -93,6 +93,14 @@ class Service implements ServiceInterface
     /**
      * @return string
      */
+    public function getProcessOrderCreateEvent(): string
+    {
+        return $this->config['processOrderCreateEvent'] ?: '';
+    }
+
+    /**
+     * @return string
+     */
     public function getProvider(): string
     {
         return $this->config['provider'] ?: '';
@@ -262,41 +270,41 @@ class Service implements ServiceInterface
     {
         $extra = $this->getExtra();
 
-        $gross = $this->cart->translatePrice($extra->getGross());
+        $extraGross = $this->cart->translatePrice($extra->getGross());
 
         if ($extra->getExtraType() === 'each') {
-            $gross = $this->cart->getCount() * $gross;
+            $this->gross = $this->cart->getCount() * $extraGross;
+        } else {
+            $this->gross = $extraGross;
         }
-
-        $this->gross = $gross;
     }
 
     protected function calcNet()
     {
         $extra = $this->getExtra();
 
-        $net = $this->cart->translatePrice($extra->getNet());
+        $extraNet = $this->cart->translatePrice($extra->getNet());
 
         if ($extra->getExtraType() === 'each') {
-            $net = $this->cart->getCount() * $net;
+            $this->net = $this->cart->getCount() * $extraNet;
+        } else {
+            $this->net = $extraNet;
         }
-
-        $this->net = $net;
     }
 
     protected function calcTax()
     {
         $extra = $this->getExtra();
 
-        $tax = $extra->getTax();
+        $extraTax = $extra->getTax();
 
-        $taxValue = $this->cart->translatePrice($tax['tax']);
+        $taxValue = $this->cart->translatePrice($extraTax['tax']);
 
         if ($extra->getExtraType() === 'each') {
-            $taxValue = $this->cart->getCount() * $taxValue;
+            $this->tax = $this->cart->getCount() * $taxValue;
+        } else {
+            $this->tax = $taxValue;
         }
-
-        $this->tax = $taxValue;
     }
 
     /**
@@ -309,42 +317,30 @@ class Service implements ServiceInterface
         switch ($extraType) {
             case 'by_price':
                 return $this->cart->getGross();
-                break;
             case 'by_price_of_physical_products':
                 return $this->getPriceOfPhysicalProducts();
-                break;
             case 'by_quantity':
             case 'by_number_of_physical_products':
                 return $this->cart->getCountPhysicalProducts();
-                break;
             case 'by_number_of_virtual_products':
                 return $this->cart->getCountVirtualProducts();
-                break;
             case 'by_number_of_all_products':
                 return $this->cart->getCount();
-                break;
             case 'by_service_attribute_1_sum':
                 return $this->cart->getSumServiceAttribute1();
-                break;
             case 'by_service_attribute_1_max':
                 return $this->cart->getMaxServiceAttribute1();
-                break;
             case 'by_service_attribute_2_sum':
                 return $this->cart->getSumServiceAttribute2();
-                break;
             case 'by_service_attribute_2_max':
                 return $this->cart->getMaxServiceAttribute2();
-                break;
             case 'by_service_attribute_3_sum':
                 return $this->cart->getSumServiceAttribute3();
-                break;
             case 'by_service_attribute_3_max':
                 return $this->cart->getMaxServiceAttribute3();
-                break;
             default:
+                return null;
         }
-
-        return null;
     }
 
     /**
@@ -352,16 +348,16 @@ class Service implements ServiceInterface
      */
     protected function getPriceOfPhysicalProducts(): float
     {
-        $gross = 0.0;
+        $calculatedGross = 0.0;
 
         if ($this->cart->getProducts()) {
             foreach ($this->cart->getProducts() as $product) {
                 if (!$product->getIsVirtualProduct()) {
-                    $gross += $product->getGross();
+                    $calculatedGross += $product->getGross();
                 }
             }
         }
 
-        return $gross;
+        return $calculatedGross;
     }
 }

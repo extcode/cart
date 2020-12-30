@@ -9,67 +9,50 @@ namespace Extcode\Cart\Domain\Finisher\Order;
  * LICENSE file that was distributed with this source code.
  */
 
-class ClearCartFinisher extends \Extcode\Cart\Domain\Finisher\AbstractFinisher
+use Extcode\Cart\Event\ProcessOrderCreateEvent;
+use Extcode\Cart\Service\SessionHandler;
+use Extcode\Cart\Utility\CartUtility;
+use Extcode\Cart\Utility\ParserUtility;
+
+class ClearCartFinisher
 {
     /**
-     * Session Handler
-     *
-     * @var \Extcode\Cart\Service\SessionHandler
-     */
-    protected $sessionHandler;
-
-    /**
-     * Cart Utility
-     *
-     * @var \Extcode\Cart\Utility\CartUtility
+     * @var CartUtility
      */
     protected $cartUtility;
 
     /**
-     * Parser Utility
-     *
-     * @var \Extcode\Cart\Utility\ParserUtility
+     * @var ParserUtility
      */
     protected $parserUtility;
 
     /**
-     * @param \Extcode\Cart\Service\SessionHandler $sessionHandler
+     * @var SessionHandler
      */
-    public function injectSessionHandler(
-        \Extcode\Cart\Service\SessionHandler $sessionHandler
+    protected $sessionHandler;
+
+    public function __construct(
+        CartUtility $cartUtility,
+        ParserUtility $parserUtility,
+        SessionHandler $sessionHandler
     ) {
+        $this->cartUtility = $cartUtility;
+        $this->parserUtility = $parserUtility;
         $this->sessionHandler = $sessionHandler;
     }
 
-    /**
-     * @param \Extcode\Cart\Utility\CartUtility $cartUtility
-     */
-    public function injectCartUtility(
-        \Extcode\Cart\Utility\CartUtility $cartUtility
-    ) {
-        $this->cartUtility = $cartUtility;
-    }
-
-    /**
-     * @param \Extcode\Cart\Utility\ParserUtility $parserUtility
-     */
-    public function injectParserUtility(
-        \Extcode\Cart\Utility\ParserUtility $parserUtility
-    ) {
-        $this->parserUtility = $parserUtility;
-    }
-
-    public function executeInternal()
+    public function __invoke(ProcessOrderCreateEvent $event): void
     {
-        $cart = $this->finisherContext->getCart();
+        $cart = $event->getCart();
+        $settings = $event->getSettings();
 
         $paymentId = $cart->getPayment()->getId();
-        $paymentSettings = $this->parserUtility->getTypePluginSettings($this->settings, $cart, 'payments');
+        $paymentSettings = $this->parserUtility->getTypePluginSettings($settings, $cart, 'payments');
 
         if (intval($paymentSettings['options'][$paymentId]['preventClearCart']) != 1) {
-            $cart = $this->cartUtility->getNewCart($this->settings);
+            $cart = $this->cartUtility->getNewCart($settings);
         }
 
-        $this->sessionHandler->write($cart, $this->settings['settings']['cart']['pid']);
+        $this->sessionHandler->write($cart, $settings['settings']['cart']['pid']);
     }
 }
