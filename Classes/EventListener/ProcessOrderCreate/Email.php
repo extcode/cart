@@ -1,6 +1,6 @@
 <?php
-
-namespace Extcode\Cart\Domain\Finisher\Order;
+declare(strict_types=1);
+namespace Extcode\Cart\EventListener\ProcessOrderCreate;
 
 /*
  * This file is part of the package extcode/cart.
@@ -12,7 +12,7 @@ namespace Extcode\Cart\Domain\Finisher\Order;
 use Extcode\Cart\Event\ProcessOrderCreateEvent;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
-class EmailFinisher
+class Email
 {
     /**
      * Cart

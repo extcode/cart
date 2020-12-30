@@ -9,41 +9,27 @@ namespace Extcode\Cart\Controller\Cart;
  * LICENSE file that was distributed with this source code.
  */
 
-use Extcode\Cart\Domain\Finisher\Cart\AddToCartFinisherInterface;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
+use Extcode\Cart\Event\CheckProductAvailabilityEvent;
+use Extcode\Cart\Event\RetrieveProductsFromRequestEvent;
+use Psr\EventDispatcher\EventDispatcherInterface;
 
 class ProductController extends ActionController
 {
     const AJAX_CART_TYPE_NUM = '2278001';
 
     /**
-     * Stock Utility
-     *
-     * @var \Extcode\Cart\Utility\StockUtility
+     * @var EventDispatcherInterface
      */
-    protected $stockUtility;
+    protected $eventDispatcher;
 
     /**
-     * GpValues
-     *
-     * @var array
+     * @param EventDispatcherInterface|null $eventDispatcher
      */
-    protected $gpValues = [];
-
-    /**
-     * TaxClasses
-     *
-     * @var array
-     */
-    protected $taxClasses = [];
-
-    /**
-     * @param \Extcode\Cart\Utility\StockUtility $stockUtility
-     */
-    public function injectStockUtility(
-        \Extcode\Cart\Utility\StockUtility $stockUtility
-    ) {
-        $this->stockUtility = $stockUtility;
+    public function __construct(EventDispatcherInterface $eventDispatcher = null)
+    {
+        if ($eventDispatcher !== null) {
+            $this->eventDispatcher = $eventDispatcher;
+        }
     }
 
     /**
@@ -58,39 +44,22 @@ class ProductController extends ActionController
             throw new \Exception('productType is needed');
         }
 
-        $productType = $this->request->getArgument('productType');
-
         $this->cart = $this->cartUtility->getCartFromSession($this->pluginSettings);
 
-        if (empty($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['cart'][$productType]['Cart']['AddToCartFinisher'])) {
-            // TODO: throw own exception
-            throw new \Exception('Hook is not configured for this product type!');
-        }
+        $event = new RetrieveProductsFromRequestEvent($this->request, $this->cart);
 
-        $className = $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['cart'][$productType]['Cart']['AddToCartFinisher'];
-
-        $hookObject = GeneralUtility::makeInstance($className);
-        if (!$hookObject instanceof AddToCartFinisherInterface) {
-            throw new \UnexpectedValueException($className . ' must implement interface ' . AddToCartFinisherInterface::class, 123);
-        }
-
-        list($errors, $cartProducts) = $hookObject->getProductFromRequest(
-            $this->request,
-            $this->cart
-        );
+        $this->eventDispatcher->dispatch($event);
 
         $errors = [];
 
-        foreach ($cartProducts as $cartProductKey => $cartProduct) {
-            $availabilityResponse = $this->stockUtility->checkAvailability(
-                $this->request,
-                $cartProduct,
-                $this->cart,
-                'add'
-            );
+        $cartProducts = $event->getProducts();
 
-            if (!$availabilityResponse->isAvailable()) {
-                $errors = array_merge($errors, $availabilityResponse->getMessages());
+        foreach ($cartProducts as $cartProductKey => $cartProduct) {
+            $checkAvailabilityEvent = new CheckProductAvailabilityEvent($this->cart, $cartProduct, $cartProduct->getQuantity(), 'add');
+            $this->eventDispatcher->dispatch($checkAvailabilityEvent);
+
+            if (!$checkAvailabilityEvent->isAvailable()) {
+                $errors = array_merge($errors, $checkAvailabilityEvent->getMessages());
             }
         }
 
@@ -120,16 +89,16 @@ class ProductController extends ActionController
                 ];
 
                 return json_encode($response);
-            } else {
-                $this->addFlashMessage(
-                    $messageBody,
-                    $messageTitle,
-                    $severity,
-                    true
-                );
-
-                $this->redirect('show', 'Cart\Cart');
             }
+
+            $this->addFlashMessage(
+                $messageBody,
+                $messageTitle,
+                $severity,
+                true
+            );
+
+            $this->redirect('show', 'Cart\Cart');
         }
 
         $quantity = $this->addProductsToCart($cartProducts);

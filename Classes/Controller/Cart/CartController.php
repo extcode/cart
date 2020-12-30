@@ -9,29 +9,12 @@ namespace Extcode\Cart\Controller\Cart;
  * LICENSE file that was distributed with this source code.
  */
 
+use Extcode\Cart\Event\CheckProductAvailabilityEvent;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 class CartController extends ActionController
 {
     /**
-     * Stock Utility
-     *
-     * @var \Extcode\Cart\Utility\StockUtility
-     */
-    protected $stockUtility;
-
-    /**
-     * @param \Extcode\Cart\Utility\StockUtility $stockUtility
-     */
-    public function injectStockUtility(
-        \Extcode\Cart\Utility\StockUtility $stockUtility
-    ) {
-        $this->stockUtility = $stockUtility;
-    }
-
-    /**
-     * Action Show
-     *
      * @param \Extcode\Cart\Domain\Model\Order\Item $orderItem
      * @param \Extcode\Cart\Domain\Model\Order\BillingAddress $billingAddress
      * @param \Extcode\Cart\Domain\Model\Order\ShippingAddress $shippingAddress
@@ -40,7 +23,7 @@ class CartController extends ActionController
         \Extcode\Cart\Domain\Model\Order\Item $orderItem = null,
         \Extcode\Cart\Domain\Model\Order\BillingAddress $billingAddress = null,
         \Extcode\Cart\Domain\Model\Order\ShippingAddress $shippingAddress = null
-    ) {
+    ): void {
         $this->restoreSession();
 
         if ($orderItem === null) {
@@ -95,10 +78,7 @@ class CartController extends ActionController
         $this->view->assignMultiple($assignArguments);
     }
 
-    /**
-     * Action Clear Cart
-     */
-    public function clearAction()
+    public function clearAction(): void
     {
         $this->cart = $this->cartUtility->getNewCart($this->pluginSettings);
 
@@ -107,10 +87,7 @@ class CartController extends ActionController
         $this->redirect('show');
     }
 
-    /**
-     * Action Update Cart
-     */
-    public function updateAction()
+    public function updateAction(): void
     {
         if (!$this->request->hasArgument('quantities')) {
             $this->redirect('show');
@@ -127,15 +104,16 @@ class CartController extends ActionController
         foreach ($updateQuantities as $productId => $quantity) {
             $cartProduct = $this->cart->getProductById($productId);
             if ($cartProduct) {
-                $availabilityResponse = $this->stockUtility->checkAvailability($this->request, $cartProduct, $this->cart, 'update');
-                if ($availabilityResponse->isAvailable()) {
+                $checkAvailabilityEvent = new CheckProductAvailabilityEvent($this->cart, $cartProduct, $quantity);
+                $this->eventDispatcher->dispatch($checkAvailabilityEvent);
+                if ($checkAvailabilityEvent->isAvailable()) {
                     if (is_array($quantity)) {
                         $cartProduct->changeQuantities($quantity);
                     } else {
                         $cartProduct->changeQuantity($quantity);
                     }
                 } else {
-                    foreach ($availabilityResponse->getMessages() as $message) {
+                    foreach ($checkAvailabilityEvent->getMessages() as $message) {
                         $this->addFlashMessage(
                             $message->getMessage(),
                             $message->getTitle(),

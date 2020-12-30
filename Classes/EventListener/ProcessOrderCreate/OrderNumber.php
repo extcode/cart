@@ -1,6 +1,6 @@
 <?php
-
-namespace Extcode\Cart\Domain\Finisher\Order;
+declare(strict_types=1);
+namespace Extcode\Cart\EventListener\ProcessOrderCreate;
 
 /*
  * This file is part of the package extcode/cart.
@@ -14,7 +14,7 @@ use Extcode\Cart\Event\ProcessOrderCreateEvent;
 use Extcode\Cart\Utility\OrderUtility;
 use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
 
-class OrderNumberFinisher
+class OrderNumber
 {
     /**
      * @var PersistenceManager

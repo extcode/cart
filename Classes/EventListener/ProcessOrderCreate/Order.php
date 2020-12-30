@@ -1,6 +1,6 @@
 <?php
-
-namespace Extcode\Cart\Domain\Finisher\Order;
+declare(strict_types=1);
+namespace Extcode\Cart\EventListener\ProcessOrderCreate;
 
 /*
  * This file is part of the package extcode/cart.
@@ -12,7 +12,7 @@ namespace Extcode\Cart\Domain\Finisher\Order;
 use Extcode\Cart\Event\ProcessOrderCreateEvent;
 use Extcode\Cart\Utility\OrderUtility;
 
-class OrderFinisher
+class Order
 {
     /**
      * @var OrderUtility
