@@ -8,12 +8,16 @@ namespace Extcode\Cart\Domain\Validator;
  * LICENSE file that was distributed with this source code.
  */
 
+use Extcode\Cart\Domain\Model\Order\Item as OrderItem;
+use TYPO3\CMS\Extbase\Error\Result;
+use TYPO3\CMS\Extbase\Validation\Validator\AbstractValidator;
+use TYPO3\CMS\Extbase\Validation\Validator\ObjectValidatorInterface;
 use TYPO3\CMS\Extbase\Validation\Validator\ValidatorInterface;
 
 /**
  * A generic object validator which allows for specifying property validators
  */
-class OrderItemValidator extends \TYPO3\CMS\Extbase\Validation\Validator\AbstractValidator implements \TYPO3\CMS\Extbase\Validation\Validator\ObjectValidatorInterface
+class OrderItemValidator extends AbstractValidator implements ObjectValidatorInterface
 {
     /**
      * @var \SplObjectStorage[]
@@ -25,12 +29,12 @@ class OrderItemValidator extends \TYPO3\CMS\Extbase\Validation\Validator\Abstrac
      * the Error Messages object which occurred.
      *
      * @param mixed $value The value that should be validated
-     * @return \TYPO3\CMS\Extbase\Error\Result
+     * @return Result
      * @api
      */
     public function validate($value)
     {
-        $this->result = new \TYPO3\CMS\Extbase\Error\Result();
+        $this->result = new Result();
         if ($this->acceptsEmptyValues === false || $this->isEmpty($value) === false) {
             if (!is_object($value)) {
                 $this->addError('Object expected, %1$s given.', 1241099149, [gettype($value)]);
@@ -47,11 +51,11 @@ class OrderItemValidator extends \TYPO3\CMS\Extbase\Validation\Validator\Abstrac
      *
      * In case the object is a doctrine proxy, we need to load the real instance first.
      *
-     * @param \Extcode\Cart\Domain\Model\Order\Item $item
+     * @param OrderItem $item
      * @param string $propertyName
      * @return mixed
      */
-    protected function getPropertyValue(\Extcode\Cart\Domain\Model\Order\Item $item, $propertyName)
+    protected function getPropertyValue(OrderItem $item, $propertyName)
     {
         $methodPrefixes = ['get', 'is'];
 
@@ -75,7 +79,7 @@ class OrderItemValidator extends \TYPO3\CMS\Extbase\Validation\Validator\Abstrac
      */
     protected function checkProperty($value, $validators, $propertyName)
     {
-        /** @var \TYPO3\CMS\Extbase\Error\Result $result */
+        /** @var Result $result */
         $result = null;
         foreach ($validators as $validator) {
             if ($validator instanceof ObjectValidatorInterface) {

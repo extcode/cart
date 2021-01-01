@@ -13,10 +13,6 @@ use Extcode\Cart\Domain\Model\Cart\Cart;
 
 interface AddToCartFinisherInterface
 {
-    /**
-     * @param array $formValues
-     * @param Cart $cart
-     */
     public function getProductFromForm(
         array $formValues,
         Cart $cart

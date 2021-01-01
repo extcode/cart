@@ -7,5 +7,4 @@ Hooks
    :maxdepth: 5
    :titlesonly:
 
-   CartFinisher/Index
    FormFinisher/Index

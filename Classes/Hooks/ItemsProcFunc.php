@@ -64,9 +64,7 @@ class ItemsProcFunc
             $prototypeName = $config['config']['itemsProcFuncConfig']['prototypeName'];
         }
 
-        $formPersistenceManager = GeneralUtility::makeInstance(
-            \TYPO3\CMS\Form\Mvc\Persistence\FormPersistenceManager::class
-        );
+        $formPersistenceManager = $this->getFormPersistenceManager();
         $availableForms = $formPersistenceManager->listForms();
 
         foreach ($availableForms as $availableForm) {
@@ -83,7 +81,7 @@ class ItemsProcFunc
 
     protected function getExtKey($listType)
     {
-        list($ext, $plugin) = explode('_', $listType, 2);
+        [$ext, $plugin] = explode('_', $listType, 2);
 
         if (substr($ext, 0, 4) === 'cart') {
             return 'cart_' . substr($ext, 4);
@@ -151,5 +149,34 @@ class ItemsProcFunc
     protected function getLanguageService()
     {
         return $GLOBALS['LANG'];
+    }
+
+    /**
+     * @return object|\Psr\Log\LoggerAwareInterface|\TYPO3\CMS\Core\SingletonInterface
+     */
+    protected function getFormPersistenceManager()
+    {
+        $formPersistenceManager = GeneralUtility::makeInstance(
+            \TYPO3\CMS\Form\Mvc\Persistence\FormPersistenceManager::class
+        );
+
+        $formPersistenceManager->initializeObject();
+
+        $storageRepository = GeneralUtility::makeInstance(
+            \TYPO3\CMS\Core\Resource\StorageRepository::class
+        );
+        $formPersistenceManager->injectStorageRepository($storageRepository);
+
+        $resourceFactory = GeneralUtility::makeInstance(
+            \TYPO3\CMS\Core\Resource\ResourceFactory::class
+        );
+        $formPersistenceManager->injectResourceFactory($resourceFactory);
+
+        $yamlSource = GeneralUtility::makeInstance(
+            \TYPO3\CMS\Form\Mvc\Configuration\YamlSource::class
+        );
+        $formPersistenceManager->injectYamlSource($yamlSource);
+
+        return $formPersistenceManager;
     }
 }

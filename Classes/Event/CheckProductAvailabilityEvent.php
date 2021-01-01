@@ -1,6 +1,5 @@
 <?php
 declare(strict_types=1);
-
 namespace Extcode\Cart\Event;
 
 /*
@@ -14,7 +13,7 @@ use Extcode\Cart\Domain\Model\Cart\Cart;
 use Extcode\Cart\Domain\Model\Cart\Product;
 use TYPO3\CMS\Core\Messaging\FlashMessage;
 
-class CheckProductAvailabilityEvent
+class CheckProductAvailabilityEvent implements CheckProductAvailabilityEventInterface
 {
     /**
      * @var Cart
@@ -42,7 +41,7 @@ class CheckProductAvailabilityEvent
     protected $available = true;
 
     /**
-     * @var \TYPO3\CMS\Core\Messaging\FlashMessage[]
+     * @var FlashMessage[]
      */
     protected $messages = [];
 
@@ -69,7 +68,7 @@ class CheckProductAvailabilityEvent
         return $this->quantity;
     }
 
-    public function getMode()
+    public function getMode(): string
     {
         return $this->mode;
     }
@@ -85,7 +84,7 @@ class CheckProductAvailabilityEvent
     }
 
     /**
-     * @return \TYPO3\CMS\Core\Messaging\FlashMessage[]
+     * @return FlashMessage[]
      */
     public function getMessages(): array
     {
@@ -93,9 +92,9 @@ class CheckProductAvailabilityEvent
     }
 
     /**
-     * @param \TYPO3\CMS\Core\Messaging\FlashMessage[] $messages
+     * @param FlashMessage[] $messages
      */
-    public function setMessages(array $messages)
+    public function setMessages(array $messages): void
     {
         $this->messages = $messages;
     }
@@ -103,7 +102,7 @@ class CheckProductAvailabilityEvent
     /**
      * @param FlashMessage $message
      */
-    public function addMessage(FlashMessage $message)
+    public function addMessage(FlashMessage $message): void
     {
         $this->messages[] = $message;
     }

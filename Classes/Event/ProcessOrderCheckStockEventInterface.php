@@ -1,6 +1,6 @@
 <?php
 declare(strict_types=1);
-namespace Extcode\Cart\Domain\Repository;
+namespace Extcode\Cart\Event;
 
 /*
  * This file is part of the package extcode/cart.
@@ -9,6 +9,11 @@ namespace Extcode\Cart\Domain\Repository;
  * LICENSE file that was distributed with this source code.
  */
 
-class CouponRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
+use Extcode\Cart\Domain\Model\Cart\Cart;
+
+interface ProcessOrderCheckStockEventInterface
 {
+    public function __construct(Cart $cart);
+
+    public function getCart(): Cart;
 }

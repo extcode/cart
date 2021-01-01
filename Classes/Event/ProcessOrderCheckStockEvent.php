@@ -1,6 +1,5 @@
 <?php
 declare(strict_types=1);
-
 namespace Extcode\Cart\Event;
 
 /*
@@ -12,7 +11,7 @@ namespace Extcode\Cart\Event;
 
 use Extcode\Cart\Domain\Model\Cart\Cart;
 
-final class ProcessOrderCheckStockEvent
+final class ProcessOrderCheckStockEvent implements ProcessOrderCheckStockEventInterface
 {
     /**
      * @var Cart

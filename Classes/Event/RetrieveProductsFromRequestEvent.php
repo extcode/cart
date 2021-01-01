@@ -1,6 +1,5 @@
 <?php
 declare(strict_types=1);
-
 namespace Extcode\Cart\Event;
 
 /*
@@ -14,7 +13,7 @@ use Extcode\Cart\Domain\Model\Cart\Cart;
 use Extcode\Cart\Domain\Model\Cart\Product;
 use TYPO3\CMS\Extbase\Mvc\Request;
 
-final class RetrieveProductsFromRequestEvent
+final class RetrieveProductsFromRequestEvent implements RetrieveProductsFromRequestEventInterface
 {
     /**
      * @var Cart

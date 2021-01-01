@@ -10,15 +10,17 @@ namespace Extcode\Cart\Event;
  */
 
 use Extcode\Cart\Domain\Model\Cart\Cart;
-use Extcode\Cart\Domain\Model\Order\Item as OrderItem;
+use TYPO3\CMS\Extbase\Mvc\Request;
 
-interface ProcessOrderCreateEventInterface
+interface RetrieveProductsFromRequestEventInterface
 {
-    public function __construct(Cart $cart, OrderItem $orderItem, array $settings = []);
+    public function __construct(Request $request, Cart $cart);
 
     public function getCart(): Cart;
 
-    public function getOrderItem(): OrderItem;
+    public function getRequest(): Request;
 
-    public function getSettings(): array;
+    public function getProducts(): array;
+
+    public function getErrors(): array;
 }

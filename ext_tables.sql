@@ -176,8 +176,8 @@ CREATE TABLE tx_cart_domain_model_order_productadditional (
     additional_key varchar(255) DEFAULT '' NOT NULL,
     additional_value varchar(255) DEFAULT '' NOT NULL,
 
-    additional text NOT NULL,
-    additional_data text NOT NULL,
+    additional text,
+    additional_data text,
 
     INDEX `parent` (pid), INDEX `t3ver_oid` (t3ver_oid,t3ver_wsid),
     PRIMARY KEY (uid)

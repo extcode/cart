@@ -11,8 +11,10 @@ namespace Extcode\Cart\Domain\Finisher\Form;
 
 use Extcode\Cart\Domain\Model\Cart\Cart;
 use Extcode\Cart\Utility\CartUtility;
+use TYPO3\CMS\Core\Messaging\AbstractMessage;
+use TYPO3\CMS\Core\Messaging\FlashMessage;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
+use TYPO3\CMS\Extbase\Configuration\ConfigurationManager;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 use TYPO3\CMS\Form\Domain\Finishers\AbstractFinisher;
 
@@ -34,23 +36,22 @@ class AddToCartFinisher extends AbstractFinisher
     protected $pluginSettings;
 
     /**
-     * @var ConfigurationManagerInterface
+     * @var ConfigurationManager
      */
     protected $configurationManager;
 
     /**
      * @param CartUtility $cartUtility
      */
-    public function injectCartUtility(
-        CartUtility $cartUtility
-    ) {
+    public function injectCartUtility(CartUtility $cartUtility): void
+    {
         $this->cartUtility = $cartUtility;
     }
 
     /**
-     * @param ConfigurationManagerInterface $configurationManager
+     * @param ConfigurationManager $configurationManager
      */
-    public function injectConfigurationManager(ConfigurationManagerInterface $configurationManager)
+    public function injectConfigurationManager(ConfigurationManager $configurationManager): void
     {
         $this->configurationManager = $configurationManager;
         $this->pluginSettings = $this->configurationManager->getConfiguration(
@@ -59,7 +60,7 @@ class AddToCartFinisher extends AbstractFinisher
         );
     }
 
-    protected function executeInternal()
+    protected function executeInternal(): void
     {
         $this->cart = $this->cartUtility->getCartFromSession($this->pluginSettings);
 
@@ -73,7 +74,7 @@ class AddToCartFinisher extends AbstractFinisher
 
         unset($formValues[$this->getHoneypotIdentifier()]);
 
-        list($errors, $cartProducts) = $hookObject->getProductFromForm(
+        [$errors, $cartProducts] = $hookObject->getProductFromForm(
             $formValues,
             $this->cart
         );
@@ -88,7 +89,7 @@ class AddToCartFinisher extends AbstractFinisher
             $status = '200';
             $messageBody = $this->getStatusMessageBody($formValues, $status);
             $messageTitle = $this->getStatusMessageTitle($formValues);
-            $severity = \TYPO3\CMS\Core\Messaging\AbstractMessage::OK;
+            $severity = AbstractMessage::OK;
 
             $pageType = $GLOBALS['TYPO3_REQUEST']->getAttribute('routing')->getPageType();
             if (in_array((int)$pageType, $this->pluginSettings['settings']['jsonResponseForPageTypes'])) {
@@ -106,7 +107,7 @@ class AddToCartFinisher extends AbstractFinisher
                 $this->finisherContext->getFormRuntime()->getResponse()->setContent(json_encode($response));
             } else {
                 $flashMessage = GeneralUtility::makeInstance(
-                    \TYPO3\CMS\Core\Messaging\FlashMessage::class,
+                    FlashMessage::class,
                     (string)$messageBody,
                     (string)$messageTitle,
                     $severity,
@@ -118,20 +119,12 @@ class AddToCartFinisher extends AbstractFinisher
         }
     }
 
-    /**
-     * Returns the values of the submitted form
-     *
-     * @return array
-     */
     protected function getFormValues(): array
     {
         return $this->finisherContext->getFormValues();
     }
 
-    /**
-     * @return string
-     */
-    protected function getHoneypotIdentifier()
+    protected function getHoneypotIdentifier(): string
     {
         foreach ($this->finisherContext->getFormRuntime()->getFormDefinition()->getRenderablesRecursively() as $renderable) {
             if ($renderable->getType() === 'Honeypot') {
@@ -141,11 +134,7 @@ class AddToCartFinisher extends AbstractFinisher
         return '';
     }
 
-    /**
-     * @param array $products
-     * @return int
-     */
-    protected function addProductsToCart($products)
+    protected function addProductsToCart(array $products): int
     {
         $quantity = 0;
 
@@ -158,12 +147,7 @@ class AddToCartFinisher extends AbstractFinisher
         return $quantity;
     }
 
-    /**
-     * @param array $formValues
-     * @param string $status
-     * @return string|null
-     */
-    protected function getStatusMessageBody(array $formValues, $status = '200')
+    protected function getStatusMessageBody(array $formValues, $status = '200'): ?string
     {
         $messageBody = LocalizationUtility::translate(
             'tx_cart.add_to_cart_finisher.' . $formValues['productType'] . '.message.status.' . $status . '.body',
@@ -178,12 +162,7 @@ class AddToCartFinisher extends AbstractFinisher
         return $messageBody;
     }
 
-    /**
-     * @param array $formValues
-     * @param string $status
-     * @return string|null
-     */
-    protected function getStatusMessageTitle(array $formValues, $status = '200')
+    protected function getStatusMessageTitle(array $formValues, $status = '200'): ?string
     {
         $messageTitle = LocalizationUtility::translate(
             'tx_cart.add_to_cart_finisher.' . $formValues['productType'] . '.message.status.' . $status . '.title',
