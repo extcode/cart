@@ -1,18 +1,4 @@
 module.tx_cart {
-    view {
-        templateRootPaths {
-            0 = EXT:cart/Resources/Private/Backend/Templates/
-        }
-        partialRootPaths {
-            0 = EXT:cart/Resources/Private/Backend/Partials/
-        }
-        layoutRootPaths {
-            0 = EXT:cart/Resources/Private/Backend/Layouts/
-        }
-    }
-}
-
-module.tx_cart {
     persistence {
         storagePid = {$module.tx_cart.persistence.storagePid}
 

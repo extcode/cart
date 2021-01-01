@@ -5,10 +5,6 @@ plugin.tx_cart {
         layoutRootPath = EXT:cart/Resources/Private/Layouts/
     }
 
-    persistence {
-        storagePid =
-    }
-
     taxClasses {
         1 {
             # cat=plugin.cart//0160; type=text; label= Tax rate: Enter the tax value for this tax class item (e.g. 19). Value will be displayed.
@@ -66,15 +62,6 @@ plugin.tx_cart {
     }
 
     settings {
-        cart {
-            pid =
-            isNetCart =
-
-            acceptTermsAndConditions.pid =
-            acceptRevocationInstruction.pid =
-            acceptPrivacyPolicy.pid =
-        }
-
         addToCartByAjax = 2278001
 
         validation {
