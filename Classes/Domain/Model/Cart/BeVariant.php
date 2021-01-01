@@ -11,11 +11,6 @@ namespace Extcode\Cart\Domain\Model\Cart;
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
-/**
- * Cart BeVariant Model
- *
- * @author Daniel Lorenz <ext.cart@extco.de>
- */
 class BeVariant
 {
 

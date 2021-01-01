@@ -32,7 +32,7 @@ EXT: Cart
       2018
 
    :Author:
-      Daniel Lorenz
+      Daniel Gohlke
 
    :E-Mail:
       ext.cart@extco.de
