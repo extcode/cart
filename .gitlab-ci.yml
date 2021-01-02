@@ -24,7 +24,7 @@ stages:
   - analysis
 
 lint:cgl:
-  image: composer:1.6
+  image: composer:2
   stage: lint
   before_script:
     - composer remove typo3/cms-core --no-update
@@ -34,7 +34,7 @@ lint:cgl:
 
 lint:typoscriptcgl:
   stage: lint
-  image: composer:1.6
+  image: composer:2
   script:
     - composer remove typo3/cms-core --no-update
     - composer install --no-progress --no-ansi --no-interaction

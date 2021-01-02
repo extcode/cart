@@ -64,6 +64,15 @@ plugin.tx_cart {
     settings {
         addToCartByAjax = 2278001
 
+        format.currency {
+            currencySign       = &euro;
+            decimalSeparator   = ,
+            thousandsSeparator = .
+            prependCurrency    = false
+            separateCurrency   = true
+            decimals           = 2
+        }
+
         validation {
             orderItem {
                 fields {
