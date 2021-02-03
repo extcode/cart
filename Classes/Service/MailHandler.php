@@ -271,6 +271,7 @@ class MailHandler implements SingletonInterface
             $mail = $this->objectManager->get(MailMessage::class);
             $mail->setFrom($this->buyerEmailFrom);
             $mail->setTo($orderItem->getBillingAddress()->getEmail());
+            $mail->setReplyTo($this->buyerEmailFrom);
             if ($this->buyerEmailBcc) {
                 $mail->setBcc(explode(',', $this->buyerEmailBcc));
             }
