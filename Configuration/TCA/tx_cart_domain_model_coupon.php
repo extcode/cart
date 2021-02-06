@@ -117,7 +117,7 @@ return [
                 'items' => [
                     [$_LLL . ':tx_cart_domain_model_coupon.coupon_type.cartdiscount', 'cartdiscount'],
                 ],
-                'default' => 'simple',
+                'default' => 'cartdiscount',
                 'size' => 1,
                 'minitems' => 0,
                 'maxitems' => 1,
