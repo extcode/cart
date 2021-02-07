@@ -45,15 +45,23 @@ return [
     'columns' => [
         'hidden' => [
             'exclude' => 1,
-            'label' => 'LLL:EXT:lang/locallang_general.xlf:LGL.hidden',
+            'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.hidden',
             'config' => [
                 'type' => 'check',
+                'renderType' => 'checkboxToggle',
+                'default' => 0,
+                'items' => [
+                    [
+                        0 => '',
+                        1 => '',
+                    ]
+                ],
             ],
         ],
         'starttime' => [
             'exclude' => 1,
             'l10n_mode' => 'mergeIfNotBlank',
-            'label' => 'LLL:EXT:lang/locallang_general.xlf:LGL.starttime',
+            'label' => 'LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:starttime_formlabel',
             'config' => [
                 'type' => 'input',
                 'size' => 13,
@@ -69,7 +77,7 @@ return [
         'endtime' => [
             'exclude' => 1,
             'l10n_mode' => 'mergeIfNotBlank',
-            'label' => 'LLL:EXT:lang/locallang_general.xlf:LGL.endtime',
+            'label' => 'LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:endtime_formlabel',
             'config' => [
                 'type' => 'input',
                 'size' => 13,
@@ -109,7 +117,7 @@ return [
                 'items' => [
                     [$_LLL . ':tx_cart_domain_model_coupon.coupon_type.cartdiscount', 'cartdiscount'],
                 ],
-                'default' => 'simple',
+                'default' => 'cartdiscount',
                 'size' => 1,
                 'minitems' => 0,
                 'maxitems' => 1,
@@ -129,6 +137,7 @@ return [
             'label' => $_LLL . ':tx_cart_domain_model_coupon.tax_class_id',
             'config' => [
                 'type' => 'select',
+                'renderType' => 'selectSingle',
                 'items' => [
                     [$_LLL . ':tx_cart_domain_model_coupon.tax_class_id.1', 1],
                 ],
