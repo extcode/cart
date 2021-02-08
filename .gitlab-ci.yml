@@ -28,7 +28,7 @@ lint:cgl:
   stage: lint
   before_script:
     - composer remove typo3/cms-core --no-update
-    - composer install --no-progress --no-ansi --no-interaction
+    - composer install --no-progress --no-ansi --no-interaction --ignore-platform-reqs
   script:
     - .build/bin/php-cs-fixer fix --config=Build/.php_cs.dist -v --dry-run --using-cache=no --path-mode=intersection ./
 
@@ -37,7 +37,7 @@ lint:typoscriptcgl:
   image: composer:2
   script:
     - composer remove typo3/cms-core --no-update
-    - composer install --no-progress --no-ansi --no-interaction
+    - composer install --no-progress --no-ansi --no-interaction --ignore-platform-reqs
     - .build/bin/typoscript-lint -c Build/typoscriptlint.yaml Configuration
 
 lint:yaml:
