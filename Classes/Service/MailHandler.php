@@ -61,6 +61,11 @@ class MailHandler implements SingletonInterface
     /**
      * @var string
      */
+    protected $buyerEmailReplyTo = '';
+
+    /**
+     * @var string
+     */
     protected $sellerEmailFrom = '';
 
     /**
@@ -96,7 +101,7 @@ class MailHandler implements SingletonInterface
     /**
      * Sets Plugin Settings
      */
-    public function setPluginSettings()
+    public function setPluginSettings(): void
     {
         $this->pluginSettings =
             $this->configurationManager->getConfiguration(
@@ -125,6 +130,17 @@ class MailHandler implements SingletonInterface
                 && !empty($this->pluginSettings['mail']['buyer']['bccAddress'])
             ) {
                 $this->setBuyerEmailBcc($this->pluginSettings['mail']['buyer']['bccAddress']);
+            }
+
+            if (!empty($this->pluginSettings['settings']['buyer'])
+                && !empty($this->pluginSettings['settings']['buyer']['emailReplyToAddress'])
+            ) {
+                $this->setBuyerEmailReplyTo($this->pluginSettings['settings']['buyer']['emailReplyToAddress']);
+            } elseif (!empty($this->pluginSettings['mail'])
+                && !empty($this->pluginSettings['mail']['buyer'])
+                && !empty($this->pluginSettings['mail']['buyer']['replyToAddress'])
+            ) {
+                $this->setBuyerEmailReplyTo($this->pluginSettings['mail']['buyer']['replyToAddress']);
             }
 
             if (!empty($this->pluginSettings['settings']['seller'])
@@ -165,7 +181,7 @@ class MailHandler implements SingletonInterface
     /**
      * @param Cart $cart
      */
-    public function setCart(Cart $cart)
+    public function setCart(Cart $cart): void
     {
         $this->cart = $cart;
     }
@@ -200,6 +216,22 @@ class MailHandler implements SingletonInterface
     public function getBuyerEmailBcc(): string
     {
         return $this->buyerEmailBcc;
+    }
+
+    /**
+     * @param string $buyerEmailReplyTo
+     */
+    public function setBuyerEmailReplyTo(string $buyerEmailReplyTo): void
+    {
+        $this->buyerEmailReplyTo = $buyerEmailReplyTo;
+    }
+
+    /**
+     * @return string
+     */
+    public function getBuyerEmailReplyTo(): string
+    {
+        return $this->buyerEmailReplyTo;
     }
 
     /**
@@ -255,9 +287,9 @@ class MailHandler implements SingletonInterface
      *
      * @param Item $orderItem
      */
-    public function sendBuyerMail(Item $orderItem)
+    public function sendBuyerMail(Item $orderItem): void
     {
-        if (empty($this->buyerEmailFrom) || empty($orderItem->getBillingAddress()->getEmail())) {
+        if (empty($this->getBuyerEmailFrom()) || empty($orderItem->getBillingAddress()->getEmail())) {
             return;
         }
 
@@ -269,10 +301,13 @@ class MailHandler implements SingletonInterface
 
         if (!empty($mailBody) && !empty($mailSubject)) {
             $mail = $this->objectManager->get(MailMessage::class);
-            $mail->setFrom($this->buyerEmailFrom);
+            $mail->setFrom($this->getBuyerEmailFrom());
             $mail->setTo($orderItem->getBillingAddress()->getEmail());
-            if ($this->buyerEmailBcc) {
-                $mail->setBcc(explode(',', $this->buyerEmailBcc));
+            if ($this->getBuyerEmailBcc()) {
+                $mail->setBcc(explode(',', $this->getBuyerEmailBcc()));
+            }
+            if ($this->getBuyerEmailReplyTo()) {
+                $mail->setReplyTo(explode(',', $this->getBuyerEmailReplyTo()));
             }
             $mail->setSubject($mailSubject);
             $mail->setBody($mailBody, 'text/html', 'utf-8');
@@ -297,9 +332,9 @@ class MailHandler implements SingletonInterface
      *
      * @param Item $orderItem
      */
-    public function sendSellerMail(Item $orderItem)
+    public function sendSellerMail(Item $orderItem): void
     {
-        if (empty($this->sellerEmailFrom) || empty($this->sellerEmailTo)) {
+        if (empty($this->getSellerEmailFrom()) || empty($this->getSellerEmailTo())) {
             return;
         }
 
@@ -311,8 +346,8 @@ class MailHandler implements SingletonInterface
 
         if (!empty($mailBody) && !empty($mailSubject)) {
             $mail = $this->objectManager->get(MailMessage::class);
-            $mail->setFrom($this->sellerEmailFrom);
-            $mail->setTo(explode(',', $this->sellerEmailTo));
+            $mail->setFrom($this->getSellerEmailFrom());
+            $mail->setTo(explode(',', $this->getSellerEmailTo()));
             if ($orderItem->getBillingAddress()->getEmail()) {
                 $mail->setReplyTo($orderItem->getBillingAddress()->getEmail());
             }
@@ -348,7 +383,7 @@ class MailHandler implements SingletonInterface
         Item $orderItem,
         string $mailTemplateFolder,
         string $mailTo
-    ) {
+    ): array {
         $mailSubject = $this->renderMailStandaloneView($mailTemplateFolder, $mailTo . 'Subject', $orderItem);
         $mailBody = $this->renderMailStandaloneView($mailTemplateFolder, $mailTo, $orderItem);
 
@@ -368,8 +403,8 @@ class MailHandler implements SingletonInterface
         string $status,
         string $to,
         Item $orderItem
-    ) {
-        $view = $this->getMailStandaloneView('/Mail/' . ucfirst($status) . '/', ucfirst($to), 'html');
+    ): string {
+        $view = $this->getMailStandaloneView('/Mail/' . ucfirst($status) . '/', ucfirst($to));
 
         if ($view->getTemplatePathAndFilename()) {
             $view->assign('settings', $this->pluginSettings['settings']);
@@ -397,7 +432,7 @@ class MailHandler implements SingletonInterface
         string $templateSubPath = '/Mail/',
         string $templateFileName = 'Default',
         string $format = 'html'
-    ) {
+    ): StandaloneView {
         $templateSubPathAndFileName = $templateSubPath . $templateFileName . '.' . $format;
 
         $view = $this->objectManager->get(StandaloneView::class);
@@ -445,7 +480,7 @@ class MailHandler implements SingletonInterface
      *
      * @return array
      */
-    protected function resolveRootPaths($type)
+    protected function resolveRootPaths(string $type): array
     {
         if ($this->pluginSettings['view'][$type]) {
             return $this->pluginSettings['view'][$type];

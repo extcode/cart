@@ -62,6 +62,17 @@
                             </config>
                         </TCEforms>
                     </settings.buyer.emailBccAddress>
+                    <settings.buyer.emailReplyToAddress>
+                        <TCEforms>
+                            <label>
+                                LLL:EXT:cart/Resources/Private/Language/locallang_db.xml:tx_cart.flexform.buyer.email_reply_to_address
+                            </label>
+                            <description>LLL:EXT:cart/Resources/Private/Language/locallang_db.xml:tx_cart.flexform.buyer.email_reply_to_address.description</description>
+                            <config>
+                                <type>input</type>
+                            </config>
+                        </TCEforms>
+                    </settings.buyer.emailReplyToAddress>
                 </el>
             </ROOT>
         </sDEF>

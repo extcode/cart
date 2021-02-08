@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-    <file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2015-02-03T15:20:00Z" product-name="cart">
+    <file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2021-02-08T23:31:00Z" product-name="cart">
         <header/>
         <body>
 
@@ -82,6 +82,14 @@
             <trans-unit id="tx_cart.flexform.buyer.email_bcc_address.description">
                 <source>The recipients of e-mails sent to one or more e-mail addresses separated by commas and listed in the so-called BCC (Blind Carbon Copy) field will receive a copy of the sent e-mail without their address being visible to the other specified recipients. (Source: Wikipedia)</source>
                 <target>Die Empfänger von E-Mails an eine oder mehrere durch Kommata getrennte E-Mail-Adressen, die im sogenannten BCC-Feld (von englisch: Blind Carbon Copy, dt. sinngemäß Blindkopie) aufgeführt wurden, erhalten eine Kopie der gesendeten E-Mail, ohne dass ihre Adresse für die anderen angegebenen Empfänger sichtbar wird. (Quelle: Wikipedia)</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.flexform.buyer.email_reply_to_address">
+                <source>Reply To email address for email to the Buyer</source>
+                <target>Reply To E-Mail-Adresse für E-Mail an den Käufer</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.flexform.buyer.email_reply_to_address.description">
+                <source>The Reply To will override the default address configured in TYPO3 configuration.</source>
+                <target>Die Reply To E-Mail-Adresse überschreibt die im TYPO3 konfigurierte Standardantwortadresse.</target>
             </trans-unit>
 
             <trans-unit id="tx_cart.tax_class_id">
