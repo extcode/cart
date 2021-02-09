@@ -151,12 +151,12 @@ class AddToCartFinisher extends AbstractFinisher
     {
         $messageBody = LocalizationUtility::translate(
             'tx_cart.add_to_cart_finisher.' . $formValues['productType'] . '.message.status.' . $status . '.body',
-            'cart'
+            'Cart'
         );
         if ($messageBody === null) {
             $messageBody = LocalizationUtility::translate(
                 'tx_cart.add_to_cart_finisher.message.status.' . $status . '.body',
-                'cart'
+                'Cart'
             );
         }
         return $messageBody;
@@ -166,12 +166,12 @@ class AddToCartFinisher extends AbstractFinisher
     {
         $messageTitle = LocalizationUtility::translate(
             'tx_cart.add_to_cart_finisher.' . $formValues['productType'] . '.message.status.' . $status . '.title',
-            'cart'
+            'Cart'
         );
         if ($messageTitle === null) {
             $messageTitle = LocalizationUtility::translate(
                 'tx_cart.add_to_cart_finisher.message.status.' . $status . '.title',
-                'cart'
+                'Cart'
             );
         }
         return $messageTitle;

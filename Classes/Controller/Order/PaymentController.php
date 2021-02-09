@@ -129,7 +129,7 @@ class PaymentController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
                 $this->addFlashMessage(
                     LocalizationUtility::translate(
                         'tx_cart.controller.order.action.payment_success.successfully_paid',
-                        $this->extensionName
+                        'Cart'
                     ),
                     '',
                     \TYPO3\CMS\Core\Messaging\AbstractMessage::OK
@@ -146,7 +146,7 @@ class PaymentController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
                 $this->addFlashMessage(
                     LocalizationUtility::translate(
                         'tx_cart.controller.order.action.payment_success.error_occured',
-                        $this->extensionName
+                        'Cart'
                     ),
                     '',
                     \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR
@@ -156,7 +156,7 @@ class PaymentController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
             $this->addFlashMessage(
                 LocalizationUtility::translate(
                     'tx_cart.controller.order.action.payment_success.access_denied',
-                    $this->extensionName
+                    'Cart'
                 ),
                 '',
                 \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR

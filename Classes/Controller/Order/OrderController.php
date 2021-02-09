@@ -92,7 +92,7 @@ class OrderController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         foreach ($items as $item) {
             $paymentStatusOptions[$item[1]] = LocalizationUtility::translate(
                 $item[0],
-                $this->extensionName
+                'Cart'
             );
         }
         $this->view->assign('paymentStatusOptions', $paymentStatusOptions);
@@ -102,7 +102,7 @@ class OrderController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         foreach ($items as $item) {
             $shippingStatusOptions[$item[1]] = LocalizationUtility::translate(
                 $item[0],
-                $this->extensionName
+                'Cart'
             );
         }
         $this->view->assign('shippingStatusOptions', $shippingStatusOptions);

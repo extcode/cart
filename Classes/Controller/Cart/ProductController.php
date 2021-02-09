@@ -110,7 +110,7 @@ class ProductController extends ActionController
 
         $messageBody = LocalizationUtility::translate(
             'tx_cart.success.stock_handling.add.' . ($quantity == 1 ? 'one' : 'more'),
-            'cart',
+            'Cart',
             [$quantity]
         );
 

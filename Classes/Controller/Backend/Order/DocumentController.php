@@ -58,7 +58,7 @@ class DocumentController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 
             $msg = LocalizationUtility::translate(
                 'tx_cart.controller.order.action.generate_number_action.' . $pdfType . '.success',
-                $this->extensionName,
+                'Cart',
                 [
                     0 => $invoiceNumber,
                 ]
