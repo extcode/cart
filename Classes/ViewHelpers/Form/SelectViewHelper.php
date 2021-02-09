@@ -9,6 +9,8 @@ namespace Extcode\Cart\ViewHelpers\Form;
  * LICENSE file that was distributed with this source code.
  */
 
+use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
+
 class SelectViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\Form\SelectViewHelper
 {
     public function initializeArguments()
@@ -74,7 +76,7 @@ class SelectViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\Form\SelectViewHelpe
         $key = $this->arguments['translationKey'];
 
         if ($key != null) {
-            $output = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
+            $output = LocalizationUtility::translate(
                 $key . '.' . htmlspecialchars($value),
                 'Cart'
             );

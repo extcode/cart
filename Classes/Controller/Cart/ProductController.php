@@ -12,6 +12,7 @@ namespace Extcode\Cart\Controller\Cart;
 use Extcode\Cart\Event\CheckProductAvailabilityEvent;
 use Extcode\Cart\Event\RetrieveProductsFromRequestEvent;
 use Psr\EventDispatcher\EventDispatcherInterface;
+use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 
 class ProductController extends ActionController
 {
@@ -107,7 +108,7 @@ class ProductController extends ActionController
 
         $this->sessionHandler->write($this->cart, $this->settings['cart']['pid']);
 
-        $messageBody = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
+        $messageBody = LocalizationUtility::translate(
             'tx_cart.success.stock_handling.add.' . ($quantity == 1 ? 'one' : 'more'),
             'cart',
             [$quantity]

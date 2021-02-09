@@ -9,6 +9,8 @@ namespace Extcode\Cart\Controller\Cart;
  * LICENSE file that was distributed with this source code.
  */
 
+use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
+
 class PaymentController extends ActionController
 {
     const AJAX_CART_TYPE_NUM = '2278001';
@@ -31,9 +33,9 @@ class PaymentController extends ActionController
                 $this->cart->setPayment($payment);
             } else {
                 $this->addFlashMessage(
-                    \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
+                    LocalizationUtility::translate(
                         'tx_cart.controller.cart.action.set_payment.not_available',
-                        $this->extensionName
+                        'Cart'
                     ),
                     '',
                     \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR,

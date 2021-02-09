@@ -14,6 +14,7 @@ use Extcode\Cart\Event\ProcessOrderCreateEvent;
 use Extcode\Cart\Event\ProcessOrderCreateEventInterface;
 use Psr\EventDispatcher\EventDispatcherInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 
 class OrderController extends ActionController
 {
@@ -24,7 +25,7 @@ class OrderController extends ActionController
 
     protected function getErrorFlashMessage()
     {
-        $errorMsg = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
+        $errorMsg = LocalizationUtility::translate(
             'tx_cart.error.validation',
             'Cart'
         );
