@@ -55,6 +55,11 @@ class MailHandler implements SingletonInterface
     /**
      * @var string
      */
+    protected $buyerEmailReplyTo = '';
+
+    /**
+     * @var string
+     */
     protected $sellerEmailFrom = '';
 
     /**
@@ -86,7 +91,7 @@ class MailHandler implements SingletonInterface
     /**
      * Sets Plugin Settings
      */
-    public function setPluginSettings()
+    public function setPluginSettings(): void
     {
         $this->pluginSettings =
             $this->configurationManager->getConfiguration(
@@ -115,6 +120,17 @@ class MailHandler implements SingletonInterface
                 && !empty($this->pluginSettings['mail']['buyer']['bccAddress'])
             ) {
                 $this->setBuyerEmailBcc($this->pluginSettings['mail']['buyer']['bccAddress']);
+            }
+
+            if (!empty($this->pluginSettings['settings']['buyer'])
+                && !empty($this->pluginSettings['settings']['buyer']['emailReplyToAddress'])
+            ) {
+                $this->setBuyerEmailReplyTo($this->pluginSettings['settings']['buyer']['emailReplyToAddress']);
+            } elseif (!empty($this->pluginSettings['mail'])
+                && !empty($this->pluginSettings['mail']['buyer'])
+                && !empty($this->pluginSettings['mail']['buyer']['replyToAddress'])
+            ) {
+                $this->setBuyerEmailReplyTo($this->pluginSettings['mail']['buyer']['replyToAddress']);
             }
 
             if (!empty($this->pluginSettings['settings']['seller'])
@@ -155,7 +171,7 @@ class MailHandler implements SingletonInterface
     /**
      * @param Cart $cart
      */
-    public function setCart(Cart $cart)
+    public function setCart(Cart $cart): void
     {
         $this->cart = $cart;
     }
@@ -190,6 +206,22 @@ class MailHandler implements SingletonInterface
     public function getBuyerEmailBcc(): string
     {
         return $this->buyerEmailBcc;
+    }
+
+    /**
+     * @param string $buyerEmailReplyTo
+     */
+    public function setBuyerEmailReplyTo(string $buyerEmailReplyTo): void
+    {
+        $this->buyerEmailReplyTo = $buyerEmailReplyTo;
+    }
+
+    /**
+     * @return string
+     */
+    public function getBuyerEmailReplyTo(): string
+    {
+        return $this->buyerEmailReplyTo;
     }
 
     /**
@@ -245,9 +277,9 @@ class MailHandler implements SingletonInterface
      *
      * @param Item $orderItem
      */
-    public function sendBuyerMail(Item $orderItem)
+    public function sendBuyerMail(Item $orderItem): void
     {
-        if (empty($this->buyerEmailFrom) || empty($orderItem->getBillingAddress()->getEmail())) {
+        if (empty($this->getBuyerEmailFrom()) || empty($orderItem->getBillingAddress()->getEmail())) {
             return;
         }
 
@@ -255,15 +287,18 @@ class MailHandler implements SingletonInterface
 
         $email = GeneralUtility::makeInstance(FluidEmail::class)
             ->to($orderItem->getBillingAddress()->getEmail())
-            ->from($this->buyerEmailFrom)
+            ->from($this->getBuyerEmailFrom())
             ->setTemplate('Mail/' . ucfirst($status) . '/Buyer')
-            ->format(\TYPO3\CMS\Core\Mail\FluidEmail::FORMAT_HTML)
+            ->format(FluidEmail::FORMAT_HTML)
             ->assign('settings', $this->pluginSettings['settings'])
             ->assign('cart', $this->cart)
             ->assign('orderItem', $orderItem);
 
-        if ($this->buyerEmailBcc) {
-            $email->bcc(explode(',', $this->buyerEmailBcc));
+        if ($this->getBuyerEmailBcc()) {
+            $email->bcc(explode(',', $this->getBuyerEmailBcc()));
+        }
+        if ($this->getbuyerEmailReplyTo()) {
+            $email->replyTo($this->getbuyerEmailReplyTo());
         }
 
         if ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['cart']['MailAttachmentsHook']) {
@@ -289,19 +324,19 @@ class MailHandler implements SingletonInterface
      *
      * @param Item $orderItem
      */
-    public function sendSellerMail(Item $orderItem)
+    public function sendSellerMail(Item $orderItem): void
     {
-        if (empty($this->sellerEmailFrom) || empty($this->sellerEmailTo)) {
+        if (empty($this->getSellerEmailFrom()) || empty($this->getSellerEmailTo())) {
             return;
         }
 
         $status = $orderItem->getPayment()->getStatus();
 
         $email = GeneralUtility::makeInstance(FluidEmail::class)
-            ->to($this->sellerEmailTo)
-            ->from($this->sellerEmailFrom)
+            ->to($this->getSellerEmailTo())
+            ->from($this->getSellerEmailFrom())
             ->setTemplate('Mail/' . ucfirst($status) . '/Seller')
-            ->format(\TYPO3\CMS\Core\Mail\FluidEmail::FORMAT_HTML)
+            ->format(FluidEmail::FORMAT_HTML)
             ->assign('settings', $this->pluginSettings['settings'])
             ->assign('cart', $this->cart)
             ->assign('orderItem', $orderItem);
@@ -309,8 +344,8 @@ class MailHandler implements SingletonInterface
         if ($orderItem->getBillingAddress()->getEmail()) {
             $email->replyTo($orderItem->getBillingAddress()->getEmail());
         }
-        if ($this->sellerEmailBcc) {
-            $bcc = explode(',', $this->sellerEmailBcc);
+        if ($this->getSellerEmailBcc()) {
+            $bcc = explode(',', $this->getSellerEmailBcc());
             $email->bcc(...$bcc);
         }
 

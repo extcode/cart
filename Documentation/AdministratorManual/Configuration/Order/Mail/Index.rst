@@ -13,6 +13,7 @@ but also configured via TypoScript.
            buyer {
                fromAddress = cart.buyer.sender@extco.de
                bccAddress = cart.buyer.bcc1@extco.de, cart.buyer.bcc2@extco.de
+               replyToAddress = cart.buyer.reply@extco.de
                attachments {
                    1 = EXT:theme_cart/Resources/Public/Files/AGB.pdf
                }
@@ -47,6 +48,18 @@ mail.buyer.bccAddress
    Description
       Defines to which addresses the e-mail should be sent in BCC (Blind Carbon Copy).
       Multiple recipients can be given separated by commas.
+
+mail.buyer.replyToAddress
+"""""""""""""""""""""""""
+.. container:: table-row
+
+   Property
+      plugin.tx_cart.mail.buyer.replyToAddress
+   Data type
+      string
+   Description
+      Defines to which address should be used as Reply To.
+      This will override the ['MAIL']['defaultMailReplyToAddress'] configuration.
 
 mail.buyer.attachments
 """"""""""""""""""""""

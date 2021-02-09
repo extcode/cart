@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-    <file source-language="en" datatype="plaintext" original="messages" date="2015-02-03T15:20:00Z" product-name="cart">
+    <file source-language="en" datatype="plaintext" original="messages" date="2021-02-09T12:22:00Z" product-name="cart">
         <header/>
         <body>
 
@@ -60,6 +60,12 @@
             </trans-unit>
             <trans-unit id="tx_cart.flexform.buyer.email_bcc_address.description">
                 <source>The recipients of e-mails sent to one or more e-mail addresses separated by commas and listed in the so-called BCC (Blind Carbon Copy) field will receive a copy of the sent e-mail without their address being visible to the other specified recipients. (Source: Wikipedia)</source>
+            </trans-unit>
+            <trans-unit id="tx_cart.flexform.buyer.email_reply_to_address">
+                <source>Reply To email address for email to the Buyer</source>
+            </trans-unit>
+            <trans-unit id="tx_cart.flexform.buyer.email_reply_to_address.description">
+                <source>The Reply To will override the default address configured in TYPO3 configuration.</source>
             </trans-unit>
 
             <trans-unit id="tx_cart.tax_class_id">
