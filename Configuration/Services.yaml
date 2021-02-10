@@ -19,7 +19,7 @@ services:
       - name: event.listener
         identifier: 'cart--process-order-create--email'
         event: Extcode\Cart\Event\ProcessOrderCreateEvent
-        after: 'cart--process-order-create--order'
+        after: 'cart--process-order-create--order-number'
         before: 'cart--process-order-create--clear-cart'
 
   Extcode\Cart\EventListener\ProcessOrderCreate\Order:
