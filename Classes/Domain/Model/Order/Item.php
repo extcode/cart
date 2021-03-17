@@ -441,7 +441,7 @@ class Item extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * @return string
      */
-    public function getAdditionalData(): string
+    public function getAdditionalData(): ?string
     {
         return $this->additionalData;
     }
