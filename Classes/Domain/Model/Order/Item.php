@@ -1148,7 +1148,11 @@ class Item extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      */
     public function getAdditional()
     {
-        return json_decode($this->additional, 1);
+        if ($this->additional) {
+            return json_decode($this->additional, true);
+        }
+
+        return [];
     }
 
     /**

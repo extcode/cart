@@ -444,7 +444,11 @@ abstract class AbstractAddress extends \TYPO3\CMS\Extbase\DomainObject\AbstractE
      */
     public function getAdditional()
     {
-        return json_decode($this->additional, true);
+        if ($this->additional) {
+            return json_decode($this->additional, true);
+        }
+
+        return [];
     }
 
     /**
