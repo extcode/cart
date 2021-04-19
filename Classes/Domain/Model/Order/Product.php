@@ -333,7 +333,11 @@ class Product extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      */
     public function getAdditional(): array
     {
-        return json_decode($this->additional, 1);
+        if ($this->additional) {
+            return json_decode($this->additional, true);
+        }
+
+        return [];
     }
 
     /**
