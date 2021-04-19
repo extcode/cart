@@ -28,6 +28,11 @@ class Service implements ServiceInterface
     protected $id;
 
     /**
+     * @var int
+     */
+    protected $fallBackId;
+
+    /**
      * @var array
      */
     protected $config = [];
@@ -166,6 +171,14 @@ class Service implements ServiceInterface
     public function setPreset(bool $preset): void
     {
         $this->preset = $preset;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getFallBackId(): ?int
+    {
+        return (int)$this->config['fallBackId'];
     }
 
     /**

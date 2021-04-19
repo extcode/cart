@@ -36,7 +36,7 @@ The parameter plugin.tx_cart.settings.defaultCountry defines which country shoul
 .. container:: table-row
 
    Property
-      plugin.tx_cart.payments.countries.de.options.n.available.fallBackId
+      plugin.tx_cart.payments.countries.de.options.n.fallBackId
    Data type
       int
    Description
