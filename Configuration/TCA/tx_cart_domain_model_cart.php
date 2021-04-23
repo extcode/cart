@@ -66,6 +66,7 @@ return [
             'label' => $_LLL . ':tx_cart_domain_model_cart.fe_user',
             'config' => [
                 'type' => 'select',
+                'renderType' => 'selectSingle',
                 'readOnly' => 1,
                 'foreign_table' => 'fe_users',
                 'size' => 1,
