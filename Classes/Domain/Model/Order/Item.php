@@ -74,12 +74,12 @@ class Item extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * @var string
      */
-    protected $additionalData;
+    protected $additionalData = '';
 
     /**
      * @var string
      */
-    protected $additional;
+    protected $additional = '';
 
     /**
      * @var string
