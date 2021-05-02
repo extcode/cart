@@ -9,10 +9,18 @@ namespace Extcode\Cart\Controller\Cart;
  * LICENSE file that was distributed with this source code.
  */
 
+use Extcode\Cart\Domain\Model\Order\BillingAddress;
+use Extcode\Cart\Domain\Model\Order\Item;
+use Extcode\Cart\Domain\Model\Order\ShippingAddress;
+use Extcode\Cart\Event\Order\CreateEvent;
+use Extcode\Cart\Event\Order\FinishEvent;
+use Extcode\Cart\Event\Order\PaymentEvent;
+use Extcode\Cart\Event\Order\StockEvent;
 use Extcode\Cart\Event\ProcessOrderCheckStockEvent;
 use Extcode\Cart\Event\ProcessOrderCreateEvent;
-use Extcode\Cart\Event\ProcessOrderCreateEventInterface;
 use Psr\EventDispatcher\EventDispatcherInterface;
+use Psr\EventDispatcher\StoppableEventInterface;
+use TYPO3\CMS\Core\Configuration\Features;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 
@@ -90,16 +98,16 @@ class OrderController extends ActionController
     /**
      * Action order Cart
      *
-     * @param \Extcode\Cart\Domain\Model\Order\Item $orderItem
-     * @param \Extcode\Cart\Domain\Model\Order\BillingAddress $billingAddress
-     * @param \Extcode\Cart\Domain\Model\Order\ShippingAddress $shippingAddress
+     * @param Item $orderItem
+     * @param BillingAddress $billingAddress
+     * @param ShippingAddress $shippingAddress
      *
      * @TYPO3\CMS\Extbase\Annotation\IgnoreValidation("shippingAddress")
      */
     public function createAction(
-        \Extcode\Cart\Domain\Model\Order\Item $orderItem = null,
-        \Extcode\Cart\Domain\Model\Order\BillingAddress $billingAddress = null,
-        \Extcode\Cart\Domain\Model\Order\ShippingAddress $shippingAddress = null
+        Item $orderItem = null,
+        BillingAddress $billingAddress = null,
+        ShippingAddress $shippingAddress = null
     ) {
         if (($orderItem === null) || ($billingAddress === null)) {
             $this->redirect('show', 'Cart\Cart');
@@ -134,16 +142,8 @@ class OrderController extends ActionController
             $provider = $payment->getProvider();
         }
 
-        if ($provider) {
-            if (method_exists($payment, 'getProcessOrderCreateEvent')) {
-                $processOrderCreateEventClassName = $payment->getProcessOrderCreateEvent();
-                if ($processOrderCreateEventClassName) {
-                    $processOrderCreateEvent = new $processOrderCreateEventClassName($this->cart, $orderItem, $this->pluginSettings);
-                    if ($processOrderCreateEvent instanceof ProcessOrderCreateEventInterface) {
-                        $this->eventDispatcher->dispatch($processOrderCreateEvent);
-                    }
-                }
-            }
+        if (GeneralUtility::makeInstance(Features::class)->isFeatureEnabled('SplitUpProcessOrderCreateEvent')) {
+            $this->dispatchOrderCreateEvents($orderItem);
         } else {
             $this->eventDispatcher->dispatch(new ProcessOrderCreateEvent($this->cart, $orderItem, $this->pluginSettings));
         }
@@ -220,5 +220,35 @@ class OrderController extends ActionController
             $this->arguments->getArgument($argumentName)->setValidator($conjunctionValidator);
         }
         $conjunctionValidator->addValidator($modelValidator);
+    }
+
+    /**
+     * @param Item $orderItem
+     */
+    protected function dispatchOrderCreateEvents(Item $orderItem): void
+    {
+        $createEvent = new CreateEvent($this->cart, $orderItem, $this->pluginSettings);
+        $this->eventDispatcher->dispatch($createEvent);
+        if ($createEvent instanceof StoppableEventInterface && $createEvent->isPropagationStopped()) {
+            return;
+        }
+
+        $stockEvent = new StockEvent($this->cart, $orderItem, $this->pluginSettings);
+        $this->eventDispatcher->dispatch($stockEvent);
+        if ($stockEvent instanceof StoppableEventInterface && $stockEvent->isPropagationStopped()) {
+            return;
+        }
+
+        $paymentEvent = new PaymentEvent($this->cart, $orderItem, $this->pluginSettings);
+        $this->eventDispatcher->dispatch($paymentEvent);
+        if ($paymentEvent instanceof StoppableEventInterface && $paymentEvent->isPropagationStopped()) {
+            return;
+        }
+
+        $finishEvent = new FinishEvent($this->cart, $orderItem, $this->pluginSettings);
+        $this->eventDispatcher->dispatch($finishEvent);
+        if ($finishEvent instanceof StoppableEventInterface && $finishEvent->isPropagationStopped()) {
+            return;
+        }
     }
 }

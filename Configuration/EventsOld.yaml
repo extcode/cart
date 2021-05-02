@@ -1,0 +1,39 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+
+  Extcode\Cart\:
+    resource: '../Classes/*'
+    exclude: '../Classes/Widgets/*'
+
+  Extcode\Cart\EventListener\ProcessOrderCreate\ClearCart:
+    tags:
+      - name: event.listener
+        identifier: 'cart--process-order-create--clear-cart'
+        event: Extcode\Cart\Event\ProcessOrderCreateEvent
+
+  Extcode\Cart\EventListener\ProcessOrderCreate\Email:
+    tags:
+      - name: event.listener
+        identifier: 'cart--process-order-create--email'
+        event: Extcode\Cart\Event\ProcessOrderCreateEvent
+        after: 'cart--process-order-create--order-number'
+        before: 'cart--process-order-create--clear-cart'
+
+  Extcode\Cart\EventListener\ProcessOrderCreate\Order:
+    tags:
+      - name: event.listener
+        identifier: 'cart--process-order-create--order'
+        event: Extcode\Cart\Event\ProcessOrderCreateEvent
+        before: 'cart--process-order-create--order-number'
+
+  Extcode\Cart\EventListener\ProcessOrderCreate\OrderNumber:
+    arguments:
+      $persistenceManager: '@TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager'
+    tags:
+      - name: event.listener
+        identifier: 'cart--process-order-create--order-number'
+        event: Extcode\Cart\Event\ProcessOrderCreateEvent
+        after: 'cart--process-order-create--order'

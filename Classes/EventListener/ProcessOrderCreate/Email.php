@@ -9,7 +9,7 @@ namespace Extcode\Cart\EventListener\ProcessOrderCreate;
  * LICENSE file that was distributed with this source code.
  */
 
-use Extcode\Cart\Event\ProcessOrderCreateEvent;
+use Extcode\Cart\Event\Order\EventInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 class Email
@@ -21,7 +21,7 @@ class Email
      */
     protected $cart;
 
-    public function __invoke(ProcessOrderCreateEvent $event): void
+    public function __invoke(EventInterface $event): void
     {
         $this->cart = $event->getCart();
         $orderItem = $event->getOrderItem();

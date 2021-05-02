@@ -9,16 +9,8 @@ namespace Extcode\Cart\Event;
  * LICENSE file that was distributed with this source code.
  */
 
-use Extcode\Cart\Domain\Model\Cart\Cart;
-use Extcode\Cart\Domain\Model\Order\Item as OrderItem;
+use Extcode\Cart\Event\Order\EventInterface;
 
-interface ProcessOrderCreateEventInterface
+interface ProcessOrderCreateEventInterface extends EventInterface
 {
-    public function __construct(Cart $cart, OrderItem $orderItem, array $settings = []);
-
-    public function getCart(): Cart;
-
-    public function getOrderItem(): OrderItem;
-
-    public function getSettings(): array;
 }

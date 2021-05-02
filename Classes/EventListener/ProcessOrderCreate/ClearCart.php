@@ -9,7 +9,7 @@ namespace Extcode\Cart\EventListener\ProcessOrderCreate;
  * LICENSE file that was distributed with this source code.
  */
 
-use Extcode\Cart\Event\ProcessOrderCreateEvent;
+use Extcode\Cart\Event\Order\EventInterface;
 use Extcode\Cart\Service\SessionHandler;
 use Extcode\Cart\Utility\CartUtility;
 use Extcode\Cart\Utility\ParserUtility;
@@ -41,7 +41,7 @@ class ClearCart
         $this->sessionHandler = $sessionHandler;
     }
 
-    public function __invoke(ProcessOrderCreateEvent $event): void
+    public function __invoke(EventInterface $event): void
     {
         $cart = $event->getCart();
         $settings = $event->getSettings();

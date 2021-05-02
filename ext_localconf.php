@@ -67,6 +67,12 @@ defined('TYPO3_MODE') or die();
     ]
 );
 
+// Feature Toggles
+
+if (!isset($GLOBALS['TYPO3_CONF_VARS']['SYS']['features']['SplitUpProcessOrderCreateEvent'])) {
+    $GLOBALS['TYPO3_CONF_VARS']['SYS']['features']['SplitUpProcessOrderCreateEvent'] = false;
+}
+
 // Icon Registry
 
 if (TYPO3_MODE === 'BE') {

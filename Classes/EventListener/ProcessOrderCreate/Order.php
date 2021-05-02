@@ -9,7 +9,7 @@ namespace Extcode\Cart\EventListener\ProcessOrderCreate;
  * LICENSE file that was distributed with this source code.
  */
 
-use Extcode\Cart\Event\ProcessOrderCreateEvent;
+use Extcode\Cart\Event\Order\EventInterface;
 use Extcode\Cart\Utility\OrderUtility;
 
 class Order
@@ -27,7 +27,7 @@ class Order
         $this->orderUtility = $orderUtility;
     }
 
-    public function __invoke(ProcessOrderCreateEvent $event): void
+    public function __invoke(EventInterface $event): void
     {
         $this->orderUtility->saveOrderItem(
             $event->getSettings(),

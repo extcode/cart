@@ -10,7 +10,7 @@ namespace Extcode\Cart\EventListener\ProcessOrderCreate;
  */
 
 use Extcode\Cart\Domain\Repository\Order\ItemRepository as OrderItemRepository;
-use Extcode\Cart\Event\ProcessOrderCreateEvent;
+use Extcode\Cart\Event\Order\EventInterface;
 use Extcode\Cart\Utility\OrderUtility;
 use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
 
@@ -41,7 +41,7 @@ class OrderNumber
         $this->orderUtility = $orderUtility;
     }
 
-    public function __invoke(ProcessOrderCreateEvent $event): void
+    public function __invoke(EventInterface $event): void
     {
         $cart = $event->getCart();
         $orderItem = $event->getOrderItem();
