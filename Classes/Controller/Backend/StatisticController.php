@@ -23,7 +23,7 @@ class StatisticController extends \Extcode\Cart\Controller\Backend\ActionControl
      *
      * @var array
      */
-    protected $searchArguments;
+    protected $searchArguments = [];
 
     /**
      * @param \Extcode\Cart\Domain\Repository\Order\ItemRepository $itemRepository
