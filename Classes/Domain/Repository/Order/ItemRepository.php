@@ -78,7 +78,7 @@ class ItemRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
                         $and[] = $query->greaterThan('orderDate', strtotime($value));
                         break;
                     case 'orderDateEnd':
-                        $and[] = $query->lessThan('orderDate', strtotime($value));
+                        $and[] = $query->lessThan('orderDate', strtotime($value) + 86400);
                         break;
                     case 'invoiceNumber':
                         $and[] = $query->like('invoiceNumber', $value);
@@ -87,15 +87,15 @@ class ItemRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
                         $and[] = $query->greaterThan('invoiceDate', strtotime($value));
                         break;
                     case 'invoiceDateEnd':
-                        $and[] = $query->lessThan('invoiceDate', strtotime($value));
+                        $and[] = $query->lessThan('invoiceDate', strtotime($value) + 86400);
                         break;
                     case 'paymentStatus':
-                        if ($value != 'all') {
+                        if ($value !== 'all') {
                             $and[] = $query->equals('payment.status', $value);
                         }
                         break;
                     case 'shippingStatus':
-                        if ($value != 'all') {
+                        if ($value !== 'all') {
                             $and[] = $query->equals('shipping.status', $value);
                         }
                         break;
