@@ -142,10 +142,15 @@ class OrderController extends ActionController
             $provider = $payment->getProvider();
         }
 
+        $isPropagationStopped = false;
         if (GeneralUtility::makeInstance(Features::class)->isFeatureEnabled('SplitUpProcessOrderCreateEvent')) {
-            $this->dispatchOrderCreateEvents($orderItem);
+            $isPropagationStopped = $this->dispatchOrderCreateEvents($orderItem);
         } else {
             $this->eventDispatcher->dispatch(new ProcessOrderCreateEvent($this->cart, $orderItem, $this->pluginSettings));
+        }
+
+        if ($isPropagationStopped) {
+            return;
         }
 
         $this->view->assign('cart', $this->cart);
@@ -222,33 +227,32 @@ class OrderController extends ActionController
         $conjunctionValidator->addValidator($modelValidator);
     }
 
-    /**
-     * @param Item $orderItem
-     */
-    protected function dispatchOrderCreateEvents(Item $orderItem): void
+    protected function dispatchOrderCreateEvents(Item $orderItem): bool
     {
         $createEvent = new CreateEvent($this->cart, $orderItem, $this->pluginSettings);
         $this->eventDispatcher->dispatch($createEvent);
         if ($createEvent instanceof StoppableEventInterface && $createEvent->isPropagationStopped()) {
-            return;
+            return true;
         }
 
         $stockEvent = new StockEvent($this->cart, $orderItem, $this->pluginSettings);
         $this->eventDispatcher->dispatch($stockEvent);
         if ($stockEvent instanceof StoppableEventInterface && $stockEvent->isPropagationStopped()) {
-            return;
+            return true;
         }
 
         $paymentEvent = new PaymentEvent($this->cart, $orderItem, $this->pluginSettings);
         $this->eventDispatcher->dispatch($paymentEvent);
         if ($paymentEvent instanceof StoppableEventInterface && $paymentEvent->isPropagationStopped()) {
-            return;
+            return true;
         }
 
         $finishEvent = new FinishEvent($this->cart, $orderItem, $this->pluginSettings);
         $this->eventDispatcher->dispatch($finishEvent);
         if ($finishEvent instanceof StoppableEventInterface && $finishEvent->isPropagationStopped()) {
-            return;
+            return true;
         }
+
+        return false;
     }
 }
