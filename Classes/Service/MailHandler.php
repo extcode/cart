@@ -295,7 +295,8 @@ class MailHandler implements SingletonInterface
             ->assign('orderItem', $orderItem);
 
         if ($this->getBuyerEmailBcc()) {
-            $email->bcc(explode(',', $this->getBuyerEmailBcc()));
+            $bcc = explode(',', $this->getBuyerEmailBcc());
+            $email->bcc(...$bcc);
         }
         if ($this->getbuyerEmailReplyTo()) {
             $email->replyTo($this->getbuyerEmailReplyTo());
