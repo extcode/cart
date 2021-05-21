@@ -180,13 +180,13 @@ class Service implements ServiceInterface
      */
     public function isAvailable(): bool
     {
-        if ($this->config['available']) {
+        if (isset($this->config['available'])) {
             $availableFrom = $this->config['available']['from'];
             if (isset($availableFrom) && $this->cart->getGross() < (float)$availableFrom) {
                 return false;
             }
             $availableUntil = $this->config['available']['until'];
-            if (isset($availableUntil) && $this->cart->getGross() < (float)$availableUntil) {
+            if (isset($availableUntil) && $this->cart->getGross() > (float)$availableUntil) {
                 return false;
             }
         }
