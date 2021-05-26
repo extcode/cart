@@ -95,7 +95,7 @@ lint:php74:
       fi
     - >
       if [[ "$COVERAGE" == "1" ]]; then
-        .build/bin/phpunit --coverage-clover=phpunit.coverage.xml --log-junit=phpunit.report.xml -c Build/UnitTests.xml
+        XDEBUG_MODE=coverage .build/bin/phpunit --coverage-clover=phpunit.coverage.xml --log-junit=phpunit.report.xml -c Build/UnitTests.xml
       fi
     - typo3DatabaseDriver=pdo_sqlite .build/bin/phpunit -c Build/FunctionalTests.xml
   artifacts:

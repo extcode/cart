@@ -729,7 +729,9 @@ class OrderUtility
         $orderPayment->setStatus($payment->getStatus());
         $orderPayment->setGross($payment->getGross());
         $orderPayment->setNet($payment->getNet());
-        $orderPayment->setTaxClass($this->taxClasses[$payment->getTaxClass()->getId()]);
+        if ($payment->getTaxClass()->getId() > 0) {
+            $orderPayment->setTaxClass($this->taxClasses[$payment->getTaxClass()->getId()]);
+        }
         $orderPayment->setTax($payment->getTax());
         if (method_exists($payment, 'getNote')) {
             $orderPayment->setNote($payment->getNote());
@@ -765,7 +767,9 @@ class OrderUtility
         $orderShipping->setStatus($shipping->getStatus());
         $orderShipping->setGross($shipping->getGross());
         $orderShipping->setNet($shipping->getNet());
-        $orderShipping->setTaxClass($this->taxClasses[$shipping->getTaxClass()->getId()]);
+        if ($shipping->getTaxClass()->getId() > 0) {
+            $orderShipping->setTaxClass($this->taxClasses[$shipping->getTaxClass()->getId()]);
+        }
         $orderShipping->setTax($shipping->getTax());
         if (method_exists($shipping, 'getNote')) {
             $orderShipping->setNote($shipping->getNote());

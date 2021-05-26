@@ -9,32 +9,27 @@ namespace Extcode\Cart\Tests\Unit\Domain\Model\Order;
  * LICENSE file that was distributed with this source code.
  */
 
+use Extcode\Cart\Domain\Model\Order\TaxClass;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 class TaxClassTest extends UnitTestCase
 {
     /**
-     * @var \Extcode\Cart\Domain\Model\Order\TaxClass
+     * @var TaxClass
      */
-    protected $taxClass = null;
+    protected $taxClass;
 
     /**
-     * Title
-     *
      * @var string
      */
     protected $title;
 
     /**
-     * Value
-     *
      * @var string
      */
     protected $value;
 
     /**
-     * Calc
-     *
      * @var float
      */
     protected $calc = 0.0;
@@ -43,9 +38,9 @@ class TaxClassTest extends UnitTestCase
     {
         $this->title = 'normal';
         $this->value = '19';
-        $this->count = 0.19;
+        $this->calc = 0.19;
 
-        $this->taxClass = new \Extcode\Cart\Domain\Model\Order\TaxClass(
+        $this->taxClass = new TaxClass(
             $this->title,
             $this->value,
             $this->calc
@@ -55,11 +50,11 @@ class TaxClassTest extends UnitTestCase
     /**
      * @test
      */
-    public function constructTaxClassWithoutTitleThrowsException()
+    public function constructTaxClassWithoutTitleThrowsException(): void
     {
         $this->expectException(\TypeError::class);
 
-        new \Extcode\Cart\Domain\Model\Order\TaxClass(
+        new TaxClass(
             null,
             $this->value,
             $this->calc
@@ -69,11 +64,11 @@ class TaxClassTest extends UnitTestCase
     /**
      * @test
      */
-    public function constructTaxClassWithoutValueThrowsException()
+    public function constructTaxClassWithoutValueThrowsException(): void
     {
         $this->expectException(\TypeError::class);
 
-        new \Extcode\Cart\Domain\Model\Order\TaxClass(
+        new TaxClass(
             $this->title,
             null,
             $this->calc
@@ -83,11 +78,11 @@ class TaxClassTest extends UnitTestCase
     /**
      * @test
      */
-    public function constructTaxClassWithoutCalcThrowsException()
+    public function constructTaxClassWithoutCalcThrowsException(): void
     {
         $this->expectException(\TypeError::class);
 
-        new \Extcode\Cart\Domain\Model\Order\TaxClass(
+        new TaxClass(
             $this->title,
             $this->value,
             null
@@ -97,9 +92,9 @@ class TaxClassTest extends UnitTestCase
     /**
      * @test
      */
-    public function getTitleInitiallyReturnsTitleSetDirectlyByConstructor()
+    public function getTitleInitiallyReturnsTitleSetDirectlyByConstructor(): void
     {
-        $this->assertSame(
+        self::assertSame(
             $this->title,
             $this->taxClass->getTitle()
         );
@@ -108,9 +103,9 @@ class TaxClassTest extends UnitTestCase
     /**
      * @test
      */
-    public function getValueInitiallyReturnsValueSetDirectlyByConstructor()
+    public function getValueInitiallyReturnsValueSetDirectlyByConstructor(): void
     {
-        $this->assertSame(
+        self::assertSame(
             $this->value,
             $this->taxClass->getValue()
         );
@@ -119,9 +114,9 @@ class TaxClassTest extends UnitTestCase
     /**
      * @test
      */
-    public function getCalcInitiallyReturnsCalcSetDirectlyByConstructor()
+    public function getCalcInitiallyReturnsCalcSetDirectlyByConstructor(): void
     {
-        $this->assertSame(
+        self::assertSame(
             $this->calc,
             $this->taxClass->getCalc()
         );
@@ -130,7 +125,7 @@ class TaxClassTest extends UnitTestCase
     /**
      * @test
      */
-    public function toArrayReturnsArray()
+    public function toArrayReturnsArray(): void
     {
         $taxClassArray = [
             'title' => $this->title,
@@ -138,7 +133,7 @@ class TaxClassTest extends UnitTestCase
             'calc' => $this->calc
         ];
 
-        $this->assertEquals(
+        self::assertEquals(
             $taxClassArray,
             $this->taxClass->toArray()
         );

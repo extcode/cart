@@ -9,24 +9,27 @@ namespace Extcode\Cart\Tests\Unit\Domain\Model\Cart;
  * LICENSE file that was distributed with this source code.
  */
 
+use Extcode\Cart\Domain\Model\Cart\BeVariant;
+use Extcode\Cart\Domain\Model\Cart\Product;
+use Extcode\Cart\Domain\Model\Cart\TaxClass;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 class BeVariantTest extends UnitTestCase
 {
     /**
-     * @var \Extcode\Cart\Domain\Model\Cart\TaxClass
+     * @var TaxClass
      */
-    protected $taxClass = null;
+    protected $taxClass;
 
     /**
-     * @var \Extcode\Cart\Domain\Model\Cart\Product
+     * @var Product
      */
-    protected $product = null;
+    protected $product;
 
     /**
-     * @var \Extcode\Cart\Domain\Model\Cart\BeVariant
+     * @var BeVariant
      */
-    protected $beVariant = null;
+    protected $beVariant;
 
     /**
      * @var string
@@ -62,10 +65,10 @@ class BeVariantTest extends UnitTestCase
     {
         $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['cart']['changeVariantDiscount'] = 0;
 
-        $this->taxClass = new \Extcode\Cart\Domain\Model\Cart\TaxClass(1, '19', 0.19, 'normal');
+        $this->taxClass = new TaxClass(1, '19', 0.19, 'normal');
 
-        $this->product = $this->getMockBuilder(\Extcode\Cart\Domain\Model\Cart\Product::class)
-            ->setMethods(['getBestPrice'])
+        $this->product = $this->getMockBuilder(Product::class)
+            ->onlyMethods(['getBestPrice'])
             ->setConstructorArgs(
                 [
                     'Cart',
@@ -77,7 +80,7 @@ class BeVariantTest extends UnitTestCase
                     1,
                 ]
             )->getMock();
-        $this->product->expects($this->any())->method('getBestPrice')->will($this->returnValue(10.00));
+        $this->product->method('getBestPrice')->willReturn(10.00);
 
         $this->id = '1';
         $this->title = 'Test Variant';
@@ -86,7 +89,7 @@ class BeVariantTest extends UnitTestCase
         $this->price = 1.00;
         $this->quantity = 1;
 
-        $this->beVariant = new \Extcode\Cart\Domain\Model\Cart\BeVariant(
+        $this->beVariant = new BeVariant(
             $this->id,
             $this->product,
             null,
@@ -103,9 +106,9 @@ class BeVariantTest extends UnitTestCase
     /**
      * @test
      */
-    public function getIdReturnsIdSetByConstructor()
+    public function getIdReturnsIdSetByConstructor(): void
     {
-        $this->assertSame(
+        self::assertSame(
             $this->id,
             $this->beVariant->getId()
         );
@@ -114,9 +117,9 @@ class BeVariantTest extends UnitTestCase
     /**
      * @test
      */
-    public function getSkuReturnsSkuSetByConstructor()
+    public function getSkuReturnsSkuSetByConstructor(): void
     {
-        $this->assertSame(
+        self::assertSame(
             $this->sku,
             $this->beVariant->getSku()
         );
@@ -125,10 +128,10 @@ class BeVariantTest extends UnitTestCase
     /**
      * @test
      */
-    public function getCompleteSkuReturnsCompleteSkuSetByConstructor()
+    public function getCompleteSkuReturnsCompleteSkuSetByConstructor(): void
     {
         $sku = $this->product->getSku() . '-' . $this->sku;
-        $this->assertSame(
+        self::assertSame(
             $sku,
             $this->beVariant->getCompleteSku()
         );
@@ -137,13 +140,13 @@ class BeVariantTest extends UnitTestCase
     /**
      * @test
      */
-    public function getSkuWithSkuDelimiterReturnsSkuSetByConstructorWithGivenSkuDelimiter()
+    public function getSkuWithSkuDelimiterReturnsSkuSetByConstructorWithGivenSkuDelimiter(): void
     {
         $skuDelimiter = '_';
         $this->beVariant->setSkuDelimiter($skuDelimiter);
 
         $sku = $this->product->getSku() . $skuDelimiter . $this->sku;
-        $this->assertSame(
+        self::assertSame(
             $sku,
             $this->beVariant->getCompleteSku()
         );
@@ -152,9 +155,9 @@ class BeVariantTest extends UnitTestCase
     /**
      * @test
      */
-    public function getTitleReturnsTitleSetByConstructor()
+    public function getTitleReturnsTitleSetByConstructor(): void
     {
-        $this->assertSame(
+        self::assertSame(
             $this->title,
             $this->beVariant->getTitle()
         );
@@ -163,10 +166,10 @@ class BeVariantTest extends UnitTestCase
     /**
      * @test
      */
-    public function getCompleteTitleReturnsCompleteTitleSetByConstructor()
+    public function getCompleteTitleReturnsCompleteTitleSetByConstructor(): void
     {
         $title = $this->product->getTitle() . ' - ' . $this->title;
-        $this->assertSame(
+        self::assertSame(
             $title,
             $this->beVariant->getCompleteTitle()
         );
@@ -175,13 +178,13 @@ class BeVariantTest extends UnitTestCase
     /**
      * @test
      */
-    public function getTitleWithTitleDelimiterReturnsTitleSetByConstructorWithGivenTitleDelimiter()
+    public function getTitleWithTitleDelimiterReturnsTitleSetByConstructorWithGivenTitleDelimiter(): void
     {
         $titleDelimiter = ',';
         $this->beVariant->setTitleDelimiter($titleDelimiter);
 
         $title = $this->product->getTitle() . $titleDelimiter . $this->title;
-        $this->assertSame(
+        self::assertSame(
             $title,
             $this->beVariant->getCompleteTitle()
         );
@@ -190,9 +193,9 @@ class BeVariantTest extends UnitTestCase
     /**
      * @test
      */
-    public function getPriceReturnsPriceSetByConstructor()
+    public function getPriceReturnsPriceSetByConstructor(): void
     {
-        $this->assertSame(
+        self::assertSame(
             $this->price,
             $this->beVariant->getPrice()
         );
@@ -201,9 +204,9 @@ class BeVariantTest extends UnitTestCase
     /**
      * @test
      */
-    public function getPriceCalcMethodReturnsPriceCalcSetByConstructor()
+    public function getPriceCalcMethodReturnsPriceCalcSetByConstructor(): void
     {
-        $this->assertSame(
+        self::assertSame(
             $this->priceCalcMethod,
             $this->beVariant->getPriceCalcMethod()
         );
@@ -212,9 +215,9 @@ class BeVariantTest extends UnitTestCase
     /**
      * @test
      */
-    public function getQuantityReturnsQuantitySetByConstructor()
+    public function getQuantityReturnsQuantitySetByConstructor(): void
     {
-        $this->assertSame(
+        self::assertSame(
             $this->quantity,
             $this->beVariant->getQuantity()
         );
@@ -223,11 +226,11 @@ class BeVariantTest extends UnitTestCase
     /**
      * @test
      */
-    public function constructVariantWithoutCartProductOrVariantThrowsInvalidArgumentException()
+    public function constructVariantWithoutCartProductOrVariantThrowsInvalidArgumentException(): void
     {
         $this->expectException(\InvalidArgumentException::class);
 
-        new \Extcode\Cart\Domain\Model\Cart\BeVariant(
+        new BeVariant(
             $this->id,
             null,
             null,
@@ -242,11 +245,11 @@ class BeVariantTest extends UnitTestCase
     /**
      * @test
      */
-    public function constructVariantWithCartProductAndVariantThrowsInvalidArgumentException()
+    public function constructVariantWithCartProductAndVariantThrowsInvalidArgumentException(): void
     {
         $this->expectException(\InvalidArgumentException::class);
 
-        new \Extcode\Cart\Domain\Model\Cart\BeVariant(
+        new BeVariant(
             $this->id,
             $this->product,
             $this->beVariant,
@@ -261,11 +264,11 @@ class BeVariantTest extends UnitTestCase
     /**
      * @test
      */
-    public function constructWithoutTitleThrowsException()
+    public function constructWithoutTitleThrowsException(): void
     {
         $this->expectException(\TypeError::class);
 
-        new \Extcode\Cart\Domain\Model\Cart\BeVariant(
+        new BeVariant(
             1,
             $this->product,
             null,
@@ -280,11 +283,11 @@ class BeVariantTest extends UnitTestCase
     /**
      * @test
      */
-    public function constructWithoutSkuThrowsException()
+    public function constructWithoutSkuThrowsException(): void
     {
         $this->expectException(\TypeError::class);
 
-        new \Extcode\Cart\Domain\Model\Cart\BeVariant(
+        new BeVariant(
             1,
             $this->product,
             null,
@@ -299,11 +302,11 @@ class BeVariantTest extends UnitTestCase
     /**
      * @test
      */
-    public function constructWithoutQuantityThrowsException()
+    public function constructWithoutQuantityThrowsException(): void
     {
         $this->expectException(\TypeError::class);
 
-        new \Extcode\Cart\Domain\Model\Cart\BeVariant(
+        new BeVariant(
             1,
             $this->product,
             null,
@@ -318,9 +321,9 @@ class BeVariantTest extends UnitTestCase
     /**
      * @test
      */
-    public function getMinReturnsInitialValueMin()
+    public function getMinReturnsInitialValueMin(): void
     {
-        $this->assertSame(
+        self::assertSame(
             0,
             $this->beVariant->getMin()
         );
@@ -329,7 +332,7 @@ class BeVariantTest extends UnitTestCase
     /**
      * @test
      */
-    public function setMinIfMinIsEqualToMax()
+    public function setMinIfMinIsEqualToMax(): void
     {
         $min = 1;
         $max = 1;
@@ -337,7 +340,7 @@ class BeVariantTest extends UnitTestCase
         $this->beVariant->setMax($max);
         $this->beVariant->setMin($min);
 
-        $this->assertEquals(
+        self::assertEquals(
             $min,
             $this->beVariant->getMin()
         );
@@ -346,7 +349,7 @@ class BeVariantTest extends UnitTestCase
     /**
      * @test
      */
-    public function setMinIfMinIsLesserThanMax()
+    public function setMinIfMinIsLesserThanMax(): void
     {
         $min = 1;
         $max = 2;
@@ -354,7 +357,7 @@ class BeVariantTest extends UnitTestCase
         $this->beVariant->setMax($max);
         $this->beVariant->setMin($min);
 
-        $this->assertEquals(
+        self::assertEquals(
             $min,
             $this->beVariant->getMin()
         );
@@ -363,7 +366,7 @@ class BeVariantTest extends UnitTestCase
     /**
      * @test
      */
-    public function throwsInvalidArgumentExceptionIfMinIsGreaterThanMax()
+    public function throwsInvalidArgumentExceptionIfMinIsGreaterThanMax(): void
     {
         $this->expectException(\InvalidArgumentException::class);
 
@@ -377,7 +380,7 @@ class BeVariantTest extends UnitTestCase
     /**
      * @test
      */
-    public function throwsInvalidArgumentExceptionIfMinIsNegativ()
+    public function throwsInvalidArgumentExceptionIfMinIsNegativ(): void
     {
         $this->expectException(\InvalidArgumentException::class);
 
@@ -391,9 +394,9 @@ class BeVariantTest extends UnitTestCase
     /**
      * @test
      */
-    public function getMaxReturnsInitialValueMax()
+    public function getMaxReturnsInitialValueMax(): void
     {
-        $this->assertSame(
+        self::assertSame(
             0,
             $this->beVariant->getMax()
         );
@@ -402,7 +405,7 @@ class BeVariantTest extends UnitTestCase
     /**
      * @test
      */
-    public function setMaxIfMaxIsEqualToMin()
+    public function setMaxIfMaxIsEqualToMin(): void
     {
         $min = 1;
         $max = 1;
@@ -413,7 +416,7 @@ class BeVariantTest extends UnitTestCase
 
         $this->beVariant->setMax($max);
 
-        $this->assertEquals(
+        self::assertEquals(
             $max,
             $this->beVariant->getMax()
         );
@@ -422,7 +425,7 @@ class BeVariantTest extends UnitTestCase
     /**
      * @test
      */
-    public function setMaxIfMaxIsGreaterThanMin()
+    public function setMaxIfMaxIsGreaterThanMin(): void
     {
         $min = 1;
         $max = 2;
@@ -433,7 +436,7 @@ class BeVariantTest extends UnitTestCase
 
         $this->beVariant->setMax($max);
 
-        $this->assertEquals(
+        self::assertEquals(
             $max,
             $this->beVariant->getMax()
         );
@@ -442,7 +445,7 @@ class BeVariantTest extends UnitTestCase
     /**
      * @test
      */
-    public function throwsInvalidArgumentExceptionIfMaxIsLesserThanMin()
+    public function throwsInvalidArgumentExceptionIfMaxIsLesserThanMin(): void
     {
         $this->expectException(\InvalidArgumentException::class);
 
@@ -459,9 +462,9 @@ class BeVariantTest extends UnitTestCase
     /**
      * @test
      */
-    public function getParentPriceReturnsProductPriceForCalculationMethodZero()
+    public function getParentPriceReturnsProductPriceForCalculationMethodZero(): void
     {
-        $this->assertSame(
+        self::assertSame(
             10.00,
             $this->beVariant->getParentPrice()
         );
@@ -470,10 +473,10 @@ class BeVariantTest extends UnitTestCase
     /**
      * @test
      */
-    public function getParentPriceReturnsZeroPriceForCalculationMethodOne()
+    public function getParentPriceReturnsZeroPriceForCalculationMethodOne(): void
     {
         $this->beVariant->setPriceCalcMethod(1);
-        $this->assertSame(
+        self::assertSame(
             0.00,
             $this->beVariant->getParentPrice()
         );
@@ -482,7 +485,7 @@ class BeVariantTest extends UnitTestCase
     /**
      * @test
      */
-    public function getParentPriceRespectsTheQuantityDiscountsOfProductsForEachVariant()
+    public function getParentPriceRespectsTheQuantityDiscountsOfProductsForEachVariant(): void
     {
         $quantityDiscounts = [
             [
@@ -512,7 +515,7 @@ class BeVariantTest extends UnitTestCase
         ];
 
         $product = $this->getAccessibleMock(
-            \Extcode\Cart\Domain\Model\Cart\Product::class,
+            Product::class,
             ['getTaxClass', 'getPrice', 'getTitle', 'getSku'],
             [],
             '',
@@ -520,17 +523,17 @@ class BeVariantTest extends UnitTestCase
         );
         $product->_set('quantityDiscounts', $quantityDiscounts);
 
-        $product->expects($this->any())->method('getTaxClass')->will($this->returnValue($this->taxClass));
-        $product->expects($this->any())->method('getPrice')->will($this->returnValue(10.00));
-        $product->expects($this->any())->method('getTitle')->will($this->returnValue('Test Product'));
-        $product->expects($this->any())->method('getSku')->will($this->returnValue('test-product'));
+        $product->method('getTaxClass')->willReturn($this->taxClass);
+        $product->method('getPrice')->willReturn(10.00);
+        $product->method('getTitle')->willReturn('Test Product');
+        $product->method('getSku')->willReturn('test-product');
 
         $title = 'Test Variant';
         $sku = 'test-variant-sku';
         $priceCalcMethod = 0;
         $price = 1.00;
 
-        $beVariant1 = new \Extcode\Cart\Domain\Model\Cart\BeVariant(
+        $beVariant1 = new BeVariant(
             '1',
             $product,
             null,
@@ -542,7 +545,7 @@ class BeVariantTest extends UnitTestCase
         );
         $product->addBeVariant($beVariant1);
 
-        $beVariant2 = new \Extcode\Cart\Domain\Model\Cart\BeVariant(
+        $beVariant2 = new BeVariant(
             '2',
             $product,
             null,
@@ -554,7 +557,7 @@ class BeVariantTest extends UnitTestCase
         );
         $product->addBeVariant($beVariant2);
 
-        $beVariant3 = new \Extcode\Cart\Domain\Model\Cart\BeVariant(
+        $beVariant3 = new BeVariant(
             '3',
             $product,
             null,
@@ -566,17 +569,17 @@ class BeVariantTest extends UnitTestCase
         );
         $product->addBeVariant($beVariant3);
 
-        $this->assertSame(
+        self::assertSame(
             10.00,
             $beVariant1->getParentPrice()
         );
 
-        $this->assertSame(
+        self::assertSame(
             7.00,
             $beVariant2->getParentPrice()
         );
 
-        $this->assertSame(
+        self::assertSame(
             6.00,
             $beVariant3->getParentPrice()
         );

@@ -9,35 +9,30 @@ namespace Extcode\Cart\Tests\Unit\Domain\Model\Order;
  * LICENSE file that was distributed with this source code.
  */
 
+use Extcode\Cart\Domain\Model\Order\ProductAdditional;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 class ProductAdditionalTest extends UnitTestCase
 {
     /**
-     * Additional Type
-     *
      * @var string
      */
     protected $additionalType = '';
 
     /**
-     * Additional Key
-     *
      * @var string
      */
     protected $additionalKey = '';
 
     /**
-     * Additional Value
-     *
      * @var string
      */
     protected $additionalValue = '';
 
     /**
-     * @var \Extcode\Cart\Domain\Model\Order\ProductAdditional
+     * @var ProductAdditional
      */
-    protected $productAdditional = null;
+    protected $productAdditional;
 
     public function setUp(): void
     {
@@ -45,7 +40,7 @@ class ProductAdditionalTest extends UnitTestCase
         $this->additionalKey = 'additional-key';
         $this->additionalValue = 'additional-value';
 
-        $this->productAdditional = new \Extcode\Cart\Domain\Model\Order\ProductAdditional(
+        $this->productAdditional = new ProductAdditional(
             $this->additionalType,
             $this->additionalKey,
             $this->additionalValue
@@ -55,11 +50,11 @@ class ProductAdditionalTest extends UnitTestCase
     /**
      * @test
      */
-    public function constructProductAdditionalWithoutAdditionalTypeThrowsException()
+    public function constructProductAdditionalWithoutAdditionalTypeThrowsException(): void
     {
         $this->expectException(\TypeError::class);
 
-        $this->productAdditional = new \Extcode\Cart\Domain\Model\Order\ProductAdditional(
+        $this->productAdditional = new ProductAdditional(
             null,
             $this->additionalKey,
             $this->additionalValue
@@ -69,11 +64,11 @@ class ProductAdditionalTest extends UnitTestCase
     /**
      * @test
      */
-    public function constructProductAdditionalWithoutAdditionalKeyThrowsException()
+    public function constructProductAdditionalWithoutAdditionalKeyThrowsException(): void
     {
         $this->expectException(\TypeError::class);
 
-        $this->productAdditional = new \Extcode\Cart\Domain\Model\Order\ProductAdditional(
+        $this->productAdditional = new ProductAdditional(
             $this->additionalType,
             null,
             $this->additionalValue
@@ -83,11 +78,11 @@ class ProductAdditionalTest extends UnitTestCase
     /**
      * @test
      */
-    public function constructProductAdditionalWithoutAdditionalValueThrowsException()
+    public function constructProductAdditionalWithoutAdditionalValueThrowsException(): void
     {
         $this->expectException(\TypeError::class);
 
-        $this->productAdditional = new \Extcode\Cart\Domain\Model\Order\ProductAdditional(
+        $this->productAdditional = new ProductAdditional(
             $this->additionalType,
             $this->additionalKey,
             null
@@ -97,9 +92,9 @@ class ProductAdditionalTest extends UnitTestCase
     /**
      * @test
      */
-    public function getAdditionalTypeInitiallyReturnsAdditionalTypeSetDirectlyByConstructor()
+    public function getAdditionalTypeInitiallyReturnsAdditionalTypeSetDirectlyByConstructor(): void
     {
-        $this->assertSame(
+        self::assertSame(
             $this->additionalType,
             $this->productAdditional->getAdditionalType()
         );
@@ -108,9 +103,9 @@ class ProductAdditionalTest extends UnitTestCase
     /**
      * @test
      */
-    public function getAdditionalKeyInitiallyReturnsAdditionalKeySetDirectlyByConstructor()
+    public function getAdditionalKeyInitiallyReturnsAdditionalKeySetDirectlyByConstructor(): void
     {
-        $this->assertSame(
+        self::assertSame(
             $this->additionalKey,
             $this->productAdditional->getAdditionalKey()
         );
@@ -119,9 +114,9 @@ class ProductAdditionalTest extends UnitTestCase
     /**
      * @test
      */
-    public function getAdditionalValueInitiallyReturnsAdditionalValueSetDirectlyByConstructor()
+    public function getAdditionalValueInitiallyReturnsAdditionalValueSetDirectlyByConstructor(): void
     {
-        $this->assertSame(
+        self::assertSame(
             $this->additionalValue,
             $this->productAdditional->getAdditionalValue()
         );
@@ -130,18 +125,18 @@ class ProductAdditionalTest extends UnitTestCase
     /**
      * @test
      */
-    public function getAdditionalDataInitiallyReturnsAdditionalDataSetDirectlyByConstructor()
+    public function getAdditionalDataInitiallyReturnsAdditionalDataSetDirectlyByConstructor(): void
     {
         $additionalData = 'additional-data';
 
-        $productAdditional = new \Extcode\Cart\Domain\Model\Order\ProductAdditional(
+        $productAdditional = new ProductAdditional(
             $this->additionalType,
             $this->additionalKey,
             $this->additionalValue,
             $additionalData
         );
 
-        $this->assertSame(
+        self::assertSame(
             $additionalData,
             $productAdditional->getAdditionalData()
         );
@@ -150,9 +145,9 @@ class ProductAdditionalTest extends UnitTestCase
     /**
      * @test
      */
-    public function getAdditionalDataInitiallyReturnsEmptyString()
+    public function getAdditionalDataInitiallyReturnsEmptyString(): void
     {
-        $this->assertSame(
+        self::assertSame(
             '',
             $this->productAdditional->getAdditionalData()
         );
@@ -161,13 +156,13 @@ class ProductAdditionalTest extends UnitTestCase
     /**
      * @test
      */
-    public function setAdditionalDataSetsAdditionalData()
+    public function setAdditionalDataSetsAdditionalData(): void
     {
         $additionalData = 'additional-data';
 
         $this->productAdditional->setAdditionalData($additionalData);
 
-        $this->assertSame(
+        self::assertSame(
             $additionalData,
             $this->productAdditional->getAdditionalData()
         );

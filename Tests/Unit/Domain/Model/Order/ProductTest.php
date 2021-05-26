@@ -9,32 +9,27 @@ namespace Extcode\Cart\Tests\Unit\Domain\Model\Order;
  * LICENSE file that was distributed with this source code.
  */
 
+use Extcode\Cart\Domain\Model\Order\Product;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 class ProductTest extends UnitTestCase
 {
     /**
-     * @var \Extcode\Cart\Domain\Model\Order\Product
+     * @var Product
      */
-    protected $product = null;
+    protected $product;
 
     /**
-     * Sku
-     *
      * @var string
      */
     protected $sku;
 
     /**
-     * Title
-     *
      * @var string
      */
     protected $title;
 
     /**
-     * Count
-     *
      * @var int
      */
     protected $count = 0;
@@ -45,7 +40,7 @@ class ProductTest extends UnitTestCase
         $this->title = 'title';
         $this->count = 1;
 
-        $this->product = new \Extcode\Cart\Domain\Model\Order\Product(
+        $this->product = new Product(
             $this->sku,
             $this->title,
             $this->count
@@ -55,11 +50,11 @@ class ProductTest extends UnitTestCase
     /**
      * @test
      */
-    public function constructProductWithoutSkuThrowsException()
+    public function constructProductWithoutSkuThrowsException(): void
     {
         $this->expectException(\TypeError::class);
 
-        $this->product = new \Extcode\Cart\Domain\Model\Order\Product(
+        $this->product = new Product(
             null,
             $this->title,
             $this->count
@@ -69,11 +64,11 @@ class ProductTest extends UnitTestCase
     /**
      * @test
      */
-    public function constructProductWithoutTitleThrowsException()
+    public function constructProductWithoutTitleThrowsException(): void
     {
         $this->expectException(\TypeError::class);
 
-        $this->product = new \Extcode\Cart\Domain\Model\Order\Product(
+        $this->product = new Product(
             $this->sku,
             null,
             $this->count
@@ -83,11 +78,11 @@ class ProductTest extends UnitTestCase
     /**
      * @test
      */
-    public function constructProductWithoutCountThrowsException()
+    public function constructProductWithoutCountThrowsException(): void
     {
         $this->expectException(\TypeError::class);
 
-        $this->product = new \Extcode\Cart\Domain\Model\Order\Product(
+        $this->product = new Product(
             $this->sku,
             $this->title,
             null
@@ -97,9 +92,9 @@ class ProductTest extends UnitTestCase
     /**
      * @test
      */
-    public function getSkuInitiallyReturnsSkuSetDirectlyByConstructor()
+    public function getSkuInitiallyReturnsSkuSetDirectlyByConstructor(): void
     {
-        $this->assertSame(
+        self::assertSame(
             $this->sku,
             $this->product->getSku()
         );
@@ -108,9 +103,9 @@ class ProductTest extends UnitTestCase
     /**
      * @test
      */
-    public function getTitleInitiallyReturnsTitleSetDirectlyByConstructor()
+    public function getTitleInitiallyReturnsTitleSetDirectlyByConstructor(): void
     {
-        $this->assertSame(
+        self::assertSame(
             $this->title,
             $this->product->getTitle()
         );
@@ -119,9 +114,9 @@ class ProductTest extends UnitTestCase
     /**
      * @test
      */
-    public function getCountInitiallyReturnsCountSetDirectlyByConstructor()
+    public function getCountInitiallyReturnsCountSetDirectlyByConstructor(): void
     {
-        $this->assertSame(
+        self::assertSame(
             $this->count,
             $this->product->getCount()
         );
@@ -133,9 +128,9 @@ class ProductTest extends UnitTestCase
     /**
      * @test
      */
-    public function getProductTypeReturnsInitialValueForProductType()
+    public function getProductTypeReturnsInitialValueForProductType(): void
     {
-        $this->assertSame(
+        self::assertSame(
             '',
             $this->product->getProductType()
         );
@@ -144,11 +139,11 @@ class ProductTest extends UnitTestCase
     /**
      * @test
      */
-    public function setProductTypeSetsProductType()
+    public function setProductTypeSetsProductType(): void
     {
         $this->product->setProductType('configurable');
 
-        $this->assertSame(
+        self::assertSame(
             'configurable',
             $this->product->getProductType()
         );

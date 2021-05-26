@@ -33,21 +33,6 @@ class Service implements ServiceInterface
     protected $config = [];
 
     /**
-     * @var float
-     */
-    protected $gross;
-
-    /**
-     * @var float
-     */
-    protected $net;
-
-    /**
-     * @var float
-     */
-    protected $tax;
-
-    /**
      * @var bool
      */
     protected $preset = false;
@@ -74,110 +59,173 @@ class Service implements ServiceInterface
         return $this->config;
     }
 
-    /**
-     * @param Cart $cart
-     *
-     * @return Service
-     */
-    public function setCart(Cart $cart): self
+    public function setCart(Cart $cart)
     {
         $this->cart = $cart;
-        $this->calcAll();
-
-        return $this;
     }
 
-    /**
-     * @return string
-     */
+    public function getCart(): Cart
+    {
+        return $this->cart;
+    }
+
     public function getStatus(): string
     {
         return $this->config['status'] ?: 'open';
     }
 
-    /**
-     * @return string
-     */
     public function getProcessOrderCreateEvent(): string
     {
         return $this->config['processOrderCreateEvent'] ?: '';
     }
 
-    /**
-     * @return string
-     */
     public function getProvider(): string
     {
         return $this->config['provider'] ?: '';
     }
 
-    /**
-     * @return string
-     */
     public function getName(): string
     {
         return $this->config['title'];
     }
 
-    /**
-     * @return float
-     */
     public function getGross(): float
     {
-        return $this->gross;
+        $extra = $this->getExtra();
+
+        $extraGross = $this->cart->translatePrice($extra->getGross());
+
+        if ($extra->getExtraType() === 'each') {
+            return $this->cart->getCount() * $extraGross;
+        }
+
+        return $extraGross;
     }
 
-    /**
-     * @return float
-     */
     public function getNet(): float
     {
-        return $this->net;
+        $extra = $this->getExtra();
+
+        $extraNet = $this->cart->translatePrice($extra->getNet());
+
+        if ($extra->getExtraType() === 'each') {
+            return $this->cart->getCount() * $extraNet;
+        }
+
+        return $extraNet;
     }
 
-    /**
-     * @return float
-     */
     public function getTax(): float
     {
-        return $this->tax;
+        $extra = $this->getExtra();
+
+        $extraTax = $extra->getTax();
+
+        $taxValue = $this->cart->translatePrice($extraTax['tax']);
+
+        if ($extra->getExtraType() === 'each') {
+            return $this->cart->getCount() * $taxValue;
+        }
+
+        return $taxValue;
     }
 
-    /**
-     * @return TaxClass
-     */
+    public function getTaxes(): array
+    {
+        if ($this->getTaxClass()->getId() > 0) {
+            return [
+                [
+                    'taxClassId' => $this->getTaxClass()->getId(),
+                    'tax' => $this->getTax(),
+                ]
+            ];
+        }
+
+        $taxes = [];
+
+        if ($this->getTaxClass()->getId() === -2) {
+            $extra = $this->getExtra();
+
+            $usedTaxClasses = [];
+
+            foreach ($this->cart->getProducts() as $product) {
+                if (!in_array($product->getTaxClass(), $usedTaxClasses, true)) {
+                    $usedTaxClasses[] = $product->getTaxClass();
+                }
+            }
+
+            foreach ($usedTaxClasses as $taxClass) {
+                $extraTax = $extra->getTaxForTaxClass($taxClass);
+
+                $taxValue = $this->cart->translatePrice($extraTax);
+
+                if ($extra->getExtraType() === 'each') {
+                    $taxValue = $this->cart->getCount() * $taxValue;
+                }
+
+                $taxes[] = [
+                    'taxClassId' => $taxClass->getId(),
+                    'tax' => $taxValue,
+                ];
+            }
+        }
+
+        return $taxes;
+    }
+
     public function getTaxClass(): TaxClass
     {
-        return $this->cart->getTaxClass($this->config['taxClassId']);
+        $taxClass = null;
+
+        if ((int)$this->config['taxClassId'] > 0) {
+            return $this->cart->getTaxClass($this->config['taxClassId']);
+        }
+
+        if ((int)$this->config['taxClassId'] === -1) {
+            // assign lowest TaxClass
+            foreach ($this->cart->getTaxClasses() as $cartTaxClass) {
+                if ($taxClass === null || $taxClass->getCalc() > $cartTaxClass->getCalc()) {
+                    $taxClass = $cartTaxClass;
+                }
+            }
+            // assign highest used TaxClass
+            foreach ($this->cart->getProducts() as $product) {
+                if ($product->getTaxClass()->getCalc() > $taxClass->getCalc()) {
+                    $taxClass = $product->getTaxClass();
+                }
+            }
+        }
+
+        if ((int)$this->config['taxClassId'] === -2) {
+            $taxClass = new TaxClass(
+                $this->id = -2,
+                '0',
+                0.0,
+                'internal'
+            );
+        }
+
+        return $taxClass;
     }
 
-    /**
-     * @return bool
-     */
     public function isPreset(): bool
     {
         return $this->preset;
     }
 
-    /**
-     * @param bool $preset
-     */
     public function setPreset(bool $preset): void
     {
         $this->preset = $preset;
     }
 
-    /**
-     * @return int|null
-     */
     public function getFallBackId(): ?int
     {
+        if (!isset($this->config['fallBackId'])) {
+            return null;
+        }
         return (int)$this->config['fallBackId'];
     }
 
-    /**
-     * @return bool
-     */
     public function isAvailable(): bool
     {
         if (isset($this->config['available'])) {
@@ -194,9 +242,6 @@ class Service implements ServiceInterface
         return true;
     }
 
-    /**
-     * @return bool
-     */
     public function isFree(): bool
     {
         if (isset($this->config['free']['from']) || isset($this->config['free']['until'])) {
@@ -216,25 +261,17 @@ class Service implements ServiceInterface
         return false;
     }
 
-    protected function calcAll()
-    {
-        $this->calcGross();
-        $this->calcTax();
-        $this->calcNet();
-    }
-
-    /**
-     * @return Extra
-     */
-    protected function getExtra()
+    protected function getExtra(): Extra
     {
         if ($this->isFree()) {
             return new Extra(
                 0,
                 0,
                 0.0,
-                $this->cart->getTaxClass($this->config['taxClassId']),
-                $this->cart->getIsNetCart()
+                $this->getTaxClass(),
+                $this->cart->getIsNetCart(),
+                '',
+                $this
             );
         }
 
@@ -246,9 +283,10 @@ class Service implements ServiceInterface
                     0,
                     0,
                     (float)$this->config['extra']['extra'],
-                    $this->cart->getTaxClass($this->config['taxClassId']),
+                    $this->getTaxClass(),
                     $this->cart->getIsNetCart(),
-                    $extraType
+                    $extraType,
+                    $this
                 );
             }
 
@@ -260,9 +298,10 @@ class Service implements ServiceInterface
                         $extraKey,
                         (float)$extraValue['value'],
                         (float)$extraValue['extra'],
-                        $this->cart->getTaxClass($this->config['taxClassId']),
+                        $this->getTaxClass(),
                         $this->cart->getIsNetCart(),
-                        $extraType
+                        $extraType,
+                        $this
                     );
                 }
             }
@@ -274,50 +313,11 @@ class Service implements ServiceInterface
             0,
             0,
             (float)$this->config['extra'],
-            $this->cart->getTaxClass($this->config['taxClassId']),
-            $this->cart->getIsNetCart()
+            $this->getTaxClass(),
+            $this->cart->getIsNetCart(),
+            '',
+            $this
         );
-    }
-
-    protected function calcGross()
-    {
-        $extra = $this->getExtra();
-
-        $extraGross = $this->cart->translatePrice($extra->getGross());
-
-        if ($extra->getExtraType() === 'each') {
-            $this->gross = $this->cart->getCount() * $extraGross;
-        } else {
-            $this->gross = $extraGross;
-        }
-    }
-
-    protected function calcNet()
-    {
-        $extra = $this->getExtra();
-
-        $extraNet = $this->cart->translatePrice($extra->getNet());
-
-        if ($extra->getExtraType() === 'each') {
-            $this->net = $this->cart->getCount() * $extraNet;
-        } else {
-            $this->net = $extraNet;
-        }
-    }
-
-    protected function calcTax()
-    {
-        $extra = $this->getExtra();
-
-        $extraTax = $extra->getTax();
-
-        $taxValue = $this->cart->translatePrice($extraTax['tax']);
-
-        if ($extra->getExtraType() === 'each') {
-            $this->tax = $this->cart->getCount() * $taxValue;
-        } else {
-            $this->tax = $taxValue;
-        }
     }
 
     /**
@@ -356,9 +356,6 @@ class Service implements ServiceInterface
         }
     }
 
-    /**
-     * @return float
-     */
     protected function getPriceOfPhysicalProducts(): float
     {
         $calculatedGross = 0.0;

@@ -1,10 +1,10 @@
 .. include:: ../../Includes.txt
 
 ===============================================
-Feature: XXX - Split Up ProcessOrderCreateEvent
+Feature: 337 - Split Up ProcessOrderCreateEvent
 ===============================================
 
-See :issue:`XXX`
+See :issue:`337`
 
 Description
 ===========

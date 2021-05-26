@@ -9,32 +9,29 @@ namespace Extcode\Cart\Tests\Unit\Domain\Model\Cart;
  * LICENSE file that was distributed with this source code.
  */
 
+use Extcode\Cart\Domain\Model\Cart\Cart;
+use Extcode\Cart\Domain\Model\Cart\CartCoupon;
+use Extcode\Cart\Domain\Model\Cart\TaxClass;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 class CartCouponTest extends UnitTestCase
 {
     /**
-     * @var \Extcode\Cart\Domain\Model\Cart\CartCoupon
+     * @var CartCoupon
      */
-    protected $coupon = null;
+    protected $coupon;
 
     /**
-     * Title
-     *
      * @var string
      */
     protected $title;
 
     /**
-     * Code
-     *
      * @var string
      */
     protected $code;
 
     /**
-     * Coupon Type
-     *
      * @var string
      */
     protected $couponType;
@@ -47,27 +44,25 @@ class CartCouponTest extends UnitTestCase
     protected $discount;
 
     /**
-     * @var \Extcode\Cart\Domain\Model\Cart\TaxClass
+     * @var TaxClass
      */
-    protected $taxClass = null;
+    protected $taxClass;
 
     /**
-     * Cart Min Price
-     *
      * @var float
      */
     protected $cartMinPrice = 0.0;
 
     public function setUp(): void
     {
-        $this->taxClass = new \Extcode\Cart\Domain\Model\Cart\TaxClass(1, '19', 0.19, 'normal');
+        $this->taxClass = new TaxClass(1, '19', 0.19, 'normal');
 
         $this->title = 'title';
         $this->code = 'code';
         $this->couponType = 'cartdiscount';
         $this->discount = 10.00;
 
-        $this->coupon = new \Extcode\Cart\Domain\Model\Cart\CartCoupon(
+        $this->coupon = new CartCoupon(
             $this->title,
             $this->code,
             $this->couponType,
@@ -80,11 +75,11 @@ class CartCouponTest extends UnitTestCase
     /**
      * @test
      */
-    public function constructCouponWithoutTitleThrowsException()
+    public function constructCouponWithoutTitleThrowsException(): void
     {
         $this->expectException(\TypeError::class);
 
-        $this->coupon = new \Extcode\Cart\Domain\Model\Cart\CartCoupon(
+        $this->coupon = new CartCoupon(
             null,
             $this->code,
             $this->couponType,
@@ -97,11 +92,11 @@ class CartCouponTest extends UnitTestCase
     /**
      * @test
      */
-    public function constructCouponWithoutCodeThrowsException()
+    public function constructCouponWithoutCodeThrowsException(): void
     {
         $this->expectException(\TypeError::class);
 
-        $this->coupon = new \Extcode\Cart\Domain\Model\Cart\CartCoupon(
+        $this->coupon = new CartCoupon(
             $this->title,
             null,
             $this->couponType,
@@ -114,11 +109,11 @@ class CartCouponTest extends UnitTestCase
     /**
      * @test
      */
-    public function constructCouponWithoutCouponTypeThrowsException()
+    public function constructCouponWithoutCouponTypeThrowsException(): void
     {
         $this->expectException(\TypeError::class);
 
-        $this->coupon = new \Extcode\Cart\Domain\Model\Cart\CartCoupon(
+        $this->coupon = new CartCoupon(
             $this->title,
             $this->code,
             null,
@@ -131,11 +126,11 @@ class CartCouponTest extends UnitTestCase
     /**
      * @test
      */
-    public function constructCouponWithoutDiscountThrowsException()
+    public function constructCouponWithoutDiscountThrowsException(): void
     {
         $this->expectException(\TypeError::class);
 
-        $this->coupon = new \Extcode\Cart\Domain\Model\Cart\CartCoupon(
+        $this->coupon = new CartCoupon(
             $this->title,
             $this->code,
             $this->couponType,
@@ -148,11 +143,11 @@ class CartCouponTest extends UnitTestCase
     /**
      * @test
      */
-    public function constructCouponWithoutTaxClassThrowsException()
+    public function constructCouponWithoutTaxClassThrowsException(): void
     {
         $this->expectException(\TypeError::class);
 
-        $this->coupon = new \Extcode\Cart\Domain\Model\Cart\CartCoupon(
+        $this->coupon = new CartCoupon(
             $this->title,
             $this->code,
             $this->couponType,
@@ -165,9 +160,9 @@ class CartCouponTest extends UnitTestCase
     /**
      * @test
      */
-    public function getIsCombinableInitiallyReturnsFalse()
+    public function getIsCombinableInitiallyReturnsFalse(): void
     {
-        $this->assertFalse(
+        self::assertFalse(
             $this->coupon->getIsCombinable()
         );
     }
@@ -175,9 +170,9 @@ class CartCouponTest extends UnitTestCase
     /**
      * @test
      */
-    public function constructorSetsIsCombinable()
+    public function constructorSetsIsCombinable(): void
     {
-        $this->coupon = new \Extcode\Cart\Domain\Model\Cart\CartCoupon(
+        $this->coupon = new CartCoupon(
             $this->title,
             $this->code,
             $this->couponType,
@@ -187,7 +182,7 @@ class CartCouponTest extends UnitTestCase
             true
         );
 
-        $this->assertTrue(
+        self::assertTrue(
             $this->coupon->getIsCombinable()
         );
     }
@@ -195,9 +190,9 @@ class CartCouponTest extends UnitTestCase
     /**
      * @test
      */
-    public function getDiscountInitiallyReturnsDiscountSetDirectlyByConstructor()
+    public function getDiscountInitiallyReturnsDiscountSetDirectlyByConstructor(): void
     {
-        $this->assertSame(
+        self::assertSame(
             10.00,
             $this->coupon->getDiscount()
         );
@@ -206,9 +201,9 @@ class CartCouponTest extends UnitTestCase
     /**
      * @test
      */
-    public function getGrossInitiallyReturnsGrossSetDirectlyByConstructor()
+    public function getGrossInitiallyReturnsGrossSetDirectlyByConstructor(): void
     {
-        $this->assertSame(
+        self::assertSame(
             10.00,
             $this->coupon->getGross()
         );
@@ -217,19 +212,19 @@ class CartCouponTest extends UnitTestCase
     /**
      * @test
      */
-    public function getGrossReturnsTranslatedDiscount()
+    public function getGrossReturnsTranslatedDiscount(): void
     {
         $currencyTranslation = 2.0;
 
-        $cart = $this->getMockBuilder(\Extcode\Cart\Domain\Model\Cart\Cart::class)
-            ->setMethods(['getCurrencyTranslation'])
+        $cart = $this->getMockBuilder(Cart::class)
+            ->onlyMethods(['getCurrencyTranslation'])
             ->setConstructorArgs([[$this->taxClass]])
             ->getMock();
-        $cart->expects($this->any())->method('getCurrencyTranslation')->will($this->returnValue($currencyTranslation));
+        $cart->method('getCurrencyTranslation')->willReturn($currencyTranslation);
 
         $this->coupon->setCart($cart);
 
-        $this->assertSame(
+        self::assertSame(
             5.00,
             $this->coupon->getGross()
         );
@@ -238,10 +233,10 @@ class CartCouponTest extends UnitTestCase
     /**
      * @test
      */
-    public function getNetInitiallyReturnsNetSetIndirectlyByConstructor()
+    public function getNetInitiallyReturnsNetSetIndirectlyByConstructor(): void
     {
         $net = $this->discount / ($this->taxClass->getCalc() + 1);
-        $this->assertSame(
+        self::assertSame(
             $net,
             $this->coupon->getNet()
         );
@@ -250,9 +245,9 @@ class CartCouponTest extends UnitTestCase
     /**
      * @test
      */
-    public function getTaxClassInitiallyReturnsTaxClassSetDirectlyByConstructor()
+    public function getTaxClassInitiallyReturnsTaxClassSetDirectlyByConstructor(): void
     {
-        $this->assertSame(
+        self::assertSame(
             $this->taxClass,
             $this->coupon->getTaxClass()
         );
@@ -261,11 +256,11 @@ class CartCouponTest extends UnitTestCase
     /**
      * @test
      */
-    public function getTaxInitiallyReturnsTaxSetIndirectlyByConstructor()
+    public function getTaxInitiallyReturnsTaxSetIndirectlyByConstructor(): void
     {
         $tax = $this->discount - ($this->discount / ($this->taxClass->getCalc() + 1));
 
-        $this->assertSame(
+        self::assertSame(
             $tax,
             $this->coupon->getTax()
         );
@@ -274,9 +269,9 @@ class CartCouponTest extends UnitTestCase
     /**
      * @test
      */
-    public function getCartMinPriceInitiallyReturnsCartMinPriceSetDirectlyByConstructor()
+    public function getCartMinPriceInitiallyReturnsCartMinPriceSetDirectlyByConstructor(): void
     {
-        $this->assertSame(
+        self::assertSame(
             $this->cartMinPrice,
             $this->coupon->getCartMinPrice()
         );
@@ -285,19 +280,19 @@ class CartCouponTest extends UnitTestCase
     /**
      * @test
      */
-    public function isUsableReturnsTrueIfCartMinPriceIsLessToGivenPrice()
+    public function isUsableReturnsTrueIfCartMinPriceIsLessToGivenPrice(): void
     {
         $gross = 10.00;
         $discount = 5.00;
         $cartMinPrice = 9.99;
 
-        $cart = $this->getMockBuilder(\Extcode\Cart\Domain\Model\Cart\Cart::class)
-            ->setMethods(['getGross'])
+        $cart = $this->getMockBuilder(Cart::class)
+            ->onlyMethods(['getGross'])
             ->setConstructorArgs([[$this->taxClass]])
             ->getMock();
-        $cart->expects($this->any())->method('getGross')->will($this->returnValue($gross));
+        $cart->method('getGross')->willReturn($gross);
 
-        $coupon = new \Extcode\Cart\Domain\Model\Cart\CartCoupon(
+        $coupon = new CartCoupon(
             $this->title,
             $this->code,
             $this->couponType,
@@ -308,7 +303,7 @@ class CartCouponTest extends UnitTestCase
         );
         $coupon->setCart($cart);
 
-        $this->assertTrue(
+        self::assertTrue(
             $coupon->getIsUseable()
         );
     }
@@ -316,19 +311,19 @@ class CartCouponTest extends UnitTestCase
     /**
      * @test
      */
-    public function isUsableReturnsTrueIfCartMinPriceIsEqualToGivenPrice()
+    public function isUsableReturnsTrueIfCartMinPriceIsEqualToGivenPrice(): void
     {
         $gross = 10.00;
         $discount = 5.00;
         $cartMinPrice = 10.00;
 
-        $cart = $this->getMockBuilder(\Extcode\Cart\Domain\Model\Cart\Cart::class)
-            ->setMethods(['getGross'])
+        $cart = $this->getMockBuilder(Cart::class)
+            ->onlyMethods(['getGross'])
             ->setConstructorArgs([[$this->taxClass]])
             ->getMock();
-        $cart->expects($this->any())->method('getGross')->will($this->returnValue($gross));
+        $cart->method('getGross')->willReturn($gross);
 
-        $coupon = new \Extcode\Cart\Domain\Model\Cart\CartCoupon(
+        $coupon = new CartCoupon(
             $this->title,
             $this->code,
             $this->couponType,
@@ -339,7 +334,7 @@ class CartCouponTest extends UnitTestCase
         );
         $coupon->setCart($cart);
 
-        $this->assertTrue(
+        self::assertTrue(
             $coupon->getIsUseable()
         );
     }
@@ -347,19 +342,19 @@ class CartCouponTest extends UnitTestCase
     /**
      * @test
      */
-    public function isUsableReturnsFalseIfCartMinPriceIsGreaterToGivenPrice()
+    public function isUsableReturnsFalseIfCartMinPriceIsGreaterToGivenPrice(): void
     {
         $gross = 10.00;
         $discount = 5.00;
         $cartMinPrice = 10.01;
 
-        $cart = $this->getMockBuilder(\Extcode\Cart\Domain\Model\Cart\Cart::class)
-            ->setMethods(['getGross'])
+        $cart = $this->getMockBuilder(Cart::class)
+            ->onlyMethods(['getGross'])
             ->setConstructorArgs([[$this->taxClass]])
             ->getMock();
-        $cart->expects($this->any())->method('getGross')->will($this->returnValue($gross));
+        $cart->method('getGross')->willReturn($gross);
 
-        $coupon = new \Extcode\Cart\Domain\Model\Cart\CartCoupon(
+        $coupon = new CartCoupon(
             $this->title,
             $this->code,
             $this->couponType,
@@ -370,7 +365,7 @@ class CartCouponTest extends UnitTestCase
         );
         $coupon->setCart($cart);
 
-        $this->assertFalse(
+        self::assertFalse(
             $coupon->getIsUseable()
         );
     }

@@ -136,11 +136,10 @@ return [
             'exclude' => 0,
             'label' => $_LLL . ':tx_cart_domain_model_order_payment.tax_class',
             'config' => [
-                'type' => 'select',
-                'renderType' => 'selectSingle',
+                'type' => 'inline',
                 'readOnly' => 1,
                 'foreign_table' => 'tx_cart_domain_model_order_taxclass',
-                'minitems' => 1,
+                'minitems' => 0,
                 'maxitems' => 1,
             ],
         ],

@@ -9,18 +9,21 @@ namespace Extcode\Cart\Tests\Unit\Domain\Model\Cart;
  * LICENSE file that was distributed with this source code.
  */
 
+use Extcode\Cart\Domain\Model\Cart\Product;
+use Extcode\Cart\Domain\Model\Cart\TaxClass;
+use InvalidArgumentException;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 class ProductTest extends UnitTestCase
 {
 
     /**
-     * @var \Extcode\Cart\Domain\Model\Cart\TaxClass
+     * @var TaxClass
      */
     protected $taxClass = null;
 
     /**
-     * @var \Extcode\Cart\Domain\Model\Cart\Product
+     * @var Product
      */
     protected $product = null;
 
@@ -56,7 +59,7 @@ class ProductTest extends UnitTestCase
 
     public function setUp(): void
     {
-        $this->taxClass = new \Extcode\Cart\Domain\Model\Cart\TaxClass(1, '19', 0.19, 'normal');
+        $this->taxClass = new TaxClass(1, '19', 0.19, 'normal');
 
         $this->productType = 'simple';
         $this->productId = 1001;
@@ -65,7 +68,7 @@ class ProductTest extends UnitTestCase
         $this->price = 10.00;
         $this->quantity = 1;
 
-        $this->product = new \Extcode\Cart\Domain\Model\Cart\Product(
+        $this->product = new Product(
             $this->productType,
             $this->productId,
             $this->sku,
@@ -78,26 +81,26 @@ class ProductTest extends UnitTestCase
 
     public function tearDown(): void
     {
-        unset($this->product);
-
-        unset($this->productType);
-        unset($this->productId);
-        unset($this->title);
-        unset($this->sku);
-        unset($this->price);
-        unset($this->quantity);
-
-        unset($this->taxClass);
+        unset(
+            $this->product,
+            $this->productType,
+            $this->productId,
+            $this->title,
+            $this->sku,
+            $this->price,
+            $this->quantity,
+            $this->taxClass
+        );
     }
 
     /**
      * @test
      */
-    public function constructCartProductWithoutProductTypeThrowsException()
+    public function constructCartProductWithoutProductTypeThrowsException(): void
     {
         $this->expectException(\TypeError::class);
 
-        new \Extcode\Cart\Domain\Model\Cart\Product(
+        new Product(
             null,
             $this->productId,
             $this->sku,
@@ -111,11 +114,11 @@ class ProductTest extends UnitTestCase
     /**
      * @test
      */
-    public function constructCartProductWithoutProductIdThrowsException()
+    public function constructCartProductWithoutProductIdThrowsException(): void
     {
         $this->expectException(\TypeError::class);
 
-        new \Extcode\Cart\Domain\Model\Cart\Product(
+        new Product(
             $this->productType,
             null,
             $this->sku,
@@ -129,11 +132,11 @@ class ProductTest extends UnitTestCase
     /**
      * @test
      */
-    public function constructCartProductWithoutSkuThrowsException()
+    public function constructCartProductWithoutSkuThrowsException(): void
     {
         $this->expectException(\TypeError::class);
 
-        new \Extcode\Cart\Domain\Model\Cart\Product(
+        new Product(
             $this->productType,
             $this->productId,
             null,
@@ -147,11 +150,11 @@ class ProductTest extends UnitTestCase
     /**
      * @test
      */
-    public function constructCartProductWithoutTitleThrowsException()
+    public function constructCartProductWithoutTitleThrowsException(): void
     {
         $this->expectException(\TypeError::class);
 
-        new \Extcode\Cart\Domain\Model\Cart\Product(
+        new Product(
             $this->productType,
             $this->productId,
             $this->sku,
@@ -165,11 +168,11 @@ class ProductTest extends UnitTestCase
     /**
      * @test
      */
-    public function constructCartProductWithoutPriceThrowsException()
+    public function constructCartProductWithoutPriceThrowsException(): void
     {
         $this->expectException(\TypeError::class);
 
-        new \Extcode\Cart\Domain\Model\Cart\Product(
+        new Product(
             $this->productType,
             $this->productId,
             $this->sku,
@@ -183,11 +186,11 @@ class ProductTest extends UnitTestCase
     /**
      * @test
      */
-    public function constructCartProductWithoutTaxClassThrowsException()
+    public function constructCartProductWithoutTaxClassThrowsException(): void
     {
         $this->expectException(\TypeError::class);
 
-        new \Extcode\Cart\Domain\Model\Cart\Product(
+        new Product(
             $this->productType,
             $this->productId,
             $this->sku,
@@ -201,11 +204,11 @@ class ProductTest extends UnitTestCase
     /**
      * @test
      */
-    public function constructCartProductWithoutQuantityThrowsException()
+    public function constructCartProductWithoutQuantityThrowsException(): void
     {
         $this->expectException(\TypeError::class);
 
-        new \Extcode\Cart\Domain\Model\Cart\Product(
+        new Product(
             $this->productType,
             $this->productId,
             $this->sku,
@@ -219,9 +222,9 @@ class ProductTest extends UnitTestCase
     /**
      * @test
      */
-    public function getCartProductTypeReturnsProductTypeSetByConstructor()
+    public function getCartProductTypeReturnsProductTypeSetByConstructor(): void
     {
-        $this->assertSame(
+        self::assertSame(
             $this->productType,
             $this->product->getProductType()
         );
@@ -230,9 +233,9 @@ class ProductTest extends UnitTestCase
     /**
      * @test
      */
-    public function getCartProductIdReturnsProductIdSetByConstructor()
+    public function getCartProductIdReturnsProductIdSetByConstructor(): void
     {
-        $this->assertSame(
+        self::assertSame(
             $this->productId,
             $this->product->getProductId()
         );
@@ -241,9 +244,9 @@ class ProductTest extends UnitTestCase
     /**
      * @test
      */
-    public function getIdForTableProductReturnsTableProductIdSetIndirectlyByConstructor()
+    public function getIdForTableProductReturnsTableProductIdSetIndirectlyByConstructor(): void
     {
-        $product = new \Extcode\Cart\Domain\Model\Cart\Product(
+        $product = new Product(
             $this->productType,
             $this->productId,
             $this->sku,
@@ -253,7 +256,7 @@ class ProductTest extends UnitTestCase
             $this->quantity
         );
 
-        $this->assertSame(
+        self::assertSame(
             $this->productType . '_' . $this->productId,
             $product->getId()
         );
@@ -262,9 +265,9 @@ class ProductTest extends UnitTestCase
     /**
      * @test
      */
-    public function getSkuReturnsSkuSetByConstructor()
+    public function getSkuReturnsSkuSetByConstructor(): void
     {
-        $this->assertSame(
+        self::assertSame(
             $this->sku,
             $this->product->getSku()
         );
@@ -273,9 +276,9 @@ class ProductTest extends UnitTestCase
     /**
      * @test
      */
-    public function getTitleReturnsTitleSetByConstructor()
+    public function getTitleReturnsTitleSetByConstructor(): void
     {
-        $this->assertSame(
+        self::assertSame(
             $this->title,
             $this->product->getTitle()
         );
@@ -284,9 +287,9 @@ class ProductTest extends UnitTestCase
     /**
      * @test
      */
-    public function getPriceReturnsPriceSetByConstructor()
+    public function getPriceReturnsPriceSetByConstructor(): void
     {
-        $this->assertSame(
+        self::assertSame(
             $this->price,
             $this->product->getPrice()
         );
@@ -295,10 +298,9 @@ class ProductTest extends UnitTestCase
     /**
      * @test
      */
-    public function getSpecialPriceInitiallyReturnsNull()
+    public function getSpecialPriceInitiallyReturnsNull(): void
     {
-        $this->assertSame(
-            null,
+        self::assertNull(
             $this->product->getSpecialPrice()
         );
     }
@@ -306,12 +308,12 @@ class ProductTest extends UnitTestCase
     /**
      * @test
      */
-    public function setSpecialPriceSetsSpecialPrice()
+    public function setSpecialPriceSetsSpecialPrice(): void
     {
         $price = 10.00;
         $specialPrice = 1.00;
 
-        $product = new \Extcode\Cart\Domain\Model\Cart\Product(
+        $product = new Product(
             $this->productType,
             $this->productId,
             $this->sku,
@@ -322,7 +324,7 @@ class ProductTest extends UnitTestCase
         );
         $product->setSpecialPrice($specialPrice);
 
-        $this->assertSame(
+        self::assertSame(
             $specialPrice,
             $product->getSpecialPrice()
         );
@@ -331,11 +333,11 @@ class ProductTest extends UnitTestCase
     /**
      * @test
      */
-    public function getSpecialPriceDiscountForEmptySpecialPriceReturnsDiscount()
+    public function getSpecialPriceDiscountForEmptySpecialPriceReturnsDiscount(): void
     {
         $price = 10.00;
 
-        $product = new \Extcode\Cart\Domain\Model\Cart\Product(
+        $product = new Product(
             $this->productType,
             $this->productId,
             $this->sku,
@@ -345,7 +347,7 @@ class ProductTest extends UnitTestCase
             $this->quantity
         );
 
-        $this->assertSame(
+        self::assertSame(
             0.0,
             $product->getSpecialPriceDiscount()
         );
@@ -354,12 +356,12 @@ class ProductTest extends UnitTestCase
     /**
      * @test
      */
-    public function getSpecialPriceDiscountForZeroPriceReturnsZero()
+    public function getSpecialPriceDiscountForZeroPriceReturnsZero(): void
     {
         $price = 0.0;
         $specialPrice = 0.00;
 
-        $product = new \Extcode\Cart\Domain\Model\Cart\Product(
+        $product = new Product(
             $this->productType,
             $this->productId,
             $this->sku,
@@ -370,7 +372,7 @@ class ProductTest extends UnitTestCase
         );
         $product->setSpecialPrice($specialPrice);
 
-        $this->assertSame(
+        self::assertSame(
             $price,
             $product->getSpecialPriceDiscount()
         );
@@ -379,12 +381,12 @@ class ProductTest extends UnitTestCase
     /**
      * @test
      */
-    public function getSpecialPriceDiscountForGivenSpecialPriceReturnsPercentageDiscount()
+    public function getSpecialPriceDiscountForGivenSpecialPriceReturnsPercentageDiscount(): void
     {
         $price = 10.00;
         $specialPrice = 9.00;
 
-        $product = new \Extcode\Cart\Domain\Model\Cart\Product(
+        $product = new Product(
             $this->productType,
             $this->productId,
             $this->sku,
@@ -395,7 +397,7 @@ class ProductTest extends UnitTestCase
         );
         $product->setSpecialPrice($specialPrice);
 
-        $this->assertSame(
+        self::assertSame(
             $price,
             $product->getSpecialPriceDiscount()
         );
@@ -404,11 +406,11 @@ class ProductTest extends UnitTestCase
     /**
      * @test
      */
-    public function getBestPriceInitiallyReturnsPrice()
+    public function getBestPriceInitiallyReturnsPrice(): void
     {
         $price = 10.00;
 
-        $product = new \Extcode\Cart\Domain\Model\Cart\Product(
+        $product = new Product(
             $this->productType,
             $this->productId,
             $this->sku,
@@ -418,7 +420,7 @@ class ProductTest extends UnitTestCase
             $this->quantity
         );
 
-        $this->assertSame(
+        self::assertSame(
             $price,
             $product->getBestPrice()
         );
@@ -427,12 +429,12 @@ class ProductTest extends UnitTestCase
     /**
      * @test
      */
-    public function getBestPriceReturnsPriceWhenPriceIsLessThanSpecialPrice()
+    public function getBestPriceReturnsPriceWhenPriceIsLessThanSpecialPrice(): void
     {
         $price = 10.00;
         $specialPrice = 11.00;
 
-        $product = new \Extcode\Cart\Domain\Model\Cart\Product(
+        $product = new Product(
             $this->productType,
             $this->productId,
             $this->sku,
@@ -443,7 +445,7 @@ class ProductTest extends UnitTestCase
         );
         $product->setSpecialPrice($specialPrice);
 
-        $this->assertSame(
+        self::assertSame(
             $price,
             $product->getBestPrice()
         );
@@ -452,12 +454,12 @@ class ProductTest extends UnitTestCase
     /**
      * @test
      */
-    public function getBestPriceReturnsSpecialPriceWhenSpecialPriceIsLessThanPrice()
+    public function getBestPriceReturnsSpecialPriceWhenSpecialPriceIsLessThanPrice(): void
     {
         $price = 10.00;
         $specialPrice = 5.00;
 
-        $product = new \Extcode\Cart\Domain\Model\Cart\Product(
+        $product = new Product(
             $this->productType,
             $this->productId,
             $this->sku,
@@ -468,7 +470,7 @@ class ProductTest extends UnitTestCase
         );
         $product->setSpecialPrice($specialPrice);
 
-        $this->assertSame(
+        self::assertSame(
             $specialPrice,
             $product->getBestPrice()
         );
@@ -477,11 +479,11 @@ class ProductTest extends UnitTestCase
     /**
      * @test
      */
-    public function getQuantityDiscountPriceWithoutQuantityPriceReturnsPrice()
+    public function getQuantityDiscountPriceWithoutQuantityPriceReturnsPrice(): void
     {
         $price = 10.00;
 
-        $product = new \Extcode\Cart\Domain\Model\Cart\Product(
+        $product = new Product(
             $this->productType,
             $this->productId,
             $this->sku,
@@ -492,7 +494,7 @@ class ProductTest extends UnitTestCase
         );
         $product->setQuantityDiscounts([]);
 
-        $this->assertSame(
+        self::assertSame(
             $price,
             $product->getQuantityDiscountPrice()
         );
@@ -501,7 +503,7 @@ class ProductTest extends UnitTestCase
     /**
      * @test
      */
-    public function getQuantityDiscountPriceWithLowerQuantityReturnsPrice()
+    public function getQuantityDiscountPriceWithLowerQuantityReturnsPrice(): void
     {
         $price = 10.00;
         $quantityDiscountPrice = 5.00;
@@ -512,7 +514,7 @@ class ProductTest extends UnitTestCase
             'price' => $quantityDiscountPrice,
         ]];
 
-        $product = new \Extcode\Cart\Domain\Model\Cart\Product(
+        $product = new Product(
             $this->productType,
             $this->productId,
             $this->sku,
@@ -524,7 +526,7 @@ class ProductTest extends UnitTestCase
 
         $product->setQuantityDiscounts($quantityDiscounts);
 
-        $this->assertSame(
+        self::assertSame(
             $price,
             $product->getQuantityDiscountPrice()
         );
@@ -533,7 +535,7 @@ class ProductTest extends UnitTestCase
     /**
      * @test
      */
-    public function getQuantityDiscountPriceWithSameQuantityReturnsPriceOfQuantityDiscount()
+    public function getQuantityDiscountPriceWithSameQuantityReturnsPriceOfQuantityDiscount(): void
     {
         $price = 10.00;
         $quantityDiscountPrice = 5.00;
@@ -544,7 +546,7 @@ class ProductTest extends UnitTestCase
             'price' => $quantityDiscountPrice,
         ]];
 
-        $product = new \Extcode\Cart\Domain\Model\Cart\Product(
+        $product = new Product(
             $this->productType,
             $this->productId,
             $this->sku,
@@ -556,7 +558,7 @@ class ProductTest extends UnitTestCase
 
         $product->setQuantityDiscounts($quantityDiscounts);
 
-        $this->assertSame(
+        self::assertSame(
             $quantityDiscountPrice,
             $product->getQuantityDiscountPrice()
         );
@@ -565,7 +567,7 @@ class ProductTest extends UnitTestCase
     /**
      * @test
      */
-    public function getQuantityDiscountPriceWithHigherQuantityReturnsPriceOfQuantityDiscount()
+    public function getQuantityDiscountPriceWithHigherQuantityReturnsPriceOfQuantityDiscount(): void
     {
         $price = 10.00;
         $quantityDiscountPrice = 5.00;
@@ -576,7 +578,7 @@ class ProductTest extends UnitTestCase
             'price' => $quantityDiscountPrice,
         ]];
 
-        $product = new \Extcode\Cart\Domain\Model\Cart\Product(
+        $product = new Product(
             $this->productType,
             $this->productId,
             $this->sku,
@@ -588,7 +590,7 @@ class ProductTest extends UnitTestCase
 
         $product->setQuantityDiscounts($quantityDiscounts);
 
-        $this->assertSame(
+        self::assertSame(
             $quantityDiscountPrice,
             $product->getQuantityDiscountPrice()
         );
@@ -597,7 +599,7 @@ class ProductTest extends UnitTestCase
     /**
      * @test
      */
-    public function getQuantityDiscountPriceWithHigherQuantityReturnsCorrectPriceOfQuantityDiscountArray()
+    public function getQuantityDiscountPriceWithHigherQuantityReturnsCorrectPriceOfQuantityDiscountArray(): void
     {
         $price = 10.00;
 
@@ -627,7 +629,7 @@ class ProductTest extends UnitTestCase
             ],
         ];
 
-        $product = new \Extcode\Cart\Domain\Model\Cart\Product(
+        $product = new Product(
             $this->productType,
             $this->productId,
             $this->sku,
@@ -639,7 +641,7 @@ class ProductTest extends UnitTestCase
 
         $product->setQuantityDiscounts($quantityDiscounts);
 
-        $this->assertSame(
+        self::assertSame(
             $quantityDiscountPrice,
             $product->getQuantityDiscountPrice()
         );
@@ -648,7 +650,7 @@ class ProductTest extends UnitTestCase
     /**
      * @test
      */
-    public function getQuantityDiscountPriceWithGivenQuantityReturnsCorrectPriceOfQuantityDiscountArray()
+    public function getQuantityDiscountPriceWithGivenQuantityReturnsCorrectPriceOfQuantityDiscountArray(): void
     {
         $price = 10.00;
 
@@ -678,7 +680,7 @@ class ProductTest extends UnitTestCase
             ],
         ];
 
-        $product = new \Extcode\Cart\Domain\Model\Cart\Product(
+        $product = new Product(
             $this->productType,
             $this->productId,
             $this->sku,
@@ -690,7 +692,7 @@ class ProductTest extends UnitTestCase
 
         $product->setQuantityDiscounts($quantityDiscounts);
 
-        $this->assertSame(
+        self::assertSame(
             $quantityDiscountPrice,
             $product->getQuantityDiscountPrice($quantity)
         );
@@ -699,7 +701,7 @@ class ProductTest extends UnitTestCase
     /**
      * @test
      */
-    public function getBestPriceWithSpecialPriceIsLessThanQuantityPriceArrayReturnsSpecialPrice()
+    public function getBestPriceWithSpecialPriceIsLessThanQuantityPriceArrayReturnsSpecialPrice(): void
     {
         $price = 10.00;
 
@@ -731,7 +733,7 @@ class ProductTest extends UnitTestCase
             ],
         ];
 
-        $product = new \Extcode\Cart\Domain\Model\Cart\Product(
+        $product = new Product(
             $this->productType,
             $this->productId,
             $this->sku,
@@ -745,7 +747,7 @@ class ProductTest extends UnitTestCase
 
         $product->setQuantityDiscounts($quantityDiscounts);
 
-        $this->assertSame(
+        self::assertSame(
             $specialPrice,
             $product->getBestPrice()
         );
@@ -754,7 +756,7 @@ class ProductTest extends UnitTestCase
     /**
      * @test
      */
-    public function getBestPriceWithSpecialPriceIsGreaterThanQuantityPriceArrayReturnsCorrectPriceOfQuantityDiscounts()
+    public function getBestPriceWithSpecialPriceIsGreaterThanQuantityPriceArrayReturnsCorrectPriceOfQuantityDiscounts(): void
     {
         $price = 10.00;
 
@@ -786,7 +788,7 @@ class ProductTest extends UnitTestCase
             ],
         ];
 
-        $product = new \Extcode\Cart\Domain\Model\Cart\Product(
+        $product = new Product(
             $this->productType,
             $this->productId,
             $this->sku,
@@ -800,7 +802,7 @@ class ProductTest extends UnitTestCase
 
         $product->setQuantityDiscounts($quantityDiscounts);
 
-        $this->assertSame(
+        self::assertSame(
             $quantityDiscountPrice,
             $product->getBestPrice()
         );
@@ -809,7 +811,7 @@ class ProductTest extends UnitTestCase
     /**
      * @test
      */
-    public function getBestPriceWithSpecialPriceIsGreaterThanGivenQuantityPriceArrayReturnsCorrectPriceOfQuantityDiscounts()
+    public function getBestPriceWithSpecialPriceIsGreaterThanGivenQuantityPriceArrayReturnsCorrectPriceOfQuantityDiscounts(): void
     {
         $price = 10.00;
 
@@ -841,7 +843,7 @@ class ProductTest extends UnitTestCase
             ],
         ];
 
-        $product = new \Extcode\Cart\Domain\Model\Cart\Product(
+        $product = new Product(
             $this->productType,
             $this->productId,
             $this->sku,
@@ -855,7 +857,7 @@ class ProductTest extends UnitTestCase
 
         $product->setQuantityDiscounts($quantityDiscounts);
 
-        $this->assertSame(
+        self::assertSame(
             $quantityDiscountPrice,
             $product->getBestPrice($quantity)
         );
@@ -864,9 +866,9 @@ class ProductTest extends UnitTestCase
     /**
      * @test
      */
-    public function getQuantityReturnsQuantitySetByConstructor()
+    public function getQuantityReturnsQuantitySetByConstructor(): void
     {
-        $this->assertSame(
+        self::assertSame(
             $this->quantity,
             $this->product->getQuantity()
         );
@@ -875,10 +877,9 @@ class ProductTest extends UnitTestCase
     /**
      * @test
      */
-    public function getIsNetPriceReturnsFalseSetByDefaultConstructor()
+    public function getIsNetPriceReturnsFalseSetByDefaultConstructor(): void
     {
-        $this->assertSame(
-            false,
+        self::assertFalse(
             $this->product->getIsNetPrice()
         );
     }
@@ -886,9 +887,9 @@ class ProductTest extends UnitTestCase
     /**
      * @test
      */
-    public function getIsNetPriceReturnsTrueSetByDefaultConstructor()
+    public function getIsNetPriceReturnsTrueSetByDefaultConstructor(): void
     {
-        $net_fixture = new \Extcode\Cart\Domain\Model\Cart\Product(
+        $net_fixture = new Product(
             $this->productType,
             $this->productId,
             $this->sku,
@@ -899,8 +900,7 @@ class ProductTest extends UnitTestCase
             true
         );
 
-        $this->assertSame(
-            true,
+        self::assertTrue(
             $net_fixture->getIsNetPrice()
         );
     }
@@ -908,13 +908,13 @@ class ProductTest extends UnitTestCase
     /**
      * @test
      */
-    public function setTitleSetsTitle()
+    public function setTitleSetsTitle(): void
     {
         $sku = 'new-test-product-sku';
 
         $this->product->setSku($sku);
 
-        $this->assertSame(
+        self::assertSame(
             $sku,
             $this->product->getSku()
         );
@@ -923,13 +923,13 @@ class ProductTest extends UnitTestCase
     /**
      * @test
      */
-    public function setSkuSetsSku()
+    public function setSkuSetsSku(): void
     {
         $title = 'New Test Product';
 
         $this->product->setTitle($title);
 
-        $this->assertSame(
+        self::assertSame(
             $title,
             $this->product->getTitle()
         );
@@ -938,9 +938,9 @@ class ProductTest extends UnitTestCase
     /**
      * @test
      */
-    public function getMinNumberInCartReturnsInitialValueMinNumber()
+    public function getMinNumberInCartReturnsInitialValueMinNumber(): void
     {
-        $this->assertSame(
+        self::assertSame(
             0,
             $this->product->getMinNumberInCart()
         );
@@ -949,7 +949,7 @@ class ProductTest extends UnitTestCase
     /**
      * @test
      */
-    public function setMinNumberInCartIfMinNumberIsEqualToMaxNumber()
+    public function setMinNumberInCartIfMinNumberIsEqualToMaxNumber(): void
     {
         $minNumber = 1;
         $maxNumber = 1;
@@ -957,7 +957,7 @@ class ProductTest extends UnitTestCase
         $this->product->setMaxNumberInCart($maxNumber);
         $this->product->setMinNumberInCart($minNumber);
 
-        $this->assertEquals(
+        self::assertEquals(
             $minNumber,
             $this->product->getMinNumberInCart()
         );
@@ -966,7 +966,7 @@ class ProductTest extends UnitTestCase
     /**
      * @test
      */
-    public function setMinNumberInCartIfMinNumberIsLesserThanMax()
+    public function setMinNumberInCartIfMinNumberIsLesserThanMax(): void
     {
         $minNumber = 1;
         $maxNumber = 2;
@@ -974,7 +974,7 @@ class ProductTest extends UnitTestCase
         $this->product->setMaxNumberInCart($maxNumber);
         $this->product->setMinNumberInCart($minNumber);
 
-        $this->assertEquals(
+        self::assertEquals(
             $minNumber,
             $this->product->getMinNumberInCart()
         );
@@ -983,9 +983,9 @@ class ProductTest extends UnitTestCase
     /**
      * @test
      */
-    public function throwsInvalidArgumentExceptionIfMinNumberIsGreaterThanMaxNumber()
+    public function throwsInvalidArgumentExceptionIfMinNumberIsGreaterThanMaxNumber(): void
     {
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
 
         $minNumber = 2;
         $maxNumber = 1;
@@ -997,9 +997,9 @@ class ProductTest extends UnitTestCase
     /**
      * @test
      */
-    public function throwsInvalidArgumentExceptionIfMinNumberIsNegativ()
+    public function throwsInvalidArgumentExceptionIfMinNumberIsNegativ(): void
     {
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
 
         $minNumber = -1;
         $maxNumber = 1;
@@ -1011,9 +1011,9 @@ class ProductTest extends UnitTestCase
     /**
      * @test
      */
-    public function getMaxNumberInCartReturnsInitialValueMaxNumber()
+    public function getMaxNumberInCartReturnsInitialValueMaxNumber(): void
     {
-        $this->assertSame(
+        self::assertSame(
             0,
             $this->product->getMaxNumberInCart()
         );
@@ -1022,7 +1022,7 @@ class ProductTest extends UnitTestCase
     /**
      * @test
      */
-    public function setMaxNumberInCartIfMaxNumberIsEqualToMinNumber()
+    public function setMaxNumberInCartIfMaxNumberIsEqualToMinNumber(): void
     {
         $minNumber = 1;
         $maxNumber = 1;
@@ -1030,7 +1030,7 @@ class ProductTest extends UnitTestCase
         $this->product->setMinNumberInCart($minNumber);
         $this->product->setMaxNumberInCart($maxNumber);
 
-        $this->assertEquals(
+        self::assertEquals(
             $maxNumber,
             $this->product->getMaxNumberInCart()
         );
@@ -1039,7 +1039,7 @@ class ProductTest extends UnitTestCase
     /**
      * @test
      */
-    public function setMaxNumberInCartIfMaxNumerIsGreaterThanMinNumber()
+    public function setMaxNumberInCartIfMaxNumerIsGreaterThanMinNumber(): void
     {
         $minNumber = 1;
         $maxNumber = 2;
@@ -1047,7 +1047,7 @@ class ProductTest extends UnitTestCase
         $this->product->setMinNumberInCart($minNumber);
         $this->product->setMaxNumberInCart($maxNumber);
 
-        $this->assertEquals(
+        self::assertEquals(
             $maxNumber,
             $this->product->getMaxNumberInCart()
         );
@@ -1056,9 +1056,9 @@ class ProductTest extends UnitTestCase
     /**
      * @test
      */
-    public function throwsInvalidArgumentExceptionIfMaxNumberIsLesserThanMinNUmber()
+    public function throwsInvalidArgumentExceptionIfMaxNumberIsLesserThanMinNUmber(): void
     {
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
 
         $minNumber = 2;
         $maxNumber = 1;
@@ -1070,13 +1070,13 @@ class ProductTest extends UnitTestCase
     /**
      * @test
      */
-    public function getQuantityIsLeavingRangeReturnsZeroIfQuantityIsInRange()
+    public function getQuantityIsLeavingRangeReturnsZeroIfQuantityIsInRange(): void
     {
         $minNumber = 5;
         $maxNumber = 10;
         $quantity = 7;
 
-        $this->product = new \Extcode\Cart\Domain\Model\Cart\Product(
+        $this->product = new Product(
             $this->productType,
             $this->productId,
             $this->sku,
@@ -1089,7 +1089,7 @@ class ProductTest extends UnitTestCase
         $this->product->setMinNumberInCart($minNumber);
         $this->product->setMaxNumberInCart($maxNumber);
 
-        $this->assertSame(
+        self::assertSame(
             0,
             $this->product->getQuantityIsLeavingRange()
         );
@@ -1098,13 +1098,13 @@ class ProductTest extends UnitTestCase
     /**
      * @test
      */
-    public function getQuantityIsLeavingRangeReturnsZeroIfQuantityIsEqualToMinimum()
+    public function getQuantityIsLeavingRangeReturnsZeroIfQuantityIsEqualToMinimum(): void
     {
         $minNumber = 5;
         $maxNumber = 10;
         $quantity = 5;
 
-        $this->product = new \Extcode\Cart\Domain\Model\Cart\Product(
+        $this->product = new Product(
             $this->productType,
             $this->productId,
             $this->sku,
@@ -1117,7 +1117,7 @@ class ProductTest extends UnitTestCase
         $this->product->setMinNumberInCart($minNumber);
         $this->product->setMaxNumberInCart($maxNumber);
 
-        $this->assertSame(
+        self::assertSame(
             0,
             $this->product->getQuantityIsLeavingRange()
         );
@@ -1126,13 +1126,13 @@ class ProductTest extends UnitTestCase
     /**
      * @test
      */
-    public function getQuantityIsLeavingRangeReturnsZeroIfQuantityIsEqualToMaximum()
+    public function getQuantityIsLeavingRangeReturnsZeroIfQuantityIsEqualToMaximum(): void
     {
         $minNumber = 5;
         $maxNumber = 10;
         $quantity = 10;
 
-        $this->product = new \Extcode\Cart\Domain\Model\Cart\Product(
+        $this->product = new Product(
             $this->productType,
             $this->productId,
             $this->sku,
@@ -1145,7 +1145,7 @@ class ProductTest extends UnitTestCase
         $this->product->setMinNumberInCart($minNumber);
         $this->product->setMaxNumberInCart($maxNumber);
 
-        $this->assertSame(
+        self::assertSame(
             0,
             $this->product->getQuantityIsLeavingRange()
         );
@@ -1154,13 +1154,13 @@ class ProductTest extends UnitTestCase
     /**
      * @test
      */
-    public function getQuantityIsLeavingRangeReturnsMinusOneIfQuantityIsLessThanMinimum()
+    public function getQuantityIsLeavingRangeReturnsMinusOneIfQuantityIsLessThanMinimum(): void
     {
         $minNumber = 5;
         $maxNumber = 10;
         $quantity = 4;
 
-        $this->product = new \Extcode\Cart\Domain\Model\Cart\Product(
+        $this->product = new Product(
             $this->productType,
             $this->productId,
             $this->sku,
@@ -1173,7 +1173,7 @@ class ProductTest extends UnitTestCase
         $this->product->setMinNumberInCart($minNumber);
         $this->product->setMaxNumberInCart($maxNumber);
 
-        $this->assertSame(
+        self::assertSame(
             -1,
             $this->product->getQuantityIsLeavingRange()
         );
@@ -1182,13 +1182,13 @@ class ProductTest extends UnitTestCase
     /**
      * @test
      */
-    public function getQuantityIsLeavingRangeReturnsOneIfQuantityIsGreaterThanMaximum()
+    public function getQuantityIsLeavingRangeReturnsOneIfQuantityIsGreaterThanMaximum(): void
     {
         $minNumber = 5;
         $maxNumber = 10;
         $quantity = 11;
 
-        $this->product = new \Extcode\Cart\Domain\Model\Cart\Product(
+        $this->product = new Product(
             $this->productType,
             $this->productId,
             $this->sku,
@@ -1201,7 +1201,7 @@ class ProductTest extends UnitTestCase
         $this->product->setMinNumberInCart($minNumber);
         $this->product->setMaxNumberInCart($maxNumber);
 
-        $this->assertSame(
+        self::assertSame(
             1,
             $this->product->getQuantityIsLeavingRange()
         );
@@ -1210,13 +1210,13 @@ class ProductTest extends UnitTestCase
     /**
      * @test
      */
-    public function getQuantityIsInRangeReturnsTrueIfQuantityIsInRange()
+    public function getQuantityIsInRangeReturnsTrueIfQuantityIsInRange(): void
     {
         $minNumber = 5;
         $maxNumber = 10;
         $quantity = 7;
 
-        $this->product = new \Extcode\Cart\Domain\Model\Cart\Product(
+        $this->product = new Product(
             $this->productType,
             $this->productId,
             $this->sku,
@@ -1229,7 +1229,7 @@ class ProductTest extends UnitTestCase
         $this->product->setMinNumberInCart($minNumber);
         $this->product->setMaxNumberInCart($maxNumber);
 
-        $this->assertTrue(
+        self::assertTrue(
             $this->product->getQuantityIsInRange()
         );
     }
@@ -1237,13 +1237,13 @@ class ProductTest extends UnitTestCase
     /**
      * @test
      */
-    public function getQuantityIsInRangeReturnsTrueIfQuantityIsEqualToMinimum()
+    public function getQuantityIsInRangeReturnsTrueIfQuantityIsEqualToMinimum(): void
     {
         $minNumber = 5;
         $maxNumber = 10;
         $quantity = 5;
 
-        $this->product = new \Extcode\Cart\Domain\Model\Cart\Product(
+        $this->product = new Product(
             $this->productType,
             $this->productId,
             $this->sku,
@@ -1256,7 +1256,7 @@ class ProductTest extends UnitTestCase
         $this->product->setMinNumberInCart($minNumber);
         $this->product->setMaxNumberInCart($maxNumber);
 
-        $this->assertTrue(
+        self::assertTrue(
             $this->product->getQuantityIsInRange()
         );
     }
@@ -1264,13 +1264,13 @@ class ProductTest extends UnitTestCase
     /**
      * @test
      */
-    public function getQuantityIsInRangeReturnsTrueIfQuantityIsEqualToMaximum()
+    public function getQuantityIsInRangeReturnsTrueIfQuantityIsEqualToMaximum(): void
     {
         $minNumber = 5;
         $maxNumber = 10;
         $quantity = 10;
 
-        $this->product = new \Extcode\Cart\Domain\Model\Cart\Product(
+        $this->product = new Product(
             $this->productType,
             $this->productId,
             $this->sku,
@@ -1283,7 +1283,7 @@ class ProductTest extends UnitTestCase
         $this->product->setMinNumberInCart($minNumber);
         $this->product->setMaxNumberInCart($maxNumber);
 
-        $this->assertTrue(
+        self::assertTrue(
             $this->product->getQuantityIsInRange()
         );
     }
@@ -1291,13 +1291,13 @@ class ProductTest extends UnitTestCase
     /**
      * @test
      */
-    public function getQuantityIsInRangeReturnsFalseIfQuantityIsLessThanMinimum()
+    public function getQuantityIsInRangeReturnsFalseIfQuantityIsLessThanMinimum(): void
     {
         $minNumber = 5;
         $maxNumber = 10;
         $quantity = 4;
 
-        $this->product = new \Extcode\Cart\Domain\Model\Cart\Product(
+        $this->product = new Product(
             $this->productType,
             $this->productId,
             $this->sku,
@@ -1310,7 +1310,7 @@ class ProductTest extends UnitTestCase
         $this->product->setMinNumberInCart($minNumber);
         $this->product->setMaxNumberInCart($maxNumber);
 
-        $this->assertFalse(
+        self::assertFalse(
             $this->product->getQuantityIsInRange()
         );
     }
@@ -1318,13 +1318,13 @@ class ProductTest extends UnitTestCase
     /**
      * @test
      */
-    public function getQuantityIsInRangeReturnsFalseIfQuantityIsGreaterThanMaximum()
+    public function getQuantityIsInRangeReturnsFalseIfQuantityIsGreaterThanMaximum(): void
     {
         $minNumber = 5;
         $maxNumber = 10;
         $quantity = 11;
 
-        $this->product = new \Extcode\Cart\Domain\Model\Cart\Product(
+        $this->product = new Product(
             $this->productType,
             $this->productId,
             $this->sku,
@@ -1337,7 +1337,7 @@ class ProductTest extends UnitTestCase
         $this->product->setMinNumberInCart($minNumber);
         $this->product->setMaxNumberInCart($maxNumber);
 
-        $this->assertFalse(
+        self::assertFalse(
             $this->product->getQuantityIsInRange()
         );
     }
@@ -1345,13 +1345,13 @@ class ProductTest extends UnitTestCase
     /**
      * @test
      */
-    public function getGrossReturnsZeroIfNumberIsOutOfRange()
+    public function getGrossReturnsZeroIfNumberIsOutOfRange(): void
     {
         $minNumber = 5;
         $maxNumber = 10;
         $quantity = 4;
 
-        $this->product = new \Extcode\Cart\Domain\Model\Cart\Product(
+        $this->product = new Product(
             $this->productType,
             $this->productId,
             $this->sku,
@@ -1364,14 +1364,14 @@ class ProductTest extends UnitTestCase
         $this->product->setMinNumberInCart($minNumber);
         $this->product->setMaxNumberInCart($maxNumber);
 
-        $this->assertSame(
+        self::assertSame(
             0.0,
             $this->product->getGross()
         );
 
         $quantity = 11;
 
-        $this->product = new \Extcode\Cart\Domain\Model\Cart\Product(
+        $this->product = new Product(
             $this->productType,
             $this->productId,
             $this->sku,
@@ -1384,7 +1384,7 @@ class ProductTest extends UnitTestCase
         $this->product->setMinNumberInCart($minNumber);
         $this->product->setMaxNumberInCart($maxNumber);
 
-        $this->assertSame(
+        self::assertSame(
             0.0,
             $this->product->getGross()
         );
@@ -1393,13 +1393,13 @@ class ProductTest extends UnitTestCase
     /**
      * @test
      */
-    public function getNetReturnsZeroIfNumberIsOutOfRange()
+    public function getNetReturnsZeroIfNumberIsOutOfRange(): void
     {
         $minNumber = 5;
         $maxNumber = 10;
         $quantity = 4;
 
-        $this->product = new \Extcode\Cart\Domain\Model\Cart\Product(
+        $this->product = new Product(
             $this->productType,
             $this->productId,
             $this->sku,
@@ -1412,14 +1412,14 @@ class ProductTest extends UnitTestCase
         $this->product->setMinNumberInCart($minNumber);
         $this->product->setMaxNumberInCart($maxNumber);
 
-        $this->assertSame(
+        self::assertSame(
             0.0,
             $this->product->getNet()
         );
 
         $quantity = 11;
 
-        $this->product = new \Extcode\Cart\Domain\Model\Cart\Product(
+        $this->product = new Product(
             $this->productType,
             $this->productId,
             $this->sku,
@@ -1432,7 +1432,7 @@ class ProductTest extends UnitTestCase
         $this->product->setMinNumberInCart($minNumber);
         $this->product->setMaxNumberInCart($maxNumber);
 
-        $this->assertSame(
+        self::assertSame(
             0.0,
             $this->product->getNet()
         );
@@ -1441,13 +1441,13 @@ class ProductTest extends UnitTestCase
     /**
      * @test
      */
-    public function getTaxReturnsZeroIfNumberIsOutOfRange()
+    public function getTaxReturnsZeroIfNumberIsOutOfRange(): void
     {
         $minNumber = 5;
         $maxNumber = 10;
         $quantity = 4;
 
-        $this->product = new \Extcode\Cart\Domain\Model\Cart\Product(
+        $this->product = new Product(
             $this->productType,
             $this->productId,
             $this->sku,
@@ -1460,14 +1460,14 @@ class ProductTest extends UnitTestCase
         $this->product->setMinNumberInCart($minNumber);
         $this->product->setMaxNumberInCart($maxNumber);
 
-        $this->assertSame(
+        self::assertSame(
             0.0,
             $this->product->getTax()
         );
 
         $quantity = 11;
 
-        $this->product = new \Extcode\Cart\Domain\Model\Cart\Product(
+        $this->product = new Product(
             $this->productType,
             $this->productId,
             $this->sku,
@@ -1480,7 +1480,7 @@ class ProductTest extends UnitTestCase
         $this->product->setMinNumberInCart($minNumber);
         $this->product->setMaxNumberInCart($maxNumber);
 
-        $this->assertSame(
+        self::assertSame(
             0.0,
             $this->product->getTax()
         );
@@ -1489,9 +1489,9 @@ class ProductTest extends UnitTestCase
     /**
      * @test
      */
-    public function getIsVirtualProductInitiallyReturnsFalse()
+    public function getIsVirtualProductInitiallyReturnsFalse(): void
     {
-        $this->assertFalse(
+        self::assertFalse(
             $this->product->getIsVirtualProduct()
         );
     }
@@ -1499,11 +1499,11 @@ class ProductTest extends UnitTestCase
     /**
      * @test
      */
-    public function setIsVirtualProductSetsIsVirtualProduct()
+    public function setIsVirtualProductSetsIsVirtualProduct(): void
     {
         $this->product->setIsVirtualProduct(true);
 
-        $this->assertTrue(
+        self::assertTrue(
             $this->product->getIsVirtualProduct()
         );
     }

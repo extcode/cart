@@ -9,36 +9,34 @@ namespace Extcode\Cart\Tests\Unit\Domain\Model\Order;
  * LICENSE file that was distributed with this source code.
  */
 
+use Extcode\Cart\Domain\Model\Order\Tax;
+use Extcode\Cart\Domain\Model\Order\TaxClass;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 class TaxTest extends UnitTestCase
 {
     /**
-     * @var \Extcode\Cart\Domain\Model\Order\Tax
+     * @var Tax
      */
-    protected $orderTax = null;
+    protected $orderTax;
 
     /**
-     * Tax
-     *
      * @var float
      */
     protected $tax;
 
     /**
-     * TaxClass
-     *
-     * @var \Extcode\Cart\Domain\Model\Order\TaxClass
+     * @var TaxClass
      */
     protected $taxClass;
 
     public function setUp(): void
     {
-        $this->taxClass = new \Extcode\Cart\Domain\Model\Order\TaxClass('normal', '19', 0.19);
+        $this->taxClass = new TaxClass('normal', '19', 0.19);
 
         $this->tax = 10.00;
 
-        $this->orderTax = new \Extcode\Cart\Domain\Model\Order\Tax(
+        $this->orderTax = new Tax(
             $this->tax,
             $this->taxClass
         );
@@ -47,11 +45,11 @@ class TaxTest extends UnitTestCase
     /**
      * @test
      */
-    public function constructTaxWithoutTaxThrowsException()
+    public function constructTaxWithoutTaxThrowsException(): void
     {
         $this->expectException(\TypeError::class);
 
-        new \Extcode\Cart\Domain\Model\Order\Tax(
+        new Tax(
             null,
             $this->taxClass
         );
@@ -60,11 +58,11 @@ class TaxTest extends UnitTestCase
     /**
      * @test
      */
-    public function constructTaxWithoutTaxClassThrowsException()
+    public function constructTaxWithoutTaxClassThrowsException(): void
     {
         $this->expectException(\TypeError::class);
 
-        new \Extcode\Cart\Domain\Model\Order\Tax(
+        new Tax(
             $this->tax,
             null
         );
@@ -73,9 +71,9 @@ class TaxTest extends UnitTestCase
     /**
      * @test
      */
-    public function getTaxInitiallyReturnsTaxSetDirectlyByConstructor()
+    public function getTaxInitiallyReturnsTaxSetDirectlyByConstructor(): void
     {
-        $this->assertSame(
+        self::assertSame(
             $this->tax,
             $this->orderTax->getTax()
         );
@@ -84,9 +82,9 @@ class TaxTest extends UnitTestCase
     /**
      * @test
      */
-    public function getTaxClassInitiallyReturnsTaxClassSetDirectlyByConstructor()
+    public function getTaxClassInitiallyReturnsTaxClassSetDirectlyByConstructor(): void
     {
-        $this->assertSame(
+        self::assertSame(
             $this->taxClass,
             $this->orderTax->getTaxClass()
         );

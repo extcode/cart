@@ -9,35 +9,39 @@ namespace Extcode\Cart\Tests\Unit\Domain\Model\Cart;
  * LICENSE file that was distributed with this source code.
  */
 
+use Extcode\Cart\Domain\Model\Cart\Cart;
+use Extcode\Cart\Domain\Model\Cart\CartCoupon;
+use Extcode\Cart\Domain\Model\Cart\Product;
+use Extcode\Cart\Domain\Model\Cart\TaxClass;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 class CartTest extends UnitTestCase
 {
 
     /**
-     * @var \Extcode\Cart\Domain\Model\Cart\Cart
+     * @var Cart
      */
-    protected $grossCart = null;
+    protected $grossCart;
 
     /**
-     * @var \Extcode\Cart\Domain\Model\Cart\Cart
+     * @var Cart
      */
-    protected $netCart = null;
+    protected $netCart;
 
     /**
-     * @var \Extcode\Cart\Domain\Model\Cart\TaxClass
+     * @var TaxClass
      */
-    protected $normalTaxClass = null;
+    protected $normalTaxClass;
 
     /**
-     * @var \Extcode\Cart\Domain\Model\Cart\TaxClass
+     * @var TaxClass
      */
-    protected $reducedTaxClass = null;
+    protected $reducedTaxClass;
 
     /**
-     * @var \Extcode\Cart\Domain\Model\Cart\TaxClass
+     * @var TaxClass
      */
-    protected $freeTaxClass = null;
+    protected $freeTaxClass;
 
     /**
      * @var array
@@ -46,9 +50,9 @@ class CartTest extends UnitTestCase
 
     public function setUp(): void
     {
-        $this->normalTaxClass = new \Extcode\Cart\Domain\Model\Cart\TaxClass(1, '19', 0.19, 'Normal');
-        $this->reducedTaxClass = new \Extcode\Cart\Domain\Model\Cart\TaxClass(2, '7%', 0.07, 'Reduced');
-        $this->freeTaxClass = new \Extcode\Cart\Domain\Model\Cart\TaxClass(3, '0%', 0.00, 'Free');
+        $this->normalTaxClass = new TaxClass(1, '19', 0.19, 'Normal');
+        $this->reducedTaxClass = new TaxClass(2, '7%', 0.07, 'Reduced');
+        $this->freeTaxClass = new TaxClass(3, '0%', 0.00, 'Free');
 
         $this->taxClasses = [
             1 => $this->normalTaxClass,
@@ -56,8 +60,8 @@ class CartTest extends UnitTestCase
             3 => $this->freeTaxClass
         ];
 
-        $this->grossCart = new \Extcode\Cart\Domain\Model\Cart\Cart($this->taxClasses, false);
-        $this->netCart = new \Extcode\Cart\Domain\Model\Cart\Cart($this->taxClasses, true);
+        $this->grossCart = new Cart($this->taxClasses, false);
+        $this->netCart = new Cart($this->taxClasses, true);
     }
 
     public function tearDown(): void
@@ -75,14 +79,14 @@ class CartTest extends UnitTestCase
     /**
      * @test
      */
-    public function getNetInitiallyReturnsZero()
+    public function getNetInitiallyReturnsZero(): void
     {
-        $this->assertSame(
+        self::assertSame(
             0.0,
             $this->grossCart->getNet()
         );
 
-        $this->assertSame(
+        self::assertSame(
             0.0,
             $this->netCart->getNet()
         );
@@ -91,14 +95,14 @@ class CartTest extends UnitTestCase
     /**
      * @test
      */
-    public function getSubtotalNetInitiallyReturnsZero()
+    public function getSubtotalNetInitiallyReturnsZero(): void
     {
-        $this->assertSame(
+        self::assertSame(
             0.0,
             $this->grossCart->getSubtotalNet()
         );
 
-        $this->assertSame(
+        self::assertSame(
             0.0,
             $this->netCart->getSubtotalNet()
         );
@@ -107,14 +111,14 @@ class CartTest extends UnitTestCase
     /**
      * @test
      */
-    public function getTotalNetInitiallyReturnsZero()
+    public function getTotalNetInitiallyReturnsZero(): void
     {
-        $this->assertSame(
+        self::assertSame(
             0.0,
             $this->grossCart->getTotalNet()
         );
 
-        $this->assertSame(
+        self::assertSame(
             0.0,
             $this->netCart->getTotalNet()
         );
@@ -123,14 +127,14 @@ class CartTest extends UnitTestCase
     /**
      * @test
      */
-    public function getGrossInitiallyReturnsZero()
+    public function getGrossInitiallyReturnsZero(): void
     {
-        $this->assertSame(
+        self::assertSame(
             0.0,
             $this->grossCart->getGross()
         );
 
-        $this->assertSame(
+        self::assertSame(
             0.0,
             $this->netCart->getGross()
         );
@@ -139,14 +143,14 @@ class CartTest extends UnitTestCase
     /**
      * @test
      */
-    public function getTotalGrossInitiallyReturnsZero()
+    public function getTotalGrossInitiallyReturnsZero(): void
     {
-        $this->assertSame(
+        self::assertSame(
             0.0,
             $this->grossCart->getTotalGross()
         );
 
-        $this->assertSame(
+        self::assertSame(
             0.0,
             $this->netCart->getTotalGross()
         );
@@ -155,13 +159,13 @@ class CartTest extends UnitTestCase
     /**
      * @test
      */
-    public function getTaxesInitiallyReturnsEmptyArray()
+    public function getTaxesInitiallyReturnsEmptyArray(): void
     {
-        $this->assertEmpty(
+        self::assertEmpty(
             $this->grossCart->getTaxes()
         );
 
-        $this->assertEmpty(
+        self::assertEmpty(
             $this->netCart->getTaxes()
         );
     }
@@ -169,13 +173,13 @@ class CartTest extends UnitTestCase
     /**
      * @test
      */
-    public function getCouponTaxesInitiallyReturnsEmptyArray()
+    public function getCouponTaxesInitiallyReturnsEmptyArray(): void
     {
-        $this->assertEmpty(
+        self::assertEmpty(
             $this->grossCart->getCouponTaxes()
         );
 
-        $this->assertEmpty(
+        self::assertEmpty(
             $this->netCart->getCouponTaxes()
         );
     }
@@ -183,13 +187,13 @@ class CartTest extends UnitTestCase
     /**
      * @test
      */
-    public function getSubtotalTaxesInitiallyReturnsEmptyArray()
+    public function getSubtotalTaxesInitiallyReturnsEmptyArray(): void
     {
-        $this->assertEmpty(
+        self::assertEmpty(
             $this->grossCart->getSubtotalTaxes()
         );
 
-        $this->assertEmpty(
+        self::assertEmpty(
             $this->netCart->getSubtotalTaxes()
         );
     }
@@ -197,13 +201,13 @@ class CartTest extends UnitTestCase
     /**
      * @test
      */
-    public function getTotalTaxesInitiallyReturnsEmptyArray()
+    public function getTotalTaxesInitiallyReturnsEmptyArray(): void
     {
-        $this->assertEmpty(
+        self::assertEmpty(
             $this->grossCart->getTotalTaxes()
         );
 
-        $this->assertEmpty(
+        self::assertEmpty(
             $this->netCart->getTotalTaxes()
         );
     }
@@ -211,9 +215,9 @@ class CartTest extends UnitTestCase
     /**
      * @test
      */
-    public function getCountInitiallyReturnsZero()
+    public function getCountInitiallyReturnsZero(): void
     {
-        $this->assertSame(
+        self::assertSame(
             0,
             $this->grossCart->getCount()
         );
@@ -222,9 +226,9 @@ class CartTest extends UnitTestCase
     /**
      * @test
      */
-    public function getCountPhysicalProductsInitiallyReturnsZero()
+    public function getCountPhysicalProductsInitiallyReturnsZero(): void
     {
-        $this->assertSame(
+        self::assertSame(
             0,
             $this->grossCart->getCountPhysicalProducts()
         );
@@ -233,9 +237,9 @@ class CartTest extends UnitTestCase
     /**
      * @test
      */
-    public function getCountVirtualProductsInitiallyReturnsZero()
+    public function getCountVirtualProductsInitiallyReturnsZero(): void
     {
-        $this->assertSame(
+        self::assertSame(
             0,
             $this->grossCart->getCountVirtualProducts()
         );
@@ -244,9 +248,9 @@ class CartTest extends UnitTestCase
     /**
      * @test
      */
-    public function getProductsInitiallyReturnsEmptyArray()
+    public function getProductsInitiallyReturnsEmptyArray(): void
     {
-        $this->assertCount(
+        self::assertCount(
             0,
             $this->grossCart->getProducts()
         );
@@ -255,11 +259,11 @@ class CartTest extends UnitTestCase
     /**
      * @test
      */
-    public function setInitiallyOrderNumberSetsOrderNumber()
+    public function setInitiallyOrderNumberSetsOrderNumber(): void
     {
         $this->grossCart->setOrderNumber('ValidOrderNumber');
 
-        $this->assertSame(
+        self::assertSame(
             'ValidOrderNumber',
             $this->grossCart->getOrderNumber()
         );
@@ -268,13 +272,13 @@ class CartTest extends UnitTestCase
     /**
      * @test
      */
-    public function resetSameOrderNumberSetsOrderNumber()
+    public function resetSameOrderNumberSetsOrderNumber(): void
     {
         $this->grossCart->setOrderNumber('ValidOrderNumber');
 
         $this->grossCart->setOrderNumber('ValidOrderNumber');
 
-        $this->assertSame(
+        self::assertSame(
             'ValidOrderNumber',
             $this->grossCart->getOrderNumber()
         );
@@ -283,7 +287,7 @@ class CartTest extends UnitTestCase
     /**
      * @test
      */
-    public function resetDifferentOrderNumberThrowsException()
+    public function resetDifferentOrderNumberThrowsException(): void
     {
         $this->grossCart->setOrderNumber('ValidOrderNumber');
 
@@ -299,11 +303,11 @@ class CartTest extends UnitTestCase
     /**
      * @test
      */
-    public function setInitiallyInvoiceNumberSetsInvoiceNumber()
+    public function setInitiallyInvoiceNumberSetsInvoiceNumber(): void
     {
         $this->grossCart->setInvoiceNumber('ValidInvoiceNumber');
 
-        $this->assertSame(
+        self::assertSame(
             'ValidInvoiceNumber',
             $this->grossCart->getInvoiceNumber()
         );
@@ -312,13 +316,13 @@ class CartTest extends UnitTestCase
     /**
      * @test
      */
-    public function resetSameInvoiceNumberSetsInvoiceNumber()
+    public function resetSameInvoiceNumberSetsInvoiceNumber(): void
     {
         $this->grossCart->setInvoiceNumber('ValidInvoiceNumber');
 
         $this->grossCart->setInvoiceNumber('ValidInvoiceNumber');
 
-        $this->assertSame(
+        self::assertSame(
             'ValidInvoiceNumber',
             $this->grossCart->getInvoiceNumber()
         );
@@ -327,7 +331,7 @@ class CartTest extends UnitTestCase
     /**
      * @test
      */
-    public function resetDifferentInvoiceNumberThrowsException()
+    public function resetDifferentInvoiceNumberThrowsException(): void
     {
         $this->grossCart->setInvoiceNumber('ValidInvoiceNumber');
 
@@ -343,9 +347,9 @@ class CartTest extends UnitTestCase
     /**
      * @test
      */
-    public function addFirstCartProductToCartChangeCountOfProducts()
+    public function addFirstCartProductToCartChangeCountOfProducts(): void
     {
-        $product = new \Extcode\Cart\Domain\Model\Cart\Product(
+        $product = new Product(
             'simple',
             1,
             'SKU',
@@ -358,7 +362,7 @@ class CartTest extends UnitTestCase
 
         $this->grossCart->addProduct($product);
 
-        $this->assertSame(
+        self::assertSame(
             1,
             $this->grossCart->getCount()
         );
@@ -367,9 +371,9 @@ class CartTest extends UnitTestCase
     /**
      * @test
      */
-    public function addFirstPhysicalCartProductToCartChangeCountOfPhysicalProducts()
+    public function addFirstPhysicalCartProductToCartChangeCountOfPhysicalProducts(): void
     {
-        $product = new \Extcode\Cart\Domain\Model\Cart\Product(
+        $product = new Product(
             'simple',
             1,
             'SKU',
@@ -382,12 +386,12 @@ class CartTest extends UnitTestCase
 
         $this->grossCart->addProduct($product);
 
-        $this->assertSame(
+        self::assertSame(
             1,
             $this->grossCart->getCountPhysicalProducts()
         );
 
-        $this->assertSame(
+        self::assertSame(
             0,
             $this->grossCart->getCountVirtualProducts()
         );
@@ -396,9 +400,9 @@ class CartTest extends UnitTestCase
     /**
      * @test
      */
-    public function addFirstVirtualCartProductToCartChangeCountOfVirtualProducts()
+    public function addFirstVirtualCartProductToCartChangeCountOfVirtualProducts(): void
     {
-        $product = new \Extcode\Cart\Domain\Model\Cart\Product(
+        $product = new Product(
             'simple',
             1,
             'SKU',
@@ -412,12 +416,12 @@ class CartTest extends UnitTestCase
 
         $this->grossCart->addProduct($product);
 
-        $this->assertSame(
+        self::assertSame(
             0,
             $this->grossCart->getCountPhysicalProducts()
         );
 
-        $this->assertSame(
+        self::assertSame(
             1,
             $this->grossCart->getCountVirtualProducts()
         );
@@ -428,10 +432,10 @@ class CartTest extends UnitTestCase
     /**
      * @test
      */
-    public function addFirstGrossCartProductToGrossCartChangeNetOfCart()
+    public function addFirstGrossCartProductToGrossCartChangeNetOfCart(): void
     {
         $productPrice = 10.00;
-        $grossProduct = new \Extcode\Cart\Domain\Model\Cart\Product(
+        $grossProduct = new Product(
             'simple',
             1,
             'SKU',
@@ -444,7 +448,7 @@ class CartTest extends UnitTestCase
 
         $this->grossCart->addProduct($grossProduct);
 
-        $this->assertSame(
+        self::assertSame(
             $productPrice / (1 + $this->normalTaxClass->getCalc()),
             $this->grossCart->getNet()
         );
@@ -453,10 +457,10 @@ class CartTest extends UnitTestCase
     /**
      * @test
      */
-    public function addFirstNetCartProductToNetCartChangeNetOfCart()
+    public function addFirstNetCartProductToNetCartChangeNetOfCart(): void
     {
         $productPrice = 10.00;
-        $netProduct = new \Extcode\Cart\Domain\Model\Cart\Product(
+        $netProduct = new Product(
             'simple',
             1,
             'SKU',
@@ -469,7 +473,7 @@ class CartTest extends UnitTestCase
 
         $this->netCart->addProduct($netProduct);
 
-        $this->assertSame(
+        self::assertSame(
             $productPrice,
             $this->netCart->getNet()
         );
@@ -478,10 +482,10 @@ class CartTest extends UnitTestCase
     /**
      * @test
      */
-    public function addFirstGrossCartProductToNetCartChangeNetOfCart()
+    public function addFirstGrossCartProductToNetCartChangeNetOfCart(): void
     {
         $productPrice = 10.00;
-        $grossProduct = new \Extcode\Cart\Domain\Model\Cart\Product(
+        $grossProduct = new Product(
             'simple',
             1,
             'SKU',
@@ -494,7 +498,7 @@ class CartTest extends UnitTestCase
 
         $this->netCart->addProduct($grossProduct);
 
-        $this->assertSame(
+        self::assertSame(
             $productPrice / (1 + $this->normalTaxClass->getCalc()),
             $this->netCart->getNet()
         );
@@ -503,10 +507,10 @@ class CartTest extends UnitTestCase
     /**
      * @test
      */
-    public function addFirstNetCartProductToGrossCartChangeNetOfCart()
+    public function addFirstNetCartProductToGrossCartChangeNetOfCart(): void
     {
         $productPrice = 10.00;
-        $netProduct = new \Extcode\Cart\Domain\Model\Cart\Product(
+        $netProduct = new Product(
             'simple',
             1,
             'SKU',
@@ -519,7 +523,7 @@ class CartTest extends UnitTestCase
 
         $this->grossCart->addProduct($netProduct);
 
-        $this->assertSame(
+        self::assertSame(
             $productPrice,
             $this->grossCart->getNet()
         );
@@ -530,10 +534,10 @@ class CartTest extends UnitTestCase
     /**
      * @test
      */
-    public function addFirstGrossCartProductToGrossCartChangeGrossOfCart()
+    public function addFirstGrossCartProductToGrossCartChangeGrossOfCart(): void
     {
         $productPrice = 10.00;
-        $grossProduct = new \Extcode\Cart\Domain\Model\Cart\Product(
+        $grossProduct = new Product(
             'simple',
             1,
             'SKU',
@@ -546,7 +550,7 @@ class CartTest extends UnitTestCase
 
         $this->grossCart->addProduct($grossProduct);
 
-        $this->assertSame(
+        self::assertSame(
             $productPrice,
             $this->grossCart->getGross()
         );
@@ -555,10 +559,10 @@ class CartTest extends UnitTestCase
     /**
      * @test
      */
-    public function addFirstNetCartProductToNetCartChangeGrossOfCart()
+    public function addFirstNetCartProductToNetCartChangeGrossOfCart(): void
     {
         $productPrice = 10.00;
-        $netProduct = new \Extcode\Cart\Domain\Model\Cart\Product(
+        $netProduct = new Product(
             'simple',
             1,
             'SKU',
@@ -571,7 +575,7 @@ class CartTest extends UnitTestCase
 
         $this->netCart->addProduct($netProduct);
 
-        $this->assertSame(
+        self::assertSame(
             $productPrice * (1 + $this->normalTaxClass->getCalc()),
             $this->netCart->getGross()
         );
@@ -580,10 +584,10 @@ class CartTest extends UnitTestCase
     /**
      * @test
      */
-    public function addFirstGrossCartProductToNetCartChangeGrossOfCart()
+    public function addFirstGrossCartProductToNetCartChangeGrossOfCart(): void
     {
         $productPrice = 10.00;
-        $grossProduct = new \Extcode\Cart\Domain\Model\Cart\Product(
+        $grossProduct = new Product(
             'simple',
             1,
             'SKU',
@@ -596,7 +600,7 @@ class CartTest extends UnitTestCase
 
         $this->netCart->addProduct($grossProduct);
 
-        $this->assertSame(
+        self::assertSame(
             $productPrice,
             $this->netCart->getGross()
         );
@@ -605,10 +609,10 @@ class CartTest extends UnitTestCase
     /**
      * @test
      */
-    public function addFirstNetCartProductToGrossCartChangeGrossOfCart()
+    public function addFirstNetCartProductToGrossCartChangeGrossOfCart(): void
     {
         $productPrice = 10.00;
-        $netProduct = new \Extcode\Cart\Domain\Model\Cart\Product(
+        $netProduct = new Product(
             'simple',
             1,
             'SKU',
@@ -621,7 +625,7 @@ class CartTest extends UnitTestCase
 
         $this->grossCart->addProduct($netProduct);
 
-        $this->assertSame(
+        self::assertSame(
             $productPrice * (1 + $this->normalTaxClass->getCalc()),
             $this->grossCart->getGross()
         );
@@ -630,11 +634,11 @@ class CartTest extends UnitTestCase
     /**
      * @test
      */
-    public function addFirstCartProductToCartChangeTaxArray()
+    public function addFirstCartProductToCartChangeTaxArray(): void
     {
         $taxId = 1;
         $productPrice = 10.00;
-        $product = new \Extcode\Cart\Domain\Model\Cart\Product(
+        $product = new Product(
             'simple',
             1,
             'SKU',
@@ -649,7 +653,7 @@ class CartTest extends UnitTestCase
 
         $cartTaxes = $this->grossCart->getTaxes();
 
-        $this->assertSame(
+        self::assertSame(
             $productPrice - ($productPrice / (1 + $this->normalTaxClass->getCalc())),
             $cartTaxes[$taxId]
         );
@@ -658,10 +662,10 @@ class CartTest extends UnitTestCase
     /**
      * @test
      */
-    public function addSecondCartProductWithSameTaxClassToCartChangeTaxArray()
+    public function addSecondCartProductWithSameTaxClassToCartChangeTaxArray(): void
     {
         $firstCartProductPrice = 10.00;
-        $firstCartProduct = new \Extcode\Cart\Domain\Model\Cart\Product(
+        $firstCartProduct = new Product(
             'simple',
             1,
             'SKU 1',
@@ -674,7 +678,7 @@ class CartTest extends UnitTestCase
         $this->grossCart->addProduct($firstCartProduct);
 
         $secondCartProductPrice = 20.00;
-        $secondCartProduct = new \Extcode\Cart\Domain\Model\Cart\Product(
+        $secondCartProduct = new Product(
             'simple',
             2,
             'SKU 2',
@@ -688,7 +692,7 @@ class CartTest extends UnitTestCase
 
         $cartTaxes = $this->grossCart->getTaxes();
 
-        $this->assertSame(
+        self::assertSame(
             ($firstCartProductPrice + $secondCartProductPrice) - (($firstCartProductPrice + $secondCartProductPrice) / (1 + $this->normalTaxClass->getCalc())),
             $cartTaxes[$this->normalTaxClass->getId()]
         );
@@ -697,10 +701,10 @@ class CartTest extends UnitTestCase
     /**
      * @test
      */
-    public function addSecondCartProductWithDifferentTaxClassToCartChangeTaxArray()
+    public function addSecondCartProductWithDifferentTaxClassToCartChangeTaxArray(): void
     {
         $firstCartProductPrice = 10.00;
-        $firstCartProduct = new \Extcode\Cart\Domain\Model\Cart\Product(
+        $firstCartProduct = new Product(
             'simple',
             1,
             'SKU 1',
@@ -713,7 +717,7 @@ class CartTest extends UnitTestCase
         $this->grossCart->addProduct($firstCartProduct);
 
         $secondCartProductPrice = 20.00;
-        $secondCartProduct = new \Extcode\Cart\Domain\Model\Cart\Product(
+        $secondCartProduct = new Product(
             'simple',
             2,
             'SKU 2',
@@ -727,11 +731,11 @@ class CartTest extends UnitTestCase
 
         $cartTaxes = $this->grossCart->getTaxes();
 
-        $this->assertSame(
+        self::assertSame(
             $firstCartProductPrice - ($firstCartProductPrice / (1 + $this->normalTaxClass->getCalc())),
             $cartTaxes[$this->normalTaxClass->getId()]
         );
-        $this->assertSame(
+        self::assertSame(
             $secondCartProductPrice - ($secondCartProductPrice / (1 + $this->reducedTaxClass->getCalc())),
             $cartTaxes[$this->reducedTaxClass->getId()]
         );
@@ -740,9 +744,9 @@ class CartTest extends UnitTestCase
     /**
      * @test
      */
-    public function isOrderableOfEmptyCartReturnsFalse()
+    public function isOrderableOfEmptyCartReturnsFalse(): void
     {
-        $this->assertFalse(
+        self::assertFalse(
             $this->grossCart->getIsOrderable()
         );
     }
@@ -750,12 +754,12 @@ class CartTest extends UnitTestCase
     /**
      * @test
      */
-    public function isOrderableOfCartReturnsTrueWhenProductNumberIsInRangeForAllProducts()
+    public function isOrderableOfCartReturnsTrueWhenProductNumberIsInRangeForAllProducts(): void
     {
-        $taxClass = new \Extcode\Cart\Domain\Model\Cart\TaxClass(1, '19', 0.19, 'normal');
+        $taxClass = new TaxClass(1, '19', 0.19, 'normal');
 
-        $product = $this->getMockBuilder(\Extcode\Cart\Domain\Model\Cart\Product::class)
-            ->setMethods(['getBestPrice', 'getId', 'getQuantityIsInRange'])
+        $product = $this->getMockBuilder(Product::class)
+            ->onlyMethods(['getBestPrice', 'getId', 'getQuantityIsInRange'])
             ->setConstructorArgs(
                 [
                     'Cart',
@@ -767,14 +771,14 @@ class CartTest extends UnitTestCase
                     1,
                 ]
             )->getMock();
-        $product->expects($this->any())->method('getBestPrice')->will($this->returnValue(10.00));
-        $product->expects($this->any())->method('getId')->will($this->returnValue('simple_1'));
-        $product->expects($this->any())->method('getQuantityIsInRange')->will($this->returnValue(true));
+        $product->method('getBestPrice')->willReturn(10.00);
+        $product->method('getId')->willReturn('simple_1');
+        $product->method('getQuantityIsInRange')->willReturn(true);
 
         $this->grossCart->addProduct($product);
 
-        $product = $this->getMockBuilder(\Extcode\Cart\Domain\Model\Cart\Product::class)
-            ->setMethods(['getBestPrice', 'getId', 'getQuantityIsInRange'])
+        $product = $this->getMockBuilder(Product::class)
+            ->onlyMethods(['getBestPrice', 'getId', 'getQuantityIsInRange'])
             ->setConstructorArgs(
                 [
                     'Cart',
@@ -786,14 +790,14 @@ class CartTest extends UnitTestCase
                     1,
                 ]
             )->getMock();
-        $product->expects($this->any())->method('getBestPrice')->will($this->returnValue(10.00));
-        $product->expects($this->any())->method('getId')->will($this->returnValue('simple_2'));
-        $product->expects($this->any())->method('getQuantityIsInRange')->will($this->returnValue(true));
+        $product->method('getBestPrice')->willReturn(10.00);
+        $product->method('getId')->willReturn('simple_2');
+        $product->method('getQuantityIsInRange')->willReturn(true);
 
         $this->grossCart->addProduct($product);
 
-        $product = $this->getMockBuilder(\Extcode\Cart\Domain\Model\Cart\Product::class)
-            ->setMethods(['getBestPrice', 'getId', 'getQuantityIsInRange'])
+        $product = $this->getMockBuilder(Product::class)
+            ->onlyMethods(['getBestPrice', 'getId', 'getQuantityIsInRange'])
             ->setConstructorArgs(
                 [
                     'Cart',
@@ -805,13 +809,13 @@ class CartTest extends UnitTestCase
                     1,
                 ]
             )->getMock();
-        $product->expects($this->any())->method('getBestPrice')->will($this->returnValue(10.00));
-        $product->expects($this->any())->method('getId')->will($this->returnValue('simple_3'));
-        $product->expects($this->any())->method('getQuantityIsInRange')->will($this->returnValue(true));
+        $product->method('getBestPrice')->willReturn(10.00);
+        $product->method('getId')->willReturn('simple_3');
+        $product->method('getQuantityIsInRange')->willReturn(true);
 
         $this->grossCart->addProduct($product);
 
-        $this->assertTrue(
+        self::assertTrue(
             $this->grossCart->getIsOrderable()
         );
     }
@@ -819,12 +823,12 @@ class CartTest extends UnitTestCase
     /**
      * @test
      */
-    public function isOrderableOfCartReturnsFalseWhenProductNumberIsNotInRangeForOneProduct()
+    public function isOrderableOfCartReturnsFalseWhenProductNumberIsNotInRangeForOneProduct(): void
     {
-        $taxClass = new \Extcode\Cart\Domain\Model\Cart\TaxClass(1, '19', 0.19, 'normal');
+        $taxClass = new TaxClass(1, '19', 0.19, 'normal');
 
-        $product = $this->getMockBuilder(\Extcode\Cart\Domain\Model\Cart\Product::class)
-            ->setMethods(['getBestPrice', 'getId', 'getQuantityIsInRange'])
+        $product = $this->getMockBuilder(Product::class)
+            ->onlyMethods(['getBestPrice', 'getId', 'getQuantityIsInRange'])
             ->setConstructorArgs(
                 [
                     'Cart',
@@ -836,14 +840,14 @@ class CartTest extends UnitTestCase
                     1,
                 ]
             )->getMock();
-        $product->expects($this->any())->method('getBestPrice')->will($this->returnValue(10.00));
-        $product->expects($this->any())->method('getId')->will($this->returnValue('simple_1'));
-        $product->expects($this->any())->method('getQuantityIsInRange')->will($this->returnValue(true));
+        $product->method('getBestPrice')->willReturn(10.00);
+        $product->method('getId')->willReturn('simple_1');
+        $product->method('getQuantityIsInRange')->willReturn(true);
 
         $this->grossCart->addProduct($product);
 
-        $product = $this->getMockBuilder(\Extcode\Cart\Domain\Model\Cart\Product::class)
-            ->setMethods(['getBestPrice', 'getId', 'getQuantityIsInRange'])
+        $product = $this->getMockBuilder(Product::class)
+            ->onlyMethods(['getBestPrice', 'getId', 'getQuantityIsInRange'])
             ->setConstructorArgs(
                 [
                     'Cart',
@@ -855,14 +859,14 @@ class CartTest extends UnitTestCase
                     1,
                 ]
             )->getMock();
-        $product->expects($this->any())->method('getBestPrice')->will($this->returnValue(10.00));
-        $product->expects($this->any())->method('getId')->will($this->returnValue('simple_2'));
-        $product->expects($this->any())->method('getQuantityIsInRange')->will($this->returnValue(false));
+        $product->method('getBestPrice')->willReturn(10.00);
+        $product->method('getId')->willReturn('simple_2');
+        $product->method('getQuantityIsInRange')->willReturn(false);
 
         $this->grossCart->addProduct($product);
 
-        $product = $this->getMockBuilder(\Extcode\Cart\Domain\Model\Cart\Product::class)
-            ->setMethods(['getBestPrice', 'getId', 'getQuantityIsInRange'])
+        $product = $this->getMockBuilder(Product::class)
+            ->onlyMethods(['getBestPrice', 'getId', 'getQuantityIsInRange'])
             ->setConstructorArgs(
                 [
                     'Cart',
@@ -874,13 +878,13 @@ class CartTest extends UnitTestCase
                     1,
                 ]
             )->getMock();
-        $product->expects($this->any())->method('getBestPrice')->will($this->returnValue(10.00));
-        $product->expects($this->any())->method('getId')->will($this->returnValue('simple_3'));
-        $product->expects($this->any())->method('getQuantityIsInRange')->will($this->returnValue(true));
+        $product->method('getBestPrice')->willReturn(10.00);
+        $product->method('getId')->willReturn('simple_3');
+        $product->method('getQuantityIsInRange')->willReturn(true);
 
         $this->grossCart->addProduct($product);
 
-        $this->assertFalse(
+        self::assertFalse(
             $this->grossCart->getIsOrderable()
         );
     }
@@ -888,13 +892,13 @@ class CartTest extends UnitTestCase
     /**
      * @test
      */
-    public function getCouponsInitiallyReturnsEmptyArray()
+    public function getCouponsInitiallyReturnsEmptyArray(): void
     {
-        $this->assertEmpty(
+        self::assertEmpty(
             $this->grossCart->getCoupons()
         );
 
-        $this->assertEmpty(
+        self::assertEmpty(
             $this->netCart->getCoupons()
         );
     }
@@ -902,9 +906,9 @@ class CartTest extends UnitTestCase
     /**
      * @test
      */
-    public function addCouponAddsNewCoupon()
+    public function addCouponAddsNewCoupon(): void
     {
-        $coupon = new \Extcode\Cart\Domain\Model\Cart\CartCoupon(
+        $coupon = new CartCoupon(
             'CouponTitle',
             'CouponCode',
             'CouponType',
@@ -914,13 +918,13 @@ class CartTest extends UnitTestCase
         );
 
         $this->grossCart->addCoupon($coupon);
-        $this->assertCount(
+        self::assertCount(
             1,
             $this->grossCart->getCoupons()
         );
 
         $this->netCart->addCoupon($coupon);
-        $this->assertCount(
+        self::assertCount(
             1,
             $this->netCart->getCoupons()
         );
@@ -929,9 +933,9 @@ class CartTest extends UnitTestCase
     /**
      * @test
      */
-    public function addSameCouponReturnsReturnCodeOne()
+    public function addSameCouponReturnsReturnCodeOne(): void
     {
-        $coupon = new \Extcode\Cart\Domain\Model\Cart\CartCoupon(
+        $coupon = new CartCoupon(
             'CouponTitle',
             'CouponCode',
             'CouponType',
@@ -940,12 +944,12 @@ class CartTest extends UnitTestCase
             0.00
         );
 
-        $this->assertSame(
+        self::assertSame(
             1,
             $this->grossCart->addCoupon($coupon)
         );
 
-        $this->assertSame(
+        self::assertSame(
             1,
             $this->netCart->addCoupon($coupon)
         );
@@ -954,9 +958,9 @@ class CartTest extends UnitTestCase
     /**
      * @test
      */
-    public function addSameCouponDoesNotChangeCouponNumberInCart()
+    public function addSameCouponDoesNotChangeCouponNumberInCart(): void
     {
-        $coupon = new \Extcode\Cart\Domain\Model\Cart\CartCoupon(
+        $coupon = new CartCoupon(
             'CouponTitle',
             'CouponCode',
             'CouponType',
@@ -967,14 +971,14 @@ class CartTest extends UnitTestCase
 
         $this->grossCart->addCoupon($coupon);
         $this->grossCart->addCoupon($coupon);
-        $this->assertCount(
+        self::assertCount(
             1,
             $this->grossCart->getCoupons()
         );
 
         $this->netCart->addCoupon($coupon);
         $this->netCart->addCoupon($coupon);
-        $this->assertCount(
+        self::assertCount(
             1,
             $this->netCart->getCoupons()
         );
@@ -983,9 +987,9 @@ class CartTest extends UnitTestCase
     /**
      * @test
      */
-    public function addSameCouponReturnsErrorCodeMinusOne()
+    public function addSameCouponReturnsErrorCodeMinusOne(): void
     {
-        $coupon = new \Extcode\Cart\Domain\Model\Cart\CartCoupon(
+        $coupon = new CartCoupon(
             'CouponTitle',
             'CouponCode',
             'CouponType',
@@ -995,13 +999,13 @@ class CartTest extends UnitTestCase
         );
 
         $this->grossCart->addCoupon($coupon);
-        $this->assertSame(
+        self::assertSame(
             -1,
             $this->grossCart->addCoupon($coupon)
         );
 
         $this->netCart->addCoupon($coupon);
-        $this->assertSame(
+        self::assertSame(
             -1,
             $this->netCart->addCoupon($coupon)
         );
@@ -1010,9 +1014,9 @@ class CartTest extends UnitTestCase
     /**
      * @test
      */
-    public function addSecondNotCombinableCouponDoesNotChangeCouponNumberInCart()
+    public function addSecondNotCombinableCouponDoesNotChangeCouponNumberInCart(): void
     {
-        $firstCoupon = new \Extcode\Cart\Domain\Model\Cart\CartCoupon(
+        $firstCoupon = new CartCoupon(
             'FirstCouponTitle',
             'FirstCouponCode',
             'FirstCouponType',
@@ -1021,7 +1025,7 @@ class CartTest extends UnitTestCase
             0.00
         );
 
-        $secondCoupon = new \Extcode\Cart\Domain\Model\Cart\CartCoupon(
+        $secondCoupon = new CartCoupon(
             'SecondCouponTitle',
             'SecondCouponCode',
             'FirstCouponType',
@@ -1032,14 +1036,14 @@ class CartTest extends UnitTestCase
 
         $this->grossCart->addCoupon($firstCoupon);
         $this->grossCart->addCoupon($secondCoupon);
-        $this->assertCount(
+        self::assertCount(
             1,
             $this->grossCart->getCoupons()
         );
 
         $this->netCart->addCoupon($firstCoupon);
         $this->netCart->addCoupon($secondCoupon);
-        $this->assertCount(
+        self::assertCount(
             1,
             $this->netCart->getCoupons()
         );
@@ -1048,9 +1052,9 @@ class CartTest extends UnitTestCase
     /**
      * @test
      */
-    public function addSecondNotCombinableCouponReturnsReturnErrorCodeMinusTwo()
+    public function addSecondNotCombinableCouponReturnsReturnErrorCodeMinusTwo(): void
     {
-        $firstCoupon = new \Extcode\Cart\Domain\Model\Cart\CartCoupon(
+        $firstCoupon = new CartCoupon(
             'FirstCouponTitle',
             'FirstCouponCode',
             'FirstCouponType',
@@ -1059,7 +1063,7 @@ class CartTest extends UnitTestCase
             0.00
         );
 
-        $secondCoupon = new \Extcode\Cart\Domain\Model\Cart\CartCoupon(
+        $secondCoupon = new CartCoupon(
             'SecondCouponTitle',
             'SecondCouponCode',
             'FirstCouponType',
@@ -1069,13 +1073,13 @@ class CartTest extends UnitTestCase
         );
 
         $this->grossCart->addCoupon($firstCoupon);
-        $this->assertSame(
+        self::assertSame(
             -2,
             $this->grossCart->addCoupon($secondCoupon)
         );
 
         $this->netCart->addCoupon($firstCoupon);
-        $this->assertSame(
+        self::assertSame(
             -2,
             $this->netCart->addCoupon($secondCoupon)
         );
@@ -1084,9 +1088,9 @@ class CartTest extends UnitTestCase
     /**
      * @test
      */
-    public function addSecondCombinableCouponToNotCombinableCouponsDoesNotChangeCouponNumberInCart()
+    public function addSecondCombinableCouponToNotCombinableCouponsDoesNotChangeCouponNumberInCart(): void
     {
-        $firstCoupon = new \Extcode\Cart\Domain\Model\Cart\CartCoupon(
+        $firstCoupon = new CartCoupon(
             'FirstCouponTitle',
             'FirstCouponCode',
             'FirstCouponType',
@@ -1096,7 +1100,7 @@ class CartTest extends UnitTestCase
             false
         );
 
-        $secondCoupon = new \Extcode\Cart\Domain\Model\Cart\CartCoupon(
+        $secondCoupon = new CartCoupon(
             'SecondCouponTitle',
             'SecondCouponCode',
             'FirstCouponType',
@@ -1108,14 +1112,14 @@ class CartTest extends UnitTestCase
 
         $this->grossCart->addCoupon($firstCoupon);
         $this->grossCart->addCoupon($secondCoupon);
-        $this->assertCount(
+        self::assertCount(
             1,
             $this->grossCart->getCoupons()
         );
 
         $this->netCart->addCoupon($firstCoupon);
         $this->netCart->addCoupon($secondCoupon);
-        $this->assertCount(
+        self::assertCount(
             1,
             $this->netCart->getCoupons()
         );
@@ -1124,9 +1128,9 @@ class CartTest extends UnitTestCase
     /**
      * @test
      */
-    public function addSecondCombinableCouponToNotCombinableCouponsReturnsReturnErrorCodeMinusTwo()
+    public function addSecondCombinableCouponToNotCombinableCouponsReturnsReturnErrorCodeMinusTwo(): void
     {
-        $firstCoupon = new \Extcode\Cart\Domain\Model\Cart\CartCoupon(
+        $firstCoupon = new CartCoupon(
             'FirstCouponTitle',
             'FirstCouponCode',
             'FirstCouponType',
@@ -1136,7 +1140,7 @@ class CartTest extends UnitTestCase
             false
         );
 
-        $secondCoupon = new \Extcode\Cart\Domain\Model\Cart\CartCoupon(
+        $secondCoupon = new CartCoupon(
             'SecondCouponTitle',
             'SecondCouponCode',
             'FirstCouponType',
@@ -1147,13 +1151,13 @@ class CartTest extends UnitTestCase
         );
 
         $this->grossCart->addCoupon($firstCoupon);
-        $this->assertSame(
+        self::assertSame(
             -2,
             $this->grossCart->addCoupon($secondCoupon)
         );
 
         $this->netCart->addCoupon($firstCoupon);
-        $this->assertSame(
+        self::assertSame(
             -2,
             $this->netCart->addCoupon($secondCoupon)
         );
@@ -1162,9 +1166,9 @@ class CartTest extends UnitTestCase
     /**
      * @test
      */
-    public function addSecondCombinableCouponAddsCoupon()
+    public function addSecondCombinableCouponAddsCoupon(): void
     {
-        $firstCoupon = new \Extcode\Cart\Domain\Model\Cart\CartCoupon(
+        $firstCoupon = new CartCoupon(
             'FirstCouponTitle',
             'FirstCouponCode',
             'FirstCouponType',
@@ -1174,7 +1178,7 @@ class CartTest extends UnitTestCase
             true
         );
 
-        $secondCoupon = new \Extcode\Cart\Domain\Model\Cart\CartCoupon(
+        $secondCoupon = new CartCoupon(
             'SecondCouponTitle',
             'SecondCouponCode',
             'FirstCouponType',
@@ -1186,14 +1190,14 @@ class CartTest extends UnitTestCase
 
         $this->grossCart->addCoupon($firstCoupon);
         $this->grossCart->addCoupon($secondCoupon);
-        $this->assertCount(
+        self::assertCount(
             2,
             $this->grossCart->getCoupons()
         );
 
         $this->netCart->addCoupon($firstCoupon);
         $this->netCart->addCoupon($secondCoupon);
-        $this->assertCount(
+        self::assertCount(
             2,
             $this->netCart->getCoupons()
         );
@@ -1202,14 +1206,14 @@ class CartTest extends UnitTestCase
     /**
      * @test
      */
-    public function getCouponGrossInitiallyReturnsZero()
+    public function getCouponGrossInitiallyReturnsZero(): void
     {
-        $this->assertSame(
+        self::assertSame(
             0.0,
             $this->grossCart->getCouponGross()
         );
 
-        $this->assertSame(
+        self::assertSame(
             0.0,
             $this->netCart->getCouponGross()
         );
@@ -1218,14 +1222,14 @@ class CartTest extends UnitTestCase
     /**
      * @test
      */
-    public function getCouponNetInitiallyReturnsZero()
+    public function getCouponNetInitiallyReturnsZero(): void
     {
-        $this->assertSame(
+        self::assertSame(
             0.0,
             $this->grossCart->getCouponNet()
         );
 
-        $this->assertSame(
+        self::assertSame(
             0.0,
             $this->netCart->getCouponNet()
         );
@@ -1234,11 +1238,11 @@ class CartTest extends UnitTestCase
     /**
      * @test
      */
-    public function getCouponGrossReturnsAllCouponsGrossSum()
+    public function getCouponGrossReturnsAllCouponsGrossSum(): void
     {
         $gross = 10.00;
 
-        $firstCoupon = new \Extcode\Cart\Domain\Model\Cart\CartCoupon(
+        $firstCoupon = new CartCoupon(
             'FirstCouponTitle',
             'FirstCouponCode',
             'FirstCouponType',
@@ -1250,22 +1254,22 @@ class CartTest extends UnitTestCase
 
         $this->grossCart->addCoupon($firstCoupon);
 
-        $this->assertSame(
+        self::assertSame(
             $gross,
             $this->grossCart->getCouponGross()
         );
 
         $this->netCart->addCoupon($firstCoupon);
 
-        $this->assertSame(
+        self::assertSame(
             $gross,
             $this->netCart->getCouponGross()
         );
     }
 
-    protected function addFirstProductToCarts()
+    protected function addFirstProductToCarts(): void
     {
-        $product = new \Extcode\Cart\Domain\Model\Cart\Product(
+        $product = new Product(
             'simple',
             1,
             'SKU',
@@ -1283,14 +1287,14 @@ class CartTest extends UnitTestCase
     /**
      * @test
      */
-    public function getCouponGrossReturnsCouponsGrossSumOfCouponsWhenCartMinPriceWasReached()
+    public function getCouponGrossReturnsCouponsGrossSumOfCouponsWhenCartMinPriceWasReached(): void
     {
         $this->addFirstProductToCarts();
 
         $discount = 5.00;
         $cartMinPrice = 15.00;
 
-        $firstCoupon = new \Extcode\Cart\Domain\Model\Cart\CartCoupon(
+        $firstCoupon = new CartCoupon(
             'FirstCouponTitle',
             'FirstCouponCode',
             'FirstCouponType',
@@ -1302,14 +1306,14 @@ class CartTest extends UnitTestCase
 
         $this->grossCart->addCoupon($firstCoupon);
 
-        $this->assertSame(
+        self::assertSame(
             0.0,
             $this->grossCart->getCouponGross()
         );
 
         $this->netCart->addCoupon($firstCoupon);
 
-        $this->assertSame(
+        self::assertSame(
             0.0,
             $this->netCart->getCouponGross()
         );
@@ -1318,12 +1322,12 @@ class CartTest extends UnitTestCase
     /**
      * @test
      */
-    public function getCouponNetReturnsAllCouponsNetSum()
+    public function getCouponNetReturnsAllCouponsNetSum(): void
     {
         $discount = 10.00;
         $net = $discount / ($this->normalTaxClass->getCalc() + 1);
 
-        $firstCoupon = new \Extcode\Cart\Domain\Model\Cart\CartCoupon(
+        $firstCoupon = new CartCoupon(
             'FirstCouponTitle',
             'FirstCouponCode',
             'FirstCouponType',
@@ -1335,14 +1339,14 @@ class CartTest extends UnitTestCase
 
         $this->grossCart->addCoupon($firstCoupon);
 
-        $this->assertSame(
+        self::assertSame(
             $net,
             $this->grossCart->getCouponNet()
         );
 
         $this->netCart->addCoupon($firstCoupon);
 
-        $this->assertSame(
+        self::assertSame(
             $net,
             $this->netCart->getCouponNet()
         );
@@ -1351,12 +1355,12 @@ class CartTest extends UnitTestCase
     /**
      * @test
      */
-    public function getCouponTaxReturnsAllCouponsTaxSum()
+    public function getCouponTaxReturnsAllCouponsTaxSum(): void
     {
         $gross = 10.00;
         $tax = $gross - ($gross / ($this->normalTaxClass->getCalc() + 1));
 
-        $firstCoupon = new \Extcode\Cart\Domain\Model\Cart\CartCoupon(
+        $firstCoupon = new CartCoupon(
             'FirstCouponTitle',
             'FirstCouponCode',
             'FirstCouponType',
@@ -1371,19 +1375,19 @@ class CartTest extends UnitTestCase
 
         $this->grossCart->addCoupon($firstCoupon);
         $result = $this->grossCart->getCouponTaxes();
-        $this->assertTrue(
+        self::assertTrue(
             empty(array_diff_key($taxes, $result)) && empty(array_diff_key($result, $taxes))
         );
-        $this->assertTrue(
+        self::assertTrue(
             empty(array_diff_assoc($taxes, $result)) && empty(array_diff_assoc($result, $taxes))
         );
 
         $this->netCart->addCoupon($firstCoupon);
         $result = $this->netCart->getCouponTaxes();
-        $this->assertTrue(
+        self::assertTrue(
             empty(array_diff_key($taxes, $result)) && empty(array_diff_key($result, $taxes))
         );
-        $this->assertTrue(
+        self::assertTrue(
             empty(array_diff_assoc($taxes, $result)) && empty(array_diff_assoc($result, $taxes))
         );
     }
@@ -1391,14 +1395,14 @@ class CartTest extends UnitTestCase
     /**
      * @test
      */
-    public function getSubtotalGrossInitiallyReturnsZero()
+    public function getSubtotalGrossInitiallyReturnsZero(): void
     {
-        $this->assertSame(
+        self::assertSame(
             0.0,
             $this->grossCart->getSubtotalGross()
         );
 
-        $this->assertSame(
+        self::assertSame(
             0.0,
             $this->netCart->getSubtotalGross()
         );
@@ -1407,19 +1411,19 @@ class CartTest extends UnitTestCase
     /**
      * @test
      */
-    public function getSubtotalGrossReturnsSubtotalGross()
+    public function getSubtotalGrossReturnsSubtotalGross(): void
     {
         $price = 100.00;
         $couponGross = 10.00;
 
-        $cart = $this->getMockBuilder(\Extcode\Cart\Domain\Model\Cart\Cart::class)
-            ->setMethods(['getCouponGross', 'getCurrencyTranslation'])
+        $cart = $this->getMockBuilder(Cart::class)
+            ->onlyMethods(['getCouponGross', 'getCurrencyTranslation'])
             ->setConstructorArgs([$this->taxClasses])
             ->getMock();
-        $cart->expects($this->any())->method('getCouponGross')->will($this->returnValue($couponGross));
-        $cart->expects($this->any())->method('getCurrencyTranslation')->will($this->returnValue(1.00));
+        $cart->method('getCouponGross')->willReturn($couponGross);
+        $cart->method('getCurrencyTranslation')->willReturn(1.00);
 
-        $product = new \Extcode\Cart\Domain\Model\Cart\Product(
+        $product = new Product(
             'simple',
             1,
             'SKU',
@@ -1432,7 +1436,7 @@ class CartTest extends UnitTestCase
 
         $cart->addProduct($product);
 
-        $this->assertSame(
+        self::assertSame(
             $price - $couponGross,
             $cart->getSubtotalGross()
         );
@@ -1441,20 +1445,20 @@ class CartTest extends UnitTestCase
     /**
      * @test
      */
-    public function getSubtotalNetReturnsSubtotalNet()
+    public function getSubtotalNetReturnsSubtotalNet(): void
     {
         $price = 100.00;
         $couponGross = 10.00;
         $couponNet = $couponGross / 1.19;
 
-        $cart = $this->getMockBuilder(\Extcode\Cart\Domain\Model\Cart\Cart::class)
-            ->setMethods(['getCouponNet', 'getCurrencyTranslation'])
+        $cart = $this->getMockBuilder(Cart::class)
+            ->onlyMethods(['getCouponNet', 'getCurrencyTranslation'])
             ->setConstructorArgs([$this->taxClasses])
             ->getMock();
-        $cart->expects($this->any())->method('getCouponNet')->will($this->returnValue($couponNet));
-        $cart->expects($this->any())->method('getCurrencyTranslation')->will($this->returnValue(1.00));
+        $cart->method('getCouponNet')->willReturn($couponNet);
+        $cart->method('getCurrencyTranslation')->willReturn(1.00);
 
-        $product = new \Extcode\Cart\Domain\Model\Cart\Product(
+        $product = new Product(
             'simple',
             1,
             'SKU',
@@ -1468,7 +1472,7 @@ class CartTest extends UnitTestCase
 
         $subtotalNet = ($price / (1 + $this->normalTaxClass->getCalc())) - $couponNet;
 
-        $this->assertSame(
+        self::assertSame(
             $subtotalNet,
             $cart->getSubtotalNet()
         );
@@ -1477,14 +1481,14 @@ class CartTest extends UnitTestCase
     /**
      * @test
      */
-    public function getCurrencyCodeInitiallyReturnsString()
+    public function getCurrencyCodeInitiallyReturnsString(): void
     {
-        $this->assertSame(
+        self::assertSame(
             'EUR',
             $this->grossCart->getCurrencyCode()
         );
 
-        $this->assertSame(
+        self::assertSame(
             'EUR',
             $this->netCart->getCurrencyCode()
         );
@@ -1493,9 +1497,9 @@ class CartTest extends UnitTestCase
     /**
      * @test
      */
-    public function constructorSetsCurrencyCode()
+    public function constructorSetsCurrencyCode(): void
     {
-        $this->cart = new \Extcode\Cart\Domain\Model\Cart\Cart(
+        $this->grossCart = new Cart(
             $this->taxClasses,
             false,
             'USD',
@@ -1503,27 +1507,27 @@ class CartTest extends UnitTestCase
             1.5
         );
 
-        $this->assertSame(
+        self::assertSame(
             'USD',
-            $this->cart->getCurrencyCode()
+            $this->grossCart->getCurrencyCode()
         );
     }
 
     /**
      * @test
      */
-    public function setCurrencyCodeSetsCurrencyCode()
+    public function setCurrencyCodeSetsCurrencyCode(): void
     {
         $this->grossCart->setCurrencyCode('USD');
 
-        $this->assertSame(
+        self::assertSame(
             'USD',
             $this->grossCart->getCurrencyCode()
         );
 
         $this->netCart->setCurrencyCode('USD');
 
-        $this->assertSame(
+        self::assertSame(
             'USD',
             $this->netCart->getCurrencyCode()
         );
@@ -1532,14 +1536,14 @@ class CartTest extends UnitTestCase
     /**
      * @test
      */
-    public function getCurrencySignInitiallyReturnsString()
+    public function getCurrencySignInitiallyReturnsString(): void
     {
-        $this->assertSame(
+        self::assertSame(
             '€',
             $this->grossCart->getCurrencySign()
         );
 
-        $this->assertSame(
+        self::assertSame(
             '€',
             $this->netCart->getCurrencySign()
         );
@@ -1548,9 +1552,9 @@ class CartTest extends UnitTestCase
     /**
      * @test
      */
-    public function constructorSetsCurrencySign()
+    public function constructorSetsCurrencySign(): void
     {
-        $this->cart = new \Extcode\Cart\Domain\Model\Cart\Cart(
+        $this->grossCart = new Cart(
             $this->taxClasses,
             false,
             'USD',
@@ -1558,27 +1562,27 @@ class CartTest extends UnitTestCase
             1.5
         );
 
-        $this->assertSame(
+        self::assertSame(
             '$',
-            $this->cart->getCurrencySign()
+            $this->grossCart->getCurrencySign()
         );
     }
 
     /**
      * @test
      */
-    public function setCurrencySignSetsCurrencySign()
+    public function setCurrencySignSetsCurrencySign(): void
     {
         $this->grossCart->setCurrencySign('$');
 
-        $this->assertSame(
+        self::assertSame(
             '$',
             $this->grossCart->getCurrencySign()
         );
 
         $this->netCart->setCurrencySign('$');
 
-        $this->assertSame(
+        self::assertSame(
             '$',
             $this->netCart->getCurrencySign()
         );
@@ -1587,14 +1591,14 @@ class CartTest extends UnitTestCase
     /**
      * @test
      */
-    public function getCurrencyTranslationInitiallyReturnsFloat()
+    public function getCurrencyTranslationInitiallyReturnsFloat(): void
     {
-        $this->assertSame(
+        self::assertSame(
             1.0,
             $this->grossCart->getCurrencyTranslation()
         );
 
-        $this->assertSame(
+        self::assertSame(
             1.0,
             $this->netCart->getCurrencyTranslation()
         );
@@ -1603,9 +1607,9 @@ class CartTest extends UnitTestCase
     /**
      * @test
      */
-    public function constructorSetsCurrencyTranslation()
+    public function constructorSetsCurrencyTranslation(): void
     {
-        $cart = new \Extcode\Cart\Domain\Model\Cart\Cart(
+        $cart = new Cart(
             $this->taxClasses,
             false,
             'USD',
@@ -1613,7 +1617,7 @@ class CartTest extends UnitTestCase
             1.5
         );
 
-        $this->assertSame(
+        self::assertSame(
             1.5,
             $cart->getCurrencyTranslation()
         );
@@ -1622,18 +1626,18 @@ class CartTest extends UnitTestCase
     /**
      * @test
      */
-    public function setCurrencyTranslationSetsCurrencyTranslation()
+    public function setCurrencyTranslationSetsCurrencyTranslation(): void
     {
         $this->grossCart->setCurrencyTranslation(1.5);
 
-        $this->assertSame(
+        self::assertSame(
             1.5,
             $this->grossCart->getCurrencyTranslation()
         );
 
         $this->netCart->setCurrencyTranslation(1.5);
 
-        $this->assertSame(
+        self::assertSame(
             1.5,
             $this->netCart->getCurrencyTranslation()
         );
@@ -1642,14 +1646,14 @@ class CartTest extends UnitTestCase
     /**
      * @test
      */
-    public function translatePriceReturnsCorrectPrice()
+    public function translatePriceReturnsCorrectPrice(): void
     {
-        $this->assertSame(
+        self::assertSame(
             5.0,
             $this->grossCart->translatePrice(5.0)
         );
 
-        $this->assertSame(
+        self::assertSame(
             5.0,
             $this->netCart->translatePrice(5.0)
         );
@@ -1657,12 +1661,12 @@ class CartTest extends UnitTestCase
         $this->grossCart->setCurrencyTranslation(2.0);
         $this->netCart->setCurrencyTranslation(2.0);
 
-        $this->assertSame(
+        self::assertSame(
             2.5,
             $this->grossCart->translatePrice(5.0)
         );
 
-        $this->assertSame(
+        self::assertSame(
             2.5,
             $this->netCart->translatePrice(5.0)
         );
@@ -1670,12 +1674,12 @@ class CartTest extends UnitTestCase
         $this->grossCart->setCurrencyTranslation(0.5);
         $this->netCart->setCurrencyTranslation(0.5);
 
-        $this->assertSame(
+        self::assertSame(
             10.0,
             $this->grossCart->translatePrice(5.0)
         );
 
-        $this->assertSame(
+        self::assertSame(
             10.0,
             $this->netCart->translatePrice(5.0)
         );
