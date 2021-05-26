@@ -9,48 +9,37 @@ namespace Extcode\Cart\Tests\Unit\Domain\Model\Product;
  * LICENSE file that was distributed with this source code.
  */
 
+use Extcode\Cart\Domain\Model\Coupon;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 class CouponTest extends UnitTestCase
 {
     /**
-     * Coupon
-     *
-     * @var \Extcode\Cart\Domain\Model\Coupon
+     * @var Coupon
      */
-    protected $coupon = null;
+    protected $coupon;
 
     /**
-     * Title
-     *
      * @var string
      */
     protected $title = '';
 
     /**
-     * Code
-     *
      * @var string
      */
     protected $code = '';
 
     /**
-     * Coupon Type
-     *
      * @var string
      */
     protected $couponType = '';
 
     /**
-     * Discount
-     *
      * @var float
      */
     protected $discount = 0.0;
 
     /**
-     * TaxClass
-     *
      * @var int
      */
     protected $taxClassId = 0;
@@ -63,7 +52,7 @@ class CouponTest extends UnitTestCase
         $this->discount = 10.00;
         $this->taxClassId = 1;
 
-        $this->coupon = new \Extcode\Cart\Domain\Model\Coupon(
+        $this->coupon = new Coupon(
             $this->title,
             $this->code,
             $this->couponType,
@@ -75,11 +64,11 @@ class CouponTest extends UnitTestCase
     /**
      * @test
      */
-    public function constructCouponWithoutTitleThrowsException()
+    public function constructCouponWithoutTitleThrowsException(): void
     {
         $this->expectException(\TypeError::class);
 
-        $this->coupon = new \Extcode\Cart\Domain\Model\Coupon(
+        $this->coupon = new Coupon(
             null,
             $this->code,
             $this->couponType,
@@ -91,11 +80,11 @@ class CouponTest extends UnitTestCase
     /**
      * @test
      */
-    public function constructCouponWithoutCodeThrowsException()
+    public function constructCouponWithoutCodeThrowsException(): void
     {
         $this->expectException(\TypeError::class);
 
-        $this->coupon = new \Extcode\Cart\Domain\Model\Coupon(
+        $this->coupon = new Coupon(
             $this->title,
             null,
             $this->couponType,
@@ -107,11 +96,11 @@ class CouponTest extends UnitTestCase
     /**
      * @test
      */
-    public function constructCouponWithoutCouponTypeThrowsException()
+    public function constructCouponWithoutCouponTypeThrowsException(): void
     {
         $this->expectException(\TypeError::class);
 
-        $this->coupon = new \Extcode\Cart\Domain\Model\Coupon(
+        $this->coupon = new Coupon(
             $this->title,
             $this->code,
             null,
@@ -123,11 +112,11 @@ class CouponTest extends UnitTestCase
     /**
      * @test
      */
-    public function constructCouponWithoutDiscountThrowsException()
+    public function constructCouponWithoutDiscountThrowsException(): void
     {
         $this->expectException(\TypeError::class);
 
-        $this->coupon = new \Extcode\Cart\Domain\Model\Coupon(
+        $this->coupon = new Coupon(
             $this->title,
             $this->code,
             $this->couponType,
@@ -139,11 +128,11 @@ class CouponTest extends UnitTestCase
     /**
      * @test
      */
-    public function constructCouponWithoutTaxClassIdThrowsException()
+    public function constructCouponWithoutTaxClassIdThrowsException(): void
     {
         $this->expectException(\TypeError::class);
 
-        $this->coupon = new \Extcode\Cart\Domain\Model\Coupon(
+        $this->coupon = new Coupon(
             $this->title,
             $this->code,
             $this->couponType,
@@ -155,9 +144,9 @@ class CouponTest extends UnitTestCase
     /**
      * @test
      */
-    public function getTitleInitiallyReturnsTitleSetDirectlyByConstructor()
+    public function getTitleInitiallyReturnsTitleSetDirectlyByConstructor(): void
     {
-        $this->assertSame(
+        self::assertSame(
             $this->title,
             $this->coupon->getTitle()
         );
@@ -166,9 +155,9 @@ class CouponTest extends UnitTestCase
     /**
      * @test
      */
-    public function getCodeInitiallyReturnsCodeSetDirectlyByConstructor()
+    public function getCodeInitiallyReturnsCodeSetDirectlyByConstructor(): void
     {
-        $this->assertSame(
+        self::assertSame(
             $this->code,
             $this->coupon->getCode()
         );
@@ -177,9 +166,9 @@ class CouponTest extends UnitTestCase
     /**
      * @test
      */
-    public function getCouponTypeInitiallyReturnsCouponTypeSetDirectlyByConstructor()
+    public function getCouponTypeInitiallyReturnsCouponTypeSetDirectlyByConstructor(): void
     {
-        $this->assertSame(
+        self::assertSame(
             $this->couponType,
             $this->coupon->getCouponType()
         );
@@ -188,9 +177,9 @@ class CouponTest extends UnitTestCase
     /**
      * @test
      */
-    public function getDiscountInitiallyReturnsDiscountSetDirectlyByConstructor()
+    public function getDiscountInitiallyReturnsDiscountSetDirectlyByConstructor(): void
     {
-        $this->assertSame(
+        self::assertSame(
             $this->discount,
             $this->coupon->getDiscount()
         );
@@ -199,9 +188,9 @@ class CouponTest extends UnitTestCase
     /**
      * @test
      */
-    public function getTaxClassIdReturnsTaxClassIdSetDirectlyByConstructor()
+    public function getTaxClassIdReturnsTaxClassIdSetDirectlyByConstructor(): void
     {
-        $this->assertSame(
+        self::assertSame(
             $this->taxClassId,
             $this->coupon->getTaxClassId()
         );
@@ -210,9 +199,9 @@ class CouponTest extends UnitTestCase
     /**
      * @test
      */
-    public function isRelativeDiscountInitiallyReturnsFalse()
+    public function isRelativeDiscountInitiallyReturnsFalse(): void
     {
-        $this->assertFalse(
+        self::assertFalse(
             $this->coupon->isRelativeDiscount()
         );
     }
@@ -220,9 +209,9 @@ class CouponTest extends UnitTestCase
     /**
      * @test
      */
-    public function getNumberAvailableInitiallyReturnsZero()
+    public function getNumberAvailableInitiallyReturnsZero(): void
     {
-        $this->assertSame(
+        self::assertSame(
             0,
             $this->coupon->getNumberAvailable()
         );
@@ -231,9 +220,9 @@ class CouponTest extends UnitTestCase
     /**
      * @test
      */
-    public function getNumberUsedInitiallyReturnsZero()
+    public function getNumberUsedInitiallyReturnsZero(): void
     {
-        $this->assertSame(
+        self::assertSame(
             0,
             $this->coupon->getNumberUsed()
         );
@@ -242,11 +231,11 @@ class CouponTest extends UnitTestCase
     /**
      * @test
      */
-    public function getIsAvailableReturnsTrueIfNumberAvailableGreaterThanNumberUsed()
+    public function getIsAvailableReturnsTrueIfNumberAvailableGreaterThanNumberUsed(): void
     {
         $this->coupon->setNumberAvailable(10);
         $this->coupon->setNumberUsed(1);
-        $this->assertTrue(
+        self::assertTrue(
             $this->coupon->getIsAvailable()
         );
     }
@@ -254,11 +243,11 @@ class CouponTest extends UnitTestCase
     /**
      * @test
      */
-    public function getIsAvailableReturnsTrueIfHandleAvailableIsFalseAndNumberAvailableEqualsToNumberUsed()
+    public function getIsAvailableReturnsTrueIfHandleAvailableIsFalseAndNumberAvailableEqualsToNumberUsed(): void
     {
         $this->coupon->setNumberAvailable(10);
         $this->coupon->setNumberUsed(10);
-        $this->assertTrue(
+        self::assertTrue(
             $this->coupon->getIsAvailable()
         );
     }
@@ -266,12 +255,12 @@ class CouponTest extends UnitTestCase
     /**
      * @test
      */
-    public function getIsAvailableReturnsFalseIfHandleAvailableIsTrueAndNumberAvailableEqualsToNumberUsed()
+    public function getIsAvailableReturnsFalseIfHandleAvailableIsTrueAndNumberAvailableEqualsToNumberUsed(): void
     {
         $this->coupon->setHandleAvailable(true);
         $this->coupon->setNumberAvailable(10);
         $this->coupon->setNumberUsed(10);
-        $this->assertFalse(
+        self::assertFalse(
             $this->coupon->getIsAvailable()
         );
     }
@@ -279,11 +268,11 @@ class CouponTest extends UnitTestCase
     /**
      * @test
      */
-    public function getIsAvailableReturnsTrueIfHandleAvailableIsFalseAndNumberAvailableLessThanNumberUsed()
+    public function getIsAvailableReturnsTrueIfHandleAvailableIsFalseAndNumberAvailableLessThanNumberUsed(): void
     {
         $this->coupon->setNumberAvailable(10);
         $this->coupon->setNumberUsed(11);
-        $this->assertTrue(
+        self::assertTrue(
             $this->coupon->getIsAvailable()
         );
     }
@@ -291,12 +280,12 @@ class CouponTest extends UnitTestCase
     /**
      * @test
      */
-    public function getIsAvailableReturnsFalseIfHandleAvailableIsTrueAndNumberAvailableLessThanNumberUsed()
+    public function getIsAvailableReturnsFalseIfHandleAvailableIsTrueAndNumberAvailableLessThanNumberUsed(): void
     {
         $this->coupon->setHandleAvailable(true);
         $this->coupon->setNumberAvailable(10);
         $this->coupon->setNumberUsed(11);
-        $this->assertFalse(
+        self::assertFalse(
             $this->coupon->getIsAvailable()
         );
     }
@@ -304,9 +293,9 @@ class CouponTest extends UnitTestCase
     /**
      * @test
      */
-    public function getCartMinPriceInitiallyReturnsZero()
+    public function getCartMinPriceInitiallyReturnsZero(): void
     {
-        $this->assertSame(
+        self::assertSame(
             0.0,
             $this->coupon->getCartMinPrice()
         );
@@ -315,13 +304,13 @@ class CouponTest extends UnitTestCase
     /**
      * @test
      */
-    public function setCartMinPriceSetsMinPrice()
+    public function setCartMinPriceSetsMinPrice(): void
     {
         $cartMinPrice = 10.0;
 
         $this->coupon->setCartMinPrice($cartMinPrice);
 
-        $this->assertSame(
+        self::assertSame(
             $cartMinPrice,
             $this->coupon->getCartMinPrice()
         );
@@ -330,9 +319,9 @@ class CouponTest extends UnitTestCase
     /**
      * @test
      */
-    public function getIsCombinableInitiallyReturnsFalse()
+    public function getIsCombinableInitiallyReturnsFalse(): void
     {
-        $this->assertFalse(
+        self::assertFalse(
             $this->coupon->getIsCombinable()
         );
     }
@@ -340,13 +329,13 @@ class CouponTest extends UnitTestCase
     /**
      * @test
      */
-    public function setIsCombinableSetsIsCombinable()
+    public function setIsCombinableSetsIsCombinable(): void
     {
         $isCombinable = true;
 
         $this->coupon->setIsCombinable($isCombinable);
 
-        $this->assertTrue(
+        self::assertTrue(
             $this->coupon->getIsCombinable()
         );
     }

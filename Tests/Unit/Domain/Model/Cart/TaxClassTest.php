@@ -9,41 +9,32 @@ namespace Extcode\Cart\Tests\Unit\Domain\Model\Cart;
  * LICENSE file that was distributed with this source code.
  */
 
+use Extcode\Cart\Domain\Model\Cart\TaxClass;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 class TaxClassTest extends UnitTestCase
 {
     /**
-     * Tax Class
-     *
-     * @var \Extcode\Cart\Domain\Model\Cart\TaxClass
+     * @var TaxClass
      */
-    protected $fixture = null;
+    protected $fixture;
 
     /**
-     * Id
-     *
      * @var int
      */
     private $id;
 
     /**
-     * Value
-     *
      * @var string
      */
     private $value;
 
     /**
-     * Calc
-     *
      * @var int
      */
     private $calc;
 
     /**
-     * Title
-     *
      * @var string
      */
     private $title;
@@ -55,7 +46,7 @@ class TaxClassTest extends UnitTestCase
         $this->calc = 0.19;
         $this->title = 'normal Tax';
 
-        $this->fixture = new \Extcode\Cart\Domain\Model\Cart\TaxClass(
+        $this->fixture = new TaxClass(
             $this->id,
             $this->value,
             $this->calc,
@@ -65,20 +56,21 @@ class TaxClassTest extends UnitTestCase
 
     public function tearDown(): void
     {
-        unset($this->id);
-        unset($this->value);
-        unset($this->calc);
-        unset($this->title);
-
-        unset($this->fixture);
+        unset(
+            $this->id,
+            $this->value,
+            $this->calc,
+            $this->title,
+            $this->fixture
+        );
     }
 
     /**
      * @test
      */
-    public function getIdReturnsIdSetByConstructor()
+    public function getIdReturnsIdSetByConstructor(): void
     {
-        $this->assertSame(
+        self::assertSame(
             $this->id,
             $this->fixture->getId()
         );
@@ -87,9 +79,9 @@ class TaxClassTest extends UnitTestCase
     /**
      * @test
      */
-    public function getValueReturnsValueSetByConstructor()
+    public function getValueReturnsValueSetByConstructor(): void
     {
-        $this->assertSame(
+        self::assertSame(
             $this->value,
             $this->fixture->getValue()
         );
@@ -98,9 +90,9 @@ class TaxClassTest extends UnitTestCase
     /**
      * @test
      */
-    public function getCalcReturnsCalcSetByConstructor()
+    public function getCalcReturnsCalcSetByConstructor(): void
     {
-        $this->assertSame(
+        self::assertSame(
             $this->calc,
             $this->fixture->getCalc()
         );
@@ -109,9 +101,9 @@ class TaxClassTest extends UnitTestCase
     /**
      * @test
      */
-    public function getTitleReturnsNameSetByConstructor()
+    public function getTitleReturnsNameSetByConstructor(): void
     {
-        $this->assertSame(
+        self::assertSame(
             $this->title,
             $this->fixture->getTitle()
         );

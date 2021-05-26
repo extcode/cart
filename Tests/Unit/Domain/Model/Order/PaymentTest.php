@@ -9,41 +9,50 @@ namespace Extcode\Cart\Tests\Unit\Domain\Model\Order;
  * LICENSE file that was distributed with this source code.
  */
 
+use Extcode\Cart\Domain\Model\Order\Payment;
+use Extcode\Cart\Domain\Model\Order\Transaction;
+use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 class PaymentTest extends UnitTestCase
 {
     /**
-     * @var \Extcode\Cart\Domain\Model\Order\Payment
+     * @var Payment
      */
     protected $payment;
 
     public function setUp(): void
     {
-        $this->payment = new \Extcode\Cart\Domain\Model\Order\Payment();
+        $this->payment = new Payment();
     }
 
     /**
      * @test
      */
-    public function toArrayReturnsArray()
+    public function toArrayReturnsArray(): void
     {
-        $provider = 'provider';
+        $provider = 'test_provider';
 
         $this->payment->setProvider($provider);
 
-        $this->assertArraySubset(
-            ['provider' => $provider],
-            $this->payment->toArray()
+        $result = $this->payment->toArray();
+
+        self::assertArrayHasKey(
+            'provider',
+            $result
+        );
+        self::assertEquals(
+            $provider,
+            $result['provider']
         );
     }
 
     /**
      * @test
      */
-    public function getProviderInitiallyReturnsEmptyString()
+    public function getProviderInitiallyReturnsEmptyString(): void
     {
-        $this->assertSame(
+        self::assertSame(
             '',
             $this->payment->getProvider()
         );
@@ -52,12 +61,12 @@ class PaymentTest extends UnitTestCase
     /**
      * @test
      */
-    public function setProviderSetsProvider()
+    public function setProviderSetsProvider(): void
     {
         $provider = 'provider';
         $this->payment->setProvider($provider);
 
-        $this->assertSame(
+        self::assertSame(
             $provider,
             $this->payment->getProvider()
         );
@@ -66,9 +75,9 @@ class PaymentTest extends UnitTestCase
     /**
      * @test
      */
-    public function getTransactionsInitiallyIsEmpty()
+    public function getTransactionsInitiallyIsEmpty(): void
     {
-        $this->assertEmpty(
+        self::assertEmpty(
             $this->payment->getTransactions()
         );
     }
@@ -76,22 +85,22 @@ class PaymentTest extends UnitTestCase
     /**
      * @test
      */
-    public function setTransactionsSetsTransactions()
+    public function setTransactionsSetsTransactions(): void
     {
-        $transaction1 = new \Extcode\Cart\Domain\Model\Order\Transaction();
-        $transaction2 = new \Extcode\Cart\Domain\Model\Order\Transaction();
+        $transaction1 = new Transaction();
+        $transaction2 = new Transaction();
 
-        $objectStorage = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+        $objectStorage = new ObjectStorage();
         $objectStorage->attach($transaction1);
         $objectStorage->attach($transaction2);
 
         $this->payment->setTransactions($objectStorage);
 
-        $this->assertContains(
+        self::assertContains(
             $transaction1,
             $this->payment->getTransactions()
         );
-        $this->assertContains(
+        self::assertContains(
             $transaction2,
             $this->payment->getTransactions()
         );
@@ -100,13 +109,13 @@ class PaymentTest extends UnitTestCase
     /**
      * @test
      */
-    public function addTransactionAddsTransaction()
+    public function addTransactionAddsTransaction(): void
     {
-        $transaction = new \Extcode\Cart\Domain\Model\Order\Transaction();
+        $transaction = new Transaction();
 
         $this->payment->addTransaction($transaction);
 
-        $this->assertContains(
+        self::assertContains(
             $transaction,
             $this->payment->getTransactions()
         );
@@ -115,14 +124,14 @@ class PaymentTest extends UnitTestCase
     /**
      * @test
      */
-    public function removeTransactionRemovesTransaction()
+    public function removeTransactionRemovesTransaction(): void
     {
-        $transaction = new \Extcode\Cart\Domain\Model\Order\Transaction();
+        $transaction = new Transaction();
 
         $this->payment->addTransaction($transaction);
         $this->payment->removeTransaction($transaction);
 
-        $this->assertEmpty(
+        self::assertEmpty(
             $this->payment->getTransactions()
         );
     }

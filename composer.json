@@ -45,26 +45,27 @@
         }
     },
     "scripts": {
-        "extcode:cgl": [
+        "test:cgl": [
             ".build/bin/php-cs-fixer fix --config=Build/.php_cs.dist -v --using-cache=no --path-mode=intersection ./"
         ],
-        "extcode:test:php:lint": [
+        "test:php:lint": [
             ".build/bin/phplint -c Build/phplint.yaml"
         ],
-        "extcode:test:php:unit": [
+        "test:php:unit": [
             ".build/bin/phpunit -c Build/UnitTests.xml"
         ],
-        "extcode:test:php:functional": [
+        "test:php:functional": [
             "typo3DatabaseDriver=\"pdo_sqlite\" .build/bin/phpunit -c Build/FunctionalTests.xml"
         ],
-        "extcode:test:typoscript:lint": [
+        "test:typoscript:lint": [
             ".build/bin/typoscript-lint -c Build/typoscriptlint.yaml Configuration"
         ],
-        "extcode:test": [
-            "@extcode:test:typoscript:lint",
-            "@extcode:test:php:lint",
-            "@extcode:test:php:unit",
-            "@extcode:test:php:functional"
+        "test:all": [
+            "@test:cgl",
+            "@test:typoscript:lint",
+            "@test:php:lint",
+            "@test:php:unit",
+            "@test:php:functional"
         ],
         "post-autoload-dump": [
             "mkdir -p .build/public/typo3conf/ext/",

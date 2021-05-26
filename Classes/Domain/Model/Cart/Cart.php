@@ -436,17 +436,23 @@ class Cart
         $taxes = [];
 
         if ($this->payment) {
-            $tax = $this->payment->getTax();
-            $taxes[$this->payment->getTaxClass()->getId()] += $tax;
+            $paymentTaxes = $this->payment->getTaxes();
+            foreach ($paymentTaxes as $paymentTax) {
+                $taxes[$paymentTax['taxClassId']] += $paymentTax['tax'];
+            }
         }
         if ($this->shipping) {
-            $tax = $this->shipping->getTax();
-            $taxes[$this->shipping->getTaxClass()->getId()] += $tax;
+            $shippingTaxes = $this->shipping->getTaxes();
+            foreach ($shippingTaxes as $shippingTax) {
+                $taxes[$shippingTax['taxClassId']] += $shippingTax['tax'];
+            }
         }
         if ($this->specials) {
             foreach ($this->specials as $special) {
-                $tax = $special->getTax();
-                $taxes[$special->getTaxClass()->getId()] += $tax;
+                $specialTaxes = $special->getTaxes();
+                foreach ($specialTaxes as $specialTax) {
+                    $taxes[$specialTax['taxClassId']] += $specialTax['tax'];
+                }
             }
         }
 
@@ -479,20 +485,9 @@ class Cart
     {
         $taxes = $this->getSubtotalTaxes();
 
-        if ($this->payment) {
-            $tax = $this->payment->getTax();
-            $taxes[$this->payment->getTaxClass()->getId()] += $tax;
-        }
-        if ($this->shipping) {
-            $tax = $this->shipping->getTax();
-            $taxes[$this->shipping->getTaxClass()->getId()] += $tax;
-        }
-
-        if ($this->specials) {
-            foreach ($this->specials as $special) {
-                $tax = $special->getTax();
-                $taxes[$special->getTaxClass()->getId()] += $tax;
-            }
+        $serviceTaxes = $this->getServiceTaxes();
+        foreach ($serviceTaxes as $serviceTaxClassId => $serviceTax) {
+            $taxes[$serviceTaxClassId] += $serviceTax;
         }
 
         return $taxes;

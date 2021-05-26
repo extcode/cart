@@ -13,11 +13,6 @@ namespace Extcode\Cart\Domain\Model\Cart;
 class Service implements ServiceInterface
 {
     /**
-     * @var \TYPO3\CMS\Extbase\Object\ObjectManager
-     */
-    protected $objectManager;
-
-    /**
      * @var Cart
      */
     protected $cart;
@@ -38,33 +33,9 @@ class Service implements ServiceInterface
     protected $config = [];
 
     /**
-     * @var float
-     */
-    protected $gross;
-
-    /**
-     * @var float
-     */
-    protected $net;
-
-    /**
-     * @var float
-     */
-    protected $tax;
-
-    /**
      * @var bool
      */
     protected $preset = false;
-
-    /**
-     * @param \TYPO3\CMS\Extbase\Object\ObjectManagerInterface $objectManager
-     */
-    public function injectObjectManager(
-        \TYPO3\CMS\Extbase\Object\ObjectManagerInterface $objectManager
-    ) {
-        $this->objectManager = $objectManager;
-    }
 
     /**
      * @param int $id
@@ -88,102 +59,168 @@ class Service implements ServiceInterface
         return $this->config;
     }
 
-    /**
-     * @param Cart $cart
-     *
-     * @return Service
-     */
-    public function setCart(Cart $cart): self
+    public function setCart(Cart $cart)
     {
         $this->cart = $cart;
-        $this->calcAll();
-
-        return $this;
     }
 
-    /**
-     * @return string
-     */
+    public function getCart(): Cart
+    {
+        return $this->cart;
+    }
+
     public function getStatus(): string
     {
         return $this->config['status'] ?: 'open';
     }
 
-    /**
-     * @return string
-     */
     public function getProvider(): string
     {
         return $this->config['provider'] ?: '';
     }
 
-    /**
-     * @return string
-     */
     public function getName(): string
     {
         return $this->config['title'];
     }
 
-    /**
-     * @return float
-     */
     public function getGross(): float
     {
-        return $this->gross;
+        $extra = $this->getExtra();
+
+        $extraGross = $this->cart->translatePrice($extra->getGross());
+
+        if ($extra->getExtraType() === 'each') {
+            return $this->cart->getCount() * $extraGross;
+        }
+
+        return $extraGross;
     }
 
-    /**
-     * @return float
-     */
     public function getNet(): float
     {
-        return $this->net;
+        $extra = $this->getExtra();
+
+        $extraNet = $this->cart->translatePrice($extra->getNet());
+
+        if ($extra->getExtraType() === 'each') {
+            return $this->cart->getCount() * $extraNet;
+        }
+
+        return $extraNet;
     }
 
-    /**
-     * @return float
-     */
     public function getTax(): float
     {
-        return $this->tax;
+        $extra = $this->getExtra();
+
+        $extraTax = $extra->getTax();
+
+        $taxValue = $this->cart->translatePrice($extraTax['tax']);
+
+        if ($extra->getExtraType() === 'each') {
+            return $this->cart->getCount() * $taxValue;
+        }
+
+        return $taxValue;
     }
 
-    /**
-     * @return TaxClass
-     */
+    public function getTaxes(): array
+    {
+        if ($this->getTaxClass()->getId() > 0) {
+            return [
+                [
+                    'taxClassId' => $this->getTaxClass()->getId(),
+                    'tax' => $this->getTax(),
+                ]
+            ];
+        }
+
+        $taxes = [];
+
+        if ($this->getTaxClass()->getId() === -2) {
+            $extra = $this->getExtra();
+
+            $usedTaxClasses = [];
+
+            foreach ($this->cart->getProducts() as $product) {
+                if (!in_array($product->getTaxClass(), $usedTaxClasses, true)) {
+                    $usedTaxClasses[] = $product->getTaxClass();
+                }
+            }
+
+            foreach ($usedTaxClasses as $taxClass) {
+                $extraTax = $extra->getTaxForTaxClass($taxClass);
+
+                $taxValue = $this->cart->translatePrice($extraTax);
+
+                if ($extra->getExtraType() === 'each') {
+                    $taxValue = $this->cart->getCount() * $taxValue;
+                }
+
+                $taxes[] = [
+                    'taxClassId' => $taxClass->getId(),
+                    'tax' => $taxValue,
+                ];
+            }
+        }
+
+        return $taxes;
+    }
+
     public function getTaxClass(): TaxClass
     {
-        return $this->cart->getTaxClass($this->config['taxClassId']);
+        $taxClass = null;
+
+        if ((int)$this->config['taxClassId'] > 0) {
+            return $this->cart->getTaxClass($this->config['taxClassId']);
+        }
+
+        if ((int)$this->config['taxClassId'] === -1) {
+            // assign lowest TaxClass
+            foreach ($this->cart->getTaxClasses() as $cartTaxClass) {
+                if ($taxClass === null || $taxClass->getCalc() > $cartTaxClass->getCalc()) {
+                    $taxClass = $cartTaxClass;
+                }
+            }
+            // assign highest used TaxClass
+            foreach ($this->cart->getProducts() as $product) {
+                if ($product->getTaxClass()->getCalc() > $taxClass->getCalc()) {
+                    $taxClass = $product->getTaxClass();
+                }
+            }
+        }
+
+        if ((int)$this->config['taxClassId'] === -2) {
+            $taxClass = new TaxClass(
+                $this->id = -2,
+                '0',
+                0.0,
+                'internal'
+            );
+        }
+
+        return $taxClass;
     }
 
-    /**
-     * @return bool
-     */
     public function isPreset(): bool
     {
         return $this->preset;
     }
 
-    /**
-     * @param bool $preset
-     */
     public function setPreset(bool $preset): void
     {
         $this->preset = $preset;
     }
 
-    /**
-     * @return int|null
-     */
     public function getFallBackId(): ?int
     {
+        if (!isset($this->config['fallBackId'])) {
+            return null;
+        }
         return (int)$this->config['fallBackId'];
     }
 
-    /**
-     * @return bool
-     */
     public function isAvailable(): bool
     {
         if (isset($this->config['available'])) {
@@ -200,9 +237,6 @@ class Service implements ServiceInterface
         return true;
     }
 
-    /**
-     * @return bool
-     */
     public function isFree(): bool
     {
         if (isset($this->config['free']['from']) || isset($this->config['free']['until'])) {
@@ -222,26 +256,17 @@ class Service implements ServiceInterface
         return false;
     }
 
-    protected function calcAll()
-    {
-        $this->calcGross();
-        $this->calcTax();
-        $this->calcNet();
-    }
-
-    /**
-     * @return Extra
-     */
-    protected function getExtra()
+    protected function getExtra(): Extra
     {
         if ($this->isFree()) {
-            return $this->objectManager->get(
-                Extra::class,
+            return new Extra(
                 0,
                 0,
                 0.0,
-                $this->cart->getTaxClass($this->config['taxClassId']),
-                $this->cart->getIsNetCart()
+                $this->getTaxClass(),
+                $this->cart->getIsNetCart(),
+                '',
+                $this
             );
         }
 
@@ -249,14 +274,14 @@ class Service implements ServiceInterface
             $extraType = $this->config['extra']['_typoScriptNodeValue'];
 
             if ($extraType === 'each') {
-                return $this->objectManager->get(
-                    Extra::class,
+                return new Extra(
                     0,
                     0,
                     (float)$this->config['extra']['extra'],
-                    $this->cart->getTaxClass($this->config['taxClassId']),
+                    $this->getTaxClass(),
                     $this->cart->getIsNetCart(),
-                    $extraType
+                    $extraType,
+                    $this
                 );
             }
 
@@ -264,14 +289,14 @@ class Service implements ServiceInterface
 
             foreach ($this->config['extra'] as $extraKey => $extraValue) {
                 if (is_array($extraValue) && ((float)$extraValue['value'] <= (float)$conditionValue)) {
-                    $extra = $this->objectManager->get(
-                        Extra::class,
+                    $extra = new Extra(
                         $extraKey,
                         (float)$extraValue['value'],
                         (float)$extraValue['extra'],
-                        $this->cart->getTaxClass($this->config['taxClassId']),
+                        $this->getTaxClass(),
                         $this->cart->getIsNetCart(),
-                        $extraType
+                        $extraType,
+                        $this
                     );
                 }
             }
@@ -279,55 +304,15 @@ class Service implements ServiceInterface
             return $extra;
         }
 
-        return $this->objectManager->get(
-            Extra::class,
+        return new Extra(
             0,
             0,
             (float)$this->config['extra'],
-            $this->cart->getTaxClass($this->config['taxClassId']),
-            $this->cart->getIsNetCart()
+            $this->getTaxClass(),
+            $this->cart->getIsNetCart(),
+            '',
+            $this
         );
-    }
-
-    protected function calcGross()
-    {
-        $extra = $this->getExtra();
-
-        $gross = $this->cart->translatePrice($extra->getGross());
-
-        if ($extra->getExtraType() === 'each') {
-            $gross = $this->cart->getCount() * $gross;
-        }
-
-        $this->gross = $gross;
-    }
-
-    protected function calcNet()
-    {
-        $extra = $this->getExtra();
-
-        $net = $this->cart->translatePrice($extra->getNet());
-
-        if ($extra->getExtraType() === 'each') {
-            $net = $this->cart->getCount() * $net;
-        }
-
-        $this->net = $net;
-    }
-
-    protected function calcTax()
-    {
-        $extra = $this->getExtra();
-
-        $tax = $extra->getTax();
-
-        $taxValue = $this->cart->translatePrice($tax['tax']);
-
-        if ($extra->getExtraType() === 'each') {
-            $taxValue = $this->cart->getCount() * $taxValue;
-        }
-
-        $this->tax = $taxValue;
     }
 
     /**
@@ -340,59 +325,44 @@ class Service implements ServiceInterface
         switch ($extraType) {
             case 'by_price':
                 return $this->cart->getGross();
-                break;
             case 'by_price_of_physical_products':
                 return $this->getPriceOfPhysicalProducts();
-                break;
             case 'by_quantity':
             case 'by_number_of_physical_products':
                 return $this->cart->getCountPhysicalProducts();
-                break;
             case 'by_number_of_virtual_products':
                 return $this->cart->getCountVirtualProducts();
-                break;
             case 'by_number_of_all_products':
                 return $this->cart->getCount();
-                break;
             case 'by_service_attribute_1_sum':
                 return $this->cart->getSumServiceAttribute1();
-                break;
             case 'by_service_attribute_1_max':
                 return $this->cart->getMaxServiceAttribute1();
-                break;
             case 'by_service_attribute_2_sum':
                 return $this->cart->getSumServiceAttribute2();
-                break;
             case 'by_service_attribute_2_max':
                 return $this->cart->getMaxServiceAttribute2();
-                break;
             case 'by_service_attribute_3_sum':
                 return $this->cart->getSumServiceAttribute3();
-                break;
             case 'by_service_attribute_3_max':
                 return $this->cart->getMaxServiceAttribute3();
-                break;
             default:
+                return null;
         }
-
-        return null;
     }
 
-    /**
-     * @return float
-     */
     protected function getPriceOfPhysicalProducts(): float
     {
-        $gross = 0.0;
+        $calculatedGross = 0.0;
 
         if ($this->cart->getProducts()) {
             foreach ($this->cart->getProducts() as $product) {
                 if (!$product->getIsVirtualProduct()) {
-                    $gross += $product->getGross();
+                    $calculatedGross += $product->getGross();
                 }
             }
         }
 
-        return $gross;
+        return $calculatedGross;
     }
 }

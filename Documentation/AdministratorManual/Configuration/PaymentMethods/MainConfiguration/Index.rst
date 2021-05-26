@@ -79,11 +79,14 @@ Main configuration
 .. container:: table-row
 
    Property
-      plugin.tx_cart.payments.countries.de.options.n.taxClass
+      plugin.tx_cart.payments.countries.de.options.n.taxClassId
    Data type
       int
    Description
-      ID of the tax class for this payment method.
+      ID of the tax class for this payment method. The taxClassId must either be assignable to a defined tax class.
+      However, the values `-1` and `-2` are also allowed here.
+      `-1` The tax class for the calculation is based on the largest tax class of the products in the shopping cart.
+      `-2` The taxes are calculated as a percentage of the tax of the products in the shopping cart.
 
 .. container:: table-row
 

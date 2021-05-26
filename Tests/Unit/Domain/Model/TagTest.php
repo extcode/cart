@@ -9,20 +9,17 @@ namespace Extcode\Cart\Tests\Unit\Domain\Model;
  * LICENSE file that was distributed with this source code.
  */
 
+use Extcode\Cart\Domain\Model\Tag;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 class TagTest extends UnitTestCase
 {
     /**
-     * Product Tag
-     *
-     * @var \Extcode\Cart\Domain\Model\Tag
+     * @var Tag
      */
-    protected $tag = null;
+    protected $tag;
 
     /**
-     * Title
-     *
      * @var string
      */
     protected $title = '';
@@ -31,7 +28,7 @@ class TagTest extends UnitTestCase
     {
         $this->title = 'Title';
 
-        $this->tag = new \Extcode\Cart\Domain\Model\Tag(
+        $this->tag = new Tag(
             $this->title
         );
     }
@@ -39,11 +36,11 @@ class TagTest extends UnitTestCase
     /**
      * @test
      */
-    public function constructCouponWithoutTitleThrowsException()
+    public function constructCouponWithoutTitleThrowsException(): void
     {
         $this->expectException(\TypeError::class);
 
-        $this->tag = new \Extcode\Cart\Domain\Model\Tag(
+        $this->tag = new Tag(
             null
         );
     }
@@ -51,9 +48,9 @@ class TagTest extends UnitTestCase
     /**
      * @test
      */
-    public function getTitleInitiallyReturnsTitleSetDirectlyByConstructor()
+    public function getTitleInitiallyReturnsTitleSetDirectlyByConstructor(): void
     {
-        $this->assertSame(
+        self::assertSame(
             $this->title,
             $this->tag->getTitle()
         );
@@ -62,13 +59,13 @@ class TagTest extends UnitTestCase
     /**
      * @test
      */
-    public function setTitleSetsTitle()
+    public function setTitleSetsTitle(): void
     {
         $newTitle = 'new Title';
 
         $this->tag->setTitle($newTitle);
 
-        $this->assertSame(
+        self::assertSame(
             $newTitle,
             $this->tag->getTitle()
         );

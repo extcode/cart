@@ -9,26 +9,27 @@ namespace Extcode\Cart\Tests\Unit\Domain\Model\Order;
  * LICENSE file that was distributed with this source code.
  */
 
+use Extcode\Cart\Domain\Model\Order\Transaction;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 class TransactionTest extends UnitTestCase
 {
     /**
-     * @var \Extcode\Cart\Domain\Model\Order\Transaction
+     * @var Transaction
      */
-    protected $transaction = null;
+    protected $transaction;
 
     public function setUp(): void
     {
-        $this->transaction = new \Extcode\Cart\Domain\Model\Order\Transaction();
+        $this->transaction = new Transaction();
     }
 
     /**
      * @test
      */
-    public function getTxnIdInitiallyReturnsEmptyString()
+    public function getTxnIdInitiallyReturnsEmptyString(): void
     {
-        $this->assertSame(
+        self::assertSame(
             '',
             $this->transaction->getTxnId()
         );
@@ -37,13 +38,13 @@ class TransactionTest extends UnitTestCase
     /**
      * @test
      */
-    public function setTxnIdSetsTnxId()
+    public function setTxnIdSetsTnxId(): void
     {
         $transactionId = 'transaction-id';
 
         $this->transaction->setTxnId($transactionId);
 
-        $this->assertSame(
+        self::assertSame(
             $transactionId,
             $this->transaction->getTxnId()
         );

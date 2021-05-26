@@ -9,26 +9,27 @@ namespace Extcode\Cart\Tests\Unit\Domain\Model\Order;
  * LICENSE file that was distributed with this source code.
  */
 
+use Extcode\Cart\Domain\Model\Order\AbstractAddress;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 class AddressTest extends UnitTestCase
 {
     /**
-     * @var \Extcode\Cart\Domain\Model\Order\AbstractAddress
+     * @var AbstractAddress
      */
     protected $address;
 
     public function setUp(): void
     {
         $this->address = $this->getMockForAbstractClass(
-            \Extcode\Cart\Domain\Model\Order\AbstractAddress::class
+            AbstractAddress::class
         );
     }
 
     /**
      * @test
      */
-    public function toArrayReturnsArray()
+    public function toArrayReturnsArray(): void
     {
         $salutation = 'salutation';
         $title = 'title';
@@ -74,7 +75,7 @@ class AddressTest extends UnitTestCase
             'fax' => $fax
         ];
 
-        $this->assertSame(
+        self::assertSame(
             $addressArray,
             $this->address->toArray()
         );
@@ -83,9 +84,9 @@ class AddressTest extends UnitTestCase
     /**
      * @test
      */
-    public function getTitleInitiallyReturnsEmptyString()
+    public function getTitleInitiallyReturnsEmptyString(): void
     {
-        $this->assertSame(
+        self::assertSame(
             '',
             $this->address->getTitle()
         );
@@ -94,12 +95,12 @@ class AddressTest extends UnitTestCase
     /**
      * @test
      */
-    public function setTitleSetsTitle()
+    public function setTitleSetsTitle(): void
     {
         $title = 'title';
         $this->address->setTitle($title);
 
-        $this->assertSame(
+        self::assertSame(
             $title,
             $this->address->getTitle()
         );
@@ -108,9 +109,9 @@ class AddressTest extends UnitTestCase
     /**
      * @test
      */
-    public function getSalutationInitiallyReturnsEmptyString()
+    public function getSalutationInitiallyReturnsEmptyString(): void
     {
-        $this->assertSame(
+        self::assertSame(
             '',
             $this->address->getSalutation()
         );
@@ -119,12 +120,12 @@ class AddressTest extends UnitTestCase
     /**
      * @test
      */
-    public function setSalutationSetsSalutation()
+    public function setSalutationSetsSalutation(): void
     {
         $salutation = 'salutation';
         $this->address->setSalutation($salutation);
 
-        $this->assertSame(
+        self::assertSame(
             $salutation,
             $this->address->getSalutation()
         );
@@ -133,9 +134,9 @@ class AddressTest extends UnitTestCase
     /**
      * @test
      */
-    public function getFirstNameInitiallyReturnsEmptyString()
+    public function getFirstNameInitiallyReturnsEmptyString(): void
     {
-        $this->assertSame(
+        self::assertSame(
             '',
             $this->address->getFirstName()
         );
@@ -144,12 +145,12 @@ class AddressTest extends UnitTestCase
     /**
      * @test
      */
-    public function setFirstNameSetsFirstName()
+    public function setFirstNameSetsFirstName(): void
     {
         $firstName = 'first name';
         $this->address->setFirstName($firstName);
 
-        $this->assertSame(
+        self::assertSame(
             $firstName,
             $this->address->getFirstName()
         );
@@ -158,9 +159,9 @@ class AddressTest extends UnitTestCase
     /**
      * @test
      */
-    public function getLastNameInitiallyReturnsEmptyString()
+    public function getLastNameInitiallyReturnsEmptyString(): void
     {
-        $this->assertSame(
+        self::assertSame(
             '',
             $this->address->getLastName()
         );
@@ -169,12 +170,12 @@ class AddressTest extends UnitTestCase
     /**
      * @test
      */
-    public function setLastNameSetsLastName()
+    public function setLastNameSetsLastName(): void
     {
         $lastName = 'last name';
         $this->address->setLastName($lastName);
 
-        $this->assertSame(
+        self::assertSame(
             $lastName,
             $this->address->getLastName()
         );
@@ -183,14 +184,14 @@ class AddressTest extends UnitTestCase
     /**
      * @test
      */
-    public function getSalutationLastNameReturnsConcatenation()
+    public function getSalutationLastNameReturnsConcatenation(): void
     {
         $salutation = 'salutation';
         $this->address->setSalutation($salutation);
         $lastName = 'last name';
         $this->address->setLastName($lastName);
 
-        $this->assertEquals(
+        self::assertEquals(
             $salutation . ' ' . $lastName,
             $this->address->getSalutationLastName()
         );
@@ -199,12 +200,12 @@ class AddressTest extends UnitTestCase
     /**
      * @test
      */
-    public function getTitleLastNameWithoutTitleReturnsCorrectConcatenation()
+    public function getTitleLastNameWithoutTitleReturnsCorrectConcatenation(): void
     {
         $lastName = 'last name';
         $this->address->setLastName($lastName);
 
-        $this->assertEquals(
+        self::assertEquals(
             $lastName,
             $this->address->getTitleLastName()
         );
@@ -213,14 +214,14 @@ class AddressTest extends UnitTestCase
     /**
      * @test
      */
-    public function getTitleLastNameWithTitleReturnsCorrectConcatenation()
+    public function getTitleLastNameWithTitleReturnsCorrectConcatenation(): void
     {
         $title = 'title';
         $this->address->setTitle($title);
         $lastName = 'last name';
         $this->address->setLastName($lastName);
 
-        $this->assertEquals(
+        self::assertEquals(
             $title . ' ' . $lastName,
             $this->address->getTitleLastName()
         );
@@ -229,14 +230,14 @@ class AddressTest extends UnitTestCase
     /**
      * @test
      */
-    public function getSalutationTitleLastNameWithoutTitleReturnsCorrectConcatenation()
+    public function getSalutationTitleLastNameWithoutTitleReturnsCorrectConcatenation(): void
     {
         $salutation = 'salutation';
         $this->address->setSalutation($salutation);
         $lastName = 'last name';
         $this->address->setLastName($lastName);
 
-        $this->assertEquals(
+        self::assertEquals(
             $salutation . ' ' . $lastName,
             $this->address->getSalutationTitleLastName()
         );
@@ -245,7 +246,7 @@ class AddressTest extends UnitTestCase
     /**
      * @test
      */
-    public function getSalutationTitleLastNameWithTitleReturnsCorrectConcatenation()
+    public function getSalutationTitleLastNameWithTitleReturnsCorrectConcatenation(): void
     {
         $salutation = 'salutation';
         $this->address->setSalutation($salutation);
@@ -254,7 +255,7 @@ class AddressTest extends UnitTestCase
         $lastName = 'last name';
         $this->address->setLastName($lastName);
 
-        $this->assertEquals(
+        self::assertEquals(
             $salutation . ' ' . $title . ' ' . $lastName,
             $this->address->getSalutationTitleLastName()
         );
@@ -263,14 +264,14 @@ class AddressTest extends UnitTestCase
     /**
      * @test
      */
-    public function getSalutationOrTitleLastNameWithoutTitleReturnsCorrectConcatenation()
+    public function getSalutationOrTitleLastNameWithoutTitleReturnsCorrectConcatenation(): void
     {
         $salutation = 'salutation';
         $this->address->setSalutation($salutation);
         $lastName = 'last name';
         $this->address->setLastName($lastName);
 
-        $this->assertEquals(
+        self::assertEquals(
             $salutation . ' ' . $lastName,
             $this->address->getSalutationOrTitleLastName()
         );
@@ -279,7 +280,7 @@ class AddressTest extends UnitTestCase
     /**
      * @test
      */
-    public function getSalutationOrTitleLastNameWithTitleReturnsCorrectConcatenation()
+    public function getSalutationOrTitleLastNameWithTitleReturnsCorrectConcatenation(): void
     {
         $salutation = 'salutation';
         $this->address->setSalutation($salutation);
@@ -288,7 +289,7 @@ class AddressTest extends UnitTestCase
         $lastName = 'last name';
         $this->address->setLastName($lastName);
 
-        $this->assertEquals(
+        self::assertEquals(
             $title . ' ' . $lastName,
             $this->address->getSalutationOrTitleLastName()
         );
@@ -297,14 +298,14 @@ class AddressTest extends UnitTestCase
     /**
      * @test
      */
-    public function getFullNameReturnsCorrectConcatenation()
+    public function getFullNameReturnsCorrectConcatenation(): void
     {
         $firstName = 'first name';
         $this->address->setFirstName($firstName);
         $lastName = 'last name';
         $this->address->setLastName($lastName);
 
-        $this->assertEquals(
+        self::assertEquals(
             $firstName . ' ' . $lastName,
             $this->address->getFullName()
         );
@@ -313,7 +314,7 @@ class AddressTest extends UnitTestCase
     /**
      * @test
      */
-    public function getSalutationFullNameReturnsCorrectConcatenation()
+    public function getSalutationFullNameReturnsCorrectConcatenation(): void
     {
         $salutation = 'salutation';
         $this->address->setSalutation($salutation);
@@ -322,7 +323,7 @@ class AddressTest extends UnitTestCase
         $lastName = 'last name';
         $this->address->setLastName($lastName);
 
-        $this->assertEquals(
+        self::assertEquals(
             $salutation . ' ' . $firstName . ' ' . $lastName,
             $this->address->getSalutationFullName()
         );
@@ -331,14 +332,14 @@ class AddressTest extends UnitTestCase
     /**
      * @test
      */
-    public function getTitleFullNameWithoutTitleReturnsCorrectConcatenation()
+    public function getTitleFullNameWithoutTitleReturnsCorrectConcatenation(): void
     {
         $firstName = 'first name';
         $this->address->setFirstName($firstName);
         $lastName = 'last name';
         $this->address->setLastName($lastName);
 
-        $this->assertEquals(
+        self::assertEquals(
             $firstName . ' ' . $lastName,
             $this->address->getTitleFullName()
         );
@@ -347,7 +348,7 @@ class AddressTest extends UnitTestCase
     /**
      * @test
      */
-    public function getTitleFullNameWithTitleReturnsCorrectConcatenation()
+    public function getTitleFullNameWithTitleReturnsCorrectConcatenation(): void
     {
         $title = 'title';
         $this->address->setTitle($title);
@@ -356,7 +357,7 @@ class AddressTest extends UnitTestCase
         $lastName = 'last name';
         $this->address->setLastName($lastName);
 
-        $this->assertEquals(
+        self::assertEquals(
             $title . ' ' . $firstName . ' ' . $lastName,
             $this->address->getTitleFullName()
         );
@@ -365,7 +366,7 @@ class AddressTest extends UnitTestCase
     /**
      * @test
      */
-    public function getSalutationTitleFullNameWithoutTitleReturnsCorrectConcatenation()
+    public function getSalutationTitleFullNameWithoutTitleReturnsCorrectConcatenation(): void
     {
         $salutation = 'salutation';
         $this->address->setSalutation($salutation);
@@ -374,7 +375,7 @@ class AddressTest extends UnitTestCase
         $lastName = 'last name';
         $this->address->setLastName($lastName);
 
-        $this->assertEquals(
+        self::assertEquals(
             $salutation . ' ' . $firstName . ' ' . $lastName,
             $this->address->getSalutationTitleFullName()
         );
@@ -383,7 +384,7 @@ class AddressTest extends UnitTestCase
     /**
      * @test
      */
-    public function getSalutationTitleFullNameWithTitleReturnsCorrectConcatenation()
+    public function getSalutationTitleFullNameWithTitleReturnsCorrectConcatenation(): void
     {
         $salutation = 'salutation';
         $this->address->setSalutation($salutation);
@@ -394,7 +395,7 @@ class AddressTest extends UnitTestCase
         $lastName = 'last name';
         $this->address->setLastName($lastName);
 
-        $this->assertEquals(
+        self::assertEquals(
             $salutation . ' ' . $title . ' ' . $firstName . ' ' . $lastName,
             $this->address->getSalutationTitleFullName()
         );
@@ -403,9 +404,9 @@ class AddressTest extends UnitTestCase
     /**
      * @test
      */
-    public function getCompanyInitiallyReturnsEmptyString()
+    public function getCompanyInitiallyReturnsEmptyString(): void
     {
-        $this->assertSame(
+        self::assertSame(
             '',
             $this->address->getCompany()
         );
@@ -414,12 +415,12 @@ class AddressTest extends UnitTestCase
     /**
      * @test
      */
-    public function setCompanySetsCompany()
+    public function setCompanySetsCompany(): void
     {
         $company = 'company';
         $this->address->setCompany($company);
 
-        $this->assertSame(
+        self::assertSame(
             $company,
             $this->address->getCompany()
         );
@@ -428,9 +429,9 @@ class AddressTest extends UnitTestCase
     /**
      * @test
      */
-    public function getStreetInitiallyReturnsEmptyString()
+    public function getStreetInitiallyReturnsEmptyString(): void
     {
-        $this->assertSame(
+        self::assertSame(
             '',
             $this->address->getStreet()
         );
@@ -439,12 +440,12 @@ class AddressTest extends UnitTestCase
     /**
      * @test
      */
-    public function setStreetSetsStreet()
+    public function setStreetSetsStreet(): void
     {
         $street = 'street';
         $this->address->setStreet($street);
 
-        $this->assertSame(
+        self::assertSame(
             $street,
             $this->address->getStreet()
         );
@@ -453,9 +454,9 @@ class AddressTest extends UnitTestCase
     /**
      * @test
      */
-    public function getZipInitiallyReturnsEmptyString()
+    public function getZipInitiallyReturnsEmptyString(): void
     {
-        $this->assertSame(
+        self::assertSame(
             '',
             $this->address->getZip()
         );
@@ -464,12 +465,12 @@ class AddressTest extends UnitTestCase
     /**
      * @test
      */
-    public function setZipSetsZip()
+    public function setZipSetsZip(): void
     {
         $zip = 'zip';
         $this->address->setZip($zip);
 
-        $this->assertSame(
+        self::assertSame(
             $zip,
             $this->address->getZip()
         );
@@ -478,9 +479,9 @@ class AddressTest extends UnitTestCase
     /**
      * @test
      */
-    public function getCityInitiallyReturnsEmptyString()
+    public function getCityInitiallyReturnsEmptyString(): void
     {
-        $this->assertSame(
+        self::assertSame(
             '',
             $this->address->getCity()
         );
@@ -489,12 +490,12 @@ class AddressTest extends UnitTestCase
     /**
      * @test
      */
-    public function setCitySetsCity()
+    public function setCitySetsCity(): void
     {
         $city = 'city';
         $this->address->setCity($city);
 
-        $this->assertSame(
+        self::assertSame(
             $city,
             $this->address->getCity()
         );
@@ -503,9 +504,9 @@ class AddressTest extends UnitTestCase
     /**
      * @test
      */
-    public function getCountryInitiallyReturnsEmptyString()
+    public function getCountryInitiallyReturnsEmptyString(): void
     {
-        $this->assertSame(
+        self::assertSame(
             '',
             $this->address->getCountry()
         );
@@ -514,12 +515,12 @@ class AddressTest extends UnitTestCase
     /**
      * @test
      */
-    public function setCountrySetsCountry()
+    public function setCountrySetsCountry(): void
     {
         $country = 'country';
         $this->address->setCountry($country);
 
-        $this->assertSame(
+        self::assertSame(
             $country,
             $this->address->getCountry()
         );
@@ -528,9 +529,9 @@ class AddressTest extends UnitTestCase
     /**
      * @test
      */
-    public function getEmailInitiallyReturnsEmptyString()
+    public function getEmailInitiallyReturnsEmptyString(): void
     {
-        $this->assertSame(
+        self::assertSame(
             '',
             $this->address->getEmail()
         );
@@ -539,12 +540,12 @@ class AddressTest extends UnitTestCase
     /**
      * @test
      */
-    public function setEmailSetsEmail()
+    public function setEmailSetsEmail(): void
     {
         $email = 'email';
         $this->address->setEmail($email);
 
-        $this->assertSame(
+        self::assertSame(
             $email,
             $this->address->getEmail()
         );
@@ -553,9 +554,9 @@ class AddressTest extends UnitTestCase
     /**
      * @test
      */
-    public function getPhoneInitiallyReturnsEmptyString()
+    public function getPhoneInitiallyReturnsEmptyString(): void
     {
-        $this->assertSame(
+        self::assertSame(
             '',
             $this->address->getPhone()
         );
@@ -564,12 +565,12 @@ class AddressTest extends UnitTestCase
     /**
      * @test
      */
-    public function setPhoneSetsPhone()
+    public function setPhoneSetsPhone(): void
     {
         $phone = 'phone';
         $this->address->setPhone($phone);
 
-        $this->assertSame(
+        self::assertSame(
             $phone,
             $this->address->getPhone()
         );
@@ -578,9 +579,9 @@ class AddressTest extends UnitTestCase
     /**
      * @test
      */
-    public function getFaxInitiallyReturnsEmptyString()
+    public function getFaxInitiallyReturnsEmptyString(): void
     {
-        $this->assertSame(
+        self::assertSame(
             '',
             $this->address->getFax()
         );
@@ -589,12 +590,12 @@ class AddressTest extends UnitTestCase
     /**
      * @test
      */
-    public function setFaxSetsFax()
+    public function setFaxSetsFax(): void
     {
         $fax = 'fax';
         $this->address->setFax($fax);
 
-        $this->assertSame(
+        self::assertSame(
             $fax,
             $this->address->getFax()
         );

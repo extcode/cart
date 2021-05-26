@@ -9,6 +9,10 @@ namespace Extcode\Cart\Tests\Unit\Domain\Model\Cart;
  * LICENSE file that was distributed with this source code.
  */
 
+use Extcode\Cart\Domain\Model\Cart\Cart;
+use Extcode\Cart\Domain\Model\Cart\Product;
+use Extcode\Cart\Domain\Model\Cart\Service;
+use Extcode\Cart\Domain\Model\Cart\TaxClass;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 class ServiceTest extends UnitTestCase
@@ -29,15 +33,30 @@ class ServiceTest extends UnitTestCase
     protected $taxClasses = [];
 
     /**
-     * @var \Extcode\Cart\Domain\Model\Cart\Service
+     * @var Service
      */
     protected $service;
 
+    /**
+     * @var TaxClass
+     */
+    protected $normalTaxClass;
+
+    /**
+     * @var TaxClass
+     */
+    protected $reducedTaxClass;
+
+    /**
+     * @var TaxClass
+     */
+    protected $freeTaxClass;
+
     public function setUp(): void
     {
-        $this->normalTaxClass = new \Extcode\Cart\Domain\Model\Cart\TaxClass(1, '19', 0.19, 'Normal');
-        $this->reducedTaxClass = new \Extcode\Cart\Domain\Model\Cart\TaxClass(2, '7%', 0.07, 'Reduced');
-        $this->freeTaxClass = new \Extcode\Cart\Domain\Model\Cart\TaxClass(3, '0%', 0.00, 'Free');
+        $this->normalTaxClass = new TaxClass(1, '19', 0.19, 'Normal');
+        $this->reducedTaxClass = new TaxClass(2, '7%', 0.07, 'Reduced');
+        $this->freeTaxClass = new TaxClass(3, '0%', 0.00, 'Free');
 
         $this->taxClasses = [
             1 => $this->normalTaxClass,
@@ -48,11 +67,11 @@ class ServiceTest extends UnitTestCase
         $this->config = [
             'title' => 'Standard',
             'extra' => 0.00,
-            'taxClassId' => 1,
+            'taxClassId' => $this->normalTaxClass->getId(),
             'status' => 'open'
         ];
 
-        $this->service = new \Extcode\Cart\Domain\Model\Cart\Service(
+        $this->service = new Service(
             $this->id,
             $this->config
         );
@@ -61,9 +80,9 @@ class ServiceTest extends UnitTestCase
     /**
      * @test
      */
-    public function getServiceIdReturnsServiceIdSetByConstructor()
+    public function getServiceIdReturnsServiceIdSetByConstructor(): void
     {
-        $this->assertSame(
+        self::assertSame(
             $this->id,
             $this->service->getId()
         );
@@ -72,9 +91,9 @@ class ServiceTest extends UnitTestCase
     /**
      * @test
      */
-    public function getServiceConfigReturnsServiceConfigSetByConstructor()
+    public function getServiceConfigReturnsServiceConfigSetByConstructor(): void
     {
-        $this->assertSame(
+        self::assertSame(
             $this->config,
             $this->service->getConfig()
         );
@@ -83,9 +102,9 @@ class ServiceTest extends UnitTestCase
     /**
      * @test
      */
-    public function isAvailableWithoutUntilAvailableConfigurationReturnsTrue()
+    public function isAvailableWithoutUntilAvailableConfigurationReturnsTrue(): void
     {
-        $this->assertTrue(
+        self::assertTrue(
             $this->service->isAvailable()
         );
     }
@@ -93,7 +112,7 @@ class ServiceTest extends UnitTestCase
     /**
      * @test
      */
-    public function isAvailableWithCartGrossInRangeReturnsTrue()
+    public function isAvailableWithCartGrossInRangeReturnsTrue(): void
     {
         $config = [
             'title' => 'Standard',
@@ -106,39 +125,38 @@ class ServiceTest extends UnitTestCase
             ]
         ];
 
-        $service = $this->getMockBuilder(\Extcode\Cart\Domain\Model\Cart\Service::class)
-            ->setMethods(['calcAll'])
-            ->setConstructorArgs([$this->id, $config])
-            ->getMock();
-        $service->expects($this->any())->method('calcAll')->will($this->returnValue(null));
+        $service = new Service(
+            $this->id,
+            $config
+        );
 
-        $cart1 = $this->getMockBuilder(\Extcode\Cart\Domain\Model\Cart\Cart::class)
+        $cart1 = $this->getMockBuilder(Cart::class)
             ->setMethods(['getGross'])
             ->setConstructorArgs([$this->taxClasses])
             ->getMock();
-        $cart1->expects($this->any())->method('getGross')->will($this->returnValue(20.00));
+        $cart1->method('getGross')->willReturn(20.00);
         $service->setCart($cart1);
-        $this->assertTrue(
+        self::assertTrue(
             $service->isAvailable()
         );
 
-        $cart2 = $this->getMockBuilder(\Extcode\Cart\Domain\Model\Cart\Cart::class)
+        $cart2 = $this->getMockBuilder(Cart::class)
             ->setMethods(['getGross'])
             ->setConstructorArgs([$this->taxClasses])
             ->getMock();
-        $cart2->expects($this->any())->method('getGross')->will($this->returnValue(50.00));
+        $cart2->method('getGross')->willReturn(50.00);
         $service->setCart($cart2);
-        $this->assertTrue(
+        self::assertTrue(
             $service->isAvailable()
         );
 
-        $cart3 = $this->getMockBuilder(\Extcode\Cart\Domain\Model\Cart\Cart::class)
+        $cart3 = $this->getMockBuilder(Cart::class)
             ->setMethods(['getGross'])
             ->setConstructorArgs([$this->taxClasses])
             ->getMock();
-        $cart3->expects($this->any())->method('getGross')->will($this->returnValue(100.00));
+        $cart3->method('getGross')->willReturn(100.00);
         $service->setCart($cart3);
-        $this->assertTrue(
+        self::assertTrue(
             $service->isAvailable()
         );
     }
@@ -146,7 +164,7 @@ class ServiceTest extends UnitTestCase
     /**
      * @test
      */
-    public function isAvailableWithCartGrossBelowRangeReturnsFalse()
+    public function isAvailableWithCartGrossBelowRangeReturnsFalse(): void
     {
         $config = [
             'title' => 'Standard',
@@ -159,21 +177,20 @@ class ServiceTest extends UnitTestCase
             ]
         ];
 
-        $service = $this->getMockBuilder(\Extcode\Cart\Domain\Model\Cart\Service::class)
-            ->setMethods(['calcAll'])
-            ->setConstructorArgs([$this->id, $config])
-            ->getMock();
-        $service->expects($this->any())->method('calcAll')->will($this->returnValue(null));
+        $service = new Service(
+            $this->id,
+            $config
+        );
 
-        $cart = $this->getMockBuilder(\Extcode\Cart\Domain\Model\Cart\Cart::class)
+        $cart = $this->getMockBuilder(Cart::class)
             ->setMethods(['getGross'])
             ->setConstructorArgs([$this->taxClasses])
             ->getMock();
-        $cart->expects($this->any())->method('getGross')->will($this->returnValue(19.99));
+        $cart->method('getGross')->willReturn(19.99);
 
         $service->setCart($cart);
 
-        $this->assertFalse(
+        self::assertFalse(
             $service->isAvailable()
         );
     }
@@ -181,7 +198,7 @@ class ServiceTest extends UnitTestCase
     /**
      * @test
      */
-    public function isAvailableWithCartGrossAboveRangeReturnsFalse()
+    public function isAvailableWithCartGrossAboveRangeReturnsFalse(): void
     {
         $config = [
             'title' => 'Standard',
@@ -194,22 +211,339 @@ class ServiceTest extends UnitTestCase
             ]
         ];
 
-        $service = $this->getMockBuilder(\Extcode\Cart\Domain\Model\Cart\Service::class)
-            ->setMethods(['calcAll'])
-            ->setConstructorArgs([$this->id, $config])
-            ->getMock();
-        $service->expects($this->any())->method('calcAll')->will($this->returnValue(null));
+        $service = new Service(
+            $this->id,
+            $config
+        );
 
-        $cart = $this->getMockBuilder(\Extcode\Cart\Domain\Model\Cart\Cart::class)
+        $cart = $this->getMockBuilder(Cart::class)
             ->setMethods(['getGross'])
             ->setConstructorArgs([$this->taxClasses])
             ->getMock();
-        $cart->expects($this->any())->method('getGross')->will($this->returnValue(100.01));
+        $cart->method('getGross')->willReturn(100.01);
 
         $service->setCart($cart);
 
-        $this->assertFalse(
+        self::assertFalse(
             $service->isAvailable()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function isPresetInitiallyReturnsFalse(): void
+    {
+        self::assertFalse(
+            $this->service->isPreset()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function setPresetSetsPreset(): void
+    {
+        $this->service->setPreset(true);
+        self::assertTrue(
+            $this->service->isPreset()
+        );
+
+        $this->service->setPreset(false);
+        self::assertFalse(
+            $this->service->isPreset()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function getFallbackIdInitiallyReturnsNull(): void
+    {
+        self::assertNull(
+            $this->service->getFallbackId()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function getFallbackIdIReturnsConfiguredFallbackId(): void
+    {
+        $config = [
+            'title' => 'Standard',
+            'extra' => 0.00,
+            'taxClassId' => 1,
+            'status' => 'open',
+            'fallBackId' => 3
+        ];
+
+        $service = new Service(
+            $this->id,
+            $config
+        );
+
+        self::assertSame(
+            3,
+            $service->getFallbackId()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function isFreeInitiallyReturnsFalse(): void
+    {
+        self::assertNull(
+            $this->service->getFallbackId()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function isFreeWithCartGrossInRangeReturnsTrue(): void
+    {
+        $config = [
+            'title' => 'Standard',
+            'extra' => 0.00,
+            'taxClassId' => 1,
+            'status' => 'open',
+            'free' => [
+                'from' => 20.00,
+                'until' => 100.00
+            ]
+        ];
+
+        $service = new Service(
+            $this->id,
+            $config
+        );
+
+        $cart1 = $this->getMockBuilder(Cart::class)
+            ->setMethods(['getGross'])
+            ->setConstructorArgs([$this->taxClasses])
+            ->getMock();
+        $cart1->method('getGross')->willReturn(20.00);
+        $service->setCart($cart1);
+        self::assertTrue(
+            $service->isFree()
+        );
+
+        $cart2 = $this->getMockBuilder(Cart::class)
+            ->setMethods(['getGross'])
+            ->setConstructorArgs([$this->taxClasses])
+            ->getMock();
+        $cart2->method('getGross')->willReturn(50.00);
+        $service->setCart($cart2);
+        self::assertTrue(
+            $service->isFree()
+        );
+
+        $cart3 = $this->getMockBuilder(Cart::class)
+            ->setMethods(['getGross'])
+            ->setConstructorArgs([$this->taxClasses])
+            ->getMock();
+        $cart3->method('getGross')->willReturn(100.00);
+        $service->setCart($cart3);
+        self::assertTrue(
+            $service->isFree()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function isFreeWithCartGrossBelowRangeReturnsFalse(): void
+    {
+        $config = [
+            'title' => 'Standard',
+            'extra' => 0.00,
+            'taxClassId' => 1,
+            'status' => 'open',
+            'free' => [
+                'from' => 20.00,
+                'until' => 100.00
+            ]
+        ];
+
+        $service = new Service(
+            $this->id,
+            $config
+        );
+
+        $cart = $this->getMockBuilder(Cart::class)
+            ->setMethods(['getGross'])
+            ->setConstructorArgs([$this->taxClasses])
+            ->getMock();
+        $cart->method('getGross')->willReturn(19.99);
+
+        $service->setCart($cart);
+
+        self::assertFalse(
+            $service->isFree()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function isFreeWithCartGrossAboveRangeReturnsFalse(): void
+    {
+        $config = [
+            'title' => 'Standard',
+            'extra' => 0.00,
+            'taxClassId' => 1,
+            'status' => 'open',
+            'free' => [
+                'from' => 20.00,
+                'until' => 100.00
+            ]
+        ];
+
+        $service = new Service(
+            $this->id,
+            $config
+        );
+
+        $cart = $this->getMockBuilder(Cart::class)
+            ->setMethods(['getGross'])
+            ->setConstructorArgs([$this->taxClasses])
+            ->getMock();
+        $cart->method('getGross')->willReturn(100.01);
+
+        $service->setCart($cart);
+
+        self::assertFalse(
+            $service->isFree()
+        );
+    }
+    /**
+     * @test
+     */
+    public function taxClassIdsGreaterZeroReturnsTaxClass(): void
+    {
+        $cart = $this->getMockBuilder(Cart::class)
+            ->setMethods(['getGross'])
+            ->setConstructorArgs([$this->taxClasses])
+            ->getMock();
+        $cart->method('getGross')->willReturn(20.00);
+
+        $config = [
+            'title' => 'Standard',
+            'extra' => 0.00,
+            'taxClassId' => $this->normalTaxClass->getId(),
+            'status' => 'open'
+        ];
+        $service = new Service(
+            $this->id,
+            $config
+        );
+        $service->setCart($cart);
+        self::assertSame(
+            $this->normalTaxClass,
+            $service->getTaxClass()
+        );
+
+        $config = [
+            'title' => 'Standard',
+            'extra' => 0.00,
+            'taxClassId' => $this->reducedTaxClass->getId(),
+            'status' => 'open'
+        ];
+        $service = new Service(
+            $this->id,
+            $config
+        );
+        $service->setCart($cart);
+        self::assertSame(
+            $this->reducedTaxClass,
+            $service->getTaxClass()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function forTaxClassIdMinusOneTheHighestUsedTaxRateWillBeUsed(): void
+    {
+        $config = [
+            'title' => 'Standard',
+            'extra' => '0.00',
+            'taxClassId' => '-1',
+            'status' => 'open'
+        ];
+
+        $service = new Service(
+            $this->id,
+            $config
+        );
+
+        $cart = $this->getMockBuilder(Cart::class)
+            ->setMethods(['getGross'])
+            ->setConstructorArgs([$this->taxClasses])
+            ->getMock();
+        $cart->method('getGross')->willReturn(100.00);
+
+        $firstCartProductPrice = 10.00;
+        $firstCartProduct = new Product(
+            'simple',
+            1,
+            'SKU 1',
+            'First Product',
+            $firstCartProductPrice,
+            $this->reducedTaxClass,
+            1,
+            false
+        );
+        $cart->addProduct($firstCartProduct);
+        $service->setCart($cart);
+
+        self::assertSame(
+            $this->reducedTaxClass->getId(),
+            $service->getTaxClass()->getId()
+        );
+
+        $secondCartProductPrice = 20.00;
+        $secondCartProduct = new Product(
+            'simple',
+            2,
+            'SKU 2',
+            'Second Product',
+            $secondCartProductPrice,
+            $this->normalTaxClass,
+            1,
+            false
+        );
+        $cart->addProduct($secondCartProduct);
+        $service->setCart($cart);
+
+        self::assertSame(
+            $this->normalTaxClass->getId(),
+            $service->getTaxClass()->getId()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function forTaxClassIdMinusTwoReturnsPseudoTaxClassWithIdMinusTwo(): void
+    {
+        $config = [
+            'title' => 'Standard',
+            'extra' => '0.00',
+            'taxClassId' => '-2',
+            'status' => 'open'
+        ];
+
+        $service = new Service(
+            $this->id,
+            $config
+        );
+
+        self::assertSame(
+            -2,
+            $service->getTaxClass()->getId()
         );
     }
 }

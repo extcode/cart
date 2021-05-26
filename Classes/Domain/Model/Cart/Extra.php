@@ -12,6 +12,11 @@ namespace Extcode\Cart\Domain\Model\Cart;
 class Extra
 {
     /**
+     * @var ServiceInterface
+     */
+    protected $service;
+
+    /**
      * @var int
      */
     protected $id;
@@ -37,9 +42,9 @@ class Extra
     protected $net = 0.0;
 
     /**
-     * @var \Extcode\Cart\Domain\Model\Cart\TaxClass
+     * @var TaxClass
      */
-    protected $taxClass = null;
+    protected $taxClass;
 
     /**
      * @var float
@@ -72,7 +77,8 @@ class Extra
         float $price,
         TaxClass $taxClass,
         bool $isNetPrice = false,
-        string $extraType = ''
+        string $extraType = '',
+        Service $service = null
     ) {
         $this->id = $id;
         $this->condition = $condition;
@@ -83,44 +89,36 @@ class Extra
 
         $this->extraType = $extraType;
 
+        $this->service = $service;
+
         $this->reCalc();
     }
 
-    /**
-     * @param bool
-     */
-    public function setIsNetPrice(bool $isNetPrice)
+    public function getService(): ServiceInterface
+    {
+        return $this->service;
+    }
+
+    public function setIsNetPrice(bool $isNetPrice): void
     {
         $this->isNetPrice = $isNetPrice;
     }
 
-    /**
-     * @return bool
-     */
     public function getIsNetPrice(): bool
     {
         return $this->isNetPrice;
     }
 
-    /**
-     * @return string
-     */
     public function getExtraType(): string
     {
         return $this->extraType;
     }
 
-    /**
-     * @return int
-     */
     public function getId(): int
     {
         return $this->id;
     }
 
-    /**
-     * @return float
-     */
     public function getCondition(): float
     {
         return $this->condition;
@@ -140,81 +138,131 @@ class Extra
         return true;
     }
 
-    /**
-     * @return float
-     */
     public function getPrice(): float
     {
         return $this->price;
     }
 
-    /**
-     * @param float $price
-     */
-    public function setPrice(float $price)
+    public function setPrice(float $price): void
     {
         $this->price = $price;
 
         $this->reCalc();
     }
 
-    /**
-     * @return float
-     */
     public function getGross(): float
     {
         $this->calcGross();
         return $this->gross;
     }
 
-    /**
-     * @return float
-     */
     public function getNet(): float
     {
         $this->calcNet();
         return $this->net;
     }
 
-    /**
-     * @return array
-     */
     public function getTax(): array
     {
         $this->calcTax();
-        return ['taxclassid' => $this->taxClass->getId(), 'tax' => $this->tax];
+        return ['taxClassId' => $this->taxClass->getId(), 'tax' => $this->tax];
     }
 
-    /**
-     * @return TaxClass
-     */
+    public function getTaxForTaxClass(TaxClass $taxClass): float
+    {
+        if ($this->service->getTaxClass()->getId() > 0 && $this->service->getTaxClass()->getId() !== $taxClass->getId()) {
+            return 0.0;
+        }
+
+        if ($this->isNetPrice) {
+            if ($this->service->getTaxClass()->getId() > 0) {
+                return $this->net * $this->taxClass->getCalc();
+            }
+
+            if ($this->service->getTaxClass()->getId() === -2) {
+                $taxClassDistribution = $this->getTaxClassDistributionOverCart();
+                $factor = $taxClass->getCalc();
+                return ($this->net * $taxClassDistribution[$taxClass->getId()]) * $factor;
+            }
+        } else {
+            if ($this->service->getTaxClass()->getId() > 0) {
+                return ($this->gross / (1 + $this->taxClass->getCalc())) * $this->taxClass->getCalc();
+            }
+
+            if ($this->service->getTaxClass()->getId() === -2) {
+                $taxClassDistribution = $this->getTaxClassDistributionOverCart();
+                $factor = $taxClass->getCalc();
+                return ($this->gross * $taxClassDistribution[$taxClass->getId()]) / (1 + $factor) * $factor;
+            }
+        }
+
+        return 0.0;
+    }
+
     public function getTaxClass(): TaxClass
     {
         return $this->taxClass;
     }
 
-    protected function calcGross()
+    protected function calcGross(): void
     {
-        if ($this->isNetPrice == false) {
-            $this->gross = $this->price;
-        } else {
+        if ($this->isNetPrice) {
             $this->calcNet();
             $this->gross = $this->net + $this->tax;
-        }
-    }
-
-    protected function calcTax()
-    {
-        if ($this->isNetPrice == false) {
-            $this->tax = ($this->gross / (1 + $this->taxClass->getCalc())) * ($this->taxClass->getCalc());
         } else {
-            $this->tax = ($this->net * $this->taxClass->getCalc());
+            $this->gross = $this->price;
         }
     }
 
-    protected function calcNet()
+    protected function calcTax(): void
     {
-        if ($this->isNetPrice == true) {
+        if ($this->isNetPrice) {
+            if ($this->service->getTaxClass()->getId() > 0) {
+                $this->tax = ($this->net * $this->taxClass->getCalc());
+            } elseif ($this->service->getTaxClass()->getId() === -2) {
+                $tax = 0.0;
+                foreach ($this->getTaxClassDistributionOverCart() as $taxClassId => $taxClassDistribution) {
+                    $factor = $this->service->getCart()->getTaxClass($taxClassId)->getCalc();
+                    $tax += ($this->net * $taxClassDistribution) * $factor;
+                }
+                $this->tax = $tax;
+            }
+        } else {
+            if ($this->service->getTaxClass()->getId() > 0) {
+                $this->tax = ($this->gross / (1 + $this->taxClass->getCalc())) * $this->taxClass->getCalc();
+            } elseif ($this->service->getTaxClass()->getId() === -2) {
+                $tax = 0.0;
+                foreach ($this->getTaxClassDistributionOverCart() as $taxClassId => $taxClassDistribution) {
+                    $factor = $this->service->getCart()->getTaxClass($taxClassId)->getCalc();
+                    $tax += ($this->gross * $taxClassDistribution) / (1 + $factor) * $factor;
+                }
+                $this->tax = $tax;
+            }
+        }
+    }
+
+    protected function getTaxClassDistributionOverCart(): array
+    {
+        $taxClassDistribution = [];
+
+        foreach ($this->service->getCart()->getTaxClasses() as $taxClass) {
+            $taxClassDistribution[$taxClass->getId()] = 0.0;
+        }
+
+        foreach ($this->service->getCart()->getProducts() as $product) {
+            $taxClassDistribution[$product->getTaxClass()->getId()] += $product->getGross();
+        }
+
+        $total = array_sum($taxClassDistribution);
+
+        return array_map(function ($gross) use ($total) {
+            return $gross / $total;
+        }, $taxClassDistribution);
+    }
+
+    protected function calcNet(): void
+    {
+        if ($this->isNetPrice) {
             $this->net = $this->price;
         } else {
             $this->calcGross();
@@ -222,16 +270,16 @@ class Extra
         }
     }
 
-    protected function reCalc()
+    protected function reCalc(): void
     {
-        if ($this->isNetPrice == false) {
-            $this->calcGross();
-            $this->calcTax();
+        if ($this->isNetPrice) {
             $this->calcNet();
+            $this->calcTax();
+            $this->calcGross();
         } else {
-            $this->calcNet();
-            $this->calcTax();
             $this->calcGross();
+            $this->calcTax();
+            $this->calcNet();
         }
     }
 }

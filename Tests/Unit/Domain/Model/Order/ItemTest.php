@@ -9,6 +9,7 @@ namespace Extcode\Cart\Tests\Unit\Domain\Model\Order;
  * LICENSE file that was distributed with this source code.
  */
 
+use Extcode\Cart\Domain\Model\Order\Item;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 class ItemTest extends UnitTestCase
@@ -19,21 +20,21 @@ class ItemTest extends UnitTestCase
     protected $cartPid = 1;
 
     /**
-     * @var \Extcode\Cart\Domain\Model\Order\Item
+     * @var Item
      */
     protected $item;
 
     public function setUp(): void
     {
-        $this->item = new \Extcode\Cart\Domain\Model\Order\Item();
+        $this->item = new Item();
     }
 
     /**
      * @test
      */
-    public function getCartPidInitiallyReturnsZero()
+    public function getCartPidInitiallyReturnsZero(): void
     {
-        $this->assertSame(
+        self::assertSame(
             0,
             $this->item->getCartPid()
         );
@@ -42,11 +43,11 @@ class ItemTest extends UnitTestCase
     /**
      * @test
      */
-    public function setCartPidSetsCartPid()
+    public function setCartPidSetsCartPid(): void
     {
         $this->item->setCartPid(1);
 
-        $this->assertSame(
+        self::assertSame(
             1,
             $this->item->getCartPid()
         );
@@ -55,9 +56,9 @@ class ItemTest extends UnitTestCase
     /**
      * @test
      */
-    public function getCurrencyInitiallyReturnsEuroSignString()
+    public function getCurrencyInitiallyReturnsEuroSignString(): void
     {
-        $this->assertSame(
+        self::assertSame(
             '€',
             $this->item->getCurrency()
         );
@@ -66,11 +67,11 @@ class ItemTest extends UnitTestCase
     /**
      * @test
      */
-    public function setCurrencySetsCurrency()
+    public function setCurrencySetsCurrency(): void
     {
         $this->item->setCurrency('$');
 
-        $this->assertSame(
+        self::assertSame(
             '$',
             $this->item->getCurrency()
         );
@@ -79,9 +80,9 @@ class ItemTest extends UnitTestCase
     /**
      * @test
      */
-    public function getCurrencyCodeInitiallyReturnsEmptyString()
+    public function getCurrencyCodeInitiallyReturnsEmptyString(): void
     {
-        $this->assertSame(
+        self::assertSame(
             '',
             $this->item->getCurrencyCode()
         );
@@ -90,11 +91,11 @@ class ItemTest extends UnitTestCase
     /**
      * @test
      */
-    public function setCurrencyCodeSetsCurrencyCode()
+    public function setCurrencyCodeSetsCurrencyCode(): void
     {
         $this->item->setCurrencyCode('EUR');
 
-        $this->assertSame(
+        self::assertSame(
             'EUR',
             $this->item->getCurrencyCode()
         );
@@ -103,9 +104,9 @@ class ItemTest extends UnitTestCase
     /**
      * @test
      */
-    public function getCurrencySignInitiallyReturnsEmptyString()
+    public function getCurrencySignInitiallyReturnsEmptyString(): void
     {
-        $this->assertSame(
+        self::assertSame(
             '',
             $this->item->getCurrencySign()
         );
@@ -114,11 +115,11 @@ class ItemTest extends UnitTestCase
     /**
      * @test
      */
-    public function setCurrencySignSetsCurrencySign()
+    public function setCurrencySignSetsCurrencySign(): void
     {
         $this->item->setCurrencySign('€');
 
-        $this->assertSame(
+        self::assertSame(
             '€',
             $this->item->getCurrencySign()
         );
@@ -127,9 +128,9 @@ class ItemTest extends UnitTestCase
     /**
      * @test
      */
-    public function getCurrencyTranslationInitiallyReturnsEmptyString()
+    public function getCurrencyTranslationInitiallyReturnsEmptyString(): void
     {
-        $this->assertSame(
+        self::assertSame(
             1.00,
             $this->item->getCurrencyTranslation()
         );
@@ -138,11 +139,11 @@ class ItemTest extends UnitTestCase
     /**
      * @test
      */
-    public function setCurrencyTranslationSetsCurrencyTranslation()
+    public function setCurrencyTranslationSetsCurrencyTranslation(): void
     {
         $this->item->setCurrencyTranslation(0.50);
 
-        $this->assertSame(
+        self::assertSame(
             0.50,
             $this->item->getCurrencyTranslation()
         );

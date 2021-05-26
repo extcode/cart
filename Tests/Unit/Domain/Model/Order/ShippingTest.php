@@ -9,26 +9,27 @@ namespace Extcode\Cart\Tests\Unit\Domain\Model\Order;
  * LICENSE file that was distributed with this source code.
  */
 
+use Extcode\Cart\Domain\Model\Order\Shipping;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 class ShippingTest extends UnitTestCase
 {
     /**
-     * @var \Extcode\Cart\Domain\Model\Order\Shipping
+     * @var Shipping
      */
     protected $shipping;
 
     public function setUp(): void
     {
-        $this->shipping = new \Extcode\Cart\Domain\Model\Order\Shipping();
+        $this->shipping = new Shipping();
     }
 
     /**
      * @test
      */
-    public function getNameInitiallyReturnsEmptyString()
+    public function getNameInitiallyReturnsEmptyString(): void
     {
-        $this->assertSame(
+        self::assertSame(
             '',
             $this->shipping->getName()
         );
@@ -37,11 +38,11 @@ class ShippingTest extends UnitTestCase
     /**
      * @test
      */
-    public function setNameSetsName()
+    public function setNameSetsName(): void
     {
         $this->shipping->setName('foo bar');
 
-        $this->assertSame(
+        self::assertSame(
             'foo bar',
             $this->shipping->getName()
         );
@@ -50,9 +51,9 @@ class ShippingTest extends UnitTestCase
     /**
      * @test
      */
-    public function getStatusInitiallyReturnsEmptyString()
+    public function getStatusInitiallyReturnsEmptyString(): void
     {
-        $this->assertSame(
+        self::assertSame(
             'open',
             $this->shipping->getStatus()
         );
@@ -61,11 +62,11 @@ class ShippingTest extends UnitTestCase
     /**
      * @test
      */
-    public function setStatusSetsStatus()
+    public function setStatusSetsStatus(): void
     {
         $this->shipping->setStatus('shipped');
 
-        $this->assertSame(
+        self::assertSame(
             'shipped',
             $this->shipping->getStatus()
         );
@@ -74,9 +75,9 @@ class ShippingTest extends UnitTestCase
     /**
      * @test
      */
-    public function getNetInitiallyReturnsZero()
+    public function getNetInitiallyReturnsZero(): void
     {
-        $this->assertSame(
+        self::assertSame(
             0.0,
             $this->shipping->getNet()
         );
@@ -85,11 +86,11 @@ class ShippingTest extends UnitTestCase
     /**
      * @test
      */
-    public function setNetSetsNet()
+    public function setNetSetsNet(): void
     {
         $this->shipping->setNet(1234.56);
 
-        $this->assertSame(
+        self::assertSame(
             1234.56,
             $this->shipping->getNet()
         );
@@ -98,9 +99,9 @@ class ShippingTest extends UnitTestCase
     /**
      * @test
      */
-    public function getGrossInitiallyReturnsZero()
+    public function getGrossInitiallyReturnsZero(): void
     {
-        $this->assertSame(
+        self::assertSame(
             0.0,
             $this->shipping->getGross()
         );
@@ -109,11 +110,11 @@ class ShippingTest extends UnitTestCase
     /**
      * @test
      */
-    public function setGrossSetsGross()
+    public function setGrossSetsGross(): void
     {
         $this->shipping->setGross(1234.56);
 
-        $this->assertSame(
+        self::assertSame(
             1234.56,
             $this->shipping->getGross()
         );
@@ -122,9 +123,9 @@ class ShippingTest extends UnitTestCase
     /**
      * @test
      */
-    public function getTaxInitiallyReturnsZero()
+    public function getTaxInitiallyReturnsZero(): void
     {
-        $this->assertSame(
+        self::assertSame(
             0.0,
             $this->shipping->getTax()
         );
@@ -133,11 +134,11 @@ class ShippingTest extends UnitTestCase
     /**
      * @test
      */
-    public function setTaxSetsTax()
+    public function setTaxSetsTax(): void
     {
         $this->shipping->setTax(1234.56);
 
-        $this->assertSame(
+        self::assertSame(
             1234.56,
             $this->shipping->getTax()
         );
@@ -146,9 +147,9 @@ class ShippingTest extends UnitTestCase
     /**
      * @test
      */
-    public function getNoteInitiallyReturnsEmptyString()
+    public function getNoteInitiallyReturnsEmptyString(): void
     {
-        $this->assertSame(
+        self::assertSame(
             '',
             $this->shipping->getNote()
         );
@@ -157,11 +158,11 @@ class ShippingTest extends UnitTestCase
     /**
      * @test
      */
-    public function setNoteSetsNote()
+    public function setNoteSetsNote(): void
     {
         $this->shipping->setNote('foo bar');
 
-        $this->assertSame(
+        self::assertSame(
             'foo bar',
             $this->shipping->getNote()
         );
