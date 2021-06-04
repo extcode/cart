@@ -58,12 +58,15 @@
         "test:typoscript:lint": [
             ".build/bin/typoscript-lint -c Build/typoscriptlint.yaml Configuration"
         ],
-        "test:all": [
-            "@test:cgl",
-            "@test:typoscript:lint",
+        "test:php": [
             "@test:php:lint",
             "@test:php:unit",
             "@test:php:functional"
+        ],
+        "test:all": [
+            "@test:cgl",
+            "@test:typoscript:lint",
+            "@test:php"
         ],
         "post-autoload-dump": [
             "mkdir -p .build/public/typo3conf/ext/",
