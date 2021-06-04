@@ -94,12 +94,12 @@ class Cart
     /**
      * @var string
      */
-    protected $orderNumber;
+    protected $orderNumber = '';
 
     /**
      * @var string
      */
-    protected $invoiceNumber;
+    protected $invoiceNumber = '';
 
     /**
      * @var array
@@ -292,9 +292,9 @@ class Cart
      *
      * @throws \LogicException
      */
-    public function setOrderNumber($orderNumber)
+    public function setOrderNumber(string $orderNumber): void
     {
-        if (($this->orderNumber) && ($this->orderNumber != $orderNumber)) {
+        if (($this->orderNumber) && ($this->orderNumber !== $orderNumber)) {
             throw new \LogicException(
                 'You can not redeclare the order number of your cart.',
                 1413969668
@@ -305,11 +305,22 @@ class Cart
     }
 
     /**
+     * Allow to reset the Order Number
+     *
+     * The order number should only be reset in exceptional cases.
+     * For example, when the shopping cart is reloaded after a canceled order.
+     */
+    public function resetOrderNumber(): void
+    {
+        $this->orderNumber = '';
+    }
+
+    /**
      * Gets Order Number
      *
      * @return string
      */
-    public function getOrderNumber()
+    public function getOrderNumber(): string
     {
         return $this->orderNumber;
     }
@@ -321,9 +332,9 @@ class Cart
      *
      * @throws \LogicException
      */
-    public function setInvoiceNumber($invoiceNumber)
+    public function setInvoiceNumber(string $invoiceNumber): void
     {
-        if (($this->invoiceNumber) && ($this->invoiceNumber != $invoiceNumber)) {
+        if (($this->invoiceNumber) && ($this->invoiceNumber !== $invoiceNumber)) {
             throw new \LogicException(
                 'You can not redeclare the invoice number of your cart.',
                 1413969712
@@ -334,11 +345,22 @@ class Cart
     }
 
     /**
+     * Allow to reset the Invoice Number
+     *
+     * The invoice number should only be reset in exceptional cases.
+     * For example, when the shopping cart is reloaded after a canceled order.
+     */
+    public function resetInvoiceNumber(): void
+    {
+        $this->orderNumber = '';
+    }
+
+    /**
      * Gets Invoice Number
      *
      * @return string
      */
-    public function getInvoiceNumber()
+    public function getInvoiceNumber(): string
     {
         return $this->invoiceNumber;
     }

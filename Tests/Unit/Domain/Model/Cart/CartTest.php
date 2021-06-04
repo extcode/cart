@@ -259,6 +259,17 @@ class CartTest extends UnitTestCase
     /**
      * @test
      */
+    public function getOrderNumberInitiallyReturnsEmptyString(): void
+    {
+        self::assertSame(
+            '',
+            $this->grossCart->getOrderNumber()
+        );
+    }
+
+    /**
+     * @test
+     */
     public function setInitiallyOrderNumberSetsOrderNumber(): void
     {
         $this->grossCart->setOrderNumber('ValidOrderNumber');
@@ -298,6 +309,29 @@ class CartTest extends UnitTestCase
         );
 
         $this->grossCart->setOrderNumber('NotValidOrderNumber');
+    }
+
+    public function resetOrderNumberWithResetOrderNumberMethodSetsOrderNumberToEmptyString()
+    {
+        $this->grossCart->setOrderNumber('ValidOrderNumber');
+
+        $this->grossCart->resetOrderNumber();
+
+        self::assertSame(
+            '',
+            $this->grossCart->getOrderNumber()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function getInvoiceNumberInitiallyReturnsEmptyString(): void
+    {
+        self::assertSame(
+            '',
+            $this->grossCart->getInvoiceNumber()
+        );
     }
 
     /**
@@ -342,6 +376,18 @@ class CartTest extends UnitTestCase
         );
 
         $this->grossCart->setInvoiceNumber('NotValidInvoiceNumber');
+    }
+
+    public function resetInvoiceNumberWithResetInvoiceNumberMethodSetsInvoiceNumberToEmptyString()
+    {
+        $this->grossCart->setInvoiceNumber('ValidInvoiceNumber');
+
+        $this->grossCart->resetInvoiceNumber();
+
+        self::assertSame(
+            '',
+            $this->grossCart->getInvoiceNumber()
+        );
     }
 
     /**
