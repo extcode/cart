@@ -34,8 +34,6 @@
     },
     "config": {
         "bin-dir": ".build/bin",
-        "discard-changes": true,
-        "optimize-autoloader": true,
         "vendor-dir": ".build/vendor"
     },
     "extra": {
