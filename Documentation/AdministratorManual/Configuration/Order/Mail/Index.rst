@@ -12,6 +12,7 @@ but also configured via TypoScript.
        mail {
            buyer {
                fromAddress = cart.buyer.sender@extco.de
+               bccAddress = cart.buyer.cc1@extco.de, cart.buyer.cc2@extco.de
                bccAddress = cart.buyer.bcc1@extco.de, cart.buyer.bcc2@extco.de
                replyToAddress = cart.buyer.reply@extco.de
                attachments {
@@ -20,7 +21,8 @@ but also configured via TypoScript.
            }
            seller {
                fromAddress = cart.seller.sender@extco.de
-               toAddress = cart.seller.receiver@extco.de
+               toAddress = cart.seller.to1@extco.de, cart.seller.to2@extco.de
+               bccAddress = cart.seller.cc1@extco.de, cart.seller.cc2@extco.de
                bccAddress = cart.seller.bcc1@extco.de, cart.seller.bcc2@extco.de
            }
        }
@@ -36,6 +38,18 @@ mail.buyer.fromAddress
       string
    Description
       Defines from which sender address the e-mails are sent to the buyer.
+
+mail.buyer.ccAddress
+"""""""""""""""""""""
+.. container:: table-row
+
+   Property
+      plugin.tx_cart.mail.buyer.ccAddress
+   Data type
+      string
+   Description
+      Defines to which addresses the e-mail should be sent in CC (Carbon Copy).
+      Multiple recipients can be given separated by commas.
 
 mail.buyer.bccAddress
 """""""""""""""""""""
@@ -106,6 +120,18 @@ mail.seller.toAddress
       string
    Description
       Defines to which recipient addresses the e-mails to the seller/shop operator are sent.
+      Multiple recipients can be given separated by commas.
+
+mail.seller.ccAddress
+"""""""""""""""""""""
+.. container:: table-row
+
+   Property
+      plugin.tx_cart.mail.buyer.ccAddress
+   Data type
+      string
+   Description
+      Defines to which addresses the e-mail should be sent in CC (Carbon Copy).
       Multiple recipients can be given separated by commas.
 
 mail.seller.bccAddress

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-    <file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2021-02-09T12:22:00Z" product-name="cart">
+    <file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2021-06-10T23:58:00Z" product-name="cart">
         <header/>
         <body>
 
@@ -59,6 +59,14 @@
                 <source>Receiver email addresses (seperated by comma) for email to the Seller</source>
                 <target>Empfänger-E-Mail-Adressen (durch Komma getrennt) für E-Mail an den Verkäufer</target>
             </trans-unit>
+            <trans-unit id="tx_cart.flexform.seller.email_cc_address">
+                <source>CC email addresses (seperated by comma) for email to the Seller</source>
+                <target>CC E-Mail-Adressen (durch Komma getrennt) für E-Mail an den Verkäufer</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.flexform.seller.email_cc_address.description">
+                <source>The recipients of e-mails sent to one or more e-mail addresses separated by commas and listed in the so-called CC (Carbon Copy) field will receive a copy of the sent e-mail.</source>
+                <target>Die Empfänger von E-Mails an eine oder mehrere durch Kommata getrennte E-Mail-Adressen, die im sogenannten CC-Feld (von englisch: Carbon Copy, dt. sinngemäß Kopie) aufgeführt wurden, erhalten eine Kopie der gesendeten E-Mail.</target>
+            </trans-unit>
             <trans-unit id="tx_cart.flexform.seller.email_bcc_address">
                 <source>BCC email addresses (seperated by comma) for email to the Seller</source>
                 <target>BCC E-Mail-Adressen (durch Komma getrennt) für E-Mail an den Verkäufer</target>
@@ -70,6 +78,14 @@
             <trans-unit id="tx_cart.flexform.buyer.email_from_address">
                 <source>Sender email address for email to the Buyer</source>
                 <target>Absender-E-Mail-Adresse für E-Mail an den Käufer</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.flexform.buyer.email_cc_address">
+                <source>CC email addresses (seperated by comma) for email to the Buyer</source>
+                <target>CC E-Mail-Adressen (durch Komma getrennt) für E-Mail an den Käufer</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.flexform.buyer.email_cc_address.description">
+                <source>The recipients of e-mails sent to one or more e-mail addresses separated by commas and listed in the so-called CC (Carbon Copy) field will receive a copy of the sent e-mail.</source>
+                <target>Die Empfänger von E-Mails an eine oder mehrere durch Kommata getrennte E-Mail-Adressen, die im sogenannten CC-Feld (von englisch: Carbon Copy, dt. sinngemäß Kopie) aufgeführt wurden, erhalten eine Kopie der gesendeten E-Mail.)</target>
             </trans-unit>
             <trans-unit id="tx_cart.flexform.buyer.email_bcc_address">
                 <source>BCC email addresses (seperated by comma) for email to the Buyer</source>
