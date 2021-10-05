@@ -11,7 +11,7 @@ namespace Extcode\Cart\Domain\Model\Order;
 
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 
-class Payment extends \Extcode\Cart\Domain\Model\Order\AbstractService
+class Payment extends AbstractService
 {
     /**
      * @var string
@@ -26,7 +26,7 @@ class Payment extends \Extcode\Cart\Domain\Model\Order\AbstractService
 
     public function __construct()
     {
-        $this->transactions = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+        $this->transactions = new ObjectStorage();
     }
 
     /**

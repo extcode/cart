@@ -9,6 +9,7 @@ namespace Extcode\Cart\Controller\Cart;
  * LICENSE file that was distributed with this source code.
  */
 
+use TYPO3\CMS\Core\Messaging\AbstractMessage;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 
 class PaymentController extends ActionController
@@ -38,7 +39,7 @@ class PaymentController extends ActionController
                         'Cart'
                     ),
                     '',
-                    \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR,
+                    AbstractMessage::ERROR,
                     true
                 );
             }

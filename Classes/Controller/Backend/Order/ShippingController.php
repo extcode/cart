@@ -9,11 +9,12 @@ namespace Extcode\Cart\Controller\Backend\Order;
  * LICENSE file that was distributed with this source code.
  */
 
+use Extcode\Cart\Controller\Backend\ActionController;
 use Extcode\Cart\Domain\Model\Order\Shipping;
 use Extcode\Cart\Domain\Repository\Order\ShippingRepository;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 
-class ShippingController extends \Extcode\Cart\Controller\Backend\ActionController
+class ShippingController extends ActionController
 {
     /**
      * @var ShippingRepository

@@ -9,7 +9,7 @@ namespace Extcode\Cart\Domain\Model\Order;
  * LICENSE file that was distributed with this source code.
  */
 
-class BillingAddress extends \Extcode\Cart\Domain\Model\Order\AbstractAddress
+class BillingAddress extends AbstractAddress
 {
     /**
      * @var string

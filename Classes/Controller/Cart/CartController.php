@@ -9,6 +9,9 @@ namespace Extcode\Cart\Controller\Cart;
  * LICENSE file that was distributed with this source code.
  */
 
+use Extcode\Cart\Domain\Model\Order\BillingAddress;
+use Extcode\Cart\Domain\Model\Order\Item;
+use Extcode\Cart\Domain\Model\Order\ShippingAddress;
 use Extcode\Cart\Event\CheckProductAvailabilityEvent;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
@@ -20,25 +23,25 @@ class CartController extends ActionController
      * @param \Extcode\Cart\Domain\Model\Order\ShippingAddress $shippingAddress
      */
     public function showAction(
-        \Extcode\Cart\Domain\Model\Order\Item $orderItem = null,
-        \Extcode\Cart\Domain\Model\Order\BillingAddress $billingAddress = null,
-        \Extcode\Cart\Domain\Model\Order\ShippingAddress $shippingAddress = null
+        Item $orderItem = null,
+        BillingAddress $billingAddress = null,
+        ShippingAddress $shippingAddress = null
     ): void {
         $this->restoreSession();
 
         if ($orderItem === null) {
             $orderItem = GeneralUtility::makeInstance(
-                \Extcode\Cart\Domain\Model\Order\Item::class
+                Item::class
             );
         }
         if ($billingAddress === null) {
             $billingAddress = GeneralUtility::makeInstance(
-                \Extcode\Cart\Domain\Model\Order\BillingAddress::class
+                BillingAddress::class
             );
         }
         if ($shippingAddress === null) {
             $shippingAddress = GeneralUtility::makeInstance(
-                \Extcode\Cart\Domain\Model\Order\ShippingAddress::class
+                ShippingAddress::class
             );
         }
 
@@ -54,7 +57,7 @@ class CartController extends ActionController
                         'shippingAddress' => &$shippingAddress,
                     ];
 
-                    \TYPO3\CMS\Core\Utility\GeneralUtility::callUserFunction($funcRef, $params, $this);
+                    GeneralUtility::callUserFunction($funcRef, $params, $this);
                 }
             }
         }

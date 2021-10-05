@@ -9,7 +9,9 @@ namespace Extcode\Cart\Domain\Model\Order;
  * LICENSE file that was distributed with this source code.
  */
 
-class ProductAdditional extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
+use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
+
+class ProductAdditional extends AbstractEntity
 {
     /**
      * @var string

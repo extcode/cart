@@ -9,6 +9,8 @@ namespace Extcode\Cart\ViewHelpers;
  * LICENSE file that was distributed with this source code.
  */
 
+use Extcode\Cart\Domain\Model\Cart\BeVariant;
+use Extcode\Cart\Domain\Model\Cart\Product;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 class FieldNameViewHelper extends AbstractViewHelper
@@ -19,14 +21,14 @@ class FieldNameViewHelper extends AbstractViewHelper
 
         $this->registerArgument(
             'product',
-            \Extcode\Cart\Domain\Model\Cart\Product::class,
+            Product::class,
             'product',
             false,
             0
         );
         $this->registerArgument(
             'variant',
-            \Extcode\Cart\Domain\Model\Cart\BeVariant::class,
+            BeVariant::class,
             'variant',
             false,
             0

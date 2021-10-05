@@ -9,6 +9,9 @@ namespace Extcode\Cart\Controller\Cart;
  * LICENSE file that was distributed with this source code.
  */
 
+use Extcode\Cart\Domain\Model\Cart\CartCoupon;
+use Extcode\Cart\Domain\Repository\CouponRepository;
+use TYPO3\CMS\Core\Messaging\AbstractMessage;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 
@@ -23,7 +26,7 @@ class CouponController extends ActionController
      * @param \Extcode\Cart\Domain\Repository\CouponRepository $couponRepository
      */
     public function injectCouponRepository(
-        \Extcode\Cart\Domain\Repository\CouponRepository $couponRepository
+        CouponRepository $couponRepository
     ) {
         $this->couponRepository = $couponRepository;
     }
@@ -42,7 +45,7 @@ class CouponController extends ActionController
             $coupon = $this->couponRepository->findOneByCode($couponCode);
             if ($coupon && $coupon->getIsAvailable()) {
                 $newCartCoupon = GeneralUtility::makeInstance(
-                    \Extcode\Cart\Domain\Model\Cart\CartCoupon::class,
+                    CartCoupon::class,
                     $coupon->getTitle(),
                     $coupon->getCode(),
                     $coupon->getCouponType(),
@@ -61,7 +64,7 @@ class CouponController extends ActionController
                             'Cart'
                         ),
                         '',
-                        \TYPO3\CMS\Core\Messaging\AbstractMessage::OK,
+                        AbstractMessage::OK,
                         true
                     );
                 }
@@ -72,7 +75,7 @@ class CouponController extends ActionController
                             'Cart'
                         ),
                         '',
-                        \TYPO3\CMS\Core\Messaging\AbstractMessage::WARNING,
+                        AbstractMessage::WARNING,
                         true
                     );
                 }
@@ -83,7 +86,7 @@ class CouponController extends ActionController
                             'Cart'
                         ),
                         '',
-                        \TYPO3\CMS\Core\Messaging\AbstractMessage::WARNING,
+                        AbstractMessage::WARNING,
                         true
                     );
                 }
@@ -94,7 +97,7 @@ class CouponController extends ActionController
                         'Cart'
                     ),
                     '',
-                    \TYPO3\CMS\Core\Messaging\AbstractMessage::WARNING,
+                    AbstractMessage::WARNING,
                     true
                 );
             }
@@ -122,7 +125,7 @@ class CouponController extends ActionController
                         'Cart'
                     ),
                     '',
-                    \TYPO3\CMS\Core\Messaging\AbstractMessage::OK,
+                    AbstractMessage::OK,
                     true
                 );
             }
@@ -133,7 +136,7 @@ class CouponController extends ActionController
                         'Cart'
                     ),
                     '',
-                    \TYPO3\CMS\Core\Messaging\AbstractMessage::WARNING,
+                    AbstractMessage::WARNING,
                     true
                 );
             }

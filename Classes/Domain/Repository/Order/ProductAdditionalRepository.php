@@ -10,8 +10,9 @@ namespace Extcode\Cart\Domain\Repository\Order;
  */
 
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
+use TYPO3\CMS\Extbase\Persistence\Repository;
 
-class ProductAdditionalRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
+class ProductAdditionalRepository extends Repository
 {
     /**
      * Count all by Category

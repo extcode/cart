@@ -9,7 +9,9 @@ namespace Extcode\Cart\Domain\Model;
  * LICENSE file that was distributed with this source code.
  */
 
-class Coupon extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
+use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
+
+class Coupon extends AbstractEntity
 {
     /**
      * @var string

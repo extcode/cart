@@ -1,5 +1,8 @@
 <?php
 
+use Extcode\Cart\Domain\Model\Order\BillingAddress;
+use Extcode\Cart\Domain\Model\Order\ShippingAddress;
+
 defined('TYPO3_MODE') or die();
 
 $_LLL = 'LLL:EXT:cart/Resources/Private/Language/locallang_db.xlf';
@@ -14,10 +17,8 @@ return [
         'tstamp' => 'tstamp',
         'crdate' => 'crdate',
         'cruser_id' => 'cruser_id',
-        'dividers2tabs' => true,
 
-        'versioningWS' => 2,
-        'versioning_followPages' => true,
+        'versioningWS' => true,
         'origUid' => 't3_origuid',
         'hideTable' => true,
         'delete' => 'deleted',
@@ -26,9 +27,6 @@ return [
         'iconfile' => 'EXT:cart/Resources/Public/Icons/Order/Address.svg'
     ],
     'hideTable' => 1,
-    'interface' => [
-        'showRecordFieldList' => 'title, salutation, first_name, last_name, email, phone, fax, company, street, zip, city, country, phone, fax, additional',
-    ],
     'types' => [
         '\Extcode\Cart\Domain\Model\Order\BillingAddress' => [
             'showitem' => 'title, salutation, first_name, last_name, email, phone, fax, company, street, zip, city, country, phone, fax, additional, tax_identification_number',
@@ -50,10 +48,10 @@ return [
                 'renderType' => 'selectSingle',
                 'readOnly' => 1,
                 'items' => [
-                    [$_LLL . ':tx_cart_domain_model_order_address.record_type.billing', '\\' . \Extcode\Cart\Domain\Model\Order\BillingAddress::class],
-                    [$_LLL . ':tx_cart_domain_model_order_address.record_type.shipping', '\\' . \Extcode\Cart\Domain\Model\Order\ShippingAddress::class],
+                    [$_LLL . ':tx_cart_domain_model_order_address.record_type.billing', '\\' . BillingAddress::class],
+                    [$_LLL . ':tx_cart_domain_model_order_address.record_type.shipping', '\\' . ShippingAddress::class],
                 ],
-                'default' => '\\' . \Extcode\Cart\Domain\Model\Order\BillingAddress::class
+                'default' => '\\' . BillingAddress::class
             ]
         ],
         'title' => [

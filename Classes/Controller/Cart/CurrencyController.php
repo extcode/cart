@@ -9,6 +9,8 @@ namespace Extcode\Cart\Controller\Cart;
  * LICENSE file that was distributed with this source code.
  */
 
+use Extcode\Cart\Utility\CurrencyUtility;
+
 class CurrencyController extends ActionController
 {
     const AJAX_CART_TYPE_NUM = '2278001';
@@ -25,7 +27,7 @@ class CurrencyController extends ActionController
      * @param \Extcode\Cart\Utility\CurrencyUtility $currencyUtility
      */
     public function injectCurrencyUtility(
-        \Extcode\Cart\Utility\CurrencyUtility $currencyUtility
+        CurrencyUtility $currencyUtility
     ) {
         $this->currencyUtility = $currencyUtility;
     }

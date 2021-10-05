@@ -9,9 +9,15 @@ namespace Extcode\Cart\Controller\Order;
  * LICENSE file that was distributed with this source code.
  */
 
+use Extcode\Cart\Domain\Model\Order\Item;
+use Extcode\Cart\Domain\Repository\Order\ItemRepository;
+use TYPO3\CMS\Core\Messaging\AbstractMessage;
+use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
+use TYPO3\CMS\Extbase\Configuration\ConfigurationManager;
+use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 
-class OrderController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
+class OrderController extends ActionController
 {
     /**
      * Order Item Repository
@@ -38,7 +44,7 @@ class OrderController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      * @param \Extcode\Cart\Domain\Repository\Order\ItemRepository $itemRepository
      */
     public function injectItemRepository(
-        \Extcode\Cart\Domain\Repository\Order\ItemRepository $itemRepository
+        ItemRepository $itemRepository
     ) {
         $this->itemRepository = $itemRepository;
     }
@@ -50,7 +56,7 @@ class OrderController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     {
         $this->pluginSettings =
             $this->configurationManager->getConfiguration(
-                \TYPO3\CMS\Extbase\Configuration\ConfigurationManager::CONFIGURATION_TYPE_FRAMEWORK
+                ConfigurationManager::CONFIGURATION_TYPE_FRAMEWORK
             );
     }
 
@@ -73,14 +79,14 @@ class OrderController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      *
      * @TYPO3\CMS\Extbase\Annotation\IgnoreValidation("orderItem")
      */
-    public function showAction(\Extcode\Cart\Domain\Model\Order\Item $orderItem)
+    public function showAction(Item $orderItem)
     {
         $feUser = (int)$GLOBALS['TSFE']->fe_user->user['uid'];
         if ($orderItem->getFeUser()->getUid() !== $feUser) {
             $this->addFlashMessage(
                 'Access denied.',
                 '',
-                \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR
+                AbstractMessage::ERROR
             );
             $this->redirect('list');
         }
@@ -107,7 +113,7 @@ class OrderController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         }
         $this->view->assign('shippingStatusOptions', $shippingStatusOptions);
 
-        $pdfRendererInstalled = \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::isLoaded('cart_pdf');
+        $pdfRendererInstalled = ExtensionManagementUtility::isLoaded('cart_pdf');
         $this->view->assign('pdfRendererInstalled', $pdfRendererInstalled);
     }
 }

@@ -9,7 +9,35 @@ namespace Extcode\Cart\Utility;
  * LICENSE file that was distributed with this source code.
  */
 
+use Extcode\Cart\Domain\Model\Cart\BeVariant;
+use Extcode\Cart\Domain\Model\Cart\Cart;
+use Extcode\Cart\Domain\Model\Cart\FeVariant;
+use Extcode\Cart\Domain\Model\Cart\Product;
+use Extcode\Cart\Domain\Model\Order\Discount;
+use Extcode\Cart\Domain\Model\Order\Item;
+use Extcode\Cart\Domain\Model\Order\Payment;
+use Extcode\Cart\Domain\Model\Order\ProductAdditional;
+use Extcode\Cart\Domain\Model\Order\Shipping;
+use Extcode\Cart\Domain\Model\Order\Tax;
+use Extcode\Cart\Domain\Model\Order\TaxClass;
+use Extcode\Cart\Domain\Repository\CouponRepository;
+use Extcode\Cart\Domain\Repository\Order\BillingAddressRepository;
+use Extcode\Cart\Domain\Repository\Order\DiscountRepository;
+use Extcode\Cart\Domain\Repository\Order\ItemRepository;
+use Extcode\Cart\Domain\Repository\Order\PaymentRepository;
+use Extcode\Cart\Domain\Repository\Order\ProductAdditionalRepository;
+use Extcode\Cart\Domain\Repository\Order\ProductRepository;
+use Extcode\Cart\Domain\Repository\Order\ShippingAddressRepository;
+use Extcode\Cart\Domain\Repository\Order\ShippingRepository;
+use Extcode\Cart\Domain\Repository\Order\TaxClassRepository;
+use Extcode\Cart\Domain\Repository\Order\TaxRepository;
+use TYPO3\CMS\Core\Registry;
+use TYPO3\CMS\Core\TypoScript\TypoScriptService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Domain\Repository\FrontendUserRepository;
+use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
+use TYPO3\CMS\Extbase\SignalSlot\Dispatcher;
+use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 
 class OrderUtility
 {
@@ -129,7 +157,7 @@ class OrderUtility
      * @param \Extcode\Cart\Domain\Repository\Order\ItemRepository
      */
     public function injectOrderItemRepository(
-        \Extcode\Cart\Domain\Repository\Order\ItemRepository $orderItemRepository
+        ItemRepository $orderItemRepository
     ) {
         $this->orderItemRepository = $orderItemRepository;
     }
@@ -138,7 +166,7 @@ class OrderUtility
      * @param \Extcode\Cart\Domain\Repository\Order\DiscountRepository
      */
     public function injectOrderDiscountRepository(
-        \Extcode\Cart\Domain\Repository\Order\DiscountRepository $orderDiscountRepository
+        DiscountRepository $orderDiscountRepository
     ) {
         $this->orderDiscountRepository = $orderDiscountRepository;
     }
@@ -147,7 +175,7 @@ class OrderUtility
      * @param \Extcode\Cart\Domain\Repository\Order\BillingAddressRepository
      */
     public function injectOrderBillingAddressRepository(
-        \Extcode\Cart\Domain\Repository\Order\BillingAddressRepository $billingAddressRepository
+        BillingAddressRepository $billingAddressRepository
     ) {
         $this->billingAddressRepository = $billingAddressRepository;
     }
@@ -156,7 +184,7 @@ class OrderUtility
      * @param \Extcode\Cart\Domain\Repository\Order\ShippingAddressRepository
      */
     public function injectOrderShippingAddressRepository(
-        \Extcode\Cart\Domain\Repository\Order\ShippingAddressRepository $shippingAddressRepository
+        ShippingAddressRepository $shippingAddressRepository
     ) {
         $this->shippingAddressRepository = $shippingAddressRepository;
     }
@@ -165,7 +193,7 @@ class OrderUtility
      * @param \Extcode\Cart\Domain\Repository\Order\ProductRepository
      */
     public function injectOrderProductRepository(
-        \Extcode\Cart\Domain\Repository\Order\ProductRepository $productRepository
+        ProductRepository $productRepository
     ) {
         $this->productRepository = $productRepository;
     }
@@ -174,7 +202,7 @@ class OrderUtility
      * @param \Extcode\Cart\Domain\Repository\Order\ProductAdditionalRepository
      */
     public function injectOrderProductAdditionalRepository(
-        \Extcode\Cart\Domain\Repository\Order\ProductAdditionalRepository $productAdditionalRepository
+        ProductAdditionalRepository $productAdditionalRepository
     ) {
         $this->productAdditionalRepository = $productAdditionalRepository;
     }
@@ -183,7 +211,7 @@ class OrderUtility
      * @param \Extcode\Cart\Domain\Repository\Order\PaymentRepository
      */
     public function injectOrderPaymentRepository(
-        \Extcode\Cart\Domain\Repository\Order\PaymentRepository $paymentRepository
+        PaymentRepository $paymentRepository
     ) {
         $this->paymentRepository = $paymentRepository;
     }
@@ -192,7 +220,7 @@ class OrderUtility
      * @param \Extcode\Cart\Domain\Repository\Order\ShippingRepository
      */
     public function injectOrderShippingRepository(
-        \Extcode\Cart\Domain\Repository\Order\ShippingRepository $shippingRepository
+        ShippingRepository $shippingRepository
     ) {
         $this->shippingRepository = $shippingRepository;
     }
@@ -201,7 +229,7 @@ class OrderUtility
      * @param \Extcode\Cart\Domain\Repository\Order\TaxClassRepository
      */
     public function injectOrderTaxClassRepository(
-        \Extcode\Cart\Domain\Repository\Order\TaxClassRepository $taxClassRepository
+        TaxClassRepository $taxClassRepository
     ) {
         $this->taxClassRepository = $taxClassRepository;
     }
@@ -210,7 +238,7 @@ class OrderUtility
      * @param \Extcode\Cart\Domain\Repository\Order\TaxRepository
      */
     public function injectOrderTaxRepository(
-        \Extcode\Cart\Domain\Repository\Order\TaxRepository $taxRepository
+        TaxRepository $taxRepository
     ) {
         $this->taxRepository = $taxRepository;
     }
@@ -219,7 +247,7 @@ class OrderUtility
      * @param \TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager $persistenceManager
      */
     public function injectPersistenceManager(
-        \TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager $persistenceManager
+        PersistenceManager $persistenceManager
     ) {
         $this->persistenceManager = $persistenceManager;
     }
@@ -228,7 +256,7 @@ class OrderUtility
      * @param \Extcode\Cart\Domain\Repository\CouponRepository
      */
     public function injectCouponRepository(
-        \Extcode\Cart\Domain\Repository\CouponRepository $couponRepository
+        CouponRepository $couponRepository
     ) {
         $this->couponRepository = $couponRepository;
     }
@@ -242,8 +270,8 @@ class OrderUtility
      */
     public function saveOrderItem(
         array $pluginSettings,
-        \Extcode\Cart\Domain\Model\Cart\Cart $cart,
-        \Extcode\Cart\Domain\Model\Order\Item $orderItem
+        Cart $cart,
+        Item $orderItem
     ) {
         $this->storagePid = $pluginSettings['settings']['order']['pid'];
 
@@ -264,7 +292,7 @@ class OrderUtility
         $feUserId = (int)$GLOBALS['TSFE']->fe_user->user['uid'];
         if ($feUserId) {
             $frontendUserRepository = GeneralUtility::makeInstance(
-                \TYPO3\CMS\Extbase\Domain\Repository\FrontendUserRepository::class
+                FrontendUserRepository::class
             );
             $orderItem->setFeUser($frontendUserRepository->findByUid($feUserId));
         }
@@ -306,7 +334,7 @@ class OrderUtility
         ];
 
         $signalSlotDispatcher = GeneralUtility::makeInstance(
-            \TYPO3\CMS\Extbase\SignalSlot\Dispatcher::class
+            Dispatcher::class
         );
         $slotReturn = $signalSlotDispatcher->dispatch(
             __CLASS__,
@@ -357,7 +385,7 @@ class OrderUtility
              * @var $orderTax \Extcode\Cart\Domain\Model\Order\Tax
              */
             $orderTax = GeneralUtility::makeInstance(
-                \Extcode\Cart\Domain\Model\Order\Tax::class,
+                Tax::class,
                 $cartTax,
                 $this->taxClasses[$cartTaxKey]
             );
@@ -382,7 +410,7 @@ class OrderUtility
              * @var \Extcode\Cart\Domain\Model\Order\TaxClass $orderTaxClass
              */
             $orderTaxClass = GeneralUtility::makeInstance(
-                \Extcode\Cart\Domain\Model\Order\TaxClass::class,
+                TaxClass::class,
                 $taxClass->getTitle(),
                 $taxClass->getValue(),
                 $taxClass->getCalc()
@@ -408,7 +436,7 @@ class OrderUtility
         foreach ($this->cart->getCoupons() as $cartCoupon) {
             if ($cartCoupon->getIsUseable()) {
                 $orderDiscount = GeneralUtility::makeInstance(
-                    \Extcode\Cart\Domain\Model\Order\Discount::class,
+                    Discount::class,
                     $cartCoupon->getTitle(),
                     $cartCoupon->getCode(),
                     $cartCoupon->getGross(),
@@ -451,7 +479,7 @@ class OrderUtility
      *
      * @param \Extcode\Cart\Domain\Model\Cart\Product $cartProduct
      */
-    protected function addProduct(\Extcode\Cart\Domain\Model\Cart\Product $cartProduct)
+    protected function addProduct(Product $cartProduct)
     {
         /**
          * @var \Extcode\Cart\Domain\Model\Order\Product $orderProduct
@@ -483,7 +511,7 @@ class OrderUtility
         ];
 
         $signalSlotDispatcher = GeneralUtility::makeInstance(
-            \TYPO3\CMS\Extbase\SignalSlot\Dispatcher::class
+            Dispatcher::class
         );
         $signalSlotDispatcher->dispatch(
             __CLASS__,
@@ -506,7 +534,7 @@ class OrderUtility
      */
     protected function addFeVariants(
         \Extcode\Cart\Domain\Model\Order\Product $product,
-        \Extcode\Cart\Domain\Model\Cart\FeVariant $feVariant = null
+        FeVariant $feVariant = null
     ) {
         if ($feVariant) {
             $feVariantsData = $feVariant->getVariantData();
@@ -532,7 +560,7 @@ class OrderUtility
          * @var \Extcode\Cart\Domain\Model\Order\ProductAdditional $productAdditional
          */
         $productAdditional = GeneralUtility::makeInstance(
-            \Extcode\Cart\Domain\Model\Order\ProductAdditional::class,
+            ProductAdditional::class,
             $productAdditionalType,
             $feVariant['sku'],
             $feVariant['value'],
@@ -550,7 +578,7 @@ class OrderUtility
      *
      * @param \Extcode\Cart\Domain\Model\Cart\Product $product CartProduct
      */
-    protected function addProductVariants(\Extcode\Cart\Domain\Model\Cart\Product $product)
+    protected function addProductVariants(Product $product)
     {
         foreach ($product->getBeVariants() as $variant) {
             /**
@@ -571,7 +599,7 @@ class OrderUtility
      * @param \Extcode\Cart\Domain\Model\Cart\BeVariant $variant
      * @param int $level Level
      */
-    protected function addVariantsOfVariant(\Extcode\Cart\Domain\Model\Cart\BeVariant $variant, $level)
+    protected function addVariantsOfVariant(BeVariant $variant, $level)
     {
         $level += 1;
 
@@ -594,11 +622,11 @@ class OrderUtility
      * @param \Extcode\Cart\Domain\Model\Cart\BeVariant $variant
      * @param int $level Level
      */
-    protected function addBeVariant(\Extcode\Cart\Domain\Model\Cart\BeVariant $variant, $level)
+    protected function addBeVariant(BeVariant $variant, $level)
     {
         /** @var \Extcode\Cart\Domain\Model\Order\Tax $orderTax */
         $orderTax = GeneralUtility::makeInstance(
-            \Extcode\Cart\Domain\Model\Order\Tax::class,
+            Tax::class,
             $variant->getTax(),
             $this->taxClasses[$variant->getTaxClass()->getId()]
         );
@@ -657,7 +685,7 @@ class OrderUtility
              * @var \Extcode\Cart\Domain\Model\Order\ProductAdditional $productAdditional
              */
             $orderProductAdditional = GeneralUtility::makeInstance(
-                \Extcode\Cart\Domain\Model\Order\ProductAdditional::class,
+                ProductAdditional::class,
                 'variant_' . $count,
                 $variantInner->getCompleteSku(),
                 $variantInner->getTitle()
@@ -687,7 +715,7 @@ class OrderUtility
         ];
 
         $signalSlotDispatcher = GeneralUtility::makeInstance(
-            \TYPO3\CMS\Extbase\SignalSlot\Dispatcher::class
+            Dispatcher::class
         );
         $signalSlotDispatcher->dispatch(
             __CLASS__,
@@ -714,7 +742,7 @@ class OrderUtility
          * @var $orderPayment \Extcode\Cart\Domain\Model\Order\Payment
          */
         $orderPayment = GeneralUtility::makeInstance(
-            \Extcode\Cart\Domain\Model\Order\Payment::class
+            Payment::class
         );
         $orderPayment->setPid($this->storagePid);
 
@@ -753,7 +781,7 @@ class OrderUtility
          * @var $orderShipping \Extcode\Cart\Domain\Model\Order\Shipping
          */
         $orderShipping = GeneralUtility::makeInstance(
-            \Extcode\Cart\Domain\Model\Order\Shipping::class
+            Shipping::class
         );
         $orderShipping->setPid($this->storagePid);
 
@@ -805,10 +833,10 @@ class OrderUtility
         /**
          * @var \TYPO3\CMS\Core\TypoScript\TypoScriptService $typoScriptService
          */
-        $typoScriptService = GeneralUtility::makeInstance(\TYPO3\CMS\Core\TypoScript\TypoScriptService::class);
+        $typoScriptService = GeneralUtility::makeInstance(TypoScriptService::class);
         $pluginTypoScriptSettings = $typoScriptService->convertPlainArrayToTypoScriptArray($pluginSettings);
 
-        $registry = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Registry::class);
+        $registry = GeneralUtility::makeInstance(Registry::class);
 
         $registryName = 'last' . ucfirst($numberType) . '_' . $pluginSettings['settings']['cart']['pid'];
 
@@ -816,7 +844,7 @@ class OrderUtility
         $number = $number ? $number + 1 : 1;
         $registry->set('tx_cart', $registryName, $number);
 
-        $cObjRenderer = GeneralUtility::makeInstance(\TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer::class);
+        $cObjRenderer = GeneralUtility::makeInstance(ContentObjectRenderer::class);
         $cObjRenderer->start([$numberType . 'Number' => $number]);
         $number = $cObjRenderer->cObjGetSingle(
             $pluginTypoScriptSettings[$numberType . 'Number'],

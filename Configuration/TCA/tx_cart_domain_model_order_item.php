@@ -1,5 +1,9 @@
 <?php
 
+use Extcode\Cart\Domain\Model\Order\BillingAddress;
+use Extcode\Cart\Domain\Model\Order\ShippingAddress;
+use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
+
 defined('TYPO3_MODE') or die();
 
 $_LLL = 'LLL:EXT:cart/Resources/Private/Language/locallang_db.xlf';
@@ -13,18 +17,13 @@ return [
         'tstamp' => 'tstamp',
         'crdate' => 'crdate',
         'cruser_id' => 'cruser_id',
-        'dividers2tabs' => true,
 
-        'versioningWS' => 2,
-        'versioning_followPages' => true,
+        'versioningWS' => true,
         'origUid' => 't3_origuid',
         'delete' => 'deleted',
         'enablecolumns' => [],
         'searchFields' => 'order_number, invoice_number',
         'iconfile' => 'EXT:cart/Resources/Public/Icons/Order/Item.svg'
-    ],
-    'interface' => [
-        'showRecordFieldList' => 'pid, cart_pid, fe_user, order_number, invoice_number, delivery_number, billing_address, shipping_address, gross, net, total_gross, total_net, additional, additional_data, tax_class, products, discounts, tax, total_tax, payment, shipping, comment',
     ],
     'types' => [
         '1' => [
@@ -79,7 +78,6 @@ return [
         ],
         'cart_pid' => [
             'exclude' => 1,
-            'l10n_mode' => 'mergeIfNotBlank',
             'label' => $_LLL . ':tx_cart_domain_model_category.cart_pid',
             'config' => [
                 'type' => 'group',
@@ -88,15 +86,12 @@ return [
                 'size' => 1,
                 'maxitems' => 1,
                 'minitems' => 0,
-                'show_thumbs' => 1,
                 'default' => 0,
-                'wizards' => [
-                    'suggest' => [
-                        'type' => 'suggest',
-                        'default' => [
-                            'searchWholePhrase' => true
-                        ]
-                    ],
+                ['behaviour' => ['allowLanguageSynchronization' => true]],
+                'suggestOptions' => [
+                    'default' => [
+                        'searchWholePhrase' => true
+                    ]
                 ],
             ]
         ],
@@ -133,10 +128,10 @@ return [
                 'type' => 'input',
                 'readOnly' => 1,
                 'size' => '8',
-                'max' => '20',
                 'eval' => 'date',
                 'checkbox' => '0',
-                'default' => '0'
+                'default' => '0',
+                'renderType' => 'inputDateTime'
             ]
         ],
         'invoice_number' => [
@@ -156,10 +151,10 @@ return [
                 'type' => 'input',
                 'readOnly' => 1,
                 'size' => '8',
-                'max' => '20',
                 'eval' => 'date',
                 'checkbox' => '0',
-                'default' => '0'
+                'default' => '0',
+                'renderType' => 'inputDateTime'
             ]
         ],
         'delivery_number' => [
@@ -179,10 +174,10 @@ return [
                 'type' => 'input',
                 'readOnly' => 1,
                 'size' => '8',
-                'max' => '20',
                 'eval' => 'date',
                 'checkbox' => '0',
-                'default' => '0'
+                'default' => '0',
+                'renderType' => 'inputDateTime'
             ]
         ],
         'billing_address' => [
@@ -194,7 +189,7 @@ return [
                 'foreign_table' => 'tx_cart_domain_model_order_address',
                 'foreign_field' => 'item',
                 'foreign_match_fields' => [
-                    'record_type' => '\\' . \Extcode\Cart\Domain\Model\Order\BillingAddress::class
+                    'record_type' => '\\' . BillingAddress::class
                 ],
                 'minitems' => 1,
                 'maxitems' => 1,
@@ -220,7 +215,7 @@ return [
                 'foreign_table' => 'tx_cart_domain_model_order_address',
                 'foreign_field' => 'item',
                 'foreign_match_fields' => [
-                    'record_type' => '\\' . \Extcode\Cart\Domain\Model\Order\ShippingAddress::class
+                    'record_type' => '\\' . ShippingAddress::class
                 ],
                 'minitems' => 0,
                 'maxitems' => 1,
@@ -544,7 +539,7 @@ return [
         'order_pdfs' => [
             'exclude' => 0,
             'label' => $_LLL . ':tx_cart_domain_model_order_item.order_pdfs',
-            'config' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::getFileFieldTCAConfig(
+            'config' => ExtensionManagementUtility::getFileFieldTCAConfig(
                 'file',
                 [
                     'appearance' => [
@@ -571,7 +566,7 @@ return [
         'invoice_pdfs' => [
             'exclude' => 0,
             'label' => $_LLL . ':tx_cart_domain_model_order_item.invoice_pdfs',
-            'config' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::getFileFieldTCAConfig(
+            'config' => ExtensionManagementUtility::getFileFieldTCAConfig(
                 'file',
                 [
                     'appearance' => [
@@ -598,7 +593,7 @@ return [
         'delivery_pdfs' => [
             'exclude' => 0,
             'label' => $_LLL . ':tx_cart_domain_model_order_item.delivery_pdfs',
-            'config' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::getFileFieldTCAConfig(
+            'config' => ExtensionManagementUtility::getFileFieldTCAConfig(
                 'file',
                 [
                     'appearance' => [
@@ -624,14 +619,14 @@ return [
         ],
         'crdate' => [
             'exclude' => 1,
-            'l10n_mode' => 'mergeIfNotBlank',
             'config' => [
                 'type' => 'input',
                 'size' => '8',
-                'max' => '20',
                 'eval' => 'date',
                 'checkbox' => '0',
-                'default' => '0'
+                'default' => '0',
+                'renderType' => 'inputDateTime',
+                ['behaviour' => ['allowLanguageSynchronization' => true]]
             ]
         ],
     ],

@@ -1,5 +1,7 @@
 <?php
 
+namespace Extcode\Cart\Tests\Functional\Service;
+
 /*
  * This file is part of the package extcode/cart.
  *
@@ -7,8 +9,8 @@
  * LICENSE file that was distributed with this source code.
  */
 
-namespace Extcode\Cart\Tests\Functional\Service;
-
+use Extcode\Cart\Domain\Model\Cart\TaxClass;
+use Extcode\Cart\Service\TaxClassService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
 
@@ -31,7 +33,7 @@ class TaxClassServiceTest extends FunctionalTestCase
         parent::setUp();
 
         $this->taxClassService = GeneralUtility::makeInstance(
-            \Extcode\Cart\Service\TaxClassService::class
+            TaxClassService::class
         );
     }
 
@@ -80,7 +82,7 @@ class TaxClassServiceTest extends FunctionalTestCase
 
         $firstTaxClasses = $taxClasses[1];
         $this->assertInstanceOf(
-            \Extcode\Cart\Domain\Model\Cart\TaxClass::class,
+            TaxClass::class,
             $firstTaxClasses
         );
 
@@ -154,7 +156,7 @@ class TaxClassServiceTest extends FunctionalTestCase
 
         $firstTaxClasses = $taxClasses[1];
         $this->assertInstanceOf(
-            \Extcode\Cart\Domain\Model\Cart\TaxClass::class,
+            TaxClass::class,
             $firstTaxClasses
         );
 
@@ -245,7 +247,7 @@ class TaxClassServiceTest extends FunctionalTestCase
 
         $firstTaxClasses = $taxClasses[1];
         $this->assertInstanceOf(
-            \Extcode\Cart\Domain\Model\Cart\TaxClass::class,
+            TaxClass::class,
             $firstTaxClasses
         );
 

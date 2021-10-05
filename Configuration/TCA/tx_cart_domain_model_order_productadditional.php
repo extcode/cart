@@ -13,10 +13,8 @@ return [
         'tstamp' => 'tstamp',
         'crdate' => 'crdate',
         'cruser_id' => 'cruser_id',
-        'dividers2tabs' => true,
 
-        'versioningWS' => 2,
-        'versioning_followPages' => true,
+        'versioningWS' => true,
         'origUid' => 't3_origuid',
         'hideTable' => true,
         'delete' => 'deleted',
@@ -25,9 +23,6 @@ return [
         'iconfile' => 'EXT:cart/Resources/Public/Icons/Order/ProductAdditional.svg'
     ],
     'hideTable' => 1,
-    'interface' => [
-        'showRecordFieldList' => 'additional_type, additional_key, additional_value, additional, additional_data',
-    ],
     'types' => [
         '1' => [
             'showitem' => 'additional_type, additional_key, additional_value, additional, additional_data'

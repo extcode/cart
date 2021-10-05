@@ -13,10 +13,8 @@ return [
         'tstamp' => 'tstamp',
         'crdate' => 'crdate',
         'cruser_id' => 'cruser_id',
-        'dividers2tabs' => true,
 
-        'versioningWS' => 2,
-        'versioning_followPages' => true,
+        'versioningWS' => true,
         'origUid' => 't3_origuid',
         'hideTable' => true,
         'delete' => 'deleted',
@@ -25,9 +23,6 @@ return [
         'iconfile' => 'EXT:cart/Resources/Public/Icons/Order/Product.svg'
     ],
     'hideTable' => 1,
-    'interface' => [
-        'showRecordFieldList' => 'product_id, product_type, sku, title, count, additional, additional_data, product_additional, price, discount, gross, net, tax, tax_class',
-    ],
     'types' => [
         '1' => [
             'showitem' => 'product_id, product_type, sku, title, count, --palette--;' . $_LLL . ':tx_cart_domain_model_order_product.price.group;price, product_additional, additional, additional_data'

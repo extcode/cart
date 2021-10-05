@@ -11,8 +11,9 @@ namespace Extcode\Cart\Domain\Model;
 
 use Extcode\Cart\Domain\Model\Order\Item;
 use TYPO3\CMS\Extbase\Domain\Model\FrontendUser;
+use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 
-class Cart extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
+class Cart extends AbstractEntity
 {
     /**
      * @var string

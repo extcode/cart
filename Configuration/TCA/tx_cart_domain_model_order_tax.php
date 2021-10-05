@@ -11,10 +11,8 @@ return [
         'tstamp' => 'tstamp',
         'crdate' => 'crdate',
         'cruser_id' => 'cruser_id',
-        'dividers2tabs' => true,
 
-        'versioningWS' => 2,
-        'versioning_followPages' => true,
+        'versioningWS' => true,
         'origUid' => 't3_origuid',
         'hideTable' => true,
         'delete' => 'deleted',
@@ -23,9 +21,6 @@ return [
         'iconfile' => 'EXT:cart/Resources/Public/Icons/Order/Tax.svg'
     ],
     'hideTable' => 1,
-    'interface' => [
-        'showRecordFieldList' => 'tax, tax_class',
-    ],
     'types' => [
         '1' => [
             'showitem' => 'tax, tax_class'

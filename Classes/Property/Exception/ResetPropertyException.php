@@ -9,6 +9,8 @@ namespace Extcode\Cart\Property\Exception;
  * LICENSE file that was distributed with this source code.
  */
 
-class ResetPropertyException extends \TYPO3\CMS\Extbase\Property\Exception
+use TYPO3\CMS\Extbase\Property\Exception;
+
+class ResetPropertyException extends Exception
 {
 }

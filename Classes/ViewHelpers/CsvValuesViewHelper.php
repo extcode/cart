@@ -9,6 +9,7 @@ namespace Extcode\Cart\ViewHelpers;
  * LICENSE file that was distributed with this source code.
  */
 
+use Extcode\Cart\Domain\Model\Order\Item;
 use TYPO3\CMS\Core\Utility\CsvUtility;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
@@ -28,7 +29,7 @@ class CsvValuesViewHelper extends AbstractViewHelper
 
         $this->registerArgument(
             'orderItem',
-            \Extcode\Cart\Domain\Model\Order\Item::class,
+            Item::class,
             'orderItem',
             true
         );

@@ -9,13 +9,15 @@ namespace Extcode\Cart\Controller\Cart;
  * LICENSE file that was distributed with this source code.
  */
 
+use Extcode\Cart\Utility\OrderUtility;
+
 class CartPreviewController extends ActionController
 {
     /**
      * @param \Extcode\Cart\Utility\OrderUtility $orderUtility
      */
     public function injectOrderUtility(
-        \Extcode\Cart\Utility\OrderUtility $orderUtility
+        OrderUtility $orderUtility
     ) {
         $this->orderUtility = $orderUtility;
     }

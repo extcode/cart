@@ -11,10 +11,8 @@ return [
         'tstamp' => 'tstamp',
         'crdate' => 'crdate',
         'cruser_id' => 'cruser_id',
-        'dividers2tabs' => true,
 
-        'versioningWS' => 2,
-        'versioning_followPages' => true,
+        'versioningWS' => true,
         'origUid' => 't3_origuid',
         'hideTable' => true,
         'delete' => 'deleted',
@@ -23,9 +21,6 @@ return [
         'iconfile' => 'EXT:cart/Resources/Public/Icons/Order/Payment.svg'
     ],
     'hideTable' => 1,
-    'interface' => [
-        'showRecordFieldList' => 'service_country, service_id, name, provider, status, gross, net, tax, tax_class, note, transactions',
-    ],
     'types' => [
         '1' => [
             'showitem' => '--palette--;' . $_LLL . ':tx_cart_domain_model_order_payment.palettes.service;service, name, provider, status, gross, net, tax, tax_class, note, transactions'

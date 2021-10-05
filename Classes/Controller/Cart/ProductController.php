@@ -9,9 +9,11 @@ namespace Extcode\Cart\Controller\Cart;
  * LICENSE file that was distributed with this source code.
  */
 
+use Extcode\Cart\Domain\Model\Cart\Product;
 use Extcode\Cart\Event\CheckProductAvailabilityEvent;
 use Extcode\Cart\Event\RetrieveProductsFromRequestEvent;
 use Psr\EventDispatcher\EventDispatcherInterface;
+use TYPO3\CMS\Core\Messaging\AbstractMessage;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 
 class ProductController extends ActionController
@@ -66,7 +68,7 @@ class ProductController extends ActionController
 
         $messageBody = '';
         $messageTitle = '';
-        $severity = \TYPO3\CMS\Core\Messaging\AbstractMessage::OK;
+        $severity = AbstractMessage::OK;
 
         if (!empty($errors)) {
             foreach ($errors as $error) {
@@ -176,7 +178,7 @@ class ProductController extends ActionController
         $productsChanged = [];
 
         foreach ($products as $product) {
-            if ($product instanceof \Extcode\Cart\Domain\Model\Cart\Product) {
+            if ($product instanceof Product) {
                 $productChanged = $this->cart->getProduct($product->getId());
                 $productsChanged[$product->getId()] = $productChanged->toArray();
             }
@@ -193,7 +195,7 @@ class ProductController extends ActionController
         $quantity = 0;
 
         foreach ($products as $product) {
-            if ($product instanceof \Extcode\Cart\Domain\Model\Cart\Product) {
+            if ($product instanceof Product) {
                 $quantity += $product->getQuantity();
                 $this->cart->addProduct($product);
             }

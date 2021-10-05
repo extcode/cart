@@ -9,7 +9,9 @@ namespace Extcode\Cart\Domain\Model\Order;
  * LICENSE file that was distributed with this source code.
  */
 
-abstract class AbstractAddress extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
+use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
+
+abstract class AbstractAddress extends AbstractEntity
 {
     /**
      * @var \Extcode\Cart\Domain\Model\Order\Item

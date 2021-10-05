@@ -43,9 +43,27 @@
             "web-dir": ".build/public"
         }
     },
+    "require": {
+        "php": ">=7.2.0 <7.5",
+        "ext-json": "*",
+        "ext-openssl": "*",
+        "typo3/cms-core": "^10.4",
+        "typo3/cms-form": "^10.4"
+    },
+    "require-dev": {
+        "typo3/testing-framework": "^6.0",
+        "typo3/cms-dashboard": "^10.4",
+        "friendsofphp/php-cs-fixer": "^2.14",
+        "helmich/typo3-typoscript-lint": "^2.0",
+        "overtrue/phplint": "^1.1",
+        "rector/rector": "^0.11"
+    },
     "scripts": {
         "test:cgl": [
             ".build/bin/php-cs-fixer fix --config=Build/.php_cs.dist -v --using-cache=no --path-mode=intersection ./"
+        ],
+        "test:cgl:dry-run": [
+            ".build/bin/php-cs-fixer fix --config=Build/.php_cs.dist -v --dry-run --using-cache=no --path-mode=intersection ./"
         ],
         "test:php:lint": [
             ".build/bin/phplint -c Build/phplint.yaml"
@@ -56,6 +74,12 @@
         "test:php:functional": [
             "typo3DatabaseDriver=\"pdo_sqlite\" .build/bin/phpunit -c Build/FunctionalTests.xml"
         ],
+        "test:rector:process": [
+            ".build/bin/rector process *"
+        ],
+        "test:rector:process:dry-run": [
+            ".build/bin/rector process * --dry-run"
+        ],
         "test:typoscript:lint": [
             ".build/bin/typoscript-lint -c Build/typoscriptlint.yaml Configuration"
         ],
@@ -65,6 +89,7 @@
             "@test:php:functional"
         ],
         "test:all": [
+            "@test:rector:process",
             "@test:cgl",
             "@test:typoscript:lint",
             "@test:php"
@@ -73,19 +98,6 @@
             "mkdir -p .build/public/typo3conf/ext/",
             "[ -L .build/public/typo3conf/ext/cart ] || ln -snvf ../../../../. .build/public/typo3conf/ext/cart"
         ]
-    },
-    "require": {
-        "php": ">=7.2.0 <7.5",
-        "ext-json": "*",
-        "ext-openssl": "*",
-        "typo3/cms-core": "^10.4",
-        "typo3/cms-form": "^10.4"
-    },
-    "require-dev": {
-        "typo3/testing-framework": "^6.0",
-        "friendsofphp/php-cs-fixer": "^2.14",
-        "helmich/typo3-typoscript-lint": "^2.0",
-        "overtrue/phplint": "^1.1"
     },
     "suggest": {
         "typo3/cms-dashboard": "^10.4"

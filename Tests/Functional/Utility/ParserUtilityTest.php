@@ -1,5 +1,7 @@
 <?php
 
+namespace Extcode\Cart\Tests\Functional\Utility;
+
 /*
  * This file is part of the package extcode/cart.
  *
@@ -7,8 +9,9 @@
  * LICENSE file that was distributed with this source code.
  */
 
-namespace Extcode\Cart\Tests\Functional\Utility;
-
+use Extcode\Cart\Domain\Model\Cart\Cart;
+use Extcode\Cart\Domain\Model\Cart\TaxClass;
+use Extcode\Cart\Utility\ParserUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
 
@@ -31,7 +34,7 @@ class ParserUtilityTest extends FunctionalTestCase
         parent::setUp();
 
         $this->parserUtility = GeneralUtility::makeInstance(
-            \Extcode\Cart\Utility\ParserUtility::class
+            ParserUtility::class
         );
     }
 
@@ -40,7 +43,7 @@ class ParserUtilityTest extends FunctionalTestCase
      */
     public function getTypePluginSettingsReturnsTypeCountrySettings()
     {
-        $taxClass = new \Extcode\Cart\Domain\Model\Cart\TaxClass(1, '19', 0.19, 'normal');
+        $taxClass = new TaxClass(1, '19', 0.19, 'normal');
 
         $type = 'payment';
         $country = 'de';
@@ -97,7 +100,7 @@ class ParserUtilityTest extends FunctionalTestCase
             ],
         ];
 
-        $cart = $this->getMockBuilder(\Extcode\Cart\Domain\Model\Cart\Cart::class)
+        $cart = $this->getMockBuilder(Cart::class)
             ->setMethods(['getCountry'])
             ->setConstructorArgs([[$taxClass]])
             ->getMock();
@@ -128,7 +131,7 @@ class ParserUtilityTest extends FunctionalTestCase
      */
     public function getTypeZonePluginSettingsReturnsTypeZoneSettings()
     {
-        $taxClass = new \Extcode\Cart\Domain\Model\Cart\TaxClass(1, '19', 0.19, 'normal');
+        $taxClass = new TaxClass(1, '19', 0.19, 'normal');
 
         $type = 'payment';
         $country = 'at';
@@ -189,7 +192,7 @@ class ParserUtilityTest extends FunctionalTestCase
             ],
         ];
 
-        $cart = $this->getMockBuilder(\Extcode\Cart\Domain\Model\Cart\Cart::class)
+        $cart = $this->getMockBuilder(Cart::class)
             ->setMethods(['getCountry'])
             ->setConstructorArgs([[$taxClass]])
             ->getMock();

@@ -9,6 +9,9 @@ namespace Extcode\Cart\ViewHelpers\Link;
  * LICENSE file that was distributed with this source code.
  */
 
+use Extcode\Cart\Domain\Model\Cart\BeVariant;
+use Extcode\Cart\Domain\Model\Cart\Product;
+
 class ActionViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\Link\ActionViewHelper
 {
     public function initializeArguments()
@@ -17,13 +20,13 @@ class ActionViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\Link\ActionViewHelpe
 
         $this->registerArgument(
             'product',
-            \Extcode\Cart\Domain\Model\Cart\Product::class,
+            Product::class,
             'product',
             false
         );
         $this->registerArgument(
             'beVariant',
-            \Extcode\Cart\Domain\Model\Cart\BeVariant::class,
+            BeVariant::class,
             'beVariant',
             false
         );

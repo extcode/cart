@@ -9,7 +9,7 @@ namespace Extcode\Cart\Domain\Model\Cart;
  * LICENSE file that was distributed with this source code.
  */
 
-class CartCoupon implements \Extcode\Cart\Domain\Model\Cart\CartCouponInterface
+class CartCoupon implements CartCouponInterface
 {
     /**
      * @var \Extcode\Cart\Domain\Model\Cart\Cart

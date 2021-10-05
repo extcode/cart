@@ -10,8 +10,9 @@ namespace Extcode\Cart\Domain\Model\Dto;
  */
 
 use TYPO3\CMS\Core\Messaging\FlashMessage;
+use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 
-class AvailabilityResponse extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
+class AvailabilityResponse extends AbstractEntity
 {
     /**
      * @var bool

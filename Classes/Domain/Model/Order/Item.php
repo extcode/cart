@@ -12,9 +12,10 @@ namespace Extcode\Cart\Domain\Model\Order;
 use Extcode\Cart\Property\Exception\ResetPropertyException;
 use TYPO3\CMS\Extbase\Domain\Model\FileReference;
 use TYPO3\CMS\Extbase\Domain\Model\FrontendUser;
+use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 
-class Item extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
+class Item extends AbstractEntity
 {
     /**
      * @var int

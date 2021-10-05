@@ -9,7 +9,13 @@ namespace Extcode\Cart\ViewHelpers;
  * LICENSE file that was distributed with this source code.
  */
 
+use TYPO3\CMS\Core\Resource\Exception\FileDoesNotExistException;
+use TYPO3\CMS\Core\Resource\Exception\InvalidFileException;
+use TYPO3\CMS\Core\Resource\Exception\InvalidFileNameException;
+use TYPO3\CMS\Core\Resource\Exception\InvalidPathException;
+use TYPO3\CMS\Core\TimeTracker\TimeTracker;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Frontend\Resource\FilePathSanitizer;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 class IncludeFileViewHelper extends AbstractViewHelper
@@ -43,7 +49,16 @@ class IncludeFileViewHelper extends AbstractViewHelper
 
         $pageRenderer = GeneralUtility::makeInstance('TYPO3\\CMS\\Core\\Page\\PageRenderer');
         if (TYPO3_MODE === 'FE') {
-            $path = $GLOBALS['TSFE']->tmpl->getFileName($path);
+            try {
+                $path = GeneralUtility::makeInstance(FilePathSanitizer::class)->sanitize((string) $path);
+            } catch (InvalidFileNameException $e) {
+                $path = null;
+            } catch (InvalidPathException|FileDoesNotExistException|InvalidFileException $e) {
+                $path = null;
+                if ($GLOBALS['TSFE']->tmpl->tt_track) {
+                    GeneralUtility::makeInstance(TimeTracker::class)->setTSlogMessage($e->getMessage(), 3);
+                }
+            }
         }
 
         if (strtolower(substr($path, -3)) === '.js') {

@@ -9,7 +9,10 @@ namespace Extcode\Cart\Domain\Model\Order;
  * LICENSE file that was distributed with this source code.
  */
 
-class Product extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
+use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
+use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
+
+class Product extends AbstractEntity
 {
     /**
      * @var \Extcode\Cart\Domain\Model\Order\Item
@@ -117,7 +120,7 @@ class Product extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      */
     protected function initStorageObjects()
     {
-        $this->productAdditional = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+        $this->productAdditional = new ObjectStorage();
     }
 
     /**
@@ -323,7 +326,7 @@ class Product extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Extcode\Cart\Domain\Model\Order\ProductAdditional> $productAdditional
      */
-    public function setProductAdditional(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $productAdditional)
+    public function setProductAdditional(ObjectStorage $productAdditional)
     {
         $this->productAdditional = $productAdditional;
     }

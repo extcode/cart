@@ -9,6 +9,6 @@ namespace Extcode\Cart\Domain\Model\Order;
  * LICENSE file that was distributed with this source code.
  */
 
-class ShippingAddress extends \Extcode\Cart\Domain\Model\Order\AbstractAddress
+class ShippingAddress extends AbstractAddress
 {
 }

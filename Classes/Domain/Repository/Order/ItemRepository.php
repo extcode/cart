@@ -9,12 +9,14 @@ namespace Extcode\Cart\Domain\Repository\Order;
  * LICENSE file that was distributed with this source code.
  */
 
+use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
+use TYPO3\CMS\Extbase\Persistence\Repository;
 
-class ItemRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
+class ItemRepository extends Repository
 {
     protected $defaultOrderings = [
-        'uid' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_DESCENDING
+        'uid' => QueryInterface::ORDER_DESCENDING
     ];
 
     /**

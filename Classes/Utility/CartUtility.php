@@ -9,7 +9,14 @@ namespace Extcode\Cart\Utility;
  * LICENSE file that was distributed with this source code.
  */
 
+use Extcode\Cart\Domain\Model\Cart\Cart;
+use Extcode\Cart\Service\SessionHandler;
+use TYPO3\CMS\Core\Registry;
+use TYPO3\CMS\Core\TypoScript\TypoScriptService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Mvc\Request;
+use TYPO3\CMS\Extbase\SignalSlot\Dispatcher;
+use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 
 class CartUtility
 {
@@ -31,7 +38,7 @@ class CartUtility
      * @param \Extcode\Cart\Service\SessionHandler $sessionHandler
      */
     public function injectSessionHandler(
-        \Extcode\Cart\Service\SessionHandler $sessionHandler
+        SessionHandler $sessionHandler
     ) {
         $this->sessionHandler = $sessionHandler;
     }
@@ -40,7 +47,7 @@ class CartUtility
      * @param \Extcode\Cart\Utility\ParserUtility $parserUtility
      */
     public function injectParserUtility(
-        \Extcode\Cart\Utility\ParserUtility $parserUtility
+        ParserUtility $parserUtility
     ) {
         $this->parserUtility = $parserUtility;
     }
@@ -72,16 +79,16 @@ class CartUtility
     protected function getOrderNumber(array $pluginSettings)
     {
         $cObjRenderer = GeneralUtility::makeInstance(
-            \TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer::class
+            ContentObjectRenderer::class
         );
 
         $typoScriptService = GeneralUtility::makeInstance(
-            \TYPO3\CMS\Extbase\Service\TypoScriptService::class
+            TypoScriptService::class
         );
         $pluginTypoScriptSettings = $typoScriptService->convertPlainArrayToTypoScriptArray($pluginSettings);
 
         $registry = GeneralUtility::makeInstance(
-            \TYPO3\CMS\Core\Registry::class
+            Registry::class
         );
 
         $registryName = 'lastInvoice_' . $pluginSettings['settings']['cart']['pid'];
@@ -136,10 +143,10 @@ class CartUtility
      * @param array $pluginSettings
      * @param \TYPO3\CMS\Extbase\Mvc\Request $request
      */
-    public function updateCountry(array $cartSettings, array $pluginSettings, \TYPO3\CMS\Extbase\Mvc\Request $request)
+    public function updateCountry(array $cartSettings, array $pluginSettings, Request $request)
     {
         $sessionHandler = GeneralUtility::makeInstance(
-            \Extcode\Cart\Service\SessionHandler::class
+            SessionHandler::class
         );
         $cart = $sessionHandler->restore($cartSettings['pid']);
 
@@ -165,7 +172,7 @@ class CartUtility
         ];
 
         $signalSlotDispatcher = GeneralUtility::makeInstance(
-            \TYPO3\CMS\Extbase\SignalSlot\Dispatcher::class
+            Dispatcher::class
         );
         $signalSlotDispatcher->dispatch(
             __CLASS__,
@@ -180,10 +187,10 @@ class CartUtility
         $sessionHandler->write($cart, $cartSettings['pid']);
     }
 
-    public function updateService(\Extcode\Cart\Domain\Model\Cart\Cart $cart, $pluginSettings)
+    public function updateService(Cart $cart, $pluginSettings)
     {
         $parserUtility = GeneralUtility::makeInstance(
-            \Extcode\Cart\Utility\ParserUtility::class
+            ParserUtility::class
         );
 
         $cart->getPayment()->setCart($cart);
@@ -216,7 +223,7 @@ class CartUtility
     {
         $cart = $this->sessionHandler->restore($pluginSettings['settings']['cart']['pid']);
 
-        if (!$cart instanceof \Extcode\Cart\Domain\Model\Cart\Cart) {
+        if (!$cart instanceof Cart) {
             $cart = $this->getNewCart($pluginSettings);
             $this->sessionHandler->write($cart, $pluginSettings['settings']['cart']['pid']);
         }
@@ -258,7 +265,7 @@ class CartUtility
 
         /** @var \Extcode\Cart\Domain\Model\Cart\Cart $cart */
         $cart = GeneralUtility::makeInstance(
-            \Extcode\Cart\Domain\Model\Cart\Cart::class,
+            Cart::class,
             $taxClasses,
             $isNetCart,
             $defaultCurrency['code'],
@@ -282,7 +289,7 @@ class CartUtility
      * @param array $pluginSettings
      * @param \Extcode\Cart\Domain\Model\Cart\Cart $cart
      */
-    protected function setShipping(array $pluginSettings, \Extcode\Cart\Domain\Model\Cart\Cart $cart)
+    protected function setShipping(array $pluginSettings, Cart $cart)
     {
         $shippings = $this->parserUtility->parseServices('Shipping', $pluginSettings, $cart);
 
@@ -306,7 +313,7 @@ class CartUtility
      * @param array $pluginSettings
      * @param \Extcode\Cart\Domain\Model\Cart\Cart $cart
      */
-    protected function setPayment(array $pluginSettings, \Extcode\Cart\Domain\Model\Cart\Cart $cart)
+    protected function setPayment(array $pluginSettings, Cart $cart)
     {
         $payments = $this->parserUtility->parseServices('Payment', $pluginSettings, $cart);
 

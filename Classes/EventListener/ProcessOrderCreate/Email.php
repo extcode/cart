@@ -9,7 +9,9 @@ namespace Extcode\Cart\EventListener\ProcessOrderCreate;
  * LICENSE file that was distributed with this source code.
  */
 
+use Extcode\Cart\Domain\Model\Order\Item;
 use Extcode\Cart\Event\Order\EventInterface;
+use Extcode\Cart\Service\MailHandler;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 class Email
@@ -50,10 +52,10 @@ class Email
      * @param \Extcode\Cart\Domain\Model\Order\Item $orderItem
      */
     protected function sendBuyerMail(
-        \Extcode\Cart\Domain\Model\Order\Item $orderItem
+        Item $orderItem
     ) {
         $mailHandler = GeneralUtility::makeInstance(
-            \Extcode\Cart\Service\MailHandler::class
+            MailHandler::class
         );
         $mailHandler->setCart($this->cart);
         $mailHandler->sendBuyerMail($orderItem);
@@ -65,10 +67,10 @@ class Email
      * @param \Extcode\Cart\Domain\Model\Order\Item $orderItem
      */
     protected function sendSellerMail(
-        \Extcode\Cart\Domain\Model\Order\Item $orderItem
+        Item $orderItem
     ) {
         $mailHandler = GeneralUtility::makeInstance(
-            \Extcode\Cart\Service\MailHandler::class
+            MailHandler::class
         );
         $mailHandler->setCart($this->cart);
         $mailHandler->sendSellerMail($orderItem);

@@ -10,8 +10,9 @@ namespace Extcode\Cart\Domain\Model\Order;
  */
 
 use Extcode\Cart\Domain\Model\Cart\TaxClass;
+use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 
-class Discount extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
+class Discount extends AbstractEntity
 {
     /**
      * @var \Extcode\Cart\Domain\Model\Order\Item

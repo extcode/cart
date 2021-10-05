@@ -9,6 +9,12 @@ namespace Extcode\Cart\Controller\Cart;
  * LICENSE file that was distributed with this source code.
  */
 
+use Extcode\Cart\Domain\Model\Cart\Cart;
+use Extcode\Cart\Service\SessionHandler;
+use Extcode\Cart\Utility\CartUtility;
+use Extcode\Cart\Utility\ParserUtility;
+use TYPO3\CMS\Extbase\Configuration\ConfigurationManager;
+
 class ActionController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 {
     /**
@@ -71,7 +77,7 @@ class ActionController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControlle
      * @param \Extcode\Cart\Service\SessionHandler $sessionHandler
      */
     public function injectSessionHandler(
-        \Extcode\Cart\Service\SessionHandler $sessionHandler
+        SessionHandler $sessionHandler
     ) {
         $this->sessionHandler = $sessionHandler;
     }
@@ -80,7 +86,7 @@ class ActionController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControlle
      * @param \Extcode\Cart\Utility\CartUtility $cartUtility
      */
     public function injectCartUtility(
-        \Extcode\Cart\Utility\CartUtility $cartUtility
+        CartUtility $cartUtility
     ) {
         $this->cartUtility = $cartUtility;
     }
@@ -89,7 +95,7 @@ class ActionController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControlle
      * @param \Extcode\Cart\Utility\ParserUtility $parserUtility
      */
     public function injectParserUtility(
-        \Extcode\Cart\Utility\ParserUtility $parserUtility
+        ParserUtility $parserUtility
     ) {
         $this->parserUtility = $parserUtility;
     }
@@ -100,7 +106,7 @@ class ActionController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControlle
     public function initializeAction()
     {
         $this->pluginSettings = $this->configurationManager->getConfiguration(
-            \TYPO3\CMS\Extbase\Configuration\ConfigurationManager::CONFIGURATION_TYPE_FRAMEWORK
+            ConfigurationManager::CONFIGURATION_TYPE_FRAMEWORK
         );
     }
 
@@ -126,7 +132,7 @@ class ActionController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControlle
     {
         $this->cart = $this->sessionHandler->restore($this->settings['cart']['pid']);
 
-        if (!$this->cart instanceof \Extcode\Cart\Domain\Model\Cart\Cart) {
+        if (!$this->cart instanceof Cart) {
             $this->cart = $this->cartUtility->getNewCart($this->pluginSettings);
             $this->sessionHandler->write($this->cart, $this->settings['cart']['pid']);
         }

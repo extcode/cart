@@ -10,6 +10,8 @@ namespace Extcode\Cart\ViewHelpers;
  */
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Configuration\ConfigurationManager;
+use TYPO3\CMS\Extbase\Reflection\ObjectAccess;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 class MapModelPropertiesToTableColumnsViewHelper extends AbstractViewHelper
@@ -70,7 +72,7 @@ class MapModelPropertiesToTableColumnsViewHelper extends AbstractViewHelper
                 $mapping[$modelProperty] = $tableColumn;
             }
 
-            $data = \TYPO3\CMS\Extbase\Reflection\ObjectAccess::getGettableProperties($data);
+            $data = ObjectAccess::getGettableProperties($data);
 
             foreach ($data as $key => $value) {
                 if (isset($mapping[$key])) {
@@ -88,10 +90,10 @@ class MapModelPropertiesToTableColumnsViewHelper extends AbstractViewHelper
     protected function getConfiguration()
     {
         $this->configurationManager = GeneralUtility::makeInstance(
-            \TYPO3\CMS\Extbase\Configuration\ConfigurationManager::class
+            ConfigurationManager::class
         );
         $this->configuration = $this->configurationManager->getConfiguration(
-            \TYPO3\CMS\Extbase\Configuration\ConfigurationManager::CONFIGURATION_TYPE_FRAMEWORK
+            ConfigurationManager::CONFIGURATION_TYPE_FRAMEWORK
         );
     }
 }

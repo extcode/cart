@@ -13,10 +13,8 @@ return [
         'tstamp' => 'tstamp',
         'crdate' => 'crdate',
         'cruser_id' => 'cruser_id',
-        'dividers2tabs' => true,
 
-        'versioningWS' => 2,
-        'versioning_followPages' => true,
+        'versioningWS' => true,
         'origUid' => 't3_origuid',
 
         'delete' => 'deleted',
@@ -29,12 +27,9 @@ return [
         'iconfile' => 'EXT:cart/Resources/Public/Icons/tx_cart_domain_model_coupon.svg'
     ],
     'hideTable' => 1,
-    'interface' => [
-        'showRecordFieldList' => 'hidden, starttime, endtime, title, code, coupon_type, discount, tax_class_id, cart_min_price, is_combinable, handle_available, number_available, number_used',
-    ],
     'types' => [
         '1' => [
-            'showitem' => 'hidden;;1, starttime, endtime, title, code, coupon_type, discount, tax_class_id, cart_min_price, is_combinable, handle_available, number_available, number_used'
+            'showitem' => 'hidden,--palette--;;1,starttime,endtime,title,code,coupon_type,discount,tax_class_id,cart_min_price,is_combinable,handle_available,number_available,number_used'
         ],
     ],
     'palettes' => [
@@ -60,34 +55,34 @@ return [
         ],
         'starttime' => [
             'exclude' => 1,
-            'l10n_mode' => 'mergeIfNotBlank',
             'label' => 'LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:starttime_formlabel',
             'config' => [
                 'type' => 'input',
                 'size' => 13,
-                'max' => 20,
                 'eval' => 'datetime',
                 'checkbox' => 0,
                 'default' => 0,
                 'range' => [
                     'lower' => mktime(0, 0, 0, date('m'), date('d'), date('Y'))
                 ],
+                'renderType' => 'inputDateTime',
+                ['behaviour' => ['allowLanguageSynchronization' => true]],
             ],
         ],
         'endtime' => [
             'exclude' => 1,
-            'l10n_mode' => 'mergeIfNotBlank',
             'label' => 'LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:endtime_formlabel',
             'config' => [
                 'type' => 'input',
                 'size' => 13,
-                'max' => 20,
                 'eval' => 'datetime',
                 'checkbox' => 0,
                 'default' => 0,
                 'range' => [
                     'lower' => mktime(0, 0, 0, date('m'), date('d'), date('Y'))
                 ],
+                'renderType' => 'inputDateTime',
+                ['behaviour' => ['allowLanguageSynchronization' => true]],
             ],
         ],
         'title' => [

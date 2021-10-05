@@ -1,13 +1,16 @@
 <?php
 declare(strict_types = 1);
 
+use Extcode\Cart\Domain\Model\Order\BillingAddress;
+use Extcode\Cart\Domain\Model\Order\ShippingAddress;
+
 return [
-    \Extcode\Cart\Domain\Model\Order\BillingAddress::class => [
+    BillingAddress::class => [
         'tableName' => 'tx_cart_domain_model_order_address',
-        'recordType' => '\\' . \Extcode\Cart\Domain\Model\Order\BillingAddress::class,
+        'recordType' => '\\' . BillingAddress::class,
     ],
-    \Extcode\Cart\Domain\Model\Order\ShippingAddress::class => [
+    ShippingAddress::class => [
         'tableName' => 'tx_cart_domain_model_order_address',
-        'recordType' => '\\' . \Extcode\Cart\Domain\Model\Order\ShippingAddress::class,
+        'recordType' => '\\' . ShippingAddress::class,
     ],
 ];

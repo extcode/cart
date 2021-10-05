@@ -9,6 +9,8 @@ namespace Extcode\Cart\Domain\Repository;
  * LICENSE file that was distributed with this source code.
  */
 
-class CouponRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
+use TYPO3\CMS\Extbase\Persistence\Repository;
+
+class CouponRepository extends Repository
 {
 }

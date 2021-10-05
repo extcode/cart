@@ -11,10 +11,8 @@ return [
         'tstamp' => 'tstamp',
         'crdate' => 'crdate',
         'cruser_id' => 'cruser_id',
-        'dividers2tabs' => true,
 
-        'versioningWS' => 2,
-        'versioning_followPages' => true,
+        'versioningWS' => true,
         'origUid' => 't3_origuid',
         'hideTable' => true,
         'delete' => 'deleted',
@@ -23,9 +21,6 @@ return [
         'iconfile' => 'EXT:cart/Resources/Public/Icons/Order/Transaction.svg'
     ],
     'hideTable' => 1,
-    'interface' => [
-        'showRecordFieldList' => 'txn_id, status, external_status_code, note',
-    ],
     'types' => [
         '1' => [
             'showitem' => 'txn_id, status, external_status_code, note'

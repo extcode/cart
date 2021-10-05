@@ -9,7 +9,9 @@ namespace Extcode\Cart\Validation\Validator;
  * LICENSE file that was distributed with this source code.
  */
 
-class EmptyValidator extends \TYPO3\CMS\Extbase\Validation\Validator\AbstractValidator
+use TYPO3\CMS\Extbase\Validation\Validator\AbstractValidator;
+
+class EmptyValidator extends AbstractValidator
 {
     /**
      * This validator always needs to be executed even if the given value is empty.

@@ -9,6 +9,7 @@ namespace Extcode\Cart\Service;
  * LICENSE file that was distributed with this source code.
  */
 
+use Extcode\Cart\Domain\Model\Cart\Cart;
 use TYPO3\CMS\Core\SingletonInterface;
 
 class SessionHandler implements SingletonInterface
@@ -36,7 +37,7 @@ class SessionHandler implements SingletonInterface
      *
      * @return SessionHandler $this
      */
-    public function write(\Extcode\Cart\Domain\Model\Cart\Cart $cart, $key)
+    public function write(Cart $cart, $key)
     {
         $sessionData = serialize($cart);
         $GLOBALS['TSFE']->fe_user->setKey('ses', $this->prefixKey . $key, $sessionData);

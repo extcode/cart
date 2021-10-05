@@ -13,6 +13,7 @@ use TYPO3\CMS\Extbase\Error\Result;
 use TYPO3\CMS\Extbase\Validation\Validator\AbstractValidator;
 use TYPO3\CMS\Extbase\Validation\Validator\ObjectValidatorInterface;
 use TYPO3\CMS\Extbase\Validation\Validator\ValidatorInterface;
+use TYPO3\CMS\Form\Domain\Model\ValidationElement;
 
 /**
  * A generic object validator which allows for specifying property validators
@@ -167,7 +168,7 @@ class OrderItemValidator extends AbstractValidator implements ObjectValidatorInt
     {
         if (
             is_object($object)
-            && $object instanceof \TYPO3\CMS\Form\Domain\Model\ValidationElement
+            && $object instanceof ValidationElement
         ) {
             return true;
         }

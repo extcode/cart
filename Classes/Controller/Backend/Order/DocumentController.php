@@ -9,11 +9,17 @@ namespace Extcode\Cart\Controller\Backend\Order;
  * LICENSE file that was distributed with this source code.
  */
 
+use Extcode\Cart\Domain\Model\Order\Item;
+use Extcode\Cart\Domain\Repository\Order\ItemRepository;
+use Extcode\CartPdf\Service\PdfService;
 use TYPO3\CMS\Core\Core\Environment;
+use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
+use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 
-class DocumentController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
+class DocumentController extends ActionController
 {
     /**
      * @var \TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager
@@ -29,7 +35,7 @@ class DocumentController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
      * @param \TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager $persistenceManager
      */
     public function injectPersistenceManager(
-        \TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager $persistenceManager
+        PersistenceManager $persistenceManager
     ) {
         $this->persistenceManager = $persistenceManager;
     }
@@ -38,7 +44,7 @@ class DocumentController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
      * @param \Extcode\Cart\Domain\Repository\Order\ItemRepository $itemRepository
      */
     public function injectItemRepository(
-        \Extcode\Cart\Domain\Repository\Order\ItemRepository $itemRepository
+        ItemRepository $itemRepository
     ) {
         $this->itemRepository = $itemRepository;
     }
@@ -49,7 +55,7 @@ class DocumentController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
      * @param \Extcode\Cart\Domain\Model\Order\Item $orderItem
      * @param string $pdfType
      */
-    public function createAction(\Extcode\Cart\Domain\Model\Order\Item $orderItem, $pdfType)
+    public function createAction(Item $orderItem, $pdfType)
     {
         if ($pdfType === 'invoice' && !$orderItem->getInvoiceNumber()) {
             $invoiceNumber = $this->generateNumber($orderItem, $pdfType);
@@ -88,7 +94,7 @@ class DocumentController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
      * @param \Extcode\Cart\Domain\Model\Order\Item $orderItem
      * @param string $pdfType
      */
-    public function downloadAction(\Extcode\Cart\Domain\Model\Order\Item $orderItem, $pdfType)
+    public function downloadAction(Item $orderItem, $pdfType)
     {
         $getter = 'get' . ucfirst($pdfType) . 'Pdfs';
         $pdfs = $orderItem->$getter();
@@ -126,15 +132,15 @@ class DocumentController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
      * @param \Extcode\Cart\Domain\Model\Order\Item $orderItem
      * @param string $pdfType
      */
-    protected function generatePdfDocument(\Extcode\Cart\Domain\Model\Order\Item $orderItem, $pdfType)
+    protected function generatePdfDocument(Item $orderItem, $pdfType)
     {
         $extensionManagerUtility = GeneralUtility::makeInstance(
-            \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::class
+            ExtensionManagementUtility::class
         );
 
         if ($extensionManagerUtility->isLoaded('cart_pdf')) {
             $pdfService = GeneralUtility::makeInstance(
-                \Extcode\CartPdf\Service\PdfService::class
+                PdfService::class
             );
 
             $pdfService->createPdf($orderItem, $pdfType);

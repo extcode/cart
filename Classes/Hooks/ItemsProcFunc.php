@@ -11,8 +11,12 @@ namespace Extcode\Cart\Hooks;
 
 use Extcode\Cart\Utility\TemplateLayout;
 use TYPO3\CMS\Backend\Utility\BackendUtility as BackendUtilityCore;
+use TYPO3\CMS\Core\Resource\ResourceFactory;
+use TYPO3\CMS\Core\Resource\StorageRepository;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\StringUtility;
+use TYPO3\CMS\Form\Mvc\Configuration\YamlSource;
+use TYPO3\CMS\Form\Mvc\Persistence\FormPersistenceManager;
 
 class ItemsProcFunc
 {
@@ -144,7 +148,7 @@ class ItemsProcFunc
     /**
      * Returns LanguageService
      *
-     * @return \TYPO3\CMS\Lang\LanguageService
+     * @return \TYPO3\CMS\Core\Localization\LanguageService
      */
     protected function getLanguageService()
     {
@@ -157,23 +161,23 @@ class ItemsProcFunc
     protected function getFormPersistenceManager()
     {
         $formPersistenceManager = GeneralUtility::makeInstance(
-            \TYPO3\CMS\Form\Mvc\Persistence\FormPersistenceManager::class
+            FormPersistenceManager::class
         );
 
         $formPersistenceManager->initializeObject();
 
         $storageRepository = GeneralUtility::makeInstance(
-            \TYPO3\CMS\Core\Resource\StorageRepository::class
+            StorageRepository::class
         );
         $formPersistenceManager->injectStorageRepository($storageRepository);
 
         $resourceFactory = GeneralUtility::makeInstance(
-            \TYPO3\CMS\Core\Resource\ResourceFactory::class
+            ResourceFactory::class
         );
         $formPersistenceManager->injectResourceFactory($resourceFactory);
 
         $yamlSource = GeneralUtility::makeInstance(
-            \TYPO3\CMS\Form\Mvc\Configuration\YamlSource::class
+            YamlSource::class
         );
         $formPersistenceManager->injectYamlSource($yamlSource);
 

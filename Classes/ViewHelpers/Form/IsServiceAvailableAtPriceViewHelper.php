@@ -14,6 +14,8 @@ namespace Extcode\Cart\ViewHelpers\Form;
  *
  * The TYPO3 project - inspiring people to share!
  */
+
+use Extcode\Cart\Domain\Model\Cart\ServiceInterface;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractConditionViewHelper;
 
 /**
@@ -30,7 +32,7 @@ class IsServiceAvailableAtPriceViewHelper extends AbstractConditionViewHelper
         parent::initializeArguments();
         $this->registerArgument(
             'service',
-            \Extcode\Cart\Domain\Model\Cart\AbstractService::class,
+            ServiceInterface::class,
             'Service object to which the check should be applied.'
         );
         $this->registerArgument(

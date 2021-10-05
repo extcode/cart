@@ -13,10 +13,8 @@ return [
         'tstamp' => 'tstamp',
         'crdate' => 'crdate',
         'cruser_id' => 'cruser_id',
-        'dividers2tabs' => true,
 
-        'versioningWS' => 2,
-        'versioning_followPages' => true,
+        'versioningWS' => true,
         'origUid' => 't3_origuid',
         'hideTable' => true,
         'delete' => 'deleted',
@@ -25,9 +23,6 @@ return [
         'iconfile' => 'EXT:cart/Resources/Public/Icons/Order/Discount.svg'
     ],
     'hideTable' => 1,
-    'interface' => [
-        'showRecordFieldList' => 'title, code, gross, net, tax_class_id, tax',
-    ],
     'types' => [
         '1' => [
             'showitem' => 'title, code, gross, net, tax_class_id, tax'
@@ -80,6 +75,7 @@ return [
             'label' => $_LLL . ':tx_cart_domain_model_order_discount.tax_class_id',
             'config' => [
                 'type' => 'select',
+                'renderType' => 'selectSingle',
                 'items' => [
                     [$_LLL . ':tx_cart_domain_model_order_discount.tax_class_id.1', 1],
                 ],

@@ -12,6 +12,7 @@ namespace Extcode\Cart\Controller\Cart;
 use Extcode\Cart\Domain\Model\Order\BillingAddress;
 use Extcode\Cart\Domain\Model\Order\Item;
 use Extcode\Cart\Domain\Model\Order\ShippingAddress;
+use Extcode\Cart\Domain\Validator\OrderItemValidator;
 use Extcode\Cart\Event\Order\CreateEvent;
 use Extcode\Cart\Event\Order\FinishEvent;
 use Extcode\Cart\Event\Order\PaymentEvent;
@@ -23,6 +24,8 @@ use Psr\EventDispatcher\StoppableEventInterface;
 use TYPO3\CMS\Core\Configuration\Features;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
+use TYPO3\CMS\Extbase\Validation\Validator\ConjunctionValidator;
+use TYPO3\CMS\Extbase\Validation\ValidatorResolver;
 
 class OrderController extends ActionController
 {
@@ -171,7 +174,7 @@ class OrderController extends ActionController
     /**
      * @param \Extcode\Cart\Domain\Model\Order\Item $orderItem
      */
-    public function showAction(\Extcode\Cart\Domain\Model\Order\Item $orderItem)
+    public function showAction(Item $orderItem)
     {
         $this->view->assign('orderItem', $orderItem);
     }
@@ -189,7 +192,7 @@ class OrderController extends ActionController
         // build custom validation chain
         /** @var \TYPO3\CMS\Extbase\Validation\ValidatorResolver $validatorResolver */
         $validatorResolver = GeneralUtility::makeInstance(
-            \TYPO3\CMS\Extbase\Validation\ValidatorResolver::class
+            ValidatorResolver::class
         );
 
         if ($validatorConf['validator'] === 'Empty') {
@@ -204,7 +207,7 @@ class OrderController extends ActionController
         if ($argumentName === 'orderItem') {
             /** @var \Extcode\Cart\Domain\Validator\OrderItemValidator $modelValidator */
             $modelValidator = $validatorResolver->createValidator(
-                \Extcode\Cart\Domain\Validator\OrderItemValidator::class
+                OrderItemValidator::class
             );
         } else {
             /** @var \TYPO3\CMS\Extbase\Validation\Validator\GenericObject $modelValidator */
@@ -220,7 +223,7 @@ class OrderController extends ActionController
         $conjunctionValidator = $this->arguments->getArgument($argumentName)->getValidator();
         if ($conjunctionValidator === null) {
             $conjunctionValidator = $validatorResolver->createValidator(
-                \TYPO3\CMS\Extbase\Validation\Validator\ConjunctionValidator::class
+                ConjunctionValidator::class
             );
             $this->arguments->getArgument($argumentName)->setValidator($conjunctionValidator);
         }

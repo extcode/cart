@@ -9,7 +9,10 @@ namespace Extcode\Cart\Utility;
  * LICENSE file that was distributed with this source code.
  */
 
+use Extcode\Cart\Domain\Model\Cart\Cart;
+use Extcode\Cart\Domain\Model\Cart\Service;
 use Extcode\Cart\Domain\Model\Cart\ServiceInterface;
+use Extcode\Cart\Service\TaxClassService;
 use Extcode\Cart\Service\TaxClassServiceInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
@@ -28,7 +31,7 @@ class ParserUtility
         if ($pluginSettings['taxClasses']['className']) {
             $className = $pluginSettings['taxClasses']['className'];
         } else {
-            $className = \Extcode\Cart\Service\TaxClassService::class;
+            $className = TaxClassService::class;
         }
 
         $service = GeneralUtility::makeInstance(
@@ -53,7 +56,7 @@ class ParserUtility
     public function parseServices(
         string $serviceType,
         array $pluginSettings,
-        \Extcode\Cart\Domain\Model\Cart\Cart $cart
+        Cart $cart
     ) {
         $services = [];
         $type = strtolower($serviceType) . 's';
@@ -65,7 +68,7 @@ class ParserUtility
                 if (!empty($serviceConfig['className'])) {
                     $className = $serviceConfig['className'];
                 } else {
-                    $className = \Extcode\Cart\Domain\Model\Cart\Service::class;
+                    $className = Service::class;
                 }
 
                 $service = GeneralUtility::makeInstance(
@@ -97,7 +100,7 @@ class ParserUtility
      *
      * @return array
      */
-    public function getTypePluginSettings(array $pluginSettings, \Extcode\Cart\Domain\Model\Cart\Cart $cart, $type)
+    public function getTypePluginSettings(array $pluginSettings, Cart $cart, $type)
     {
         $pluginSettingsType = $pluginSettings[$type];
         $selectedCountry = $pluginSettings['settings']['defaultCountry'];
@@ -143,7 +146,7 @@ class ParserUtility
      *
      * @return array
      */
-    public function getTypeZonesPluginSettings(array $zoneSettings, \Extcode\Cart\Domain\Model\Cart\Cart $cart)
+    public function getTypeZonesPluginSettings(array $zoneSettings, Cart $cart)
     {
         foreach ($zoneSettings as $zoneSetting) {
             $zoneSetting['countries'] = preg_replace('/\s+/', '', $zoneSetting['countries']);

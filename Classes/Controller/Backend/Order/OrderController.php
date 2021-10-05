@@ -9,6 +9,7 @@ namespace Extcode\Cart\Controller\Backend\Order;
  * LICENSE file that was distributed with this source code.
  */
 
+use Extcode\Cart\Controller\Backend\ActionController;
 use Extcode\Cart\Domain\Model\Order\Item as OrderItem;
 use Extcode\Cart\Domain\Repository\Order\ItemRepository as OrderItemRepository;
 use Extcode\Cart\Utility\OrderUtility;
@@ -23,7 +24,7 @@ use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
-class OrderController extends \Extcode\Cart\Controller\Backend\ActionController
+class OrderController extends ActionController
 {
     /**
      * @var PersistenceManager
@@ -245,7 +246,7 @@ class OrderController extends \Extcode\Cart\Controller\Backend\ActionController
     {
         if (!is_object($GLOBALS['TT'])) {
             $GLOBALS['TT'] = new TimeTracker(false);
-            $GLOBALS['TT']->start();
+            GeneralUtility::makeInstance(TimeTracker::class)->start();
         }
 
         $siteFinder = GeneralUtility::makeInstance(SiteFinder::class);

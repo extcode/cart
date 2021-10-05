@@ -10,6 +10,7 @@ namespace Extcode\Cart\Domain\Finisher\Form;
  */
 
 use Extcode\Cart\Domain\Model\Cart\Cart;
+use Extcode\Cart\Domain\Model\Cart\Product;
 use Extcode\Cart\Utility\CartUtility;
 use TYPO3\CMS\Core\Messaging\AbstractMessage;
 use TYPO3\CMS\Core\Messaging\FlashMessage;
@@ -139,7 +140,7 @@ class AddToCartFinisher extends AbstractFinisher
         $quantity = 0;
 
         foreach ($products as $product) {
-            if ($product instanceof \Extcode\Cart\Domain\Model\Cart\Product) {
+            if ($product instanceof Product) {
                 $quantity += $product->getQuantity();
                 $this->cart->addProduct($product);
             }

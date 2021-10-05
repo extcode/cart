@@ -9,10 +9,21 @@ namespace Extcode\Cart\Controller\Order;
  * LICENSE file that was distributed with this source code.
  */
 
+use Extcode\Cart\Domain\Model\Order\Item;
+use Extcode\Cart\Domain\Repository\CartRepository;
+use Extcode\Cart\Domain\Repository\Order\ItemRepository;
+use Extcode\Cart\Domain\Repository\Order\PaymentRepository;
+use Extcode\Cart\Service\MailHandler;
+use TYPO3\CMS\Core\Messaging\AbstractMessage;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Configuration\ConfigurationManager;
+use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
+use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
+use TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings;
+use TYPO3\CMS\Extbase\SignalSlot\Dispatcher;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 
-class PaymentController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
+class PaymentController extends ActionController
 {
     /**
      * Persistence Manager
@@ -58,7 +69,7 @@ class PaymentController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
      * @param \TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager $persistenceManager
      */
     public function injectPersistenceManager(
-        \TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager $persistenceManager
+        PersistenceManager $persistenceManager
     ) {
         $this->persistenceManager = $persistenceManager;
     }
@@ -67,7 +78,7 @@ class PaymentController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
      * @param \Extcode\Cart\Domain\Repository\CartRepository $cartRepository
      */
     public function injectCartRepository(
-        \Extcode\Cart\Domain\Repository\CartRepository $cartRepository
+        CartRepository $cartRepository
     ) {
         $this->cartRepository = $cartRepository;
     }
@@ -76,7 +87,7 @@ class PaymentController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
      * @param \Extcode\Cart\Domain\Repository\Order\ItemRepository $itemRepository
      */
     public function injectItemRepository(
-        \Extcode\Cart\Domain\Repository\Order\ItemRepository $itemRepository
+        ItemRepository $itemRepository
     ) {
         $this->itemRepository = $itemRepository;
     }
@@ -85,7 +96,7 @@ class PaymentController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
      * @param \Extcode\Cart\Domain\Repository\Order\PaymentRepository $paymentRepository
      */
     public function injectPaymentRepository(
-        \Extcode\Cart\Domain\Repository\Order\PaymentRepository $paymentRepository
+        PaymentRepository $paymentRepository
     ) {
         $this->paymentRepository = $paymentRepository;
     }
@@ -97,7 +108,7 @@ class PaymentController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
     {
         $this->pluginSettings =
             $this->configurationManager->getConfiguration(
-                \TYPO3\CMS\Extbase\Configuration\ConfigurationManager::CONFIGURATION_TYPE_FRAMEWORK
+                ConfigurationManager::CONFIGURATION_TYPE_FRAMEWORK
             );
     }
 
@@ -110,7 +121,7 @@ class PaymentController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
             $hash = $this->request->getArgument('hash');
 
             $querySettings = GeneralUtility::makeInstance(
-                \TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings::class
+                Typo3QuerySettings::class
             );
             $querySettings->setStoragePageIds([$this->settings['order']['pid']]);
             $this->cartRepository->setDefaultQuerySettings($querySettings);
@@ -132,7 +143,7 @@ class PaymentController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
                         'Cart'
                     ),
                     '',
-                    \TYPO3\CMS\Core\Messaging\AbstractMessage::OK
+                    AbstractMessage::OK
                 );
 
                 //@todo refactoring to finisher concept
@@ -149,7 +160,7 @@ class PaymentController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
                         'Cart'
                     ),
                     '',
-                    \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR
+                    AbstractMessage::ERROR
                 );
             }
         } else {
@@ -159,7 +170,7 @@ class PaymentController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
                     'Cart'
                 ),
                 '',
-                \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR
+                AbstractMessage::ERROR
             );
         }
     }
@@ -172,7 +183,7 @@ class PaymentController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
      * @param string $class
      * @param string $function
      */
-    protected function sendMails(\Extcode\Cart\Domain\Model\Order\Item $orderItem, $type, $class, $function)
+    protected function sendMails(Item $orderItem, $type, $class, $function)
     {
         $billingAddress = $orderItem->getBillingAddress();
 
@@ -189,7 +200,7 @@ class PaymentController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         ];
 
         $signalSlotDispatcher = GeneralUtility::makeInstance(
-            \TYPO3\CMS\Extbase\SignalSlot\Dispatcher::class
+            Dispatcher::class
         );
         $signalSlotDispatcher->dispatch(
             $class,
@@ -216,7 +227,7 @@ class PaymentController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         }
 
         $signalSlotDispatcher = GeneralUtility::makeInstance(
-            \TYPO3\CMS\Extbase\SignalSlot\Dispatcher::class
+            Dispatcher::class
         );
         $signalSlotDispatcher->dispatch(
             $class,
@@ -231,11 +242,11 @@ class PaymentController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
      * @param \Extcode\Cart\Domain\Model\Order\Item $orderItem
      */
     protected function sendBuyerMail(
-        \Extcode\Cart\Domain\Model\Order\Item $orderItem
+        Item $orderItem
     ) {
         /* @var \Extcode\Cart\Service\MailHandler $mailHandler*/
         $mailHandler = GeneralUtility::makeInstance(
-            \Extcode\Cart\Service\MailHandler::class
+            MailHandler::class
         );
         $mailHandler->setCart($this->cart->getCart());
         $mailHandler->sendBuyerMail($orderItem);
@@ -247,11 +258,11 @@ class PaymentController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
      * @param \Extcode\Cart\Domain\Model\Order\Item $orderItem
      */
     protected function sendSellerMail(
-        \Extcode\Cart\Domain\Model\Order\Item $orderItem
+        Item $orderItem
     ) {
         /* @var \Extcode\Cart\Service\MailHandler $mailHandler*/
         $mailHandler = GeneralUtility::makeInstance(
-            \Extcode\Cart\Service\MailHandler::class
+            MailHandler::class
         );
         $mailHandler->setCart($this->cart->getCart());
         $mailHandler->sendSellerMail($orderItem);
