@@ -46,7 +46,7 @@ lint:yaml:
   before_script:
     - pip install yamllint==1.10.0
   script:
-    - yamllint -c Build/yamllint.yaml Configuration/ Resources/ .travis.yml
+    - yamllint -c Build/yamllint.yaml Configuration/ Resources/
 
 lint:php72:
   stage: lint

@@ -1,4 +1,3 @@
-[![Build Status](https://travis-ci.org/extcode/cart.svg?branch=6.x)](https://travis-ci.org/extcode/cart)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/5b5b6e0c8ac143c381026061abf3c9e8)](https://www.codacy.com/app/extcode/cart?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=extcode/cart&amp;utm_campaign=Badge_Grade)
 
 The extension is a small but powerful extension which "solely" adds a shopping cart to your TYPO3 installation and is
