@@ -50,4 +50,9 @@ final class ProcessOrderCreateEvent implements ProcessOrderCreateEventInterface
     {
         return $this->settings;
     }
+
+    public function setSettings(array $settings): void
+    {
+        $this->settings = $settings;
+    }
 }

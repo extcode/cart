@@ -57,6 +57,11 @@ final class PaymentEvent implements EventInterface, StoppableEventInterface
         return $this->settings;
     }
 
+    public function setSettings(array $settings): void
+    {
+        $this->settings = $settings;
+    }
+
     public function setPropagationStopped(bool $isPropagationStopped): void
     {
         $this->isPropagationStopped = $isPropagationStopped;
