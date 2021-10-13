@@ -11,17 +11,17 @@ namespace Extcode\Cart\Controller\Backend\Order;
 
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 
-class DocumentController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
+class DocumentController extends \Extcode\Cart\Controller\Backend\ActionController
 {
     /**
      * @var \TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager
      */
-    protected $persistenceManager = null;
+    protected $persistenceManager;
 
     /**
      * @var \Extcode\Cart\Domain\Repository\Order\ItemRepository
      */
-    protected $itemRepository = null;
+    protected $itemRepository;
 
     /**
      * @param \TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager $persistenceManager
