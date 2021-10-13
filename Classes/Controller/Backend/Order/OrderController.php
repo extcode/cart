@@ -12,17 +12,10 @@ namespace Extcode\Cart\Controller\Backend\Order;
 use Extcode\Cart\Controller\Backend\ActionController;
 use Extcode\Cart\Domain\Model\Order\Item as OrderItem;
 use Extcode\Cart\Domain\Repository\Order\ItemRepository as OrderItemRepository;
-use Extcode\Cart\Utility\OrderUtility;
 use TYPO3\CMS\Core\Messaging\AbstractMessage;
-use TYPO3\CMS\Core\Site\SiteFinder;
-use TYPO3\CMS\Core\TimeTracker\TimeTracker;
-use TYPO3\CMS\Core\TypoScript\TypoScriptService;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Configuration\ConfigurationManager;
 use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
-use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
 class OrderController extends ActionController
 {
@@ -37,45 +30,21 @@ class OrderController extends ActionController
     protected $itemRepository;
 
     /**
-     * @var OrderUtility
-     */
-    protected $orderUtility;
-
-    /**
      * @var array
      */
     protected $searchArguments = [];
 
-    /**
-     * @var array
-     */
-    protected $pluginSettings;
-
-    /**
-     * @param PersistenceManager $persistenceManager
-     */
-    public function injectPersistenceManager(PersistenceManager $persistenceManager)
+    public function injectPersistenceManager(PersistenceManager $persistenceManager): void
     {
         $this->persistenceManager = $persistenceManager;
     }
 
-    /**
-     * @param OrderItemRepository $itemRepository
-     */
-    public function injectItemRepository(OrderItemRepository $itemRepository)
+    public function injectItemRepository(OrderItemRepository $itemRepository): void
     {
         $this->itemRepository = $itemRepository;
     }
 
-    /**
-     * @param OrderUtility $orderUtility
-     */
-    public function injectOrderUtility(OrderUtility $orderUtility)
-    {
-        $this->orderUtility = $orderUtility;
-    }
-
-    protected function initializeAction()
+    protected function initializeAction(): void
     {
         parent::initializeAction();
 
@@ -85,7 +54,7 @@ class OrderController extends ActionController
         }
     }
 
-    public function initializeUpdateAction()
+    public function initializeUpdateAction(): void
     {
         if ($this->request->hasArgument('orderItem')) {
             $orderItem = $this->request->getArgument('orderItem');
@@ -97,7 +66,7 @@ class OrderController extends ActionController
         }
     }
 
-    public function listAction()
+    public function listAction(): void
     {
         $orderItems = $this->itemRepository->findAll($this->searchArguments);
 
@@ -111,7 +80,7 @@ class OrderController extends ActionController
         $this->view->assign('pdfRendererInstalled', $pdfRendererInstalled);
     }
 
-    public function exportAction()
+    public function exportAction(): void
     {
         $format = $this->request->getFormat();
 
@@ -134,11 +103,9 @@ class OrderController extends ActionController
     }
 
     /**
-     * @param OrderItem $orderItem
-     *
      * @TYPO3\CMS\Extbase\Annotation\IgnoreValidation("orderItem")
      */
-    public function showAction(OrderItem $orderItem)
+    public function showAction(OrderItem $orderItem): void
     {
         $this->view->assign('orderItem', $orderItem);
 
@@ -166,11 +133,7 @@ class OrderController extends ActionController
         $this->view->assign('pdfRendererInstalled', $pdfRendererInstalled);
     }
 
-    /**
-     * @param OrderItem $orderItem
-     * @param string $numberType
-     */
-    public function generateNumberAction(OrderItem $orderItem, $numberType)
+    public function generateNumberAction(OrderItem $orderItem, string $numberType): void
     {
         $getter = 'get' . ucfirst($numberType) . 'Number';
         $setNumberTypeFunction = 'set' . ucfirst($numberType) . 'Number';
@@ -205,67 +168,7 @@ class OrderController extends ActionController
         $this->redirect('show', 'Backend\Order\Order', null, ['orderItem' => $orderItem]);
     }
 
-    /**
-     * @param OrderItem $orderItem
-     * @param string $pdfType
-     *
-     * @return string
-     */
-    protected function generateNumber(OrderItem $orderItem, $pdfType)
-    {
-        $this->buildTSFE((int)GeneralUtility::_GP('id'));
-
-        $typoScriptService = GeneralUtility::makeInstance(
-            TypoScriptService::class
-        );
-
-        $configurationManager = GeneralUtility::makeInstance(ConfigurationManager::class);
-
-        $cartConfiguration = $configurationManager->getConfiguration(
-            ConfigurationManager::CONFIGURATION_TYPE_FRAMEWORK
-        );
-
-        if ($cartConfiguration) {
-            $typoScriptSettings = $typoScriptService->convertTypoScriptArrayToPlainArray($cartConfiguration);
-        }
-
-        //TODO replace it width dynamic var
-        $typoScriptSettings['settings'] = [
-            'cart' => [
-                'pid' => $orderItem->getCartPid(),
-            ],
-        ];
-
-        return $this->orderUtility->getNumber($typoScriptSettings, $pdfType);
-    }
-
-    /**
-     * @param int $pid
-     */
-    protected function buildTSFE($pid = 1)
-    {
-        if (!is_object($GLOBALS['TT'])) {
-            $GLOBALS['TT'] = new TimeTracker(false);
-            GeneralUtility::makeInstance(TimeTracker::class)->start();
-        }
-
-        $siteFinder = GeneralUtility::makeInstance(SiteFinder::class);
-        $siteLanguages = $siteFinder->getSiteByPageId($pid)->getLanguages();
-
-        $GLOBALS['TSFE'] = GeneralUtility::makeInstance(
-            TypoScriptFrontendController::class,
-            $GLOBALS['TYPO3_CONF_VARS'],
-            $pid,
-            $siteLanguages[0]
-        );
-    }
-
-    /**
-     * prepare payment status for select box
-     *
-     * @return array
-     */
-    public function getPaymentStatus()
+    public function getPaymentStatus(): array
     {
         $paymentStatusArray = [];
 
@@ -290,12 +193,7 @@ class OrderController extends ActionController
         return $paymentStatusArray;
     }
 
-    /**
-     * prepare shipping status for select box
-     *
-     * @return array
-     */
-    public function getShippingStatus()
+    public function getShippingStatus(): array
     {
         $shippingStatusArray = [];
 
