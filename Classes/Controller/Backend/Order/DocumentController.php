@@ -11,7 +11,7 @@ namespace Extcode\Cart\Controller\Backend\Order;
 
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 
-class DocumentController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
+class DocumentController extends \Extcode\Cart\Controller\Backend\ActionController
 {
     /**
      * Persistence Manager
