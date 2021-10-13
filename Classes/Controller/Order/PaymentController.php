@@ -232,7 +232,7 @@ class PaymentController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
     protected function sendBuyerMail(
         \Extcode\Cart\Domain\Model\Order\Item $orderItem
     ) {
-        /* @var \Extcode\Cart\Service\MailHandler $mailHandler*/
+        // @var \Extcode\Cart\Service\MailHandler $mailHandler
         $mailHandler = $this->objectManager->get(
             \Extcode\Cart\Service\MailHandler::class
         );
@@ -248,7 +248,7 @@ class PaymentController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
     protected function sendSellerMail(
         \Extcode\Cart\Domain\Model\Order\Item $orderItem
     ) {
-        /* @var \Extcode\Cart\Service\MailHandler $mailHandler*/
+        // @var \Extcode\Cart\Service\MailHandler $mailHandler
         $mailHandler = $this->objectManager->get(
             \Extcode\Cart\Service\MailHandler::class
         );
