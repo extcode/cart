@@ -244,7 +244,7 @@ class PaymentController extends ActionController
     protected function sendBuyerMail(
         Item $orderItem
     ) {
-        /* @var \Extcode\Cart\Service\MailHandler $mailHandler*/
+        // @var \Extcode\Cart\Service\MailHandler $mailHandler
         $mailHandler = GeneralUtility::makeInstance(
             MailHandler::class
         );
@@ -260,7 +260,7 @@ class PaymentController extends ActionController
     protected function sendSellerMail(
         Item $orderItem
     ) {
-        /* @var \Extcode\Cart\Service\MailHandler $mailHandler*/
+        // @var \Extcode\Cart\Service\MailHandler $mailHandler
         $mailHandler = GeneralUtility::makeInstance(
             MailHandler::class
         );
