@@ -117,11 +117,13 @@ class DocumentController extends ActionController
     protected function generatePdfDocument(Item $orderItem, string $pdfType): void
     {
         if (ExtensionManagementUtility::isLoaded('cart_pdf')) {
-            $pdfService = GeneralUtility::makeInstance(
-                PdfService::class
-            );
+            if (class_exists(PdfService::class)) {
+                $pdfService = GeneralUtility::makeInstance(
+                    PdfService::class
+                );
 
-            $pdfService->createPdf($orderItem, $pdfType);
+                $pdfService->createPdf($orderItem, $pdfType);
+            }
         }
     }
 }

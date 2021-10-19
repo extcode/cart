@@ -14,17 +14,16 @@ use Extcode\Cart\Utility\OrderUtility;
 class CartPreviewController extends ActionController
 {
     /**
-     * @param \Extcode\Cart\Utility\OrderUtility $orderUtility
+     * @var OrderUtility
      */
+    private $orderUtility;
+
     public function injectOrderUtility(
         OrderUtility $orderUtility
     ) {
         $this->orderUtility = $orderUtility;
     }
 
-    /**
-     * Action show
-     */
     public function showAction()
     {
         $this->restoreSession();

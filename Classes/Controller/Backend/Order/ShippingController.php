@@ -21,17 +21,11 @@ class ShippingController extends ActionController
      */
     protected $shippingRepository;
 
-    /**
-     * @param ShippingRepository $shippingRepository
-     */
     public function injectShippingRepository(ShippingRepository $shippingRepository)
     {
         $this->shippingRepository = $shippingRepository;
     }
 
-    /**
-     * @param Shipping $shipping
-     */
     public function updateAction(Shipping $shipping)
     {
         $this->shippingRepository->update($shipping);

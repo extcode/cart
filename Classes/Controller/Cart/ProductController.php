@@ -35,11 +35,6 @@ class ProductController extends ActionController
         }
     }
 
-    /**
-     * Action Add
-     *
-     * @return string
-     */
     public function addAction()
     {
         if (!$this->request->hasArgument('productType')) {
@@ -145,10 +140,7 @@ class ProductController extends ActionController
         $this->redirect('show', 'Cart\Cart');
     }
 
-    /**
-     * Action remove
-     */
-    public function removeAction()
+    public function removeAction(): void
     {
         if ($this->request->hasArgument('product')) {
             $this->cart = $this->sessionHandler->restore($this->settings['cart']['pid']);
@@ -168,12 +160,8 @@ class ProductController extends ActionController
 
     /**
      * returns list of changed products
-     *
-     * @param $products
-     *
-     * @return array
      */
-    protected function getChangedProducts($products)
+    protected function getChangedProducts(array $products): array
     {
         $productsChanged = [];
 
@@ -186,11 +174,7 @@ class ProductController extends ActionController
         return $productsChanged;
     }
 
-    /**
-     * @param array $products
-     * @return int
-     */
-    protected function addProductsToCart($products)
+    protected function addProductsToCart(array $products): int
     {
         $quantity = 0;
 

@@ -21,17 +21,11 @@ class PaymentController extends ActionController
      */
     protected $paymentRepository;
 
-    /**
-     * @param PaymentRepository $paymentRepository
-     */
     public function injectPaymentRepository(PaymentRepository $paymentRepository)
     {
         $this->paymentRepository = $paymentRepository;
     }
 
-    /**
-     * @param Payment $payment
-     */
     public function updateAction(Payment $payment)
     {
         $this->paymentRepository->update($payment);

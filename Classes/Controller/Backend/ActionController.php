@@ -45,7 +45,7 @@ class ActionController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControlle
 
         $pageId = (int)(GeneralUtility::_GET('id')) ? GeneralUtility::_GET('id') : 1;
 
-        $this->pageinfo = BackendUtility::readPageAccess(
+        BackendUtility::readPageAccess(
             $pageId,
             $GLOBALS['BE_USER']->getPagePermsClause(1)
         );
