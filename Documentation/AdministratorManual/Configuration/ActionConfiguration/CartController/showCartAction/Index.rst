@@ -56,7 +56,7 @@ settings.showCartAction.showPartials.shippingMethodForm
    Data type
       boolean
    Description
-      Aktiviert/Deaktiviert die Darstellung und Auswahl der konfigurierten Bezahlmethoden im Warenkorb.
+      Aktiviert/Deaktiviert die Darstellung und Auswahl der konfigurierten Versandmethoden im Warenkorb.
    Default
       true
 
