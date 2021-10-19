@@ -7,7 +7,7 @@ $_LLL = 'LLL:EXT:cart/Resources/Private/Language/locallang_db.xlf';
 return [
     'ctrl' => [
         'title' => $_LLL . ':tx_cart_domain_model_order_tax',
-        'label' => 'name',
+        'label' => 'tax_class',
         'tstamp' => 'tstamp',
         'crdate' => 'crdate',
         'cruser_id' => 'cruser_id',
