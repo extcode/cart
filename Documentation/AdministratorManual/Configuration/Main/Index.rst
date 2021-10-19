@@ -15,7 +15,7 @@ Main Configuration
                pid =
            }
 
-           addToCartByAjax
+           addToCartByAjax = 2278001
        }
    }
 
@@ -65,4 +65,8 @@ settings.addToCartByAjax
       int
    Description
       Activates the option to add products via AJAX action. There is no forwarding to the shopping cart page.
+      The value is used as typeNum in the default templates of extcode/cart-books, extcode/cart-events,
+      extcode/cart-products and other product extensions.
       The response can used to display messages or update the MiniCart-Plugin.
+   Default
+      2278001
