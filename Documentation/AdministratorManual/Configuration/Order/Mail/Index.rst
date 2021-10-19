@@ -12,7 +12,7 @@ but also configured via TypoScript.
        mail {
            buyer {
                fromAddress = cart.buyer.sender@extco.de
-               bccAddress = cart.buyer.cc1@extco.de, cart.buyer.cc2@extco.de
+               ccAddress = cart.buyer.cc1@extco.de, cart.buyer.cc2@extco.de
                bccAddress = cart.buyer.bcc1@extco.de, cart.buyer.bcc2@extco.de
                replyToAddress = cart.buyer.reply@extco.de
                attachments {
@@ -22,7 +22,7 @@ but also configured via TypoScript.
            seller {
                fromAddress = cart.seller.sender@extco.de
                toAddress = cart.seller.to1@extco.de, cart.seller.to2@extco.de
-               bccAddress = cart.seller.cc1@extco.de, cart.seller.cc2@extco.de
+               ccAddress = cart.seller.cc1@extco.de, cart.seller.cc2@extco.de
                bccAddress = cart.seller.bcc1@extco.de, cart.seller.bcc2@extco.de
            }
        }
@@ -155,7 +155,7 @@ mail.seller.attachments
    Data type
       array
    Description
-      Defines one or more e-mail attachments to be sent to the buyer.
+      Defines one or more e-mail attachments to be sent to the seller.
       These can be, for example, documents with the general terms and conditions.
 
 mail.seller.attachDocuments
@@ -167,5 +167,5 @@ mail.seller.attachDocuments
    Data type
       array
    Description
-      Defines one or more e-mail attachments of the generated PDF documents to be sent to the buyer.
+      Defines one or more e-mail attachments of the generated PDF documents to be sent to the seller.
       This can be the order confirmation, the invoice or a separate document.
