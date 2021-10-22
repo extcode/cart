@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="book-name"    content="Shopping Cart(s) for TYPO3"/>
+  <meta name="book-version" content="8.0"/>
+  <meta name="book-release" content="8.0.0"/>
+  <meta name="book-type"    content="Manual"/>
+
+  
+  <title>6.0 Changes &mdash; Shopping Cart(s) for TYPO3 8.0.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="../../_static/jquery-ui/jquery-ui.min.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../../_static/css/t3more.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="../../genindex.html"/>
+        <link rel="search" title="Search" href="../../search.html"/>
+    <link rel="top" title="Shopping Cart(s) for TYPO3 8.0.0 documentation" href="#"/>
+        <link rel="up" title="ChangeLog" href="../Index.html"/>
+        <link rel="next" title="5.0 Changes" href="../5.0/Index.html"/>
+        <link rel="prev" title="Important: #237 - Remove showToTopLink-function call from JavaScript" href="../6.1/Important-237-RemoveShowToTopLinkFunctionCallFromJavaScript.html"/> 
+  <script src="../../_static/js/modernizr.min.js"></script>
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+
+        <ul class="sidebartop">
+
+          <li class="docsite">
+            <a href="https://docs.typo3.org"><img src="../../_static/img/typo3-documentation.png" class="logo" /></a>
+          </li><li class="project">
+            <a href="../../Index.html">
+              Shopping Cart(s) for TYPO3<br>8.0.0</a>
+          </li>
+          <li class="nolink search"><div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search this project" id="searchinput" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+</li></ul>
+
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../Introduction/Index.html">Introduction</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Introduction/Support/Index.html">Support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Introduction/Sponsoring/Index.html">Sponsoring</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Introduction/NoteOfThanks/Index.html">Note of thanks</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../AdministratorManual/Index.html">Administrator Manual</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../AdministratorManual/Installation/Index.html">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../AdministratorManual/Configuration/Index.html">Configuration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../AdministratorManual/Configuration/Main/Index.html">Main Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../AdministratorManual/Configuration/Cart/Index.html">Cart Configuration</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../AdministratorManual/Configuration/Cart/Checkbox/Index.html">Checkbox Configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../AdministratorManual/Configuration/Order/Index.html">Order Configuration</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../AdministratorManual/Configuration/Order/Mail/Index.html">Email Configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../AdministratorManual/Configuration/Order/NumberGeneratorConfiguration/Index.html">Number Generator Configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../AdministratorManual/Configuration/FormatConfiguration/Index.html">Currency Format Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../AdministratorManual/Configuration/PaymentMethods/Index.html">Payment methods</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../AdministratorManual/Configuration/PaymentMethods/MainConfiguration/Index.html">Main configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../AdministratorManual/Configuration/ShippingMethods/Index.html">Shipping methods</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../AdministratorManual/Configuration/ShippingMethods/MainConfiguration/Index.html">Main configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../AdministratorManual/Configuration/ShippingMethods/FlexPrices/Index.html">Flex Prices</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../AdministratorManual/Configuration/CurrencyTranslationConfiguration/Index.html">Currency Translation Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../AdministratorManual/Configuration/ActionConfiguration/Index.html">Controller-Action-Konfiguration</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../AdministratorManual/Configuration/ActionConfiguration/CartController/Index.html">Cart-Controller-Konfiguration</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../AdministratorManual/Configuration/ActionConfiguration/CartController/showCartAction/Index.html">showCartAction-Configuration</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../AdministratorManual/Configuration/AjaxConfiguration/Index.html">AJAX Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../AdministratorManual/Configuration/Caching/Index.html">Caching</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../DeveloperManual/Index.html">Developer Manual</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../DeveloperManual/Events/Index.html">Events</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../DeveloperManual/SignalSlots/Index.html">Signal Slots</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../DeveloperManual/Hooks/Index.html">Hooks</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../EditorManual/Index.html">Editor Manual</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../EditorManual/Records/Index.html">Datensätze</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../EditorManual/Records/Orders/Index.html">Bestellungen</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../EditorManual/Records/Coupons/Index.html">Coupons / Gutscheine</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../EditorManual/Modules/Index.html">Module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../EditorManual/Modules/Orders/Index.html">Bestellungen</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../EditorManual/Plugins/Index.html">Plugins</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../EditorManual/Plugins/Cart/Index.html">Cart: Warenkorb</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../EditorManual/Plugins/MiniCart/Index.html">Cart: Mini-Warenkorb</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../EditorManual/Plugins/Order/Index.html">Cart: Bestellungen</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="../Index.html">ChangeLog</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../8.0/Index.html">8.0 Changes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../8.0/Breaking-360-MoveFluidPaginationToController.html">Breaking: #360 - Move Fluid Pagination to Controller</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../8.0/Breaking-360-MoveNumberGeneratorsToEventListeners.html">Breaking: #360 - Move Number Generators To EventListeners</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../8.0/Breaking-360-RemoveSplitUpProcessOrderCreateEventFeatureToggle.html">Breaking: #360 - Remove Split Up ProcessOrderCreateEvent Feature Toggle</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../7.5/Index.html">7.5 Changes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../7.5/Feature-351-AllowToChangeSettingsPropertyForAllOrderProcessingEvents.html">Feature: 351 - Allow to Change $settings Property for all Order Processing Events</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../7.3/Index.html">7.3 Changes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../7.3/Feature-339-TaxationOfServiceCostAsAnAncillaryService.html">Deprecation: 339 - Taxation of Service Cost as an Ancillary Service</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../7.2/Index.html">7.2 Changes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../7.2/Feature-337-SplitUpProcessOrderCreateEvent.html">Feature: 337 - Split Up ProcessOrderCreateEvent</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../7.2/Deprecation-337-SplitUpProcessOrderCreateEvent.html">Feature: 337 - Split Up ProcessOrderCreateEvent</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../7.0/Index.html">7.0 Changes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../7.0/Breaking-288-ChangeMailHandlerToFluidEmail.html">Breaking: #288 - Change MailHandler to FluidEmail</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../7.0/Breaking-288-ParameterOfMailAttachmentHookInterfaceWasChanged.html">Breaking: #288 - Parameter of Mail Attachment Hook Interface was Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../7.0/Breaking-288-RemoveModuleOrderStatistic.html">Breaking: #288 - Remove Order Statistics Module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../7.0/Breaking-288-UsePsrEventsForOrderFinishers.html">Breaking: #288 - Use PSR-14 Events for Order Finishers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../7.0/Feature-288-ChangeMailHandlerToFluidEmail.html">Feature: #288 - Change MailHandler to FluidEmail</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../7.0/Feature-288-DashboardWidgets.html">Feature: #288 - Dashboard Widgets</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../6.8/Index.html">6.8 Changes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../6.8/Feature-277-AddTaxClassInterface.html">Feature: #277 - Add TaxClass Interface</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../6.7/Index.html">6.7 Changes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../6.7/Important-263-BugfixForTypeNumInRouteEnhancer.html">Important: #263 - Bugfix for TypeNum in RouteEnhancer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../6.7/Feature-241-AddServiceInterface.html">Feature: #241 - Add Service Interface</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../6.7/Feature-271-BccForBuyerAndSellerEmail.html">Feature: #271 - BCC (Blind Carbon Copy) for Buyer and Seller Email</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../6.7/Feature-272-AddBuyerEMailForReplyTo.html">Feature: #272 - Use Buyer Email for replyTo</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../6.7/Feature-274-AddExtraConditionToOnlyChargeServiceForPhysicalGoods.html">Feature: #274 - Add Extra Condition to only Charge Service for Physical Goods</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../6.6/Index.html">6.6 Changes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../6.6/Feature-267-DeclareExtensionCompatibleWithPHP74.html">Feature: #267 - Declare extension compatible with PHP 7.4</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../6.5/Index.html">6.5 Changes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../6.5/Breaking-256-ChangeCountryOnlyChangesTaxForFirstProductVariant.html">Breaking: #256 - Change country only changes tax for first product variant</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../6.5/Feature-251-DeclareExtensionCompatibleWithPHP73.html">Feature: #251 - Declare extension compatible with PHP 7.3</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../6.4/Index.html">6.4 Changes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../6.4/Feature-246-MailAttachmentsHook.html">Feature: #246 - MailAttachmentsHook</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../6.3/Index.html">6.3 Changes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../6.3/Important-103-FixSqlStrictMode.html">Important: #103 - Fix exception in sql strict mode</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../6.2/Index.html">6.2 Changes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../6.2/Breaking-242-UseDefaultCountrySettingForShippingAddress.html">Breaking: #242 - Use defaultCountry setting for shipping address</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../6.1/Index.html">6.1 Changes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../6.1/Feature-223-AddAddToCartFormFrameworkFinisher.html">Feature: #223 - Add addToCart form framework finisher</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../6.1/Feature-231-AddViewHelperToShowAdditionalDataInViews.html">Feature: #231 - Add ViewHelper to show additionalData in views</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../6.1/Important-226-FixAcceptTermsAndConditionsLabel.html">Important: #226 - Fix accept_terms_and_conditions label</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../6.1/Important-228-FixJavaScriptVariableUpdateCountryInTemplate.html">Important: #228 - Fix JavaScript variable update_country in template</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../6.1/Important-235-FixCartOrderFormTemplate.html">Important: #235 - Fix cart order form template</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../6.1/Important-237-RemoveShowToTopLinkFunctionCallFromJavaScript.html">Important: #237 - Remove showToTopLink-function call from JavaScript</a></li>
+</ul>
+</li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">6.0 Changes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../5.0/Index.html">5.0 Changes</a></li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../Index.html">Shopping Cart(s) for TYPO3</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../Index.html">Docs</a> &raquo;</li>
+          <li><a href="../Index.html">ChangeLog</a> &raquo;</li>
+    <li>6.0 Changes</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/Changelog/6.0/Index.rst.txt" rel="nofollow">
+                <span class="fa fa-binoculars"></span>&#32;View page source
+            </a>
+      </li>
+  </ul>
+  
+    <hr class="before-stealth-btn clear-both" />
+    
+      <a href="../5.0/Index.html" class="stealth-btn float-right" title="Accesskey Alt(+Shift)+n">
+          <span class="stealth-btn-text">Next</span>
+          <span class="fa fa-arrow-circle-right"></span>
+      </a>
+    
+    
+      <a href="../6.1/Important-237-RemoveShowToTopLinkFunctionCallFromJavaScript.html" class="stealth-btn" title="Accesskey Alt(+Shift)+p">
+          <span class="fa fa-arrow-circle-left"></span>
+          <span class="stealth-btn-text">Previous</span>
+      </a>
+    
+
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody" class="toBeIndexed">
+            
+  <div class="section" id="changes">
+<h1>6.0 Changes<a class="headerlink" href="#changes" title="Permalink to this headline">¶</a></h1>
+<div class="admonition important">
+<p class="first admonition-title">Important</p>
+<p class="last"><strong>If upgrading from cart version 4.8.1 or earlier: Please read the documentation very carefully! Please make a backup of your filesystem and database!</strong> If possible test the update in a test copy of your TYPO3 instance.</p>
+</div>
+<div class="section" id="extracting-products-to-an-own-cart-products-extension">
+<h2>Extracting products to an own cart_products extension<a class="headerlink" href="#extracting-products-to-an-own-cart-products-extension" title="Permalink to this headline">¶</a></h2>
+<p>In the last month, there where a lot of projects where the product table was extended
+to the customer needs. In some cases I come to the result that an own product model
+respecting the customer domain would be a better solution.
+So I decided to extract all product related code to an own extension. If you updating
+from Cart v4.x you have to install the cart_products extension as well.</p>
+<p><strong>1. migrate database tables</strong></p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">RENAME</span> <span class="k">TABLE</span> <span class="n">tx_cart_domain_model_product_product</span> <span class="k">TO</span> <span class="n">tx_cartproducts_domain_model_product_product</span><span class="p">;</span>
+<span class="k">RENAME</span> <span class="k">TABLE</span> <span class="n">tx_cart_domain_model_product_specialprice</span> <span class="k">TO</span> <span class="n">tx_cartproducts_domain_model_product_specialprice</span><span class="p">;</span>
+<span class="k">RENAME</span> <span class="k">TABLE</span> <span class="n">tx_cart_domain_model_product_quantitydiscount</span> <span class="k">TO</span> <span class="n">tx_cartproducts_domain_model_product_quantitydiscount</span><span class="p">;</span>
+<span class="k">RENAME</span> <span class="k">TABLE</span> <span class="n">tx_cart_domain_model_product_bevariantattribute</span> <span class="k">TO</span> <span class="n">tx_cartproducts_domain_model_product_bevariantattribute</span><span class="p">;</span>
+<span class="k">RENAME</span> <span class="k">TABLE</span> <span class="n">tx_cart_domain_model_product_bevariantattributeoption</span> <span class="k">TO</span> <span class="n">tx_cartproducts_domain_model_product_bevariantattributeoption</span><span class="p">;</span>
+<span class="k">RENAME</span> <span class="k">TABLE</span> <span class="n">tx_cart_domain_model_product_bevariant</span> <span class="k">TO</span> <span class="n">tx_cartproducts_domain_model_product_bevariant</span><span class="p">;</span>
+<span class="k">RENAME</span> <span class="k">TABLE</span> <span class="n">tx_cart_domain_model_product_fevariant</span> <span class="k">TO</span> <span class="n">tx_cartproducts_domain_model_product_fevariant</span><span class="p">;</span>
+<span class="k">RENAME</span> <span class="k">TABLE</span> <span class="n">tx_cart_domain_model_product_tag</span> <span class="k">TO</span> <span class="n">tx_cart_domain_model_tag</span><span class="p">;</span>
+<span class="k">RENAME</span> <span class="k">TABLE</span> <span class="n">tx_cart_domain_model_product_coupon</span> <span class="k">TO</span> <span class="n">tx_cart_domain_model_coupon</span><span class="p">;</span>
+<span class="k">RENAME</span> <span class="k">TABLE</span> <span class="n">tx_cart_domain_model_product_product_related_mm</span> <span class="k">TO</span> <span class="n">tx_cartproducts_domain_model_product_product_related_mm</span><span class="p">;</span>
+<span class="k">RENAME</span> <span class="k">TABLE</span> <span class="n">tx_cart_domain_model_product_tag_mm</span> <span class="k">TO</span> <span class="n">tx_cartproducts_domain_model_product_tag_mm</span><span class="p">;</span>
+
+<span class="k">ALTER</span> <span class="k">TABLE</span> <span class="n">tx_cart_domain_model_order_address</span> <span class="k">ADD</span> <span class="n">record_type</span> <span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">255</span><span class="p">)</span> <span class="k">DEFAULT</span> <span class="s1">&#39;&#39;</span> <span class="k">NOT</span> <span class="k">NULL</span><span class="p">;</span>
+<span class="k">ALTER</span> <span class="k">TABLE</span> <span class="n">tx_cart_domain_model_order_address</span> <span class="k">ADD</span> <span class="n">tax_identification_number</span> <span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">255</span><span class="p">)</span> <span class="k">DEFAULT</span> <span class="s1">&#39;&#39;</span> <span class="k">NOT</span> <span class="k">NULL</span><span class="p">;</span>
+
+<span class="k">ALTER</span> <span class="k">TABLE</span> <span class="n">tt_content</span> <span class="n">CHANGE</span> <span class="k">COLUMN</span> <span class="n">tx_cart_domain_model_product_product</span> <span class="n">tx_cartproducts_domain_model_product_product</span> <span class="nb">int</span><span class="p">(</span><span class="mi">11</span><span class="p">)</span> <span class="n">unsigned</span> <span class="k">DEFAULT</span> <span class="s1">&#39;0&#39;</span> <span class="k">NOT</span> <span class="k">NULL</span><span class="p">;</span>
+</pre></div>
+</div>
+<p><strong>2. update cart and install cart_products</strong></p>
+<p>Update cart and install cart_product using composer or the update in the extension manager.
+Include new TypoScript of cart_products.</p>
+<p><strong>3. migrate some more the database tables</strong></p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">UPDATE</span> <span class="n">tx_cart_domain_model_order_address</span> <span class="k">SET</span> <span class="n">record_type</span><span class="o">=</span><span class="ss">&quot;\Extcode\Cart\Domain\Model\Order\BillingAddress&quot;</span> <span class="k">WHERE</span> <span class="n">discr</span><span class="o">=</span><span class="ss">&quot;billing&quot;</span><span class="p">;</span>
+<span class="k">UPDATE</span> <span class="n">tx_cart_domain_model_order_address</span> <span class="k">SET</span> <span class="n">record_type</span><span class="o">=</span><span class="ss">&quot;\Extcode\Cart\Domain\Model\Order\ShippingAddress&quot;</span> <span class="k">WHERE</span> <span class="n">discr</span><span class="o">=</span><span class="ss">&quot;shipping&quot;</span><span class="p">;</span>
+
+<span class="k">UPDATE</span> <span class="n">sys_file_reference</span> <span class="k">SET</span> <span class="n">tablenames</span><span class="o">=</span><span class="ss">&quot;tx_cartproducts_domain_model_product_product&quot;</span> <span class="k">WHERE</span> <span class="n">tablenames</span><span class="o">=</span><span class="ss">&quot;tx_cart_domain_model_product_product&quot;</span><span class="p">;</span>
+
+<span class="k">UPDATE</span> <span class="n">sys_category_record_mm</span> <span class="k">SET</span> <span class="n">tablenames</span><span class="o">=</span><span class="ss">&quot;tx_cartproducts_domain_model_product_product&quot;</span><span class="p">,</span><span class="n">fieldname</span><span class="o">=</span><span class="ss">&quot;category&quot;</span> <span class="k">WHERE</span> <span class="n">tablenames</span><span class="o">=</span><span class="ss">&quot;tx_cart_domain_model_product_product&quot;</span> <span class="k">AND</span> <span class="n">fieldname</span><span class="o">=</span><span class="ss">&quot;main_category&quot;</span><span class="p">;</span>
+<span class="k">UPDATE</span> <span class="n">sys_category_record_mm</span> <span class="k">SET</span> <span class="n">tablenames</span><span class="o">=</span><span class="ss">&quot;tx_cartproducts_domain_model_product_product&quot;</span> <span class="k">WHERE</span> <span class="n">tablenames</span><span class="o">=</span><span class="ss">&quot;tx_cartproducts_domain_model_product_product&quot;</span> <span class="k">AND</span> <span class="n">fieldname</span><span class="o">=</span><span class="ss">&quot;categories&quot;</span><span class="p">;</span>
+</pre></div>
+</div>
+<p><strong>4. update all plugins</strong></p>
+<p>The code summarized different parts of the business logic into a few controller classes. This results in big controller
+classes. I decided to split them up in more smaller classes. For an example the updateCountryAction in the the
+CartController class was moved to the CartCountryController and renamed to updateAction. This encapsulate one part of
+the business logic to an controller and thus allows better expandability.
+But that has the consequence that all used plugins has to be updated. The update can’t be done by a simple query statement.
+The following query can help you to find the pages where the plugins are installed.</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">SELECT</span> <span class="n">tt_content</span><span class="p">.</span><span class="n">uid</span><span class="p">,</span> <span class="n">tt_content</span><span class="p">.</span><span class="n">pid</span><span class="p">,</span> <span class="n">pages</span><span class="p">.</span><span class="n">title</span> <span class="k">FROM</span> <span class="n">tt_content</span> <span class="k">LEFT</span> <span class="k">JOIN</span> <span class="n">pages</span> <span class="k">ON</span> <span class="n">tt_content</span><span class="p">.</span><span class="n">pid</span> <span class="o">=</span> <span class="n">pages</span><span class="p">.</span><span class="n">uid</span> <span class="k">WHERE</span> <span class="n">list_type</span> <span class="k">LIKE</span> <span class="ss">&quot;cart_%&quot;</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>It gives you the uid of the <em>tt_content</em> element, the page id and the title of the page. You have to update all the plugins
+manually through the backend.</p>
+<p>A second consequence are the changes in the Templates and Partials directories. The template files was moved to some
+subdirectories and the links to controller actions was changed. If you have own cart templates you have to move the
+files too.</p>
+<p><strong>5. change checkboxes for acceptTermsAndConditions, acceptRevocationInstruction, and acceptPrivacyPolicy</strong></p>
+<p>In order to link all the documents and get all agreements checked by an own checkbox the two checkboxes
+acceptTerms and acceptConditions was summarized in the new acceptTermsAndConditions checkbox. I add two more checkboxes.
+One is the agreement to have read and accept the revocation instructions. And the last is for the privace policy.
+If you changed the translations or hide one of the old ones, you have to change the TypoScript configuration and
+translation for the new ones.</p>
+<div class="highlight-php notranslate"><div class="highlight"><pre><span></span><span class="nx">plugin</span><span class="o">.</span><span class="nx">tx_cart</span> <span class="p">{</span>
+    <span class="nx">settings</span> <span class="p">{</span>
+        <span class="nx">validation</span> <span class="p">{</span>
+            <span class="nx">orderItem</span> <span class="p">{</span>
+                <span class="nx">fields</span> <span class="p">{</span>
+                    <span class="nx">acceptTermsAndConditions</span><span class="o">.</span><span class="nx">validator</span> <span class="o">=</span> <span class="nx">Boolean</span>
+                    <span class="nx">acceptTermsAndConditions</span><span class="o">.</span><span class="nx">options</span><span class="o">.</span><span class="nx">is</span> <span class="o">=</span> <span class="k">true</span>
+                    <span class="nx">acceptRevocationInstruction</span><span class="o">.</span><span class="nx">validator</span> <span class="o">=</span> <span class="nx">Boolean</span>
+                    <span class="nx">acceptRevocationInstruction</span><span class="o">.</span><span class="nx">options</span><span class="o">.</span><span class="nx">is</span> <span class="o">=</span> <span class="k">true</span>
+                    <span class="nx">acceptPrivacyPolicy</span><span class="o">.</span><span class="nx">validator</span> <span class="o">=</span> <span class="nx">Boolean</span>
+                    <span class="nx">acceptPrivacyPolicy</span><span class="o">.</span><span class="nx">options</span><span class="o">.</span><span class="nx">is</span> <span class="o">=</span> <span class="k">true</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>For more information see: <a class="reference external" href="../../AdministratorManual/Configuration/Cart/Checkbox/Index.html">Checkbox Configuration</a></p>
+<p><strong>6. check used hooks and signal slots</strong></p>
+<p>If you extend or override classes, use hooks or signal slots you have to check them carefully. They can be removed or
+moved to another location.</p>
+</div>
+<div class="section" id="sortierung-von-frontend-und-backendvarianten">
+<h2>Sortierung von Frontend- und Backendvarianten<a class="headerlink" href="#sortierung-von-frontend-und-backendvarianten" title="Permalink to this headline">¶</a></h2>
+<p>In der Produktkonfiguration können die Frontend und Backendvarianten sortiert werden.</p>
+<div class="admonition important">
+<p class="first admonition-title">Important</p>
+<p class="last">Es ist eine Aktualisierung der Datenbank erforderlich. Da dieses Feld neu hinzu kommt sind keine Probleme zu erwarten.</p>
+</div>
+</div>
+<div class="section" id="speichern-des-rechungs-und-versandlandercodes-in-den-bestelldaten">
+<h2>Speichern des Rechungs- und Versandländercodes in den Bestelldaten<a class="headerlink" href="#speichern-des-rechungs-und-versandlandercodes-in-den-bestelldaten" title="Permalink to this headline">¶</a></h2>
+<p>In der Bestellung werden nun die Ländercodes aus dem TypoScript gespeichert, um in der späteren Verarbeitung auf die
+richtige Konfiguration zugreifen zu können.</p>
+<div class="admonition important">
+<p class="first admonition-title">Important</p>
+<p class="last">Es ist eine Aktualisierung der Datenbank erforderlich. Da dieses Feld neu hinzu kommt sind keine Probleme zu erwarten.</p>
+</div>
+</div>
+<div class="section" id="und-64-fullen-der-rechnungs-und-lieferadresse-mit-nutzerdaten">
+<h2>#59 und #64 Füllen der Rechnungs- und Lieferadresse mit Nutzerdaten<a class="headerlink" href="#und-64-fullen-der-rechnungs-und-lieferadresse-mit-nutzerdaten" title="Permalink to this headline">¶</a></h2>
+<p>In der showCartAction des Warenkorbplugins wird nun ein Hook <em>showCartActionAfterCartWasLoaded</em> bereitgestellt, der
+es erlaubt, neben zusätzlichen Änderungen im Warenkorb auch die Rechnungs- und Lieferadresse mit Daten eines
+eingeloggten Nutzers vorauszufüllen.</p>
+<div class="admonition important">
+<p class="first admonition-title">Important</p>
+<p class="last">Ein Vorausfüllen der Adressfelder mit Daten aus einem eingeloggten Frontend Benutzer wird es nicht geben.
+Zum einen ist das nicht in jedem Fall gewünscht, zum anderen müsste das FrontendUser Model erweitert werden,
+um alle relevanten Daten eines Nutzers speichern zu können. Oft werden diese Felder schon an anderer Stelle
+bereitgestellt.</p>
+</div>
+</div>
+</div>
+
+
+           </div><!-- /.toBeIndexed -->
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../5.0/Index.html" class="btn btn-neutral float-right" title="Accesskey Alt(+Shift)+n" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../6.1/Important-237-RemoveShowToTopLinkFunctionCallFromJavaScript.html" class="btn btn-neutral" title="Accesskey Alt(+Shift)+p" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo" class="contentinfo">
+      <p class="show_source">
+        <a href="../../_sources/Changelog/6.0/Index.rst.txt" rel="nofollow">
+          <span class="fa fa-binoculars"></span>&#32;View page source
+        </a>
+      </p>
+      <p class="show_copyright">
+            &copy; Copyright 2018-2024
+      </p>
+      <p class="last_updated">
+        Last rendered on Oct 29, 2021 09:57
+      </p>
+      <p class="show_sphinx">
+        Built with <a href="http://sphinx-doc.org/" target="_blank">Sphinx</a> and
+        <a href="https://github.com/TYPO3-Documentation/t3SphinxThemeRtd" target="_blank">t3SphinxThemeRtd.</a>
+        Report theme issues <a href="https://github.com/TYPO3-Documentation/t3SphinxThemeRtd/issues" target="_blank">here.</a>
+      </p>
+
+
+
+
+  </div>
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'8.0.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+      <script type="text/javascript" src="../../_static/language_data.js"></script>
+      <script type="text/javascript" src="../../_static/jquery-ui/jquery-ui.min.js"></script>
+      <script type="text/javascript" src="../../_static/js/theme.js"></script>
+      <script type="text/javascript" src="../../_static/js/t3autocomplete.js"></script>
+
+  
+
+  
+   
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   <script type="text/javascript" id="idPiwikScriptPlaceholder"></script></body>
+</html>

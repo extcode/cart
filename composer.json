@@ -44,15 +44,15 @@
         }
     },
     "require": {
-        "php": ">=7.2.0 <7.5",
+        "php": "^7.2 || ^7.3 || ^7.4 || ^8.0",
         "ext-json": "*",
         "ext-openssl": "*",
-        "typo3/cms-core": "^10.4",
-        "typo3/cms-form": "^10.4"
+        "typo3/cms-core": "^10.4 || ^11.5",
+        "typo3/cms-form": "^10.4 || ^11.5"
     },
     "require-dev": {
         "typo3/testing-framework": "^6.0",
-        "typo3/cms-dashboard": "^10.4",
+        "typo3/cms-dashboard": "^10.4 || ^11.5",
         "friendsofphp/php-cs-fixer": "^2.14",
         "helmich/typo3-typoscript-lint": "^2.0",
         "overtrue/phplint": "^1.1",
@@ -105,6 +105,6 @@
         ]
     },
     "suggest": {
-        "typo3/cms-dashboard": "^10.4"
+        "typo3/cms-dashboard": "^10.4 || ^11.5"
     }
 }

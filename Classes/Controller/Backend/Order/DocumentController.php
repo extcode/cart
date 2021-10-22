@@ -10,8 +10,10 @@ namespace Extcode\Cart\Controller\Backend\Order;
  */
 
 use Extcode\Cart\Controller\Backend\ActionController;
+use Extcode\Cart\Domain\Model\Cart\Cart;
 use Extcode\Cart\Domain\Model\Order\Item;
 use Extcode\Cart\Domain\Repository\Order\ItemRepository;
+use Extcode\Cart\Event\Order\NumberGeneratorEvent;
 use Extcode\CartPdf\Service\PdfService;
 use TYPO3\CMS\Core\Core\Environment;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
@@ -52,15 +54,17 @@ class DocumentController extends ActionController
     public function createAction(Item $orderItem, string $pdfType): void
     {
         if ($pdfType === 'invoice' && !$orderItem->getInvoiceNumber()) {
-            $invoiceNumber = $this->generateNumber($orderItem, $pdfType);
-            $orderItem->setInvoiceNumber($invoiceNumber);
-            $orderItem->setInvoiceDate(new \DateTime());
+            $dummyCart = new Cart([]);
+            $createEvent = new NumberGeneratorEvent($dummyCart, $orderItem, $this->pluginSettings);
+            $createEvent->setOnlyGenerateNumberOfType([$pdfType]);
+            $this->eventDispatcher->dispatch($createEvent);
+            $orderItem = $createEvent->getOrderItem();
 
             $msg = LocalizationUtility::translate(
                 'tx_cart.controller.order.action.generate_number_action.' . $pdfType . '.success',
                 'Cart',
                 [
-                    0 => $invoiceNumber,
+                    0 => $orderItem->getInvoiceNumber(),
                 ]
             );
 
@@ -82,7 +86,7 @@ class DocumentController extends ActionController
         $this->redirect('show', 'Backend\Order\Order', null, ['orderItem' => $orderItem]);
     }
 
-    public function downloadAction(Item $orderItem, string $pdfType): void
+    public function downloadAction(Item $orderItem, string $pdfType)
     {
         $getter = 'get' . ucfirst($pdfType) . 'Pdfs';
         $pdfs = $orderItem->$getter();
@@ -94,23 +98,18 @@ class DocumentController extends ActionController
         if (is_file($file)) {
             $fileLen = filesize($file);
 
-            $headers = [
-                'Pragma' => 'public',
-                'Expires' => 0,
-                'Cache-Control' => 'must-revalidate, post-check=0, pre-check=0',
-                'Content-Description' => 'File Transfer',
-                'Content-Type' => 'application/pdf',
-                'Content-Disposition' => 'attachment; filename="' . $fileName . '"',
-                'Content-Transfer-Encoding' => 'binary',
-                'Content-Length' => $fileLen
-            ];
+            // ToDo: Test download
 
-            foreach ($headers as $header => $data) {
-                $this->response->setHeader($header, $data);
-            }
-
-            $this->response->sendHeaders();
-            @readfile($file);
+            return $this->responseFactory->createResponse()
+                ->withAddedHeader('Cache-Control', 'must-revalidate, post-check=0, pre-check=0')
+                ->withAddedHeader('Content-Description', 'File Transfer')
+                ->withAddedHeader('Content-Disposition', 'attachment; filename="' . $fileName . '"')
+                ->withAddedHeader('Content-Length', $fileLen)
+                ->withAddedHeader('Content-Transfer-Encoding', 'binary')
+                ->withAddedHeader('Content-Type', 'application/pdf')
+                ->withAddedHeader('Expires', '0')
+                ->withAddedHeader('Pragma', 'public')
+                ->withBody($this->streamFactory->createStream(@readfile($file)));
         }
     }
 

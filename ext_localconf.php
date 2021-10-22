@@ -11,7 +11,6 @@ defined('TYPO3_MODE') or die();
         \Extcode\Cart\Controller\Cart\CartPreviewController::class => 'show',
         \Extcode\Cart\Controller\Cart\CurrencyController::class => 'update',
     ],
-    // non-cacheable actions
     [
         \Extcode\Cart\Controller\Cart\CartPreviewController::class => 'show',
         \Extcode\Cart\Controller\Cart\CurrencyController::class => 'update',
@@ -30,7 +29,6 @@ defined('TYPO3_MODE') or die();
         \Extcode\Cart\Controller\Cart\PaymentController::class => 'update',
         \Extcode\Cart\Controller\Cart\ProductController::class => 'add, remove',
         \Extcode\Cart\Controller\Cart\ShippingController::class => 'update',
-        \Extcode\Cart\Controller\Order\PaymentController::class => 'update',
     ],
     [
         \Extcode\Cart\Controller\Cart\CartController::class => 'show, clear, update',
@@ -41,7 +39,6 @@ defined('TYPO3_MODE') or die();
         \Extcode\Cart\Controller\Cart\PaymentController::class => 'update',
         \Extcode\Cart\Controller\Cart\ProductController::class => 'add, remove',
         \Extcode\Cart\Controller\Cart\ShippingController::class => 'update',
-        \Extcode\Cart\Controller\Order\PaymentController::class => 'update',
     ]
 );
 
@@ -66,12 +63,6 @@ defined('TYPO3_MODE') or die();
         \Extcode\Cart\Controller\Order\OrderController::class => 'list, show',
     ]
 );
-
-// Feature Toggles
-
-if (!isset($GLOBALS['TYPO3_CONF_VARS']['SYS']['features']['SplitUpProcessOrderCreateEvent'])) {
-    $GLOBALS['TYPO3_CONF_VARS']['SYS']['features']['SplitUpProcessOrderCreateEvent'] = false;
-}
 
 // Icon Registry
 

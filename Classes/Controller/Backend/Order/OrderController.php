@@ -10,10 +10,14 @@ namespace Extcode\Cart\Controller\Backend\Order;
  */
 
 use Extcode\Cart\Controller\Backend\ActionController;
-use Extcode\Cart\Domain\Model\Order\Item as OrderItem;
-use Extcode\Cart\Domain\Repository\Order\ItemRepository as OrderItemRepository;
+use Extcode\Cart\Domain\Model\Cart\Cart;
+use Extcode\Cart\Domain\Model\Order\Item;
+use Extcode\Cart\Domain\Repository\Order\ItemRepository;
+use Extcode\Cart\Event\Order\NumberGeneratorEvent;
 use TYPO3\CMS\Core\Messaging\AbstractMessage;
+use TYPO3\CMS\Core\Pagination\SimplePagination;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
+use TYPO3\CMS\Extbase\Pagination\QueryResultPaginator;
 use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 
@@ -25,7 +29,7 @@ class OrderController extends ActionController
     protected $persistenceManager;
 
     /**
-     * @var OrderItemRepository
+     * @var ItemRepository
      */
     protected $itemRepository;
 
@@ -39,7 +43,7 @@ class OrderController extends ActionController
         $this->persistenceManager = $persistenceManager;
     }
 
-    public function injectItemRepository(OrderItemRepository $itemRepository): void
+    public function injectItemRepository(ItemRepository $itemRepository): void
     {
         $this->itemRepository = $itemRepository;
     }
@@ -66,12 +70,27 @@ class OrderController extends ActionController
         }
     }
 
-    public function listAction(): void
+    public function listAction(int $currentPage = 1): void
     {
-        $orderItems = $this->itemRepository->findAll($this->searchArguments);
-
         $this->view->assign('searchArguments', $this->searchArguments);
-        $this->view->assign('orderItems', $orderItems);
+
+        $itemsPerPage = $this->settings['itemsPerPage'] ?? 20;
+
+        $orderItems = $this->itemRepository->findAll($this->searchArguments);
+        $arrayPaginator = new QueryResultPaginator(
+            $orderItems,
+            $currentPage,
+            $itemsPerPage
+        );
+        $pagination = new SimplePagination($arrayPaginator);
+        $this->view->assignMultiple(
+            [
+                'orderItems' => $orderItems,
+                'paginator' => $arrayPaginator,
+                'pagination' => $pagination,
+                'pages' => range(1, $pagination->getLastPageNumber()),
+            ]
+        );
 
         $this->view->assign('paymentStatus', $this->getPaymentStatus());
         $this->view->assign('shippingStatus', $this->getShippingStatus());
@@ -84,15 +103,6 @@ class OrderController extends ActionController
     {
         $format = $this->request->getFormat();
 
-        if ($format === 'csv') {
-            $title = 'Order-Export-' . date('Y-m-d_H-i');
-            $filename = $title . '.' . $format;
-
-            $this->response->setHeader('Content-Type', 'text/' . $format, true);
-            $this->response->setHeader('Content-Description', 'File transfer', true);
-            $this->response->setHeader('Content-Disposition', 'attachment; filename="' . $filename . '"', true);
-        }
-
         $orderItems = $this->itemRepository->findAll($this->searchArguments);
 
         $this->view->assign('searchArguments', $this->searchArguments);
@@ -100,12 +110,22 @@ class OrderController extends ActionController
 
         $pdfRendererInstalled = ExtensionManagementUtility::isLoaded('cart_pdf');
         $this->view->assign('pdfRendererInstalled', $pdfRendererInstalled);
+
+        $title = 'Order-Export-' . date('Y-m-d_H-i');
+        $filename = $title . '.' . $format;
+
+        // ToDo: Test export
+
+        $this->responseFactory->createResponse()
+            ->withAddedHeader('Content-Type', 'text/' . $format)
+            ->withAddedHeader('Content-Description', 'File transfer')
+            ->withAddedHeader('Content-Disposition', 'attachment; filename="' . $filename . '"');
     }
 
     /**
      * @TYPO3\CMS\Extbase\Annotation\IgnoreValidation("orderItem")
      */
-    public function showAction(OrderItem $orderItem): void
+    public function showAction(Item $orderItem): void
     {
         $this->view->assign('orderItem', $orderItem);
 
@@ -133,25 +153,21 @@ class OrderController extends ActionController
         $this->view->assign('pdfRendererInstalled', $pdfRendererInstalled);
     }
 
-    public function generateNumberAction(OrderItem $orderItem, string $numberType): void
+    public function generateNumberAction(Item $orderItem, string $numberType): void
     {
         $getter = 'get' . ucfirst($numberType) . 'Number';
-        $setNumberTypeFunction = 'set' . ucfirst($numberType) . 'Number';
-        $setNumberDateFunction = 'set' . ucfirst($numberType) . 'Date';
 
         if (!$orderItem->$getter()) {
-            $generatedNumber = $this->generateNumber($orderItem, $numberType);
-            $orderItem->$setNumberTypeFunction($generatedNumber);
-            $orderItem->$setNumberDateFunction(new \DateTime());
-
-            $this->itemRepository->update($orderItem);
-            $this->persistenceManager->persistAll();
+            $dummyCart = new Cart([]);
+            $createEvent = new NumberGeneratorEvent($dummyCart, $orderItem, $this->pluginSettings);
+            $createEvent->setOnlyGenerateNumberOfType([$numberType]);
+            $this->eventDispatcher->dispatch($createEvent);
 
             $msg = LocalizationUtility::translate(
                 'tx_cart.controller.order.action.generate_number_action.' . $numberType . '.success',
                 'Cart',
                 [
-                    0 => $generatedNumber,
+                    0 => $createEvent->getOrderItem()->$getter(),
                 ]
             );
 

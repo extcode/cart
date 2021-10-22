@@ -3,4 +3,3 @@
 /Tests/ export-ignore
 /.gitattributes export-ignore
 /.gitlab-ci.yml export-ignore
-/.travis.yml export-ignore

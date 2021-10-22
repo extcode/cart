@@ -5,7 +5,7 @@ $EM_CONF['cart'] = [
     'description' => 'Shopping Cart(s) for TYPO3',
     'category' => 'plugin',
     'shy' => false,
-    'version' => '7.6.0',
+    'version' => '8.0.0',
     'dependencies' => '',
     'conflicts' => '',
     'priority' => '',
@@ -24,7 +24,7 @@ $EM_CONF['cart'] = [
     'CGLcompliance_note' => null,
     'constraints' => [
         'depends' => [
-            'typo3' => '10.4.0-10.4.99',
+            'typo3' => '10.4.0-11.5.99',
         ],
         'conflicts' => [],
         'suggests' => [],

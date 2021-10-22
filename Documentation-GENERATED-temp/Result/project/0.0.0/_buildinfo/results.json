@@ -1,0 +1,42 @@
+{
+  "build_time": "2021-10-29 10:02:21",
+  "checksum": "fe0f3e1dbf651e16b99fee2c52799dfd",
+  "checksum_ttl_seconds": 604800,
+  "copyright": "2018-2024",
+  "created": {
+    "html": 1
+  },
+  "email_notify_about_new_build": [],
+  "emails_user_from_project": [
+    "ext.cart@extco.de"
+  ],
+  "environ": {
+    "OUR_IMAGE": "t3docs/render-documentation:latest",
+    "OUR_IMAGE_SHORT": "t3rd",
+    "OUR_IMAGE_VERSION": "latest",
+    "THEME_MTIME": "1530870718",
+    "THEME_VERSION": "3.6.16",
+    "TOOLCHAIN_VERSION": "master (2.9.0-dev)",
+    "TYPOSCRIPT_PY_VERSION": "v2.2.4"
+  },
+  "gitdir": "/PROJECT",
+  "has_neutralized_images": 0,
+  "has_neutralized_links": 0,
+  "known_versions": {
+    "t3SphinxThemeRtd.VERSION": [
+      3,
+      6,
+      16
+    ],
+    "t3SphinxThemeRtd.__version__": "3.6.16"
+  },
+  "localization": "default",
+  "postprocessed_html_files": 0,
+  "project": "Shopping Cart(s) for TYPO3",
+  "publish_dir": "project/0.0.0",
+  "release": "8.0.0",
+  "sitemap_files_html_count": 89,
+  "t3author": "Daniel Gohlke",
+  "ter_extension": "0",
+  "version": "8.0"
+}

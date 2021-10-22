@@ -12,9 +12,11 @@ namespace Extcode\Cart\Controller\Order;
 use Extcode\Cart\Domain\Model\Order\Item;
 use Extcode\Cart\Domain\Repository\Order\ItemRepository;
 use TYPO3\CMS\Core\Messaging\AbstractMessage;
+use TYPO3\CMS\Core\Pagination\SimplePagination;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManager;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
+use TYPO3\CMS\Extbase\Pagination\QueryResultPaginator;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 
 class OrderController extends ActionController
@@ -60,15 +62,30 @@ class OrderController extends ActionController
             );
     }
 
-    /**
-     * List Action
-     */
-    public function listAction()
+    public function listAction(int $currentPage = 1): void
     {
+        $this->view->assign('searchArguments', $this->searchArguments);
+
         $feUser = (int)$GLOBALS['TSFE']->fe_user->user['uid'];
         $orderItems = $this->itemRepository->findByFeUser($feUser);
 
-        $this->view->assign('searchArguments', $this->searchArguments);
+        $itemsPerPage = $this->settings['itemsPerPage'] ?? 20;
+
+        $arrayPaginator = new QueryResultPaginator(
+            $orderItems,
+            $currentPage,
+            $itemsPerPage
+        );
+        $pagination = new SimplePagination($arrayPaginator);
+        $this->view->assignMultiple(
+            [
+                'orderItems' => $orderItems,
+                'paginator' => $arrayPaginator,
+                'pagination' => $pagination,
+                'pages' => range(1, $pagination->getLastPageNumber()),
+            ]
+        );
+
         $this->view->assign('orderItems', $orderItems);
     }
 

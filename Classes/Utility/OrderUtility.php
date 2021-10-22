@@ -31,13 +31,10 @@ use Extcode\Cart\Domain\Repository\Order\ShippingAddressRepository;
 use Extcode\Cart\Domain\Repository\Order\ShippingRepository;
 use Extcode\Cart\Domain\Repository\Order\TaxClassRepository;
 use Extcode\Cart\Domain\Repository\Order\TaxRepository;
-use TYPO3\CMS\Core\Registry;
-use TYPO3\CMS\Core\TypoScript\TypoScriptService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Domain\Repository\FrontendUserRepository;
 use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
 use TYPO3\CMS\Extbase\SignalSlot\Dispatcher;
-use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 
 class OrderUtility
 {
@@ -806,51 +803,5 @@ class OrderUtility
         $this->shippingRepository->add($orderShipping);
 
         $this->orderItem->setShipping($orderShipping);
-    }
-
-    /**
-     * Get Order Number
-     *
-     * @param array $pluginSettings TypoScript Plugin Settings
-     *
-     * @return string
-     */
-    protected function getOrderNumber(array $pluginSettings)
-    {
-        return $this->getNumber($pluginSettings, 'order');
-    }
-
-    /**
-     * Get Invoice Number
-     *
-     * @param array $pluginSettings
-     * @param string $numberType
-     *
-     * @return string
-     */
-    public function getNumber(array $pluginSettings, $numberType)
-    {
-        /**
-         * @var \TYPO3\CMS\Core\TypoScript\TypoScriptService $typoScriptService
-         */
-        $typoScriptService = GeneralUtility::makeInstance(TypoScriptService::class);
-        $pluginTypoScriptSettings = $typoScriptService->convertPlainArrayToTypoScriptArray($pluginSettings);
-
-        $registry = GeneralUtility::makeInstance(Registry::class);
-
-        $registryName = 'last' . ucfirst($numberType) . '_' . $pluginSettings['settings']['cart']['pid'];
-
-        $number = $registry->get('tx_cart', $registryName);
-        $number = $number ? $number + 1 : 1;
-        $registry->set('tx_cart', $registryName, $number);
-
-        $cObjRenderer = GeneralUtility::makeInstance(ContentObjectRenderer::class);
-        $cObjRenderer->start([$numberType . 'Number' => $number]);
-        $number = $cObjRenderer->cObjGetSingle(
-            $pluginTypoScriptSettings[$numberType . 'Number'],
-            $pluginTypoScriptSettings[$numberType . 'Number.']
-        );
-
-        return $number;
     }
 }

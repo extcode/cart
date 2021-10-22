@@ -15,13 +15,12 @@ use Extcode\Cart\Domain\Model\Order\ShippingAddress;
 use Extcode\Cart\Domain\Validator\OrderItemValidator;
 use Extcode\Cart\Event\Order\CreateEvent;
 use Extcode\Cart\Event\Order\FinishEvent;
+use Extcode\Cart\Event\Order\NumberGeneratorEvent;
 use Extcode\Cart\Event\Order\PaymentEvent;
 use Extcode\Cart\Event\Order\StockEvent;
 use Extcode\Cart\Event\ProcessOrderCheckStockEvent;
-use Extcode\Cart\Event\ProcessOrderCreateEvent;
 use Psr\EventDispatcher\EventDispatcherInterface;
 use Psr\EventDispatcher\StoppableEventInterface;
-use TYPO3\CMS\Core\Configuration\Features;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 use TYPO3\CMS\Extbase\Validation\Validator\ConjunctionValidator;
@@ -145,12 +144,7 @@ class OrderController extends ActionController
             $provider = $payment->getProvider();
         }
 
-        $isPropagationStopped = false;
-        if (GeneralUtility::makeInstance(Features::class)->isFeatureEnabled('SplitUpProcessOrderCreateEvent')) {
-            $isPropagationStopped = $this->dispatchOrderCreateEvents($orderItem);
-        } else {
-            $this->eventDispatcher->dispatch(new ProcessOrderCreateEvent($this->cart, $orderItem, $this->pluginSettings));
-        }
+        $isPropagationStopped = $this->dispatchOrderCreateEvents($orderItem);
 
         if ($isPropagationStopped) {
             return;
@@ -235,6 +229,17 @@ class OrderController extends ActionController
         $createEvent = new CreateEvent($this->cart, $orderItem, $this->pluginSettings);
         $this->eventDispatcher->dispatch($createEvent);
         if ($createEvent instanceof StoppableEventInterface && $createEvent->isPropagationStopped()) {
+            return true;
+        }
+
+        $onlyGenerateNumberOfType = [];
+        if (!empty($this->pluginSettings['autoGenerateNumbers'])) {
+            $onlyGenerateNumberOfType = array_map('trim', explode(',', $this->pluginSettings['autoGenerateNumbers']));
+        }
+        $generateNumbersEvent = new NumberGeneratorEvent($this->cart, $orderItem, $this->pluginSettings);
+        $generateNumbersEvent->setOnlyGenerateNumberOfType($onlyGenerateNumberOfType);
+        $this->eventDispatcher->dispatch($generateNumbersEvent);
+        if ($generateNumbersEvent instanceof StoppableEventInterface && $generateNumbersEvent->isPropagationStopped()) {
             return true;
         }
 

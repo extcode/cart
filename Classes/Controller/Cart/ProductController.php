@@ -14,6 +14,7 @@ use Extcode\Cart\Event\CheckProductAvailabilityEvent;
 use Extcode\Cart\Event\RetrieveProductsFromRequestEvent;
 use Psr\EventDispatcher\EventDispatcherInterface;
 use TYPO3\CMS\Core\Messaging\AbstractMessage;
+use TYPO3\CMS\Core\Messaging\FlashMessage;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 
 class ProductController extends ActionController
@@ -48,7 +49,7 @@ class ProductController extends ActionController
 
         $this->eventDispatcher->dispatch($event);
 
-        $errors = [];
+        $errors = $event->getErrors();
 
         $cartProducts = $event->getProducts();
 
@@ -67,6 +68,9 @@ class ProductController extends ActionController
 
         if (!empty($errors)) {
             foreach ($errors as $error) {
+                if (!($error instanceof FlashMessage)) {
+                    continue;
+                }
                 if ($error->getSeverity() >= $severity) {
                     $severity = $error->getSeverity();
                     $messageBody = $error->getMessage();

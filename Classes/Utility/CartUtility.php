@@ -11,12 +11,9 @@ namespace Extcode\Cart\Utility;
 
 use Extcode\Cart\Domain\Model\Cart\Cart;
 use Extcode\Cart\Service\SessionHandler;
-use TYPO3\CMS\Core\Registry;
-use TYPO3\CMS\Core\TypoScript\TypoScriptService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Request;
 use TYPO3\CMS\Extbase\SignalSlot\Dispatcher;
-use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 
 class CartUtility
 {
@@ -67,42 +64,6 @@ class CartUtility
         }
 
         return false;
-    }
-
-    /**
-     * Get Order Number
-     *
-     * @param array $pluginSettings TypoScript Plugin Settings
-     *
-     * @return string
-     */
-    protected function getOrderNumber(array $pluginSettings)
-    {
-        $cObjRenderer = GeneralUtility::makeInstance(
-            ContentObjectRenderer::class
-        );
-
-        $typoScriptService = GeneralUtility::makeInstance(
-            TypoScriptService::class
-        );
-        $pluginTypoScriptSettings = $typoScriptService->convertPlainArrayToTypoScriptArray($pluginSettings);
-
-        $registry = GeneralUtility::makeInstance(
-            Registry::class
-        );
-
-        $registryName = 'lastInvoice_' . $pluginSettings['settings']['cart']['pid'];
-        $orderNumber = $registry->get('tx_cart', $registryName);
-
-        $orderNumber = $orderNumber ? $orderNumber + 1 : 1;
-
-        $registry->set('tx_cart', $registryName, $orderNumber);
-
-        $cObjRenderer->start(['orderNumber' => $orderNumber]);
-        $orderNumber = $cObjRenderer->
-        cObjGetSingle($pluginTypoScriptSettings['orderNumber'], $pluginTypoScriptSettings['orderNumber.']);
-
-        return $orderNumber;
     }
 
     /**

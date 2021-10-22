@@ -11,6 +11,7 @@ namespace Extcode\Cart\Event;
 
 use Extcode\Cart\Domain\Model\Cart\Cart;
 use Extcode\Cart\Domain\Model\Cart\Product;
+use TYPO3\CMS\Core\Messaging\FlashMessage;
 use TYPO3\CMS\Extbase\Mvc\Request;
 
 final class RetrieveProductsFromRequestEvent implements RetrieveProductsFromRequestEventInterface
@@ -21,7 +22,7 @@ final class RetrieveProductsFromRequestEvent implements RetrieveProductsFromRequ
     private $cart;
 
     /**
-     * @var array
+     * @var FlashMessage[]
      */
     private $errors = [];
 
@@ -61,7 +62,7 @@ final class RetrieveProductsFromRequestEvent implements RetrieveProductsFromRequ
         return $this->products;
     }
 
-    public function addError(array $error): void
+    public function addError(FlashMessage $error): void
     {
         $this->errors[] = $error;
     }
