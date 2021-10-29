@@ -50,13 +50,17 @@ and database!** If possible test the update in a test copy of your TYPO3 instanc
 
 | Cart          | TYPO3      | PHP       | Support/Development                     |
 | ------------- | ---------- | ----------|---------------------------------------- |
-| 7.x.x         | 10.4       | 7.2 - 7.4 | Features, Bugfixes, Security Updates    |
-| 6.x.x         | 9.5        | 7.2 - 7.4 | Features _(in certain circumstances with feature toogle)_, Bugfixes, Security Updates    |
-| 5.x.x         | 8.7        | 7.0 - 7.4 | Bugfixes, Security Updates              |
-| 4.x.x         | 7.6 - 8.7  | 5.6 - 7.2 | Security Updates                        |
-| 3.x.x         | 6.2 - 8.7  | 5.6 - 7.0 | Security Updates                        |
+| 8.x.x         | 10.4, 11.5 | 7.2 - 8.0 | Features, Bugfixes, Security Updates    |
+| 7.x.x         | 10.4       | 7.2 - 7.4 | Bugfixes, Security Updates              |
+| 6.x.x         | 9.5        | 7.2 - 7.4 | Security Updates                        |
+| 5.x.x         | 8.7        | 7.0 - 7.4 |                                         |
+| 4.x.x         | 7.6 - 8.7  | 5.6 - 7.2 |                                         |
+| 3.x.x         | 6.2 - 8.7  | 5.6 - 7.0 |                                         |
 | 2.x.x         |            |           |                                         |
 | 1.x.x         |            |           |                                         |
+
+If you need extended support for features and bug fixes outside of the currently supported versions,
+we are happy to offer paid services.
 
 ### 3.2. Changelog
 
