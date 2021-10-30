@@ -55,7 +55,6 @@ return static function (ContainerConfigurator $containerConfigurator): void {
             'ext_emconf.php',
             'ext_localconf.php',
             'ext_tables.php',
-            __DIR__ . '/**/FunctionalTestsBootstrap.php',
             __DIR__ . '/**/Configuration/AjaxRoutes.php',
             __DIR__ . '/**/Configuration/Backend/AjaxRoutes.php',
             __DIR__ . '/**/Configuration/Commands.php',
