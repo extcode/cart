@@ -51,7 +51,7 @@ showCartAction-Configuration
    Data type
       boolean
    Description
-      Enables/disables the display and selection of configured payment methods
+      Enables/disables the display and selection of configured shipping methods
       in the shopping cart.
    Default
       true
