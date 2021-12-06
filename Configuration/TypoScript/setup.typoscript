@@ -80,13 +80,14 @@ plugin.tx_cart {
         defaultCountry = de
 
         currencies {
-            default = 1
             1 {
                 code = EUR
                 sign = €
                 translation = 1.00
             }
         }
+
+		defaultCurrency = 1
 
         format.currency {
             currencySign = {$plugin.tx_cart.settings.format.currency.currencySign}

@@ -215,7 +215,7 @@ class CartUtility
         $isNetCart = intval($pluginSettings['settings']['cart']['isNetCart']) == 0 ? false : true;
 
         $defaultCurrency = [];
-        $defaultCurrencyNum = $pluginSettings['settings']['currencies']['default'];
+        $defaultCurrencyNum = $pluginSettings['settings']['defaultCurrency'];
         if ($pluginSettings['settings']['currencies'][$defaultCurrencyNum]) {
             $defaultCurrency = $pluginSettings['settings']['currencies'][$defaultCurrencyNum];
         }
