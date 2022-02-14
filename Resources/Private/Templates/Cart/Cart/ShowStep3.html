@@ -1,0 +1,60 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      data-namespace-typo3-fluid="true">
+
+<f:layout name="Default"/>
+
+<f:section name="main">
+    <f:flashMessages/>
+
+    <div class="row">
+        <div class="col-sm-12 col-md-12 col-lg-12 column">
+            <f:form id="form-order" class="form"
+                    name="orderItem"
+                    object="{orderItem}"
+                    controller="Cart\Cart"
+                    action="show"
+                    arguments="{step: nextStep}"
+                    method="post">
+                <div class="row top-buffer">
+                    <div class="col">
+                        <f:if condition="{settings.showCartAction.showPartials.shippingMethodForm}">
+                            <f:render partial="Cart/OrderForm/ShippingMethod" arguments="{cart:cart, shippings:shippings}"/>
+                        </f:if>
+                        <f:if condition="{settings.showCartAction.showPartials.paymentMethodForm}">
+                            <f:render partial="Cart/OrderForm/PaymentMethod" arguments="{cart:cart, payments:payments}"/>
+                        </f:if>
+                    </div>
+                    <div class="col-sm-12 col-md-12 col-lg-12">
+                        <f:if condition="{cart.isOrderable}">
+                            <div class="row">
+                                <f:if condition="{previousStep}">
+                                    <div class="col col-6">
+                                        <f:link.action arguments="{step: previousStep}">
+                                            <span class="btn btn-primary" title="<f:translate key='tx_cart.previousStep'/>"><f:translate key='tx_cart.previousStep' default='[previous Step]'/></span>
+                                        </f:link.action>
+                                    </div>
+                                </f:if>
+
+                                <f:if condition="{nextStep}">
+                                    <f:then>
+                                        <div class="col col-6 {f:if(condition: '!{previousStep}', then: 'offset-6')} text-right">
+                                            <f:form.submit class="btn btn-primary"
+                                                           value="{f:translate(key: 'tx_cart.nextStep', default: '[next Step]')}"/>
+                                        </div>
+                                    </f:then>
+                                    <f:else>
+                                        <div class="col col-6 {f:if(condition: '!{previousStep}', then: 'offset-6')} text-right">
+                                            <f:form.submit class="btn btn-primary"
+                                                           value="{f:translate(key: 'tx_cart.submit_order', default: '[submit order]')}"/>
+                                        </div>
+                                    </f:else>
+                                </f:if>
+                            </div>
+                        </f:if>
+                    </div>
+                </div>
+            </f:form>
+        </div>
+    </div>
+</f:section>
+</html>

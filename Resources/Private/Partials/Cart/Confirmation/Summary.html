@@ -1,0 +1,156 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:cart="http://typo3.org/ns/Extcode/Cart/ViewHelpers"
+      data-namespace-typo3-fluid="true">
+
+<div id="checkout-step-review" class="checkout-step bg-light-grey">
+    <h5 class="confirmation-step-title">
+        <f:translate key="tx_cart.controller.order.action.show_cart.block-header.order_overview"/>
+    </h5>
+    <div class="checkout-step-content">
+        <div class="field summary">{orderItem.comment}</div>
+        <div id="checkout-step-summary" class="checkout-step-fields">
+            <div class="checkout-step-field">
+                <table class="checkout-step-table data-table">
+                    <thead>
+                    <tr>
+                        <th class="text-right">
+                            &nbsp;
+                        </th>
+                        <th>
+                            &nbsp;
+                        </th>
+                        <th>
+                            &nbsp;
+                        </th>
+                        <th class="text-right">
+                            <f:translate key="tx_cart_domain_model_order_product.total"/>
+                        </th>
+                    </tr>
+                    </thead>
+                    <colgroup>
+                        <col/>
+                        <col width="1"/>
+                        <col width="1"/>
+                        <col width="1"/>
+                    </colgroup>
+                    <tbody>
+                        <f:if condition="{settings.showCartAction.summary.fields.cart.net}">
+                            <tr class="first cart-net">
+                                <td colspan="3" class="text-right">
+                                    <f:translate key="tx_cart_domain_model_cart_cart.net"/>
+                                </td>
+                                <td class="text-right last">
+                                    <span class="price">
+                                        <cart:format.currency currencySign="{cart.currencySign}">{cart.net}</cart:format.currency>
+                                    </span>
+                                </td>
+                            </tr>
+                        </f:if>
+                        <f:if condition="{settings.showCartAction.summary.fields.cart.gross}">
+                            <tr class="cart-gross">
+                                <td colspan="3" class="text-right">
+                                    <f:translate key="tx_cart_domain_model_cart_cart.gross"/>
+                                </td>
+                                <td class="text-right last">
+                                    <span class="price">
+                                        <cart:format.currency currencySign="{cart.currencySign}">{cart.gross}</cart:format.currency>
+                                    </span>
+                                </td>
+                            </tr>
+                        </f:if>
+                        <f:if condition="{settings.showCartAction.summary.fields.cart.taxes}">
+                            <f:render partial="Cart/OrderForm/TaxList" arguments="{taxClasses: cart.taxClasses, taxes: cart.taxes, currencySign: cart.currencySign}"/>
+                        </f:if>
+
+                        <f:if condition="{cart.discountGross}">
+                            <f:if condition="{settings.showCartAction.summary.fields.discount.net}">
+                                <tr class="discount-net">
+                                    <td colspan="3" class="text-right">
+                                        <f:translate key="tx_cart_domain_model_order_product.discount_net"/>
+                                    </td>
+                                    <td class="text-right last">
+                                        <span class="price">
+                                            <cart:format.currency currencySign="{cart.currencySign}">{cart.discountNet}</cart:format.currency>
+                                        </span>
+                                    </td>
+                                </tr>
+                            </f:if>
+                            <f:if condition="{settings.showCartAction.summary.fields.discount.gross}">
+                                <tr class="discount-gross">
+                                    <td colspan="3" class="text-right">
+                                        <f:translate key="tx_cart_domain_model_order_product.discount_gross"/>
+                                    </td>
+                                    <td class="text-right last">
+                                        <span class="price">
+                                            <cart:format.currency currencySign="{cart.currencySign}">{cart.discountGross}</cart:format.currency>
+                                        </span>
+                                    </td>
+                                </tr>
+                            </f:if>
+                            <f:if condition="{settings.showCartAction.summary.fields.discount.taxes}">
+                                <f:render partial="Cart/OrderForm/TaxList" arguments="{taxClasses: cart.taxClasses, taxes: cart.discountTaxes, currencySign: cart.currencySign}"/>
+                            </f:if>
+                        </f:if>
+
+                        <f:if condition="{settings.showCartAction.summary.fields.service.net}">
+                            <tr class="service-net">
+                                <td colspan="3" class="text-right">
+                                    <f:translate key="tx_cart_domain_model_order_product.service_net"/>
+                                </td>
+                                <td class="text-right last">
+                                    <span class="price">
+                                        <cart:format.currency currencySign="{cart.currencySign}">{cart.serviceNet}</cart:format.currency>
+                                    </span>
+                                </td>
+                            </tr>
+                        </f:if>
+                        <f:if condition="{settings.showCartAction.summary.fields.service.gross}">
+                            <tr class="service-gross">
+                                <td colspan="3" class="text-right">
+                                    <f:translate key="tx_cart_domain_model_order_product.service_gross"/>
+                                </td>
+                                <td class="text-right last">
+                                    <span class="price">
+                                        <cart:format.currency currencySign="{cart.currencySign}">{cart.serviceGross}</cart:format.currency>
+                                    </span>
+                                </td>
+                            </tr>
+                        </f:if>
+                        <f:if condition="{settings.showCartAction.summary.fields.service.taxes}">
+                            <f:render partial="Cart/OrderForm/TaxList" arguments="{taxClasses: cart.taxClasses, taxes: cart.serviceTaxes, currencySign: cart.currencySign}"/>
+                        </f:if>
+
+                        <f:if condition="{settings.showCartAction.summary.fields.total.net}">
+                            <tr class="total-net">
+                                <td colspan="3" class="text-right">
+                                    <f:translate key="tx_cart_domain_model_order_product.total_net"/>
+                                </td>
+                                <td class="text-right last">
+                                    <span class="price">
+                                        <cart:format.currency currencySign="{cart.currencySign}">{cart.totalNet}</cart:format.currency>
+                                    </span>
+                                </td>
+                            </tr>
+                        </f:if>
+                        <f:if condition="{settings.showCartAction.summary.fields.total.gross}">
+                            <tr class="total-gross">
+                                <td colspan="3" class="text-right">
+                                    <f:translate key="tx_cart_domain_model_order_product.total_gross"/>
+                                </td>
+                                <td class="text-right last">
+                                    <span class="price">
+                                        <cart:format.currency currencySign="{cart.currencySign}">{cart.totalGross}</cart:format.currency>
+                                    </span>
+                                </td>
+                            </tr>
+                        </f:if>
+                        <f:if condition="{settings.showCartAction.summary.fields.total.taxes}">
+                            <f:render partial="Cart/OrderForm/TaxList" arguments="{taxClasses: cart.taxClasses, taxes: cart.totalTaxes, currencySign: cart.currencySign}"/>
+                        </f:if>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+</html>

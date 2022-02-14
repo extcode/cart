@@ -1,0 +1,50 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      data-namespace-typo3-fluid="true">
+
+<f:layout name="Default"/>
+
+<f:section name="main">
+    <f:flashMessages/>
+
+    <div class="row">
+        <div class="col-sm-12 col-md-12 col-lg-12 column">
+            <f:if condition="{cart.products}">
+                <f:then>
+                    <f:render partial="Cart/CurrencyForm" arguments="{cart:cart}"/>
+                </f:then>
+            </f:if>
+        </div>
+
+        <div class="col-sm-12 col-md-12 col-lg-12 column">
+            <f:if condition="{cart.products}">
+                <f:then>
+                    <f:render partial="Cart/ProductForm" arguments="{cart:cart}"/>
+
+                    <f:if condition="{cart.isOrderable}">
+                        <div class="row">
+                            <f:if condition="{previousStep}">
+                                <div class="col col-6">
+                                    <f:link.action arguments="{step: previousStep}">
+                                        <span class="btn btn-primary" title="<f:translate key='tx_cart.previousStep'/>"><f:translate key='tx_cart.previousStep' default='[previous Step]'/></span>
+                                    </f:link.action>
+                                </div>
+                            </f:if>
+
+                            <f:if condition="{nextStep}">
+                                <div class="col col-6 {f:if(condition: '!{previousStep}', then: 'offset-6')} text-right">
+                                    <f:link.action arguments="{step: nextStep}">
+                                        <span class="btn btn-primary" title="<f:translate key='tx_cart.nextStep'/>"><f:translate key='tx_cart.nextStep' default='[next Step]'/></span>
+                                    </f:link.action>
+                                </div>
+                            </f:if>
+                        </div>
+                    </f:if>
+                </f:then>
+                <f:else>
+                    <f:render partial="Cart/Empty"/>
+                </f:else>
+            </f:if>
+        </div>
+    </div>
+</f:section>
+</html>

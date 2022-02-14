@@ -731,6 +731,10 @@
                 <source>Payment Method</source>
                 <target>Zahlmethode</target>
             </trans-unit>
+            <trans-unit id="tx_cart.controller.order.action.show_cart.block-header.product_list">
+                <source>Product List</source>
+                <target>Produktliste</target>
+            </trans-unit>
             <trans-unit id="tx_cart.controller.order.action.show_cart.block-header.coupons">
                 <source>Coupons</source>
                 <target>Gutscheine</target>

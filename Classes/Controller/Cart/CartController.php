@@ -13,10 +13,40 @@ use Extcode\Cart\Domain\Model\Order\BillingAddress;
 use Extcode\Cart\Domain\Model\Order\Item;
 use Extcode\Cart\Domain\Model\Order\ShippingAddress;
 use Extcode\Cart\Event\CheckProductAvailabilityEvent;
+use http\Exception\InvalidArgumentException;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Mvc\View\ViewInterface;
 
 class CartController extends ActionController
 {
+    protected function initializeView(ViewInterface $view): void
+    {
+        if ($this->request->getControllerActionName() !== 'show') {
+            return;
+        }
+
+        $steps = (int)$this->settings['cart']['steps'];
+        if ($steps > 1) {
+            if ($this->request->hasArgument('step')) {
+                $currentStep = (int)$this->request->getArgument('step') ?: 1;
+            } else {
+                $currentStep = 1;
+            }
+
+            if ($currentStep > $steps) {
+                throw new InvalidArgumentException();
+            }
+            $view->setTemplate('ShowStep' . $currentStep);
+
+            if ($currentStep < $steps) {
+                $view->assign('nextStep', $currentStep+1);
+            }
+            if ($currentStep > 1) {
+                $view->assign('previousStep', $currentStep-1);
+            }
+        }
+    }
+
     /**
      * @param \Extcode\Cart\Domain\Model\Order\Item $orderItem
      * @param \Extcode\Cart\Domain\Model\Order\BillingAddress $billingAddress
@@ -28,11 +58,30 @@ class CartController extends ActionController
         ShippingAddress $shippingAddress = null
     ): void {
         $this->restoreSession();
+        if (is_null($billingAddress)) {
+            $sessionData = $GLOBALS['TSFE']->fe_user->getKey('ses', 'cart_billing_address_' . $this->settings['cart']['pid']);
+            $billingAddress = unserialize($sessionData);
+        } else {
+            $sessionData = serialize($billingAddress);
+            $GLOBALS['TSFE']->fe_user->setKey('ses', 'cart_billing_address_' . $this->settings['cart']['pid'], $sessionData);
+            $GLOBALS['TSFE']->fe_user->storeSessionData();
+        }
+        if (is_null($shippingAddress)) {
+            $sessionData = $GLOBALS['TSFE']->fe_user->getKey('ses', 'cart_shipping_address_' . $this->settings['cart']['pid']);
+            $shippingAddress = unserialize($sessionData);
+        } else {
+            $sessionData = serialize($shippingAddress);
+            $GLOBALS['TSFE']->fe_user->setKey('ses', 'cart_shipping_address_' . $this->settings['cart']['pid'], $sessionData);
+            $GLOBALS['TSFE']->fe_user->storeSessionData();
+        }
 
         if ($orderItem === null) {
             $orderItem = GeneralUtility::makeInstance(
                 Item::class
             );
+        } else {
+            $this->cart->setShippingSameAsBilling($orderItem->isShippingSameAsBilling());
+            $this->sessionHandler->write($this->cart, $this->settings['cart']['pid']);
         }
         if ($billingAddress === null) {
             $billingAddress = GeneralUtility::makeInstance(

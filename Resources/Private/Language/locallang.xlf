@@ -433,6 +433,9 @@
             <trans-unit id="tx_cart.controller.order.action.show_cart.block-header.payment_method">
                 <source>Payment Method</source>
             </trans-unit>
+            <trans-unit id="tx_cart.controller.order.action.show_cart.block-header.product_list">
+                <source>Product List</source>
+            </trans-unit>
             <trans-unit id="tx_cart.controller.order.action.show_cart.block-header.coupons">
                 <source>Coupons</source>
             </trans-unit>

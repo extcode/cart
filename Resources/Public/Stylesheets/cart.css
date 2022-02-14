@@ -36,11 +36,16 @@
 
 /* Checkout */
 
-.tx-cart .checkout-step-title {
+.tx-cart .checkout-step-title, .tx-cart .confirmation-step-title {
     background: #ccc;
     margin: 0;
     padding: 0 2em;
     line-height: 2;
+}
+
+.tx-cart .confirmation-step-title {
+    font-size: 1rem;
+    font-weight: 300;
 }
 
 .tx-cart .checkout-step-content { padding: 1em; }

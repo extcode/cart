@@ -494,7 +494,7 @@ class CartTest extends UnitTestCase
 
         $this->grossCart->addProduct($grossProduct);
 
-        self::assertSame(
+        self::assertEquals(
             $productPrice / (1 + $this->normalTaxClass->getCalc()),
             $this->grossCart->getNet()
         );
@@ -519,7 +519,7 @@ class CartTest extends UnitTestCase
 
         $this->netCart->addProduct($netProduct);
 
-        self::assertSame(
+        self::assertEquals(
             $productPrice,
             $this->netCart->getNet()
         );
@@ -544,7 +544,7 @@ class CartTest extends UnitTestCase
 
         $this->netCart->addProduct($grossProduct);
 
-        self::assertSame(
+        self::assertEquals(
             $productPrice / (1 + $this->normalTaxClass->getCalc()),
             $this->netCart->getNet()
         );
@@ -569,7 +569,7 @@ class CartTest extends UnitTestCase
 
         $this->grossCart->addProduct($netProduct);
 
-        self::assertSame(
+        self::assertEquals(
             $productPrice,
             $this->grossCart->getNet()
         );
@@ -596,7 +596,7 @@ class CartTest extends UnitTestCase
 
         $this->grossCart->addProduct($grossProduct);
 
-        self::assertSame(
+        self::assertEquals(
             $productPrice,
             $this->grossCart->getGross()
         );
@@ -621,7 +621,7 @@ class CartTest extends UnitTestCase
 
         $this->netCart->addProduct($netProduct);
 
-        self::assertSame(
+        self::assertEquals(
             $productPrice * (1 + $this->normalTaxClass->getCalc()),
             $this->netCart->getGross()
         );
@@ -646,7 +646,7 @@ class CartTest extends UnitTestCase
 
         $this->netCart->addProduct($grossProduct);
 
-        self::assertSame(
+        self::assertEquals(
             $productPrice,
             $this->netCart->getGross()
         );
@@ -671,7 +671,7 @@ class CartTest extends UnitTestCase
 
         $this->grossCart->addProduct($netProduct);
 
-        self::assertSame(
+        self::assertEquals(
             $productPrice * (1 + $this->normalTaxClass->getCalc()),
             $this->grossCart->getGross()
         );
@@ -699,7 +699,7 @@ class CartTest extends UnitTestCase
 
         $cartTaxes = $this->grossCart->getTaxes();
 
-        self::assertSame(
+        self::assertEquals(
             $productPrice - ($productPrice / (1 + $this->normalTaxClass->getCalc())),
             $cartTaxes[$taxId]
         );
@@ -738,7 +738,7 @@ class CartTest extends UnitTestCase
 
         $cartTaxes = $this->grossCart->getTaxes();
 
-        self::assertSame(
+        self::assertEquals(
             ($firstCartProductPrice + $secondCartProductPrice) - (($firstCartProductPrice + $secondCartProductPrice) / (1 + $this->normalTaxClass->getCalc())),
             $cartTaxes[$this->normalTaxClass->getId()]
         );
@@ -777,11 +777,11 @@ class CartTest extends UnitTestCase
 
         $cartTaxes = $this->grossCart->getTaxes();
 
-        self::assertSame(
+        self::assertEquals(
             $firstCartProductPrice - ($firstCartProductPrice / (1 + $this->normalTaxClass->getCalc())),
             $cartTaxes[$this->normalTaxClass->getId()]
         );
-        self::assertSame(
+        self::assertEquals(
             $secondCartProductPrice - ($secondCartProductPrice / (1 + $this->reducedTaxClass->getCalc())),
             $cartTaxes[$this->reducedTaxClass->getId()]
         );

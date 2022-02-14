@@ -46,8 +46,8 @@ Sometimes minor versions also result in minor adjustments to own templates or co
 ## 3.1 Compatibility and supported Versions
 
 | Cart          | TYPO3      | PHP       | Support/Development                     |
-| ------------- | ---------- | ----------|---------------------------------------- |
-| 8.x.x         | 10.4, 11.5 | 7.2 - 8.1 | Features, Bugfixes, Security Updates    |
+|---------------|------------|-----------|---------------------------------------- |
+| 8.x.x         | 10.4, 11.5 | 7.2+      | Features, Bugfixes, Security Updates    |
 | 7.x.x         | 10.4       | 7.2 - 7.4 | Bugfixes, Security Updates              |
 | 6.x.x         | 9.5        | 7.2 - 7.4 | Security Updates                        |
 | 5.x.x         | 8.7        | 7.0 - 7.4 |                                         |

@@ -54,5 +54,9 @@ class ClearCart
         }
 
         $this->sessionHandler->write($cart, $settings['settings']['cart']['pid']);
+
+        $GLOBALS['TSFE']->fe_user->setKey('ses', 'cart_billing_address_' . $settings['settings']['cart']['pid'], null);
+        $GLOBALS['TSFE']->fe_user->setKey('ses', 'cart_shipping_address_' . $settings['settings']['cart']['pid'], null);
+        $GLOBALS['TSFE']->fe_user->storeSessionData();
     }
 }

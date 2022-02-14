@@ -1,0 +1,152 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:cart="http://typo3.org/ns/Extcode/Cart/ViewHelpers"
+      data-namespace-typo3-fluid="true">
+
+<f:section name="withoutVariant">
+    <tr class="{f:if(condition: product.quantityIsInRange, then: '', else: 'danger')}">
+        <td colspan="2" class="col-md-6">
+            <div class="product-name">
+                {product.title} {f:if(condition:'{product.feVariant.value}',then:'- {product.feVariant.value}')}
+            </div>
+            <p>
+                <f:translate key="tx_cart_domain_model_order_product.sku.short"/>
+                : {product.sku}
+            </p>
+        </td>
+        <td class="col-md-2 text-right">
+            <span class="price">
+                <cart:format.currency currencySign="{cart.currencySign}">{product.bestPrice}</cart:format.currency>
+            </span>
+        </td>
+        <td class="col-md-1 text-right">
+            {product.quantity}
+        </td>
+        <td class="col-md-2 text-right">
+            <cart:format.currency currencySign="{cart.currencySign}">{product.gross}</cart:format.currency>
+        </td>
+    </tr>
+</f:section>
+
+<f:section name="variant">
+    <f:if condition="{variant.beVariants}">
+        <f:then>
+            <f:for each="{variant.beVariants}" as="variantVariant">
+                <f:render section="variant" arguments="{variant:variantVariant, product:product}"/>
+            </f:for>
+        </f:then>
+        <f:else>
+            <tr>
+                <td class="col-md-1">&nbsp;</td>
+                <td class="col-md-5">
+                    <div class="product-name">{variant.title}</div>
+                    <p>
+                        <f:translate key="tx_cart_domain_model_order_product.sku.short"/>
+                        : {variant.completeSku}
+                    </p>
+                </td>
+                <td class="col-md-2 text-right">
+                    <cart:format.currency currencySign="{cart.currencySign}">{variant.bestPriceCalculated}</cart:format.currency>
+                </td>
+                <td class="col-md-1">
+                    <div class="qty-wrapper">
+                        {variant.quantity}
+                    </div>
+                </td>
+                <td class="col-md-2 text-right">
+                    <cart:format.currency currencySign="{cart.currencySign}">{variant.gross}</cart:format.currency>
+                </td>
+            </tr>
+        </f:else>
+    </f:if>
+</f:section>
+
+<f:section name="withVariant">
+    <tr>
+        <td colspan="2">
+            <div class="product-name">
+                {product.title} {f:if(condition:'{product.feVariant.value}',then:'- {product.feVariant.value}')}
+            </div>
+        </td>
+        <td class="text-right">
+            &nbsp;
+        </td>
+        <td class="a-center">
+            &nbsp;
+        </td>
+        <td class="text-right">
+            &nbsp;
+        </td>
+    </tr>
+
+    <f:for each="{product.beVariants}" as="variant">
+        <f:render section="variant" arguments="{cart:cart, variant:variant, product:product}"/>
+    </f:for>
+
+    <tr>
+        <td colspan="2">
+            &nbsp;
+        </td>
+        <td class="text-right">
+            &nbsp;
+        </td>
+        <td class="a-center">
+            <div class="qty-wrapper">
+                {product.quantity}
+            </div>
+        </td>
+        <td class="text-right">
+            <cart:format.currency currencySign="{cart.currencySign}">{product.gross}</cart:format.currency>
+        </td>
+    </tr>
+</f:section>
+
+<div id="checkout-step-review" class="checkout-step bg-light-grey bottom-buffer">
+    <div class="confirmation-step-title col-10" style="float: left;">
+        <f:translate key="tx_cart.controller.order.action.show_cart.block-header.product_list"/>
+    </div>
+    <div class="confirmation-step-title col-2 text-right" style="float: left;">
+        <f:link.action arguments="{step: 1}">
+            <f:translate key='tx_cart.editAddress' default='edit'/>
+        </f:link.action>
+    </div>
+
+    <div class="checkout-step-content">
+        <table class="checkout-product-table data-table table stack">
+            <colgroup>
+                <col span="2"/>
+                <col width="1"/>
+                <col width="1"/>
+                <col width="1"/>
+            </colgroup>
+            <thead>
+                <tr class="first last">
+                    <th colspan="2" class="col-md-6">
+                        <f:translate key="tx_cart_domain_model_cart_product.title"/>
+                    </th>
+                    <th class="col-md-2 text-right">
+                        <f:translate key="tx_cart_domain_model_cart_product.price_per_unit_net"/>
+                    </th>
+                    <th class="col-md-1">
+                        <f:translate key="tx_cart_domain_model_cart_product.count"/>
+                    </th>
+                    <th class="col-md-2 text-right">
+                        <f:translate key="tx_cart_domain_model_cart_product.price_subtotal"/>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <f:for each="{cart.products}" as="product">
+                    <f:if condition="{product.beVariants}">
+                        <f:then>
+                            <f:render section="withVariant" arguments="{cart:cart, product:product}"/>
+                        </f:then>
+                        <f:else>
+                            <f:render section="withoutVariant" arguments="{cart:cart, product:product}"/>
+                        </f:else>
+                    </f:if>
+                </f:for>
+            </tbody>
+        </table>
+    </div>
+</div>
+</html>

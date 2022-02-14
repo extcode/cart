@@ -111,6 +111,23 @@ class OrderController extends ActionController
         BillingAddress $billingAddress = null,
         ShippingAddress $shippingAddress = null
     ) {
+        if (is_null($billingAddress)) {
+            $sessionData = $GLOBALS['TSFE']->fe_user->getKey('ses', 'cart_billing_address_' . $this->settings['cart']['pid']);
+            $billingAddress = unserialize($sessionData);
+        } else {
+            $sessionData = serialize($billingAddress);
+            $GLOBALS['TSFE']->fe_user->setKey('ses', 'cart_billing_address_' . $this->settings['cart']['pid'], $sessionData);
+            $GLOBALS['TSFE']->fe_user->storeSessionData();
+        }
+        if (is_null($shippingAddress)) {
+            $sessionData = $GLOBALS['TSFE']->fe_user->getKey('ses', 'cart_shipping_address_' . $this->settings['cart']['pid']);
+            $shippingAddress = unserialize($sessionData);
+        } else {
+            $sessionData = serialize($shippingAddress);
+            $GLOBALS['TSFE']->fe_user->setKey('ses', 'cart_shipping_address_' . $this->settings['cart']['pid'], $sessionData);
+            $GLOBALS['TSFE']->fe_user->storeSessionData();
+        }
+
         if (($orderItem === null) || ($billingAddress === null)) {
             $this->redirect('show', 'Cart\Cart');
         }

@@ -1,0 +1,51 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      data-namespace-typo3-fluid="true">
+
+<div id="checkout-step-shipping-address" class="checkout-step bg-light-grey bottom-buffer">
+    <div class="confirmation-step-title col-10" style="float: left;">
+        <span><f:translate key="tx_cart.controller.order.action.show_cart.block-header.shipping_address"/></span>
+    </div>
+    <div class="confirmation-step-title col-2 text-right" style="float: left;">
+        <f:link.action arguments="{step: 2}">
+            <f:translate key='tx_cart.editAddress' default='edit'/>
+        </f:link.action>
+    </div>
+    <div class="checkout-step-content">
+        <f:if condition="{0: settings.validation.shippingAddress.fields.salutation.validator} != {0: 'Empty'}">
+            <div class="field salutation">{shippingAddress.salutation}</div>
+        </f:if>
+
+        <f:if condition="{0: settings.validation.shippingAddress.fields.title.validator} != {0: 'Empty'}">
+            <div class="field title">{shippingAddress.title}</div>
+        </f:if>
+
+        <f:if condition="{0: settings.validation.shippingAddress.fields.firstName.validator} != {0: 'Empty'}">
+            <div class="field first-name">{shippingAddress.firstName}</div>
+        </f:if>
+
+        <f:if condition="{0: settings.validation.shippingAddress.fields.lastName.validator} != {0: 'Empty'}">
+            <div class="field last-name">{shippingAddress.lastName}</div>
+        </f:if>
+
+        <f:if condition="{0: settings.validation.shippingAddress.fields.email.validator} != {0: 'Empty'}">
+            <div class="field">{shippingAddress.email}</div>
+        </f:if>
+
+        <f:if condition="{0: settings.validation.shippingAddress.fields.phone.validator} != {0: 'Empty'}">
+            <div class="field">{shippingAddress.phone}</div>
+        </f:if>
+
+        <f:if condition="{0: settings.validation.shippingAddress.fields.fax.validator} != {0: 'Empty'}">
+            <div class="field">{shippingAddress.fax}</div>
+        </f:if>
+
+        <f:if condition="{0: settings.validation.shippingAddress.fields.company.validator} != {0: 'Empty'}">
+            <div class="field">{shippingAddress.company}</div>
+        </f:if>
+
+        <div class="field">{shippingAddress.street} {shippingAddress.streetNumber}</div>
+        <div class="field">{shippingAddress.zip} {shippingAddress.city}</div>
+        <div class="field"><f:translate key="tx_cart.settings.allowed_countries.{shippingAddress.country}" /></div>
+    </div>
+</div>
+</html>

@@ -1,0 +1,55 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      data-namespace-typo3-fluid="true">
+
+<div id="checkout-step-billing-address" class="checkout-step bg-light-grey bottom-buffer">
+    <div class="confirmation-step-title col-10" style="float: left;">
+        <span><f:translate key="tx_cart.controller.order.action.show_cart.block-header.billing_address"/></span>
+    </div>
+    <div class="confirmation-step-title col-2 text-right" style="float: left;">
+        <f:link.action arguments="{step: 2}">
+            <f:translate key='tx_cart.editAddress' default='edit'/>
+        </f:link.action>
+    </div>
+    <div class="checkout-step-content">
+            <f:if condition="{0: settings.validation.billingAddress.fields.salutation.validator} != {0: 'Empty'}">
+                <div class="field salutation">{billingAddress.salutation}</div>
+            </f:if>
+
+            <f:if condition="{0: settings.validation.billingAddress.fields.title.validator} != {0: 'Empty'}">
+                <div class="field title">{billingAddress.title}</div>
+            </f:if>
+
+            <f:if condition="{0: settings.validation.billingAddress.fields.firstName.validator} != {0: 'Empty'}">
+                <div class="field first-name">{billingAddress.firstName}</div>
+            </f:if>
+
+            <f:if condition="{0: settings.validation.billingAddress.fields.lastName.validator} != {0: 'Empty'}">
+                <div class="field last-name">{billingAddress.lastName}</div>
+            </f:if>
+
+            <f:if condition="{0: settings.validation.billingAddress.fields.email.validator} != {0: 'Empty'}">
+                <div class="field">{billingAddress.email}</div>
+            </f:if>
+
+            <f:if condition="{0: settings.validation.billingAddress.fields.phone.validator} != {0: 'Empty'}">
+                <div class="field">{billingAddress.phone}</div>
+            </f:if>
+
+            <f:if condition="{0: settings.validation.billingAddress.fields.fax.validator} != {0: 'Empty'}">
+                <div class="field">{billingAddress.fax}</div>
+            </f:if>
+
+            <f:if condition="{0: settings.validation.billingAddress.fields.company.validator} != {0: 'Empty'}">
+                <div class="field">{billingAddress.company}</div>
+            </f:if>
+
+            <f:if condition="{0: settings.validation.billingAddress.fields.taxIdentificationNumber.validator} != {0: 'Empty'}">
+                <div class="field">{billingAddress.taxIdentificationNumber}</div>
+            </f:if>
+
+            <div class="field">{billingAddress.street} {billingAddress.streetNumber}</div>
+            <div class="field">{billingAddress.zip} {billingAddress.city}</div>
+            <div class="field"><f:translate key="tx_cart.settings.allowed_countries.{billingAddress.country}" /></div>
+    </div>
+</div>
+</html>
