@@ -6,6 +6,7 @@ composer.lock
 Build/.phpunit.result.cache
 
 Documentation/_make
+Documentation-GENERATED-temp/
 
 .DS_Store
 .idea
