@@ -155,9 +155,9 @@ class OrderController extends ActionController
 
     public function generateNumberAction(Item $orderItem, string $numberType): void
     {
-        $getter = 'get' . ucfirst($numberType) . 'Number';
+        $getNumber = 'get' . ucfirst($numberType) . 'Number';
 
-        if (!$orderItem->$getter()) {
+        if (!$orderItem->$getNumber()) {
             $dummyCart = new Cart([]);
             $createEvent = new NumberGeneratorEvent($dummyCart, $orderItem, $this->pluginSettings);
             $createEvent->setOnlyGenerateNumberOfType([$numberType]);
@@ -167,7 +167,7 @@ class OrderController extends ActionController
                 'tx_cart.controller.order.action.generate_number_action.' . $numberType . '.success',
                 'Cart',
                 [
-                    0 => $createEvent->getOrderItem()->$getter(),
+                    0 => $createEvent->getOrderItem()->$getNumber(),
                 ]
             );
 

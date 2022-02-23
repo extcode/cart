@@ -53,7 +53,9 @@ class DocumentController extends ActionController
 
     public function createAction(Item $orderItem, string $pdfType): void
     {
-        if ($pdfType === 'invoice' && !$orderItem->getInvoiceNumber()) {
+        $getNumber = 'get' . ucfirst($pdfType) . 'Number';
+
+        if (!$orderItem->$getNumber()) {
             $dummyCart = new Cart([]);
             $createEvent = new NumberGeneratorEvent($dummyCart, $orderItem, $this->pluginSettings);
             $createEvent->setOnlyGenerateNumberOfType([$pdfType]);
