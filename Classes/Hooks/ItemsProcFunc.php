@@ -11,12 +11,16 @@ namespace Extcode\Cart\Hooks;
 
 use Extcode\Cart\Utility\TemplateLayout;
 use TYPO3\CMS\Backend\Utility\BackendUtility as BackendUtilityCore;
+use TYPO3\CMS\Core\Cache\CacheManager;
 use TYPO3\CMS\Core\Resource\ResourceFactory;
 use TYPO3\CMS\Core\Resource\StorageRepository;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\StringUtility;
+use TYPO3\CMS\Core\Utility\VersionNumberUtility;
+use TYPO3\CMS\Form\Mvc\Configuration\ConfigurationManager;
 use TYPO3\CMS\Form\Mvc\Configuration\YamlSource;
 use TYPO3\CMS\Form\Mvc\Persistence\FormPersistenceManager;
+use TYPO3\CMS\Form\Slot\FilePersistenceSlot;
 
 class ItemsProcFunc
 {
@@ -160,26 +164,48 @@ class ItemsProcFunc
      */
     protected function getFormPersistenceManager()
     {
-        $formPersistenceManager = GeneralUtility::makeInstance(
-            FormPersistenceManager::class
-        );
-
-        $formPersistenceManager->initializeObject();
-
-        $storageRepository = GeneralUtility::makeInstance(
-            StorageRepository::class
-        );
-        $formPersistenceManager->injectStorageRepository($storageRepository);
-
         $resourceFactory = GeneralUtility::makeInstance(
             ResourceFactory::class
         );
-        $formPersistenceManager->injectResourceFactory($resourceFactory);
-
+        $storageRepository = GeneralUtility::makeInstance(
+            StorageRepository::class
+        );
         $yamlSource = GeneralUtility::makeInstance(
             YamlSource::class
         );
-        $formPersistenceManager->injectYamlSource($yamlSource);
+
+        if (version_compare(VersionNumberUtility::getCurrentTypo3Version(), '11.0.0', '<')) {
+            $formPersistenceManager = GeneralUtility::makeInstance(
+                FormPersistenceManager::class
+            );
+
+            $formPersistenceManager->initializeObject();
+            $formPersistenceManager->injectStorageRepository($storageRepository);
+            $formPersistenceManager->injectResourceFactory($resourceFactory);
+            $formPersistenceManager->injectYamlSource($yamlSource);
+
+            return $formPersistenceManager;
+        }
+
+        $filePersistenceSlot = GeneralUtility::makeInstance(
+            FilePersistenceSlot::class
+        );
+        $configurationManager = GeneralUtility::makeInstance(
+            ConfigurationManager::class
+        );
+        $cacheManager = GeneralUtility::makeInstance(
+            CacheManager::class
+        );
+
+        $formPersistenceManager = GeneralUtility::makeInstance(
+            FormPersistenceManager::class,
+            $yamlSource,
+            $storageRepository,
+            $filePersistenceSlot,
+            $resourceFactory,
+            $configurationManager,
+            $cacheManager
+        );
 
         return $formPersistenceManager;
     }
