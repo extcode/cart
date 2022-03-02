@@ -72,6 +72,8 @@ if (TYPO3_MODE === 'BE') {
         'apps-pagetree-folder-cart-orders' => 'apps_pagetree_folder_cart_orders.svg',
         'apps-pagetree-page-cart-cart' => 'apps_pagetree_page_cart_cart.svg',
         'ext-cart-wizard-icon' => 'cart_plugin_wizard.svg',
+        'ext-cart-module' => 'module.svg',
+        'ext-cart-module-order' => 'module_orders.svg'
     ];
 
     $iconRegistry = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(

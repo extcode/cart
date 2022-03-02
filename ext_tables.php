@@ -30,7 +30,7 @@ if (TYPO3_MODE === 'BE') {
         [],
         [
             'access' => 'user, group',
-            'icon' => 'EXT:cart/Resources/Public/Icons/module.svg',
+            'iconIdentifier' => 'ext-cart-module',
             'labels' => $_LLL_db . 'tx_cart.module.main',
         ]
     );
@@ -48,7 +48,7 @@ if (TYPO3_MODE === 'BE') {
         ],
         [
             'access' => 'user, group',
-            'icon' => 'EXT:cart/Resources/Public/Icons/module_orders.svg',
+            'iconIdentifier' => 'ext-cart-module-order',
             'labels' => $_LLL_db . 'tx_cart.module.orders',
             'navigationComponentId' => 'TYPO3/CMS/Backend/PageTree/PageTreeElement',
         ]
