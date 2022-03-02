@@ -100,18 +100,42 @@ class DocumentController extends ActionController
         if (is_file($file)) {
             $fileLen = filesize($file);
 
-            // ToDo: Test download
+            if ($this->responseFactory) {
+                return $this->responseFactory->createResponse()
+                    ->withAddedHeader('Cache-Control', 'must-revalidate, post-check=0, pre-check=0')
+                    ->withAddedHeader('Content-Description', 'File Transfer')
+                    ->withAddedHeader('Content-Disposition', 'attachment; filename="' . $fileName . '"')
+                    ->withAddedHeader('Content-Length', $fileLen)
+                    ->withAddedHeader('Content-Transfer-Encoding', 'binary')
+                    ->withAddedHeader('Content-Type', 'application/pdf')
+                    ->withAddedHeader('Expires', '0')
+                    ->withAddedHeader('Pragma', 'public')
+                    ->withBody($this->streamFactory->createStream(@readfile($file)));
+            }
 
-            return $this->responseFactory->createResponse()
-                ->withAddedHeader('Cache-Control', 'must-revalidate, post-check=0, pre-check=0')
-                ->withAddedHeader('Content-Description', 'File Transfer')
-                ->withAddedHeader('Content-Disposition', 'attachment; filename="' . $fileName . '"')
-                ->withAddedHeader('Content-Length', $fileLen)
-                ->withAddedHeader('Content-Transfer-Encoding', 'binary')
-                ->withAddedHeader('Content-Type', 'application/pdf')
-                ->withAddedHeader('Expires', '0')
-                ->withAddedHeader('Pragma', 'public')
-                ->withBody($this->streamFactory->createStream(@readfile($file)));
+            if ($this->response) {
+                // set response header and handle response in TYPO3 v10
+
+                $headers = [
+                    'Pragma' => 'public',
+                    'Expires' => 0,
+                    'Cache-Control' => 'must-revalidate, post-check=0, pre-check=0',
+                    'Content-Description' => 'File Transfer',
+                    'Content-Type' => 'application/pdf',
+                    'Content-Disposition' => 'attachment; filename="' . $fileName . '"',
+                    'Content-Transfer-Encoding' => 'binary',
+                    'Content-Length' => $fileLen
+                ];
+
+                foreach ($headers as $header => $data) {
+                    $this->response->setHeader($header, $data);
+                }
+
+                $this->response->sendHeaders();
+                @readfile($file);
+
+                exit();
+            }
         }
     }
 

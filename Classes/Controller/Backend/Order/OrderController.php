@@ -114,12 +114,20 @@ class OrderController extends ActionController
         $title = 'Order-Export-' . date('Y-m-d_H-i');
         $filename = $title . '.' . $format;
 
-        // ToDo: Test export
+        if ($this->responseFactory) {
+            $this->responseFactory->createResponse()
+                ->withAddedHeader('Content-Type', 'text/' . $format)
+                ->withAddedHeader('Content-Description', 'File transfer')
+                ->withAddedHeader('Content-Disposition', 'attachment; filename="' . $filename . '"');
+            return;
+        }
 
-        $this->responseFactory->createResponse()
-            ->withAddedHeader('Content-Type', 'text/' . $format)
-            ->withAddedHeader('Content-Description', 'File transfer')
-            ->withAddedHeader('Content-Disposition', 'attachment; filename="' . $filename . '"');
+        if ($this->response) {
+            // set response header in TYPO3 v10
+            $this->response->setHeader('Content-Type', 'text/' . $format, true);
+            $this->response->setHeader('Content-Description', 'File transfer', true);
+            $this->response->setHeader('Content-Disposition', 'attachment; filename="' . $filename . '"', true);
+        }
     }
 
     /**
