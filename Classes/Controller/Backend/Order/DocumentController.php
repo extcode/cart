@@ -15,7 +15,6 @@ use Extcode\Cart\Domain\Model\Order\Item;
 use Extcode\Cart\Domain\Repository\Order\ItemRepository;
 use Extcode\Cart\Event\Order\NumberGeneratorEvent;
 use Extcode\CartPdf\Service\PdfService;
-use TYPO3\CMS\Core\Core\Environment;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
@@ -93,7 +92,7 @@ class DocumentController extends ActionController
         $getter = 'get' . ucfirst($pdfType) . 'Pdfs';
         $pdfs = $orderItem->$getter();
         $originalPdf = end($pdfs->toArray())->getOriginalResource();
-        $file = Environment::getPublicPath() . '/' . $originalPdf->getPublicUrl();
+        $file = $originalPdf->getForLocalProcessing(false);
 
         $fileName = $originalPdf->getName();
 

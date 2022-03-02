@@ -11,7 +11,6 @@ namespace Extcode\Cart\Hooks;
  */
 
 use Extcode\Cart\Domain\Model\Order\Item;
-use TYPO3\CMS\Core\Core\Environment;
 use TYPO3\CMS\Core\Mail\FluidEmail;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManager;
@@ -73,7 +72,7 @@ class MailAttachmentHook implements MailAttachmentHookInterface
                         $pdfs = end($pdfs->toArray());
                         if ($pdfs) {
                             $lastOriginalPdf = $pdfs->getOriginalResource();
-                            $lastOriginalPdfPath = Environment::getPublicPath() . '/' . $lastOriginalPdf->getPublicUrl();
+                            $lastOriginalPdfPath = $lastOriginalPdf->getForLocalProcessing(false);
                             if (is_file($lastOriginalPdfPath)) {
                                 $mailMessage->attachFromPath($lastOriginalPdfPath);
                             }
