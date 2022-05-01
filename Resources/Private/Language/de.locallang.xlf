@@ -17,7 +17,7 @@
                 <target>Artikel wurde zum Warenkorb hinzugefügt</target>
             </trans-unit>
             <trans-unit id="tx_cart.success.stock_handling.add.more">
-                <source>Items were added to cart.</source>
+                <source>%s Items were added to cart.</source>
                 <target>%s Artikel wurden zum Warenkorb hinzugefügt</target>
             </trans-unit>
 
@@ -33,6 +33,10 @@
             <trans-unit id="tx_cart.plugin.mini_cart.go_to_checkout">
                 <source>Go to Checkout</source>
                 <target>Weiter zur Kasse</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.plugin.mini_cart.product_in_cart">
+                <source>product in cart.</source>
+                <target>Artikel im Warenkorb.</target>
             </trans-unit>
             <trans-unit id="tx_cart.plugin.mini_cart.products_in_cart">
                 <source>products in cart.</source>
@@ -543,8 +547,8 @@
                 <target>Warenkorb löschen</target>
             </trans-unit>
             <trans-unit id="tx_cart.submit_order">
-                <source>submit order</source>
-                <target>Kostenpflichtig bestellen</target>
+                <source>submit order (binding)</source>
+                <target>Bestellung absenden (verbindlich)</target>
             </trans-unit>
             <trans-unit id="tx_cart.update_cart">
                 <source>update cart</source>
@@ -891,6 +895,10 @@
             <trans-unit id="tx_cart.settings.allowed_countries.ch">
                 <source>Switzerland</source>
                 <target>Schweiz</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.settings.allowed_countries.it">
+                <source>Italy</source>
+                <target>Italien</target>
             </trans-unit>
 
             <trans-unit id="tx_cart.add_to_cart_finisher.message.status.200.body">

@@ -65,7 +65,7 @@
             </trans-unit>
             <trans-unit id="tx_cart.flexform.seller.email_cc_address.description">
                 <source>The recipients of e-mails sent to one or more e-mail addresses separated by commas and listed in the so-called CC (Carbon Copy) field will receive a copy of the sent e-mail.</source>
-                <target>I destinatari delle email inviate ad uno o piÃ¹ indirizzi email separati da virgole ed elencati nel campo cosiddetto CC (Coppia Carbone) riceveranno copia della email inviata.</target>
+                <target>I destinatari delle email inviate ad uno o più indirizzi email separati da virgole ed elencati nel campo cosiddetto CC (Coppia Carbone) riceveranno copia della email inviata.</target>
             </trans-unit>
             <trans-unit id="tx_cart.flexform.seller.email_bcc_address">
                 <source>BCC email addresses (seperated by comma) for email to the Seller</source>
@@ -73,7 +73,7 @@
             </trans-unit>
             <trans-unit id="tx_cart.flexform.seller.email_bcc_address.description">
                 <source>The recipients of e-mails sent to one or more e-mail addresses separated by commas and listed in the so-called BCC (Blind Carbon Copy) field will receive a copy of the sent e-mail without their address being visible to the other specified recipients. (Source: Wikipedia)</source>
-                <target>I destinatari delle e-mail inviate a uno o piÃ¹ indirizzi e-mail separati da virgole ed elencati nel campo cosiddetto CCn (Coppia Carbone nascosta) riceveranno una copia dell'e-mail inviata senza che il loro indirizzo sia visibile all'altro destinatari specificati. (Fonte: Wikipedia)</target>
+                <target>I destinatari delle e-mail inviate a uno o più indirizzi e-mail separati da virgole ed elencati nel campo cosiddetto CCn (Coppia Carbone nascosta) riceveranno una copia dell'e-mail inviata senza che il loro indirizzo sia visibile all'altro destinatari specificati. (Fonte: Wikipedia)</target>
             </trans-unit>
             <trans-unit id="tx_cart.flexform.buyer.email_from_address">
                 <source>Sender email address for email to the Buyer</source>
@@ -85,7 +85,7 @@
             </trans-unit>
             <trans-unit id="tx_cart.flexform.buyer.email_cc_address.description">
                 <source>The recipients of e-mails sent to one or more e-mail addresses separated by commas and listed in the so-called CC (Carbon Copy) field will receive a copy of the sent e-mail.</source>
-                <target>I destinatari delle email inviate ad uno o piÃ¹ indirizzi email separati da virgole ed elencati nel campo cosiddetto CC (Coppia Carbone) riceveranno copia della email inviata.</target>
+                <target>I destinatari delle email inviate ad uno o più indirizzi email separati da virgole ed elencati nel campo cosiddetto CC (Coppia Carbone) riceveranno copia della email inviata.</target>
             </trans-unit>
             <trans-unit id="tx_cart.flexform.buyer.email_bcc_address">
                 <source>BCC email addresses (seperated by comma) for email to the Buyer</source>
@@ -93,7 +93,7 @@
             </trans-unit>
             <trans-unit id="tx_cart.flexform.buyer.email_bcc_address.description">
                 <source>The recipients of e-mails sent to one or more e-mail addresses separated by commas and listed in the so-called BCC (Blind Carbon Copy) field will receive a copy of the sent e-mail without their address being visible to the other specified recipients. (Source: Wikipedia)</source>
-                <target>I destinatari delle e-mail inviate a uno o piÃ¹ indirizzi e-mail separati da virgole ed elencati nel campo cosiddetto CCn (Coppia Carbone Cieca) riceveranno una copia dell'e-mail inviata senza che il loro indirizzo sia visibile all'altro destinatari specificati. (Fonte: Wikipedia)</target>
+                <target>I destinatari delle e-mail inviate a uno o più indirizzi e-mail separati da virgole ed elencati nel campo cosiddetto CCn (Coppia Carbone Cieca) riceveranno una copia dell'e-mail inviata senza che il loro indirizzo sia visibile all'altro destinatari specificati. (Fonte: Wikipedia)</target>
             </trans-unit>
             <trans-unit id="tx_cart.flexform.buyer.email_reply_to_address">
                 <source>"Reply To" email address for email to the Buyer</source>
@@ -101,7 +101,7 @@
             </trans-unit>
             <trans-unit id="tx_cart.flexform.buyer.email_reply_to_address.description">
                 <source>The "Reply To" will override the default address configured in TYPO3 configuration.</source>
-                <target>La "Rispondi a" sovrascriverÃ  l'indirizzo predefinito configurato nella configurazione di TYPO3.</target>
+                <target>La "Rispondi a" sovrascriverà l'indirizzo predefinito configurato nella configurazione di TYPO3.</target>
             </trans-unit>
 
             <trans-unit id="tx_cart.tax_class_id">
@@ -348,7 +348,7 @@
             </trans-unit>
             <trans-unit id="tx_cart_domain_model_order_address.city">
                 <source>City</source>
-                <target>CittÃ </target>
+                <target>Città</target>
             </trans-unit>
             <trans-unit id="tx_cart_domain_model_order_address.country">
                 <source>Country</source>
@@ -414,7 +414,7 @@
             </trans-unit>
             <trans-unit id="tx_cart_domain_model_order_product.count">
                 <source>Count</source>
-                <target>QuantitÃ </target>
+                <target>Quantità</target>
             </trans-unit>
             <trans-unit id="tx_cart_domain_model_order_product.price.group">
                 <source>Price</source>
@@ -741,7 +741,7 @@
             </trans-unit>
             <trans-unit id="tx_cart_domain_model_coupon.is_relative_discount">
                 <source>Is Relative Discount</source>
-                <target>Ãˆ un sconto relativo</target>
+                <target>È un sconto relativo</target>
             </trans-unit>
             <trans-unit id="tx_cart_domain_model_coupon.discount">
                 <source>Discount</source>
@@ -769,7 +769,7 @@
             </trans-unit>
             <trans-unit id="tx_cart_domain_model_coupon.is_combinable">
                 <source>Is Combinable with other Coupons</source>
-                <target>Ãˆ combinabile con altri buoni</target>
+                <target>È combinabile con altri buoni</target>
             </trans-unit>
             <trans-unit id="tx_cart_domain_model_coupon.handle_available">
                 <source>Handle number coupons availability</source>

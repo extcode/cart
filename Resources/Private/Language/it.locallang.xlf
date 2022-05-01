@@ -14,7 +14,7 @@
             </trans-unit>
             <trans-unit id="tx_cart.success.stock_handling.add.one">
                 <source>Item was added to cart.</source>
-                <target>L'articolo √® stato aggiunto al carrello</target>
+                <target>L'articolo Ë stato aggiunto al carrello</target>
             </trans-unit>
             <trans-unit id="tx_cart.success.stock_handling.add.more">
             	<source>%s Items were added to cart.</source>
@@ -23,12 +23,12 @@
 
             <trans-unit id="validator.notempty.empty">
             	<source>The given subject was not empty.</source>
-                <target>Il valore specificato non √® vuoto.</target>
+                <target>Il valore specificato non Ë vuoto.</target>
             </trans-unit>
 
             <trans-unit id="tx_cart.plugin.mini_cart.empty_cart">
                 <source>Cart is empty.</source>
-                <target>Il carello √® vuoto.</target>
+                <target>Il carello Ë vuoto.</target>
             </trans-unit>
             <trans-unit id="tx_cart.plugin.mini_cart.go_to_checkout">
                 <source>Go to Checkout</source>
@@ -61,7 +61,7 @@
             </trans-unit>
             <trans-unit id="tx_cart.mail.thank_you_for_order_note">
                 <source>Below is an overview of all important information about your order.</source>
-                <target>Di seguito √® riportata una panoramica di tutte le informazioni importanti sul suo ordine.</target>
+                <target>Di seguito Ë riportata una panoramica di tutte le informazioni importanti sul suo ordine.</target>
             </trans-unit>
             <trans-unit id="tx_cart.mail.order_information">
                 <source>Order Information</source>
@@ -78,11 +78,11 @@
 
             <trans-unit id="tx_cart.mail.payment_method">
                 <source>Payment method</source>
-                <target>Modalit√† di pagamento</target>
+                <target>Modalit‡ di pagamento</target>
             </trans-unit>
             <trans-unit id="tx_cart.mail.shipping_method">
                 <source>Shipping method</source>
-                <target>Modalit√† di spedizione</target>
+                <target>Modalit‡ di spedizione</target>
             </trans-unit>
             <trans-unit id="tx_cart.mail.salutation">
                 <source>Dear %s,</source>
@@ -103,7 +103,7 @@
             </trans-unit>
             <trans-unit id="tx_cart_domain_model_cart_product.count">
                 <source>Quantity</source>
-                <target>Quantit√†</target>
+                <target>Quantit‡</target>
             </trans-unit>
             <trans-unit id="tx_cart_domain_model_cart_product.price">
                 <source>Price</source>
@@ -192,7 +192,7 @@
             </trans-unit>
             <trans-unit id="tx_cart_domain_model_order_product.count">
                 <source>Quantity</source>
-                <target>Quantit√†</target>
+                <target>Quantit‡</target>
             </trans-unit>
             <trans-unit id="tx_cart_domain_model_order_product.price">
                 <source>Price (gross)</source>
@@ -422,25 +422,25 @@
 
             <trans-unit id="tx_cart.error.validation">
                 <source>An error has occurred. Please check your entries.</source>
-                <target>C'√® stato un errore. Si prega di controllare le voci.</target>
+                <target>C'Ë stato un errore. Si prega di controllare le voci.</target>
             </trans-unit>
 
             <trans-unit id="tx_cart.controller.cart.action.set_payment.not_available">
                 <source>This payment method is not available.</source>
-                <target>Questa modalit√† di pagamento non √® disponibile.</target>
+                <target>Questa modalit‡ di pagamento non Ë disponibile.</target>
             </trans-unit>
             <trans-unit id="tx_cart.controller.cart.action.set_shipping.not_available">
                 <source>This shipping method is not available.</source>
-                <target>Questa modalit√† di spedizione non √® disponibile.</target>
+                <target>Questa modalit‡ di spedizione non Ë disponibile.</target>
             </trans-unit>
 
             <trans-unit id="tx_cart.controller.order.action.payment_success.successfully_paid">
                 <source>The order was successfully paid.</source>
-                <target>L'ordine √® stato pagato con successo.</target>
+                <target>L'ordine Ë stato pagato con successo.</target>
             </trans-unit>
             <trans-unit id="tx_cart.controller.order.action.payment_success.error_occured">
                 <source>An error occurred while updating the order.</source>
-                <target>Si √® verificato un errore durante l'aggiornamento dell'ordine.</target>
+                <target>Si Ë verificato un errore durante l'aggiornamento dell'ordine.</target>
             </trans-unit>
             <trans-unit id="tx_cart.controller.order.action.payment_success.access_denied">
                 <source>Access denied!</source>
@@ -452,15 +452,15 @@
             </trans-unit>
             <trans-unit id="tx_cart.controller.order.action.payment_success.thank_you_order_number">
                 <source>Your order number is: %1$s</source>
-                <target>Il numero del suo ordine √®: %1$s</target>
+                <target>Il numero del suo ordine Ë: %1$s</target>
             </trans-unit>
             <trans-unit id="tx_cart.controller.order.action.payment_cancel.successfully_canceled">
                 <source>The order has been canceled.</source>
-                <target>L'ordine √® stato annullato.</target>
+                <target>L'ordine Ë stato annullato.</target>
             </trans-unit>
             <trans-unit id="tx_cart.controller.order.action.payment_cancel.error_occured">
                 <source>An error occurred while updating the order.</source>
-                <target>Si √® verificato un errore durante l'aggiornamento dell'ordine.</target>
+                <target>Si Ë verificato un errore durante l'aggiornamento dell'ordine.</target>
             </trans-unit>
             <trans-unit id="tx_cart.controller.order.action.payment_cancel.access_denied">
                 <source>Access denied!</source>
@@ -472,35 +472,35 @@
             </trans-unit>
             <trans-unit id="tx_cart.controller.order.action.generate_number_action.order.success">
                 <source>The generated order number is: %s.</source>
-                <target>Il numero dell'ordine generato √®: %s.</target>
+                <target>Il numero dell'ordine generato Ë: %s.</target>
             </trans-unit>
             <trans-unit id="tx_cart.controller.order.action.generate_number_action.order.already_generated">
                 <source>An order number already exists!</source>
-                <target>Esiste gi√† un numero di ordine!</target>
+                <target>Esiste gi‡ un numero di ordine!</target>
             </trans-unit>
             <trans-unit id="tx_cart.controller.order.action.generate_number_action.invoice.success">
                 <source>The generated invoice number is: %s.</source>
-                <target>Il numero della fattura generata √®: %s.</target>
+                <target>Il numero della fattura generata Ë: %s.</target>
             </trans-unit>
             <trans-unit id="tx_cart.controller.order.action.generate_number_action.invoice.already_generated">
                 <source>An invoice number already exists!</source>
-                <target>Esiste gi√† un numero di fattura!</target>
+                <target>Esiste gi‡ un numero di fattura!</target>
             </trans-unit>
             <trans-unit id="tx_cart.controller.order.action.generate_number_action.delivery.success">
                 <source>The generated delivery number is: %s.</source>
-                <target>Il numero di consegna generato √®: %s.</target>
+                <target>Il numero di consegna generato Ë: %s.</target>
             </trans-unit>
             <trans-unit id="tx_cart.controller.order.action.generate_number_action.delivery.already_generated">
                 <source>An delivery number already exists!</source>
-                <target>Esiste gi√† un numero di consegna!</target>
+                <target>Esiste gi‡ un numero di consegna!</target>
             </trans-unit>
             <trans-unit id="tx_cart.controller.order.action.update_payment_action.success">
                 <source>The payment was successfully updated.</source>
-                <target>Il pagamento √® stato aggiornato con successo.</target>
+                <target>Il pagamento Ë stato aggiornato con successo.</target>
             </trans-unit>
             <trans-unit id="tx_cart.controller.order.action.update_shipping_action.success">
                 <source>The shipping was successfully updated.</source>
-                <target>La spedizione √® stata aggiornata con successo.</target>
+                <target>La spedizione Ë stata aggiornata con successo.</target>
             </trans-unit>
 
             <trans-unit id="tx_cart.controller.order.actions">
@@ -569,11 +569,11 @@
             </trans-unit>
             <trans-unit id="tx_cart.controller.order.action.show_cart.block-header.shipping_method">
                 <source>Shipping Method</source>
-                <target>Modalit√† di spedizione</target>
+                <target>Modalit‡ di spedizione</target>
             </trans-unit>
             <trans-unit id="tx_cart.controller.order.action.show_cart.block-header.payment_method">
                 <source>Payment Method</source>
-                <target>Modalit√† di pagamento</target>
+                <target>Modalit‡ di pagamento</target>
             </trans-unit>
             <trans-unit id="tx_cart.controller.order.action.show_cart.block-header.product_list">
                 <source>Product List</source>
@@ -589,7 +589,7 @@
             </trans-unit>
             <trans-unit id="tx_cart.controller.order.action.show_cart.coupons.not_available">
                 <source>No coupon code was entered.</source>
-                <target>Non √® stato inserito alcun codice buono.</target>
+                <target>Non Ë stato inserito alcun codice buono.</target>
             </trans-unit>
             <trans-unit id="tx_cart.controller.order.action.order_cart.thank_you">
                 <source>Thank you for your order.</source>
@@ -597,7 +597,7 @@
             </trans-unit>
             <trans-unit id="tx_cart.controller.order.action.order_cart.thank_you_order_number">
                 <source>Your order number is: %1$s</source>
-                <target>Il suo numero d'ordine √®: %1$s</target>
+                <target>Il suo numero d'ordine Ë: %1$s</target>
             </trans-unit>
 
             <trans-unit id="tx_cart_domain_model_order_item">
@@ -984,7 +984,7 @@
             </trans-unit>
             <trans-unit id="tx_cart_domain_model_order_address.city">
                 <source>City</source>
-                <target>Citt√†</target>
+                <target>Citt‡</target>
             </trans-unit>
             <trans-unit id="tx_cart_domain_model_order_address.country">
                 <source>Country</source>
@@ -993,7 +993,7 @@
 
             <trans-unit id="tx_cart.mail.buyer.subject">
                 <source>Order confirmation - %s</source>
-                <target>Conferma dell‚Äôordine - %s</target>
+                <target>Conferma dellíordine - %s</target>
             </trans-unit>
             <trans-unit id="tx_cart.mail.seller.subject">
                 <source>Order receipt - %s</source>
@@ -1053,7 +1053,7 @@
             </trans-unit>
             <trans-unit id="tx_cart.plugin.form.submit.success">
                 <source>The product has been added to your shopping cart.</source>
-                <target>Il prodotto √® stato aggiunto al suo carrello.</target>
+                <target>Il prodotto Ë stato aggiunto al suo carrello.</target>
             </trans-unit>
             <trans-unit id="tx_cart.plugin.form.submit.error">
                 <source>The product could not be added to the shopping cart.</source>
@@ -1079,7 +1079,7 @@
             </trans-unit>
             <trans-unit id="tx_cart_domain_model_coupon.code.not_useable">
                 <source>Coupon Code is not useable.</source>
-                <target>Codice buono non √® utilizzabile.</target>
+                <target>Codice buono non Ë utilizzabile.</target>
             </trans-unit>
             <trans-unit id="tx_cart_domain_model_coupon.cart_min_price">
                 <source>Minimum Order Value</source>
@@ -1088,15 +1088,15 @@
 
             <trans-unit id="tx_cart.ok.coupon.added">
                 <source>Coupon was added.</source>
-                <target>Il buono √® stato aggiunto.</target>
+                <target>Il buono Ë stato aggiunto.</target>
             </trans-unit>
             <trans-unit id="tx_cart.error.coupon.not_accepted">
                 <source>Coupon code was not accepted.</source>
-                <target>Il codice buono non √® stato accettato.</target>
+                <target>Il codice buono non Ë stato accettato.</target>
             </trans-unit>
             <trans-unit id="tx_cart.error.coupon.already_added">
                 <source>Coupon code has already been added.</source>
-                <target>Il codice buono √® gi√† stato aggiunto.</target>
+                <target>Il codice buono Ë gi‡ stato aggiunto.</target>
             </trans-unit>
             <trans-unit id="tx_cart.error.coupon.not_combinable">
                 <source>Coupon codes can not be combined.</source>
@@ -1104,11 +1104,11 @@
             </trans-unit>
             <trans-unit id="tx_cart.ok.coupon.removed">
                 <source>Coupon was removed.</source>
-                <target>Il buono √® stato rimosso.</target>
+                <target>Il buono Ë stato rimosso.</target>
             </trans-unit>
             <trans-unit id="tx_cart.error.coupon.not_found">
                 <source>Coupon code was not found.</source>
-                <target>Non √® stato trovato il codice buono.</target>
+                <target>Non Ë stato trovato il codice buono.</target>
             </trans-unit>
 
             <trans-unit id="tx_cart.quantityBelowRange">
@@ -1117,7 +1117,7 @@
             </trans-unit>
             <trans-unit id="tx_cart.quantityAboveRange">
                 <source>Maximum order quantity exceeded.</source>
-                <target>Quantit√† di ordine massima superata.</target>
+                <target>Quantit‡ di ordine massima superata.</target>
             </trans-unit>
 
             <trans-unit id="tx_cart.settings.allowed_countries.de">
@@ -1139,7 +1139,7 @@
 
             <trans-unit id="tx_cart.add_to_cart_finisher.message.status.200.body">
                 <source>The product was added to cart.</source>
-                <target>Il prodotto √® stato aggiunto al carrello.</target>
+                <target>Il prodotto Ë stato aggiunto al carrello.</target>
             </trans-unit>
 
         </body>

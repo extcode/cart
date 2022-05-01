@@ -96,12 +96,12 @@
                 <target>Die Empfänger von E-Mails an eine oder mehrere durch Kommata getrennte E-Mail-Adressen, die im sogenannten BCC-Feld (von englisch: Blind Carbon Copy, dt. sinngemäß Blindkopie) aufgeführt wurden, erhalten eine Kopie der gesendeten E-Mail, ohne dass ihre Adresse für die anderen angegebenen Empfänger sichtbar wird. (Quelle: Wikipedia)</target>
             </trans-unit>
             <trans-unit id="tx_cart.flexform.buyer.email_reply_to_address">
-                <source>Reply To email address for email to the Buyer</source>
-                <target>Reply To E-Mail-Adresse für E-Mail an den Käufer</target>
+                <source>"Reply To" email address for email to the Buyer</source>
+                <target>"Reply To" E-Mail-Adresse für E-Mail an den Käufer</target>
             </trans-unit>
             <trans-unit id="tx_cart.flexform.buyer.email_reply_to_address.description">
-                <source>The Reply To will override the default address configured in TYPO3 configuration.</source>
-                <target>Die Reply To E-Mail-Adresse überschreibt die im TYPO3 konfigurierte Standardantwortadresse.</target>
+                <source>The "Reply To" will override the default address configured in TYPO3 configuration.</source>
+                <target>Die "Reply To" E-Mail-Adresse überschreibt die im TYPO3 konfigurierte Standardantwortadresse.</target>
             </trans-unit>
 
             <trans-unit id="tx_cart.tax_class_id">
@@ -573,6 +573,7 @@
                 <target>ausgeliefert</target>
             </trans-unit>
             <trans-unit id="tx_cart_domain_model_order_shipping.note">
+                <source>Note</source>
                 <target>Hinweis</target>
             </trans-unit>
 
@@ -637,9 +638,11 @@
                 <target>storniert</target>
             </trans-unit>
             <trans-unit id="tx_cart_domain_model_order_payment.note">
+                <source>Note</source>
                 <target>Hinweis</target>
             </trans-unit>
             <trans-unit id="tx_cart_domain_model_order_payment.transactions">
+                <source>Transactions</source>
                 <target>Transaḱtionen</target>
             </trans-unit>
 
@@ -648,7 +651,7 @@
                 <target>Transaḱtion</target>
             </trans-unit>
             <trans-unit id="tx_cart_domain_model_order_transaction.txn_id">
-                <source>Transaction TXT</source>
+                <source>Transaction ID</source>
                 <target>Transaḱtion ID</target>
             </trans-unit>
             <trans-unit id="tx_cart_domain_model_order_transaction.txn_txt">
@@ -779,34 +782,6 @@
                 <target>Flexform</target>
             </trans-unit>
 
-            <trans-unit id="tx_cart_flexform_model_product.title">
-                <target>Titel</target>
-            </trans-unit>
-            <trans-unit id="tx_cart_flexform_model_product.sku">
-                <target>Artikelnummer</target>
-            </trans-unit>
-            <trans-unit id="tx_cart_flexform_model_product.price">
-                <target>Preis</target>
-            </trans-unit>
-            <trans-unit id="tx_cart_flexform_model_product.tax_class_id">
-                <target>Steuerklasse</target>
-            </trans-unit>
-            <trans-unit id="tx_cart_flexform_model_product.tax_class_id.1">
-                <target>normal</target>
-            </trans-unit>
-            <trans-unit id="tx_cart_flexform_model_product.tax_class_id.2">
-                <target>reduziert</target>
-            </trans-unit>
-            <trans-unit id="tx_cart_flexform_model_product.tax_class_id.3">
-                <target>frei</target>
-            </trans-unit>
-            <trans-unit id="tx_cart_flexform_model_product.is_net_price">
-                <target>Ist Netto Preis</target>
-            </trans-unit>
-            <trans-unit id="tx_cart_flexform_model_product.attributes">
-                <target>Zusätzliche Attribute</target>
-            </trans-unit>
-
             <trans-unit id="tx_cart_domain_model_tag">
                 <source>Tag</source>
                 <target>Tag</target>
@@ -842,6 +817,7 @@
                 <source>Cart: Cart</source>
                 <target>Cart: Warenkorb</target>
             </trans-unit>
+
         </body>
     </file>
 </xliff>

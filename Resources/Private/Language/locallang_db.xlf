@@ -634,6 +634,9 @@
             <trans-unit id="tx_cart.settings.allowed_countries.ch">
                 <source>Switzerland</source>
             </trans-unit>
+            <trans-unit id="tx_cart.settings.allowed_countries.it">
+                <source>Italy</source>
+            </trans-unit>
 
             <trans-unit id="pages.doktype.181">
                 <source>Cart: Cart</source>
@@ -641,6 +644,7 @@
             <trans-unit id="pages.doktype.182">
                 <source>Cart: Product</source>
             </trans-unit>
+
         </body>
     </file>
 </xliff>
