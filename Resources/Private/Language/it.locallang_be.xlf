@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" target-language="it" datatype="plaintext" original="messages" date="2022-04-16T14:00:00Z" product-name="cart">
+		<header/>
+		<body>
+
+			<trans-unit id="tcarecords-pages-contains.cart_coupons">
+				<source>Cart: Coupons</source>
+				<target>Cart: Buoni</target>
+			</trans-unit>
+			<trans-unit id="tcarecords-pages-contains.cart_orders">
+				<source>Cart: Orders</source>
+				<target>Cart: Ordini</target>
+			</trans-unit>
+
+			<trans-unit id="tx_cart.plugin.cart.title">
+				<source>Cart: Cart</source>
+				<source>Cart: Carello</source>
+			</trans-unit>
+			<trans-unit id="tx_cart.plugin.cart.description">
+				<source>shows complete order form</source>
+				<target>mostra il modulo d'ordine completo</target>
+			</trans-unit>
+
+            <trans-unit id="widget_group.cart">
+                <source>Cart</source>
+				<target>Carello</target>
+            </trans-unit>
+            <trans-unit id="dashboard.widgets.payment_paid_shipping_open.title">
+                <source>Latest Orders (paid, not shipped)</source>
+				<target>Ultimi ordini (pagati, non spediti)</target>
+            </trans-unit>
+            <trans-unit id="dashboard.widgets.payment_paid_shipping_open.description">
+                <source>List of Paid but not Shipped Orders</source>
+				<target>Elenco degli ordini pagati ma non spediti</target>
+            </trans-unit>
+            <trans-unit id="dashboard.widgets.orders_per_day.chart.dataSet.0">
+                <source>Total Orders</source>
+				<target>Ordini totali</target>
+            </trans-unit>
+            <trans-unit id="dashboard.widgets.orders_per_day.title">
+                <source>Orders per Day</source>
+				<target>Ordini al giorno</target>
+            </trans-unit>
+            <trans-unit id="dashboard.widgets.orders_per_day.description">
+                <source>Orders per Day</source>
+				<target>Ordini al giorno</target>
+            </trans-unit>
+            <trans-unit id="dashboard.widgets.turnover_per_day.title">
+                <source>Turnover per Day</source>
+				<target>Fatturato al giorno</target>
+            </trans-unit>
+            <trans-unit id="dashboard.widgets.turnover_per_day.description">
+                <source>Turnover per Day</source>
+				<target>Fatturato al giorno</target>
+            </trans-unit>
+
+		</body>
+	</file>
+</xliff>

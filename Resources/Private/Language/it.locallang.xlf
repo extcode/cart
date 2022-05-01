@@ -1,0 +1,1147 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+    <file source-language="en" target-language="it" datatype="plaintext" original="messages" date="2022-04-16T14:00:00Z" product-name="cart">
+        <header/>
+        <body>
+
+            <trans-unit id="tx_cart.error.stock_handling.add">
+                <source>Desired number of this item not available.</source>
+                <target>Numero desiderato di questo articolo non disponibile.</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.error.stock_handling.update">
+            	<source>Desired number of this item not available.</source>
+                <target>Numero desiderato di questo articolo non disponibile.</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.success.stock_handling.add.one">
+                <source>Item was added to cart.</source>
+                <target>L'articolo è stato aggiunto al carrello</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.success.stock_handling.add.more">
+            	<source>%s Items were added to cart.</source>
+                <target>%s articoli sono stati aggiunti al carrello.</target>
+            </trans-unit>
+
+            <trans-unit id="validator.notempty.empty">
+            	<source>The given subject was not empty.</source>
+                <target>Il valore specificato non è vuoto.</target>
+            </trans-unit>
+
+            <trans-unit id="tx_cart.plugin.mini_cart.empty_cart">
+                <source>Cart is empty.</source>
+                <target>Il carello è vuoto.</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.plugin.mini_cart.go_to_checkout">
+                <source>Go to Checkout</source>
+                <target>Vai alla cassa</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.plugin.mini_cart.product_in_cart">
+                <source>product in cart.</source>
+                <target>prodotto nel carrello.</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.plugin.mini_cart.products_in_cart">
+                <source>products in cart.</source>
+                <target>prodotti nel carrello.</target>
+            </trans-unit>
+
+            <trans-unit id="tx_cart_domain_model_cart.billing_address">
+                <source>Billing Address</source>
+                <target>Indirizzo di fatturazione</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_cart.shipping_address">
+                <source>Shipping Address</source>
+                <target>Indirizzo di spedizione</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_cart.use_billing_address">
+                <source>use Billing Address</source>
+                <target>utilizzare l'indirizzo di fatturazione</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.mail.thank_you_for_order">
+                <source>Thank you for your order.</source>
+                <target>Grazie per il vostro ordine.</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.mail.thank_you_for_order_note">
+                <source>Below is an overview of all important information about your order.</source>
+                <target>Di seguito è riportata una panoramica di tutte le informazioni importanti sul suo ordine.</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.mail.order_information">
+                <source>Order Information</source>
+                <target>Informazioni sull'ordine</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.mail.order_summary">
+                <source>Order Summary</source>
+                <target>Riepilogo dell'ordine</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.order.history_empty">
+                <source>No orders found.</source>
+                <target>Nessun ordine trovato.</target>
+            </trans-unit>
+
+            <trans-unit id="tx_cart.mail.payment_method">
+                <source>Payment method</source>
+                <target>Modalità di pagamento</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.mail.shipping_method">
+                <source>Shipping method</source>
+                <target>Modalità di spedizione</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.mail.salutation">
+                <source>Dear %s,</source>
+                <target>Caro/a %s,</target>
+            </trans-unit>
+
+            <trans-unit id="tx_cart_domain_model_cart_product.title">
+                <source>Product</source>
+                <target>Prodotto</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_cart_product.sku">
+                <source>Stock Keeping Unit</source>
+                <target>Codice articolo</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_cart_product.sku.short">
+                <source>SKU</source>
+                <target>Cod. Art.</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_cart_product.count">
+                <source>Quantity</source>
+                <target>Quantità</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_cart_product.price">
+                <source>Price</source>
+                <target>Prezzo</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_cart_product.price_net">
+                <source>Price (net)</source>
+                <target>Prezzo (netto)</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_cart_product.price_gross">
+                <source>Price (gross)</source>
+                <target>Prezzo (lordo)</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_cart_product.price_per_unit">
+                <source>Price per unit</source>
+                <target>Prezzo unitario</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_cart_product.price_per_unit_net">
+                <source>Price per unit (net)</source>
+                <target>Prezzo unitario (netto)</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_cart_product.price_per_unit_gross">
+                <source>Price per unit (gross)</source>
+                <target>Prezzo unitario (lordo)</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_cart_product.price_subtotal">
+                <source>Subtotal</source>
+                <target>Totale parziale</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_cart_product.price_subtotal_net">
+                <source>Subtotal (net)</source>
+                <target>Totale parziale (netto)</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_cart_product.price_subtotal_gross">
+                <source>Subtotal (gross)</source>
+                <target>Totale parziale (lordo)</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_cart_product.tax">
+                <source>Tax (%s)</source>
+                <target>Imposta (%s)</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_cart_product.discount">
+                <source>Discount</source>
+                <target>Sconto</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_cart_product.total_net">
+                <source>Total Price (net)</source>
+                <target>Prezzo totale (netto)</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_cart_product.total_gross">
+                <source>Total Price (gross)</source>
+                <target>Prezzo totale (lordo)</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_cart_product.service_net">
+                <source>Service- and Shipping costs (net)</source>
+                <target>Costi di servizio e spedizione (netto)</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_cart_product.service_gross">
+                <source>Service- and Shipping costs (gross)</source>
+                <target>Costi di servizio e spedizione (lordo)</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_cart_product.discount_net">
+                <source>Discount (net)</source>
+                <target>Sconto (netto)</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_cart_product.discount_gross">
+                <source>Discount (gross)</source>
+                <target>Sconto (lordo)</target>
+            </trans-unit>
+
+            <trans-unit id="tx_cart_domain_model_order_product.title">
+                <source>Product</source>
+                <target>Prodotto</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_product.productId">
+                <source>Product Id</source>
+                <target>Id Prodotto</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_product.sku">
+                <source>Stock Keeping Unit</source>
+                <target>Codice articolo</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_product.sku.short">
+                <source>SKU</source>
+                <target>Cod. Art.</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_product.count">
+                <source>Quantity</source>
+                <target>Quantità</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_product.price">
+                <source>Price (gross)</source>
+                <target>Prezzo (lordo)</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_product.price_total">
+                <source>Subtotal</source>
+                <target>Totale parziale</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_product.total">
+                <source>Total</source>
+                <target>Totale</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_product.tax">
+                <source>Tax (%s)</source>
+                <target>Imposta (%s)</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_product.empty">
+                <source>Currently there are no products in your cart.</source>
+                <target>Attualmente non ci sono prodotti nel tuo carrello.</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_product.discount">
+                <source>Discount</source>
+                <target>Sconto</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_product.net">
+                <source>Price (net)</source>
+                <target>Prezzo (netto)</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_product.gross">
+                <source>Price (gross)</source>
+                <target>Prezzo (lordo)</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_product.total_net">
+                <source>Total Price (net)</source>
+                <target>Prezzo totale (netto)</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_product.total_gross">
+                <source>Total Price (gross)</source>
+                <target>Prezzo totale (lordo)</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_product.shipping">
+                <source>Shipping Options</source>
+                <target>Opzioni di spedizione</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_product.service_from">
+                <source>from</source>
+                <target>da</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_product.service_each">
+                <source>each</source>
+                <target>ogni</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_product.shipping_free_from">
+                <source>free shipping from</source>
+                <target>spedizione gratuita da</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_product.shipping_free_until">
+                <source>free shipping until</source>
+                <target>spedizione gratuita fino al</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_product.shipping_available_from">
+                <source>shipping available from</source>
+                <target>spedizione disponibile da</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_product.shipping_available_until">
+                <source>shipping available until</source>
+                <target>spedizione disponibile fino al</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_product.payment">
+                <source>Service Options</source>
+                <target>Opzioni di servizio</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_product.payment_free_from">
+                <source>free service option from</source>
+                <target>opzione di servizio gratuito da</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_product.payment_free_until">
+                <source>free service option until</source>
+                <target>opzione di servizio gratuito fino al</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_product.payment_available_from">
+                <source>service option available from</source>
+                <target>opzione di servizio disponibile da</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_product.payment_available_until">
+                <source>service option available until</source>
+                <target>opzione di servizio disponibile fino al</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_product.special">
+                <source>Special Options</source>
+                <target>Opzioni speciali</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_product.special_free_from">
+                <source>free special option from</source>
+                <target>opzione speciale gratuita da</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_product.special_free_until">
+                <source>free special option until</source>
+                <target>opzione speciale gratuita fino al</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_product.special_available_from">
+                <source>special option available from</source>
+                <target>opzione speciale disponibile da</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_product.special_available_until">
+                <source>special option available until</source>
+                <target>opzione speciale disponibile fino al</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_product.special_each">
+                <source>%s each</source>
+                <target>%s ogni</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_product.service_net">
+                <source>Service- and Shipping costs (net)</source>
+                <target>Costi servizio (netto)</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_product.service_gross">
+                <source>Service- and Shipping costs (gross)</source>
+                <target>Costi servizio (lordo)</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_product.discount_net">
+                <source>Discount (net)</source>
+                <target>Sconto (netto)</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_product.discount_gross">
+                <source>Discount (gross)</source>
+                <target>Sconto (lordo)</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_product.delete">
+                <source>Remove this product from cart.</source>
+                <target>Rimuovi questo prodotto da cart.</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_product.ordernumber">
+                <source>Order number</source>
+                <target>Numero ordine</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_product.invoicenumber">
+                <source>Invoice number</source>
+                <target>Numero fattura</target>
+            </trans-unit>
+
+            <trans-unit id="filter">
+                <source>filter</source>
+                <target>filtro</target>
+            </trans-unit>
+            <trans-unit id="filterCustomer">
+                <source>Customer</source>
+                <target>Cliente</target>
+            </trans-unit>
+            <trans-unit id="filterOrderNumber">
+                <source>Order Number</source>
+                <target>Numero ordine</target>
+            </trans-unit>
+            <trans-unit id="filterInvoiceNumber">
+                <source>Invoice Number</source>
+                <target>Numero fattura</target>
+            </trans-unit>
+            <trans-unit id="filterStartDate">
+                <source>Start Date</source>
+                <target>Data d'inizio</target>
+            </trans-unit>
+            <trans-unit id="filterEndDate">
+                <source>End Date</source>
+                <target>Data di fine</target>
+            </trans-unit>
+
+            <trans-unit id="tx_cart_domain_model_product.filter.sku">
+                <source>SKU</source>
+                <target>Codice Articolo</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_product.filter.title">
+                <source>Title</source>
+                <target>Titolo</target>
+            </trans-unit>
+
+            <trans-unit id="tx_cart.format.date">
+                <source>Y-m-d</source>
+                <target>d.m.Y</target>
+            </trans-unit>
+
+            <trans-unit id="tx_cart.add_product">
+                <source>add to cart</source>
+                <target>aggiungi al carrello</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.remove_product">
+                <source>remove</source>
+                <target>rimuovere</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.clear_cart">
+                <source>clear cart</source>
+                <target>svuotare il carrello</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.submit_order">
+                <source>submit order (binding)</source>
+                <target>inviare ordine (vincolante)</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.update_cart">
+                <source>update cart</source>
+                <target>aggiorna il carrello</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.update_status">
+                <source>update status</source>
+                <target>aggiorna lo stato</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.add_coupon">
+                <source>add coupon</source>
+                <target>aggiungi buono</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.remove_coupon">
+                <source>remove</source>
+                <target>rimuovere</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.same_address">
+                <source>Send it to the same address.</source>
+                <target>Invia allo stesso indirizzo.</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.variants-select.choose">
+                <source>Please choose ...</source>
+                <target>Selezionare per favore ...</target>
+            </trans-unit>
+
+            <trans-unit id="tx_cart.history_back">
+                <source>back</source>
+                <target>indietro</target>
+            </trans-unit>
+
+            <trans-unit id="tx_cart.error.validation">
+                <source>An error has occurred. Please check your entries.</source>
+                <target>C'è stato un errore. Si prega di controllare le voci.</target>
+            </trans-unit>
+
+            <trans-unit id="tx_cart.controller.cart.action.set_payment.not_available">
+                <source>This payment method is not available.</source>
+                <target>Questa modalità di pagamento non è disponibile.</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.controller.cart.action.set_shipping.not_available">
+                <source>This shipping method is not available.</source>
+                <target>Questa modalità di spedizione non è disponibile.</target>
+            </trans-unit>
+
+            <trans-unit id="tx_cart.controller.order.action.payment_success.successfully_paid">
+                <source>The order was successfully paid.</source>
+                <target>L'ordine è stato pagato con successo.</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.controller.order.action.payment_success.error_occured">
+                <source>An error occurred while updating the order.</source>
+                <target>Si è verificato un errore durante l'aggiornamento dell'ordine.</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.controller.order.action.payment_success.access_denied">
+                <source>Access denied!</source>
+                <target>Accesso negato!</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.controller.order.action.payment_success.thank_you">
+                <source>Thank you for your order.</source>
+                <target>Grazie per il suo ordine.</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.controller.order.action.payment_success.thank_you_order_number">
+                <source>Your order number is: %1$s</source>
+                <target>Il numero del suo ordine è: %1$s</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.controller.order.action.payment_cancel.successfully_canceled">
+                <source>The order has been canceled.</source>
+                <target>L'ordine è stato annullato.</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.controller.order.action.payment_cancel.error_occured">
+                <source>An error occurred while updating the order.</source>
+                <target>Si è verificato un errore durante l'aggiornamento dell'ordine.</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.controller.order.action.payment_cancel.access_denied">
+                <source>Access denied!</source>
+                <target>Accesso negato!</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.controller.order.action.payment_cancel.thank_you">
+                <source>Thank you.</source>
+                <target>Grazie.</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.controller.order.action.generate_number_action.order.success">
+                <source>The generated order number is: %s.</source>
+                <target>Il numero dell'ordine generato è: %s.</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.controller.order.action.generate_number_action.order.already_generated">
+                <source>An order number already exists!</source>
+                <target>Esiste già un numero di ordine!</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.controller.order.action.generate_number_action.invoice.success">
+                <source>The generated invoice number is: %s.</source>
+                <target>Il numero della fattura generata è: %s.</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.controller.order.action.generate_number_action.invoice.already_generated">
+                <source>An invoice number already exists!</source>
+                <target>Esiste già un numero di fattura!</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.controller.order.action.generate_number_action.delivery.success">
+                <source>The generated delivery number is: %s.</source>
+                <target>Il numero di consegna generato è: %s.</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.controller.order.action.generate_number_action.delivery.already_generated">
+                <source>An delivery number already exists!</source>
+                <target>Esiste già un numero di consegna!</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.controller.order.action.update_payment_action.success">
+                <source>The payment was successfully updated.</source>
+                <target>Il pagamento è stato aggiornato con successo.</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.controller.order.action.update_shipping_action.success">
+                <source>The shipping was successfully updated.</source>
+                <target>La spedizione è stata aggiornata con successo.</target>
+            </trans-unit>
+
+            <trans-unit id="tx_cart.controller.order.actions">
+                <source>Actions</source>
+                <target>Azioni</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.controller.order.action.show">
+                <source>Show</source>
+                <target>Mostra</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.controller.order.action.edit">
+                <source>Edit</source>
+                <target>Modifica</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.controller.order.action.list">
+                <source>List</source>
+                <target>Elenca</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.controller.order.action.export.csv">
+                <source>Export (CSV)</source>
+                <target>Esporta (CSV)</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.controller.order.action.generateOrderNumber">
+                <source>Generate Order Number</source>
+                <target>Genera numero ordine</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.controller.order.action.generateOrderDocument">
+                <source>Generate Order Document</source>
+                <target>Genera conferma d'ordine</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.controller.order.action.downloadOrderDocument">
+                <source>Download Order Document</source>
+                <target>Scarica conferma d'ordin</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.controller.order.action.generateInvoiceNumber">
+                <source>Generate Invoice Number</source>
+                <target>Genera numero fattura</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.controller.order.action.generateInvoiceDocument">
+                <source>Generate Invoice Document</source>
+                <target>Genera fattura</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.controller.order.action.downloadInvoiceDocument">
+                <source>Download Invoice Document</source>
+                <target>Scarica fattura</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.controller.order.action.generateDeliveryNumber">
+                <source>Generate Delivery Note Number</source>
+                <target>Genera numero della nota di consegna</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.controller.order.action.generateDeliveryDocument">
+                <source>Generate Delivery Note Document</source>
+                <target>Genera nota di consegna</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.controller.order.action.downloadDeliveryDocument">
+                <source>Download Delivery Note Document</source>
+                <target>Scarica nota di consegna</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.controller.order.action.show_cart.block-header.billing_address">
+                <source>Billing Address</source>
+                <target>Indirizzo di fatturazione</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.controller.order.action.show_cart.block-header.shipping_address">
+                <source>Shipping Address</source>
+                <target>Indirizzo di spedizione</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.controller.order.action.show_cart.block-header.shipping_method">
+                <source>Shipping Method</source>
+                <target>Modalità di spedizione</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.controller.order.action.show_cart.block-header.payment_method">
+                <source>Payment Method</source>
+                <target>Modalità di pagamento</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.controller.order.action.show_cart.block-header.product_list">
+                <source>Product List</source>
+                <target>Elenco prodotti</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.controller.order.action.show_cart.block-header.coupons">
+                <source>Coupons</source>
+                <target>Buoni</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.controller.order.action.show_cart.block-header.order_overview">
+                <source>Check and Order</source>
+                <target>Controlla e ordina</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.controller.order.action.show_cart.coupons.not_available">
+                <source>No coupon code was entered.</source>
+                <target>Non è stato inserito alcun codice buono.</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.controller.order.action.order_cart.thank_you">
+                <source>Thank you for your order.</source>
+                <target>Grazie per il vostro ordine.</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.controller.order.action.order_cart.thank_you_order_number">
+                <source>Your order number is: %1$s</source>
+                <target>Il suo numero d'ordine è: %1$s</target>
+            </trans-unit>
+
+            <trans-unit id="tx_cart_domain_model_order_item">
+                <source>Order</source>
+                <target>Ordine</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_item.palettes.numbers">
+                <source>Order and Invoice Number</source>
+                <target>Numero ordine e fattura</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_item.palettes.purchaser">
+                <source>Purchaser</source>
+                <target>Acquirente</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_item.palettes.addresses">
+                <source>Addresses</source>
+                <target>Indirizzi</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_item.palettes.price">
+                <source>Price</source>
+                <target>Prezzo</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_item.palettes.payment">
+                <source>Payment</source>
+                <target>Pagamento</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_item.palettes.shipping">
+                <source>Shipping</source>
+                <target>Spedizione</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_item.fe_user">
+                <source>User</source>
+                <target>Utente</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_item.order_number">
+                <source>Order Number</source>
+                <target>Numero dell'ordine</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_item.order_date">
+                <source>Order Date</source>
+                <target>Data dell'ordine</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_item.invoice_number">
+                <source>Invoice Number</source>
+                <target>Numero di fattura</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_item.invoice_date">
+                <source>Invoice Date</source>
+                <target>Data di fattura</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_item.delivery_number">
+                <source>Delivery Number</source>
+                <target>Numero di consegna</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_item.delivery_date">
+                <source>Delivery Date</source>
+                <target>Data di consegna</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_item.shipping_address">
+                <source>Shipping Address</source>
+                <target>Indirizzo di spedizione</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_item.billing_address">
+                <source>Billing Address</source>
+                <target>Indirizzo di fatturazione</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_item.gross">
+                <source>Price (gross)</source>
+                <target>Prezzo (lordo)</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_item.net">
+                <source>Price (net)</source>
+                <target>Prezzo (netto)</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_item.total_gross">
+                <source>Total Price (Gross)</source>
+                <target>Prezzo totale (lordo)</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_item.total_net">
+                <source>Total Price (Net)</source>
+                <target>Prezzo totale (netto)</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_item.cart_price">
+                <source>Price</source>
+                <target>Prezzo</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_item.cart_total_price">
+                <source>Total Price</source>
+                <target>Prezzo totale</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_item.additional_data">
+                <source>Additional Data</source>
+                <target>Dati aggiuntivi</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_item.order_pdfs">
+                <source>Order PDFs</source>
+                <target>PDFs ordine</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_item.invoice_pdfs">
+                <source>Invoice PDFs</source>
+                <target>PDFs fattura</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_item.order_tax">
+                <source>Order Tax</source>
+                <target>Tasse ordine</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_item.order_total_tax">
+                <source>Order Total Tax</source>
+                <target>Totale tasse ordine</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_item.order_product">
+                <source>Order Product</source>
+                <target>Prodotto ordine</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_item.order_shipping">
+                <source>Shipping</source>
+                <target>Spedizione</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_item.order_payment">
+                <source>Payment</source>
+                <target>Pagamento</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_item.crdate">
+                <source>Order Date</source>
+                <target>Data ordine</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_item.comment">
+                <source>Comment</source>
+                <target>Osservazioni</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_item.accept_terms_and_conditions">
+                <source>I have read the general terms and conditions agree to them.</source>
+                <target>Ho letto i termini e le condizioni generali e sono d'accordo.</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_item.accept_terms_and_conditions_with_link">
+                <source>I have read the <![CDATA[<a href="%1$s" target="%2$s">general terms and conditions</a>]]> and agree to them.</source>
+                <target>Ho letto i <![CDATA[<a href="%1$s" target="%2$s">termini e le condizioni generali</a>]]> e sono d'accordo.</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_item.accept_terms_and_conditions.error.1361959228">
+                <source>You have to agree to the general terms.</source>
+                <target>Devi accettare le condizioni generali.</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_item.accept_revocation_instruction">
+                <source>I have read the revocation instruction and agree to them.</source>
+                <target>Ho letto le condizioni sulla cancellazione e sono d'accordo.</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_item.accept_revocation_instruction_with_link">
+                <source>I have read the <![CDATA[<a href="%1$s" target="%2$s">revocation instruction</a>]]> and agree to them.</source>
+                <target>Ho letto le <![CDATA[<a href="%1$s" target="%2$s">condizioni sulla cancellazione</a>]]> e sono d'accordo.</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_item.accept_revocation_instruction.error.1361959228">
+                <source>You have to agree to the revocation instruction.</source>
+                <target>Devi accettare le condizioni di cancellazione.</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_item.accept_privacy_policy">
+                <source>I have read the privacy policy and agree to them.</source>
+                <target>Ho letto l'informativa sulla privacy e sono d'accordo.</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_item.accept_privacy_policy_with_link">
+                <source>I have read the <![CDATA[<a href="%1$s" target="%2$s">privacy policy</a>]]> and agree to them.</source>
+                <target>Ho letto <![CDATA[<a href="%1$s" target="%2$s">l'informativa sulla privacy</a>]]> e sono d'accordo.</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_item.accept_privacy_policy.error.1361959228">
+                <source>You have to agree to the privacy policy.</source>
+                <target>Devi accettare l'informativa sulla privacy.</target>
+            </trans-unit>
+
+            <trans-unit id="tx_cart_domain_model_order_tax">
+                <source>Order Tax</source>
+                <target>Imposte Ordine</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_tax.name">
+                <source>Name</source>
+                <target>Nome</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_tax.value">
+                <source>Value</source>
+                <target>Importo</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_tax.calc">
+                <source>Calc</source>
+                <target>Calc</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_tax.sum">
+                <source>Sum</source>
+                <target>Somma</target>
+            </trans-unit>
+
+            <trans-unit id="tx_cart_domain_model_order_product">
+                <source>Order Product</source>
+                <target>Prodotto ordine</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_product.count">
+                <source>Count</source>
+                <target>Conto</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_product.price.group">
+                <source>Price</source>
+                <target>Prezzo</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_product.discount">
+                <source>Discount</source>
+                <target>Sconto</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_product.gross">
+                <source>Gross</source>
+                <target>Lordo</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_product.net">
+                <source>Net</source>
+                <target>Netto</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_product.additional_data">
+                <source>Additional Data</source>
+                <target>Dati aggiuntivi</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_product.order_product_additional">
+                <source>Order Product Additional</source>
+                <target>Prodotto ordine aggiuntivo</target>
+            </trans-unit>
+
+            <trans-unit id="tx_cart_domain_model_order_productadditional">
+                <source>Order Product Additional</source>
+                <target>Prodotto ordine aggiuntivo</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_productadditional.additional_type">
+                <source>Type</source>
+                <target>Tipo</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_productadditional.additional_key">
+                <source>Key</source>
+                <target>Chiave</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_productadditional.additional_value">
+                <source>Value</source>
+                <target>Valore</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_productadditional.additional_data">
+                <source>Data</source>
+                <target>Dati</target>
+            </trans-unit>
+
+            <trans-unit id="tx_cart_domain_model_order_shipping">
+                <source>Shipping</source>
+                <target>Spedizione</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_shipping.name">
+                <source>Name</source>
+                <target>Nome</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_shipping.net">
+                <source>Price (net)</source>
+                <target>Prezzo (netto)</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_shipping.gross">
+                <source>Price (gross)</source>
+                <target>Prezzo (lordo)</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_shipping.tax">
+                <source>Tax</source>
+                <target>Imposta</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_shipping.status">
+                <source>Status</source>
+                <target>Stato</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_shipping.status.all">
+                <source>all</source>
+                <target>tutto</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_shipping.status.open">
+                <source>open</source>
+                <target>aperto</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_shipping.status.on_hold">
+                <source>on hold</source>
+                <target>in attesa</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_shipping.status.in_process">
+                <source>in process</source>
+                <target>in corso</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_shipping.status.shipped">
+                <source>shipped</source>
+                <target>spedito</target>
+            </trans-unit>
+
+            <trans-unit id="tx_cart_domain_model_order_payment">
+                <source>Payment</source>
+                <target>Pagamento</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_payment.name">
+                <source>Name</source>
+                <target>Nome</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_payment.net">
+                <source>Price (net)</source>
+                <target>Prezzo (netto)</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_payment.gross">
+                <source>Price (gross)</source>
+                <target>Prezzo (lordo)</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_payment.tax">
+                <source>Tax</source>
+                <target>Imposta</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_payment.status">
+                <source>Status</source>
+                <target>Stato</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_payment.status.all">
+                <source>all</source>
+                <target>tutto</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_payment.status.open">
+                <source>open</source>
+                <target>aperto</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_payment.status.pending">
+                <source>pending</source>
+                <target>in attesa</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_payment.status.paid">
+                <source>paid</source>
+                <target>pagato</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_payment.status.canceled">
+                <source>canceled</source>
+                <target>annullato</target>
+            </trans-unit>
+
+            <trans-unit id="tx_cart_domain_model_order_address">
+                <source>Order Address</source>
+                <target>Indirizzo ordine</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_address.title">
+                <source>Title</source>
+                <target>Titolo</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_address.salutation">
+                <source>Salutation</source>
+                <target>Appellativo</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_address.first_name">
+                <source>First Name</source>
+                <target>Nome</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_address.last_name">
+                <source>Last Name</source>
+                <target>Cognome</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_address.email">
+                <source>Email</source>
+                <target>E-Mail</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_address.phone">
+                <source>Phone</source>
+                <target>Telefono</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_address.fax">
+                <source>Fax</source>
+                <target>Fax</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_address.company">
+                <source>Company</source>
+                <target>Azienda</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_address.tax_identification_number">
+                <source>Tax Identification Number</source>
+                <target>Codice Fiscale</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_address.street">
+                <source>Street</source>
+                <target>Via</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_address.street_number">
+                <source>Street Number</source>
+                <target>Numero civico</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_address.zip">
+                <source>Zip</source>
+                <target>CAP</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_address.city">
+                <source>City</source>
+                <target>Città</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_address.country">
+                <source>Country</source>
+                <target>Nazione</target>
+            </trans-unit>
+
+            <trans-unit id="tx_cart.mail.buyer.subject">
+                <source>Order confirmation - %s</source>
+                <target>Conferma dell’ordine - %s</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.mail.seller.subject">
+                <source>Order receipt - %s</source>
+                <target>Ricevuta di un ordine - %s</target>
+            </trans-unit>
+
+            <trans-unit id="tx_cart.module.productController.listAction.header">
+                <source>Product Listing</source>
+                <target>Elenco Prodotto</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.module.productController.showAction.header">
+            	<source>Product Show</source>
+                <target>Dettaglio Prodotto</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.module.beVariantAttributeController.listAction.header">
+                <source>Variant Set Listing</source>
+                <target>Elenco Varianti</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.module.beVariantAttributeController.showAction.header">
+                <source>Variant Set Show</source>
+                <target>Dettaglio Varianti</target>
+            </trans-unit>
+
+            <trans-unit id="tx_cart.module.action.filter">
+                <source>Filter List</source>
+                <target>Elenco Filtro</target>
+            </trans-unit>
+
+            <trans-unit id="tx_cart.tax_class">
+                <source>Tax Class</source>
+                <target>Categoria fiscale</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.tax_class.1">
+                <source>normal</source>
+                <target>normale</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.tax_class.2">
+                <source>reduced</source>
+                <target>ridotto</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.tax_class.3">
+                <source>free</source>
+                <target>esente</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.tax_vat">
+                <source>VAT</source>
+                <target>IVA</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.tax_vat.value">
+                <source>VAT (%s %%)</source>
+                <target>IVA (%s %%)</target>
+            </trans-unit>
+
+            <trans-unit id="tx_cart.plugin.form.submit">
+                <source>Add to cart</source>
+                <target>aggiungi al carrello</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.plugin.form.submit.success">
+                <source>The product has been added to your shopping cart.</source>
+                <target>Il prodotto è stato aggiunto al suo carrello.</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.plugin.form.submit.error">
+                <source>The product could not be added to the shopping cart.</source>
+                <target>Non si ha potuto aggiungere il prodotto al carrello.</target>
+            </trans-unit>
+
+            <trans-unit id="tx_cart_domain_model_cart_cart.net">
+                <source>Price (net)</source>
+                <target>Prezzo (netto)</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_cart_cart.gross">
+                <source>Price (gross)</source>
+                <target>Prezzo (lordo)</target>
+            </trans-unit>
+
+            <trans-unit id="tx_cart_domain_model_coupon">
+                <source>Coupon</source>
+                <target>Buono</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_coupon.code">
+                <source>Coupon Code</source>
+                <target>Codice buono</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_coupon.code.not_useable">
+                <source>Coupon Code is not useable.</source>
+                <target>Codice buono non è utilizzabile.</target>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_coupon.cart_min_price">
+                <source>Minimum Order Value</source>
+                <target>Importo minimo ordine</target>
+            </trans-unit>
+
+            <trans-unit id="tx_cart.ok.coupon.added">
+                <source>Coupon was added.</source>
+                <target>Il buono è stato aggiunto.</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.error.coupon.not_accepted">
+                <source>Coupon code was not accepted.</source>
+                <target>Il codice buono non è stato accettato.</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.error.coupon.already_added">
+                <source>Coupon code has already been added.</source>
+                <target>Il codice buono è già stato aggiunto.</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.error.coupon.not_combinable">
+                <source>Coupon codes can not be combined.</source>
+                <target>I codici buono non possono essere combinati.</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.ok.coupon.removed">
+                <source>Coupon was removed.</source>
+                <target>Il buono è stato rimosso.</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.error.coupon.not_found">
+                <source>Coupon code was not found.</source>
+                <target>Non è stato trovato il codice buono.</target>
+            </trans-unit>
+
+            <trans-unit id="tx_cart.quantityBelowRange">
+                <source>Minimum order not reached.</source>
+                <target>Ordine minimo non raggiunto.</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.quantityAboveRange">
+                <source>Maximum order quantity exceeded.</source>
+                <target>Quantità di ordine massima superata.</target>
+            </trans-unit>
+
+            <trans-unit id="tx_cart.settings.allowed_countries.de">
+                <source>Germany</source>
+                <target>Germania</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.settings.allowed_countries.at">
+                <source>Austria</source>
+                <target>Austria</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.settings.allowed_countries.ch">
+                <source>Switzerland</source>
+                <target>Svizzera</target>
+            </trans-unit>
+            <trans-unit id="tx_cart.settings.allowed_countries.it">
+                <source>Italy</source>
+                <target>Italia</target>
+            </trans-unit>
+
+            <trans-unit id="tx_cart.add_to_cart_finisher.message.status.200.body">
+                <source>The product was added to cart.</source>
+                <target>Il prodotto è stato aggiunto al carrello.</target>
+            </trans-unit>
+
+        </body>
+    </file>
+</xliff>
