@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xliff version="1.0">
+  <file source-language="en" datatype="plaintext" original="messages" date="020-11-20T08:10:00Z" product-name="cart" target-language="uk">
+    <header/>
+    <body>
+      <trans-unit id="tcarecords-pages-contains.cart_coupons">
+        <source>Cart: Coupons</source>
+        <target state="needs-translation">Cart: Coupons</target>
+      </trans-unit>
+      <trans-unit id="tcarecords-pages-contains.cart_orders">
+        <source>Cart: Orders</source>
+        <target state="needs-translation">Cart: Orders</target>
+      </trans-unit>
+      <trans-unit id="tx_cart.plugin.cart.title">
+        <source>Cart: Cart</source>
+        <target state="needs-translation">Cart: Cart</target>
+      </trans-unit>
+      <trans-unit id="tx_cart.plugin.cart.description">
+        <source>shows complete order form</source>
+        <target state="needs-translation">shows complete order form</target>
+      </trans-unit>
+      <trans-unit id="widget_group.cart">
+        <source>Cart</source>
+        <target state="needs-translation">Cart</target>
+      </trans-unit>
+      <trans-unit id="dashboard.widgets.payment_paid_shipping_open.title">
+        <source>Latest Orders (paid, not shipped)</source>
+        <target state="needs-translation">Latest Orders (paid, not shipped)</target>
+      </trans-unit>
+      <trans-unit id="dashboard.widgets.payment_paid_shipping_open.description">
+        <source>List of Paid but not Shipped Orders</source>
+        <target state="needs-translation">List of Paid but not Shipped Orders</target>
+      </trans-unit>
+      <trans-unit id="dashboard.widgets.orders_per_day.chart.dataSet.0">
+        <source>Total Orders</source>
+        <target state="needs-translation">Total Orders</target>
+      </trans-unit>
+      <trans-unit id="dashboard.widgets.orders_per_day.title">
+        <source>Orders per Day</source>
+        <target state="needs-translation">Orders per Day</target>
+      </trans-unit>
+      <trans-unit id="dashboard.widgets.orders_per_day.description">
+        <source>Orders per Day</source>
+        <target state="needs-translation">Orders per Day</target>
+      </trans-unit>
+      <trans-unit id="dashboard.widgets.turnover_per_day.title">
+        <source>Turnover per Day</source>
+        <target state="needs-translation">Turnover per Day</target>
+      </trans-unit>
+      <trans-unit id="dashboard.widgets.turnover_per_day.description">
+        <source>Turnover per Day</source>
+        <target state="needs-translation">Turnover per Day</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>
