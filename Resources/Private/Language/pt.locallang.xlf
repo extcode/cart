@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <xliff version="1.0">
-  <file source-language="en" datatype="plaintext" original="messages" date="2020-05-06T13:18:00Z" product-name="cart" target-language="pt-PT">
+  <file source-language="en" datatype="plaintext" original="messages" date="2020-05-06T13:18:00Z" product-name="cart" target-language="pt-BR">
     <header/>
     <body>
       <trans-unit id="tx_cart.error.stock_handling.add">
