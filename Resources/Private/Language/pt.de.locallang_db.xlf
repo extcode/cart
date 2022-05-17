@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <xliff version="1.0">
-  <file source-language="en" target-language="pt-BR" datatype="plaintext" original="messages" date="2021-06-10T23:58:00Z" product-name="cart">
+  <file source-language="en" target-language="pt-PT" datatype="plaintext" original="messages" date="2021-06-10T23:58:00Z" product-name="cart">
     <header/>
     <body>
       <trans-unit id="tx_cart.typoscript.default_configuration">
