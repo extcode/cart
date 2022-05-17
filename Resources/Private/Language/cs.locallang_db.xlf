@@ -1,0 +1,824 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xliff version="1.0">
+  <file source-language="en" datatype="plaintext" original="messages" date="2021-06-10T23:58:00Z" product-name="cart" target-language="cs">
+    <header/>
+    <body>
+      <trans-unit id="tx_cart.typoscript.default_configuration">
+        <source>Shopping Cart - Example Configuration</source>
+        <target state="needs-translation">Shopping Cart - Example Configuration</target>
+      </trans-unit>
+      <trans-unit id="tx_cart.module.main">
+        <source>Shopping Cart</source>
+        <target state="needs-translation">Shopping Cart</target>
+      </trans-unit>
+      <trans-unit id="tx_cart.module.orders">
+        <source>Orders</source>
+        <target state="needs-translation">Orders</target>
+      </trans-unit>
+      <trans-unit id="tx_cart.module.coupons">
+        <source>Coupons</source>
+        <target state="needs-translation">Coupons</target>
+      </trans-unit>
+      <trans-unit id="tx_cart.plugin.mini_cart">
+        <source>Cart: Mini-Cart</source>
+        <target state="needs-translation">Cart: Mini-Cart</target>
+      </trans-unit>
+      <trans-unit id="tx_cart.plugin.cart">
+        <source>Cart: Cart</source>
+        <target state="needs-translation">Cart: Cart</target>
+      </trans-unit>
+      <trans-unit id="tx_cart.plugin.currency">
+        <source>Cart: Currency Selector</source>
+        <target state="needs-translation">Cart: Currency Selector</target>
+      </trans-unit>
+      <trans-unit id="tx_cart.plugin.product">
+        <source>Cart: Product</source>
+        <target state="needs-translation">Cart: Product</target>
+      </trans-unit>
+      <trans-unit id="tx_cart.plugin.order">
+        <source>Cart: Orders</source>
+        <target state="needs-translation">Cart: Orders</target>
+      </trans-unit>
+      <trans-unit id="tx_cart.flexform.productId">
+        <source>Product Id</source>
+        <target state="needs-translation">Product Id</target>
+      </trans-unit>
+      <trans-unit id="tx_cart.flexform.cartPageId">
+        <source>Cart Page Id</source>
+        <target state="needs-translation">Cart Page Id</target>
+      </trans-unit>
+      <trans-unit id="tx_cart.flexform.seller.email_from_address">
+        <source>Sender email address for email to the Seller</source>
+        <target state="needs-translation">Sender email address for email to the Seller</target>
+      </trans-unit>
+      <trans-unit id="tx_cart.flexform.seller.email_to_address">
+        <source>Receiver email addresses (seperated by comma) for email to the Seller</source>
+        <target state="needs-translation">Receiver email addresses (seperated by comma) for email to the Seller</target>
+      </trans-unit>
+      <trans-unit id="tx_cart.flexform.seller.email_bcc_address">
+        <source>CC email addresses (seperated by comma) for email to the Seller</source>
+        <target state="needs-translation">CC email addresses (seperated by comma) for email to the Seller</target>
+      </trans-unit>
+      <trans-unit id="tx_cart.flexform.seller.email_bcc_address.description">
+        <source>The recipients of e-mails sent to one or more e-mail addresses separated by commas and listed in the so-called CC (Carbon Copy) field will receive a copy of the sent e-mail.</source>
+        <target state="needs-translation">The recipients of e-mails sent to one or more e-mail addresses separated by commas and listed in the so-called CC (Carbon Copy) field will receive a copy of the sent e-mail.</target>
+      </trans-unit>
+      <trans-unit id="tx_cart.flexform.seller.email_bcc_address">
+        <source>BCC email addresses (seperated by comma) for email to the Seller</source>
+        <target state="needs-translation">CC email addresses (seperated by comma) for email to the Seller</target>
+      </trans-unit>
+      <trans-unit id="tx_cart.flexform.seller.email_bcc_address.description">
+        <source>The recipients of e-mails sent to one or more e-mail addresses separated by commas and listed in the so-called BCC (Blind Carbon Copy) field will receive a copy of the sent e-mail without their address being visible to the other specified recipients. (Source: Wikipedia)</source>
+        <target state="needs-translation">The recipients of e-mails sent to one or more e-mail addresses separated by commas and listed in the so-called CC (Carbon Copy) field will receive a copy of the sent e-mail.</target>
+      </trans-unit>
+      <trans-unit id="tx_cart.flexform.buyer.email_from_address">
+        <source>Sender email address for email to the Buyer</source>
+        <target state="needs-translation">Sender email address for email to the Buyer</target>
+      </trans-unit>
+      <trans-unit id="tx_cart.flexform.buyer.email_cc_address">
+        <source>CC email addresses (seperated by comma) for email to the Buyer</source>
+        <target state="needs-translation">CC email addresses (seperated by comma) for email to the Buyer</target>
+      </trans-unit>
+      <trans-unit id="tx_cart.flexform.buyer.email_cc_address.description">
+        <source>The recipients of e-mails sent to one or more e-mail addresses separated by commas and listed in the so-called CC (Carbon Copy) field will receive a copy of the sent e-mail.</source>
+        <target state="needs-translation">The recipients of e-mails sent to one or more e-mail addresses separated by commas and listed in the so-called CC (Carbon Copy) field will receive a copy of the sent e-mail.</target>
+      </trans-unit>
+      <trans-unit id="tx_cart.flexform.buyer.email_bcc_address">
+        <source>BCC email addresses (seperated by comma) for email to the Buyer</source>
+        <target state="needs-translation">BCC email addresses (seperated by comma) for email to the Buyer</target>
+      </trans-unit>
+      <trans-unit id="tx_cart.flexform.buyer.email_bcc_address.description">
+        <source>The recipients of e-mails sent to one or more e-mail addresses separated by commas and listed in the so-called BCC (Blind Carbon Copy) field will receive a copy of the sent e-mail without their address being visible to the other specified recipients. (Source: Wikipedia)</source>
+        <target state="needs-translation">The recipients of e-mails sent to one or more e-mail addresses separated by commas and listed in the so-called BCC (Blind Carbon Copy) field will receive a copy of the sent e-mail without their address being visible to the other specified recipients. (Source: Wikipedia)</target>
+      </trans-unit>
+      <trans-unit id="tx_cart.flexform.buyer.email_reply_to_address">
+        <source>Reply To email address for email to the Buyer</source>
+        <target state="needs-translation">Reply To email address for email to the Buyer</target>
+      </trans-unit>
+      <trans-unit id="tx_cart.flexform.buyer.email_reply_to_address.description">
+        <source>The Reply To will override the default address configured in TYPO3 configuration.</source>
+        <target state="needs-translation">The Reply To will override the default address configured in TYPO3 configuration.</target>
+      </trans-unit>
+      <trans-unit id="tx_cart.tax_class_id">
+        <source>Tax Class</source>
+        <target state="needs-translation">Tax Class</target>
+      </trans-unit>
+      <trans-unit id="tx_cart.tax_class_id.1">
+        <source>normal</source>
+        <target state="needs-translation">normal</target>
+      </trans-unit>
+      <trans-unit id="tx_cart.tax_class_id.2">
+        <source>reduced</source>
+        <target state="needs-translation">reduced</target>
+      </trans-unit>
+      <trans-unit id="tx_cart.tax_class_id.3">
+        <source>free</source>
+        <target state="needs-translation">free</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_order_item">
+        <source>Order</source>
+        <target state="needs-translation">Order</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_order_item.palettes.numbers">
+        <source>Order and Invoice Number</source>
+        <target state="needs-translation">Order and Invoice Number</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_order_item.palettes.purchaser">
+        <source>Purchaser</source>
+        <target state="needs-translation">Purchaser</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_order_item.palettes.addresses">
+        <source>Addresses</source>
+        <target state="needs-translation">Addresses</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_order_item.palettes.price">
+        <source>Price</source>
+        <target state="needs-translation">Price</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_order_item.palettes.total_price">
+        <source>Total Price</source>
+        <target state="needs-translation">Total Price</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_order_item.palettes.payment">
+        <source>Payment</source>
+        <target state="needs-translation">Payment</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_order_item.palettes.shipping">
+        <source>Shipping</source>
+        <target state="needs-translation">Shipping</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_order_item.palettes.documents">
+        <source>Documents</source>
+        <target state="needs-translation">Documents</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_order_item.fe_user">
+        <source>User</source>
+        <target state="needs-translation">User</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_order_item.fe_user.not_available">
+        <source>not available</source>
+        <target state="needs-translation">not available</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_order_item.order_number">
+        <source>Order Number</source>
+        <target state="needs-translation">Order Number</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_order_item.order_date">
+        <source>Order Date</source>
+        <target state="needs-translation">Order Date</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_order_item.invoice_number">
+        <source>Invoice Number</source>
+        <target state="needs-translation">Invoice Number</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_order_item.invoice_date">
+        <source>Invoice Date</source>
+        <target state="needs-translation">Invoice Date</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_order_item.delivery_number">
+        <source>Delivery Note Number</source>
+        <target state="needs-translation">Delivery Note Number</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_order_item.delivery_date">
+        <source>Delivery Note Date</source>
+        <target state="needs-translation">Delivery Note Date</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_order_item.first_name">
+        <source>Firstname</source>
+        <target state="needs-translation">Firstname</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_order_item.last_name">
+        <source>Lastname</source>
+        <target state="needs-translation">Lastname</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_order_item.email">
+        <source>Email</source>
+        <target state="needs-translation">Email</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_order_item.billing_address">
+        <source>Billing Address</source>
+        <target state="needs-translation">Billing Address</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_order_item.shipping_address">
+        <source>Shipping Address</source>
+        <target state="needs-translation">Shipping Address</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_order_item.tax_class">
+        <source>Tax Classes</source>
+        <target state="needs-translation">Tax Classes</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_order_item.currency">
+        <source>Currency</source>
+        <target state="needs-translation">Currency</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_order_item.currency_code">
+        <source>Currency Code</source>
+        <target state="needs-translation">Currency Code</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_order_item.currency_sign">
+        <source>Currency Sign</source>
+        <target state="needs-translation">Currency Sign</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_order_item.currency_translation">
+        <source>Currency Translation</source>
+        <target state="needs-translation">Currency Translation</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_order_item.gross">
+        <source>Price (Gross)</source>
+        <target state="needs-translation">Price (Gross)</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_order_item.net">
+        <source>Price (Net)</source>
+        <target state="needs-translation">Price (Net)</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_order_item.total_gross">
+        <source>Total Price (Gross)</source>
+        <target state="needs-translation">Total Price (Gross)</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_order_item.total_net">
+        <source>Total Price (Net)</source>
+        <target state="needs-translation">Total Price (Net)</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_order_item.comment">
+        <source>Comment</source>
+        <target state="needs-translation">Comment</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_order_item.additional_data">
+        <source>Additional Data</source>
+        <target state="needs-translation">Additional Data</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_order_item.additional">
+        <source>Additional Data (JSON)</source>
+        <target state="needs-translation">Additional Data (JSON)</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_order_item.order_pdfs">
+        <source>Order Confirmations (PDF)</source>
+        <target state="needs-translation">Order Confirmations (PDF)</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_order_item.invoice_pdfs">
+        <source>Invoices (PDF)</source>
+        <target state="needs-translation">Invoices (PDF)</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_order_item.delivery_pdfs">
+        <source>Delivery Notes (PDF)</source>
+        <target state="needs-translation">Delivery Notes (PDF)</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_order_item.tax">
+        <source>Tax</source>
+        <target state="needs-translation">Tax</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_order_item.total_tax">
+        <source>Total Tax</source>
+        <target state="needs-translation">Total Tax</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_order_item.products">
+        <source>Products</source>
+        <target state="needs-translation">Products</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_order_item.discounts">
+        <source>Discounts</source>
+        <target state="needs-translation">Discounts</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_order_item.shipping">
+        <source>Shipping</source>
+        <target state="needs-translation">Shipping</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_order_item.payment">
+        <source>Payment</source>
+        <target state="needs-translation">Payment</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_order_address.record_type">
+        <source>Record Type</source>
+        <target state="needs-translation">Record Type</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_order_address.record_type.billing">
+        <source>Billing Address</source>
+        <target state="needs-translation">Billing Address</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_order_address.record_type.shipping">
+        <source>Shipping Address</source>
+        <target state="needs-translation">Shipping Address</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_order_address.title">
+        <source>Title</source>
+        <target state="needs-translation">Title</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_order_address.salutation">
+        <source>Salutation</source>
+        <target state="needs-translation">Salutation</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_order_address.first_name">
+        <source>First Name</source>
+        <target state="needs-translation">First Name</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_order_address.last_name">
+        <source>Last Name</source>
+        <target state="needs-translation">Last Name</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_order_address.email">
+        <source>Email</source>
+        <target state="needs-translation">Email</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_order_address.phone">
+        <source>Phone</source>
+        <target state="needs-translation">Phone</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_order_address.fax">
+        <source>Fax</source>
+        <target state="needs-translation">Fax</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_order_address.company">
+        <source>Company</source>
+        <target state="needs-translation">Company</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_order_address.tax_identification_number">
+        <source>Tax Identification Number</source>
+        <target state="needs-translation">Tax Identification Number</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_order_address.street">
+        <source>Street</source>
+        <target state="needs-translation">Street</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_order_address.street_number">
+        <source>Street Number</source>
+        <target state="needs-translation">Street Number</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_order_address.zip">
+        <source>Zip</source>
+        <target state="needs-translation">Zip</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_order_address.city">
+        <source>City</source>
+        <target state="needs-translation">City</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_order_address.country">
+        <source>Country</source>
+        <target state="needs-translation">Country</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_order_address.phone">
+        <source>Phone</source>
+        <target state="needs-translation">Phone</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_order_address.fax">
+        <source>Fax</source>
+        <target state="needs-translation">Fax</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_order_address.additional">
+        <source>Additional Fields</source>
+        <target state="needs-translation">Additional Fields</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_order_tax">
+        <source>Order Tax</source>
+        <target state="needs-translation">Order Tax</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_order_tax.tax">
+        <source>Tax</source>
+        <target state="needs-translation">Tax</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_order_tax.tax_class">
+        <source>Tax Class</source>
+        <target state="needs-translation">Tax Class</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_order_product">
+        <source>Product</source>
+        <target state="needs-translation">Product</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_order_product.product_type">
+        <source>Type</source>
+        <target state="needs-translation">Type</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_order_product.product_type.simple">
+        <source>simple</source>
+        <target state="needs-translation">simple</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_order_product.product_type.configurable">
+        <source>configurable</source>
+        <target state="needs-translation">configurable</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_order_product.product_type.virtual">
+        <source>virtual</source>
+        <target state="needs-translation">virtual</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_order_product.product_type.downloadable">
+        <source>downloadable</source>
+        <target state="needs-translation">downloadable</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_order_product.sku">
+        <source>SKU</source>
+        <target state="needs-translation">SKU</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_order_product.title">
+        <source>Title</source>
+        <target state="needs-translation">Title</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_order_product.count">
+        <source>Count</source>
+        <target state="needs-translation">Count</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_order_product.price.group">
+        <source>Price</source>
+        <target state="needs-translation">Price</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_order_product.price">
+        <source>Base Price</source>
+        <target state="needs-translation">Base Price</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_order_product.discount">
+        <source>Discount</source>
+        <target state="needs-translation">Discount</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_order_product.gross">
+        <source>Price (gross)</source>
+        <target state="needs-translation">Price (gross)</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_order_product.net">
+        <source>Price (net)</source>
+        <target state="needs-translation">Price (net)</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_order_product.tax_class">
+        <source>Tax Class</source>
+        <target state="needs-translation">Tax Class</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_order_product.tax">
+        <source>Tax</source>
+        <target state="needs-translation">Tax</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_order_product.additional_data">
+        <source>Additional Data</source>
+        <target state="needs-translation">Additional Data</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_order_product.additional">
+        <source>Additional Data (JSON)</source>
+        <target state="needs-translation">Additional Data (JSON)</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_order_product.product_additional">
+        <source>Product Additional</source>
+        <target state="needs-translation">Product Additional</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_order_discount">
+        <source>Discount</source>
+        <target state="needs-translation">Discount</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_order_discount.title">
+        <source>Title</source>
+        <target state="needs-translation">Title</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_order_discount.code">
+        <source>Code</source>
+        <target state="needs-translation">Code</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_order_discount.gross">
+        <source>Discount (gross)</source>
+        <target state="needs-translation">Discount (gross)</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_order_discount.net">
+        <source>Discount (net)</source>
+        <target state="needs-translation">Discount (net)</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_order_discount.tax_class_id">
+        <source>Tax Class</source>
+        <target state="needs-translation">Tax Class</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_order_discount.tax_class_id.1">
+        <source>normal</source>
+        <target state="needs-translation">normal</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_order_discount.tax_class_id.2">
+        <source>reduced</source>
+        <target state="needs-translation">reduced</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_order_discount.tax_class_id.3">
+        <source>free</source>
+        <target state="needs-translation">free</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_order_discount.tax">
+        <source>Tax</source>
+        <target state="needs-translation">Tax</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_order_productadditional">
+        <source>Order Product Additional</source>
+        <target state="needs-translation">Order Product Additional</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_order_productadditional.additional_type">
+        <source>Type</source>
+        <target state="needs-translation">Type</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_order_productadditional.additional_key">
+        <source>Key</source>
+        <target state="needs-translation">Key</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_order_productadditional.additional_value">
+        <source>Value</source>
+        <target state="needs-translation">Value</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_order_productadditional.additional_data">
+        <source>Additional Data</source>
+        <target state="needs-translation">Additional Data</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_order_productadditional.additional">
+        <source>Additional Data (JSON)</source>
+        <target state="needs-translation">Additional Data (JSON)</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_order_shipping">
+        <source>Shipping</source>
+        <target state="needs-translation">Shipping</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_order_shipping.palettes.service">
+        <source>Service TypoScript Configuration</source>
+        <target state="needs-translation">Service TypoScript Configuration</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_order_shipping.service_country">
+        <source>Service Country</source>
+        <target state="needs-translation">Service Country</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_order_shipping.service_id">
+        <source>Service ID</source>
+        <target state="needs-translation">Service ID</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_order_shipping.name">
+        <source>Name</source>
+        <target state="needs-translation">Name</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_order_shipping.gross">
+        <source>Price (gross)</source>
+        <target state="needs-translation">Price (gross)</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_order_shipping.net">
+        <source>Price (net)</source>
+        <target state="needs-translation">Price (net)</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_order_shipping.tax">
+        <source>Tax</source>
+        <target state="needs-translation">Tax</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_order_shipping.tax_class">
+        <source>Tax Class</source>
+        <target state="needs-translation">Tax Class</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_order_shipping.status">
+        <source>Status</source>
+        <target state="needs-translation">Status</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_order_shipping.status.open">
+        <source>open</source>
+        <target state="needs-translation">open</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_order_shipping.status.on_hold">
+        <source>on hold</source>
+        <target state="needs-translation">on hold</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_order_shipping.status.in_process">
+        <source>in process</source>
+        <target state="needs-translation">in process</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_order_shipping.status.shipped">
+        <source>shipped</source>
+        <target state="needs-translation">shipped</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_order_shipping.note">
+        <source>Note</source>
+        <target state="needs-translation">Note</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_order_payment">
+        <source>Payment</source>
+        <target state="needs-translation">Payment</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_order_payment.palettes.service">
+        <source>Service TypoScript Configuration</source>
+        <target state="needs-translation">Service TypoScript Configuration</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_order_payment.service_country">
+        <source>Service Country</source>
+        <target state="needs-translation">Service Country</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_order_payment.service_id">
+        <source>Service ID</source>
+        <target state="needs-translation">Service ID</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_order_payment.name">
+        <source>Name</source>
+        <target state="needs-translation">Name</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_order_payment.provider">
+        <source>Provider</source>
+        <target state="needs-translation">Provider</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_order_payment.gross">
+        <source>Price (gross)</source>
+        <target state="needs-translation">Price (gross)</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_order_payment.net">
+        <source>Price (net)</source>
+        <target state="needs-translation">Price (net)</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_order_payment.tax">
+        <source>Tax</source>
+        <target state="needs-translation">Tax</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_order_payment.tax_class">
+        <source>Tax Class</source>
+        <target state="needs-translation">Tax Class</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_order_payment.status">
+        <source>Status</source>
+        <target state="needs-translation">Status</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_order_payment.status.open">
+        <source>open</source>
+        <target state="needs-translation">open</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_order_payment.status.pending">
+        <source>pending</source>
+        <target state="needs-translation">pending</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_order_payment.status.paid">
+        <source>paid</source>
+        <target state="needs-translation">paid</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_order_payment.status.canceled">
+        <source>canceled</source>
+        <target state="needs-translation">canceled</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_order_payment.note">
+        <source>Note</source>
+        <target state="needs-translation">Note</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_order_payment.transactions">
+        <source>Transactions</source>
+        <target state="needs-translation">Transactions</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_order_transaction">
+        <source>Transaction</source>
+        <target state="needs-translation">Transaction</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_order_transaction.txn_id">
+        <source>Transaction ID</source>
+        <target state="needs-translation">Transaction ID</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_order_transaction.txn_txt">
+        <source>Transaction TXT</source>
+        <target state="needs-translation">Transaction TXT</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_order_transaction.status">
+        <source>Status</source>
+        <target state="needs-translation">Status</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_order_transaction.status.unknown">
+        <source>unknown</source>
+        <target state="needs-translation">unknown</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_order_transaction.status.invalid">
+        <source>invalid</source>
+        <target state="needs-translation">invalid</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_order_transaction.status.open">
+        <source>open</source>
+        <target state="needs-translation">open</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_order_transaction.status.pending">
+        <source>pending</source>
+        <target state="needs-translation">pending</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_order_transaction.status.paid">
+        <source>paid</source>
+        <target state="needs-translation">paid</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_order_transaction.status.canceled">
+        <source>canceled</source>
+        <target state="needs-translation">canceled</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_order_transaction.external_status_code">
+        <source>External Status Code</source>
+        <target state="needs-translation">External Status Code</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_order_transaction.note">
+        <source>Note</source>
+        <target state="needs-translation">Note</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_order_taxclass">
+        <source>Order Tax Class</source>
+        <target state="needs-translation">Order Tax Class</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_order_taxclass.title">
+        <source>Title</source>
+        <target state="needs-translation">Title</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_order_taxclass.value">
+        <source>Value</source>
+        <target state="needs-translation">Value</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_order_taxclass.calc">
+        <source>Calc</source>
+        <target state="needs-translation">Calc</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_order_address">
+        <source>Order Address</source>
+        <target state="needs-translation">Order Address</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_coupon">
+        <source>Coupon</source>
+        <target state="needs-translation">Coupon</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_coupon.title">
+        <source>Title</source>
+        <target state="needs-translation">Title</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_coupon.code">
+        <source>Code</source>
+        <target state="needs-translation">Code</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_coupon.coupon_type">
+        <source>Type</source>
+        <target state="needs-translation">Type</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_coupon.coupon_type.cartdiscount">
+        <source>Cart Discount</source>
+        <target state="needs-translation">Cart Discount</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_coupon.is_relative_discount">
+        <source>Is Relative Discount</source>
+        <target state="needs-translation">Is Relative Discount</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_coupon.discount">
+        <source>Discount</source>
+        <target state="needs-translation">Discount</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_coupon.tax_class_id">
+        <source>Tax Class</source>
+        <target state="needs-translation">Tax Class</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_coupon.tax_class_id.1">
+        <source>normal</source>
+        <target state="needs-translation">normal</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_coupon.tax_class_id.2">
+        <source>reduced</source>
+        <target state="needs-translation">reduced</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_coupon.tax_class_id.3">
+        <source>free</source>
+        <target state="needs-translation">free</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_coupon.cart_min_price">
+        <source>Minimum Price in Cart</source>
+        <target state="needs-translation">Minimum Price in Cart</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_coupon.is_combinable">
+        <source>Is Combinable with other Coupons</source>
+        <target state="needs-translation">Is Combinable with other Coupons</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_coupon.handle_available">
+        <source>Handle number coupons availability</source>
+        <target state="needs-translation">Handle number coupons availability</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_coupon.number_available">
+        <source>Number of Coupons available</source>
+        <target state="needs-translation">Number of Coupons available</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_coupon.number_used">
+        <source>Number of Coupons used</source>
+        <target state="needs-translation">Number of Coupons used</target>
+      </trans-unit>
+      <trans-unit id="tx_cart.plugin.products.action.product.flexform">
+        <source>Flexform</source>
+        <target state="needs-translation">Flexform</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_tag">
+        <source>Tag</source>
+        <target state="needs-translation">Tag</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_tags">
+        <source>Tags</source>
+        <target state="needs-translation">Tags</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_tag.title">
+        <source>Title</source>
+        <target state="needs-translation">Title</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_cart">
+        <source>Cart Session</source>
+        <target state="needs-translation">Cart Session</target>
+      </trans-unit>
+      <trans-unit id="tx_cart.settings.allowed_countries.de">
+        <source>Germany</source>
+        <target state="needs-translation">Germany</target>
+      </trans-unit>
+      <trans-unit id="tx_cart.settings.allowed_countries.at">
+        <source>Austria</source>
+        <target state="needs-translation">Austria</target>
+      </trans-unit>
+      <trans-unit id="tx_cart.settings.allowed_countries.ch">
+        <source>Switzerland</source>
+        <target state="needs-translation">Switzerland</target>
+      </trans-unit>
+      <trans-unit id="pages.doktype.181">
+        <source>Cart: Cart</source>
+        <target state="needs-translation">Cart: Cart</target>
+      </trans-unit>
+      <trans-unit id="pages.doktype.182">
+        <source>Cart: Product</source>
+        <target state="needs-translation">Cart: Product</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>
