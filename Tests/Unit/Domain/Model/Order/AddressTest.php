@@ -38,6 +38,7 @@ class AddressTest extends UnitTestCase
         $company = 'company';
         $street = 'street';
         $streetNumber = 'streetNumber';
+        $addition = 'addition';
         $zip = 'zip';
         $city = 'city';
         $country = 'country';
@@ -52,6 +53,7 @@ class AddressTest extends UnitTestCase
         $this->address->setCompany($company);
         $this->address->setStreet($street);
         $this->address->setStreetNumber($streetNumber);
+        $this->address->setAddition($addition);
         $this->address->setZip($zip);
         $this->address->setCity($city);
         $this->address->setCountry($country);
@@ -67,6 +69,7 @@ class AddressTest extends UnitTestCase
             'company' => $company,
             'street' => $street,
             'streetNumber' => $streetNumber,
+            'addition' => $addition,
             'zip' => $zip,
             'city' => $city,
             'country' => $country,
@@ -448,6 +451,31 @@ class AddressTest extends UnitTestCase
         self::assertSame(
             $street,
             $this->address->getStreet()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function getAdditionInitiallyReturnsEmptyString(): void
+    {
+        self::assertSame(
+            '',
+            $this->address->getAddition()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function setAdditionSetsAddition(): void
+    {
+        $addition = 'addition';
+        $this->address->setAddition($addition);
+
+        self::assertSame(
+            $addition,
+            $this->address->getAddition()
         );
     }
 

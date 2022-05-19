@@ -29,10 +29,10 @@ return [
     'hideTable' => 1,
     'types' => [
         '\Extcode\Cart\Domain\Model\Order\BillingAddress' => [
-            'showitem' => 'title, salutation, first_name, last_name, email, phone, fax, company, street, zip, city, country, phone, fax, additional, tax_identification_number',
+            'showitem' => 'title, salutation, first_name, last_name, email, phone, fax, company, street, addition, zip, city, country, phone, fax, additional, tax_identification_number',
         ],
         '\Extcode\Cart\Domain\Model\Order\ShippingAddress' => [
-            'showitem' => 'title, salutation, first_name, last_name, email, phone, fax, company, street, zip, city, country, phone, fax, additional',
+            'showitem' => 'title, salutation, first_name, last_name, email, phone, fax, company, street, addition, zip, city, country, phone, fax, additional',
         ],
     ],
     'palettes' => [
@@ -137,6 +137,16 @@ return [
         'street_number' => [
             'exclude' => 0,
             'label' => $_LLL . ':tx_cart_domain_model_order_address.street_number',
+            'config' => [
+                'type' => 'input',
+                'readOnly' => 1,
+                'size' => 30,
+                'eval' => 'trim'
+            ],
+        ],
+        'addition' => [
+            'exclude' => 0,
+            'label' => $_LLL . ':tx_cart_domain_model_order_address.addition',
             'config' => [
                 'type' => 'input',
                 'readOnly' => 1,

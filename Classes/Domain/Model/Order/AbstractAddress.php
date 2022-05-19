@@ -61,6 +61,11 @@ abstract class AbstractAddress extends AbstractEntity
     /**
      * @var string
      */
+    protected $addition = '';
+
+    /**
+     * @var string
+     */
     protected $zip = '';
 
     /**
@@ -101,6 +106,7 @@ abstract class AbstractAddress extends AbstractEntity
             'company' => $this->getCompany(),
             'street' => $this->getStreet(),
             'streetNumber' => $this->getStreetNumber(),
+            'addition' => $this->getAddition(),
             'zip' => $this->getZip(),
             'city' => $this->getCity(),
             'country' => $this->getCountry(),
@@ -345,6 +351,22 @@ abstract class AbstractAddress extends AbstractEntity
     public function setCity(string $city)
     {
         $this->city = $city;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAddition(): string
+    {
+        return $this->addition;
+    }
+
+    /**
+     * @param string $addition
+     */
+    public function setAddition(string $addition): void
+    {
+        $this->addition = $addition;
     }
 
     /**

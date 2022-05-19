@@ -187,6 +187,9 @@ plugin.tx_cart {
                     streetNumber {
                         validator = {$plugin.tx_cart.settings.validation.billingAddress.fields.streetNumber.validator}
                     }
+                    addition {
+                        validator = {$plugin.tx_cart.settings.validation.billingAddress.fields.addition.validator}
+                    }
                     zip {
                         validator = {$plugin.tx_cart.settings.validation.billingAddress.fields.zip.validator}
                     }
@@ -220,6 +223,9 @@ plugin.tx_cart {
                     }
                     streetNumber {
                         validator = {$plugin.tx_cart.settings.validation.shippingAddress.fields.streetNumber.validator}
+                    }
+                    addition {
+                        validator = {$plugin.tx_cart.settings.validation.shippingAddress.fields.addition.validator}
                     }
                     zip {
                         validator = {$plugin.tx_cart.settings.validation.shippingAddress.fields.zip.validator}

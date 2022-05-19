@@ -9,6 +9,9 @@
                 <span>{address.company}</span><br/>
             </f:if>
             {address.street} {address.streetNumber}<br/>
+            <f:if condition="{address.addition}">
+                <span>{address.addition}</span><br/>
+            </f:if>
             {address.zip} {address.city}<br/>
             <f:if condition="{address.country}">
                 <f:translate key="tx_cart.settings.allowed_countries.{address.country}" default="{address.country}"/>

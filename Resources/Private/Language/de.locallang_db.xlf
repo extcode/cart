@@ -337,6 +337,10 @@
                 <source>Street Number</source>
                 <target>Hausnummer</target>
             </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_address.addition">
+                <source>Addition</source>
+                <target>Adresszusatz</target>
+            </trans-unit>
             <trans-unit id="tx_cart_domain_model_order_address.zip">
                 <source>Zip</source>
                 <target>Postleitzahl</target>

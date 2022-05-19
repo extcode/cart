@@ -465,6 +465,42 @@
                         </f:else>
                     </f:if>
 
+                    <f:if condition="{0: settings.validation.shippingAddress.fields.addition.validator} != {0: 'Empty'}">
+                        <div class="field">
+                            <f:if condition="{0: settings.validation.shippingAddress.fields.addition.validator} == {0: 'NotEmpty'}">
+                                <f:then>
+                                    <label for="shippingAddress-addition" class="required">
+                                        <f:translate key="tx_cart_domain_model_order_address.addition"/>
+                                        <em>*</em>
+                                    </label>
+                                    <div class="input-box">
+                                        <f:form.textfield id="shippingAddress-addition"
+                                                          class="form-control"
+                                                          name="shippingAddress[addition]"
+                                                          value="{shippingAddress.addition}"
+                                                          required="true"/>
+                                        <f:form.validationResults for="shippingAddress">
+                                            <f:if condition="{validationResults.flattenedErrors.addition}">
+                                                <div class="validation-error alert alert-danger">{validationResults.flattenedErrors.addition.0.message}</div>
+                                            </f:if>
+                                        </f:form.validationResults>
+                                    </div>
+                                </f:then>
+                                <f:else>
+                                    <label for="shippingAddress-addition">
+                                        <f:translate key="tx_cart_domain_model_order_address.addition"/>
+                                    </label>
+                                    <div class="input-box">
+                                        <f:form.textfield id="shippingAddress-addition"
+                                                          class="form-control"
+                                                          name="shippingAddress[addition]"
+                                                          value="{shippingAddress.addition}"/>
+                                    </div>
+                                </f:else>
+                            </f:if>
+                        </div>
+                    </f:if>
+
                     <div class="row">
                         <f:if condition="{0: settings.validation.shippingAddress.fields.zip.validator} != {0: 'Empty'}">
                             <div class="col-sm-4 column">

@@ -8,4 +8,5 @@ Cart Configuration
    :titlesonly:
 
    Checkbox/Index
+   Validation/Index
    MultiStepCheckout/Index

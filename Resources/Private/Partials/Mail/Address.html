@@ -10,6 +10,9 @@
             </f:if>
             {billingAddress.salutationTitleFullName}<br />
             {billingAddress.street} {billingAddress.streetNumber}<br />
+            <f:if condition="{billingAddress.addition}">
+                {billingAddress.addition}<br />
+            </f:if>
             {billingAddress.zip} {billingAddress.city}<br />
             <f:if condition="{billingAddress.country}">
                 <f:translate key="LLL:EXT:cart/Resources/Private/Language/locallang.xlf:tx_cart.settings.allowed_countries.{billingAddress.country}" default="{billingAddress.country}"/><br />
