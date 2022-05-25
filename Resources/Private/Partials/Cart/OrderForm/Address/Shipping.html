@@ -478,7 +478,9 @@
                                                           class="form-control"
                                                           name="shippingAddress[addition]"
                                                           value="{shippingAddress.addition}"
-                                                          required="true"/>
+                                                          required="true"
+                                                          disabled="{f:if(condition:'{cart.shippingSameAsBilling}', then:'true')}"
+                                                          data="{disable-shipping:'true'}"/>
                                         <f:form.validationResults for="shippingAddress">
                                             <f:if condition="{validationResults.flattenedErrors.addition}">
                                                 <div class="validation-error alert alert-danger">{validationResults.flattenedErrors.addition.0.message}</div>
@@ -494,7 +496,9 @@
                                         <f:form.textfield id="shippingAddress-addition"
                                                           class="form-control"
                                                           name="shippingAddress[addition]"
-                                                          value="{shippingAddress.addition}"/>
+                                                          value="{shippingAddress.addition}"
+                                                          disabled="{f:if(condition:'{cart.shippingSameAsBilling}', then:'true')}"
+                                                          data="{disable-shipping:'true'}"/>
                                     </div>
                                 </f:else>
                             </f:if>

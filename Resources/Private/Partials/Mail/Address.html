@@ -29,6 +29,9 @@
                     </f:if>
                     {shippingAddress.salutationTitleFullName}<br />
                     {shippingAddress.street} {shippingAddress.streetNumber}<br />
+                    <f:if condition="{shippingAddress.addition}">
+                        {shippingAddress.addition}<br />
+                    </f:if>
                     {shippingAddress.zip} {shippingAddress.city}<br />
                     <f:if condition="{shippingAddress.country}">
                         <f:translate key="LLL:EXT:cart/Resources/Private/Language/locallang.xlf:tx_cart.settings.allowed_countries.{shippingAddress.country}" default="{shippingAddress.country}"/><br />
