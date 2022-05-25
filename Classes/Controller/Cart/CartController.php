@@ -13,12 +13,15 @@ use Extcode\Cart\Domain\Model\Order\BillingAddress;
 use Extcode\Cart\Domain\Model\Order\Item;
 use Extcode\Cart\Domain\Model\Order\ShippingAddress;
 use Extcode\Cart\Event\CheckProductAvailabilityEvent;
+use Extcode\Cart\View\CartTemplateView;
 use http\Exception\InvalidArgumentException;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\View\ViewInterface;
 
 class CartController extends ActionController
 {
+    protected $defaultViewObjectName = CartTemplateView::class;
+
     protected function initializeView(ViewInterface $view): void
     {
         if ($this->request->getControllerActionName() !== 'show') {
@@ -36,7 +39,7 @@ class CartController extends ActionController
             if ($currentStep > $steps) {
                 throw new InvalidArgumentException();
             }
-            $view->setTemplate('ShowStep' . $currentStep);
+            $view->setStep($currentStep);
 
             if ($currentStep < $steps) {
                 $view->assign('nextStep', $currentStep+1);
