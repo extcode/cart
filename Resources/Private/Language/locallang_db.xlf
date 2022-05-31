@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-    <file source-language="en" datatype="plaintext" original="messages" date="2021-06-10T23:58:00Z" product-name="cart">
+    <file source-language="en" datatype="plaintext" original="messages" date="2022-05-31T19:53:00Z" product-name="cart">
         <header/>
         <body>
 
@@ -575,6 +575,12 @@
             </trans-unit>
             <trans-unit id="tx_cart_domain_model_coupon.coupon_type.cartdiscount">
                 <source>Cart Discount</source>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_coupon.coupon_type.cartdiscount.fix">
+                <source>Cart Discount (fix)</source>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_coupon.coupon_type.cartdiscount.percentage">
+                <source>Cart Discount (percentage)</source>
             </trans-unit>
             <trans-unit id="tx_cart_domain_model_coupon.is_relative_discount">
                 <source>Is Relative Discount</source>

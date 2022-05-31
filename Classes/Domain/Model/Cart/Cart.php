@@ -508,8 +508,13 @@ class Cart
         $taxes = $this->getSubtotalTaxes();
 
         $serviceTaxes = $this->getServiceTaxes();
-        foreach ($serviceTaxes as $serviceTaxClassId => $serviceTax) {
-            $taxes[$serviceTaxClassId] += $serviceTax;
+        foreach ($serviceTaxes as $taxClassId => $tax) {
+            $taxes[$taxClassId] += $tax;
+        }
+
+        $couponTaxes = $this->getCouponTaxes();
+        foreach ($couponTaxes as $taxClassId => $tax) {
+            $taxes[$taxClassId] -= $tax;
         }
 
         return $taxes;
@@ -884,11 +889,23 @@ class Cart
         if ($this->coupons) {
             foreach ($this->coupons as $coupon) {
                 if ($coupon->getIsUseable()) {
+                    // TODO block will be removed / replaced by a getTaxes() method in v9.x for TYPO3 v12 and v11.
                     $tax = $coupon->getTax();
-                    if (array_key_exists($coupon->getTaxClass()->getId(), $taxes)) {
-                        $taxes[$coupon->getTaxClass()->getId()] += $tax;
+                    $taxClassId = $coupon->getTaxClass()->getId();
+                    if (array_key_exists($taxClassId, $taxes)) {
+                        $taxes[$taxClassId] += $tax;
                     } else {
-                        $taxes[$coupon->getTaxClass()->getId()] = $tax;
+                        $taxes[$taxClassId] = $tax;
+                    }
+
+                    if (method_exists($coupon, 'getTaxes')) {
+                        foreach ($coupon->getTaxes() as $taxClassId => $tax) {
+                            if (array_key_exists($taxClassId, $taxes)) {
+                                $taxes[$taxClassId] += $tax;
+                            } else {
+                                $taxes[$taxClassId] = $tax;
+                            }
+                        }
                     }
                 }
             }

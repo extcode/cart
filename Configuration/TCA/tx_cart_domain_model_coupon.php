@@ -110,13 +110,15 @@ return [
                 'type' => 'select',
                 'renderType' => 'selectSingle',
                 'items' => [
-                    [$_LLL . ':tx_cart_domain_model_coupon.coupon_type.cartdiscount', 'cartdiscount'],
+                    [$_LLL . ':tx_cart_domain_model_coupon.coupon_type.cartdiscount.fix', 'cartdiscount'],
+                    [$_LLL . ':tx_cart_domain_model_coupon.coupon_type.cartdiscount.percentage', \Extcode\Cart\Domain\Model\Cart\CartCouponPercentage::class],
                 ],
                 'default' => 'cartdiscount',
                 'size' => 1,
                 'minitems' => 0,
                 'maxitems' => 1,
-            ]
+            ],
+            'onChange' => 'reload',
         ],
         'discount' => [
             'exclude' => 0,
@@ -152,6 +154,7 @@ return [
         ],
         'is_combinable' => [
             'exclude' => 1,
+            'displayCond' => 'FIELD:coupon_type:=:cartdiscount',
             'label' => $_LLL . ':tx_cart_domain_model_coupon.is_combinable',
             'config' => [
                 'type' => 'check',

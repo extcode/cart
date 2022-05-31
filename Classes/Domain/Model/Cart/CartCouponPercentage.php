@@ -9,10 +9,7 @@ namespace Extcode\Cart\Domain\Model\Cart;
  * LICENSE file that was distributed with this source code.
  */
 
-/**
- * @deprecated will be removed in version 9.x for TYPO3 v12 and TYPO3 v11
- */
-class CartCoupon implements CartCouponInterface
+class CartCouponPercentage implements CartCouponInterface
 {
     /**
      * @var \Extcode\Cart\Domain\Model\Cart\Cart
@@ -83,7 +80,9 @@ class CartCoupon implements CartCouponInterface
         $this->discount = $discount;
         $this->cartMinPrice = $cartMinPrice;
         $this->taxClass = $taxClass;
-        $this->isCombinable = $isCombinable;
+        // Currently, percentage vouchers are not combinable, because here then the order of discount calculation for
+        // different voucher types plays a role and can lead to different prices in the shopping cart.
+        $this->isCombinable = false;
     }
 
     /**
@@ -139,7 +138,7 @@ class CartCoupon implements CartCouponInterface
      */
     public function getDiscount(): float
     {
-        return $this->discount;
+        return $this->discount / 100;
     }
 
     /**
@@ -147,7 +146,7 @@ class CartCoupon implements CartCouponInterface
      */
     public function getTranslatedDiscount(): float
     {
-        $discount = $this->getDiscount();
+        $discount = $this->cart->getGross() * $this->getDiscount();
 
         if ($this->cart) {
             $discount = $this->cart->translatePrice($discount);
@@ -169,7 +168,12 @@ class CartCoupon implements CartCouponInterface
      */
     public function getNet(): float
     {
-        $net = $this->getTranslatedDiscount() / ($this->getTaxClass()->getCalc() + 1);
+        $net = $this->getGross();
+
+        foreach ($this->getTaxes() as $tax) {
+            $net -= $tax;
+        }
+
         return $net;
     }
 
@@ -186,8 +190,18 @@ class CartCoupon implements CartCouponInterface
      */
     public function getTax(): float
     {
-        $tax = $this->getTranslatedDiscount() - ($this->getTranslatedDiscount() / ($this->getTaxClass()->getCalc() + 1));
-        return $tax;
+        return 0.0;
+    }
+
+    public function getTaxes(): array
+    {
+        $taxes = [];
+
+        foreach ($this->cart->getTaxes() as $taxClassId => $tax) {
+            $taxes[$taxClassId] = $tax * $this->getDiscount();
+        }
+
+        return $taxes;
     }
 
     /**

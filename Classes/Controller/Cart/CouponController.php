@@ -9,7 +9,7 @@ namespace Extcode\Cart\Controller\Cart;
  * LICENSE file that was distributed with this source code.
  */
 
-use Extcode\Cart\Domain\Model\Cart\CartCoupon;
+use Extcode\Cart\Domain\Model\Cart\CartCouponInterface;
 use Extcode\Cart\Domain\Repository\CouponRepository;
 use TYPO3\CMS\Core\Messaging\AbstractMessage;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -44,45 +44,67 @@ class CouponController extends ActionController
             /** @var \Extcode\Cart\Domain\Model\Coupon $coupon */
             $coupon = $this->couponRepository->findOneByCode($couponCode);
             if ($coupon && $coupon->getIsAvailable()) {
-                $newCartCoupon = GeneralUtility::makeInstance(
-                    CartCoupon::class,
-                    $coupon->getTitle(),
-                    $coupon->getCode(),
-                    $coupon->getCouponType(),
-                    $coupon->getDiscount(),
-                    $this->cart->getTaxClass($coupon->getTaxClassId()),
-                    $coupon->getCartMinPrice(),
-                    $coupon->getIsCombinable()
-                );
+                $couponType = $coupon->getCouponType();
 
-                $couponWasAdded = $this->cart->addCoupon($newCartCoupon);
+                // will be removed in version 9.x for TYPO3 v12 and TYPO3 v11
+                // TODO: provide an upgrade wizard to change the coupon_type in Database
+                if ($couponType === 'cartdiscount') {
+                    $couponType = \Extcode\Cart\Domain\Model\Cart\CartCoupon::class;
+                }
 
-                if ($couponWasAdded == 1) {
-                    $this->addFlashMessage(
-                        LocalizationUtility::translate(
-                            'tx_cart.ok.coupon.added',
-                            'Cart'
-                        ),
-                        '',
-                        AbstractMessage::OK,
-                        true
+                $interfaces = class_implements($couponType);
+
+                if (isset($interfaces[CartCouponInterface::class])) {
+                    $newCartCoupon = GeneralUtility::makeInstance(
+                        $couponType,
+                        $coupon->getTitle(),
+                        $coupon->getCode(),
+                        $coupon->getCouponType(),
+                        $coupon->getDiscount(),
+                        $this->cart->getTaxClass($coupon->getTaxClassId()),
+                        $coupon->getCartMinPrice(),
+                        $coupon->getIsCombinable()
                     );
-                }
-                if ($couponWasAdded == -1) {
+
+                    $couponWasAdded = $this->cart->addCoupon($newCartCoupon);
+
+                    if ($couponWasAdded == 1) {
+                        $this->addFlashMessage(
+                            LocalizationUtility::translate(
+                                'tx_cart.ok.coupon.added',
+                                'Cart'
+                            ),
+                            '',
+                            AbstractMessage::OK,
+                            true
+                        );
+                    }
+                    if ($couponWasAdded == -1) {
+                        $this->addFlashMessage(
+                            LocalizationUtility::translate(
+                                'tx_cart.error.coupon.already_added',
+                                'Cart'
+                            ),
+                            '',
+                            AbstractMessage::WARNING,
+                            true
+                        );
+                    }
+                    if ($couponWasAdded == -2) {
+                        $this->addFlashMessage(
+                            LocalizationUtility::translate(
+                                'tx_cart.error.coupon.not_combinable',
+                                'Cart'
+                            ),
+                            '',
+                            AbstractMessage::WARNING,
+                            true
+                        );
+                    }
+                } else {
                     $this->addFlashMessage(
                         LocalizationUtility::translate(
-                            'tx_cart.error.coupon.already_added',
-                            'Cart'
-                        ),
-                        '',
-                        AbstractMessage::WARNING,
-                        true
-                    );
-                }
-                if ($couponWasAdded == -2) {
-                    $this->addFlashMessage(
-                        LocalizationUtility::translate(
-                            'tx_cart.error.coupon.not_combinable',
+                            'tx_cart.error.coupon.not_accepted',
                             'Cart'
                         ),
                         '',

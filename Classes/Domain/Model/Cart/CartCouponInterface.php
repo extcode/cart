@@ -27,50 +27,42 @@ interface CartCouponInterface
 
     /**
      * Returns true if a coupon can be combined with other coupons.
-     *
-     * @return bool
      */
     public function getIsCombinable(): bool;
 
     /**
      * Returns the Discount
      *
-     * @return float
+     * @deprecated will be removed in v9.x for TYPO3 v12 and v11. For internal use only.
      */
     public function getDiscount(): float;
 
     /**
-     * Returns Gross of Discount
-     *
-     * @return float
+     * Returns calculated Gross of Discount
      */
     public function getGross(): float;
 
     /**
-     * Returns Net of Discount
-     *
-     * @return float
+     * Returns calculated Net of Discount
      */
     public function getNet(): float;
 
     /**
      * Returns Tax Class
      *
-     * @return TaxClass
+     * @deprecated will be removed in v9.x for TYPO3 v12 and v11.
      */
     public function getTaxClass(): TaxClass;
 
     /**
      * Returns Tax of Discount
      *
-     * @return float
+     * @deprecated will be replaced by a getTaxes() method in v9.x for TYPO3 v12 and v11.
      */
     public function getTax(): float;
 
     /**
      * Returns true if a voucher is applicable.
-     *
-     * @return bool
      */
     public function getIsUseable(): bool;
 }
