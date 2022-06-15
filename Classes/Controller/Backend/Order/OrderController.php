@@ -52,9 +52,8 @@ class OrderController extends ActionController
     {
         parent::initializeAction();
 
-        $arguments = $this->request->getArguments();
-        if ($arguments['search']) {
-            $this->searchArguments = $arguments['search'];
+        if ($this->request->hasArgument('search')) {
+            $this->searchArguments = $this->request->getArgument('search');
         }
     }
 
