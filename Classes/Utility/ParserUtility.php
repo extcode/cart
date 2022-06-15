@@ -28,11 +28,7 @@ class ParserUtility
      */
     public function parseTaxClasses(array $pluginSettings, $countryCode)
     {
-        if ($pluginSettings['taxClasses']['className']) {
-            $className = $pluginSettings['taxClasses']['className'];
-        } else {
-            $className = TaxClassService::class;
-        }
+        $className = $pluginSettings['taxClasses']['className'] ?? TaxClassService::class;
 
         $service = GeneralUtility::makeInstance(
             $className
