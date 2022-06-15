@@ -8,19 +8,6 @@ $_LLL_db = 'LLL:EXT:cart/Resources/Private/Language/locallang_db.xlf:';
  * Register Backend Modules
  */
 if (TYPO3_MODE === 'BE') {
-    if (!isset($GLOBALS['TBE_MODULES']['_configuration']['Cart'])) {
-        $temp_TBE_MODULES = [];
-
-        foreach ($GLOBALS['TBE_MODULES']['_configuration'] as $key => $val) {
-            $temp_TBE_MODULES[$key] = $val;
-            if ($key === 'file') {
-                $temp_TBE_MODULES['Cart'] = '';
-            }
-        }
-
-        $GLOBALS['TBE_MODULES']['_configuration'] = $temp_TBE_MODULES;
-    }
-
     // add Main Module
     \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerModule(
         'Cart',
