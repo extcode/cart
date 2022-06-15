@@ -370,7 +370,10 @@ class MailHandler implements SingletonInterface
             $email->replyTo($this->getbuyerEmailReplyTo());
         }
 
-        if ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['cart']['MailAttachmentsHook']) {
+        if (
+            isset($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['cart']['MailAttachmentsHook']) &&
+            !empty($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['cart']['MailAttachmentsHook'])
+        ) {
             foreach ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['cart']['MailAttachmentsHook'] as $className) {
                 $mailAttachmentHook = GeneralUtility::makeInstance($className);
                 if (!$mailAttachmentHook instanceof MailAttachmentHookInterface) {
@@ -424,7 +427,10 @@ class MailHandler implements SingletonInterface
             $email->bcc(...$bcc);
         }
 
-        if ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['cart']['MailAttachmentsHook']) {
+        if (
+            isset($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['cart']['MailAttachmentsHook']) &&
+            !empty($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['cart']['MailAttachmentsHook'])
+        ) {
             foreach ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['cart']['MailAttachmentsHook'] as $className) {
                 $mailAttachmentHook = GeneralUtility::makeInstance($className);
 
