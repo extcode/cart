@@ -59,31 +59,36 @@ class ParserUtility
 
         $pluginSettingsType = $this->getTypePluginSettings($pluginSettings, $cart, $type);
 
-        if ($pluginSettingsType['options']) {
-            foreach ($pluginSettingsType['options'] as $serviceKey => $serviceConfig) {
-                if (!empty($serviceConfig['className'])) {
-                    $className = $serviceConfig['className'];
-                } else {
-                    $className = Service::class;
-                }
+        if (
+            !isset($pluginSettingsType['options']) ||
+            empty($pluginSettingsType['options'])
+        ) {
+            return $services;
+        }
 
-                $service = GeneralUtility::makeInstance(
-                    $className,
-                    (int)$serviceKey,
-                    $serviceConfig
-                );
-                if (!$service instanceof ServiceInterface) {
-                    throw new \UnexpectedValueException($className . ' must implement interface ' . ServiceInterface::class, 123);
-                }
-
-                $service->setCart($cart);
-
-                if ($pluginSettingsType['preset'] == $serviceKey) {
-                    $service->setPreset(true);
-                }
-
-                $services[$serviceKey] = $service;
+        foreach ($pluginSettingsType['options'] as $serviceKey => $serviceConfig) {
+            if (!empty($serviceConfig['className'])) {
+                $className = $serviceConfig['className'];
+            } else {
+                $className = Service::class;
             }
+
+            $service = GeneralUtility::makeInstance(
+                $className,
+                (int)$serviceKey,
+                $serviceConfig
+            );
+            if (!$service instanceof ServiceInterface) {
+                throw new \UnexpectedValueException($className . ' must implement interface ' . ServiceInterface::class, 123);
+            }
+
+            $service->setCart($cart);
+
+            if ($pluginSettingsType['preset'] == $serviceKey) {
+                $service->setPreset(true);
+            }
+
+            $services[$serviceKey] = $service;
         }
 
         return $services;
@@ -96,8 +101,14 @@ class ParserUtility
      *
      * @return array
      */
-    public function getTypePluginSettings(array $pluginSettings, Cart $cart, $type)
+    public function getTypePluginSettings(array $pluginSettings, Cart $cart, string $type): ?array
     {
+        if (
+            !isset($pluginSettings[$type]) ||
+            empty($pluginSettings[$type])
+        ) {
+            return null;
+        }
         $pluginSettingsType = $pluginSettings[$type];
         $selectedCountry = $pluginSettings['settings']['defaultCountry'];
 
