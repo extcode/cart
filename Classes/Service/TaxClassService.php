@@ -48,9 +48,15 @@ class TaxClassService implements TaxClassServiceInterface
         $taxClasses = [];
         $taxClassSettings = $this->settings['taxClasses'];
 
-        if ($countryCode && is_array($taxClassSettings[$countryCode])) {
+        if (
+            array_key_exists($countryCode, $taxClassSettings) &&
+            is_array($taxClassSettings[$countryCode])
+        ) {
             $taxClassSettings = $taxClassSettings[$countryCode];
-        } elseif ($taxClassSettings['fallback'] && is_array($taxClassSettings['fallback'])) {
+        } elseif (
+            array_key_exists('fallback', $taxClassSettings) &&
+            is_array($taxClassSettings['fallback'])
+        ) {
             $taxClassSettings = $taxClassSettings['fallback'];
         }
 
