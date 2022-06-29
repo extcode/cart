@@ -23,10 +23,11 @@ class SessionHandler implements SingletonInterface
      *
      * @return \Extcode\Cart\Domain\Model\Cart\Cart
      */
-    public function restore($key)
+    public function restore($key): ?Cart
     {
         $sessionData = $GLOBALS['TSFE']->fe_user->getKey('ses', $this->prefixKey . $key);
-        return unserialize($sessionData);
+
+        return ($sessionData === null) ? null : unserialize($sessionData);
     }
 
     /**
