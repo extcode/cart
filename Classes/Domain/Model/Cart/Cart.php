@@ -199,7 +199,6 @@ class Cart
             'shipping',
             'payment',
             'specials',
-            'service',
             'products',
             'coupons',
             'maxServiceAttr1',
