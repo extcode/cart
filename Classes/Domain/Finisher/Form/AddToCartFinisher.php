@@ -12,10 +12,14 @@ namespace Extcode\Cart\Domain\Finisher\Form;
 use Extcode\Cart\Domain\Model\Cart\Cart;
 use Extcode\Cart\Domain\Model\Cart\Product;
 use Extcode\Cart\Utility\CartUtility;
+use TYPO3\CMS\Core\Http\PropagateResponseException;
+use TYPO3\CMS\Core\Http\StreamFactory;
 use TYPO3\CMS\Core\Messaging\AbstractMessage;
 use TYPO3\CMS\Core\Messaging\FlashMessage;
+use TYPO3\CMS\Core\Messaging\FlashMessageService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManager;
+use TYPO3\CMS\Extbase\Service\ExtensionService;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 use TYPO3\CMS\Form\Domain\Finishers\AbstractFinisher;
 
@@ -94,7 +98,7 @@ class AddToCartFinisher extends AbstractFinisher
 
             $pageType = $GLOBALS['TYPO3_REQUEST']->getAttribute('routing')->getPageType();
             if (in_array((int)$pageType, $this->pluginSettings['settings']['jsonResponseForPageTypes'])) {
-                $response = [
+                $payload = [
                     'status' => $status,
                     'added' => $quantity,
                     'count' => $this->cart->getCount(),
@@ -105,7 +109,18 @@ class AddToCartFinisher extends AbstractFinisher
                     'severity' => $severity
                 ];
 
-                $this->finisherContext->getFormRuntime()->getResponse()->setContent(json_encode($response));
+                if (version_compare((new \TYPO3\CMS\Install\Service\CoreVersionService)->getInstalledVersion(), '11.5.0', '>=')) {
+                    $streamFactory = GeneralUtility::makeInstance(StreamFactory::class);
+                    $stream = $streamFactory->createStream(json_encode($payload));
+                    $response = $this->finisherContext->getFormRuntime()->getResponse()
+                        ->withAddedHeader('Content-Type', 'application/json; charset=utf-8')
+                        ->withBody($stream)
+                        ->withStatus((int)$status);
+                    /** @see \TYPO3\CMS\Form\Domain\Finishers\RedirectFinisher::redirectToUri */
+                    throw new PropagateResponseException($response, 1655984985);
+                } else {
+                    $this->finisherContext->getFormRuntime()->getResponse()->setContent(json_encode($payload));
+                }
             } else {
                 $flashMessage = GeneralUtility::makeInstance(
                     FlashMessage::class,
@@ -115,7 +130,20 @@ class AddToCartFinisher extends AbstractFinisher
                     true
                 );
 
-                $this->finisherContext->getControllerContext()->getFlashMessageQueue()->addMessage($flashMessage);
+                if (version_compare((new \TYPO3\CMS\Install\Service\CoreVersionService)->getInstalledVersion(), '11.5.0', '>=')) {
+                    $extensionService = GeneralUtility::makeInstance(ExtensionService::class);
+                    $flashMessageService = GeneralUtility::makeInstance(FlashMessageService::class);
+
+                    // todo: this value has to be taken from the request directly in the future
+                    $pluginNamespace = $extensionService->getPluginNamespace(
+                        $this->finisherContext->getRequest()->getControllerExtensionName(),
+                        $this->finisherContext->getRequest()->getPluginName()
+                    );
+
+                    $flashMessageService->getMessageQueueByIdentifier('extbase.flashmessages.' . $pluginNamespace)->addMessage($flashMessage);
+                } else {
+                    $this->finisherContext->getControllerContext()->getFlashMessageQueue()->addMessage($flashMessage);
+                }
             }
         }
     }

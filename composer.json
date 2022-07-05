@@ -33,6 +33,10 @@
         }
     },
     "config": {
+        "allow-plugins": {
+            "typo3/class-alias-loader": true,
+            "typo3/cms-composer-installers": true
+        },
         "bin-dir": ".build/bin",
         "vendor-dir": ".build/vendor"
     },
