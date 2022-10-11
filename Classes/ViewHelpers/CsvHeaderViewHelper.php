@@ -14,7 +14,6 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 class CsvHeaderViewHelper extends AbstractViewHelper
 {
-
     /**
      * Output is escaped already. We must not escape children, to avoid double encoding.
      *

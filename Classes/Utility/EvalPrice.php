@@ -11,7 +11,6 @@ namespace Extcode\Cart\Utility;
 
 class EvalPrice
 {
-
     /**
      * Returns Field JS
      *

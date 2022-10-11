@@ -24,7 +24,6 @@ use TYPO3\CMS\Form\Slot\FilePersistenceSlot;
 
 class ItemsProcFunc
 {
-
     /** @var TemplateLayout $templateLayoutsUtility */
     protected $templateLayoutsUtility;
 

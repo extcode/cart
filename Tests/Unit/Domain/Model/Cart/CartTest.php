@@ -17,7 +17,6 @@ use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 class CartTest extends UnitTestCase
 {
-
     /**
      * @var Cart
      */
@@ -621,9 +620,10 @@ class CartTest extends UnitTestCase
 
         $this->netCart->addProduct($netProduct);
 
-        self::assertEquals(
+        self::assertEqualsWithDelta(
             $productPrice * (1 + $this->normalTaxClass->getCalc()),
-            $this->netCart->getGross()
+            $this->netCart->getGross(),
+            0.000000000001
         );
     }
 
@@ -671,9 +671,10 @@ class CartTest extends UnitTestCase
 
         $this->grossCart->addProduct($netProduct);
 
-        self::assertEquals(
+        self::assertEqualsWithDelta(
             $productPrice * (1 + $this->normalTaxClass->getCalc()),
-            $this->grossCart->getGross()
+            $this->grossCart->getGross(),
+            0.000000000001
         );
     }
 
@@ -699,9 +700,10 @@ class CartTest extends UnitTestCase
 
         $cartTaxes = $this->grossCart->getTaxes();
 
-        self::assertEquals(
+        self::assertEqualsWithDelta(
             $productPrice - ($productPrice / (1 + $this->normalTaxClass->getCalc())),
-            $cartTaxes[$taxId]
+            $cartTaxes[$taxId],
+            0.000000000001
         );
     }
 
@@ -738,9 +740,10 @@ class CartTest extends UnitTestCase
 
         $cartTaxes = $this->grossCart->getTaxes();
 
-        self::assertEquals(
+        self::assertEqualsWithDelta(
             ($firstCartProductPrice + $secondCartProductPrice) - (($firstCartProductPrice + $secondCartProductPrice) / (1 + $this->normalTaxClass->getCalc())),
-            $cartTaxes[$this->normalTaxClass->getId()]
+            $cartTaxes[$this->normalTaxClass->getId()],
+            0.000000000001
         );
     }
 
@@ -777,13 +780,15 @@ class CartTest extends UnitTestCase
 
         $cartTaxes = $this->grossCart->getTaxes();
 
-        self::assertEquals(
+        self::assertEqualsWithDelta(
             $firstCartProductPrice - ($firstCartProductPrice / (1 + $this->normalTaxClass->getCalc())),
-            $cartTaxes[$this->normalTaxClass->getId()]
+            $cartTaxes[$this->normalTaxClass->getId()],
+            0.000000000001
         );
-        self::assertEquals(
+        self::assertEqualsWithDelta(
             $secondCartProductPrice - ($secondCartProductPrice / (1 + $this->reducedTaxClass->getCalc())),
-            $cartTaxes[$this->reducedTaxClass->getId()]
+            $cartTaxes[$this->reducedTaxClass->getId()],
+            0.000000000001
         );
     }
 
