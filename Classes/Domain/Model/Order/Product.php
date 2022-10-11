@@ -8,14 +8,14 @@ namespace Extcode\Cart\Domain\Model\Order;
  * For the full copyright and license information, please read the
  * LICENSE file that was distributed with this source code.
  */
-
+use TYPO3\CMS\Extbase\Annotation\Validate;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 
 class Product extends AbstractEntity
 {
     /**
-     * @var \Extcode\Cart\Domain\Model\Order\Item
+     * @var Item
      */
     protected $item;
 
@@ -31,55 +31,55 @@ class Product extends AbstractEntity
 
     /**
      * @var string
-     * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
+     * @Validate("NotEmpty")
      */
     protected $sku = '';
 
     /**
      * @var string
-     * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
+     * @Validate("NotEmpty")
      */
     protected $title = '';
 
     /**
      * @var int
-     * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
+     * @Validate("NotEmpty")
      */
     protected $count = 0;
 
     /**
      * @var float
-     * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
+     * @Validate("NotEmpty")
      */
     protected $price = 0.0;
 
     /**
      * @var float
-     * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
+     * @Validate("NotEmpty")
      */
     protected $discount = 0.0;
 
     /**
      * @var float
-     * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
+     * @Validate("NotEmpty")
      */
     protected $gross = 0.0;
 
     /**
      * @var float
-     * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
+     * @Validate("NotEmpty")
      */
     protected $net = 0.0;
 
     /**
-     * @var \Extcode\Cart\Domain\Model\Order\TaxClass
-     * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
+     * @var TaxClass
+     * @Validate("NotEmpty")
      */
     protected $taxClass;
 
     /**
      * @var float
-     * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
+     * @Validate("NotEmpty")
      */
     protected $tax = 0.0;
 
@@ -89,7 +89,7 @@ class Product extends AbstractEntity
     protected $additionalData = '';
 
     /**
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Extcode\Cart\Domain\Model\Order\ProductAdditional>
+     * @var ObjectStorage<ProductAdditional>
      */
     protected $productAdditional;
 
@@ -316,7 +316,7 @@ class Product extends AbstractEntity
     }
 
     /**
-     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Extcode\Cart\Domain\Model\Order\ProductAdditional>
+     * @return ObjectStorage<ProductAdditional>
      */
     public function getProductAdditional()
     {
@@ -324,7 +324,7 @@ class Product extends AbstractEntity
     }
 
     /**
-     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Extcode\Cart\Domain\Model\Order\ProductAdditional> $productAdditional
+     * @param ObjectStorage<ProductAdditional> $productAdditional
      */
     public function setProductAdditional(ObjectStorage $productAdditional)
     {

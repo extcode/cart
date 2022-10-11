@@ -17,7 +17,7 @@ use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
 class TaxClassServiceTest extends FunctionalTestCase
 {
     /**
-     * @var \Extcode\Cart\Service\TaxClassService
+     * @var TaxClassService
      */
     protected $taxClassService;
 

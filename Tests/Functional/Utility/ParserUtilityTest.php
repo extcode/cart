@@ -18,7 +18,7 @@ use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
 class ParserUtilityTest extends FunctionalTestCase
 {
     /**
-     * @var \Extcode\Cart\Utility\ParserUtility
+     * @var ParserUtility
      */
     protected $parserUtility;
 

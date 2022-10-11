@@ -8,8 +8,8 @@ namespace Extcode\Cart\Utility;
  * For the full copyright and license information, please read the
  * LICENSE file that was distributed with this source code.
  */
-
 use Extcode\Cart\Domain\Model\Cart\Cart;
+use Extcode\Cart\Domain\Model\Cart\Service;
 use Extcode\Cart\Service\SessionHandler;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Request;
@@ -20,19 +20,19 @@ class CartUtility
     /**
      * Session Handler
      *
-     * @var \Extcode\Cart\Service\SessionHandler
+     * @var SessionHandler
      */
     protected $sessionHandler;
 
     /**
      * Parser Utility
      *
-     * @var \Extcode\Cart\Utility\ParserUtility
+     * @var ParserUtility
      */
     protected $parserUtility;
 
     /**
-     * @param \Extcode\Cart\Service\SessionHandler $sessionHandler
+     * @param SessionHandler $sessionHandler
      */
     public function injectSessionHandler(
         SessionHandler $sessionHandler
@@ -41,7 +41,7 @@ class CartUtility
     }
 
     /**
-     * @param \Extcode\Cart\Utility\ParserUtility $parserUtility
+     * @param ParserUtility $parserUtility
      */
     public function injectParserUtility(
         ParserUtility $parserUtility
@@ -102,7 +102,7 @@ class CartUtility
     /**
      * @param array $cartSettings
      * @param array $pluginSettings
-     * @param \TYPO3\CMS\Extbase\Mvc\Request $request
+     * @param Request $request
      */
     public function updateCountry(array $cartSettings, array $pluginSettings, Request $request)
     {
@@ -178,7 +178,7 @@ class CartUtility
     /**
      * @var array $pluginSettings
      *
-     * @return \Extcode\Cart\Domain\Model\Cart\Cart
+     * @return Cart
      */
     public function getCartFromSession(array $pluginSettings)
     {
@@ -195,7 +195,7 @@ class CartUtility
     /**
      * Restore cart from session or creates a new one
      *
-     * @param \Extcode\Cart\Domain\Model\Cart\Cart $cart
+     * @param Cart $cart
      * @param array $cartSettings
      */
     public function writeCartToSession($cart, $cartSettings)
@@ -208,7 +208,7 @@ class CartUtility
      *
      * @param array $pluginSettings TypoScript Plugin Settings
      *
-     * @return \Extcode\Cart\Domain\Model\Cart\Cart
+     * @return Cart
      */
     public function getNewCart(array $pluginSettings)
     {
@@ -224,7 +224,7 @@ class CartUtility
 
         $taxClasses = $this->parserUtility->parseTaxClasses($pluginSettings, $defaultCountry);
 
-        /** @var \Extcode\Cart\Domain\Model\Cart\Cart $cart */
+        /** @var Cart $cart */
         $cart = GeneralUtility::makeInstance(
             Cart::class,
             $taxClasses,
@@ -248,7 +248,7 @@ class CartUtility
 
     /**
      * @param array $pluginSettings
-     * @param \Extcode\Cart\Domain\Model\Cart\Cart $cart
+     * @param Cart $cart
      */
     protected function setShipping(array $pluginSettings, Cart $cart)
     {
@@ -257,7 +257,7 @@ class CartUtility
         foreach ($shippings as $shipping) {
             /**
              * Shipping
-             * @var \Extcode\Cart\Domain\Model\Cart\Service $shipping
+             * @var Service $shipping
              */
             if ($shipping->isPreset()) {
                 if (!$shipping->isAvailable($cart->getGross())) {
@@ -272,7 +272,7 @@ class CartUtility
 
     /**
      * @param array $pluginSettings
-     * @param \Extcode\Cart\Domain\Model\Cart\Cart $cart
+     * @param Cart $cart
      */
     protected function setPayment(array $pluginSettings, Cart $cart)
     {
@@ -281,7 +281,7 @@ class CartUtility
         foreach ($payments as $payment) {
             /**
              * Payment
-             * @var \Extcode\Cart\Domain\Model\Cart\Service $payment
+             * @var Service $payment
              */
             if ($payment->isPreset()) {
                 if (!$payment->isAvailable($cart->getGross())) {

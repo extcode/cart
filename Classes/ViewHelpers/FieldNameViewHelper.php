@@ -52,7 +52,7 @@ class FieldNameViewHelper extends AbstractViewHelper
     }
 
     /**
-     * @param \Extcode\Cart\Domain\Model\Cart\BeVariant $variant
+     * @param BeVariant $variant
      *
      * @return string
      */

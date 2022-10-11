@@ -55,7 +55,7 @@ class ActionViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\Link\ActionViewHelpe
     }
 
     /**
-     * @param \Extcode\Cart\Domain\Model\Cart\BeVariant $variant
+     * @param BeVariant $variant
      *
      * @return string
      */

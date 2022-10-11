@@ -67,7 +67,7 @@ class Product
     protected $net;
 
     /**
-     * @var \Extcode\Cart\Domain\Model\Cart\TaxClass
+     * @var TaxClass
      */
     protected $taxClass;
 
@@ -112,7 +112,7 @@ class Product
     protected $beVariants = [];
 
     /**
-     * @var \Extcode\Cart\Domain\Model\Cart\FeVariant
+     * @var FeVariant
      */
     protected $feVariant = null;
 
@@ -279,7 +279,7 @@ class Product
     public function changeVariantsQuantity(array $variantQuantity)
     {
         foreach ($variantQuantity as $variantId => $quantity) {
-            /** @var \Extcode\Cart\Domain\Model\Cart\BeVariant $variant */
+            /** @var BeVariant $variant */
             $variant = $this->beVariants[$variantId];
 
             if (ctype_digit($quantity)) {
@@ -334,7 +334,7 @@ class Product
     public function removeBeVariants(array $variantsArray): int
     {
         foreach ($variantsArray as $variantId => $value) {
-            /** @var \Extcode\Cart\Domain\Model\Cart\BeVariant $variant */
+            /** @var BeVariant $variant */
             $variant = $this->beVariants[$variantId];
             if ($variant) {
                 if (is_array($value)) {
@@ -868,7 +868,7 @@ class Product
             if ($this->beVariants) {
                 $sum = 0.0;
                 foreach ($this->beVariants as $variant) {
-                    /** @var \Extcode\Cart\Domain\Model\Cart\BeVariant $variant */
+                    /** @var BeVariant $variant */
                     $sum += $variant->getGross();
                 }
                 $this->gross = $sum;
@@ -897,7 +897,7 @@ class Product
             if ($this->beVariants) {
                 $sum = 0.0;
                 foreach ($this->beVariants as $variant) {
-                    /** @var \Extcode\Cart\Domain\Model\Cart\BeVariant $variant */
+                    /** @var BeVariant $variant */
                     $sum += $variant->getNet();
                 }
                 $this->net = $sum;
@@ -916,7 +916,7 @@ class Product
         if ($this->beVariants) {
             $quantity = 0;
             foreach ($this->beVariants as $variant) {
-                /** @var \Extcode\Cart\Domain\Model\Cart\BeVariant $variant */
+                /** @var BeVariant $variant */
                 $quantity += $variant->getQuantity();
             }
 

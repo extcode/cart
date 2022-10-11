@@ -8,13 +8,13 @@ namespace Extcode\Cart\Domain\Model\Order;
  * For the full copyright and license information, please read the
  * LICENSE file that was distributed with this source code.
  */
-
+use TYPO3\CMS\Extbase\Annotation\Validate;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 
 abstract class AbstractService extends AbstractEntity
 {
     /**
-     * @var \Extcode\Cart\Domain\Model\Order\Item
+     * @var Item
      */
     protected $item = null;
 
@@ -25,19 +25,19 @@ abstract class AbstractService extends AbstractEntity
 
     /**
      * @var int
-     * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
+     * @Validate("NotEmpty")
      */
     protected $serviceId;
 
     /**
      * @var string
-     * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
+     * @Validate("NotEmpty")
      */
     protected $name = '';
 
     /**
      * @var string
-     * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
+     * @Validate("NotEmpty")
      */
     protected $status = 'open';
 
@@ -52,13 +52,13 @@ abstract class AbstractService extends AbstractEntity
     protected $gross = 0.0;
 
     /**
-     * @var \Extcode\Cart\Domain\Model\Order\TaxClass
+     * @var TaxClass
      */
     protected $taxClass;
 
     /**
      * @var float
-     * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
+     * @Validate("NotEmpty")
      */
     protected $tax = 0.0;
 

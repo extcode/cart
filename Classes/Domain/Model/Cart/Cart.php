@@ -12,7 +12,7 @@ namespace Extcode\Cart\Domain\Model\Cart;
 class Cart
 {
     /**
-     * @var \Extcode\Cart\Domain\Model\Cart\TaxClass[]
+     * @var TaxClass[]
      */
     protected $taxClasses;
 
@@ -37,7 +37,7 @@ class Cart
     protected $count;
 
     /**
-     * @var \Extcode\Cart\Domain\Model\Cart\Product[]
+     * @var Product[]
      */
     protected $products = [];
 
@@ -112,7 +112,7 @@ class Cart
     protected $orderId;
 
     /**
-     * @var \Extcode\Cart\Domain\Model\Cart\CartCouponInterface[]
+     * @var CartCouponInterface[]
      */
     protected $coupons = [];
 
@@ -147,7 +147,7 @@ class Cart
     protected $currencyTranslation = 1.0;
 
     /**
-     * @param \Extcode\Cart\Domain\Model\Cart\TaxClass[] $taxClasses
+     * @param TaxClass[] $taxClasses
      * @param bool $isNetCart
      * @param string $currencyCode
      * @param string $currencySign
@@ -228,7 +228,7 @@ class Cart
     /**
      * Gets the Tax Classes Array
      *
-     * @return \Extcode\Cart\Domain\Model\Cart\TaxClass[]
+     * @return TaxClass[]
      */
     public function getTaxClasses()
     {
@@ -257,7 +257,7 @@ class Cart
      *
      * @param int $taxClassId Tax Class Id
      *
-     * @return \Extcode\Cart\Domain\Model\Cart\TaxClass
+     * @return TaxClass
      */
     public function getTaxClass($taxClassId)
     {
@@ -430,7 +430,7 @@ class Cart
 
     /**
      * @param float $tax
-     * @param \Extcode\Cart\Domain\Model\Cart\TaxClass $taxClass
+     * @param TaxClass $taxClass
      */
     public function addTax($tax, $taxClass)
     {
@@ -530,7 +530,7 @@ class Cart
 
     /**
      * @param float $tax
-     * @param \Extcode\Cart\Domain\Model\Cart\TaxClass $taxClass
+     * @param TaxClass $taxClass
      */
     public function subTax($tax, $taxClass)
     {
@@ -704,7 +704,7 @@ class Cart
     }
 
     /**
-     * @return \Extcode\Cart\Domain\Model\Cart\Product[]
+     * @return Product[]
      */
     public function getProducts()
     {
@@ -714,7 +714,7 @@ class Cart
     /**
      * @param $id
      *
-     * @return \Extcode\Cart\Domain\Model\Cart\Product
+     * @return Product
      */
     public function getProductById($id)
     {
@@ -724,7 +724,7 @@ class Cart
     /**
      * @param $id
      *
-     * @return \Extcode\Cart\Domain\Model\Cart\Product
+     * @return Product
      *
      * @see getProductById
      */

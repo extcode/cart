@@ -20,21 +20,21 @@ class ActionController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControlle
     /**
      * Session Handler
      *
-     * @var \Extcode\Cart\Service\SessionHandler
+     * @var SessionHandler
      */
     protected $sessionHandler;
 
     /**
      * Cart Utility
      *
-     * @var \Extcode\Cart\Utility\CartUtility
+     * @var CartUtility
      */
     protected $cartUtility;
 
     /**
      * Parser Utility
      *
-     * @var \Extcode\Cart\Utility\ParserUtility
+     * @var ParserUtility
      */
     protected $parserUtility;
 
@@ -48,7 +48,7 @@ class ActionController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControlle
     /**
      * Cart
      *
-     * @var \Extcode\Cart\Domain\Model\Cart\Cart
+     * @var Cart
      */
     protected $cart;
 
@@ -74,7 +74,7 @@ class ActionController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControlle
     protected $specials = [];
 
     /**
-     * @param \Extcode\Cart\Service\SessionHandler $sessionHandler
+     * @param SessionHandler $sessionHandler
      */
     public function injectSessionHandler(
         SessionHandler $sessionHandler
@@ -83,7 +83,7 @@ class ActionController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControlle
     }
 
     /**
-     * @param \Extcode\Cart\Utility\CartUtility $cartUtility
+     * @param CartUtility $cartUtility
      */
     public function injectCartUtility(
         CartUtility $cartUtility
@@ -92,7 +92,7 @@ class ActionController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControlle
     }
 
     /**
-     * @param \Extcode\Cart\Utility\ParserUtility $parserUtility
+     * @param ParserUtility $parserUtility
      */
     public function injectParserUtility(
         ParserUtility $parserUtility

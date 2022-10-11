@@ -1,18 +1,6 @@
 module.tx_cart {
     persistence {
         storagePid = {$module.tx_cart.persistence.storagePid}
-
-        classes {
-            TYPO3\CMS\Extbase\Domain\Model\FrontendUser {
-                mapping {
-                    tableName = fe_users
-                    recordType = TYPO3\CMS\Extbase\Domain\Model\FrontendUser
-                    columns {
-                        lockToDomain.mapOnProperty = lockToDomain
-                    }
-                }
-            }
-        }
     }
 
     settings {

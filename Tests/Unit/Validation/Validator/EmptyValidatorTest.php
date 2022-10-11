@@ -8,8 +8,8 @@ namespace Extcode\Cart\Tests\Unit\Validation\Validator;
  * For the full copyright and license information, please read the
  * LICENSE file that was distributed with this source code.
  */
-
 use Extcode\Cart\Validation\Validator\EmptyValidator;
+use TYPO3\CMS\Extbase\Validation\Validator\ValidatorInterface;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 class EmptyValidatorTest extends UnitTestCase
@@ -20,7 +20,7 @@ class EmptyValidatorTest extends UnitTestCase
     protected $validatorClassName = EmptyValidator::class;
 
     /**
-     * @var \TYPO3\CMS\Extbase\Validation\Validator\ValidatorInterface
+     * @var ValidatorInterface
      */
     protected $validator;
 

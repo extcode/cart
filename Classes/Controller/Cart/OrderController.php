@@ -8,7 +8,6 @@ namespace Extcode\Cart\Controller\Cart;
  * For the full copyright and license information, please read the
  * LICENSE file that was distributed with this source code.
  */
-
 use Extcode\Cart\Domain\Model\Order\BillingAddress;
 use Extcode\Cart\Domain\Model\Order\Item;
 use Extcode\Cart\Domain\Model\Order\ShippingAddress;
@@ -22,7 +21,9 @@ use Extcode\Cart\Event\ProcessOrderCheckStockEvent;
 use Psr\EventDispatcher\EventDispatcherInterface;
 use Psr\EventDispatcher\StoppableEventInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Annotation\IgnoreValidation;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
+use TYPO3\CMS\Extbase\Validation\Exception\NoSuchValidatorException;
 use TYPO3\CMS\Extbase\Validation\Validator\ConjunctionValidator;
 use TYPO3\CMS\Extbase\Validation\ValidatorResolver;
 
@@ -104,7 +105,7 @@ class OrderController extends ActionController
      * @param BillingAddress $billingAddress
      * @param ShippingAddress $shippingAddress
      *
-     * @TYPO3\CMS\Extbase\Annotation\IgnoreValidation("shippingAddress")
+     * @IgnoreValidation("shippingAddress")
      */
     public function createAction(
         Item $orderItem = null,
@@ -183,7 +184,7 @@ class OrderController extends ActionController
     }
 
     /**
-     * @param \Extcode\Cart\Domain\Model\Order\Item $orderItem
+     * @param Item $orderItem
      */
     public function showAction(Item $orderItem)
     {
@@ -196,12 +197,12 @@ class OrderController extends ActionController
      * @param string $argumentName
      * @param string $propertyName
      * @param array $validatorConf
-     * @throws \TYPO3\CMS\Extbase\Validation\Exception\NoSuchValidatorException
+     * @throws NoSuchValidatorException
      */
     protected function setDynamicValidation($argumentName, $propertyName, $validatorConf)
     {
         // build custom validation chain
-        /** @var \TYPO3\CMS\Extbase\Validation\ValidatorResolver $validatorResolver */
+        /** @var ValidatorResolver $validatorResolver */
         $validatorResolver = GeneralUtility::makeInstance(
             ValidatorResolver::class
         );
@@ -216,7 +217,7 @@ class OrderController extends ActionController
         );
 
         if ($argumentName === 'orderItem') {
-            /** @var \Extcode\Cart\Domain\Validator\OrderItemValidator $modelValidator */
+            /** @var OrderItemValidator $modelValidator */
             $modelValidator = $validatorResolver->createValidator(
                 OrderItemValidator::class
             );
@@ -230,7 +231,7 @@ class OrderController extends ActionController
             $propertyValidator
         );
 
-        /** @var \TYPO3\CMS\Extbase\Validation\Validator\ConjunctionValidator $conjunctionValidator */
+        /** @var ConjunctionValidator $conjunctionValidator */
         $conjunctionValidator = $this->arguments->getArgument($argumentName)->getValidator();
         if ($conjunctionValidator === null) {
             $conjunctionValidator = $validatorResolver->createValidator(

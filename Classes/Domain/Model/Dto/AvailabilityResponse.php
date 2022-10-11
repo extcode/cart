@@ -20,7 +20,7 @@ class AvailabilityResponse extends AbstractEntity
     protected $available = true;
 
     /**
-     * @var \TYPO3\CMS\Core\Messaging\FlashMessage[]
+     * @var FlashMessage[]
      */
     protected $messages = [];
 
@@ -41,7 +41,7 @@ class AvailabilityResponse extends AbstractEntity
     }
 
     /**
-     * @return \TYPO3\CMS\Core\Messaging\FlashMessage[]
+     * @return FlashMessage[]
      */
     public function getMessages(): array
     {
@@ -49,7 +49,7 @@ class AvailabilityResponse extends AbstractEntity
     }
 
     /**
-     * @param \TYPO3\CMS\Core\Messaging\FlashMessage[] $messages
+     * @param FlashMessage[] $messages
      */
     public function setMessages(array $messages)
     {

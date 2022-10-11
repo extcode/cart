@@ -2,58 +2,74 @@
 
 defined('TYPO3_MODE') or die();
 
+use Extcode\Cart\Controller\Cart\CartController;
+use Extcode\Cart\Controller\Cart\CartPreviewController;
+use Extcode\Cart\Controller\Cart\CountryController;
+use Extcode\Cart\Controller\Cart\CouponController;
+use Extcode\Cart\Controller\Cart\CurrencyController;
+use Extcode\Cart\Controller\Cart\OrderController;
+use Extcode\Cart\Controller\Cart\PaymentController;
+use Extcode\Cart\Controller\Cart\ProductController;
+use Extcode\Cart\Controller\Cart\ShippingController;
+use Extcode\Cart\Hooks\MailAttachmentHook;
+use TYPO3\CMS\Core\Imaging\IconProvider\SvgIconProvider;
+use TYPO3\CMS\Core\Imaging\IconRegistry;
+use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Utility\ExtensionUtility;
+
 // configure plugins
 
-\TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
+ExtensionUtility::configurePlugin(
     'Cart',
     'MiniCart',
     [
-        \Extcode\Cart\Controller\Cart\CartPreviewController::class => 'show',
-        \Extcode\Cart\Controller\Cart\CurrencyController::class => 'update',
+        CartPreviewController::class => 'show',
+        CurrencyController::class => 'update',
     ],
     [
-        \Extcode\Cart\Controller\Cart\CartPreviewController::class => 'show',
-        \Extcode\Cart\Controller\Cart\CurrencyController::class => 'update',
+        CartPreviewController::class => 'show',
+        CurrencyController::class => 'update',
     ]
 );
 
-\TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
+ExtensionUtility::configurePlugin(
     'Cart',
     'Cart',
     [
-        \Extcode\Cart\Controller\Cart\CartController::class => 'show, clear, update',
-        \Extcode\Cart\Controller\Cart\CountryController::class => 'update',
-        \Extcode\Cart\Controller\Cart\CouponController::class => 'add, remove',
-        \Extcode\Cart\Controller\Cart\CurrencyController::class => 'update',
-        \Extcode\Cart\Controller\Cart\OrderController::class => 'show, create',
-        \Extcode\Cart\Controller\Cart\PaymentController::class => 'update',
-        \Extcode\Cart\Controller\Cart\ProductController::class => 'add, remove',
-        \Extcode\Cart\Controller\Cart\ShippingController::class => 'update',
+        CartController::class => 'show, clear, update',
+        CountryController::class => 'update',
+        CouponController::class => 'add, remove',
+        CurrencyController::class => 'update',
+        OrderController::class => 'show, create',
+        PaymentController::class => 'update',
+        ProductController::class => 'add, remove',
+        ShippingController::class => 'update',
     ],
     [
-        \Extcode\Cart\Controller\Cart\CartController::class => 'show, clear, update',
-        \Extcode\Cart\Controller\Cart\CountryController::class => 'update',
-        \Extcode\Cart\Controller\Cart\CouponController::class => 'add, remove',
-        \Extcode\Cart\Controller\Cart\CurrencyController::class => 'update',
-        \Extcode\Cart\Controller\Cart\OrderController::class => 'show, create',
-        \Extcode\Cart\Controller\Cart\PaymentController::class => 'update',
-        \Extcode\Cart\Controller\Cart\ProductController::class => 'add, remove',
-        \Extcode\Cart\Controller\Cart\ShippingController::class => 'update',
+        CartController::class => 'show, clear, update',
+        CountryController::class => 'update',
+        CouponController::class => 'add, remove',
+        CurrencyController::class => 'update',
+        OrderController::class => 'show, create',
+        PaymentController::class => 'update',
+        ProductController::class => 'add, remove',
+        ShippingController::class => 'update',
     ]
 );
 
-\TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
+ExtensionUtility::configurePlugin(
     'Cart',
     'Currency',
     [
-        \Extcode\Cart\Controller\Cart\CurrencyController::class => 'edit, update',
+        CurrencyController::class => 'edit, update',
     ],
     [
-        \Extcode\Cart\Controller\Cart\CurrencyController::class => 'edit, update',
+        CurrencyController::class => 'edit, update',
     ]
 );
 
-\TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
+ExtensionUtility::configurePlugin(
     'Cart',
     'Order',
     [
@@ -76,14 +92,14 @@ if (TYPO3_MODE === 'BE') {
         'ext-cart-module-order' => 'module_orders.svg'
     ];
 
-    $iconRegistry = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(
-        \TYPO3\CMS\Core\Imaging\IconRegistry::class
+    $iconRegistry = GeneralUtility::makeInstance(
+        IconRegistry::class
     );
 
     foreach ($icons as $identifier => $fileName) {
         $iconRegistry->registerIcon(
             $identifier,
-            \TYPO3\CMS\Core\Imaging\IconProvider\SvgIconProvider::class,
+            SvgIconProvider::class,
             [
                 'source' => 'EXT:cart/Resources/Public/Icons/' . $fileName,
             ]
@@ -93,7 +109,7 @@ if (TYPO3_MODE === 'BE') {
 
 // TSconfig
 
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPageTSConfig('
+ExtensionManagementUtility::addPageTSConfig('
     <INCLUDE_TYPOSCRIPT: source="FILE:EXT:cart/Configuration/TSconfig/ContentElementWizard.tsconfig">
 ');
 
@@ -102,7 +118,7 @@ $GLOBALS['TYPO3_CONF_VARS']['SYS']['fluid']['namespaces']['cart'][] = 'Extcode\\
 
 if (TYPO3_MODE === 'FE') {
     $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['cart']['MailAttachmentsHook'][] =
-        \Extcode\Cart\Hooks\MailAttachmentHook::class;
+        MailAttachmentHook::class;
 }
 
 // view paths for TYPO3 Mail API
@@ -112,7 +128,7 @@ $GLOBALS['TYPO3_CONF_VARS']['MAIL']['partialRootPaths']['1588829280'] = 'EXT:car
 // view paths for TYPO3 Dashboard
 call_user_func(static function () {
     if (TYPO3_MODE === 'BE') {
-        \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTypoScriptSetup(
+        ExtensionManagementUtility::addTypoScriptSetup(
             '
 module.tx_dashboard {
     view {

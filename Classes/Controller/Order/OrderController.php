@@ -8,12 +8,12 @@ namespace Extcode\Cart\Controller\Order;
  * For the full copyright and license information, please read the
  * LICENSE file that was distributed with this source code.
  */
-
 use Extcode\Cart\Domain\Model\Order\Item;
 use Extcode\Cart\Domain\Repository\Order\ItemRepository;
 use TYPO3\CMS\Core\Messaging\AbstractMessage;
 use TYPO3\CMS\Core\Pagination\SimplePagination;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
+use TYPO3\CMS\Extbase\Annotation\IgnoreValidation;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManager;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use TYPO3\CMS\Extbase\Pagination\QueryResultPaginator;
@@ -24,7 +24,7 @@ class OrderController extends ActionController
     /**
      * Order Item Repository
      *
-     * @var \Extcode\Cart\Domain\Repository\Order\ItemRepository
+     * @var ItemRepository
      */
     protected $itemRepository;
 
@@ -43,7 +43,7 @@ class OrderController extends ActionController
     protected $pluginSettings;
 
     /**
-     * @param \Extcode\Cart\Domain\Repository\Order\ItemRepository $itemRepository
+     * @param ItemRepository $itemRepository
      */
     public function injectItemRepository(
         ItemRepository $itemRepository
@@ -92,9 +92,9 @@ class OrderController extends ActionController
     /**
      * Show Action
      *
-     * @param \Extcode\Cart\Domain\Model\Order\Item $orderItem
+     * @param Item $orderItem
      *
-     * @TYPO3\CMS\Extbase\Annotation\IgnoreValidation("orderItem")
+     * @IgnoreValidation("orderItem")
      */
     public function showAction(Item $orderItem)
     {

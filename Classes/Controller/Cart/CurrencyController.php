@@ -19,12 +19,12 @@ class CurrencyController extends ActionController
     /**
      * Currency Utility
      *
-     * @var \Extcode\Cart\Utility\CurrencyUtility
+     * @var CurrencyUtility
      */
     protected $currencyUtility;
 
     /**
-     * @param \Extcode\Cart\Utility\CurrencyUtility $currencyUtility
+     * @param CurrencyUtility $currencyUtility
      */
     public function injectCurrencyUtility(
         CurrencyUtility $currencyUtility

@@ -8,19 +8,19 @@ namespace Extcode\Cart\Domain\Model\Order;
  * For the full copyright and license information, please read the
  * LICENSE file that was distributed with this source code.
  */
-
+use TYPO3\CMS\Extbase\Annotation\Validate;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 
 class Transaction extends AbstractEntity
 {
     /**
-     * @var \Extcode\Cart\Domain\Model\Order\Payment
+     * @var Payment
      */
     protected $payment = null;
 
     /**
      * @var string
-     * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
+     * @Validate("NotEmpty")
      */
     protected $txnId = '';
 

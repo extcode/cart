@@ -21,7 +21,7 @@ class SessionHandler implements SingletonInterface
      *
      * @param string $key
      *
-     * @return \Extcode\Cart\Domain\Model\Cart\Cart
+     * @return Cart
      */
     public function restore($key): ?Cart
     {
@@ -33,7 +33,7 @@ class SessionHandler implements SingletonInterface
     /**
      * Writes an object into the PHP session
      *
-     * @param \Extcode\Cart\Domain\Model\Cart\Cart $cart Cart
+     * @param Cart $cart Cart
      * @param string $key Session Key
      *
      * @return SessionHandler $this

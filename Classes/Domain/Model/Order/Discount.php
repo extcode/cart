@@ -8,50 +8,50 @@ namespace Extcode\Cart\Domain\Model\Order;
  * For the full copyright and license information, please read the
  * LICENSE file that was distributed with this source code.
  */
-
 use Extcode\Cart\Domain\Model\Cart\TaxClass;
+use TYPO3\CMS\Extbase\Annotation\Validate;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 
 class Discount extends AbstractEntity
 {
     /**
-     * @var \Extcode\Cart\Domain\Model\Order\Item
+     * @var Item
      */
     protected $item;
 
     /**
      * @var string
-     * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
+     * @Validate("NotEmpty")
      */
     protected $title = '';
 
     /**
      * @var string
-     * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
+     * @Validate("NotEmpty")
      */
     protected $code = '';
 
     /**
      * @var float
-     * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
+     * @Validate("NotEmpty")
      */
     protected $gross = 0.0;
 
     /**
      * @var float
-     * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
+     * @Validate("NotEmpty")
      */
     protected $net = 0.0;
 
     /**
-     * @var \Extcode\Cart\Domain\Model\Cart\TaxClass
-     * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
+     * @var TaxClass
+     * @Validate("NotEmpty")
      */
     protected $taxClass;
 
     /**
      * @var float
-     * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
+     * @Validate("NotEmpty")
      */
     protected $tax = 0.0;
 

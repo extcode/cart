@@ -8,7 +8,6 @@ namespace Extcode\Cart\Domain\Finisher\Form;
  * For the full copyright and license information, please read the
  * LICENSE file that was distributed with this source code.
  */
-
 use Extcode\Cart\Domain\Model\Cart\Cart;
 use Extcode\Cart\Domain\Model\Cart\Product;
 use Extcode\Cart\Utility\CartUtility;
@@ -22,6 +21,7 @@ use TYPO3\CMS\Extbase\Configuration\ConfigurationManager;
 use TYPO3\CMS\Extbase\Service\ExtensionService;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 use TYPO3\CMS\Form\Domain\Finishers\AbstractFinisher;
+use TYPO3\CMS\Install\Service\CoreVersionService;
 
 class AddToCartFinisher extends AbstractFinisher
 {
@@ -109,7 +109,7 @@ class AddToCartFinisher extends AbstractFinisher
                     'severity' => $severity
                 ];
 
-                if (version_compare((new \TYPO3\CMS\Install\Service\CoreVersionService)->getInstalledVersion(), '11.5.0', '>=')) {
+                if (version_compare((new CoreVersionService)->getInstalledVersion(), '11.5.0', '>=')) {
                     $streamFactory = GeneralUtility::makeInstance(StreamFactory::class);
                     $stream = $streamFactory->createStream(json_encode($payload));
                     $response = $this->finisherContext->getFormRuntime()->getResponse()
@@ -130,7 +130,7 @@ class AddToCartFinisher extends AbstractFinisher
                     true
                 );
 
-                if (version_compare((new \TYPO3\CMS\Install\Service\CoreVersionService)->getInstalledVersion(), '11.5.0', '>=')) {
+                if (version_compare((new CoreVersionService)->getInstalledVersion(), '11.5.0', '>=')) {
                     $extensionService = GeneralUtility::makeInstance(ExtensionService::class);
                     $flashMessageService = GeneralUtility::makeInstance(FlashMessageService::class);
 

@@ -19,7 +19,7 @@ class BeVariant
     protected $id = '';
 
     /**
-     * @var \Extcode\Cart\Domain\Model\Cart\Product
+     * @var Product
      */
     protected $product = null;
 

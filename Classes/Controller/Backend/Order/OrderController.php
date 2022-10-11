@@ -8,7 +8,6 @@ namespace Extcode\Cart\Controller\Backend\Order;
  * For the full copyright and license information, please read the
  * LICENSE file that was distributed with this source code.
  */
-
 use Extcode\Cart\Controller\Backend\ActionController;
 use Extcode\Cart\Domain\Model\Cart\Cart;
 use Extcode\Cart\Domain\Model\Order\Item;
@@ -17,6 +16,7 @@ use Extcode\Cart\Event\Order\NumberGeneratorEvent;
 use TYPO3\CMS\Core\Messaging\AbstractMessage;
 use TYPO3\CMS\Core\Pagination\SimplePagination;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
+use TYPO3\CMS\Extbase\Annotation\IgnoreValidation;
 use TYPO3\CMS\Extbase\Pagination\QueryResultPaginator;
 use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
@@ -130,7 +130,7 @@ class OrderController extends ActionController
     }
 
     /**
-     * @TYPO3\CMS\Extbase\Annotation\IgnoreValidation("orderItem")
+     * @IgnoreValidation("orderItem")
      */
     public function showAction(Item $orderItem): void
     {

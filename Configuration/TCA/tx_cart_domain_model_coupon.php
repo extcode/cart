@@ -2,6 +2,8 @@
 
 defined('TYPO3_MODE') or die();
 
+use Extcode\Cart\Domain\Model\Cart\CartCouponPercentage;
+
 $_LLL = 'LLL:EXT:cart/Resources/Private/Language/locallang_db.xlf';
 
 return [
@@ -111,7 +113,7 @@ return [
                 'renderType' => 'selectSingle',
                 'items' => [
                     [$_LLL . ':tx_cart_domain_model_coupon.coupon_type.cartdiscount.fix', 'cartdiscount'],
-                    [$_LLL . ':tx_cart_domain_model_coupon.coupon_type.cartdiscount.percentage', \Extcode\Cart\Domain\Model\Cart\CartCouponPercentage::class],
+                    [$_LLL . ':tx_cart_domain_model_coupon.coupon_type.cartdiscount.percentage', CartCouponPercentage::class],
                 ],
                 'default' => 'cartdiscount',
                 'size' => 1,

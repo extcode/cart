@@ -19,7 +19,7 @@ class CurrencyUtility
     /**
      * @param array $cartSettings
      * @param array $pluginSettings
-     * @param \TYPO3\CMS\Extbase\Mvc\Request $request
+     * @param Request $request
      */
     public function updateCurrency(array $cartSettings, array $pluginSettings, Request $request)
     {

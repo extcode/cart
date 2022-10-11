@@ -8,20 +8,20 @@ namespace Extcode\Cart\Domain\Model\Order;
  * For the full copyright and license information, please read the
  * LICENSE file that was distributed with this source code.
  */
-
+use TYPO3\CMS\Extbase\Annotation\Validate;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 
 class Tax extends AbstractEntity
 {
     /**
      * @var float
-     * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
+     * @Validate("NotEmpty")
      */
     protected $tax;
 
     /**
-     * @var \Extcode\Cart\Domain\Model\Order\TaxClass
-     * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
+     * @var TaxClass
+     * @Validate("NotEmpty")
      */
     protected $taxClass;
 

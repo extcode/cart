@@ -8,7 +8,6 @@ namespace Extcode\Cart\Utility;
  * For the full copyright and license information, please read the
  * LICENSE file that was distributed with this source code.
  */
-
 use Extcode\Cart\Domain\Model\Cart\BeVariant;
 use Extcode\Cart\Domain\Model\Cart\Cart;
 use Extcode\Cart\Domain\Model\Cart\FeVariant;
@@ -34,6 +33,7 @@ use Extcode\Cart\Domain\Repository\Order\TaxRepository;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Domain\Repository\FrontendUserRepository;
 use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
+use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 use TYPO3\CMS\Extbase\SignalSlot\Dispatcher;
 
 class OrderUtility
@@ -41,105 +41,105 @@ class OrderUtility
     /**
      * Persistence Manager
      *
-     * @var \TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager
+     * @var PersistenceManager
      */
     protected $persistenceManager;
 
     /**
      * Item Repository
      *
-     * @var \Extcode\Cart\Domain\Repository\Order\ItemRepository
+     * @var ItemRepository
      */
     protected $orderItemRepository;
 
     /**
      * Coupon Repository
      *
-     * @var \Extcode\Cart\Domain\Repository\CouponRepository
+     * @var CouponRepository
      */
     protected $couponRepository;
 
     /**
      * Order Discount Repository
      *
-     * @var \Extcode\Cart\Domain\Repository\Order\DiscountRepository
+     * @var DiscountRepository
      */
     protected $orderDiscountRepository;
 
     /**
      * Product Repository
      *
-     * @var \Extcode\Cart\Domain\Repository\Order\ProductRepository
+     * @var ProductRepository
      */
     protected $productRepository;
 
     /**
      * Product Additional Repository
      *
-     * @var \Extcode\Cart\Domain\Repository\Order\ProductAdditionalRepository
+     * @var ProductAdditionalRepository
      */
     protected $productAdditionalRepository;
 
     /**
      * Address Repository
      *
-     * @var \Extcode\Cart\Domain\Repository\Order\BillingAddressRepository
+     * @var BillingAddressRepository
      */
     protected $billingAddressRepository;
 
     /**
      * Address Repository
      *
-     * @var \Extcode\Cart\Domain\Repository\Order\ShippingAddressRepository
+     * @var ShippingAddressRepository
      */
     protected $shippingAddressRepository;
 
     /**
      * Payment Repository
      *
-     * @var \Extcode\Cart\Domain\Repository\Order\PaymentRepository
+     * @var PaymentRepository
      */
     protected $paymentRepository;
 
     /**
      * Shipping Repository
      *
-     * @var \Extcode\Cart\Domain\Repository\Order\ShippingRepository
+     * @var ShippingRepository
      */
     protected $shippingRepository;
 
     /**
      * Tax Class Repository
      *
-     * @var \Extcode\Cart\Domain\Repository\Order\TaxClassRepository
+     * @var TaxClassRepository
      */
     protected $taxClassRepository;
 
     /**
      * Order Tax Repository
      *
-     * @var \Extcode\Cart\Domain\Repository\Order\TaxRepository
+     * @var TaxRepository
      */
     protected $taxRepository;
 
     /**
      * Cart
      *
-     * @var \Extcode\Cart\Domain\Model\Cart\Cart
+     * @var Cart
      */
     protected $cart;
 
     /**
      * Tax Classes
      *
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Extcode\Cart\Domain\Model\Order\TaxClass>
+     * @var ObjectStorage<TaxClass>
      */
     protected $taxClasses;
 
     /**
      * Order Item
      *
-     * @var \Extcode\Cart\Domain\Model\Order\Item
+     * @var Item
      */
     protected $orderItem;
 
@@ -241,7 +241,7 @@ class OrderUtility
     }
 
     /**
-     * @param \TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager $persistenceManager
+     * @param PersistenceManager $persistenceManager
      */
     public function injectPersistenceManager(
         PersistenceManager $persistenceManager
@@ -262,8 +262,8 @@ class OrderUtility
      * Save Order
      *
      * @param array $pluginSettings TypoScript Plugin Settings
-     * @param \Extcode\Cart\Domain\Model\Cart\Cart $cart
-     * @param \Extcode\Cart\Domain\Model\Order\Item $orderItem
+     * @param Cart $cart
+     * @param Item $orderItem
      */
     public function saveOrderItem(
         array $pluginSettings,
@@ -404,7 +404,7 @@ class OrderUtility
              * @var \Extcode\Cart\Domain\Model\Cart\TaxClass $taxClass
              */
             /**
-             * @var \Extcode\Cart\Domain\Model\Order\TaxClass $orderTaxClass
+             * @var TaxClass $orderTaxClass
              */
             $orderTaxClass = GeneralUtility::makeInstance(
                 TaxClass::class,
@@ -474,7 +474,7 @@ class OrderUtility
     /**
      * Add CartProduct to Order Item
      *
-     * @param \Extcode\Cart\Domain\Model\Cart\Product $cartProduct
+     * @param Product $cartProduct
      */
     protected function addProduct(Product $cartProduct)
     {
@@ -527,7 +527,7 @@ class OrderUtility
 
     /**
      * @param \Extcode\Cart\Domain\Model\Order\Product $product
-     * @param \Extcode\Cart\Domain\Model\Cart\FeVariant $feVariant
+     * @param FeVariant $feVariant
      */
     protected function addFeVariants(
         \Extcode\Cart\Domain\Model\Order\Product $product,
@@ -554,7 +554,7 @@ class OrderUtility
         $feVariant
     ) {
         /**
-         * @var \Extcode\Cart\Domain\Model\Order\ProductAdditional $productAdditional
+         * @var ProductAdditional $productAdditional
          */
         $productAdditional = GeneralUtility::makeInstance(
             ProductAdditional::class,
@@ -573,14 +573,14 @@ class OrderUtility
     /**
      * Adds Variants of a CartProduct to Order Item
      *
-     * @param \Extcode\Cart\Domain\Model\Cart\Product $product CartProduct
+     * @param Product $product CartProduct
      */
     protected function addProductVariants(Product $product)
     {
         foreach ($product->getBeVariants() as $variant) {
             /**
              * Cart Variant
-             * @var \Extcode\Cart\Domain\Model\Cart\BeVariant $variant
+             * @var BeVariant $variant
              */
             if ($variant->getBeVariants()) {
                 $this->addVariantsOfVariant($variant, 1);
@@ -593,7 +593,7 @@ class OrderUtility
     /**
      * Adds Variants of a Variant to Order Item
      *
-     * @param \Extcode\Cart\Domain\Model\Cart\BeVariant $variant
+     * @param BeVariant $variant
      * @param int $level Level
      */
     protected function addVariantsOfVariant(BeVariant $variant, $level)
@@ -603,7 +603,7 @@ class OrderUtility
         foreach ($variant->getBeVariants() as $variantInner) {
             /**
              * Cart Variant Inner
-             * @var \Extcode\Cart\Domain\Model\Cart\BeVariant $variantInner
+             * @var BeVariant $variantInner
              */
             if ($variantInner->getBeVariants()) {
                 $this->addVariantsOfVariant($variantInner, $level);
@@ -616,12 +616,12 @@ class OrderUtility
     /**
      * Adds a Variant to Order Item
      *
-     * @param \Extcode\Cart\Domain\Model\Cart\BeVariant $variant
+     * @param BeVariant $variant
      * @param int $level Level
      */
     protected function addBeVariant(BeVariant $variant, $level)
     {
-        /** @var \Extcode\Cart\Domain\Model\Order\Tax $orderTax */
+        /** @var Tax $orderTax */
         $orderTax = GeneralUtility::makeInstance(
             Tax::class,
             $variant->getTax(),
@@ -679,7 +679,7 @@ class OrderUtility
         $variantInner = $variant;
         for ($count = $level; $count > 0; $count--) {
             /**
-             * @var \Extcode\Cart\Domain\Model\Order\ProductAdditional $productAdditional
+             * @var ProductAdditional $productAdditional
              */
             $orderProductAdditional = GeneralUtility::makeInstance(
                 ProductAdditional::class,

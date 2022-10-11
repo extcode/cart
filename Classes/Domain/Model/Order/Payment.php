@@ -8,7 +8,7 @@ namespace Extcode\Cart\Domain\Model\Order;
  * For the full copyright and license information, please read the
  * LICENSE file that was distributed with this source code.
  */
-
+use TYPO3\CMS\Extbase\Annotation\ORM\Lazy;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 
 class Payment extends AbstractService
@@ -19,8 +19,8 @@ class Payment extends AbstractService
     protected $provider = '';
 
     /**
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Extcode\Cart\Domain\Model\Order\Transaction>
-     * @TYPO3\CMS\Extbase\Annotation\ORM\Lazy
+     * @var ObjectStorage<Transaction>
+     * @Lazy
      */
     protected $transactions = null;
 
@@ -82,7 +82,7 @@ class Payment extends AbstractService
     }
 
     /**
-     * @param ObjectStorage<\Extcode\Cart\Domain\Model\Order\Transaction> $transactions
+     * @param ObjectStorage<Transaction> $transactions
      */
     public function setTransactions(ObjectStorage $transactions)
     {

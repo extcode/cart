@@ -12,7 +12,7 @@ namespace Extcode\Cart\Domain\Model\Cart;
 class CartCouponPercentage implements CartCouponInterface
 {
     /**
-     * @var \Extcode\Cart\Domain\Model\Cart\Cart
+     * @var Cart
      */
     protected $cart = null;
 
@@ -47,7 +47,7 @@ class CartCouponPercentage implements CartCouponInterface
     protected $discount;
 
     /**
-     * @var \Extcode\Cart\Domain\Model\Cart\TaxClass
+     * @var TaxClass
      */
     protected $taxClass;
 

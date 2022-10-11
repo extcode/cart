@@ -51,9 +51,9 @@ class CartController extends ActionController
     }
 
     /**
-     * @param \Extcode\Cart\Domain\Model\Order\Item $orderItem
-     * @param \Extcode\Cart\Domain\Model\Order\BillingAddress $billingAddress
-     * @param \Extcode\Cart\Domain\Model\Order\ShippingAddress $shippingAddress
+     * @param Item $orderItem
+     * @param BillingAddress $billingAddress
+     * @param ShippingAddress $shippingAddress
      */
     public function showAction(
         Item $orderItem = null,

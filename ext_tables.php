@@ -2,6 +2,12 @@
 
 defined('TYPO3_MODE') or die();
 
+use Extcode\Cart\Controller\Backend\Order\DocumentController;
+use Extcode\Cart\Controller\Backend\Order\OrderController;
+use Extcode\Cart\Controller\Backend\Order\PaymentController;
+use Extcode\Cart\Controller\Backend\Order\ShippingController;
+use TYPO3\CMS\Extbase\Utility\ExtensionUtility;
+
 $_LLL_db = 'LLL:EXT:cart/Resources/Private/Language/locallang_db.xlf:';
 
 /**
@@ -9,7 +15,7 @@ $_LLL_db = 'LLL:EXT:cart/Resources/Private/Language/locallang_db.xlf:';
  */
 if (TYPO3_MODE === 'BE') {
     // add Main Module
-    \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerModule(
+    ExtensionUtility::registerModule(
         'Cart',
         'Cart',
         '',
@@ -22,16 +28,16 @@ if (TYPO3_MODE === 'BE') {
         ]
     );
 
-    \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerModule(
+    ExtensionUtility::registerModule(
         'Cart',
         'Cart',
         'Orders',
         '',
         [
-            \Extcode\Cart\Controller\Backend\Order\OrderController::class => 'list, export, show, generateNumber, generatePdfDocument, downloadPdfDocument',
-            \Extcode\Cart\Controller\Backend\Order\PaymentController::class => 'update',
-            \Extcode\Cart\Controller\Backend\Order\ShippingController::class => 'update',
-            \Extcode\Cart\Controller\Backend\Order\DocumentController::class => 'download, create',
+            OrderController::class => 'list, export, show, generateNumber, generatePdfDocument, downloadPdfDocument',
+            PaymentController::class => 'update',
+            ShippingController::class => 'update',
+            DocumentController::class => 'download, create',
         ],
         [
             'access' => 'user, group',

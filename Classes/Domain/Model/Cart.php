@@ -26,12 +26,12 @@ class Cart extends AbstractEntity
     protected $sHash = '';
 
     /**
-     * @var \TYPO3\CMS\Extbase\Domain\Model\FrontendUser
+     * @var FrontendUser
      */
     protected $feUser = null;
 
     /**
-     * @var \Extcode\Cart\Domain\Model\Order\Item
+     * @var Item
      */
     protected $orderItem = null;
 

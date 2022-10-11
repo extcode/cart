@@ -45,7 +45,7 @@ class ParserUtility
      *
      * @param string $serviceType
      * @param array $pluginSettings Plugin Settings
-     * @param \Extcode\Cart\Domain\Model\Cart\Cart $cart
+     * @param Cart $cart
      *
      * @return array
      */
@@ -96,7 +96,7 @@ class ParserUtility
 
     /**
      * @param array $pluginSettings
-     * @param \Extcode\Cart\Domain\Model\Cart\Cart $cart
+     * @param Cart $cart
      * @param string $type
      *
      * @return array
@@ -149,7 +149,7 @@ class ParserUtility
 
     /**
      * @param array $zoneSettings
-     * @param \Extcode\Cart\Domain\Model\Cart\Cart $cart
+     * @param Cart $cart
      *
      * @return array
      */

@@ -8,8 +8,9 @@ namespace Extcode\Cart\Domain\Model\Order;
  * For the full copyright and license information, please read the
  * LICENSE file that was distributed with this source code.
  */
-
 use Extcode\Cart\Property\Exception\ResetPropertyException;
+use TYPO3\CMS\Extbase\Annotation\ORM\Lazy;
+use TYPO3\CMS\Extbase\Annotation\Validate;
 use TYPO3\CMS\Extbase\Domain\Model\FileReference;
 use TYPO3\CMS\Extbase\Domain\Model\FrontendUser;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
@@ -23,7 +24,7 @@ class Item extends AbstractEntity
     protected $cartPid = 0;
 
     /**
-     * @var \TYPO3\CMS\Extbase\Domain\Model\FrontendUser
+     * @var FrontendUser
      */
     protected $feUser = null;
 
@@ -63,12 +64,12 @@ class Item extends AbstractEntity
     protected $shippingSameAsBilling = false;
 
     /**
-     * @var \Extcode\Cart\Domain\Model\Order\BillingAddress
+     * @var BillingAddress
      */
     protected $billingAddress;
 
     /**
-     * @var \Extcode\Cart\Domain\Model\Order\ShippingAddress
+     * @var ShippingAddress
      */
     protected $shippingAddress;
 
@@ -84,7 +85,7 @@ class Item extends AbstractEntity
 
     /**
      * @var string
-     * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
+     * @Validate("NotEmpty")
      */
     protected $currency = '€';
 
@@ -105,78 +106,78 @@ class Item extends AbstractEntity
 
     /**
      * @var float
-     * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
+     * @Validate("NotEmpty")
      */
     protected $gross = 0.0;
 
     /**
      * @var float
-     * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
+     * @Validate("NotEmpty")
      */
     protected $totalGross = 0.0;
 
     /**
      * @var float
-     * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
+     * @Validate("NotEmpty")
      */
     protected $net = 0.0;
 
     /**
      * @var float
-     * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
+     * @Validate("NotEmpty")
      */
     protected $totalNet = 0.0;
 
     /**
-     * @TYPO3\CMS\Extbase\Annotation\ORM\Lazy
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Extcode\Cart\Domain\Model\Order\TaxClass>
+     * @Lazy
+     * @var ObjectStorage<TaxClass>
      */
     protected $taxClass;
 
     /**
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Extcode\Cart\Domain\Model\Order\Tax>
+     * @var ObjectStorage<Tax>
      */
     protected $tax;
 
     /**
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Extcode\Cart\Domain\Model\Order\Tax>
+     * @var ObjectStorage<Tax>
      */
     protected $totalTax;
 
     /**
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Extcode\Cart\Domain\Model\Order\Product>
-     * @TYPO3\CMS\Extbase\Annotation\ORM\Lazy
+     * @var ObjectStorage<Product>
+     * @Lazy
      */
     protected $products;
 
     /**
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Extcode\Cart\Domain\Model\Order\Discount>
-     * @TYPO3\CMS\Extbase\Annotation\ORM\Lazy
+     * @var ObjectStorage<Discount>
+     * @Lazy
      */
     protected $discounts;
 
     /**
-     * @var \Extcode\Cart\Domain\Model\Order\Payment
+     * @var Payment
      */
     protected $payment;
 
     /**
-     * @var \Extcode\Cart\Domain\Model\Order\Shipping
+     * @var Shipping
      */
     protected $shipping;
 
     /**
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference>
+     * @var ObjectStorage<FileReference>
      */
     protected $orderPdfs;
 
     /**
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference>
+     * @var ObjectStorage<FileReference>
      */
     protected $invoicePdfs;
 
     /**
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference>
+     * @var ObjectStorage<FileReference>
      */
     protected $deliveryPdfs;
 
@@ -616,7 +617,7 @@ class Item extends AbstractEntity
     }
 
     /**
-     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference>
+     * @return ObjectStorage<FileReference>
      */
     public function getOrderPdfs()
     {
@@ -624,7 +625,7 @@ class Item extends AbstractEntity
     }
 
     /**
-     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference> $orderPdfs
+     * @param ObjectStorage<FileReference> $orderPdfs
      */
     public function setOrderPdfs($orderPdfs)
     {
@@ -648,7 +649,7 @@ class Item extends AbstractEntity
     }
 
     /**
-     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference>
+     * @return ObjectStorage<FileReference>
      */
     public function getInvoicePdfs()
     {
@@ -656,7 +657,7 @@ class Item extends AbstractEntity
     }
 
     /**
-     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference> $invoicePdf
+     * @param ObjectStorage<FileReference> $invoicePdf
      */
     public function setInvoicePdfs($invoicePdfs)
     {
@@ -680,7 +681,7 @@ class Item extends AbstractEntity
     }
 
     /**
-     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference>
+     * @return ObjectStorage<FileReference>
      */
     public function getDeliveryPdfs()
     {
@@ -688,7 +689,7 @@ class Item extends AbstractEntity
     }
 
     /**
-     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference> $deliveryPdfs
+     * @param ObjectStorage<FileReference> $deliveryPdfs
      */
     public function setDeliveryPdfs($deliveryPdfs)
     {
@@ -728,7 +729,7 @@ class Item extends AbstractEntity
     }
 
     /**
-     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Extcode\Cart\Domain\Model\Order\TaxClass>
+     * @return ObjectStorage<TaxClass>
      */
     public function getTaxClass()
     {
@@ -736,7 +737,7 @@ class Item extends AbstractEntity
     }
 
     /**
-     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Extcode\Cart\Domain\Model\Order\TaxClass> $taxClass
+     * @param ObjectStorage<TaxClass> $taxClass
      */
     public function setTaxClass($taxClass)
     {
@@ -760,7 +761,7 @@ class Item extends AbstractEntity
     }
 
     /**
-     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Extcode\Cart\Domain\Model\Order\Product>
+     * @return ObjectStorage<Product>
      */
     public function getProducts()
     {
@@ -768,7 +769,7 @@ class Item extends AbstractEntity
     }
 
     /**
-     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Extcode\Cart\Domain\Model\Order\Product> $products
+     * @param ObjectStorage<Product> $products
      */
     public function setProducts($products)
     {
@@ -792,7 +793,7 @@ class Item extends AbstractEntity
     }
 
     /**
-     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Extcode\Cart\Domain\Model\Order\Discount>
+     * @return ObjectStorage<Discount>
      */
     public function getDiscounts()
     {
@@ -800,7 +801,7 @@ class Item extends AbstractEntity
     }
 
     /**
-     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Extcode\Cart\Domain\Model\Order\Discount> $discounts
+     * @param ObjectStorage<Discount> $discounts
      */
     public function setDiscounts($discounts)
     {
@@ -824,7 +825,7 @@ class Item extends AbstractEntity
     }
 
     /**
-     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Extcode\Cart\Domain\Model\Order\Tax>
+     * @return ObjectStorage<Tax>
      */
     public function getTax()
     {
@@ -832,7 +833,7 @@ class Item extends AbstractEntity
     }
 
     /**
-     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Extcode\Cart\Domain\Model\Order\Tax> $taxes
+     * @param ObjectStorage<Tax> $taxes
      */
     public function setTax($taxes)
     {
@@ -840,7 +841,7 @@ class Item extends AbstractEntity
     }
 
     /**
-     * @param \Extcode\Cart\Domain\Model\Order\Tax $tax
+     * @param Tax $tax
      */
     public function addTotalTax($tax)
     {
@@ -848,7 +849,7 @@ class Item extends AbstractEntity
     }
 
     /**
-     * @param \Extcode\Cart\Domain\Model\Order\Tax $tax
+     * @param Tax $tax
      */
     public function removeTotalTax($tax)
     {
@@ -856,7 +857,7 @@ class Item extends AbstractEntity
     }
 
     /**
-     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Extcode\Cart\Domain\Model\Order\Tax>
+     * @return ObjectStorage<Tax>
      */
     public function getTotalTax()
     {
@@ -864,7 +865,7 @@ class Item extends AbstractEntity
     }
 
     /**
-     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Extcode\Cart\Domain\Model\Order\Tax> $taxes
+     * @param ObjectStorage<Tax> $taxes
      */
     public function setTotalTax($taxes)
     {

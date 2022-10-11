@@ -12,12 +12,12 @@ namespace Extcode\Cart\Domain\Model\Cart;
 class FeVariant
 {
     /**
-     * @var \Extcode\Cart\Domain\Model\Cart\Product
+     * @var Product
      */
     protected $product = null;
 
     /**
-     * @var \Extcode\Cart\Domain\Model\Cart\BeVariant
+     * @var BeVariant
      */
     protected $beVariant = null;
 

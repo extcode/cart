@@ -8,7 +8,7 @@ namespace Extcode\Cart\EventListener\Order\Finish;
  * For the full copyright and license information, please read the
  * LICENSE file that was distributed with this source code.
  */
-
+use Extcode\Cart\Domain\Model\Cart\Cart;
 use Extcode\Cart\Domain\Model\Order\Item;
 use Extcode\Cart\Event\Order\EventInterface;
 use Extcode\Cart\Service\MailHandler;
@@ -19,7 +19,7 @@ class Email
     /**
      * Cart
      *
-     * @var \Extcode\Cart\Domain\Model\Cart\Cart
+     * @var Cart
      */
     protected $cart;
 
@@ -49,7 +49,7 @@ class Email
     /**
      * Send a Mail to Buyer
      *
-     * @param \Extcode\Cart\Domain\Model\Order\Item $orderItem
+     * @param Item $orderItem
      */
     protected function sendBuyerMail(
         Item $orderItem
@@ -64,7 +64,7 @@ class Email
     /**
      * Send a Mail to Seller
      *
-     * @param \Extcode\Cart\Domain\Model\Order\Item $orderItem
+     * @param Item $orderItem
      */
     protected function sendSellerMail(
         Item $orderItem
