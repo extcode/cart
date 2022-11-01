@@ -17,7 +17,7 @@
                             <label for="shipping-same-as-billing">
                                 <f:form.checkbox property="shippingSameAsBilling"
                                                  id="shipping-same-as-billing"
-                                                 value="{f:if(condition:'{cart.shippingSameAsBilling}', then: 'true', else: 'false')}"
+                                                 value="1"
                                                  title="{f:translate(key:'tx_cart.same_address')}"
                                                  additionalAttributes="{f:if(condition:'{cart.shippingSameAsBilling}', then: '{checked: \'checked\'}')}"/>
                                 <span>

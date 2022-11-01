@@ -82,6 +82,17 @@ class CartController extends ActionController
             $orderItem = GeneralUtility::makeInstance(
                 Item::class
             );
+
+            if ($this->request->getOriginalRequest() &&
+                $this->request->getOriginalRequest()->hasArgument('orderItem')
+            ) {
+                $originalRequestOrderItem = $this->request->getOriginalRequest()->getArgument('orderItem');
+
+                if (isset($originalRequestOrderItem['shippingSameAsBilling'])) {
+                    $this->cart->setShippingSameAsBilling($originalRequestOrderItem['shippingSameAsBilling']);
+                    $this->sessionHandler->write($this->cart, $this->settings['cart']['pid']);
+                }
+            }
         } else {
             $this->cart->setShippingSameAsBilling($orderItem->isShippingSameAsBilling());
             $this->sessionHandler->write($this->cart, $this->settings['cart']['pid']);
