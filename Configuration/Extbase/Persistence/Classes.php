@@ -11,7 +11,6 @@ return [
         'recordType' => '\\' . BillingAddress::class,
     ],
     FrontendUser::class => [
-        'recordType' => FrontendUser::class,
         'tableName' => 'fe_users',
         'properties' => [
             'lockToDomain' => [

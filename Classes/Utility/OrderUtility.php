@@ -291,7 +291,10 @@ class OrderUtility
             $frontendUserRepository = GeneralUtility::makeInstance(
                 FrontendUserRepository::class
             );
-            $orderItem->setFeUser($frontendUserRepository->findByUid($feUserId));
+            $feUser = $frontendUserRepository->findByUid($feUserId);
+            if ($feUser) {
+                $orderItem->setFeUser($feUser);
+            }
         }
 
         $orderItem->setCurrency($pluginSettings['settings']['format']['currency']['currencySign']);
