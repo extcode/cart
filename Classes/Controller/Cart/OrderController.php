@@ -149,6 +149,9 @@ class OrderController extends ActionController
         $billingAddress->setPid($storagePid);
         $orderItem->setBillingAddress($billingAddress);
 
+        // Set the Shipping address same as Billing
+        $orderItem->setShippingSameAsBilling(true);
+
         if ($orderItem->isShippingSameAsBilling()) {
             $shippingAddress = null;
             $orderItem->removeShippingAddress();
