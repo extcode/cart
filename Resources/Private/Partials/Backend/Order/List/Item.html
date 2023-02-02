@@ -1,0 +1,58 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:cart="http://typo3.org/ns/Extcode/Cart/ViewHelpers"
+      data-namespace-typo3-fluid="true">
+
+<tr class="db_list_normal">
+    <td>
+        {orderItem.billingAddress.firstName}
+    </td>
+    <td>
+        {orderItem.billingAddress.lastName}
+    </td>
+    <td>
+        {orderItem.billingAddress.company}
+    </td>
+    <td>
+        <f:if condition="{hideshowaction} != 1">
+            <f:link.action action="show" arguments="{orderItem : orderItem}">
+                {orderItem.orderNumber}
+            </f:link.action>
+        </f:if>
+    </td>
+    <td>
+        <f:if condition="{orderItem.orderDate}">
+            <f:format.date format="d.m.Y" date="{orderItem.orderDate}"/>
+        </f:if>
+    </td>
+    <td>
+        {orderItem.invoiceNumber}
+    </td>
+    <td>
+        <f:if condition="{orderItem.invoiceDate}">
+            <f:format.date format="d.m.Y" date="{orderItem.invoiceDate}"/>
+        </f:if>
+    </td>
+    <td style="width: 75px; text-align: right;">
+        <cart:format.currency currencySign="{orderItem.currency}">{orderItem.totalGross}</cart:format.currency>
+    </td>
+    <td style="width: 75px; text-align: right;">
+        <cart:format.currency currencySign="{orderItem.currency}">{orderItem.totalNet}</cart:format.currency>
+    </td>
+    <td class="order-payment-status-{orderItem.payment.status}">
+        {orderItem.payment.name} <br/>
+        (
+        <f:translate key="tx_cart_domain_model_order_payment.status.{orderItem.payment.status}"/>
+        )
+    </td>
+    <td class="order-shipping-status-{orderItem.shipping.status}">
+        {orderItem.shipping.name} <br/>
+        (
+        <f:translate key="tx_cart_domain_model_order_shipping.status.{orderItem.shipping.status}"/>
+        )
+    </td>
+    <td>
+        <f:render partial="Backend/Order/List/Actions"
+                  arguments="{orderItem: orderItem, pdfRendererInstalled: pdfRendererInstalled, hidelistaction: 1}"/>
+    </td>
+</tr>
+</html>

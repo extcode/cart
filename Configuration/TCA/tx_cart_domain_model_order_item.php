@@ -2,9 +2,8 @@
 
 use Extcode\Cart\Domain\Model\Order\BillingAddress;
 use Extcode\Cart\Domain\Model\Order\ShippingAddress;
-use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 
-defined('TYPO3_MODE') or die();
+defined('TYPO3') or die();
 
 $_LLL = 'LLL:EXT:cart/Resources/Private/Language/locallang_db.xlf';
 
@@ -16,14 +15,13 @@ return [
         'label_alt_force' => 1,
         'tstamp' => 'tstamp',
         'crdate' => 'crdate',
-        'cruser_id' => 'cruser_id',
 
         'versioningWS' => true,
         'origUid' => 't3_origuid',
         'delete' => 'deleted',
         'enablecolumns' => [],
         'searchFields' => 'order_number, invoice_number',
-        'iconfile' => 'EXT:cart/Resources/Public/Icons/Order/Item.svg'
+        'iconfile' => 'EXT:cart/Resources/Public/Icons/Order/Item.svg',
     ],
     'types' => [
         '1' => [
@@ -41,47 +39,46 @@ return [
                 discounts,
                 payment,
                 shipping,
-                --palette--;' . $_LLL . ':tx_cart_domain_model_order_item.palettes.documents;pdfs'
+                --palette--;' . $_LLL . ':tx_cart_domain_model_order_item.palettes.documents;pdfs',
         ],
     ],
     'palettes' => [
         '1' => [
-            'showitem' => ''
+            'showitem' => '',
         ],
         'addresses' => [
             'showitem' => 'billing_address, shipping_address',
-            'canNotCollapse' => 0
+            'canNotCollapse' => 0,
         ],
         'numbers' => [
             'showitem' => 'order_number, order_date, --linebreak--, invoice_number, invoice_date, --linebreak--, delivery_number, delivery_date',
-            'canNotCollapse' => 1
+            'canNotCollapse' => 1,
         ],
         'price' => [
             'showitem' => 'currency, --linebreak--, currency_code, currency_sign, currency_translation, --linebreak--, gross, net, --linebreak--, order_tax',
-            'canNotCollapse' => 1
+            'canNotCollapse' => 1,
         ],
         'total_price' => [
             'showitem' => 'total_gross, total_net, --linebreak--, order_total_tax',
-            'canNotCollapse' => 1
+            'canNotCollapse' => 1,
         ],
         'pdfs' => [
             'showitem' => 'order_pdfs, --linebreak--, invoice_pdfs, --linebreak--, delivery_pdfs',
-            'canNotCollapse' => 1
-        ]
+            'canNotCollapse' => 1,
+        ],
     ],
     'columns' => [
         'pid' => [
             'exclude' => 1,
             'config' => [
-                'type' => 'passthrough'
-            ]
+                'type' => 'passthrough',
+            ],
         ],
         'cart_pid' => [
             'exclude' => 1,
             'label' => $_LLL . ':tx_cart_domain_model_category.cart_pid',
             'config' => [
                 'type' => 'group',
-                'internal_type' => 'db',
                 'allowed' => 'pages',
                 'size' => 1,
                 'maxitems' => 1,
@@ -90,10 +87,10 @@ return [
                 ['behaviour' => ['allowLanguageSynchronization' => true]],
                 'suggestOptions' => [
                     'default' => [
-                        'searchWholePhrase' => true
-                    ]
+                        'searchWholePhrase' => true,
+                    ],
                 ],
-            ]
+            ],
         ],
         'fe_user' => [
             'exclude' => 1,
@@ -105,11 +102,11 @@ return [
                 'foreign_table' => 'fe_users',
                 'size' => 1,
                 'items' => [
-                    [$_LLL . ':tx_cart_domain_model_order_item.fe_user.not_available', 0],
+                    ['label' => $_LLL . ':tx_cart_domain_model_order_item.fe_user.not_available', 'value' => 0],
                 ],
                 'minitems' => 0,
                 'maxitems' => 1,
-            ]
+            ],
         ],
         'order_number' => [
             'exclude' => 0,
@@ -118,7 +115,7 @@ return [
                 'type' => 'input',
                 'readOnly' => 1,
                 'size' => 30,
-                'eval' => 'trim'
+                'eval' => 'trim',
             ],
         ],
         'order_date' => [
@@ -131,8 +128,8 @@ return [
                 'eval' => 'date',
                 'checkbox' => '0',
                 'default' => '0',
-                'renderType' => 'inputDateTime'
-            ]
+                'renderType' => 'inputDateTime',
+            ],
         ],
         'invoice_number' => [
             'exclude' => 0,
@@ -141,7 +138,7 @@ return [
                 'type' => 'input',
                 'readOnly' => 1,
                 'size' => 30,
-                'eval' => 'trim'
+                'eval' => 'trim',
             ],
         ],
         'invoice_date' => [
@@ -154,8 +151,8 @@ return [
                 'eval' => 'date',
                 'checkbox' => '0',
                 'default' => '0',
-                'renderType' => 'inputDateTime'
-            ]
+                'renderType' => 'inputDateTime',
+            ],
         ],
         'delivery_number' => [
             'exclude' => 0,
@@ -164,7 +161,7 @@ return [
                 'type' => 'input',
                 'readOnly' => 1,
                 'size' => 30,
-                'eval' => 'trim'
+                'eval' => 'trim',
             ],
         ],
         'delivery_date' => [
@@ -177,8 +174,8 @@ return [
                 'eval' => 'date',
                 'checkbox' => '0',
                 'default' => '0',
-                'renderType' => 'inputDateTime'
-            ]
+                'renderType' => 'inputDateTime',
+            ],
         ],
         'billing_address' => [
             'exclude' => 0,
@@ -189,7 +186,7 @@ return [
                 'foreign_table' => 'tx_cart_domain_model_order_address',
                 'foreign_field' => 'item',
                 'foreign_match_fields' => [
-                    'record_type' => '\\' . BillingAddress::class
+                    'record_type' => '\\' . BillingAddress::class,
                 ],
                 'minitems' => 1,
                 'maxitems' => 1,
@@ -215,7 +212,7 @@ return [
                 'foreign_table' => 'tx_cart_domain_model_order_address',
                 'foreign_field' => 'item',
                 'foreign_match_fields' => [
-                    'record_type' => '\\' . ShippingAddress::class
+                    'record_type' => '\\' . ShippingAddress::class,
                 ],
                 'minitems' => 0,
                 'maxitems' => 1,
@@ -329,7 +326,7 @@ return [
                 'type' => 'input',
                 'readOnly' => 1,
                 'size' => 30,
-                'eval' => 'required'
+                'required' => true,
             ],
         ],
         'currency_code' => [
@@ -339,7 +336,7 @@ return [
                 'type' => 'input',
                 'readOnly' => 1,
                 'size' => 30,
-                'eval' => 'required'
+                'required' => true,
             ],
         ],
         'currency_sign' => [
@@ -349,7 +346,7 @@ return [
                 'type' => 'input',
                 'readOnly' => 1,
                 'size' => 30,
-                'eval' => 'required'
+                'required' => true,
             ],
         ],
         'currency_translation' => [
@@ -359,7 +356,8 @@ return [
                 'type' => 'input',
                 'readOnly' => 1,
                 'size' => 30,
-                'eval' => 'double2,required'
+                'eval' => 'double2',
+                'required' => true,
             ],
         ],
         'gross' => [
@@ -369,7 +367,8 @@ return [
                 'type' => 'input',
                 'readOnly' => 1,
                 'size' => 30,
-                'eval' => 'double2,required'
+                'eval' => 'double2',
+                'required' => true,
             ],
         ],
         'total_gross' => [
@@ -379,7 +378,8 @@ return [
                 'type' => 'input',
                 'readOnly' => 1,
                 'size' => 30,
-                'eval' => 'double2,required'
+                'eval' => 'double2',
+                'required' => true,
             ],
         ],
         'net' => [
@@ -389,7 +389,8 @@ return [
                 'type' => 'input',
                 'readOnly' => 1,
                 'size' => 30,
-                'eval' => 'double2,required'
+                'eval' => 'double2',
+                'required' => true,
             ],
         ],
         'total_net' => [
@@ -399,7 +400,8 @@ return [
                 'type' => 'input',
                 'readOnly' => 1,
                 'size' => 30,
-                'eval' => 'double2,required'
+                'eval' => 'double2',
+                'required' => true,
             ],
         ],
         'tax' => [
@@ -539,83 +541,62 @@ return [
         'order_pdfs' => [
             'exclude' => 0,
             'label' => $_LLL . ':tx_cart_domain_model_order_item.order_pdfs',
-            'config' => ExtensionManagementUtility::getFileFieldTCAConfig(
-                'file',
-                [
-                    'appearance' => [
-                        'enabledControls' => [
-                            'info' => true,
-                            'new' => false,
-                            'dragdrop' => false,
-                            'sort' => false,
-                            'hide' => false,
-                            'delete' => true,
-                            'localize' => false,
-                        ],
+            'config' => [
+                'type' => 'file',
+                'appearance' => [
+                    'enabledControls' => [
+                        'info' => true,
+                        'new' => false,
+                        'dragdrop' => false,
+                        'sort' => false,
+                        'hide' => false,
+                        'delete' => true,
+                        'localize' => false,
                     ],
-                    'foreign_match_fields' => [
-                        'fieldname' => 'order_pdfs',
-                        'tablenames' => 'tx_cart_domain_model_order_item',
-                        'table_local' => 'sys_file',
-                    ],
-                    'maxitems' => 99,
                 ],
-                'pdf'
-            ),
+                'maxitems' => 99,
+                'allowed' => ['pdf'],
+            ],
         ],
         'invoice_pdfs' => [
             'exclude' => 0,
             'label' => $_LLL . ':tx_cart_domain_model_order_item.invoice_pdfs',
-            'config' => ExtensionManagementUtility::getFileFieldTCAConfig(
-                'file',
-                [
-                    'appearance' => [
-                        'enabledControls' => [
-                            'info' => true,
-                            'new' => false,
-                            'dragdrop' => false,
-                            'sort' => false,
-                            'hide' => false,
-                            'delete' => true,
-                            'localize' => false,
-                        ],
+            'config' => [
+                'type' => 'file',
+                'appearance' => [
+                    'enabledControls' => [
+                        'info' => true,
+                        'new' => false,
+                        'dragdrop' => false,
+                        'sort' => false,
+                        'hide' => false,
+                        'delete' => true,
+                        'localize' => false,
                     ],
-                    'foreign_match_fields' => [
-                        'fieldname' => 'invoice_pdfs',
-                        'tablenames' => 'tx_cart_domain_model_order_item',
-                        'table_local' => 'sys_file',
-                    ],
-                    'maxitems' => 99,
                 ],
-                'pdf'
-            ),
+                'maxitems' => 99,
+                'allowed' => ['pdf'],
+            ],
         ],
         'delivery_pdfs' => [
             'exclude' => 0,
             'label' => $_LLL . ':tx_cart_domain_model_order_item.delivery_pdfs',
-            'config' => ExtensionManagementUtility::getFileFieldTCAConfig(
-                'file',
-                [
-                    'appearance' => [
-                        'enabledControls' => [
-                            'info' => true,
-                            'new' => false,
-                            'dragdrop' => false,
-                            'sort' => false,
-                            'hide' => false,
-                            'delete' => true,
-                            'localize' => false,
-                        ],
+            'config' => [
+                'type' => 'file',
+                'appearance' => [
+                    'enabledControls' => [
+                        'info' => true,
+                        'new' => false,
+                        'dragdrop' => false,
+                        'sort' => false,
+                        'hide' => false,
+                        'delete' => true,
+                        'localize' => false,
                     ],
-                    'foreign_match_fields' => [
-                        'fieldname' => 'delivery_pdfs',
-                        'tablenames' => 'tx_cart_domain_model_order_item',
-                        'table_local' => 'sys_file',
-                    ],
-                    'maxitems' => 99,
                 ],
-                'pdf'
-            ),
+                'maxitems' => 99,
+                'allowed' => ['pdf'],
+            ],
         ],
         'crdate' => [
             'exclude' => 1,
@@ -626,8 +607,8 @@ return [
                 'checkbox' => '0',
                 'default' => '0',
                 'renderType' => 'inputDateTime',
-                ['behaviour' => ['allowLanguageSynchronization' => true]]
-            ]
+                ['behaviour' => ['allowLanguageSynchronization' => true]],
+            ],
         ],
     ],
 ];

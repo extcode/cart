@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Extcode\Cart\Domain\Model\Order;
 
 /*
@@ -8,47 +10,20 @@ namespace Extcode\Cart\Domain\Model\Order;
  * For the full copyright and license information, please read the
  * LICENSE file that was distributed with this source code.
  */
-use TYPO3\CMS\Extbase\Annotation\Validate;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 
 class ProductAdditional extends AbstractEntity
 {
-    /**
-     * @var string
-     * @Validate("NotEmpty")
-     */
-    protected $additionalType;
+    protected string $additionalType;
 
-    /**
-     * @var string
-     * @Validate("NotEmpty")
-     */
-    protected $additionalKey;
+    protected string $additionalKey;
 
-    /**
-     * @var string
-     * @Validate("NotEmpty")
-     */
-    protected $additionalValue;
+    protected string $additionalValue;
 
-    /**
-     * @var string
-     */
-    protected $additionalData = '';
+    protected string $additionalData = '';
 
-    /**
-     * @var string
-     */
-    protected $additional;
+    protected string $additional;
 
-    /**
-     * @param string $type
-     * @param string $key
-     * @param string $value
-     * @param string $data
-     *
-     * @throws \InvalidArgumentException
-     */
     public function __construct(
         string $type,
         string $key,
@@ -61,49 +36,31 @@ class ProductAdditional extends AbstractEntity
         $this->additionalData = $data;
     }
 
-    /**
-     * @return string
-     */
     public function getAdditionalType(): string
     {
         return $this->additionalType;
     }
 
-    /**
-     * @return string
-     */
     public function getAdditionalKey(): string
     {
         return $this->additionalKey;
     }
 
-    /**
-     * @return string
-     */
     public function getAdditionalValue(): string
     {
         return $this->additionalValue;
     }
 
-    /**
-     * @return string
-     */
     public function getAdditionalData(): string
     {
         return $this->additionalData;
     }
 
-    /**
-     * @param string $additionalData
-     */
-    public function setAdditionalData(string $additionalData)
+    public function setAdditionalData(string $additionalData): void
     {
         $this->additionalData = $additionalData;
     }
 
-    /**
-     * @return array
-     */
     public function getAdditional(): array
     {
         if ($this->additional) {
@@ -113,10 +70,7 @@ class ProductAdditional extends AbstractEntity
         return [];
     }
 
-    /**
-     * @param array $additional
-     */
-    public function setAdditional(array $additional)
+    public function setAdditional(array $additional): void
     {
         $this->additional = json_encode($additional);
     }

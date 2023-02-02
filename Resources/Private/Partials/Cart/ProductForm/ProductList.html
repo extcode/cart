@@ -89,9 +89,9 @@
                     </f:if>
                 </td>
                 <td class="last col-md-1 text-right">
-                    <cart:link.action controller="Cart\Product" action="remove" product="{variant.product}" beVariant="{variant}">
+                    <f:link.action controller="Cart\Product" action="remove" arguments="{product: variant.product.id, variant: variant.id }">
                         <span class="delete-link btn btn-danger" title="<f:translate key='tx_cart.remove_product'/>">x</span>
-                    </cart:link.action>
+                    </f:link.action>
                 </td>
             </tr>
         </f:else>

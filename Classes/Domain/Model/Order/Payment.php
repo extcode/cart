@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Extcode\Cart\Domain\Model\Order;
 
 /*
@@ -8,30 +10,25 @@ namespace Extcode\Cart\Domain\Model\Order;
  * For the full copyright and license information, please read the
  * LICENSE file that was distributed with this source code.
  */
+
 use TYPO3\CMS\Extbase\Annotation\ORM\Lazy;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 
 class Payment extends AbstractService
 {
-    /**
-     * @var string
-     */
-    protected $provider = '';
+    protected string $provider = '';
 
     /**
-     * @var ObjectStorage<Transaction>
      * @Lazy
+     * @var ObjectStorage<Transaction>
      */
-    protected $transactions = null;
+    protected ?ObjectStorage $transactions = null;
 
     public function __construct()
     {
         $this->transactions = new ObjectStorage();
     }
 
-    /**
-     * @return array
-     */
     public function toArray(): array
     {
         $payment = parent::toArray();
@@ -41,40 +38,28 @@ class Payment extends AbstractService
         return $payment;
     }
 
-    /**
-     * @return string|null
-     */
     public function getProvider(): ?string
     {
         return $this->provider;
     }
 
-    /**
-     * @param string $provider
-     */
-    public function setProvider(string $provider)
+    public function setProvider(string $provider): void
     {
         $this->provider = $provider;
     }
 
-    /**
-     * @param Transaction $transaction
-     */
-    public function addTransaction(Transaction $transaction)
+    public function addTransaction(Transaction $transaction): void
     {
         $this->transactions->attach($transaction);
     }
 
-    /**
-     * @param Transaction $transaction
-     */
-    public function removeTransaction(Transaction $transaction)
+    public function removeTransaction(Transaction $transaction): void
     {
         $this->transactions->detach($transaction);
     }
 
     /**
-     * @return ObjectStorage
+     * @return ObjectStorage<Transaction>
      */
     public function getTransactions(): ObjectStorage
     {
@@ -84,7 +69,7 @@ class Payment extends AbstractService
     /**
      * @param ObjectStorage<Transaction> $transactions
      */
-    public function setTransactions(ObjectStorage $transactions)
+    public function setTransactions(ObjectStorage $transactions): void
     {
         $this->transactions = $transactions;
     }

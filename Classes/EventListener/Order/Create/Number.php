@@ -1,5 +1,7 @@
 <?php
+
 declare(strict_types=1);
+
 namespace Extcode\Cart\EventListener\Order\Create;
 
 /*
@@ -11,7 +13,6 @@ namespace Extcode\Cart\EventListener\Order\Create;
 
 use Extcode\Cart\Domain\Repository\Order\ItemRepository as OrderItemRepository;
 use Extcode\Cart\Event\Order\NumberGeneratorEventInterface;
-use Extcode\Cart\Utility\OrderUtility;
 use TYPO3\CMS\Core\Registry;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
@@ -29,11 +30,6 @@ abstract class Number
     protected $orderItemRepository;
 
     /**
-     * @var OrderUtility
-     */
-    protected $orderUtility;
-
-    /**
      * @var array
      */
     protected $options;
@@ -45,12 +41,10 @@ abstract class Number
     public function __construct(
         PersistenceManager $persistenceManager,
         OrderItemRepository $orderItemRepository,
-        OrderUtility $orderUtility,
         array $options = []
     ) {
         $this->persistenceManager = $persistenceManager;
         $this->orderItemRepository = $orderItemRepository;
-        $this->orderUtility = $orderUtility;
         $this->options = $options;
     }
 

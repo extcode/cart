@@ -17,8 +17,6 @@ use TYPO3\CMS\Core\Resource\ResourceFactory;
 use TYPO3\CMS\Core\Resource\StorageRepository;
 use TYPO3\CMS\Core\SingletonInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Core\Utility\StringUtility;
-use TYPO3\CMS\Core\Utility\VersionNumberUtility;
 use TYPO3\CMS\Form\Mvc\Configuration\ConfigurationManager;
 use TYPO3\CMS\Form\Mvc\Configuration\YamlSource;
 use TYPO3\CMS\Form\Mvc\Persistence\FormPersistenceManager;
@@ -55,7 +53,7 @@ class ItemsProcFunc
             foreach ($templateLayouts as $layout) {
                 $additionalLayout = [
                     htmlspecialchars($this->getLanguageService()->sL($layout[0])),
-                    $layout[1]
+                    $layout[1],
                 ];
                 array_push($config['items'], $additionalLayout);
             }
@@ -82,7 +80,7 @@ class ItemsProcFunc
             if ($form['prototypeName'] === $prototypeName) {
                 $config['items'][] = [
                     0 => $availableForm['name'],
-                    1 => $availableForm['persistenceIdentifier']
+                    1 => $availableForm['persistenceIdentifier'],
                 ];
             }
         }
@@ -113,7 +111,7 @@ class ItemsProcFunc
         $allLayouts = [];
         foreach ($templateLayouts as $key => $layout) {
             if (is_array($layout[0])) {
-                if (isset($layout[0]['allowedColPos']) && StringUtility::endsWith($layout[1], '.')) {
+                if (isset($layout[0]['allowedColPos']) && \str_ends_with($layout[1], '.')) {
                     $layoutKey = substr($layout[1], 0, -1);
                     $restrictions[$layoutKey] = GeneralUtility::intExplode(',', $layout[0]['allowedColPos'], true);
                 }
@@ -175,19 +173,6 @@ class ItemsProcFunc
             YamlSource::class
         );
 
-        if (version_compare(VersionNumberUtility::getCurrentTypo3Version(), '11.0.0', '<')) {
-            $formPersistenceManager = GeneralUtility::makeInstance(
-                FormPersistenceManager::class
-            );
-
-            $formPersistenceManager->initializeObject();
-            $formPersistenceManager->injectStorageRepository($storageRepository);
-            $formPersistenceManager->injectResourceFactory($resourceFactory);
-            $formPersistenceManager->injectYamlSource($yamlSource);
-
-            return $formPersistenceManager;
-        }
-
         $filePersistenceSlot = GeneralUtility::makeInstance(
             FilePersistenceSlot::class
         );
@@ -198,7 +183,7 @@ class ItemsProcFunc
             CacheManager::class
         );
 
-        $formPersistenceManager = GeneralUtility::makeInstance(
+        return GeneralUtility::makeInstance(
             FormPersistenceManager::class,
             $yamlSource,
             $storageRepository,
@@ -207,7 +192,5 @@ class ItemsProcFunc
             $configurationManager,
             $cacheManager
         );
-
-        return $formPersistenceManager;
     }
 }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Extcode\Cart\Domain\Model\Dto;
 
 /*
@@ -14,28 +16,19 @@ use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 
 class AvailabilityResponse extends AbstractEntity
 {
-    /**
-     * @var bool
-     */
-    protected $available = true;
+    protected bool $available = true;
 
     /**
      * @var FlashMessage[]
      */
-    protected $messages = [];
+    protected array $messages = [];
 
-    /**
-     * @return bool
-     */
     public function isAvailable(): bool
     {
         return $this->available;
     }
 
-    /**
-     * @param bool $available
-     */
-    public function setAvailable(bool $available)
+    public function setAvailable(bool $available): void
     {
         $this->available = $available;
     }
@@ -51,15 +44,12 @@ class AvailabilityResponse extends AbstractEntity
     /**
      * @param FlashMessage[] $messages
      */
-    public function setMessages(array $messages)
+    public function setMessages(array $messages): void
     {
         $this->messages = $messages;
     }
 
-    /**
-     * @param FlashMessage $message
-     */
-    public function addMessage(FlashMessage $message)
+    public function addMessage(FlashMessage $message): void
     {
         $this->messages[] = $message;
     }

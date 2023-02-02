@@ -1,6 +1,6 @@
 <?php
 
-defined('TYPO3_MODE') or die();
+defined('TYPO3') or die();
 
 $_LLL = 'LLL:EXT:cart/Resources/Private/Language/locallang_db.xlf';
 
@@ -10,7 +10,6 @@ return [
         'label' => 'name',
         'tstamp' => 'tstamp',
         'crdate' => 'crdate',
-        'cruser_id' => 'cruser_id',
 
         'versioningWS' => true,
         'origUid' => 't3_origuid',
@@ -18,12 +17,12 @@ return [
         'delete' => 'deleted',
         'enablecolumns' => [],
         'searchFields' => 'name,value,calc,sum,',
-        'iconfile' => 'EXT:cart/Resources/Public/Icons/Order/Payment.svg'
+        'iconfile' => 'EXT:cart/Resources/Public/Icons/Order/Payment.svg',
     ],
     'hideTable' => 1,
     'types' => [
         '1' => [
-            'showitem' => '--palette--;' . $_LLL . ':tx_cart_domain_model_order_payment.palettes.service;service, name, provider, status, gross, net, tax, tax_class, note, transactions'
+            'showitem' => '--palette--;' . $_LLL . ':tx_cart_domain_model_order_payment.palettes.service;service, name, provider, status, gross, net, tax, tax_class, note, transactions',
         ],
     ],
     'palettes' => [
@@ -31,12 +30,12 @@ return [
             'showitem' => '',
             'service' => [
                 'showitem' => 'service_country, service_id',
-                'canNotCollapse' => 0
+                'canNotCollapse' => 0,
             ],
         ],
         'service' => [
             'showitem' => 'service_country, service_id',
-            'canNotCollapse' => 0
+            'canNotCollapse' => 0,
         ],
     ],
     'columns' => [
@@ -47,7 +46,7 @@ return [
                 'type' => 'input',
                 'readOnly' => 1,
                 'size' => 30,
-                'eval' => ''
+                'eval' => '',
             ],
         ],
         'service_id' => [
@@ -57,7 +56,8 @@ return [
                 'type' => 'input',
                 'readOnly' => 1,
                 'size' => 30,
-                'eval' => 'int,required'
+                'eval' => 'int',
+                'required' => true,
             ],
         ],
         'name' => [
@@ -67,7 +67,8 @@ return [
                 'type' => 'input',
                 'readOnly' => 1,
                 'size' => 30,
-                'eval' => 'trim,required'
+                'eval' => 'trim',
+                'required' => true,
             ],
         ],
         'provider' => [
@@ -77,7 +78,7 @@ return [
                 'type' => 'input',
                 'readOnly' => 1,
                 'size' => 30,
-                'eval' => 'trim'
+                'eval' => 'trim',
             ],
         ],
         'status' => [
@@ -87,14 +88,14 @@ return [
                 'type' => 'select',
                 'renderType' => 'selectSingle',
                 'items' => [
-                    [$_LLL . ':tx_cart_domain_model_order_payment.status.open', 'open'],
-                    [$_LLL . ':tx_cart_domain_model_order_payment.status.pending', 'pending'],
-                    [$_LLL . ':tx_cart_domain_model_order_payment.status.paid', 'paid'],
-                    [$_LLL . ':tx_cart_domain_model_order_payment.status.canceled', 'canceled']
+                    ['label' => $_LLL . ':tx_cart_domain_model_order_payment.status.open', 'value' => 'open'],
+                    ['label' => $_LLL . ':tx_cart_domain_model_order_payment.status.pending', 'value' => 'pending'],
+                    ['label' => $_LLL . ':tx_cart_domain_model_order_payment.status.paid', 'value' => 'paid'],
+                    ['label' => $_LLL . ':tx_cart_domain_model_order_payment.status.canceled', 'value' => 'canceled'],
                 ],
                 'size' => 1,
                 'maxitems' => 1,
-                'eval' => 'required'
+                'required' => true,
             ],
         ],
         'gross' => [
@@ -104,7 +105,7 @@ return [
                 'type' => 'input',
                 'readOnly' => 1,
                 'size' => 30,
-                'eval' => 'double2'
+                'eval' => 'double2',
             ],
         ],
         'net' => [
@@ -114,7 +115,7 @@ return [
                 'type' => 'input',
                 'readOnly' => 1,
                 'size' => 30,
-                'eval' => 'double2'
+                'eval' => 'double2',
             ],
         ],
         'tax' => [
@@ -124,7 +125,7 @@ return [
                 'type' => 'input',
                 'readOnly' => 1,
                 'size' => 30,
-                'eval' => 'double2'
+                'eval' => 'double2',
             ],
         ],
         'tax_class' => [
@@ -144,8 +145,8 @@ return [
                 'type' => 'text',
                 'readOnly' => 1,
                 'cols' => '40',
-                'rows' => '15'
-            ]
+                'rows' => '15',
+            ],
         ],
 
         'transactions' => [

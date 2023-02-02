@@ -10,42 +10,24 @@ namespace Extcode\Cart\Tests\Unit\Domain\Model\Cart;
  */
 
 use Extcode\Cart\Domain\Model\Cart\Cart;
-use Extcode\Cart\Domain\Model\Cart\CartCoupon;
+use Extcode\Cart\Domain\Model\Cart\CartCouponFix;
 use Extcode\Cart\Domain\Model\Cart\Product;
 use Extcode\Cart\Domain\Model\Cart\TaxClass;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 class CartTest extends UnitTestCase
 {
-    /**
-     * @var Cart
-     */
-    protected $grossCart;
+    protected Cart $grossCart;
 
-    /**
-     * @var Cart
-     */
-    protected $netCart;
+    protected Cart $netCart;
 
-    /**
-     * @var TaxClass
-     */
-    protected $normalTaxClass;
+    protected TaxClass $normalTaxClass;
 
-    /**
-     * @var TaxClass
-     */
-    protected $reducedTaxClass;
+    protected TaxClass $reducedTaxClass;
 
-    /**
-     * @var TaxClass
-     */
-    protected $freeTaxClass;
+    protected TaxClass $freeTaxClass;
 
-    /**
-     * @var array
-     */
-    protected $taxClasses = [];
+    protected array $taxClasses = [];
 
     public function setUp(): void
     {
@@ -56,11 +38,13 @@ class CartTest extends UnitTestCase
         $this->taxClasses = [
             1 => $this->normalTaxClass,
             2 => $this->reducedTaxClass,
-            3 => $this->freeTaxClass
+            3 => $this->freeTaxClass,
         ];
 
         $this->grossCart = new Cart($this->taxClasses, false);
         $this->netCart = new Cart($this->taxClasses, true);
+
+        parent::setUp();
     }
 
     public function tearDown(): void
@@ -73,6 +57,8 @@ class CartTest extends UnitTestCase
         unset($this->normalTaxClass);
         unset($this->reducedTaxClass);
         unset($this->freeTaxClass);
+
+        parent::tearDown();
     }
 
     /**
@@ -302,8 +288,12 @@ class CartTest extends UnitTestCase
         $this->grossCart->setOrderNumber('ValidOrderNumber');
 
         $this->expectException(
-            'LogicException',
-            'You can not redeclare the order number of your cart.',
+            'LogicException'
+        );
+        $this->expectExceptionMessage(
+            'You can not redeclare the order number of your cart.'
+        );
+        $this->expectExceptionCode(
             1413969668
         );
 
@@ -369,8 +359,12 @@ class CartTest extends UnitTestCase
         $this->grossCart->setInvoiceNumber('ValidInvoiceNumber');
 
         $this->expectException(
-            'LogicException',
+            'LogicException'
+        );
+        $this->expectExceptionMessage(
             'You can not redeclare the invoice number of your cart.',
+        );
+        $this->expectExceptionCode(
             1413969712
         );
 
@@ -798,7 +792,7 @@ class CartTest extends UnitTestCase
     public function isOrderableOfEmptyCartReturnsFalse(): void
     {
         self::assertFalse(
-            $this->grossCart->getIsOrderable()
+            $this->grossCart->isOrderable()
         );
     }
 
@@ -810,7 +804,7 @@ class CartTest extends UnitTestCase
         $taxClass = new TaxClass(1, '19', 0.19, 'normal');
 
         $product = $this->getMockBuilder(Product::class)
-            ->onlyMethods(['getBestPrice', 'getId', 'getQuantityIsInRange'])
+            ->onlyMethods(['getBestPrice', 'getId', 'isQuantityInRange'])
             ->setConstructorArgs(
                 [
                     'Cart',
@@ -824,12 +818,12 @@ class CartTest extends UnitTestCase
             )->getMock();
         $product->method('getBestPrice')->willReturn(10.00);
         $product->method('getId')->willReturn('simple_1');
-        $product->method('getQuantityIsInRange')->willReturn(true);
+        $product->method('isQuantityInRange')->willReturn(true);
 
         $this->grossCart->addProduct($product);
 
         $product = $this->getMockBuilder(Product::class)
-            ->onlyMethods(['getBestPrice', 'getId', 'getQuantityIsInRange'])
+            ->onlyMethods(['getBestPrice', 'getId', 'isQuantityInRange'])
             ->setConstructorArgs(
                 [
                     'Cart',
@@ -843,12 +837,12 @@ class CartTest extends UnitTestCase
             )->getMock();
         $product->method('getBestPrice')->willReturn(10.00);
         $product->method('getId')->willReturn('simple_2');
-        $product->method('getQuantityIsInRange')->willReturn(true);
+        $product->method('isQuantityInRange')->willReturn(true);
 
         $this->grossCart->addProduct($product);
 
         $product = $this->getMockBuilder(Product::class)
-            ->onlyMethods(['getBestPrice', 'getId', 'getQuantityIsInRange'])
+            ->onlyMethods(['getBestPrice', 'getId', 'isQuantityInRange'])
             ->setConstructorArgs(
                 [
                     'Cart',
@@ -862,12 +856,12 @@ class CartTest extends UnitTestCase
             )->getMock();
         $product->method('getBestPrice')->willReturn(10.00);
         $product->method('getId')->willReturn('simple_3');
-        $product->method('getQuantityIsInRange')->willReturn(true);
+        $product->method('isQuantityInRange')->willReturn(true);
 
         $this->grossCart->addProduct($product);
 
         self::assertTrue(
-            $this->grossCart->getIsOrderable()
+            $this->grossCart->isOrderable()
         );
     }
 
@@ -879,7 +873,7 @@ class CartTest extends UnitTestCase
         $taxClass = new TaxClass(1, '19', 0.19, 'normal');
 
         $product = $this->getMockBuilder(Product::class)
-            ->onlyMethods(['getBestPrice', 'getId', 'getQuantityIsInRange'])
+            ->onlyMethods(['getBestPrice', 'getId', 'isQuantityInRange'])
             ->setConstructorArgs(
                 [
                     'Cart',
@@ -893,12 +887,12 @@ class CartTest extends UnitTestCase
             )->getMock();
         $product->method('getBestPrice')->willReturn(10.00);
         $product->method('getId')->willReturn('simple_1');
-        $product->method('getQuantityIsInRange')->willReturn(true);
+        $product->method('isQuantityInRange')->willReturn(true);
 
         $this->grossCart->addProduct($product);
 
         $product = $this->getMockBuilder(Product::class)
-            ->onlyMethods(['getBestPrice', 'getId', 'getQuantityIsInRange'])
+            ->onlyMethods(['getBestPrice', 'getId', 'isQuantityInRange'])
             ->setConstructorArgs(
                 [
                     'Cart',
@@ -912,12 +906,12 @@ class CartTest extends UnitTestCase
             )->getMock();
         $product->method('getBestPrice')->willReturn(10.00);
         $product->method('getId')->willReturn('simple_2');
-        $product->method('getQuantityIsInRange')->willReturn(false);
+        $product->method('isQuantityInRange')->willReturn(false);
 
         $this->grossCart->addProduct($product);
 
         $product = $this->getMockBuilder(Product::class)
-            ->onlyMethods(['getBestPrice', 'getId', 'getQuantityIsInRange'])
+            ->onlyMethods(['getBestPrice', 'getId', 'isQuantityInRange'])
             ->setConstructorArgs(
                 [
                     'Cart',
@@ -931,12 +925,12 @@ class CartTest extends UnitTestCase
             )->getMock();
         $product->method('getBestPrice')->willReturn(10.00);
         $product->method('getId')->willReturn('simple_3');
-        $product->method('getQuantityIsInRange')->willReturn(true);
+        $product->method('isQuantityInRange')->willReturn(true);
 
         $this->grossCart->addProduct($product);
 
         self::assertFalse(
-            $this->grossCart->getIsOrderable()
+            $this->grossCart->isOrderable()
         );
     }
 
@@ -959,7 +953,7 @@ class CartTest extends UnitTestCase
      */
     public function addCouponAddsNewCoupon(): void
     {
-        $coupon = new CartCoupon(
+        $coupon = new CartCouponFix(
             'CouponTitle',
             'CouponCode',
             'CouponType',
@@ -986,7 +980,7 @@ class CartTest extends UnitTestCase
      */
     public function addSameCouponReturnsReturnCodeOne(): void
     {
-        $coupon = new CartCoupon(
+        $coupon = new CartCouponFix(
             'CouponTitle',
             'CouponCode',
             'CouponType',
@@ -1011,7 +1005,7 @@ class CartTest extends UnitTestCase
      */
     public function addSameCouponDoesNotChangeCouponNumberInCart(): void
     {
-        $coupon = new CartCoupon(
+        $coupon = new CartCouponFix(
             'CouponTitle',
             'CouponCode',
             'CouponType',
@@ -1040,7 +1034,7 @@ class CartTest extends UnitTestCase
      */
     public function addSameCouponReturnsErrorCodeMinusOne(): void
     {
-        $coupon = new CartCoupon(
+        $coupon = new CartCouponFix(
             'CouponTitle',
             'CouponCode',
             'CouponType',
@@ -1067,7 +1061,7 @@ class CartTest extends UnitTestCase
      */
     public function addSecondNotCombinableCouponDoesNotChangeCouponNumberInCart(): void
     {
-        $firstCoupon = new CartCoupon(
+        $firstCoupon = new CartCouponFix(
             'FirstCouponTitle',
             'FirstCouponCode',
             'FirstCouponType',
@@ -1076,7 +1070,7 @@ class CartTest extends UnitTestCase
             0.00
         );
 
-        $secondCoupon = new CartCoupon(
+        $secondCoupon = new CartCouponFix(
             'SecondCouponTitle',
             'SecondCouponCode',
             'FirstCouponType',
@@ -1105,7 +1099,7 @@ class CartTest extends UnitTestCase
      */
     public function addSecondNotCombinableCouponReturnsReturnErrorCodeMinusTwo(): void
     {
-        $firstCoupon = new CartCoupon(
+        $firstCoupon = new CartCouponFix(
             'FirstCouponTitle',
             'FirstCouponCode',
             'FirstCouponType',
@@ -1114,7 +1108,7 @@ class CartTest extends UnitTestCase
             0.00
         );
 
-        $secondCoupon = new CartCoupon(
+        $secondCoupon = new CartCouponFix(
             'SecondCouponTitle',
             'SecondCouponCode',
             'FirstCouponType',
@@ -1141,7 +1135,7 @@ class CartTest extends UnitTestCase
      */
     public function addSecondCombinableCouponToNotCombinableCouponsDoesNotChangeCouponNumberInCart(): void
     {
-        $firstCoupon = new CartCoupon(
+        $firstCoupon = new CartCouponFix(
             'FirstCouponTitle',
             'FirstCouponCode',
             'FirstCouponType',
@@ -1151,7 +1145,7 @@ class CartTest extends UnitTestCase
             false
         );
 
-        $secondCoupon = new CartCoupon(
+        $secondCoupon = new CartCouponFix(
             'SecondCouponTitle',
             'SecondCouponCode',
             'FirstCouponType',
@@ -1181,7 +1175,7 @@ class CartTest extends UnitTestCase
      */
     public function addSecondCombinableCouponToNotCombinableCouponsReturnsReturnErrorCodeMinusTwo(): void
     {
-        $firstCoupon = new CartCoupon(
+        $firstCoupon = new CartCouponFix(
             'FirstCouponTitle',
             'FirstCouponCode',
             'FirstCouponType',
@@ -1191,7 +1185,7 @@ class CartTest extends UnitTestCase
             false
         );
 
-        $secondCoupon = new CartCoupon(
+        $secondCoupon = new CartCouponFix(
             'SecondCouponTitle',
             'SecondCouponCode',
             'FirstCouponType',
@@ -1219,7 +1213,7 @@ class CartTest extends UnitTestCase
      */
     public function addSecondCombinableCouponAddsCoupon(): void
     {
-        $firstCoupon = new CartCoupon(
+        $firstCoupon = new CartCouponFix(
             'FirstCouponTitle',
             'FirstCouponCode',
             'FirstCouponType',
@@ -1229,7 +1223,7 @@ class CartTest extends UnitTestCase
             true
         );
 
-        $secondCoupon = new CartCoupon(
+        $secondCoupon = new CartCouponFix(
             'SecondCouponTitle',
             'SecondCouponCode',
             'FirstCouponType',
@@ -1293,7 +1287,7 @@ class CartTest extends UnitTestCase
     {
         $gross = 10.00;
 
-        $firstCoupon = new CartCoupon(
+        $firstCoupon = new CartCouponFix(
             'FirstCouponTitle',
             'FirstCouponCode',
             'FirstCouponType',
@@ -1345,7 +1339,7 @@ class CartTest extends UnitTestCase
         $discount = 5.00;
         $cartMinPrice = 15.00;
 
-        $firstCoupon = new CartCoupon(
+        $firstCoupon = new CartCouponFix(
             'FirstCouponTitle',
             'FirstCouponCode',
             'FirstCouponType',
@@ -1378,7 +1372,7 @@ class CartTest extends UnitTestCase
         $discount = 10.00;
         $net = $discount / ($this->normalTaxClass->getCalc() + 1);
 
-        $firstCoupon = new CartCoupon(
+        $firstCoupon = new CartCouponFix(
             'FirstCouponTitle',
             'FirstCouponCode',
             'FirstCouponType',
@@ -1411,7 +1405,7 @@ class CartTest extends UnitTestCase
         $gross = 10.00;
         $tax = $gross - ($gross / ($this->normalTaxClass->getCalc() + 1));
 
-        $firstCoupon = new CartCoupon(
+        $firstCoupon = new CartCouponFix(
             'FirstCouponTitle',
             'FirstCouponCode',
             'FirstCouponType',

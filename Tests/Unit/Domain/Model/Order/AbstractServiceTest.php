@@ -10,20 +10,19 @@ namespace Extcode\Cart\Tests\Unit\Domain\Model\Order;
  */
 
 use Extcode\Cart\Domain\Model\Order\AbstractService;
+use Extcode\Cart\Domain\Model\Order\Item;
 use Extcode\Cart\Domain\Model\Order\TaxClass;
-use PHPUnit\Framework\MockObject\MockObject;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 class AbstractServiceTest extends UnitTestCase
 {
-    /**
-     * @var MockObject
-     */
-    protected $service;
+    protected AbstractService $service;
 
     public function setUp(): void
     {
         $this->service = $this->getMockForAbstractClass(AbstractService::class);
+
+        parent::setUp();
     }
 
     /**
@@ -38,7 +37,10 @@ class AbstractServiceTest extends UnitTestCase
         $status = 'status';
         $gross = 10.00;
         $net = 8.40;
-        $taxClass = new TaxClass('normal', '19', 0.19);
+        $taxClass = new TaxClass();
+        $taxClass->setTitle('normal');
+        $taxClass->setValue('19');
+        $taxClass->setCalc(0.19);
         $tax = 1.60;
 
         $this->service->setServiceCountry($serviceCountry);
@@ -59,7 +61,7 @@ class AbstractServiceTest extends UnitTestCase
             'gross' => $gross,
             'tax' => $tax,
             'taxClass' => null,
-            'note' => $note
+            'note' => $note,
         ];
 
         self::assertEquals(
@@ -75,6 +77,31 @@ class AbstractServiceTest extends UnitTestCase
         self::assertEquals(
             $serviceArr,
             $this->service->toArray()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function getItemInitiallyReturnsNull(): void
+    {
+        self::assertNull(
+            $this->service->getItem()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function setItemSetsItem(): void
+    {
+        $item = new Item();
+
+        $this->service->setItem($item);
+
+        self::assertSame(
+            $item,
+            $this->service->getItem()
         );
     }
 
@@ -214,7 +241,10 @@ class AbstractServiceTest extends UnitTestCase
      */
     public function setTaxClassSetsTaxClass(): void
     {
-        $taxClass = new TaxClass('normal', '19', 0.19);
+        $taxClass = new TaxClass();
+        $taxClass->setTitle('normal');
+        $taxClass->setValue('19');
+        $taxClass->setCalc(0.19);
 
         $this->service->setTaxClass($taxClass);
 

@@ -10,6 +10,7 @@ namespace Extcode\Cart\Service;
  */
 
 use Extcode\Cart\Domain\Model\Cart\Cart;
+use Extcode\Cart\Domain\Model\Order\AbstractAddress;
 use TYPO3\CMS\Core\SingletonInterface;
 
 class SessionHandler implements SingletonInterface
@@ -17,56 +18,67 @@ class SessionHandler implements SingletonInterface
     protected $prefixKey = 'cart_';
 
     /**
-     * Returns the object stored in the user´s PHP session
-     *
-     * @param string $key
-     *
-     * @return Cart
+     * restore a Cart object from session
      */
-    public function restore($key): ?Cart
+    public function restoreCart(string $key): ?Cart
     {
         $sessionData = $GLOBALS['TSFE']->fe_user->getKey('ses', $this->prefixKey . $key);
 
-        return ($sessionData === null) ? null : unserialize($sessionData);
+        if (is_string($sessionData)) {
+            $cart = unserialize($sessionData);
+            if ($cart instanceof Cart) {
+                return $cart;
+            }
+        }
+
+        return null;
     }
 
     /**
-     * Writes an object into the PHP session
-     *
-     * @param Cart $cart Cart
-     * @param string $key Session Key
-     *
-     * @return SessionHandler $this
+     * writes a Cart object to session
      */
-    public function write(Cart $cart, $key)
+    public function writeCart(string $key, Cart $cart): void
     {
         $sessionData = serialize($cart);
+
         $GLOBALS['TSFE']->fe_user->setKey('ses', $this->prefixKey . $key, $sessionData);
         $GLOBALS['TSFE']->fe_user->storeSessionData();
-        return $this;
     }
 
     /**
-     * Cleans up the session: removes the stored object from the PHP session
-     *
-     * @param string $key
-     *
-     * @return SessionHandler $this
+     * removes a Cart object from session
      */
-    public function clear($key)
+    public function clearCart(string $key)
     {
         $GLOBALS['TSFE']->fe_user->setKey('ses', $this->prefixKey . $key, null);
         $GLOBALS['TSFE']->fe_user->storeSessionData();
-        return $this;
     }
 
     /**
-     * Sets own prefix key for session
-     *
-     * @param string $prefixKey
+     * restore an AbstractAddress object from session
      */
-    public function setPrefixKey($prefixKey)
+    public function restoreAddress(string $key): ?AbstractAddress
     {
-        $this->prefixKey = $prefixKey;
+        $sessionData = $GLOBALS['TSFE']->fe_user->getKey('ses', $this->prefixKey . $key);
+
+        if (is_string($sessionData)) {
+            $address = unserialize($sessionData);
+            if ($address instanceof AbstractAddress) {
+                return $address;
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * writes an AbstractAddress object to session
+     */
+    public function writeAddress(string $key, AbstractAddress $address)
+    {
+        $sessionData = serialize($address);
+
+        $GLOBALS['TSFE']->fe_user->setKey('ses', $this->prefixKey . $key, $sessionData);
+        $GLOBALS['TSFE']->fe_user->storeSessionData();
     }
 }

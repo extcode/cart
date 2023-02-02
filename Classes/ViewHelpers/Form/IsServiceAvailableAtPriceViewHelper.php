@@ -20,13 +20,9 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractConditionViewHelper;
 
 /**
  * Is Service Method Available ViewHelper
- *
- * @author Daniel Lorenz <ext.cart@extco.de>
  */
 class IsServiceAvailableAtPriceViewHelper extends AbstractConditionViewHelper
 {
-    /**
-     */
     public function initializeArguments()
     {
         parent::initializeArguments();
@@ -43,7 +39,7 @@ class IsServiceAvailableAtPriceViewHelper extends AbstractConditionViewHelper
     }
 
     /**
-     * @param array|NULL $arguments
+     * @param array|null $arguments
      * @return bool
      * @api
      */
@@ -51,6 +47,6 @@ class IsServiceAvailableAtPriceViewHelper extends AbstractConditionViewHelper
     {
         $service = $arguments['service'];
         $price = $arguments['price'];
-        return (boolean) $service->isAvailable($price);
+        return (bool)$service->isAvailable($price);
     }
 }

@@ -1,5 +1,6 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
 
 namespace Extcode\Cart\Service;
 
@@ -18,19 +19,10 @@ use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 
 class TaxClassService implements TaxClassServiceInterface
 {
-    /**
-     * @var ConfigurationManagerInterface
-     */
-    protected $configurationManager;
+    protected ConfigurationManagerInterface $configurationManager;
 
-    /**
-     * @var array
-     */
-    protected $settings;
+    protected array $settings;
 
-    /**
-     * @param ConfigurationManagerInterface $configurationManager
-     */
     public function injectConfigurationManager(ConfigurationManager $configurationManager)
     {
         $this->configurationManager = $configurationManager;
@@ -43,7 +35,7 @@ class TaxClassService implements TaxClassServiceInterface
     /**
      * @inheritDoc
      */
-    public function getTaxClasses(string $countryCode): array
+    public function getTaxClasses(string $countryCode = null): array
     {
         $taxClasses = [];
         $taxClassSettings = $this->settings['taxClasses'];
@@ -75,14 +67,9 @@ class TaxClassService implements TaxClassServiceInterface
         return $taxClasses;
     }
 
-    /**
-     * @param int $key
-     * @param array $value
-     * @return bool
-     */
     protected function isValidTaxClassConfig(int $key, array $value): bool
     {
-        if ((empty($value) && !is_numeric($value)) ||
+        if (empty($value) ||
             empty($value['name']) ||
             empty($value['calc']) ||
             !is_numeric($value['calc'])

@@ -47,6 +47,8 @@ class EmptyValidatorTest extends UnitTestCase
         $this->validator = $this->getMockBuilder($this->validatorClassName)
             ->onlyMethods(['translateErrorMessage'])
             ->getMock();
+
+        parent::setUp();
     }
 
     /**

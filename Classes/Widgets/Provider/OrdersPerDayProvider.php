@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 /*
@@ -45,7 +46,7 @@ class OrdersPerDayProvider implements ChartDataProviderInterface
         $this->queryBuilder = $queryBuilder;
         $this->options = [
                 'fieldName' => 'tx_cart_domain_model_order_item.order_date',
-                'days' => 28
+                'days' => 28,
             ] + $options;
     }
 
@@ -79,9 +80,9 @@ class OrdersPerDayProvider implements ChartDataProviderInterface
                 [
                     'backgroundColor' => WidgetApi::getDefaultChartColors()[0],
                     'border' => 0,
-                    'data' => $data
-                ]
-            ]
+                    'data' => $data,
+                ],
+            ],
         ];
     }
 
@@ -129,6 +130,6 @@ class OrdersPerDayProvider implements ChartDataProviderInterface
             $this->queryBuilder->where(... $constraints);
         }
 
-        return $this->queryBuilder->execute()->fetchColumn();
+        return $this->queryBuilder->executeQuery()->fetchOne();
     }
 }

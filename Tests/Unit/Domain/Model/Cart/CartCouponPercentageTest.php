@@ -16,42 +16,19 @@ use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 class CartCouponPercentageTest extends UnitTestCase
 {
-    /**
-     * @var CartCouponPercentage
-     */
-    protected $coupon;
+    protected CartCouponPercentage $coupon;
 
-    /**
-     * @var string
-     */
-    protected $title;
+    protected string $title;
 
-    /**
-     * @var string
-     */
-    protected $code;
+    protected string $code;
 
-    /**
-     * @var string
-     */
-    protected $couponType;
+    protected string $couponType;
 
-    /**
-     * Discount
-     *
-     * @var float
-     */
-    protected $discount;
+    protected float $discount;
 
-    /**
-     * @var TaxClass
-     */
-    protected $taxClass;
+    protected TaxClass $taxClass;
 
-    /**
-     * @var float
-     */
-    protected $cartMinPrice = 0.0;
+    protected float $cartMinPrice = 0.0;
 
     public function setUp(): void
     {
@@ -70,6 +47,8 @@ class CartCouponPercentageTest extends UnitTestCase
             $this->taxClass,
             $this->cartMinPrice
         );
+
+        parent::setUp();
     }
 
     /**
@@ -160,30 +139,10 @@ class CartCouponPercentageTest extends UnitTestCase
     /**
      * @test
      */
-    public function getIsCombinableInitiallyReturnsFalse(): void
+    public function isCombinableInitiallyReturnsFalse(): void
     {
         self::assertFalse(
-            $this->coupon->getIsCombinable()
-        );
-    }
-
-    /**
-     * @test
-     */
-    public function constructorSetsIsCombinable(): void
-    {
-        $this->coupon = new CartCouponPercentage(
-            $this->title,
-            $this->code,
-            $this->couponType,
-            $this->discount,
-            $this->taxClass,
-            $this->cartMinPrice,
-            true
-        );
-
-        self::assertFalse(
-            $this->coupon->getIsCombinable()
+            $this->coupon->isCombinable()
         );
     }
 
@@ -366,13 +325,12 @@ class CartCouponPercentageTest extends UnitTestCase
             $this->couponType,
             $discount,
             $this->taxClass,
-            $cartMinPrice,
-            true
+            $cartMinPrice
         );
         $coupon->setCart($cart);
 
         self::assertTrue(
-            $coupon->getIsUseable()
+            $coupon->isUseable()
         );
     }
 
@@ -397,13 +355,12 @@ class CartCouponPercentageTest extends UnitTestCase
             $this->couponType,
             $discount,
             $this->taxClass,
-            $cartMinPrice,
-            true
+            $cartMinPrice
         );
         $coupon->setCart($cart);
 
         self::assertTrue(
-            $coupon->getIsUseable()
+            $coupon->isUseable()
         );
     }
 
@@ -428,13 +385,12 @@ class CartCouponPercentageTest extends UnitTestCase
             $this->couponType,
             $discount,
             $this->taxClass,
-            $cartMinPrice,
-            true
+            $cartMinPrice
         );
         $coupon->setCart($cart);
 
         self::assertFalse(
-            $coupon->getIsUseable()
+            $coupon->isUseable()
         );
     }
 }

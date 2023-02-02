@@ -1,5 +1,7 @@
 <?php
+
 declare(strict_types=1);
+
 namespace Extcode\Cart\Event;
 
 /*
@@ -16,30 +18,22 @@ use TYPO3\CMS\Extbase\Mvc\Request;
 
 final class RetrieveProductsFromRequestEvent implements RetrieveProductsFromRequestEventInterface
 {
-    /**
-     * @var Cart
-     */
-    private $cart;
+    private bool $isPropagationStopped = false;
 
     /**
      * @var FlashMessage[]
      */
-    private $errors = [];
+    private array $errors = [];
 
     /**
      * @var Product[]
      */
-    private $products = [];
+    private array $products = [];
 
-    /**
-     * @var Request
-     */
-    private $request;
-
-    public function __construct(Request $request, Cart $cart)
-    {
-        $this->cart = $cart;
-        $this->request = $request;
+    public function __construct(
+        private readonly Request $request,
+        private readonly Cart $cart
+    ) {
     }
 
     public function getCart(): Cart
@@ -75,5 +69,15 @@ final class RetrieveProductsFromRequestEvent implements RetrieveProductsFromRequ
     public function setErrors(array $errors): void
     {
         $this->errors = $errors;
+    }
+
+    public function setPropagationStopped(bool $isPropagationStopped): void
+    {
+        $this->isPropagationStopped = $isPropagationStopped;
+    }
+
+    public function isPropagationStopped(): bool
+    {
+        return $this->isPropagationStopped;
     }
 }

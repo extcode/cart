@@ -45,6 +45,8 @@ class ProductAdditionalTest extends UnitTestCase
             $this->additionalKey,
             $this->additionalValue
         );
+
+        parent::setUp();
     }
 
     /**

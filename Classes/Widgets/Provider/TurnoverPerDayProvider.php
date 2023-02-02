@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 /*
@@ -59,9 +60,9 @@ class TurnoverPerDayProvider implements ChartDataProviderInterface
                 [
                     'backgroundColor' => WidgetApi::getDefaultChartColors()[0],
                     'border' => 0,
-                    'data' => $data
-                ]
-            ]
+                    'data' => $data,
+                ],
+            ],
         ];
     }
 
@@ -111,6 +112,6 @@ class TurnoverPerDayProvider implements ChartDataProviderInterface
             $this->queryBuilder->where(... $constraints);
         }
 
-        return $this->queryBuilder->execute()->fetch()['turnover'] ?? 0;
+        return $this->queryBuilder->executeQuery()->fetchOne()['turnover'] ?? 0;
     }
 }

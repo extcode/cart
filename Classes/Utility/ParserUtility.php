@@ -18,15 +18,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 class ParserUtility
 {
-    /**
-     * Parse Tax Classes
-     *
-     * @param array $pluginSettings
-     * @param string $countryCode
-     *
-     * @return array
-     */
-    public function parseTaxClasses(array $pluginSettings, $countryCode)
+    public function parseTaxClasses(array $pluginSettings, string $countryCode = null): array
     {
         $className = $pluginSettings['taxClasses']['className'] ?? TaxClassService::class;
 

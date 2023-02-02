@@ -1,6 +1,6 @@
 <?php
 
-defined('TYPO3_MODE') or die();
+defined('TYPO3') or die();
 
 $_LLL = 'LLL:EXT:cart/Resources/Private/Language/locallang_db.xlf';
 
@@ -12,7 +12,6 @@ return [
         'label_alt_force' => 1,
         'tstamp' => 'tstamp',
         'crdate' => 'crdate',
-        'cruser_id' => 'cruser_id',
 
         'versioningWS' => true,
         'origUid' => 't3_origuid',
@@ -20,21 +19,25 @@ return [
         'delete' => 'deleted',
         'enablecolumns' => [],
         'searchFields' => 'sku,title',
-        'iconfile' => 'EXT:cart/Resources/Public/Icons/Order/Product.svg'
+        'iconfile' => 'EXT:cart/Resources/Public/Icons/Order/Product.svg',
     ],
     'hideTable' => 1,
     'types' => [
         '1' => [
-            'showitem' => 'product_id, product_type, sku, title, count, --palette--;' . $_LLL . ':tx_cart_domain_model_order_product.price.group;price, product_additional, additional, additional_data'
+            'showitem' => '--palette--;;product_type_and_id, sku, title, count, --palette--;' . $_LLL . ':tx_cart_domain_model_order_product.price.group;price, product_additional, additional, additional_data',
         ],
     ],
     'palettes' => [
         '1' => [
-            'showitem' => ''
+            'showitem' => '',
         ],
         'price' => [
             'showitem' => 'price, discount, --linebreak--, gross, net, --linebreak--, tax, tax_class',
-            'canNotCollapse' => 1
+            'canNotCollapse' => 1,
+        ],
+        'product_type_and_id' => [
+            'showitem' => 'product_type, product_id',
+            'canNotCollapse' => 1,
         ],
     ],
     'columns' => [
@@ -45,7 +48,8 @@ return [
                 'type' => 'input',
                 'readOnly' => 1,
                 'size' => 30,
-                'eval' => 'trim,required'
+                'eval' => 'trim',
+                'required' => true,
             ],
         ],
         'product_type' => [
@@ -55,17 +59,13 @@ return [
                 'type' => 'select',
                 'renderType' => 'selectSingle',
                 'items' => [
-                    ['', ''],
-                    [$_LLL . ':tx_cart_domain_model_order_product.product_type.simple', 'simple'],
-                    [$_LLL . ':tx_cart_domain_model_order_product.product_type.configurable', 'configurable'],
-                    [$_LLL . ':tx_cart_domain_model_order_product.product_type.virtual', 'virtual'],
-                    [$_LLL . ':tx_cart_domain_model_order_product.product_type.downloadable', 'downloadable'],
+                    ['label' => '', 'value' => ''],
                 ],
                 'readOnly' => 1,
                 'size' => 1,
                 'minitems' => 0,
                 'maxitems' => 1,
-            ]
+            ],
         ],
         'sku' => [
             'exclude' => 0,
@@ -74,7 +74,8 @@ return [
                 'type' => 'input',
                 'readOnly' => 1,
                 'size' => 30,
-                'eval' => 'trim,required'
+                'eval' => 'trim',
+                'required' => true,
             ],
         ],
         'title' => [
@@ -84,7 +85,8 @@ return [
                 'type' => 'input',
                 'readOnly' => 1,
                 'size' => 30,
-                'eval' => 'trim,required'
+                'eval' => 'trim',
+                'required' => true,
             ],
         ],
         'count' => [
@@ -94,7 +96,7 @@ return [
                 'type' => 'input',
                 'readOnly' => 1,
                 'size' => 30,
-                'eval' => 'int'
+                'eval' => 'int',
             ],
         ],
         'price' => [
@@ -104,7 +106,7 @@ return [
                 'type' => 'input',
                 'readOnly' => 1,
                 'size' => 30,
-                'eval' => 'double2'
+                'eval' => 'double2',
             ],
         ],
         'discount' => [
@@ -114,7 +116,7 @@ return [
                 'type' => 'input',
                 'readOnly' => 1,
                 'size' => 30,
-                'eval' => 'double2'
+                'eval' => 'double2',
             ],
         ],
         'gross' => [
@@ -124,7 +126,7 @@ return [
                 'type' => 'input',
                 'readOnly' => 1,
                 'size' => 30,
-                'eval' => 'double2'
+                'eval' => 'double2',
             ],
         ],
         'net' => [
@@ -134,7 +136,7 @@ return [
                 'type' => 'input',
                 'readOnly' => 1,
                 'size' => 30,
-                'eval' => 'double2'
+                'eval' => 'double2',
             ],
         ],
         'tax' => [
@@ -144,7 +146,7 @@ return [
                 'type' => 'input',
                 'readOnly' => 1,
                 'size' => 30,
-                'eval' => 'double2'
+                'eval' => 'double2',
             ],
         ],
         'tax_class' => [

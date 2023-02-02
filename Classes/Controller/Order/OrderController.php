@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Extcode\Cart\Controller\Order;
 
 /*
@@ -10,6 +12,7 @@ namespace Extcode\Cart\Controller\Order;
  */
 use Extcode\Cart\Domain\Model\Order\Item;
 use Extcode\Cart\Domain\Repository\Order\ItemRepository;
+use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Core\Messaging\AbstractMessage;
 use TYPO3\CMS\Core\Pagination\SimplePagination;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
@@ -21,40 +24,18 @@ use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 
 class OrderController extends ActionController
 {
-    /**
-     * Order Item Repository
-     *
-     * @var ItemRepository
-     */
-    protected $itemRepository;
+    protected ItemRepository $itemRepository;
 
-    /**
-     * Search Arguments
-     *
-     * @var array
-     */
-    protected $searchArguments = [];
+    protected array $searchArguments = [];
 
-    /**
-     * Plugin Settings
-     *
-     * @var array
-     */
-    protected $pluginSettings;
+    protected array $pluginSettings;
 
-    /**
-     * @param ItemRepository $itemRepository
-     */
-    public function injectItemRepository(
-        ItemRepository $itemRepository
-    ) {
+    public function injectItemRepository(ItemRepository $itemRepository): void
+    {
         $this->itemRepository = $itemRepository;
     }
 
-    /**
-     * Initialize Action
-     */
-    protected function initializeAction()
+    protected function initializeAction(): void
     {
         $this->pluginSettings =
             $this->configurationManager->getConfiguration(
@@ -62,12 +43,12 @@ class OrderController extends ActionController
             );
     }
 
-    public function listAction(int $currentPage = 1): void
+    public function listAction(int $currentPage = 1): ResponseInterface
     {
         $this->view->assign('searchArguments', $this->searchArguments);
 
         $feUser = (int)$GLOBALS['TSFE']->fe_user->user['uid'];
-        $orderItems = $this->itemRepository->findByFeUser($feUser);
+        $orderItems = $this->itemRepository->findBy(['feUser' => $feUser]);
 
         $itemsPerPage = $this->settings['itemsPerPage'] ?? 20;
 
@@ -86,17 +67,13 @@ class OrderController extends ActionController
             ]
         );
 
-        $this->view->assign('orderItems', $orderItems);
+        return $this->htmlResponse();
     }
 
     /**
-     * Show Action
-     *
-     * @param Item $orderItem
-     *
      * @IgnoreValidation("orderItem")
      */
-    public function showAction(Item $orderItem)
+    public function showAction(Item $orderItem): ResponseInterface
     {
         $feUser = (int)$GLOBALS['TSFE']->fe_user->user['uid'];
         if ($orderItem->getFeUser()->getUid() !== $feUser) {
@@ -132,5 +109,7 @@ class OrderController extends ActionController
 
         $pdfRendererInstalled = ExtensionManagementUtility::isLoaded('cart_pdf');
         $this->view->assign('pdfRendererInstalled', $pdfRendererInstalled);
+
+        return $this->htmlResponse();
     }
 }

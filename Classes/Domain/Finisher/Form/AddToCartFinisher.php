@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Extcode\Cart\Domain\Finisher\Form;
 
 /*
@@ -10,6 +12,7 @@ namespace Extcode\Cart\Domain\Finisher\Form;
  */
 use Extcode\Cart\Domain\Model\Cart\Cart;
 use Extcode\Cart\Domain\Model\Cart\Product;
+use Extcode\Cart\Service\SessionHandler;
 use Extcode\Cart\Utility\CartUtility;
 use TYPO3\CMS\Core\Http\PropagateResponseException;
 use TYPO3\CMS\Core\Http\StreamFactory;
@@ -21,53 +24,46 @@ use TYPO3\CMS\Extbase\Configuration\ConfigurationManager;
 use TYPO3\CMS\Extbase\Service\ExtensionService;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 use TYPO3\CMS\Form\Domain\Finishers\AbstractFinisher;
-use TYPO3\CMS\Install\Service\CoreVersionService;
 
 class AddToCartFinisher extends AbstractFinisher
 {
-    /**
-     * @var Cart
-     */
-    protected $cart;
+    protected ConfigurationManager $configurationManager;
 
-    /**
-     * @var CartUtility
-     */
-    protected $cartUtility;
+    protected SessionHandler $sessionHandler;
 
-    /**
-     * @var array
-     */
-    protected $pluginSettings;
+    protected Cart $cart;
 
-    /**
-     * @var ConfigurationManager
-     */
-    protected $configurationManager;
+    protected CartUtility $cartUtility;
 
-    /**
-     * @param CartUtility $cartUtility
-     */
-    public function injectCartUtility(CartUtility $cartUtility): void
-    {
-        $this->cartUtility = $cartUtility;
-    }
+    protected array $configurations;
 
-    /**
-     * @param ConfigurationManager $configurationManager
-     */
     public function injectConfigurationManager(ConfigurationManager $configurationManager): void
     {
         $this->configurationManager = $configurationManager;
-        $this->pluginSettings = $this->configurationManager->getConfiguration(
+        $this->configurations = $this->configurationManager->getConfiguration(
             ConfigurationManager::CONFIGURATION_TYPE_FRAMEWORK,
             'Cart'
         );
     }
 
-    protected function executeInternal(): void
+    public function injectSessionHandler(SessionHandler $sessionHandler): void
     {
-        $this->cart = $this->cartUtility->getCartFromSession($this->pluginSettings);
+        $this->sessionHandler = $sessionHandler;
+    }
+
+    public function injectCartUtility(CartUtility $cartUtility): void
+    {
+        $this->cartUtility = $cartUtility;
+    }
+
+    protected function executeInternal(): ?string
+    {
+        $cart = $this->sessionHandler->restoreCart($this->configurations['settings']['cart']['pid']);
+
+        if (!$cart instanceof Cart) {
+            $cart = $this->cartUtility->getNewCart($this->configurations);
+            $this->sessionHandler->writeCart($this->configurations['settings']['cart']['pid'], $cart);
+        }
 
         $formValues = $this->getFormValues();
 
@@ -87,9 +83,9 @@ class AddToCartFinisher extends AbstractFinisher
         if (empty($errors)) {
             $quantity = $this->addProductsToCart($cartProducts);
 
-            $this->cartUtility->updateService($this->cart, $this->pluginSettings);
+            $this->cartUtility->updateService($this->cart, $this->configurations);
 
-            $this->cartUtility->writeCartToSession($this->cart, $this->pluginSettings['settings']);
+            $this->sessionHandler->writeCart($this->configurations['settings'], $this->cart);
 
             $status = '200';
             $messageBody = $this->getStatusMessageBody($formValues, $status);
@@ -97,7 +93,7 @@ class AddToCartFinisher extends AbstractFinisher
             $severity = AbstractMessage::OK;
 
             $pageType = $GLOBALS['TYPO3_REQUEST']->getAttribute('routing')->getPageType();
-            if (in_array((int)$pageType, $this->pluginSettings['settings']['jsonResponseForPageTypes'])) {
+            if (in_array((int)$pageType, $this->configurations['settings']['jsonResponseForPageTypes'])) {
                 $payload = [
                     'status' => $status,
                     'added' => $quantity,
@@ -106,46 +102,40 @@ class AddToCartFinisher extends AbstractFinisher
                     'gross' => $this->cart->getGross(),
                     'messageBody' => $messageBody,
                     'messageTitle' => $messageTitle,
-                    'severity' => $severity
+                    'severity' => $severity,
                 ];
 
-                if (version_compare((new CoreVersionService)->getInstalledVersion(), '11.5.0', '>=')) {
-                    $streamFactory = GeneralUtility::makeInstance(StreamFactory::class);
-                    $stream = $streamFactory->createStream(json_encode($payload));
-                    $response = $this->finisherContext->getFormRuntime()->getResponse()
-                        ->withAddedHeader('Content-Type', 'application/json; charset=utf-8')
-                        ->withBody($stream)
-                        ->withStatus((int)$status);
-                    /** @see \TYPO3\CMS\Form\Domain\Finishers\RedirectFinisher::redirectToUri */
-                    throw new PropagateResponseException($response, 1655984985);
-                } else {
-                    $this->finisherContext->getFormRuntime()->getResponse()->setContent(json_encode($payload));
-                }
-            } else {
-                $flashMessage = GeneralUtility::makeInstance(
-                    FlashMessage::class,
-                    (string)$messageBody,
-                    (string)$messageTitle,
-                    $severity,
-                    true
-                );
+                $streamFactory = GeneralUtility::makeInstance(StreamFactory::class);
+                $stream = $streamFactory->createStream(json_encode($payload));
+                $response = $this->finisherContext->getFormRuntime()->getResponse()
+                    ->withAddedHeader('Content-Type', 'application/json; charset=utf-8')
+                    ->withBody($stream)
+                    ->withStatus((int)$status);
 
-                if (version_compare((new CoreVersionService)->getInstalledVersion(), '11.5.0', '>=')) {
-                    $extensionService = GeneralUtility::makeInstance(ExtensionService::class);
-                    $flashMessageService = GeneralUtility::makeInstance(FlashMessageService::class);
-
-                    // todo: this value has to be taken from the request directly in the future
-                    $pluginNamespace = $extensionService->getPluginNamespace(
-                        $this->finisherContext->getRequest()->getControllerExtensionName(),
-                        $this->finisherContext->getRequest()->getPluginName()
-                    );
-
-                    $flashMessageService->getMessageQueueByIdentifier('extbase.flashmessages.' . $pluginNamespace)->addMessage($flashMessage);
-                } else {
-                    $this->finisherContext->getControllerContext()->getFlashMessageQueue()->addMessage($flashMessage);
-                }
+                /** @see \TYPO3\CMS\Form\Domain\Finishers\RedirectFinisher::redirectToUri */
+                throw new PropagateResponseException($response, 1655984985);
             }
+            $flashMessage = GeneralUtility::makeInstance(
+                FlashMessage::class,
+                (string)$messageBody,
+                (string)$messageTitle,
+                $severity,
+                true
+            );
+
+            $extensionService = GeneralUtility::makeInstance(ExtensionService::class);
+            $flashMessageService = GeneralUtility::makeInstance(FlashMessageService::class);
+
+            // todo: this value has to be taken from the request directly in the future
+            $pluginNamespace = $extensionService->getPluginNamespace(
+                $this->finisherContext->getRequest()->getControllerExtensionName(),
+                $this->finisherContext->getRequest()->getPluginName()
+            );
+
+            $flashMessageService->getMessageQueueByIdentifier('extbase.flashmessages.' . $pluginNamespace)->addMessage($flashMessage);
         }
+
+        return null;
     }
 
     protected function getFormValues(): array

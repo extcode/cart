@@ -1,6 +1,6 @@
 <?php
 
-defined('TYPO3_MODE') or die();
+defined('TYPO3') or die();
 
 $_LLL = 'LLL:EXT:cart/Resources/Private/Language/locallang_db.xlf';
 
@@ -10,7 +10,6 @@ return [
         'label' => 'uid',
         'tstamp' => 'tstamp',
         'crdate' => 'crdate',
-        'cruser_id' => 'cruser_id',
 
         'versioningWS' => true,
         'origUid' => 't3_origuid',
@@ -23,7 +22,7 @@ return [
     'types' => [
         '1' => [
             'showitem' =>
-                'pid, f_hash, s_hash, fe_user, was_ordered, order_item, cart'
+                'pid, f_hash, s_hash, fe_user, was_ordered, order_item, cart',
         ],
     ],
     'palettes' => [
@@ -37,7 +36,8 @@ return [
                 'type' => 'input',
                 'readOnly' => 1,
                 'size' => 30,
-                'eval' => 'trim,required'
+                'eval' => 'trim',
+                'required' => true,
             ],
         ],
         's_hash' => [
@@ -47,14 +47,15 @@ return [
                 'type' => 'input',
                 'readOnly' => 1,
                 'size' => 30,
-                'eval' => 'trim,required'
+                'eval' => 'trim',
+                'required' => true,
             ],
         ],
         'pid' => [
             'exclude' => 1,
             'config' => [
-                'type' => 'passthrough'
-            ]
+                'type' => 'passthrough',
+            ],
         ],
         'fe_user' => [
             'exclude' => 1,
@@ -69,7 +70,7 @@ return [
                 'minitems' => 0,
                 'maxitems' => 1,
                 'multiple' => 0,
-            ]
+            ],
         ],
         'was_ordered' => [
             'exclude' => 1,
@@ -96,7 +97,7 @@ return [
                 'type' => 'text',
                 'cols' => 48,
                 'rows' => 15,
-                'eval' => 'required',
+                'required' => true,
             ],
         ],
     ],

@@ -23,9 +23,9 @@ class ParserUtilityTest extends FunctionalTestCase
     protected $parserUtility;
 
     /**
-     * @var array
+     * @var non-empty-string[]
      */
-    protected $testExtensionsToLoad = [
+    protected array $testExtensionsToLoad = [
         'typo3conf/ext/cart',
     ];
 
@@ -58,21 +58,21 @@ class ParserUtilityTest extends FunctionalTestCase
                             'title' => 'Payment 1 DE',
                             'extra' => '0.00',
                             'taxClassId' => '1',
-                            'status' => 'open'
+                            'status' => 'open',
                         ],
                         '2' => [
                             'title' => 'Payment 2 DE',
                             'extra' => '0.00',
                             'taxClassId' => '1',
-                            'status' => 'open'
+                            'status' => 'open',
                         ],
                         '3' => [
                             'title' => 'Payment 3 DE',
                             'extra' => '0.00',
                             'taxClassId' => '1',
-                            'status' => 'open'
-                        ]
-                    ]
+                            'status' => 'open',
+                        ],
+                    ],
                 ],
                 'at' => [
                     'preset' => 1,
@@ -81,46 +81,46 @@ class ParserUtilityTest extends FunctionalTestCase
                             'title' => 'Payment 1 AT',
                             'extra' => '0.00',
                             'taxClassId' => '1',
-                            'status' => 'open'
+                            'status' => 'open',
                         ],
                         '2' => [
                             'title' => 'Payment 2 AT',
                             'extra' => '0.00',
                             'taxClassId' => '1',
-                            'status' => 'open'
+                            'status' => 'open',
                         ],
                         '3' => [
                             'title' => 'Payment 3 AT',
                             'extra' => '0.00',
                             'taxClassId' => '1',
-                            'status' => 'open'
-                        ]
-                    ]
+                            'status' => 'open',
+                        ],
+                    ],
                 ],
             ],
         ];
 
         $cart = $this->getMockBuilder(Cart::class)
-            ->setMethods(['getCountry'])
+            ->onlyMethods(['getCountry'])
             ->setConstructorArgs([[$taxClass]])
             ->getMock();
         $cart
-            ->expects($this->any())
+            ->expects(self::any())
             ->method('getCountry')
-            ->will($this->returnValue($country));
+            ->willReturn($country);
 
         $parsedData = $this->parserUtility->getTypePluginSettings($pluginSettings, $cart, $type);
 
-        $this->assertIsArray(
+        self::assertIsArray(
             $parsedData
         );
 
-        $this->assertEquals(
+        self::assertEquals(
             2,
             count($parsedData)
         );
 
-        $this->assertEquals(
+        self::assertEquals(
             $pluginSettings[$type][$country]['options'],
             $parsedData['options']
         );
@@ -148,21 +148,21 @@ class ParserUtilityTest extends FunctionalTestCase
                                 'title' => 'Payment 1 Zone 1',
                                 'extra' => '0.00',
                                 'taxClassId' => '1',
-                                'status' => 'open'
+                                'status' => 'open',
                             ],
                             '2' => [
                                 'title' => 'Payment 2 Zone 1',
                                 'extra' => '0.00',
                                 'taxClassId' => '1',
-                                'status' => 'open'
+                                'status' => 'open',
                             ],
                             '3' => [
                                 'title' => 'Payment 3 Zone 1',
                                 'extra' => '0.00',
                                 'taxClassId' => '1',
-                                'status' => 'open'
-                            ]
-                        ]
+                                'status' => 'open',
+                            ],
+                        ],
                     ],
                     '2' => [
                         'preset' => 1,
@@ -172,47 +172,47 @@ class ParserUtilityTest extends FunctionalTestCase
                                 'title' => 'Payment 1 Zone 2',
                                 'extra' => '0.00',
                                 'taxClassId' => '1',
-                                'status' => 'open'
+                                'status' => 'open',
                             ],
                             '2' => [
                                 'title' => 'Payment 2 Zone 2',
                                 'extra' => '0.00',
                                 'taxClassId' => '1',
-                                'status' => 'open'
+                                'status' => 'open',
                             ],
                             '3' => [
                                 'title' => 'Payment 3 Zone 2',
                                 'extra' => '0.00',
                                 'taxClassId' => '1',
-                                'status' => 'open'
-                            ]
-                        ]
+                                'status' => 'open',
+                            ],
+                        ],
                     ],
                 ],
             ],
         ];
 
         $cart = $this->getMockBuilder(Cart::class)
-            ->setMethods(['getCountry'])
+            ->onlyMethods(['getCountry'])
             ->setConstructorArgs([[$taxClass]])
             ->getMock();
         $cart
-            ->expects($this->any())
+            ->expects(self::any())
             ->method('getCountry')
-            ->will($this->returnValue($country));
+            ->willReturn($country);
 
         $parsedData = $this->parserUtility->getTypePluginSettings($pluginSettings, $cart, $type);
 
-        $this->assertIsArray(
+        self::assertIsArray(
             $parsedData
         );
 
-        $this->assertEquals(
+        self::assertEquals(
             3,
             count($parsedData)
         );
 
-        $this->assertEquals(
+        self::assertEquals(
             $pluginSettings[$type]['zones']['2']['options'],
             $parsedData['options']
         );

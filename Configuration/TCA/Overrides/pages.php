@@ -1,5 +1,6 @@
 <?php
-defined('TYPO3_MODE') or die();
+
+defined('TYPO3') or die();
 
 call_user_func(function () {
     $_LLL_be = 'LLL:EXT:cart/Resources/Private/Language/locallang_be.xlf:';
@@ -8,17 +9,17 @@ call_user_func(function () {
     $GLOBALS['TCA']['pages']['columns']['doktype']['config']['items'][] = [
         $_LLL_db . 'pages.doktype.181',
         181,
-        'apps-pagetree-page-cart-cart'
+        'apps-pagetree-page-cart-cart',
     ];
     $GLOBALS['TCA']['pages']['columns']['module']['config']['items'][] = [
         $_LLL_be . 'tcarecords-pages-contains.cart_coupons',
         'coupons',
-        'apps-pagetree-folder-cart-coupons'
+        'apps-pagetree-folder-cart-coupons',
     ];
     $GLOBALS['TCA']['pages']['columns']['module']['config']['items'][] = [
         $_LLL_be . 'tcarecords-pages-contains.cart_orders',
         'orders',
-        'apps-pagetree-folder-cart-orders'
+        'apps-pagetree-folder-cart-orders',
     ];
 
     $GLOBALS['TCA']['pages']['ctrl']['typeicon_classes'][181] = 'apps-pagetree-page-cart-cart';

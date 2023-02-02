@@ -1,5 +1,7 @@
 <?php
+
 declare(strict_types=1);
+
 namespace Extcode\Cart\Event\Order;
 
 /*
@@ -15,31 +17,13 @@ use Psr\EventDispatcher\StoppableEventInterface;
 
 final class StockEvent implements EventInterface, StoppableEventInterface
 {
-    /**
-     * @var Cart
-     */
-    private $cart;
+    private bool $isPropagationStopped = false;
 
-    /**
-     * @var OrderItem
-     */
-    private $orderItem;
-
-    /**
-     * @var array
-     */
-    private $settings;
-
-    /**
-     * @var bool
-     */
-    private $isPropagationStopped = false;
-
-    public function __construct(Cart $cart, OrderItem $orderItem, array $settings = [])
-    {
-        $this->cart = $cart;
-        $this->orderItem = $orderItem;
-        $this->settings = $settings;
+    public function __construct(
+        private readonly Cart $cart,
+        private readonly OrderItem $orderItem,
+        private array $settings = []
+    ) {
     }
 
     public function getCart(): Cart

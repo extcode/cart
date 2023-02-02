@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Extcode\Cart\Controller\Cart;
 
 /*
@@ -8,25 +10,15 @@ namespace Extcode\Cart\Controller\Cart;
  * For the full copyright and license information, please read the
  * LICENSE file that was distributed with this source code.
  */
-
-use Extcode\Cart\Utility\OrderUtility;
+use Psr\Http\Message\ResponseInterface;
 
 class CartPreviewController extends ActionController
 {
-    /**
-     * @var OrderUtility
-     */
-    private $orderUtility;
-
-    public function injectOrderUtility(
-        OrderUtility $orderUtility
-    ) {
-        $this->orderUtility = $orderUtility;
-    }
-
-    public function showAction()
+    public function showAction(): ResponseInterface
     {
         $this->restoreSession();
         $this->view->assign('cart', $this->cart);
+
+        return $this->htmlResponse();
     }
 }

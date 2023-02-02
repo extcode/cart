@@ -14,7 +14,7 @@
     "authors": [
         {
             "name": "Daniel Gohlke",
-            "email": "ext.cart@extco.de",
+            "email": "ext@extco.de",
             "role": "Developer"
         }
     ],
@@ -37,7 +37,8 @@
         "vendor-dir": ".build/vendor",
         "allow-plugins": {
             "typo3/class-alias-loader": true,
-            "typo3/cms-composer-installers": true
+            "typo3/cms-composer-installers": true,
+            "sbuerk/typo3-cmscomposerinstallers-testingframework-bridge": true
         }
     },
     "extra": {
@@ -48,20 +49,22 @@
         }
     },
     "require": {
-        "php": "^7.2 || ^8.0",
+        "php": "^8.1",
         "ext-json": "*",
         "ext-openssl": "*",
-        "typo3/cms-core": "^10.4 || ^11.5",
-        "typo3/cms-form": "^10.4 || ^11.5"
+        "typo3/cms-core": "^12.4",
+        "typo3/cms-extbase": "^12.4",
+        "typo3/cms-fluid": "^12.4",
+        "typo3/cms-form": "^12.4"
     },
     "require-dev": {
-        "typo3/testing-framework": "^6.0",
-        "typo3/cms-dashboard": "^10.4 || ^11.5",
-        "friendsofphp/php-cs-fixer": "^2.19 || ^3.11",
-        "helmich/typo3-typoscript-lint": "^2.5",
-        "overtrue/phplint": "^3.2 || ^4.3 || ^5.3",
-        "ssch/typo3-rector": "^1.0",
-        "phpstan/phpstan": "^1.8"
+        "friendsofphp/php-cs-fixer": "^3.16",
+        "overtrue/phplint": "^5.5",
+        "phpstan/phpstan": "^1.10",
+        "sbuerk/typo3-cmscomposerinstallers-testingframework-bridge": "^0.0.1",
+        "ssch/typo3-rector": "^1.2",
+        "typo3/cms-dashboard": "^12.4",
+        "typo3/testing-framework": "^8.0"
     },
     "scripts": {
         "test:cgl": [
@@ -80,7 +83,7 @@
             "typo3DatabaseDriver=\"pdo_sqlite\" .build/bin/phpunit -c Build/FunctionalTests.xml"
         ],
         "test:phpstan:analyse": [
-            ".build/bin/phpstan analyse -c Build/phpstan.neon"
+            ".build/bin/phpstan analyse -c Build/phpstan.neon --memory-limit 256M"
         ],
         "test:rector:process": [
             ".build/bin/rector process *"
@@ -102,13 +105,9 @@
             "@test:cgl",
             "@test:typoscript:lint",
             "@test:php"
-        ],
-        "post-autoload-dump": [
-            "mkdir -p .build/public/typo3conf/ext/",
-            "[ -L .build/public/typo3conf/ext/cart ] || ln -snvf ../../../../. .build/public/typo3conf/ext/cart"
         ]
     },
     "suggest": {
-        "typo3/cms-dashboard": "^10.4 || ^11.5"
+        "typo3/cms-dashboard": "^12.3"
     }
 }

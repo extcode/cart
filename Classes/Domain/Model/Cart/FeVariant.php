@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Extcode\Cart\Domain\Model\Cart;
 
 /*
@@ -11,80 +13,44 @@ namespace Extcode\Cart\Domain\Model\Cart;
 
 class FeVariant
 {
-    /**
-     * @var Product
-     */
-    protected $product = null;
+    protected ?Product $product = null;
 
-    /**
-     * @var BeVariant
-     */
-    protected $beVariant = null;
+    protected ?BeVariant $beVariant = null;
 
-    /**
-     * @var array
-     */
-    protected $variantData = [];
+    protected array $variantData = [];
 
-    /**
-     * @var string
-     */
-    protected $titleGlue = ' ';
+    protected string $titleGlue = ' ';
 
-    /**
-     * @var string
-     */
-    protected $skuGlue = '-';
+    protected string $skuGlue = '-';
 
-    /**
-     * @var string
-     */
-    protected $valueGlue = ' ';
+    protected string $valueGlue = ' ';
 
-    /**
-     * @param array $variantData
-     */
     public function __construct(
         array $variantData = []
     ) {
         $this->variantData = $variantData;
     }
 
-    /**
-     * @return string
-     */
     public function getId(): string
     {
         return sha1(json_encode($this->variantData));
     }
 
-    /**
-     * @return Product
-     */
     public function getProduct(): ?Product
     {
         return $this->product;
     }
 
-    /**
-     * @return BeVariant
-     */
     public function getVariant(): ?BeVariant
     {
         return $this->beVariant;
     }
 
-    /**
-     * @return array
-     */
     public function getVariantData(): array
     {
         return $this->variantData;
     }
 
-    /**
-     * @return string
-     */
     public function getTitle(): string
     {
         $titleArr = [];
@@ -94,9 +60,6 @@ class FeVariant
         return implode($this->titleGlue, $titleArr);
     }
 
-    /**
-     * @return string
-     */
     public function getSku(): string
     {
         $skuArr = [];
@@ -106,9 +69,6 @@ class FeVariant
         return implode($this->skuGlue, $skuArr);
     }
 
-    /**
-     * @return string
-     */
     public function getValue(): string
     {
         $valueArr = [];

@@ -1,6 +1,6 @@
 <?php
 
-defined('TYPO3_MODE') or die();
+defined('TYPO3') or die();
 
 $_LLL = 'LLL:EXT:cart/Resources/Private/Language/locallang_db.xlf';
 
@@ -12,7 +12,6 @@ return [
         'label_alt_force' => 1,
         'tstamp' => 'tstamp',
         'crdate' => 'crdate',
-        'cruser_id' => 'cruser_id',
 
         'versioningWS' => true,
         'origUid' => 't3_origuid',
@@ -20,17 +19,17 @@ return [
         'delete' => 'deleted',
         'enablecolumns' => [],
         'searchFields' => 'title',
-        'iconfile' => 'EXT:cart/Resources/Public/Icons/Order/Discount.svg'
+        'iconfile' => 'EXT:cart/Resources/Public/Icons/Order/Discount.svg',
     ],
     'hideTable' => 1,
     'types' => [
         '1' => [
-            'showitem' => 'title, code, gross, net, tax_class_id, tax'
+            'showitem' => 'title, code, gross, net, tax_class_id, tax',
         ],
     ],
     'palettes' => [
         '1' => [
-            'showitem' => ''
+            'showitem' => '',
         ],
     ],
     'columns' => [
@@ -40,7 +39,8 @@ return [
             'config' => [
                 'type' => 'input',
                 'size' => 30,
-                'eval' => 'trim,required'
+                'eval' => 'trim',
+                'required' => true,
             ],
         ],
         'code' => [
@@ -49,7 +49,8 @@ return [
             'config' => [
                 'type' => 'input',
                 'size' => 30,
-                'eval' => 'trim,required'
+                'eval' => 'trim',
+                'required' => true,
             ],
         ],
         'gross' => [
@@ -58,7 +59,7 @@ return [
             'config' => [
                 'type' => 'input',
                 'size' => 30,
-                'eval' => 'double2'
+                'eval' => 'double2',
             ],
         ],
         'net' => [
@@ -67,7 +68,7 @@ return [
             'config' => [
                 'type' => 'input',
                 'size' => 30,
-                'eval' => 'double2'
+                'eval' => 'double2',
             ],
         ],
         'tax_class_id' => [
@@ -77,7 +78,7 @@ return [
                 'type' => 'select',
                 'renderType' => 'selectSingle',
                 'items' => [
-                    [$_LLL . ':tx_cart_domain_model_order_discount.tax_class_id.1', 1],
+                    ['label' => $_LLL . ':tx_cart_domain_model_order_discount.tax_class_id.1', 'value' => 1],
                 ],
                 'size' => 1,
                 'minitems' => 1,
@@ -90,7 +91,7 @@ return [
             'config' => [
                 'type' => 'input',
                 'size' => 30,
-                'eval' => 'double2'
+                'eval' => 'double2',
             ],
         ],
 

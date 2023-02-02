@@ -1,5 +1,6 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
 
 namespace Extcode\Cart\Domain\Model\Cart;
 
@@ -12,32 +13,14 @@ namespace Extcode\Cart\Domain\Model\Cart;
 
 class TaxClass
 {
-    /**
-     * @var int
-     */
-    protected $id;
+    protected int $id;
 
-    /**
-     * @var string
-     */
-    protected $value;
+    protected string $value;
 
-    /**
-     * @var float
-     */
-    protected $calc;
+    protected float $calc;
 
-    /**
-     * @var string
-     */
-    protected $title;
+    protected string $title;
 
-    /**
-     * @param int $id
-     * @param string $value
-     * @param float $calc
-     * @param string $title
-     */
     public function __construct(
         int $id,
         string $value,
@@ -50,33 +33,21 @@ class TaxClass
         $this->title = $title;
     }
 
-    /**
-     * @return int
-     */
     public function getId(): int
     {
         return $this->id;
     }
 
-    /**
-     * @return string
-     */
     public function getValue(): string
     {
         return $this->value;
     }
 
-    /**
-     * @return float
-     */
     public function getCalc(): float
     {
         return $this->calc;
     }
 
-    /**
-     * @return string
-     */
     public function getTitle(): string
     {
         return $this->title;

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Extcode\Cart\Domain\Model\Order;
 
 /*
@@ -8,126 +10,73 @@ namespace Extcode\Cart\Domain\Model\Order;
  * For the full copyright and license information, please read the
  * LICENSE file that was distributed with this source code.
  */
-use TYPO3\CMS\Extbase\Annotation\Validate;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 
 class Transaction extends AbstractEntity
 {
-    /**
-     * @var Payment
-     */
-    protected $payment = null;
+    protected ?Payment $payment = null;
 
-    /**
-     * @var string
-     * @Validate("NotEmpty")
-     */
     protected $txnId = '';
 
-    /**
-     * @var string
-     */
-    protected $txnTxt = '';
+    protected string $txnTxt = '';
 
-    /**
-     * @var string
-     */
-    protected $status = '';
+    protected string $status = '';
 
-    /**
-     * @var string
-     */
-    protected $externalStatusCode = '';
+    protected string $externalStatusCode = '';
 
-    /**
-     * @var string
-     */
-    protected $note = '';
+    protected string $note = '';
 
-    /**
-     * @return Payment|null
-     */
     public function getPayment(): ?Payment
     {
         return $this->payment;
     }
 
-    /**
-     * @return string
-     */
     public function getTxnId(): string
     {
         return $this->txnId;
     }
 
-    /**
-     * @param string $txnId
-     */
-    public function setTxnId(string $txnId)
+    public function setTxnId(string $txnId): void
     {
         $this->txnId = $txnId;
     }
 
-    /**
-     * @return string
-     */
     public function getTxnTxt(): string
     {
         return $this->txnTxt;
     }
 
-    /**
-     * @param string $txnTxt
-     */
-    public function setTxnTxt(string $txnTxt)
+    public function setTxnTxt(string $txnTxt): void
     {
         $this->txnTxt = $txnTxt;
     }
 
-    /**
-     * @return string
-     */
     public function getStatus(): string
     {
         return $this->status;
     }
 
-    /**
-     * @param string $status
-     */
-    public function setStatus(string $status)
+    public function setStatus(string $status): void
     {
         $this->status = $status;
     }
 
-    /**
-     * @return string
-     */
     public function getExternalStatusCode(): string
     {
         return $this->externalStatusCode;
     }
 
-    /**
-     * @param string $externalStatusCode
-     */
-    public function setExternalStatusCode(string $externalStatusCode)
+    public function setExternalStatusCode(string $externalStatusCode): void
     {
         $this->externalStatusCode = $externalStatusCode;
     }
 
-    /**
-     * @return string
-     */
     public function getNote(): string
     {
         return $this->note;
     }
 
-    /**
-     * @param string $note
-     */
-    public function setNote(string $note)
+    public function setNote(string $note): void
     {
         $this->note = $note;
     }

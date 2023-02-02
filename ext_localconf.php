@@ -1,6 +1,6 @@
 <?php
 
-defined('TYPO3_MODE') or die();
+defined('TYPO3') or die();
 
 use Extcode\Cart\Controller\Cart\CartController;
 use Extcode\Cart\Controller\Cart\CartPreviewController;
@@ -82,29 +82,27 @@ ExtensionUtility::configurePlugin(
 
 // Icon Registry
 
-if (TYPO3_MODE === 'BE') {
-    $icons = [
-        'apps-pagetree-folder-cart-coupons' => 'apps_pagetree_folder_cart_coupons.svg',
-        'apps-pagetree-folder-cart-orders' => 'apps_pagetree_folder_cart_orders.svg',
-        'apps-pagetree-page-cart-cart' => 'apps_pagetree_page_cart_cart.svg',
-        'ext-cart-wizard-icon' => 'cart_plugin_wizard.svg',
-        'ext-cart-module' => 'module.svg',
-        'ext-cart-module-order' => 'module_orders.svg'
-    ];
+$icons = [
+    'apps-pagetree-folder-cart-coupons' => 'apps_pagetree_folder_cart_coupons.svg',
+    'apps-pagetree-folder-cart-orders' => 'apps_pagetree_folder_cart_orders.svg',
+    'apps-pagetree-page-cart-cart' => 'apps_pagetree_page_cart_cart.svg',
+    'ext-cart-wizard-icon' => 'cart_plugin_wizard.svg',
+    'ext-cart-module' => 'module.svg',
+    'ext-cart-module-order' => 'module_orders.svg',
+];
 
-    $iconRegistry = GeneralUtility::makeInstance(
-        IconRegistry::class
+$iconRegistry = GeneralUtility::makeInstance(
+    IconRegistry::class
+);
+
+foreach ($icons as $identifier => $fileName) {
+    $iconRegistry->registerIcon(
+        $identifier,
+        SvgIconProvider::class,
+        [
+            'source' => 'EXT:cart/Resources/Public/Icons/' . $fileName,
+        ]
     );
-
-    foreach ($icons as $identifier => $fileName) {
-        $iconRegistry->registerIcon(
-            $identifier,
-            SvgIconProvider::class,
-            [
-                'source' => 'EXT:cart/Resources/Public/Icons/' . $fileName,
-            ]
-        );
-    }
 }
 
 // TSconfig
@@ -116,27 +114,26 @@ ExtensionManagementUtility::addPageTSConfig('
 // register "cart:" namespace
 $GLOBALS['TYPO3_CONF_VARS']['SYS']['fluid']['namespaces']['cart'][] = 'Extcode\\Cart\\ViewHelpers';
 
-if (TYPO3_MODE === 'FE') {
-    $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['cart']['MailAttachmentsHook'][] =
-        MailAttachmentHook::class;
-}
-
-// view paths for TYPO3 Mail API
-$GLOBALS['TYPO3_CONF_VARS']['MAIL']['templateRootPaths']['1588829280'] = 'EXT:cart/Resources/Private/Templates/';
-$GLOBALS['TYPO3_CONF_VARS']['MAIL']['partialRootPaths']['1588829280'] = 'EXT:cart/Resources/Private/Partials/';
+$GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['cart']['MailAttachmentsHook'][] = MailAttachmentHook::class;
 
 // view paths for TYPO3 Dashboard
 call_user_func(static function () {
-    if (TYPO3_MODE === 'BE') {
-        ExtensionManagementUtility::addTypoScriptSetup(
-            '
+    ExtensionManagementUtility::addTypoScriptSetup(
+        '
+module.tx_cart {
+    view {
+        templateRootPaths.10 = EXT:cart/Resources/Private/Backend/Templates/
+        partialRootPaths.10 = EXT:cart/Resources/Private/Backend/Partials/
+        layoutRootPaths.10 = EXT:cart/Resources/Private/Backend/Layouts/
+    }
+}
 module.tx_dashboard {
     view {
         templateRootPaths.1588697552 = EXT:cart/Resources/Private/Templates/
         partialRootPaths.1588697552 = EXT:cart/Resources/Private/Partials/
         layoutRootPaths.1588697552 = EXT:cart/Resources/Private/Layouts/
     }
-}'
-        );
-    }
+}
+'
+    );
 });

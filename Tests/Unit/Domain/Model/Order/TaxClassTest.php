@@ -40,62 +40,18 @@ class TaxClassTest extends UnitTestCase
         $this->value = '19';
         $this->calc = 0.19;
 
-        $this->taxClass = new TaxClass(
-            $this->title,
-            $this->value,
-            $this->calc
-        );
+        $this->taxClass = new TaxClass();
+
+        parent::setUp();
     }
 
     /**
      * @test
      */
-    public function constructTaxClassWithoutTitleThrowsException(): void
-    {
-        $this->expectException(\TypeError::class);
-
-        new TaxClass(
-            null,
-            $this->value,
-            $this->calc
-        );
-    }
-
-    /**
-     * @test
-     */
-    public function constructTaxClassWithoutValueThrowsException(): void
-    {
-        $this->expectException(\TypeError::class);
-
-        new TaxClass(
-            $this->title,
-            null,
-            $this->calc
-        );
-    }
-
-    /**
-     * @test
-     */
-    public function constructTaxClassWithoutCalcThrowsException(): void
-    {
-        $this->expectException(\TypeError::class);
-
-        new TaxClass(
-            $this->title,
-            $this->value,
-            null
-        );
-    }
-
-    /**
-     * @test
-     */
-    public function getTitleInitiallyReturnsTitleSetDirectlyByConstructor(): void
+    public function getTitleInitiallyReturnsEmptyString(): void
     {
         self::assertSame(
-            $this->title,
+            '',
             $this->taxClass->getTitle()
         );
     }
@@ -103,10 +59,23 @@ class TaxClassTest extends UnitTestCase
     /**
      * @test
      */
-    public function getValueInitiallyReturnsValueSetDirectlyByConstructor(): void
+    public function setTitleSetsTitle(): void
+    {
+        $this->taxClass->setTitle('normal');
+
+        self::assertSame(
+            'normal',
+            $this->taxClass->getTitle()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function getValueInitiallyReturnsEmptyString(): void
     {
         self::assertSame(
-            $this->value,
+            '',
             $this->taxClass->getValue()
         );
     }
@@ -114,10 +83,36 @@ class TaxClassTest extends UnitTestCase
     /**
      * @test
      */
-    public function getCalcInitiallyReturnsCalcSetDirectlyByConstructor(): void
+    public function setValueSetsValue(): void
+    {
+        $this->taxClass->setValue('19');
+
+        self::assertSame(
+            '19',
+            $this->taxClass->getValue()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function getCalcInitiallyReturnsZero(): void
     {
         self::assertSame(
-            $this->calc,
+            0.0,
+            $this->taxClass->getCalc()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function setCalcSetsCalc(): void
+    {
+        $this->taxClass->setCalc(0.19);
+
+        self::assertSame(
+            0.19,
             $this->taxClass->getCalc()
         );
     }
@@ -128,9 +123,24 @@ class TaxClassTest extends UnitTestCase
     public function toArrayReturnsArray(): void
     {
         $taxClassArray = [
+            'title' => '',
+            'value' => '',
+            'calc' => 0.0,
+        ];
+
+        self::assertEquals(
+            $taxClassArray,
+            $this->taxClass->toArray()
+        );
+
+        $this->taxClass->setTitle($this->title);
+        $this->taxClass->setValue($this->value);
+        $this->taxClass->setCalc($this->calc);
+
+        $taxClassArray = [
             'title' => $this->title,
             'value' => $this->value,
-            'calc' => $this->calc
+            'calc' => $this->calc,
         ];
 
         self::assertEquals(

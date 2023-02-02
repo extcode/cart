@@ -11,19 +11,19 @@ but also configured via TypoScript.
    plugin.tx_cart {
        mail {
            buyer {
-               fromAddress = cart.buyer.sender@extco.de
-               ccAddress = cart.buyer.cc1@extco.de, cart.buyer.cc2@extco.de
-               bccAddress = cart.buyer.bcc1@extco.de, cart.buyer.bcc2@extco.de
-               replyToAddress = cart.buyer.reply@extco.de
+               fromAddress = cart.buyer.sender@example.com
+               ccAddress = cart.buyer.cc1@example.com, cart.buyer.cc2@example.com
+               bccAddress = cart.buyer.bcc1@example.com, cart.buyer.bcc2@example.com
+               replyToAddress = cart.buyer.reply@example.com
                attachments {
                    1 = EXT:theme_cart/Resources/Public/Files/AGB.pdf
                }
            }
            seller {
-               fromAddress = cart.seller.sender@extco.de
-               toAddress = cart.seller.to1@extco.de, cart.seller.to2@extco.de
-               ccAddress = cart.seller.cc1@extco.de, cart.seller.cc2@extco.de
-               bccAddress = cart.seller.bcc1@extco.de, cart.seller.bcc2@extco.de
+               fromAddress = cart.seller.sender@example.com
+               toAddress = cart.seller.to1@example.com, cart.seller.to2@example.com
+               ccAddress = cart.seller.cc1@example.com, cart.seller.cc2@example.com
+               bccAddress = cart.seller.bcc1@example.com, cart.seller.bcc2@example.com
            }
        }
    }

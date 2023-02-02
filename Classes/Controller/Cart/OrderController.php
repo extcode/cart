@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Extcode\Cart\Controller\Cart;
 
 /*
@@ -18,134 +20,73 @@ use Extcode\Cart\Event\Order\NumberGeneratorEvent;
 use Extcode\Cart\Event\Order\PaymentEvent;
 use Extcode\Cart\Event\Order\StockEvent;
 use Extcode\Cart\Event\ProcessOrderCheckStockEvent;
-use Psr\EventDispatcher\EventDispatcherInterface;
+use Extcode\Cart\Validation\Validator\EmptyValidator;
 use Psr\EventDispatcher\StoppableEventInterface;
+use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Annotation\IgnoreValidation;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
-use TYPO3\CMS\Extbase\Validation\Exception\NoSuchValidatorException;
+use TYPO3\CMS\Extbase\Validation\Validator\AbstractGenericObjectValidator;
 use TYPO3\CMS\Extbase\Validation\Validator\ConjunctionValidator;
+use TYPO3\CMS\Extbase\Validation\Validator\GenericObjectValidator;
 use TYPO3\CMS\Extbase\Validation\ValidatorResolver;
 
 class OrderController extends ActionController
 {
-    /**
-     * @var EventDispatcherInterface
-     */
-    protected $eventDispatcher;
-
     protected function getErrorFlashMessage()
     {
-        $errorMsg = LocalizationUtility::translate(
+        return LocalizationUtility::translate(
             'tx_cart.error.validation',
             'Cart'
         );
-
-        return $errorMsg;
     }
 
-    /**
-     * @param EventDispatcherInterface|null $eventDispatcher
-     */
-    public function __construct(EventDispatcherInterface $eventDispatcher = null)
-    {
-        if ($eventDispatcher !== null) {
-            $this->eventDispatcher = $eventDispatcher;
-        }
-    }
-
-    public function initializeCreateAction()
+    public function initializeCreateAction(): void
     {
         foreach (['orderItem', 'billingAddress', 'shippingAddress'] as $argumentName) {
             if (!$this->arguments->hasArgument($argumentName)) {
                 continue;
             }
-            if ($this->settings['validation'] &&
-                $this->settings['validation'][$argumentName] &&
-                $this->settings['validation'][$argumentName]['fields']
-            ) {
-                $fields = $this->settings['validation'][$argumentName]['fields'];
+            $this->setDynamicValidationsForArgument($argumentName);
 
-                foreach ($fields as $propertyName => $validatorConf) {
-                    $this->setDynamicValidation(
-                        $argumentName,
-                        $propertyName,
-                        [
-                            'validator' => $validatorConf['validator'],
-                            'options' => is_array($validatorConf['options'])
-                                ? $validatorConf['options']
-                                : []
-                        ]
-                    );
-                }
-            }
-        }
-
-        if ($this->arguments->hasArgument('orderItem')) {
-            $this->arguments->getArgument('orderItem')
-                ->getPropertyMappingConfiguration()
-                ->setTargetTypeForSubProperty('additional', 'array');
-        }
-        if ($this->arguments->hasArgument('billingAddress')) {
-            $this->arguments->getArgument('billingAddress')
-                ->getPropertyMappingConfiguration()
-                ->setTargetTypeForSubProperty('additional', 'array');
-        }
-        if ($this->arguments->hasArgument('shippingAddress')) {
-            $this->arguments->getArgument('shippingAddress')
+            $this->arguments->getArgument($argumentName)
                 ->getPropertyMappingConfiguration()
                 ->setTargetTypeForSubProperty('additional', 'array');
         }
     }
 
     /**
-     * Action order Cart
-     *
-     * @param Item $orderItem
-     * @param BillingAddress $billingAddress
-     * @param ShippingAddress $shippingAddress
-     *
      * @IgnoreValidation("shippingAddress")
      */
     public function createAction(
         Item $orderItem = null,
         BillingAddress $billingAddress = null,
         ShippingAddress $shippingAddress = null
-    ) {
-        if (is_null($billingAddress)) {
-            $sessionData = $GLOBALS['TSFE']->fe_user->getKey('ses', 'cart_billing_address_' . $this->settings['cart']['pid']);
-            $billingAddress = unserialize($sessionData);
+    ): ResponseInterface {
+        $this->restoreSession();
+
+        if (!is_null($billingAddress)) {
+            $this->sessionHandler->writeAddress('billing_address_' . $this->settings['cart']['pid'], $billingAddress);
         } else {
-            $sessionData = serialize($billingAddress);
-            $GLOBALS['TSFE']->fe_user->setKey('ses', 'cart_billing_address_' . $this->settings['cart']['pid'], $sessionData);
-            $GLOBALS['TSFE']->fe_user->storeSessionData();
+            $billingAddress = $this->sessionHandler->restoreAddress('billing_address_' . $this->settings['cart']['pid']);
         }
-        if (is_null($shippingAddress)) {
-            $sessionData = $GLOBALS['TSFE']->fe_user->getKey('ses', 'cart_shipping_address_' . $this->settings['cart']['pid']);
-            $shippingAddress = unserialize($sessionData);
+        if (!is_null($shippingAddress)) {
+            $this->sessionHandler->writeAddress('shipping_address_' . $this->settings['cart']['pid'], $shippingAddress);
         } else {
-            $sessionData = serialize($shippingAddress);
-            $GLOBALS['TSFE']->fe_user->setKey('ses', 'cart_shipping_address_' . $this->settings['cart']['pid'], $sessionData);
-            $GLOBALS['TSFE']->fe_user->storeSessionData();
+            $shippingAddress = $this->sessionHandler->restoreAddress('shipping_address_' . $this->settings['cart']['pid']);
         }
 
-        if (($orderItem === null) || ($billingAddress === null)) {
-            $this->redirect('show', 'Cart\Cart');
-        }
-
-        $this->cart = $this->sessionHandler->restore($this->settings['cart']['pid']);
-
-        if ($this->cart->getCount() === 0) {
-            $this->redirect('show', 'Cart\Cart');
+        if (is_null($orderItem) || is_null($billingAddress) || $this->cart->getCount() === 0) {
+            return $this->redirect('show', 'Cart\Cart');
         }
 
         $this->eventDispatcher->dispatch(new ProcessOrderCheckStockEvent($this->cart));
 
-        $orderItem->setCartPid(intval($GLOBALS['TSFE']->id));
+        $orderItem->setCartPid((int)$this->settings['cart']['pid']);
 
         // add billing and shipping address to order
 
-        $storagePid = $this->pluginSettings['settings']['order']['pid'];
+        $storagePid = (int)$this->settings['order']['pid'];
         $billingAddress->setPid($storagePid);
         $orderItem->setBillingAddress($billingAddress);
 
@@ -157,50 +98,68 @@ class OrderController extends ActionController
             $orderItem->setShippingAddress($shippingAddress);
         }
 
-        $payment = $this->cart->getPayment();
-        if (method_exists($payment, 'getProvider')) {
-            $provider = $payment->getProvider();
-        }
-
         $isPropagationStopped = $this->dispatchOrderCreateEvents($orderItem);
 
         if ($isPropagationStopped) {
-            return;
+            // @todo Check the Response Type
+            return $this->htmlResponse();
         }
 
         $this->view->assign('cart', $this->cart);
         $this->view->assign('orderItem', $orderItem);
 
         $paymentId = $this->cart->getPayment()->getId();
-        $paymentSettings = $this->parserUtility->getTypePluginSettings($this->pluginSettings, $this->cart, 'payments');
+        $paymentSettings = $this->parserUtility->getTypePluginSettings($this->configurations, $this->cart, 'payments');
 
         if ($paymentSettings['options'][$paymentId] &&
             $paymentSettings['options'][$paymentId]['redirects'] &&
             $paymentSettings['options'][$paymentId]['redirects']['success'] &&
             $paymentSettings['options'][$paymentId]['redirects']['success']['url']
         ) {
-            $this->redirectToUri($paymentSettings['options'][$paymentId]['redirects']['success']['url'], 0, 200);
+            return $this->redirectToUri($paymentSettings['options'][$paymentId]['redirects']['success']['url'], 0, 200);
+        }
+
+        return $this->htmlResponse();
+    }
+
+    public function showAction(Item $orderItem): ResponseInterface
+    {
+        $this->view->assign('orderItem', $orderItem);
+
+        return $this->htmlResponse();
+    }
+
+    public function setDynamicValidationsForArgument(string $argumentName): void
+    {
+        if ($this->settings['validation'] &&
+            $this->settings['validation'][$argumentName] &&
+            $this->settings['validation'][$argumentName]['fields']
+        ) {
+            $fields = $this->settings['validation'][$argumentName]['fields'];
+
+            foreach ($fields as $propertyName => $validatorConf) {
+                $this->setDynamicValidation(
+                    $argumentName,
+                    $propertyName,
+                    [
+                        'validator' => $validatorConf['validator'],
+                        'options' => is_array($validatorConf['options'])
+                            ? $validatorConf['options']
+                            : [],
+                    ]
+                );
+            }
         }
     }
 
     /**
-     * @param Item $orderItem
-     */
-    public function showAction(Item $orderItem)
-    {
-        $this->view->assign('orderItem', $orderItem);
-    }
-
-    /**
      * Sets the dynamic validation rules.
-     *
-     * @param string $argumentName
-     * @param string $propertyName
-     * @param array $validatorConf
-     * @throws NoSuchValidatorException
      */
-    protected function setDynamicValidation($argumentName, $propertyName, $validatorConf)
-    {
+    protected function setDynamicValidation(
+        string $argumentName,
+        string $propertyName,
+        array $validatorConf
+    ): void {
         // build custom validation chain
         /** @var ValidatorResolver $validatorResolver */
         $validatorResolver = GeneralUtility::makeInstance(
@@ -208,7 +167,7 @@ class OrderController extends ActionController
         );
 
         if ($validatorConf['validator'] === 'Empty') {
-            $validatorConf['validator'] = '\Extcode\Cart\Validation\Validator\EmptyValidator';
+            $validatorConf['validator'] = EmptyValidator::class;
         }
 
         $propertyValidator = $validatorResolver->createValidator(
@@ -217,13 +176,13 @@ class OrderController extends ActionController
         );
 
         if ($argumentName === 'orderItem') {
-            /** @var OrderItemValidator $modelValidator */
-            $modelValidator = $validatorResolver->createValidator(
-                OrderItemValidator::class
-            );
+            $modelValidator = $validatorResolver->createValidator(OrderItemValidator::class);
         } else {
-            /** @var \TYPO3\CMS\Extbase\Validation\Validator\GenericObject $modelValidator */
-            $modelValidator = $validatorResolver->createValidator('GenericObject');
+            $modelValidator = $validatorResolver->createValidator(GenericObjectValidator::class);
+        }
+
+        if (!$modelValidator instanceof AbstractGenericObjectValidator) {
+            return;
         }
 
         $modelValidator->addPropertyValidator(
@@ -231,49 +190,44 @@ class OrderController extends ActionController
             $propertyValidator
         );
 
-        /** @var ConjunctionValidator $conjunctionValidator */
         $conjunctionValidator = $this->arguments->getArgument($argumentName)->getValidator();
-        if ($conjunctionValidator === null) {
-            $conjunctionValidator = $validatorResolver->createValidator(
-                ConjunctionValidator::class
-            );
-            $this->arguments->getArgument($argumentName)->setValidator($conjunctionValidator);
+        if ($conjunctionValidator instanceof ConjunctionValidator) {
+            $conjunctionValidator->addValidator($modelValidator);
         }
-        $conjunctionValidator->addValidator($modelValidator);
     }
 
     protected function dispatchOrderCreateEvents(Item $orderItem): bool
     {
-        $createEvent = new CreateEvent($this->cart, $orderItem, $this->pluginSettings);
+        $createEvent = new CreateEvent($this->cart, $orderItem, $this->configurations);
         $this->eventDispatcher->dispatch($createEvent);
         if ($createEvent instanceof StoppableEventInterface && $createEvent->isPropagationStopped()) {
             return true;
         }
 
         $onlyGenerateNumberOfType = [];
-        if (!empty($this->pluginSettings['autoGenerateNumbers'])) {
-            $onlyGenerateNumberOfType = array_map('trim', explode(',', $this->pluginSettings['autoGenerateNumbers']));
+        if (!empty($this->configurations['autoGenerateNumbers'])) {
+            $onlyGenerateNumberOfType = array_map('trim', explode(',', $this->configurations['autoGenerateNumbers']));
         }
-        $generateNumbersEvent = new NumberGeneratorEvent($this->cart, $orderItem, $this->pluginSettings);
+        $generateNumbersEvent = new NumberGeneratorEvent($this->cart, $orderItem, $this->configurations);
         $generateNumbersEvent->setOnlyGenerateNumberOfType($onlyGenerateNumberOfType);
         $this->eventDispatcher->dispatch($generateNumbersEvent);
         if ($generateNumbersEvent instanceof StoppableEventInterface && $generateNumbersEvent->isPropagationStopped()) {
             return true;
         }
 
-        $stockEvent = new StockEvent($this->cart, $orderItem, $this->pluginSettings);
+        $stockEvent = new StockEvent($this->cart, $orderItem, $this->configurations);
         $this->eventDispatcher->dispatch($stockEvent);
         if ($stockEvent instanceof StoppableEventInterface && $stockEvent->isPropagationStopped()) {
             return true;
         }
 
-        $paymentEvent = new PaymentEvent($this->cart, $orderItem, $this->pluginSettings);
+        $paymentEvent = new PaymentEvent($this->cart, $orderItem, $this->configurations);
         $this->eventDispatcher->dispatch($paymentEvent);
         if ($paymentEvent instanceof StoppableEventInterface && $paymentEvent->isPropagationStopped()) {
             return true;
         }
 
-        $finishEvent = new FinishEvent($this->cart, $orderItem, $this->pluginSettings);
+        $finishEvent = new FinishEvent($this->cart, $orderItem, $this->configurations);
         $this->eventDispatcher->dispatch($finishEvent);
         if ($finishEvent instanceof StoppableEventInterface && $finishEvent->isPropagationStopped()) {
             return true;

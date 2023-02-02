@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Extcode\Cart\Controller\Backend\Order;
 
 /*
@@ -12,23 +14,26 @@ namespace Extcode\Cart\Controller\Backend\Order;
 use Extcode\Cart\Controller\Backend\ActionController;
 use Extcode\Cart\Domain\Model\Order\Payment;
 use Extcode\Cart\Domain\Repository\Order\PaymentRepository;
+use Extcode\Cart\Event\Order\UpdateServiceEvent;
+use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 
 class PaymentController extends ActionController
 {
-    /**
-     * @var PaymentRepository
-     */
-    protected $paymentRepository;
+    protected PaymentRepository $paymentRepository;
 
-    public function injectPaymentRepository(PaymentRepository $paymentRepository)
-    {
+    public function __construct(
+        PaymentRepository $paymentRepository
+    ) {
         $this->paymentRepository = $paymentRepository;
     }
 
-    public function updateAction(Payment $payment)
+    public function updateAction(Payment $payment): ResponseInterface
     {
         $this->paymentRepository->update($payment);
+
+        $event = new UpdateServiceEvent($payment);
+        $this->eventDispatcher->dispatch($event);
 
         $msg = LocalizationUtility::translate(
             'tx_cart.controller.order.action.update_payment_action.success',
@@ -37,6 +42,6 @@ class PaymentController extends ActionController
 
         $this->addFlashMessage($msg);
 
-        $this->redirect('show', 'Backend\Order\Order', null, ['orderItem' => $payment->getItem()]);
+        return $this->redirect('show', 'Backend\Order\Order', null, ['orderItem' => $payment->getItem()]);
     }
 }

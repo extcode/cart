@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Extcode\Cart\Domain\Model\Order;
 
 /*
@@ -8,47 +10,27 @@ namespace Extcode\Cart\Domain\Model\Order;
  * For the full copyright and license information, please read the
  * LICENSE file that was distributed with this source code.
  */
+
 use TYPO3\CMS\Extbase\Annotation\Validate;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 
 class TaxClass extends AbstractEntity
 {
     /**
-     * @var string
      * @Validate("NotEmpty")
      */
-    protected $title = '';
+    protected string $title = '';
 
     /**
-     * @var string
      * @Validate("NotEmpty")
      */
-    protected $value = '';
+    protected string $value = '';
 
     /**
-     * @var float
      * @Validate("NotEmpty")
      */
-    protected $calc = 0.0;
+    protected float $calc = 0.0;
 
-    /**
-     * @param string $title
-     * @param string $value
-     * @param float $calc
-     */
-    public function __construct(
-        string $title,
-        string $value,
-        float $calc
-    ) {
-        $this->title = $title;
-        $this->value = $value;
-        $this->calc = $calc;
-    }
-
-    /**
-     * @return array
-     */
     public function toArray(): array
     {
         return [
@@ -58,27 +40,33 @@ class TaxClass extends AbstractEntity
         ];
     }
 
-    /**
-     * @return float
-     */
     public function getCalc(): float
     {
         return $this->calc;
     }
 
-    /**
-     * @return string
-     */
+    public function setCalc(float $calc): void
+    {
+        $this->calc = $calc;
+    }
+
     public function getTitle(): string
     {
         return $this->title;
     }
 
-    /**
-     * @return string
-     */
+    public function setTitle(string $title): void
+    {
+        $this->title = $title;
+    }
+
     public function getValue(): string
     {
         return $this->value;
+    }
+
+    public function setValue(string $value): void
+    {
+        $this->value = $value;
     }
 }

@@ -31,6 +31,8 @@ class TagTest extends UnitTestCase
         $this->tag = new Tag(
             $this->title
         );
+
+        parent::setUp();
     }
 
     /**

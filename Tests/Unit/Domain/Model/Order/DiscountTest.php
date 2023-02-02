@@ -18,7 +18,7 @@ class DiscountTest extends UnitTestCase
     /**
      * @var Discount
      */
-    protected $discount = null;
+    protected $discount;
 
     /**
      * Title
@@ -53,7 +53,7 @@ class DiscountTest extends UnitTestCase
      *
      * @var TaxClass
      */
-    protected $taxClass = null;
+    protected $taxClass;
 
     /**
      * Tax
@@ -80,6 +80,8 @@ class DiscountTest extends UnitTestCase
             $this->taxClass,
             $this->tax
         );
+
+        parent::setUp();
     }
 
     /**

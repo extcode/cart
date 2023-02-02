@@ -1,5 +1,7 @@
 <?php
+
 declare(strict_types=1);
+
 namespace Extcode\Cart\Configuration\Backend\Widget;
 
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
@@ -21,6 +23,6 @@ return function (ContainerConfigurator $configurator) {
             'iconIdentifier' => 'content-widget-chart-bar',
             'additionalCssClasses' => 'dashboard-item--chart',
             'height' => 'medium',
-            'width' => 'medium'
+            'width' => 'medium',
         ]);
 };

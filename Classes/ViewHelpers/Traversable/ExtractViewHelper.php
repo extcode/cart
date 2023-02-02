@@ -55,15 +55,15 @@ class ExtractViewHelper extends AbstractViewHelper
             $result = [];
         }
 
-        if (true === isset($this->arguments['as']) && false === empty($this->arguments['as'])) {
-            if (true === $this->templateVariableContainer->exists($this->arguments['as'])) {
+        if (isset($this->arguments['as']) === true && empty($this->arguments['as']) === false) {
+            if ($this->templateVariableContainer->exists($this->arguments['as']) === true) {
                 $backup = $this->templateVariableContainer->get($this->arguments['as']);
                 $this->templateVariableContainer->remove($this->arguments['as']);
             }
             $this->templateVariableContainer->add($this->arguments['as'], $result);
             $content = $this->renderChildren();
             $this->templateVariableContainer->remove($this->arguments['as']);
-            if (true === isset($backup)) {
+            if (isset($backup) === true) {
                 $this->templateVariableContainer->add($this->arguments['as'], $backup);
             }
             return $content;
@@ -75,21 +75,14 @@ class ExtractViewHelper extends AbstractViewHelper
     /**
      * Extract by key
      *
-     * @param \Traversable $iterator
-     * @param string $key
-     *
-     * @return mixed NULL or whatever we found at $key
-     *
      * @throws \Exception
      */
-    public function extractByKey($iterator, $key)
+    public function extractByKey($iterator, string $key): mixed
     {
         if ((is_array($iterator) === false) && ($iterator instanceof \Traversable === false)) {
             throw new \Exception('Traversable object or array expected but received ' . gettype($iterator), 1361532490);
         }
 
-        $result = $iterator[$key];
-
-        return $result;
+        return $iterator[$key];
     }
 }

@@ -9,86 +9,41 @@ namespace Extcode\Cart\Utility;
  * LICENSE file that was distributed with this source code.
  */
 
+use Extcode\Cart\Event\Cart\UpdateCurrencyEvent;
 use Extcode\Cart\Service\SessionHandler;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
+use Psr\EventDispatcher\EventDispatcherInterface;
 use TYPO3\CMS\Extbase\Mvc\Request;
-use TYPO3\CMS\Extbase\SignalSlot\Dispatcher;
 
 class CurrencyUtility
 {
+    protected EventDispatcherInterface $eventDispatcher;
+
+    protected SessionHandler $sessionHandler;
+
+    protected ParserUtility $parserUtility;
+
+    public function __construct(
+        EventDispatcherInterface $eventDispatcher,
+        ParserUtility $parserUtility,
+        SessionHandler $sessionHandler
+    ) {
+        $this->eventDispatcher = $eventDispatcher;
+        $this->parserUtility = $parserUtility;
+        $this->sessionHandler = $sessionHandler;
+    }
+
     /**
      * @param array $cartSettings
      * @param array $pluginSettings
      * @param Request $request
      */
-    public function updateCurrency(array $cartSettings, array $pluginSettings, Request $request)
+    public function updateCurrency(array $cartSettings, array $pluginSettings, Request $request): void
     {
-        $sessionHandler = GeneralUtility::makeInstance(
-            SessionHandler::class
-        );
-        $cart = $sessionHandler->restore($cartSettings['pid']);
+        $cart = $this->sessionHandler->restoreCart($cartSettings['pid']);
 
-        $currencyCode = '';
+        $event = new UpdateCurrencyEvent($cart, $request, $pluginSettings['settings']['currencies']);
+        $this->eventDispatcher->dispatch($event);
 
-        if ($request->hasArgument('currencyCode')) {
-            $currencyCode = $request->getArgument('currencyCode');
-        }
-
-        $currencyConfigId = $this->getCurrencyConfigId($currencyCode, $pluginSettings);
-
-        if ($currencyConfigId) {
-            $data = [
-                'cart' => $cart,
-                'currencyCode' => $currencyCode,
-                'currencySign' => $pluginSettings['settings']['currencies'][$currencyConfigId]['sign'],
-                'currencyTranslation' => floatval($pluginSettings['settings']['currencies'][$currencyConfigId]['translation'])
-            ];
-
-            $signalSlotDispatcher = GeneralUtility::makeInstance(
-                Dispatcher::class
-            );
-            $signalSlotDispatcher->dispatch(
-                __CLASS__,
-                __FUNCTION__,
-                $data
-            );
-
-            $cart->setCurrencyCode($currencyCode);
-            $cart->setCurrencySign(
-                $pluginSettings['settings']['currencies'][$currencyConfigId]['sign']
-            );
-
-            $cart->setCurrencyTranslation(
-                floatval($pluginSettings['settings']['currencies'][$currencyConfigId]['translation'])
-            );
-
-            $cart->reCalc();
-
-            $sessionHandler->write($cart, $cartSettings['pid']);
-        }
-    }
-
-    /**
-     * @param string $currencyCode
-     * @param array $pluginSettings
-     *
-     * @return int
-     */
-    protected function getCurrencyConfigId($currencyCode, $pluginSettings)
-    {
-        if (strlen($currencyCode) == 3) {
-            if (is_array($pluginSettings) &&
-                is_array($pluginSettings['settings']) &&
-                is_array($pluginSettings['settings']['currencies'])
-            ) {
-                foreach ($pluginSettings['settings']['currencies'] as $currencyConfigId => $currency) {
-                    if (is_array($currency) && $currency['code'] == $currencyCode) {
-                        return intval($currencyConfigId);
-                    }
-                }
-            }
-        }
-
-        return 0;
+        $this->sessionHandler->writeCart($cartSettings['pid'], $event->getCart());
     }
 }

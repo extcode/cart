@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Extcode\Cart\Domain\Model\Order;
 
 /*
@@ -8,68 +10,44 @@ namespace Extcode\Cart\Domain\Model\Order;
  * For the full copyright and license information, please read the
  * LICENSE file that was distributed with this source code.
  */
+
 use TYPO3\CMS\Extbase\Annotation\Validate;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 
 abstract class AbstractService extends AbstractEntity
 {
-    /**
-     * @var Item
-     */
-    protected $item = null;
+    protected ?Item $item = null;
+
+    protected string $serviceCountry = '';
 
     /**
-     * @var string
-     */
-    protected $serviceCountry = '';
-
-    /**
-     * @var int
      * @Validate("NotEmpty")
      */
-    protected $serviceId;
+    protected ?int $serviceId = null;
 
     /**
-     * @var string
      * @Validate("NotEmpty")
      */
-    protected $name = '';
+    protected string $name = '';
 
     /**
-     * @var string
      * @Validate("NotEmpty")
      */
-    protected $status = 'open';
+    protected string $status = 'open';
+
+    protected float $net = 0.0;
+
+    protected float $gross = 0.0;
+
+    protected ?TaxClass $taxClass = null;
 
     /**
-     * @var float
-     */
-    protected $net = 0.0;
-
-    /**
-     * @var float
-     */
-    protected $gross = 0.0;
-
-    /**
-     * @var TaxClass
-     */
-    protected $taxClass;
-
-    /**
-     * @var float
      * @Validate("NotEmpty")
      */
-    protected $tax = 0.0;
+    protected float $tax = 0.0;
 
-    /**
-     * @var string
-     */
-    protected $note = '';
+    protected string $note = '';
 
-    /**
-     * @return array
-     */
     public function toArray(): array
     {
         $service = [
@@ -93,165 +71,101 @@ abstract class AbstractService extends AbstractEntity
         return $service;
     }
 
-    /**
-     * Returns the Order Item
-     *
-     * @return Item|null
-     */
     public function getItem(): ?Item
     {
         return $this->item;
     }
 
-    /**
-     * @param Item $item
-     */
-    public function setItem(Item $item)
+    public function setItem(Item $item): void
     {
         $this->item = $item;
     }
 
-    /**
-     * @return string
-     */
     public function getServiceCountry(): string
     {
         return $this->serviceCountry;
     }
 
-    /**
-     * @param string $serviceCountry
-     */
-    public function setServiceCountry(string $serviceCountry)
+    public function setServiceCountry(string $serviceCountry): void
     {
         $this->serviceCountry = $serviceCountry;
     }
 
-    /**
-     * @return int|null
-     */
     public function getServiceId(): ?int
     {
         return $this->serviceId;
     }
 
-    /**
-     * @param int $serviceId
-     */
-    public function setServiceId(int $serviceId)
+    public function setServiceId(int $serviceId): void
     {
         $this->serviceId = $serviceId;
     }
 
-    /**
-     * @return string
-     */
     public function getName(): string
     {
         return $this->name;
     }
 
-    /**
-     * @param string $name
-     */
-    public function setName(string $name)
+    public function setName(string $name): void
     {
         $this->name = $name;
     }
 
-    /**
-     * @return string
-     */
     public function getStatus(): string
     {
         return $this->status;
     }
 
-    /**
-     * Sets Status
-     *
-     * @param string $status
-     */
-    public function setStatus(string $status)
+    public function setStatus(string $status): void
     {
         $this->status = $status;
     }
 
-    /**
-     * @return float
-     */
     public function getGross(): float
     {
         return $this->gross;
     }
 
-    /**
-     * @param float $gross
-     */
-    public function setGross(float $gross)
+    public function setGross(float $gross): void
     {
         $this->gross = $gross;
     }
 
-    /**
-     * @return float
-     */
     public function getNet(): float
     {
         return $this->net;
     }
 
-    /**
-     * @param float $net
-     */
-    public function setNet(float $net)
+    public function setNet(float $net): void
     {
         $this->net = $net;
     }
 
-    /**
-     * @return TaxClass|null
-     */
     public function getTaxClass(): ?TaxClass
     {
         return $this->taxClass;
     }
 
-    /**
-     * @param TaxClass $taxClass
-     */
-    public function setTaxClass(TaxClass $taxClass)
+    public function setTaxClass(TaxClass $taxClass): void
     {
         $this->taxClass = $taxClass;
     }
 
-    /**
-     * @return float
-     */
     public function getTax(): float
     {
         return $this->tax;
     }
 
-    /**
-     * @param float $tax
-     */
-    public function setTax(float $tax)
+    public function setTax(float $tax): void
     {
         $this->tax = $tax;
     }
 
-    /**
-     * @param string $note
-     */
-    public function setNote(string $note)
+    public function setNote(string $note): void
     {
         $this->note = $note;
     }
 
-    /**
-     * @return string
-     */
     public function getNote(): string
     {
         return $this->note;

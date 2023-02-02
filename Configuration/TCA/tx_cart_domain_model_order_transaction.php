@@ -1,6 +1,6 @@
 <?php
 
-defined('TYPO3_MODE') or die();
+defined('TYPO3') or die();
 
 $_LLL = 'LLL:EXT:cart/Resources/Private/Language/locallang_db.xlf';
 
@@ -10,7 +10,6 @@ return [
         'label' => 'txn_id',
         'tstamp' => 'tstamp',
         'crdate' => 'crdate',
-        'cruser_id' => 'cruser_id',
 
         'versioningWS' => true,
         'origUid' => 't3_origuid',
@@ -18,17 +17,17 @@ return [
         'delete' => 'deleted',
         'enablecolumns' => [],
         'searchFields' => 'txn_id',
-        'iconfile' => 'EXT:cart/Resources/Public/Icons/Order/Transaction.svg'
+        'iconfile' => 'EXT:cart/Resources/Public/Icons/Order/Transaction.svg',
     ],
     'hideTable' => 1,
     'types' => [
         '1' => [
-            'showitem' => 'txn_id, status, external_status_code, note'
+            'showitem' => 'txn_id, status, external_status_code, note',
         ],
     ],
     'palettes' => [
         '1' => [
-            'showitem' => ''
+            'showitem' => '',
         ],
     ],
     'columns' => [
@@ -39,7 +38,7 @@ return [
                 'type' => 'input',
                 'readOnly' => 1,
                 'size' => 30,
-                'eval' => 'trim'
+                'eval' => 'trim',
             ],
         ],
         'txn_txt' => [
@@ -48,8 +47,8 @@ return [
                 'type' => 'text',
                 'readOnly' => 1,
                 'cols' => '40',
-                'rows' => '15'
-            ]
+                'rows' => '15',
+            ],
         ],
         'status' => [
             'exclude' => 0,
@@ -59,16 +58,16 @@ return [
                 'readOnly' => 1,
                 'renderType' => 'selectSingle',
                 'items' => [
-                    [$_LLL . ':tx_cart_domain_model_order_transaction.status.unknown', 'unknown'],
-                    [$_LLL . ':tx_cart_domain_model_order_transaction.status.invalid', 'invalid'],
-                    [$_LLL . ':tx_cart_domain_model_order_transaction.status.open', 'open'],
-                    [$_LLL . ':tx_cart_domain_model_order_transaction.status.pending', 'pending'],
-                    [$_LLL . ':tx_cart_domain_model_order_transaction.status.paid', 'paid'],
-                    [$_LLL . ':tx_cart_domain_model_order_transaction.status.canceled', 'canceled']
+                    ['label' => $_LLL . ':tx_cart_domain_model_order_transaction.status.unknown', 'value' => 'unknown'],
+                    ['label' => $_LLL . ':tx_cart_domain_model_order_transaction.status.invalid', 'value' => 'invalid'],
+                    ['label' => $_LLL . ':tx_cart_domain_model_order_transaction.status.open', 'value' => 'open'],
+                    ['label' => $_LLL . ':tx_cart_domain_model_order_transaction.status.pending', 'value' => 'pending'],
+                    ['label' => $_LLL . ':tx_cart_domain_model_order_transaction.status.paid', 'value' => 'paid'],
+                    ['label' => $_LLL . ':tx_cart_domain_model_order_transaction.status.canceled', 'value' => 'canceled'],
                 ],
                 'size' => 1,
                 'maxitems' => 1,
-                'eval' => 'required'
+                'required' => true,
             ],
         ],
         'external_status_code' => [
@@ -77,8 +76,8 @@ return [
                 'type' => 'input',
                 'readOnly' => 1,
                 'size' => 30,
-                'eval' => 'trim'
-            ]
+                'eval' => 'trim',
+            ],
         ],
         'note' => [
             'label' => $_LLL . ':tx_cart_domain_model_order_transaction.note',
@@ -86,8 +85,8 @@ return [
                 'type' => 'text',
                 'readOnly' => 1,
                 'cols' => '40',
-                'rows' => '15'
-            ]
+                'rows' => '15',
+            ],
         ],
 
         'payment' => [

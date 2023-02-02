@@ -300,20 +300,11 @@
             <trans-unit id="tx_cart_domain_model_order_product">
                 <source>Product</source>
             </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_product.product_id">
+                <source>Product Id</source>
+            </trans-unit>
             <trans-unit id="tx_cart_domain_model_order_product.product_type">
-                <source>Type</source>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_order_product.product_type.simple">
-                <source>simple</source>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_order_product.product_type.configurable">
-                <source>configurable</source>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_order_product.product_type.virtual">
-                <source>virtual</source>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_order_product.product_type.downloadable">
-                <source>downloadable</source>
+                <source>Product Type</source>
             </trans-unit>
             <trans-unit id="tx_cart_domain_model_order_product.sku">
                 <source>SKU</source>

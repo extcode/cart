@@ -1,5 +1,6 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
 
 namespace Extcode\Cart\Domain\Model\Cart;
 
@@ -12,13 +13,10 @@ namespace Extcode\Cart\Domain\Model\Cart;
 
 interface ServiceInterface
 {
-    /**
-     * @param int $id
-     * @param array $config
-     */
     public function __construct(int $id, array $config);
 
     public function getId(): int;
+    public function getFallBackId(): ?int;
 
     public function getConfig(): array;
 
@@ -45,6 +43,8 @@ interface ServiceInterface
     public function getGross(): float;
 
     public function getTax(): float;
+
+    public function getTaxes(): array;
 
     public function getTaxClass(): TaxClass;
 }
