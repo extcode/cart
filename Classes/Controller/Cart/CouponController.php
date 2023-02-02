@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Extcode\Cart\Controller\Cart;
 
 /*
@@ -8,49 +10,42 @@ namespace Extcode\Cart\Controller\Cart;
  * For the full copyright and license information, please read the
  * LICENSE file that was distributed with this source code.
  */
-use Extcode\Cart\Domain\Model\Cart\CartCoupon;
+use Extcode\Cart\Domain\Model\Cart\CartCouponFix;
 use Extcode\Cart\Domain\Model\Cart\CartCouponInterface;
 use Extcode\Cart\Domain\Model\Coupon;
 use Extcode\Cart\Domain\Repository\CouponRepository;
+use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Core\Messaging\AbstractMessage;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 
 class CouponController extends ActionController
 {
-    /**
-     * @var CouponRepository
-     */
-    protected $couponRepository;
+    protected CouponRepository $couponRepository;
 
-    /**
-     * @param CouponRepository $couponRepository
-     */
-    public function injectCouponRepository(
-        CouponRepository $couponRepository
-    ) {
+    public function injectCouponRepository(CouponRepository $couponRepository): void
+    {
         $this->couponRepository = $couponRepository;
     }
 
-    /**
-     * Action Add
-     */
-    public function addAction()
+    public function addAction(): ResponseInterface
     {
         if ($this->request->hasArgument('couponCode')) {
-            $this->cart = $this->sessionHandler->restore($this->settings['cart']['pid']);
+            $this->restoreSession();
 
             $couponCode = $this->request->getArgument('couponCode');
 
-            /** @var Coupon $coupon */
-            $coupon = $this->couponRepository->findOneByCode($couponCode);
-            if ($coupon && $coupon->getIsAvailable()) {
+            $coupon = $this->couponRepository->findOneBy(['code' => $couponCode]);
+            if (
+                $coupon instanceof Coupon &&
+                $coupon->isAvailable()
+            ) {
                 $couponType = $coupon->getCouponType();
 
                 // will be removed in version 9.x for TYPO3 v12 and TYPO3 v11
                 // TODO: provide an upgrade wizard to change the coupon_type in Database
                 if ($couponType === 'cartdiscount') {
-                    $couponType = CartCoupon::class;
+                    $couponType = CartCouponFix::class;
                 }
 
                 $interfaces = class_implements($couponType);
@@ -64,7 +59,7 @@ class CouponController extends ActionController
                         $coupon->getDiscount(),
                         $this->cart->getTaxClass($coupon->getTaxClassId()),
                         $coupon->getCartMinPrice(),
-                        $coupon->getIsCombinable()
+                        $coupon->isCombinable()
                     );
 
                     $couponWasAdded = $this->cart->addCoupon($newCartCoupon);
@@ -125,19 +120,18 @@ class CouponController extends ActionController
                 );
             }
 
-            $this->sessionHandler->write($this->cart, $this->settings['cart']['pid']);
+            $this->sessionHandler->writeCart($this->settings['cart']['pid'], $this->cart);
+
+            return $this->htmlResponse();
         }
 
-        $this->redirect('show', 'Cart\Cart');
+        return $this->redirect('show', 'Cart\Cart');
     }
 
-    /**
-     * Action Remove
-     */
-    public function removeAction()
+    public function removeAction(): ResponseInterface
     {
         if ($this->request->hasArgument('couponCode')) {
-            $this->cart = $this->sessionHandler->restore($this->settings['cart']['pid']);
+            $this->restoreSession();
             $couponCode = $this->request->getArgument('couponCode');
             $couponWasRemoved = $this->cart->removeCoupon($couponCode);
 
@@ -164,9 +158,11 @@ class CouponController extends ActionController
                 );
             }
 
-            $this->sessionHandler->write($this->cart, $this->settings['cart']['pid']);
+            $this->sessionHandler->writeCart($this->settings['cart']['pid'], $this->cart);
+
+            return $this->htmlResponse();
         }
 
-        $this->redirect('show', 'Cart\Cart');
+        return $this->redirect('show', 'Cart\Cart');
     }
 }

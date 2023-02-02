@@ -14,30 +14,15 @@ use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 class TaxClassTest extends UnitTestCase
 {
-    /**
-     * @var TaxClass
-     */
-    protected $fixture;
+    protected TaxClass $fixture;
 
-    /**
-     * @var int
-     */
-    private $id;
+    private int $id;
 
-    /**
-     * @var string
-     */
-    private $value;
+    private string $value;
 
-    /**
-     * @var int
-     */
-    private $calc;
+    private float $calc;
 
-    /**
-     * @var string
-     */
-    private $title;
+    private string $title;
 
     public function setUp(): void
     {
@@ -52,6 +37,8 @@ class TaxClassTest extends UnitTestCase
             $this->calc,
             $this->title
         );
+
+        parent::setUp();
     }
 
     public function tearDown(): void
@@ -63,6 +50,8 @@ class TaxClassTest extends UnitTestCase
             $this->title,
             $this->fixture
         );
+
+        parent::tearDown();
     }
 
     /**

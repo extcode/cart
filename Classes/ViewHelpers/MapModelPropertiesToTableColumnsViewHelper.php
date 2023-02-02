@@ -82,9 +82,8 @@ class MapModelPropertiesToTableColumnsViewHelper extends AbstractViewHelper
             }
 
             return $data;
-        } else {
-            return $data;
         }
+        return $data;
     }
 
     protected function getConfiguration()

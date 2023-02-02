@@ -87,6 +87,14 @@ events:
       should trigger the events `\Extcode\Cart\Event\Order\StockEvent` and
       `\Extcode\Cart\Event\Order\FinishEvent` itself.
 
+
+.. container:: table-row
+
+   Event Class
+      `\Extcode\Cart\Event\Order\PersistOrderEvent`
+   Description
+      TODO
+
 .. container:: table-row
 
    Event Class

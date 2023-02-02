@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Extcode\Cart\Domain\Model\Order;
 
 /*
@@ -8,309 +10,214 @@ namespace Extcode\Cart\Domain\Model\Order;
  * For the full copyright and license information, please read the
  * LICENSE file that was distributed with this source code.
  */
+
 use TYPO3\CMS\Extbase\Annotation\Validate;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 
 class Product extends AbstractEntity
 {
-    /**
-     * @var Item
-     */
-    protected $item;
+    protected Item $item;
+
+    protected int $productId = 0;
+
+    protected string $productType = '';
 
     /**
-     * @var int
-     */
-    protected $productId = 0;
-
-    /**
-     * @var string
-     */
-    protected $productType = '';
-
-    /**
-     * @var string
      * @Validate("NotEmpty")
      */
-    protected $sku = '';
+    protected string $sku = '';
 
     /**
-     * @var string
      * @Validate("NotEmpty")
      */
-    protected $title = '';
+    protected string $title = '';
 
     /**
-     * @var int
      * @Validate("NotEmpty")
      */
-    protected $count = 0;
+    protected int $count = 0;
 
     /**
-     * @var float
      * @Validate("NotEmpty")
      */
-    protected $price = 0.0;
+    protected float $price = 0.0;
 
     /**
-     * @var float
      * @Validate("NotEmpty")
      */
-    protected $discount = 0.0;
+    protected float $discount = 0.0;
 
     /**
-     * @var float
      * @Validate("NotEmpty")
      */
-    protected $gross = 0.0;
+    protected float $gross = 0.0;
 
     /**
-     * @var float
      * @Validate("NotEmpty")
      */
-    protected $net = 0.0;
+    protected float $net = 0.0;
 
     /**
-     * @var TaxClass
      * @Validate("NotEmpty")
      */
-    protected $taxClass;
+    protected TaxClass $taxClass;
 
     /**
-     * @var float
      * @Validate("NotEmpty")
      */
-    protected $tax = 0.0;
+    protected float $tax = 0.0;
 
-    /**
-     * @var string
-     */
-    protected $additionalData = '';
+    protected string $additionalData = '';
 
     /**
      * @var ObjectStorage<ProductAdditional>
      */
-    protected $productAdditional;
+    protected ObjectStorage $productAdditional;
 
-    /**
-     * @var string
-     */
-    protected $additional = '';
+    protected string $additional = '';
 
-    /**
-     * @param string $sku
-     * @param string $title
-     * @param int $count
-     */
-    public function __construct(
-        string $sku,
-        string $title,
-        int $count
-    ) {
-        $this->sku = $sku;
-        $this->title = $title;
-        $this->count = $count;
-
+    public function __construct()
+    {
         $this->initStorageObjects();
     }
 
-    /**
-     * Initializes all \TYPO3\CMS\Extbase\Persistence\ObjectStorage properties.
-     */
-    protected function initStorageObjects()
+    protected function initStorageObjects(): void
     {
         $this->productAdditional = new ObjectStorage();
     }
 
-    /**
-     * @return Item|null
-     */
     public function getItem(): ?Item
     {
         return $this->item;
     }
 
-    /**
-     * @return int
-     */
     public function getProductId(): int
     {
         return $this->productId;
     }
 
-    /**
-     * @param int $productId
-     */
     public function setProductId(int $productId): void
     {
         $this->productId = $productId;
     }
 
-    /**
-     * @return string
-     */
     public function getProductType(): string
     {
         return $this->productType;
     }
 
-    /**
-     * @var string $productType
-     */
-    public function setProductType(string $productType)
+    public function setProductType(string $productType): void
     {
         $this->productType = $productType;
     }
 
-    /**
-     * @return string
-     */
     public function getAdditionalData(): string
     {
         return $this->additionalData;
     }
 
-    /**
-     * @param string $additionalData
-     */
-    public function setAdditionalData(string $additionalData)
+    public function setAdditionalData(string $additionalData): void
     {
         $this->additionalData = $additionalData;
     }
 
-    /**
-     * @return int
-     */
     public function getCount(): int
     {
         return $this->count;
     }
 
-    /**
-     * @param float $price
-     */
-    public function setPrice(float $price)
+    public function setCount(int $count): void
+    {
+        $this->count = $count;
+    }
+
+    public function setPrice(float $price): void
     {
         $this->price = $price;
     }
 
-    /**
-     * @return float
-     */
     public function getPrice(): float
     {
         return $this->price;
     }
 
-    /**
-     * @param float $discount
-     */
-    public function setDiscount(float $discount)
+    public function setDiscount(float $discount): void
     {
         $this->discount = $discount;
     }
 
-    /**
-     * @return float
-     */
     public function getDiscount(): float
     {
         return $this->discount;
     }
 
-    /**
-     * @param float $gross
-     */
-    public function setGross(float $gross)
+    public function setGross(float $gross): void
     {
         $this->gross = $gross;
     }
 
-    /**
-     * @return float
-     */
     public function getGross(): float
     {
         return $this->gross;
     }
 
-    /**
-     * @param float $net
-     */
-    public function setNet(float $net)
+    public function setNet(float $net): void
     {
         $this->net = $net;
     }
 
-    /**
-     * @return float
-     */
     public function getNet(): float
     {
         return $this->net;
     }
 
-    /**
-     * @return string
-     */
+    public function setSku(string $sku): void
+    {
+        $this->sku = $sku;
+    }
+
     public function getSku(): string
     {
         return $this->sku;
     }
 
-    /**
-     * @return TaxClass|null
-     */
     public function getTaxClass(): ?TaxClass
     {
         return $this->taxClass;
     }
 
-    /**
-     * @param TaxClass $taxClass
-     */
-    public function setTaxClass(TaxClass $taxClass)
+    public function setTaxClass(TaxClass $taxClass): void
     {
         $this->taxClass = $taxClass;
     }
 
-    /**
-     * @return float
-     */
     public function getTax(): float
     {
         return $this->tax;
     }
 
-    /**
-     * @param float $tax
-     */
-    public function setTax(float $tax)
+    public function setTax(float $tax): void
     {
         $this->tax = $tax;
     }
 
-    /**
-     * @return string
-     */
     public function getTitle(): string
     {
         return $this->title;
     }
 
-    /**
-     * @param ProductAdditional $productAdditional
-     */
-    public function addProductAdditional(ProductAdditional $productAdditional)
+    public function setTitle(string $title): void
+    {
+        $this->title = $title;
+    }
+
+    public function addProductAdditional(ProductAdditional $productAdditional): void
     {
         $this->productAdditional->attach($productAdditional);
     }
 
-    /**
-     * @param ProductAdditional $productAdditional
-     */
-    public function removeProductAdditional(ProductAdditional $productAdditional)
+    public function removeProductAdditional(ProductAdditional $productAdditional): void
     {
         $this->productAdditional->detach($productAdditional);
     }
@@ -318,7 +225,7 @@ class Product extends AbstractEntity
     /**
      * @return ObjectStorage<ProductAdditional>
      */
-    public function getProductAdditional()
+    public function getProductAdditional(): ObjectStorage
     {
         return $this->productAdditional;
     }
@@ -326,14 +233,11 @@ class Product extends AbstractEntity
     /**
      * @param ObjectStorage<ProductAdditional> $productAdditional
      */
-    public function setProductAdditional(ObjectStorage $productAdditional)
+    public function setProductAdditional(ObjectStorage $productAdditional): void
     {
         $this->productAdditional = $productAdditional;
     }
 
-    /**
-     * @return array
-     */
     public function getAdditional(): array
     {
         if ($this->additional) {
@@ -343,10 +247,7 @@ class Product extends AbstractEntity
         return [];
     }
 
-    /**
-     * @param array $additional
-     */
-    public function setAdditional(array $additional)
+    public function setAdditional(array $additional): void
     {
         $this->additional = json_encode($additional);
     }

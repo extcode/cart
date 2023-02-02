@@ -8,24 +8,64 @@ services:
     resource: '../Classes/*'
     exclude: '../Classes/Widgets/*'
 
-  Extcode\Cart\EventListener\Order\Finish\ClearCart:
+  Extcode\Cart\EventListener\Cart\UpdateCountry:
     tags:
       - name: event.listener
-        identifier: 'cart--order--finish--clear-cart'
-        event: Extcode\Cart\Event\Order\FinishEvent
-        after: 'cart--order--finish--email'
+        identifier: 'cart--cart--update-country'
+        event: Extcode\Cart\Event\Cart\UpdateCountryEvent
 
-  Extcode\Cart\EventListener\Order\Finish\Email:
+  Extcode\Cart\EventListener\Cart\UpdateCurrency:
     tags:
       - name: event.listener
-        identifier: 'cart--order--finish--email'
-        event: Extcode\Cart\Event\Order\FinishEvent
+        identifier: 'cart--cart--update-currency'
+        event: Extcode\Cart\Event\Cart\UpdateCurrency
 
   Extcode\Cart\EventListener\Order\Create\Order:
     tags:
       - name: event.listener
         identifier: 'cart--order--create--order'
         event: Extcode\Cart\Event\Order\CreateEvent
+
+  Extcode\Cart\EventListener\Order\Create\PersistOrder\Item:
+    tags:
+      - name: event.listener
+        identifier: 'cart--order--create--persist-order--item'
+        event: Extcode\Cart\Event\Order\PersistOrderEvent
+
+  Extcode\Cart\EventListener\Order\Create\PersistOrder\TaxClasses:
+    tags:
+      - name: event.listener
+        identifier: 'cart--order--create--persist-order--tax-classes'
+        event: Extcode\Cart\Event\Order\PersistOrderEvent
+        after: 'cart--order--create--persist-order--item'
+
+  Extcode\Cart\EventListener\Order\Create\PersistOrder\Products:
+    tags:
+      - name: event.listener
+        identifier: 'cart--order--create--persist-order--products'
+        event: Extcode\Cart\Event\Order\PersistOrderEvent
+        after: 'cart--order--create--persist-order--tax-classes'
+
+  Extcode\Cart\EventListener\Order\Create\PersistOrder\Coupons:
+    tags:
+      - name: event.listener
+        identifier: 'cart--order--create--persist-order--coupons'
+        event: Extcode\Cart\Event\Order\PersistOrderEvent
+        after: 'cart--order--create--persist-order--tax-classes'
+
+  Extcode\Cart\EventListener\Order\Create\PersistOrder\Payment:
+    tags:
+      - name: event.listener
+        identifier: 'cart--order--create--persist-order--payment'
+        event: Extcode\Cart\Event\Order\PersistOrderEvent
+        after: 'cart--order--create--persist-order--tax-classes'
+
+  Extcode\Cart\EventListener\Order\Create\PersistOrder\Shipping:
+    tags:
+      - name: event.listener
+        identifier: 'cart--order--create--persist-order--shipping'
+        event: Extcode\Cart\Event\Order\PersistOrderEvent
+        after: 'cart--order--create--persist-order--tax-classes'
 
   Extcode\Cart\EventListener\Order\Create\OrderNumber:
     arguments:
@@ -53,6 +93,25 @@ services:
         identifier: 'cart--order--create--delivery-number'
         event: Extcode\Cart\Event\Order\NumberGeneratorEvent
         after: 'cart--order--create--order'
+
+  Extcode\Cart\EventListener\Order\Finish\ClearCart:
+    tags:
+      - name: event.listener
+        identifier: 'cart--order--finish--clear-cart'
+        event: Extcode\Cart\Event\Order\FinishEvent
+        after: 'cart--order--finish--email'
+
+  Extcode\Cart\EventListener\Order\Finish\Email:
+    tags:
+      - name: event.listener
+        identifier: 'cart--order--finish--email'
+        event: Extcode\Cart\Event\Order\FinishEvent
+
+  Extcode\Cart\EventListener\Order\Update\LogServiceUpdate:
+    tags:
+      - name: event.listener
+        identifier: 'cart--order--update--log-service-update'
+        event: Extcode\Cart\Event\Order\UpdateServiceEvent
 
   Extcode\Cart\Service\TaxClassService:
     public: true

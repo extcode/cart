@@ -9,6 +9,7 @@ namespace Extcode\Cart\Domain\Repository\Order;
  * LICENSE file that was distributed with this source code.
  */
 
+use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 use TYPO3\CMS\Extbase\Persistence\Repository;
 
@@ -17,22 +18,27 @@ class ProductRepository extends Repository
     /**
      * Find all products
      *
-     * @param array $arguments
-     *
      * @return QueryResultInterface|array
      */
-    public function findAll(array $arguments = [])
+    public function findAll(array $searchArguments = [])
     {
-        // settings
         $query = $this->createQuery();
 
-        $and = [
-            $query->equals('deleted', 0)
-        ];
+        $and = $this->getFilterConstraints($searchArguments, $query);
+        $and[] = $query->equals('deleted', 0);
+        $constraint = $query->logicalAnd(...$and);
 
-        // filter
-        if (isset($arguments['filter'])) {
-            foreach ((array)$arguments['filter'] as $field => $value) {
+        $query->matching($constraint);
+
+        return $query->execute();
+    }
+
+    protected function getFilterConstraints(array $searchArguments, QueryInterface $query): array
+    {
+        $and = [];
+
+        if (isset($searchArguments['filter'])) {
+            foreach ((array)$searchArguments['filter'] as $field => $value) {
                 if ($field == 'start' && !empty($value)) {
                     $and[] = $query->greaterThan('crdate', strtotime($value));
                 } elseif ($field == 'stop' && !empty($value)) {
@@ -41,11 +47,6 @@ class ProductRepository extends Repository
             }
         }
 
-        // create constraint
-        $constraint = $query->logicalAnd($and);
-        $query->matching($constraint);
-
-        $orderItems = $query->execute();
-        return $orderItems;
+        return $and;
     }
 }

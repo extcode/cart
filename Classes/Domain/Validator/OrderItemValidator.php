@@ -1,4 +1,5 @@
 <?php
+
 namespace Extcode\Cart\Domain\Validator;
 
 /*
@@ -8,31 +9,23 @@ namespace Extcode\Cart\Domain\Validator;
  * LICENSE file that was distributed with this source code.
  */
 
-use Extcode\Cart\Domain\Model\Order\Item as OrderItem;
 use TYPO3\CMS\Extbase\Error\Result;
-use TYPO3\CMS\Extbase\Validation\Validator\AbstractValidator;
+use TYPO3\CMS\Extbase\Validation\Validator\AbstractGenericObjectValidator;
 use TYPO3\CMS\Extbase\Validation\Validator\ObjectValidatorInterface;
 use TYPO3\CMS\Extbase\Validation\Validator\ValidatorInterface;
 
 /**
  * A generic object validator which allows for specifying property validators
  */
-class OrderItemValidator extends AbstractValidator implements ObjectValidatorInterface
+class OrderItemValidator extends AbstractGenericObjectValidator
 {
-    /**
-     * @var \SplObjectStorage[]
-     */
-    protected $propertyValidators = [];
-
     /**
      * Checks if the given value is valid according to the validator, and returns
      * the Error Messages object which occurred.
      *
      * @param mixed $value The value that should be validated
-     * @return Result
-     * @api
      */
-    public function validate($value)
+    public function validate(mixed $value): Result
     {
         $this->result = new Result();
         if ($this->acceptsEmptyValues === false || $this->isEmpty($value) === false) {
@@ -48,21 +41,16 @@ class OrderItemValidator extends AbstractValidator implements ObjectValidatorInt
 
     /**
      * Load the property value to be used for validation.
-     *
      * In case the object is a doctrine proxy, we need to load the real instance first.
-     *
-     * @param OrderItem $item
-     * @param string $propertyName
-     * @return mixed
      */
-    protected function getPropertyValue(OrderItem $item, $propertyName)
+    protected function getPropertyValue(object $object, string $propertyName): mixed
     {
         $methodPrefixes = ['get', 'is'];
 
         foreach ($methodPrefixes as $methodPrefix) {
             $getter = $methodPrefix . ucfirst($propertyName);
-            if (method_exists($item, $getter)) {
-                return $item->$getter();
+            if (method_exists($object, $getter)) {
+                return $object->$getter();
             }
         }
 
@@ -72,12 +60,8 @@ class OrderItemValidator extends AbstractValidator implements ObjectValidatorInt
     /**
      * Checks if the specified property of the given object is valid, and adds
      * found errors to the $messages object.
-     *
-     * @param mixed $value The value to be validated
-     * @param \Traversable $validators The validators to be called on the value
-     * @param string $propertyName Name of ther property to check
      */
-    protected function checkProperty($value, $validators, $propertyName)
+    protected function checkProperty(mixed $value, \Traversable $validators, string $propertyName): void
     {
         /** @var Result $result */
         $result = null;
@@ -126,12 +110,9 @@ class OrderItemValidator extends AbstractValidator implements ObjectValidatorInt
     }
 
     /**
-     * Checks if the given value is valid according to the property validators.
-     *
-     * @param mixed $object The value that should be validated
-     * @api
+     * Check if $value is valid. If it is not valid, needs to add an error to result.
      */
-    protected function isValid($object)
+    protected function isValid(mixed $object): void
     {
         foreach ($this->propertyValidators as $propertyName => $validators) {
             $propertyValue = $this->getPropertyValue($object, $propertyName);
@@ -140,30 +121,9 @@ class OrderItemValidator extends AbstractValidator implements ObjectValidatorInt
     }
 
     /**
-     * Checks if the specified property of the given object is valid.
-     *
-     * If at least one error occurred, the result is FALSE.
-     *
-     * @param object $object The object containing the property to validate
-     * @param string $propertyName Name of the property to validate
-     * @return bool TRUE if the property value is valid, FALSE if an error occurred
-     *
-     * @deprecated since Extbase 1.4.0, will be removed two versions after Extbase 6.1
-     * @api
-     */
-    public function isPropertyValid($object, $propertyName)
-    {
-        return false;
-    }
-
-    /**
      * Adds the given validator for validation of the specified property.
-     *
-     * @param string $propertyName Name of the property to validate
-     * @param ValidatorInterface $validator The property validator
-     * @api
      */
-    public function addPropertyValidator($propertyName, ValidatorInterface $validator)
+    public function addPropertyValidator(string $propertyName, ValidatorInterface $validator): void
     {
         if (!isset($this->propertyValidators[$propertyName])) {
             $this->propertyValidators[$propertyName] = new \SplObjectStorage();
@@ -171,64 +131,26 @@ class OrderItemValidator extends AbstractValidator implements ObjectValidatorInt
         $this->propertyValidators[$propertyName]->attach($validator);
     }
 
-    /**
-     * @param object $object
-     * @return bool
-     */
-    protected function isValidatedAlready($object)
+    protected function isValidatedAlready(object $object): bool
     {
         if ($this->validatedInstancesContainer === null) {
             $this->validatedInstancesContainer = new \SplObjectStorage();
         }
         if ($this->validatedInstancesContainer->contains($object)) {
             return true;
-        } else {
-            $this->validatedInstancesContainer->attach($object);
-
-            return false;
         }
+
+        $this->validatedInstancesContainer->attach($object);
+
+        return false;
     }
 
-    /**
-     * Returns all property validators - or only validators of the specified property
-     *
-     * @param string $propertyName Name of the property to return validators for
-     * @return array An array of validators
-     */
-    public function getPropertyValidators($propertyName = null)
-    {
-        if ($propertyName !== null) {
-            return (isset($this->propertyValidators[$propertyName])) ? $this->propertyValidators[$propertyName] : [];
-        } else {
-            return $this->propertyValidators;
-        }
-    }
-
-    /**
-     * @return int
-     */
-    public function countPropertyValidators()
+    public function countPropertyValidators(): int
     {
         $count = 0;
         foreach ($this->propertyValidators as $propertyValidators) {
             $count += $propertyValidators->count();
         }
         return $count;
-    }
-
-    /**
-     * @var \SplObjectStorage
-     */
-    protected $validatedInstancesContainer;
-
-    /**
-     * Allows to set a container to keep track of validated instances.
-     *
-     * @param \SplObjectStorage $validatedInstancesContainer A container to keep track of validated instances
-     * @api
-     */
-    public function setValidatedInstancesContainer(\SplObjectStorage $validatedInstancesContainer)
-    {
-        $this->validatedInstancesContainer = $validatedInstancesContainer;
     }
 }

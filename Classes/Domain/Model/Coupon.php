@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Extcode\Cart\Domain\Model;
 
 /*
@@ -13,68 +15,28 @@ use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 
 class Coupon extends AbstractEntity
 {
-    /**
-     * @var string
-     */
-    protected $title = '';
+    protected string $title = '';
 
-    /**
-     * @var string
-     */
-    protected $code = '';
+    protected string $code = '';
 
-    /**
-     * @var string
-     */
-    protected $couponType = '';
+    protected string $couponType = '';
 
-    /**
-     * @var float
-     */
-    protected $discount = 0.0;
+    protected float $discount = 0.0;
 
-    /**
-     * @var int
-     */
-    protected $taxClassId;
+    protected int $taxClassId;
 
-    /**
-     * @var float
-     */
-    protected $cartMinPrice = 0.0;
+    protected float $cartMinPrice = 0.0;
 
-    /**
-     * @var bool
-     */
-    protected $isCombinable = false;
+    protected bool $isCombinable = false;
 
-    /**
-     * @var bool
-     */
-    protected $isRelativeDiscount = false;
+    protected bool $isRelativeDiscount = false;
 
-    /**
-     * @var bool
-     */
-    protected $handleAvailable = false;
+    protected bool $handleAvailable = false;
 
-    /**
-     * @var int
-     */
-    protected $numberAvailable = 0;
+    protected int $numberAvailable = 0;
 
-    /**
-     * @var int
-     */
-    protected $numberUsed = 0;
+    protected int $numberUsed = 0;
 
-    /**
-     * @param string $title
-     * @param string $code
-     * @param string $couponType
-     * @param float $discount
-     * @param int $taxClassId
-     */
     public function __construct(
         string $title,
         string $code,
@@ -89,105 +51,66 @@ class Coupon extends AbstractEntity
         $this->taxClassId = $taxClassId;
     }
 
-    /**
-     * @return string
-     */
     public function getTitle(): string
     {
         return $this->title;
     }
 
-    /**
-     * @return string
-     */
     public function getCode(): string
     {
         return $this->code;
     }
 
-    /**
-     * @return string
-     */
     public function getCouponType(): string
     {
         return $this->couponType;
     }
 
-    /**
-     * @return bool
-     */
     public function isRelativeDiscount(): bool
     {
         return $this->isRelativeDiscount;
     }
 
-    /**
-     * @return float
-     */
     public function getDiscount(): float
     {
         return $this->discount;
     }
 
-    /**
-     * @return int
-     */
     public function getTaxClassId(): int
     {
         return $this->taxClassId;
     }
 
-    /**
-     * @return float
-     */
     public function getCartMinPrice(): float
     {
         return $this->cartMinPrice;
     }
 
-    /**
-     * @param float $cartMinPrice
-     */
-    public function setCartMinPrice(float $cartMinPrice)
+    public function setCartMinPrice(float $cartMinPrice): void
     {
         $this->cartMinPrice = $cartMinPrice;
     }
 
-    /**
-     * @return bool
-     */
-    public function getHandleAvailable(): bool
+    public function isHandleAvailabilityEnabled(): bool
     {
         return $this->handleAvailable;
     }
 
-    /**
-     * @param bool $handleAvailable
-     */
-    public function setHandleAvailable(bool $handleAvailable)
+    public function setIsHandleAvailabilityEnabled(bool $handleAvailable): void
     {
         $this->handleAvailable = $handleAvailable;
     }
 
-    /**
-     * @return int
-     */
     public function getNumberAvailable(): int
     {
         return $this->numberAvailable;
     }
 
-    /**
-     * @param int $numberAvailable
-     */
-    public function setNumberAvailable(int $numberAvailable)
+    public function setNumberAvailable(int $numberAvailable): void
     {
         $this->numberAvailable = $numberAvailable;
     }
 
-    /**
-     * @return int
-     */
     public function getNumberUsed(): int
     {
         return $this->numberUsed;
@@ -196,39 +119,27 @@ class Coupon extends AbstractEntity
     /**
      * Increase the number how often the coupon was used
      */
-    public function incNumberUsed()
+    public function incNumberUsed(): void
     {
         $this->numberUsed += 1;
     }
 
-    /**
-     * @param int $numberUsed
-     */
-    public function setNumberUsed(int $numberUsed)
+    public function setNumberUsed(int $numberUsed): void
     {
         $this->numberUsed = $numberUsed;
     }
 
-    /**
-     * @return bool
-     */
-    public function getIsCombinable(): bool
+    public function isCombinable(): bool
     {
         return $this->isCombinable;
     }
 
-    /**
-     * @param bool $isCombinable
-     */
-    public function setIsCombinable(bool $isCombinable)
+    public function setIsCombinable(bool $isCombinable): void
     {
         $this->isCombinable = $isCombinable;
     }
 
-    /**
-     * @return bool
-     */
-    public function getIsAvailable(): bool
+    public function isAvailable(): bool
     {
         if ($this->handleAvailable) {
             $available = $this->numberAvailable - $this->numberUsed;

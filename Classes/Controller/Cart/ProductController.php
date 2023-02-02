@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Extcode\Cart\Controller\Cart;
 
 /*
@@ -13,13 +15,14 @@ use Extcode\Cart\Domain\Model\Cart\Product;
 use Extcode\Cart\Event\CheckProductAvailabilityEvent;
 use Extcode\Cart\Event\RetrieveProductsFromRequestEvent;
 use Psr\EventDispatcher\EventDispatcherInterface;
+use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Core\Messaging\AbstractMessage;
-use TYPO3\CMS\Core\Messaging\FlashMessage;
+use TYPO3\CMS\Core\Type\ContextualFeedbackSeverity;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 
 class ProductController extends ActionController
 {
-    const AJAX_CART_TYPE_NUM = '2278001';
+    public const AJAX_CART_TYPE_NUM = '2278001';
 
     /**
      * @var EventDispatcherInterface
@@ -29,21 +32,22 @@ class ProductController extends ActionController
     /**
      * @param EventDispatcherInterface|null $eventDispatcher
      */
-    public function __construct(EventDispatcherInterface $eventDispatcher = null)
-    {
+    public function __construct(
+        EventDispatcherInterface $eventDispatcher = null
+    ) {
         if ($eventDispatcher !== null) {
             $this->eventDispatcher = $eventDispatcher;
         }
     }
 
-    public function addAction()
+    public function addAction(): ResponseInterface
     {
         if (!$this->request->hasArgument('productType')) {
             // TODO: add own Exception
             throw new \Exception('productType is needed');
         }
 
-        $this->cart = $this->cartUtility->getCartFromSession($this->pluginSettings);
+        $this->restoreSession();
 
         $event = new RetrieveProductsFromRequestEvent($this->request, $this->cart);
 
@@ -53,7 +57,7 @@ class ProductController extends ActionController
 
         $cartProducts = $event->getProducts();
 
-        foreach ($cartProducts as $cartProductKey => $cartProduct) {
+        foreach ($cartProducts as $cartProduct) {
             $checkAvailabilityEvent = new CheckProductAvailabilityEvent($this->cart, $cartProduct, $cartProduct->getQuantity(), 'add');
             $this->eventDispatcher->dispatch($checkAvailabilityEvent);
 
@@ -64,17 +68,18 @@ class ProductController extends ActionController
 
         $messageBody = '';
         $messageTitle = '';
-        $severity = AbstractMessage::OK;
+        $severity = ContextualFeedbackSeverity::OK;
 
         if (!empty($errors)) {
             foreach ($errors as $error) {
-                if (!($error instanceof FlashMessage)) {
+                if (!($error instanceof AbstractMessage)) {
                     continue;
                 }
-                if ($error->getSeverity() >= $severity) {
-                    $severity = $error->getSeverity();
-                    $messageBody = $error->getMessage();
-                    $messageTitle = $error->getTitle();
+                $message = $error->jsonSerialize();
+                if ($message['severity'] >= (int)$severity) {
+                    $severity = $message['severity'];
+                    $messageBody = $message['message'];
+                    $messageTitle = $message['title'];
                 }
             }
 
@@ -87,10 +92,10 @@ class ProductController extends ActionController
                     'gross' => $this->cart->getGross(),
                     'messageBody' => $messageBody,
                     'messageTitle' => $messageTitle,
-                    'severity' => $severity
+                    'severity' => $severity,
                 ];
 
-                return json_encode($response);
+                return $this->jsonResponse(json_encode($response));
             }
 
             $this->addFlashMessage(
@@ -105,9 +110,9 @@ class ProductController extends ActionController
 
         $quantity = $this->addProductsToCart($cartProducts);
 
-        $this->cartUtility->updateService($this->cart, $this->pluginSettings);
+        $this->cartUtility->updateService($this->cart, $this->configurations);
 
-        $this->sessionHandler->write($this->cart, $this->settings['cart']['pid']);
+        $this->sessionHandler->writeCart($this->settings['cart']['pid'], $this->cart);
 
         $messageBody = LocalizationUtility::translate(
             'tx_cart.success.stock_handling.add.' . ($quantity == 1 ? 'one' : 'more'),
@@ -128,10 +133,10 @@ class ProductController extends ActionController
                 'productsChanged' => $productsChanged,
                 'messageBody' => $messageBody,
                 'messageTitle' => $messageTitle,
-                'severity' => $severity
+                'severity' => $severity,
             ];
 
-            return json_encode($response);
+            return $this->jsonResponse(json_encode($response));
         }
 
         $this->addFlashMessage(
@@ -141,25 +146,29 @@ class ProductController extends ActionController
             true
         );
 
-        $this->redirect('show', 'Cart\Cart');
+        return $this->redirect('show', 'Cart\Cart');
     }
 
-    public function removeAction(): void
+    public function removeAction(): ResponseInterface
     {
         if ($this->request->hasArgument('product')) {
-            $this->cart = $this->sessionHandler->restore($this->settings['cart']['pid']);
+            $this->restoreSession();
             $productArgument = $this->request->getArgument('product');
-            if (is_array($productArgument)) {
-                $this->cart->removeProductByIds($productArgument);
+
+            if ($this->request->hasArgument('variant')) {
+                $variantArgument = $this->request->getArgument('variant');
+
+                $this->cart->removeProductByIds([$productArgument => [$variantArgument => 1]]);
             } else {
                 $this->cart->removeProductById($productArgument);
             }
 
-            $this->cartUtility->updateService($this->cart, $this->pluginSettings);
+            $this->cartUtility->updateService($this->cart, $this->configurations);
 
-            $this->sessionHandler->write($this->cart, $this->settings['cart']['pid']);
+            $this->sessionHandler->writeCart($this->settings['cart']['pid'], $this->cart);
         }
-        $this->redirect('show', 'Cart\Cart');
+
+        return $this->redirect('show', 'Cart\Cart');
     }
 
     /**
@@ -171,7 +180,7 @@ class ProductController extends ActionController
 
         foreach ($products as $product) {
             if ($product instanceof Product) {
-                $productChanged = $this->cart->getProduct($product->getId());
+                $productChanged = $this->cart->getProductById($product->getId());
                 $productsChanged[$product->getId()] = $productChanged->toArray();
             }
         }

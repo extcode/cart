@@ -1,5 +1,7 @@
 <?php
+
 declare(strict_types=1);
+
 namespace Extcode\Cart\Event;
 
 /*
@@ -15,42 +17,19 @@ use TYPO3\CMS\Core\Messaging\FlashMessage;
 
 class CheckProductAvailabilityEvent implements CheckProductAvailabilityEventInterface
 {
-    /**
-     * @var Cart
-     */
-    private $cart;
-
-    /**
-     * @var Product
-     */
-    private $product;
-
-    /**
-     * @var mixed
-     */
-    private $quantity;
-
-    /**
-     * @var string
-     */
-    private $mode;
-
-    /**
-     * @var bool
-     */
-    protected $available = true;
+    protected bool $available = true;
 
     /**
      * @var FlashMessage[]
      */
-    protected $messages = [];
+    protected array $messages = [];
 
-    public function __construct(Cart $cart, Product $product, $quantity, string $mode = 'update')
-    {
-        $this->cart = $cart;
-        $this->product = $product;
-        $this->quantity = $quantity;
-        $this->mode = $mode;
+    public function __construct(
+        private readonly Cart $cart,
+        private readonly Product $product,
+        private readonly mixed $quantity,
+        private readonly string $mode = 'update'
+    ) {
     }
 
     public function getCart(): Cart

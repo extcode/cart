@@ -40,91 +40,95 @@ class ProductTest extends UnitTestCase
         $this->title = 'title';
         $this->count = 1;
 
-        $this->product = new Product(
-            $this->sku,
-            $this->title,
-            $this->count
-        );
+        $this->product = new Product();
+        $this->product->setSku($this->sku);
+        $this->product->setTitle($this->title);
+        $this->product->setCount($this->count);
+
+        parent::setUp();
     }
 
     /**
      * @test
      */
-    public function constructProductWithoutSkuThrowsException(): void
+    public function getSkuInitiallyReturnsEmptyString(): void
     {
-        $this->expectException(\TypeError::class);
+        $product = new Product();
 
-        $this->product = new Product(
-            null,
-            $this->title,
-            $this->count
-        );
-    }
-
-    /**
-     * @test
-     */
-    public function constructProductWithoutTitleThrowsException(): void
-    {
-        $this->expectException(\TypeError::class);
-
-        $this->product = new Product(
-            $this->sku,
-            null,
-            $this->count
-        );
-    }
-
-    /**
-     * @test
-     */
-    public function constructProductWithoutCountThrowsException(): void
-    {
-        $this->expectException(\TypeError::class);
-
-        $this->product = new Product(
-            $this->sku,
-            $this->title,
-            null
-        );
-    }
-
-    /**
-     * @test
-     */
-    public function getSkuInitiallyReturnsSkuSetDirectlyByConstructor(): void
-    {
         self::assertSame(
-            $this->sku,
-            $this->product->getSku()
+            '',
+            $product->getSku()
         );
     }
 
     /**
      * @test
      */
-    public function getTitleInitiallyReturnsTitleSetDirectlyByConstructor(): void
+    public function setSkuSetsSku(): void
     {
+        $product = new Product();
+        $product->setSku('sku');
+
         self::assertSame(
-            $this->title,
-            $this->product->getTitle()
+            'sku',
+            $product->getSku()
         );
     }
 
     /**
      * @test
      */
-    public function getCountInitiallyReturnsCountSetDirectlyByConstructor(): void
+    public function getTitleInitiallyReturnsEmptyString(): void
     {
+        $product = new Product();
+
         self::assertSame(
-            $this->count,
-            $this->product->getCount()
+            '',
+            $product->getTitle()
         );
     }
 
     /**
      * @test
      */
+    public function setTitleSetsTitle(): void
+    {
+        $product = new Product();
+        $product->setTitle('title');
+
+        self::assertSame(
+            'title',
+            $product->getTitle()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function getCountInitiallyReturnsZero(): void
+    {
+        $product = new Product();
+
+        self::assertSame(
+            0,
+            $product->getCount()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function setCountSetsCount(): void
+    {
+        $product = new Product();
+        $product->setCount(10);
+
+        self::assertSame(
+            10,
+            $product->getCount()
+        );
+    }
+
     /**
      * @test
      */

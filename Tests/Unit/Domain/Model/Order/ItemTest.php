@@ -27,6 +27,8 @@ class ItemTest extends UnitTestCase
     public function setUp(): void
     {
         $this->item = new Item();
+
+        parent::setUp();
     }
 
     /**

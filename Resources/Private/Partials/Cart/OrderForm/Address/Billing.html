@@ -580,12 +580,11 @@
                                             <em>*</em>
                                         </label>
                                         <div class="input-box">
-                                            <cart:form.select id="billingAddress-country"
+                                            <f:form.select id="billingAddress-country"
                                                               class="form-control"
                                                               name="billingAddress[country]"
                                                               value="{cart.billingCountry}"
                                                               options="{settings.allowedCountries}"
-                                                              translationKey="tx_cart.settings.allowed_countries"
                                                               required="true"/>
                                             <f:form.validationResults for="billingAddress">
                                                 <f:if condition="{validationResults.flattenedErrors.country}">
@@ -599,12 +598,11 @@
                                             <f:translate key="tx_cart_domain_model_order_address.country"/>
                                         </label>
                                         <div class="input-box">
-                                            <cart:form.select id="billingAddress-country"
+                                            <f:form.select id="billingAddress-country"
                                                               class="form-control"
                                                               name="billingAddress[country]"
                                                               value="{cart.billingCountry}"
-                                                              options="{settings.allowedCountries}"
-                                                              translationKey="tx_cart.settings.allowed_countries"/>
+                                                              options="{settings.allowedCountries}"/>
                                         </div>
                                     </f:else>
                                 </f:if>

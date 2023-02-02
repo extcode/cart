@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Extcode\Cart\Controller\Backend\Order;
 
 /*
@@ -13,6 +15,10 @@ use Extcode\Cart\Domain\Model\Cart\Cart;
 use Extcode\Cart\Domain\Model\Order\Item;
 use Extcode\Cart\Domain\Repository\Order\ItemRepository;
 use Extcode\Cart\Event\Order\NumberGeneratorEvent;
+use Psr\Http\Message\ResponseInterface;
+use TYPO3\CMS\Backend\Template\ModuleTemplate;
+use TYPO3\CMS\Backend\Template\ModuleTemplateFactory;
+use TYPO3\CMS\Core\Imaging\IconFactory;
 use TYPO3\CMS\Core\Messaging\AbstractMessage;
 use TYPO3\CMS\Core\Pagination\SimplePagination;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
@@ -23,20 +29,13 @@ use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 
 class OrderController extends ActionController
 {
-    /**
-     * @var PersistenceManager
-     */
-    protected $persistenceManager;
+    protected PersistenceManager $persistenceManager;
 
-    /**
-     * @var ItemRepository
-     */
-    protected $itemRepository;
+    private ModuleTemplate $moduleTemplate;
 
-    /**
-     * @var array
-     */
-    protected $searchArguments = [];
+    protected ItemRepository $itemRepository;
+
+    protected array $searchArguments = [];
 
     public function injectPersistenceManager(PersistenceManager $persistenceManager): void
     {
@@ -48,6 +47,12 @@ class OrderController extends ActionController
         $this->itemRepository = $itemRepository;
     }
 
+    public function __construct(
+        protected readonly ModuleTemplateFactory $moduleTemplateFactory,
+        protected readonly IconFactory $iconFactory
+    ) {
+    }
+
     protected function initializeAction(): void
     {
         parent::initializeAction();
@@ -57,21 +62,11 @@ class OrderController extends ActionController
         }
     }
 
-    public function initializeUpdateAction(): void
+    public function listAction(int $currentPage = 1): ResponseInterface
     {
-        if ($this->request->hasArgument('orderItem')) {
-            $orderItem = $this->request->getArgument('orderItem');
+        $this->moduleTemplate = $this->moduleTemplateFactory->create($this->request);
 
-            $invoiceDateString = $orderItem['invoiceDate'];
-            $orderItem['invoiceDate'] = \DateTime::createFromFormat('d.m.Y', $invoiceDateString);
-
-            $this->request->setArgument('orderItem', $orderItem);
-        }
-    }
-
-    public function listAction(int $currentPage = 1): void
-    {
-        $this->view->assign('searchArguments', $this->searchArguments);
+        $this->moduleTemplate->assign('searchArguments', $this->searchArguments);
 
         $itemsPerPage = $this->settings['itemsPerPage'] ?? 20;
 
@@ -82,7 +77,7 @@ class OrderController extends ActionController
             $itemsPerPage
         );
         $pagination = new SimplePagination($arrayPaginator);
-        $this->view->assignMultiple(
+        $this->moduleTemplate->assignMultiple(
             [
                 'orderItems' => $orderItems,
                 'paginator' => $arrayPaginator,
@@ -91,14 +86,16 @@ class OrderController extends ActionController
             ]
         );
 
-        $this->view->assign('paymentStatus', $this->getPaymentStatus());
-        $this->view->assign('shippingStatus', $this->getShippingStatus());
+        $this->moduleTemplate->assign('paymentStatus', $this->getPaymentStatus());
+        $this->moduleTemplate->assign('shippingStatus', $this->getShippingStatus());
 
         $pdfRendererInstalled = ExtensionManagementUtility::isLoaded('cart_pdf');
-        $this->view->assign('pdfRendererInstalled', $pdfRendererInstalled);
+        $this->moduleTemplate->assign('pdfRendererInstalled', $pdfRendererInstalled);
+
+        return $this->moduleTemplate->renderResponse('List');
     }
 
-    public function exportAction(): void
+    public function exportAction(): ResponseInterface
     {
         $format = $this->request->getFormat();
 
@@ -113,51 +110,47 @@ class OrderController extends ActionController
         $title = 'Order-Export-' . date('Y-m-d_H-i');
         $filename = $title . '.' . $format;
 
-        if ($this->responseFactory) {
-            $this->responseFactory->createResponse()
-                ->withAddedHeader('Content-Type', 'text/' . $format)
-                ->withAddedHeader('Content-Description', 'File transfer')
-                ->withAddedHeader('Content-Disposition', 'attachment; filename="' . $filename . '"');
-            return;
-        }
+        $this->responseFactory->createResponse()
+            ->withAddedHeader('Content-Type', 'text/' . $format)
+            ->withAddedHeader('Content-Description', 'File transfer')
+            ->withAddedHeader('Content-Disposition', 'attachment; filename="' . $filename . '"');
 
-        if ($this->response) {
-            // set response header in TYPO3 v10
-            $this->response->setHeader('Content-Type', 'text/' . $format, true);
-            $this->response->setHeader('Content-Description', 'File transfer', true);
-            $this->response->setHeader('Content-Disposition', 'attachment; filename="' . $filename . '"', true);
-        }
+        return $this->htmlResponse(null);
     }
 
     /**
      * @IgnoreValidation("orderItem")
      */
-    public function showAction(Item $orderItem): void
+    public function showAction(Item $orderItem): ResponseInterface
     {
-        $this->view->assign('orderItem', $orderItem);
+        $this->moduleTemplate = $this->moduleTemplateFactory->create($this->request);
+
+        $this->moduleTemplate->assign('orderItem', $orderItem);
 
         $paymentStatusOptions = [];
         $items = $GLOBALS['TCA']['tx_cart_domain_model_order_payment']['columns']['status']['config']['items'];
         foreach ($items as $item) {
-            $paymentStatusOptions[$item[1]] = LocalizationUtility::translate(
-                $item[0],
+            $paymentStatusOptions[$item['value']] = LocalizationUtility::translate(
+                $item['label'],
                 'Cart'
             );
         }
-        $this->view->assign('paymentStatusOptions', $paymentStatusOptions);
+        $this->moduleTemplate->assign('paymentStatusOptions', $paymentStatusOptions);
 
         $shippingStatusOptions = [];
         $items = $GLOBALS['TCA']['tx_cart_domain_model_order_shipping']['columns']['status']['config']['items'];
         foreach ($items as $item) {
-            $shippingStatusOptions[$item[1]] = LocalizationUtility::translate(
-                $item[0],
+            $shippingStatusOptions[$item['value']] = LocalizationUtility::translate(
+                $item['label'],
                 'Cart'
             );
         }
-        $this->view->assign('shippingStatusOptions', $shippingStatusOptions);
+        $this->moduleTemplate->assign('shippingStatusOptions', $shippingStatusOptions);
 
         $pdfRendererInstalled = ExtensionManagementUtility::isLoaded('cart_pdf');
-        $this->view->assign('pdfRendererInstalled', $pdfRendererInstalled);
+        $this->moduleTemplate->assign('pdfRendererInstalled', $pdfRendererInstalled);
+
+        return $this->moduleTemplate->renderResponse('Show');
     }
 
     public function generateNumberAction(Item $orderItem, string $numberType): void

@@ -1,4 +1,5 @@
 <?php
+
 namespace Extcode\Cart\ViewHelpers\Variable;
 
 /*
@@ -77,23 +78,23 @@ class GetViewHelper extends AbstractViewHelper
         $name = $this->arguments['name'];
         $useRawKeys = $this->arguments['useRawKeys'];
 
-        if (false === strpos($name, '.')) {
-            if (true === $this->templateVariableContainer->exists($name)) {
+        if (!str_contains($name, '.')) {
+            if ($this->templateVariableContainer->exists($name) === true) {
                 return $this->templateVariableContainer->get($name);
             }
         } else {
             $segments = explode('.', $name);
             $templateVariableRootName = $lastSegment = array_shift($segments);
-            if (true === $this->templateVariableContainer->exists($templateVariableRootName)) {
+            if ($this->templateVariableContainer->exists($templateVariableRootName) === true) {
                 $templateVariableRoot = $this->templateVariableContainer->get($templateVariableRootName);
-                if (true === $useRawKeys) {
+                if ($useRawKeys === true) {
                     return ObjectAccess::getPropertyPath($templateVariableRoot, implode('.', $segments));
                 }
                 try {
                     $value = $templateVariableRoot;
                     foreach ($segments as $segment) {
-                        if (true === ctype_digit($segment)) {
-                            $segment = intval($segment);
+                        if (ctype_digit($segment) === true) {
+                            $segment = (int)$segment;
                             $index = 0;
                             // Note: this loop approach is not a stupid solution. If you doubt this,
                             // attempt to feth a number at a numeric index from ObjectStorage ;)

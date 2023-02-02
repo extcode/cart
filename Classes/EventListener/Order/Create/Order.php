@@ -1,5 +1,7 @@
 <?php
+
 declare(strict_types=1);
+
 namespace Extcode\Cart\EventListener\Order\Create;
 
 /*
@@ -10,29 +12,33 @@ namespace Extcode\Cart\EventListener\Order\Create;
  */
 
 use Extcode\Cart\Event\Order\EventInterface;
-use Extcode\Cart\Utility\OrderUtility;
+use Extcode\Cart\Event\Order\PersistOrderEvent;
+use Psr\EventDispatcher\EventDispatcherInterface;
+use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
 
 class Order
 {
-    /**
-     * @var OrderUtility
-     */
-    protected $orderUtility;
+    private EventDispatcherInterface $eventDispatcher;
 
-    /**
-     * @param OrderUtility $orderUtility
-     */
-    public function __construct(OrderUtility $orderUtility)
-    {
-        $this->orderUtility = $orderUtility;
+    private PersistenceManager $persistenceManager;
+
+    public function __construct(
+        EventDispatcherInterface $eventDispatcher,
+        PersistenceManager $persistenceManager
+    ) {
+        $this->eventDispatcher = $eventDispatcher;
+        $this->persistenceManager = $persistenceManager;
     }
 
     public function __invoke(EventInterface $event): void
     {
-        $this->orderUtility->saveOrderItem(
-            $event->getSettings(),
-            $event->getCart(),
-            $event->getOrderItem()
-        );
+        $settings = $event->getSettings();
+        $cart = $event->getCart();
+        $orderItem = $event->getOrderItem();
+
+        $event = new PersistOrderEvent($cart, $orderItem, $settings);
+        $this->eventDispatcher->dispatch($event);
+
+        $this->persistenceManager->persistAll();
     }
 }

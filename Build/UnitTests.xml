@@ -1,31 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<phpunit
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        backupGlobals="true"
-        backupStaticAttributes="false"
-        bootstrap="../.build/vendor/typo3/testing-framework/Resources/Core/Build/UnitTestsBootstrap.php"
-        colors="true"
-        convertErrorsToExceptions="true"
-        convertWarningsToExceptions="true"
-        forceCoversAnnotation="false"
-        processIsolation="false"
-        stopOnError="false"
-        stopOnFailure="false"
-        stopOnIncomplete="false"
-        stopOnSkipped="false"
-        verbose="false"
-        xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.3/phpunit.xsd">
-    <coverage processUncoveredFiles="true">
-        <include>
-            <directory suffix=".php">../Classes/</directory>
-        </include>
-        <exclude>
-            <directory suffix=".php">../Classes/Widgets</directory>
-        </exclude>
-    </coverage>
-    <testsuites>
-        <testsuite name="Cart Extension">
-            <directory>../Tests/Unit/</directory>
-        </testsuite>
-    </testsuites>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" backupGlobals="true" bootstrap="../.build/vendor/typo3/testing-framework/Resources/Core/Build/UnitTestsBootstrap.php" colors="true" processIsolation="false" stopOnError="false" stopOnFailure="false" stopOnIncomplete="false" stopOnSkipped="false" xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/10.1/phpunit.xsd" cacheDirectory=".phpunit.cache" backupStaticProperties="false" requireCoverageMetadata="false">
+  <coverage/>
+  <testsuites>
+    <testsuite name="Cart Extension">
+      <directory>../Tests/Unit/</directory>
+    </testsuite>
+  </testsuites>
+  <source>
+    <include>
+      <directory suffix=".php">../Classes/</directory>
+    </include>
+    <exclude>
+      <directory suffix=".php">../Classes/Widgets</directory>
+    </exclude>
+  </source>
 </phpunit>

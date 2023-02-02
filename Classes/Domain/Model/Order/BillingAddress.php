@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Extcode\Cart\Domain\Model\Order;
 
 /*
@@ -11,23 +13,14 @@ namespace Extcode\Cart\Domain\Model\Order;
 
 class BillingAddress extends AbstractAddress
 {
-    /**
-     * @var string
-     */
-    protected $taxIdentificationNumber = '';
+    protected string $taxIdentificationNumber = '';
 
-    /**
-     * @return string
-     */
     public function getTaxIdentificationNumber(): string
     {
         return $this->taxIdentificationNumber;
     }
 
-    /**
-     * @param string $taxIdentificationNumber
-     */
-    public function setTaxIdentificationNumber(string $taxIdentificationNumber)
+    public function setTaxIdentificationNumber(string $taxIdentificationNumber): void
     {
         $this->taxIdentificationNumber = $taxIdentificationNumber;
     }

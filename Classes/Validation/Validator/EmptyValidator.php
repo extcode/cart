@@ -26,7 +26,7 @@ class EmptyValidator extends AbstractValidator
      *
      * @param mixed $value The value that should be validated
      */
-    public function isValid($value)
+    public function isValid(mixed $value): void
     {
         if ($value != null) {
             if (is_numeric($value)) {
@@ -37,7 +37,10 @@ class EmptyValidator extends AbstractValidator
                     ),
                     1500493634
                 );
-            } elseif (is_string($value) && $value != '') {
+            } elseif (
+                is_string($value) &&
+                $value != ''
+            ) {
                 $this->addError(
                     $this->translateErrorMessage(
                         'validator.empty.notempty',
@@ -45,7 +48,10 @@ class EmptyValidator extends AbstractValidator
                     ),
                     1500493641
                 );
-            } elseif (is_array($value) && !empty($value)) {
+            } elseif (
+                is_array($value) &&
+                !empty($value)
+            ) {
                 $this->addError(
                     $this->translateErrorMessage(
                         'validator.empty.notempty',

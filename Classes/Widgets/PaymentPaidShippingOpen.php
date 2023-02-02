@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Extcode\Cart\Widgets;
@@ -61,5 +62,9 @@ class PaymentPaidShippingOpen implements WidgetInterface
             'configuration' => $this->configuration,
         ]);
         return $this->view->render();
+    }
+    public function getOptions(): array
+    {
+        return $this->options;
     }
 }

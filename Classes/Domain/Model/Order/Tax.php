@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Extcode\Cart\Domain\Model\Order;
 
 /*
@@ -8,27 +10,22 @@ namespace Extcode\Cart\Domain\Model\Order;
  * For the full copyright and license information, please read the
  * LICENSE file that was distributed with this source code.
  */
+
 use TYPO3\CMS\Extbase\Annotation\Validate;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 
 class Tax extends AbstractEntity
 {
     /**
-     * @var float
      * @Validate("NotEmpty")
      */
-    protected $tax;
+    protected float $tax;
 
     /**
-     * @var TaxClass
      * @Validate("NotEmpty")
      */
-    protected $taxClass;
+    protected TaxClass $taxClass;
 
-    /**
-     * @param float $tax
-     * @param TaxClass $taxClass
-     */
     public function __construct(
         float $tax,
         TaxClass $taxClass
@@ -37,17 +34,11 @@ class Tax extends AbstractEntity
         $this->taxClass = $taxClass;
     }
 
-    /**
-     * @return float
-     */
     public function getTax(): float
     {
         return $this->tax;
     }
 
-    /**
-     * @return TaxClass
-     */
     public function getTaxClass(): TaxClass
     {
         return $this->taxClass;

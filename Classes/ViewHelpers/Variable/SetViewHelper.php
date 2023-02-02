@@ -1,4 +1,5 @@
 <?php
+
 namespace Extcode\Cart\ViewHelpers\Variable;
 
 /*
@@ -81,19 +82,19 @@ class SetViewHelper extends AbstractViewHelper
         $name = $this->arguments['name'];
         $value = $this->arguments['value'];
 
-        if (null === $value) {
+        if ($value === null) {
             $value = $this->renderChildren();
         }
-        if (false === strpos($name, '.')) {
-            if (true === $this->templateVariableContainer->exists($name)) {
+        if (!str_contains($name, '.')) {
+            if ($this->templateVariableContainer->exists($name) === true) {
                 $this->templateVariableContainer->remove($name);
             }
             $this->templateVariableContainer->add($name, $value);
-        } elseif (1 === substr_count($name, '.')) {
+        } elseif (substr_count($name, '.') === 1) {
             $parts = explode('.', $name);
             $objectName = array_shift($parts);
             $path = implode('.', $parts);
-            if (false === $this->templateVariableContainer->exists($objectName)) {
+            if ($this->templateVariableContainer->exists($objectName) === false) {
                 return null;
             }
             $object = $this->templateVariableContainer->get($objectName);

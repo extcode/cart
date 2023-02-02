@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Extcode\Cart\Domain\Model\Order;
 
 /*
@@ -8,213 +10,121 @@ namespace Extcode\Cart\Domain\Model\Order;
  * For the full copyright and license information, please read the
  * LICENSE file that was distributed with this source code.
  */
+
+use Extcode\Cart\Domain\Model\FrontendUser;
 use Extcode\Cart\Property\Exception\ResetPropertyException;
 use TYPO3\CMS\Extbase\Annotation\ORM\Lazy;
-use TYPO3\CMS\Extbase\Annotation\Validate;
 use TYPO3\CMS\Extbase\Domain\Model\FileReference;
-use TYPO3\CMS\Extbase\Domain\Model\FrontendUser;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 
 class Item extends AbstractEntity
 {
-    /**
-     * @var int
-     */
-    protected $cartPid = 0;
+    protected int $cartPid = 0;
 
-    /**
-     * @var FrontendUser
-     */
-    protected $feUser = null;
+    protected ?FrontendUser $feUser = null;
 
-    /**
-     * @var string
-     */
-    protected $orderNumber;
+    protected string $orderNumber;
 
-    /**
-     * @var \DateTime
-     */
-    protected $orderDate = null;
+    protected ?\DateTime $orderDate = null;
 
-    /**
-     * @var string
-     */
-    protected $invoiceNumber;
+    protected string $invoiceNumber;
 
-    /**
-     * @var \DateTime
-     */
-    protected $invoiceDate = null;
+    protected ?\DateTime $invoiceDate = null;
 
-    /**
-     * @var string
-     */
-    protected $deliveryNumber;
+    protected string $deliveryNumber;
 
-    /**
-     * @var \DateTime
-     */
-    protected $deliveryDate = null;
+    protected ?\DateTime $deliveryDate = null;
 
-    /**
-     * @var bool
-     */
-    protected $shippingSameAsBilling = false;
+    protected bool $shippingSameAsBilling = false;
 
-    /**
-     * @var BillingAddress
-     */
-    protected $billingAddress;
+    protected ?BillingAddress $billingAddress = null;
 
-    /**
-     * @var ShippingAddress
-     */
-    protected $shippingAddress;
+    protected ?ShippingAddress $shippingAddress = null;
 
-    /**
-     * @var string
-     */
-    protected $additionalData = '';
+    protected string $additionalData = '';
 
-    /**
-     * @var string
-     */
-    protected $additional = '';
+    protected string $additional = '';
 
-    /**
-     * @var string
-     * @Validate("NotEmpty")
-     */
-    protected $currency = '€';
+    protected string $currency = '€';
 
-    /**
-     * @var string
-     */
-    protected $currencyCode = '';
+    protected string $currencyCode = '';
 
-    /**
-     * @var string
-     */
-    protected $currencySign = '';
+    protected string $currencySign = '';
 
-    /**
-     * @var float
-     */
-    protected $currencyTranslation = 1.00;
+    protected float $currencyTranslation = 1.00;
 
-    /**
-     * @var float
-     * @Validate("NotEmpty")
-     */
-    protected $gross = 0.0;
+    protected float $gross = 0.0;
 
-    /**
-     * @var float
-     * @Validate("NotEmpty")
-     */
-    protected $totalGross = 0.0;
+    protected float $totalGross = 0.0;
 
-    /**
-     * @var float
-     * @Validate("NotEmpty")
-     */
-    protected $net = 0.0;
+    protected float $net = 0.0;
 
-    /**
-     * @var float
-     * @Validate("NotEmpty")
-     */
-    protected $totalNet = 0.0;
+    protected float $totalNet = 0.0;
 
     /**
      * @Lazy
      * @var ObjectStorage<TaxClass>
      */
-    protected $taxClass;
+    protected ObjectStorage $taxClass;
 
     /**
      * @var ObjectStorage<Tax>
      */
-    protected $tax;
+    protected ObjectStorage $tax;
 
     /**
      * @var ObjectStorage<Tax>
      */
-    protected $totalTax;
+    protected ObjectStorage $totalTax;
 
     /**
+     * @Lazy
      * @var ObjectStorage<Product>
-     * @Lazy
      */
-    protected $products;
+    protected ObjectStorage $products;
 
     /**
+     * @Lazy
      * @var ObjectStorage<Discount>
-     * @Lazy
      */
-    protected $discounts;
+    protected ObjectStorage $discounts;
 
-    /**
-     * @var Payment
-     */
-    protected $payment;
+    protected ?Payment $payment = null;
 
-    /**
-     * @var Shipping
-     */
-    protected $shipping;
+    protected ?Shipping $shipping = null;
 
     /**
      * @var ObjectStorage<FileReference>
      */
-    protected $orderPdfs;
+    protected ObjectStorage $orderPdfs;
 
     /**
      * @var ObjectStorage<FileReference>
      */
-    protected $invoicePdfs;
+    protected ObjectStorage $invoicePdfs;
 
     /**
      * @var ObjectStorage<FileReference>
      */
-    protected $deliveryPdfs;
+    protected ObjectStorage $deliveryPdfs;
 
-    /**
-     * @var \DateTime
-     */
-    protected $crdate;
+    protected \DateTime $crdate;
 
-    /**
-     * @var bool
-     */
-    protected $acceptTermsAndConditions = false;
+    protected bool $acceptTermsAndConditions = false;
 
-    /**
-     * @var bool
-     */
-    protected $acceptRevocationInstruction = false;
+    protected bool $acceptRevocationInstruction = false;
 
-    /**
-     * @var bool
-     */
-    protected $acceptPrivacyPolicy = false;
+    protected bool $acceptPrivacyPolicy = false;
 
-    /**
-     * @var string
-     */
-    protected $comment = '';
+    protected string $comment = '';
 
     public function __construct()
     {
         $this->initStorageObjects();
     }
 
-    /**
-     * Initializes all ObjectStorages.
-     */
-    protected function initStorageObjects()
+    protected function initStorageObjects(): void
     {
         $this->products = new ObjectStorage();
         $this->discounts = new ObjectStorage();
@@ -226,400 +136,275 @@ class Item extends AbstractEntity
         $this->deliveryPdfs = new ObjectStorage();
     }
 
-    /**
-     * @var int $cartPid
-     */
-    public function setCartPid(int $cartPid)
+    public function setCartPid(int $cartPid): void
     {
         $this->cartPid = $cartPid;
     }
 
-    /**
-     * @return int
-     */
     public function getCartPid(): int
     {
         return $this->cartPid;
     }
 
-    /**
-     * @param FrontendUser $feUser
-     */
-    public function setFeUser(FrontendUser $feUser)
+    public function setFeUser(FrontendUser $feUser): void
     {
         $this->feUser = $feUser;
     }
 
-    /**
-     * @return FrontendUser|null
-     */
     public function getFeUser(): ?FrontendUser
     {
         return $this->feUser;
     }
 
-    /**
-     * @return string|null
-     */
     public function getOrderNumber(): ?string
     {
         return $this->orderNumber;
     }
 
     /**
-     * @param string $orderNumber
-     * @return string
-     *
      * @throws ResetPropertyException
      */
     public function setOrderNumber(string $orderNumber): string
     {
-        if (!$this->orderNumber) {
+        if (!isset($this->orderNumber)) {
             $this->orderNumber = $orderNumber;
         } else {
-            if ($this->orderNumber != $orderNumber) {
+            if ($this->orderNumber !== $orderNumber) {
                 throw new ResetPropertyException('Could not reset orderNumber', 1395306283);
             }
         }
         return $this->orderNumber;
     }
 
-    /**
-     * @return \DateTime|null
-     */
     public function getOrderDate(): ?\DateTime
     {
         return $this->orderDate;
     }
 
-    /**
-     * @param \DateTime $orderDate
-     */
-    public function setOrderDate(\DateTime $orderDate)
+    public function setOrderDate(\DateTime $orderDate): void
     {
         $this->orderDate = $orderDate;
     }
 
-    /**
-     * @return string|null
-     */
     public function getInvoiceNumber(): ?string
     {
         return $this->invoiceNumber;
     }
 
     /**
-     * @param string $invoiceNumber
-     *
-     * @return string
      * @throws ResetPropertyException
      */
     public function setInvoiceNumber(string $invoiceNumber): string
     {
-        if (!$this->invoiceNumber) {
+        if (!isset($this->invoiceNumber)) {
             $this->invoiceNumber = $invoiceNumber;
         } else {
-            if ($this->invoiceNumber != $invoiceNumber) {
+            if ($this->invoiceNumber !== $invoiceNumber) {
                 throw new ResetPropertyException('Could not reset invoiceNumber', 1395307266);
             }
         }
         return $this->invoiceNumber;
     }
 
-    /**
-     * @return \DateTime|null
-     */
     public function getInvoiceDate(): ?\DateTime
     {
         return $this->invoiceDate;
     }
 
-    /**
-     * @param \DateTime $invoiceDate
-     */
-    public function setInvoiceDate(\DateTime $invoiceDate)
+    public function setInvoiceDate(\DateTime $invoiceDate): void
     {
         $this->invoiceDate = $invoiceDate;
     }
 
-    /**
-     * @return string|null
-     */
     public function getDeliveryNumber(): ?string
     {
         return $this->deliveryNumber;
     }
 
     /**
-     * @param string $deliveryNumber
-     *
-     * @return string
      * @throws ResetPropertyException
      */
     public function setDeliveryNumber(string $deliveryNumber): string
     {
-        if (!$this->deliveryNumber) {
+        if (!isset($this->deliveryNumber)) {
             $this->deliveryNumber = $deliveryNumber;
         } else {
-            if ($this->deliveryNumber != $deliveryNumber) {
+            if ($this->deliveryNumber !== $deliveryNumber) {
                 throw new ResetPropertyException('Could not reset deliveryNumber', 1475061197);
             }
         }
         return $this->deliveryNumber;
     }
 
-    /**
-     * @return \DateTime|null
-     */
     public function getDeliveryDate(): ?\DateTime
     {
         return $this->deliveryDate;
     }
 
-    /**
-     * @param \DateTime $deliveryDate
-     */
-    public function setDeliveryDate(\DateTime $deliveryDate)
+    public function setDeliveryDate(\DateTime $deliveryDate): void
     {
         $this->deliveryDate = $deliveryDate;
     }
 
-    /**
-     * @return bool
-     */
     public function isShippingSameAsBilling(): bool
     {
         return $this->shippingSameAsBilling;
     }
 
-    /**
-     * @param bool $shippingSameAsBilling
-     */
     public function setShippingSameAsBilling(bool $shippingSameAsBilling): void
     {
         $this->shippingSameAsBilling = $shippingSameAsBilling;
     }
 
-    /**
-     * @return BillingAddress|null
-     */
     public function getBillingAddress(): ?BillingAddress
     {
         return $this->billingAddress;
     }
 
-    /**
-     * @param BillingAddress $billingAddress
-     */
-    public function setBillingAddress(BillingAddress $billingAddress)
+    public function setBillingAddress(BillingAddress $billingAddress): void
     {
         $this->billingAddress = $billingAddress;
     }
 
-    /**
-     * @return ShippingAddress|null
-     */
     public function getShippingAddress(): ?ShippingAddress
     {
         return $this->shippingAddress;
     }
 
-    /**
-     * @param ShippingAddress $shippingAddress
-     */
-    public function setShippingAddress(ShippingAddress $shippingAddress)
+    public function setShippingAddress(ShippingAddress $shippingAddress): void
     {
         $this->shippingAddress = $shippingAddress;
     }
 
-    /**
-     * Remove Shopping Address
-     */
-    public function removeShippingAddress()
+    public function removeShippingAddress(): void
     {
         $this->shippingAddress = null;
     }
 
-    /**
-     * @return string
-     */
     public function getAdditionalData(): string
     {
         return $this->additionalData;
     }
 
-    /**
-     * @param string $additionalData
-     */
-    public function setAdditionalData(string $additionalData)
+    public function setAdditionalData(string $additionalData): void
     {
         $this->additionalData = $additionalData;
     }
 
-    /**
-     * @return string
-     */
     public function getCurrency(): string
     {
         return $this->currency;
     }
 
-    /**
-     * @param string $currency
-     */
-    public function setCurrency(string $currency)
+    public function setCurrency(string $currency): void
     {
         $this->currency = $currency;
     }
 
-    /**
-     * @return string
-     */
     public function getCurrencyCode(): string
     {
         return $this->currencyCode;
     }
 
-    /**
-     * @param string $currencyCode
-     */
-    public function setCurrencyCode(string $currencyCode)
+    public function setCurrencyCode(string $currencyCode): void
     {
         $this->currencyCode = $currencyCode;
     }
 
-    /**
-     * @return string
-     */
     public function getCurrencySign(): string
     {
         return $this->currencySign;
     }
 
-    /**
-     * @param string $currencySign
-     */
-    public function setCurrencySign(string $currencySign)
+    public function setCurrencySign(string $currencySign): void
     {
         $this->currencySign = $currencySign;
     }
 
-    /**
-     * @return float
-     */
     public function getCurrencyTranslation(): float
     {
         return $this->currencyTranslation;
     }
 
-    /**
-     * @param float $currencyTranslation
-     */
-    public function setCurrencyTranslation(float $currencyTranslation)
+    public function setCurrencyTranslation(float $currencyTranslation): void
     {
         $this->currencyTranslation = $currencyTranslation;
     }
 
-    /**
-     * @return float $gross
-     */
     public function getGross(): float
     {
         return $this->gross;
     }
 
-    /**
-     * @param float $gross
-     */
-    public function setGross(float $gross)
+    public function setGross(float $gross): void
     {
         $this->gross = $gross;
     }
 
-    /**
-     * @return float $totalGross
-     */
     public function getTotalGross(): float
     {
         return $this->totalGross;
     }
 
-    /**
-     * @param float $totalGross
-     */
-    public function setTotalGross(float $totalGross)
+    public function setTotalGross(float $totalGross): void
     {
         $this->totalGross = $totalGross;
     }
 
-    /**
-     * @return float $net
-     */
     public function getNet(): float
     {
         return $this->net;
     }
 
-    /**
-     * @param float $net
-     */
-    public function setNet(float $net)
+    public function setNet(float $net): void
     {
         $this->net = $net;
     }
 
-    /**
-     * @return float $totalNet
-     */
     public function getTotalNet(): float
     {
         return $this->totalNet;
     }
 
-    /**
-     * @param float $totalNet
-     */
-    public function setTotalNet(float $totalNet)
+    public function setTotalNet(float $totalNet): void
     {
         $this->totalNet = $totalNet;
     }
 
-    /**
-     * @param Payment $payment
-     */
-    public function setPayment(Payment $payment)
-    {
-        $this->payment = $payment;
-    }
-
-    /**
-     * @return Payment|null
-     */
     public function getPayment(): ?Payment
     {
         return $this->payment;
     }
 
-    /**
-     * @param Shipping $shipping
-     */
-    public function setShipping(Shipping $shipping)
+    public function setPayment(Payment $payment): void
     {
-        $this->shipping = $shipping;
+        $this->payment = $payment;
     }
 
-    /**
-     * @return Shipping|null
-     */
+    public function unsetPayment(): void
+    {
+        $this->payment = null;
+    }
+
     public function getShipping(): ?Shipping
     {
         return $this->shipping;
     }
 
+    public function setShipping(Shipping $shipping): void
+    {
+        $this->shipping = $shipping;
+    }
+
+    public function unsetShipping(): void
+    {
+        $this->shipping = null;
+    }
+
     /**
      * @return ObjectStorage<FileReference>
      */
-    public function getOrderPdfs()
+    public function getOrderPdfs(): ObjectStorage
     {
         return $this->orderPdfs;
     }
@@ -627,23 +412,17 @@ class Item extends AbstractEntity
     /**
      * @param ObjectStorage<FileReference> $orderPdfs
      */
-    public function setOrderPdfs($orderPdfs)
+    public function setOrderPdfs(ObjectStorage $orderPdfs): void
     {
         $this->orderPdfs = $orderPdfs;
     }
 
-    /**
-     * @param FileReference $orderPdf
-     */
-    public function addOrderPdf(FileReference $orderPdf)
+    public function addOrderPdf(FileReference $orderPdf): void
     {
         $this->orderPdfs->attach($orderPdf);
     }
 
-    /**
-     * @param FileReference $orderPdf
-     */
-    public function removeOrderPdf(FileReference $orderPdf)
+    public function removeOrderPdf(FileReference $orderPdf): void
     {
         $this->orderPdfs->detach($orderPdf);
     }
@@ -651,31 +430,25 @@ class Item extends AbstractEntity
     /**
      * @return ObjectStorage<FileReference>
      */
-    public function getInvoicePdfs()
+    public function getInvoicePdfs(): ObjectStorage
     {
         return $this->invoicePdfs;
     }
 
     /**
-     * @param ObjectStorage<FileReference> $invoicePdf
+     * @param ObjectStorage<FileReference> $invoicePdfs
      */
-    public function setInvoicePdfs($invoicePdfs)
+    public function setInvoicePdfs(ObjectStorage $invoicePdfs): void
     {
         $this->invoicePdfs = $invoicePdfs;
     }
 
-    /**
-     * @param FileReference $invoicePdf
-     */
-    public function addInvoicePdf(FileReference $invoicePdf)
+    public function addInvoicePdf(FileReference $invoicePdf): void
     {
         $this->invoicePdfs->attach($invoicePdf);
     }
 
-    /**
-     * @param FileReference $invoicePdf
-     */
-    public function removeInvoicePdf(FileReference $invoicePdf)
+    public function removeInvoicePdf(FileReference $invoicePdf): void
     {
         $this->invoicePdfs->detach($invoicePdf);
     }
@@ -683,7 +456,7 @@ class Item extends AbstractEntity
     /**
      * @return ObjectStorage<FileReference>
      */
-    public function getDeliveryPdfs()
+    public function getDeliveryPdfs(): ObjectStorage
     {
         return $this->deliveryPdfs;
     }
@@ -691,39 +464,27 @@ class Item extends AbstractEntity
     /**
      * @param ObjectStorage<FileReference> $deliveryPdfs
      */
-    public function setDeliveryPdfs($deliveryPdfs)
+    public function setDeliveryPdfs(ObjectStorage $deliveryPdfs): void
     {
         $this->deliveryPdfs = $deliveryPdfs;
     }
 
-    /**
-     * @param FileReference $deliveryPdf
-     */
-    public function addDeliveryPdf(FileReference $deliveryPdf)
+    public function addDeliveryPdf(FileReference $deliveryPdf): void
     {
         $this->deliveryPdfs->attach($deliveryPdf);
     }
 
-    /**
-     * @param FileReference $deliveryPdf
-     */
-    public function removeDeliveryPdf(FileReference $deliveryPdf)
+    public function removeDeliveryPdf(FileReference $deliveryPdf): void
     {
         $this->deliveryPdfs->detach($deliveryPdf);
     }
 
-    /**
-     * @param TaxClass $taxClass
-     */
-    public function addTaxClass(TaxClass $taxClass)
+    public function addTaxClass(TaxClass $taxClass): void
     {
         $this->taxClass->attach($taxClass);
     }
 
-    /**
-     * @param TaxClass $taxClass
-     */
-    public function removeTaxClass(TaxClass $taxClass)
+    public function removeTaxClass(TaxClass $taxClass): void
     {
         $this->taxClass->detach($taxClass);
     }
@@ -731,7 +492,7 @@ class Item extends AbstractEntity
     /**
      * @return ObjectStorage<TaxClass>
      */
-    public function getTaxClass()
+    public function getTaxClass(): ObjectStorage
     {
         return $this->taxClass;
     }
@@ -739,23 +500,17 @@ class Item extends AbstractEntity
     /**
      * @param ObjectStorage<TaxClass> $taxClass
      */
-    public function setTaxClass($taxClass)
+    public function setTaxClass(ObjectStorage $taxClass): void
     {
         $this->taxClass = $taxClass;
     }
 
-    /**
-     * @param Product $product
-     */
-    public function addProduct(Product $product)
+    public function addProduct(Product $product): void
     {
         $this->products->attach($product);
     }
 
-    /**
-     * @param Product $product
-     */
-    public function removeProduct(Product $product)
+    public function removeProduct(Product $product): void
     {
         $this->products->detach($product);
     }
@@ -763,7 +518,7 @@ class Item extends AbstractEntity
     /**
      * @return ObjectStorage<Product>
      */
-    public function getProducts()
+    public function getProducts(): ObjectStorage
     {
         return $this->products;
     }
@@ -771,23 +526,17 @@ class Item extends AbstractEntity
     /**
      * @param ObjectStorage<Product> $products
      */
-    public function setProducts($products)
+    public function setProducts(ObjectStorage $products): void
     {
         $this->products = $products;
     }
 
-    /**
-     * @param Discount $discount
-     */
-    public function addDiscount(Discount $discount)
+    public function addDiscount(Discount $discount): void
     {
         $this->discounts->attach($discount);
     }
 
-    /**
-     * @param Discount $discount
-     */
-    public function removeDiscount(Discount $discount)
+    public function removeDiscount(Discount $discount): void
     {
         $this->discounts->detach($discount);
     }
@@ -795,7 +544,7 @@ class Item extends AbstractEntity
     /**
      * @return ObjectStorage<Discount>
      */
-    public function getDiscounts()
+    public function getDiscounts(): ObjectStorage
     {
         return $this->discounts;
     }
@@ -803,23 +552,17 @@ class Item extends AbstractEntity
     /**
      * @param ObjectStorage<Discount> $discounts
      */
-    public function setDiscounts($discounts)
+    public function setDiscounts(ObjectStorage $discounts): void
     {
         $this->discounts = $discounts;
     }
 
-    /**
-     * @param Tax $tax
-     */
-    public function addTax(Tax $tax)
+    public function addTax(Tax $tax): void
     {
         $this->tax->attach($tax);
     }
 
-    /**
-     * @param Tax $tax
-     */
-    public function removeTax(Tax $tax)
+    public function removeTax(Tax $tax): void
     {
         $this->tax->detach($tax);
     }
@@ -827,31 +570,25 @@ class Item extends AbstractEntity
     /**
      * @return ObjectStorage<Tax>
      */
-    public function getTax()
+    public function getTax(): ObjectStorage
     {
         return $this->tax;
     }
 
     /**
-     * @param ObjectStorage<Tax> $taxes
+     * @param ObjectStorage<Tax> $tax
      */
-    public function setTax($taxes)
+    public function setTax(ObjectStorage $tax): void
     {
-        $this->tax = $taxes;
+        $this->tax = $tax;
     }
 
-    /**
-     * @param Tax $tax
-     */
-    public function addTotalTax($tax)
+    public function addTotalTax($tax): void
     {
         $this->totalTax->attach($tax);
     }
 
-    /**
-     * @param Tax $tax
-     */
-    public function removeTotalTax($tax)
+    public function removeTotalTax($tax): void
     {
         $this->totalTax->detach($tax);
     }
@@ -859,7 +596,7 @@ class Item extends AbstractEntity
     /**
      * @return ObjectStorage<Tax>
      */
-    public function getTotalTax()
+    public function getTotalTax(): ObjectStorage
     {
         return $this->totalTax;
     }
@@ -867,94 +604,61 @@ class Item extends AbstractEntity
     /**
      * @param ObjectStorage<Tax> $taxes
      */
-    public function setTotalTax($taxes)
+    public function setTotalTax(ObjectStorage $taxes): void
     {
         $this->totalTax = $taxes;
     }
 
-    /**
-     * @return \DateTime|null
-     */
     public function getCrdate(): ?\DateTime
     {
         return $this->crdate;
     }
 
-    /**
-     * @param \DateTime $crdate
-     */
-    public function setCrdate(\DateTime $crdate)
+    public function setCrdate(\DateTime $crdate): void
     {
         $this->crdate = $crdate;
     }
 
-    /**
-     * @return bool
-     */
     public function isAcceptTermsAndConditions(): bool
     {
         return $this->acceptTermsAndConditions;
     }
 
-    /**
-     * @param bool $acceptTermsAndConditions
-     */
-    public function setAcceptTermsAndConditions(bool $acceptTermsAndConditions)
+    public function setAcceptTermsAndConditions(bool $acceptTermsAndConditions): void
     {
         $this->acceptTermsAndConditions = $acceptTermsAndConditions;
     }
 
-    /**
-     * @return bool
-     */
     public function isAcceptRevocationInstruction(): bool
     {
         return $this->acceptRevocationInstruction;
     }
 
-    /**
-     * @param bool $acceptRevocationInstruction
-     */
-    public function setAcceptRevocationInstruction(bool $acceptRevocationInstruction)
+    public function setAcceptRevocationInstruction(bool $acceptRevocationInstruction): void
     {
         $this->acceptRevocationInstruction = $acceptRevocationInstruction;
     }
 
-    /**
-     * @return bool
-     */
     public function isAcceptPrivacyPolicy(): bool
     {
         return $this->acceptPrivacyPolicy;
     }
 
-    /**
-     * @param bool $acceptPrivacyPolicy
-     */
-    public function setAcceptPrivacyPolicy(bool $acceptPrivacyPolicy)
+    public function setAcceptPrivacyPolicy(bool $acceptPrivacyPolicy): void
     {
         $this->acceptPrivacyPolicy = $acceptPrivacyPolicy;
     }
 
-    /**
-     * @return string
-     */
     public function getComment(): string
     {
         return $this->comment;
     }
 
-    /**
-     * @param string $comment
-     */
-    public function setComment(string $comment)
+    public function setComment(string $comment): void
     {
         $this->comment = $comment;
     }
 
-    /**
-     * @return array
-     */
     public function getAdditional(): array
     {
         if ($this->additional) {
@@ -964,10 +668,7 @@ class Item extends AbstractEntity
         return [];
     }
 
-    /**
-     * @param array $additional
-     */
-    public function setAdditional(array $additional)
+    public function setAdditional(array $additional): void
     {
         $this->additional = json_encode($additional);
     }

@@ -1,6 +1,6 @@
 <?php
 
-defined('TYPO3_MODE') or die();
+defined('TYPO3') or die();
 
 $_LLL = 'LLL:EXT:cart/Resources/Private/Language/locallang_db.xlf';
 
@@ -10,7 +10,6 @@ return [
         'label' => 'title',
         'tstamp' => 'tstamp',
         'crdate' => 'crdate',
-        'cruser_id' => 'cruser_id',
 
         'versioningWS' => true,
         'origUid' => 't3_origuid',
@@ -18,17 +17,17 @@ return [
         'delete' => 'deleted',
         'enablecolumns' => [],
         'searchFields' => 'title,value,calc',
-        'iconfile' => 'EXT:cart/Resources/Public/Icons/Order/TaxClass.svg'
+        'iconfile' => 'EXT:cart/Resources/Public/Icons/Order/TaxClass.svg',
     ],
     'hideTable' => 1,
     'types' => [
         '1' => [
-            'showitem' => 'title, value, calc'
+            'showitem' => 'title, value, calc',
         ],
     ],
     'palettes' => [
         '1' => [
-            'showitem' => ''
+            'showitem' => '',
         ],
     ],
     'columns' => [
@@ -39,7 +38,8 @@ return [
                 'type' => 'input',
                 'readOnly' => 1,
                 'size' => 30,
-                'eval' => 'trim,required'
+                'eval' => 'trim',
+                'required' => true,
             ],
         ],
         'value' => [
@@ -49,7 +49,8 @@ return [
                 'type' => 'input',
                 'readOnly' => 1,
                 'size' => 30,
-                'eval' => 'trim,required'
+                'eval' => 'trim',
+                'required' => true,
             ],
         ],
         'calc' => [
@@ -59,7 +60,7 @@ return [
                 'type' => 'input',
                 'readOnly' => 1,
                 'size' => 30,
-                'eval' => 'double2'
+                'eval' => 'double2',
             ],
         ],
         'item' => [

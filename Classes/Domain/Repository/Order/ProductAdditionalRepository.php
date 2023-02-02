@@ -20,7 +20,7 @@ class ProductAdditionalRepository extends Repository
 
         $and = [
             $query->equals('deleted', 0),
-            $query->equals('additionalType', $additionalType)
+            $query->equals('additionalType', $additionalType),
         ];
 
         if (isset($arguments['filter'])) {

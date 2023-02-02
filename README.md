@@ -45,16 +45,17 @@ Sometimes minor versions also result in minor adjustments to own templates or co
 
 ## 3.1 Compatibility and supported Versions
 
-| Cart          | TYPO3      | PHP       | Support/Development                     |
-|---------------|------------|-----------|---------------------------------------- |
-| 8.x.x         | 10.4, 11.5 | 7.2+      | Features, Bugfixes, Security Updates    |
-| 7.x.x         | 10.4       | 7.2 - 7.4 | Bugfixes, Security Updates              |
-| 6.x.x         | 9.5        | 7.2 - 7.4 | Security Updates                        |
-| 5.x.x         | 8.7        | 7.0 - 7.4 |                                         |
-| 4.x.x         | 7.6 - 8.7  | 5.6 - 7.2 |                                         |
-| 3.x.x         | 6.2 - 8.7  | 5.6 - 7.0 |                                         |
-| 2.x.x         |            |           |                                         |
-| 1.x.x         |            |           |                                         |
+| Cart  | TYPO3      | PHP       | Support/Development                  |
+|-------|------------|-----------|--------------------------------------|
+| 9.x.x | 12.0       | 8.1+      | Features, Bugfixes, Security Updates |
+| 8.x.x | 10.4, 11.5 | 7.2+      | Features, Bugfixes, Security Updates |
+| 7.x.x | 10.4       | 7.2 - 7.4 | Security Updates                     |
+| 6.x.x | 9.5        | 7.2 - 7.4 |                                      |
+| 5.x.x | 8.7        | 7.0 - 7.4 |                                      |
+| 4.x.x | 7.6 - 8.7  | 5.6 - 7.2 |                                      |
+| 3.x.x | 6.2 - 8.7  | 5.6 - 7.0 |                                      |
+| 2.x.x |            |           |                                      |
+| 1.x.x |            |           |                                      |
 
 If you need extended support for features and bug fixes outside of the currently supported versions,
 we are happy to offer paid services.

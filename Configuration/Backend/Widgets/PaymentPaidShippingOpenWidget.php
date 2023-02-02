@@ -1,5 +1,7 @@
 <?php
+
 declare(strict_types=1);
+
 namespace Extcode\Cart\Configuration\Backend\Widget;
 
 use Extcode\Cart\Widgets\PaymentPaidShippingOpen;
@@ -20,6 +22,6 @@ return function (ContainerConfigurator $configurator) {
             'description' => 'LLL:EXT:cart/Resources/Private/Language/locallang_be.xlf:dashboard.widgets.payment_paid_shipping_open.description',
             'iconIdentifier' => 'content-widget-list',
             'height' => 'large',
-            'width' => 'medium'
+            'width' => 'medium',
         ]);
 };

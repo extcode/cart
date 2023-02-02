@@ -10,52 +10,31 @@ namespace Extcode\Cart\Utility;
  */
 use Extcode\Cart\Domain\Model\Cart\Cart;
 use Extcode\Cart\Domain\Model\Cart\Service;
+use Extcode\Cart\Event\Cart\UpdateCountryEvent;
 use Extcode\Cart\Service\SessionHandler;
+use Psr\EventDispatcher\EventDispatcherInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Request;
-use TYPO3\CMS\Extbase\SignalSlot\Dispatcher;
 
 class CartUtility
 {
-    /**
-     * Session Handler
-     *
-     * @var SessionHandler
-     */
-    protected $sessionHandler;
+    protected EventDispatcherInterface $eventDispatcher;
 
-    /**
-     * Parser Utility
-     *
-     * @var ParserUtility
-     */
-    protected $parserUtility;
+    protected SessionHandler $sessionHandler;
 
-    /**
-     * @param SessionHandler $sessionHandler
-     */
-    public function injectSessionHandler(
+    protected ParserUtility $parserUtility;
+
+    public function __construct(
+        EventDispatcherInterface $eventDispatcher,
+        ParserUtility $parserUtility,
         SessionHandler $sessionHandler
     ) {
+        $this->eventDispatcher = $eventDispatcher;
+        $this->parserUtility = $parserUtility;
         $this->sessionHandler = $sessionHandler;
     }
 
-    /**
-     * @param ParserUtility $parserUtility
-     */
-    public function injectParserUtility(
-        ParserUtility $parserUtility
-    ) {
-        $this->parserUtility = $parserUtility;
-    }
-
-    /**
-     * @param array $services
-     * @param int $serviceId
-     *
-     * @return mixed
-     */
-    public function getServiceById($services, $serviceId)
+    public function getServiceById(array $services, int $serviceId): mixed
     {
         foreach ($services as $service) {
             if ($service->getId() == $serviceId) {
@@ -66,96 +45,24 @@ class CartUtility
         return false;
     }
 
-    /**
-     * @param string $table
-     * @param $databaseFields
-     *
-     * @return string
-     */
-    protected function getCartProductDataSelect($table, $databaseFields)
+    public function updateCountry(array $cartSettings, array $pluginSettings, Request $request): void
     {
-        $select = '';
+        $cart = $this->sessionHandler->restoreCart($cartSettings['pid']);
 
-        foreach ($databaseFields as $databaseFieldKey => $databaseFieldValue) {
-            if ($databaseFieldValue != '' && is_string($databaseFieldValue)) {
-                if ($databaseFieldValue != '{$plugin.tx_cart.db.' . $databaseFieldKey . '}') {
-                    $select .= ', ' . $table . '.' . $databaseFieldValue;
-                }
-            }
-        }
+        $event = new UpdateCountryEvent($cart, $request);
+        $this->eventDispatcher->dispatch($event);
 
-        if ($databaseFields['variants'] != '' && $databaseFields['variants'] != '{$plugin.tx_cart.db.variants}') {
-            $select .= ', ' . $table . '.' . $databaseFields['variants'];
-        }
-
-        if ($databaseFields['additional.']) {
-            foreach ($databaseFields['additional.'] as $additional) {
-                if ($additional['field']) {
-                    $select .= ', ' . $table . '.' . $additional['field'];
-                }
-            }
-        }
-
-        return $select;
+        $this->sessionHandler->writeCart($cartSettings['pid'], $event->getCart());
     }
 
-    /**
-     * @param array $cartSettings
-     * @param array $pluginSettings
-     * @param Request $request
-     */
-    public function updateCountry(array $cartSettings, array $pluginSettings, Request $request)
-    {
-        $sessionHandler = GeneralUtility::makeInstance(
-            SessionHandler::class
-        );
-        $cart = $sessionHandler->restore($cartSettings['pid']);
-
-        $billingCountry = $cart->getBillingCountry();
-
-        if ($request->hasArgument('billing_country')) {
-            $billingCountry = $request->getArgument('billing_country');
-        }
-
-        if ($request->hasArgument('shipping_same_as_billing')) {
-            $shippingSameAsBilling = $request->getArgument('shipping_same_as_billing') === 'true';
-        }
-
-        if ($request->hasArgument('shipping_country')) {
-            $shippingCountry = $request->getArgument('shipping_country');
-        }
-
-        $data = [
-            'cart' => $cart,
-            'billingCountry' => $billingCountry,
-            'shippingCountry' => $shippingCountry,
-            'shippingSameAsBilling' => $shippingSameAsBilling,
-        ];
-
-        $signalSlotDispatcher = GeneralUtility::makeInstance(
-            Dispatcher::class
-        );
-        $signalSlotDispatcher->dispatch(
-            __CLASS__,
-            __FUNCTION__,
-            $data
-        );
-
-        $cart->setBillingCountry($billingCountry);
-        $cart->setShippingSameAsBilling($shippingSameAsBilling);
-        $cart->setShippingCountry($shippingCountry);
-
-        $sessionHandler->write($cart, $cartSettings['pid']);
-    }
-
-    public function updateService(Cart $cart, $pluginSettings)
+    public function updateService(Cart $cart, $pluginSettings): void
     {
         $parserUtility = GeneralUtility::makeInstance(
             ParserUtility::class
         );
 
         $cart->getPayment()->setCart($cart);
-        if (!$cart->getPayment()->isAvailable($cart->getGross())) {
+        if (!$cart->getPayment()->isAvailable()) {
             $payments = $parserUtility->parseServices('Payment', $pluginSettings, $cart);
             $fallBackId = $cart->getPayment()->getFallBackId();
             if ($fallBackId) {
@@ -165,7 +72,7 @@ class CartUtility
         }
 
         $cart->getShipping()->setCart($cart);
-        if (!$cart->getShipping()->isAvailable($cart->getGross())) {
+        if (!$cart->getShipping()->isAvailable()) {
             $shippings = $parserUtility->parseServices('Shipping', $pluginSettings, $cart);
             $fallBackId = $cart->getShipping()->getFallBackId();
             if ($fallBackId) {
@@ -176,53 +83,21 @@ class CartUtility
     }
 
     /**
-     * @var array $pluginSettings
-     *
-     * @return Cart
+     * creates a new Cart object from plugin settings
      */
-    public function getCartFromSession(array $pluginSettings)
+    public function getNewCart(array $configurations): Cart
     {
-        $cart = $this->sessionHandler->restore($pluginSettings['settings']['cart']['pid']);
-
-        if (!$cart instanceof Cart) {
-            $cart = $this->getNewCart($pluginSettings);
-            $this->sessionHandler->write($cart, $pluginSettings['settings']['cart']['pid']);
-        }
-
-        return $cart;
-    }
-
-    /**
-     * Restore cart from session or creates a new one
-     *
-     * @param Cart $cart
-     * @param array $cartSettings
-     */
-    public function writeCartToSession($cart, $cartSettings)
-    {
-        $this->sessionHandler->write($cart, $cartSettings['cart']['pid']);
-    }
-
-    /**
-     * Creates a new cart
-     *
-     * @param array $pluginSettings TypoScript Plugin Settings
-     *
-     * @return Cart
-     */
-    public function getNewCart(array $pluginSettings)
-    {
-        $isNetCart = intval($pluginSettings['settings']['cart']['isNetCart']) == 0 ? false : true;
+        $isNetCart = !((int)($configurations['settings']['cart']['isNetCart']) === 0);
 
         $defaultCurrency = [];
-        $defaultCurrencyNum = $pluginSettings['settings']['currencies']['default'];
-        if ($pluginSettings['settings']['currencies'][$defaultCurrencyNum]) {
-            $defaultCurrency = $pluginSettings['settings']['currencies'][$defaultCurrencyNum];
+        $defaultCurrencyNum = $configurations['settings']['currencies']['default'];
+        if ($configurations['settings']['currencies'][$defaultCurrencyNum]) {
+            $defaultCurrency = $configurations['settings']['currencies'][$defaultCurrencyNum];
         }
 
-        $defaultCountry  = $pluginSettings['settings']['defaultCountry'];
+        $defaultCountry  = $configurations['settings']['defaultCountry'];
 
-        $taxClasses = $this->parserUtility->parseTaxClasses($pluginSettings, $defaultCountry);
+        $taxClasses = $this->parserUtility->parseTaxClasses($configurations, $defaultCountry);
 
         /** @var Cart $cart */
         $cart = GeneralUtility::makeInstance(
@@ -231,7 +106,7 @@ class CartUtility
             $isNetCart,
             $defaultCurrency['code'],
             $defaultCurrency['sign'],
-            $defaultCurrency['translation']
+            (float)$defaultCurrency['translation']
         );
 
         if ($defaultCountry) {
@@ -239,18 +114,14 @@ class CartUtility
             $cart->setShippingCountry($defaultCountry);
         }
 
-        $this->setShipping($pluginSettings, $cart);
+        $this->setShipping($configurations, $cart);
 
-        $this->setPayment($pluginSettings, $cart);
+        $this->setPayment($configurations, $cart);
 
         return $cart;
     }
 
-    /**
-     * @param array $pluginSettings
-     * @param Cart $cart
-     */
-    protected function setShipping(array $pluginSettings, Cart $cart)
+    protected function setShipping(array $pluginSettings, Cart $cart): void
     {
         $shippings = $this->parserUtility->parseServices('Shipping', $pluginSettings, $cart);
 
@@ -260,7 +131,7 @@ class CartUtility
              * @var Service $shipping
              */
             if ($shipping->isPreset()) {
-                if (!$shipping->isAvailable($cart->getGross())) {
+                if (!$shipping->isAvailable()) {
                     $fallBackId = $shipping->getFallBackId();
                     $shipping = $this->getServiceById($shippings, $fallBackId);
                 }
@@ -270,11 +141,7 @@ class CartUtility
         }
     }
 
-    /**
-     * @param array $pluginSettings
-     * @param Cart $cart
-     */
-    protected function setPayment(array $pluginSettings, Cart $cart)
+    protected function setPayment(array $pluginSettings, Cart $cart): void
     {
         $payments = $this->parserUtility->parseServices('Payment', $pluginSettings, $cart);
 
@@ -284,7 +151,7 @@ class CartUtility
              * @var Service $payment
              */
             if ($payment->isPreset()) {
-                if (!$payment->isAvailable($cart->getGross())) {
+                if (!$payment->isAvailable()) {
                     $fallBackId = $payment->getFallBackId();
                     $payment = $this->getServiceById($payments, $fallBackId);
                 }

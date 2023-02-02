@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Extcode\Cart\Domain\Model;
 
 /*
@@ -10,40 +12,21 @@ namespace Extcode\Cart\Domain\Model;
  */
 
 use Extcode\Cart\Domain\Model\Order\Item;
-use TYPO3\CMS\Extbase\Domain\Model\FrontendUser;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 
 class Cart extends AbstractEntity
 {
-    /**
-     * @var string
-     */
-    protected $fHash = '';
+    protected string $fHash = '';
 
-    /**
-     * @var string
-     */
-    protected $sHash = '';
+    protected string $sHash = '';
 
-    /**
-     * @var FrontendUser
-     */
-    protected $feUser = null;
+    protected ?FrontendUser $feUser = null;
 
-    /**
-     * @var Item
-     */
-    protected $orderItem = null;
+    protected ?Item $orderItem = null;
 
-    /**
-     * @var string
-     */
-    protected $cart = null;
+    protected ?string $cart = null;
 
-    /**
-     * @var bool
-     */
-    protected $wasOrdered = false;
+    protected bool $wasOrdered = false;
 
     public function __construct()
     {
@@ -51,82 +34,60 @@ class Cart extends AbstractEntity
         $this->sHash = bin2hex(openssl_random_pseudo_bytes(32));
     }
 
-    /**
-     * @return string
-     */
     public function getFHash(): string
     {
         return $this->fHash;
     }
 
-    /**
-     * @return string
-     */
     public function getSHash(): string
     {
         return $this->sHash;
     }
 
-    /**
-     * @return FrontendUser|null
-     */
     public function getFeUser(): ?FrontendUser
     {
         return $this->feUser;
     }
 
-    /**
-     * @param FrontendUser $feUser
-     */
-    public function setFeUser(FrontendUser $feUser)
+    public function setFeUser(FrontendUser $feUser): void
     {
         $this->feUser = $feUser;
     }
 
-    /**
-     * @return Item|null
-     */
     public function getOrderItem(): ?Item
     {
         return $this->orderItem;
     }
 
-    /**
-     * @param Item $orderItem
-     */
-    public function setOrderItem(Item $orderItem)
+    public function setOrderItem(Item $orderItem): void
     {
         $this->orderItem = $orderItem;
     }
 
-    /**
-     * @return \Extcode\Cart\Domain\Model\Cart\Cart|null
-     */
-    public function getCart(): ?\Extcode\Cart\Domain\Model\Cart\Cart
+    public function getCart(): ?Cart\Cart
     {
         return unserialize($this->cart);
     }
 
-    /**
-     * @param \Extcode\Cart\Domain\Model\Cart\Cart $cart
-     */
-    public function setCart(\Extcode\Cart\Domain\Model\Cart\Cart $cart)
+    public function setCart(Cart\Cart $cart): void
     {
         $this->cart = serialize($cart);
     }
 
     /**
-     * @return bool
+     * @deprecated
      */
     public function getWasOrdered(): bool
+    {
+        return $this->wasOrdered();
+    }
+
+    public function wasOrdered(): bool
     {
         return $this->wasOrdered;
     }
 
-    /**
-     * @param bool $wasOrdered
-     */
-    public function setWasOrdered(bool $wasOrdered)
+    public function setWasOrdered(bool $wasOrdered): void
     {
         $this->wasOrdered = $wasOrdered;
     }

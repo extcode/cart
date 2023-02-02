@@ -1,5 +1,7 @@
 <?php
+
 declare(strict_types=1);
+
 namespace Extcode\Cart\Event;
 
 /*
@@ -14,26 +16,11 @@ use Extcode\Cart\Domain\Model\Order\Item as OrderItem;
 
 final class ProcessOrderCreateEvent implements ProcessOrderCreateEventInterface
 {
-    /**
-     * @var Cart
-     */
-    private $cart;
-
-    /**
-     * @var OrderItem
-     */
-    private $orderItem;
-
-    /**
-     * @var array
-     */
-    private $settings;
-
-    public function __construct(Cart $cart, OrderItem $orderItem, array $settings = [])
-    {
-        $this->cart = $cart;
-        $this->orderItem = $orderItem;
-        $this->settings = $settings;
+    public function __construct(
+        private readonly Cart $cart,
+        private readonly OrderItem $orderItem,
+        private array $settings = []
+    ) {
     }
 
     public function getCart(): Cart

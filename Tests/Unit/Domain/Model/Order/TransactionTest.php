@@ -22,6 +22,8 @@ class TransactionTest extends UnitTestCase
     public function setUp(): void
     {
         $this->transaction = new Transaction();
+
+        parent::setUp();
     }
 
     /**

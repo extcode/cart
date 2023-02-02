@@ -22,6 +22,8 @@ class ShippingTest extends UnitTestCase
     public function setUp(): void
     {
         $this->shipping = new Shipping();
+
+        parent::setUp();
     }
 
     /**

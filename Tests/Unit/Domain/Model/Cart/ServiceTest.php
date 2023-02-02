@@ -17,40 +17,19 @@ use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 class ServiceTest extends UnitTestCase
 {
-    /**
-     * @var int
-     */
-    protected $id = 1;
+    protected int $id = 1;
 
-    /**
-     * @var array
-     */
-    protected $config = [];
+    protected array $config = [];
 
-    /**
-     * @var array
-     */
-    protected $taxClasses = [];
+    protected array $taxClasses = [];
 
-    /**
-     * @var Service
-     */
-    protected $service;
+    protected Service $service;
 
-    /**
-     * @var TaxClass
-     */
-    protected $normalTaxClass;
+    protected TaxClass $normalTaxClass;
 
-    /**
-     * @var TaxClass
-     */
-    protected $reducedTaxClass;
+    protected TaxClass $reducedTaxClass;
 
-    /**
-     * @var TaxClass
-     */
-    protected $freeTaxClass;
+    protected TaxClass $freeTaxClass;
 
     public function setUp(): void
     {
@@ -61,20 +40,22 @@ class ServiceTest extends UnitTestCase
         $this->taxClasses = [
             1 => $this->normalTaxClass,
             2 => $this->reducedTaxClass,
-            3 => $this->freeTaxClass
+            3 => $this->freeTaxClass,
         ];
 
         $this->config = [
             'title' => 'Standard',
             'extra' => 0.00,
             'taxClassId' => $this->normalTaxClass->getId(),
-            'status' => 'open'
+            'status' => 'open',
         ];
 
         $this->service = new Service(
             $this->id,
             $this->config
         );
+
+        parent::setUp();
     }
 
     /**
@@ -121,8 +102,8 @@ class ServiceTest extends UnitTestCase
             'status' => 'open',
             'available' => [
                 'from' => 20.00,
-                'until' => 100.00
-            ]
+                'until' => 100.00,
+            ],
         ];
 
         $service = new Service(
@@ -173,8 +154,8 @@ class ServiceTest extends UnitTestCase
             'status' => 'open',
             'available' => [
                 'from' => 20.00,
-                'until' => 100.00
-            ]
+                'until' => 100.00,
+            ],
         ];
 
         $service = new Service(
@@ -207,8 +188,8 @@ class ServiceTest extends UnitTestCase
             'status' => 'open',
             'available' => [
                 'from' => 20.00,
-                'until' => 100.00
-            ]
+                'until' => 100.00,
+            ],
         ];
 
         $service = new Service(
@@ -275,7 +256,7 @@ class ServiceTest extends UnitTestCase
             'extra' => 0.00,
             'taxClassId' => 1,
             'status' => 'open',
-            'fallBackId' => 3
+            'fallBackId' => 3,
         ];
 
         $service = new Service(
@@ -311,8 +292,8 @@ class ServiceTest extends UnitTestCase
             'status' => 'open',
             'free' => [
                 'from' => 20.00,
-                'until' => 100.00
-            ]
+                'until' => 100.00,
+            ],
         ];
 
         $service = new Service(
@@ -363,8 +344,8 @@ class ServiceTest extends UnitTestCase
             'status' => 'open',
             'free' => [
                 'from' => 20.00,
-                'until' => 100.00
-            ]
+                'until' => 100.00,
+            ],
         ];
 
         $service = new Service(
@@ -397,8 +378,8 @@ class ServiceTest extends UnitTestCase
             'status' => 'open',
             'free' => [
                 'from' => 20.00,
-                'until' => 100.00
-            ]
+                'until' => 100.00,
+            ],
         ];
 
         $service = new Service(
@@ -433,7 +414,7 @@ class ServiceTest extends UnitTestCase
             'title' => 'Standard',
             'extra' => 0.00,
             'taxClassId' => $this->normalTaxClass->getId(),
-            'status' => 'open'
+            'status' => 'open',
         ];
         $service = new Service(
             $this->id,
@@ -449,7 +430,7 @@ class ServiceTest extends UnitTestCase
             'title' => 'Standard',
             'extra' => 0.00,
             'taxClassId' => $this->reducedTaxClass->getId(),
-            'status' => 'open'
+            'status' => 'open',
         ];
         $service = new Service(
             $this->id,
@@ -471,7 +452,7 @@ class ServiceTest extends UnitTestCase
             'title' => 'Standard',
             'extra' => '0.00',
             'taxClassId' => '-1',
-            'status' => 'open'
+            'status' => 'open',
         ];
 
         $service = new Service(
@@ -533,7 +514,7 @@ class ServiceTest extends UnitTestCase
             'title' => 'Standard',
             'extra' => '0.00',
             'taxClassId' => '-2',
-            'status' => 'open'
+            'status' => 'open',
         ];
 
         $service = new Service(

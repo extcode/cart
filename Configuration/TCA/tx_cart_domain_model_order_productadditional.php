@@ -1,6 +1,6 @@
 <?php
 
-defined('TYPO3_MODE') or die();
+defined('TYPO3') or die();
 
 $_LLL = 'LLL:EXT:cart/Resources/Private/Language/locallang_db.xlf';
 
@@ -12,7 +12,6 @@ return [
         'label_alt_force' => 1,
         'tstamp' => 'tstamp',
         'crdate' => 'crdate',
-        'cruser_id' => 'cruser_id',
 
         'versioningWS' => true,
         'origUid' => 't3_origuid',
@@ -20,17 +19,17 @@ return [
         'delete' => 'deleted',
         'enablecolumns' => [],
         'searchFields' => 'additional_type,additional_key,additional_value',
-        'iconfile' => 'EXT:cart/Resources/Public/Icons/Order/ProductAdditional.svg'
+        'iconfile' => 'EXT:cart/Resources/Public/Icons/Order/ProductAdditional.svg',
     ],
     'hideTable' => 1,
     'types' => [
         '1' => [
-            'showitem' => 'additional_type, additional_key, additional_value, additional, additional_data'
+            'showitem' => 'additional_type, additional_key, additional_value, additional, additional_data',
         ],
     ],
     'palettes' => [
         '1' => [
-            'showitem' => ''
+            'showitem' => '',
         ],
     ],
     'columns' => [
@@ -41,7 +40,8 @@ return [
                 'type' => 'input',
                 'readOnly' => 1,
                 'size' => 30,
-                'eval' => 'trim,required'
+                'eval' => 'trim',
+                'required' => true,
             ],
         ],
         'additional_key' => [
@@ -51,7 +51,8 @@ return [
                 'type' => 'input',
                 'readOnly' => 1,
                 'size' => 30,
-                'eval' => 'trim,required'
+                'eval' => 'trim',
+                'required' => true,
             ],
         ],
         'additional_value' => [
@@ -61,7 +62,8 @@ return [
                 'type' => 'input',
                 'readOnly' => 1,
                 'size' => 30,
-                'eval' => 'trim,required'
+                'eval' => 'trim',
+                'required' => true,
             ],
         ],
         'additional' => [

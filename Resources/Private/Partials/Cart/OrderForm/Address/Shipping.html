@@ -601,12 +601,11 @@
                                                 <em>*</em>
                                             </label>
                                             <div class="input-box">
-                                                <cart:form.select id="shippingAddress-country"
+                                                <f:form.select id="shippingAddress-country"
                                                                   class="form-control"
                                                                   name="shippingAddress[country]"
                                                                   value="{cart.shippingCountry}"
                                                                   options="{settings.allowedCountries}"
-                                                                  translationKey="tx_cart.settings.allowed_countries"
                                                                   required="true"
                                                                   disabled="{f:if(condition:'{cart.shippingSameAsBilling}', then:'true')}"
                                                                   data="{disable-shipping:'true'}"/>
@@ -622,12 +621,11 @@
                                                 <f:translate key="tx_cart_domain_model_order_address.country"/>
                                             </label>
                                             <div class="input-box">
-                                                <cart:form.select id="shippingAddress-country"
+                                                <f:form.select id="shippingAddress-country"
                                                                   class="form-control"
                                                                   name="shippingAddress[country]"
                                                                   value="{cart.shippingCountry}"
                                                                   options="{settings.allowedCountries}"
-                                                                  translationKey="tx_cart.settings.allowed_countries"
                                                                   disabled="{f:if(condition:'{cart.shippingSameAsBilling}', then:'true')}"
                                                                   data="{disable-shipping:'true'}"/>
                                             </div>

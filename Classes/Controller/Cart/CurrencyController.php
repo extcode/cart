@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Extcode\Cart\Controller\Cart;
 
 /*
@@ -8,42 +10,30 @@ namespace Extcode\Cart\Controller\Cart;
  * For the full copyright and license information, please read the
  * LICENSE file that was distributed with this source code.
  */
-
 use Extcode\Cart\Utility\CurrencyUtility;
+use Psr\Http\Message\ResponseInterface;
 
 class CurrencyController extends ActionController
 {
-    const AJAX_CART_TYPE_NUM = '2278001';
-    const AJAX_CURRENCY_TYPE_NUM = '2278003';
+    public const AJAX_CART_TYPE_NUM = '2278001';
+    public const AJAX_CURRENCY_TYPE_NUM = '2278003';
 
-    /**
-     * Currency Utility
-     *
-     * @var CurrencyUtility
-     */
-    protected $currencyUtility;
+    protected CurrencyUtility $currencyUtility;
 
-    /**
-     * @param CurrencyUtility $currencyUtility
-     */
-    public function injectCurrencyUtility(
-        CurrencyUtility $currencyUtility
-    ) {
+    public function injectCurrencyUtility(CurrencyUtility $currencyUtility): void
+    {
         $this->currencyUtility = $currencyUtility;
     }
 
-    /**
-     *
-     */
-    public function updateAction()
+    public function updateAction(): ResponseInterface
     {
-        $this->currencyUtility->updateCurrency($this->settings['cart'], $this->pluginSettings, $this->request);
+        $this->currencyUtility->updateCurrency($this->settings['cart'], $this->configurations, $this->request);
 
-        $this->cart = $this->sessionHandler->restore($this->settings['cart']['pid']);
+        $this->restoreSession();
 
-        $this->sessionHandler->write($this->cart, $this->settings['cart']['pid']);
+        $this->sessionHandler->writeCart($this->settings['cart']['pid'], $this->cart);
 
-        $this->cartUtility->updateService($this->cart, $this->pluginSettings);
+        $this->cartUtility->updateService($this->cart, $this->configurations);
 
         $pageType = $GLOBALS['TYPO3_REQUEST']->getAttribute('routing')->getPageType();
         if ($pageType === self::AJAX_CURRENCY_TYPE_NUM) {
@@ -51,14 +41,9 @@ class CurrencyController extends ActionController
         } elseif ($pageType === self::AJAX_CART_TYPE_NUM) {
             $this->view->assign('cart', $this->cart);
 
-            $this->parseData();
-
-            $assignArguments = [
-                'shippings' => $this->shippings,
-                'payments' => $this->payments,
-                'specials' => $this->specials
-            ];
-            $this->view->assignMultiple($assignArguments);
+            $this->parseServicesAndAssignToView();
         }
+
+        return $this->htmlResponse();
     }
 }

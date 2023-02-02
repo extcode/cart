@@ -24,6 +24,8 @@ class PaymentTest extends UnitTestCase
     public function setUp(): void
     {
         $this->payment = new Payment();
+
+        parent::setUp();
     }
 
     /**

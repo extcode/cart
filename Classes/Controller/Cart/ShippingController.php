@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Extcode\Cart\Controller\Cart;
 
 /*
@@ -9,23 +11,19 @@ namespace Extcode\Cart\Controller\Cart;
  * LICENSE file that was distributed with this source code.
  */
 
+use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Core\Messaging\AbstractMessage;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 
 class ShippingController extends ActionController
 {
-    const AJAX_CART_TYPE_NUM = '2278001';
+    public const AJAX_CART_TYPE_NUM = '2278001';
 
-    /**
-     * Action update
-     *
-     * @param int $shippingId
-     */
-    public function updateAction($shippingId)
+    public function updateAction(int $shippingId): ResponseInterface
     {
-        $this->cart = $this->sessionHandler->restore($this->settings['cart']['pid']);
+        $this->restoreSession();
 
-        $this->shippings = $this->parserUtility->parseServices('Shipping', $this->pluginSettings, $this->cart);
+        $this->shippings = $this->parserUtility->parseServices('Shipping', $this->configurations, $this->cart);
 
         $shipping = $this->shippings[$shippingId];
 
@@ -45,21 +43,16 @@ class ShippingController extends ActionController
             }
         }
 
-        $this->sessionHandler->write($this->cart, $this->settings['cart']['pid']);
+        $this->sessionHandler->writeCart($this->settings['cart']['pid'], $this->cart);
 
         $pageType = $GLOBALS['TYPO3_REQUEST']->getAttribute('routing')->getPageType();
         if ($pageType === self::AJAX_CART_TYPE_NUM) {
             $this->view->assign('cart', $this->cart);
 
-            $this->parseData();
-            $assignArguments = [
-                'shippings' => $this->shippings,
-                'payments' => $this->payments,
-                'specials' => $this->specials
-            ];
-            $this->view->assignMultiple($assignArguments);
-        } else {
-            $this->redirect('show', 'Cart\Cart');
+            $this->parseServicesAndAssignToView();
+            return $this->htmlResponse();
         }
+
+        return $this->redirect('show', 'Cart\Cart');
     }
 }

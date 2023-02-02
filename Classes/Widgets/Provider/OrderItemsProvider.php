@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 /*
@@ -106,6 +107,6 @@ class OrderItemsProvider implements ListDataProviderInterface
             $this->queryBuilder->where(... $constraints);
         }
 
-        return $this->queryBuilder->execute()->fetchAll(\PDO::FETCH_ASSOC);
+        return $this->queryBuilder->executeQuery()->fetchAllAssociative();
     }
 }

@@ -30,7 +30,6 @@ ajaxCurrency {
 
 page {
     includeCSS.tx_cart = EXT:cart/Resources/Public/Stylesheets/cart.css
-    includeJSFooter.tx_cart = EXT:cart/Resources/Public/JavaScripts/cart.js
 }
 
 plugin.tx_cart {

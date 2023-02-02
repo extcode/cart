@@ -3,7 +3,7 @@
 use Extcode\Cart\Domain\Model\Order\BillingAddress;
 use Extcode\Cart\Domain\Model\Order\ShippingAddress;
 
-defined('TYPO3_MODE') or die();
+defined('TYPO3') or die();
 
 $_LLL = 'LLL:EXT:cart/Resources/Private/Language/locallang_db.xlf';
 
@@ -16,7 +16,6 @@ return [
         'type' => 'record_type',
         'tstamp' => 'tstamp',
         'crdate' => 'crdate',
-        'cruser_id' => 'cruser_id',
 
         'versioningWS' => true,
         'origUid' => 't3_origuid',
@@ -24,20 +23,20 @@ return [
         'delete' => 'deleted',
         'enablecolumns' => [],
         'searchFields' => 'first_name, last_name, street, zip, city',
-        'iconfile' => 'EXT:cart/Resources/Public/Icons/Order/Address.svg'
+        'iconfile' => 'EXT:cart/Resources/Public/Icons/Order/Address.svg',
     ],
     'hideTable' => 1,
     'types' => [
-        '\Extcode\Cart\Domain\Model\Order\BillingAddress' => [
+        '\\' . BillingAddress::class => [
             'showitem' => 'title, salutation, first_name, last_name, email, phone, fax, company, street, addition, zip, city, country, phone, fax, additional, tax_identification_number',
         ],
-        '\Extcode\Cart\Domain\Model\Order\ShippingAddress' => [
+        '\\' . ShippingAddress::class => [
             'showitem' => 'title, salutation, first_name, last_name, email, phone, fax, company, street, addition, zip, city, country, phone, fax, additional',
         ],
     ],
     'palettes' => [
         '1' => [
-            'showitem' => ''
+            'showitem' => '',
         ],
     ],
     'columns' => [
@@ -48,11 +47,11 @@ return [
                 'renderType' => 'selectSingle',
                 'readOnly' => 1,
                 'items' => [
-                    [$_LLL . ':tx_cart_domain_model_order_address.record_type.billing', '\\' . BillingAddress::class],
-                    [$_LLL . ':tx_cart_domain_model_order_address.record_type.shipping', '\\' . ShippingAddress::class],
+                    ['label' => $_LLL . ':tx_cart_domain_model_order_address.record_type.billing', 'value' => '\\' . BillingAddress::class],
+                    ['label' => $_LLL . ':tx_cart_domain_model_order_address.record_type.shipping', 'value' => '\\' . ShippingAddress::class],
                 ],
-                'default' => '\\' . BillingAddress::class
-            ]
+                'default' => '\\' . BillingAddress::class,
+            ],
         ],
         'title' => [
             'exclude' => 0,
@@ -61,7 +60,7 @@ return [
                 'type' => 'input',
                 'readOnly' => 1,
                 'size' => 30,
-                'eval' => 'trim'
+                'eval' => 'trim',
             ],
         ],
         'salutation' => [
@@ -71,7 +70,7 @@ return [
                 'type' => 'input',
                 'readOnly' => 1,
                 'size' => 30,
-                'eval' => 'trim'
+                'eval' => 'trim',
             ],
         ],
         'first_name' => [
@@ -81,7 +80,7 @@ return [
                 'type' => 'input',
                 'readOnly' => 1,
                 'size' => 30,
-                'eval' => 'trim'
+                'eval' => 'trim',
             ],
         ],
         'last_name' => [
@@ -91,7 +90,7 @@ return [
                 'type' => 'input',
                 'readOnly' => 1,
                 'size' => 30,
-                'eval' => 'trim'
+                'eval' => 'trim',
             ],
         ],
         'email' => [
@@ -101,7 +100,7 @@ return [
                 'type' => 'input',
                 'readOnly' => 1,
                 'size' => 30,
-                'eval' => 'trim'
+                'eval' => 'trim',
             ],
         ],
         'company' => [
@@ -111,7 +110,7 @@ return [
                 'type' => 'input',
                 'readOnly' => 1,
                 'size' => 30,
-                'eval' => 'trim'
+                'eval' => 'trim',
             ],
         ],
         'tax_identification_number' => [
@@ -121,7 +120,7 @@ return [
                 'type' => 'input',
                 'readOnly' => 1,
                 'size' => 30,
-                'eval' => 'trim'
+                'eval' => 'trim',
             ],
         ],
         'street' => [
@@ -131,7 +130,7 @@ return [
                 'type' => 'input',
                 'readOnly' => 1,
                 'size' => 30,
-                'eval' => 'trim'
+                'eval' => 'trim',
             ],
         ],
         'street_number' => [
@@ -141,7 +140,7 @@ return [
                 'type' => 'input',
                 'readOnly' => 1,
                 'size' => 30,
-                'eval' => 'trim'
+                'eval' => 'trim',
             ],
         ],
         'addition' => [
@@ -151,7 +150,7 @@ return [
                 'type' => 'input',
                 'readOnly' => 1,
                 'size' => 30,
-                'eval' => 'trim'
+                'eval' => 'trim',
             ],
         ],
         'zip' => [
@@ -161,7 +160,7 @@ return [
                 'type' => 'input',
                 'readOnly' => 1,
                 'size' => 30,
-                'eval' => 'trim'
+                'eval' => 'trim',
             ],
         ],
         'city' => [
@@ -171,7 +170,7 @@ return [
                 'type' => 'input',
                 'readOnly' => 1,
                 'size' => 30,
-                'eval' => 'trim'
+                'eval' => 'trim',
             ],
         ],
         'country' => [
@@ -181,7 +180,7 @@ return [
                 'type' => 'input',
                 'readOnly' => 1,
                 'size' => 30,
-                'eval' => 'trim'
+                'eval' => 'trim',
             ],
         ],
         'phone' => [
@@ -191,7 +190,7 @@ return [
                 'type' => 'input',
                 'readOnly' => 1,
                 'size' => 30,
-                'eval' => 'trim'
+                'eval' => 'trim',
             ],
         ],
         'fax' => [
@@ -201,7 +200,7 @@ return [
                 'type' => 'input',
                 'readOnly' => 1,
                 'size' => 30,
-                'eval' => 'trim'
+                'eval' => 'trim',
             ],
         ],
         'additional' => [

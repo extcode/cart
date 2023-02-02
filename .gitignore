@@ -3,7 +3,7 @@ composer.lock
 
 .php_cs.cache
 .phplint.cache
-Build/.phpunit.result.cache
+Build/.phpunit.cache
 
 Documentation/_make
 Documentation-GENERATED-temp/

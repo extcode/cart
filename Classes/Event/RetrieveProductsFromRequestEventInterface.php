@@ -1,5 +1,7 @@
 <?php
+
 declare(strict_types=1);
+
 namespace Extcode\Cart\Event;
 
 /*
@@ -10,9 +12,10 @@ namespace Extcode\Cart\Event;
  */
 
 use Extcode\Cart\Domain\Model\Cart\Cart;
+use Psr\EventDispatcher\StoppableEventInterface;
 use TYPO3\CMS\Extbase\Mvc\Request;
 
-interface RetrieveProductsFromRequestEventInterface
+interface RetrieveProductsFromRequestEventInterface extends StoppableEventInterface
 {
     public function __construct(Request $request, Cart $cart);
 

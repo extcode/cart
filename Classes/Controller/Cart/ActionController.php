@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Extcode\Cart\Controller\Cart;
 
 /*
@@ -17,124 +19,93 @@ use TYPO3\CMS\Extbase\Configuration\ConfigurationManager;
 
 class ActionController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 {
-    /**
-     * Session Handler
-     *
-     * @var SessionHandler
-     */
-    protected $sessionHandler;
+    protected SessionHandler $sessionHandler;
 
-    /**
-     * Cart Utility
-     *
-     * @var CartUtility
-     */
-    protected $cartUtility;
+    protected CartUtility $cartUtility;
 
-    /**
-     * Parser Utility
-     *
-     * @var ParserUtility
-     */
-    protected $parserUtility;
+    protected ParserUtility $parserUtility;
 
-    /**
-     * Plugin Settings
-     *
-     * @var array
-     */
-    protected $pluginSettings;
+    protected array $configurations;
 
-    /**
-     * Cart
-     *
-     * @var Cart
-     */
-    protected $cart;
+    protected Cart $cart;
 
-    /**
-     * Payments
-     *
-     * @var array
-     */
-    protected $payments = [];
+    protected array $payments = [];
 
-    /**
-     * Shippings
-     *
-     * @var array
-     */
-    protected $shippings = [];
+    protected array $shippings = [];
 
-    /**
-     * Specials
-     *
-     * @var array
-     */
-    protected $specials = [];
+    protected array $specials = [];
 
-    /**
-     * @param SessionHandler $sessionHandler
-     */
-    public function injectSessionHandler(
-        SessionHandler $sessionHandler
-    ) {
+    public function injectSessionHandler(SessionHandler $sessionHandler): void
+    {
         $this->sessionHandler = $sessionHandler;
     }
 
-    /**
-     * @param CartUtility $cartUtility
-     */
-    public function injectCartUtility(
-        CartUtility $cartUtility
-    ) {
+    public function injectCartUtility(CartUtility $cartUtility): void
+    {
         $this->cartUtility = $cartUtility;
     }
 
-    /**
-     * @param ParserUtility $parserUtility
-     */
-    public function injectParserUtility(
-        ParserUtility $parserUtility
-    ) {
+    public function injectParserUtility(ParserUtility $parserUtility): void
+    {
         $this->parserUtility = $parserUtility;
     }
 
-    /**
-     * Action initialize
-     */
-    public function initializeAction()
+    public function initializeAction(): void
     {
-        $this->pluginSettings = $this->configurationManager->getConfiguration(
+        $this->configurations = $this->configurationManager->getConfiguration(
             ConfigurationManager::CONFIGURATION_TYPE_FRAMEWORK
+        );
+
+        $this->settings['addToCartByAjax'] = isset($this->settings['addToCartByAjax']) ? (int)$this->settings['addToCartByAjax'] : 0;
+    }
+
+    protected function parseServices(): void
+    {
+        // parse all shippings
+        $this->shippings = $this->parserUtility->parseServices(
+            'Shipping',
+            $this->configurations,
+            $this->cart
+        );
+
+        // parse all payments
+        $this->payments = $this->parserUtility->parseServices(
+            'Payment',
+            $this->configurations,
+            $this->cart
+        );
+
+        // parse all specials
+        $this->specials = $this->parserUtility->parseServices(
+            'Special',
+            $this->configurations,
+            $this->cart
         );
     }
 
-    /**
-     * Parse Data
-     */
-    protected function parseData()
+    public function parseServicesAndAssignToView(): void
     {
-        // parse all shippings
-        $this->shippings = $this->parserUtility->parseServices('Shipping', $this->pluginSettings, $this->cart);
+        $this->parseServices();
 
-        // parse all payments
-        $this->payments = $this->parserUtility->parseServices('Payment', $this->pluginSettings, $this->cart);
-
-        // parse all specials
-        $this->specials = $this->parserUtility->parseServices('Special', $this->pluginSettings, $this->cart);
+        $this->view->assignMultiple(
+            [
+                'shippings' => $this->shippings,
+                'payments' => $this->payments,
+                'specials' => $this->specials,
+            ]
+        );
     }
 
-    /**
-     *
-     */
-    protected function restoreSession()
+    protected function restoreSession(): void
     {
-        $this->cart = $this->sessionHandler->restore($this->settings['cart']['pid']);
+        $cart = $this->sessionHandler->restoreCart($this->settings['cart']['pid']);
 
-        if (!$this->cart instanceof Cart) {
-            $this->cart = $this->cartUtility->getNewCart($this->pluginSettings);
-            $this->sessionHandler->write($this->cart, $this->settings['cart']['pid']);
+        if ($cart instanceof Cart) {
+            $this->cart = $cart;
+            return;
         }
+
+        $this->cart = $this->cartUtility->getNewCart($this->configurations);
+        $this->sessionHandler->writeCart($this->settings['cart']['pid'], $this->cart);
     }
 }

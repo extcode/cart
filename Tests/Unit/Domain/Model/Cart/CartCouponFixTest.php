@@ -16,42 +16,19 @@ use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 class CartCouponFixTest extends UnitTestCase
 {
-    /**
-     * @var CartCouponFix
-     */
-    protected $coupon;
+    protected CartCouponFix $coupon;
 
-    /**
-     * @var string
-     */
-    protected $title;
+    protected string $title;
 
-    /**
-     * @var string
-     */
-    protected $code;
+    protected string $code;
 
-    /**
-     * @var string
-     */
-    protected $couponType;
+    protected string $couponType;
 
-    /**
-     * Discount
-     *
-     * @var float
-     */
-    protected $discount;
+    protected float $discount;
 
-    /**
-     * @var TaxClass
-     */
-    protected $taxClass;
+    protected TaxClass $taxClass;
 
-    /**
-     * @var float
-     */
-    protected $cartMinPrice = 0.0;
+    protected float $cartMinPrice = 0.0;
 
     public function setUp(): void
     {
@@ -70,6 +47,8 @@ class CartCouponFixTest extends UnitTestCase
             $this->taxClass,
             $this->cartMinPrice
         );
+
+        parent::setUp();
     }
 
     /**
@@ -160,10 +139,10 @@ class CartCouponFixTest extends UnitTestCase
     /**
      * @test
      */
-    public function getIsCombinableInitiallyReturnsFalse(): void
+    public function isCombinableInitiallyReturnsFalse(): void
     {
         self::assertFalse(
-            $this->coupon->getIsCombinable()
+            $this->coupon->isCombinable()
         );
     }
 
@@ -183,7 +162,7 @@ class CartCouponFixTest extends UnitTestCase
         );
 
         self::assertTrue(
-            $this->coupon->getIsCombinable()
+            $this->coupon->isCombinable()
         );
     }
 
@@ -304,7 +283,7 @@ class CartCouponFixTest extends UnitTestCase
         $coupon->setCart($cart);
 
         self::assertTrue(
-            $coupon->getIsUseable()
+            $coupon->isUseable()
         );
     }
 
@@ -335,7 +314,7 @@ class CartCouponFixTest extends UnitTestCase
         $coupon->setCart($cart);
 
         self::assertTrue(
-            $coupon->getIsUseable()
+            $coupon->isUseable()
         );
     }
 
@@ -366,7 +345,7 @@ class CartCouponFixTest extends UnitTestCase
         $coupon->setCart($cart);
 
         self::assertFalse(
-            $coupon->getIsUseable()
+            $coupon->isUseable()
         );
     }
 }

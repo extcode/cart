@@ -1,5 +1,6 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
 
 namespace Extcode\Cart\Domain\Model\Cart;
 
@@ -12,41 +13,16 @@ namespace Extcode\Cart\Domain\Model\Cart;
 
 class Service implements ServiceInterface
 {
-    /**
-     * @var Cart
-     */
-    protected $cart;
+    protected Cart $cart;
 
-    /**
-     * @var int
-     */
-    protected $id;
+    protected int $fallBackId;
 
-    /**
-     * @var int
-     */
-    protected $fallBackId;
+    protected bool $preset = false;
 
-    /**
-     * @var array
-     */
-    protected $config = [];
-
-    /**
-     * @var bool
-     */
-    protected $preset = false;
-
-    /**
-     * @param int $id
-     * @param array $config
-     */
     public function __construct(
-        int $id,
-        array $config
+        protected int $id,
+        protected array $config = []
     ) {
-        $this->id = $id;
-        $this->config = $config;
     }
 
     public function getId(): int
@@ -137,7 +113,7 @@ class Service implements ServiceInterface
                 [
                     'taxClassId' => $this->getTaxClass()->getId(),
                     'tax' => $this->getTax(),
-                ]
+                ],
             ];
         }
 
@@ -178,7 +154,7 @@ class Service implements ServiceInterface
         $taxClass = null;
 
         if ((int)$this->config['taxClassId'] > 0) {
-            return $this->cart->getTaxClass($this->config['taxClassId']);
+            return $this->cart->getTaxClass((int)$this->config['taxClassId']);
         }
 
         if ((int)$this->config['taxClassId'] === -1) {
@@ -269,7 +245,7 @@ class Service implements ServiceInterface
                 0,
                 0.0,
                 $this->getTaxClass(),
-                $this->cart->getIsNetCart(),
+                $this->cart->isNetCart(),
                 '',
                 $this
             );
@@ -284,13 +260,15 @@ class Service implements ServiceInterface
                     0,
                     (float)$this->config['extra']['extra'],
                     $this->getTaxClass(),
-                    $this->cart->getIsNetCart(),
+                    $this->cart->isNetCart(),
                     $extraType,
                     $this
                 );
             }
 
             $conditionValue = $this->getConditionValueFromCart($extraType);
+
+            $extra = null;
 
             foreach ($this->config['extra'] as $extraKey => $extraValue) {
                 if (is_array($extraValue) && ((float)$extraValue['value'] <= (float)$conditionValue)) {
@@ -299,7 +277,7 @@ class Service implements ServiceInterface
                         (float)$extraValue['value'],
                         (float)$extraValue['extra'],
                         $this->getTaxClass(),
-                        $this->cart->getIsNetCart(),
+                        $this->cart->isNetCart(),
                         $extraType,
                         $this
                     );
@@ -314,15 +292,13 @@ class Service implements ServiceInterface
             0,
             (float)$this->config['extra'],
             $this->getTaxClass(),
-            $this->cart->getIsNetCart(),
+            $this->cart->isNetCart(),
             '',
             $this
         );
     }
 
     /**
-     * @param string $extraType
-     *
      * @return float|int|null
      */
     protected function getConditionValueFromCart(string $extraType)
@@ -362,7 +338,7 @@ class Service implements ServiceInterface
 
         if ($this->cart->getProducts()) {
             foreach ($this->cart->getProducts() as $product) {
-                if (!$product->getIsVirtualProduct()) {
+                if (!$product->isVirtualProduct()) {
                     $calculatedGross += $product->getGross();
                 }
             }

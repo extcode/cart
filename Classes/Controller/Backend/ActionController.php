@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Extcode\Cart\Controller\Backend;
 
 /*
@@ -9,27 +11,13 @@ namespace Extcode\Cart\Controller\Backend;
  * LICENSE file that was distributed with this source code.
  */
 
-use Extcode\Cart\Utility\OrderUtility;
 use TYPO3\CMS\Backend\Utility\BackendUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManager;
 
 class ActionController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 {
-    /**
-     * @var OrderUtility
-     */
-    protected $orderUtility;
-
-    /**
-     * @var array
-     */
-    protected $pluginSettings = [];
-
-    public function injectOrderUtility(OrderUtility $orderUtility): void
-    {
-        $this->orderUtility = $orderUtility;
-    }
+    protected array $pluginSettings = [];
 
     protected function initializeAction(): void
     {

@@ -32,7 +32,10 @@ class TaxTest extends UnitTestCase
 
     public function setUp(): void
     {
-        $this->taxClass = new TaxClass('normal', '19', 0.19);
+        $this->taxClass = new TaxClass();
+        $this->taxClass->setTitle('normal');
+        $this->taxClass->setValue('19');
+        $this->taxClass->setCalc(0.19);
 
         $this->tax = 10.00;
 
@@ -40,6 +43,8 @@ class TaxTest extends UnitTestCase
             $this->tax,
             $this->taxClass
         );
+
+        parent::setUp();
     }
 
     /**

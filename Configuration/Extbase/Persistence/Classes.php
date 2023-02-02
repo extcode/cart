@@ -1,9 +1,10 @@
 <?php
-declare(strict_types = 1);
 
+declare(strict_types=1);
+
+use Extcode\Cart\Domain\Model\FrontendUser;
 use Extcode\Cart\Domain\Model\Order\BillingAddress;
 use Extcode\Cart\Domain\Model\Order\ShippingAddress;
-use TYPO3\CMS\Extbase\Domain\Model\FrontendUser;
 
 return [
     BillingAddress::class => [
@@ -14,8 +15,8 @@ return [
         'tableName' => 'fe_users',
         'properties' => [
             'lockToDomain' => [
-                'fieldName' => 'lockToDomain'
-            ]
+                'fieldName' => 'lockToDomain',
+            ],
         ],
     ],
     ShippingAddress::class => [

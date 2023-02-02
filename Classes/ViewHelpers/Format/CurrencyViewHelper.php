@@ -84,66 +84,78 @@ class CurrencyViewHelper extends AbstractViewHelper
      */
     public function render()
     {
-        $currencySign = $this->arguments['currencySign'];
-        $decimalSeparator = $this->arguments['decimalSeparator'];
-        $thousandsSeparator = $this->arguments['thousandsSeparator'];
-        $prependCurrency = $this->arguments['prependCurrency'];
-        $separateCurrency = $this->arguments['separateCurrency'];
-        $decimals = $this->arguments['decimals'];
-        $currencyTranslation = $this->arguments['currencyTranslation'];
+        if ($this->hasArgument('currencySign')) {
+            $currencySign = $this->arguments['currencySign'];
+        }
+        if ($this->hasArgument('decimalSeparator')) {
+            $decimalSeparator = $this->arguments['decimalSeparator'];
+        }
+        if ($this->hasArgument('thousandsSeparator')) {
+            $thousandsSeparator = $this->arguments['thousandsSeparator'];
+        }
+        if ($this->hasArgument('prependCurrency')) {
+            $prependCurrency = $this->arguments['prependCurrency'];
+        }
+        if ($this->hasArgument('separateCurrency')) {
+            $separateCurrency = $this->arguments['separateCurrency'];
+        }
+        if ($this->hasArgument('decimals')) {
+            $decimals = $this->arguments['decimals'];
+        }
+        if ($this->hasArgument('currencyTranslation')) {
+            $currencyTranslation = $this->arguments['currencyTranslation'];
+        }
 
         $settings = $this->templateVariableContainer->get('settings');
 
         if ($settings && $settings['format'] && $settings['format']['currency']) {
             $currencyFormat = $settings['format']['currency'];
 
-            if (!$currencySign) {
-                if ($currencyFormat['currencySign']) {
-                    $currencySign = $currencyFormat['currencySign'];
-                }
+            if (!isset($currencySign) && isset($currencyFormat['currencySign'])) {
+                $currencySign = $currencyFormat['currencySign'];
             }
-            if (!$decimalSeparator) {
-                if ($currencyFormat['decimalSeparator']) {
-                    $decimalSeparator = $currencyFormat['decimalSeparator'];
-                }
+            if (!isset($decimalSeparator) && isset($currencyFormat['decimalSeparator'])) {
+                $decimalSeparator = $currencyFormat['decimalSeparator'];
+            } else {
+                $decimalSeparator = '.';
             }
-            if (!$thousandsSeparator) {
-                if ($currencyFormat['thousandsSeparator']) {
-                    $thousandsSeparator = $currencyFormat['thousandsSeparator'];
-                }
+            if (!isset($thousandsSeparator) && isset($currencyFormat['thousandsSeparator'])) {
+                $thousandsSeparator = $currencyFormat['thousandsSeparator'];
+            } else {
+                $thousandsSeparator = ',';
             }
-            if (!$prependCurrency) {
-                if ($currencyFormat['prependCurrency']) {
-                    $prependCurrency = filter_var($currencyFormat['prependCurrency'], FILTER_VALIDATE_BOOLEAN);
-                }
+            if (!isset($prependCurrency) && isset($currencyFormat['prependCurrency'])) {
+                $prependCurrency = filter_var($currencyFormat['prependCurrency'], FILTER_VALIDATE_BOOLEAN);
             }
-            if (!$separateCurrency) {
-                if ($currencyFormat['separateCurrency']) {
-                    $separateCurrency = filter_var($currencyFormat['separateCurrency'], FILTER_VALIDATE_BOOLEAN);
-                }
+            if (!isset($separateCurrency) && isset($currencyFormat['separateCurrency'])) {
+                $separateCurrency = filter_var($currencyFormat['separateCurrency'], FILTER_VALIDATE_BOOLEAN);
             }
-            if (!$decimals) {
-                if ($currencyFormat['decimals']) {
-                    $decimals = intval($currencyFormat['decimals']);
-                }
+            if (!isset($decimals) && isset($currencyFormat['decimals'])) {
+                $decimals = (int)($currencyFormat['decimals']);
+            } else {
+                $decimals = 0;
             }
         }
+
+        $thousandsSeparator = $thousandsSeparator ?? ',';
+        $decimalSeparator = $decimalSeparator ?? '.';
+        $decimals = $decimals ?? 0;
 
         $floatToFormat = $this->renderChildren();
         if (empty($floatToFormat)) {
             $floatToFormat = 0.0;
         } else {
-            $floatToFormat = floatval($floatToFormat);
+            $floatToFormat = (float)$floatToFormat;
         }
 
-        if ($currencyTranslation && $currencyTranslation > 0.0) {
+        if (isset($currencyTranslation) && $currencyTranslation > 0.0) {
             $floatToFormat = $floatToFormat / $currencyTranslation;
         }
 
         $output = number_format($floatToFormat, $decimals, $decimalSeparator, $thousandsSeparator);
-        if ($currencySign !== '') {
-            $currencySeparator = $separateCurrency ? ' ' : '';
-            if ($prependCurrency === true) {
+        if (isset($currencySign) && $currencySign !== '') {
+            $currencySeparator = isset($separateCurrency) ? ' ' : '';
+            if (isset($prependCurrency) && $prependCurrency === true) {
                 $output = $currencySign . $currencySeparator . $output;
             } else {
                 $output = $output . $currencySeparator . $currencySign;

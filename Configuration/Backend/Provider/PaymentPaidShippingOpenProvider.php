@@ -1,5 +1,7 @@
 <?php
+
 declare(strict_types=1);
+
 namespace Extcode\Cart\Configuration\Backend\Provider;
 
 use Extcode\Cart\Widgets\Provider\OrderItemsProvider;
@@ -15,11 +17,11 @@ return function (ContainerConfigurator $configurator) {
         ->arg('$options', [
             'filter' => [
                 'payment' => [
-                    'status' => 'paid'
+                    'status' => 'paid',
                 ],
                 'shipping' => [
-                    'status' => 'open'
+                    'status' => 'open',
                 ],
-            ]
+            ],
         ]);
 };

@@ -1,6 +1,6 @@
 <?php
 
-defined('TYPO3_MODE') or die();
+defined('TYPO3') or die();
 
 use Extcode\Cart\Domain\Model\Cart\CartCouponPercentage;
 
@@ -14,7 +14,6 @@ return [
         'label_alt_force' => 1,
         'tstamp' => 'tstamp',
         'crdate' => 'crdate',
-        'cruser_id' => 'cruser_id',
 
         'versioningWS' => true,
         'origUid' => 't3_origuid',
@@ -26,17 +25,17 @@ return [
             'endtime' => 'endtime',
         ],
         'searchFields' => 'title',
-        'iconfile' => 'EXT:cart/Resources/Public/Icons/tx_cart_domain_model_coupon.svg'
+        'iconfile' => 'EXT:cart/Resources/Public/Icons/tx_cart_domain_model_coupon.svg',
     ],
     'hideTable' => 1,
     'types' => [
         '1' => [
-            'showitem' => 'hidden,--palette--;;1,starttime,endtime,title,code,coupon_type,discount,tax_class_id,cart_min_price,is_combinable,handle_available,number_available,number_used'
+            'showitem' => 'hidden,--palette--;;1,starttime,endtime,title,code,coupon_type,discount,tax_class_id,cart_min_price,is_combinable,handle_available,number_available,number_used',
         ],
     ],
     'palettes' => [
         '1' => [
-            'showitem' => ''
+            'showitem' => '',
         ],
     ],
     'columns' => [
@@ -51,7 +50,7 @@ return [
                     [
                         0 => '',
                         1 => '',
-                    ]
+                    ],
                 ],
             ],
         ],
@@ -65,7 +64,7 @@ return [
                 'checkbox' => 0,
                 'default' => 0,
                 'range' => [
-                    'lower' => mktime(0, 0, 0, date('m'), date('d'), date('Y'))
+                    'lower' => mktime(0, 0, 0, date('m'), date('d'), date('Y')),
                 ],
                 'renderType' => 'inputDateTime',
                 ['behaviour' => ['allowLanguageSynchronization' => true]],
@@ -81,7 +80,7 @@ return [
                 'checkbox' => 0,
                 'default' => 0,
                 'range' => [
-                    'lower' => mktime(0, 0, 0, date('m'), date('d'), date('Y'))
+                    'lower' => mktime(0, 0, 0, date('m'), date('d'), date('Y')),
                 ],
                 'renderType' => 'inputDateTime',
                 ['behaviour' => ['allowLanguageSynchronization' => true]],
@@ -93,7 +92,8 @@ return [
             'config' => [
                 'type' => 'input',
                 'size' => 30,
-                'eval' => 'trim,required'
+                'eval' => 'trim',
+                'required' => true,
             ],
         ],
         'code' => [
@@ -102,7 +102,8 @@ return [
             'config' => [
                 'type' => 'input',
                 'size' => 30,
-                'eval' => 'trim,required'
+                'eval' => 'trim',
+                'required' => true,
             ],
         ],
         'coupon_type' => [
@@ -112,8 +113,8 @@ return [
                 'type' => 'select',
                 'renderType' => 'selectSingle',
                 'items' => [
-                    [$_LLL . ':tx_cart_domain_model_coupon.coupon_type.cartdiscount.fix', 'cartdiscount'],
-                    [$_LLL . ':tx_cart_domain_model_coupon.coupon_type.cartdiscount.percentage', CartCouponPercentage::class],
+                    ['label' => $_LLL . ':tx_cart_domain_model_coupon.coupon_type.cartdiscount.fix', 'value' => 'cartdiscount'],
+                    ['label' => $_LLL . ':tx_cart_domain_model_coupon.coupon_type.cartdiscount.percentage', 'value' => CartCouponPercentage::class],
                 ],
                 'default' => 'cartdiscount',
                 'size' => 1,
@@ -128,7 +129,7 @@ return [
             'config' => [
                 'type' => 'input',
                 'size' => 30,
-                'eval' => 'double2'
+                'eval' => 'double2',
             ],
         ],
         'tax_class_id' => [
@@ -138,7 +139,7 @@ return [
                 'type' => 'select',
                 'renderType' => 'selectSingle',
                 'items' => [
-                    [$_LLL . ':tx_cart_domain_model_coupon.tax_class_id.1', 1],
+                    ['label' => $_LLL . ':tx_cart_domain_model_coupon.tax_class_id.1', 'value' => 1],
                 ],
                 'size' => 1,
                 'minitems' => 1,
@@ -151,7 +152,7 @@ return [
             'config' => [
                 'type' => 'input',
                 'size' => 30,
-                'eval' => 'double2'
+                'eval' => 'double2',
             ],
         ],
         'is_combinable' => [
@@ -184,7 +185,7 @@ return [
                 'type' => 'input',
                 'size' => 30,
                 'eval' => 'int',
-                'default' => '0'
+                'default' => '0',
             ],
         ],
         'number_used' => [
@@ -194,7 +195,7 @@ return [
                 'type' => 'input',
                 'size' => 30,
                 'eval' => 'int',
-                'default' => '0'
+                'default' => '0',
             ],
         ],
     ],

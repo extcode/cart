@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Extcode\Cart\Domain\Model\Cart;
 
 /*
@@ -16,61 +18,24 @@ class Extra
      */
     protected $service;
 
-    /**
-     * @var int
-     */
-    protected $id;
+    protected int $id;
 
-    /**
-     * @var float
-     */
-    protected $condition = 0.0;
+    protected float $condition = 0.0;
 
-    /**
-     * @var float
-     */
-    protected $price = 0.0;
+    protected float $price = 0.0;
 
-    /**
-     * @var float
-     */
-    protected $gross = 0.0;
+    protected float $gross = 0.0;
 
-    /**
-     * @var float
-     */
-    protected $net = 0.0;
+    protected float $net = 0.0;
 
-    /**
-     * @var TaxClass
-     */
-    protected $taxClass;
+    protected TaxClass $taxClass;
 
-    /**
-     * @var float
-     */
-    protected $tax = 0.0;
+    protected float $tax = 0.0;
 
-    /**
-     * @var bool
-     */
-    protected $isNetPrice = false;
+    protected bool $isNetPrice = false;
 
-    /**
-     * @var string
-     */
-    protected $extraType = '';
+    protected string $extraType = '';
 
-    /**
-     * @param int $id
-     * @param float $condition
-     * @param float $price
-     * @param TaxClass $taxClass
-     * @param bool $isNetPrice
-     * @param string $extraType
-     *
-     * @internal param $gross
-     */
     public function __construct(
         int $id,
         float $condition,
@@ -104,7 +69,7 @@ class Extra
         $this->isNetPrice = $isNetPrice;
     }
 
-    public function getIsNetPrice(): bool
+    public function isNetPrice(): bool
     {
         return $this->isNetPrice;
     }
@@ -124,12 +89,7 @@ class Extra
         return $this->condition;
     }
 
-    /**
-     * @param $condition
-     *
-     * @return bool
-     */
-    public function leq($condition): bool
+    public function leq(float $condition): bool
     {
         if ($condition < $this->condition) {
             return false;

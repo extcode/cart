@@ -1,0 +1,24 @@
+<html
+        xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+        xmlns:core="http://typo3.org/ns/TYPO3/CMS/Core/ViewHelpers"
+        xmlns:be="http://typo3.org/ns/TYPO3/CMS/Backend/ViewHelpers"
+        data-namespace-typo3-fluid="true">
+
+<f:layout name="Module" />
+
+<f:section name="Content">
+    <f:flashMessages/>
+
+    <div style="padding-bottom: 20px;">
+        <f:render partial="Backend/Order/Show/Properties" arguments="{orderItem: orderItem, paymentStatusOptions:paymentStatusOptions, shippingStatusOptions:shippingStatusOptions}"/>
+    </div>
+
+    <div style="padding-bottom: 20px;">
+        <f:render partial="Backend/Order/Show/Address" arguments="{orderItem: orderItem}"/>
+    </div>
+
+    <div style="padding-bottom: 20px;">
+        <f:render partial="Backend/Order/Show/Cart" arguments="{orderItem: orderItem}"/>
+    </div>
+</f:section>
+</html>

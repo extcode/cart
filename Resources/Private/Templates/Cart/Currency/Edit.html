@@ -1,5 +1,4 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
-      xmlns:cart="http://typo3.org/ns/Extcode/Cart/ViewHelpers"
       data-namespace-typo3-fluid="true">
 
 <f:if condition="{settings.currencies -> f:count()} > 1">
@@ -14,11 +13,11 @@
         <div class="row top-buffer">
             <div class="col-sm-6 col-md-2 column">
                 <div class="input-box">
-                    <cart:form.select class="form-control currency-selector"
-                                      name="currencyCode"
-                                      value="{cart.code}"
-                                      options="{settings.currencies}"
-                                      optionValueField="code" optionLabelField="sign" />
+                    <f:form.select class="form-control currency-selector"
+                                   name="currencyCode"
+                                   value="{cart.code}"
+                                   options="{settings.currencies}"
+                                   optionValueField="code" optionLabelField="sign" />
                 </div>
             </div>
         </div>

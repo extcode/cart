@@ -24,23 +24,30 @@ stages:
   - analysis
 
 lint:cgl:
-  image: composer:2
+  image: php:8.1-alpine
   stage: lint
   before_script:
-    - composer config platform.php 7.4
+    - apk add --no-cache bash curl git mercurial openssh openssl parallel subversion tini zlib-dev icu-dev g++
+    - docker-php-ext-install mysqli && docker-php-ext-configure intl && docker-php-ext-install intl && docker-php-ext-enable intl
+    - wget https://composer.github.io/installer.sig -O - -q | tr -d '\n' > installer.sig
+    - php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+    - php -r "if (hash_file('SHA384', 'composer-setup.php') === trim(file_get_contents('installer.sig'))) { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"
+    - php composer-setup.php --no-ansi --install-dir=/usr/bin --filename=composer
+    - php -r "unlink('composer-setup.php'); unlink('installer.sig');"
     - composer remove typo3/cms-core --no-update
+    - composer config --no-plugins allow-plugins.sbuerk/typo3-cmscomposerinstallers-testingframework-bridge true
     - composer install --no-progress --no-ansi --no-interaction
   script:
     - .build/bin/php-cs-fixer fix --config=Build/.php-cs-fixer.dist.php -v --dry-run --using-cache=no --path-mode=intersection ./
 
-lint:typoscriptcgl:
-  stage: lint
-  image: composer:2
-  script:
-    - composer config platform.php 7.4
-    - composer remove typo3/cms-core --no-update
-    - composer install --no-progress --no-ansi --no-interaction
-    - .build/bin/typoscript-lint -c Build/typoscriptlint.yaml Configuration
+#lint:typoscriptcgl:
+#  stage: lint
+#  image: composer:2
+#  script:
+#    - composer config platform.php 7.1
+#    - composer remove typo3/cms-core --no-update
+#    - composer install --no-progress --no-ansi --no-interaction
+#    - .build/bin/typoscript-lint -c Build/typoscriptlint.yaml Configuration
 
 lint:yaml:
   stage: lint
@@ -49,30 +56,6 @@ lint:yaml:
     - pip install yamllint==1.10.0
   script:
     - yamllint -c Build/yamllint.yaml Configuration/ Resources/
-
-lint:php72:
-  stage: lint
-  image: php:7.2-alpine
-  script:
-    - find . -name \*.php -exec php -l "{}" \;
-
-lint:php73:
-  stage: lint
-  image: php:7.3-alpine
-  script:
-    - find . -name \*.php -exec php -l "{}" \;
-
-lint:php74:
-  stage: lint
-  image: php:7.4-alpine
-  script:
-    - find . -name \*.php -exec php -l "{}" \;
-
-lint:php80:
-  stage: lint
-  image: php:8.0-alpine
-  script:
-    - find . -name \*.php -exec php -l "{}" \;
 
 lint:php81:
   stage: lint
@@ -87,13 +70,20 @@ lint:php82:
     - find . -name \*.php -exec php -l "{}" \;
 
 phpstan:analyse:
-  image: composer:2
+  image: php:8.1-alpine
   stage: lint
   before_script:
-    - composer config platform.php 7.4
+    - apk add --no-cache bash curl git mercurial openssh openssl parallel subversion tini zlib-dev icu-dev g++
+    - docker-php-ext-install mysqli && docker-php-ext-configure intl && docker-php-ext-install intl && docker-php-ext-enable intl
+    - wget https://composer.github.io/installer.sig -O - -q | tr -d '\n' > installer.sig
+    - php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+    - php -r "if (hash_file('SHA384', 'composer-setup.php') === trim(file_get_contents('installer.sig'))) { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"
+    - php composer-setup.php --no-ansi --install-dir=/usr/bin --filename=composer
+    - php -r "unlink('composer-setup.php'); unlink('installer.sig');"
+    - composer config platform.php 8.1
     - composer install --no-progress --no-ansi --no-interaction
   script:
-    - .build/bin/phpstan analyse -c Build/phpstan.neon
+    - .build/bin/phpstan analyse -c Build/phpstan.neon --memory-limit 256M
 
 .test: &test_php
   stage: test
@@ -103,25 +93,21 @@ phpstan:analyse:
   only:
     - branches
   before_script:
-    - apk add --no-cache bash curl git mercurial openssh openssl parallel subversion tini
+    - apk add --no-cache bash curl git mercurial openssh openssl parallel subversion tini zlib-dev icu-dev g++
     - >
       if [[ "$COVERAGE" == "1" ]]; then
-        apk add --no-cache $PHPIZE_DEPS
+        apk add --no-cache linux-headers $PHPIZE_DEPS
         pecl install xdebug && docker-php-ext-enable xdebug
       fi
-    - docker-php-ext-install mysqli
+    - docker-php-ext-install mysqli && docker-php-ext-configure intl && docker-php-ext-install intl && docker-php-ext-enable intl
     - wget https://composer.github.io/installer.sig -O - -q | tr -d '\n' > installer.sig
     - php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
     - php -r "if (hash_file('SHA384', 'composer-setup.php') === trim(file_get_contents('installer.sig'))) { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"
     - php composer-setup.php --no-ansi --install-dir=/usr/bin --filename=composer
     - php -r "unlink('composer-setup.php'); unlink('installer.sig');"
-    - >
-      if [[ "$TYPO3_VERSION" == "^10.4" ]]; then
-        sed -i 's/ || \^11\.5//g' composer.json
-      fi
     - composer config --no-plugins allow-plugins.typo3/cms-composer-installers true
     - composer config --no-plugins allow-plugins.typo3/class-alias-loader true
-    - composer remove --dev ssch/typo3-rector
+    - composer config --no-plugins allow-plugins.sbuerk/typo3-cmscomposerinstallers-testingframework-bridge true
     - composer require typo3/cms-core="${TYPO3_VERSION}"
     - composer require typo3/cms-form="${TYPO3_VERSION}"
     - composer require --dev typo3/cms-dashboard="${TYPO3_VERSION}"
@@ -142,60 +128,20 @@ phpstan:analyse:
     expire_in: 1 day
     when: always
 
-# Build in PHP 7.2 and TYPO3 10.4
-test:php72:typo3_10:
-  <<: *test_php
-  variables:
-    DOCKER_TAG: 7.2-alpine
-    TYPO3_VERSION: ^10.4
-    COVERAGE: 0
-
-# Build in PHP 7.3 and TYPO3 10.4
-test:php73:typo3_10:
-  <<: *test_php
-  variables:
-    DOCKER_TAG: 7.3-alpine
-    TYPO3_VERSION: ^10.4
-    COVERAGE: 0
-
-# Build in PHP 7.4 and TYPO3 10.4
-test:php74:typo3_10:
-  <<: *test_php
-  variables:
-    DOCKER_TAG: 7.4-alpine
-    TYPO3_VERSION: ^10.4
-    COVERAGE: 0
-
-# Build in PHP 7.4 and TYPO3 11.5
-test:php74:typo3_11:
-  <<: *test_php
-  variables:
-    DOCKER_TAG: 7.4-alpine
-    TYPO3_VERSION: ^11.5
-    COVERAGE: 0
-
-# Build in PHP 8.0 and TYPO3 11.5
-test:php80:typo3_11:
-  <<: *test_php
-  variables:
-    DOCKER_TAG: 8.0-alpine
-    TYPO3_VERSION: ^11.5
-    COVERAGE: 0
-
-# Build in PHP 8.1 and TYPO3 11.5
-test:php81:typo3_11:
+# Build in PHP 8.1 and TYPO3 12.3
+test:php81:typo3_12:
   <<: *test_php
   variables:
     DOCKER_TAG: 8.1-alpine
-    TYPO3_VERSION: ^11.5
+    TYPO3_VERSION: ^12.3
     COVERAGE: 0
 
-# Build in PHP 8.2 and TYPO3 11.5
-test:php82:typo3_11:
+# Build in PHP 8.2 and TYPO3 12.3
+test:php82:typo3_12:
   <<: *test_php
   variables:
     DOCKER_TAG: 8.2-alpine
-    TYPO3_VERSION: ^11.5
+    TYPO3_VERSION: ^12.3
     COVERAGE: 1
 
 documentation:
@@ -227,7 +173,7 @@ sonarqube:
     SONAR_SOURCES: "./Classes"
     SONAR_GITLAB_PROJECT_ID: "$CI_PROJECT_ID"
   script:
-    - echo "sonar.projectKey=cart-8.x" > sonar-project.properties
+    - echo "sonar.projectKey=cart-9.x" > sonar-project.properties
     - gitlab-sonar-scanner -Dsonar.php.coverage.reportPath=phpunit.coverage.xml -Dsonar.php.tests.reportPath=phpunit.report.xml
   allow_failure: true
 
@@ -243,5 +189,5 @@ sonarqube-reports:
     SONAR_SOURCES: "./Classes"
     SONAR_TESTS: "./Tests"
   script:
-    - echo "sonar.projectKey=cart-8.x" > sonar-project.properties
+    - echo "sonar.projectKey=cart-9.x" > sonar-project.properties
     - gitlab-sonar-scanner -Dsonar.php.coverage.reportPath=phpunit.coverage.xml -Dsonar.php.tests.reportPath=phpunit.report.xml

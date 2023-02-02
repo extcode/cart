@@ -22,9 +22,9 @@ class TaxClassServiceTest extends FunctionalTestCase
     protected $taxClassService;
 
     /**
-     * @var array
+     * @var non-empty-string[]
      */
-    protected $testExtensionsToLoad = [
+    protected array $testExtensionsToLoad = [
         'typo3conf/ext/cart',
     ];
 
@@ -71,22 +71,22 @@ class TaxClassServiceTest extends FunctionalTestCase
 
         $taxClasses = $this->taxClassService->getTaxClasses($countryCode);
 
-        $this->assertIsArray(
+        self::assertIsArray(
             $taxClasses
         );
 
-        $this->assertEquals(
+        self::assertEquals(
             3,
             count($taxClasses)
         );
 
         $firstTaxClasses = $taxClasses[1];
-        $this->assertInstanceOf(
+        self::assertInstanceOf(
             TaxClass::class,
             $firstTaxClasses
         );
 
-        $this->assertEquals(
+        self::assertEquals(
             $settings['taxClasses']['1']['name'],
             $firstTaxClasses->getTitle()
         );
@@ -145,22 +145,22 @@ class TaxClassServiceTest extends FunctionalTestCase
 
         $taxClasses = $this->taxClassService->getTaxClasses($countryCode);
 
-        $this->assertIsArray(
+        self::assertIsArray(
             $taxClasses
         );
 
-        $this->assertEquals(
+        self::assertEquals(
             3,
             count($taxClasses)
         );
 
         $firstTaxClasses = $taxClasses[1];
-        $this->assertInstanceOf(
+        self::assertInstanceOf(
             TaxClass::class,
             $firstTaxClasses
         );
 
-        $this->assertEquals(
+        self::assertEquals(
             $settings['taxClasses']['AT']['1']['name'],
             $firstTaxClasses->getTitle()
         );
@@ -236,22 +236,22 @@ class TaxClassServiceTest extends FunctionalTestCase
 
         $taxClasses = $this->taxClassService->getTaxClasses($countryCode);
 
-        $this->assertIsArray(
+        self::assertIsArray(
             $taxClasses
         );
 
-        $this->assertEquals(
+        self::assertEquals(
             3,
             count($taxClasses)
         );
 
         $firstTaxClasses = $taxClasses[1];
-        $this->assertInstanceOf(
+        self::assertInstanceOf(
             TaxClass::class,
             $firstTaxClasses
         );
 
-        $this->assertEquals(
+        self::assertEquals(
             $settings['taxClasses']['fallback']['1']['name'],
             $firstTaxClasses->getTitle()
         );

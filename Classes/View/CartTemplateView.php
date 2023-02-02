@@ -17,7 +17,7 @@ class CartTemplateView extends TemplateView
     {
         $templatePaths = $this->baseRenderingContext->getTemplatePaths();
         $templatePathAndFilename = $templatePaths->resolveTemplateFileForControllerAndActionAndFormat(
-            $this->controllerContext->getRequest()->getControllerName(),
+            $this->getRenderingContext()->getRequest()->getControllerName(),
             'ShowStep' . $step
         );
 

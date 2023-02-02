@@ -16,45 +16,21 @@ use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 class ProductTest extends UnitTestCase
 {
-    /**
-     * @var TaxClass
-     */
-    protected $taxClass = null;
+    protected TaxClass $taxClass;
 
-    /**
-     * @var Product
-     */
-    protected $product = null;
+    protected Product $product;
 
-    /**
-     * @var string
-     */
-    protected $productType;
+    protected string $productType;
 
-    /**
-     * @var int
-     */
-    protected $productId;
+    protected int $productId;
 
-    /**
-     * @var string
-     */
-    protected $title;
+    protected string $title;
 
-    /**
-     * @var string
-     */
-    protected $sku;
+    protected string $sku;
 
-    /**
-     * @var float
-     */
-    protected $price;
+    protected float $price;
 
-    /**
-     * @var int
-     */
-    protected $quantity;
+    protected int $quantity;
 
     public function setUp(): void
     {
@@ -76,6 +52,8 @@ class ProductTest extends UnitTestCase
             $this->taxClass,
             $this->quantity
         );
+
+        parent::setUp();
     }
 
     public function tearDown(): void
@@ -90,6 +68,8 @@ class ProductTest extends UnitTestCase
             $this->quantity,
             $this->taxClass
         );
+
+        parent::tearDown();
     }
 
     /**
@@ -876,17 +856,17 @@ class ProductTest extends UnitTestCase
     /**
      * @test
      */
-    public function getIsNetPriceReturnsFalseSetByDefaultConstructor(): void
+    public function isNetPriceReturnsFalseSetByDefaultConstructor(): void
     {
         self::assertFalse(
-            $this->product->getIsNetPrice()
+            $this->product->isNetPrice()
         );
     }
 
     /**
      * @test
      */
-    public function getIsNetPriceReturnsTrueSetByDefaultConstructor(): void
+    public function isNetPriceReturnsTrueSetByDefaultConstructor(): void
     {
         $net_fixture = new Product(
             $this->productType,
@@ -900,7 +880,7 @@ class ProductTest extends UnitTestCase
         );
 
         self::assertTrue(
-            $net_fixture->getIsNetPrice()
+            $net_fixture->isNetPrice()
         );
     }
 
@@ -1209,7 +1189,7 @@ class ProductTest extends UnitTestCase
     /**
      * @test
      */
-    public function getQuantityIsInRangeReturnsTrueIfQuantityIsInRange(): void
+    public function isQuantityInRangeReturnsTrueIfQuantityIsInRange(): void
     {
         $minNumber = 5;
         $maxNumber = 10;
@@ -1229,14 +1209,14 @@ class ProductTest extends UnitTestCase
         $this->product->setMaxNumberInCart($maxNumber);
 
         self::assertTrue(
-            $this->product->getQuantityIsInRange()
+            $this->product->isQuantityInRange()
         );
     }
 
     /**
      * @test
      */
-    public function getQuantityIsInRangeReturnsTrueIfQuantityIsEqualToMinimum(): void
+    public function isQuantityInRangeReturnsTrueIfQuantityIsEqualToMinimum(): void
     {
         $minNumber = 5;
         $maxNumber = 10;
@@ -1256,14 +1236,14 @@ class ProductTest extends UnitTestCase
         $this->product->setMaxNumberInCart($maxNumber);
 
         self::assertTrue(
-            $this->product->getQuantityIsInRange()
+            $this->product->isQuantityInRange()
         );
     }
 
     /**
      * @test
      */
-    public function getQuantityIsInRangeReturnsTrueIfQuantityIsEqualToMaximum(): void
+    public function isQuantityInRangeReturnsTrueIfQuantityIsEqualToMaximum(): void
     {
         $minNumber = 5;
         $maxNumber = 10;
@@ -1283,14 +1263,14 @@ class ProductTest extends UnitTestCase
         $this->product->setMaxNumberInCart($maxNumber);
 
         self::assertTrue(
-            $this->product->getQuantityIsInRange()
+            $this->product->isQuantityInRange()
         );
     }
 
     /**
      * @test
      */
-    public function getQuantityIsInRangeReturnsFalseIfQuantityIsLessThanMinimum(): void
+    public function isQuantityInRangeReturnsFalseIfQuantityIsLessThanMinimum(): void
     {
         $minNumber = 5;
         $maxNumber = 10;
@@ -1310,14 +1290,14 @@ class ProductTest extends UnitTestCase
         $this->product->setMaxNumberInCart($maxNumber);
 
         self::assertFalse(
-            $this->product->getQuantityIsInRange()
+            $this->product->isQuantityInRange()
         );
     }
 
     /**
      * @test
      */
-    public function getQuantityIsInRangeReturnsFalseIfQuantityIsGreaterThanMaximum(): void
+    public function isQuantityInRangeReturnsFalseIfQuantityIsGreaterThanMaximum(): void
     {
         $minNumber = 5;
         $maxNumber = 10;
@@ -1337,7 +1317,7 @@ class ProductTest extends UnitTestCase
         $this->product->setMaxNumberInCart($maxNumber);
 
         self::assertFalse(
-            $this->product->getQuantityIsInRange()
+            $this->product->isQuantityInRange()
         );
     }
 
@@ -1488,10 +1468,10 @@ class ProductTest extends UnitTestCase
     /**
      * @test
      */
-    public function getIsVirtualProductInitiallyReturnsFalse(): void
+    public function isVirtualProductInitiallyReturnsFalse(): void
     {
         self::assertFalse(
-            $this->product->getIsVirtualProduct()
+            $this->product->isVirtualProduct()
         );
     }
 
@@ -1503,7 +1483,7 @@ class ProductTest extends UnitTestCase
         $this->product->setIsVirtualProduct(true);
 
         self::assertTrue(
-            $this->product->getIsVirtualProduct()
+            $this->product->isVirtualProduct()
         );
     }
 }
