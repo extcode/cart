@@ -82,7 +82,7 @@ lint:php81:
 
 lint:php82:
   stage: lint
-  image: php:8.1-alpine
+  image: php:8.2-alpine
   script:
     - find . -name \*.php -exec php -l "{}" \;
 
