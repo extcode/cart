@@ -28,7 +28,7 @@ class CartController extends ActionController
             return;
         }
 
-        $steps = (int)$this->settings['cart']['steps'];
+        $steps = (int)($this->settings['cart']['steps'] ?? 0);
         if ($steps > 1) {
             if ($this->request->hasArgument('step')) {
                 $currentStep = (int)$this->request->getArgument('step') ?: 1;
