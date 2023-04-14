@@ -60,10 +60,7 @@ class OrderController extends ActionController
             if (!$this->arguments->hasArgument($argumentName)) {
                 continue;
             }
-            if ($this->settings['validation'] &&
-                $this->settings['validation'][$argumentName] &&
-                $this->settings['validation'][$argumentName]['fields']
-            ) {
+            if ($this->settings['validation'][$argumentName]['fields'] ?? null) {
                 $fields = $this->settings['validation'][$argumentName]['fields'];
 
                 foreach ($fields as $propertyName => $validatorConf) {
@@ -72,7 +69,7 @@ class OrderController extends ActionController
                         $propertyName,
                         [
                             'validator' => $validatorConf['validator'],
-                            'options' => is_array($validatorConf['options'])
+                            'options' => is_array($validatorConf['options'] ?? null)
                                 ? $validatorConf['options']
                                 : []
                         ]
@@ -174,11 +171,7 @@ class OrderController extends ActionController
         $paymentId = $this->cart->getPayment()->getId();
         $paymentSettings = $this->parserUtility->getTypePluginSettings($this->pluginSettings, $this->cart, 'payments');
 
-        if ($paymentSettings['options'][$paymentId] &&
-            $paymentSettings['options'][$paymentId]['redirects'] &&
-            $paymentSettings['options'][$paymentId]['redirects']['success'] &&
-            $paymentSettings['options'][$paymentId]['redirects']['success']['url']
-        ) {
+        if ($paymentSettings['options'][$paymentId]['redirects']['success']['url'] ?? null) {
             $this->redirectToUri($paymentSettings['options'][$paymentId]['redirects']['success']['url'], 0, 200);
         }
     }

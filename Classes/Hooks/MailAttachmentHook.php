@@ -53,7 +53,7 @@ class MailAttachmentHook implements MailAttachmentHookInterface
     public function getMailAttachments(FluidEmail $mailMessage, Item $item, string $type): FluidEmail
     {
         if ($this->pluginSettings['mail'] && $this->pluginSettings['mail'][$type]) {
-            if ($this->pluginSettings['mail'][$type]['attachments']) {
+            if ($this->pluginSettings['mail'][$type]['attachments'] ?? null) {
                 $attachments = $this->pluginSettings['mail'][$type]['attachments'];
 
                 foreach ($attachments as $attachment) {
@@ -64,7 +64,7 @@ class MailAttachmentHook implements MailAttachmentHookInterface
                 }
             }
 
-            if ($this->pluginSettings['mail'][$type]['attachDocuments']) {
+            if ($this->pluginSettings['mail'][$type]['attachDocuments'] ?? false) {
                 foreach ($this->pluginSettings['mail'][$type]['attachDocuments'] as $pdfType => $pdfData) {
                     $getter = 'get' . ucfirst($pdfType) . 'Pdfs';
                     $pdfs = $item->$getter();
