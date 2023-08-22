@@ -50,14 +50,16 @@ class Item
 
         $orderItem->setPid($storagePid);
 
-        $feUserId = (int)$GLOBALS['TSFE']->fe_user->user['uid'];
-        if ($feUserId) {
-            $frontendUserRepository = GeneralUtility::makeInstance(
-                FrontendUserRepository::class
-            );
-            $feUser = $frontendUserRepository->findByUid($feUserId);
-            if ($feUser) {
-                $orderItem->setFeUser($feUser);
+        if(isset($GLOBALS['TSFE']->fe_user->user['uid'])) {
+            $feUserId = (int)$GLOBALS['TSFE']->fe_user->user['uid'];
+            if ($feUserId) {
+                $frontendUserRepository = GeneralUtility::makeInstance(
+                    FrontendUserRepository::class
+                );
+                $feUser = $frontendUserRepository->findByUid($feUserId);
+                if ($feUser) {
+                    $orderItem->setFeUser($feUser);
+                }
             }
         }
 

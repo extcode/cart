@@ -108,7 +108,7 @@ class MailHandler implements SingletonInterface
                 ConfigurationManager::CONFIGURATION_TYPE_FRAMEWORK,
                 'Cart'
             );
-
+        
         if (!empty($this->pluginSettings['settings'])) {
             if (!empty($this->pluginSettings['settings']['buyer'])
                 && !empty($this->pluginSettings['settings']['buyer']['emailFromAddress'])
@@ -350,6 +350,7 @@ class MailHandler implements SingletonInterface
         $status = $orderItem->getPayment()->getStatus();
 
         $email = GeneralUtility::makeInstance(FluidEmail::class)
+            ->subject("Bestellung Raumordnung Infostand")
             ->to($orderItem->getBillingAddress()->getEmail())
             ->from($this->getBuyerEmailFrom())
             ->setTemplate('Mail/' . ucfirst($status) . '/Buyer')
@@ -407,6 +408,7 @@ class MailHandler implements SingletonInterface
 
         $to = explode(',', $sellerEmailTo);
         $email = GeneralUtility::makeInstance(FluidEmail::class)
+            ->subject("Bestellung Raumordnung Infostand")
             ->to(...$to)
             ->from($this->getSellerEmailFrom())
             ->setTemplate('Mail/' . ucfirst($status) . '/Seller')

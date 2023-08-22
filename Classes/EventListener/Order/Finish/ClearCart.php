@@ -50,25 +50,14 @@ class ClearCart
     {
         $cart = $event->getCart();
         $settings = $event->getSettings();
-
-        $paymentId = $cart->getPayment()->getId();
-        $paymentSettings = $this->parserUtility->getTypePluginSettings($settings, $cart, 'payments');
-
-        if ((int)($paymentSettings['options'][$paymentId]['preventClearCart']) != 1) {
-            $cartPid = $settings['settings']['cart']['pid'];
-
-            $this->sessionHandler->writeCart(
-                $cartPid,
-                $this->cartUtility->getNewCart($settings)
-            );
-            $this->sessionHandler->writeAddress(
-                'billing_address_' . $cartPid,
-                GeneralUtility::makeInstance(BillingAddress::class)
-            );
-            $this->sessionHandler->writeAddress(
-                'shipping_address_' . $cartPid,
-                GeneralUtility::makeInstance(ShippingAddress::class)
-            );
-        }
+        $cartPid = $settings['settings']['cart']['pid'];
+        $this->sessionHandler->writeCart(
+            $cartPid,
+            $this->cartUtility->getNewCart($settings)
+        );
+        $this->sessionHandler->writeAddress(
+            'billing_address_' . $cartPid,
+            GeneralUtility::makeInstance(BillingAddress::class)
+        );
     }
 }

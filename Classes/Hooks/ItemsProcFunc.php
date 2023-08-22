@@ -66,7 +66,7 @@ class ItemsProcFunc
             return;
         }
 
-        $prototypeName = 'cart';
+        $prototypeName = 'cart'; 
         if (is_array($config['config']['itemsProcFuncConfig']) && !empty($config['config']['itemsProcFuncConfig']['prototypeName'])) {
             $prototypeName = $config['config']['itemsProcFuncConfig']['prototypeName'];
         }

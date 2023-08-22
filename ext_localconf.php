@@ -137,3 +137,8 @@ module.tx_dashboard {
 '
     );
 });
+
+// FluidMail
+// $GLOBALS['TYPO3_CONF_VARS']['MAIL']['templateRootPaths'][1680782176] = 'EXT:cart/Resources/Private/Templates';
+// $GLOBALS['TYPO3_CONF_VARS']['MAIL']['partialRootPaths'][1680782176] = 'EXT:cart/Resources/Private/Partials';
+// $GLOBALS['TYPO3_CONF_VARS']['MAIL']['layoutRootPaths'][1680782176] = 'EXT:cart/Resources/Private/Layouts';

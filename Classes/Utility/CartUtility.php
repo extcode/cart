@@ -15,6 +15,7 @@ use Extcode\Cart\Service\SessionHandler;
 use Psr\EventDispatcher\EventDispatcherInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Request;
+use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 
 class CartUtility
 {
@@ -60,24 +61,27 @@ class CartUtility
         $parserUtility = GeneralUtility::makeInstance(
             ParserUtility::class
         );
-
-        $cart->getPayment()->setCart($cart);
-        if (!$cart->getPayment()->isAvailable()) {
-            $payments = $parserUtility->parseServices('Payment', $pluginSettings, $cart);
-            $fallBackId = $cart->getPayment()->getFallBackId();
-            if ($fallBackId) {
-                $payment = $this->getServiceById($payments, $fallBackId);
-                $cart->setPayment($payment);
+        if ($cart->getPayment()) {
+            $cart->getPayment()->setCart($cart);
+            if (!$cart->getPayment()->isAvailable()) {
+                $payments = $parserUtility->parseServices('Payment', $pluginSettings, $cart);
+                $fallBackId = $cart->getPayment()->getFallBackId();
+                if ($fallBackId) {
+                    $payment = $this->getServiceById($payments, $fallBackId);
+                    $cart->setPayment($payment);
+                }
             }
         }
 
-        $cart->getShipping()->setCart($cart);
-        if (!$cart->getShipping()->isAvailable()) {
-            $shippings = $parserUtility->parseServices('Shipping', $pluginSettings, $cart);
-            $fallBackId = $cart->getShipping()->getFallBackId();
-            if ($fallBackId) {
-                $shipping = $this->getServiceById($shippings, $fallBackId);
-                $cart->setShipping($shipping);
+        if($cart->getShipping()) {
+            $cart->getShipping()->setCart($cart);
+            if (!$cart->getShipping()->isAvailable()) {
+                $shippings = $parserUtility->parseServices('Shipping', $pluginSettings, $cart);
+                $fallBackId = $cart->getShipping()->getFallBackId();
+                if ($fallBackId) {
+                    $shipping = $this->getServiceById($shippings, $fallBackId);
+                    $cart->setShipping($shipping);
+                }
             }
         }
     }
@@ -87,15 +91,25 @@ class CartUtility
      */
     public function getNewCart(array $configurations): Cart
     {
-        $isNetCart = !((int)($configurations['settings']['cart']['isNetCart']) === 0);
-
-        $defaultCurrency = [];
-        $defaultCurrencyNum = $configurations['settings']['currencies']['default'];
-        if ($configurations['settings']['currencies'][$defaultCurrencyNum]) {
-            $defaultCurrency = $configurations['settings']['currencies'][$defaultCurrencyNum];
+        $isNetCart = false;
+        if (isset($configurations['settings']['cart']['isNetCart']) ){
+            $isNetCart = !((int)($configurations['settings']['cart']['isNetCart']) === 0);
         }
 
-        $defaultCountry  = $configurations['settings']['defaultCountry'];
+        $defaultCurrency = [];
+        if (isset($configurations['settings']['currencies']['default'])) {
+            $defaultCurrencyNum = $configurations['settings']['currencies']['default'];
+            if ($configurations['settings']['currencies'][$defaultCurrencyNum]) {
+                $defaultCurrency = $configurations['settings']['currencies'][$defaultCurrencyNum];
+            }
+        }else {
+            $defaultCurrency['code'] = "EUR";
+            $defaultCurrency['sign'] = "€";
+            $defaultCurrency['translation'] = "1.00";
+        }
+        
+
+        $defaultCountry  = isset($configurations['settings']['defaultCountry'])?$configurations['settings']['defaultCountry']:"de";
 
         $taxClasses = $this->parserUtility->parseTaxClasses($configurations, $defaultCountry);
 

@@ -43,34 +43,37 @@ class Shipping
         $taxClasses = $event->getTaxClasses();
 
         $shipping = $cart->getShipping();
-
-        $orderShipping = GeneralUtility::makeInstance(
-            \Extcode\Cart\Domain\Model\Order\Shipping::class
-        );
-        $orderShipping->setItem($orderItem);
-        $orderShipping->setPid($storagePid);
-
-        if ($cart->getShippingCountry()) {
-            $orderShipping->setServiceCountry($cart->getShippingCountry());
-        } elseif ($cart->getBillingCountry()) {
-            $orderShipping->setServiceCountry($cart->getBillingCountry());
+        if ($shipping) {
+            $orderShipping = GeneralUtility::makeInstance(
+                \Extcode\Cart\Domain\Model\Order\Shipping::class
+            );
+            $orderShipping->setItem($orderItem);
+            $orderShipping->setPid($storagePid);
+    
+            if ($cart->getShippingCountry()) {
+                $orderShipping->setServiceCountry($cart->getShippingCountry());
+            } elseif ($cart->getBillingCountry()) {
+                $orderShipping->setServiceCountry($cart->getBillingCountry());
+            }
+            $orderShipping->setServiceId($shipping->getId());
+            $orderShipping->setName($shipping->getName());
+            $orderShipping->setStatus($shipping->getStatus());
+            $orderShipping->setGross($shipping->getGross());
+            $orderShipping->setNet($shipping->getNet());
+            if ($shipping->getTaxClass()->getId() > 0) {
+                $orderShipping->setTaxClass($taxClasses[$shipping->getTaxClass()->getId()]);
+            }
+            $orderShipping->setTax($shipping->getTax());
+            if (method_exists($shipping, 'getNote')) {
+                $orderShipping->setNote($shipping->getNote());
+            }
+    
+            $this->shippingRepository->add($orderShipping);
+            $orderItem->setShipping($orderShipping);
+            $this->itemRepository->update($orderItem);
+            $this->persistenceManager->persistAll();
         }
-        $orderShipping->setServiceId($shipping->getId());
-        $orderShipping->setName($shipping->getName());
-        $orderShipping->setStatus($shipping->getStatus());
-        $orderShipping->setGross($shipping->getGross());
-        $orderShipping->setNet($shipping->getNet());
-        if ($shipping->getTaxClass()->getId() > 0) {
-            $orderShipping->setTaxClass($taxClasses[$shipping->getTaxClass()->getId()]);
-        }
-        $orderShipping->setTax($shipping->getTax());
-        if (method_exists($shipping, 'getNote')) {
-            $orderShipping->setNote($shipping->getNote());
-        }
 
-        $this->shippingRepository->add($orderShipping);
-        $orderItem->setShipping($orderShipping);
-        $this->itemRepository->update($orderItem);
-        $this->persistenceManager->persistAll();
+        
     }
 }

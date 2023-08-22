@@ -57,12 +57,13 @@ abstract class Number
         $registry->set('tx_cart', $this->getRegistryName($event), $numberInRegistry);
 
         $format = $this->options['format'] ?? '%d';
-        $numberInRegistryWithOffset = $numberInRegistry + (int)$this->options['offset'];
+        $offset = isset($this->options['offset'])?(int)$this->options['offset']:0;
+        $numberInRegistryWithOffset = $numberInRegistry + $offset;
 
         return implode([
-            $this->options['prefix'],
+            $this->options['prefix']??"",
             sprintf($format, $numberInRegistryWithOffset),
-            $this->options['suffix'],
+            $this->options['suffix']??"",
         ]);
     }
 }

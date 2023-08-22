@@ -25,6 +25,7 @@ use Psr\EventDispatcher\StoppableEventInterface;
 use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Annotation\IgnoreValidation;
+use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 use TYPO3\CMS\Extbase\Validation\Validator\AbstractGenericObjectValidator;
 use TYPO3\CMS\Extbase\Validation\Validator\ConjunctionValidator;
@@ -56,24 +57,20 @@ class OrderController extends ActionController
     }
 
     /**
+     * @IgnoreValidation("orderItem")
+     * @IgnoreValidation("billingAddress")
      * @IgnoreValidation("shippingAddress")
      */
     public function createAction(
-        Item $orderItem = null,
+        Item $orderItem,
         BillingAddress $billingAddress = null,
         ShippingAddress $shippingAddress = null
     ): ResponseInterface {
         $this->restoreSession();
-
         if (!is_null($billingAddress)) {
             $this->sessionHandler->writeAddress('billing_address_' . $this->settings['cart']['pid'], $billingAddress);
         } else {
             $billingAddress = $this->sessionHandler->restoreAddress('billing_address_' . $this->settings['cart']['pid']);
-        }
-        if (!is_null($shippingAddress)) {
-            $this->sessionHandler->writeAddress('shipping_address_' . $this->settings['cart']['pid'], $shippingAddress);
-        } else {
-            $shippingAddress = $this->sessionHandler->restoreAddress('shipping_address_' . $this->settings['cart']['pid']);
         }
 
         if (is_null($orderItem) || is_null($billingAddress) || $this->cart->getCount() === 0) {
@@ -90,14 +87,6 @@ class OrderController extends ActionController
         $billingAddress->setPid($storagePid);
         $orderItem->setBillingAddress($billingAddress);
 
-        if ($orderItem->isShippingSameAsBilling()) {
-            $shippingAddress = null;
-            $orderItem->removeShippingAddress();
-        } else {
-            $shippingAddress->setPid($storagePid);
-            $orderItem->setShippingAddress($shippingAddress);
-        }
-
         $isPropagationStopped = $this->dispatchOrderCreateEvents($orderItem);
 
         if ($isPropagationStopped) {
@@ -107,17 +96,6 @@ class OrderController extends ActionController
 
         $this->view->assign('cart', $this->cart);
         $this->view->assign('orderItem', $orderItem);
-
-        $paymentId = $this->cart->getPayment()->getId();
-        $paymentSettings = $this->parserUtility->getTypePluginSettings($this->configurations, $this->cart, 'payments');
-
-        if ($paymentSettings['options'][$paymentId] &&
-            $paymentSettings['options'][$paymentId]['redirects'] &&
-            $paymentSettings['options'][$paymentId]['redirects']['success'] &&
-            $paymentSettings['options'][$paymentId]['redirects']['success']['url']
-        ) {
-            return $this->redirectToUri($paymentSettings['options'][$paymentId]['redirects']['success']['url'], 0, 200);
-        }
 
         return $this->htmlResponse();
     }
@@ -143,7 +121,7 @@ class OrderController extends ActionController
                     $propertyName,
                     [
                         'validator' => $validatorConf['validator'],
-                        'options' => is_array($validatorConf['options'])
+                        'options' => isset($validatorConf['options']) && is_array($validatorConf['options'])
                             ? $validatorConf['options']
                             : [],
                     ]

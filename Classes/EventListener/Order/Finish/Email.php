@@ -26,21 +26,19 @@ class Email
         $orderItem = $event->getOrderItem();
         $settings = $event->getSettings();
 
-        $paymentCountry = $orderItem->getPayment()->getServiceCountry();
-        $paymentId = $orderItem->getPayment()->getServiceId();
-
-        if ($paymentCountry) {
-            $serviceSettings = $settings['payments'][$paymentCountry]['options'][$paymentId];
-        } else {
-            $serviceSettings = $settings['payments']['options'][$paymentId];
+        if($orderItem->getPayment()) {
+            $paymentCountry = $orderItem->getPayment()->getServiceCountry();
+            $paymentId = $orderItem->getPayment()->getServiceId();
+    
+            if ($paymentCountry) {
+                $serviceSettings = $settings['payments'][$paymentCountry]['options'][$paymentId];
+            } else {
+                $serviceSettings = $settings['payments']['options'][$paymentId];
+            }
         }
 
-        if ((int)($serviceSettings['preventBuyerEmail']) != 1) {
-            $this->sendBuyerMail($orderItem);
-        }
-        if ((int)($serviceSettings['preventSellerEmail']) != 1) {
-            $this->sendSellerMail($orderItem);
-        }
+        $this->sendBuyerMail($orderItem);
+        $this->sendSellerMail($orderItem);
     }
 
     /**
@@ -51,6 +49,7 @@ class Email
         $mailHandler = GeneralUtility::makeInstance(
             MailHandler::class
         );
+        
         $mailHandler->setCart($this->cart);
         $mailHandler->sendBuyerMail($orderItem);
     }

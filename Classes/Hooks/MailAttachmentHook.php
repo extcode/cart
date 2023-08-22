@@ -16,6 +16,7 @@ use TYPO3\CMS\Core\Mail\FluidEmail;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManager;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
+use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 
 class MailAttachmentHook implements MailAttachmentHookInterface
 {
@@ -42,6 +43,7 @@ class MailAttachmentHook implements MailAttachmentHookInterface
             ConfigurationManager::CONFIGURATION_TYPE_FRAMEWORK,
             'Cart'
         );
+        // DebuggerUtility::var_dump($this->pluginSettings);
     }
 
     /**
@@ -53,35 +55,35 @@ class MailAttachmentHook implements MailAttachmentHookInterface
      */
     public function getMailAttachments(FluidEmail $mailMessage, Item $item, string $type): FluidEmail
     {
-        if ($this->pluginSettings['mail'] && $this->pluginSettings['mail'][$type]) {
-            if ($this->pluginSettings['mail'][$type]['attachments']) {
-                $attachments = $this->pluginSettings['mail'][$type]['attachments'];
+        // if ($this->pluginSettings['mail'] && $this->pluginSettings['mail'][$type]) {
+        //     if ($this->pluginSettings['mail'][$type]['attachments']) {
+        //         $attachments = $this->pluginSettings['mail'][$type]['attachments'];
 
-                foreach ($attachments as $attachment) {
-                    $attachmentFile = GeneralUtility::getFileAbsFileName($attachment);
-                    if (file_exists($attachmentFile)) {
-                        $mailMessage->attachFromPath($attachmentFile);
-                    }
-                }
-            }
+        //         foreach ($attachments as $attachment) {
+        //             $attachmentFile = GeneralUtility::getFileAbsFileName($attachment);
+        //             if (file_exists($attachmentFile)) {
+        //                 $mailMessage->attachFromPath($attachmentFile);
+        //             }
+        //         }
+        //     }
 
-            if ($this->pluginSettings['mail'][$type]['attachDocuments']) {
-                foreach ($this->pluginSettings['mail'][$type]['attachDocuments'] as $pdfType => $pdfData) {
-                    $getter = 'get' . ucfirst($pdfType) . 'Pdfs';
-                    $pdfs = $item->$getter();
-                    if ($pdfs && ($pdfs instanceof ObjectStorage)) {
-                        $pdfs = end($pdfs->toArray());
-                        if ($pdfs) {
-                            $lastOriginalPdf = $pdfs->getOriginalResource();
-                            $lastOriginalPdfPath = $lastOriginalPdf->getForLocalProcessing(false);
-                            if (is_file($lastOriginalPdfPath)) {
-                                $mailMessage->attachFromPath($lastOriginalPdfPath);
-                            }
-                        }
-                    }
-                }
-            }
-        }
+        //     if ($this->pluginSettings['mail'][$type]['attachDocuments']) {
+        //         foreach ($this->pluginSettings['mail'][$type]['attachDocuments'] as $pdfType => $pdfData) {
+        //             $getter = 'get' . ucfirst($pdfType) . 'Pdfs';
+        //             $pdfs = $item->$getter();
+        //             if ($pdfs && ($pdfs instanceof ObjectStorage)) {
+        //                 $pdfs = end($pdfs->toArray());
+        //                 if ($pdfs) {
+        //                     $lastOriginalPdf = $pdfs->getOriginalResource();
+        //                     $lastOriginalPdfPath = $lastOriginalPdf->getForLocalProcessing(false);
+        //                     if (is_file($lastOriginalPdfPath)) {
+        //                         $mailMessage->attachFromPath($lastOriginalPdfPath);
+        //                     }
+        //                 }
+        //             }
+        //         }
+        //     }
+        // }
 
         return $mailMessage;
     }

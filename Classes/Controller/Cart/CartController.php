@@ -14,17 +14,15 @@ use Extcode\Cart\Domain\Model\Order\BillingAddress;
 use Extcode\Cart\Domain\Model\Order\Item;
 use Extcode\Cart\Domain\Model\Order\ShippingAddress;
 use Extcode\Cart\Event\CheckProductAvailabilityEvent;
-use Extcode\Cart\View\CartTemplateView;
 use http\Exception\InvalidArgumentException;
 use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\ExtbaseRequestParameters;
+use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 use TYPO3Fluid\Fluid\View\ViewInterface;
 
 class CartController extends ActionController
 {
-    protected $defaultViewObjectName = CartTemplateView::class;
-
     protected function initializeView(ViewInterface $view): void
     {
         if ($this->request->getControllerActionName() !== 'show') {
@@ -91,22 +89,23 @@ class CartController extends ActionController
                 $extbaseAttribute->getOriginalRequest() &&
                 $extbaseAttribute->getOriginalRequest()->hasArgument('orderItem')
             ) {
-                $originalRequestOrderItem = $extbaseAttribute->getArgument('orderItem');
+                $originalRequestOrderItem = $extbaseAttribute->getOriginalRequest()->getArgument('orderItem');
 
                 if (isset($originalRequestOrderItem['shippingSameAsBilling'])) {
-                    $this->cart->setShippingSameAsBilling($originalRequestOrderItem['shippingSameAsBilling']);
+                    $this->cart->setShippingSameAsBilling((bool)$originalRequestOrderItem['shippingSameAsBilling']);
                     $this->sessionHandler->writeCart($this->settings['cart']['pid'], $this->cart);
+
                 }
             }
         } else {
             $this->cart->setShippingSameAsBilling($orderItem->isShippingSameAsBilling());
             $this->sessionHandler->writeCart($this->settings['cart']['pid'], $this->cart);
         }
-
         if (
             isset($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['cart']['showCartActionAfterCartWasLoaded']) &&
             !empty($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['cart']['showCartActionAfterCartWasLoaded'])
         ) {
+            DebuggerUtility::var_dump("hi");
             foreach ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['cart']['showCartActionAfterCartWasLoaded'] as $funcRef) {
                 if ($funcRef) {
                     $params = [
@@ -124,8 +123,6 @@ class CartController extends ActionController
         }
 
         $this->view->assign('cart', $this->cart);
-
-        $this->parseServicesAndAssignToView();
 
         $this->view->assignMultiple(
             [
@@ -186,6 +183,7 @@ class CartController extends ActionController
             }
         }
         $this->cart->reCalc();
+        DebuggerUtility::var_dump($this->cart);
 
         $this->cartUtility->updateService($this->cart, $this->configurations);
 
