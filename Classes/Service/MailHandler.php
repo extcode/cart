@@ -346,8 +346,11 @@ class MailHandler implements SingletonInterface
         if (empty($this->getBuyerEmailFrom()) || empty($orderItem->getBillingAddress()->getEmail())) {
             return;
         }
-
-        $status = $orderItem->getPayment()->getStatus();
+        if($orderItem->getPayment()) {
+            $status = $orderItem->getPayment()->getStatus();
+        }else {
+            $status = "open";
+        }
 
         $email = GeneralUtility::makeInstance(FluidEmail::class)
             ->subject("Bestellung Raumordnung Infostand")
@@ -404,7 +407,11 @@ class MailHandler implements SingletonInterface
             return;
         }
 
-        $status = $orderItem->getPayment()->getStatus();
+        if($orderItem->getPayment()) {
+            $status = $orderItem->getPayment()->getStatus();
+        }else {
+            $status = "open";
+        }
 
         $to = explode(',', $sellerEmailTo);
         $email = GeneralUtility::makeInstance(FluidEmail::class)
