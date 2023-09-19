@@ -15,6 +15,8 @@ use Extcode\Cart\Constants;
 use TYPO3\CMS\Core\Database\Connection;
 use TYPO3\CMS\Core\Database\Query\QueryBuilder;
 use TYPO3\CMS\Core\Localization\LanguageService;
+use TYPO3\CMS\Core\Localization\LanguageServiceFactory;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Dashboard\WidgetApi;
 use TYPO3\CMS\Dashboard\Widgets\ChartDataProviderInterface;
 
@@ -36,12 +38,10 @@ class OrdersPerDayProvider implements ChartDataProviderInterface
     private $options;
 
     public function __construct(
-        LanguageService $languageService,
         QueryBuilder $queryBuilder,
         array $options = []
     ) {
-        $this->languageService = $languageService;
-        $this->languageService->init($GLOBALS['BE_USER']->uc['lang']);
+        $this->languageService = GeneralUtility::makeInstance(LanguageServiceFactory::class)->create($GLOBALS['BE_USER']->uc['lang']);
 
         $this->queryBuilder = $queryBuilder;
         $this->options = [
