@@ -14,6 +14,7 @@ namespace Extcode\Cart\Widgets\Provider;
 use Extcode\Cart\Constants;
 use TYPO3\CMS\Core\Database\Query\QueryBuilder;
 use TYPO3\CMS\Core\Localization\LanguageService;
+use TYPO3\CMS\Core\Localization\LanguageServiceFactory;
 use TYPO3\CMS\Dashboard\WidgetApi;
 use TYPO3\CMS\Dashboard\Widgets\ChartDataProviderInterface;
 
@@ -35,11 +36,11 @@ class TurnoverPerDayProvider implements ChartDataProviderInterface
     private $options;
 
     public function __construct(
-        LanguageService $languageService,
+        LanguageServiceFactory $languageServiceFactory,
         QueryBuilder $queryBuilder,
         array $options = []
     ) {
-        $this->languageService = $languageService;
+        $this->languageService = $languageServiceFactory->createFromUserPreferences($GLOBALS['BE_USER']);
         $this->languageService->init($GLOBALS['BE_USER']->uc['lang']);
 
         $this->queryBuilder = $queryBuilder;
