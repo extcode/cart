@@ -15,7 +15,6 @@ return function (ContainerConfigurator $configurator) {
     $services->set('extcode.cart.provider.orders_per_day')
         ->class(OrdersPerDayProvider::class)
         ->arg('$queryBuilder', new Reference('querybuilder.tx_cart_domain_model_order_item'))
-        ->arg('$languageService', new Reference(LanguageService::class))
         ->arg('$options', [
             'filter' => [
                 'payment' => [
