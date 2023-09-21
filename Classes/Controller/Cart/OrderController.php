@@ -74,6 +74,9 @@ class OrderController extends ActionController
             $this->sessionHandler->writeAddress('shipping_address_' . $this->settings['cart']['pid'], $shippingAddress);
         } else {
             $shippingAddress = $this->sessionHandler->restoreAddress('shipping_address_' . $this->settings['cart']['pid']);
+            if (!$shippingAddress) {
+                $shippingAddress = new ShippingAddress();
+            }
         }
 
         if (is_null($orderItem) || is_null($billingAddress) || $this->cart->getCount() === 0) {
@@ -136,7 +139,7 @@ class OrderController extends ActionController
                     $propertyName,
                     [
                         'validator' => $validatorConf['validator'],
-                        'options' => is_array($validatorConf['options'])
+                        'options' => is_array($validatorConf['options'] ?? null)
                             ? $validatorConf['options']
                             : [],
                     ]

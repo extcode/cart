@@ -59,10 +59,10 @@ abstract class Number
         $format = $this->options['format'] ?? '%d';
         $numberInRegistryWithOffset = $numberInRegistry + (int)($this->options['offset'] ?? 0);
 
-        return implode([
-            $this->options['prefix'] ?? null,
+        return implode('', [
+            $this->options['prefix'] ?? '',
             sprintf($format, $numberInRegistryWithOffset),
-            $this->options['suffix'] ?? null,
+            $this->options['suffix'] ?? '',
         ]);
     }
 }
