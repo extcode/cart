@@ -57,7 +57,7 @@ class Service implements ServiceInterface
 
     public function getProvider(): string
     {
-        return $this->config['provider'] ?: '';
+        return $this->config['provider'] ?? '';
     }
 
     public function getName(): string

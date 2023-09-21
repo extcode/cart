@@ -74,6 +74,9 @@ class OrderController extends ActionController
             $this->sessionHandler->writeAddress('shipping_address_' . $this->settings['cart']['pid'], $shippingAddress);
         } else {
             $shippingAddress = $this->sessionHandler->restoreAddress('shipping_address_' . $this->settings['cart']['pid']);
+            if (!$shippingAddress) {
+                $shippingAddress = new ShippingAddress();
+            }
         }
 
         if (is_null($orderItem) || is_null($billingAddress) || $this->cart->getCount() === 0) {
@@ -111,11 +114,7 @@ class OrderController extends ActionController
         $paymentId = $this->cart->getPayment()->getId();
         $paymentSettings = $this->parserUtility->getTypePluginSettings($this->configurations, $this->cart, 'payments');
 
-        if ($paymentSettings['options'][$paymentId] &&
-            $paymentSettings['options'][$paymentId]['redirects'] &&
-            $paymentSettings['options'][$paymentId]['redirects']['success'] &&
-            $paymentSettings['options'][$paymentId]['redirects']['success']['url']
-        ) {
+        if ($paymentSettings['options'][$paymentId]['redirects']['success']['url'] ?? false) {
             return $this->redirectToUri($paymentSettings['options'][$paymentId]['redirects']['success']['url'], 0, 200);
         }
 
@@ -131,10 +130,7 @@ class OrderController extends ActionController
 
     public function setDynamicValidationsForArgument(string $argumentName): void
     {
-        if ($this->settings['validation'] &&
-            $this->settings['validation'][$argumentName] &&
-            $this->settings['validation'][$argumentName]['fields']
-        ) {
+        if ($this->settings['validation'][$argumentName]['fields'] ?? false) {
             $fields = $this->settings['validation'][$argumentName]['fields'];
 
             foreach ($fields as $propertyName => $validatorConf) {
@@ -143,7 +139,7 @@ class OrderController extends ActionController
                     $propertyName,
                     [
                         'validator' => $validatorConf['validator'],
-                        'options' => is_array($validatorConf['options'])
+                        'options' => is_array($validatorConf['options'] ?? null)
                             ? $validatorConf['options']
                             : [],
                     ]

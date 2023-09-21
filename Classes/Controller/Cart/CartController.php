@@ -23,7 +23,7 @@ use TYPO3Fluid\Fluid\View\ViewInterface;
 
 class CartController extends ActionController
 {
-    protected $defaultViewObjectName = CartTemplateView::class;
+//    protected $defaultViewObjectName = CartTemplateView::class;
 
     protected function initializeView(ViewInterface $view): void
     {
