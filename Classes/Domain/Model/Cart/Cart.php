@@ -1060,20 +1060,14 @@ class Cart
         return true;
     }
 
-    /**
-     * @param string $product
-     *
-     * @return int
-     */
-    public function removeProductById(string $product): int
+    public function removeProductById(string $productId): bool
     {
-        $product = $this->products[$product];
-        if ($product) {
-            $this->removeProduct($product);
-        } else {
-            return -1;
+        if (!isset($this->products[$productId])) {
+            return false;
         }
 
+        $product = $this->products[$productId];
+        $this->removeProduct($product);
         $this->updateServiceAttributes();
 
         return true;
