@@ -71,17 +71,17 @@ class Service implements ServiceInterface
 
     public function getStatus(): string
     {
-        return $this->config['status'] ?: 'open';
+        return $this->config['status'] ?? 'open';
     }
 
     public function getProcessOrderCreateEvent(): string
     {
-        return $this->config['processOrderCreateEvent'] ?: '';
+        return $this->config['processOrderCreateEvent'] ?? '';
     }
 
     public function getProvider(): string
     {
-        return $this->config['provider'] ?: '';
+        return $this->config['provider'] ?? '';
     }
 
     public function getName(): string
