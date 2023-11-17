@@ -60,7 +60,7 @@ class OrderController extends ActionController
             if (!$this->arguments->hasArgument($argumentName)) {
                 continue;
             }
-            if ($this->settings['validation'][$argumentName]['fields'] ?? null) {
+            if (isset($this->settings['validation'][$argumentName]['fields'])) {
                 $fields = $this->settings['validation'][$argumentName]['fields'];
 
                 foreach ($fields as $propertyName => $validatorConf) {
@@ -171,7 +171,7 @@ class OrderController extends ActionController
         $paymentId = $this->cart->getPayment()->getId();
         $paymentSettings = $this->parserUtility->getTypePluginSettings($this->pluginSettings, $this->cart, 'payments');
 
-        if ($paymentSettings['options'][$paymentId]['redirects']['success']['url'] ?? null) {
+        if (isset($paymentSettings['options'][$paymentId]['redirects']['success']['url'])) {
             $this->redirectToUri($paymentSettings['options'][$paymentId]['redirects']['success']['url'], 0, 200);
         }
     }
