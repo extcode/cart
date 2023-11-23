@@ -2,6 +2,7 @@
       data-namespace-typo3-fluid="true">
 
 <f:if condition="{settings.currencies -> f:count()} > 1">
+    <f:asset.script identifier="update-currency" src="EXT:cart/Resources/Public/JavaScript/update_currency.js" />
     <f:form id="form-currency"
             class="form"
             name="currency"

@@ -1,6 +1,7 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
       data-namespace-typo3-fluid="true">
 
+<f:asset.script identifier="prevent-multi-submit" src="EXT:cart/Resources/Public/JavaScript/prevent_multi_submit.js" />
 <f:form id="form-order" class="form"
         name="orderItem"
         object="{orderItem}"
@@ -12,20 +13,6 @@
             <div class="column">
                 <f:render partial="Cart/OrderForm/Address/Billing" arguments="{cart:cart, billingAddress:billingAddress}"/>
                 <f:if condition="{settings.showCartAction.showPartials.shippingAddressForm}">
-                    <div class="form-list shipping-same-as-billing-wrapper">
-                        <div class="control">
-                            <label for="shipping-same-as-billing">
-                                <f:form.checkbox property="shippingSameAsBilling"
-                                                 id="shipping-same-as-billing"
-                                                 value="1"
-                                                 title="{f:translate(key:'tx_cart.same_address')}"
-                                                 additionalAttributes="{f:if(condition:'{cart.shippingSameAsBilling}', then: '{checked: \'checked\'}')}"/>
-                                <span>
-                                    <f:translate key="tx_cart.same_address"/>
-                                </span>
-                            </label>
-                        </div>
-                    </div>
                     <f:render partial="Cart/OrderForm/Address/Shipping" arguments="{cart:cart, shippingAddress:shippingAddress}"/>
                 </f:if>
             </div>
