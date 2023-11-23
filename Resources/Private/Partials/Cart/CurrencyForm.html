@@ -2,13 +2,15 @@
       data-namespace-typo3-fluid="true">
 
 <f:if condition="{settings.currencies -> f:count()} > 1">
+    <f:asset.script identifier="update-currency" src="EXT:cart/Resources/Public/JavaScript/update_currency.js" />
     <f:form class="form form-currency"
             name="currency"
+            extensionName="Cart"
             pluginName="Cart"
             controller="Cart\Currency"
             action="update"
-            pageType="2278001"
-            method="post">
+            method="post"
+            pageType="{settings.addToCartByAjax}">
         <div class="row top-buffer">
             <div class="col-sm-6 col-md-2">
                 <div class="input-box">
@@ -22,4 +24,5 @@
         </div>
     </f:form>
 </f:if>
+
 </html>

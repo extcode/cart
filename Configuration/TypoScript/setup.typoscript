@@ -10,20 +10,20 @@ ajaxCart {
         no_cache = 1
     }
 
-    10 < tt_content.list.20.cart_cart
+    10 = EXTBASEPLUGIN
+    10 {
+        vendorName = Extcode
+        extensionName = Cart
+        pluginName = Cart
+        controller = Product
+    }
 }
 
 ajaxCurrency = PAGE
 ajaxCurrency {
     typeNum = 2278003
 
-    config {
-        disableAllHeaderCode = 1
-        xhtml_cleaning = 0
-        admPanel = 0
-        debug = 0
-        no_cache = 1
-    }
+    config < ajaxCart.config
 
     10 < tt_content.list.20.cart_currency
 }

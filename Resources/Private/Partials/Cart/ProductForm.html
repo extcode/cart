@@ -1,6 +1,8 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
       data-namespace-typo3-fluid="true">
 
+<f:asset.script identifier="prevent-multi-submit" src="EXT:cart/Resources/Public/JavaScript/prevent_multi_submit.js" />
+
 <div class="row top-buffer">
     <div class="col-sm-6 text-right pull-right">
         <f:link.action controller="Cart\Cart" action="clear" class="btn btn-danger">
