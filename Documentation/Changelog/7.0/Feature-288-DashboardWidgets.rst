@@ -13,8 +13,9 @@ As a replacement for the backend module, the first two widgets were added.
 To use the widgets the dashboard (`typo3/cms-dashboard`) must be installed.
 
 .. figure:: ../../Images/Widgets/CartDashboardWidgets.png
-   :width: 800	
+   :width: 800
    :alt: Cart Dashboard Widgets
+   :class: with-shadow
 
    New Widgets: List of Paid but not Shipped Orders, Orders per Day
 

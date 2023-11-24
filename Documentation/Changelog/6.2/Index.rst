@@ -10,7 +10,7 @@
    :depth: 1
 
 Breaking Changes
-^^^^^^^^^^^^^^^^
+----------------
 
 .. toctree::
    :maxdepth: 1

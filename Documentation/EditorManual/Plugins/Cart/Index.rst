@@ -1,9 +1,13 @@
 .. include:: ../../../Includes.txt
+.. _plugin_cart_cart:
 
-Cart: Warenkorb
-===============
+===================
+Plugin "Cart: Cart"
+===================
 
-Diese Plugin zeigt den aktuellen Warenkorb, die darin enthaltenen Produkte und das Formular für die Bestellung.
+This plugin shows the current status of the cart, the products it contains and
+the form to complete the order.
 
 .. TIP::
-   Sollen im Warenkorb Coupons verwendet werden können, müssen unter Datensatzsammlung die Seiten angegeben werden, in denen Coupons gespeichert sind.
+   To allow vouchers in the cart you have enter the pages which contain the
+   vouchers in the "Record Storage Page" of the plugin.

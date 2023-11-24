@@ -1,9 +1,10 @@
 .. include:: ../../../../../Includes.txt
 
-showCartAction-Configuration
+============================
+showCartAction Configuration
 ============================
 
-::
+.. code-block:: typoscript
 
    plugin.tx_cart {
        settings {

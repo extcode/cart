@@ -1,9 +1,10 @@
 .. include:: ../../../../Includes.txt
 
+======================
 Checkbox Configuration
 ======================
 
-::
+.. code-block:: typoscript
 
    plugin.tx_cart {
        settings {

@@ -1,7 +1,7 @@
 .. include:: ../../Includes.txt
 
-Datensätze
-----------
+Records
+-------
 
 .. toctree::
    :maxdepth: 5

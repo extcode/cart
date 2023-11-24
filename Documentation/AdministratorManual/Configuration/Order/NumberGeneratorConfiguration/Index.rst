@@ -1,6 +1,7 @@
 .. include:: ../../../../Includes.txt
 .. _number-generator-configuration:
 
+==============================
 Number Generator Configuration
 ==============================
 
@@ -14,7 +15,7 @@ order number.
 As in extcode/cart 7.x, the respective counter is stored and updated in
 the `sys_registry`-table.
 
-Folgende Optionen stehen zur Verfügung
+The following options are available
 
 .. container:: table-row
 
@@ -58,7 +59,7 @@ The configuration via the options is the same for all numbers using the
 `generateNumber()` method from the `\Extcode\Cart\EventListener\Order\Create\Number`.
 The new counter for the order number should be 23:
 
-::
+.. code-block:: typoscript
 
    services:
 

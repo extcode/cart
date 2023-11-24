@@ -1,23 +1,27 @@
 .. include:: ../../../Includes.txt
 
-.. _de_de_modules-orders:
+.. _en_en_modules-orders:
 
-Bestellungen
-============
+======
+Orders
+======
 
-Das Modul "Bestellungen" listet alle Bestellungen einer Seite (Ordner) auf. Dabei bietet Sie im Gegensatz zur Standard
-Listenansicht eine optimierte Darstellung und bessere Suchmöglichkeiten.
+The backend module "Orders" lists all orders which exists within a certain page
+(folder). In contrast to the default view offers this module an optimized
+view on the orders and better filter options.
 
 .. figure:: ../../../Images/Modules/Orders/List.png
    :width: 640
-   :alt: Liste aller Bestellungen eines Ordners
+   :alt: List of all orders in a folder
+   :class: with-shadow
 
-   Liste aller Bestellungen eines Ordners
+   List of all orders in a folder
 
 
 .. figure:: ../../../Images/Modules/Orders/Show.png
    :width: 640
-   :alt: Detailansicht einer Bestellung
+   :alt: Detail view of an order
+   :class: with-shadow
 
-   Detailansicht einer Bestellung
+   Detail view of an order
 

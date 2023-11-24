@@ -1,4 +1,5 @@
 .. include:: ../../Includes.txt
+.. _feature_392:
 
 ======================================
 Feature: 392 - Add Percentage Discount

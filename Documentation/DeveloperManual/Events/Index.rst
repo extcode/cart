@@ -1,11 +1,28 @@
 .. include:: ../../Includes.txt
 
+======
 Events
 ======
 
-The extcode/cart extension already uses events in some places, especially to integrate custom
+The extcode/cart extension uses events in some places, especially to integrate custom
 requirements in the ordering process. You can register your own EventListener for the following
 events:
+
+.. container:: table-row
+
+   Event Class
+      `\Extcode\Cart\Event\Cart\UpdateCountryEvent`
+   Description
+      This event is triggered when the user changes the country in the order
+      form.
+
+.. container:: table-row
+
+   Event Class
+      `\Extcode\Cart\Event\Cart\UpdateCurrencyEvent`
+   Description
+      This event is triggered when the user changes the currency in the order
+      form.
 
 .. container:: table-row
 
@@ -93,7 +110,8 @@ events:
    Event Class
       `\Extcode\Cart\Event\Order\PersistOrderEvent`
    Description
-      TODO
+      This event is triggered by an EventListener which listens to `\Extcode\Cart\Event\Order\CreateEvent` so its quite at the beginning of the creation of an order.
+       This event is used of the extension itself to store the order with all needed information (addresses, products, tax classes, usage of coupons, payment, shipping and other data related to an order).
 
 .. container:: table-row
 
@@ -116,3 +134,11 @@ events:
       process. Here, among other things, e-mails are sent. Other extensions can
       use this event to generate PDF documents, register users or assign
       registered users to another user group.
+
+.. container:: table-row
+
+   Event Class
+      `Extcode\Cart\Event\Order\UpdateServiceEvent`
+   Description
+      This event is triggered when the payment or shipping of an order is edited
+      in the backend.

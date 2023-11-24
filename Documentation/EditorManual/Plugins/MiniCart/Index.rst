@@ -1,6 +1,8 @@
 .. include:: ../../../Includes.txt
+.. _plugin_cart_mini_cart:
 
-Cart: Mini-Warenkorb
-====================
+========================
+Plugin "Cart: Mini Cart"
+========================
 
-Dieses Plugin kann als Miniwarenkorb eingebunden werden und gibt eine Kurzansicht des Warenkorbs aus.
+This plugin can be included as mini cart and gives a shortened view of the cart.

@@ -1,5 +1,6 @@
 .. include:: ../../Includes.txt
 
+===========
 6.1 Changes
 ===========
 
@@ -10,7 +11,7 @@
    :depth: 1
 
 Features
-^^^^^^^^
+--------
 
 .. toctree::
    :maxdepth: 1
@@ -20,7 +21,7 @@ Features
    Feature-*
 
 Important
-^^^^^^^^^
+---------
 
 .. toctree::
    :maxdepth: 1

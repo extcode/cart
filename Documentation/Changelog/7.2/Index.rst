@@ -10,7 +10,7 @@
    :depth: 1
 
 Features
-^^^^^^^^
+--------
 
 .. toctree::
    :maxdepth: 1
@@ -20,7 +20,7 @@ Features
    Feature-*
 
 Deprecation
-^^^^^^^^^^^
+-----------
 
 .. toctree::
    :maxdepth: 1

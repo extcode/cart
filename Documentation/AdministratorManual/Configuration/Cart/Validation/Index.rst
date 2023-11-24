@@ -2,13 +2,14 @@
 
 ..  _validation_configuration:
 
+========================
 Validation Configuration
 ========================
 
 Using this TypoScript configuration it is possible to change the validation for fields of the billing as well as shipping address.
 The partials for the display of the addresses evaluates this configuration if necessary and regulates both the output of the fields and whether the respective field is a mandatory field.
 
-::
+.. code-block:: typoscript
 
    plugin.tx_cart {
        settings {
@@ -53,7 +54,7 @@ Exemplarily the configuration possibilities of the fields are to be shown at the
 The default configuration validates the field created as mandatory.
 In the output there is a `*` for mandatory fields. At the input field `required` is set to true.
 
-::
+.. code-block:: typoscript
 
    plugin.tx_cart {
        settings {
@@ -70,7 +71,7 @@ In the output there is a `*` for mandatory fields. At the input field `required`
 
 In contrast, you can also use `Empty` instead of `NotEmpty`. The server then checks whether the field is empty. However, this option also ensures that the field is not rendered at all, i.e. it does not appear in the frontend.
 
-::
+.. code-block:: typoscript
 
    plugin.tx_cart {
        settings {
@@ -88,7 +89,7 @@ In contrast, you can also use `Empty` instead of `NotEmpty`. The server then che
 If no validation is set for a field, the field is output without `*`. The `required` attribute is not set. To remove the validation of fields from the default configuration you can use the `>` of TypoScript.
 It is necessary to remove the whole address field, not only the `validator` configuration.
 
-::
+.. code-block:: typoscript
 
    plugin.tx_cart {
        settings {

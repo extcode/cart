@@ -10,7 +10,7 @@
    :depth: 1
 
 Breaking
-^^^^^^^^
+--------
 
 .. toctree::
    :maxdepth: 1
@@ -20,7 +20,7 @@ Breaking
    Breaking-*
 
 Features
-^^^^^^^^
+--------
 
 .. toctree::
    :maxdepth: 1

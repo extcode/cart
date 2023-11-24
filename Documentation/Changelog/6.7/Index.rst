@@ -10,7 +10,7 @@
    :depth: 1
 
 Important
-^^^^^^^^^
+---------
 
 .. toctree::
    :maxdepth: 1
@@ -20,7 +20,7 @@ Important
    Important-*
 
 Features
-^^^^^^^^
+--------
 
 .. toctree::
    :maxdepth: 1

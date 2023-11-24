@@ -1,9 +1,11 @@
 .. include:: ../../../Includes.txt
 
+==================
 Main Configuration
 ==================
 
-::
+.. code-block:: typoscript
+   :caption: EXT:sitepackage/Configuration/TypoScript/setup.typoscript
 
    plugin.tx_cart {
        settings {

@@ -1,5 +1,6 @@
 .. include:: ../../../Includes.txt
 
+=======
 Caching
 =======
 
@@ -8,7 +9,7 @@ be used to specifically clear the cache of all pages with a product plugin.
 
 PageTS:
 
-::
+.. code-block:: typoscript
 
    # clearCacheCmd for product folder with page id 35
    [globalVar = TSFE:id=35]

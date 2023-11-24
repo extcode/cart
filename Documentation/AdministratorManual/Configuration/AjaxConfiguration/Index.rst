@@ -1,5 +1,6 @@
 .. include:: ../../../Includes.txt
 
+==================
 AJAX Configuration
 ==================
 
@@ -7,7 +8,7 @@ To add products to the shopping cart via AJAX request, a configuration for a
 custom page type is needed, because in this case you don't want to receive the
 completely rendered page as response, but only a JSON object,
 
-::
+.. code-block:: typoscript
 
    ajaxCart = PAGE
    ajaxCart {

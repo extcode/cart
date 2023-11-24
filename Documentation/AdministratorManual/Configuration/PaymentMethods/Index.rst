@@ -1,5 +1,6 @@
 .. include:: ../../../Includes.txt
 
+===============
 Payment methods
 ===============
 
@@ -87,14 +88,14 @@ should be preselected.
       order instead of displaying the confirmation page.
 
 Zone configuration
-""""""""""""""""""
+==================
 
 If no individual country configuration can be found, it is also possible to
 work with zones in the TypoScript.
 This saves a lot of configuration work if you want to deliver to many
 countries.
 
-::
+.. code-block:: typoscript
 
    plugin.tx_cart {
        payments {
@@ -138,11 +139,11 @@ countries.
    * The list of zone configurations is then looked through. The first matching configuration is used.
 
 Deactivate payment methods
-""""""""""""""""""""""""""
+==========================
 
-At the moment, the processing does not allow to completely dispense with the
-payment methods. A payment method must always be specified be specified. If
-there is only one payment method, the selection block can be hidden.
+At the moment, the existence of a payment method is required for the processing
+of an order. That means that at least one payment method must be specified.
+In this case the selection block for the payment can be hidden.
 
 ::
 
