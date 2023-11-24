@@ -2,6 +2,7 @@
 
 ..  _configuration_shipping_method_flex_price:
 
+===========
 Flex Prices
 ===========
 
@@ -10,7 +11,7 @@ depend on the amount of products in cart. The cart extension provides a service 
 default implementation which can handle different kinds of dependencies.
 A common condition is the amount of physical products in cart.
 
-::
+.. code-block:: typoscript
 
    plugin.tx_cart {
        shippings {
@@ -90,7 +91,7 @@ A common condition is the amount of physical products in cart.
       Defines the extra value.
 
 Extending Service Calculation
------------------------------
+=============================
 
 Sometimes the shipping method has some special rules.
 In Germany the Post provides the so called "Bücherversand" for books. Some rules

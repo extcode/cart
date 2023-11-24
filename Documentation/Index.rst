@@ -2,9 +2,9 @@
 
 .. _start:
 
-===========================
-EXT: Cart
-===========================
+====
+Cart
+====
 
 .. image:: Images/cart_logo.png
    :height: 200
@@ -13,23 +13,23 @@ EXT: Cart
 
 .. only:: html
 
-   :Classification:
+   :Extension key:
       cart
+
+   :Package name:
+      extcode/cart
 
    :Version:
       |release|
 
    :Language:
-      en (de)
+      en
 
    :Description:
       Cart is an extension providing a shopping solution for TYPO3.
 
    :Keywords:
       cart, shop, shopping, e-commerce, ecommerce, checkout, payment
-
-   :Copyright:
-      2018
 
    :Author:
       Daniel Gohlke
@@ -38,22 +38,99 @@ EXT: Cart
       ext@extco.de
 
    :License:
-      This document is published under the Open Publication License
-      available from http://www.opencontent.org/openpub/
+      This document is published under the
+      `Open Publication License <https://www.opencontent.org/openpub/>`__.
 
    :Rendered:
       |today|
 
-   The content of this document is related to TYPO3,
-   a GNU/GPL CMS/Framework available from `www.typo3.org <https://typo3.org/>`_.
+-----
 
-   **Table of Contents**
+.. container:: row m-0 p-0
+
+   .. container:: col-12 col-md-6 pl-0 pr-3 py-3 m-0
+
+      .. container:: card px-0 h-100
+
+         .. rst-class:: card-header h3
+
+            .. rubric:: :ref:`Introduction <introduction>`
+
+         .. container:: card-body
+
+            Introduction to the extension cart, general information.
+
+   .. container:: col-12 col-md-6 pl-0 pr-3 py-3 m-0
+
+      .. container:: card px-0 h-100
+
+         .. rst-class:: card-header h3
+
+            .. rubric:: :ref:`Quickstart <quick_start>`
+
+         .. container:: card-body
+
+            How to setup a minimal working installation.
+
+   .. container:: col-12 col-md-6 pl-0 pr-3 py-3 m-0
+
+      .. container:: card px-0 h-100
+
+         .. rst-class:: card-header h3
+
+            .. rubric:: :ref:`Administrator Manual <administrator_manual>`
+
+         .. container:: card-body
+
+            Install the extension and configure it correctly.
+
+   .. container:: col-12 col-md-6 pl-0 pr-3 py-3 m-0
+
+      .. container:: card px-0 h-100
+
+         .. rst-class:: card-header h3
+
+            .. rubric:: :ref:`Editor Manual <editor_manual>`
+
+         .. container:: card-body
+
+            Information about how to use this extension in the backend.
+
+   .. container:: col-12 col-md-6 pl-0 pr-3 py-3 m-0
+
+      .. container:: card px-0 h-100
+
+         .. rst-class:: card-header h3
+
+            .. rubric:: :ref:`Developer Manual <developer_manual>`
+
+         .. container:: card-body
+
+            Information about existing events to extend functionality.
+
+   .. container:: col-12 col-md-6 pl-0 pr-3 py-3 m-0
+
+      .. container:: card px-0 h-100
+
+         .. rst-class:: card-header h3
+
+            .. rubric:: :ref:`Changelog <changelog>`
+
+         .. container:: card-body
+
+            Changes of this extension during updates.
+
+
+
+.. Table of Contents
 
 .. toctree::
-   :maxdepth: 5
+   :maxdepth: 2
    :titlesonly:
+   :hidden:
 
    Introduction/Index
+   QuickStart/Index
    AdministratorManual/Index
    DeveloperManual/Index
    EditorManual/Index

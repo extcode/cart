@@ -1,11 +1,13 @@
 .. include:: ../../../Includes.txt
+.. _adminstration_configuration_currencytranslationsconfiguration:
 
+==================================
 Currency Translation Configuration
 ==================================
 
 If you want to allow the user to display the prices in a different currency in the store, you can configure this via TypoScript.
 
-::
+.. code-block:: typoscript
 
    plugin.tx_cart {
        settings {
@@ -27,7 +29,8 @@ If you want to allow the user to display the prices in a different currency in t
    Data type
       int
    Description
-      Defines with which the default currency of a new shopping cart should be.
+      Defines which of the existing currencies will be the default currency
+      of a new shopping cart.
    Default
       1
 

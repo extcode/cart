@@ -1,5 +1,7 @@
 .. include:: ../Includes.txt
+.. _administrator_manual:
 
+====================
 Administrator Manual
 ====================
 

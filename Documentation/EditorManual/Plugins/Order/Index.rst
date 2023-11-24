@@ -1,6 +1,8 @@
 .. include:: ../../../Includes.txt
+.. _plugin_cart_orders:
 
-Cart: Bestellungen
-==================
+=====================
+Plugin "Cart: Orders"
+=====================
 
-Dieses Plugin zeigt die Bestellung des angemeldeten Frontend Benutzers an.
+A logged in frontend user can see the orders with the help of this plugin.

@@ -1,5 +1,7 @@
 .. include:: ../Includes.txt
+.. _editor_manual:
 
+=============
 Editor Manual
 =============
 

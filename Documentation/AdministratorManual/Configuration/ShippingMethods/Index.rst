@@ -1,5 +1,6 @@
 .. include:: ../../../Includes.txt
 
+================
 Shipping methods
 ================
 
@@ -77,14 +78,14 @@ should be preselected.
       ID will be used.
 
 Zone configuration
-""""""""""""""""""
+==================
 
 If no individual country configuration can be found, it is also possible to
 work with zones in the TypoScript.
 This saves a lot of configuration work if you want to deliver to many
 countries.
 
-::
+.. code-block:: typoscript
 
    plugin.tx_cart {
        shippings {
@@ -130,13 +131,13 @@ countries.
    * The list of zone configurations is then looked through. The first matching configuration is used.
 
 Deactivate shipping methods
-"""""""""""""""""""""""""""
+===========================
 
-At the moment, the processing does not allow to completely dispense with the
-shipping methods. A shipping method must always be be specified. If there is
-only one shipping method, the selection block can be hidden.
+At the moment, the existence of a shipping method is required for the processing
+of an order. That means that at least one shipping method must be specified.
+In this case the selection block for the payment can be hidden.
 
-::
+.. code-block:: typoscript
 
    plugin.tx_cart {
         settings {

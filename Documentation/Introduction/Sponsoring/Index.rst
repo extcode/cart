@@ -1,5 +1,6 @@
 .. include:: ../../Includes.txt
 
+==========
 Sponsoring
 ==========
 

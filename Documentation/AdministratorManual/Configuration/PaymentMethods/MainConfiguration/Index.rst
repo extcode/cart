@@ -1,9 +1,11 @@
 .. include:: ../../../../Includes.txt
+.. _adminstration_configuration_paymentmethods_mainconfiguration:
 
+==================
 Main configuration
 ==================
 
-::
+.. code-block:: typoscript
 
    plugin.tx_cart {
        settings {

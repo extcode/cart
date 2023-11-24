@@ -1,6 +1,7 @@
 .. include:: ../../../../Includes.txt
 
-Cart-Controller-Konfiguration
+=============================
+Cart-Controller Configuration
 =============================
 
 .. toctree::

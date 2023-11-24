@@ -1,6 +1,7 @@
 .. include:: ../../../Includes.txt
 
-Controller-Action-Konfiguration
+===============================
+Controller-Action Configuration
 ===============================
 
 .. toctree::

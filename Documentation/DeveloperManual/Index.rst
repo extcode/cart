@@ -1,5 +1,7 @@
 .. include:: ../Includes.txt
+.. _developer_manual:
 
+================
 Developer Manual
 ================
 

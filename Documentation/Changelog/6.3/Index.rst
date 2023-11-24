@@ -10,7 +10,7 @@
    :depth: 1
 
 Important
-^^^^^^^^^
+---------
 
 .. toctree::
    :maxdepth: 1

@@ -1,10 +1,14 @@
 .. include:: ../../../Includes.txt
 
-Bestellungen
-============
+======
+Orders
+======
 
-Die Datensätze der Bestellungen enthalten die Daten einer Bestellung und sollen später nicht mehr verändert werden.
-Im Backend lassen sich die Datensätze auflisten und öffnen, die Änderungen sind  hier nicht möglich. Bitte verwenden
-Sie das bereitgestellte Backend-Modul :ref:`de_de_modules-orders`. Dieses Backend-Modul bietet einen optimierten Filter um
-Bestellungen schnell aufzufinden. Die übersichtlichere Darstellung einzelner Bestellungen ermöglicht eine bessere
-Abarbeitung eingegangener Bestellungen und Veränderung des Status für die Bezahlung und den Versand.
+The data records of the orders contain the data of an order and should be seen as immutable.
+The data records can be listed and opened in the backend, but changes are not possible.
+
+It's recommended to use the provided backend module :ref:`en_en_modules-orders`.
+This backend module offers an optimized filter to find orders quickly. The
+clearer display of individual orders enables better processing of incoming
+orders and processing of incoming orders and changing the status for payment
+and shipping.
