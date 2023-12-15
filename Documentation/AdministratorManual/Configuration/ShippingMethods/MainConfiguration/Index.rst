@@ -5,7 +5,7 @@
 Main configuration
 ==================
 
-::
+.. code-block:: typoscript
 
    plugin.tx_cart {
        settings {
@@ -36,66 +36,49 @@ Main configuration
        }
    }
 
-.. container:: table-row
+plugin.tx_cart.shippings.countries
+==================================
 
-   Property
-      plugin.tx_cart.shippings.countries.de.preset
-   Data type
-      int
-   Description
-      Defines which shipping method is selected by default if the user has not yet selected another shipping method.
-      If the shipping method is not defined when the destination country is changed, the shipping method defined here for the destination country is also selected.
+.. confval:: de.preset
 
-.. container:: table-row
+   :Type: int
 
-   Property
-      plugin.tx_cart.shippings.countries.de.options.n
-   Data type
-      array
-   Description
-      You can configure N different shipping methods.
-   Default
-      options.1
+   Defines which shipping method is selected by default if the user has not yet selected another shipping method.
+   If the shipping method is not defined when the destination country is changed, the shipping method defined here for the destination country is also selected.
 
-.. container:: table-row
+.. confval:: de.options.n
 
-   Property
-      plugin.tx_cart.shippings.countries.de.options.n.title
-   Data type
-      string
-   Description
-      Name of the shipping type (for example: Standard, Express).
+   :Type: array
+   :Default: options.1
 
-.. container:: table-row
+   You can configure N different shipping methods.
 
-   Property
-      plugin.tx_cart.shippings.countries.de.options.n.extra
-   Data type
-      float
-   Description
-      Shipping costs that are to be billed to the customer (for example: 1.50).
-      The currency depends on the standard configuration.
-   Default
-      0.00
+.. confval:: de.options.n.title
 
-.. container:: table-row
+   :Type: string
 
-   Property
-      plugin.tx_cart.shippings.countries.de.options.n.taxClassId
-   Data type
-      int
-   Description
-      ID of the tax class for this payment method. The taxClassId must either be assignable to a defined tax class.
-      However, the values `-1` and `-2` are also allowed here.
-      `-1` The tax class for the calculation is based on the largest tax class of the products in the shopping cart.
-      `-2` The taxes are calculated as a percentage of the tax of the products in the shopping cart.
+   Name of the shipping type (for example: Standard, Express).
 
-.. container:: table-row
+.. confval:: de.options.n.extra
 
-   Property
-      plugin.tx_cart.shippings.countries.de.options.n.status
-   Data type
-      string
-   Description
-      The status that the order with this shipping method should have by default.
+   :Type: float
+   :Default: 0.00
+
+   Shipping costs that are to be billed to the customer (for example: 1.50).
+   The currency depends on the standard configuration.
+
+.. confval:: de.options.n.taxClassId
+
+   :Type: int
+
+   ID of the tax class for this payment method. The taxClassId must either be assignable to a defined tax class.
+   However, the values `-1` and `-2` are also allowed here.
+   `-1` The tax class for the calculation is based on the largest tax class of the products in the shopping cart.
+   `-2` The taxes are calculated as a percentage of the tax of the products in the shopping cart.
+
+.. confval:: de.options.n.status
+
+   :Type: string
+
+   The status that the order with this shipping method should have by default.
 

@@ -24,71 +24,56 @@ should be preselected.
    The country of the shipping address, even if a different shipping address
    was specified, is not used.
 
-.. container:: table-row
+Country configuration: plugin.tx_cart.payments.countries
+========================================================
 
-   Property
-      plugin.tx_cart.payments.countries.de.options.n.free.from
-   Data type
-      float
-   Description
-      If the gross price of the products is greater than or equal to the
-      specified value, the price for the payment method is 0.00.
+.. confval:: de.options.n.free.from
 
-.. container:: table-row
+   :Type: float
 
-   Property
-      plugin.tx_cart.payments.countries.de.options.n.free.until
-   Data type
-      float
-   Description
-      If the gross price of the products is less than or equal to the
-      specified value, the price for the payment method is 0.00.
+   If the gross price of the products is greater than or equal to the
+   specified value, the price for the payment method is 0.00.
 
-.. container:: table-row
+.. confval:: de.options.n.free.until
 
-   Property
-      plugin.tx_cart.payments.countries.de.options.n.fallBackId
-   Data type
-      int
-   Description
-      If the payment method is not available, the payment method with
-      this ID is used.
+   :Type: float
 
-.. container:: table-row
+   If the gross price of the products is less than or equal to the
+   specified value, the price for the payment method is 0.00.
 
-   Property
-      plugin.tx_cart.payments.countries.de.options.n.available.from
-   Data type
-      float
-   Description
-      This payment method is only available if the gross price of the products
-      is greater than or equal to the specified value, otherwise the fallback
-      payment method is used.
+.. confval:: de.options.n.fallBackId
 
-.. container:: table-row
+   :Type: int
 
-   Property
-      plugin.tx_cart.payments.countries.de.options.n.available.until
-   Data type
-      float
-   Description
-      This payment method is only available if the gross price of the products
-      is less than or equal to the specified value, otherwise the fallback
-      payment method is used.
+   If the payment method is not available, the payment method with
+   this ID is used.
 
-.. container:: table-row
+.. confval:: de.options.n.available.from
 
-   Property
-      plugin.tx_cart.payments.countries.de.options.n.redirects.success.url
-   Data type
-      Text
-   Description
-      If the redirect URL is configured for the payment method used for an
-      order, the system redirects to the specified URL after a successful
-      order instead of displaying the confirmation page.
+   :Type: float
 
-Zone configuration
-==================
+   This payment method is only available if the gross price of the products
+   is greater than or equal to the specified value, otherwise the fallback
+   payment method is used.
+
+.. confval:: de.options.n.available.until
+
+   :Type: float
+
+   This payment method is only available if the gross price of the products
+   is less than or equal to the specified value, otherwise the fallback
+   payment method is used.
+
+.. confval:: de.options.n.redirects.success.url
+
+   :Type: Text
+
+   If the redirect URL is configured for the payment method used for an
+   order, the system redirects to the specified URL after a successful
+   order instead of displaying the confirmation page.
+
+Zone configuration: plugin.tx_cart.payments.zones
+=================================================
 
 If no individual country configuration can be found, it is also possible to
 work with zones in the TypoScript.
@@ -116,23 +101,17 @@ countries.
        }
    }
 
-.. container:: table-row
+.. confval:: n
 
-   Property
-      plugin.tx_cart.payments.zones.n
-   Data type
-      int
-   Description
-      You can configure up to n different zones.
+   :Type: int
 
-.. container:: table-row
+   You can configure up to n different zones.
 
-   Property
-      plugin.tx_cart.payments.zones.n.countries
-   Data type
-      int
-   Description
-      List of countries for which this configuration is valid.
+.. confval:: n.countries
+
+   :Type: int
+
+   List of countries for which this configuration is valid.
 
 .. NOTE::
    * The system first searches for a suitable configuration in the list of country configurations.
@@ -145,7 +124,7 @@ At the moment, the existence of a payment method is required for the processing
 of an order. That means that at least one payment method must be specified.
 In this case the selection block for the payment can be hidden.
 
-::
+.. code-block:: typoscript
 
    plugin.tx_cart {
         settings {
@@ -157,17 +136,7 @@ In this case the selection block for the payment can be hidden.
         }
    }
 
-.. container:: table-row
-
-   Property
-      plugin.tx_cart.settings.showCartAction.showPartials.paymentMethodForm
-   Data type
-      boolean
-   Description
-      Enables/disables the display and selection of configured payment methods
-      in the shopping cart.
-   Default
-      true
+See :ref:`plugin.tx_cart.settings.showCartAction.showPartials.paymentMethodForm <plugin_tx_cart_settings_showCartAction_showPartials_paymentMethodForm>`
 
 .. toctree::
    :maxdepth: 5
