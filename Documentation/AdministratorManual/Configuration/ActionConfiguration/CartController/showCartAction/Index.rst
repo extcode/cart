@@ -32,39 +32,35 @@ showCartAction Configuration
        }
    }
 
-.. container:: table-row
-
-   Property
-      plugin.tx_cart.settings.showCartAction.showPartials.paymentMethodForm
-   Data type
-      boolean
-   Description
-      Enables/disables the display and selection of configured payment methods
-      in the shopping cart.
-   Default
-      true
 
 
-.. container:: table-row
+plugin.tx_cart.settings.showCartAction.showPartials
+===================================================
 
-   Property
-      plugin.tx_cart.settings.showCartAction.showPartials.shippingMethodForm
-   Data type
-      boolean
-   Description
-      Enables/disables the display and selection of configured shipping methods
-      in the shopping cart.
-   Default
-      true
+.. _plugin_tx_cart_settings_showCartAction_showPartials_paymentMethodForm:
 
-.. container:: table-row
+.. confval:: paymentMethodForm
 
-   Property
-      plugin.tx_cart.settings.showCartAction.showPartials.couponForm
-   Data type
-      boolean
-   Description
-      Enables/disables the display of coupons in the shopping cart. The block
-      for the input as well as for the and for the display will be shown/hidden.
-   Default
-      true
+   :Type: boolean
+   :Default: true
+
+   Enables/disables the display and selection of configured payment methods
+   in the shopping cart.
+
+.. _plugin_tx_cart_settings_showCartAction_showPartials_shippingMethodForm:
+
+.. confval:: shippingMethodForm
+
+   :Type: boolean
+   :Default: true
+
+   Enables/disables the display and selection of configured shipping methods
+   in the shopping cart.
+
+.. confval:: couponForm
+
+   :Type: boolean
+   :Default: true
+
+   Enables/disables the display of coupons in the shopping cart. The block
+   for the input as well as for the display will be shown/hidden.

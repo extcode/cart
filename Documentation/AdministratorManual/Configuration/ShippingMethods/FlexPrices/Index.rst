@@ -52,14 +52,13 @@ A common condition is the amount of physical products in cart.
        }
    }
 
-.. container:: table-row
+plugin.tx_cart.shipping.countries.de
+====================================
+.. confval:: options.N.extra
 
-   Property
-      plugin.tx_cart.shipping.countries.de.options.N.extra
-   Data type
-      string
-   Description
-      * by_price
+   :Type: string
+
+   * by_price
       * by_price_of_physical_products
       * by_quantity
       * by_number_of_physical_products
@@ -72,26 +71,20 @@ A common condition is the amount of physical products in cart.
       * by_service_attribute_3_sum
       * by_service_attribute_3_max
 
-.. container:: table-row
+.. confval:: options.N.extra.M.value
 
-   Property
-      plugin.tx_cart.shipping.countries.de.options.N.extra.M.value
-   Data type
-      int
-   Description
-      Defines the matching condition.
+   :Type: int
 
-.. container:: table-row
+   Defines the matching condition.
 
-   Property
-      plugin.tx_cart.shipping.countries.de.options.N.extra.M.extra
-   Data type
-      float
-   Description
-      Defines the extra value.
+.. confval:: options.N.extra.M.extra
+
+   :Type: float
+
+   Defines the extra value.
 
 Extending Service Calculation
-=============================
+-----------------------------
 
 Sometimes the shipping method has some special rules.
 In Germany the Post provides the so called "Bücherversand" for books. Some rules
@@ -105,7 +98,7 @@ Such special rules cannot be mapped using TypoScript configurations. Therefore, 
 separate service class can be implemented for a method, which can then return the
 calculated price to the shopping cart.
 
-::
+.. code-block:: typoscript
 
    plugin.tx_cart {
        shippings {
@@ -125,15 +118,12 @@ calculated price to the shopping cart.
        }
    }
 
-.. container:: table-row
+.. confval:: options.N.className
 
-   Property
-      plugin.tx_cart.shipping.countries.de.options.N.className
-   Data type
-      string
-   Description
-      Defines the class which implements the `\Extcode\Cart\Domain\Model\Cart\ServiceInterface`.
-      This allows you to implement your own service cost calculation per service method.
-      A valid case is, that you have to decide between `serviceAttribute1` (e.g. weight) and
-      `service_attribute2` (e.g. size). This is not configurable through TypoScript and heighly
-      depends on your delivery service.
+   :Type: string
+
+   Defines the class which implements the `\Extcode\Cart\Domain\Model\Cart\ServiceInterface`.
+   This allows you to implement your own service cost calculation per service method.
+   A valid case is, that you have to decide between `serviceAttribute1` (e.g. weight) and
+   `service_attribute2` (e.g. size). This is not configurable through TypoScript and heighly
+   depends on your delivery service.

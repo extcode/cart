@@ -29,120 +29,87 @@ but also configured via TypoScript.
        }
    }
 
-.. container:: table-row
+plugin.tx_cart.mail
+===================
 
-   Property
-      plugin.tx_cart.mail.buyer.fromAddress
-   Data type
-      string
-   Description
-      Defines from which sender address the e-mails are sent to the buyer.
+.. confval:: buyer.fromAddress
 
-.. container:: table-row
+   :Type: string
 
-   Property
-      plugin.tx_cart.mail.buyer.ccAddress
-   Data type
-      string
-   Description
-      Defines to which addresses the e-mail should be sent in CC (Carbon Copy).
-      Multiple recipients can be given separated by commas.
+   Defines from which sender address the e-mails are sent to the buyer.
 
-.. container:: table-row
+.. confval:: buyer.ccAddress
 
-   Property
-      plugin.tx_cart.mail.buyer.bccAddress
-   Data type
-      string
-   Description
-      Defines to which addresses the e-mail should be sent in BCC (Blind Carbon Copy).
-      Multiple recipients can be given separated by commas.
+   :Type: string
 
-.. container:: table-row
+   Defines to which addresses the e-mail should be sent in CC (Carbon Copy).
+   Multiple recipients can be given separated by commas.
 
-   Property
-      plugin.tx_cart.mail.buyer.replyToAddress
-   Data type
-      string
-   Description
-      Defines to which address should be used as Reply To.
-      This will override the ['MAIL']['defaultMailReplyToAddress'] configuration.
+.. confval:: buyer.bccAddress
 
-.. container:: table-row
+   :Type: string
 
-   Property
-      plugin.tx_cart.mail.buyer.attachments.n
-   Data type
-      array
-   Description
-      Defines one or more e-mail attachments to be sent to the buyer.
-      These can be, for example, documents with the general terms and conditions.
+   Defines to which addresses the e-mail should be sent in BCC (Blind Carbon Copy).
+   Multiple recipients can be given separated by commas.
 
-.. container:: table-row
+.. confval:: buyer.replyToAddress
 
-   Property
-      plugin.tx_cart.mail.buyer.attachDocuments.n
-   Data type
-      array
-   Description
-      Defines one or more e-mail attachments of the generated PDF documents to be sent to the buyer.
-      This can be the order confirmation, the invoice or a separate document.
+   :Type: string
 
-.. container:: table-row
+   Defines to which address should be used as Reply To.
+   This will override the ['MAIL']['defaultMailReplyToAddress'] configuration.
 
-   Property
-      plugin.tx_cart.mail.seller.fromAddress
-   Data type
-      string
-   Description
-      Defines from which sender address the e-mails are sent to the seller/shop operator.
+.. confval:: buyer.attachments.n
 
-.. container:: table-row
+   :Type: array
 
-   Property
-      plugin.tx_cart.mail.seller.toAddress
-   Data type
-      string
-   Description
-      Defines to which recipient addresses the e-mails to the seller/shop operator are sent.
-      Multiple recipients can be given separated by commas.
+   Defines one or more e-mail attachments to be sent to the buyer.
+   These can be, for example, documents with the general terms and conditions.
 
-.. container:: table-row
+.. confval:: buyer.attachDocuments.n
 
-   Property
-      plugin.tx_cart.mail.buyer.ccAddress
-   Data type
-      string
-   Description
-      Defines to which addresses the e-mail should be sent in CC (Carbon Copy).
-      Multiple recipients can be given separated by commas.
+   :Type: array
 
-.. container:: table-row
+   Defines one or more e-mail attachments of the generated PDF documents to be sent to the buyer.
+   This can be the order confirmation, the invoice or a separate document.
 
-   Property
-      plugin.tx_cart.mail.buyer.bccAddress
-   Data type
-      string
-   Description
-      Defines to which addresses the e-mail should be sent in BCC (Blind Carbon Copy).
-      Multiple recipients can be given separated by commas.
+.. confval:: seller.fromAddress
 
-.. container:: table-row
+   :Type: string
 
-   Property
-      plugin.tx_cart.mail.seller.attachments.n
-   Data type
-      array
-   Description
-      Defines one or more e-mail attachments to be sent to the seller.
-      These can be, for example, documents with the general terms and conditions.
+   Defines from which sender address the e-mails are sent to the seller/shop operator.
 
-.. container:: table-row
+.. confval:: seller.toAddress
 
-   Property
-      plugin.tx_cart.mail.seller.attachDocuments.n
-   Data type
-      array
-   Description
-      Defines one or more e-mail attachments of the generated PDF documents to be sent to the seller.
-      This can be the order confirmation, the invoice or a separate document.
+   :Type: string
+
+   Defines to which recipient addresses the e-mails to the seller/shop operator are sent.
+   Multiple recipients can be given separated by commas.
+
+.. confval:: seller.ccAddress
+
+   :Type: string
+
+   Defines to which addresses the e-mail should be sent in CC (Carbon Copy).
+   Multiple recipients can be given separated by commas.
+
+.. confval:: seller.bccAddress
+
+   :Type: string
+
+   Defines to which addresses the e-mail should be sent in BCC (Blind Carbon Copy).
+   Multiple recipients can be given separated by commas.
+
+.. confval:: seller.attachments.n
+
+   :Type: array
+
+   Defines one or more e-mail attachments to be sent to the seller.
+   These can be, for example, documents with the general terms and conditions.
+
+.. confval:: seller.attachDocuments.n
+
+   :Type: array
+
+   Defines one or more e-mail attachments of the generated PDF documents to be sent to the seller.
+   This can be the order confirmation, the invoice or a separate document.

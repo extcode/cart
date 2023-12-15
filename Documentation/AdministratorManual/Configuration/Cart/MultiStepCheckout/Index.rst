@@ -20,16 +20,15 @@ checkout. The number of steps can be adjusted to individual needs.
        }
    }
 
-.. container:: table-row
+.. confval:: plugin.tx_cart.settings.cart.steps
 
-   Property
-      plugin.tx_cart.settings.cart.steps
-   Data type
-      int
-   Description
-      If this configuration is set, the checkout will be divided into the specified number of slots.
-      An HTML template file must then exist for each step.
-      If this configuration is not set, the one-step checkout is used as before.
+   :Type: int
+   :Default: empty
+
+   If this configuration is set, the checkout will be divided into the
+   specified number of slots.
+   An HTML template file must then exist for each step.
+   If this configuration is not set, the one-step checkout is used as before.
 
 In the following, the provided example with 4 steps shall be explained, so that a customization is as easy as possible.
 The four steps are divided as follows:

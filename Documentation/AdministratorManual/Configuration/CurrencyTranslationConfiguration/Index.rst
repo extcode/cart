@@ -22,62 +22,47 @@ If you want to allow the user to display the prices in a different currency in t
        }
    }
 
-.. container:: table-row
+plugin.tx_cart.settings.currency
+================================
 
-   Property
-      plugin.tx_cart.settings.currency.default
-   Data type
-      int
-   Description
-      Defines which of the existing currencies will be the default currency
-      of a new shopping cart.
-   Default
-      1
+.. confval:: default
 
-.. container:: table-row
+   :Type: int
+   :Default: 1
 
-   Property
-      plugin.tx_cart.settings.currency.n
-   Data type
-      array
-   Description
-      List of the different currencies available.
+   Defines which of the existing currencies will be the default currency
+   of a new shopping cart.
 
-.. container:: table-row
+.. confval:: n
 
-   Property
-      plugin.tx_cart.settings.currency.n.code
-   Data type
-      array
-   Description
-      Three-digit international currency code according
-      to `ISO 4217 (Wikipedia) <https://de.wikipedia.org/wiki/ISO_4217>`_.
-      This is among other things for different payment providers and as a
-      parameter for changing the currency in the shopping cart.
-   Default
-      EUR
+   :Type: array
 
-.. container:: table-row
+   List of the different currencies available.
 
-   Property
-      plugin.tx_cart.settings.currency.n.sign
-   Data type
-      array
-   Description
-      Currency symbol, if available for the currency.
-   Default
-      €
+.. confval:: n.code
 
-.. container:: table-row
+   :Type: array
+   :Default: EUR
 
-   Property
-      plugin.tx_cart.settings.currency.n.translation
-   Data type
-      array
-   Description
-      Currency conversion factor. The price of the products is divided by this factor.
-   Default
-      1.0
+   Three-digit international currency code according
+   to `ISO 4217 (Wikipedia) <https://de.wikipedia.org/wiki/ISO_4217>`_.
+   This is among other things for different payment providers and as a
+   parameter for changing the currency in the shopping cart.
+
+
+.. confval:: n.sign
+
+   :Type: array
+   :Default: €
+
+   Currency symbol, if available for the currency.
+
+.. confval:: n.translation
+
+   :Type: array
+   :Default: 1.0
+
+   Currency conversion factor. The price of the products is divided by this factor.
 
 .. NOTE::
    At the moment there is no automatism to update the factor and adjust it to a

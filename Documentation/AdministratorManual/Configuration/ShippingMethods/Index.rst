@@ -24,61 +24,49 @@ should be preselected.
    delivery address has been specified, the selection of the billing address
    is used as a basis.
 
-.. container:: table-row
+Country Configuration: plugin.tx_cart.shippings.countries
+=========================================================
 
-   Property
-      plugin.tx_cart.shippings.countries.de.options.n.free.from
-   Data type
-      float
-   Description
-      If the gross price of the products is greater than or equal to the
-      specified value, the price for the shipping method is 0.00.
-      This can be used for free shipping from a defined order value.
+.. confval:: de.options.n.free.from
 
-.. container:: table-row
+   :Type: float
 
-   Property
-      plugin.tx_cart.shippings.countries.de.options.n.free.until
-   Data type
-      float
-   Description
-      If the gross price of the products is less than or equal to the specified
-      value, the price for the shipping method is 0.00.
+   If the gross price of the products is greater than or equal to the
+   specified value, the price for the shipping method is 0.00.
+   This can be used for free shipping from a defined order value.
 
-.. container:: table-row
+.. confval:: de.options.n.free.until
 
-   Property
-      plugin.tx_cart.shippings.countries.de.options.n.available.from
-   Data type
-      Text
-   Description
-      Only if the gross price of the products is greater than or equal to the
-      specified value, this shipping method is available, otherwise the
-      fallback shipping method will be used.
+   :Type: float
 
-.. container:: table-row
+   If the gross price of the products is less than or equal to the specified
+   value, the price for the shipping method is 0.00.
 
-   Property
-      plugin.tx_cart.shippings.countries.de.options.n.available.until
-   Data type
-      Text
-   Description
-      Only if the gross price of the products is less than or equal to the
-      specified value, this shipping method is available, otherwise the
-      fallback shipping method will be used.
+.. confval:: de.options.n.available.from
 
-.. container:: table-row
+   :Type: Text
 
-   Property
-      plugin.tx_cart.shippings.countries.de.options.n.fallBackId
-   Data type
-      Text
-   Description
-      If the shipping method is not available, the shipping method with this
-      ID will be used.
+   Only if the gross price of the products is greater than or equal to the
+   specified value, this shipping method is available, otherwise the
+   fallback shipping method will be used.
 
-Zone configuration
-==================
+.. confval:: de.options.n.available.until
+
+   :Type: Text
+
+   Only if the gross price of the products is less than or equal to the
+   specified value, this shipping method is available, otherwise the
+   fallback shipping method will be used.
+
+.. confval:: de.options.n.fallBackId
+
+   :Type: Text
+
+   If the shipping method is not available, the shipping method with this
+   ID will be used.
+
+Zone configuration - plugin.tx_cart.shippings.zones
+===================================================
 
 If no individual country configuration can be found, it is also possible to
 work with zones in the TypoScript.
@@ -108,23 +96,17 @@ countries.
 
 |
 
-.. container:: table-row
+.. confval:: n
 
-   Property
-      plugin.tx_cart.shippings.zones.n
-   Data type
-      int
-   Description
-      You can configure up to n different zones.
+   :Type: int
 
-.. container:: table-row
+   You can configure up to n different zones.
 
-   Property
-      plugin.tx_cart.shippings.zones.n.countries
-   Data type
-      int
-   Description
-      List of countries for which this configuration is valid.
+.. confval:: n.countries
+
+   :Type: int
+
+   List of countries for which this configuration is valid.
 
 .. NOTE::
    * The system first searches for a suitable configuration in the list of country configurations.
@@ -149,17 +131,7 @@ In this case the selection block for the payment can be hidden.
         }
    }
 
-.. container:: table-row
-
-   Property
-      plugin.tx_cart.settings.showCartAction.showPartials.shippingMethodForm
-   Data type
-      boolean
-   Description
-      Enables/disables the display and selection of configured shipping methods
-      in the shopping cart.
-   Default
-      true
+See :ref:`plugin.tx_cart.settings.showCartAction.showPartials.shippingMethodForm <plugin_tx_cart_settings_showCartAction_showPartials_shippingMethodForm>`
 
 .. toctree::
    :maxdepth: 5
