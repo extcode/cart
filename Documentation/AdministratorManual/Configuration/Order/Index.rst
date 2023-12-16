@@ -1,12 +1,12 @@
 .. include:: ../../../Includes.txt
 
-===================
-Order Configuration
-===================
+=====
+Order
+=====
 
 .. toctree::
    :maxdepth: 5
    :titlesonly:
 
    Mail/Index
-   NumberGeneratorConfiguration/Index
+   NumberGenerator/Index

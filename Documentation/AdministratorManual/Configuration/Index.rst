@@ -11,10 +11,10 @@ Configuration
    Main/Index
    Cart/Index
    Order/Index
-   FormatConfiguration/Index
+   CurrencyFormat/Index
+   CurrencyTranslation/Index
    PaymentMethods/Index
    ShippingMethods/Index
-   CurrencyTranslationConfiguration/Index
-   ActionConfiguration/Index
-   AjaxConfiguration/Index
+   Action/Index
+   Ajax/Index
    Caching/Index

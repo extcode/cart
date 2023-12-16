@@ -1,10 +1,10 @@
 .. include:: ../../../../Includes.txt
 
-..  _multi_step_checkout_configuration:
+.. _multi_step_checkout:
 
-=================================
-Multi-Step Checkout Configuration
-=================================
+===================
+Multi-Step Checkout
+===================
 
 The possibility of a multi-step checkout can be switched on in the extension via a configuration variable.
 The default is still the one-step checkout. As an example, the extension provides templates for a four-step

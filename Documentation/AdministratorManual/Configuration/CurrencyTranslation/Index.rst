@@ -1,9 +1,9 @@
 .. include:: ../../../Includes.txt
-.. _adminstration_configuration_currencytranslationsconfiguration:
+.. _adminstration_currency_translation:
 
-==================================
-Currency Translation Configuration
-==================================
+====================
+Currency Translation
+====================
 
 If you want to allow the user to display the prices in a different currency in the store, you can configure this via TypoScript.
 

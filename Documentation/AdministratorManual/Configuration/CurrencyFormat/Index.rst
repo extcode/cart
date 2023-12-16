@@ -1,8 +1,8 @@
 .. include:: ../../../Includes.txt
 
-=============================
-Currency Format Configuration
-=============================
+===============
+Currency Format
+===============
 
 To make the templates a bit easier to use, TypoScript can be used to configure
 the format specifications for the price output.

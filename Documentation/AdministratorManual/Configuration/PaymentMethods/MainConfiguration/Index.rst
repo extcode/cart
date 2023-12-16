@@ -1,5 +1,5 @@
 .. include:: ../../../../Includes.txt
-.. _adminstration_configuration_paymentmethods_mainconfiguration:
+.. _adminstration_paymentmethods_mainconfiguration:
 
 ==================
 Main configuration

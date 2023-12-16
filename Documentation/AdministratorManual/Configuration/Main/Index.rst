@@ -1,8 +1,8 @@
 .. include:: ../../../Includes.txt
 
-==================
-Main Configuration
-==================
+====
+Main
+====
 
 .. code-block:: typoscript
    :caption: EXT:sitepackage/Configuration/TypoScript/constants.typoscript

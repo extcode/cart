@@ -1,8 +1,8 @@
 .. include:: ../../../../Includes.txt
 
-======================
-Checkbox Configuration
-======================
+==========
+Checkboxes
+==========
 
 .. code-block:: typoscript
 
