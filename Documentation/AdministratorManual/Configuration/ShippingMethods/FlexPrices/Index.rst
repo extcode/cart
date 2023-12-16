@@ -1,6 +1,6 @@
 .. include:: ../../../../Includes.txt
 
-..  _configuration_shipping_method_flex_price:
+..  _shipping_method_flex_price:
 
 ===========
 Flex Prices

@@ -1,9 +1,9 @@
 .. include:: ../../../../Includes.txt
 .. _number-generator-configuration:
 
-==============================
-Number Generator Configuration
-==============================
+================
+Number Generator
+================
 
 Order, invoice and delivery note numbers are created by EventListeners and
 stored at the order. These can be configured and thus customized via options

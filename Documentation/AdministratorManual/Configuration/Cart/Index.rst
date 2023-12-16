@@ -1,13 +1,14 @@
 .. include:: ../../../Includes.txt
 
-==================
-Cart Configuration
-==================
+====
+Cart
+====
 
 .. toctree::
    :maxdepth: 5
    :titlesonly:
 
-   Checkbox/Index
+   Checkboxes/Index
    Validation/Index
    MultiStepCheckout/Index
+   CardPartialsAndSummaryFields/Index

@@ -1,8 +1,8 @@
-.. include:: ../../../../../Includes.txt
+.. include:: ../../../../Includes.txt
 
-============================
-showCartAction Configuration
-============================
+================================
+Cart partials and summary fields
+================================
 
 .. code-block:: typoscript
 
@@ -64,3 +64,4 @@ plugin.tx_cart.settings.showCartAction.showPartials
 
    Enables/disables the display of coupons in the shopping cart. The block
    for the input as well as for the display will be shown/hidden.
+

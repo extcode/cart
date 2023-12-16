@@ -1,8 +1,8 @@
 .. include:: ../../../../Includes.txt
-.. _adminstration_configuration_order_mail:
-====================
-Email Configuration
-====================
+.. _adminstration_order_mail:
+=====
+Email
+=====
 
 Email addresses must be configured for sending emails. This can be done in the backend via the plugin,
 but also configured via TypoScript.

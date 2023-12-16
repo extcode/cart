@@ -1,5 +1,5 @@
 .. include:: ../../../../Includes.txt
-.. _adminstration_configuration_shippingmethods_mainconfiguration:
+.. _adminstration_shippingmethods_mainconfiguration:
 
 ==================
 Main configuration

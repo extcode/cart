@@ -1,10 +1,10 @@
 .. include:: ../../../../Includes.txt
 
-..  _validation_configuration:
+..  _validation:
 
-========================
-Validation Configuration
-========================
+==========
+Validation
+==========
 
 Using this TypoScript configuration it is possible to change the validation for fields of the billing as well as shipping address.
 The partials for the display of the addresses evaluates this configuration if necessary and regulates both the output of the fields and whether the respective field is a mandatory field.

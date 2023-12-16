@@ -57,10 +57,10 @@ Quick start
 
    Set in your `sitepackage/Configuration/TypoScript/setup.typoscript` fitting
    values for at least
-   :ref:`email<adminstration_configuration_order_mail>`,
-   :ref:`currencies<adminstration_configuration_currencytranslationsconfiguration>`,
-   :ref:`payments<adminstration_configuration_paymentmethods_mainconfiguration>` and
-   :ref:`shippings<adminstration_configuration_shippingmethods_mainconfiguration>`.
+   :ref:`email<adminstration_order_mail>`,
+   :ref:`currencies<adminstration_currencytranslationsconfiguration>`,
+   :ref:`payments<adminstration_paymentmethods_mainconfiguration>` and
+   :ref:`shippings<adminstration_shippingmethods_mainconfiguration>`.
 
 #. Set further TypoScript constants
 
