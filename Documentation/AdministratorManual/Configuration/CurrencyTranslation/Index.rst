@@ -33,13 +33,13 @@ plugin.tx_cart.settings.currency
    Defines which of the existing currencies will be the default currency
    of a new shopping cart.
 
-.. confval:: n
+.. confval:: <n>
 
    :Type: array
 
    List of the different currencies available.
 
-.. confval:: n.code
+.. confval:: <n>.code
 
    :Type: array
    :Default: EUR
@@ -50,21 +50,22 @@ plugin.tx_cart.settings.currency
    parameter for changing the currency in the shopping cart.
 
 
-.. confval:: n.sign
+.. confval:: <n>.sign
 
    :Type: array
    :Default: €
 
-   Currency symbol, if available for the currency.
+   Currency symbol, if available, for the currency.
 
-.. confval:: n.translation
+.. confval:: <n>.translation
 
    :Type: array
    :Default: 1.0
 
-   Currency conversion factor. The price of the products is divided by this factor.
+   Currency conversion factor.
+   The price of the products is divided by this factor.
 
 .. NOTE::
    At the moment there is no automatism to update the factor and adjust it to a
-   current value. With scheduler task, it should be possible to connect a
+   current value. With a scheduler task, it should be possible to connect a
    corresponding service quite quickly.

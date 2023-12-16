@@ -72,7 +72,7 @@ The parameter `plugin.tx_cart.settings.defaultCountry`
 plugin.tx_cart.shippings.countries
 ----------------------------------
 
-.. confval:: de.preset
+.. confval:: <country-code>.preset
 
    :Type: int
 
@@ -83,20 +83,20 @@ plugin.tx_cart.shippings.countries
    changed, the shipping method defined here for the destination country is
    also selected.
 
-.. confval:: de.options.n
+.. confval:: <country-code>.options.<n>
 
    :Type: array
    :Default: options.1
 
-   You can configure N different shipping methods.
+   You can configure n different shipping methods.
 
-.. confval:: de.options.n.title
+.. confval:: <country-code>.options.<n>.title
 
    :Type: string
 
    Name of the shipping type (for example: Standard, Express).
 
-.. confval:: de.options.n.extra
+.. confval:: <country-code>.options.<n>.extra
 
    :Type: float
    :Default: 0.00
@@ -104,7 +104,7 @@ plugin.tx_cart.shippings.countries
    Shipping costs that are to be billed to the customer (for example: 1.50).
    The currency depends on the standard configuration.
 
-.. confval:: de.options.n.taxClassId
+.. confval:: <country-code>.options.<n>.taxClassId
 
    :Type: int
 
@@ -118,7 +118,7 @@ plugin.tx_cart.shippings.countries
    * `-2` → The taxes are calculated as a percentage of the tax of the products
      in the shopping cart.
 
-.. confval:: de.options.n.status
+.. confval:: <country-code>.options.<n>.status
 
    :Type: string
 
@@ -131,7 +131,7 @@ Country Configuration
 plugin.tx_cart.shippings.countries
 ----------------------------------
 
-.. confval:: de.options.n.free.from
+.. confval:: <country-code>.options.<n>.free.from
 
    :Type: float
 
@@ -139,32 +139,32 @@ plugin.tx_cart.shippings.countries
    specified value, the price for the shipping method is 0.00.
    This can be used for free shipping from a defined order value.
 
-.. confval:: de.options.n.free.until
+.. confval:: <country-code>.options.<n>.free.until
 
    :Type: float
 
    If the gross price of the products is less than or equal to the specified
    value, the price for the shipping method is 0.00.
 
-.. confval:: de.options.n.available.from
+.. confval:: <country-code>.options.<n>.available.from
 
-   :Type: Text
+   :Type: float
 
    Only if the gross price of the products is greater than or equal to the
    specified value, this shipping method is available, otherwise the
    fallback shipping method will be used.
 
-.. confval:: de.options.n.available.until
+.. confval:: <country-code>.options.<n>.available.until
 
-   :Type: Text
+   :Type: float
 
    Only if the gross price of the products is less than or equal to the
    specified value, this shipping method is available, otherwise the
    fallback shipping method will be used.
 
-.. confval:: de.options.n.fallBackId
+.. confval:: <country-code>.options.<n>.fallBackId
 
-   :Type: Text
+   :Type: int
 
    If the shipping method is not available, the shipping method with this
    ID will be used.
@@ -203,15 +203,15 @@ countries.
 
 |
 
-.. confval:: n
+.. confval:: <n>
 
    :Type: int
 
    You can configure up to n different zones.
 
-.. confval:: n.countries
+.. confval:: <n>.countries
 
-   :Type: int
+   :Type: array
 
    List of countries for which this configuration is valid.
 

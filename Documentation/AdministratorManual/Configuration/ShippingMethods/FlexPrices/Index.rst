@@ -54,7 +54,7 @@ A common condition is the amount of physical products in cart.
 
 plugin.tx_cart.shipping.countries.de
 ====================================
-.. confval:: options.N.extra
+.. confval:: options.<n>.extra
 
    :Type: string
 
@@ -71,13 +71,13 @@ plugin.tx_cart.shipping.countries.de
       * by_service_attribute_3_sum
       * by_service_attribute_3_max
 
-.. confval:: options.N.extra.M.value
+.. confval:: options.<n>.extra.<m>.value
 
    :Type: int
 
    Defines the matching condition.
 
-.. confval:: options.N.extra.M.extra
+.. confval:: options.<n>.extra.<m>.extra
 
    :Type: float
 
@@ -118,7 +118,7 @@ calculated price to the shopping cart.
        }
    }
 
-.. confval:: options.N.className
+.. confval:: options.<n>.className
 
    :Type: string
 
