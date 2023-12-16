@@ -1,10 +1,11 @@
 .. include:: ../../../../Includes.txt
 
-==========
-Checkboxes
-==========
+==================
+Consent Checkboxes
+==================
 
 .. code-block:: typoscript
+   :caption: EXT:cart/Configuration/TypoScript/setup.typoscript
 
    plugin.tx_cart {
        settings {

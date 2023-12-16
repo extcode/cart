@@ -4,15 +4,17 @@
 Configuration
 =============
 
+The following pages contain needed information for the configuration of the
+extension with TypoScript, PageTS and YAML.
+
 .. toctree::
    :maxdepth: 5
    :titlesonly:
 
-   Main/Index
+   Base/Index
    Cart/Index
    Order/Index
-   CurrencyFormat/Index
-   CurrencyTranslation/Index
+   Currency/Index
    PaymentMethods/Index
    ShippingMethods/Index
    Action/Index

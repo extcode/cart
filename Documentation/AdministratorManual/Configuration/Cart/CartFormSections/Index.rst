@@ -1,10 +1,14 @@
 .. include:: ../../../../Includes.txt
 
-================================
-Cart partials and summary fields
-================================
+==================
+Cart form sections
+==================
+
+Define which sections shall be shown / hidden and calculations for
+summary fields.
 
 .. code-block:: typoscript
+   :caption: EXT:cart/Configuration/TypoScript/setup.typoscript
 
    plugin.tx_cart {
        settings {

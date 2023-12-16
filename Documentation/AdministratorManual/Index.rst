@@ -5,8 +5,10 @@
 Administrator Manual
 ====================
 
+Information for the installation and configuration of the extension.
+
 .. toctree::
-   :maxdepth: 5
+   :maxdepth: 1
    :titlesonly:
 
    Installation/Index
