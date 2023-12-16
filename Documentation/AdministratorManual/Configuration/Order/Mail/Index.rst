@@ -8,6 +8,7 @@ Email addresses must be configured for sending emails. This can be done in the b
 but also configured via TypoScript.
 
 .. code-block:: typoscript
+   :caption: Can be set in e.g. EXT:sitepackage/Configuration/TypoScript/setup.typoscript
 
    plugin.tx_cart {
        mail {

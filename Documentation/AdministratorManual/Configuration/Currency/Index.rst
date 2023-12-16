@@ -1,13 +1,50 @@
 .. include:: ../../../Includes.txt
+
+========
+Currency
+========
+
+Currency Format
+===============
+
+To make the templates a bit easier to use, TypoScript can be used to configure
+the format specifications for the price output.
+These TypoScript specifications are then used in the `<cart:format.currency>`
+ViewHelper.
+
+.. code-block:: typoscript
+   :caption: EXT:cart/Configuration/TypoScript/constants.typoscript
+
+   plugin.tx_cart {
+       settings {
+           format {
+               currency {
+                   currencySign       = &euro;
+                   decimalSeparator   = ,
+                   thousandsSeparator = .
+                   prependCurrency    = false
+                   separateCurrency   = true
+                   decimals           = 2
+               }
+           }
+       }
+   }
+
 .. _adminstration_currency_translation:
 
-====================
 Currency Translation
 ====================
 
-If you want to allow the user to display the prices in a different currency in the store, you can configure this via TypoScript.
+If you want to allow the user to display the prices in a different currency
+in the store, you can configure this via TypoScript.
+
+.. NOTE::
+   At the moment there is no automatism to update the factor and adjust it to a
+   current value. With a scheduler task, it should be possible to connect a
+   corresponding service quite quickly.
 
 .. code-block:: typoscript
+   :caption: EXT:cart/Configuration/TypoScript/setup.typoscript
 
    plugin.tx_cart {
        settings {
@@ -23,7 +60,7 @@ If you want to allow the user to display the prices in a different currency in t
    }
 
 plugin.tx_cart.settings.currency
-================================
+--------------------------------
 
 .. confval:: default
 
@@ -64,8 +101,3 @@ plugin.tx_cart.settings.currency
 
    Currency conversion factor.
    The price of the products is divided by this factor.
-
-.. NOTE::
-   At the moment there is no automatism to update the factor and adjust it to a
-   current value. With a scheduler task, it should be possible to connect a
-   corresponding service quite quickly.

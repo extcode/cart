@@ -188,6 +188,7 @@ This saves a lot of configuration work if you want to deliver to many
 countries.
 
 .. code-block:: typoscript
+   :caption: Can be set in e.g. EXT:sitepackage/Configuration/TypoScript/setup.typoscript
 
    plugin.tx_cart {
        payments {
@@ -232,6 +233,7 @@ of an order. That means that at least one payment method must be specified.
 In this case the selection block for the payment can be hidden.
 
 .. code-block:: typoscript
+   :caption: Can be set in e.g. EXT:sitepackage/Configuration/TypoScript/setup.typoscript
 
    plugin.tx_cart {
         settings {

@@ -5,10 +5,16 @@
 Installation
 ============
 
+The installation consists of adding the extension and including the TypoScript.
+To get a working cart you need to process further steps which are descriped in
+:ref:`the quick start<quick_start>`.
+
 .. _installation_extension:
 
 Install the extension
 =====================
+
+Depending on your needs you have three options to install the extension.
 
 Installation using composer
 ---------------------------

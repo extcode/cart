@@ -5,6 +5,14 @@
 Quick start
 ===========
 
+Watch the video and/or read the instructions to get a (minimal) working
+shop setup.
+
+..  youtube:: lAu7hlRmZP8
+
+Instructions
+============
+
 .. rst-class:: bignums-tip
 
 #. Install this extension:

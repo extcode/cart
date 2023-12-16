@@ -12,6 +12,7 @@ default implementation which can handle different kinds of dependencies.
 A common condition is the amount of physical products in cart.
 
 .. code-block:: typoscript
+   :caption: Can be set in e.g. EXT:sitepackage/Configuration/TypoScript/setup.typoscript
 
    plugin.tx_cart {
        shippings {
@@ -99,6 +100,7 @@ separate service class can be implemented for a method, which can then return th
 calculated price to the shopping cart.
 
 .. code-block:: typoscript
+   :caption: Can be set in e.g. EXT:sitepackage/Configuration/TypoScript/setup.typoscript
 
    plugin.tx_cart {
        shippings {

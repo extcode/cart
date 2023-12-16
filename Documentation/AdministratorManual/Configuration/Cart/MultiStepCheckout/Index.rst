@@ -11,6 +11,7 @@ The default is still the one-step checkout. As an example, the extension provide
 checkout. The number of steps can be adjusted to individual needs.
 
 .. code-block:: typoscript
+   :caption: Can be set in e.g. EXT:sitepackage/Configuration/TypoScript/setup.typoscript
 
    plugin.tx_cart {
        settings {

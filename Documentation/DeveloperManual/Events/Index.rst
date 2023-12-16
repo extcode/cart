@@ -29,7 +29,7 @@ events:
    products of this extension.
 
    If a product is no longer available or not available
-   in sufficient quantity, the property `$available` must be set to false.
+   in sufficient quantity, the property `$available` must be set to `false`.
 
    In addition, the EventListener can pass messages.
 
@@ -66,6 +66,16 @@ events:
    It is the first event that is called when the order is submitted.
    This event implements the StoppableEventInterface.
 
+.. confval:: \Extcode\Cart\Event\Order\PersistOrderEvent
+
+   This event is triggered by an EventListener which listens to
+   `\Extcode\Cart\Event\Order\CreateEvent` (the one here above) so its quite
+   at the beginning of the creation of an order.
+
+   This event is used of the extension itself to store the order with all
+   needed information (addresses, products, tax classes, usage of coupons,
+   payment, shipping and other data related to an order).
+
 .. confval:: \Extcode\Cart\Event\Order\NumberGeneratorEvent
 
    It is the second event that is called when the order is submitted.
@@ -97,16 +107,6 @@ events:
    If the payment process is successful, the payment provider extension
    should trigger the events `\Extcode\Cart\Event\Order\StockEvent` and
    `\Extcode\Cart\Event\Order\FinishEvent` itself.
-
-.. confval:: \Extcode\Cart\Event\Order\PersistOrderEvent
-
-   This event is triggered by an EventListener which listens to
-   `\Extcode\Cart\Event\Order\CreateEvent` so its quite at the beginning of
-   the creation of an order.
-
-   This event is used of the extension itself to store the order with all
-   needed information (addresses, products, tax classes, usage of coupons,
-   payment, shipping and other data related to an order).
 
 .. confval:: \Extcode\Cart\Event\Order\StockEvent
 
