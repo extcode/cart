@@ -8,7 +8,7 @@ Quick start
 Watch the video and/or read the instructions to get a (minimal) working
 shop setup.
 
-..  youtube:: lAu7hlRmZP8
+.. youtube:: lAu7hlRmZP8
 
 Instructions
 ============
