@@ -134,4 +134,5 @@ Cart
    AdministratorManual/Index
    DeveloperManual/Index
    EditorManual/Index
+   Faq/Index
    Changelog/Index
