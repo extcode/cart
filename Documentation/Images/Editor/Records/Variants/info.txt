@@ -1,0 +1,1 @@
+Screenshots are taken with a width of 950px, hidden module menu and hidden pagetree.
