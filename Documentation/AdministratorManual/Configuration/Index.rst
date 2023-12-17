@@ -19,4 +19,3 @@ extension with TypoScript, PageTS and YAML.
    ShippingMethods/Index
    Action/Index
    Ajax/Index
-   Caching/Index
