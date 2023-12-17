@@ -1,9 +1,9 @@
 .. include:: ../Includes.txt
-.. _editor_manual:
+.. _editor:
 
-=============
-Editor Manual
-=============
+===========
+For Editors
+===========
 
 Information how to use the extension as editor in the TYPO3 backend.
 
@@ -11,6 +11,7 @@ Information how to use the extension as editor in the TYPO3 backend.
    :maxdepth: 5
    :titlesonly:
 
-   Records/Index
-   BackendModuleOrders/Index
+   Orders/Index
+   Coupons/Index
    Plugins/Index
+   BackendModuleOrders/Index

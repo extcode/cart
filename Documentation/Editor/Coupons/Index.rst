@@ -1,8 +1,8 @@
-.. include:: ../../../Includes.txt
+.. include:: ../../Includes.txt
 
-================
-Voucher / Coupon
-================
+=================
+Coupons / Voucher
+=================
 
 At the moment exists two types of coupons: "fix" and "percentage".
 They do what their names imply:

@@ -1,9 +1,9 @@
 .. include:: ../Includes.txt
-.. _developer_manual:
+.. _developer:
 
-================
-Developer Manual
-================
+==============
+For Developers
+==============
 
 Information for developer how to extend the extension.
 

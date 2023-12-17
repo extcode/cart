@@ -11,7 +11,7 @@ The backend module "Orders" lists all orders which exists within a certain page
 view on the orders and better filter options.
 
 .. figure:: ../../Images/Modules/Orders/List.png
-   :width: 640
+   :width: 820
    :alt: List of all orders in a folder
    :class: with-shadow
 
@@ -19,7 +19,7 @@ view on the orders and better filter options.
 
 
 .. figure:: ../../Images/Modules/Orders/Show.png
-   :width: 640
+   :width: 820
    :alt: Detail view of an order
    :class: with-shadow
 

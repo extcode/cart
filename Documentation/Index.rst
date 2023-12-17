@@ -2,13 +2,13 @@
 
 .. _start:
 
-====
-Cart
-====
+=================================
+Cart - a TYPO3-native shop system
+=================================
 
 .. image:: Images/cart_logo.png
-   :height: 200
-   :width: 200
+   :height: 100
+   :width: 100
 
 
 .. only:: html
@@ -25,9 +25,6 @@ Cart
    :Language:
       en
 
-   :Description:
-      Cart is an extension providing a shopping solution for TYPO3.
-
    :Keywords:
       cart, shop, shopping, e-commerce, ecommerce, checkout, payment
 
@@ -43,6 +40,13 @@ Cart
 
    :Rendered:
       |today|
+
+-----
+
+This extension is the base for a TYPO3-native shop solution.
+
+Together with other extisting extensions for products and payment solutions
+a shop using Extbase & Fluid can be implemented.
 
 -----
 
@@ -66,7 +70,7 @@ Cart
 
          .. rst-class:: card-header h3
 
-            .. rubric:: :ref:`Quickstart <quick_start>`
+            .. rubric:: :ref:`Quick start <quick_start>`
 
          .. container:: card-body
 
@@ -78,7 +82,7 @@ Cart
 
          .. rst-class:: card-header h3
 
-            .. rubric:: :ref:`Administrator Manual <administrator_manual>`
+            .. rubric:: :ref:`For Administrators <administrator>`
 
          .. container:: card-body
 
@@ -90,7 +94,7 @@ Cart
 
          .. rst-class:: card-header h3
 
-            .. rubric:: :ref:`Editor Manual <editor_manual>`
+            .. rubric:: :ref:`For Editors <editor>`
 
          .. container:: card-body
 
@@ -102,11 +106,23 @@ Cart
 
          .. rst-class:: card-header h3
 
-            .. rubric:: :ref:`Developer Manual <developer_manual>`
+            .. rubric:: :ref:`For Developers <developer>`
 
          .. container:: card-body
 
             Information about existing events to extend functionality.
+
+   .. container:: col-12 col-md-6 pl-0 pr-3 py-3 m-0
+
+      .. container:: card px-0 h-100
+
+         .. rst-class:: card-header h3
+
+            .. rubric:: :ref:`FAQ <faq>`
+
+         .. container:: card-body
+
+            Answers to frequently asked questions.
 
    .. container:: col-12 col-md-6 pl-0 pr-3 py-3 m-0
 
@@ -131,8 +147,8 @@ Cart
 
    Introduction/Index
    QuickStart/Index
-   AdministratorManual/Index
-   DeveloperManual/Index
-   EditorManual/Index
+   Administrator/Index
+   Developer/Index
+   Editor/Index
    Faq/Index
    Changelog/Index

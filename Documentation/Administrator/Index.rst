@@ -1,9 +1,9 @@
 .. include:: ../Includes.txt
-.. _administrator_manual:
+.. _administrator:
 
-====================
-Administrator Manual
-====================
+==================
+For Administrators
+==================
 
 Information for the installation and configuration of the extension.
 
@@ -13,3 +13,4 @@ Information for the installation and configuration of the extension.
 
    Installation/Index
    Configuration/Index
+   OtherCartExtensions/Index
