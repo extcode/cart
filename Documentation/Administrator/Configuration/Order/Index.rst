@@ -8,5 +8,6 @@ Order
    :maxdepth: 5
    :titlesonly:
 
-   Mail/Index
+   EMailAddresses/Index
+   EMailContent/Index
    NumberGenerator/Index

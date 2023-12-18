@@ -105,5 +105,6 @@ This has the following consequences:
    }
 
 .. NOTE::
-   The e-mail address should always remain a required field, because it is needed for the ordering process and for sending e-mails.
+   The email address should always remain a required field,
+   because it is needed for the ordering process and for sending emails.
    If no e-mail address is to be specified, the corresponding EventListeners must be deactivated.

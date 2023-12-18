@@ -124,7 +124,7 @@ events:
    This is mainly used by the cart extension itself to finalize the order
    process.
 
-   Here, among other things, e-mails are sent. Other extensions can
+   Here, among other things, emails are sent. Other extensions can
    use this event to generate PDF documents, register users or assign
    registered users to another user group.
 

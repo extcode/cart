@@ -10,13 +10,13 @@ Description
 ===========
 
 The changeover from rendering an own standalone view to the FluidEmail
-class required adjustments in the e-mail templates and partials.
+class required adjustments in the email templates and partials.
 
 Affected Installations
 ======================
 
-All installations that use their own templates and partials for the e-mails.
-All installations that use an own layout file for the e-mails.
+All installations that use their own templates and partials for the emails.
+All installations that use an own layout file for the emails.
 
 Migration
 =========
