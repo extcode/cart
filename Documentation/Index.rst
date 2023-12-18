@@ -31,7 +31,7 @@ Cart - a TYPO3-native shop system
    :Author:
       Daniel Gohlke
 
-   :E-Mail:
+   :Email:
       ext@extco.de
 
    :License:
