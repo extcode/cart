@@ -10,7 +10,7 @@ There is an own channel at the TYPO3 Slack. Please use this channel to contact u
 
 The URL is: https://typo3.slack.com/messages/ext-cart/
 
-.. note::
+.. NOTE::
 
    Not registered on Slack? Get all infos on https://typo3.org/community/meet/chat-slack/
 

@@ -1,5 +1,7 @@
 .. include:: ../../../Includes.txt
 
+.. _payment_methods:
+
 ===============
 Payment methods
 ===============
