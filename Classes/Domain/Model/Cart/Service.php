@@ -22,8 +22,7 @@ class Service implements ServiceInterface
     public function __construct(
         protected int $id,
         protected array $config = []
-    ) {
-    }
+    ) {}
 
     public function getId(): int
     {

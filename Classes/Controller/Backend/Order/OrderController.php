@@ -50,8 +50,7 @@ class OrderController extends ActionController
     public function __construct(
         protected readonly ModuleTemplateFactory $moduleTemplateFactory,
         protected readonly IconFactory $iconFactory
-    ) {
-    }
+    ) {}
 
     protected function initializeAction(): void
     {

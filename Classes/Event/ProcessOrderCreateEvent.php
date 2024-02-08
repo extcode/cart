@@ -20,8 +20,7 @@ final class ProcessOrderCreateEvent implements ProcessOrderCreateEventInterface
         private readonly Cart $cart,
         private readonly OrderItem $orderItem,
         private array $settings = []
-    ) {
-    }
+    ) {}
 
     public function getCart(): Cart
     {

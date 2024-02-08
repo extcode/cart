@@ -13,6 +13,4 @@ namespace Extcode\Cart\Domain\Repository;
 
 use TYPO3\CMS\Extbase\Persistence\Repository;
 
-class FrontendUserGroupRepository extends Repository
-{
-}
+class FrontendUserGroupRepository extends Repository {}

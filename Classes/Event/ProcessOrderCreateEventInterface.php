@@ -13,6 +13,4 @@ namespace Extcode\Cart\Event;
 
 use Extcode\Cart\Event\Order\EventInterface;
 
-interface ProcessOrderCreateEventInterface extends EventInterface
-{
-}
+interface ProcessOrderCreateEventInterface extends EventInterface {}

@@ -17,8 +17,7 @@ final class ProcessOrderCheckStockEvent implements ProcessOrderCheckStockEventIn
 {
     public function __construct(
         private readonly Cart $cart
-    ) {
-    }
+    ) {}
 
     public function getCart(): Cart
     {

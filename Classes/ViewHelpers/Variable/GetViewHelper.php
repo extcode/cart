@@ -103,7 +103,7 @@ class GetViewHelper extends AbstractViewHelper
                                     $value = $possibleValue;
                                     break;
                                 }
-                                ++ $index;
+                                ++$index;
                             }
                             continue;
                         }

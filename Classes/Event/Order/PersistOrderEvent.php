@@ -25,8 +25,7 @@ final class PersistOrderEvent implements PersistOrderEventInterface, StoppableEv
         private readonly Cart $cart,
         private readonly OrderItem $orderItem,
         private array $settings = []
-    ) {
-    }
+    ) {}
 
     public function getCart(): Cart
     {

@@ -147,9 +147,7 @@ class Cart
     /**
      * __wakeup
      */
-    public function __wakeup()
-    {
-    }
+    public function __wakeup() {}
 
     /**
      * @return TaxClass[]

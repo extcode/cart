@@ -50,10 +50,10 @@ class CartController extends ActionController
             $view->setStep($currentStep);
 
             if ($currentStep < $steps) {
-                $view->assign('nextStep', $currentStep+1);
+                $view->assign('nextStep', $currentStep + 1);
             }
             if ($currentStep > 1) {
-                $view->assign('previousStep', $currentStep-1);
+                $view->assign('previousStep', $currentStep - 1);
             }
         }
     }

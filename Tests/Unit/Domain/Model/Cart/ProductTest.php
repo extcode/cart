@@ -489,7 +489,7 @@ class ProductTest extends UnitTestCase
         $quantity = 3;
 
         $quantityDiscounts = [[
-            'quantity' => $quantity+1,
+            'quantity' => $quantity + 1,
             'price' => $quantityDiscountPrice,
         ]];
 
@@ -553,7 +553,7 @@ class ProductTest extends UnitTestCase
         $quantity = 3;
 
         $quantityDiscounts = [[
-            'quantity' => $quantity-1,
+            'quantity' => $quantity - 1,
             'price' => $quantityDiscountPrice,
         ]];
 

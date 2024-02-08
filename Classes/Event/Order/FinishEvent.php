@@ -23,8 +23,7 @@ final class FinishEvent implements EventInterface, StoppableEventInterface
         private readonly Cart $cart,
         private readonly OrderItem $orderItem,
         private array $settings = []
-    ) {
-    }
+    ) {}
 
     public function getCart(): Cart
     {

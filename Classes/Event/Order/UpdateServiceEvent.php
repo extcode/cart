@@ -20,8 +20,7 @@ final class UpdateServiceEvent implements StoppableEventInterface
 
     public function __construct(
         private readonly AbstractService $service
-    ) {
-    }
+    ) {}
 
     public function getService(): AbstractService
     {

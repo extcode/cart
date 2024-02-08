@@ -11,6 +11,4 @@ namespace Extcode\Cart\Domain\Repository\Order;
 
 use TYPO3\CMS\Extbase\Persistence\Repository;
 
-class DiscountRepository extends Repository
-{
-}
+class DiscountRepository extends Repository {}
