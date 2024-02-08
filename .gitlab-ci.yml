@@ -69,6 +69,12 @@ lint:php82:
   script:
     - find . -name \*.php -exec php -l "{}" \;
 
+lint:php83:
+  stage: lint
+  image: php:8.3-alpine
+  script:
+    - find . -name \*.php -exec php -l "{}" \;
+
 phpstan:analyse:
   image: php:8.1-alpine
   stage: lint
@@ -128,20 +134,28 @@ phpstan:analyse:
     expire_in: 1 day
     when: always
 
-# Build in PHP 8.1 and TYPO3 12.3
+# Build in PHP 8.1 and TYPO3 12.4
 test:php81:typo3_12:
   <<: *test_php
   variables:
     DOCKER_TAG: 8.1-alpine
-    TYPO3_VERSION: ^12.3
+    TYPO3_VERSION: ^12.4
     COVERAGE: 0
 
-# Build in PHP 8.2 and TYPO3 12.3
+# Build in PHP 8.2 and TYPO3 12.4
 test:php82:typo3_12:
   <<: *test_php
   variables:
     DOCKER_TAG: 8.2-alpine
-    TYPO3_VERSION: ^12.3
+    TYPO3_VERSION: ^12.4
+    COVERAGE: 0
+
+# Build in PHP 8.3 and TYPO3 12.4
+test:php83:typo3_12:
+  <<: *test_php
+  variables:
+    DOCKER_TAG: 8.3-alpine
+    TYPO3_VERSION: ^12.4
     COVERAGE: 1
 
 documentation:
