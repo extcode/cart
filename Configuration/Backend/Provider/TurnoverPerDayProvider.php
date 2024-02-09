@@ -7,7 +7,6 @@ namespace Extcode\Cart\Configuration\Backend\Provider;
 use Extcode\Cart\Widgets\Provider\TurnoverPerDayProvider;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symfony\Component\DependencyInjection\Reference;
-use TYPO3\CMS\Core\Localization\LanguageService;
 
 return function (ContainerConfigurator $configurator) {
     $services = $configurator->services();
