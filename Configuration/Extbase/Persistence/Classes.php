@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use Extcode\Cart\Domain\Model\FrontendUser;
+use Extcode\Cart\Domain\Model\FrontendUserGroup;
 use Extcode\Cart\Domain\Model\Order\BillingAddress;
 use Extcode\Cart\Domain\Model\Order\ShippingAddress;
 
@@ -13,6 +14,14 @@ return [
     ],
     FrontendUser::class => [
         'tableName' => 'fe_users',
+        'properties' => [
+            'lockToDomain' => [
+                'fieldName' => 'lockToDomain',
+            ],
+        ],
+    ],
+    FrontendUserGroup::class => [
+        'tableName' => 'fe_groups',
         'properties' => [
             'lockToDomain' => [
                 'fieldName' => 'lockToDomain',
