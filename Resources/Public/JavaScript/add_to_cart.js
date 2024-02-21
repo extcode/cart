@@ -1,8 +1,8 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     const addToCartForms = document.querySelectorAll('[data-ajax=\'1\']');
 
-    addToCartForms.forEach(function(addToCartForm, index){
-        addToCartForm.addEventListener("submit", function(event) {
+    addToCartForms.forEach(function (addToCartForm, index) {
+        addToCartForm.addEventListener('submit', function (event) {
             event.preventDefault();
 
             const data = this;
@@ -14,13 +14,13 @@ document.addEventListener('DOMContentLoaded', function() {
             })
                 .then(response => response.text())
                 .then(response => {
-                    showMessageBlock(data, response);
+                    renderAddToCartResultMessage(data, response);
                     updateMiniCart(data, response);
                 });
         });
     });
 
-    function showMessageBlock(form, data) {
+    function renderAddToCartResultMessage(form, data) {
         let messageTimeout = parseInt(form.querySelector('[data-ajax-message-timeout]').dataset['ajaxMessageTimeout']);
 
         if (!messageTimeout) {
@@ -35,12 +35,30 @@ document.addEventListener('DOMContentLoaded', function() {
             successElement.innerHTML = response.messageBody;
             successContainer.style.display = null;
             fadeOut(successContainer, messageTimeout);
+
+            dispatchCustomEvent(
+                'render-add-to-cart-result-message',
+                {
+                    response: response,
+                    success: true,
+                    element: successElement,
+                }
+            );
         } else {
             const errorContainer = form.querySelector('[data-ajax-error-block]');
             const errorElement = form.querySelector('[data-ajax-error-message]');
             errorElement.innerHTML = response.messageBody;
             errorContainer.style.display = null;
             fadeOut(errorContainer, messageTimeout);
+
+            dispatchCustomEvent(
+                'render-add-to-cart-result-message',
+                {
+                    response: response,
+                    success: false,
+                    element: errorElement,
+                }
+            );
         }
     }
 
@@ -54,17 +72,24 @@ document.addEventListener('DOMContentLoaded', function() {
         element.style.transition = 'opacity ' + transitionTime + 'ms ease';
 
         // the fade out
-        window.setTimeout(function() {
+        window.setTimeout(function () {
             element.style.opacity = 0;
         }, messageTimeout);
 
         // reset element after fade out
-        window.setTimeout(function() {
+        window.setTimeout(function () {
                 element.style.transition = 'unset';
                 element.style.display = 'none';
                 element.style.opacity = 1;
             },
             messageTimeout + transitionTime
+        );
+
+        dispatchCustomEvent(
+            'hide-message-block',
+            {
+                element: element
+            }
         );
     }
 
@@ -102,14 +127,89 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
 
-        // TODO: What's the meaning of that?
-        //$(document).trigger("status.cartWasChanged", [true]);
+        dispatchCustomEvent(
+            'minicart-was-updated',
+            {
+                count: response.count,
+                net: response.net,
+                gross: response.gross
+            }
+        );
 
-        document.querySelectorAll('form').forEach(function(formElement) {
+        document.querySelectorAll('form').forEach(function (formElement) {
             formElement.reset();
         })
     }
 
+    function dispatchCustomEvent(name, dataObject) {
+        const customEvent = new CustomEvent(
+            `extcode:${name}`,
+            {
+                bubbles: true,
+                cancelable: true,
+                detail: dataObject
+            }
+        );
+        document.dispatchEvent(customEvent);
+    }
+});
+
+/**
+ * The following code is only used when your cart setup uses forms from EXT:form to add additional
+ * information by the customer to the product.
+ */
+document.addEventListener('DOMContentLoaded', function () {
+
+    let addToCartButton = document.querySelector('[data-add-to-cart="form"]');
+    let formContainer = document.querySelector('[data-add-to-cart="result"]');
+
+    // Do only execute code if those two html elements are given.
+    if(!addToCartButton || !formContainer){
+        return;
+    }
+
+    disableDefaultAddToCartButFetchFormInstead();
+
+    function disableDefaultAddToCartButFetchFormInstead() {
+        addToCartButton.addEventListener('click', function (event) {
+            event.preventDefault();
+            const actionUrl = this.getAttribute('href');
+            fetchAndInsertFormContent(actionUrl);
+        })
+    }
+
+    function fetchAndInsertFormContent(actionUrl) {
+        fetch(actionUrl)
+            .then(response => response.text())
+            .then(response => {
+                formContainer.innerHTML = response;
+            });
+
+        let forms = document.querySelectorAll('[data-add-to-cart-uri]');
+
+        forms.forEach(function (form) {
+            form.addEventListener('submit', function (event) {
+                event.preventDefault();
+
+                const actionUrl = form.getAttribute('data-add-to-cart-uri');
+                const submitButton = form.querySelector('button[type="submit"]');
+
+                const data = this;
+                let formData = new FormData(data);
+                formData.append(submitButton.getAttribute('name'), submitButton.getAttribute('value'));
+
+                fetch(actionUrl, {
+                    method: 'POST',
+                    body: formData,
+                })
+                    .then(response => response.text())
+                    .then(function (data) {
+                        renderAddToCartResultMessage(data, response);
+                        updateMiniCart(data, response);
+                    });
+            });
+        });
+    }
 });
 
 

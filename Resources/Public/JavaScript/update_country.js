@@ -27,6 +27,13 @@ document.addEventListener('DOMContentLoaded', function(){
                 replaceHtmlElementByIdentifier(responseAsHtml, '#checkout-step-shipping-method');
                 replaceHtmlElementByIdentifier(responseAsHtml, '#checkout-step-payment-method');
                 replaceHtmlElementByIdentifier(responseAsHtml, '#checkout-step-summary');
+
+                dispatchCustomEvent(
+                    'country-updated',
+                    {
+                        response: response,
+                    }
+                );
             });
     }
 
@@ -98,6 +105,18 @@ document.addEventListener('DOMContentLoaded', function(){
 
         updateCountry(billingCountry, shippingCountry);
     });
+
+    function dispatchCustomEvent(name, dataObject) {
+        const customEvent = new CustomEvent(
+            `extcode:${name}`,
+            {
+                bubbles: true,
+                cancelable: true,
+                detail: dataObject
+            }
+        );
+        document.dispatchEvent(customEvent);
+    }
 });
 
 

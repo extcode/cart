@@ -17,5 +17,26 @@ document.addEventListener('DOMContentLoaded', function() {
         setValue(productPrice, '.special_price', specialPrice);
         setValue(productPrice, '.regular_price', regularPrice);
         setValue(productPrice, '.special_price_percentage_discount', specialPricePercentageDiscount);
+
+        dispatchCustomEvent(
+            'be-variant-was-changed',
+            {
+                specialPrice: specialPrice,
+                regularPrice: regularPrice,
+                specialPricePercentageDiscount: specialPricePercentageDiscount,
+            }
+        );
     });
+
+    function dispatchCustomEvent(name, dataObject) {
+        const customEvent = new CustomEvent(
+            `extcode:${name}`,
+            {
+                bubbles: true,
+                cancelable: true,
+                detail: dataObject
+            }
+        );
+        document.dispatchEvent(customEvent);
+    }
 });

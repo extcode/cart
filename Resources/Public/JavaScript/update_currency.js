@@ -21,6 +21,13 @@ document.addEventListener('DOMContentLoaded', function(){
                     replaceHtmlElementByIdentifier(responseAsHtml, '#checkout-step-coupon');
                     replaceHtmlElementByIdentifier(responseAsHtml, '#checkout-step-summary');
                 }
+
+                dispatchCustomEvent(
+                    'currency-updated',
+                    {
+                        response: response,
+                    }
+                );
             });
     }
 
@@ -65,5 +72,17 @@ document.addEventListener('DOMContentLoaded', function(){
             const form = findParentBySelector(this, 'form');
             updateCurrency(this.value, form.getAttribute('action'));
         })
+    }
+
+    function dispatchCustomEvent(name, dataObject) {
+        const customEvent = new CustomEvent(
+            `extcode:${name}`,
+            {
+                bubbles: true,
+                cancelable: true,
+                detail: dataObject
+            }
+        );
+        document.dispatchEvent(customEvent);
     }
 });
