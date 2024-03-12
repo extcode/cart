@@ -15,3 +15,6 @@ var/
 
 phpunit.coverage.xml
 phpunit.report.xml
+
+Build/Sources/node_modules
+package-lock.json

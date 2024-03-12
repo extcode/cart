@@ -11,8 +11,9 @@ Description
 
 Using the jQuery library is outdated. Therefore jQuery in the existing JavaScript code is replaced with vanilla
 JavaScript. Furthermore is the JavaScript code splitted up and via
-[Asset Viewhelper](https://docs.typo3.org/other/typo3/view-helper-reference/12.4/en-us/typo3/fluid/latest/Asset/Script.html) included in the templates
-and partials where the corresponding JavaScript is needed.
+[Asset Viewhelper](https://docs.typo3.org/other/typo3/view-helper-reference/12.4/en-us/typo3/fluid/latest/Asset/Script.html) included in the templates and partials where the corresponding JavaScript is needed.
+
+For better development of the JavaScript a build process is added, using [esbuild](https://esbuild.github.io/). The original JavaScript files are now located in `Build/Sources/` where you can find further information how to work with these files during development.
 
 Affected Installations
 ======================
@@ -39,7 +40,6 @@ The easier but less performant migration is to include all JavaScript files with
     page.includeJSFooter {
         tx_cart_add_to_cart = EXT:cart/Resources/Public/JavaScript/add_to_cart.js
         tx_cart_change_be_variant = EXT:cart/Resources/Public/JavaScript/change_be_variant.js
-        tx_cart_form_finisher = EXT:cart/Resources/Public/JavaScript/form_finisher.js
         tx_cart_prevent_multi_submit = EXT:cart/Resources/Public/JavaScript/prevent_multi_submit.js
         tx_cart_update_country = EXT:cart/Resources/Public/JavaScript/update_country.js
         tx_cart_update_currency = EXT:cart/Resources/Public/JavaScript/update_currency.js
