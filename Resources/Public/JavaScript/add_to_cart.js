@@ -24,12 +24,12 @@
           method: data.getAttribute("method"),
           body: new FormData(data)
         }).then((response2) => response2.text()).then((response2) => {
-          renderAddToCartResultMessage2(data, response2);
-          updateMiniCart2(data, response2);
+          renderAddToCartResultMessage(data, response2);
+          updateMiniCart(data, response2);
         });
       });
     });
-    function renderAddToCartResultMessage2(form, data) {
+    function renderAddToCartResultMessage(form, data) {
       let messageTimeout = parseInt(form.querySelector("[data-ajax-message-timeout]").dataset["ajaxMessageTimeout"]);
       if (!messageTimeout) {
         messageTimeout = 3e3;
@@ -86,7 +86,7 @@
         }
       );
     }
-    function updateMiniCart2(form, data) {
+    function updateMiniCart(form, data) {
       let response2 = JSON.parse(data);
       if (response2.status !== "200") {
         return;
@@ -127,8 +127,6 @@
         formElement.reset();
       });
     }
-  });
-  document.addEventListener("DOMContentLoaded", function() {
     let addToCartButton = document.querySelector('[data-add-to-cart="form"]');
     let formContainer = document.querySelector('[data-add-to-cart="result"]');
     if (!addToCartButton || !formContainer) {
