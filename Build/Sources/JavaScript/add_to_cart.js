@@ -1,4 +1,4 @@
-import { dispatchCustomEvent } from "./helper/dispatch_custom_event";
+import {dispatchCustomEvent} from "./helper/dispatch_custom_event";
 
 document.addEventListener('DOMContentLoaded', function () {
     const addToCartForms = document.querySelectorAll('[data-ajax=\'1\']');
@@ -142,19 +142,19 @@ document.addEventListener('DOMContentLoaded', function () {
             formElement.reset();
         })
     }
-});
 
-/**
- * The following code is only used when your cart setup uses forms from EXT:form to add additional
- * information by the customer to the product.
- */
-document.addEventListener('DOMContentLoaded', function () {
+
+
+    /**
+     * The following code is only used when your cart setup uses forms from EXT:form to add additional
+     * information by the customer to the product.
+     */
 
     let addToCartButton = document.querySelector('[data-add-to-cart="form"]');
     let formContainer = document.querySelector('[data-add-to-cart="result"]');
 
     // Do only execute code if those two html elements are given.
-    if(!addToCartButton || !formContainer){
+    if (!addToCartButton || !formContainer) {
         return;
     }
 
