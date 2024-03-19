@@ -126,11 +126,11 @@
             </trans-unit>
             <trans-unit id="tx_cart_domain_model_cart_product.price_subtotal_net">
                 <source>Subtotal (net)</source>
-                <target>Zwischensumme (net)</target>
+                <target>Zwischensumme (netto)</target>
             </trans-unit>
             <trans-unit id="tx_cart_domain_model_cart_product.price_subtotal_gross">
                 <source>Subtotal (gross)</source>
-                <target>Zwischensumme (gross)</target>
+                <target>Zwischensumme (brutto)</target>
             </trans-unit>
             <trans-unit id="tx_cart_domain_model_cart_product.tax">
                 <source>Tax (%s)</source>
@@ -245,7 +245,7 @@
 
             <trans-unit id="tx_cart_domain_model_order_item.total_gross">
                 <source>Total Price (Gross)</source>
-                <target>Gesamtpreis</target>
+                <target>Gesamtpreis (Brutto)</target>
             </trans-unit>
             <trans-unit id="tx_cart_domain_model_order_item.total_net">
                 <source>Total Price (Net)</source>
@@ -253,11 +253,11 @@
             </trans-unit>
             <trans-unit id="tx_cart_domain_model_order_item.order_pdfs">
                 <source>Order PDFs</source>
-                <target>Bestell PDFs</target>
+                <target>Bestell-PDFs</target>
             </trans-unit>
             <trans-unit id="tx_cart_domain_model_order_item.invoice_pdfs">
                 <source>Invoice PDFs</source>
-                <target>Rechnung PDFs</target>
+                <target>Rechnung-PDFs</target>
             </trans-unit>
 
             <trans-unit id="tx_cart_domain_model_order_item.invoice_number">
@@ -527,11 +527,11 @@
             </trans-unit>
             <trans-unit id="filterStartDate">
                 <source>Start Date</source>
-                <target>Start Datum</target>
+                <target>Startdatum</target>
             </trans-unit>
             <trans-unit id="filterEndDate">
                 <source>End Date</source>
-                <target>End Datum</target>
+                <target>Enddatum</target>
             </trans-unit>
 
             <trans-unit id="tx_cart.add_product">
@@ -604,7 +604,7 @@
             </trans-unit>
             <trans-unit id="tx_cart.controller.order.action.payment_success.access_denied">
                 <source>Access denied!</source>
-                <target>Access denied!</target>
+                <target>Zugriff verweigert!</target>
             </trans-unit>
             <trans-unit id="tx_cart.controller.order.action.payment_success.thank_you">
                 <source>Thank you for your order.</source>
@@ -624,7 +624,7 @@
             </trans-unit>
             <trans-unit id="tx_cart.controller.order.action.payment_cancel.access_denied">
                 <source>Access denied!</source>
-                <target>Access denied!</target>
+                <target>Zugriff verweigert!</target>
             </trans-unit>
             <trans-unit id="tx_cart.controller.order.action.payment_cancel.thank_you">
                 <source>Thank you.</source>
@@ -745,7 +745,7 @@
             </trans-unit>
             <trans-unit id="tx_cart.controller.order.action.show_cart.block-header.order_overview">
                 <source>Check and Order</source>
-                <target>Prüfen und Bestellen</target>
+                <target>Prüfen und bestellen</target>
             </trans-unit>
             <trans-unit id="tx_cart.controller.order.action.show_cart.coupons.not_available">
                 <source>No coupon code was entered.</source>
@@ -776,14 +776,14 @@
                 <target>Produkt - Details</target>
             </trans-unit>
             <trans-unit id="tx_cart.module.beVariantAttributeController.listAction.header">
-                <target>Variantgruppen Liste</target>
+                <target>Variantgruppen-Liste</target>
             </trans-unit>
             <trans-unit id="tx_cart.module.beVariantAttributeController.showAction.header">
-                <target>Variantgruppen Details</target>
+                <target>Variantgruppen-Details</target>
             </trans-unit>
 
             <trans-unit id="tx_cart.module.action.filter">
-                <target>Filter Liste</target>
+                <target>Filterliste</target>
             </trans-unit>
 
             <trans-unit id="tx_cart.tax_class">

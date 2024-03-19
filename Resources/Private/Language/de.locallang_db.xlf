@@ -45,11 +45,11 @@
 
             <trans-unit id="tx_cart.flexform.productId">
                 <source>Product Id</source>
-                <target>Produkt ID</target>
+                <target>Produkt-ID</target>
             </trans-unit>
             <trans-unit id="tx_cart.flexform.cartPageId">
                 <source>Cart Page Id</source>
-                <target>Warenkorb SeitenID</target>
+                <target>Warenkorb Seiten-ID</target>
             </trans-unit>
             <trans-unit id="tx_cart.flexform.seller.email_from_address">
                 <source>Sender email address for email to the Seller</source>
@@ -514,7 +514,7 @@
             </trans-unit>
             <trans-unit id="tx_cart_domain_model_order_shipping.palettes.service">
                 <source>Service TypoScript Configuration</source>
-                <target>Service TypoScript Konfiguration</target>
+                <target>Service-TypoScript-Konfiguration</target>
             </trans-unit>
             <trans-unit id="tx_cart_domain_model_order_shipping.service_country">
                 <source>Service Country</source>
@@ -574,7 +574,7 @@
             </trans-unit>
             <trans-unit id="tx_cart_domain_model_order_payment.palettes.service">
                 <source>Service TypoScript Configuration</source>
-                <target>Service TypoScript Konfiguration</target>
+                <target>Service-TypoScript-Konfiguration</target>
             </trans-unit>
             <trans-unit id="tx_cart_domain_model_order_payment.service_country">
                 <source>Service Country</source>
@@ -641,7 +641,7 @@
             </trans-unit>
             <trans-unit id="tx_cart_domain_model_order_transaction.txn_id">
                 <source>Transaction TXT</source>
-                <target>Transaḱtion ID</target>
+                <target>Transaḱtion-ID</target>
             </trans-unit>
             <trans-unit id="tx_cart_domain_model_order_transaction.txn_txt">
                 <source>Transaction TXT</source>
@@ -677,7 +677,7 @@
             </trans-unit>
             <trans-unit id="tx_cart_domain_model_order_transaction.external_status_code">
                 <source>External Status Code</source>
-                <target>Externer Status Code</target>
+                <target>Externer Status-Code</target>
             </trans-unit>
             <trans-unit id="tx_cart_domain_model_order_transaction.note">
                 <source>Note</source>
@@ -801,7 +801,7 @@
                 <target>frei</target>
             </trans-unit>
             <trans-unit id="tx_cart_flexform_model_product.is_net_price">
-                <target>Ist Netto Preis</target>
+                <target>Ist Nettopreis</target>
             </trans-unit>
             <trans-unit id="tx_cart_flexform_model_product.attributes">
                 <target>Zusätzliche Attribute</target>
@@ -822,7 +822,7 @@
 
             <trans-unit id="tx_cart_domain_model_cart">
                 <source>Cart Session</source>
-                <target>Cart Session</target>
+                <target>Cart-Session</target>
             </trans-unit>
 
             <trans-unit id="tx_cart.settings.allowed_countries.de">

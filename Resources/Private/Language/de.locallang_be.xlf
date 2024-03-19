@@ -28,7 +28,7 @@
             </trans-unit>
             <trans-unit id="dashboard.widgets.payment_paid_shipping_open.title">
                 <source>Latest Orders (paid, not shipped)</source>
-                <target>Letzte Bestellungen (bezahlt, nicht versand)</target>
+                <target>Letzte Bestellungen (bezahlt, nicht versandt)</target>
             </trans-unit>
             <trans-unit id="dashboard.widgets.payment_paid_shipping_open.description">
                 <source>List of Paid but not Shipped Orders</source>
