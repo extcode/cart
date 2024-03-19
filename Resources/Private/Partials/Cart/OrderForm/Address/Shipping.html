@@ -2,6 +2,22 @@
       xmlns:cart="http://typo3.org/ns/Extcode/Cart/ViewHelpers"
       data-namespace-typo3-fluid="true">
 
+<f:asset.script identifier="update-country" src="EXT:cart/Resources/Public/JavaScript/update_country.js" />
+<div hidden data-ajax-update-country-action-url="{f:uri.action(controller: 'Cart\Country', action: 'update', pageType: '2278001') -> f:format.raw()}"></div>
+
+<div class="form-list shipping-same-as-billing-wrapper">
+    <div class="control">
+        <label for="shipping-same-as-billing">
+            <f:form.checkbox property="shippingSameAsBilling"
+                             id="shipping-same-as-billing"
+                             value="1"
+                             title="{f:translate(key:'tx_cart.same_address')}"
+                             checked="{f:if(condition:'{cart.shippingSameAsBilling}')}"/>
+            <span><f:translate key="tx_cart.same_address"/></span>
+        </label>
+    </div>
+</div>
+
 <div id="checkout-step-shipping-address" class="checkout-step bg-light-grey" style="{f:if(condition:'{cart.shippingSameAsBilling}', then:'display: none;')}" data-ajax-country data-ajax-currency>
     <h5 class="checkout-step-title">
         <span class="checkout-step-number"></span>

@@ -1,0 +1,8 @@
+{
+  "scripts": {
+    "build": "esbuild JavaScript/add_to_cart.js JavaScript/change_be_variant.js JavaScript/prevent_multi_submit.js JavaScript/update_country.js JavaScript/update_currency.js JavaScript/update_payment_shipping.js --bundle --outdir=../../Resources/Public/JavaScript"
+  },
+  "devDependencies": {
+    "esbuild": "0.20.1"
+  }
+}
