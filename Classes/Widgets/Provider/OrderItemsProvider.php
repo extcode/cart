@@ -32,11 +32,14 @@ class OrderItemsProvider implements ListDataProviderInterface
         array $options = []
     ) {
         $this->queryBuilder = $queryBuilder;
-        $this->options = [
+        $this->options = array_merge(
+            [
                 'order_by' => 'tx_cart_domain_model_order_item.crdate',
                 'order_order' => 'desc',
                 'limit' => 10,
-            ] + $options;
+            ],
+            $options
+        );
     }
 
     /**

@@ -44,10 +44,13 @@ class OrdersPerDayProvider implements ChartDataProviderInterface
         $this->languageService = GeneralUtility::makeInstance(LanguageServiceFactory::class)->create($GLOBALS['BE_USER']->uc['lang']);
 
         $this->queryBuilder = $queryBuilder;
-        $this->options = [
+        $this->options = array_merge(
+            [
                 'fieldName' => 'tx_cart_domain_model_order_item.order_date',
                 'days' => 28,
-            ] + $options;
+            ],
+            $options
+        );
     }
 
     public function getChartData(): array

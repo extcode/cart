@@ -47,9 +47,12 @@ class PaymentPaidShippingOpen implements WidgetInterface
         $this->configuration = $configuration;
         $this->dataProvider = $dataProvider;
         $this->view = $view;
-        $this->options = [
+        $this->options = array_merge(
+            [
                 'template' => 'Widget/PaymentPaidShippingOpen',
-            ] + $options;
+            ],
+            $options
+        );
     }
 
     public function renderWidgetContent(): string
