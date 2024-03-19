@@ -79,11 +79,13 @@ plugin.tx_cart {
         defaultCountry = de
 
         currencies {
-            default = 1
-            1 {
-                code = EUR
-                sign = €
-                translation = 1.00
+            preset = 1
+            options {
+                1 {
+                    code = EUR
+                    sign = €
+                    translation = 1.00
+                }
             }
         }
 

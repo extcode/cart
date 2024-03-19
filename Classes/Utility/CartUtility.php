@@ -8,6 +8,7 @@ namespace Extcode\Cart\Utility;
  * For the full copyright and license information, please read the
  * LICENSE file that was distributed with this source code.
  */
+
 use Extcode\Cart\Domain\Model\Cart\Cart;
 use Extcode\Cart\Domain\Model\Cart\Service;
 use Extcode\Cart\Event\Cart\UpdateCountryEvent;
@@ -89,11 +90,17 @@ class CartUtility
     {
         $isNetCart = !((int)($configurations['settings']['cart']['isNetCart']) === 0);
 
-        $defaultCurrency = [];
-        $defaultCurrencyNum = $configurations['settings']['currencies']['default'];
-        if ($configurations['settings']['currencies'][$defaultCurrencyNum]) {
-            $defaultCurrency = $configurations['settings']['currencies'][$defaultCurrencyNum];
+        $preset = $configurations['settings']['currencies']['preset'];
+        if ($configurations['settings']['currencies']['options'][$preset]) {
+            $currency = $configurations['settings']['currencies']['options'][$preset];
         }
+
+        if (!isset($currency) || !is_array($currency) || !isset($currency['code']) || !isset($currency['sign']) || !isset($currency['translation'])) {
+            throw new \InvalidArgumentException('Add propper currency TypoScript configuration.');
+        }
+
+        // TODO: Throw exception if no currency setting is available or make an default because creating a new cart need
+        // an currency code, sign and an translation
 
         $defaultCountry  = $configurations['settings']['defaultCountry'];
 
@@ -104,9 +111,9 @@ class CartUtility
             Cart::class,
             $taxClasses,
             $isNetCart,
-            $defaultCurrency['code'],
-            $defaultCurrency['sign'],
-            (float)$defaultCurrency['translation']
+            $currency['code'],
+            $currency['sign'],
+            (float)$currency['translation']
         );
 
         if ($defaultCountry) {
