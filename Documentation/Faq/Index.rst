@@ -16,13 +16,20 @@ add options for 2 other countries instead.
 
    plugin.tx_cart {
        settings {
-           allowedCountries >
-           allowedCountries {
-               fr = France
-               nl = Netherlands
+           countries >
+           countries {
+               preset = 1
+               options {
+                   4 {
+                       code = fr
+                       label = France
+                   }
+                   5 {
+                       code = nl
+                       label = Netherlands
+                   }
+               }
            }
-
-           defaultCountry = fr
        }
 
        # equivalent done for shippings

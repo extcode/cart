@@ -584,7 +584,7 @@
                                                               class="form-control"
                                                               name="billingAddress[country]"
                                                               value="{cart.billingCountry}"
-                                                              options="{settings.allowedCountries}"
+                                                              options="{settings.countries.options}"
                                                               required="true"/>
                                             <f:form.validationResults for="billingAddress">
                                                 <f:if condition="{validationResults.flattenedErrors.country}">
@@ -602,7 +602,7 @@
                                                               class="form-control"
                                                               name="billingAddress[country]"
                                                               value="{cart.billingCountry}"
-                                                              options="{settings.allowedCountries}"/>
+                                                              options="{settings.countries.options}"/>
                                         </div>
                                     </f:else>
                                 </f:if>

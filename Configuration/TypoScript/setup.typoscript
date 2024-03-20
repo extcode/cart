@@ -71,12 +71,23 @@ plugin.tx_cart {
             addToCartByAjax = {$plugin.tx_cart.settings.addToCartByAjax}
         }
 
-        allowedCountries {
-            de = Deutschland
-            at = Österreich
-            ch = Schweiz
+        countries {
+            preset = 1
+            options {
+                1 {
+                    code = de
+                    label = Deutschland
+                }
+                2 {
+                    code = at
+                    label = Österreich
+                }
+                3 {
+                    code = ch
+                    label = Schweiz
+                }
+            }
         }
-        defaultCountry = de
 
         currencies {
             preset = 1
