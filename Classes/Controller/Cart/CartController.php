@@ -89,10 +89,10 @@ class CartController extends ActionController
                 $extbaseAttribute->getOriginalRequest() &&
                 $extbaseAttribute->getOriginalRequest()->hasArgument('orderItem')
             ) {
-                $originalRequestOrderItem = $extbaseAttribute->getArgument('orderItem');
+                $originalRequestOrderItem = $extbaseAttribute->getOriginalRequest()->getArgument('orderItem');
 
                 if (isset($originalRequestOrderItem['shippingSameAsBilling'])) {
-                    $this->cart->setShippingSameAsBilling($originalRequestOrderItem['shippingSameAsBilling']);
+                    $this->cart->setShippingSameAsBilling((bool)$originalRequestOrderItem['shippingSameAsBilling']);
                     $this->sessionHandler->writeCart($this->settings['cart']['pid'], $this->cart);
                 }
             }
