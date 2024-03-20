@@ -24,14 +24,17 @@ document.addEventListener('DOMContentLoaded', function () {
                     replaceHtmlElementByIdentifier(responseAsHtml, '#checkout-step-payment-method');
                     replaceHtmlElementByIdentifier(responseAsHtml, '#checkout-step-summary');
 
+                    const eventName = targetClass === 'set-payment'
+                        ? 'extcode:set-payment'
+                        : 'extcode:set-shipping';
+
                     dispatchCustomEvent(
-                        targetClass,
+                        eventName,
                         {
                             response: response,
                         }
                     );
                 });
-
         })
     }
 

@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
 
                 dispatchCustomEvent(
-                    'currency-updated',
+                    'extcode:currency-updated',
                     {
                         response: response,
                     }

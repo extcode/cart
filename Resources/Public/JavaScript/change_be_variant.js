@@ -2,7 +2,7 @@
   // JavaScript/helper/dispatch_custom_event.js
   function dispatchCustomEvent(name, dataObject) {
     const customEvent = new CustomEvent(
-      `extcode:${name}`,
+      `${name}`,
       {
         bubbles: true,
         cancelable: true,
@@ -30,7 +30,7 @@
       setValue(productPrice, ".regular_price", regularPrice);
       setValue(productPrice, ".special_price_percentage_discount", specialPricePercentageDiscount);
       dispatchCustomEvent(
-        "be-variant-was-changed",
+        "extcode:be-variant-was-changed",
         {
           specialPrice,
           regularPrice,

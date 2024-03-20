@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', function(){
                 replaceHtmlElementByIdentifier(responseAsHtml, '#checkout-step-summary');
 
                 dispatchCustomEvent(
-                    'country-updated',
+                    'extcode:country-updated',
                     {
                         response: response,
                     }

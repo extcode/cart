@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', function() {
         setValue(productPrice, '.special_price_percentage_discount', specialPricePercentageDiscount);
 
         dispatchCustomEvent(
-            'be-variant-was-changed',
+            'extcode:be-variant-was-changed',
             {
                 specialPrice: specialPrice,
                 regularPrice: regularPrice,

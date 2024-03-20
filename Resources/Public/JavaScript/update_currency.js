@@ -2,7 +2,7 @@
   // JavaScript/helper/dispatch_custom_event.js
   function dispatchCustomEvent(name, dataObject) {
     const customEvent = new CustomEvent(
-      `extcode:${name}`,
+      `${name}`,
       {
         bubbles: true,
         cancelable: true,
@@ -53,7 +53,7 @@
           replaceHtmlElementByIdentifier(responseAsHtml, "#checkout-step-summary");
         }
         dispatchCustomEvent(
-          "currency-updated",
+          "extcode:currency-updated",
           {
             response
           }
