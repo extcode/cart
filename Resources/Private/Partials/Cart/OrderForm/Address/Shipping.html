@@ -621,7 +621,7 @@
                                                                   class="form-control"
                                                                   name="shippingAddress[country]"
                                                                   value="{cart.shippingCountry}"
-                                                                  options="{settings.allowedCountries}"
+                                                                  options="{settings.countries.options}"
                                                                   required="true"
                                                                   disabled="{f:if(condition:'{cart.shippingSameAsBilling}', then:'true')}"
                                                                   data="{disable-shipping:'true'}"/>
@@ -641,7 +641,7 @@
                                                                   class="form-control"
                                                                   name="shippingAddress[country]"
                                                                   value="{cart.shippingCountry}"
-                                                                  options="{settings.allowedCountries}"
+                                                                  options="{settings.countries.options}"
                                                                   disabled="{f:if(condition:'{cart.shippingSameAsBilling}', then:'true')}"
                                                                   data="{disable-shipping:'true'}"/>
                                             </div>

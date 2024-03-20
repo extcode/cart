@@ -33,12 +33,23 @@ Configuration given by this extension
 
    plugin.tx_cart {
        settings {
-           allowedCountries {
-               de = Deutschland
-               at = Österreich
-               ch = Schweiz
+           countries {
+               preset = 1
+               options {
+                   1 {
+                       code = de
+                       label = Deutschland
+                   }
+                   2 {
+                       code = at
+                       label = Österreich
+                   }
+                   3 {
+                       code = ch
+                       label = Schweiz
+                   }
+               }
            }
-           defaultCountry = de
        }
 
        shippings {
@@ -62,12 +73,12 @@ Configuration given by this extension
 
 plugin.tx_cart.settings
 -----------------------
-The parameter `plugin.tx_cart.settings.defaultCountry`
+The parameter `plugin.tx_cart.settings.countries.preset`
 
-.. confval:: defaultCountry
+.. confval:: countries.preset
 
-   :Type: string
-   :Default: de
+   :Type: int
+   :Default: 1
 
    Defines which country will be preselected.
 

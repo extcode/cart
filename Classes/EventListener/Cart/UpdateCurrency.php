@@ -27,28 +27,28 @@ class UpdateCurrency
             $currencyCode = $request->getArgument('currencyCode');
         }
 
-        $currencyConfigId = $this->getCurrencyConfigId($currencyCode, $settings);
+        $currencyConfigId = $this->getCurrencyConfigId($currencyCode, $settings['options']);
 
         if ($currencyConfigId) {
             $cart->setCurrencyCode($currencyCode);
             $cart->setCurrencySign(
-                $settings[$currencyConfigId]['sign']
+                $settings['options'][$currencyConfigId]['sign']
             );
 
             $cart->setCurrencyTranslation(
-                (float)($settings[$currencyConfigId]['translation'])
+                (float)($settings['options'][$currencyConfigId]['translation'])
             );
         }
 
         $cart->reCalc();
     }
 
-    protected function getCurrencyConfigId(string $currencyCode, array $settings): int
+    protected function getCurrencyConfigId(string $currencyCode, array $currencyOptions): int
     {
         if (strlen($currencyCode) === 3) {
-            foreach ($settings as $currencyConfigId => $currency) {
-                if (is_array($currency) && $currency['code'] === $currencyCode) {
-                    return (int)$currencyConfigId;
+            foreach ($currencyOptions as $currencyOptionId => $currencyOption) {
+                if (is_array($currencyOption) && $currencyOption['code'] === $currencyCode) {
+                    return (int)$currencyOptionId;
                 }
             }
         }

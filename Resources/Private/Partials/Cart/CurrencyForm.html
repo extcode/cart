@@ -1,7 +1,7 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
       data-namespace-typo3-fluid="true">
 
-<f:if condition="{settings.currencies -> f:count()} > 1">
+<f:if condition="{settings.currencies.options -> f:count()} > 1">
     <f:asset.script identifier="update-currency" src="EXT:cart/Resources/Public/JavaScript/update_currency.js" />
     <f:form class="form form-currency"
             name="currency"
@@ -17,7 +17,7 @@
                     <f:form.select class="form-control cart-currency-selector"
                                    name="currencyCode"
                                    value="{cart.code}"
-                                   options="{settings.currencies}"
+                                   options="{settings.currencies.options}"
                                    optionValueField="code" optionLabelField="sign" />
                 </div>
             </div>
