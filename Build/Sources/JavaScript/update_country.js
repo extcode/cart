@@ -1,7 +1,7 @@
-import { dispatchCustomEvent } from "./helper/dispatch_custom_event";
+import {dispatchCustomEvent} from "./helper/dispatch_custom_event";
 import {createHtmlElementFromString, replaceHtmlElementByIdentifier} from "./helper/html_helper";
 
-document.addEventListener('DOMContentLoaded', function(){
+document.addEventListener('DOMContentLoaded', function () {
 
     let shippingSameAsBillingElement = document.querySelector('#shipping-same-as-billing');
     let billingCountryElement = document.querySelector('#billingAddress-country');
@@ -42,7 +42,7 @@ document.addEventListener('DOMContentLoaded', function(){
 
     function setDisabledStatus(parentElement, fieldType, disabledStatus) {
         parentElement.querySelectorAll(fieldType).forEach(
-            function(field) {
+            function (field) {
                 if (field.dataset['disableShipping']) {
                     field.disabled = disabledStatus;
                 }
@@ -53,7 +53,7 @@ document.addEventListener('DOMContentLoaded', function(){
     /**
      * Listen to changes of cart form field for billing country.
      */
-    billingCountryElement.addEventListener('change', function(){
+    billingCountryElement.addEventListener('change', function () {
         const billingCountry = billingCountryElement.value;
         let shippingCountry = ''
 
@@ -66,7 +66,7 @@ document.addEventListener('DOMContentLoaded', function(){
     /**
      * Listen to changes of cart form field for shipping country.
      */
-    shippingCountryElement.addEventListener('change', function(){
+    shippingCountryElement.addEventListener('change', function () {
         const billingCountry = billingCountryElement.value;
         const shippingCountry = shippingCountryElement.value;
 
@@ -76,7 +76,7 @@ document.addEventListener('DOMContentLoaded', function(){
     /**
      * Listen to changes of cart form field whether shipping address is same as billing address.
      */
-    shippingSameAsBillingElement.addEventListener('change', function(){
+    shippingSameAsBillingElement.addEventListener('change', function () {
         let stepShippingAddressElement = document.querySelector('#checkout-step-shipping-address');
         if (shippingSameAsBillingElement.checked) {
             stepShippingAddressElement.style.display = 'none';
@@ -85,7 +85,12 @@ document.addEventListener('DOMContentLoaded', function(){
         }
 
         const billingCountry = billingCountryElement.value;
-        const shippingCountry = shippingCountryElement.value;
+        // Shipping costs shall depend on billing country if shipping address == billing address.
+        // Due to this the value of the shipping country is only considered if the shipping address
+        // differs from the billing address.
+        const shippingCountry = shippingSameAsBillingElement.checked
+            ? billingCountryElement.value
+            : shippingCountryElement.value;
 
         // Disable shipping fields if shipping address == billing address.
         const disabledStatus = shippingSameAsBillingElement.checked;

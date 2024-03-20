@@ -84,7 +84,7 @@
         stepShippingAddressElement.style.display = null;
       }
       const billingCountry = billingCountryElement.value;
-      const shippingCountry = shippingCountryElement.value;
+      const shippingCountry = shippingSameAsBillingElement.checked ? billingCountryElement.value : shippingCountryElement.value;
       const disabledStatus = shippingSameAsBillingElement.checked;
       setDisabledStatus(stepShippingAddressElement, "input", disabledStatus);
       setDisabledStatus(stepShippingAddressElement, "select", disabledStatus);
