@@ -102,7 +102,7 @@ class ParserUtility
             return null;
         }
         $pluginSettingsType = $pluginSettings[$type];
-        $selectedCountry = $pluginSettings['settings']['defaultCountry'];
+        $selectedCountry  = $pluginSettings['settings']['countries']['options'][$pluginSettings['settings']['countries']['preset']]['code'];
 
         if ($cart->getCountry()) {
             if ($type === 'payments') {

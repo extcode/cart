@@ -70,7 +70,8 @@ use a structure like this:
 Templates (Partials)
 --------------------
 
-Use `settings.countries.options` instead of `settings.allowedCountries` in the partial.
-
+Use `settings.countries.options` instead of `settings.allowedCountries` in the partial,
+and add both `optionLabelField="label"` and `optionValueField="code"` to the country
+selectors.
 
 .. index:: TypoScript, Template, Frontend

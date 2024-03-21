@@ -102,7 +102,7 @@ class CartUtility
         // TODO: Throw exception if no currency setting is available or make an default because creating a new cart need
         // an currency code, sign and an translation
 
-        $defaultCountry  = $configurations['settings']['defaultCountry'];
+        $defaultCountry  = $configurations['settings']['countries']['options'][$configurations['settings']['countries']['preset']]['code'];
 
         $taxClasses = $this->parserUtility->parseTaxClasses($configurations, $defaultCountry);
 

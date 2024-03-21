@@ -622,6 +622,8 @@
                                                                   name="shippingAddress[country]"
                                                                   value="{cart.shippingCountry}"
                                                                   options="{settings.countries.options}"
+                                                                  optionLabelField="label"
+                                                                  optionValueField="code"
                                                                   required="true"
                                                                   disabled="{f:if(condition:'{cart.shippingSameAsBilling}', then:'true')}"
                                                                   data="{disable-shipping:'true'}"/>
@@ -642,6 +644,8 @@
                                                                   name="shippingAddress[country]"
                                                                   value="{cart.shippingCountry}"
                                                                   options="{settings.countries.options}"
+                                                                  optionLabelField="label"
+                                                                  optionValueField="code"
                                                                   disabled="{f:if(condition:'{cart.shippingSameAsBilling}', then:'true')}"
                                                                   data="{disable-shipping:'true'}"/>
                                             </div>
