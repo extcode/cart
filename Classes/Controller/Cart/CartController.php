@@ -14,6 +14,7 @@ namespace Extcode\Cart\Controller\Cart;
 use Extcode\Cart\Domain\Model\Order\BillingAddress;
 use Extcode\Cart\Domain\Model\Order\Item;
 use Extcode\Cart\Domain\Model\Order\ShippingAddress;
+use Extcode\Cart\Event\Cart\BeforeShowCartEvent;
 use Extcode\Cart\Event\CheckProductAvailabilityEvent;
 use http\Exception\InvalidArgumentException;
 use Psr\Http\Message\ResponseInterface;
@@ -101,32 +102,16 @@ class CartController extends ActionController
             $this->sessionHandler->writeCart($this->settings['cart']['pid'], $this->cart);
         }
 
-        if (
-            isset($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['cart']['showCartActionAfterCartWasLoaded']) &&
-            !empty($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['cart']['showCartActionAfterCartWasLoaded'])
-        ) {
-            foreach ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['cart']['showCartActionAfterCartWasLoaded'] as $funcRef) {
-                if ($funcRef) {
-                    $params = [
-                        'request' => $this->request,
-                        'settings' => $this->settings,
-                        'cart' => &$this->cart,
-                        'orderItem' => &$orderItem,
-                        'billingAddress' => &$billingAddress,
-                        'shippingAddress' => &$shippingAddress,
-                    ];
-
-                    GeneralUtility::callUserFunction($funcRef, $params, $this);
-                }
-            }
-        }
-
-        $this->view->assign('cart', $this->cart);
+        $beforeShowCartEvent = new BeforeShowCartEvent($this->cart, $orderItem);
+        $this->eventDispatcher->dispatch($beforeShowCartEvent);
+        $this->cart = $beforeShowCartEvent->getCart();
+        $orderItem = $beforeShowCartEvent->getOrderItem();
 
         $this->parseServicesAndAssignToView();
 
         $this->view->assignMultiple(
             [
+                'cart' => $this->cart,
                 'orderItem' => $orderItem,
                 'billingAddress' => $billingAddress,
                 'shippingAddress' => $shippingAddress,
