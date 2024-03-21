@@ -93,31 +93,39 @@ plugin.tx_cart {
             billingAddress {
                 fields {
                     salutation.validator = NotEmpty
+                    title.validator = Empty
                     firstName.validator = NotEmpty
                     lastName.validator = NotEmpty
                     email.validator = NotEmpty
                     phone.validator = Empty
                     fax.validator = Empty
+                    company.validator = Empty
+                    taxIdentificationNumber.validator = Empty
                     street.validator = NotEmpty
                     streetNumber.validator = Empty
                     addition.validator = Empty
                     zip.validator = NotEmpty
                     city.validator = NotEmpty
+                    country.validator = NotEmpty
                 }
             }
             shippingAddress {
                 fields {
                     salutation.validator = NotEmpty
+                    title.validator = Empty
                     firstName.validator = NotEmpty
                     lastName.validator = NotEmpty
                     email.validator = NotEmpty
                     phone.validator = Empty
                     fax.validator = Empty
+                    company.validator = Empty
+                    taxIdentificationNumber.validator = Empty
                     street.validator = NotEmpty
                     streetNumber.validator = Empty
                     addition.validator = Empty
                     zip.validator = NotEmpty
                     city.validator = NotEmpty
+                    country.validator = NotEmpty
                 }
             }
         }

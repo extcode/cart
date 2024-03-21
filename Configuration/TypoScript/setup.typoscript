@@ -178,6 +178,9 @@ plugin.tx_cart {
                     salutation {
                         validator = {$plugin.tx_cart.settings.validation.billingAddress.fields.salutation.validator}
                     }
+                    title {
+                        validator = {$plugin.tx_cart.settings.validation.billingAddress.fields.title.validator}
+                    }
                     firstName {
                         validator = {$plugin.tx_cart.settings.validation.billingAddress.fields.firstName.validator}
                     }
@@ -192,6 +195,12 @@ plugin.tx_cart {
                     }
                     fax {
                         validator = {$plugin.tx_cart.settings.validation.billingAddress.fields.fax.validator}
+                    }
+                    company {
+                        validator = {$plugin.tx_cart.settings.validation.billingAddress.fields.company.validator}
+                    }
+                    taxIdentificationNumber {
+                        validator = {$plugin.tx_cart.settings.validation.billingAddress.fields.taxIdentificationNumber.validator}
                     }
                     street {
                         validator = {$plugin.tx_cart.settings.validation.billingAddress.fields.street.validator}
@@ -208,12 +217,18 @@ plugin.tx_cart {
                     city {
                         validator = {$plugin.tx_cart.settings.validation.billingAddress.fields.city.validator}
                     }
+                    country {
+                        validator = {$plugin.tx_cart.settings.validation.billingAddress.fields.country.validator}
+                    }
                 }
             }
             shippingAddress {
                 fields {
                     salutation {
                         validator = {$plugin.tx_cart.settings.validation.shippingAddress.fields.salutation.validator}
+                    }
+                    title {
+                        validator = {$plugin.tx_cart.settings.validation.shippingAddress.fields.title.validator}
                     }
                     firstName {
                         validator = {$plugin.tx_cart.settings.validation.shippingAddress.fields.firstName.validator}
@@ -230,6 +245,12 @@ plugin.tx_cart {
                     fax {
                         validator = {$plugin.tx_cart.settings.validation.shippingAddress.fields.fax.validator}
                     }
+                    company {
+                        validator = {$plugin.tx_cart.settings.validation.shippingAddress.fields.company.validator}
+                    }
+                    taxIdentificationNumber {
+                        validator = {$plugin.tx_cart.settings.validation.shippingAddress.fields.taxIdentificationNumber.validator}
+                    }
                     street {
                         validator = {$plugin.tx_cart.settings.validation.shippingAddress.fields.street.validator}
                     }
@@ -244,6 +265,9 @@ plugin.tx_cart {
                     }
                     city {
                         validator = {$plugin.tx_cart.settings.validation.shippingAddress.fields.city.validator}
+                    }
+                    country {
+                        validator = {$plugin.tx_cart.settings.validation.shippingAddress.fields.country.validator}
                     }
                 }
             }

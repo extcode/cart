@@ -6,11 +6,19 @@
 Validating and hiding fields
 ============================
 
-Using this TypoScript configuration it is possible to change the validation and
-rendering of fields of the billing and shipping address.
-
+Using the below shown TypoScript configuration allows to change the validation
+and rendering of fields of the billing and shipping address.
 The partials for the display of the addresses evaluates this configuration.
-It controls whether the fields are mandatory, optional or not rendered att all.
+It controls whether the fields are mandatory, optional or not rendered at all.
+
+.. TIP::
+   This way it is easily possible to unhide e.g the fields `streetNumber` or
+   `addition` (which is a field for additional address information) which are
+   already defined but hidden by default.
+
+   Have a look at all fields with the value `Empty` to see all available
+   fields.
+
 
 .. code-block:: typoscript
    :caption: EXT:cart/Configuration/TypoScript/setup.typoscript
@@ -21,31 +29,39 @@ It controls whether the fields are mandatory, optional or not rendered att all.
                billingAddress {
                    fields {
                        salutation.validator = NotEmpty
+                       title.validator = Empty
                        firstName.validator = NotEmpty
                        lastName.validator = NotEmpty
                        email.validator = NotEmpty
                        phone.validator = Empty
                        fax.validator = Empty
+                       company.validator = Empty
+                       taxIdentificationNumber.validator = Empty
                        street.validator = NotEmpty
                        streetNumber.validator = Empty
                        addition.validator = Empty
                        zip.validator = NotEmpty
                        city.validator = NotEmpty
+                       country.validator = NotEmpty
                    }
                }
                shippingAddress {
                    fields {
                        salutation.validator = NotEmpty
+                       title.validator = Empty
                        firstName.validator = NotEmpty
                        lastName.validator = NotEmpty
                        email.validator = NotEmpty
                        phone.validator = Empty
                        fax.validator = Empty
+                       company.validator = Empty
+                       taxIdentificationNumber.validator = Empty
                        street.validator = NotEmpty
                        streetNumber.validator = Empty
                        addition.validator = Empty
                        zip.validator = NotEmpty
                        city.validator = NotEmpty
+                       country.validator = NotEmpty
                    }
                }
            }
@@ -68,6 +84,7 @@ Option `Not Empty`
 * The input field is rendered with the attribute `required` set to `true`.
 
 .. code-block:: typoscript
+   :caption: EXT:sitepackage/Configuration/TypoScript/constants.typoscript
 
    plugin.tx_cart.settings.validation.billingAddress.fields {
        salutation.validator = NotEmpty
@@ -82,6 +99,7 @@ Option `Empty`
 * The server checks whether the field is empty.
 
 .. code-block:: typoscript
+   :caption: EXT:sitepackage/Configuration/TypoScript/constants.typoscript
 
    plugin.tx_cart.settings.validation.billingAddress.fields {
        salutation.validator = Empty
@@ -96,7 +114,12 @@ This has the following consequences:
 * The label of the field is rendered without a trailing "*".
 * The input field is rendered without the attribute `required`.
 
+.. IMPORTANT::
+   While the two configuration above can be made within the
+   `constants.typoscript` is this configuration done in `setup.typoscript`.
+
 .. code-block:: typoscript
+   :caption: EXT:sitepackage/Configuration/TypoScript/setup.typoscript
 
    plugin.tx_cart.settings.validation.billingAddress.fields {
        # !!! It is necessary to remove the whole address field,
