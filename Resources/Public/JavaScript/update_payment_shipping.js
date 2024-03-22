@@ -2,7 +2,7 @@
   // JavaScript/helper/dispatch_custom_event.js
   function dispatchCustomEvent(name, dataObject) {
     const customEvent = new CustomEvent(
-      `extcode:${name}`,
+      `${name}`,
       {
         bubbles: true,
         cancelable: true,
@@ -42,8 +42,9 @@
           replaceHtmlElementByIdentifier(responseAsHtml, "#checkout-step-shipping-method");
           replaceHtmlElementByIdentifier(responseAsHtml, "#checkout-step-payment-method");
           replaceHtmlElementByIdentifier(responseAsHtml, "#checkout-step-summary");
+          const eventName = targetClass === "set-payment" ? "extcode:set-payment" : "extcode:set-shipping";
           dispatchCustomEvent(
-            targetClass,
+            eventName,
             {
               response
             }

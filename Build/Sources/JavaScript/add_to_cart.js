@@ -39,7 +39,7 @@ document.addEventListener('DOMContentLoaded', function () {
             fadeOut(successContainer, messageTimeout);
 
             dispatchCustomEvent(
-                'render-add-to-cart-result-message',
+                'extcode:render-add-to-cart-result-message',
                 {
                     response: response,
                     success: true,
@@ -54,7 +54,7 @@ document.addEventListener('DOMContentLoaded', function () {
             fadeOut(errorContainer, messageTimeout);
 
             dispatchCustomEvent(
-                'render-add-to-cart-result-message',
+                'extcode:render-add-to-cart-result-message',
                 {
                     response: response,
                     success: false,
@@ -88,7 +88,7 @@ document.addEventListener('DOMContentLoaded', function () {
         );
 
         dispatchCustomEvent(
-            'hide-message-block',
+            'extcode:hide-message-block',
             {
                 element: element
             }
@@ -130,7 +130,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         dispatchCustomEvent(
-            'minicart-was-updated',
+            'extcode:minicart-was-updated',
             {
                 count: response.count,
                 net: response.net,

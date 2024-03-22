@@ -13,3 +13,4 @@ Information for developer how to extend the extension.
 
    Events/Index
    Hooks/Index
+   JavaScript-Events/Index

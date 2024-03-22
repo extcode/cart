@@ -2,7 +2,7 @@
   // JavaScript/helper/dispatch_custom_event.js
   function dispatchCustomEvent(name, dataObject) {
     const customEvent = new CustomEvent(
-      `extcode:${name}`,
+      `${name}`,
       {
         bubbles: true,
         cancelable: true,
@@ -42,7 +42,7 @@
         successContainer.style.display = null;
         fadeOut(successContainer, messageTimeout);
         dispatchCustomEvent(
-          "render-add-to-cart-result-message",
+          "extcode:render-add-to-cart-result-message",
           {
             response: response2,
             success: true,
@@ -56,7 +56,7 @@
         errorContainer.style.display = null;
         fadeOut(errorContainer, messageTimeout);
         dispatchCustomEvent(
-          "render-add-to-cart-result-message",
+          "extcode:render-add-to-cart-result-message",
           {
             response: response2,
             success: false,
@@ -80,7 +80,7 @@
         messageTimeout + transitionTime
       );
       dispatchCustomEvent(
-        "hide-message-block",
+        "extcode:hide-message-block",
         {
           element
         }
@@ -116,7 +116,7 @@
         }
       }
       dispatchCustomEvent(
-        "minicart-was-updated",
+        "extcode:minicart-was-updated",
         {
           count: response2.count,
           net: response2.net,

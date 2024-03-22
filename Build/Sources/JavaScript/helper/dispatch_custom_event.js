@@ -1,6 +1,6 @@
 function dispatchCustomEvent(name, dataObject) {
     const customEvent = new CustomEvent(
-        `extcode:${name}`,
+        `${name}`,
         {
             bubbles: true,
             cancelable: true,
