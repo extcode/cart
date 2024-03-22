@@ -30,7 +30,7 @@ class Email
         $paymentId = $orderItem->getPayment()->getServiceId();
 
         if ($paymentCountry) {
-            $serviceSettings = $settings['payments'][$paymentCountry]['options'][$paymentId];
+            $serviceSettings = $settings['payments']['countries'][$paymentCountry]['options'][$paymentId];
         } else {
             $serviceSettings = $settings['payments']['options'][$paymentId];
         }
