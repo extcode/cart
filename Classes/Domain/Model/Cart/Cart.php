@@ -847,13 +847,13 @@ class Cart
 
     protected function addServiceAttributes(Product $newProduct): void
     {
-        if ($this->maxServiceAttr1 > $newProduct->getServiceAttribute1()) {
+        if ($this->maxServiceAttr1 < $newProduct->getServiceAttribute1()) {
             $this->maxServiceAttr1 = $newProduct->getServiceAttribute1();
         }
-        if ($this->maxServiceAttr2 > $newProduct->getServiceAttribute2()) {
+        if ($this->maxServiceAttr2 < $newProduct->getServiceAttribute2()) {
             $this->maxServiceAttr2 = $newProduct->getServiceAttribute2();
         }
-        if ($this->maxServiceAttr3 > $newProduct->getServiceAttribute3()) {
+        if ($this->maxServiceAttr3 < $newProduct->getServiceAttribute3()) {
             $this->maxServiceAttr3 = $newProduct->getServiceAttribute3();
         }
 
@@ -872,13 +872,13 @@ class Cart
         $this->sumServiceAttr3 = 0.0;
 
         foreach ($this->products as $key => $product) {
-            if ($this->maxServiceAttr1 > $product->getServiceAttribute1()) {
+            if ($this->maxServiceAttr1 < $product->getServiceAttribute1()) {
                 $this->maxServiceAttr1 = $product->getServiceAttribute1();
             }
-            if ($this->maxServiceAttr2 > $product->getServiceAttribute2()) {
+            if ($this->maxServiceAttr2 < $product->getServiceAttribute2()) {
                 $this->maxServiceAttr2 = $product->getServiceAttribute2();
             }
-            if ($this->maxServiceAttr3 > $product->getServiceAttribute3()) {
+            if ($this->maxServiceAttr3 < $product->getServiceAttribute3()) {
                 $this->maxServiceAttr3 = $product->getServiceAttribute3();
             }
 
