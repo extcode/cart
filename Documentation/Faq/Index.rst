@@ -58,8 +58,25 @@ shown because the validation is set to `NotEmpty`.
 The following configuration shows the "addition" field for the shipping address:
 
 .. code-block:: typoscript
+   caption: EXT:sitepackage/Configuration/TypoScript/setup.typoscript
 
    plugin.tx_cart.settings.validation.shippingAddress.fields {
        addition >
+   }
+
+How can overwrite a translation?
+================================
+
+This can be done in TypoScript, the following code snippet shows an example.
+
+.. code-block:: typoscript
+   caption: EXT:sitepackage/Configuration/TypoScript/setup.typoscript
+
+   plugin.tx_cart {
+     _LOCAL_LANG {
+       de {
+         tx_cart.mail.thank_you_for_order = Ganz herzlichen Dank für deine Bestellung!
+       }
+     }
    }
 
