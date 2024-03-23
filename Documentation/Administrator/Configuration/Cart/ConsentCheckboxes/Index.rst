@@ -76,7 +76,12 @@ plugin.tx_cart.settings.validation.orderItem.fields
    :Default: Boolean
 
    Add a checkbox for accepting the terms and conditions.
-   If validator is not *Boolean* the default template wont render a checkbox.
+   To not render this checkbox at all you need to set
+
+   .. code-block:: typoscript
+      :caption: EXT:sitepackage/Configuration/TypoScript/setup.typoscript
+
+      plugin.tx_cart.settings.validation.orderItem.fields.acceptTermsAndConditions >
 
 .. confval:: acceptTermsAndConditions.options.is
 
@@ -85,13 +90,20 @@ plugin.tx_cart.settings.validation.orderItem.fields
 
    Defines which value is expected for terms and conditions checkbox.
 
+   This setting will be ignored if the checkbox is not rendered at all.
+
 .. confval:: acceptRevocationInstruction.validator
 
    :Type: string
    :Default: Boolean
 
    Add a checkbox for accepting the revocation instruction.
-   If validator is not *Boolean* the default template wont render a checkbox.
+   To not render this checkbox at all you need to set
+
+   .. code-block:: typoscript
+      :caption: EXT:sitepackage/Configuration/TypoScript/setup.typoscript
+
+      plugin.tx_cart.settings.validation.orderItem.fields.acceptRevocationInstruction >
 
 .. confval:: acceptRevocationInstruction.options.is
 
@@ -100,13 +112,20 @@ plugin.tx_cart.settings.validation.orderItem.fields
 
    Defines which value is expected for revocation instruction checkbox.
 
+   This setting will be ignored if the checkbox is not rendered at all.
+
 .. confval:: acceptPrivacyPolicy.validator
 
    :Type: string
    :Default: Boolean
 
    Add a checkbox for accepting the privacy policy.
-   If validator is not *Boolean* the default template wont render a checkbox.
+   To not render this checkbox at all you need to set
+
+   .. code-block:: typoscript
+      :caption: EXT:sitepackage/Configuration/TypoScript/setup.typoscript
+
+      plugin.tx_cart.settings.validation.orderItem.fields.acceptPrivacyPolicy >
 
 .. confval:: acceptPrivacyPolicy.options.is
 
@@ -114,3 +133,5 @@ plugin.tx_cart.settings.validation.orderItem.fields
    :Default: true
 
    Defines which value is expected for privacy policy checkbox.
+
+   This setting will be ignored if the checkbox is not rendered at all.
