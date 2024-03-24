@@ -5,6 +5,8 @@
 FAQ
 ===
 
+.. rst-class:: panel panel-default
+
 How can I unset the predefined payment / shipping methods?
 ==========================================================
 
@@ -49,6 +51,8 @@ add options for 2 other countries instead.
        }
    }
 
+.. rst-class:: panel panel-default
+
 How can I add a field "Addition" for the addresses?
 ===================================================
 
@@ -64,19 +68,21 @@ The following configuration shows the "addition" field for the shipping address:
        addition >
    }
 
+.. rst-class:: panel panel-default
+
 How can overwrite a translation?
 ================================
 
-This can be done in TypoScript, the following code snippet shows an example.
+You can write your own XLIFF file where you are using the key of the translation
+that you want to overwrite. Your XLIFF file needs to be registered in a
+:php:`ext_localconf.php`, e.g. in your sitepackage.
 
-.. code-block:: typoscript
-   caption: EXT:sitepackage/Configuration/TypoScript/setup.typoscript
+The following example is for overwriting German translations:
 
-   plugin.tx_cart {
-     _LOCAL_LANG {
-       de {
-         tx_cart.mail.thank_you_for_order = Ganz herzlichen Dank für deine Bestellung!
-       }
-     }
-   }
+.. code-block:: php
+   :caption: EXT:sitepackage/ext_localconf.php
+
+   $GLOBALS['TYPO3_CONF_VARS']['SYS']['locallangXMLOverride']
+      ['de']['EXT:cart/Resources/Private/Language/locallang.xlf'][] =
+         'EXT:sitepackage/Resources/Private/Language/Cart/de.locallang.xlf';
 
