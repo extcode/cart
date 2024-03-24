@@ -17,6 +17,13 @@
         <f:render partial="Backend/Order/Show/Address" arguments="{orderItem: orderItem}"/>
     </div>
 
+    <f:if condition="{orderItem.comment}">
+        <div style="padding-bottom: 20px;">
+            <strong><f:translate key="tx_cart_domain_model_order_item.comment"/>:</strong><br/>
+            {orderItem.comment -> f:sanitize.html()}
+        </div>
+    </f:if>
+
     <div style="padding-bottom: 20px;">
         <f:render partial="Backend/Order/Show/Cart" arguments="{orderItem: orderItem}"/>
     </div>
