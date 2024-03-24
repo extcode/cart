@@ -19,10 +19,9 @@ use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Backend\Template\ModuleTemplate;
 use TYPO3\CMS\Backend\Template\ModuleTemplateFactory;
 use TYPO3\CMS\Core\Imaging\IconFactory;
-use TYPO3\CMS\Core\Messaging\AbstractMessage;
 use TYPO3\CMS\Core\Pagination\SimplePagination;
+use TYPO3\CMS\Core\Type\ContextualFeedbackSeverity;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
-use TYPO3\CMS\Extbase\Annotation\IgnoreValidation;
 use TYPO3\CMS\Extbase\Pagination\QueryResultPaginator;
 use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
@@ -177,7 +176,7 @@ class OrderController extends ActionController
                 'Cart'
             );
 
-            $this->addFlashMessage($msg, '', AbstractMessage::ERROR);
+            $this->addFlashMessage($msg, '', ContextualFeedbackSeverity::ERROR);
         }
 
         $this->redirect('show', 'Backend\Order\Order', null, ['orderItem' => $orderItem]);
