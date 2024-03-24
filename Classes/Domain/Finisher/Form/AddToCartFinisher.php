@@ -16,9 +16,9 @@ use Extcode\Cart\Service\SessionHandler;
 use Extcode\Cart\Utility\CartUtility;
 use TYPO3\CMS\Core\Http\PropagateResponseException;
 use TYPO3\CMS\Core\Http\StreamFactory;
-use TYPO3\CMS\Core\Messaging\AbstractMessage;
 use TYPO3\CMS\Core\Messaging\FlashMessage;
 use TYPO3\CMS\Core\Messaging\FlashMessageService;
+use TYPO3\CMS\Core\Type\ContextualFeedbackSeverity;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManager;
 use TYPO3\CMS\Extbase\Service\ExtensionService;
@@ -90,7 +90,7 @@ class AddToCartFinisher extends AbstractFinisher
             $status = '200';
             $messageBody = $this->getStatusMessageBody($formValues, $status);
             $messageTitle = $this->getStatusMessageTitle($formValues);
-            $severity = AbstractMessage::OK;
+            $severity = ContextualFeedbackSeverity::OK;
 
             $pageType = $GLOBALS['TYPO3_REQUEST']->getAttribute('routing')->getPageType();
             if (in_array((int)$pageType, $this->configurations['settings']['jsonResponseForPageTypes'])) {

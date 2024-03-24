@@ -12,7 +12,7 @@ namespace Extcode\Cart\Controller\Cart;
  */
 
 use Psr\Http\Message\ResponseInterface;
-use TYPO3\CMS\Core\Messaging\AbstractMessage;
+use TYPO3\CMS\Core\Type\ContextualFeedbackSeverity;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 
 class PaymentController extends ActionController
@@ -37,7 +37,7 @@ class PaymentController extends ActionController
                         'Cart'
                     ),
                     '',
-                    AbstractMessage::ERROR,
+                    ContextualFeedbackSeverity::ERROR,
                     true
                 );
             }

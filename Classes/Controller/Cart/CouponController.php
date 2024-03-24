@@ -15,7 +15,7 @@ use Extcode\Cart\Domain\Model\Cart\CartCouponInterface;
 use Extcode\Cart\Domain\Model\Coupon;
 use Extcode\Cart\Domain\Repository\CouponRepository;
 use Psr\Http\Message\ResponseInterface;
-use TYPO3\CMS\Core\Messaging\AbstractMessage;
+use TYPO3\CMS\Core\Type\ContextualFeedbackSeverity;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 
@@ -71,7 +71,7 @@ class CouponController extends ActionController
                                 'Cart'
                             ),
                             '',
-                            AbstractMessage::OK,
+                            ContextualFeedbackSeverity::OK,
                             true
                         );
                     }
@@ -82,7 +82,7 @@ class CouponController extends ActionController
                                 'Cart'
                             ),
                             '',
-                            AbstractMessage::WARNING,
+                            ContextualFeedbackSeverity::WARNING,
                             true
                         );
                     }
@@ -93,7 +93,7 @@ class CouponController extends ActionController
                                 'Cart'
                             ),
                             '',
-                            AbstractMessage::WARNING,
+                            ContextualFeedbackSeverity::WARNING,
                             true
                         );
                     }
@@ -104,7 +104,7 @@ class CouponController extends ActionController
                             'Cart'
                         ),
                         '',
-                        AbstractMessage::WARNING,
+                        ContextualFeedbackSeverity::WARNING,
                         true
                     );
                 }
@@ -115,7 +115,7 @@ class CouponController extends ActionController
                         'Cart'
                     ),
                     '',
-                    AbstractMessage::WARNING,
+                    ContextualFeedbackSeverity::WARNING,
                     true
                 );
             }
@@ -142,7 +142,7 @@ class CouponController extends ActionController
                         'Cart'
                     ),
                     '',
-                    AbstractMessage::OK,
+                    ContextualFeedbackSeverity::OK,
                     true
                 );
             }
@@ -153,7 +153,7 @@ class CouponController extends ActionController
                         'Cart'
                     ),
                     '',
-                    AbstractMessage::WARNING,
+                    ContextualFeedbackSeverity::WARNING,
                     true
                 );
             }
