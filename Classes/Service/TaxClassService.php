@@ -71,11 +71,11 @@ class TaxClassService implements TaxClassServiceInterface
     {
         if (empty($value) ||
             empty($value['name']) ||
-            empty($value['calc']) ||
-            !is_numeric($value['calc'])
+            !isset($value['calc']) ||
+            (isset($value['calc']) && !is_numeric($value['calc']))
         ) {
             $logger = GeneralUtility::makeInstance(LogManager::class)->getLogger(__CLASS__);
-            $logger->error('Can\'t create tax class object for \'' . $key . '\'.', []);
+            $logger->error('Can\'t create tax class object for the configuration with the index=' . $key . '.', []);
 
             return false;
         }
