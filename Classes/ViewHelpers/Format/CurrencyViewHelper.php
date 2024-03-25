@@ -130,10 +130,12 @@ class CurrencyViewHelper extends AbstractViewHelper
             if (!isset($separateCurrency) && isset($currencyFormat['separateCurrency'])) {
                 $separateCurrency = filter_var($currencyFormat['separateCurrency'], FILTER_VALIDATE_BOOLEAN);
             }
-            if (!isset($decimals) && isset($currencyFormat['decimals'])) {
-                $decimals = (int)($currencyFormat['decimals']);
-            } else {
-                $decimals = 0;
+            if (!isset($decimals)){
+                if(isset($currencyFormat['decimals'])) {
+                    $decimals = (int)($currencyFormat['decimals']);
+                } else {
+                    $decimals = 0;
+                }
             }
         }
 

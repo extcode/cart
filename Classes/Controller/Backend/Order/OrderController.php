@@ -22,6 +22,7 @@ use TYPO3\CMS\Core\Imaging\IconFactory;
 use TYPO3\CMS\Core\Pagination\SimplePagination;
 use TYPO3\CMS\Core\Type\ContextualFeedbackSeverity;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
+use TYPO3\CMS\Extbase\Annotation\IgnoreValidation;
 use TYPO3\CMS\Extbase\Pagination\QueryResultPaginator;
 use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
@@ -64,6 +65,7 @@ class OrderController extends ActionController
     {
         $this->moduleTemplate = $this->moduleTemplateFactory->create($this->request);
 
+        $this->moduleTemplate->assign('settings', $this->settings);
         $this->moduleTemplate->assign('searchArguments', $this->searchArguments);
 
         $itemsPerPage = $this->settings['itemsPerPage'] ?? 20;
@@ -123,6 +125,7 @@ class OrderController extends ActionController
     {
         $this->moduleTemplate = $this->moduleTemplateFactory->create($this->request);
 
+        $this->moduleTemplate->assign('settings', $this->settings);
         $this->moduleTemplate->assign('orderItem', $orderItem);
 
         $paymentStatusOptions = [];
