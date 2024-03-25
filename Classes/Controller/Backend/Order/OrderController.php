@@ -65,6 +65,7 @@ class OrderController extends ActionController
     {
         $this->moduleTemplate = $this->moduleTemplateFactory->create($this->request);
 
+        $this->moduleTemplate->assign('settings', $this->settings);
         $this->moduleTemplate->assign('searchArguments', $this->searchArguments);
 
         $itemsPerPage = $this->settings['itemsPerPage'] ?? 20;
@@ -124,6 +125,7 @@ class OrderController extends ActionController
     {
         $this->moduleTemplate = $this->moduleTemplateFactory->create($this->request);
 
+        $this->moduleTemplate->assign('settings', $this->settings);
         $this->moduleTemplate->assign('orderItem', $orderItem);
 
         $paymentStatusOptions = [];
