@@ -391,6 +391,9 @@
             <trans-unit id="tx_cart.controller.order.action.list">
                 <source>List</source>
             </trans-unit>
+            <trans-unit id="tx_cart.controller.order.action.close">
+                <source>Close</source>
+            </trans-unit>
             <trans-unit id="tx_cart.controller.order.action.export.csv">
                 <source>Export (CSV)</source>
             </trans-unit>
