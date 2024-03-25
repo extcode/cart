@@ -256,4 +256,32 @@ class TaxClassServiceTest extends FunctionalTestCase
             $firstTaxClasses->getTitle()
         );
     }
+
+    /**
+     * @test
+     */
+    public function parsingTaxClassesFromTypoScriptWithIntegerZeroAsCalcIsValid()
+    {
+        $settings = [
+            'taxClasses' => [
+                '1' => [
+                    'value' => '0',
+                    'calc' => '0',
+                    'name' => 'free',
+                ],
+            ],
+        ];
+
+        $reflection = new \ReflectionClass($this->taxClassService);
+        $reflection_property = $reflection->getProperty('settings');
+        $reflection_property->setAccessible(true);
+        $reflection_property->setValue($this->taxClassService, $settings);
+
+        $taxClasses = $this->taxClassService->getTaxClasses();
+
+        self::assertEquals(
+            $taxClasses[1]->getCalc(),
+            0
+        );
+    }
 }
