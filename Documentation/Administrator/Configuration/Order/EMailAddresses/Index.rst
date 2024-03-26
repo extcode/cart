@@ -12,7 +12,9 @@ the backend via the plugin, but also configured via TypoScript.
 
    plugin.tx_cart {
        mail {
+           // Used for emails sent to the customer (=buyer)
            buyer {
+               fromName = Your Brand name
                fromAddress = cart.buyer.sender@example.com
                ccAddress = cart.buyer.cc1@example.com, cart.buyer.cc2@example.com
                bccAddress = cart.buyer.bcc1@example.com, cart.buyer.bcc2@example.com
@@ -21,7 +23,10 @@ the backend via the plugin, but also configured via TypoScript.
                    1 = EXT:sitepackage/Resources/Public/Files/AGB.pdf
                }
            }
+
+           // Used for emails sent to the shop owner (=seller)
            seller {
+               fromName = Cart TYPO3 System
                fromAddress = cart.seller.sender@example.com
                toAddress = cart.seller.to1@example.com, cart.seller.to2@example.com
                ccAddress = cart.seller.cc1@example.com, cart.seller.cc2@example.com

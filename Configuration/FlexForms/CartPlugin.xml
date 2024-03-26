@@ -10,6 +10,16 @@
                 </TCEforms>
                 <type>array</type>
                 <el>
+                    <settings.seller.emailFromName>
+                        <TCEforms>
+                            <label>
+                                LLL:EXT:cart/Resources/Private/Language/locallang_db.xml:tx_cart.flexform.seller.email_from_name
+                            </label>
+                            <config>
+                                <type>input</type>
+                            </config>
+                        </TCEforms>
+                    </settings.seller.emailFromName>
                     <settings.seller.emailFromAddress>
                         <TCEforms>
                             <label>
@@ -52,6 +62,16 @@
                             </config>
                         </TCEforms>
                     </settings.seller.emailBccAddress>
+                    <settings.buyer.emailFromName>
+                        <TCEforms>
+                            <label>
+                                LLL:EXT:cart/Resources/Private/Language/locallang_db.xml:tx_cart.flexform.buyer.email_from_name
+                            </label>
+                            <config>
+                                <type>input</type>
+                            </config>
+                        </TCEforms>
+                    </settings.buyer.emailFromName>
                     <settings.buyer.emailFromAddress>
                         <TCEforms>
                             <label>

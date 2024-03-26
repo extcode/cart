@@ -13,6 +13,7 @@ use Extcode\Cart\Domain\Model\Cart\Cart;
 use Extcode\Cart\Domain\Model\Order\Item;
 use Extcode\Cart\Hooks\MailAttachmentHookInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Symfony\Component\Mime\Address;
 use TYPO3\CMS\Core\Log\LogManager;
 use TYPO3\CMS\Core\Mail\FluidEmail;
 use TYPO3\CMS\Core\Mail\MailerInterface;
@@ -27,10 +28,12 @@ class MailHandler implements SingletonInterface
     private MailerInterface $mailer;
     protected array $pluginSettings = [];
     protected Cart $cart;
+    protected string $buyerEmailName = '';
     protected string $buyerEmailFrom = '';
     protected string $buyerEmailCc = '';
     protected string $buyerEmailBcc = '';
     protected string $buyerEmailReplyTo = '';
+    protected string $sellerEmailName = '';
     protected string $sellerEmailFrom = '';
     protected string $sellerEmailTo = '';
     protected string $sellerEmailCc = '';
@@ -65,6 +68,18 @@ class MailHandler implements SingletonInterface
 
         if (empty($this->pluginSettings['settings'])) {
             return;
+        }
+
+        // setBuyerEmailName
+        if (!empty($this->pluginSettings['settings']['buyer'])
+            && !empty($this->pluginSettings['settings']['buyer']['emailFromName'])
+        ) {
+            $this->setBuyerEmailName($this->pluginSettings['settings']['buyer']['emailFromName']);
+        } elseif (!empty($this->pluginSettings['mail'])
+            && !empty($this->pluginSettings['mail']['buyer'])
+            && !empty($this->pluginSettings['mail']['buyer']['fromName'])
+        ) {
+            $this->setBuyerEmailName($this->pluginSettings['mail']['buyer']['fromName']);
         }
 
         // setBuyerEmailFrom
@@ -113,6 +128,18 @@ class MailHandler implements SingletonInterface
             && !empty($this->pluginSettings['mail']['buyer']['replyToAddress'])
         ) {
             $this->setBuyerEmailReplyTo($this->pluginSettings['mail']['buyer']['replyToAddress']);
+        }
+
+        // setSellerEmailName
+        if (!empty($this->pluginSettings['settings']['seller'])
+            && !empty($this->pluginSettings['settings']['seller']['emailFromName'])
+        ) {
+            $this->setSellerEmailName($this->pluginSettings['settings']['seller']['emailFromName']);
+        } elseif (!empty($this->pluginSettings['mail'])
+            && !empty($this->pluginSettings['mail']['seller'])
+            && !empty($this->pluginSettings['mail']['seller']['fromName'])
+        ) {
+            $this->setSellerEmailName($this->pluginSettings['mail']['seller']['fromName']);
         }
 
         // setSellerEmailFrom
@@ -169,6 +196,16 @@ class MailHandler implements SingletonInterface
         $this->cart = $cart;
     }
 
+    public function setBuyerEmailName(string $name): void
+    {
+        $this->buyerEmailName = $name;
+    }
+
+    public function getBuyerEmailName(): string
+    {
+        return $this->buyerEmailName;
+    }
+
     public function setBuyerEmailFrom(string $email): void
     {
         $this->buyerEmailFrom = $email;
@@ -207,6 +244,16 @@ class MailHandler implements SingletonInterface
     public function getBuyerEmailReplyTo(): string
     {
         return $this->buyerEmailReplyTo;
+    }
+
+    public function setSellerEmailName(string $name): void
+    {
+        $this->sellerEmailName = $name;
+    }
+
+    public function getSellerEmailName(): string
+    {
+        return $this->sellerEmailName;
     }
 
     public function setSellerEmailFrom(string $email): void
@@ -260,10 +307,12 @@ class MailHandler implements SingletonInterface
 
         $status = $orderItem->getPayment()->getStatus();
 
+        $fromAddress = new Address($this->getBuyerEmailFrom(), $this->getBuyerEmailName());
+
         $email = new FluidEmail();
         $email
             ->to($orderItem->getBillingAddress()->getEmail())
-            ->from($this->getBuyerEmailFrom())
+            ->from($fromAddress)
             ->setTemplate('Mail/' . ucfirst($status) . '/Buyer')
             ->format(FluidEmail::FORMAT_HTML)
             ->assign('settings', $this->pluginSettings['settings'])
@@ -315,11 +364,13 @@ class MailHandler implements SingletonInterface
 
         $status = $orderItem->getPayment()->getStatus();
 
+        $fromAddress = new Address($this->getSellerEmailFrom(), $this->getSellerEmailName());
+
         $to = explode(',', $sellerEmailTo);
         $email = new FluidEmail();
         $email
             ->to(...$to)
-            ->from($this->getSellerEmailFrom())
+            ->from($fromAddress)
             ->setTemplate('Mail/' . ucfirst($status) . '/Seller')
             ->format(FluidEmail::FORMAT_HTML)
             ->assign('settings', $this->pluginSettings['settings'])
