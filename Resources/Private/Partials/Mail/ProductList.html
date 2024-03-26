@@ -7,7 +7,7 @@
         <td colspan="2" style="padding: 5px 10px; margin: 0; font-family: Arial, Helvetica, sans-serif; font-size: 12px;">
             <div class="product-name">{product.title} - {product.feVariant.value}</div>
             <p style="font-family: Arial, Helvetica, sans-serif; font-size: 12px;">
-                <f:translate key="LLL:EXT:cart/Resources/Private/Language/locallang.xlf:tx_cart_domain_model_order_product.sku.short"/>
+                <f:translate extensionName="Cart" key="tx_cart_domain_model_order_product.sku.short"/>
                 : {product.sku}
             </p>
         </td>
@@ -38,7 +38,7 @@
                 <td style="padding: 5px 10px; margin: 0; font-family: Arial, Helvetica, sans-serif; font-size: 12px;">
                     <div class="product-name">{variant.title}</div>
                     <p style="padding: 5px 10px; margin: 0; font-family: Arial, Helvetica, sans-serif; font-size: 12px;">
-                        <f:translate key="LLL:EXT:cart/Resources/Private/Language/locallang.xlf:tx_cart_domain_model_order_product.sku.short"/>
+                        <f:translate extensionName="Cart" key="tx_cart_domain_model_order_product.sku.short"/>
                         : {variant.completeSku}
                     </p>
                 </td>
