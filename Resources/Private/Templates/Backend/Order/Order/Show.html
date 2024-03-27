@@ -4,28 +4,43 @@
         xmlns:be="http://typo3.org/ns/TYPO3/CMS/Backend/ViewHelpers"
         data-namespace-typo3-fluid="true">
 
-<f:layout name="Module" />
+<f:layout name="Module"/>
 
 <f:section name="Content">
-    <f:flashMessages/>
+    <div class="cart-order">
+        <f:flashMessages/>
 
-    <div style="padding-bottom: 20px;">
-        <f:render partial="Backend/Order/Show/Properties" arguments="{orderItem: orderItem, paymentStatusOptions:paymentStatusOptions, shippingStatusOptions:shippingStatusOptions}"/>
-    </div>
+        <h1>
+            <f:translate key="tx_cart.backend.order.title" arguments="{0: '{orderItem.orderNumber}', 1:'{orderItem.orderDate -> f:format.date(format:\'{settings.backend.dateFormat}\')}'}"/>
+        </h1>
 
-    <div style="padding-bottom: 20px;">
-        <f:render partial="Backend/Order/Show/Address" arguments="{orderItem: orderItem}"/>
-    </div>
-
-    <f:if condition="{orderItem.comment}">
-        <div style="padding-bottom: 20px;">
-            <strong><f:translate key="tx_cart_domain_model_order_item.comment"/>:</strong><br/>
-            {orderItem.comment -> f:sanitize.html()}
+        <div class="properties mb-4">
+            <f:render partial="Backend/Order/Show/Properties"
+                      arguments="{orderItem: orderItem, paymentStatusOptions:paymentStatusOptions, shippingStatusOptions:shippingStatusOptions}"/>
         </div>
-    </f:if>
 
-    <div style="padding-bottom: 20px;">
-        <f:render partial="Backend/Order/Show/Cart" arguments="{orderItem: orderItem}"/>
+        <div class="mb-4">
+            <f:render partial="Backend/Order/Show/Address" arguments="{orderItem: orderItem}"/>
+        </div>
+
+        <f:if condition="{orderItem.comment}">
+            <div class="card-container mb-3">
+                <div class="card p-4">
+                    <h4>
+                        <f:translate key="tx_cart_domain_model_order_item.comment"/>
+                    </h4>
+                    {orderItem.comment -> f:sanitize.html()}
+                </div>
+            </div>
+        </f:if>
+        <div class="card-container">
+            <div class="card p-4">
+                <h4>
+                    <f:translate key="tx_cart_domain_model_order_item.items"/>
+                </h4>
+                <f:render partial="Backend/Order/Show/Cart" arguments="{orderItem: orderItem}"/>
+            </div>
+        </div>
     </div>
 </f:section>
 </html>

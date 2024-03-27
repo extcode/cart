@@ -539,17 +539,35 @@
             <trans-unit id="tx_cart_domain_model_order_item.order_product">
                 <source>Order Product</source>
             </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_item.order_order">
+                <source>Order</source>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_item.order_invoice">
+                <source>Invoice</source>
+            </trans-unit>
             <trans-unit id="tx_cart_domain_model_order_item.order_shipping">
                 <source>Shipping</source>
             </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_item.order_shipping.method">
+                <source>Method</source>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_item.order_delivery">
+                <source>Delivery</source>
+            </trans-unit>
             <trans-unit id="tx_cart_domain_model_order_item.order_payment">
                 <source>Payment</source>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_item.order_payment.method">
+                <source>Method</source>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_item.items">
+                <source>Ordered items</source>
             </trans-unit>
             <trans-unit id="tx_cart_domain_model_order_item.crdate">
                 <source>Order Date</source>
             </trans-unit>
             <trans-unit id="tx_cart_domain_model_order_item.comment">
-                <source>Comment</source>
+                <source>Customer comment</source>
             </trans-unit>
             <trans-unit id="tx_cart_domain_model_order_item.accept_terms_and_conditions">
                 <source>I have read the general terms and conditions agree to them.</source>
@@ -864,6 +882,10 @@
 
             <trans-unit id="tx_cart.add_to_cart_finisher.message.status.200.body">
                 <source>The product was added to cart.</source>
+            </trans-unit>
+
+            <trans-unit id="tx_cart.backend.order.title">
+                <source>Order view for #%1$s (%2$s)</source>
             </trans-unit>
 
         </body>

@@ -1,105 +1,149 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
       data-namespace-typo3-fluid="true">
 
-<table class="tx-cart table" width="100%">
-    <tr>
-        <th style="background-color: #ededed;">
-            <f:translate key="tx_cart_domain_model_order_item.order_number"/>
-        </th>
-        <td>
-            {orderItem.orderNumber}
-        </td>
-        <th style="background-color: #ededed; border-left: 1px solid #DDD;">
-            <f:translate key="tx_cart_domain_model_order_item.invoice_number"/>
-        </th>
-        <td>
-            {orderItem.invoiceNumber}
-        </td>
-    </tr>
-    <tr>
-        <th style="background-color: #ededed;">
-            <f:translate key="tx_cart_domain_model_order_item.order_date"/>
-        </th>
-        <td>
-            <f:if condition="{orderItem.orderDate}">
-                <f:format.date format="d.m.Y" date="{orderItem.orderDate}"/>
-            </f:if>
-        </td>
-        <th style="background-color: #ededed; border-left: 1px solid #DDD;">
-            <f:translate key="tx_cart_domain_model_order_item.invoice_date"/>
-        </th>
-        <td>
-            <f:if condition="{orderItem.invoiceDate}">
-                <f:format.date format="d.m.Y" date="{orderItem.invoiceDate}"/>
-            </f:if>
-        </td>
-    </tr>
-    <f:if condition="{orderItem.deliveryNumber}">
-        <tr>
-            <th style="background-color: #ededed;">
-                &nbsp;
-            </th>
-            <td>
-                &nbsp;
-            </td>
-            <th style="background-color: #ededed; border-left: 1px solid #DDD;">
-                <f:translate key="tx_cart_domain_model_order_item.delivery_number"/>
-            </th>
-            <td>
-                {orderItem.deliveryNumber}
-            </td>
-        </tr>
-        <tr>
-            <th style="background-color: #ededed;">
-                &nbsp;
-            </th>
-            <td>
-                &nbsp;
-            </td>
-            <th style="background-color: #ededed; border-left: 1px solid #DDD;">
-                <f:translate key="tx_cart_domain_model_order_item.delivery_date"/>
-            </th>
-            <td>
-                <f:if condition="{orderItem.deliveryDate}">
-                    <f:format.date format="d.m.Y" date="{orderItem.deliveryDate}"/>
-                </f:if>
-            </td>
-        </tr>
-    </f:if>
-    <tr>
-        <th style="background-color: #ededed;">
+<div class="card-container mt-4">
+    <div class="card card-size-fixed-small p-4">
+        <h4 class="form-section-headline">
+            <f:translate key="tx_cart_domain_model_order_item.order_order"/>
+        </h4>
+        <table class="table">
+            <tr>
+                <th>
+                    <f:translate key="tx_cart_domain_model_order_item.order_number"/>
+                </th>
+                <td>
+                    {orderItem.orderNumber}
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <f:translate key="tx_cart_domain_model_order_item.order_date"/>
+                </th>
+                <td>
+                    <f:if condition="{orderItem.orderDate}">
+                        <f:format.date format="{settings.backend.dateFormat}" date="{orderItem.orderDate}"/>
+                    </f:if>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="card card-size-fixed-small p-4">
+        <h4 class="form-section-headline">
+            <f:translate key="tx_cart_domain_model_order_item.order_invoice"/>
+        </h4>
+        <table class="table">
+            <tr>
+                <th>
+                    <f:translate key="tx_cart_domain_model_order_item.invoice_number"/>
+                </th>
+                <td>
+                    {f:if(condition:'{orderItem.invoiceNumber}', then:'{orderItem.invoiceNumber}', else: '-')}
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <f:translate key="tx_cart_domain_model_order_item.invoice_date"/>
+                </th>
+                <td>
+                    <f:if condition="{orderItem.invoiceDate}">
+                        <f:then>
+                            <f:format.date format="{settings.backend.dateFormat}" date="{orderItem.invoiceDate}"/>
+                        </f:then>
+                        <f:else>
+                            -
+                        </f:else>
+                    </f:if>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="card card-size-fixed-small p-4">
+        <h4 class="form-section-headline">
             <f:translate key="tx_cart_domain_model_order_item.order_payment"/>
-        </th>
-        <td>
-            {orderItem.payment.name}
-        </td>
-        <th style="background-color: #ededed; border-left: 1px solid #DDD;">
+        </h4>
+        <table class="table col">
+            <tr>
+                <th>
+                    <f:translate key="tx_cart_domain_model_order_item.order_payment.method"/>
+                </th>
+                <td>
+                    {orderItem.payment.name}
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <f:translate key="tx_cart_domain_model_order_payment.status"/>
+                </th>
+                <td>
+                    <f:form controller="Backend\Order\Payment" action="update" name="paymentStatus"
+                            object="{orderItem.payment}"
+                            objectName="payment">
+                        <div class="row gap-1">
+                            <f:form.select class="col form-select" property="status" options="{paymentStatusOptions}"
+                                           optionValueField="value" optionLabelField="label"/>
+                            <f:form.submit class="col btn btn-default" value="{f:translate(key: 'tx_cart.update_status')}"/>
+                        </div>
+                    </f:form>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <f:if condition="{orderItem.deliveryNumber}">
+        <div class="card card-size-fixed-small p-4">
+            <h4 class="form-section-headline">
+                <f:translate key="tx_cart_domain_model_order_item.order_delivery"/>
+            </h4>
+            <table class="table">
+                <tr>
+                    <th>
+                        <f:translate key="tx_cart_domain_model_order_item.delivery_number"/>
+                    </th>
+                    <td>
+                        {orderItem.deliveryNumber}
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        <f:translate key="tx_cart_domain_model_order_item.delivery_date"/>
+                    </th>
+                    <td>
+                        <f:if condition="{orderItem.deliveryDate}">
+                            <f:format.date format="{settings.backend.dateFormat}" date="{orderItem.deliveryDate}"/>
+                        </f:if>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </f:if>
+
+    <div class="card card-size-fixed-small p-4">
+        <h4 class="form-section-headline">
             <f:translate key="tx_cart_domain_model_order_item.order_shipping"/>
-        </th>
-        <td>
-            {orderItem.shipping.name}
-        </td>
-    </tr>
-    <tr>
-        <th style="background-color: #ededed;">
-            <f:translate key="tx_cart_domain_model_order_payment.status"/>
-        </th>
-        <td>
-            <f:form controller="Backend\Order\Payment" action="update" name="paymentStatus" object="{orderItem.payment}" objectName="payment">
-                <f:form.select property="status" options="{paymentStatusOptions}" optionValueField="value" optionLabelField="label"/>
-                <f:form.submit value="{f:translate(key: 'tx_cart.update_status')}" />
-            </f:form>
-        </td>
-        <th style="background-color: #ededed; border-left: 1px solid #DDD;">
-            <f:translate key="tx_cart_domain_model_order_shipping.status"/>
-        </th>
-        <td>
-            <f:form controller="Backend\Order\Shipping" action="update" name="shippingStatus" object="{orderItem.shipping}" objectName="shipping">
-                <f:form.select property="status" options="{shippingStatusOptions}" optionValueField="value" optionLabelField="label"/>
-                <f:form.submit value="{f:translate(key: 'tx_cart.update_status')}" />
-            </f:form>
-        </td>
-    </tr>
-</table>
-<br>
+        </h4>
+        <table class="table">
+            <tr>
+                <th>
+                    <f:translate key="tx_cart_domain_model_order_item.order_shipping.method"/>
+                </th>
+                <td>
+                    {orderItem.shipping.name}
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <f:translate key="tx_cart_domain_model_order_shipping.status"/>
+                </th>
+                <td>
+                    <f:form controller="Backend\Order\Shipping" action="update" name="shippingStatus"
+                            object="{orderItem.shipping}" objectName="shipping">
+                        <div class="row gap-1">
+                            <f:form.select class="col form-select" property="status" options="{shippingStatusOptions}"
+                                           optionValueField="value" optionLabelField="label"/>
+                            <f:form.submit class="col btn btn-default" value="{f:translate(key: 'tx_cart.update_status')}"/>
+                        </div>
+                    </f:form>
+                </td>
+        </table>
+    </div>
+</div>
 </html>

@@ -32,7 +32,9 @@
         <f:if condition="{address.taxIdentificationNumber}">
             <br/>
             <div>
-                <strong><f:translate key="tx_cart_domain_model_order_address.tax_identification_number"/>:<br/></strong>
+                <strong>
+                    <f:translate key="tx_cart_domain_model_order_address.tax_identification_number"/>
+                    :<br/></strong>
                 {address.taxIdentificationNumber}
             </div>
         </f:if>
@@ -40,25 +42,23 @@
     </div>
 </f:section>
 
-<div>
-    <div class="block-left">
+<div class="card-container">
+    <div class="card card-size-fixed-small p-4">
         <f:if condition="{orderItem.billingAddress}">
-            <strong>
-                <f:translate key="tx_cart_domain_model_order_item.billing_address"/>:
-            </strong>
+            <h4>
+                <f:translate key="tx_cart_domain_model_order_item.billing_address"/>
+            </h4>
             <f:render section="address" arguments="{address: orderItem.billingAddress}"/>
         </f:if>
     </div>
 
-    <div class="block-right">
-        <f:if condition="{orderItem.shippingAddress}">
-            <strong>
-                <f:translate key="tx_cart_domain_model_order_item.shipping_address"/>:
-            </strong>
+    <f:if condition="{orderItem.shippingAddress}">
+        <div class="card card-size-fixed-small p-4">
+            <h4>
+                <f:translate key="tx_cart_domain_model_order_item.shipping_address"/>
+            </h4>
             <f:render section="address" arguments="{address: orderItem.shippingAddress}"/>
-        </f:if>
-    </div>
-
-    <div class="clear"><!-- --></div>
+        </div>
+    </f:if>
 </div>
 </html>

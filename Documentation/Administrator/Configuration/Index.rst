@@ -18,5 +18,6 @@ extension with TypoScript, PageTS and YAML.
    PaymentMethods/Index
    ShippingMethods/Index
    TaxClasses/Index
+   BackendModule/Index
    Action/Index
    Ajax/Index

@@ -10,23 +10,23 @@
         <td>
             {product.title}
         </td>
-        <td>
+        <td class="cart-figure">
             <cart:format.currency currencySign="{currencySign}">{product.price}</cart:format.currency>
         </td>
-        <td>
+        <td class="cart-figure">
             <cart:format.currency currencySign="{currencySign}">{product.discount}</cart:format.currency>
         </td>
-        <td>
+        <td class="cart-figure">
             {product.count}
         </td>
-        <td>
+        <td class="cart-figure">
             <cart:format.currency currencySign="{currencySign}">{product.net}</cart:format.currency>
         </td>
-        <td>
+        <td class="cart-figure">
             <cart:format.currency currencySign="{currencySign}">{product.gross}</cart:format.currency>
         </td>
         <f:for each="{product.orderItem.orderTotalTax}" as="orderTotalTax">
-            <td>
+            <td class="cart-figure">
                 <f:if condition="{0: orderTotalTax.orderTaxClass.id} == {0: {product.orderTaxClass.id}}">
                     <f:then>
                         <cart:format.currency currencySign="{currencySign}">{product.orderTax.tax}</cart:format.currency>
