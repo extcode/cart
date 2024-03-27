@@ -46,6 +46,10 @@ plugin.tx_cart {
             decimals           = 2
         }
 
+        search {
+            dateFormat = Y-m-d
+        }
+
         validation {
             orderItem {
                 fields {

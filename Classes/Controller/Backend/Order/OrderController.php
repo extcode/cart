@@ -19,6 +19,7 @@ use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Backend\Template\ModuleTemplate;
 use TYPO3\CMS\Backend\Template\ModuleTemplateFactory;
 use TYPO3\CMS\Core\Imaging\IconFactory;
+use TYPO3\CMS\Core\Page\PageRenderer;
 use TYPO3\CMS\Core\Pagination\SimplePagination;
 use TYPO3\CMS\Core\Type\ContextualFeedbackSeverity;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
@@ -37,6 +38,8 @@ class OrderController extends ActionController
 
     protected array $searchArguments = [];
 
+    private PageRenderer $pageRenderer;
+
     public function injectPersistenceManager(PersistenceManager $persistenceManager): void
     {
         $this->persistenceManager = $persistenceManager;
@@ -45,6 +48,11 @@ class OrderController extends ActionController
     public function injectItemRepository(ItemRepository $itemRepository): void
     {
         $this->itemRepository = $itemRepository;
+    }
+
+    public function injectPageRenderer(PageRenderer $pageRenderer): void
+    {
+        $this->pageRenderer = $pageRenderer;
     }
 
     public function __construct(
@@ -64,6 +72,8 @@ class OrderController extends ActionController
     public function listAction(int $currentPage = 1): ResponseInterface
     {
         $this->moduleTemplate = $this->moduleTemplateFactory->create($this->request);
+
+        $this->addBackendAssets();
 
         $this->moduleTemplate->assign('settings', $this->settings);
         $this->moduleTemplate->assign('searchArguments', $this->searchArguments);
@@ -124,6 +134,8 @@ class OrderController extends ActionController
     public function showAction(Item $orderItem): ResponseInterface
     {
         $this->moduleTemplate = $this->moduleTemplateFactory->create($this->request);
+
+        $this->addBackendAssets();
 
         $this->moduleTemplate->assign('settings', $this->settings);
         $this->moduleTemplate->assign('orderItem', $orderItem);
@@ -233,5 +245,12 @@ class OrderController extends ActionController
             $shippingStatusArray[] = $shippingStatus;
         }
         return $shippingStatusArray;
+    }
+
+    private function addBackendAssets(): void
+    {
+        $this->pageRenderer->addCssFile('EXT:cart/Resources/Public/Stylesheets/Backend/style.css');
+
+        $this->pageRenderer->loadJavaScriptModule('@extcode/cart/order-module.js');
     }
 }

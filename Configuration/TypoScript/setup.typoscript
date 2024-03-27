@@ -329,12 +329,6 @@ plugin.tx_cart {
     }
 }
 
-module.tx_cart {
-    invoiceNumber < plugin.tx_cart.invoiceNumber
-    deliveryNumber < plugin.tx_cart.deliveryNumber
-}
-
-
 # use this lib to add custom information or content elements to your email template
 
 temp.cartMailContentElement = RECORDS
