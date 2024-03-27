@@ -24,15 +24,15 @@ class Item extends AbstractEntity
 
     protected ?FrontendUser $feUser = null;
 
-    protected string $orderNumber;
+    protected string $orderNumber = '';
 
     protected ?\DateTime $orderDate = null;
 
-    protected string $invoiceNumber;
+    protected string $invoiceNumber = '';
 
     protected ?\DateTime $invoiceDate = null;
 
-    protected string $deliveryNumber;
+    protected string $deliveryNumber = '';
 
     protected ?\DateTime $deliveryDate = null;
 
@@ -166,7 +166,7 @@ class Item extends AbstractEntity
      */
     public function setOrderNumber(string $orderNumber): string
     {
-        if (!isset($this->orderNumber)) {
+        if (empty($this->orderNumber)) {
             $this->orderNumber = $orderNumber;
         } else {
             if ($this->orderNumber !== $orderNumber) {
@@ -196,7 +196,7 @@ class Item extends AbstractEntity
      */
     public function setInvoiceNumber(string $invoiceNumber): string
     {
-        if (!isset($this->invoiceNumber)) {
+        if (empty($this->invoiceNumber)) {
             $this->invoiceNumber = $invoiceNumber;
         } else {
             if ($this->invoiceNumber !== $invoiceNumber) {
@@ -226,7 +226,7 @@ class Item extends AbstractEntity
      */
     public function setDeliveryNumber(string $deliveryNumber): string
     {
-        if (!isset($this->deliveryNumber)) {
+        if (empty($this->deliveryNumber)) {
             $this->deliveryNumber = $deliveryNumber;
         } else {
             if ($this->deliveryNumber !== $deliveryNumber) {
