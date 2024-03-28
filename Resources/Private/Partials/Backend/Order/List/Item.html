@@ -2,7 +2,7 @@
       xmlns:cart="http://typo3.org/ns/Extcode/Cart/ViewHelpers"
       data-namespace-typo3-fluid="true">
 
-<tr class="db_list_normal">
+<tr>
     <td>
         {orderItem.billingAddress.firstName}
     </td>
@@ -32,23 +32,19 @@
             <f:format.date format="d.m.Y" date="{orderItem.invoiceDate}"/>
         </f:if>
     </td>
-    <td style="width: 75px; text-align: right;">
+    <td class="cart-figure">
         <cart:format.currency currencySign="{orderItem.currency}">{orderItem.totalGross}</cart:format.currency>
     </td>
-    <td style="width: 75px; text-align: right;">
+    <td class="cart-figure">
         <cart:format.currency currencySign="{orderItem.currency}">{orderItem.totalNet}</cart:format.currency>
     </td>
     <td class="order-payment-status-{orderItem.payment.status}">
         {orderItem.payment.name} <br/>
-        (
-        <f:translate key="tx_cart_domain_model_order_payment.status.{orderItem.payment.status}"/>
-        )
+        (&nbsp;<f:translate key="tx_cart_domain_model_order_payment.status.{orderItem.payment.status}"/>&nbsp;)
     </td>
     <td class="order-shipping-status-{orderItem.shipping.status}">
         {orderItem.shipping.name} <br/>
-        (
-        <f:translate key="tx_cart_domain_model_order_shipping.status.{orderItem.shipping.status}"/>
-        )
+        (&nbsp;<f:translate key="tx_cart_domain_model_order_shipping.status.{orderItem.shipping.status}"/>&nbsp;)
     </td>
     <td>
         <f:render partial="Backend/Order/List/Actions"
