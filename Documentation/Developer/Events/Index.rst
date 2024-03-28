@@ -10,6 +10,14 @@ integrate custom requirements in the ordering process.
 You can register your own EventListener for the following
 events:
 
+.. confval:: \Extcode\Cart\Event\Cart\ShowCartEvent
+
+   Triggered before the cart is shown.
+
+   Allows adaptions of the cart itself. Furthermore it makes it possible to
+   fill the form fields for the billing address and the shipping address with
+   data from a logged-in frontend user.
+
 .. confval:: \Extcode\Cart\Event\Cart\UpdateCountryEvent
 
    This event is triggered when the user changes the country in the order

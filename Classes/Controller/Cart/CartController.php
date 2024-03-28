@@ -15,6 +15,7 @@ use Extcode\Cart\Domain\Model\Order\BillingAddress;
 use Extcode\Cart\Domain\Model\Order\Item;
 use Extcode\Cart\Domain\Model\Order\ShippingAddress;
 use Extcode\Cart\Event\CheckProductAvailabilityEvent;
+use Extcode\Cart\Event\ShowCartEvent;
 use http\Exception\InvalidArgumentException;
 use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -56,10 +57,11 @@ class CartController extends ActionController
     }
 
     public function showAction(
-        Item $orderItem = null,
-        BillingAddress $billingAddress = null,
+        Item            $orderItem = null,
+        BillingAddress  $billingAddress = null,
         ShippingAddress $shippingAddress = null
-    ): ResponseInterface {
+    ): ResponseInterface
+    {
         $this->restoreSession();
 
         if (!is_null($billingAddress)) {
@@ -101,25 +103,15 @@ class CartController extends ActionController
             $this->sessionHandler->writeCart($this->settings['cart']['pid'], $this->cart);
         }
 
-        if (
-            isset($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['cart']['showCartActionAfterCartWasLoaded']) &&
-            !empty($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['cart']['showCartActionAfterCartWasLoaded'])
-        ) {
-            foreach ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['cart']['showCartActionAfterCartWasLoaded'] as $funcRef) {
-                if ($funcRef) {
-                    $params = [
-                        'request' => $this->request,
-                        'settings' => $this->settings,
-                        'cart' => &$this->cart,
-                        'orderItem' => &$orderItem,
-                        'billingAddress' => &$billingAddress,
-                        'shippingAddress' => &$shippingAddress,
-                    ];
-
-                    GeneralUtility::callUserFunction($funcRef, $params, $this);
-                }
-            }
-        }
+        $showCartEvent = new ShowCartEvent(
+            $this->cart,
+            $this->request,
+            $this->settings,
+            $orderItem,
+            $billingAddress,
+            $shippingAddress
+        );
+        $this->eventDispatcher->dispatch($showCartEvent);
 
         $this->view->assign('cart', $this->cart);
 
