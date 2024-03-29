@@ -15,7 +15,7 @@ use Extcode\Cart\Domain\Model\Cart\Cart;
 use Extcode\Cart\Domain\Model\Order\Item;
 use Psr\EventDispatcher\StoppableEventInterface;
 
-final class AttachementEvent implements StoppableEventInterface
+final class AttachmentEvent implements StoppableEventInterface
 {
     private array $attachments = [];
 
