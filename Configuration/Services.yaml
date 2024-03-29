@@ -20,6 +20,18 @@ services:
         identifier: 'cart--cart--update-currency'
         event: Extcode\Cart\Event\Cart\UpdateCurrency
 
+  Extcode\Cart\EventListener\Mail\AttachmentFromOrderItem:
+    tags:
+      - name: event.listener
+        identifier: 'cart--mail--attachment-from-order/item'
+        event: Extcode\Cart\Event\Mail\AttachmentEvent
+
+  Extcode\Cart\EventListener\Mail\AttachmnentFromTypoScript:
+    tags:
+      - name: event.listener
+        identifier: 'cart--mail--attachment-from-typoscript'
+        event: Extcode\Cart\Event\Mail\AttachmentEvent
+
   Extcode\Cart\EventListener\Order\Create\Order:
     tags:
       - name: event.listener

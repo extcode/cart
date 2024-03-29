@@ -11,7 +11,6 @@ use Extcode\Cart\Controller\Cart\OrderController;
 use Extcode\Cart\Controller\Cart\PaymentController;
 use Extcode\Cart\Controller\Cart\ProductController;
 use Extcode\Cart\Controller\Cart\ShippingController;
-use Extcode\Cart\Hooks\MailAttachmentHook;
 use TYPO3\CMS\Core\Imaging\IconProvider\SvgIconProvider;
 use TYPO3\CMS\Core\Imaging\IconRegistry;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
@@ -117,8 +116,6 @@ $GLOBALS['TYPO3_CONF_VARS']['SYS']['fluid']['namespaces']['cart'][] = 'Extcode\\
 // view paths for TYPO3 Mail API
 $GLOBALS['TYPO3_CONF_VARS']['MAIL']['templateRootPaths']['1588829280'] = 'EXT:cart/Resources/Private/Templates/';
 $GLOBALS['TYPO3_CONF_VARS']['MAIL']['partialRootPaths']['1588829280'] = 'EXT:cart/Resources/Private/Partials/';
-
-$GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['cart']['MailAttachmentsHook'][] = MailAttachmentHook::class;
 
 // view paths for TYPO3 Dashboard
 call_user_func(static function () {

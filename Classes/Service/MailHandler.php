@@ -11,23 +11,22 @@ namespace Extcode\Cart\Service;
 
 use Extcode\Cart\Domain\Model\Cart\Cart;
 use Extcode\Cart\Domain\Model\Order\Item;
-use Extcode\Cart\Hooks\MailAttachmentHookInterface;
+use Extcode\Cart\Event\Mail\AttachementEvent;
+use Psr\EventDispatcher\EventDispatcherInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Symfony\Component\Mime\Address;
-use TYPO3\CMS\Core\Log\LogManager;
 use TYPO3\CMS\Core\Mail\FluidEmail;
 use TYPO3\CMS\Core\Mail\MailerInterface;
 use TYPO3\CMS\Core\SingletonInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManager;
+use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 
 class MailHandler implements SingletonInterface
 {
-    protected LogManager $logManager;
-    protected ConfigurationManager $configurationManager;
-    private MailerInterface $mailer;
     protected array $pluginSettings = [];
     protected Cart $cart;
+
     protected string $buyerEmailName = '';
     protected string $buyerEmailFrom = '';
     protected string $buyerEmailCc = '';
@@ -43,20 +42,13 @@ class MailHandler implements SingletonInterface
      * MailHandler constructor
      */
     public function __construct(
-        LogManager $logManager,
-        ConfigurationManager $configurationManager,
-        MailerInterface $mailer
+        private ConfigurationManagerInterface $configurationManager,
+        private EventDispatcherInterface $eventDispatcher,
+        private MailerInterface $mailer
     ) {
-        $this->logManager = $logManager;
-        $this->configurationManager = $configurationManager;
-        $this->mailer = $mailer;
-
         $this->setPluginSettings();
     }
 
-    /**
-     * Sets Plugin Settings
-     */
     public function setPluginSettings(): void
     {
         $this->pluginSettings =
@@ -330,19 +322,7 @@ class MailHandler implements SingletonInterface
             $email->replyTo($this->getbuyerEmailReplyTo());
         }
 
-        if (
-            isset($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['cart']['MailAttachmentsHook']) &&
-            !empty($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['cart']['MailAttachmentsHook'])
-        ) {
-            foreach ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['cart']['MailAttachmentsHook'] as $className) {
-                $mailAttachmentHook = GeneralUtility::makeInstance($className);
-                if (!$mailAttachmentHook instanceof MailAttachmentHookInterface) {
-                    throw new \UnexpectedValueException($className . ' must implement interface ' . MailAttachmentHookInterface::class, 123);
-                }
-
-                $email = $mailAttachmentHook->getMailAttachments($email, $orderItem, 'buyer');
-            }
-        }
+        $this->addAttachments('buyer', $orderItem, $email);
 
         if ($GLOBALS['TYPO3_REQUEST'] instanceof ServerRequestInterface) {
             $email->setRequest($GLOBALS['TYPO3_REQUEST']);
@@ -388,25 +368,29 @@ class MailHandler implements SingletonInterface
             $email->bcc(...$bcc);
         }
 
-        if (
-            isset($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['cart']['MailAttachmentsHook']) &&
-            !empty($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['cart']['MailAttachmentsHook'])
-        ) {
-            foreach ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['cart']['MailAttachmentsHook'] as $className) {
-                $mailAttachmentHook = GeneralUtility::makeInstance($className);
-
-                if (!$mailAttachmentHook instanceof MailAttachmentHookInterface) {
-                    throw new \UnexpectedValueException($className . ' must implement interface ' . MailAttachmentHookInterface::class, 123);
-                }
-
-                $email = $mailAttachmentHook->getMailAttachments($email, $orderItem, 'seller');
-            }
-        }
+        $this->addAttachments('seller', $orderItem, $email);
 
         if ($GLOBALS['TYPO3_REQUEST'] instanceof ServerRequestInterface) {
             $email->setRequest($GLOBALS['TYPO3_REQUEST']);
         }
 
         $this->mailer->send($email);
+    }
+
+    public function addAttachments(string $type, Item $orderItem, FluidEmail $email): void
+    {
+        $attachmentEvent = new AttachementEvent($type, $orderItem);
+        $this->eventDispatcher->dispatch($attachmentEvent);
+
+        $attachments = $attachmentEvent->getAttachments();
+
+        if (!empty($attachments)) {
+            foreach ($attachments as $attachment) {
+                $attachmentFile = GeneralUtility::getFileAbsFileName($attachment);
+                if (file_exists($attachmentFile)) {
+                    $email->attachFromPath($attachmentFile);
+                }
+            }
+        }
     }
 }
