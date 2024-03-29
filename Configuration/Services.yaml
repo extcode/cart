@@ -23,10 +23,10 @@ services:
   Extcode\Cart\EventListener\Mail\AttachmentFromOrderItem:
     tags:
       - name: event.listener
-        identifier: 'cart--mail--attachment-from-order/item'
+        identifier: 'cart--mail--attachment-from-order-item'
         event: Extcode\Cart\Event\Mail\AttachmentEvent
 
-  Extcode\Cart\EventListener\Mail\AttachmnentFromTypoScript:
+  Extcode\Cart\EventListener\Mail\AttachmentFromTypoScript:
     tags:
       - name: event.listener
         identifier: 'cart--mail--attachment-from-typoscript'

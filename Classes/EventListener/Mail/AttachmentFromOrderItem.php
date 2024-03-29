@@ -11,8 +11,7 @@ namespace Extcode\Cart\EventListener\Mail;
  * LICENSE file that was distributed with this source code.
  */
 
-use Extcode\Cart\Event\Mail\AttachementEvent;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
+use Extcode\Cart\Event\Mail\AttachmentEvent;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManager;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 
@@ -29,7 +28,7 @@ class AttachmentFromOrderItem
         );
     }
 
-    public function __invoke(AttachementEvent $event): void
+    public function __invoke(AttachmentEvent $event): void
     {
         $type = $event->getType();
         if (!isset($this->pluginSettings['mail'][$type]['attachDocuments'])) {

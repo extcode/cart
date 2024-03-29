@@ -102,7 +102,9 @@ class ParserUtility
             return null;
         }
         $pluginSettingsType = $pluginSettings[$type];
-        $selectedCountry  = $pluginSettings['settings']['countries']['options'][$pluginSettings['settings']['countries']['preset']]['code'];
+        if (isset($pluginSettings['settings']['countries']['options'][$pluginSettings['settings']['countries']['preset']]['code'])) {
+            $selectedCountry  = $pluginSettings['settings']['countries']['options'][$pluginSettings['settings']['countries']['preset']]['code'];
+        }
 
         if ($cart->getCountry()) {
             if ($type === 'payments') {
@@ -112,7 +114,7 @@ class ParserUtility
             }
         }
 
-        if ($selectedCountry) {
+        if (isset($selectedCountry)) {
             if (!empty($pluginSettingsType['countries']) && is_array($pluginSettingsType['countries'][$selectedCountry])) {
                 $countrySetting = $pluginSettingsType['countries'][$selectedCountry];
                 if (is_array($countrySetting) && !empty($countrySetting)) {

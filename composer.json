@@ -58,6 +58,7 @@
         "typo3/cms-form": "^12.4"
     },
     "require-dev": {
+        "codappix/typo3-php-datasets": "^1.5",
         "friendsofphp/php-cs-fixer": "^3.16",
         "overtrue/phplint": "^5.5",
         "phpstan/phpstan": "^1.10",
