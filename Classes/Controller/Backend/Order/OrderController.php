@@ -55,10 +55,8 @@ class OrderController extends ActionController
 
     public function __construct(
         protected readonly ModuleTemplateFactory $moduleTemplateFactory,
-        protected readonly IconFactory           $iconFactory
-    )
-    {
-    }
+        protected readonly IconFactory $iconFactory
+    ) {}
 
     protected function initializeAction(): void
     {
@@ -73,8 +71,7 @@ class OrderController extends ActionController
     {
         $this->moduleTemplate = $this->moduleTemplateFactory->create($this->request);
 
-        $buttons = $this->getListButtons();
-        $this->setDocHeader($buttons);
+        $this->setDocHeader($this->getListButtons());
 
         $this->moduleTemplate->assign('settings', $this->settings);
         $this->moduleTemplate->assign('searchArguments', $this->searchArguments);
@@ -109,10 +106,9 @@ class OrderController extends ActionController
     public function exportAction(): ResponseInterface
     {
         $format = $this->request->getFormat();
-        $searchArguments = $this->request->getArgument('searchArguments');
-        $orderItems = $this->itemRepository->findAll();
+        $orderItems = $this->itemRepository->findAll($this->searchArguments);
 
-        $this->view->assign('searchArguments', $searchArguments);
+        $this->view->assign('searchArguments', $this->searchArguments);
         $this->view->assign('orderItems', $orderItems);
 
         $pdfRendererInstalled = ExtensionManagementUtility::isLoaded('cart_pdf');
@@ -296,22 +292,11 @@ class OrderController extends ActionController
     {
         $buttons = [];
 
-        $numberExists = false;
-        $documentExists = false;
+        $numberGetter = 'get' . ucfirst($type) . 'Number';
+        $documentGetter = 'get' . ucfirst($type) . 'Pdfs';
 
-        switch ($type) {
-            case 'order':
-                $numberExists = $orderItem->getOrderNumber();
-                $documentExists = $orderItem->getOrderPdfs()->current();
-                break;
-            case 'invoice':
-                $numberExists = $orderItem->getInvoiceNumber();
-                $documentExists = $orderItem->getInvoicePdfs()->current();
-                break;
-            case 'delivery':
-                $numberExists = $orderItem->getDeliveryNumber();
-                $documentExists = $orderItem->getDeliveryPdfs()->current();
-        }
+        $numberExists = $orderItem->$numberGetter();
+        $documentExists = $orderItem->$documentGetter()->current();
 
         if (!$numberExists) {
             $buttons[] = [
@@ -326,6 +311,7 @@ class OrderController extends ActionController
                 'showLabel' => true,
             ];
         }
+
         if ($numberExists && ExtensionManagementUtility::isLoaded('cart_pdf')) {
             $buttons[] = [
                 'link' => $this->uriBuilder->reset()->setRequest($this->request)
@@ -366,7 +352,7 @@ class OrderController extends ActionController
                 'link' => $this->uriBuilder->reset()->setRequest($this->request)
                     ->setArguments(['searchArguments' => $this->searchArguments])
                     ->setFormat('csv')
-                    ->uriFor('export',),
+                    ->uriFor('export'),
                 'title' => 'tx_cart.controller.order.action.export.csv',
                 'icon' => 'actions-file-csv-download',
                 'group' => 1,
@@ -375,4 +361,3 @@ class OrderController extends ActionController
         ];
     }
 }
-
