@@ -124,13 +124,6 @@ $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['cart']['MailAttachmentsHook'][] = MailAt
 call_user_func(static function () {
     ExtensionManagementUtility::addTypoScriptSetup(
         '
-module.tx_cart {
-    view {
-        templateRootPaths.10 = EXT:cart/Resources/Private/Backend/Templates/
-        partialRootPaths.10 = EXT:cart/Resources/Private/Backend/Partials/
-        layoutRootPaths.10 = EXT:cart/Resources/Private/Backend/Layouts/
-    }
-}
 module.tx_dashboard {
     view {
         templateRootPaths.1588697552 = EXT:cart/Resources/Private/Templates/

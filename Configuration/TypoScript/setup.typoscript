@@ -391,20 +391,6 @@ plugin.tx_form.settings.yamlConfigurations {
     1543219101 = EXT:cart/Configuration/Yaml/FormSetup.yaml
 }
 
-module.tx_cart {
-    view {
-        templateRootPaths {
-            0 = EXT:cart/Resources/Private/Backend/Templates/
-        }
-        partialRootPaths {
-            0 = EXT:cart/Resources/Private/Backend/Partials/
-        }
-        layoutRootPaths {
-            0 = EXT:cart/Resources/Private/Backend/Layouts/
-        }
-    }
-}
-
 module.tx_form.settings.yamlConfigurations {
     1543219101 = EXT:cart/Configuration/Yaml/FormSetup.yaml
 }
