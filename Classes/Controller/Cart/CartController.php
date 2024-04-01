@@ -16,7 +16,6 @@ use Extcode\Cart\Domain\Model\Order\Item;
 use Extcode\Cart\Domain\Model\Order\ShippingAddress;
 use Extcode\Cart\Event\Cart\BeforeShowCartEvent;
 use Extcode\Cart\Event\CheckProductAvailabilityEvent;
-use http\Exception\InvalidArgumentException;
 use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\ExtbaseRequestParameters;
@@ -43,7 +42,7 @@ class CartController extends ActionController
             }
 
             if ($currentStep > $steps) {
-                throw new InvalidArgumentException();
+                throw new \InvalidArgumentException();
             }
             $view->setStep($currentStep);
 
