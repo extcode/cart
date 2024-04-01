@@ -38,8 +38,6 @@ class BeVariantTest extends UnitTestCase
 
     public function setUp(): void
     {
-        $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['cart']['changeVariantDiscount'] = 0;
-
         $this->taxClass = new TaxClass(1, '19', 0.19, 'normal');
 
         $this->product = $this->getMockBuilder(Product::class)

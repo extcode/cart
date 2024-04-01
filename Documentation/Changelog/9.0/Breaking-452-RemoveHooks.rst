@@ -9,11 +9,8 @@ See :issue:`452`
 Description
 ===========
 
-Existing Hooks have been removed. They were replaced by EventListeners.
-The extension offered following hooks:
-
-* `showCartActionAfterCartWasLoaded` in `\Extcode\Cart\Controller\Cart\CartController`
-* `MailAttachmentHook` in `\Extcode\Cart\Service\MailHandler`
+The `changeVariantDiscount` Hooks have been removed. Cart will not provide
+a replacement.
 
 Affected Installations
 ======================
@@ -24,9 +21,6 @@ of the extension are affected.
 Migration
 =========
 
-* `showCartActionAfterCartWasLoaded` in `\Extcode\Cart\Controller\Cart\CartController`
-  now needs to listen to the event `\Extcode\Cart\Event\Cart\BeforeShowCartEvent`
-* `MailAttachmentHook` in `\Extcode\Cart\Service\MailHandler`
-  now needs to listen to the event `\Extcode\Cart\Event\Mail\AttachmentEvent`
+Override the `BeVariant` class by implementing the `BeVariantInterface`.
 
 .. index:: API

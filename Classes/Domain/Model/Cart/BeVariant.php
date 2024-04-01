@@ -11,10 +11,12 @@ namespace Extcode\Cart\Domain\Model\Cart;
  * LICENSE file that was distributed with this source code.
  */
 
-use TYPO3\CMS\Core\Utility\GeneralUtility;
+use Psr\EventDispatcher\EventDispatcherInterface;
 
 class BeVariant
 {
+    private ?EventDispatcherInterface $eventDispatcher = null;
+
     protected string $id = '';
 
     protected ?Product $product = null;
@@ -147,15 +149,14 @@ class BeVariant
 
     public function isNetPrice(): bool
     {
-        $isNetPrice = false;
-
         if ($this->getParentBeVariant()) {
-            $isNetPrice = $this->getParentBeVariant()->isNetPrice();
-        } elseif ($this->getProduct()) {
-            $isNetPrice = $this->getProduct()->isNetPrice();
+            return $this->getParentBeVariant()->isNetPrice();
+        }
+        if ($this->getProduct()) {
+            return $this->getProduct()->isNetPrice();
         }
 
-        return $isNetPrice;
+        return false;
     }
 
     public function getId(): string
@@ -252,9 +253,7 @@ class BeVariant
 
     public function getDiscount(): float
     {
-        $discount = $this->getPriceCalculated() - $this->getBestPriceCalculated();
-
-        return $discount;
+        return $this->getPriceCalculated() - $this->getBestPriceCalculated();
     }
 
     public function getSpecialPriceDiscount(): float
@@ -278,106 +277,26 @@ class BeVariant
             $parentPrice = 0;
         }
 
-        switch ($this->priceCalcMethod) {
-            case 3:
-                $calc_price = -1 * (($price / 100) * ($parentPrice));
-                break;
-            case 5:
-                $calc_price = ($price / 100) * ($parentPrice);
-                break;
-            default:
-                $calc_price = 0;
+        if ($this->priceCalcMethod === 0) {
+            return $parentPrice;
+        } elseif ($this->priceCalcMethod === 1) {
+            return $price;
+        } elseif ($this->priceCalcMethod === 2) {
+            return $parentPrice - $price;
+        } elseif ($this->priceCalcMethod === 3) {
+            return $parentPrice - (($price / 100) * $parentPrice);
+        } elseif ($this->priceCalcMethod === 4) {
+            return $parentPrice + $price;
+        } elseif ($this->priceCalcMethod === 5) {
+            return $parentPrice + (($price / 100) * $parentPrice);
         }
 
-        if (
-            isset($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['cart']['changeVariantDiscount']) &&
-            is_array($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['cart']['changeVariantDiscount'])
-        ) {
-            foreach ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['cart']['changeVariantDiscount'] as $funcRef) {
-                if ($funcRef) {
-                    $params = [
-                        'price_calc_method' => $this->priceCalcMethod,
-                        'price' => &$price,
-                        'parent_price' => &$parentPrice,
-                        'calc_price' => &$calc_price,
-                    ];
-
-                    GeneralUtility::callUserFunction($funcRef, $params, $this);
-                }
-            }
-        }
-
-        switch ($this->priceCalcMethod) {
-            case 1:
-                $parentPrice = 0.0;
-                break;
-            case 2:
-                $price = -1 * $price;
-                break;
-            case 4:
-                break;
-            default:
-                $price = 0.0;
-        }
-
-        return $parentPrice + $price + $calc_price;
+        throw new \InvalidArgumentException('Unkonwn price calc method', 1711969492);
     }
 
     public function getBestPriceCalculated(): float
     {
-        $price = $this->getBestPrice();
-
-        if ($this->getParentBeVariant()) {
-            $parentPrice = $this->getParentBeVariant()->getBestPrice();
-        } elseif ($this->getProduct()) {
-            $parentPrice = $this->getProduct()->getBestPrice($this->getQuantity());
-        } else {
-            $parentPrice = 0;
-        }
-
-        switch ($this->priceCalcMethod) {
-            case 3:
-                $calc_price = -1 * (($price / 100) * ($parentPrice));
-                break;
-            case 5:
-                $calc_price = ($price / 100) * ($parentPrice);
-                break;
-            default:
-                $calc_price = 0;
-        }
-
-        if (
-            isset($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['cart']['changeVariantDiscount']) &&
-            is_array($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['cart']['changeVariantDiscount'])
-        ) {
-            foreach ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['cart']['changeVariantDiscount'] as $funcRef) {
-                if ($funcRef) {
-                    $params = [
-                        'price_calc_method' => $this->priceCalcMethod,
-                        'price' => &$price,
-                        'parent_price' => &$parentPrice,
-                        'calc_price' => &$calc_price,
-                    ];
-
-                    GeneralUtility::callUserFunction($funcRef, $params, $this);
-                }
-            }
-        }
-
-        switch ($this->priceCalcMethod) {
-            case 1:
-                $parentPrice = 0.0;
-                break;
-            case 2:
-                $price = -1 * $price;
-                break;
-            case 4:
-                break;
-            default:
-                $price = 0.0;
-        }
-
-        return $parentPrice + $price + $calc_price;
+        return $this->getPriceCalculated();
     }
 
     public function getParentPrice(): float
@@ -554,11 +473,10 @@ class BeVariant
 
             if (is_array($quantity)) {
                 $beVariant->changeVariantsQuantity($quantity);
-                $this->reCalc();
             } else {
                 $beVariant->changeQuantity($quantity);
-                $this->reCalc();
             }
+            $this->reCalc();
         }
     }
 
@@ -618,12 +536,10 @@ class BeVariant
                         unset($this->beVariants[$beVariantId]);
                     }
 
-                    $this->reCalc();
                 } else {
                     unset($this->beVariants[$beVariantId]);
-
-                    $this->reCalc();
                 }
+                $this->reCalc();
             } else {
                 return -1;
             }
