@@ -1,8 +1,8 @@
 .. include:: ../../../../Includes.txt
 .. _adminstration_order_mail:
-===============
-Email addresses
-===============
+=====================================
+Email addresses and email attachments
+=====================================
 
 Email addresses must be configured for sending emails. This can be done in
 the backend via the plugin, but also configured via TypoScript.
@@ -31,6 +31,13 @@ the backend via the plugin, but also configured via TypoScript.
                toAddress = cart.seller.to1@example.com, cart.seller.to2@example.com
                ccAddress = cart.seller.cc1@example.com, cart.seller.cc2@example.com
                bccAddress = cart.seller.bcc1@example.com, cart.seller.bcc2@example.com
+               attachments {
+                   1 = EXT:sitepackage/Resources/Public/Files/AGB.pdf
+               }
+               attachDocuments {
+                  order = 1
+                  invoice = 1
+                  delivery = 1
            }
        }
    }
@@ -129,6 +136,8 @@ plugin.tx_cart.mail
 .. confval:: seller.attachDocuments.<n>
 
    :Type: array
+
+   **This needs EXT:cart_pdf to work.**
 
    Defines one or more email attachments of the generated PDF documents to be
    sent to the seller.

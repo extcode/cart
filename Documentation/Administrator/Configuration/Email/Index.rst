@@ -1,13 +1,13 @@
 .. include:: ../../../Includes.txt
 
 =====
-Order
+Email
 =====
 
 .. toctree::
    :maxdepth: 5
    :titlesonly:
 
-   EMailAddresses/Index
+   EmailAddressesAndAttachments/Index
    EMailContent/Index
-   NumberGenerator/Index
+   OverwriteEmailTemplates/Index

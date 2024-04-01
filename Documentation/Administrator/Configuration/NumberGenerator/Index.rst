@@ -30,7 +30,7 @@ plugin.tx_cart.settings
 
    During the order process, the `\Extcode\Cart\Event\Order\NumberGeneratorEvent`
    is triggered. Generally, the order number is to be generated here.
-   By adding further values like "invoice" and/or "delivery" these numbers
+   By adding further values like `invoice` and/or `delivery` these numbers
    will also be generated and saved directly after the order.
 
    Further values are also allowed. For this case then own EventListener must
