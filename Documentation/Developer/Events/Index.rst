@@ -28,6 +28,10 @@ events:
    This event is triggered when the user changes the currency in the order
    form.
 
+.. confval:: \Extcode\Cart\Event\Form\AddToCartFinisherEvent
+
+   This event is triggered in `AddToCartFinisher` for form based products.
+
 .. confval:: \Extcode\Cart\Event\Mail\AttachmentEvent
 
    Allows you to define file paths as attachments for mails send to buyer or

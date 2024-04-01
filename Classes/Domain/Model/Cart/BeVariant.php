@@ -279,15 +279,20 @@ class BeVariant
 
         if ($this->priceCalcMethod === 0) {
             return $parentPrice;
-        } elseif ($this->priceCalcMethod === 1) {
+        }
+        if ($this->priceCalcMethod === 1) {
             return $price;
-        } elseif ($this->priceCalcMethod === 2) {
+        }
+        if ($this->priceCalcMethod === 2) {
             return $parentPrice - $price;
-        } elseif ($this->priceCalcMethod === 3) {
+        }
+        if ($this->priceCalcMethod === 3) {
             return $parentPrice - (($price / 100) * $parentPrice);
-        } elseif ($this->priceCalcMethod === 4) {
+        }
+        if ($this->priceCalcMethod === 4) {
             return $parentPrice + $price;
-        } elseif ($this->priceCalcMethod === 5) {
+        }
+        if ($this->priceCalcMethod === 5) {
             return $parentPrice + (($price / 100) * $parentPrice);
         }
 
