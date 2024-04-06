@@ -3,21 +3,6 @@
     <file source-language="en" datatype="plaintext" original="messages" date="2022-05-31T19:53:00Z" product-name="cart">
         <header/>
         <body>
-
-            <trans-unit id="tx_cart.typoscript.default_configuration">
-                <source>Shopping Cart - Example Configuration</source>
-            </trans-unit>
-
-            <trans-unit id="tx_cart.module.main">
-                <source>Shopping Cart</source>
-            </trans-unit>
-            <trans-unit id="tx_cart.module.orders">
-                <source>Orders</source>
-            </trans-unit>
-            <trans-unit id="tx_cart.module.coupons">
-                <source>Coupons</source>
-            </trans-unit>
-
             <trans-unit id="tx_cart.plugin.mini_cart">
                 <source>Cart: Mini-Cart</source>
             </trans-unit>
@@ -27,19 +12,10 @@
             <trans-unit id="tx_cart.plugin.currency">
                 <source>Cart: Currency Selector</source>
             </trans-unit>
-            <trans-unit id="tx_cart.plugin.product">
-                <source>Cart: Product</source>
-            </trans-unit>
             <trans-unit id="tx_cart.plugin.order">
                 <source>Cart: Orders</source>
             </trans-unit>
 
-            <trans-unit id="tx_cart.flexform.productId">
-                <source>Product Id</source>
-            </trans-unit>
-            <trans-unit id="tx_cart.flexform.cartPageId">
-                <source>Cart Page Id</source>
-            </trans-unit>
             <trans-unit id="tx_cart.flexform.seller.email_from_name">
                 <source>Sender email name for email to the Seller</source>
             </trans-unit>
@@ -49,17 +25,17 @@
             <trans-unit id="tx_cart.flexform.seller.email_to_address">
                 <source>Receiver email addresses (seperated by comma) for email to the Seller</source>
             </trans-unit>
-            <trans-unit id="tx_cart.flexform.seller.email_bcc_address">
+            <trans-unit id="tx_cart.flexform.seller.email_cc_address">
                 <source>CC email addresses (seperated by comma) for email to the Seller</source>
             </trans-unit>
-            <trans-unit id="tx_cart.flexform.seller.email_bcc_address.description">
-                <source>The recipients of e-mails sent to one or more e-mail addresses separated by commas and listed in the so-called CC (Carbon Copy) field will receive a copy of the sent e-mail.</source>
+            <trans-unit id="tx_cart.flexform.seller.email_cc_address.description">
+                <source>The recipients of emails sent to one or more email addresses separated by commas and listed in the so-called CC (Carbon Copy) field will receive a copy of the sent email.</source>
             </trans-unit>
             <trans-unit id="tx_cart.flexform.seller.email_bcc_address">
                 <source>BCC email addresses (seperated by comma) for email to the Seller</source>
             </trans-unit>
             <trans-unit id="tx_cart.flexform.seller.email_bcc_address.description">
-                <source>The recipients of e-mails sent to one or more e-mail addresses separated by commas and listed in the so-called BCC (Blind Carbon Copy) field will receive a copy of the sent e-mail without their address being visible to the other specified recipients. (Source: Wikipedia)</source>
+                <source>The recipients of emails sent to one or more email addresses separated by commas and listed in the so-called BCC (Blind Carbon Copy) field will receive a copy of the sent email without their address being visible to the other specified recipients. (Source: Wikipedia)</source>
             </trans-unit>
             <trans-unit id="tx_cart.flexform.buyer.email_from_name">
                 <source>Sender email name for email to the Buyer</source>
@@ -71,13 +47,13 @@
                 <source>CC email addresses (seperated by comma) for email to the Buyer</source>
             </trans-unit>
             <trans-unit id="tx_cart.flexform.buyer.email_cc_address.description">
-                <source>The recipients of e-mails sent to one or more e-mail addresses separated by commas and listed in the so-called CC (Carbon Copy) field will receive a copy of the sent e-mail.</source>
+                <source>The recipients of emails sent to one or more email addresses separated by commas and listed in the so-called CC (Carbon Copy) field will receive a copy of the sent email.</source>
             </trans-unit>
             <trans-unit id="tx_cart.flexform.buyer.email_bcc_address">
                 <source>BCC email addresses (seperated by comma) for email to the Buyer</source>
             </trans-unit>
             <trans-unit id="tx_cart.flexform.buyer.email_bcc_address.description">
-                <source>The recipients of e-mails sent to one or more e-mail addresses separated by commas and listed in the so-called BCC (Blind Carbon Copy) field will receive a copy of the sent e-mail without their address being visible to the other specified recipients. (Source: Wikipedia)</source>
+                <source>The recipients of emails sent to one or more email addresses separated by commas and listed in the so-called BCC (Blind Carbon Copy) field will receive a copy of the sent email without their address being visible to the other specified recipients. (Source: Wikipedia)</source>
             </trans-unit>
             <trans-unit id="tx_cart.flexform.buyer.email_reply_to_address">
                 <source>Reply To email address for email to the Buyer</source>
@@ -99,14 +75,8 @@
                 <source>free</source>
             </trans-unit>
 
-            <trans-unit id="tx_cart_domain_model_order_item">
-                <source>Order</source>
-            </trans-unit>
             <trans-unit id="tx_cart_domain_model_order_item.palettes.numbers">
                 <source>Order and Invoice Number</source>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_order_item.palettes.purchaser">
-                <source>Purchaser</source>
             </trans-unit>
             <trans-unit id="tx_cart_domain_model_order_item.palettes.addresses">
                 <source>Addresses</source>
@@ -116,15 +86,6 @@
             </trans-unit>
             <trans-unit id="tx_cart_domain_model_order_item.palettes.total_price">
                 <source>Total Price</source>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_order_item.palettes.payment">
-                <source>Payment</source>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_order_item.palettes.shipping">
-                <source>Shipping</source>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_order_item.palettes.documents">
-                <source>Documents</source>
             </trans-unit>
             <trans-unit id="tx_cart_domain_model_order_item.fe_user">
                 <source>User</source>
@@ -149,15 +110,6 @@
             </trans-unit>
             <trans-unit id="tx_cart_domain_model_order_item.delivery_date">
                 <source>Delivery Note Date</source>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_order_item.first_name">
-                <source>Firstname</source>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_order_item.last_name">
-                <source>Lastname</source>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_order_item.email">
-                <source>Email</source>
             </trans-unit>
             <trans-unit id="tx_cart_domain_model_order_item.billing_address">
                 <source>Billing Address</source>
@@ -229,6 +181,9 @@
                 <source>Payment</source>
             </trans-unit>
 
+            <trans-unit id="tx_cart_domain_model_order_address">
+                <source>Order Address</source>
+            </trans-unit>
             <trans-unit id="tx_cart_domain_model_order_address.record_type">
                 <source>Record Type</source>
             </trans-unit>
@@ -500,9 +455,6 @@
             <trans-unit id="tx_cart_domain_model_order_payment.note">
                 <source>Note</source>
             </trans-unit>
-            <trans-unit id="tx_cart_domain_model_order_payment.transactions">
-                <source>Transactions</source>
-            </trans-unit>
 
             <trans-unit id="tx_cart_domain_model_order_transaction">
                 <source>Transaction</source>
@@ -552,10 +504,6 @@
             </trans-unit>
             <trans-unit id="tx_cart_domain_model_order_taxclass.calc">
                 <source>Calc</source>
-            </trans-unit>
-
-            <trans-unit id="tx_cart_domain_model_order_address">
-                <source>Order Address</source>
             </trans-unit>
 
             <trans-unit id="tx_cart_domain_model_coupon">
@@ -613,15 +561,8 @@
                 <source>Number of Coupons used</source>
             </trans-unit>
 
-            <trans-unit id="tx_cart.plugin.products.action.product.flexform">
-                <source>Flexform</source>
-            </trans-unit>
-
             <trans-unit id="tx_cart_domain_model_tag">
                 <source>Tag</source>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_tags">
-                <source>Tags</source>
             </trans-unit>
             <trans-unit id="tx_cart_domain_model_tag.title">
                 <source>Title</source>
@@ -631,21 +572,15 @@
                 <source>Cart Session</source>
             </trans-unit>
 
-            <trans-unit id="tx_cart.settings.allowed_countries.de">
-                <source>Germany</source>
-            </trans-unit>
-            <trans-unit id="tx_cart.settings.allowed_countries.at">
-                <source>Austria</source>
-            </trans-unit>
-            <trans-unit id="tx_cart.settings.allowed_countries.ch">
-                <source>Switzerland</source>
-            </trans-unit>
-
             <trans-unit id="pages.doktype.181">
                 <source>Cart: Cart</source>
             </trans-unit>
-            <trans-unit id="pages.doktype.182">
-                <source>Cart: Product</source>
+
+            <trans-unit id="tcarecords-pages-contains.cart_coupons">
+                <source>Cart: Coupons</source>
+            </trans-unit>
+            <trans-unit id="tcarecords-pages-contains.cart_orders">
+                <source>Cart: Orders</source>
             </trans-unit>
         </body>
     </file>
