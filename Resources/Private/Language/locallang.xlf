@@ -127,25 +127,6 @@
                 <source>Discount (gross)</source>
             </trans-unit>
 
-            <trans-unit id="filter">
-                <source>filter</source>
-            </trans-unit>
-            <trans-unit id="filterCustomer">
-                <source>Customer</source>
-            </trans-unit>
-            <trans-unit id="filterOrderNumber">
-                <source>Order Number</source>
-            </trans-unit>
-            <trans-unit id="filterInvoiceNumber">
-                <source>Invoice Number</source>
-            </trans-unit>
-            <trans-unit id="filterStartDate">
-                <source>Start Date</source>
-            </trans-unit>
-            <trans-unit id="filterEndDate">
-                <source>End Date</source>
-            </trans-unit>
-
             <trans-unit id="tx_cart.format.date">
                 <source>Y-m-d</source>
             </trans-unit>
@@ -315,9 +296,6 @@
             <trans-unit id="tx_cart_domain_model_order_item.total_gross">
                 <source>Total Price (Gross)</source>
             </trans-unit>
-            <trans-unit id="tx_cart_domain_model_order_item.total_net">
-                <source>Total Price (Net)</source>
-            </trans-unit>
             <trans-unit id="tx_cart_domain_model_order_item.cart_price">
                 <source>Price</source>
             </trans-unit>
@@ -345,11 +323,8 @@
             <trans-unit id="tx_cart_domain_model_order_item.order_payment.method">
                 <source>Method</source>
             </trans-unit>
-            <trans-unit id="tx_cart_domain_model_order_item.items">
-                <source>Ordered items</source>
-            </trans-unit>
             <trans-unit id="tx_cart_domain_model_order_item.comment">
-                <source>Customer comment</source>
+                <source>Comment</source>
             </trans-unit>
             <trans-unit id="tx_cart_domain_model_order_item.accept_terms_and_conditions">
                 <source>I have read the general terms and conditions agree to them.</source>
@@ -545,6 +520,59 @@
 
             <trans-unit id="tx_cart.backend.order.title">
                 <source>Order view for #%1$s (%2$s)</source>
+            </trans-unit>
+
+            <trans-unit id="tx_cart.backend.order.address.first_name">
+                <source>First name</source>
+            </trans-unit>
+            <trans-unit id="tx_cart.backend.order.address.last_name">
+                <source>Last name</source>
+            </trans-unit>
+            <trans-unit id="tx_cart.backend.order.address.company">
+                <source>Company</source>
+            </trans-unit>
+            <trans-unit id="tx_cart.backend.order.order_number">
+                <source>Order Number</source>
+            </trans-unit>
+            <trans-unit id="tx_cart.backend.order.order_date">
+                <source>Order Date</source>
+            </trans-unit>
+            <trans-unit id="tx_cart.backend.order.invoice_number">
+                <source>Invoice Number</source>
+            </trans-unit>
+            <trans-unit id="tx_cart.backend.order.invoice_date">
+                <source>Invoice Date</source>
+            </trans-unit>
+            <trans-unit id="tx_cart.backend.order.total_gross">
+                <source>Total Price (Gross)</source>
+            </trans-unit>
+            <trans-unit id="tx_cart.backend.order.total_net">
+                <source>Total Price (Net)</source>
+            </trans-unit>
+            <trans-unit id="tx_cart.backend.order.comment">
+                <source>Customer comment</source>
+            </trans-unit>
+            <trans-unit id="tx_cart.backend.order.items">
+                <source>Ordered items</source>
+            </trans-unit>
+
+            <trans-unit id="tx_cart.backend.filter">
+                <source>Filter</source>
+            </trans-unit>
+            <trans-unit id="tx_cart.backend.filter.customer">
+                <source>Customer</source>
+            </trans-unit>
+            <trans-unit id="tx_cart.backend.filter.order_number">
+                <source>Order Number</source>
+            </trans-unit>
+            <trans-unit id="tx_cart.backend.filter.invoice_number">
+                <source>Invoice Number</source>
+            </trans-unit>
+            <trans-unit id="tx_cart.backend.filter.start_date">
+                <source>Start Date</source>
+            </trans-unit>
+            <trans-unit id="tx_cart.backend.filter.end_date">
+                <source>End Date</source>
             </trans-unit>
 
         </body>
