@@ -574,6 +574,15 @@
             <trans-unit id="tx_cart.backend.filter.end_date">
                 <source>End Date</source>
             </trans-unit>
+            <trans-unit id="tx_cart.backend.filter.no_results">
+                <source>No results for this filter</source>
+            </trans-unit>
+            <trans-unit id="tx_cart.backend.page_without_datasets.title">
+                <source>This page does not contain any order items.</source>
+            </trans-unit>
+            <trans-unit id="tx_cart.backend.page_without_datasets.instruction">
+                <source>Please select a page where order items are stored.</source>
+            </trans-unit>
 
         </body>
     </file>
