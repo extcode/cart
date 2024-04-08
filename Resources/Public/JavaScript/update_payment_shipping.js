@@ -19,17 +19,17 @@
     return tempWrapper;
   }
   function replaceHtmlElementByIdentifier(responseAsHtml, identifier) {
-    let existingElement = document.querySelector(identifier);
+    const existingElement = document.querySelector(identifier);
     if (!existingElement)
       return;
-    let newElement = responseAsHtml.querySelector(identifier);
+    const newElement = responseAsHtml.querySelector(identifier);
     existingElement.parentNode.replaceChild(newElement, existingElement);
   }
 
   // JavaScript/update_payment_shipping.js
-  document.addEventListener("DOMContentLoaded", function() {
+  document.addEventListener("DOMContentLoaded", () => {
     function setAjaxEventListener(parentId, targetClass) {
-      document.querySelector(parentId).parentElement.addEventListener("click", function(event) {
+      document.querySelector(parentId).parentElement.addEventListener("click", (event) => {
         if (!event.target.classList.contains(targetClass)) {
           return;
         }

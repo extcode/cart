@@ -18,3 +18,7 @@ trim_trailing_whitespace = true
 indent_style = space
 indent_size = 4
 max_line_length = 80
+
+# TS/JS-Files
+[*.{ts,js}]
+indent_size = 2
