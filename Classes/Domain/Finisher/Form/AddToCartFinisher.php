@@ -76,13 +76,13 @@ class AddToCartFinisher extends AbstractFinisher
 
         $formValues = $this->getFormValues();
 
-        $beforeShowCartEvent = new AddToCartFinisherEvent(
+        $addToCartFinisherEvent = new AddToCartFinisherEvent(
             $formValues,
             $this->cart
         );
-        $this->eventDispatcher->dispatch($beforeShowCartEvent);
-        $errors = $beforeShowCartEvent->getErrors();
-        $cartProducts = $beforeShowCartEvent->getCartProducts();
+        $this->eventDispatcher->dispatch($addToCartFinisherEvent);
+        $errors = $addToCartFinisherEvent->getErrors();
+        $cartProducts = $addToCartFinisherEvent->getCartProducts();
 
         unset($formValues[$this->getHoneypotIdentifier()]);
 
