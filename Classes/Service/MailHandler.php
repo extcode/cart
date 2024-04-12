@@ -46,8 +46,7 @@ class MailHandler implements SingletonInterface
         LogManager $logManager,
         ConfigurationManager $configurationManager,
         MailerInterface $mailer
-    )
-    {
+    ) {
         $this->logManager = $logManager;
         $this->configurationManager = $configurationManager;
         $this->mailer = $mailer;
