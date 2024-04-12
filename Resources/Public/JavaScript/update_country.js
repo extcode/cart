@@ -19,24 +19,61 @@
     return tempWrapper;
   }
   function replaceHtmlElementByIdentifier(responseAsHtml, identifier) {
-    let existingElement = document.querySelector(identifier);
+    const existingElement = document.querySelector(identifier);
     if (!existingElement)
       return;
-    let newElement = responseAsHtml.querySelector(identifier);
+    const newElement = responseAsHtml.querySelector(identifier);
     existingElement.parentNode.replaceChild(newElement, existingElement);
   }
 
   // JavaScript/update_country.js
-  document.addEventListener("DOMContentLoaded", function() {
-    let shippingSameAsBillingElement = document.querySelector("#shipping-same-as-billing");
-    let billingCountryElement = document.querySelector("#billingAddress-country");
-    let shippingCountryElement = document.querySelector("#shippingAddress-country");
+  document.addEventListener("DOMContentLoaded", () => {
+    const shippingSameAsBillingElement = document.querySelector("#shipping-same-as-billing");
+    const billingCountryElement = document.querySelector("#billingAddress-country");
+    const shippingCountryElement = document.querySelector("#shippingAddress-country");
+    function setDisabledStatus(parentElement, fieldType, disabledStatus) {
+      parentElement.querySelectorAll(fieldType).forEach(
+        (field) => {
+          if (field.dataset.disableShipping) {
+            const inputField = field;
+            inputField.disabled = disabledStatus;
+          }
+        }
+      );
+    }
+    billingCountryElement.addEventListener("change", () => {
+      const billingCountry = billingCountryElement.value;
+      let shippingCountry = "";
+      if (!shippingSameAsBillingElement.checked) {
+        shippingCountry = shippingCountryElement.value;
+      }
+      updateCountry(billingCountry, shippingCountry);
+    });
+    shippingCountryElement.addEventListener("change", () => {
+      const billingCountry = billingCountryElement.value;
+      const shippingCountry = shippingCountryElement.value;
+      updateCountry(billingCountry, shippingCountry);
+    });
+    shippingSameAsBillingElement.addEventListener("change", () => {
+      const stepShippingAddressElement = document.querySelector("#checkout-step-shipping-address");
+      if (shippingSameAsBillingElement.checked) {
+        stepShippingAddressElement.style.display = "none";
+      } else {
+        stepShippingAddressElement.style.display = null;
+      }
+      const billingCountry = billingCountryElement.value;
+      const shippingCountry = shippingCountryElement.value;
+      const disabledStatus = shippingSameAsBillingElement.checked;
+      setDisabledStatus(stepShippingAddressElement, "input", disabledStatus);
+      setDisabledStatus(stepShippingAddressElement, "select", disabledStatus);
+      updateCountry(billingCountry, shippingCountry);
+    });
     function updateCountry(billingCountry, shippingCountry) {
-      let formData = new FormData();
+      const formData = new FormData();
       formData.append("tx_cart_cart[shipping_same_as_billing]", shippingSameAsBillingElement.checked);
       formData.append("tx_cart_cart[billing_country]", billingCountry);
       formData.append("tx_cart_cart[shipping_country]", shippingCountry);
-      const actionUrl = document.querySelector("[data-ajax-update-country-action-url]").dataset["ajaxUpdateCountryActionUrl"];
+      const actionUrl = document.querySelector("[data-ajax-update-country-action-url]").dataset.ajaxUpdateCountryActionUrl;
       fetch(actionUrl, {
         method: "POST",
         body: formData
@@ -54,41 +91,5 @@
         );
       });
     }
-    function setDisabledStatus(parentElement, fieldType, disabledStatus) {
-      parentElement.querySelectorAll(fieldType).forEach(
-        function(field) {
-          if (field.dataset["disableShipping"]) {
-            field.disabled = disabledStatus;
-          }
-        }
-      );
-    }
-    billingCountryElement.addEventListener("change", function() {
-      const billingCountry = billingCountryElement.value;
-      let shippingCountry = "";
-      if (!shippingSameAsBillingElement.checked) {
-        shippingCountry = shippingCountryElement.value;
-      }
-      updateCountry(billingCountry, shippingCountry);
-    });
-    shippingCountryElement.addEventListener("change", function() {
-      const billingCountry = billingCountryElement.value;
-      const shippingCountry = shippingCountryElement.value;
-      updateCountry(billingCountry, shippingCountry);
-    });
-    shippingSameAsBillingElement.addEventListener("change", function() {
-      let stepShippingAddressElement = document.querySelector("#checkout-step-shipping-address");
-      if (shippingSameAsBillingElement.checked) {
-        stepShippingAddressElement.style.display = "none";
-      } else {
-        stepShippingAddressElement.style.display = null;
-      }
-      const billingCountry = billingCountryElement.value;
-      const shippingCountry = shippingCountryElement.value;
-      const disabledStatus = shippingSameAsBillingElement.checked;
-      setDisabledStatus(stepShippingAddressElement, "input", disabledStatus);
-      setDisabledStatus(stepShippingAddressElement, "select", disabledStatus);
-      updateCountry(billingCountry, shippingCountry);
-    });
   });
 })();

@@ -1,10 +1,10 @@
 (() => {
   // JavaScript/prevent_multi_submit.js
-  document.addEventListener("DOMContentLoaded", function() {
+  document.addEventListener("DOMContentLoaded", () => {
     function addDisableSubmitButtonListener(formId) {
-      let form = document.querySelector(formId);
+      const form = document.querySelector(formId);
       if (form) {
-        form.addEventListener("submit", function() {
+        form.addEventListener("submit", function setSubmitButtonToDisabled() {
           this.querySelector('input[type="submit"]').setAttribute("disabled", "true");
         });
       }

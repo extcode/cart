@@ -31,6 +31,24 @@ jobs:
       - name: PHP lint
         run: "find *.php Classes Configuration Tests -name '*.php' -print0 | xargs -0 -n 1 -P 4 php -l"
 
+  js-linting:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout and install node for npm
+        uses: actions/checkout@v3
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 20
+
+      - name: Install modules based on package-lock.json
+        run: npm install
+        working-directory: ./Build/Sources
+
+      - name: Run ESLint
+        run: npm run build
+        working-directory: ./Build/Sources
+
   coding-guideline:
     runs-on: ubuntu-latest
     needs:

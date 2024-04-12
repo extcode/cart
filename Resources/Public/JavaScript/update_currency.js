@@ -21,29 +21,28 @@
   function findParentBySelector(element, parentSelector) {
     if (element.parentElement.tagName.toLowerCase() === parentSelector.toLowerCase()) {
       return element.parentElement;
-    } else {
-      return findParentBySelector(element.parentElement, parentSelector);
     }
+    return findParentBySelector(element.parentElement, parentSelector);
   }
   function replaceHtmlElementByIdentifier(responseAsHtml, identifier) {
-    let existingElement = document.querySelector(identifier);
+    const existingElement = document.querySelector(identifier);
     if (!existingElement)
       return;
-    let newElement = responseAsHtml.querySelector(identifier);
+    const newElement = responseAsHtml.querySelector(identifier);
     existingElement.parentNode.replaceChild(newElement, existingElement);
   }
 
   // JavaScript/update_currency.js
-  document.addEventListener("DOMContentLoaded", function() {
+  document.addEventListener("DOMContentLoaded", () => {
     function updateCurrency(currencyCode, actionUrl, reloadOnly = false) {
-      let formData = new FormData();
+      const formData = new FormData();
       formData.append("tx_cart_cart[currencyCode]", currencyCode);
       fetch(actionUrl, {
         method: "POST",
         body: formData
       }).then((response) => response.text()).then((response) => {
         if (reloadOnly) {
-          location.reload();
+          window.location.reload();
         } else {
           const responseAsHtml = createHtmlElementFromString(response);
           replaceHtmlElementByIdentifier(responseAsHtml, "#form-cart");
@@ -60,16 +59,16 @@
         );
       });
     }
-    let cartCurrencySelector = document.querySelector(".cart-currency-selector");
+    const cartCurrencySelector = document.querySelector(".cart-currency-selector");
     if (cartCurrencySelector) {
-      cartCurrencySelector.addEventListener("change", function() {
+      cartCurrencySelector.addEventListener("change", function updateCurrencyOnChange() {
         const form = findParentBySelector(this, "form");
         updateCurrency(this.value, form.getAttribute("action"));
       });
     }
-    let currencySelector = document.querySelector(".currency-selector");
+    const currencySelector = document.querySelector(".currency-selector");
     if (currencySelector) {
-      currencySelector.addEventListener("change", function() {
+      currencySelector.addEventListener("change", function updateCurrencyOnChange() {
         const form = findParentBySelector(this, "form");
         updateCurrency(this.value, form.getAttribute("action"));
       });

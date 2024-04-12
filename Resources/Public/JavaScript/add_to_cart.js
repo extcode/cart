@@ -13,38 +13,48 @@
   }
 
   // JavaScript/add_to_cart.js
-  document.addEventListener("DOMContentLoaded", function() {
-    const addToCartForms = document.querySelectorAll("[data-ajax='1']");
-    addToCartForms.forEach(function(addToCartForm, index) {
-      addToCartForm.addEventListener("submit", function(event) {
-        event.preventDefault();
-        const data = this;
-        const actionUrl = data.getAttribute("action");
-        fetch(actionUrl, {
-          method: data.getAttribute("method"),
-          body: new FormData(data)
-        }).then((response2) => response2.text()).then((response2) => {
-          renderAddToCartResultMessage(data, response2);
-          updateMiniCart(data, response2);
-        });
-      });
-    });
+  document.addEventListener("DOMContentLoaded", () => {
+    function fadeOut(element, messageTimeout) {
+      const elementToFadeOut = element;
+      const transitionTime = 200;
+      elementToFadeOut.style.transition = `opacity ${transitionTime}ms ease`;
+      window.setTimeout(() => {
+        elementToFadeOut.style.opacity = 0;
+      }, messageTimeout);
+      window.setTimeout(
+        () => {
+          elementToFadeOut.style.transition = "unset";
+          elementToFadeOut.style.display = "none";
+          elementToFadeOut.style.opacity = 1;
+        },
+        messageTimeout + transitionTime
+      );
+      dispatchCustomEvent(
+        "extcode:hide-message-block",
+        {
+          elementToFadeOut
+        }
+      );
+    }
     function renderAddToCartResultMessage(form, data) {
-      let messageTimeout = parseInt(form.querySelector("[data-ajax-message-timeout]").dataset["ajaxMessageTimeout"]);
+      let messageTimeout = parseInt(
+        form.querySelector("[data-ajax-message-timeout]").dataset.ajaxMessageTimeout,
+        10
+      );
       if (!messageTimeout) {
         messageTimeout = 3e3;
       }
-      let response2 = JSON.parse(data);
-      if (response2.status === "200") {
+      const response = JSON.parse(data);
+      if (response.status === "200") {
         const successContainer = form.querySelector("[data-ajax-success-block]");
         const successElement = form.querySelector("[data-ajax-success-message]");
-        successElement.innerHTML = response2.messageBody;
+        successElement.innerHTML = response.messageBody;
         successContainer.style.display = null;
         fadeOut(successContainer, messageTimeout);
         dispatchCustomEvent(
           "extcode:render-add-to-cart-result-message",
           {
-            response: response2,
+            response,
             success: true,
             element: successElement
           }
@@ -52,53 +62,32 @@
       } else {
         const errorContainer = form.querySelector("[data-ajax-error-block]");
         const errorElement = form.querySelector("[data-ajax-error-message]");
-        errorElement.innerHTML = response2.messageBody;
+        errorElement.innerHTML = response.messageBody;
         errorContainer.style.display = null;
         fadeOut(errorContainer, messageTimeout);
         dispatchCustomEvent(
           "extcode:render-add-to-cart-result-message",
           {
-            response: response2,
+            response,
             success: false,
             element: errorElement
           }
         );
       }
     }
-    function fadeOut(element, messageTimeout) {
-      const transitionTime = 200;
-      element.style.transition = "opacity " + transitionTime + "ms ease";
-      window.setTimeout(function() {
-        element.style.opacity = 0;
-      }, messageTimeout);
-      window.setTimeout(
-        function() {
-          element.style.transition = "unset";
-          element.style.display = "none";
-          element.style.opacity = 1;
-        },
-        messageTimeout + transitionTime
-      );
-      dispatchCustomEvent(
-        "extcode:hide-message-block",
-        {
-          element
-        }
-      );
-    }
     function updateMiniCart(form, data) {
-      let response2 = JSON.parse(data);
-      if (response2.status !== "200") {
+      const response = JSON.parse(data);
+      if (response.status !== "200") {
         return;
       }
-      let count = response2.count;
-      let net = response2.net;
-      let gross = response2.gross;
-      let miniCart = document.querySelector("#cart-preview");
-      let countElement = miniCart.querySelector(".cart-preview-count");
-      let netElement = miniCart.querySelector(".net");
-      let grossElement = miniCart.querySelector(".gross");
-      let linkElement = miniCart.querySelector(".checkout-link");
+      const { count } = response;
+      const { net } = response;
+      const { gross } = response;
+      const miniCart = document.querySelector("#cart-preview");
+      const countElement = miniCart.querySelector(".cart-preview-count");
+      const netElement = miniCart.querySelector(".net");
+      const grossElement = miniCart.querySelector(".gross");
+      const linkElement = miniCart.querySelector(".checkout-link");
       if (countElement) {
         countElement.innerHTML = count;
       }
@@ -118,50 +107,68 @@
       dispatchCustomEvent(
         "extcode:minicart-was-updated",
         {
-          count: response2.count,
-          net: response2.net,
-          gross: response2.gross
+          count: response.count,
+          net: response.net,
+          gross: response.gross
         }
       );
-      document.querySelectorAll("form").forEach(function(formElement) {
+      document.querySelectorAll("form").forEach((formElement) => {
         formElement.reset();
       });
     }
-    let addToCartButton = document.querySelector('[data-add-to-cart="form"]');
-    let formContainer = document.querySelector('[data-add-to-cart="result"]');
-    if (!addToCartButton || !formContainer) {
-      return;
+    const addToCartForms = document.querySelectorAll("[data-ajax='1']");
+    addToCartForms.forEach((addToCartForm) => {
+      addToCartForm.addEventListener("submit", function addProductToCart(event) {
+        event.preventDefault();
+        const data = this;
+        const actionUrl = data.getAttribute("action");
+        fetch(actionUrl, {
+          method: data.getAttribute("method"),
+          body: new FormData(data)
+        }).then((response) => response.text()).then((response) => {
+          renderAddToCartResultMessage(data, response);
+          updateMiniCart(data, response);
+        });
+      });
+    });
+    const addToCartButton = document.querySelector('[data-add-to-cart="form"]');
+    const formContainer = document.querySelector('[data-add-to-cart="result"]');
+    function fetchAndInsertFormContent(actionUrl) {
+      fetch(actionUrl).then((response) => response.text()).then((response) => {
+        formContainer.innerHTML = response;
+      });
+      const forms = document.querySelectorAll("[data-add-to-cart-uri]");
+      forms.forEach((form) => {
+        form.addEventListener("submit", function addProductToCart(event) {
+          event.preventDefault();
+          const newActionUrl = form.getAttribute("data-add-to-cart-uri");
+          const submitButton = form.querySelector('button[type="submit"]');
+          const newData = this;
+          const formData = new FormData(newData);
+          formData.append(
+            submitButton.getAttribute("name"),
+            submitButton.getAttribute("value")
+          );
+          fetch(newActionUrl, {
+            method: "POST",
+            body: formData
+          }).then((response) => response.text()).then((response) => {
+            renderAddToCartResultMessage(newData, response);
+            updateMiniCart(newData, response);
+          });
+        });
+      });
     }
-    disableDefaultAddToCartButFetchFormInstead();
     function disableDefaultAddToCartButFetchFormInstead() {
-      addToCartButton.addEventListener("click", function(event) {
+      addToCartButton.addEventListener("click", function showForm(event) {
         event.preventDefault();
         const actionUrl = this.getAttribute("href");
         fetchAndInsertFormContent(actionUrl);
       });
     }
-    function fetchAndInsertFormContent(actionUrl) {
-      fetch(actionUrl).then((response2) => response2.text()).then((response2) => {
-        formContainer.innerHTML = response2;
-      });
-      let forms = document.querySelectorAll("[data-add-to-cart-uri]");
-      forms.forEach(function(form) {
-        form.addEventListener("submit", function(event) {
-          event.preventDefault();
-          const actionUrl2 = form.getAttribute("data-add-to-cart-uri");
-          const submitButton = form.querySelector('button[type="submit"]');
-          const data = this;
-          let formData = new FormData(data);
-          formData.append(submitButton.getAttribute("name"), submitButton.getAttribute("value"));
-          fetch(actionUrl2, {
-            method: "POST",
-            body: formData
-          }).then((response2) => response2.text()).then(function(data2) {
-            renderAddToCartResultMessage(data2, response);
-            updateMiniCart(data2, response);
-          });
-        });
-      });
+    if (!addToCartButton || !formContainer) {
+      return;
     }
+    disableDefaultAddToCartButFetchFormInstead();
   });
 })();
