@@ -13,14 +13,14 @@ insert_final_newline = true
 trim_trailing_whitespace = true
 
 # ReST-Files
-[{*.rst,*.rst.txt}]
+[*.{rst,rst.txt}]
 indent_size = 3
 max_line_length = 80
 
-# MD-Files
+# Markdown-Files
 [*.md]
 max_line_length = 80
 
 # TS/JS-Files
-[*.{ts,js}]
+[*.{ts,js,mjs}]
 indent_size = 2
