@@ -20,12 +20,12 @@
     </label><br/>
     <f:if condition="{orderItem.invoiceDate}">
         <f:then>
-            <f:format.date format="d.m.Y" date="{orderItem.invoiceDate}"/>
+            <f:format.date format="{settings.backend.dateFormat}" date="{orderItem.invoiceDate}"/>
         </f:then>
         <f:else>
             <f:form.textfield id="tceforms-datefield-invoiceDate"
                               property="invoiceDate"
-                              value="{f:format.date(format: 'd.m.Y', date: orderItem.invoiceDate)}"
+                              value="{f:format.date(format: '{settings.backend.dateFormat}', date: orderItem.invoiceDate)}"
                               type="date" />
             <f:format.raw>{icon}</f:format.raw>
         </f:else>

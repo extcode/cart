@@ -1,128 +1,56 @@
-.tx_cart_module_products_filter {
-    background-color: #dddddd;
-    border: 1px solid #a2aab8;
-    margin: 15px 0;
-    width: 100%;
+.cart-list {
+    --color-open: #eca5a5;
+    --color-pending: #ecdba5;
+    --color-paid: #c1eca5;
+    --color-canceled: #c9c8c8;
 }
 
-.tx_cart_module_products_filter_inner {
-    margin: 15px;
+.cart-figure {
+    inline-size: 12ch;
+    text-align: right;
 }
 
-#module_cartorders_search_form label, #module_cartproducts_search_form label {
-    width: 150px;
-    display: inline-block;
+.cart-list :is(.order-payment-status-open, .order-shipping-status-open) {
+    background-color: var(--color-open);
 }
 
-#module_cartorders_search_form input {
-    width: 150px;
-    display: inline-block;
-    margin-right: 50px;
+.cart-list :is(.order-payment-status-pending, .order-shipping-status-in_process) {
+    background-color: var(--color-pending);
 }
 
-
-#module_cartorders_search_form .col-25 {
-    width: 25%;
-    display: block;
-    float: left;
+.cart-list :is(.order-payment-status-paid, .order-shipping-status-shipped) {
+    background-color: var(--color-paid);
 }
 
-#module_cartorders_search_form .col-50 {
-    width: 50%;
-    display: block;
-    float: left;
+.cart-list :is(.order-payment-status-canceled, .order-shipping-status-on_hold) {
+    background-color: var(--color-canceled);
 }
 
-#module_cartorders_search_form .col-75 {
-    width: 75%;
-    display: block;
-    float: left;
+.cart-order .table  {
+    inline-size: unset;
+    max-inline-size: 150ch;
 }
 
-.download-links {
-    float:right;
-    margin-bottom: 15px;
-    display: block;
+.cart-order .properties .table th:first-child {
+    padding-inline-start: 0;
 }
 
-.download-button {
-    background: #f6f6f6 -moz-linear-gradient(center top, #f6f6f6 10%, #d5d5d5 90%) repeat-x center bottom;
-    border: 1px solid #7c7c7c;
-    border-radius: 1px;
-    color: #434343;
-    cursor: pointer;
-    padding: 5px;
+.cart-order .properties .table tr {
+    border-color: transparent;
 }
 
-.filter {
-    float:left;
-    margin-bottom: 15px;
-    display: block;
+.cart-order .properties .table :is(th, td) {
+    vertical-align: baseline;
 }
 
-.clear {
-    height: 1px;
-    clear: both;
+.cart-order .properties select {
+    min-inline-size: 16ch;
 }
 
-.block-left {
-    width: 45%;
-    float: left;
+.cart-order table .sum {
+    border-top: 2px solid #999;
 }
 
-.block-right {
-    width: 45%;
-    float: right;
-}
-
-.label {
-    font-weight: bold;
-}
-
-tr.sum {
-    background-color: #666;
-    color: #fff;
-}
-
-.f3-widget-paginator {
-    display: inline-block;
-    border-radius: 4px;
-    margin: 20px 0;
-    padding-left: 0;
-}
-
-.f3-widget-paginator > li {
-    display: inline;
-}
-
-.f3-widget-paginator > li > a,
-.f3-widget-paginator > li.current {
-    position: relative;
-    float: left;
-    padding: 6px 12px;
-    margin-left: -1px;
-    text-decoration: none;
-    border: 1px solid #DDD;
-    background-color: #FFF;
-    color: #FF8700;
-}
-
-.f3-widget-paginator > li.current,
-.f3-widget-paginator > li > a:hover,
-.f3-widget-paginator > li > a:focus {
-    text-decoration: underline;
-    background-color: #EEE;
-}
-
-.f3-widget-paginator > li:first-child > a,
-.f3-widget-paginator > li.current:first-child {
-    margin-left: 0;
-    border-top-left-radius: 4px;
-    border-bottom-left-radius: 4px;
-}
-
-.f3-widget-paginator > li:last-child > a,
-.f3-widget-paginator > li.current:last-child {
-    border-top-right-radius: 4px;
-    border-bottom-right-radius: 4px;
+.cart-order .table-order td {
+    padding-block: 1rem;
 }

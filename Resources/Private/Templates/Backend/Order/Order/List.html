@@ -3,9 +3,10 @@
         data-namespace-typo3-fluid="true"
 >
 
-<f:layout name="Module" />
+<f:layout name="Module"/>
 
 <f:section name="Content">
+    <div class="cart-list">
     <f:render partial="Backend/Order/Filter/List"
               arguments="{searchArguments: searchArguments, action: 'list', paymentStatus: paymentStatus, shippingStatus: shippingStatus}"/>
 
@@ -14,9 +15,9 @@
     <f:if condition="{orderItems}">
         <f:then>
             <div class="table-fit">
-                <table class="tx_cart table table-striped table-hover">
+                <table class="table table-striped table-hover">
                     <thead>
-                    <tr class="t3-row-header">
+                    <tr>
                         <th>
                             <f:translate key="tx_cart_domain_model_order_address.first_name"/>
                         </th>
@@ -71,11 +72,13 @@
                     </tbody>
                 </table>
             </div>
-            <f:render partial="Utility/Paginator" arguments="{pagination: pagination, pages: pages, paginator: paginator}" />
+            <f:render partial="Utility/Paginator"
+                      arguments="{pagination: pagination, pages: pages, paginator: paginator}"/>
         </f:then>
         <f:else>
             Select a Page where Order Item Dataset are saved.
         </f:else>
     </f:if>
+    </div>
 </f:section>
 </html>

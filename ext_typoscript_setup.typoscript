@@ -12,5 +12,9 @@ module.tx_cart {
             separateCurrency   = {$plugin.tx_cart.settings.format.currency.separateCurrency}
             decimals           = {$plugin.tx_cart.settings.format.currency.decimals}
         }
+
+        backend {
+            dateFormat = {$plugin.tx_cart.settings.backend.dateFormat}
+        }
     }
 }

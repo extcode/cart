@@ -23,6 +23,7 @@ use TYPO3\CMS\Backend\Template\ModuleTemplateFactory;
 use TYPO3\CMS\Core\Imaging\Icon;
 use TYPO3\CMS\Core\Imaging\IconFactory;
 use TYPO3\CMS\Core\Localization\LanguageService;
+use TYPO3\CMS\Core\Page\PageRenderer;
 use TYPO3\CMS\Core\Pagination\SimplePagination;
 use TYPO3\CMS\Core\Type\ContextualFeedbackSeverity;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
@@ -43,6 +44,8 @@ class OrderController extends ActionController
 
     protected array $searchArguments = [];
 
+    private PageRenderer $pageRenderer;
+
     public function injectPersistenceManager(PersistenceManager $persistenceManager): void
     {
         $this->persistenceManager = $persistenceManager;
@@ -51,6 +54,11 @@ class OrderController extends ActionController
     public function injectItemRepository(ItemRepository $itemRepository): void
     {
         $this->itemRepository = $itemRepository;
+    }
+
+    public function injectPageRenderer(PageRenderer $pageRenderer): void
+    {
+        $this->pageRenderer = $pageRenderer;
     }
 
     public function __construct(
@@ -72,6 +80,7 @@ class OrderController extends ActionController
         $this->moduleTemplate = $this->moduleTemplateFactory->create($this->request);
 
         $this->setDocHeader($this->getListButtons());
+        $this->addBackendAssets();
 
         $this->moduleTemplate->assign('settings', $this->settings);
         $this->moduleTemplate->assign('searchArguments', $this->searchArguments);
@@ -132,6 +141,8 @@ class OrderController extends ActionController
         $this->moduleTemplate = $this->moduleTemplateFactory->create($this->request);
         $buttons = $this->getOrderButtons($orderItem);
         $this->setDocHeader($buttons);
+
+        $this->addBackendAssets();
 
         $this->moduleTemplate->assign('settings', $this->settings);
         $this->moduleTemplate->assign('orderItem', $orderItem);
@@ -359,5 +370,12 @@ class OrderController extends ActionController
                 'showLabel' => true,
             ],
         ];
+    }
+
+    private function addBackendAssets(): void
+    {
+        $this->pageRenderer->addCssFile('EXT:cart/Resources/Public/Stylesheets/Backend/style.css');
+
+        $this->pageRenderer->loadJavaScriptModule('@extcode/cart/order-module.js');
     }
 }
