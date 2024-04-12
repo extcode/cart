@@ -4,7 +4,6 @@
       data-namespace-typo3-fluid="true">
 <f:layout name="Widget/Widget" />
 <f:section name="main">
-
     <div class="widget-table-wrapper">
         <table class="widget-table">
             <thead>
@@ -42,11 +41,13 @@
                         {item.shipping_name}
                     </td>
                     <td>
-                        <a class="btn btn-default btn-sm"
-                           href="{be:moduleLink(route:'CartCart_CartOrders', arguments:'{id: item.pid, \'tx_cart_cartcart_cartorders[orderItem]\': item.uid, \'tx_cart_cartcart_cartorders[action]\': \'show\', \'tx_cart_cartcart_cartorders[controller]\': \'Backend\Order\Order\'}')}"
-                           title="{f:translate(key: 'LLL:EXT:cart/Resources/Private/Language/locallang.xlf:tx_cart.controller.order.action.show')}">
+                        <f:be.link
+                            route="cart_cart_orders.Backend\Order\Order_show"
+                            class="btn"
+                            parameters="{id: item.pid, 'orderItem': item.uid}"
+                            title="{f:translate(key: 'LLL:EXT:cart/Resources/Private/Language/locallang.xlf:tx_cart.controller.order.action.show')}">
                             <core:icon identifier="actions-view" />
-                        </a>
+                        </f:be.link>
                     </td>
                 </tr>
             </f:for>
