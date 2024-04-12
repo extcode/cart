@@ -153,12 +153,12 @@ events:
 .. confval:: `Extcode\Cart\Event\Session\AfterRestoreAddressEvent`
 
    This event is triggered in the `SessionHandler` and can be used to validate
-   or change the address after restoring the data them form the session.
+   or change the address after restoring the data them from the session.
 
 .. confval:: `Extcode\Cart\Event\Session\AfterRestoreCartEvent`
 
    This event is triggered in the `SessionHandler` and can be used to validate
-   or change the cart after restoring the data form the session.
+   or change the cart after restoring the data from the session.
 
 .. confval:: `Extcode\Cart\Event\Session\BeforeWriteAddressEvent`
 
