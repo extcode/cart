@@ -7,7 +7,7 @@
     </tr>
     <tr>
         <td width="600" height="34" valign="center" style="background-color:#2d4554; color:#fff; padding: 0 10px; margin: 0; font-family: Arial, Helvetica, sans-serif; font-size: 12px;">
-            <b><f:translate key="LLL:EXT:cart/Resources/Private/Language/locallang.xlf:tx_cart.mail.order_summary" /></b>
+            <b><f:translate extensionName="Cart" key="tx_cart.mail.order_summary" /></b>
         </td>
     </tr>
     <tr>
@@ -19,25 +19,25 @@
     <tbody>
     <f:if condition="{orderItem.orderNumber}">
         <tr>
-            <td colspan="2" style="font-family: Arial, Helvetica, sans-serif; font-size: 12px;"><b><f:translate key="LLL:EXT:cart/Resources/Private/Language/locallang.xlf:tx_cart_domain_model_order_item.order_number" /></b></td>
+            <td colspan="2" style="font-family: Arial, Helvetica, sans-serif; font-size: 12px;"><b><f:translate extensionName="Cart" key="tx_cart_domain_model_order_item.order_number" /></b></td>
             <td style="font-family: Arial, Helvetica, sans-serif; font-size: 12px;">: {orderItem.orderNumber}</td>
         </tr>
     </f:if>
     <tr>
-        <td colspan="2" style="font-family: Arial, Helvetica, sans-serif; font-size: 12px;"><b><f:translate key="LLL:EXT:cart/Resources/Private/Language/locallang.xlf:tx_cart_domain_model_order_item.order_date" /></b></td>
+        <td colspan="2" style="font-family: Arial, Helvetica, sans-serif; font-size: 12px;"><b><f:translate extensionName="Cart" key="tx_cart_domain_model_order_item.order_date" /></b></td>
         <td style="font-family: Arial, Helvetica, sans-serif; font-size: 12px;">: <f:format.date format="d.m.Y" date="{orderItem.orderDate}" /></td>
     </tr>
     <tr>
-        <td colspan="2" style="font-family: Arial, Helvetica, sans-serif; font-size: 12px;"><b><f:translate key="LLL:EXT:cart/Resources/Private/Language/locallang.xlf:tx_cart.mail.payment_method" /></b></td>
+        <td colspan="2" style="font-family: Arial, Helvetica, sans-serif; font-size: 12px;"><b><f:translate extensionName="Cart" key="tx_cart.mail.payment_method" /></b></td>
         <td style="font-family: Arial, Helvetica, sans-serif; font-size: 12px;">: {orderItem.payment.name}</td>
     </tr>
     <tr>
-        <td colspan="2" style="font-family: Arial, Helvetica, sans-serif; font-size: 12px;"><b><f:translate key="LLL:EXT:cart/Resources/Private/Language/locallang.xlf:tx_cart.mail.shipping_method" /></b></td>
+        <td colspan="2" style="font-family: Arial, Helvetica, sans-serif; font-size: 12px;"><b><f:translate extensionName="Cart" key="tx_cart.mail.shipping_method" /></b></td>
         <td style="font-family: Arial, Helvetica, sans-serif; font-size: 12px;">: {orderItem.shipping.name}</td>
     </tr>
     <f:if condition="{orderItem.comment}">
         <tr>
-            <td colspan="2" style="font-family: Arial, Helvetica, sans-serif; font-size: 12px;"><b><f:translate key="LLL:EXT:cart/Resources/Private/Language/locallang.xlf:tx_cart_domain_model_order_item.comment" /></b></td>
+            <td colspan="2" style="font-family: Arial, Helvetica, sans-serif; font-size: 12px;"><b><f:translate extensionName="Cart" key="tx_cart_domain_model_order_item.comment" /></b></td>
             <td style="font-family: Arial, Helvetica, sans-serif; font-size: 12px;">: {orderItem.comment}</td>
         </tr>
     </f:if>

@@ -2,8 +2,8 @@
       data-namespace-typo3-fluid="true">
 
 <f:layout name="SystemEmail" />
-<f:section name="Title"><f:translate key="LLL:EXT:cart/Resources/Private/Language/locallang.xlf:tx_cart.mail.seller.subject" arguments="{0: orderItem.orderNumber}" /></f:section>
-<f:section name="Subject"><f:translate key="LLL:EXT:cart/Resources/Private/Language/locallang.xlf:tx_cart.mail.seller.subject" arguments="{0: orderItem.orderNumber}" /></f:section>
+<f:section name="Title"><f:translate extensionName="Cart" key="tx_cart.mail.seller.subject" arguments="{0: orderItem.orderNumber}" /></f:section>
+<f:section name="Subject"><f:translate extensionName="Cart" key="tx_cart.mail.seller.subject" arguments="{0: orderItem.orderNumber}" /></f:section>
 <f:section name="Main">
     <f:render partial="Mail/OrderInformation" arguments="{_all}"/>
 

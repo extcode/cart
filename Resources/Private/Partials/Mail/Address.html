@@ -4,7 +4,7 @@
 <table style="text-align: left; padding: 0;margin: 0; font-family: Arial, Helvetica, sans-serif; font-size: 12px;">
     <tr>
         <td style="width:300px; vertical-align:top; font-family: Arial, Helvetica, sans-serif; font-size: 12px;">
-            <b><f:translate key="LLL:EXT:cart/Resources/Private/Language/locallang.xlf:tx_cart_domain_model_cart.billing_address" />:</b><br /><br />
+            <b><f:translate extensionName="Cart" key="tx_cart_domain_model_cart.billing_address" />:</b><br /><br />
             <f:if condition="{billingAddress.company}">
                 {billingAddress.company}<br />
             </f:if>
@@ -15,17 +15,17 @@
             </f:if>
             {billingAddress.zip} {billingAddress.city}<br />
             <f:if condition="{billingAddress.country}">
-                <f:translate key="LLL:EXT:cart/Resources/Private/Language/locallang.xlf:tx_cart.settings.allowed_countries.{billingAddress.country}" default="{billingAddress.country}"/><br />
+                <f:translate extensionName="Cart" key="tx_cart.settings.allowed_countries.{billingAddress.country}" default="{billingAddress.country}"/><br />
             </f:if>
             <br />
             {billingAddress.email}<br />
 
             <f:if condition="{billingAddress.taxIdentificationNumber}">
-                <f:translate key="LLL:EXT:cart/Resources/Private/Language/locallang.xlf:tx_cart_domain_model_order_address.tax_identification_number" />: {billingAddress.taxIdentificationNumber}<br />
+                <f:translate extensionName="Cart" key="tx_cart_domain_model_order_address.tax_identification_number" />: {billingAddress.taxIdentificationNumber}<br />
             </f:if>
         </td>
         <td style="width:300px; vertical-align:top; font-family: Arial, Helvetica, sans-serif; font-size: 12px;">
-            <b><f:translate key="LLL:EXT:cart/Resources/Private/Language/locallang.xlf:tx_cart_domain_model_cart.shipping_address" />:</b><br /><br />
+            <b><f:translate extensionName="Cart" key="tx_cart_domain_model_cart.shipping_address" />:</b><br /><br />
             <f:if condition="{shippingAddress}">
                 <f:then>
                     <f:if condition="{shippingAddress.company}">
@@ -38,11 +38,11 @@
                     </f:if>
                     {shippingAddress.zip} {shippingAddress.city}<br />
                     <f:if condition="{shippingAddress.country}">
-                        <f:translate key="LLL:EXT:cart/Resources/Private/Language/locallang.xlf:tx_cart.settings.allowed_countries.{shippingAddress.country}" default="{shippingAddress.country}"/><br />
+                        <f:translate extensionName="Cart" key="tx_cart.settings.allowed_countries.{shippingAddress.country}" default="{shippingAddress.country}"/><br />
                     </f:if>
                 </f:then>
                 <f:else>
-                    <f:translate key="LLL:EXT:cart/Resources/Private/Language/locallang.xlf:tx_cart_domain_model_cart.use_billing_address" /><br /><br />
+                    <f:translate extensionName="Cart" key="tx_cart_domain_model_cart.use_billing_address" /><br /><br />
                 </f:else>
             </f:if>
         </td>
