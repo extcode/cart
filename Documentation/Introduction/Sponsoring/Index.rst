@@ -11,7 +11,6 @@ There is also the possibility to support the further development independently o
 *  Ask for an invoice.
 *  `GitHub Sponsors <https://github.com/sponsors/extcode>`_
 *  `paypal.me <https://paypal.me/extcart>`_
-*  `patreon.com <https://patreon.com/ext_cart>`_
 
 Sponsors
 --------

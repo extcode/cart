@@ -29,7 +29,7 @@ Furthermore, you will find some payment provider extensions like `extcode/cart-p
 #### Installation using Composer
 
 The recommended way to install the extension is by using [Composer][2].
-In your Composer based TYPO3 project root, just do `composer require extcode/cart`. 
+In your Composer based TYPO3 project root, just do `composer require extcode/cart`.
 
 #### Installation as extension from TYPO3 Extension Repository (TER)
 
@@ -76,7 +76,6 @@ News uses **semantic versioning** which basically means for you, that
 * Ask for an invoice.
 * [GitHub Sponsors](https://github.com/sponsors/extcode)
 * [PayPal.Me](https://paypal.me/extcart)
-* [Patreon](https://patreon.com/ext_cart)
 
 [1]: https://docs.typo3.org/typo3cms/extensions/cart/
 [2]: https://getcomposer.org/
