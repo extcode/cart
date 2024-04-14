@@ -19,7 +19,11 @@
             </span>
         </td>
         <td class="col-md-1 text-right">
-            <f:form.textfield class="form-control form-control-inline" type="text" value="{product.quantity}" name="quantities[{product.id}]"/>
+            <f:form.textfield
+                class="form-control form-control-inline"
+                type="number"
+                alue="{product.quantity}"
+                name="quantities[{product.id}]"/>
         </td>
         <td class="col-md-2 text-right">
             <f:if condition="{product.quantityIsInRange}">
@@ -68,7 +72,7 @@
                     <div class="qty-wrapper">
                         <f:form.textfield
                                 class="form-control form-control-inline"
-                                type="text"
+                                type="number"
                                 value="{variant.quantity}"
                                 name="quantities{cart:fieldName(variant:variant)}"/>
                     </div>
