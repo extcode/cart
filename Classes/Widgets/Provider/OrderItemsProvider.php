@@ -17,15 +17,8 @@ use TYPO3\CMS\Dashboard\Widgets\ListDataProviderInterface;
 
 class OrderItemsProvider implements ListDataProviderInterface
 {
-    /**
-     * @var QueryBuilder
-     */
-    private $queryBuilder;
-
-    /**
-     * @var array
-     */
-    private $options;
+    private QueryBuilder $queryBuilder;
+    private array $options;
 
     public function __construct(
         QueryBuilder $queryBuilder,
