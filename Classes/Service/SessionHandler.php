@@ -38,7 +38,7 @@ class SessionHandler implements SingletonInterface
             if ($cart instanceof Cart) {
                 $afterRestoreCartEvent = new AfterRestoreCartEvent($cart);
                 $this->eventDispatcher->dispatch($afterRestoreCartEvent);
-                return $afterRestoreCartEvent->getCart();
+                return $cart;
             }
         }
 
@@ -79,7 +79,7 @@ class SessionHandler implements SingletonInterface
             if ($address instanceof AbstractAddress) {
                 $afterRestoreAddressEvent = new AfterRestoreAddressEvent($address);
                 $this->eventDispatcher->dispatch($afterRestoreAddressEvent);
-                return $afterRestoreAddressEvent->getAddress();
+                return $address;
             }
         }
 
