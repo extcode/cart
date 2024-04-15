@@ -22,7 +22,6 @@ class CartPreviewController extends ActionController
 
         $beforeShowCartEvent = new BeforeShowCartEvent($this->cart);
         $this->eventDispatcher->dispatch($beforeShowCartEvent);
-        $this->cart = $beforeShowCartEvent->getCart();
 
         $this->view->assign('cart', $this->cart);
 
