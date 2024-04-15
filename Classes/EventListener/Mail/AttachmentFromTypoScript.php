@@ -17,12 +17,12 @@ use TYPO3\CMS\Extbase\Configuration\ConfigurationManager;
 
 class AttachmentFromTypoScript
 {
-    private array $pluginSettings;
+    private array $settings;
 
     public function __construct(
         private ConfigurationManager $configurationManager
     ) {
-        $this->pluginSettings = $this->configurationManager->getConfiguration(
+        $this->settings = $this->configurationManager->getConfiguration(
             ConfigurationManager::CONFIGURATION_TYPE_FRAMEWORK,
             'Cart'
         );
@@ -31,11 +31,11 @@ class AttachmentFromTypoScript
     public function __invoke(AttachmentEvent $event): void
     {
         $type = $event->getType();
-        if (!isset($this->pluginSettings['mail'][$type]['attachments'])) {
+        if (!isset($this->settings['mail'][$type]['attachments'])) {
             return;
         }
 
-        $attachments = $this->pluginSettings['mail'][$type]['attachments'];
+        $attachments = $this->settings['mail'][$type]['attachments'];
 
         foreach ($attachments as $attachment) {
             $attachmentFile = GeneralUtility::getFileAbsFileName($attachment);
