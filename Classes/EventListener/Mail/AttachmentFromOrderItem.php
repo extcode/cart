@@ -17,12 +17,12 @@ use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 
 class AttachmentFromOrderItem
 {
-    private array $pluginSettings;
+    private array $settings;
 
     public function __construct(
         private ConfigurationManager $configurationManager
     ) {
-        $this->pluginSettings = $this->configurationManager->getConfiguration(
+        $this->settings = $this->configurationManager->getConfiguration(
             ConfigurationManager::CONFIGURATION_TYPE_FRAMEWORK,
             'Cart'
         );
@@ -31,7 +31,7 @@ class AttachmentFromOrderItem
     public function __invoke(AttachmentEvent $event): void
     {
         $type = $event->getType();
-        if (!isset($this->pluginSettings['mail'][$type]['attachDocuments'])) {
+        if (!isset($this->settings['mail'][$type]['attachDocuments'])) {
             return;
         }
 
@@ -40,7 +40,7 @@ class AttachmentFromOrderItem
             return;
         }
 
-        foreach ($this->pluginSettings['mail'][$type]['attachDocuments'] as $pdfType => $pdfData) {
+        foreach ($this->settings['mail'][$type]['attachDocuments'] as $pdfType => $pdfData) {
             $getter = 'get' . ucfirst($pdfType) . 'Pdfs';
             $pdfs = $orderItem->$getter();
             if ($pdfs && ($pdfs instanceof ObjectStorage)) {

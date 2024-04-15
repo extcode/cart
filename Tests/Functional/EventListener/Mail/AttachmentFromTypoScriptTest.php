@@ -56,7 +56,7 @@ class AttachmentFromTypoScriptTest extends FunctionalTestCase
 
         $attachmentFromTypoScriot = new AttachmentFromTypoScript(GeneralUtility::makeInstance(ConfigurationManager::class));
 
-        $pluginSettings = [
+        $settings = [
             'mail' => [
                 'buyer' => [
                     'attachments' => [
@@ -69,8 +69,8 @@ class AttachmentFromTypoScriptTest extends FunctionalTestCase
         ];
 
         $reflection = new \ReflectionClass($attachmentFromTypoScriot);
-        $reflection_property = $reflection->getProperty('pluginSettings');
-        $reflection_property->setValue($attachmentFromTypoScriot, $pluginSettings);
+        $reflection_property = $reflection->getProperty('settings');
+        $reflection_property->setValue($attachmentFromTypoScriot, $settings);
 
         $attachmentFromTypoScriot->__invoke($attachmentEvent);
 
