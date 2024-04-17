@@ -12,9 +12,17 @@ namespace Extcode\Cart\Event;
  */
 
 use Extcode\Cart\Domain\Model\Cart\Cart;
+use TYPO3\CMS\Core\Messaging\FlashMessage;
 
 final class ProcessOrderCheckStockEvent implements ProcessOrderCheckStockEventInterface
 {
+    private bool $allProductsAvailable = true;
+
+    /**
+     * @var FlashMessage[]
+     */
+    protected array $messages = [];
+
     public function __construct(
         private readonly Cart $cart
     ) {}
@@ -22,5 +30,39 @@ final class ProcessOrderCheckStockEvent implements ProcessOrderCheckStockEventIn
     public function getCart(): Cart
     {
         return $this->cart;
+    }
+
+    public function allProductsAreAvailable(): bool
+    {
+        return $this->allProductsAvailable;
+    }
+
+    public function setNotAllProductsAreAvailable(): void
+    {
+        $this->allProductsAvailable = false;
+    }
+
+    /**
+     * @return FlashMessage[]
+     */
+    public function getMessages(): array
+    {
+        return $this->messages;
+    }
+
+    /**
+     * @param FlashMessage[] $messages
+     */
+    public function setMessages(array $messages): void
+    {
+        $this->messages = $messages;
+    }
+
+    /**
+     * @param FlashMessage $message
+     */
+    public function addMessage(FlashMessage $message): void
+    {
+        $this->messages[] = $message;
     }
 }
