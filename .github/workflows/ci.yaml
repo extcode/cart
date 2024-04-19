@@ -46,7 +46,7 @@ jobs:
         working-directory: ./Build/Sources
 
       - name: Run ESLint
-        run: npm run build
+        run: npm run lint
         working-directory: ./Build/Sources
 
   coding-guideline:
