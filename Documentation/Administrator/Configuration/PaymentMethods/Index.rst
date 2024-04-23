@@ -125,12 +125,16 @@ plugin.tx_cart.payments.countries
    ID of the tax class for this payment method. The taxClassId must either be
    assignable to a defined tax class.
 
-   However, the values `-1` and `-2` are also allowed here.
+   However, the values `-1` and `-2` are also allowed here. This is a feature
+   which was introduced for the calculation of shipping costs. Nonetheless it
+   can also be used for payments
 
-   * `-1` → The tax class for the calculation is based on the largest tax class
-     of the products in the shopping cart.
-   * `-2` → The taxes are calculated as a percentage of the tax of the products
-     in the shopping cart.
+   * `-1` → The products within the shopping cart are taken. Of those products
+     the tax class with the highest value is then taken as tax class for the
+     calculation of the payment method costs.
+   * `-2` → The products within the shopping cart are taken. The tax for the
+     payment method costs is calculated as a percentage of the tax of those
+     products.
 
 .. confval:: <country-code>.options.<n>.status
 
