@@ -1,11 +1,11 @@
 .. include:: ../../../../Includes.txt
-.. _adminstration_order_mail:
-=====================================
-Email addresses and email attachments
-=====================================
+.. _mail_addresses:
+===============
+Email addresses
+===============
 
 Email addresses must be configured for sending emails. This can be done in
-the backend via the plugin, but also configured via TypoScript.
+the backend in the plugin settings, but also configured via TypoScript.
 
 .. code-block:: typoscript
    :caption: Can be set in e.g. EXT:sitepackage/Configuration/TypoScript/setup.typoscript
@@ -19,9 +19,6 @@ the backend via the plugin, but also configured via TypoScript.
                ccAddress = cart.buyer.cc1@example.com, cart.buyer.cc2@example.com
                bccAddress = cart.buyer.bcc1@example.com, cart.buyer.bcc2@example.com
                replyToAddress = cart.buyer.reply@example.com
-               attachments {
-                   1 = EXT:sitepackage/Resources/Public/Files/AGB.pdf
-               }
            }
 
            // Used for emails sent to the shop owner (=seller)
@@ -31,19 +28,18 @@ the backend via the plugin, but also configured via TypoScript.
                toAddress = cart.seller.to1@example.com, cart.seller.to2@example.com
                ccAddress = cart.seller.cc1@example.com, cart.seller.cc2@example.com
                bccAddress = cart.seller.bcc1@example.com, cart.seller.bcc2@example.com
-               attachments {
-                   1 = EXT:sitepackage/Resources/Public/Files/AGB.pdf
-               }
-               attachDocuments {
-                  order = 1
-                  invoice = 1
-                  delivery = 1
            }
        }
    }
 
 plugin.tx_cart.mail
 ===================
+
+.. confval:: buyer.fromName
+
+   :Type: string
+
+   Name displayed for the email address sent to the buyer (=customer).
 
 .. confval:: buyer.fromAddress
 
@@ -75,22 +71,12 @@ plugin.tx_cart.mail
    Defines to which address should be used as Reply To.
    This will override the `['MAIL']['defaultMailReplyToAddress']` configuration.
 
-.. confval:: buyer.attachments.<n>
 
-   :Type: array
+.. confval:: seller.fromName
 
-   Defines one or more email attachments to be sent to the buyer.
+   :Type: string
 
-   These can be, for example, documents with the general terms and conditions.
-
-.. confval:: buyer.attachDocuments.<n>
-
-   :Type: array
-
-   Defines one or more email attachments of the generated PDF documents to be
-   sent to the buyer.
-
-   This can be the order confirmation, the invoice or a separate document.
+   Name displayed for the email address sent to the seller (=shop owner).
 
 .. confval:: seller.fromAddress
 
@@ -124,22 +110,3 @@ plugin.tx_cart.mail
    (Blind Carbon Copy).
 
    Multiple recipients can be given separated by commas.
-
-.. confval:: seller.attachments.<n>
-
-   :Type: array
-
-   Defines one or more email attachments to be sent to the seller.
-
-   These can be, for example, documents with the general terms and conditions.
-
-.. confval:: seller.attachDocuments.<n>
-
-   :Type: array
-
-   **This needs EXT:cart_pdf to work.**
-
-   Defines one or more email attachments of the generated PDF documents to be
-   sent to the seller.
-
-   This can be the order confirmation, the invoice or a separate document.

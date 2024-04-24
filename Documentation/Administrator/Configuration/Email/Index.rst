@@ -8,6 +8,7 @@ Email
    :maxdepth: 5
    :titlesonly:
 
-   EmailAddressesAndAttachments/Index
+   EmailAddresses/Index
+   EmailAttachments/Index
    EMailContent/Index
    OverwriteEmailTemplates/Index
