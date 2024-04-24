@@ -143,9 +143,34 @@ plugin.tx_cart.shippings.countries
 
    The status that the order with this shipping method should have by default.
 
-
+.. _country-configuration:
 Country Configuration
 =====================
+
+.. code-block:: typoscript
+   :caption: can be set in e.g. EXT:sitepackage/Configuration/TypoScript/setup.typoscript
+
+   plugin.tx_cart {
+       shippings {
+           countries {
+              de {
+                  options {
+                      2 {
+                          free {
+                              from = 50
+                              until = 100
+                          }
+                          available {
+                              from = 20
+                              until = 200
+                          }
+                          fallBackId = 1
+                      }
+                  }
+              }
+           }
+       }
+   }
 
 plugin.tx_cart.shippings.countries
 ----------------------------------
@@ -263,4 +288,4 @@ See :ref:`plugin.tx_cart.settings.showCartAction.showPartials.shippingMethodForm
    :maxdepth: 5
    :titlesonly:
 
-   FlexPrices/Index
+   FlexiblePricesForShipping/Index
