@@ -63,9 +63,10 @@ plugin.tx_cart.shipping.countries.de
 
    :Type: string
 
-   ============================== ==========================================================
-   Setting                        Explanation which value is used
-   ============================== ==========================================================
+   ============================== ===========================================
+   Setting                        Explanation what is used for the comparison
+   ============================== ===========================================
+   each                           This option is somehow special as simply multiplies the amount of products in the cart with a static value (see example below).
    by_price                       The total price of the shopping cart.
    by_price_of_physical_products  The total price of physical products in the shopping cart (EXT:cart_products allows to define products as "virtual producs").
    by_quantity                    The amount of physical(!) products. (This is a synonym for `by_number_of_physical_products`)
@@ -78,9 +79,23 @@ plugin.tx_cart.shipping.countries.de
    by_service_attribute_2_max     The highest value of `Service Attribute 2` of all product in the cart.
    by_service_attribute_3_sum     The sum of the values of `Service Attribute 3` of all products in the cart.
    by_service_attribute_3_max     The highest value of `Service Attribute 3` of all product in the cart.
-   ============================== ==========================================================
+   ============================== ===========================================
 
    You can also define free shipping, see :ref:`plugin.tx_cart.shippings.countries <country-configuration>`.
+
+   .. code-block:: typoscript
+      :caption: Example for `extra` set to `each`
+
+      // shippingCosts = 'amount of products in the cart' x 1.50
+      plugin.tx_cart.shippings.countries.de.options.1 {
+          title = Depending on amount of articles in cart
+          extra = each
+          extra {
+              extra = 1.50
+          }
+          taxClassId = 1
+          status = open
+      }
 
 .. confval:: options.<n>.extra.<m>.value
 
