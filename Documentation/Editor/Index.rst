@@ -12,7 +12,6 @@ Information how to use the extension as editor in the TYPO3 backend.
    :titlesonly:
 
    Orders/Index
-   Variants/Index
    Coupons/Index
    Plugins/Index
    BackendModuleOrders/Index
