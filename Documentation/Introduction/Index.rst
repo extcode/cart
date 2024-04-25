@@ -37,8 +37,44 @@ Features
 * Proved Bootstrap templates
 * Backend module to show and utilize orders
 
-Show cases
-==========
+Aspects to decide whether to choose EXT:cart or another shop solution
+=====================================================================
+
+Arguments when to use EXT:cart
+------------------------------
+
+* **TYPO3-native shop:**  The shop is fully integrated in TYPO3. Your customer
+  do not have to learn another system. And you (or your developer) does not have
+  to learn another system as well.
+* **TYPO3 know how:** You know how to work with TYPO3 (or have access to a
+  TYPO3 integrator and/or TYPO3 developer).
+* **Small project:** It's Suitable for smaller projects (see arguments against
+  using EXT:cart).
+* **Free open-source:** It's free and open source :)
+
+Arguments when NOT to use EXT:cart
+----------------------------------
+
+* **Codeless configuration:** Other shop solutions may not demands any coding
+  skills but for EXT:cart you need at least to know how to integrate an
+  extension and how to set TypoScript configuration.
+* **Simultaneous orders:** Products in the cart are not reserved for the
+  customer. That means if another customer buys the last article in between the
+  customer who added the product first to the cart will get an error during the
+  checkout that the product is not available any longer.
+* **Complex products:** With the extension EXT:cart_products you can define FE
+  variants and BE variants which allows to make products customizable. But the
+  amount of customization is limited. The amount of BE variant combinations is
+  for example limited to three. Due to this it would for example not be possible
+  to make a shop for bicycles where the customer can configure all aspects of a
+  bicycle.
+* **Upselling:** There are no advanced functionalities like upselling.
+* **Customer support:** As it is open source it is not possible to get paid
+  support. It's of course possible to get support from the community but it's
+  not guaranteed to get the needed help.
+
+Showcases
+=========
 
 Examples of websites which use this extension as e-commerce solution.
 
