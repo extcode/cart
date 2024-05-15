@@ -518,6 +518,13 @@
                 <source>The product was added to cart.</source>
             </trans-unit>
 
+            <trans-unit id="tx_cart.previousStep">
+                <source>Previous step</source>
+            </trans-unit>
+            <trans-unit id="tx_cart.nextStep">
+                <source>Next step</source>
+            </trans-unit>
+
             <trans-unit id="tx_cart.backend.order.title">
                 <source>Order view for #%1$s (%2$s)</source>
             </trans-unit>
