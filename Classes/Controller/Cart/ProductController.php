@@ -105,7 +105,7 @@ class ProductController extends ActionController
                 true
             );
 
-            $this->redirect('show', 'Cart\Cart');
+            return $this->redirect('show', 'Cart\Cart');
         }
 
         $quantity = $this->addProductsToCart($cartProducts);
