@@ -130,7 +130,7 @@ class ProductController extends ActionController
                 'count' => $this->cart->getCount(),
                 'net' => $this->cart->getNet(),
                 'gross' => $this->cart->getGross(),
-                'productsChanged' => $productsChanged,
+                'productsChangeStarterkitd' => $productsChanged,
                 'messageBody' => $messageBody,
                 'messageTitle' => $messageTitle,
                 'severity' => $severity,

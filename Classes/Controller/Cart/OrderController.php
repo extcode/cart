@@ -23,6 +23,8 @@ use Extcode\Cart\Event\ProcessOrderCheckStockEvent;
 use Extcode\Cart\Validation\Validator\EmptyValidator;
 use Psr\EventDispatcher\StoppableEventInterface;
 use Psr\Http\Message\ResponseInterface;
+use TYPO3\CMS\Core\Messaging\AbstractMessage;
+use TYPO3\CMS\Core\Type\ContextualFeedbackSeverity;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Annotation\IgnoreValidation;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
@@ -83,7 +85,37 @@ class OrderController extends ActionController
             return $this->redirect('show', 'Cart\Cart');
         }
 
-        $this->eventDispatcher->dispatch(new ProcessOrderCheckStockEvent($this->cart));
+        $processOrderCheckStockEvent = new ProcessOrderCheckStockEvent($this->cart);
+        $this->eventDispatcher->dispatch($processOrderCheckStockEvent);
+
+        if (!$processOrderCheckStockEvent->allProductsAreAvailable()) {
+            $errors = $processOrderCheckStockEvent->getMessages();
+
+            $messageBody = '';
+            $messageTitle = '';
+            $severity = ContextualFeedbackSeverity::OK;
+
+            foreach ($errors as $error) {
+                if (!($error instanceof AbstractMessage)) {
+                    continue;
+                }
+                $message = $error->jsonSerialize();
+                if ($message['severity'] >= (int)$severity) {
+                    $severity = $message['severity'];
+                    $messageBody = $message['message'];
+                    $messageTitle = $message['title'];
+                }
+            }
+
+            $this->addFlashMessage(
+                $messageBody,
+                $messageTitle,
+                $severity,
+                true
+            );
+
+            return $this->redirect('show', 'Cart\Cart');
+        }
 
         $orderItem->setCartPid((int)$this->settings['cart']['pid']);
 

@@ -10,6 +10,9 @@
             <trans-unit id="tx_cart.error.stock_handling.update">
                 <source>Desired number of this item not available.</source>
             </trans-unit>
+            <trans-unit id="tx_cart.error.stock_handling.order">
+                <source>The product "%s" with the SKU "%s" is not available in the desired amount. The current stock of this product is %s. Caution: The stock is not reserved for you.'</source>
+            </trans-unit>
             <trans-unit id="tx_cart.success.stock_handling.add.one">
                 <source>Item was added to cart.</source>
             </trans-unit>
