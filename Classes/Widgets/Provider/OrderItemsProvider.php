@@ -17,15 +17,8 @@ use TYPO3\CMS\Dashboard\Widgets\ListDataProviderInterface;
 
 class OrderItemsProvider implements ListDataProviderInterface
 {
-    /**
-     * @var QueryBuilder
-     */
-    private $queryBuilder;
-
-    /**
-     * @var array
-     */
-    private $options;
+    private QueryBuilder $queryBuilder;
+    private array $options;
 
     public function __construct(
         QueryBuilder $queryBuilder,
@@ -96,7 +89,9 @@ class OrderItemsProvider implements ListDataProviderInterface
             )
             ->addSelect('shipping.name AS shipping_name', 'shipping.status AS shipping_status');
 
-        if (is_array($this->options['filter']) && is_array($this->options['filter']['shipping']) && !empty($this->options['filter']['shipping']['status'])) {
+        if (is_array($this->options['filter']) &&
+            is_array($this->options['filter']['shipping']) &&
+            !empty($this->options['filter']['shipping']['status'])) {
             $constraints[] = $this->queryBuilder->expr()->eq(
                 'shipping.status',
                 $this->queryBuilder->createNamedParameter(

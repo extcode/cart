@@ -18,8 +18,8 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /**
-     * Listen to changes of cart form field for billing country.
-     */
+   * Listen to changes of cart form field for billing country.
+   */
   billingCountryElement.addEventListener('change', () => {
     const billingCountry = billingCountryElement.value;
     let shippingCountry = '';
@@ -31,8 +31,8 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   /**
-     * Listen to changes of cart form field for shipping country.
-     */
+   * Listen to changes of cart form field for shipping country.
+   */
   shippingCountryElement.addEventListener('change', () => {
     const billingCountry = billingCountryElement.value;
     const shippingCountry = shippingCountryElement.value;
@@ -41,9 +41,9 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   /**
-     * Listen to changes of cart form field whether shipping address is same as billing address.
-     */
-  shippingSameAsBillingElement.addEventListener('change', () => {
+   * Listen to changes of cart form field whether shipping address is same as billing address.
+   */
+  shippingSameAsBillingElement.addEventListener('change', function () {
     const stepShippingAddressElement = document.querySelector('#checkout-step-shipping-address');
     if (shippingSameAsBillingElement.checked) {
       stepShippingAddressElement.style.display = 'none';
@@ -52,7 +52,12 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     const billingCountry = billingCountryElement.value;
-    const shippingCountry = shippingCountryElement.value;
+    // Shipping costs shall depend on billing country if shipping address == billing address.
+    // Due to this the value of the shipping country is only considered if the shipping address
+    // differs from the billing address.
+    const shippingCountry = shippingSameAsBillingElement.checked
+      ? billingCountryElement.value
+      : shippingCountryElement.value;
 
     // Disable shipping fields if shipping address == billing address.
     const disabledStatus = shippingSameAsBillingElement.checked;

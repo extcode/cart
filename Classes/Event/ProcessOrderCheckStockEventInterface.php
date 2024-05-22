@@ -18,4 +18,11 @@ interface ProcessOrderCheckStockEventInterface
     public function __construct(Cart $cart);
 
     public function getCart(): Cart;
+
+    public function allProductsAreAvailable(): bool;
+
+    /**
+     * @return FlashMessage[]
+     */
+    public function getMessages(): array;
 }

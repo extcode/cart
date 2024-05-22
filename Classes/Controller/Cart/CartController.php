@@ -130,13 +130,13 @@ class CartController extends ActionController
     public function updateAction(): ResponseInterface
     {
         if (!$this->request->hasArgument('quantities')) {
-            $this->redirect('show');
+            return $this->redirect('show');
         }
 
         $updateQuantities = $this->request->getArgument('quantities');
 
         if (!is_array($updateQuantities)) {
-            $this->redirect('show');
+            return $this->redirect('show');
         }
 
         $this->restoreSession();

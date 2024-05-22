@@ -15,7 +15,7 @@ return (new \PhpCsFixer\Config())
     ->setRiskyAllowed(true)
     ->setRules([
         '@DoctrineAnnotation' => true,
-        '@PER' => true,
+        '@PER-CS' => true,
         'array_syntax' => ['syntax' => 'short'],
         'cast_spaces' => ['space' => 'none'],
         'concat_space' => ['spacing' => 'one'],
@@ -23,7 +23,6 @@ return (new \PhpCsFixer\Config())
         'declare_parentheses' => true,
         'dir_constant' => true,
         'function_to_constant' => ['functions' => ['get_called_class', 'get_class', 'get_class_this', 'php_sapi_name', 'phpversion', 'pi']],
-        'function_typehint_space' => true,
         'modernize_strpos' => true,
         'modernize_types_casting' => true,
         'native_function_casing' => true,
@@ -58,6 +57,7 @@ return (new \PhpCsFixer\Config())
         'single_space_around_construct' => true,
         'single_line_comment_style' => ['comment_types' => ['hash']],
         'trailing_comma_in_multiline' => ['elements' => ['arrays']],
+        'type_declaration_spaces' => true,
         'whitespace_after_comma_in_array' => ['ensure_single_space' => true],
         'yoda_style' => ['equal' => false, 'identical' => false, 'less_and_greater' => false],
     ]);

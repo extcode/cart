@@ -12,7 +12,7 @@
                              id="shipping-same-as-billing"
                              value="1"
                              title="{f:translate(key:'tx_cart.same_address')}"
-                             checked="{f:if(condition:'{cart.shippingSameAsBilling}')}"/>
+                             checked="{f:if(condition:'{cart.shippingSameAsBilling}', then: 'true', else: 'false')}"/>
             <span><f:translate key="tx_cart.same_address"/></span>
         </label>
     </div>

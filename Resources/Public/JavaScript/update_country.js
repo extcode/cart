@@ -54,7 +54,7 @@
       const shippingCountry = shippingCountryElement.value;
       updateCountry(billingCountry, shippingCountry);
     });
-    shippingSameAsBillingElement.addEventListener("change", () => {
+    shippingSameAsBillingElement.addEventListener("change", function() {
       const stepShippingAddressElement = document.querySelector("#checkout-step-shipping-address");
       if (shippingSameAsBillingElement.checked) {
         stepShippingAddressElement.style.display = "none";
@@ -62,7 +62,7 @@
         stepShippingAddressElement.style.display = null;
       }
       const billingCountry = billingCountryElement.value;
-      const shippingCountry = shippingCountryElement.value;
+      const shippingCountry = shippingSameAsBillingElement.checked ? billingCountryElement.value : shippingCountryElement.value;
       const disabledStatus = shippingSameAsBillingElement.checked;
       setDisabledStatus(stepShippingAddressElement, "input", disabledStatus);
       setDisabledStatus(stepShippingAddressElement, "select", disabledStatus);

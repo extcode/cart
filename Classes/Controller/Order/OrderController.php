@@ -13,6 +13,7 @@ namespace Extcode\Cart\Controller\Order;
 use Extcode\Cart\Domain\Model\Order\Item;
 use Extcode\Cart\Domain\Repository\Order\ItemRepository;
 use Psr\Http\Message\ResponseInterface;
+use TYPO3\CMS\Core\Context\Context;
 use TYPO3\CMS\Core\Pagination\SimplePagination;
 use TYPO3\CMS\Core\Type\ContextualFeedbackSeverity;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
@@ -27,13 +28,16 @@ class OrderController extends ActionController
     protected ItemRepository $itemRepository;
 
     protected array $searchArguments = [];
-
     protected array $pluginSettings;
 
     public function injectItemRepository(ItemRepository $itemRepository): void
     {
         $this->itemRepository = $itemRepository;
     }
+
+public function __construct(
+        private readonly Context $context,
+    ) {}
 
     protected function initializeAction(): void
     {
@@ -47,8 +51,8 @@ class OrderController extends ActionController
     {
         $this->view->assign('searchArguments', $this->searchArguments);
 
-        $feUser = (int)$GLOBALS['TSFE']->fe_user->user['uid'];
-        $orderItems = $this->itemRepository->findBy(['feUser' => $feUser]);
+        $feUserUid = $this->context->getPropertyFromAspect('frontend.user', 'id');
+        $orderItems = $this->itemRepository->findBy(['feUser' => $feUserUid]);
 
         $itemsPerPage = $this->settings['itemsPerPage'] ?? 20;
 
@@ -75,14 +79,14 @@ class OrderController extends ActionController
      */
     public function showAction(Item $orderItem): ResponseInterface
     {
-        $feUser = (int)$GLOBALS['TSFE']->fe_user->user['uid'];
-        if ($orderItem->getFeUser()->getUid() !== $feUser) {
+        $feUserUid = $this->context->getPropertyFromAspect('frontend.user', 'id');
+        if ($orderItem->getFeUser()->getUid() !== $feUserUid) {
             $this->addFlashMessage(
                 'Access denied.',
                 '',
                 ContextualFeedbackSeverity::ERROR
             );
-            $this->redirect('list');
+            return $this->redirect('list');
         }
 
         $this->view->assign('orderItem', $orderItem);
@@ -90,8 +94,8 @@ class OrderController extends ActionController
         $paymentStatusOptions = [];
         $items = $GLOBALS['TCA']['tx_cart_domain_model_order_payment']['columns']['status']['config']['items'];
         foreach ($items as $item) {
-            $paymentStatusOptions[$item[1]] = LocalizationUtility::translate(
-                $item[0],
+            $paymentStatusOptions[$item['value']] = LocalizationUtility::translate(
+                $item['label'],
                 'Cart'
             );
         }
@@ -100,8 +104,8 @@ class OrderController extends ActionController
         $shippingStatusOptions = [];
         $items = $GLOBALS['TCA']['tx_cart_domain_model_order_shipping']['columns']['status']['config']['items'];
         foreach ($items as $item) {
-            $shippingStatusOptions[$item[1]] = LocalizationUtility::translate(
-                $item[0],
+            $shippingStatusOptions[$item['value']] = LocalizationUtility::translate(
+                $item['label'],
                 'Cart'
             );
         }

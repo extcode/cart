@@ -6,6 +6,7 @@ namespace Extcode\Cart\Configuration\Backend\Widget;
 
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symfony\Component\DependencyInjection\Reference;
+use TYPO3\CMS\Backend\View\BackendViewFactory;
 use TYPO3\CMS\Dashboard\Widgets\BarChartWidget;
 
 return function (ContainerConfigurator $configurator) {
@@ -13,8 +14,8 @@ return function (ContainerConfigurator $configurator) {
 
     $services->set('dashboard.widget.extcode.cart.turnover_per_day')
         ->class(BarChartWidget::class)
+        ->arg('$backendViewFactory', new Reference(BackendViewFactory::class))
         ->arg('$dataProvider', new Reference('extcode.cart.provider.turnover_per_day'))
-        ->arg('$view', new Reference('dashboard.views.widget'))
         ->tag('dashboard.widget', [
             'identifier' => 'TurnoverPerDay',
             'groupNames' => 'cart',
