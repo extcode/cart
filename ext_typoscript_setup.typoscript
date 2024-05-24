@@ -18,3 +18,10 @@ module.tx_cart {
         }
     }
 }
+
+config.pageTitleProviders {
+    cart {
+        provider = Extcode\Cart\PageTitle\PageTitleProvider
+        before = record
+    }
+}
