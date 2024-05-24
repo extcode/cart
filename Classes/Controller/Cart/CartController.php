@@ -101,7 +101,7 @@ class CartController extends ActionController
             $this->sessionHandler->writeCart($this->settings['cart']['pid'], $this->cart);
         }
 
-        $beforeShowCartEvent = new BeforeShowCartEvent($this->cart, $orderItem);
+        $beforeShowCartEvent = new BeforeShowCartEvent($this->cart, $orderItem, $billingAddress, $shippingAddress);
         $this->eventDispatcher->dispatch($beforeShowCartEvent);
 
         $this->parseServicesAndAssignToView();
