@@ -124,12 +124,18 @@ plugin.tx_cart.shippings.countries
    ID of the tax class for this payment method. The taxClassId must either be
    assignable to a defined tax class.
 
-   However, the values `-1` and `-2` are also allowed here.
+   However, the values `-1` and `-2` are also allowed here. These options can be
+   used when the shop has products with multiple tax classes.
 
-   * `-1` → The tax class for the calculation is based on the largest tax class
-     of the products in the shopping cart.
-   * `-2` → The taxes are calculated as a percentage of the tax of the products
-     in the shopping cart.
+   For example in Germany and Austria the shipping costs are an ancillary
+   service of the order. Therefore the tax of the shipping costs needs to be
+   calculated.
+
+   * `-1` → The products within the shopping cart are taken. Of those products
+     the tax class with the highest value is then taken as tax class for the
+     calculation of the shipping costs.
+   * `-2` → The products within the shopping cart are taken. The tax for the
+     shipping costs is calculated as a percentage of the tax of those products.
 
 .. confval:: <country-code>.options.<n>.status
 
@@ -137,9 +143,34 @@ plugin.tx_cart.shippings.countries
 
    The status that the order with this shipping method should have by default.
 
-
+.. _country-configuration:
 Country Configuration
 =====================
+
+.. code-block:: typoscript
+   :caption: can be set in e.g. EXT:sitepackage/Configuration/TypoScript/setup.typoscript
+
+   plugin.tx_cart {
+       shippings {
+           countries {
+              de {
+                  options {
+                      2 {
+                          free {
+                              from = 50
+                              until = 100
+                          }
+                          available {
+                              from = 20
+                              until = 200
+                          }
+                          fallBackId = 1
+                      }
+                  }
+              }
+           }
+       }
+   }
 
 plugin.tx_cart.shippings.countries
 ----------------------------------
@@ -257,4 +288,4 @@ See :ref:`plugin.tx_cart.settings.showCartAction.showPartials.shippingMethodForm
    :maxdepth: 5
    :titlesonly:
 
-   FlexPrices/Index
+   FlexiblePricesForShipping/Index

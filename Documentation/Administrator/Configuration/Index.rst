@@ -15,6 +15,8 @@ extension with TypoScript, PageTS and YAML.
    Cart/Index
    Order/Index
    Currency/Index
+   Email/Index
+   NumberGenerator/Index
    PaymentMethods/Index
    ShippingMethods/Index
    TaxClasses/Index

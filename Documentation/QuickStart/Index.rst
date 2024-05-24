@@ -122,7 +122,7 @@ Instructions
    `sitepackage/Configuration/TypoScript/setup.typoscript` fitting
    values for:
 
-   - :ref:`email <adminstration_order_mail>`
+   - :ref:`email <mail_addresses>`
    - :ref:`payments <payment_methods>`
    - :ref:`shippings <shipping_methods>`
    - :ref:`currencies <currency>` (only needed when not only using €),

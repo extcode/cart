@@ -24,7 +24,7 @@ As with all the other mail settings those in the plugin take precedence.
 
 Migration
 =========
-See also :ref:`the documentation for email addresses <adminstration_order_mail>`.
+See also :ref:`the documentation for email addresses <mail_addresses>`.
 
 .. code-block:: typoscript
    :caption: EXT:sitepackage/Configuration/TypoScript/setup.typoscript
