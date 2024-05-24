@@ -17,11 +17,11 @@ use TYPO3\CMS\Frontend\Authentication\FrontendUserAuthentication;
 class SessionHandler implements SingletonInterface
 {
     protected $prefixKey = 'cart_';
-    private FrontendUserAuthentication $feUser;
+    private FrontendUserAuthentication $frontendUserAuthentication;
 
     public function __construct()
     {
-        $this->getSession();
+        $this->getFrontendUserAuthenticationFromRequest();
     }
 
     /**
@@ -29,7 +29,7 @@ class SessionHandler implements SingletonInterface
      */
     public function restoreCart(string $key): ?Cart
     {
-        $sessionData = $this->feUser->getKey('ses', $this->prefixKey . $key);
+        $sessionData = $this->frontendUserAuthentication->getKey('ses', $this->prefixKey . $key);
 
         if (is_string($sessionData)) {
             $cart = unserialize($sessionData);
@@ -48,8 +48,8 @@ class SessionHandler implements SingletonInterface
     {
         $sessionData = serialize($cart);
 
-        $this->feUser->setKey('ses', $this->prefixKey . $key, $sessionData);
-        $this->feUser->storeSessionData();
+        $this->frontendUserAuthentication->setKey('ses', $this->prefixKey . $key, $sessionData);
+        $this->frontendUserAuthentication->storeSessionData();
     }
 
     /**
@@ -57,8 +57,8 @@ class SessionHandler implements SingletonInterface
      */
     public function clearCart(string $key): void
     {
-        $this->feUser->setKey('ses', $this->prefixKey . $key, null);
-        $this->feUser->storeSessionData();
+        $this->frontendUserAuthentication->setKey('ses', $this->prefixKey . $key, null);
+        $this->frontendUserAuthentication->storeSessionData();
     }
 
     /**
@@ -66,7 +66,7 @@ class SessionHandler implements SingletonInterface
      */
     public function restoreAddress(string $key): ?AbstractAddress
     {
-        $sessionData = $this->feUser->getKey('ses', $this->prefixKey . $key);
+        $sessionData = $this->frontendUserAuthentication->getKey('ses', $this->prefixKey . $key);
 
         if (is_string($sessionData)) {
             $address = unserialize($sessionData);
@@ -85,13 +85,13 @@ class SessionHandler implements SingletonInterface
     {
         $sessionData = serialize($address);
 
-        $this->feUser->setKey('ses', $this->prefixKey . $key, $sessionData);
-        $this->feUser->storeSessionData();
+        $this->frontendUserAuthentication->setKey('ses', $this->prefixKey . $key, $sessionData);
+        $this->frontendUserAuthentication->storeSessionData();
     }
 
-    private function getSession(): void
+    private function getFrontendUserAuthenticationFromRequest(): void
     {
         $request = $GLOBALS['TYPO3_REQUEST'];
-        $this->feUser = $request->getAttribute('frontend.user');
+        $this->frontendUserAuthentication = $request->getAttribute('frontend.user');
     }
 }
