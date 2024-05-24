@@ -94,8 +94,8 @@ class OrderController extends ActionController
         $paymentStatusOptions = [];
         $items = $GLOBALS['TCA']['tx_cart_domain_model_order_payment']['columns']['status']['config']['items'];
         foreach ($items as $item) {
-            $paymentStatusOptions[$item[1]] = LocalizationUtility::translate(
-                $item[0],
+            $paymentStatusOptions[$item['value']] = LocalizationUtility::translate(
+                $item['label'],
                 'Cart'
             );
         }
@@ -104,8 +104,8 @@ class OrderController extends ActionController
         $shippingStatusOptions = [];
         $items = $GLOBALS['TCA']['tx_cart_domain_model_order_shipping']['columns']['status']['config']['items'];
         foreach ($items as $item) {
-            $shippingStatusOptions[$item[1]] = LocalizationUtility::translate(
-                $item[0],
+            $shippingStatusOptions[$item['value']] = LocalizationUtility::translate(
+                $item['label'],
                 'Cart'
             );
         }
