@@ -41,6 +41,9 @@ class AttachmentFromOrderItem
         }
 
         foreach ($this->settings['mail'][$type]['attachDocuments'] as $pdfType => $pdfData) {
+            if ($pdfData !== '1' && $pdfData !== 'true') {
+                continue;
+            }
             $getter = 'get' . ucfirst($pdfType) . 'Pdfs';
             $pdfs = $orderItem->$getter();
             if ($pdfs && ($pdfs instanceof ObjectStorage)) {
