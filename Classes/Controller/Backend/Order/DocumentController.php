@@ -39,7 +39,7 @@ class DocumentController extends ActionController
         $this->itemRepository = $itemRepository;
     }
 
-    public function createAction(Item $orderItem, string $pdfType): void
+    public function createAction(Item $orderItem, string $pdfType): ResponseInterface
     {
         $getNumber = 'get' . ucfirst($pdfType) . 'Number';
 
@@ -73,7 +73,7 @@ class DocumentController extends ActionController
         $msg = ucfirst($pdfType) . '-PDF-Document was generated.';
         $this->addFlashMessage($msg);
 
-        $this->redirect('show', 'Backend\Order\Order', null, ['orderItem' => $orderItem]);
+        return $this->redirect('show', 'Backend\Order\Order', null, ['orderItem' => $orderItem]);
     }
 
     public function downloadAction(Item $orderItem, string $pdfType): ResponseInterface

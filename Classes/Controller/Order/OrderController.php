@@ -86,7 +86,7 @@ class OrderController extends ActionController
                 '',
                 ContextualFeedbackSeverity::ERROR
             );
-            $this->redirect('list');
+            return $this->redirect('list');
         }
 
         $this->view->assign('orderItem', $orderItem);
