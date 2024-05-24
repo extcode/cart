@@ -21,20 +21,9 @@ use TYPO3\CMS\Dashboard\Widgets\ChartDataProviderInterface;
 
 class TurnoverPerDayProvider implements ChartDataProviderInterface
 {
-    /**
-     * @var LanguageService
-     */
-    private $languageService;
-
-    /**
-     * @var QueryBuilder
-     */
-    private $queryBuilder;
-
-    /**
-     * @var array
-     */
-    private $options;
+    private LanguageService $languageService;
+    private QueryBuilder $queryBuilder;
+    private array $options;
 
     public function __construct(
         QueryBuilder $queryBuilder,

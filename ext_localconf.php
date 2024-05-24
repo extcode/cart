@@ -119,18 +119,3 @@ $GLOBALS['TYPO3_CONF_VARS']['MAIL']['templateRootPaths']['1588829280'] = 'EXT:ca
 $GLOBALS['TYPO3_CONF_VARS']['MAIL']['partialRootPaths']['1588829280'] = 'EXT:cart/Resources/Private/Partials/';
 
 $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['cart']['MailAttachmentsHook'][] = MailAttachmentHook::class;
-
-// view paths for TYPO3 Dashboard
-call_user_func(static function () {
-    ExtensionManagementUtility::addTypoScriptSetup(
-        '
-module.tx_dashboard {
-    view {
-        templateRootPaths.1588697552 = EXT:cart/Resources/Private/Templates/
-        partialRootPaths.1588697552 = EXT:cart/Resources/Private/Partials/
-        layoutRootPaths.1588697552 = EXT:cart/Resources/Private/Layouts/
-    }
-}
-'
-    );
-});
