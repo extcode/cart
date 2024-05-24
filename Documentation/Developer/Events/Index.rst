@@ -10,6 +10,14 @@ integrate custom requirements in the ordering process.
 You can register your own EventListener for the following
 events:
 
+.. confval:: \Extcode\Cart\Event\Cart\BeforeShowCartEvent
+
+   Triggered before the cart is shown.
+
+   Allows adaptions of the cart object itself in `CartController` and
+   `CartPreviewController`. In the `CartController` the orderItem can changed too.
+   This event do not save the changes to the session.
+
 .. confval:: \Extcode\Cart\Event\Cart\UpdateCountryEvent
 
    This event is triggered when the user changes the country in the order
@@ -19,6 +27,15 @@ events:
 
    This event is triggered when the user changes the currency in the order
    form.
+
+.. confval:: \Extcode\Cart\Event\Form\AddToCartFinisherEvent
+
+   This event is triggered in `AddToCartFinisher` for form based products.
+
+.. confval:: \Extcode\Cart\Event\Mail\AttachmentEvent
+
+   Allows you to define file paths as attachments for mails send to buyer or
+   seller.
 
 .. confval:: \Extcode\Cart\Event\CheckProductAvailabilityEvent
 
@@ -132,3 +149,23 @@ events:
 
    This event is triggered when the payment or shipping of an order is edited
    in the backend.
+
+.. confval:: `Extcode\Cart\Event\Session\AfterRestoreAddressEvent`
+
+   This event is triggered in the `SessionHandler` and can be used to validate
+   or change the address after restoring the data them from the session.
+
+.. confval:: `Extcode\Cart\Event\Session\AfterRestoreCartEvent`
+
+   This event is triggered in the `SessionHandler` and can be used to validate
+   or change the cart after restoring the data from the session.
+
+.. confval:: `Extcode\Cart\Event\Session\BeforeWriteAddressEvent`
+
+   This event is triggered in the `SessionHandler` and can be used to change
+   the address before writing the data to the session.
+
+.. confval:: `Extcode\Cart\Event\Session\BeforeWriteCartEvent`
+
+   This event is triggered in the `SessionHandler` and can be used to validate
+   or change the cart before writing the data to the session.

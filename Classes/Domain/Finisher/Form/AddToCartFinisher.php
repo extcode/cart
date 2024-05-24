@@ -12,22 +12,26 @@ namespace Extcode\Cart\Domain\Finisher\Form;
  */
 use Extcode\Cart\Domain\Model\Cart\Cart;
 use Extcode\Cart\Domain\Model\Cart\Product;
+use Extcode\Cart\Event\Form\AddToCartFinisherEvent;
 use Extcode\Cart\Service\SessionHandler;
 use Extcode\Cart\Utility\CartUtility;
+use Psr\EventDispatcher\EventDispatcherInterface;
 use TYPO3\CMS\Core\Http\PropagateResponseException;
 use TYPO3\CMS\Core\Http\StreamFactory;
 use TYPO3\CMS\Core\Messaging\FlashMessage;
 use TYPO3\CMS\Core\Messaging\FlashMessageService;
 use TYPO3\CMS\Core\Type\ContextualFeedbackSeverity;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Configuration\ConfigurationManager;
+use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Extbase\Service\ExtensionService;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 use TYPO3\CMS\Form\Domain\Finishers\AbstractFinisher;
 
 class AddToCartFinisher extends AbstractFinisher
 {
-    protected ConfigurationManager $configurationManager;
+    protected ConfigurationManagerInterface $configurationManager;
+
+    protected EventDispatcherInterface $eventDispatcher;
 
     protected SessionHandler $sessionHandler;
 
@@ -37,11 +41,11 @@ class AddToCartFinisher extends AbstractFinisher
 
     protected array $configurations;
 
-    public function injectConfigurationManager(ConfigurationManager $configurationManager): void
+    public function injectConfigurationManager(ConfigurationManagerInterface $configurationManager): void
     {
         $this->configurationManager = $configurationManager;
         $this->configurations = $this->configurationManager->getConfiguration(
-            ConfigurationManager::CONFIGURATION_TYPE_FRAMEWORK,
+            ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK,
             'Cart'
         );
     }
@@ -56,6 +60,11 @@ class AddToCartFinisher extends AbstractFinisher
         $this->cartUtility = $cartUtility;
     }
 
+    public function injectEventDispatcher(EventDispatcherInterface $eventDispatcher): void
+    {
+        $this->eventDispatcher = $eventDispatcher;
+    }
+
     protected function executeInternal(): ?string
     {
         $cart = $this->sessionHandler->restoreCart($this->configurations['settings']['cart']['pid']);
@@ -67,18 +76,15 @@ class AddToCartFinisher extends AbstractFinisher
 
         $formValues = $this->getFormValues();
 
-        $className = $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['cart'][$formValues['productType']]['Form']['AddToCartFinisher'];
-        $hookObject = GeneralUtility::makeInstance($className);
-        if (!$hookObject instanceof AddToCartFinisherInterface) {
-            throw new \UnexpectedValueException($className . ' must implement interface ' . AddToCartFinisherInterface::class, 123);
-        }
-
-        unset($formValues[$this->getHoneypotIdentifier()]);
-
-        [$errors, $cartProducts] = $hookObject->getProductFromForm(
+        $addToCartFinisherEvent = new AddToCartFinisherEvent(
             $formValues,
             $this->cart
         );
+        $this->eventDispatcher->dispatch($addToCartFinisherEvent);
+        $errors = $addToCartFinisherEvent->getErrors();
+        $cartProducts = $addToCartFinisherEvent->getCartProducts();
+
+        unset($formValues[$this->getHoneypotIdentifier()]);
 
         if (empty($errors)) {
             $quantity = $this->addProductsToCart($cartProducts);

@@ -11,6 +11,11 @@ namespace Extcode\Cart\Service;
 
 use Extcode\Cart\Domain\Model\Cart\Cart;
 use Extcode\Cart\Domain\Model\Order\AbstractAddress;
+use Extcode\Cart\Event\Session\AfterRestoreAddressEvent;
+use Extcode\Cart\Event\Session\AfterRestoreCartEvent;
+use Extcode\Cart\Event\Session\BeforeWriteAddressEvent;
+use Extcode\Cart\Event\Session\BeforeWriteCartEvent;
+use Psr\EventDispatcher\EventDispatcherInterface;
 use TYPO3\CMS\Core\SingletonInterface;
 use TYPO3\CMS\Frontend\Authentication\FrontendUserAuthentication;
 
@@ -19,8 +24,9 @@ class SessionHandler implements SingletonInterface
     protected $prefixKey = 'cart_';
     private FrontendUserAuthentication $frontendUserAuthentication;
 
-    public function __construct()
-    {
+    public function __construct(
+        protected EventDispatcherInterface $eventDispatcher
+    ) {
         $this->getFrontendUserAuthenticationFromRequest();
     }
 
@@ -34,6 +40,8 @@ class SessionHandler implements SingletonInterface
         if (is_string($sessionData)) {
             $cart = unserialize($sessionData);
             if ($cart instanceof Cart) {
+                $afterRestoreCartEvent = new AfterRestoreCartEvent($cart);
+                $this->eventDispatcher->dispatch($afterRestoreCartEvent);
                 return $cart;
             }
         }
@@ -46,7 +54,9 @@ class SessionHandler implements SingletonInterface
      */
     public function writeCart(string $key, Cart $cart): void
     {
-        $sessionData = serialize($cart);
+        $beforeWriteCartEvent = new BeforeWriteCartEvent($cart);
+        $this->eventDispatcher->dispatch($beforeWriteCartEvent);
+        $sessionData = serialize($beforeWriteCartEvent->getCart());
 
         $this->frontendUserAuthentication->setKey('ses', $this->prefixKey . $key, $sessionData);
         $this->frontendUserAuthentication->storeSessionData();
@@ -71,6 +81,8 @@ class SessionHandler implements SingletonInterface
         if (is_string($sessionData)) {
             $address = unserialize($sessionData);
             if ($address instanceof AbstractAddress) {
+                $afterRestoreAddressEvent = new AfterRestoreAddressEvent($address);
+                $this->eventDispatcher->dispatch($afterRestoreAddressEvent);
                 return $address;
             }
         }
@@ -83,7 +95,9 @@ class SessionHandler implements SingletonInterface
      */
     public function writeAddress(string $key, AbstractAddress $address): void
     {
-        $sessionData = serialize($address);
+        $beforeWriteAddressEvent = new BeforeWriteAddressEvent($address);
+        $this->eventDispatcher->dispatch($beforeWriteAddressEvent);
+        $sessionData = serialize($beforeWriteAddressEvent->getAddress());
 
         $this->frontendUserAuthentication->setKey('ses', $this->prefixKey . $key, $sessionData);
         $this->frontendUserAuthentication->storeSessionData();
