@@ -7,7 +7,7 @@ use Extcode\Cart\Controller\Backend\Order\OrderController;
 use Extcode\Cart\Controller\Backend\Order\PaymentController;
 use Extcode\Cart\Controller\Backend\Order\ShippingController;
 
-$_LLL_db = 'LLL:EXT:cart/Resources/Private/Language/locallang_db.xlf:';
+$_LLL_be = 'LLL:EXT:cart/Resources/Private/Language/locallang_be.xlf:';
 
 /**
  * Definitions for modules provided by EXT:cart
@@ -17,7 +17,7 @@ return [
         'access' => 'user, group',
         'workspaces' => 'live',
         'path' => '/module/cart',
-        'labels' => $_LLL_db . 'tx_cart.module.main',
+        'labels' => $_LLL_be . 'tx_cart.module.main',
         'extensionName' => 'Cart',
         'iconIdentifier' => 'ext-cart-module',
         'navigationComponent' => '@typo3/backend/page-tree/page-tree-element',
@@ -29,7 +29,7 @@ return [
         'workspaces' => 'live',
         'path' => '/module/cart/orders',
         'labels' => [
-            'title' => $_LLL_db . 'tx_cart.module.orders',
+            'title' => $_LLL_be . 'tx_cart.module.orders',
         ],
         'extensionName' => 'Cart',
         'controllerActions' => [

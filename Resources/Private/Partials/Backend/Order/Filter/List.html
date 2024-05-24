@@ -5,7 +5,7 @@
     <div class="row">
         <div class="form-group col col-sm-4">
             <label for="searchCustomer" class="form-label">
-                <f:translate key="filterCustomer"/>
+                <f:translate key="tx_cart.backend.filter.customer"/>
             </label>
             <f:form.textfield property="customer" id="searchCustomer"
                               class="form-control"
@@ -16,7 +16,7 @@
     <div class="row">
         <div class="form-group col col-sm-3">
             <label for="searchOrderNumber" class="form-label">
-                <f:translate key="filterOrderNumber"/>
+                <f:translate key="tx_cart.backend.filter.order_number"/>
             </label>
             <f:form.textfield property="orderNumber" id="searchOrderNumber"
                               class="form-control"
@@ -24,7 +24,7 @@
         </div>
         <div class="form-group col col-sm-3">
             <label for="searchOrderDateStart" class="form-label">
-                <f:translate key="filterStartDate"/>
+                <f:translate key="tx_cart.backend.filter.start_date"/>
             </label>
             <f:form.textfield
                     name="orderDateStart"
@@ -40,7 +40,7 @@
         </div>
         <div class="form-group col col-sm-3">
             <label for="searchOrderDateEnd" class="form-label">
-                <f:translate key="filterEndDate"/>
+                <f:translate key="tx_cart.backend.filter.end_date"/>
             </label>
             <f:form.textfield
                     name="orderDateEnd"
@@ -60,7 +60,7 @@
     <div class="row">
         <div class="form-group col col-sm-3">
             <label for="searchInvoiceNumber" class="form-label">
-                <f:translate key="filterInvoiceNumber"/>
+                <f:translate key="tx_cart.backend.filter.invoice_number"/>
             </label>
             <f:form.textfield property="invoiceNumber" id="searchInvoiceNumber"
                               class="form-control"
@@ -68,7 +68,7 @@
         </div>
         <div class="form-group col col-sm-3">
             <label for="searchInvoiceDateStart" class="form-label">
-                <f:translate key="filterStartDate"/>
+                <f:translate key="tx_cart.backend.filter.start_date"/>
             </label>
             <f:form.textfield
                     name="searchInvoiceDateStart"
@@ -84,7 +84,7 @@
         </div>
         <div class="form-group col col-sm-3">
             <label for="searchInvoiceDateEnd" class="form-label">
-                <f:translate key="filterEndDate"/>
+                <f:translate key="tx_cart.backend.filter.end_date"/>
             </label>
             <f:form.textfield
                     name="invoiceDateEnd"
@@ -120,6 +120,6 @@
                            value="{searchArguments.paymentStatus}"/>
         </div>
     </div>
-    <f:form.submit value="{f:translate(key: 'filter')}" class="my-3 btn btn-default"/>
+    <f:form.submit value="{f:translate(key: 'tx_cart.backend.filter')}" class="my-3 btn btn-default"/>
 </f:form>
 </html>

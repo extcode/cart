@@ -27,7 +27,7 @@
             <div class="card-container mb-3">
                 <div class="card p-4">
                     <h4>
-                        <f:translate key="tx_cart_domain_model_order_item.comment"/>
+                        <f:translate key="tx_cart.backend.order.comment"/>
                     </h4>
                     {orderItem.comment -> f:sanitize.html()}
                 </div>
@@ -36,7 +36,7 @@
         <div class="card-container">
             <div class="card p-4">
                 <h4>
-                    <f:translate key="tx_cart_domain_model_order_item.items"/>
+                    <f:translate key="tx_cart.backend.order.items"/>
                 </h4>
                 <f:render partial="Backend/Order/Show/Cart" arguments="{orderItem: orderItem}"/>
             </div>
