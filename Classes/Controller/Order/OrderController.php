@@ -35,7 +35,7 @@ class OrderController extends ActionController
         $this->itemRepository = $itemRepository;
     }
 
-public function __construct(
+    public function __construct(
         private readonly Context $context,
     ) {}
 
