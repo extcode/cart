@@ -156,7 +156,7 @@ class CurrencyViewHelper extends AbstractViewHelper
 
         $output = number_format($floatToFormat, $decimals, $decimalSeparator, $thousandsSeparator);
         if (isset($currencySign) && $currencySign !== '') {
-            $currencySeparator = isset($separateCurrency) ? ' ' : '';
+            $currencySeparator = isset($separateCurrency) ? '&nbsp;' : '';
             if (isset($prependCurrency) && $prependCurrency === true) {
                 $output = $currencySign . $currencySeparator . $output;
             } else {
