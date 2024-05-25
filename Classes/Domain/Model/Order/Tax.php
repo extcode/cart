@@ -16,14 +16,10 @@ use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 
 class Tax extends AbstractEntity
 {
-    /**
-     * @Validate("NotEmpty")
-     */
+    #[Validate(['validator' => 'NotEmpty'])]
     protected float $tax;
 
-    /**
-     * @Validate("NotEmpty")
-     */
+    #[Validate(['validator' => 'NotEmpty'])]
     protected TaxClass $taxClass;
 
     public function __construct(
