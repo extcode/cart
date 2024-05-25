@@ -1,2 +1,4 @@
+@import "EXT:cart/Configuration/TSconfig/ContentElementWizard.tsconfig"
+
 # Template path for dashboard widgets
 templates.typo3/cms-dashboard.1712899110 = extcode/cart:Resources/Private/
