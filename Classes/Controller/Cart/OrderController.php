@@ -105,14 +105,14 @@ class OrderController extends ActionController
                     $messageBody = $message['message'];
                     $messageTitle = $message['title'];
                 }
-            }
 
-            $this->addFlashMessage(
-                $messageBody,
-                $messageTitle,
-                $severity,
-                true
-            );
+                $this->addFlashMessage(
+                    $messageBody,
+                    $messageTitle,
+                    $severity,
+                    true
+                );
+            }
 
             return $this->redirect('show', 'Cart\Cart');
         }
