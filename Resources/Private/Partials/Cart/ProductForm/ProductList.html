@@ -3,7 +3,7 @@
       data-namespace-typo3-fluid="true">
 
 <f:section name="withoutVariant">
-    <tr class="{f:if(condition: product.quantityIsInRange, then: '', else: 'danger')}">
+    <tr class="{f:if(condition: '!{product.quantityBelowRange} || !{product.quantityAboveRange}', then: '', else: 'danger')}">
         <td colspan="2" class="col-md-6">
             <div class="product-name">
                 {product.title} {f:if(condition:'{product.feVariant.value}',then:'- {product.feVariant.value}')}
@@ -26,7 +26,7 @@
                 name="quantities[{product.id}]"/>
         </td>
         <td class="col-md-2 text-right">
-            <f:if condition="{product.quantityIsInRange}">
+            <f:if condition="!{product.quantityBelowRange} || !{product.quantityAboveRange}">
                 <f:then>
                     <cart:format.currency currencySign="{cart.currencySign}">{product.gross}</cart:format.currency>
                 </f:then>
@@ -56,7 +56,7 @@
             </f:for>
         </f:then>
         <f:else>
-            <tr class="{f:if(condition: product.quantityIsInRange, then: '', else: 'danger')}">
+            <tr class="{f:if(condition: '!{product.quantityBelowRange} || !{product.quantityAboveRange}', then: '', else: 'danger')}">
                 <td class="col-md-1">&nbsp;</td>
                 <td class="col-md-5">
                     <div class="product-name">{variant.title}</div>
@@ -78,7 +78,7 @@
                     </div>
                 </td>
                 <td class="col-md-2 text-right">
-                    <f:if condition="{product.quantityIsInRange}">
+                    <f:if condition="!{product.quantityBelowRange} || !{product.quantityAboveRange}">
                         <f:then>
                             <cart:format.currency currencySign="{cart.currencySign}">{variant.gross}</cart:format.currency>
                         </f:then>
@@ -103,7 +103,7 @@
 </f:section>
 
 <f:section name="withVariant">
-    <tr class="{f:if(condition: product.quantityIsInRange, then: '', else: 'danger')}">
+    <tr class="{f:if(condition: '!{product.quantityBelowRange} || !{product.quantityAboveRange}', then: '', else: 'danger')}">
         <td colspan="2">
             <div class="product-name">
                 {product.title} {f:if(condition:'{product.feVariant.value}',then:'- {product.feVariant.value}')}
@@ -127,7 +127,7 @@
         <f:render section="variant" arguments="{cart:cart, variant:variant, product:product}"/>
     </f:for>
 
-    <tr class="{f:if(condition: product.quantityIsInRange, then: '', else: 'danger')}">
+    <tr class="{f:if(condition: '!{product.quantityBelowRange} || !{product.quantityAboveRange}', then: '', else: 'danger')}">
         <td colspan="2">
             &nbsp;
         </td>
@@ -140,7 +140,7 @@
             </div>
         </td>
         <td class="text-right">
-            <f:if condition="{product.quantityIsInRange}">
+            <f:if condition="!{product.quantityBelowRange} || !{product.quantityAboveRange}">
                 <f:then>
                     <cart:format.currency currencySign="{cart.currencySign}">{product.gross}</cart:format.currency>
                 </f:then>
