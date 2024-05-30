@@ -24,3 +24,7 @@ max_line_length = 80
 # TS/JS-Files
 [*.{ts,js,mjs}]
 indent_size = 2
+
+# YAML-Files
+[*.{yaml,yml}]
+indent_size = 2
