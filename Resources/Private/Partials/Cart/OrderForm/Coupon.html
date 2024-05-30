@@ -18,7 +18,7 @@
                                 <span>
                                     <cart:format.currency currencySign="{cart.currencySign}">{coupon.translatedDiscount}</cart:format.currency>
                                 </span>
-                                <f:if condition="{coupon.isUseable}">
+                                <f:if condition="{coupon.useable}">
                                     <f:else>
                                         <span class="coupon-hint not-usable">
                                             <f:translate key="tx_cart_domain_model_coupon.code.not_useable"/>

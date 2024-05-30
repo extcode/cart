@@ -66,12 +66,4 @@ abstract class AbstractCartCoupon implements CartCouponInterface
     {
         return $this->cartMinPrice <= $this->cart->getGross();
     }
-
-    /**
-     * Needed to use {coupon.isUseable} in Fluid.
-     */
-    public function getIsUseable(): bool
-    {
-        return $this->isUseable();
-    }
 }

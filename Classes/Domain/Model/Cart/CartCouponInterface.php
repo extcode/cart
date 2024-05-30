@@ -34,11 +34,6 @@ interface CartCouponInterface
     public function isUseable(): bool;
 
     /**
-     * Needed to use {coupon.isUseable} in Fluid.
-     */
-    public function getIsUseable(): bool;
-
-    /**
      * Returns calculated Gross of Discount
      */
     public function getGross(): float;
