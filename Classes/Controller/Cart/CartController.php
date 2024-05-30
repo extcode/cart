@@ -16,6 +16,7 @@ use Extcode\Cart\Domain\Model\Order\Item;
 use Extcode\Cart\Domain\Model\Order\ShippingAddress;
 use Extcode\Cart\Event\Cart\BeforeShowCartEvent;
 use Extcode\Cart\Event\CheckProductAvailabilityEvent;
+use Extcode\Cart\View\CartTemplateView;
 use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\ExtbaseRequestParameters;
@@ -23,6 +24,8 @@ use TYPO3Fluid\Fluid\View\ViewInterface;
 
 class CartController extends ActionController
 {
+    protected $defaultViewObjectName = CartTemplateView::class;
+
     protected function initializeView(ViewInterface $view): void
     {
         if ($this->request->getControllerActionName() !== 'show') {
