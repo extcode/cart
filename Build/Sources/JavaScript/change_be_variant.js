@@ -1,10 +1,25 @@
 import { dispatchCustomEvent } from './helper/dispatch_custom_event';
 
 document.addEventListener('DOMContentLoaded', () => {
-  function setValue (parentElement, targetElementClass, value) {
+  function setValue (parentElement, targetElementClass, spanClass, value) {
+
     const targetElement = parentElement.querySelector(targetElementClass);
     if (targetElement) {
-      targetElement.querySelector('.price').innerHTML = value;
+      const spanElement = targetElement.querySelector(spanClass);
+
+      if(typeof(value) === 'undefined'){
+        spanElement.innerHTML = '&nbsp;';
+        return
+      }
+
+      if (spanClass !== '.stock') {
+        spanElement.innerHTML = value;
+      } else {
+        const template = Number(value) === 1 ? spanElement.dataset.stockSingular : spanElement.dataset.stockPlural;
+        const placeholder = '%1$s';
+        const text = template.replace(placeholder, value);
+        spanElement.innerHTML = text;
+      }
     }
   }
 
@@ -16,10 +31,12 @@ document.addEventListener('DOMContentLoaded', () => {
       const { specialPrice } = selectedOption.dataset;
       const { regularPrice } = selectedOption.dataset;
       const { specialPricePercentageDiscount } = selectedOption.dataset;
+      const { availableStock } = selectedOption.dataset;
 
-      setValue(productPrice, '.special_price', specialPrice);
-      setValue(productPrice, '.regular_price', regularPrice);
-      setValue(productPrice, '.special_price_percentage_discount', specialPricePercentageDiscount);
+      setValue(productPrice, '.special_price', '.price', specialPrice);
+      setValue(productPrice, '.regular_price', '.price', regularPrice);
+      setValue(productPrice, '.special_price_percentage_discount', '.price', specialPricePercentageDiscount);
+      setValue(productPrice, '.available_stock', '.stock', availableStock);
 
       dispatchCustomEvent(
         'extcode:be-variant-was-changed',
