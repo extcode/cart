@@ -15,17 +15,13 @@ use Extcode\Cart\Domain\Model\Cart\TaxClass;
 use TYPO3\CMS\Core\Log\LogManager;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManager;
-use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 
 class TaxClassService implements TaxClassServiceInterface
 {
-    protected ConfigurationManagerInterface $configurationManager;
-
     protected array $settings;
 
-    public function injectConfigurationManager(ConfigurationManager $configurationManager)
+    public function __construct(protected ConfigurationManager $configurationManager)
     {
-        $this->configurationManager = $configurationManager;
         $this->settings = $this->configurationManager->getConfiguration(
             ConfigurationManager::CONFIGURATION_TYPE_FRAMEWORK,
             'Cart'

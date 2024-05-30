@@ -63,7 +63,7 @@
         "overtrue/phplint": "^5.5",
         "phpstan/phpstan": "^1.10",
         "sbuerk/typo3-cmscomposerinstallers-testingframework-bridge": "^0.0.1",
-        "ssch/typo3-rector": "^1.2",
+        "ssch/typo3-rector": "^2.6",
         "typo3/cms-dashboard": "^12.4",
         "typo3/testing-framework": "^8.0"
     },
