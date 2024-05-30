@@ -29,15 +29,15 @@
                                                 </f:else>
                                             </f:if>
                                         </span>
-                                        <f:form.validationResults for="orderItem">
-                                            <f:if condition="{validationResults.flattenedErrors.acceptTermsAndConditions}">
-                                                <div class="validation-error alert alert-danger">
-                                                    <f:translate key="tx_cart_domain_model_order_item.accept_terms_and_conditions.error.{validationResults.flattenedErrors.acceptTermsAndConditions.0.code}">{validationResults.flattenedErrors.acceptTermsAndConditions.0.code}</f:translate>
-                                                </div>
-                                            </f:if>
-                                        </f:form.validationResults>
                                     </f:if>
                                 </label>
+                                <f:form.validationResults for="orderItem">
+                                    <f:if condition="{validationResults.flattenedErrors.acceptTermsAndConditions}">
+                                        <div class="validation-error alert alert-danger">
+                                            <f:translate key="tx_cart_domain_model_order_item.accept_terms_and_conditions.error.{validationResults.flattenedErrors.acceptTermsAndConditions.0.code}">{validationResults.flattenedErrors.acceptTermsAndConditions.0.code}</f:translate>
+                                        </div>
+                                    </f:if>
+                                </f:form.validationResults>
                             </div>
                             <div class="field accept-terms">
                                 <label for="orderItem-acceptRevocationInstruction">
@@ -56,15 +56,15 @@
                                                 </f:else>
                                             </f:if>
                                         </span>
-                                        <f:form.validationResults for="orderItem">
-                                            <f:if condition="{validationResults.flattenedErrors.acceptRevocationInstruction}">
-                                                <div class="validation-error alert alert-danger">
-                                                    <f:translate key="tx_cart_domain_model_order_item.accept_revocation_instruction.error.{validationResults.flattenedErrors.acceptRevocationInstruction.0.code}">{validationResults.flattenedErrors.acceptRevocationInstruction.0.code}</f:translate>
-                                                </div>
-                                            </f:if>
-                                        </f:form.validationResults>
                                     </f:if>
                                 </label>
+                                <f:form.validationResults for="orderItem">
+                                    <f:if condition="{validationResults.flattenedErrors.acceptRevocationInstruction}">
+                                        <div class="validation-error alert alert-danger">
+                                            <f:translate key="tx_cart_domain_model_order_item.accept_revocation_instruction.error.{validationResults.flattenedErrors.acceptRevocationInstruction.0.code}">{validationResults.flattenedErrors.acceptRevocationInstruction.0.code}</f:translate>
+                                        </div>
+                                    </f:if>
+                                </f:form.validationResults>
                             </div>
                             <div class="field accept-terms">
                                 <label for="orderItem-acceptPrivacyPolicy">
@@ -83,15 +83,15 @@
                                                 </f:else>
                                             </f:if>
                                         </span>
-                                        <f:form.validationResults for="orderItem">
-                                            <f:if condition="{validationResults.flattenedErrors.acceptPrivacyPolicy}">
-                                                <div class="validation-error alert alert-danger">
-                                                    <f:translate key="tx_cart_domain_model_order_item.accept_privacy_policy.error.{validationResults.flattenedErrors.acceptPrivacyPolicy.0.code}">{validationResults.flattenedErrors.acceptPrivacyPolicy.0.code}</f:translate>
-                                                </div>
-                                            </f:if>
-                                        </f:form.validationResults>
                                     </f:if>
                                 </label>
+                                <f:form.validationResults for="orderItem">
+                                    <f:if condition="{validationResults.flattenedErrors.acceptPrivacyPolicy}">
+                                        <div class="validation-error alert alert-danger">
+                                            <f:translate key="tx_cart_domain_model_order_item.accept_privacy_policy.error.{validationResults.flattenedErrors.acceptPrivacyPolicy.0.code}">{validationResults.flattenedErrors.acceptPrivacyPolicy.0.code}</f:translate>
+                                        </div>
+                                    </f:if>
+                                </f:form.validationResults>
                             </div>
                         </div>
 
