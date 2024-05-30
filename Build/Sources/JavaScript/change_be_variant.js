@@ -2,14 +2,13 @@ import { dispatchCustomEvent } from './helper/dispatch_custom_event';
 
 document.addEventListener('DOMContentLoaded', () => {
   function setValue (parentElement, targetElementClass, spanClass, value) {
-
     const targetElement = parentElement.querySelector(targetElementClass);
     if (targetElement) {
       const spanElement = targetElement.querySelector(spanClass);
 
-      if(typeof(value) === 'undefined'){
+      if (typeof (value) === 'undefined') {
         spanElement.innerHTML = '&nbsp;';
-        return
+        return;
       }
 
       if (spanClass !== '.stock') {

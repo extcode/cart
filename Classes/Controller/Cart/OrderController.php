@@ -23,8 +23,6 @@ use Extcode\Cart\Event\ProcessOrderCheckStockEvent;
 use Extcode\Cart\Validation\Validator\EmptyValidator;
 use Psr\EventDispatcher\StoppableEventInterface;
 use Psr\Http\Message\ResponseInterface;
-use TYPO3\CMS\Core\Messaging\AbstractMessage;
-use TYPO3\CMS\Core\Type\ContextualFeedbackSeverity;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Annotation\IgnoreValidation;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
@@ -89,29 +87,11 @@ class OrderController extends ActionController
         $this->eventDispatcher->dispatch($processOrderCheckStockEvent);
 
         if (!$processOrderCheckStockEvent->isEveryProductAvailable()) {
-            $errors = $processOrderCheckStockEvent->getInsufficientStockMessages();
+            $insufficientStockMessages = $processOrderCheckStockEvent->getInsufficientStockMessages();
 
-            $messageBody = '';
-            $messageTitle = '';
-            $severity = ContextualFeedbackSeverity::OK;
-
-            foreach ($errors as $error) {
-                if (!($error instanceof AbstractMessage)) {
-                    continue;
-                }
-                $message = $error->jsonSerialize();
-                if ($message['severity'] >= (int)$severity) {
-                    $severity = $message['severity'];
-                    $messageBody = $message['message'];
-                    $messageTitle = $message['title'];
-                }
-
-                $this->addFlashMessage(
-                    $messageBody,
-                    $messageTitle,
-                    $severity,
-                    true
-                );
+            foreach ($insufficientStockMessages as $insufficientStockMessage) {
+                $insufficientStockMessage->setStoreInSession(true);
+                $this->getFlashMessageQueue()->enqueue($insufficientStockMessage);
             }
 
             return $this->redirect('show', 'Cart\Cart');
@@ -120,7 +100,6 @@ class OrderController extends ActionController
         $orderItem->setCartPid((int)$this->settings['cart']['pid']);
 
         // add billing and shipping address to order
-
         $storagePid = (int)$this->settings['order']['pid'];
         $billingAddress->setPid($storagePid);
         $orderItem->setBillingAddress($billingAddress);
