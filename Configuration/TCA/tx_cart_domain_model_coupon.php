@@ -59,9 +59,8 @@ return [
             'label' => 'LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:starttime_formlabel',
             'config' => [
                 'type' => 'datetime',
-                'format' => 'date',
+                'format' => 'datetime',
                 'size' => 13,
-                'eval' => 'int',
                 'default' => 0,
                 ['behaviour' => ['allowLanguageSynchronization' => true]],
             ],
@@ -71,9 +70,8 @@ return [
             'label' => 'LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:endtime_formlabel',
             'config' => [
                 'type' => 'datetime',
-                'format' => 'date',
+                'format' => 'datetime',
                 'size' => 13,
-                'eval' => 'int',
                 ['behaviour' => ['allowLanguageSynchronization' => true]],
             ],
         ],
