@@ -20,6 +20,10 @@
                 <f:then>
                     <f:render partial="Cart/ProductForm" arguments="{cart:cart}"/>
 
+                    <f:if condition="{settings.showCartAction.showPartials.couponForm}">
+                        <f:render partial="Cart/CouponForm" arguments="{cart:cart}"/>
+                    </f:if>
+
                     <f:if condition="{cart.isOrderable}">
                         <div class="row">
                             <f:if condition="{previousStep}">
