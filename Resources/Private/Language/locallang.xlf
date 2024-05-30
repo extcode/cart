@@ -464,6 +464,10 @@
                 <source>Order receipt - %s</source>
             </trans-unit>
 
+            <trans-unit id="tx_cart.tax_vat.value">
+                <source>VAT (%s %%)</source>
+            </trans-unit>
+
             <trans-unit id="tx_cart_domain_model_cart_cart.net">
                 <source>Price (net)</source>
             </trans-unit>
