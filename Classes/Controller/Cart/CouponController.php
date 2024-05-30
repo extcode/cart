@@ -121,8 +121,6 @@ class CouponController extends ActionController
             }
 
             $this->sessionHandler->writeCart($this->settings['cart']['pid'], $this->cart);
-
-            return $this->htmlResponse();
         }
 
         return $this->redirect('show', 'Cart\Cart');
@@ -159,8 +157,6 @@ class CouponController extends ActionController
             }
 
             $this->sessionHandler->writeCart($this->settings['cart']['pid'], $this->cart);
-
-            return $this->htmlResponse();
         }
 
         return $this->redirect('show', 'Cart\Cart');
