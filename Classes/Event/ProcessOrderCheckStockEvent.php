@@ -14,14 +14,14 @@ namespace Extcode\Cart\Event;
 use Extcode\Cart\Domain\Model\Cart\Cart;
 use TYPO3\CMS\Core\Messaging\FlashMessage;
 
-final class ProcessOrderCheckStockEvent implements ProcessOrderCheckStockEventInterface
+final class ProcessOrderCheckStockEvent
 {
-    private bool $allProductsAvailable = true;
+    private bool $everyProductAvailable = true;
 
     /**
      * @var FlashMessage[]
      */
-    protected array $messages = [];
+    protected array $insufficientStockMessages = [];
 
     public function __construct(
         private readonly Cart $cart
@@ -32,37 +32,26 @@ final class ProcessOrderCheckStockEvent implements ProcessOrderCheckStockEventIn
         return $this->cart;
     }
 
-    public function allProductsAreAvailable(): bool
+    public function isEveryProductAvailable(): bool
     {
-        return $this->allProductsAvailable;
+        return $this->everyProductAvailable;
     }
 
-    public function setNotAllProductsAreAvailable(): void
+    public function setNotEveryProductAvailable(): void
     {
-        $this->allProductsAvailable = false;
+        $this->everyProductAvailable = false;
     }
 
     /**
      * @return FlashMessage[]
      */
-    public function getMessages(): array
+    public function getInsufficientStockMessages(): array
     {
-        return $this->messages;
+        return $this->insufficientStockMessages;
     }
 
-    /**
-     * @param FlashMessage[] $messages
-     */
-    public function setMessages(array $messages): void
+    public function addInsufficientStockMessage(FlashMessage $insufficientStockMessage): void
     {
-        $this->messages = $messages;
-    }
-
-    /**
-     * @param FlashMessage $message
-     */
-    public function addMessage(FlashMessage $message): void
-    {
-        $this->messages[] = $message;
+        $this->insufficientStockMessages[] = $insufficientStockMessage;
     }
 }

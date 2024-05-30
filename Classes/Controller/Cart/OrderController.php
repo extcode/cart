@@ -88,8 +88,8 @@ class OrderController extends ActionController
         $processOrderCheckStockEvent = new ProcessOrderCheckStockEvent($this->cart);
         $this->eventDispatcher->dispatch($processOrderCheckStockEvent);
 
-        if (!$processOrderCheckStockEvent->allProductsAreAvailable()) {
-            $errors = $processOrderCheckStockEvent->getMessages();
+        if (!$processOrderCheckStockEvent->isEveryProductAvailable()) {
+            $errors = $processOrderCheckStockEvent->getInsufficientStockMessages();
 
             $messageBody = '';
             $messageTitle = '';
