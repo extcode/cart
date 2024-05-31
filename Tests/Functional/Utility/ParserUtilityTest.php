@@ -50,50 +50,51 @@ class ParserUtilityTest extends FunctionalTestCase
 
         $pluginSettings = [
             $type => [
-                'default' => 'de',
-                'de' => [
-                    'preset' => 1,
-                    'options' => [
-                        '1' => [
-                            'title' => 'Payment 1 DE',
-                            'extra' => '0.00',
-                            'taxClassId' => '1',
-                            'status' => 'open',
-                        ],
-                        '2' => [
-                            'title' => 'Payment 2 DE',
-                            'extra' => '0.00',
-                            'taxClassId' => '1',
-                            'status' => 'open',
-                        ],
-                        '3' => [
-                            'title' => 'Payment 3 DE',
-                            'extra' => '0.00',
-                            'taxClassId' => '1',
-                            'status' => 'open',
+                'countries' => [
+                    'de' => [
+                        'preset' => 1,
+                        'options' => [
+                            '1' => [
+                                'title' => 'Payment 1 DE',
+                                'extra' => '0.00',
+                                'taxClassId' => '1',
+                                'status' => 'open',
+                            ],
+                            '2' => [
+                                'title' => 'Payment 2 DE',
+                                'extra' => '0.00',
+                                'taxClassId' => '1',
+                                'status' => 'open',
+                            ],
+                            '3' => [
+                                'title' => 'Payment 3 DE',
+                                'extra' => '0.00',
+                                'taxClassId' => '1',
+                                'status' => 'open',
+                            ],
                         ],
                     ],
-                ],
-                'at' => [
-                    'preset' => 1,
-                    'options' => [
-                        '1' => [
-                            'title' => 'Payment 1 AT',
-                            'extra' => '0.00',
-                            'taxClassId' => '1',
-                            'status' => 'open',
-                        ],
-                        '2' => [
-                            'title' => 'Payment 2 AT',
-                            'extra' => '0.00',
-                            'taxClassId' => '1',
-                            'status' => 'open',
-                        ],
-                        '3' => [
-                            'title' => 'Payment 3 AT',
-                            'extra' => '0.00',
-                            'taxClassId' => '1',
-                            'status' => 'open',
+                    'at' => [
+                        'preset' => 1,
+                        'options' => [
+                            '1' => [
+                                'title' => 'Payment 1 AT',
+                                'extra' => '0.00',
+                                'taxClassId' => '1',
+                                'status' => 'open',
+                            ],
+                            '2' => [
+                                'title' => 'Payment 2 AT',
+                                'extra' => '0.00',
+                                'taxClassId' => '1',
+                                'status' => 'open',
+                            ],
+                            '3' => [
+                                'title' => 'Payment 3 AT',
+                                'extra' => '0.00',
+                                'taxClassId' => '1',
+                                'status' => 'open',
+                            ],
                         ],
                     ],
                 ],
@@ -121,7 +122,7 @@ class ParserUtilityTest extends FunctionalTestCase
         );
 
         self::assertEquals(
-            $pluginSettings[$type][$country]['options'],
+            $pluginSettings[$type]['countries'][$country]['options'],
             $parsedData['options']
         );
     }
