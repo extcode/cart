@@ -1,5 +1,6 @@
 .. include:: ../../Includes.txt
 
+.. _breaking-437-currency:
 ===========================================================
 Breaking: #437 - Refactor Currency TypoScript Configuration
 ===========================================================

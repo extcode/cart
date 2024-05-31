@@ -129,13 +129,6 @@ class ParserUtility
                 }
             }
 
-            if (is_array($pluginSettingsType[$selectedCountry])) {
-                $countrySetting = $pluginSettingsType[$selectedCountry];
-                if (is_array($countrySetting) && !empty($countrySetting)) {
-                    return $countrySetting;
-                }
-            }
-
             return $pluginSettingsType;
         }
         return $pluginSettingsType;
