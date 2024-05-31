@@ -14,22 +14,23 @@ namespace Extcode\Cart\Service;
 use Extcode\Cart\Domain\Model\Cart\TaxClass;
 use TYPO3\CMS\Core\Log\LogManager;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Configuration\ConfigurationManager;
+use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 
 class TaxClassService implements TaxClassServiceInterface
 {
     protected array $settings;
 
-    public function __construct(protected ConfigurationManager $configurationManager)
-    {
+    public function __construct(
+        protected ConfigurationManagerInterface $configurationManager
+    ) {
         $this->settings = $this->configurationManager->getConfiguration(
-            ConfigurationManager::CONFIGURATION_TYPE_FRAMEWORK,
+            ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK,
             'Cart'
         );
     }
 
     /**
-     * @inheritDoc
+     * @return TaxClass[]
      */
     public function getTaxClasses(string $countryCode = null): array
     {

@@ -16,7 +16,7 @@ use Extcode\Cart\Domain\Model\Cart\TaxClass;
 interface TaxClassServiceInterface
 {
     /**
-     * @return array<TaxClass>
+     * @return TaxClass[]
      */
     public function getTaxClasses(string $countryCode = null): array;
 }
