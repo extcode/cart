@@ -18,13 +18,13 @@ use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 
 abstract class AbstractConfigurationFromTypoScriptService
 {
-    private array $configuration;
+    protected array $configurations;
 
     public function __construct(
         private readonly ConfigurationManagerInterface $configurationManager,
         private readonly ServiceFactory $serviceFactory
     ) {
-        $this->configuration = $this->configurationManager->getConfiguration(
+        $this->configurations = $this->configurationManager->getConfiguration(
             ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK,
             'Cart'
         );
@@ -48,8 +48,7 @@ abstract class AbstractConfigurationFromTypoScriptService
 
     public function getConfigurationsForType(string $configurationType, ?string $country = null): ?array
     {
-        var_dump($this->configuration['payments']);
-        $configuration = $this->configuration[$configurationType];
+        $configuration = $this->configurations[$configurationType];
 
         if (is_null($country)) {
             if (isset($configuration['settings']['countries']['options'][$configuration['settings']['countries']['preset']]['code'])) {
