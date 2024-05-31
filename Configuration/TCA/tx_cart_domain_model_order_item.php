@@ -48,23 +48,18 @@ return [
         ],
         'addresses' => [
             'showitem' => 'billing_address, shipping_address',
-            'canNotCollapse' => 0,
         ],
         'numbers' => [
             'showitem' => 'order_number, order_date, --linebreak--, invoice_number, invoice_date, --linebreak--, delivery_number, delivery_date',
-            'canNotCollapse' => 1,
         ],
         'price' => [
-            'showitem' => 'currency, --linebreak--, currency_code, currency_sign, currency_translation, --linebreak--, gross, net, --linebreak--, order_tax',
-            'canNotCollapse' => 1,
+            'showitem' => 'currency, --linebreak--, currency_code, currency_sign, currency_translation, --linebreak--, gross, net, --linebreak--, tax',
         ],
         'total_price' => [
-            'showitem' => 'total_gross, total_net, --linebreak--, order_total_tax',
-            'canNotCollapse' => 1,
+            'showitem' => 'total_gross, total_net, --linebreak--, total_tax',
         ],
         'pdfs' => [
             'showitem' => 'order_pdfs, --linebreak--, invoice_pdfs, --linebreak--, delivery_pdfs',
-            'canNotCollapse' => 1,
         ],
     ],
     'columns' => [

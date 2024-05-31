@@ -33,11 +33,9 @@ return [
         ],
         'price' => [
             'showitem' => 'price, discount, --linebreak--, gross, net, --linebreak--, tax, tax_class',
-            'canNotCollapse' => 1,
         ],
         'product_type_and_id' => [
             'showitem' => 'product_type, product_id',
-            'canNotCollapse' => 1,
         ],
     ],
     'columns' => [
