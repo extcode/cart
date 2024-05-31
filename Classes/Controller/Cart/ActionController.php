@@ -12,9 +12,10 @@ namespace Extcode\Cart\Controller\Cart;
  */
 
 use Extcode\Cart\Domain\Model\Cart\Cart;
+use Extcode\Cart\Service\PaymentMethodsServiceInterface;
 use Extcode\Cart\Service\SessionHandler;
+use Extcode\Cart\Service\ShippingMethodsServiceInterface;
 use Extcode\Cart\Utility\CartUtility;
-use Extcode\Cart\Utility\ParserUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManager;
 
 class ActionController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
@@ -23,16 +24,15 @@ class ActionController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControlle
 
     protected CartUtility $cartUtility;
 
-    protected ParserUtility $parserUtility;
+    protected PaymentMethodsServiceInterface $paymentMethodService;
+    protected ShippingMethodsServiceInterface $shippingMethodService;
 
     protected array $configurations;
 
     protected Cart $cart;
 
     protected array $payments = [];
-
     protected array $shippings = [];
-
     protected array $specials = [];
 
     public function injectSessionHandler(SessionHandler $sessionHandler): void
@@ -45,9 +45,14 @@ class ActionController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControlle
         $this->cartUtility = $cartUtility;
     }
 
-    public function injectParserUtility(ParserUtility $parserUtility): void
+    public function injectPaymentMethodService(PaymentMethodsServiceInterface $paymentMethodsService): void
     {
-        $this->parserUtility = $parserUtility;
+        $this->paymentMethodService = $paymentMethodsService;
+    }
+
+    public function injectShippingMethodService(ShippingMethodsServiceInterface $shippingMethodsService): void
+    {
+        $this->shippingMethodService = $shippingMethodsService;
     }
 
     public function initializeAction(): void
@@ -61,26 +66,15 @@ class ActionController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControlle
 
     protected function parseServices(): void
     {
-        // parse all shippings
-        $this->shippings = $this->parserUtility->parseServices(
-            'Shipping',
-            $this->configurations,
-            $this->cart
-        );
-
-        // parse all payments
-        $this->payments = $this->parserUtility->parseServices(
-            'Payment',
-            $this->configurations,
-            $this->cart
-        );
+        $this->payments = $this->paymentMethodService->getPaymentMethods($this->cart);
+        $this->shippings = $this->shippingMethodService->getShippingMethods($this->cart);
 
         // parse all specials
-        $this->specials = $this->parserUtility->parseServices(
-            'Special',
-            $this->configurations,
-            $this->cart
-        );
+        //        $this->specials = $this->parserUtility->parseServices(
+        //            'Special',
+        //            $this->configurations,
+        //            $this->cart
+        //        );
     }
 
     public function parseServicesAndAssignToView(): void

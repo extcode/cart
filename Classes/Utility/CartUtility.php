@@ -12,7 +12,9 @@ namespace Extcode\Cart\Utility;
 use Extcode\Cart\Domain\Model\Cart\Cart;
 use Extcode\Cart\Domain\Model\Cart\Service;
 use Extcode\Cart\Event\Cart\UpdateCountryEvent;
+use Extcode\Cart\Service\PaymentMethodsServiceInterface;
 use Extcode\Cart\Service\SessionHandler;
+use Extcode\Cart\Service\ShippingMethodsServiceInterface;
 use Extcode\Cart\Service\TaxClassServiceInterface;
 use Psr\EventDispatcher\EventDispatcherInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -22,7 +24,8 @@ class CartUtility
 {
     public function __construct(
         protected EventDispatcherInterface $eventDispatcher,
-        protected ParserUtility $parserUtility,
+        protected PaymentMethodsServiceInterface $paymentMethodsService,
+        protected ShippingMethodsServiceInterface $shippingMethodsService,
         protected TaxClassServiceInterface $taxClassService,
         protected SessionHandler $sessionHandler
     ) {}
@@ -48,15 +51,11 @@ class CartUtility
         $this->sessionHandler->writeCart($cartSettings['pid'], $event->getCart());
     }
 
-    public function updateService(Cart $cart, $pluginSettings): void
+    public function updateService(Cart $cart): void
     {
-        $parserUtility = GeneralUtility::makeInstance(
-            ParserUtility::class
-        );
-
         $cart->getPayment()->setCart($cart);
         if (!$cart->getPayment()->isAvailable()) {
-            $payments = $parserUtility->parseServices('Payment', $pluginSettings, $cart);
+            $payments = $this->paymentMethodsService->getPaymentMethods($cart);
             $fallBackId = $cart->getPayment()->getFallBackId();
             if ($fallBackId) {
                 $payment = $this->getServiceById($payments, $fallBackId);
@@ -66,7 +65,7 @@ class CartUtility
 
         $cart->getShipping()->setCart($cart);
         if (!$cart->getShipping()->isAvailable()) {
-            $shippings = $parserUtility->parseServices('Shipping', $pluginSettings, $cart);
+            $shippings = $this->shippingMethodsService->getShippingMethods($cart);
             $fallBackId = $cart->getShipping()->getFallBackId();
             if ($fallBackId) {
                 $shipping = $this->getServiceById($shippings, $fallBackId);
@@ -114,16 +113,16 @@ class CartUtility
             $cart->setShippingCountry($defaultCountry);
         }
 
-        $this->setShipping($configurations, $cart);
+        $this->setShipping($cart);
 
-        $this->setPayment($configurations, $cart);
+        $this->setPayment($cart);
 
         return $cart;
     }
 
-    protected function setShipping(array $pluginSettings, Cart $cart): void
+    protected function setShipping(Cart $cart): void
     {
-        $shippings = $this->parserUtility->parseServices('Shipping', $pluginSettings, $cart);
+        $shippings = $this->shippingMethodsService->getShippingMethods($cart);
 
         foreach ($shippings as $shipping) {
             /**
@@ -141,9 +140,9 @@ class CartUtility
         }
     }
 
-    protected function setPayment(array $pluginSettings, Cart $cart): void
+    protected function setPayment(Cart $cart): void
     {
-        $payments = $this->parserUtility->parseServices('Payment', $pluginSettings, $cart);
+        $payments = $this->paymentMethodsService->getPaymentMethods($cart);
 
         foreach ($payments as $payment) {
             /**

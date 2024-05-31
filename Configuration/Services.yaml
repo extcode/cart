@@ -123,6 +123,12 @@ services:
         identifier: 'cart--order--update--log-service-update'
         event: Extcode\Cart\Event\Order\UpdateServiceEvent
 
+  Extcode\Cart\Service\PaymentMethodsFromTypoScriptService:
+    public: true
+
+  Extcode\Cart\Service\ShippingMethodsFromTypoScriptService:
+    public: true
+
   Extcode\Cart\Service\TaxClassService:
     public: true
 

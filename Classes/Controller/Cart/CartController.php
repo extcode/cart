@@ -185,7 +185,7 @@ class CartController extends ActionController
         }
         $this->cart->reCalc();
 
-        $this->cartUtility->updateService($this->cart, $this->configurations);
+        $this->cartUtility->updateService($this->cart);
 
         $this->sessionHandler->writeCart($this->settings['cart']['pid'], $this->cart);
 

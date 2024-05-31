@@ -110,7 +110,7 @@ class ProductController extends ActionController
 
         $quantity = $this->addProductsToCart($cartProducts);
 
-        $this->cartUtility->updateService($this->cart, $this->configurations);
+        $this->cartUtility->updateService($this->cart);
 
         $this->sessionHandler->writeCart($this->settings['cart']['pid'], $this->cart);
 
@@ -163,7 +163,7 @@ class ProductController extends ActionController
                 $this->cart->removeProductById($productArgument);
             }
 
-            $this->cartUtility->updateService($this->cart, $this->configurations);
+            $this->cartUtility->updateService($this->cart);
 
             $this->sessionHandler->writeCart($this->settings['cart']['pid'], $this->cart);
         }

@@ -11,6 +11,7 @@ namespace Extcode\Cart\Controller\Cart;
  * LICENSE file that was distributed with this source code.
  */
 
+use Extcode\Cart\Service\PaymentMethodsServiceInterface;
 use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Core\Type\ContextualFeedbackSeverity;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
@@ -19,11 +20,15 @@ class PaymentController extends ActionController
 {
     public const AJAX_CART_TYPE_NUM = '2278001';
 
+    public function __construct(
+        private readonly PaymentMethodsServiceInterface $paymentMethodsService
+    ) {}
+
     public function updateAction(int $paymentId): ResponseInterface
     {
         $this->restoreSession();
 
-        $this->payments = $this->parserUtility->parseServices('Payment', $this->configurations, $this->cart);
+        $this->payments = $this->paymentMethodsService->getPaymentMethods($this->cart);
 
         $payment = $this->payments[$paymentId];
 
