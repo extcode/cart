@@ -423,7 +423,7 @@ return [
                 'type' => 'inline',
                 'readOnly' => 1,
                 'foreign_table' => 'tx_cart_domain_model_order_tax',
-                'foreign_field' => 'item',
+                'foreign_field' => 'item_totaltax',
                 'maxitems' => 9999,
                 'default' => 0,
             ],
