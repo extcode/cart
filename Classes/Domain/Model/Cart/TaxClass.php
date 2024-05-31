@@ -11,27 +11,14 @@ namespace Extcode\Cart\Domain\Model\Cart;
  * LICENSE file that was distributed with this source code.
  */
 
-class TaxClass
+final class TaxClass implements TaxClassInterface
 {
-    protected int $id;
-
-    protected string $value;
-
-    protected float $calc;
-
-    protected string $title;
-
     public function __construct(
-        int $id,
-        string $value,
-        float $calc,
-        string $title
-    ) {
-        $this->id = $id;
-        $this->value = $value;
-        $this->calc = $calc;
-        $this->title = $title;
-    }
+        private readonly int $id,
+        private readonly string $value,
+        private readonly float $calc,
+        private readonly string $title
+    ) {}
 
     public function getId(): int
     {

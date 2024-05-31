@@ -12,16 +12,17 @@ namespace Extcode\Cart\Service;
  */
 
 use Extcode\Cart\Domain\Model\Cart\TaxClass;
-use TYPO3\CMS\Core\Log\LogManager;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
+use Extcode\Cart\Domain\Model\Cart\TaxClassFactoryInterface;
+use Extcode\Cart\Domain\Model\Cart\TaxClassInterface;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 
-class TaxClassService implements TaxClassServiceInterface
+final class TaxClassService implements TaxClassServiceInterface
 {
-    protected array $settings;
+    private array $settings;
 
     public function __construct(
-        protected ConfigurationManagerInterface $configurationManager
+        private readonly ConfigurationManagerInterface $configurationManager,
+        private readonly TaxClassFactoryInterface $taxClassFactory
     ) {
         $this->settings = $this->configurationManager->getConfiguration(
             ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK,
@@ -50,33 +51,13 @@ class TaxClassService implements TaxClassServiceInterface
         }
 
         foreach ($taxClassSettings as $taxClassKey => $taxClassValue) {
-            if ($this->isValidTaxClassConfig($taxClassKey, $taxClassValue)) {
-                $taxClasses[$taxClassKey] = GeneralUtility::makeInstance(
-                    TaxClass::class,
-                    (int)$taxClassKey,
-                    $taxClassValue['value'],
-                    (float)$taxClassValue['calc'],
-                    $taxClassValue['name']
-                );
+            $taxClass = $this->taxClassFactory->getTaxClass($taxClassKey, $taxClassValue);
+
+            if ($taxClass instanceof TaxClassInterface) {
+                $taxClasses[$taxClassKey] = $taxClass;
             }
         }
 
         return $taxClasses;
-    }
-
-    protected function isValidTaxClassConfig(int $key, array $value): bool
-    {
-        if (empty($value) ||
-            empty($value['name']) ||
-            !isset($value['calc']) ||
-            (isset($value['calc']) && !is_numeric($value['calc']))
-        ) {
-            $logger = GeneralUtility::makeInstance(LogManager::class)->getLogger(__CLASS__);
-            $logger->error('Can\'t create tax class object for the configuration with the index=' . $key . '.', []);
-
-            return false;
-        }
-
-        return true;
     }
 }
