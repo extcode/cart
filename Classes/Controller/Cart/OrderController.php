@@ -83,12 +83,23 @@ class OrderController extends ActionController
             return $this->redirect('show', 'Cart\Cart');
         }
 
-        $this->eventDispatcher->dispatch(new ProcessOrderCheckStockEvent($this->cart));
+        $processOrderCheckStockEvent = new ProcessOrderCheckStockEvent($this->cart);
+        $this->eventDispatcher->dispatch($processOrderCheckStockEvent);
+
+        if (!$processOrderCheckStockEvent->isEveryProductAvailable()) {
+            $insufficientStockMessages = $processOrderCheckStockEvent->getInsufficientStockMessages();
+
+            foreach ($insufficientStockMessages as $insufficientStockMessage) {
+                $insufficientStockMessage->setStoreInSession(true);
+                $this->getFlashMessageQueue()->enqueue($insufficientStockMessage);
+            }
+
+            return $this->redirect('show', 'Cart\Cart');
+        }
 
         $orderItem->setCartPid((int)$this->settings['cart']['pid']);
 
         // add billing and shipping address to order
-
         $storagePid = (int)$this->settings['order']['pid'];
         $billingAddress->setPid($storagePid);
         $orderItem->setBillingAddress($billingAddress);
