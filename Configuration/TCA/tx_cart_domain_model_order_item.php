@@ -407,6 +407,9 @@ return [
                 'readOnly' => 1,
                 'foreign_table' => 'tx_cart_domain_model_order_tax',
                 'foreign_field' => 'item',
+                'foreign_match_fields' => [
+                    'type' => 'default',
+                ],
                 'maxitems' => 9999,
                 'default' => 0,
             ],
@@ -419,6 +422,9 @@ return [
                 'readOnly' => 1,
                 'foreign_table' => 'tx_cart_domain_model_order_tax',
                 'foreign_field' => 'item',
+                'foreign_match_fields' => [
+                    'type' => 'total',
+                ],
                 'maxitems' => 9999,
                 'default' => 0,
             ],
