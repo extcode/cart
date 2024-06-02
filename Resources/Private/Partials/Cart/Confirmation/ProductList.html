@@ -124,7 +124,14 @@
                         <f:translate key="tx_cart_domain_model_cart_product.title"/>
                     </th>
                     <th class="col-md-2 text-right">
-                        <f:translate key="tx_cart_domain_model_cart_product.price_per_unit_net"/>
+                        <f:if condition="{cart.netCart}">
+                            <f:then>
+                                <f:translate key="tx_cart_domain_model_cart_product.price_per_unit_net"/>
+                            </f:then>
+                            <f:else>
+                                <f:translate key="tx_cart_domain_model_cart_product.price_per_unit_gross"/>
+                            </f:else>
+                        </f:if>
                     </th>
                     <th class="col-md-1">
                         <f:translate key="tx_cart_domain_model_cart_product.count"/>

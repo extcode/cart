@@ -74,6 +74,9 @@
             <trans-unit id="tx_cart_domain_model_cart_product.price_per_unit_net">
                 <source>Price per unit (net)</source>
             </trans-unit>
+            <trans-unit id="tx_cart_domain_model_cart_product.price_per_unit_gross">
+                <source>Price per unit (gross)</source>
+            </trans-unit>
             <trans-unit id="tx_cart_domain_model_cart_product.price_subtotal">
                 <source>Subtotal</source>
             </trans-unit>
