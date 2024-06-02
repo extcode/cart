@@ -88,7 +88,8 @@ class CartUtility
      */
     public function getNewCart(array $configurations): Cart
     {
-        $isNetCart = !((int)($configurations['settings']['cart']['isNetCart']) === 0);
+        $isNetCartTypoScriptInput = $configurations['settings']['cart']['isNetCart'];
+        $isNetCart = ($isNetCartTypoScriptInput === '1' || $isNetCartTypoScriptInput === 'true');
 
         $preset = $configurations['settings']['currencies']['preset'];
         if ($configurations['settings']['currencies']['options'][$preset]) {
