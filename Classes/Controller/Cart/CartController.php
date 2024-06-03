@@ -118,7 +118,22 @@ class CartController extends ActionController
             ]
         );
 
+        // Use Post/Redirect/Get pattern for multistep checkout
+
+        $currentStep = null;
+        if ($this->request->hasArgument('step')) {
+            $currentStep = (int)$this->request->getArgument('step');
+        }
+
+        if ($currentStep && $this->request->getMethod() === 'POST') {
+            return $this->redirect('show', null, null, ['step' => $currentStep])->withStatus(303);
+        }
+        // Redirect to step 1 if cart is empty.
+        if (count($this->cart->getProducts()) === 0 && $currentStep > 1) {
+            return $this->redirect('show', null, null, ['step' => 1])->withStatus(303);
+        }
         return $this->htmlResponse();
+
     }
 
     public function clearAction(): ResponseInterface
