@@ -17,20 +17,12 @@ use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
 
 class ParserUtilityTest extends FunctionalTestCase
 {
-    /**
-     * @var ParserUtility
-     */
-    protected $parserUtility;
-
-    /**
-     * @var non-empty-string[]
-     */
-    protected array $testExtensionsToLoad = [
-        'typo3conf/ext/cart',
-    ];
+    protected ParserUtility $parserUtility;
 
     public function setUp(): void
     {
+        $this->testExtensionsToLoad[] = 'extcode/cart';
+
         parent::setUp();
 
         $this->parserUtility = GeneralUtility::makeInstance(
