@@ -18,6 +18,7 @@ use Extcode\Cart\Domain\Repository\Order\ItemRepository;
 use Extcode\Cart\Event\Order\NumberGeneratorEvent;
 use Extcode\CartPdf\Service\PdfService;
 use Psr\Http\Message\ResponseInterface;
+use TYPO3\CMS\Core\Resource\File;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
@@ -80,24 +81,20 @@ class DocumentController extends ActionController
     {
         $getter = 'get' . ucfirst($pdfType) . 'Pdfs';
         $pdfs = $orderItem->$getter();
+        /** @var File $originalPdf */
         $originalPdf = end($pdfs->toArray())->getOriginalResource();
-        $file = $originalPdf->getForLocalProcessing(false);
 
-        $fileName = $originalPdf->getName();
-
-        if (is_file($file)) {
-            $fileLen = filesize($file);
-
+        if ($originalPdf) {
             return $this->responseFactory->createResponse()
-                ->withAddedHeader('Cache-Control', 'must-revalidate, post-check=0, pre-check=0')
-                ->withAddedHeader('Content-Description', 'File Transfer')
-                ->withAddedHeader('Content-Disposition', 'attachment; filename="' . $fileName . '"')
-                ->withAddedHeader('Content-Length', $fileLen)
-                ->withAddedHeader('Content-Transfer-Encoding', 'binary')
-                ->withAddedHeader('Content-Type', 'application/pdf')
-                ->withAddedHeader('Expires', '0')
-                ->withAddedHeader('Pragma', 'public')
-                ->withBody($this->streamFactory->createStream(@readfile($file)));
+                ->withHeader('Cache-Control', 'must-revalidate, post-check=0, pre-check=0')
+                ->withHeader('Content-Description', 'File Transfer')
+                ->withHeader('Content-Disposition', 'attachment; filename="' . $originalPdf->getName() . '"')
+                ->withHeader('Content-Length', (string)$originalPdf->getSize())
+                ->withHeader('Content-Transfer-Encoding', 'binary')
+                ->withHeader('Content-Type', 'application/pdf')
+                ->withHeader('Expires', '0')
+                ->withHeader('Pragma', 'public')
+                ->withBody($this->streamFactory->createStream($originalPdf->getContents()));
         }
 
         return $this->htmlResponse();
