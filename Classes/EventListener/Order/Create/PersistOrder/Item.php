@@ -73,6 +73,13 @@ class Item
         $orderItem->setTotalGross($cart->getTotalGross());
         $orderItem->setTotalNet($cart->getTotalNet());
 
+        /* In multistep checkout the setting `shippingSameAsBilling` might get lost for the orderItem,
+           but it does not get lost for the cart as the cart is stored between every step in the session */
+        $orderItem->setShippingSameAsBilling($cart->isShippingSameAsBilling());
+        if ($orderItem->isShippingSameAsBilling()) {
+            $orderItem->removeShippingAddress();
+        }
+
         $this->itemRepository->add($orderItem);
 
         if ($orderItem->getBillingAddress()) {
