@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Extcode\Cart\Controller\Cart;
 
+use Extcode\Cart\Service\TaxClassServiceInterface;
 use Psr\Http\Message\ResponseInterface;
 
 /*
@@ -14,6 +15,10 @@ use Psr\Http\Message\ResponseInterface;
  */
 class CountryController extends ActionController
 {
+    public function __construct(
+        protected TaxClassServiceInterface $taxClassService
+    ) {}
+
     public function updateAction(): ResponseInterface
     {
         //ToDo check country is allowed by TypoScript
@@ -22,7 +27,7 @@ class CountryController extends ActionController
 
         $this->restoreSession();
 
-        $taxClasses = $this->parserUtility->parseTaxClasses($this->configurations, $this->cart->getBillingCountry());
+        $taxClasses = $this->taxClassService->getTaxClasses($this->cart->getBillingCountry());
 
         $this->cart->setTaxClasses($taxClasses);
         $this->cart->reCalc();

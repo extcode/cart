@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Extcode\Cart\Service;
+namespace Extcode\Cart\Domain\Model\Cart;
 
 /*
  * This file is part of the package extcode/cart.
@@ -11,12 +11,7 @@ namespace Extcode\Cart\Service;
  * LICENSE file that was distributed with this source code.
  */
 
-use Extcode\Cart\Domain\Model\Cart\TaxClass;
-
-interface TaxClassServiceInterface
+interface TaxClassFactoryInterface
 {
-    /**
-     * @return TaxClass[]
-     */
-    public function getTaxClasses(string $countryCode = null): array;
+    public function getTaxClass(int $taxClassKey, array $taxClassValue): ?TaxClass;
 }

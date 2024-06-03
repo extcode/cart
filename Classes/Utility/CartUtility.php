@@ -13,27 +13,19 @@ use Extcode\Cart\Domain\Model\Cart\Cart;
 use Extcode\Cart\Domain\Model\Cart\Service;
 use Extcode\Cart\Event\Cart\UpdateCountryEvent;
 use Extcode\Cart\Service\SessionHandler;
+use Extcode\Cart\Service\TaxClassServiceInterface;
 use Psr\EventDispatcher\EventDispatcherInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Request;
 
 class CartUtility
 {
-    protected EventDispatcherInterface $eventDispatcher;
-
-    protected SessionHandler $sessionHandler;
-
-    protected ParserUtility $parserUtility;
-
     public function __construct(
-        EventDispatcherInterface $eventDispatcher,
-        ParserUtility $parserUtility,
-        SessionHandler $sessionHandler
-    ) {
-        $this->eventDispatcher = $eventDispatcher;
-        $this->parserUtility = $parserUtility;
-        $this->sessionHandler = $sessionHandler;
-    }
+        protected EventDispatcherInterface $eventDispatcher,
+        protected ParserUtility $parserUtility,
+        protected TaxClassServiceInterface $taxClassService,
+        protected SessionHandler $sessionHandler
+    ) {}
 
     public function getServiceById(array $services, int $serviceId): mixed
     {
@@ -104,7 +96,7 @@ class CartUtility
 
         $defaultCountry  = $configurations['settings']['countries']['options'][$configurations['settings']['countries']['preset']]['code'];
 
-        $taxClasses = $this->parserUtility->parseTaxClasses($configurations, $defaultCountry);
+        $taxClasses = $this->taxClassService->getTaxClasses($defaultCountry);
 
         /** @var Cart $cart */
         $cart = GeneralUtility::makeInstance(

@@ -12,26 +12,10 @@ namespace Extcode\Cart\Utility;
 use Extcode\Cart\Domain\Model\Cart\Cart;
 use Extcode\Cart\Domain\Model\Cart\Service;
 use Extcode\Cart\Domain\Model\Cart\ServiceInterface;
-use Extcode\Cart\Service\TaxClassService;
-use Extcode\Cart\Service\TaxClassServiceInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 class ParserUtility
 {
-    public function parseTaxClasses(array $pluginSettings, string $countryCode = null): array
-    {
-        $className = $pluginSettings['taxClasses']['className'] ?? TaxClassService::class;
-
-        $service = GeneralUtility::makeInstance(
-            $className
-        );
-        if (!$service instanceof TaxClassServiceInterface) {
-            throw new \UnexpectedValueException($className . ' must implement interface ' . TaxClassServiceInterface::class, 123);
-        }
-
-        return $service->getTaxClasses($countryCode);
-    }
-
     /**
      * Parse Services
      *

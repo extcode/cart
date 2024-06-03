@@ -16,20 +16,12 @@ use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
 
 class TaxClassServiceTest extends FunctionalTestCase
 {
-    /**
-     * @var TaxClassService
-     */
-    protected $taxClassService;
-
-    /**
-     * @var non-empty-string[]
-     */
-    protected array $testExtensionsToLoad = [
-        'typo3conf/ext/cart',
-    ];
+    protected TaxClassService $taxClassService;
 
     public function setUp(): void
     {
+        $this->testExtensionsToLoad[] = 'extcode/cart';
+
         parent::setUp();
 
         $this->taxClassService = GeneralUtility::makeInstance(
