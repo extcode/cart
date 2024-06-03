@@ -31,7 +31,12 @@
                             </f:if>
                         </div>
                         <div class="method-item-info">
-                            <cart:format.currency currencySign="{cart.currencySign}">{shipping.gross}</cart:format.currency>
+                            <cart:format.currency currencySign="{cart.currencySign}">
+                                <f:if condition="{cart.netCart}">
+                                    <f:then>{shipping.net}</f:then>
+                                    <f:else>{shipping.gross}</f:else>
+                                </f:if>
+                            </cart:format.currency>
                         </div>
                     </f:if>
                 </f:for>
