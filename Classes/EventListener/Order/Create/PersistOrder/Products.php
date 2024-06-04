@@ -16,7 +16,6 @@ use Extcode\Cart\Domain\Model\Cart\FeVariant;
 use Extcode\Cart\Domain\Model\Cart\Product;
 use Extcode\Cart\Domain\Model\Order\Item;
 use Extcode\Cart\Domain\Model\Order\ProductAdditional;
-use Extcode\Cart\Domain\Model\Order\Tax;
 use Extcode\Cart\Domain\Repository\Order\ProductAdditionalRepository;
 use Extcode\Cart\Domain\Repository\Order\ProductRepository;
 use Extcode\Cart\Domain\Repository\Order\TaxRepository;
@@ -185,15 +184,6 @@ class Products
      */
     protected function addBeVariant(BeVariant $variant, int $level): void
     {
-        $orderTax = GeneralUtility::makeInstance(
-            Tax::class,
-            $variant->getTax(),
-            $this->taxClasses[$variant->getTaxClass()->getId()]
-        );
-        $orderTax->setPid($this->storagePid);
-
-        $this->taxRepository->add($orderTax);
-
         $variantInner = $variant;
         for ($count = $level; $count > 0; $count--) {
             if ($count > 1) {
