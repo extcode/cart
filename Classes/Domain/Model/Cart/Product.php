@@ -69,6 +69,7 @@ class Product
         protected TaxClass $taxClass,
         protected int $quantity,
         protected bool $isNetPrice = false,
+        protected array $detailViewParameter = [],
         FeVariant $feVariant = null
     ) {
         if ($feVariant) {
@@ -697,5 +698,20 @@ class Product
     public function setHandleStockInVariants(bool $handleStockInVariants): void
     {
         $this->handleStockInVariants = $handleStockInVariants;
+    }
+
+    public function getDetailViewParameter(): array
+    {
+        return $this->detailViewParameter;
+    }
+
+    public function setDetailViewParameter(array $detailViewParameter): void
+    {
+        $this->detailViewParameter = $detailViewParameter;
+    }
+
+    public function addDetailViewParameter(string $key, int|string $value): void
+    {
+        $this->detailViewParameter[$key] = $value;
     }
 }
