@@ -6,7 +6,21 @@
     <tr class="{f:if(condition: product.quantityInRange, then: '', else: 'danger')}">
         <td colspan="2" class="col-md-6">
             <div class="product-name">
-                {product.title} {f:if(condition:'{product.feVariant.value}',then:'- {product.feVariant.value}')}
+                <f:if condition="{product.detailViewParameter.pageUid} && {product.detailViewParameter.extensionName}">
+                    <f:then>
+                        <f:link.action
+                            pageUid="{product.detailViewParameter.pageUid}"
+                            extensionName="{product.detailViewParameter.extensionName}"
+                            pluginName="{product.detailViewParameter.pluginName}"
+                            controller="{product.detailViewParameter.controller}"
+                            arguments="{product: product.productId}">
+                            {product.title} {f:if(condition:'{product.feVariant.value}',then:'- {product.feVariant.value}')}
+                        </f:link.action>
+                    </f:then>
+                    <f:else>
+                        {product.title} {f:if(condition:'{product.feVariant.value}',then:'- {product.feVariant.value}')}
+                    </f:else>
+                </f:if>
             </div>
             <p>
                 <f:translate key="tx_cart_domain_model_order_product.sku.short"/>
@@ -59,7 +73,23 @@
             <tr class="{f:if(condition: product.quantityInRange, then: '', else: 'danger')}">
                 <td class="col-md-1">&nbsp;</td>
                 <td class="col-md-5">
-                    <div class="product-name">{variant.title}</div>
+                    <div class="product-name">
+                        <f:if condition="{product.detailViewParameter.pageUid} && {product.detailViewParameter.extensionName}">
+                            <f:then>
+                                <f:link.action
+                                    pageUid="{product.detailViewParameter.pageUid}"
+                                    extensionName="{product.detailViewParameter.extensionName}"
+                                    pluginName="{product.detailViewParameter.pluginName}"
+                                    controller="{product.detailViewParameter.controller}"
+                                    arguments="{product: product.productId}">
+                                    {variant.title}
+                                </f:link.action>
+                            </f:then>
+                            <f:else>
+                                {variant.title}
+                            </f:else>
+                        </f:if>
+                    </div>
                     <p>
                         <f:translate key="tx_cart_domain_model_order_product.sku.short"/>
                         : {variant.completeSku}
