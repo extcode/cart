@@ -104,7 +104,7 @@ class DocumentController extends ActionController
                     ->withAddedHeader('Cache-Control', 'must-revalidate, post-check=0, pre-check=0')
                     ->withAddedHeader('Content-Description', 'File Transfer')
                     ->withAddedHeader('Content-Disposition', 'attachment; filename="' . $fileName . '"')
-                    ->withAddedHeader('Content-Length', $fileLen)
+                    ->withAddedHeader('Content-Length', (string)$fileLen)
                     ->withAddedHeader('Content-Transfer-Encoding', 'binary')
                     ->withAddedHeader('Content-Type', 'application/pdf')
                     ->withAddedHeader('Expires', '0')
