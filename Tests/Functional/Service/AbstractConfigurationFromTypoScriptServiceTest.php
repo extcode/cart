@@ -9,14 +9,16 @@ namespace Extcode\Cart\Tests\Functional\Service;
  * LICENSE file that was distributed with this source code.
  */
 
-use Extcode\Cart\Domain\Model\Cart\Cart;
 use Extcode\Cart\Domain\Model\Cart\ServiceFactory;
-use Extcode\Cart\Service\PaymentMethodsFromTypoScriptService;
+use Extcode\Cart\Service\AbstractConfigurationFromTypoScriptService;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\Test;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManager;
 use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
 
-class PaymentMethodsFromTypoScriptServiceTest extends FunctionalTestCase
+#[CoversClass(AbstractConfigurationFromTypoScriptService::class)]
+class AbstractConfigurationFromTypoScriptServiceTest extends FunctionalTestCase
 {
     public function setUp(): void
     {
@@ -25,9 +27,7 @@ class PaymentMethodsFromTypoScriptServiceTest extends FunctionalTestCase
         parent::setUp();
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getTypePluginSettingsReturnsTypeCountrySettings()
     {
         $type = 'payments';
@@ -88,7 +88,7 @@ class PaymentMethodsFromTypoScriptServiceTest extends FunctionalTestCase
 
         $configurationManager = GeneralUtility::makeInstance(ConfigurationManager::class);
 
-        $paymentMethodsService = new PaymentMethodsFromTypoScriptService($configurationManager, new ServiceFactory());
+        $paymentMethodsService = new class ($configurationManager, new ServiceFactory()) extends AbstractConfigurationFromTypoScriptService {};
 
         $reflection = new \ReflectionClass($paymentMethodsService);
         $reflection_property = $reflection->getProperty('configurations');
@@ -112,9 +112,7 @@ class PaymentMethodsFromTypoScriptServiceTest extends FunctionalTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getTypeZonePluginSettingsReturnsTypeZoneSettings()
     {
         $type = 'payments';
@@ -178,7 +176,7 @@ class PaymentMethodsFromTypoScriptServiceTest extends FunctionalTestCase
 
         $configurationManager = GeneralUtility::makeInstance(ConfigurationManager::class);
 
-        $paymentMethodsService = new PaymentMethodsFromTypoScriptService($configurationManager, new ServiceFactory());
+        $paymentMethodsService = new class ($configurationManager, new ServiceFactory()) extends AbstractConfigurationFromTypoScriptService {};
 
         $reflection = new \ReflectionClass($paymentMethodsService);
         $reflection_property = $reflection->getProperty('configurations');

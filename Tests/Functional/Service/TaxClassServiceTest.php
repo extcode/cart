@@ -11,9 +11,12 @@ namespace Extcode\Cart\Tests\Functional\Service;
 
 use Extcode\Cart\Domain\Model\Cart\TaxClass;
 use Extcode\Cart\Service\TaxClassService;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\Test;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
 
+#[CoversClass(FunctionalTestCase::class)]
 class TaxClassServiceTest extends FunctionalTestCase
 {
     protected TaxClassService $taxClassService;
@@ -29,9 +32,7 @@ class TaxClassServiceTest extends FunctionalTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function parsingTaxClassesFromTypoScriptWithoutCountryCodeReturnsDirectlyConfiguredArrayOfTaxClasses()
     {
         $settings = [
@@ -84,9 +85,7 @@ class TaxClassServiceTest extends FunctionalTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function parsingTaxClassesFromTypoScriptWithCountryCodeReturnsCountrySpecificArrayOfTaxClasses()
     {
         $settings = [
@@ -158,9 +157,7 @@ class TaxClassServiceTest extends FunctionalTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function parsingTaxClassesFromTypoScriptWithNotConfiguredCountryCodeReturnsFallbackArrayOfTaxClasses()
     {
         $settings = [
@@ -249,9 +246,7 @@ class TaxClassServiceTest extends FunctionalTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function parsingTaxClassesFromTypoScriptWithIntegerZeroAsCalcIsValid()
     {
         $settings = [
