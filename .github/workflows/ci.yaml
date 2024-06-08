@@ -96,3 +96,33 @@ jobs:
 
       - name: Code Quality (by PHPStan)
         run: .build/bin/phpstan analyse -c Build/phpstan.neon
+
+  tests-phpunit:
+    runs-on: ubuntu-latest
+    needs:
+      - coding-guideline
+      - code-quality
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: cachix/install-nix-action@v17
+        with:
+          nix_path: nixpkgs=channel:nixos-unstable
+
+      - name: Run Unit Tests PHP8.1
+        run: nix-shell --pure --run project-test-unit
+
+      - name: Run Unit Tests PHP8.2
+        run: nix-shell --arg phpVersion \"php82\" --pure --run project-test-unit
+
+      - name: Run Unit Tests PHP8.3
+        run: nix-shell --arg phpVersion \"php83\" --pure --run project-test-unit
+
+      - name: Run Functional Tests PHP8.1
+        run: nix-shell --pure --run project-test-functional
+
+      - name: Run Functional Tests PHP8.2
+        run: nix-shell --arg phpVersion \"php82\" --pure --run project-test-functional
+
+      - name: Run Functional Tests PHP8.3
+        run: nix-shell --arg phpVersion \"php83\" --pure --run project-test-functional
