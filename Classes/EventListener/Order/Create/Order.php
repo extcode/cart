@@ -18,17 +18,10 @@ use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
 
 class Order
 {
-    private EventDispatcherInterface $eventDispatcher;
-
-    private PersistenceManager $persistenceManager;
-
     public function __construct(
-        EventDispatcherInterface $eventDispatcher,
-        PersistenceManager $persistenceManager
-    ) {
-        $this->eventDispatcher = $eventDispatcher;
-        $this->persistenceManager = $persistenceManager;
-    }
+        private readonly EventDispatcherInterface $eventDispatcher,
+        private readonly PersistenceManager $persistenceManager
+    ) {}
 
     public function __invoke(EventInterface $event): void
     {
