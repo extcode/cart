@@ -40,7 +40,7 @@ abstract class AbstractConfigurationFromTypoScriptService
             $service = $this->serviceFactory->getService($serviceKey, $serviceConfig, $configurations['preset'] == $serviceKey);
             $service->setCart($cart);
 
-            $service[$serviceKey] = $service;
+            $services[$serviceKey] = $service;
         }
 
         return $services;
