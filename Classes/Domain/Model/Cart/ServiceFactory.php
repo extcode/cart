@@ -15,20 +15,10 @@ class ServiceFactory
 {
     public function getService(int $serviceKey, array $serviceConfig, bool $preset = false): ServiceInterface
     {
-        if (!empty($serviceConfig['className'])) {
-            $className = $serviceConfig['className'];
-        } else {
-            $className = Service::class;
-        }
-
-        $service = new $className(
+        $service = new Service(
             $serviceKey,
             $serviceConfig
         );
-
-        if (!$service instanceof ServiceInterface) {
-            throw new \UnexpectedValueException($className . ' must implement interface ' . ServiceInterface::class, 123);
-        }
 
         if ($preset) {
             $service->setPreset(true);

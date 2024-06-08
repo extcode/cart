@@ -15,6 +15,7 @@ use Extcode\Cart\Domain\Model\Cart\Cart;
 use Extcode\Cart\Service\PaymentMethodsServiceInterface;
 use Extcode\Cart\Service\SessionHandler;
 use Extcode\Cart\Service\ShippingMethodsServiceInterface;
+use Extcode\Cart\Service\SpecialOptionsServiceInterface;
 use Extcode\Cart\Utility\CartUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManager;
 
@@ -24,8 +25,9 @@ class ActionController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControlle
 
     protected CartUtility $cartUtility;
 
-    protected PaymentMethodsServiceInterface $paymentMethodService;
-    protected ShippingMethodsServiceInterface $shippingMethodService;
+    protected PaymentMethodsServiceInterface $paymentMethodsService;
+    protected ShippingMethodsServiceInterface $shippingMethodsService;
+    protected SpecialOptionsServiceInterface $specialOptionsService;
 
     protected array $configurations;
 
@@ -45,14 +47,19 @@ class ActionController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControlle
         $this->cartUtility = $cartUtility;
     }
 
-    public function injectPaymentMethodService(PaymentMethodsServiceInterface $paymentMethodsService): void
+    public function injectPaymentMethodsService(PaymentMethodsServiceInterface $paymentMethodsService): void
     {
-        $this->paymentMethodService = $paymentMethodsService;
+        $this->paymentMethodsService = $paymentMethodsService;
     }
 
-    public function injectShippingMethodService(ShippingMethodsServiceInterface $shippingMethodsService): void
+    public function injectShippingMethodsService(ShippingMethodsServiceInterface $shippingMethodsService): void
     {
-        $this->shippingMethodService = $shippingMethodsService;
+        $this->shippingMethodsService = $shippingMethodsService;
+    }
+
+    public function injectSpecialOptionsService(SpecialOptionsServiceInterface $specialOptionsService): void
+    {
+        $this->specialOptionsService = $specialOptionsService;
     }
 
     public function initializeAction(): void
@@ -66,15 +73,9 @@ class ActionController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControlle
 
     protected function parseServices(): void
     {
-        $this->payments = $this->paymentMethodService->getPaymentMethods($this->cart);
-        $this->shippings = $this->shippingMethodService->getShippingMethods($this->cart);
-
-        // parse all specials
-        //        $this->specials = $this->parserUtility->parseServices(
-        //            'Special',
-        //            $this->configurations,
-        //            $this->cart
-        //        );
+        $this->payments = $this->paymentMethodsService->getPaymentMethods($this->cart);
+        $this->shippings = $this->shippingMethodsService->getShippingMethods($this->cart);
+        $this->specials = $this->specialOptionsService->getSpecialOptions($this->cart);
     }
 
     public function parseServicesAndAssignToView(): void

@@ -20,7 +20,6 @@ use Extcode\Cart\Event\Order\NumberGeneratorEvent;
 use Extcode\Cart\Event\Order\PaymentEvent;
 use Extcode\Cart\Event\Order\StockEvent;
 use Extcode\Cart\Event\ProcessOrderCheckStockEvent;
-use Extcode\Cart\Service\PaymentMethodsServiceInterface;
 use Extcode\Cart\Validation\Validator\EmptyValidator;
 use Psr\EventDispatcher\StoppableEventInterface;
 use Psr\Http\Message\ResponseInterface;
@@ -34,10 +33,6 @@ use TYPO3\CMS\Extbase\Validation\ValidatorResolver;
 
 class OrderController extends ActionController
 {
-    public function __construct(
-        private readonly PaymentMethodsServiceInterface $paymentMethodsService
-    ) {}
-
     protected function getErrorFlashMessage()
     {
         return LocalizationUtility::translate(

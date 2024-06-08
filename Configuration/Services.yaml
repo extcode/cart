@@ -129,6 +129,9 @@ services:
   Extcode\Cart\Service\ShippingMethodsFromTypoScriptService:
     public: true
 
+  Extcode\Cart\Service\SpecialOptionsFromTypoScriptService:
+    public: true
+
   Extcode\Cart\Service\TaxClassService:
     public: true
 
