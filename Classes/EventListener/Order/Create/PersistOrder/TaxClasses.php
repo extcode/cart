@@ -20,21 +20,11 @@ use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
 
 class TaxClasses
 {
-    private PersistenceManager $persistenceManager;
-
-    private ItemRepository $itemRepository;
-
-    private TaxClassRepository $taxClassRepository;
-
     public function __construct(
-        PersistenceManager $persistenceManager,
-        ItemRepository $itemRepository,
-        TaxClassRepository $taxClassRepository
-    ) {
-        $this->persistenceManager = $persistenceManager;
-        $this->itemRepository = $itemRepository;
-        $this->taxClassRepository = $taxClassRepository;
-    }
+        private readonly PersistenceManager $persistenceManager,
+        private readonly ItemRepository $itemRepository,
+        private readonly TaxClassRepository $taxClassRepository
+    ) {}
 
     public function __invoke(PersistOrderEventInterface $event): void
     {

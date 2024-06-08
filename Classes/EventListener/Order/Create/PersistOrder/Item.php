@@ -22,25 +22,12 @@ use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
 
 class Item
 {
-    private PersistenceManager $persistenceManager;
-
-    private ItemRepository $itemRepository;
-
-    private BillingAddressRepository $billingAddressRepository;
-
-    private ShippingAddressRepository $shippingAddressRepository;
-
     public function __construct(
-        PersistenceManager $persistenceManager,
-        ItemRepository $itemRepository,
-        BillingAddressRepository $billingAddressRepository,
-        ShippingAddressRepository $shippingAddressRepository
-    ) {
-        $this->persistenceManager = $persistenceManager;
-        $this->itemRepository = $itemRepository;
-        $this->billingAddressRepository = $billingAddressRepository;
-        $this->shippingAddressRepository = $shippingAddressRepository;
-    }
+        private readonly PersistenceManager $persistenceManager,
+        private readonly ItemRepository $itemRepository,
+        private readonly BillingAddressRepository $billingAddressRepository,
+        private readonly ShippingAddressRepository $shippingAddressRepository
+    ) {}
 
     public function __invoke(PersistOrderEventInterface $event): void
     {

@@ -30,12 +30,10 @@ return [
             'showitem' => '',
             'service' => [
                 'showitem' => 'service_country, service_id',
-                'canNotCollapse' => 0,
             ],
         ],
         'service' => [
             'showitem' => 'service_country, service_id',
-            'canNotCollapse' => 0,
         ],
     ],
     'columns' => [

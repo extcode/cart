@@ -16,24 +16,14 @@ use Extcode\Cart\Domain\Model\Cart\FeVariant;
 use Extcode\Cart\Domain\Model\Cart\Product;
 use Extcode\Cart\Domain\Model\Order\Item;
 use Extcode\Cart\Domain\Model\Order\ProductAdditional;
-use Extcode\Cart\Domain\Model\Order\Tax;
 use Extcode\Cart\Domain\Repository\Order\ProductAdditionalRepository;
 use Extcode\Cart\Domain\Repository\Order\ProductRepository;
-use Extcode\Cart\Domain\Repository\Order\TaxRepository;
 use Extcode\Cart\Event\Order\PersistOrderEventInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
 
 class Products
 {
-    private PersistenceManager $persistenceManager;
-
-    private ProductRepository $productRepository;
-
-    private ProductAdditionalRepository $productAdditionalRepository;
-
-    private TaxRepository $taxRepository;
-
     private Item $orderItem;
 
     protected array $taxClasses;
@@ -41,20 +31,13 @@ class Products
     private int $storagePid;
 
     public function __construct(
-        PersistenceManager $persistenceManager,
-        ProductRepository $productRepository,
-        ProductAdditionalRepository $productAdditionalRepository,
-        TaxRepository $taxRepository
-    ) {
-        $this->persistenceManager = $persistenceManager;
-        $this->productRepository = $productRepository;
-        $this->productAdditionalRepository = $productAdditionalRepository;
-        $this->taxRepository = $taxRepository;
-    }
+        private readonly PersistenceManager $persistenceManager,
+        private readonly ProductRepository $productRepository,
+        private readonly ProductAdditionalRepository $productAdditionalRepository
+    ) {}
 
     public function __invoke(PersistOrderEventInterface $event): void
     {
-        $settings = $event->getSettings();
         $cart = $event->getCart();
         $this->orderItem = $event->getOrderItem();
         $this->storagePid = $event->getStoragePid();
@@ -71,12 +54,7 @@ class Products
         $this->persistenceManager->persistAll();
     }
 
-    /**
-     * Add CartProduct to Order Item
-     *
-     * @param Product $cartProduct
-     */
-    protected function addProduct(Product $cartProduct)
+    protected function addProduct(Product $cartProduct): void
     {
         $orderProduct = GeneralUtility::makeInstance(
             \Extcode\Cart\Domain\Model\Order\Product::class
@@ -104,12 +82,7 @@ class Products
         $this->addFeVariants($orderProduct, $cartProduct->getFeVariant());
     }
 
-    /**
-     * Adds Variants of a CartProduct to Order Item
-     *
-     * @param Product $product CartProduct
-     */
-    protected function addProductVariants(Product $product)
+    protected function addProductVariants(Product $product): void
     {
         foreach ($product->getBeVariants() as $variant) {
             /**
@@ -127,7 +100,7 @@ class Products
     protected function addFeVariants(
         \Extcode\Cart\Domain\Model\Order\Product $product,
         FeVariant $feVariant = null
-    ) {
+    ): void {
         if ($feVariant) {
             $feVariantsData = $feVariant->getVariantData();
             if ($feVariantsData) {
@@ -160,9 +133,6 @@ class Products
         $product->addProductAdditional($productAdditional);
     }
 
-    /**
-     * Adds Variants of a Variant to Order Item
-     */
     protected function addVariantsOfVariant(BeVariant $variant, int $level): void
     {
         $level += 1;
@@ -180,20 +150,8 @@ class Products
         }
     }
 
-    /**
-     * Adds a Variant to Order Item
-     */
     protected function addBeVariant(BeVariant $variant, int $level): void
     {
-        $orderTax = GeneralUtility::makeInstance(
-            Tax::class,
-            $variant->getTax(),
-            $this->taxClasses[$variant->getTaxClass()->getId()]
-        );
-        $orderTax->setPid($this->storagePid);
-
-        $this->taxRepository->add($orderTax);
-
         $variantInner = $variant;
         for ($count = $level; $count > 0; $count--) {
             if ($count > 1) {

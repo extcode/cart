@@ -22,25 +22,12 @@ use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
 
 class Coupons
 {
-    private PersistenceManager $persistenceManager;
-
-    private ItemRepository $itemRepository;
-
-    private DiscountRepository $discountRepository;
-
-    private CouponRepository $couponRepository;
-
     public function __construct(
-        PersistenceManager $persistenceManager,
-        ItemRepository $itemRepository,
-        DiscountRepository $discountRepository,
-        CouponRepository $couponRepository
-    ) {
-        $this->persistenceManager = $persistenceManager;
-        $this->itemRepository = $itemRepository;
-        $this->discountRepository = $discountRepository;
-        $this->couponRepository = $couponRepository;
-    }
+        private readonly PersistenceManager $persistenceManager,
+        private readonly ItemRepository $itemRepository,
+        private readonly DiscountRepository $discountRepository,
+        private readonly CouponRepository $couponRepository
+    ) {}
 
     public function __invoke(PersistOrderEventInterface $event): void
     {

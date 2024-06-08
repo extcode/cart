@@ -18,10 +18,14 @@ return [
         'enablecolumns' => [],
         'searchFields' => '',
         'iconfile' => 'EXT:cart/Resources/Public/Icons/Order/Tax.svg',
+        'type' => 'record_type',
     ],
     'hideTable' => 1,
     'types' => [
-        '1' => [
+        'tax' => [
+            'showitem' => 'tax, tax_class',
+        ],
+        'total_tax' => [
             'showitem' => 'tax, tax_class',
         ],
     ],

@@ -49,6 +49,13 @@ services:
         event: Extcode\Cart\Event\Order\PersistOrderEvent
         after: 'cart--order--create--persist-order--item'
 
+  Extcode\Cart\EventListener\Order\Create\PersistOrder\Taxes:
+    tags:
+      - name: event.listener
+        identifier: 'cart--order--create--persist-order--taxes'
+        event: Extcode\Cart\Event\Order\PersistOrderEvent
+        after: 'cart--order--create--persist-order--tax-classes'
+
   Extcode\Cart\EventListener\Order\Create\PersistOrder\Products:
     tags:
       - name: event.listener

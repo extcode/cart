@@ -19,21 +19,11 @@ use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
 
 class Payment
 {
-    private PersistenceManager $persistenceManager;
-
-    private ItemRepository $itemRepository;
-
-    private PaymentRepository $paymentRepository;
-
     public function __construct(
-        PersistenceManager $persistenceManager,
-        ItemRepository $itemRepository,
-        PaymentRepository $paymentRepository
-    ) {
-        $this->persistenceManager = $persistenceManager;
-        $this->itemRepository = $itemRepository;
-        $this->paymentRepository = $paymentRepository;
-    }
+        private readonly PersistenceManager $persistenceManager,
+        private readonly ItemRepository $itemRepository,
+        private readonly PaymentRepository $paymentRepository
+    ) {}
 
     public function __invoke(PersistOrderEventInterface $event): void
     {

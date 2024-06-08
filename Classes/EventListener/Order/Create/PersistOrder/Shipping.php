@@ -19,21 +19,11 @@ use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
 
 class Shipping
 {
-    private PersistenceManager $persistenceManager;
-
-    private ItemRepository $itemRepository;
-
-    private ShippingRepository $shippingRepository;
-
     public function __construct(
-        PersistenceManager $persistenceManager,
-        ItemRepository $itemRepository,
-        ShippingRepository $shippingRepository
-    ) {
-        $this->persistenceManager = $persistenceManager;
-        $this->itemRepository = $itemRepository;
-        $this->shippingRepository = $shippingRepository;
-    }
+        private readonly PersistenceManager $persistenceManager,
+        private readonly ItemRepository $itemRepository,
+        private readonly ShippingRepository $shippingRepository
+    ) {}
 
     public function __invoke(PersistOrderEventInterface $event): void
     {
