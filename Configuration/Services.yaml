@@ -52,7 +52,7 @@ services:
   Extcode\Cart\EventListener\Order\Create\PersistOrder\Taxes:
     tags:
       - name: event.listener
-        identifier: 'cart--order--create--persist-order--tax'
+        identifier: 'cart--order--create--persist-order--taxes'
         event: Extcode\Cart\Event\Order\PersistOrderEvent
         after: 'cart--order--create--persist-order--tax-classes'
 

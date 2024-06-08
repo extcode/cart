@@ -49,12 +49,12 @@ class Taxes
 
         $taxes = $typeOfTax === 'tax' ? $cart->getTaxes() : $cart->getTotalTaxes();
 
-        /** @var int $taxClassId */
-        /** @var float $tax */
-        foreach ($taxes as $taxClassId => $tax) {
-            $taxValue = $tax;
-            $taxClass = $taxClasses[$taxClassId];
-            $orderTax = GeneralUtility::makeInstance(OrderTax::class, $taxValue, $taxClass);
+        foreach ($taxes as $taxClassId => $taxValue) {
+            $orderTax = GeneralUtility::makeInstance(
+                OrderTax::class,
+                $taxValue,
+                $taxClasses[$taxClassId]
+            );
             $orderTax->setPid($storagePid);
 
             $this->taxRepository->add($orderTax);
