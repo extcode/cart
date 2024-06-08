@@ -86,7 +86,7 @@ class AddToCartFinisher extends AbstractFinisher
         if (empty($errors)) {
             $quantity = $this->addProductsToCart($cartProducts);
 
-            $this->cartUtility->updateService($this->cart, $this->configurations);
+            $this->cartUtility->updateService($this->cart);
 
             $this->sessionHandler->writeCart($this->configurations['settings'], $this->cart);
 

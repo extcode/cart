@@ -33,7 +33,7 @@ class CurrencyController extends ActionController
 
         $this->sessionHandler->writeCart($this->settings['cart']['pid'], $this->cart);
 
-        $this->cartUtility->updateService($this->cart, $this->configurations);
+        $this->cartUtility->updateService($this->cart);
 
         $pageType = $GLOBALS['TYPO3_REQUEST']->getAttribute('routing')->getPageType();
         if ($pageType === self::AJAX_CURRENCY_TYPE_NUM) {

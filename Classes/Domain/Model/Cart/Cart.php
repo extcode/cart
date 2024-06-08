@@ -36,7 +36,7 @@ class Cart
     protected ?ServiceInterface $payment = null;
 
     /**
-     * @var Special[]
+     * @var ServiceInterface[]
      */
     protected ?array $specials = null;
 
@@ -449,25 +449,19 @@ class Cart
     }
 
     /**
-     * @return Special[]
+     * @return ServiceInterface[]
      */
     public function getSpecials(): array
     {
         return $this->specials;
     }
 
-    /**
-     * @param Special $newSpecial
-     */
-    public function addSpecial($newSpecial): void
+    public function addSpecial(ServiceInterface $newSpecial): void
     {
         $this->specials[$newSpecial->getId()] = $newSpecial;
     }
 
-    /**
-     * @param Special $special
-     */
-    public function removeSpecial($special): void
+    public function removeSpecial(ServiceInterface $special): void
     {
         unset($this->specials[$special->getId()]);
     }

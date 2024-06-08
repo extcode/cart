@@ -1,6 +1,6 @@
 <?php
 
-namespace Extcode\Cart\Tests\Functional\Utility;
+namespace Extcode\Cart\Tests\Functional\Service;
 
 /*
  * This file is part of the package extcode/cart.
@@ -9,41 +9,34 @@ namespace Extcode\Cart\Tests\Functional\Utility;
  * LICENSE file that was distributed with this source code.
  */
 
-use Extcode\Cart\Domain\Model\Cart\Cart;
-use Extcode\Cart\Domain\Model\Cart\TaxClass;
-use Extcode\Cart\Utility\ParserUtility;
+use Extcode\Cart\Domain\Model\Cart\ServiceFactory;
+use Extcode\Cart\Service\AbstractConfigurationFromTypoScriptService;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\Test;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Configuration\ConfigurationManager;
 use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
 
-class ParserUtilityTest extends FunctionalTestCase
+#[CoversClass(AbstractConfigurationFromTypoScriptService::class)]
+class AbstractConfigurationFromTypoScriptServiceTest extends FunctionalTestCase
 {
-    protected ParserUtility $parserUtility;
-
     public function setUp(): void
     {
-        $this->testExtensionsToLoad[] = 'extcode/cart';
+        $this->testExtensionsToLoad[] = 'typo3conf/ext/cart';
 
         parent::setUp();
-
-        $this->parserUtility = GeneralUtility::makeInstance(
-            ParserUtility::class
-        );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getTypePluginSettingsReturnsTypeCountrySettings()
     {
-        $taxClass = new TaxClass(1, '19', 0.19, 'normal');
-
-        $type = 'payment';
+        $type = 'payments';
         $country = 'de';
 
-        $pluginSettings = [
+        $configurations = [
             $type => [
                 'countries' => [
-                    'de' => [
+                    $country => [
                         'preset' => 1,
                         'options' => [
                             '1' => [
@@ -93,16 +86,16 @@ class ParserUtilityTest extends FunctionalTestCase
             ],
         ];
 
-        $cart = $this->getMockBuilder(Cart::class)
-            ->onlyMethods(['getCountry'])
-            ->setConstructorArgs([[$taxClass]])
-            ->getMock();
-        $cart
-            ->expects(self::any())
-            ->method('getCountry')
-            ->willReturn($country);
+        $configurationManager = GeneralUtility::makeInstance(ConfigurationManager::class);
 
-        $parsedData = $this->parserUtility->getTypePluginSettings($pluginSettings, $cart, $type);
+        $paymentMethodsService = new class ($configurationManager, new ServiceFactory()) extends AbstractConfigurationFromTypoScriptService {};
+
+        $reflection = new \ReflectionClass($paymentMethodsService);
+        $reflection_property = $reflection->getProperty('configurations');
+        $reflection_property->setAccessible(true);
+        $reflection_property->setValue($paymentMethodsService, $configurations);
+
+        $parsedData = $paymentMethodsService->getConfigurationsForType($type, $country);
 
         self::assertIsArray(
             $parsedData
@@ -114,22 +107,18 @@ class ParserUtilityTest extends FunctionalTestCase
         );
 
         self::assertEquals(
-            $pluginSettings[$type]['countries'][$country]['options'],
+            $configurations[$type]['countries'][$country]['options'],
             $parsedData['options']
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getTypeZonePluginSettingsReturnsTypeZoneSettings()
     {
-        $taxClass = new TaxClass(1, '19', 0.19, 'normal');
-
-        $type = 'payment';
+        $type = 'payments';
         $country = 'at';
 
-        $pluginSettings = [
+        $configurations = [
             $type => [
                 'default' => 'de',
                 'zones' => [
@@ -159,7 +148,7 @@ class ParserUtilityTest extends FunctionalTestCase
                     ],
                     '2' => [
                         'preset' => 1,
-                        'countries' => 'at, ch',
+                        'countries' => $country . ', ch',
                         'options' => [
                             '1' => [
                                 'title' => 'Payment 1 Zone 2',
@@ -185,16 +174,16 @@ class ParserUtilityTest extends FunctionalTestCase
             ],
         ];
 
-        $cart = $this->getMockBuilder(Cart::class)
-            ->onlyMethods(['getCountry'])
-            ->setConstructorArgs([[$taxClass]])
-            ->getMock();
-        $cart
-            ->expects(self::any())
-            ->method('getCountry')
-            ->willReturn($country);
+        $configurationManager = GeneralUtility::makeInstance(ConfigurationManager::class);
 
-        $parsedData = $this->parserUtility->getTypePluginSettings($pluginSettings, $cart, $type);
+        $paymentMethodsService = new class ($configurationManager, new ServiceFactory()) extends AbstractConfigurationFromTypoScriptService {};
+
+        $reflection = new \ReflectionClass($paymentMethodsService);
+        $reflection_property = $reflection->getProperty('configurations');
+        $reflection_property->setAccessible(true);
+        $reflection_property->setValue($paymentMethodsService, $configurations);
+
+        $parsedData = $paymentMethodsService->getConfigurationsForType($type, $country);
 
         self::assertIsArray(
             $parsedData
@@ -206,7 +195,7 @@ class ParserUtilityTest extends FunctionalTestCase
         );
 
         self::assertEquals(
-            $pluginSettings[$type]['zones']['2']['options'],
+            $configurations[$type]['zones']['2']['options'],
             $parsedData['options']
         );
     }

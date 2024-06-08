@@ -16,27 +16,11 @@ use TYPO3\CMS\Extbase\Mvc\Request;
 
 class CurrencyUtility
 {
-    protected EventDispatcherInterface $eventDispatcher;
-
-    protected SessionHandler $sessionHandler;
-
-    protected ParserUtility $parserUtility;
-
     public function __construct(
-        EventDispatcherInterface $eventDispatcher,
-        ParserUtility $parserUtility,
-        SessionHandler $sessionHandler
-    ) {
-        $this->eventDispatcher = $eventDispatcher;
-        $this->parserUtility = $parserUtility;
-        $this->sessionHandler = $sessionHandler;
-    }
+        protected EventDispatcherInterface $eventDispatcher,
+        protected SessionHandler $sessionHandler
+    ) {}
 
-    /**
-     * @param array $cartSettings
-     * @param array $pluginSettings
-     * @param Request $request
-     */
     public function updateCurrency(array $cartSettings, array $pluginSettings, Request $request): void
     {
         $cart = $this->sessionHandler->restoreCart($cartSettings['pid']);

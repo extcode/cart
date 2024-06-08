@@ -23,7 +23,7 @@ class PaymentController extends ActionController
     {
         $this->restoreSession();
 
-        $this->payments = $this->parserUtility->parseServices('Payment', $this->configurations, $this->cart);
+        $this->payments = $this->paymentMethodsService->getPaymentMethods($this->cart);
 
         $payment = $this->payments[$paymentId];
 

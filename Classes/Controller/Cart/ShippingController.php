@@ -23,7 +23,7 @@ class ShippingController extends ActionController
     {
         $this->restoreSession();
 
-        $this->shippings = $this->parserUtility->parseServices('Shipping', $this->configurations, $this->cart);
+        $this->shippings = $this->shippingMethodsService->getShippingMethods($this->cart);
 
         $shipping = $this->shippings[$shippingId];
 
