@@ -23,49 +23,31 @@ class Product extends AbstractEntity
 
     protected string $productType = '';
 
-    /**
-     * @Validate("NotEmpty")
-     */
+    #[Validate(['validator' => 'NotEmpty'])]
     protected string $sku = '';
 
-    /**
-     * @Validate("NotEmpty")
-     */
+    #[Validate(['validator' => 'NotEmpty'])]
     protected string $title = '';
 
-    /**
-     * @Validate("NotEmpty")
-     */
+    #[Validate(['validator' => 'NotEmpty'])]
     protected int $count = 0;
 
-    /**
-     * @Validate("NotEmpty")
-     */
+    #[Validate(['validator' => 'NotEmpty'])]
     protected float $price = 0.0;
 
-    /**
-     * @Validate("NotEmpty")
-     */
+    #[Validate(['validator' => 'NotEmpty'])]
     protected float $discount = 0.0;
 
-    /**
-     * @Validate("NotEmpty")
-     */
+    #[Validate(['validator' => 'NotEmpty'])]
     protected float $gross = 0.0;
 
-    /**
-     * @Validate("NotEmpty")
-     */
+    #[Validate(['validator' => 'NotEmpty'])]
     protected float $net = 0.0;
 
-    /**
-     * @Validate("NotEmpty")
-     */
+    #[Validate(['validator' => 'NotEmpty'])]
     protected TaxClass $taxClass;
 
-    /**
-     * @Validate("NotEmpty")
-     */
+    #[Validate(['validator' => 'NotEmpty'])]
     protected float $tax = 0.0;
 
     protected string $additionalData = '';

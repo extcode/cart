@@ -15,14 +15,10 @@ use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 
 abstract class AbstractProduct extends AbstractEntity
 {
-    /**
-     * @Validate("NotEmpty")
-     */
+    #[Validate(['validator' => 'NotEmpty'])]
     protected string $sku = '';
 
-    /**
-     * @Validate("NotEmpty")
-     */
+    #[Validate(['validator' => 'NotEmpty'])]
     protected string $title = '';
 
     protected string $teaser = '';

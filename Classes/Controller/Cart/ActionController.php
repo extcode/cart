@@ -19,7 +19,7 @@ use Extcode\Cart\Service\SpecialOptionsServiceInterface;
 use Extcode\Cart\Utility\CartUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManager;
 
-class ActionController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
+abstract class ActionController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 {
     protected SessionHandler $sessionHandler;
 
@@ -52,15 +52,7 @@ class ActionController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControlle
         $this->paymentMethodsService = $paymentMethodsService;
     }
 
-    public function injectShippingMethodsService(ShippingMethodsServiceInterface $shippingMethodsService): void
-    {
-        $this->shippingMethodsService = $shippingMethodsService;
-    }
-
-    public function injectSpecialOptionsService(SpecialOptionsServiceInterface $specialOptionsService): void
-    {
-        $this->specialOptionsService = $specialOptionsService;
-    }
+    public function injectShippingMethodsService(ShippingMethodsServiceInterface $shippingMethodsService): void {}
 
     public function initializeAction(): void
     {

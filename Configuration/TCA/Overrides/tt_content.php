@@ -24,7 +24,7 @@ call_user_func(function () {
         ExtensionUtility::registerPlugin(
             'Cart',
             $pluginName,
-            $_LLL_db . 'tx_cart.plugin.' . strtolower(preg_replace('/[A-Z]/', '_$0', lcfirst($pluginName)))
+            $_LLL_db . 'tx_cart.plugin.' . strtolower((string)preg_replace('/[A-Z]/', '_$0', lcfirst($pluginName)))
         );
         $GLOBALS['TCA']['tt_content']['types']['list']['subtypes_excludelist'][$pluginSignature] = 'select_key';
 

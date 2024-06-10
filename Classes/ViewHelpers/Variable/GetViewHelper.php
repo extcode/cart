@@ -49,7 +49,7 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
  */
 class GetViewHelper extends AbstractViewHelper
 {
-    public function initializeArguments()
+    public function initializeArguments(): void
     {
         parent::initializeArguments();
 
@@ -78,12 +78,12 @@ class GetViewHelper extends AbstractViewHelper
         $name = $this->arguments['name'];
         $useRawKeys = $this->arguments['useRawKeys'];
 
-        if (!str_contains($name, '.')) {
+        if (!str_contains((string)$name, '.')) {
             if ($this->templateVariableContainer->exists($name) === true) {
                 return $this->templateVariableContainer->get($name);
             }
         } else {
-            $segments = explode('.', $name);
+            $segments = explode('.', (string)$name);
             $templateVariableRootName = $lastSegment = array_shift($segments);
             if ($this->templateVariableContainer->exists($templateVariableRootName) === true) {
                 $templateVariableRoot = $this->templateVariableContainer->get($templateVariableRootName);
@@ -110,7 +110,7 @@ class GetViewHelper extends AbstractViewHelper
                         $value = ObjectAccess::getProperty($value, $segment);
                     }
                     return $value;
-                } catch (\Exception $e) {
+                } catch (\Exception) {
                     return null;
                 }
             }

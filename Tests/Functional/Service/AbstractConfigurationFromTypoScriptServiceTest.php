@@ -28,7 +28,7 @@ class AbstractConfigurationFromTypoScriptServiceTest extends FunctionalTestCase
     }
 
     #[Test]
-    public function getTypePluginSettingsReturnsTypeCountrySettings()
+    public function getTypePluginSettingsReturnsTypeCountrySettings(): void
     {
         $type = 'payments';
         $country = 'de';
@@ -113,7 +113,7 @@ class AbstractConfigurationFromTypoScriptServiceTest extends FunctionalTestCase
     }
 
     #[Test]
-    public function getTypeZonePluginSettingsReturnsTypeZoneSettings()
+    public function getTypeZonePluginSettingsReturnsTypeZoneSettings(): void
     {
         $type = 'payments';
         $country = 'at';

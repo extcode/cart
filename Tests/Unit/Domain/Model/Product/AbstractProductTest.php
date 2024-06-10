@@ -29,7 +29,7 @@ class AbstractProductTest extends UnitTestCase
     /**
      * @test
      */
-    public function getSkuInitiallyReturnsEmptyString()
+    public function getSkuInitiallyReturnsEmptyString(): void
     {
         self::assertSame(
             '',
@@ -40,7 +40,7 @@ class AbstractProductTest extends UnitTestCase
     /**
      * @test
      */
-    public function setSkuSetsSku()
+    public function setSkuSetsSku(): void
     {
         $this->product->setSku('Abstract Product SKU');
 
@@ -53,7 +53,7 @@ class AbstractProductTest extends UnitTestCase
     /**
      * @test
      */
-    public function getTitleInitiallyReturnsEmptyString()
+    public function getTitleInitiallyReturnsEmptyString(): void
     {
         self::assertSame(
             '',
@@ -64,7 +64,7 @@ class AbstractProductTest extends UnitTestCase
     /**
      * @test
      */
-    public function setTitleSetsTitle()
+    public function setTitleSetsTitle(): void
     {
         $this->product->setTitle('Abstract Product Title');
 
@@ -77,7 +77,7 @@ class AbstractProductTest extends UnitTestCase
     /**
      * @test
      */
-    public function getTeaserInitiallyReturnsEmptyString()
+    public function getTeaserInitiallyReturnsEmptyString(): void
     {
         self::assertSame(
             '',
@@ -88,7 +88,7 @@ class AbstractProductTest extends UnitTestCase
     /**
      * @test
      */
-    public function setTeaserSetsTeaser()
+    public function setTeaserSetsTeaser(): void
     {
         $this->product->setTeaser('Abstract Product Teaser');
 
@@ -101,7 +101,7 @@ class AbstractProductTest extends UnitTestCase
     /**
      * @test
      */
-    public function getDescriptionInitiallyReturnsEmptyString()
+    public function getDescriptionInitiallyReturnsEmptyString(): void
     {
         self::assertSame(
             '',
@@ -112,7 +112,7 @@ class AbstractProductTest extends UnitTestCase
     /**
      * @test
      */
-    public function setDescriptionSetsDescription()
+    public function setDescriptionSetsDescription(): void
     {
         $this->product->setDescription('Abstract Product Description');
 

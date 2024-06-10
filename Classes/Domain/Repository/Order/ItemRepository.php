@@ -82,19 +82,19 @@ class ItemRepository extends Repository
                     $and[] = $query->like('orderNumber', $value);
                     break;
                 case 'orderDateStart':
-                    $and[] = $query->greaterThan('orderDate', strtotime($value));
+                    $and[] = $query->greaterThan('orderDate', strtotime((string)$value));
                     break;
                 case 'orderDateEnd':
-                    $and[] = $query->lessThan('orderDate', strtotime($value) + 86400);
+                    $and[] = $query->lessThan('orderDate', strtotime((string)$value) + 86400);
                     break;
                 case 'invoiceNumber':
                     $and[] = $query->like('invoiceNumber', $value);
                     break;
                 case 'invoiceDateStart':
-                    $and[] = $query->greaterThan('invoiceDate', strtotime($value));
+                    $and[] = $query->greaterThan('invoiceDate', strtotime((string)$value));
                     break;
                 case 'invoiceDateEnd':
-                    $and[] = $query->lessThan('invoiceDate', strtotime($value) + 86400);
+                    $and[] = $query->lessThan('invoiceDate', strtotime((string)$value) + 86400);
                     break;
                 case 'paymentStatus':
                     if ($value !== 'all') {

@@ -16,12 +16,9 @@ use Psr\Log\LoggerInterface;
 
 class LogServiceUpdate
 {
-    private LoggerInterface $logger;
-
-    public function __construct(LoggerInterface $logger)
-    {
-        $this->logger = $logger;
-    }
+    public function __construct(
+        private readonly LoggerInterface $logger
+    ) {}
 
     public function __invoke(UpdateServiceEvent $event): void
     {
@@ -32,7 +29,7 @@ class LogServiceUpdate
         $this->logger->debug(
             'Log Service Update',
             [
-                'className' => get_class($service),
+                'className' => $service::class,
                 'old state' => $cleanProperties['status'],
                 'new stage' => $service->getStatus(),
             ]

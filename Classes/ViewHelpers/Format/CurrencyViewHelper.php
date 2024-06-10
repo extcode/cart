@@ -18,7 +18,7 @@ class CurrencyViewHelper extends AbstractViewHelper
      */
     protected $configurationManager;
 
-    public function injectConfigurationManager(ConfigurationManager $configurationManager): void
+    public function __construct(ConfigurationManager $configurationManager)
     {
         $this->configurationManager = $configurationManager;
     }
@@ -30,7 +30,7 @@ class CurrencyViewHelper extends AbstractViewHelper
      */
     protected $escapeOutput = false;
 
-    public function initializeArguments()
+    public function initializeArguments(): void
     {
         parent::initializeArguments();
 
@@ -139,9 +139,9 @@ class CurrencyViewHelper extends AbstractViewHelper
             }
         }
 
-        $thousandsSeparator = $thousandsSeparator ?? ',';
-        $decimalSeparator = $decimalSeparator ?? '.';
-        $decimals = $decimals ?? 0;
+        $thousandsSeparator ??= ',';
+        $decimalSeparator ??= '.';
+        $decimals ??= 0;
 
         $floatToFormat = $this->renderChildren();
         if (empty($floatToFormat)) {

@@ -16,19 +16,13 @@ use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 
 class TaxClass extends AbstractEntity
 {
-    /**
-     * @Validate("NotEmpty")
-     */
+    #[Validate(['validator' => 'NotEmpty'])]
     protected string $title = '';
 
-    /**
-     * @Validate("NotEmpty")
-     */
+    #[Validate(['validator' => 'NotEmpty'])]
     protected string $value = '';
 
-    /**
-     * @Validate("NotEmpty")
-     */
+    #[Validate(['validator' => 'NotEmpty'])]
     protected float $calc = 0.0;
 
     public function toArray(): array

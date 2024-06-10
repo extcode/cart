@@ -41,9 +41,9 @@ class MailHandler implements SingletonInterface
      * MailHandler constructor
      */
     public function __construct(
-        private ConfigurationManagerInterface $configurationManager,
-        private EventDispatcherInterface $eventDispatcher,
-        private MailerInterface $mailer
+        private readonly ConfigurationManagerInterface $configurationManager,
+        private readonly EventDispatcherInterface $eventDispatcher,
+        private readonly MailerInterface $mailer
     ) {
         $this->setPluginSettings();
     }

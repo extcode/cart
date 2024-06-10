@@ -46,12 +46,6 @@ return [
                 'type' => 'check',
                 'renderType' => 'checkboxToggle',
                 'default' => 0,
-                'items' => [
-                    [
-                        0 => '',
-                        1 => '',
-                    ],
-                ],
             ],
         ],
         'starttime' => [
@@ -116,9 +110,9 @@ return [
             'exclude' => 0,
             'label' => $_LLL . ':tx_cart_domain_model_coupon.discount',
             'config' => [
-                'type' => 'input',
+                'type' => 'number',
                 'size' => 30,
-                'eval' => 'double2',
+                'format' => 'decimal',
             ],
         ],
         'tax_class_id' => [
@@ -139,9 +133,9 @@ return [
             'exclude' => 0,
             'label' => $_LLL . ':tx_cart_domain_model_coupon.cart_min_price',
             'config' => [
-                'type' => 'input',
+                'type' => 'number',
                 'size' => 30,
-                'eval' => 'double2',
+                'format' => 'decimal',
             ],
         ],
         'is_combinable' => [
@@ -171,9 +165,8 @@ return [
             'displayCond' => 'FIELD:handle_available:REQ:TRUE',
             'label' => $_LLL . ':tx_cart_domain_model_coupon.number_available',
             'config' => [
-                'type' => 'input',
+                'type' => 'number',
                 'size' => 30,
-                'eval' => 'int',
                 'default' => '0',
             ],
         ],
@@ -181,9 +174,8 @@ return [
             'exclude' => 0,
             'label' => $_LLL . ':tx_cart_domain_model_coupon.number_used',
             'config' => [
-                'type' => 'input',
+                'type' => 'number',
                 'size' => 30,
-                'eval' => 'int',
                 'default' => '0',
             ],
         ],

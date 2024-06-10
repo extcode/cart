@@ -21,7 +21,7 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 class IncludeFileViewHelper extends AbstractViewHelper
 {
-    public function initializeArguments()
+    public function initializeArguments(): void
     {
         parent::initializeArguments();
 
@@ -43,7 +43,7 @@ class IncludeFileViewHelper extends AbstractViewHelper
     /**
      * Include a CSS/JS file
      */
-    public function render()
+    public function render(): void
     {
         $path = $this->arguments['path'];
         $compress = $this->arguments['compress'];
@@ -52,7 +52,7 @@ class IncludeFileViewHelper extends AbstractViewHelper
         if (ApplicationType::fromRequest($GLOBALS['TYPO3_REQUEST'])->isFrontend()) {
             try {
                 $path = GeneralUtility::makeInstance(FilePathSanitizer::class)->sanitize((string)$path);
-            } catch (InvalidFileNameException $e) {
+            } catch (InvalidFileNameException) {
                 $path = null;
             } catch (InvalidPathException|FileDoesNotExistException|InvalidFileException $e) {
                 $path = null;
@@ -62,9 +62,9 @@ class IncludeFileViewHelper extends AbstractViewHelper
             }
         }
 
-        if (strtolower(substr($path, -3)) === '.js') {
+        if (strtolower(substr((string)$path, -3)) === '.js') {
             $pageRenderer->addJsFile($path, null, $compress);
-        } elseif (strtolower(substr($path, -4)) === '.css') {
+        } elseif (strtolower(substr((string)$path, -4)) === '.css') {
             $pageRenderer->addCssFile($path, 'stylesheet', 'all', '', $compress);
         }
     }

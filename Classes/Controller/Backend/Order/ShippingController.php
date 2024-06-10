@@ -20,13 +20,9 @@ use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 
 class ShippingController extends ActionController
 {
-    protected ShippingRepository $shippingRepository;
-
     public function __construct(
-        ShippingRepository $shippingRepository
-    ) {
-        $this->shippingRepository = $shippingRepository;
-    }
+        protected ShippingRepository $shippingRepository
+    ) {}
 
     public function updateAction(Shipping $shipping): ResponseInterface
     {

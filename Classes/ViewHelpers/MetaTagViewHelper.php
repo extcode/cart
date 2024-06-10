@@ -31,7 +31,7 @@ class MetaTagViewHelper extends AbstractViewHelper
      */
     protected $tagName = 'meta';
 
-    public function initializeArguments()
+    public function initializeArguments(): void
     {
         $this->registerArgument(
             'property',
@@ -47,7 +47,7 @@ class MetaTagViewHelper extends AbstractViewHelper
         );
     }
 
-    public function render()
+    public function render(): void
     {
         $metaTagManager = GeneralUtility::makeInstance(MetaTagManagerRegistry::class)
             ->getManagerForProperty($this->arguments['property']);

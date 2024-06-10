@@ -22,9 +22,9 @@ use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
 class Taxes
 {
     public function __construct(
-        private PersistenceManager $persistenceManager,
-        private ItemRepository $itemRepository,
-        private TaxRepository $taxRepository
+        private readonly PersistenceManager $persistenceManager,
+        private readonly ItemRepository $itemRepository,
+        private readonly TaxRepository $taxRepository
     ) {}
 
     public function __invoke(PersistOrderEventInterface $event): void

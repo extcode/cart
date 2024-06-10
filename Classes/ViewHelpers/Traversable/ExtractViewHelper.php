@@ -13,7 +13,7 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 class ExtractViewHelper extends AbstractViewHelper
 {
-    public function initializeArguments()
+    public function initializeArguments(): void
     {
         parent::initializeArguments();
 
@@ -51,7 +51,7 @@ class ExtractViewHelper extends AbstractViewHelper
 
         try {
             $result = $this->extractByKey($content, $key);
-        } catch (\Exception $error) {
+        } catch (\Exception) {
             $result = [];
         }
 

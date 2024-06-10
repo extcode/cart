@@ -13,25 +13,19 @@ namespace Extcode\Cart\Domain\Model\Cart;
 
 class CartCouponFix extends AbstractCartCoupon
 {
-    protected float $discount;
-
-    protected TaxClass $taxClass;
-
     public function __construct(
         string $title,
         string $code,
         string $couponType,
-        float $discount,
-        TaxClass $taxClass,
+        protected float $discount,
+        protected TaxClass $taxClass,
         float $cartMinPrice,
         bool $isCombinable = false
     ) {
         $this->title = $title;
         $this->code = $code;
         $this->couponType = $couponType;
-        $this->discount = $discount;
         $this->cartMinPrice = $cartMinPrice;
-        $this->taxClass = $taxClass;
         $this->isCombinable = $isCombinable;
     }
 

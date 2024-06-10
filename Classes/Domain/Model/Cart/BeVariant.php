@@ -17,27 +17,15 @@ class BeVariant
 {
     private ?EventDispatcherInterface $eventDispatcher = null;
 
-    protected string $id = '';
-
     protected ?Product $product = null;
 
     protected ?BeVariant $parentBeVariant = null;
 
-    protected string $title = '';
-
     protected string $titleDelimiter = ' - ';
-
-    protected string $sku = '';
 
     protected string $skuDelimiter = '-';
 
-    protected int $priceCalcMethod = 0;
-
-    protected float $price = 0.0;
-
     protected ?float $specialPrice = null;
-
-    protected int $quantity = 0;
 
     protected array $beVariants = [];
 
@@ -60,14 +48,14 @@ class BeVariant
     protected int $stock = 0;
 
     public function __construct(
-        string $id,
+        protected string $id,
         Product $product = null,
         self $beVariant = null,
-        string $title,
-        string $sku,
-        int $priceCalcMethod,
-        float $price,
-        int $quantity = 0
+        protected string $title,
+        protected string $sku,
+        protected int $priceCalcMethod,
+        protected float $price,
+        protected int $quantity = 0
     ) {
         if ($product === null && $beVariant === null) {
             throw new \InvalidArgumentException();
@@ -77,8 +65,6 @@ class BeVariant
             throw new \InvalidArgumentException();
         }
 
-        $this->id = $id;
-
         if ($product !== null) {
             $this->product = $product;
         }
@@ -86,12 +72,6 @@ class BeVariant
         if ($beVariant !== null) {
             $this->parentBeVariant = $beVariant;
         }
-
-        $this->title = $title;
-        $this->sku = $sku;
-        $this->priceCalcMethod = $priceCalcMethod;
-        $this->price = $price;
-        $this->quantity = $quantity;
 
         $this->reCalc();
     }
@@ -519,11 +499,7 @@ class BeVariant
 
     public function getBeVariantById(int $beVariantId): ?self
     {
-        if (isset($this->beVariants[$beVariantId])) {
-            return $this->beVariants[$beVariantId];
-        }
-
-        return null;
+        return $this->beVariants[$beVariantId] ?? null;
     }
 
     /**
@@ -647,9 +623,8 @@ class BeVariant
 
     /**
      * @param string $key
-     * @param mixed $value
      */
-    public function setAdditional($key, $value): void
+    public function setAdditional($key, mixed $value): void
     {
         $this->additional[$key] = $value;
     }

@@ -44,7 +44,7 @@ class EvalPrice
     {
         if ($value == ''
             || $value == 'please enter a price'
-            || !preg_match('/^[0-9]{1,}[.,]{0,1}[0-9]{0,2}$/', $value)
+            || !preg_match('/^[0-9]{1,}[.,]{0,1}[0-9]{0,2}$/', (string)$value)
         ) {
             return 'please enter a price';
         }

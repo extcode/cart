@@ -40,9 +40,9 @@ class ProductRepository extends Repository
         if (isset($searchArguments['filter'])) {
             foreach ((array)$searchArguments['filter'] as $field => $value) {
                 if ($field == 'start' && !empty($value)) {
-                    $and[] = $query->greaterThan('crdate', strtotime($value));
+                    $and[] = $query->greaterThan('crdate', strtotime((string)$value));
                 } elseif ($field == 'stop' && !empty($value)) {
-                    $and[] = $query->lessThan('crdate', strtotime($value));
+                    $and[] = $query->lessThan('crdate', strtotime((string)$value));
                 }
             }
         }

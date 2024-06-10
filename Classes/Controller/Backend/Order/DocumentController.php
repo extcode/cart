@@ -26,19 +26,10 @@ use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 
 class DocumentController extends ActionController
 {
-    protected PersistenceManager $persistenceManager;
-
-    protected ItemRepository $itemRepository;
-
-    public function injectPersistenceManager(PersistenceManager $persistenceManager): void
-    {
-        $this->persistenceManager = $persistenceManager;
-    }
-
-    public function injectItemRepository(ItemRepository $itemRepository): void
-    {
-        $this->itemRepository = $itemRepository;
-    }
+    public function __construct(
+        protected readonly PersistenceManager $persistenceManager,
+        protected readonly ItemRepository $itemRepository
+    ) {}
 
     public function createAction(Item $orderItem, string $pdfType): ResponseInterface
     {
