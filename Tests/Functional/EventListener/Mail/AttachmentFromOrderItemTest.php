@@ -41,7 +41,7 @@ class AttachmentFromOrderItemTest extends FunctionalTestCase
         $listeners = $commandRegistry->getListenersForEvent($attachmentEvent);
         $listenersClassNames = [];
         foreach ($listeners as $listener) {
-            $listenersClassNames[] = get_class($listener);
+            $listenersClassNames[] = $listener::class;
         }
 
         self::assertContains(AttachmentFromOrderItem::class, $listenersClassNames);

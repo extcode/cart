@@ -4,14 +4,6 @@ declare(strict_types=1);
 
 namespace Extcode\Cart\Event\Mail;
 
-/*
- * This file is part of the package extcode/cart.
- *
- * For the full copyright and license information, please read the
- * LICENSE file that was distributed with this source code.
- */
-
-use Extcode\Cart\Domain\Model\Cart\Cart;
 use Extcode\Cart\Domain\Model\Order\Item;
 use Psr\EventDispatcher\StoppableEventInterface;
 
@@ -21,7 +13,7 @@ final class AttachmentEvent implements StoppableEventInterface
 
     private bool $isPropagationStopped = false;
 
-    public function __construct(private string $type, private ?Item $orderItem = null) {}
+    public function __construct(private readonly string $type, private ?Item $orderItem = null) {}
 
     public function getType(): string
     {

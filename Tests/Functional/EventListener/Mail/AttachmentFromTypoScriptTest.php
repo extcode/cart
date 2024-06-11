@@ -43,14 +43,14 @@ class AttachmentFromTypoScriptTest extends FunctionalTestCase
         $listeners = $commandRegistry->getListenersForEvent($attachmentEvent);
         $listenersClassNames = [];
         foreach ($listeners as $listener) {
-            $listenersClassNames[] = get_class($listener);
+            $listenersClassNames[] = $listener::class;
         }
 
         self::assertContains(AttachmentFromTypoScript::class, $listenersClassNames);
     }
 
     #[Test]
-    public function filesFromTypoScriptAddedToAttachmentList()
+    public function filesFromTypoScriptAddedToAttachmentList(): void
     {
         $attachmentEvent = new AttachmentEvent('buyer');
 

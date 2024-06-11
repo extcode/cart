@@ -63,9 +63,9 @@ class Item extends AbstractEntity
     protected float $totalNet = 0.0;
 
     /**
-     * @Lazy
      * @var ObjectStorage<TaxClass>
      */
+    #[Lazy]
     protected ObjectStorage $taxClass;
 
     /**
@@ -79,15 +79,15 @@ class Item extends AbstractEntity
     protected ObjectStorage $totalTax;
 
     /**
-     * @Lazy
      * @var ObjectStorage<Product>
      */
+    #[Lazy]
     protected ObjectStorage $products;
 
     /**
-     * @Lazy
      * @var ObjectStorage<Discount>
      */
+    #[Lazy]
     protected ObjectStorage $discounts;
 
     protected ?Payment $payment = null;

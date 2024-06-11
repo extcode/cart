@@ -57,10 +57,10 @@ return [
             'exclude' => 0,
             'label' => $_LLL . ':tx_cart_domain_model_order_taxclass.calc',
             'config' => [
-                'type' => 'input',
+                'type' => 'number',
                 'readOnly' => 1,
                 'size' => 30,
-                'eval' => 'double2',
+                'format' => 'decimal',
             ],
         ],
         'item' => [

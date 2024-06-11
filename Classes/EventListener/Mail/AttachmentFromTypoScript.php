@@ -20,7 +20,7 @@ class AttachmentFromTypoScript
     private array $settings;
 
     public function __construct(
-        private ConfigurationManager $configurationManager
+        private readonly ConfigurationManager $configurationManager
     ) {
         $this->settings = $this->configurationManager->getConfiguration(
             ConfigurationManager::CONFIGURATION_TYPE_FRAMEWORK,

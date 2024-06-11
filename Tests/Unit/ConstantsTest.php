@@ -19,7 +19,7 @@ class ConstantsTest extends UnitTestCase
     /**
      * @test
      */
-    public function constantForDoktypeOfCartIsSetCorrectly()
+    public function constantForDoktypeOfCartIsSetCorrectly(): void
     {
         self::assertEquals(181, Constants::DOKTYPE_CART_CART);
     }

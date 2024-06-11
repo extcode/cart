@@ -20,7 +20,7 @@ class AttachmentFromOrderItem
     private array $settings;
 
     public function __construct(
-        private ConfigurationManager $configurationManager
+        private readonly ConfigurationManager $configurationManager
     ) {
         $this->settings = $this->configurationManager->getConfiguration(
             ConfigurationManager::CONFIGURATION_TYPE_FRAMEWORK,
@@ -44,7 +44,7 @@ class AttachmentFromOrderItem
             if ($pdfData !== '1' && $pdfData !== 'true') {
                 continue;
             }
-            $getter = 'get' . ucfirst($pdfType) . 'Pdfs';
+            $getter = 'get' . ucfirst((string)$pdfType) . 'Pdfs';
             $pdfs = $orderItem->$getter();
             if ($pdfs && ($pdfs instanceof ObjectStorage)) {
                 $documents = $pdfs->toArray();

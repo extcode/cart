@@ -18,12 +18,9 @@ class CurrencyController extends ActionController
     public const AJAX_CART_TYPE_NUM = '2278001';
     public const AJAX_CURRENCY_TYPE_NUM = '2278003';
 
-    protected CurrencyUtility $currencyUtility;
-
-    public function injectCurrencyUtility(CurrencyUtility $currencyUtility): void
-    {
-        $this->currencyUtility = $currencyUtility;
-    }
+    public function __construct(
+        protected CurrencyUtility $currencyUtility
+    ) {}
 
     public function updateAction(): ResponseInterface
     {

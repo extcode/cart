@@ -14,27 +14,14 @@ use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 
 class ProductAdditional extends AbstractEntity
 {
-    protected string $additionalType;
-
-    protected string $additionalKey;
-
-    protected string $additionalValue;
-
-    protected string $additionalData = '';
-
     protected string $additional;
 
     public function __construct(
-        string $type,
-        string $key,
-        string $value,
-        string $data = ''
-    ) {
-        $this->additionalType = $type;
-        $this->additionalKey = $key;
-        $this->additionalValue = $value;
-        $this->additionalData = $data;
-    }
+        protected string $additionalType,
+        protected string $additionalKey,
+        protected string $additionalValue,
+        protected string $additionalData = ''
+    ) {}
 
     public function getAdditionalType(): string
     {

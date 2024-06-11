@@ -18,42 +18,21 @@ class Extra
      */
     protected $service;
 
-    protected int $id;
-
-    protected float $condition = 0.0;
-
-    protected float $price = 0.0;
-
     protected float $gross = 0.0;
 
     protected float $net = 0.0;
 
-    protected TaxClass $taxClass;
-
     protected float $tax = 0.0;
 
-    protected bool $isNetPrice = false;
-
-    protected string $extraType = '';
-
     public function __construct(
-        int $id,
-        float $condition,
-        float $price,
-        TaxClass $taxClass,
-        bool $isNetPrice = false,
-        string $extraType = '',
+        protected int $id,
+        protected float $condition,
+        protected float $price,
+        protected TaxClass $taxClass,
+        protected bool $isNetPrice = false,
+        protected string $extraType = '',
         Service $service = null
     ) {
-        $this->id = $id;
-        $this->condition = $condition;
-        $this->taxClass = $taxClass;
-        $this->price = $price;
-
-        $this->isNetPrice = $isNetPrice;
-
-        $this->extraType = $extraType;
-
         $this->service = $service;
 
         $this->reCalc();
@@ -215,9 +194,7 @@ class Extra
 
         $total = array_sum($taxClassDistribution);
 
-        return array_map(function ($gross) use ($total) {
-            return $gross / $total;
-        }, $taxClassDistribution);
+        return array_map(fn($gross) => $gross / $total, $taxClassDistribution);
     }
 
     protected function calcNet(): void

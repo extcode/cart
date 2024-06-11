@@ -33,7 +33,7 @@ class TaxClassServiceTest extends FunctionalTestCase
     }
 
     #[Test]
-    public function parsingTaxClassesFromTypoScriptWithoutCountryCodeReturnsDirectlyConfiguredArrayOfTaxClasses()
+    public function parsingTaxClassesFromTypoScriptWithoutCountryCodeReturnsDirectlyConfiguredArrayOfTaxClasses(): void
     {
         $settings = [
             'taxClasses' => [
@@ -86,7 +86,7 @@ class TaxClassServiceTest extends FunctionalTestCase
     }
 
     #[Test]
-    public function parsingTaxClassesFromTypoScriptWithCountryCodeReturnsCountrySpecificArrayOfTaxClasses()
+    public function parsingTaxClassesFromTypoScriptWithCountryCodeReturnsCountrySpecificArrayOfTaxClasses(): void
     {
         $settings = [
             'taxClasses' => [
@@ -158,7 +158,7 @@ class TaxClassServiceTest extends FunctionalTestCase
     }
 
     #[Test]
-    public function parsingTaxClassesFromTypoScriptWithNotConfiguredCountryCodeReturnsFallbackArrayOfTaxClasses()
+    public function parsingTaxClassesFromTypoScriptWithNotConfiguredCountryCodeReturnsFallbackArrayOfTaxClasses(): void
     {
         $settings = [
             'taxClasses' => [
@@ -247,7 +247,7 @@ class TaxClassServiceTest extends FunctionalTestCase
     }
 
     #[Test]
-    public function parsingTaxClassesFromTypoScriptWithIntegerZeroAsCalcIsValid()
+    public function parsingTaxClassesFromTypoScriptWithIntegerZeroAsCalcIsValid(): void
     {
         $settings = [
             'taxClasses' => [

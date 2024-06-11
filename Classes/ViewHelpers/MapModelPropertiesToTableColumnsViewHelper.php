@@ -26,7 +26,7 @@ class MapModelPropertiesToTableColumnsViewHelper extends AbstractViewHelper
      */
     protected $configuration;
 
-    public function initializeArguments()
+    public function initializeArguments(): void
     {
         parent::initializeArguments();
 

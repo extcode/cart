@@ -22,17 +22,14 @@ use TYPO3\CMS\Dashboard\Widgets\ChartDataProviderInterface;
 
 class OrdersPerDayProvider implements ChartDataProviderInterface
 {
-    private LanguageService $languageService;
-    private QueryBuilder $queryBuilder;
+    private readonly LanguageService $languageService;
     private array $options;
 
     public function __construct(
-        QueryBuilder $queryBuilder,
+        private readonly QueryBuilder $queryBuilder,
         array $options = []
     ) {
         $this->languageService = GeneralUtility::makeInstance(LanguageServiceFactory::class)->create($GLOBALS['BE_USER']->uc['lang']);
-
-        $this->queryBuilder = $queryBuilder;
         $this->options = array_merge(
             [
                 'fieldName' => 'tx_cart_domain_model_order_item.order_date',

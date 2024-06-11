@@ -21,12 +21,9 @@ use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 
 class CouponController extends ActionController
 {
-    protected CouponRepository $couponRepository;
-
-    public function injectCouponRepository(CouponRepository $couponRepository): void
-    {
-        $this->couponRepository = $couponRepository;
-    }
+    public function __construct(
+        protected CouponRepository $couponRepository
+    ) {}
 
     public function addAction(): ResponseInterface
     {

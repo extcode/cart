@@ -41,7 +41,8 @@ class BeVariantTest extends UnitTestCase
         $this->taxClass = new TaxClass(1, '19', 0.19, 'normal');
 
         $this->product = $this->getMockBuilder(Product::class)
-            ->onlyMethods(['getBestPrice'])
+            ->onlyMethods([])
+            ->enableOriginalConstructor()
             ->setConstructorArgs(
                 [
                     'Cart',
@@ -53,7 +54,6 @@ class BeVariantTest extends UnitTestCase
                     1,
                 ]
             )->getMock();
-        $this->product->method('getBestPrice')->willReturn(10.00);
 
         $this->id = '1';
         $this->title = 'Test Variant';
@@ -489,19 +489,7 @@ class BeVariantTest extends UnitTestCase
             ],
         ];
 
-        $product = $this->getAccessibleMock(
-            Product::class,
-            ['getTaxClass', 'getPrice', 'getTitle', 'getSku'],
-            [],
-            '',
-            false
-        );
-        $product->_set('quantityDiscounts', $quantityDiscounts);
-
-        $product->method('getTaxClass')->willReturn($this->taxClass);
-        $product->method('getPrice')->willReturn(10.00);
-        $product->method('getTitle')->willReturn('Test Product');
-        $product->method('getSku')->willReturn('test-product');
+        $this->product->setQuantityDiscounts($quantityDiscounts);
 
         $title = 'Test Variant';
         $sku = 'test-variant-sku';
@@ -510,7 +498,7 @@ class BeVariantTest extends UnitTestCase
 
         $beVariant1 = new BeVariant(
             '1',
-            $product,
+            $this->product,
             null,
             $title,
             $sku,
@@ -518,11 +506,11 @@ class BeVariantTest extends UnitTestCase
             $price,
             1
         );
-        $product->addBeVariant($beVariant1);
+        $this->product->addBeVariant($beVariant1);
 
         $beVariant2 = new BeVariant(
             '2',
-            $product,
+            $this->product,
             null,
             $title,
             $sku,
@@ -530,11 +518,11 @@ class BeVariantTest extends UnitTestCase
             $price,
             3
         );
-        $product->addBeVariant($beVariant2);
+        $this->product->addBeVariant($beVariant2);
 
         $beVariant3 = new BeVariant(
             '3',
-            $product,
+            $this->product,
             null,
             $title,
             $sku,
@@ -542,7 +530,7 @@ class BeVariantTest extends UnitTestCase
             $price,
             4
         );
-        $product->addBeVariant($beVariant3);
+        $this->product->addBeVariant($beVariant3);
 
         self::assertSame(
             10.00,

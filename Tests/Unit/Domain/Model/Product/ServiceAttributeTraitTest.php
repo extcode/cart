@@ -28,7 +28,7 @@ class ServiceAttributeTraitTest extends UnitTestCase
     /**
      * @test
      */
-    public function getServiceAttribute1ReturnsZero()
+    public function getServiceAttribute1ReturnsZero(): void
     {
         self::assertSame(
             0.0,
@@ -39,7 +39,7 @@ class ServiceAttributeTraitTest extends UnitTestCase
     /**
      * @test
      */
-    public function setServiceAttribute1SetsServiceAttribute1()
+    public function setServiceAttribute1SetsServiceAttribute1(): void
     {
         $serviceAttribute1 = 1.0;
 
@@ -54,7 +54,7 @@ class ServiceAttributeTraitTest extends UnitTestCase
     /**
      * @test
      */
-    public function getServiceAttribute2ReturnsZero()
+    public function getServiceAttribute2ReturnsZero(): void
     {
         self::assertSame(
             0.0,
@@ -65,7 +65,7 @@ class ServiceAttributeTraitTest extends UnitTestCase
     /**
      * @test
      */
-    public function setServiceAttribute2SetsServiceAttribute2()
+    public function setServiceAttribute2SetsServiceAttribute2(): void
     {
         $serviceAttribute2 = 2.0;
 
@@ -80,7 +80,7 @@ class ServiceAttributeTraitTest extends UnitTestCase
     /**
      * @test
      */
-    public function getServiceAttribute3ReturnsZero()
+    public function getServiceAttribute3ReturnsZero(): void
     {
         self::assertSame(
             0.0,
@@ -91,7 +91,7 @@ class ServiceAttributeTraitTest extends UnitTestCase
     /**
      * @test
      */
-    public function setServiceAttribute3SetsServiceAttribute3()
+    public function setServiceAttribute3SetsServiceAttribute3(): void
     {
         $serviceAttribute3 = 3.0;
 

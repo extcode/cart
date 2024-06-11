@@ -34,7 +34,7 @@ class Service implements ServiceInterface
         return $this->config;
     }
 
-    public function setCart(Cart $cart)
+    public function setCart(Cart $cart): void
     {
         $this->cart = $cart;
     }
@@ -302,33 +302,20 @@ class Service implements ServiceInterface
      */
     protected function getConditionValueFromCart(string $extraType)
     {
-        switch ($extraType) {
-            case 'by_price':
-                return $this->cart->getGross();
-            case 'by_price_of_physical_products':
-                return $this->getPriceOfPhysicalProducts();
-            case 'by_quantity':
-            case 'by_number_of_physical_products':
-                return $this->cart->getCountPhysicalProducts();
-            case 'by_number_of_virtual_products':
-                return $this->cart->getCountVirtualProducts();
-            case 'by_number_of_all_products':
-                return $this->cart->getCount();
-            case 'by_service_attribute_1_sum':
-                return $this->cart->getSumServiceAttribute1();
-            case 'by_service_attribute_1_max':
-                return $this->cart->getMaxServiceAttribute1();
-            case 'by_service_attribute_2_sum':
-                return $this->cart->getSumServiceAttribute2();
-            case 'by_service_attribute_2_max':
-                return $this->cart->getMaxServiceAttribute2();
-            case 'by_service_attribute_3_sum':
-                return $this->cart->getSumServiceAttribute3();
-            case 'by_service_attribute_3_max':
-                return $this->cart->getMaxServiceAttribute3();
-            default:
-                return null;
-        }
+        return match ($extraType) {
+            'by_price' => $this->cart->getGross(),
+            'by_price_of_physical_products' => $this->getPriceOfPhysicalProducts(),
+            'by_quantity', 'by_number_of_physical_products' => $this->cart->getCountPhysicalProducts(),
+            'by_number_of_virtual_products' => $this->cart->getCountVirtualProducts(),
+            'by_number_of_all_products' => $this->cart->getCount(),
+            'by_service_attribute_1_sum' => $this->cart->getSumServiceAttribute1(),
+            'by_service_attribute_1_max' => $this->cart->getMaxServiceAttribute1(),
+            'by_service_attribute_2_sum' => $this->cart->getSumServiceAttribute2(),
+            'by_service_attribute_2_max' => $this->cart->getMaxServiceAttribute2(),
+            'by_service_attribute_3_sum' => $this->cart->getSumServiceAttribute3(),
+            'by_service_attribute_3_max' => $this->cart->getMaxServiceAttribute3(),
+            default => null,
+        };
     }
 
     protected function getPriceOfPhysicalProducts(): float

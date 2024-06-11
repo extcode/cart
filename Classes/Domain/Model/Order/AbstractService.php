@@ -20,19 +20,13 @@ abstract class AbstractService extends AbstractEntity
 
     protected string $serviceCountry = '';
 
-    /**
-     * @Validate("NotEmpty")
-     */
+    #[Validate(['validator' => 'NotEmpty'])]
     protected ?int $serviceId = null;
 
-    /**
-     * @Validate("NotEmpty")
-     */
+    #[Validate(['validator' => 'NotEmpty'])]
     protected string $name = '';
 
-    /**
-     * @Validate("NotEmpty")
-     */
+    #[Validate(['validator' => 'NotEmpty'])]
     protected string $status = 'open';
 
     protected float $net = 0.0;
@@ -41,9 +35,7 @@ abstract class AbstractService extends AbstractEntity
 
     protected ?TaxClass $taxClass = null;
 
-    /**
-     * @Validate("NotEmpty")
-     */
+    #[Validate(['validator' => 'NotEmpty'])]
     protected float $tax = 0.0;
 
     protected string $note = '';

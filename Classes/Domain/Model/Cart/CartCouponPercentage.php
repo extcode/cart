@@ -13,24 +13,18 @@ namespace Extcode\Cart\Domain\Model\Cart;
 
 class CartCouponPercentage extends AbstractCartCoupon
 {
-    protected float $discount;
-
-    protected TaxClass $taxClass;
-
     public function __construct(
         string $title,
         string $code,
         string $couponType,
-        float $discount,
-        TaxClass $taxClass,
+        protected float $discount,
+        protected TaxClass $taxClass,
         float $cartMinPrice
     ) {
         $this->title = $title;
         $this->code = $code;
         $this->couponType = $couponType;
-        $this->discount = $discount;
         $this->cartMinPrice = $cartMinPrice;
-        $this->taxClass = $taxClass;
 
         // Currently, percentage vouchers are not combinable, because here then the order of discount calculation for
         // different voucher types plays a role and can lead to different prices in the shopping cart.

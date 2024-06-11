@@ -51,10 +51,9 @@ return [
             'exclude' => 0,
             'label' => $_LLL . ':tx_cart_domain_model_order_shipping.service_id',
             'config' => [
-                'type' => 'input',
+                'type' => 'number',
                 'readOnly' => 1,
                 'size' => 30,
-                'eval' => 'int',
                 'required' => true,
             ],
         ],
@@ -90,30 +89,30 @@ return [
             'exclude' => 0,
             'label' => $_LLL . ':tx_cart_domain_model_order_shipping.gross',
             'config' => [
-                'type' => 'input',
+                'type' => 'number',
                 'readOnly' => 1,
                 'size' => 30,
-                'eval' => 'double2',
+                'format' => 'decimal',
             ],
         ],
         'net' => [
             'exclude' => 0,
             'label' => $_LLL . ':tx_cart_domain_model_order_shipping.net',
             'config' => [
-                'type' => 'input',
+                'type' => 'number',
                 'readOnly' => 1,
                 'size' => 30,
-                'eval' => 'double2',
+                'format' => 'decimal',
             ],
         ],
         'tax' => [
             'exclude' => 0,
             'label' => $_LLL . ':tx_cart_domain_model_order_shipping.tax',
             'config' => [
-                'type' => 'input',
+                'type' => 'number',
                 'readOnly' => 1,
                 'size' => 30,
-                'eval' => 'double2',
+                'format' => 'decimal',
             ],
         ],
         'tax_class' => [

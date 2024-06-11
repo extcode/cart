@@ -28,7 +28,7 @@ class MeasureTraitTest extends UnitTestCase
     /**
      * @test
      */
-    public function getPriceMeasure()
+    public function getPriceMeasure(): void
     {
         self::assertSame(
             0.0,
@@ -39,7 +39,7 @@ class MeasureTraitTest extends UnitTestCase
     /**
      * @test
      */
-    public function setPriceMeasureSetsPriceMeasure()
+    public function setPriceMeasureSetsPriceMeasure(): void
     {
         $priceMeasure = 10.99;
 
@@ -51,7 +51,7 @@ class MeasureTraitTest extends UnitTestCase
         );
     }
 
-    public function getMeasureUnitsInitiallyReturnsArrayWithWeightsVolumesAndLengths()
+    public function getMeasureUnitsInitiallyReturnsArrayWithWeightsVolumesAndLengths(): void
     {
         self::assertIsArray(
             $this->trait->getMeasureUnits()
@@ -73,7 +73,7 @@ class MeasureTraitTest extends UnitTestCase
     /**
      * @test
      */
-    public function setMeasureUnitsSetsMeasureUnits()
+    public function setMeasureUnitsSetsMeasureUnits(): void
     {
         $measureUnits = [
             'weight' => [
@@ -94,7 +94,7 @@ class MeasureTraitTest extends UnitTestCase
     /**
      * @test
      */
-    public function getPriceMeasureUnit()
+    public function getPriceMeasureUnit(): void
     {
         self::assertSame(
             '',
@@ -105,7 +105,7 @@ class MeasureTraitTest extends UnitTestCase
     /**
      * @test
      */
-    public function setPriceMeasureUnitSetsPriceMeasureUnit()
+    public function setPriceMeasureUnitSetsPriceMeasureUnit(): void
     {
         $priceMeasureUnit = 'l';
 
@@ -120,7 +120,7 @@ class MeasureTraitTest extends UnitTestCase
     /**
      * @test
      */
-    public function getBasePriceMeasureUnit()
+    public function getBasePriceMeasureUnit(): void
     {
         self::assertSame(
             '',
@@ -131,7 +131,7 @@ class MeasureTraitTest extends UnitTestCase
     /**
      * @test
      */
-    public function setBasePriceMeasureUnitSetsBasePriceMeasureUnit()
+    public function setBasePriceMeasureUnitSetsBasePriceMeasureUnit(): void
     {
         $priceBaseMeasureUnit = 'l';
 
@@ -146,7 +146,7 @@ class MeasureTraitTest extends UnitTestCase
     /**
      * @test
      */
-    public function getIsMeasureUnitCompatibilityInitiallyRetrunsFalse()
+    public function getIsMeasureUnitCompatibilityInitiallyRetrunsFalse(): void
     {
         self::assertFalse(
             $this->trait->getIsMeasureUnitCompatibility()
@@ -156,7 +156,7 @@ class MeasureTraitTest extends UnitTestCase
     /**
      * @test
      */
-    public function getIsMeasureUnitCompatibilityAndNotSetPriceMeasureUnitsRetrunsFalse()
+    public function getIsMeasureUnitCompatibilityAndNotSetPriceMeasureUnitsRetrunsFalse(): void
     {
         $this->trait->setBasePriceMeasureUnit('l');
 
@@ -168,7 +168,7 @@ class MeasureTraitTest extends UnitTestCase
     /**
      * @test
      */
-    public function getIsMeasureUnitCompatibilityAndNotSetBasePriceMeasureUnitsRetrunsFalse()
+    public function getIsMeasureUnitCompatibilityAndNotSetBasePriceMeasureUnitsRetrunsFalse(): void
     {
         self::assertFalse(
             $this->trait->getIsMeasureUnitCompatibility()
@@ -208,7 +208,7 @@ class MeasureTraitTest extends UnitTestCase
         $factor,
         $priceMeasure,
         $calculatedBasePrice
-    ) {
+    ): void {
         $this->trait->setPriceMeasureUnit($sourceMeasureUnit);
         $this->trait->setBasePriceMeasureUnit($targetMeasureUnit);
 
@@ -227,7 +227,7 @@ class MeasureTraitTest extends UnitTestCase
         $factor,
         $priceMeasure,
         $calculatedBasePrice
-    ) {
+    ): void {
         $this->trait->setPriceMeasureUnit($sourceMeasureUnit);
         $this->trait->setBasePriceMeasureUnit($targetMeasureUnit);
         $this->trait->setPriceMeasure(1);
@@ -248,7 +248,7 @@ class MeasureTraitTest extends UnitTestCase
         $factor,
         $priceMeasure,
         $calculatedBasePrice
-    ) {
+    ): void {
         $this->trait->setPriceMeasureUnit($sourceMeasureUnit);
         $this->trait->setBasePriceMeasureUnit($targetMeasureUnit);
         $this->trait->setPriceMeasure($priceMeasure);

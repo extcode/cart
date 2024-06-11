@@ -13,11 +13,6 @@ namespace Extcode\Cart\Domain\Model\Cart;
 
 class Cart
 {
-    /**
-     * @var TaxClass[]
-     */
-    protected array $taxClasses;
-
     protected float $net;
 
     protected float $gross;
@@ -52,8 +47,6 @@ class Cart
 
     protected float $sumServiceAttr3 = 0.0;
 
-    protected bool $isNetCart = false;
-
     protected string $orderNumber = '';
 
     protected string $invoiceNumber = '';
@@ -73,20 +66,16 @@ class Cart
 
     protected string $shippingCountry = '';
 
-    protected string $currencyCode = '';
-
-    protected string $currencySign = '';
-
-    protected float $currencyTranslation = 1.0;
-
     public function __construct(
-        array $taxClasses,
-        bool $isNetCart = false,
-        string $currencyCode = 'EUR',
-        string $currencySign = '€',
-        float $currencyTranslation = 1.00
+        /**
+         * @var TaxClass[]
+         */
+        protected array $taxClasses,
+        protected bool $isNetCart = false,
+        protected string $currencyCode = 'EUR',
+        protected string $currencySign = '€',
+        protected float $currencyTranslation = 1.00
     ) {
-        $this->taxClasses = $taxClasses;
         $this->net = 0.0;
         $this->gross = 0.0;
         $this->count = 0;
@@ -98,20 +87,9 @@ class Cart
         $this->sumServiceAttr1 = 0.0;
         $this->sumServiceAttr2 = 0.0;
         $this->sumServiceAttr3 = 0.0;
-
-        $this->isNetCart = $isNetCart;
-
-        $this->currencyCode = $currencyCode;
-        $this->currencySign = $currencySign;
-        $this->currencyTranslation = $currencyTranslation;
     }
 
-    /**
-     * __sleep
-     *
-     * @return array
-     */
-    public function __sleep()
+    public function __sleep(): array
     {
         return [
             'taxClasses',
@@ -144,9 +122,6 @@ class Cart
         ];
     }
 
-    /**
-     * __wakeup
-     */
     public function __wakeup() {}
 
     /**
@@ -313,14 +288,14 @@ class Cart
         if ($this->payment) {
             $paymentTaxes = $this->payment->getTaxes();
             foreach ($paymentTaxes as $paymentTax) {
-                $taxes[$paymentTax['taxClassId']] = $taxes[$paymentTax['taxClassId']] ?? 0; // ensure, $taxes[<int>] exists
+                $taxes[$paymentTax['taxClassId']] ??= 0; // ensure, $taxes[<int>] exists
                 $taxes[$paymentTax['taxClassId']] += $paymentTax['tax'];
             }
         }
         if ($this->shipping) {
             $shippingTaxes = $this->shipping->getTaxes();
             foreach ($shippingTaxes as $shippingTax) {
-                $taxes[$shippingTax['taxClassId']] = $taxes[$shippingTax['taxClassId']] ?? 0; // ensure, $taxes[<int>] exists
+                $taxes[$shippingTax['taxClassId']] ??= 0; // ensure, $taxes[<int>] exists
                 $taxes[$shippingTax['taxClassId']] += $shippingTax['tax'];
             }
         }
@@ -328,7 +303,7 @@ class Cart
             foreach ($this->specials as $special) {
                 $specialTaxes = $special->getTaxes();
                 foreach ($specialTaxes as $specialTax) {
-                    $taxes[$specialTax['taxClassId']] = $taxes[$specialTax['taxClassId']] ?? 0; // ensure, $taxes[<int>] exists
+                    $taxes[$specialTax['taxClassId']] ??= 0; // ensure, $taxes[<int>] exists
                     $taxes[$specialTax['taxClassId']] += $specialTax['tax'];
                 }
             }
@@ -514,11 +489,7 @@ class Cart
 
     public function getProductById(string $productId): ?Product
     {
-        if (isset($this->products[$productId])) {
-            return $this->products[$productId];
-        }
-
-        return null;
+        return $this->products[$productId] ?? null;
     }
 
     /**
@@ -695,9 +666,7 @@ class Cart
      */
     public function getDiscountTaxes(): array
     {
-        $taxes = array_map(function ($value) {
-            return -1 * $value;
-        }, $this->getCouponTaxes());
+        $taxes = array_map(fn($value) => -1 * $value, $this->getCouponTaxes());
 
         return $taxes;
     }
@@ -1011,10 +980,7 @@ class Cart
         return $this->additional[$key];
     }
 
-    /**
-     * @param mixed $value
-     */
-    public function setAdditional(string $key, $value): void
+    public function setAdditional(string $key, mixed $value): void
     {
         $this->additional[$key] = $value;
     }

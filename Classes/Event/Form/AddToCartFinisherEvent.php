@@ -15,8 +15,8 @@ class AddToCartFinisherEvent
     private array $cartProducts = [];
 
     public function __construct(
-        private array $formValues,
-        private Cart $cart
+        private readonly array $formValues,
+        private readonly Cart $cart
     ) {}
 
     public function getFormValues(): array

@@ -25,18 +25,12 @@ use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 
 class OrderController extends ActionController
 {
-    protected ItemRepository $itemRepository;
-
     protected array $searchArguments = [];
     protected array $pluginSettings;
 
-    public function injectItemRepository(ItemRepository $itemRepository): void
-    {
-        $this->itemRepository = $itemRepository;
-    }
-
     public function __construct(
         private readonly Context $context,
+        protected ItemRepository $itemRepository
     ) {}
 
     protected function initializeAction(): void
@@ -74,9 +68,7 @@ class OrderController extends ActionController
         return $this->htmlResponse();
     }
 
-    /**
-     * @IgnoreValidation("orderItem")
-     */
+    #[IgnoreValidation(['value' => 'orderItem'])]
     public function showAction(Item $orderItem): ResponseInterface
     {
         $feUserUid = $this->context->getPropertyFromAspect('frontend.user', 'id');

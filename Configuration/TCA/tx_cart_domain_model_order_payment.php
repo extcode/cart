@@ -51,10 +51,9 @@ return [
             'exclude' => 0,
             'label' => $_LLL . ':tx_cart_domain_model_order_payment.service_id',
             'config' => [
-                'type' => 'input',
+                'type' => 'number',
                 'readOnly' => 1,
                 'size' => 30,
-                'eval' => 'int',
                 'required' => true,
             ],
         ],
@@ -100,30 +99,30 @@ return [
             'exclude' => 0,
             'label' => $_LLL . ':tx_cart_domain_model_order_payment.gross',
             'config' => [
-                'type' => 'input',
+                'type' => 'number',
                 'readOnly' => 1,
                 'size' => 30,
-                'eval' => 'double2',
+                'format' => 'decimal',
             ],
         ],
         'net' => [
             'exclude' => 0,
             'label' => $_LLL . ':tx_cart_domain_model_order_payment.net',
             'config' => [
-                'type' => 'input',
+                'type' => 'number',
                 'readOnly' => 1,
                 'size' => 30,
-                'eval' => 'double2',
+                'format' => 'decimal',
             ],
         ],
         'tax' => [
             'exclude' => 0,
             'label' => $_LLL . ':tx_cart_domain_model_order_payment.tax',
             'config' => [
-                'type' => 'input',
+                'type' => 'number',
                 'readOnly' => 1,
                 'size' => 30,
-                'eval' => 'double2',
+                'format' => 'decimal',
             ],
         ],
         'tax_class' => [

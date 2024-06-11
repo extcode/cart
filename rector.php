@@ -2,12 +2,14 @@
 
 declare(strict_types=1);
 
+use Rector\CodeQuality\Rector\ClassMethod\OptionalParametersAfterRequiredRector;
 use Rector\Config\RectorConfig;
 use Rector\PostRector\Rector\NameImportingPostRector;
 use Rector\TypeDeclaration\Rector\ClassMethod\AddVoidReturnTypeWhereNoReturnRector;
 use Rector\ValueObject\PhpVersion;
 use Ssch\TYPO3Rector\CodeQuality\General\ConvertImplicitVariablesToExplicitGlobalsRector;
 use Ssch\TYPO3Rector\CodeQuality\General\ExtEmConfRector;
+use Ssch\TYPO3Rector\CodeQuality\General\InjectMethodToConstructorInjectionRector;
 use Ssch\TYPO3Rector\Configuration\Typo3Option;
 use Ssch\TYPO3Rector\Set\Typo3LevelSetList;
 use Ssch\TYPO3Rector\Set\Typo3SetList;
@@ -22,7 +24,7 @@ return RectorConfig::configure()
         __DIR__ . '/ext_localconf.php',
     ])
     // uncomment to reach your current PHP version
-     ->withPhpSets(php81: true)
+    ->withPhpSets(php81: true)
     ->withPhpVersion(PhpVersion::PHP_81)
     ->withSets([
         Typo3SetList::CODE_QUALITY,
@@ -49,5 +51,7 @@ return RectorConfig::configure()
         NameImportingPostRector::class => [
             'ClassAliasMap.php',
         ],
+        InjectMethodToConstructorInjectionRector::class,
+        OptionalParametersAfterRequiredRector::class,
     ])
 ;

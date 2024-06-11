@@ -13,29 +13,15 @@ namespace Extcode\Cart\Domain\Model\Cart;
 
 class Product
 {
-    protected string $productType;
-
-    protected int $productId;
-
     protected ?Cart $cart = null;
-
-    protected ?string $title = null;
-
-    protected ?string $sku = null;
-
-    protected ?float $price = null;
 
     protected ?float $specialPrice = null;
 
     protected array $quantityDiscounts = [];
 
-    protected ?int $quantity = null;
-
     protected float $gross;
 
     protected float $net;
-
-    protected TaxClass $taxClass;
 
     protected float $tax;
 
@@ -48,8 +34,6 @@ class Product
     protected ?float $serviceAttribute2 = null;
 
     protected ?float $serviceAttribute3 = null;
-
-    protected bool $isNetPrice = false;
 
     protected array $beVariants = [];
 
@@ -77,25 +61,16 @@ class Product
     protected bool $handleStockInVariants = false;
 
     public function __construct(
-        string $productType,
-        int $productId,
-        string $sku,
-        string $title,
-        float $price,
-        TaxClass $taxClass,
-        int $quantity,
-        bool $isNetPrice = false,
+        protected string $productType,
+        protected int $productId,
+        protected string $sku,
+        protected string $title,
+        protected float $price,
+        protected TaxClass $taxClass,
+        protected int $quantity,
+        protected bool $isNetPrice = false,
         FeVariant $feVariant = null
     ) {
-        $this->productType = $productType;
-        $this->productId = $productId;
-        $this->sku = $sku;
-        $this->title = $title;
-        $this->price = $price;
-        $this->taxClass = $taxClass;
-        $this->quantity = $quantity;
-        $this->isNetPrice = $isNetPrice;
-
         if ($feVariant) {
             $this->feVariant = $feVariant;
         }
@@ -168,7 +143,7 @@ class Product
             /** @var BeVariant $variant */
             $variant = $this->beVariants[$variantId];
 
-            if (ctype_digit($quantity)) {
+            if (ctype_digit((string)$quantity)) {
                 $quantity = (int)$quantity;
                 $variant->changeQuantity($quantity);
             } elseif (is_array($quantity)) {
@@ -191,11 +166,7 @@ class Product
 
     public function getBeVariantById(string $variantId): ?BeVariant
     {
-        if (isset($this->beVariants[$variantId])) {
-            return $this->beVariants[$variantId];
-        }
-
-        return null;
+        return $this->beVariants[$variantId] ?? null;
     }
 
     public function removeBeVariants(array $variantsArray): int
@@ -310,7 +281,7 @@ class Product
     {
         $price = $this->getTranslatedPrice();
 
-        $quantity = $quantity ? $quantity : $this->getQuantity();
+        $quantity = $quantity ?: $this->getQuantity();
 
         if ($this->getQuantityDiscounts()) {
             foreach ($this->getQuantityDiscounts() as $quantityDiscount) {
@@ -662,10 +633,7 @@ class Product
         return $this->additional[$key];
     }
 
-    /**
-     * @param mixed $value
-     */
-    public function setAdditional(string $key, $value): void
+    public function setAdditional(string $key, mixed $value): void
     {
         $this->additional[$key] = $value;
     }

@@ -21,7 +21,7 @@ class FrontendUser extends AbstractEntity
      */
     protected ObjectStorage $usergroup;
 
-    public function construct()
+    public function construct(): void
     {
         $this->usergroup = new ObjectStorage();
     }

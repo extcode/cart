@@ -57,18 +57,18 @@ return [
             'exclude' => 0,
             'label' => $_LLL . ':tx_cart_domain_model_order_discount.gross',
             'config' => [
-                'type' => 'input',
+                'type' => 'number',
                 'size' => 30,
-                'eval' => 'double2',
+                'format' => 'decimal',
             ],
         ],
         'net' => [
             'exclude' => 0,
             'label' => $_LLL . ':tx_cart_domain_model_order_discount.net',
             'config' => [
-                'type' => 'input',
+                'type' => 'number',
                 'size' => 30,
-                'eval' => 'double2',
+                'format' => 'decimal',
             ],
         ],
         'tax_class_id' => [
@@ -89,9 +89,9 @@ return [
             'exclude' => 0,
             'label' => $_LLL . ':tx_cart_domain_model_order_discount.tax',
             'config' => [
-                'type' => 'input',
+                'type' => 'number',
                 'size' => 30,
-                'eval' => 'double2',
+                'format' => 'decimal',
             ],
         ],
 

@@ -19,9 +19,9 @@ class Payment extends AbstractService
     protected string $provider = '';
 
     /**
-     * @Lazy
      * @var ObjectStorage<Transaction>
      */
+    #[Lazy]
     protected ?ObjectStorage $transactions = null;
 
     public function __construct()

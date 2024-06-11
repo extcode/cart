@@ -54,7 +54,7 @@ class EmptyValidatorTest extends UnitTestCase
     /**
      * @test
      */
-    public function emptyValidatorReturnsErrorForASimpleString()
+    public function emptyValidatorReturnsErrorForASimpleString(): void
     {
         self::assertTrue($this->validator->validate('a not empty string')->hasErrors());
     }
@@ -62,7 +62,7 @@ class EmptyValidatorTest extends UnitTestCase
     /**
      * @test
      */
-    public function emptyValidatorReturnsNoErrorForAnEmptyString()
+    public function emptyValidatorReturnsNoErrorForAnEmptyString(): void
     {
         self::assertFalse($this->validator->validate('')->hasErrors());
     }
@@ -70,7 +70,7 @@ class EmptyValidatorTest extends UnitTestCase
     /**
      * @test
      */
-    public function emptyValidatorReturnsErrorForASimpleNumber()
+    public function emptyValidatorReturnsErrorForASimpleNumber(): void
     {
         self::assertTrue($this->validator->validate(1)->hasErrors());
         self::assertTrue($this->validator->validate(1)->hasErrors());
@@ -80,7 +80,7 @@ class EmptyValidatorTest extends UnitTestCase
     /**
      * @test
      */
-    public function emptyValidatorReturnsNoErrorForANullValue()
+    public function emptyValidatorReturnsNoErrorForANullValue(): void
     {
         self::assertFalse($this->validator->validate(null)->hasErrors());
     }
@@ -88,7 +88,7 @@ class EmptyValidatorTest extends UnitTestCase
     /**
      * @test
      */
-    public function emptyValidatorCreatesTheCorrectErrorForAnEmptySubject()
+    public function emptyValidatorCreatesTheCorrectErrorForAnEmptySubject(): void
     {
         self::assertEquals(1, count($this->validator->validate('a not empty string')->getErrors()));
     }
@@ -96,7 +96,7 @@ class EmptyValidatorTest extends UnitTestCase
     /**
      * @test
      */
-    public function emptyValidatorWorksForArrays()
+    public function emptyValidatorWorksForArrays(): void
     {
         self::assertFalse($this->validator->validate([])->hasErrors());
         self::assertTrue($this->validator->validate([1 => 2])->hasErrors());
@@ -105,7 +105,7 @@ class EmptyValidatorTest extends UnitTestCase
     /**
      * @test
      */
-    public function emptyValidatorWorksForCountableObjects()
+    public function emptyValidatorWorksForCountableObjects(): void
     {
         self::assertFalse($this->validator->validate(new \SplObjectStorage())->hasErrors());
     }
@@ -113,7 +113,7 @@ class EmptyValidatorTest extends UnitTestCase
     /**
      * @test
      */
-    public function emptyValidatorWorksForEmptyCountableObjects()
+    public function emptyValidatorWorksForEmptyCountableObjects(): void
     {
         $countableObject = new \SplObjectStorage();
         $countableObject->attach(new \stdClass());

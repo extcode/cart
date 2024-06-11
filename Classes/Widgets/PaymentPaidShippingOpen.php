@@ -10,9 +10,9 @@ namespace Extcode\Cart\Widgets;
  * For the full copyright and license information, please read the
  * LICENSE file that was distributed with this source code.
  */
-
 use Psr\Http\Message\ServerRequestInterface;
 use TYPO3\CMS\Backend\View\BackendViewFactory;
+use TYPO3\CMS\Core\View\ViewInterface;
 use TYPO3\CMS\Dashboard\Widgets\ListDataProviderInterface;
 use TYPO3\CMS\Dashboard\Widgets\RequestAwareWidgetInterface;
 use TYPO3\CMS\Dashboard\Widgets\WidgetConfigurationInterface;
@@ -21,24 +21,15 @@ use TYPO3\CMS\Fluid\View\StandaloneView;
 
 class PaymentPaidShippingOpen implements WidgetInterface, RequestAwareWidgetInterface
 {
-    private WidgetConfigurationInterface $configuration;
-    private ListDataProviderInterface $dataProvider;
-    private array $options;
-    private BackendViewFactory $backendViewFactory;
     private ServerRequestInterface $request;
-    private StandaloneView|\TYPO3\CMS\Core\View\ViewInterface $view;
+    private StandaloneView|ViewInterface $view;
 
     public function __construct(
-        WidgetConfigurationInterface $configuration,
-        ListDataProviderInterface $dataProvider,
-        BackendViewFactory $backendViewFactory,
-        array $options = []
-    ) {
-        $this->configuration = $configuration;
-        $this->dataProvider = $dataProvider;
-        $this->backendViewFactory = $backendViewFactory;
-        $this->options = $options;
-    }
+        private readonly WidgetConfigurationInterface $configuration,
+        private readonly ListDataProviderInterface $dataProvider,
+        private readonly BackendViewFactory $backendViewFactory,
+        private readonly array $options = []
+    ) {}
 
     public function setRequest(ServerRequestInterface $request): void
     {

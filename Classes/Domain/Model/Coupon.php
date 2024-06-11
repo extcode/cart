@@ -15,16 +15,6 @@ use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 
 class Coupon extends AbstractEntity
 {
-    protected string $title = '';
-
-    protected string $code = '';
-
-    protected string $couponType = '';
-
-    protected float $discount = 0.0;
-
-    protected int $taxClassId;
-
     protected float $cartMinPrice = 0.0;
 
     protected bool $isCombinable = false;
@@ -38,18 +28,12 @@ class Coupon extends AbstractEntity
     protected int $numberUsed = 0;
 
     public function __construct(
-        string $title,
-        string $code,
-        string $couponType,
-        float $discount,
-        int $taxClassId
-    ) {
-        $this->title = $title;
-        $this->code = $code;
-        $this->couponType = $couponType;
-        $this->discount = $discount;
-        $this->taxClassId = $taxClassId;
-    }
+        protected string $title,
+        protected string $code,
+        protected string $couponType,
+        protected float $discount,
+        protected int $taxClassId
+    ) {}
 
     public function getTitle(): string
     {

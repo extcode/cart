@@ -19,39 +19,20 @@ class Discount extends AbstractEntity
 {
     protected Item $item;
 
-    #[Validate(['validator' => 'NotEmpty'])]
-    protected string $title = '';
-
-    #[Validate(['validator' => 'NotEmpty'])]
-    protected string $code = '';
-
-    #[Validate(['validator' => 'NotEmpty'])]
-    protected float $gross = 0.0;
-
-    #[Validate(['validator' => 'NotEmpty'])]
-    protected float $net = 0.0;
-
-    #[Validate(['validator' => 'NotEmpty'])]
-    protected TaxClass $taxClass;
-
-    #[Validate(['validator' => 'NotEmpty'])]
-    protected float $tax = 0.0;
-
     public function __construct(
-        string $title,
-        string $code,
-        float $gross,
-        float $net,
-        TaxClass $taxClass,
-        float $tax
-    ) {
-        $this->title = $title;
-        $this->code = $code;
-        $this->gross = $gross;
-        $this->net = $net;
-        $this->taxClass = $taxClass;
-        $this->tax = $tax;
-    }
+        #[Validate(['validator' => 'NotEmpty'])]
+        protected string $title,
+        #[Validate(['validator' => 'NotEmpty'])]
+        protected string $code,
+        #[Validate(['validator' => 'NotEmpty'])]
+        protected float $gross,
+        #[Validate(['validator' => 'NotEmpty'])]
+        protected float $net,
+        #[Validate(['validator' => 'NotEmpty'])]
+        protected TaxClass $taxClass,
+        #[Validate(['validator' => 'NotEmpty'])]
+        protected float $tax
+    ) {}
 
     public function getItem(): ?Item
     {

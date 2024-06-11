@@ -20,13 +20,9 @@ use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 
 class PaymentController extends ActionController
 {
-    protected PaymentRepository $paymentRepository;
-
     public function __construct(
-        PaymentRepository $paymentRepository
-    ) {
-        $this->paymentRepository = $paymentRepository;
-    }
+        protected PaymentRepository $paymentRepository
+    ) {}
 
     public function updateAction(Payment $payment): ResponseInterface
     {

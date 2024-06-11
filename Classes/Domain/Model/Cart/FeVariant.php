@@ -17,8 +17,6 @@ class FeVariant
 
     protected ?BeVariant $beVariant = null;
 
-    protected array $variantData = [];
-
     protected string $titleGlue = ' ';
 
     protected string $skuGlue = '-';
@@ -26,10 +24,8 @@ class FeVariant
     protected string $valueGlue = ' ';
 
     public function __construct(
-        array $variantData = []
-    ) {
-        $this->variantData = $variantData;
-    }
+        protected array $variantData = []
+    ) {}
 
     public function getId(): string
     {

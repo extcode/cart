@@ -55,9 +55,7 @@ class OrderController extends ActionController
         }
     }
 
-    /**
-     * @IgnoreValidation("shippingAddress")
-     */
+    #[IgnoreValidation(['value' => 'shippingAddress'])]
     public function createAction(
         Item $orderItem = null,
         BillingAddress $billingAddress = null,
@@ -213,7 +211,7 @@ class OrderController extends ActionController
 
         $onlyGenerateNumberOfType = [];
         if (!empty($this->configurations['autoGenerateNumbers'])) {
-            $onlyGenerateNumberOfType = array_map('trim', explode(',', $this->configurations['autoGenerateNumbers']));
+            $onlyGenerateNumberOfType = array_map('trim', explode(',', (string)$this->configurations['autoGenerateNumbers']));
         }
         $generateNumbersEvent = new NumberGeneratorEvent($this->cart, $orderItem, $this->configurations);
         $generateNumbersEvent->setOnlyGenerateNumberOfType($onlyGenerateNumberOfType);

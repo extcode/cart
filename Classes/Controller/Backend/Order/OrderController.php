@@ -36,34 +36,16 @@ class OrderController extends ActionController
 {
     private const LANG_FILE = 'LLL:EXT:cart/Resources/Private/Language/locallang.xlf:';
 
-    protected PersistenceManager $persistenceManager;
-
     private ModuleTemplate $moduleTemplate;
-
-    protected ItemRepository $itemRepository;
 
     protected array $searchArguments = [];
 
-    private PageRenderer $pageRenderer;
-
-    public function injectPersistenceManager(PersistenceManager $persistenceManager): void
-    {
-        $this->persistenceManager = $persistenceManager;
-    }
-
-    public function injectItemRepository(ItemRepository $itemRepository): void
-    {
-        $this->itemRepository = $itemRepository;
-    }
-
-    public function injectPageRenderer(PageRenderer $pageRenderer): void
-    {
-        $this->pageRenderer = $pageRenderer;
-    }
-
     public function __construct(
         protected readonly ModuleTemplateFactory $moduleTemplateFactory,
-        protected readonly IconFactory $iconFactory
+        protected readonly IconFactory $iconFactory,
+        protected readonly PersistenceManager $persistenceManager,
+        protected readonly ItemRepository $itemRepository,
+        private readonly PageRenderer $pageRenderer
     ) {}
 
     protected function initializeAction(): void
@@ -133,9 +115,7 @@ class OrderController extends ActionController
             ->withBody($this->streamFactory->createStream($this->view->render()));
     }
 
-    /**
-     * @IgnoreValidation("orderItem")
-     */
+    #[IgnoreValidation(['value' => 'orderItem'])]
     public function showAction(Item $orderItem): ResponseInterface
     {
         $this->moduleTemplate = $this->moduleTemplateFactory->create($this->request);

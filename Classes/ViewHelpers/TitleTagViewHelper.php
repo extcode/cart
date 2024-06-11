@@ -34,7 +34,7 @@ class TitleTagViewHelper extends AbstractViewHelper
         array $arguments,
         \Closure $renderChildrenClosure,
         RenderingContextInterface $renderingContext
-    ) {
+    ): void {
         $pageTitle = $arguments['pageTitle'] ?? '';
         if ($pageTitle !== '') {
             GeneralUtility::makeInstance(PageTitleProvider::class)->setTitle($pageTitle);

@@ -17,14 +17,12 @@ use TYPO3\CMS\Dashboard\Widgets\ListDataProviderInterface;
 
 class OrderItemsProvider implements ListDataProviderInterface
 {
-    private QueryBuilder $queryBuilder;
     private array $options;
 
     public function __construct(
-        QueryBuilder $queryBuilder,
+        private readonly QueryBuilder $queryBuilder,
         array $options = []
     ) {
-        $this->queryBuilder = $queryBuilder;
         $this->options = array_merge(
             [
                 'order_by' => 'tx_cart_domain_model_order_item.crdate',

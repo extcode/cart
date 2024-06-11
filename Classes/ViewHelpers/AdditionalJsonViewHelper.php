@@ -20,7 +20,7 @@ class AdditionalJsonViewHelper extends AbstractViewHelper
      */
     protected $escapeOutput = false;
 
-    public function initializeArguments()
+    public function initializeArguments(): void
     {
         parent::initializeArguments();
 
@@ -73,7 +73,7 @@ class AdditionalJsonViewHelper extends AbstractViewHelper
      */
     protected function getValue($data, $key): string
     {
-        list($key, $residual) = explode('|', $key, 2);
+        [$key, $residual] = explode('|', $key, 2);
         if (!empty($residual)) {
             return $this->getValue($data[$key], $residual);
         }

@@ -29,33 +29,16 @@ use TYPO3\CMS\Form\Domain\Finishers\AbstractFinisher;
 
 class AddToCartFinisher extends AbstractFinisher
 {
-    protected EventDispatcherInterface $eventDispatcher;
-
-    protected SessionHandler $sessionHandler;
-
     protected Cart $cart;
-
-    protected CartUtility $cartUtility;
 
     protected array $configurations;
 
-    public function injectSessionHandler(SessionHandler $sessionHandler): void
-    {
-        $this->sessionHandler = $sessionHandler;
-    }
-
-    public function injectCartUtility(CartUtility $cartUtility): void
-    {
-        $this->cartUtility = $cartUtility;
-    }
-
-    public function injectEventDispatcher(EventDispatcherInterface $eventDispatcher): void
-    {
-        $this->eventDispatcher = $eventDispatcher;
-    }
-
-    public function __construct(protected ConfigurationManagerInterface $configurationManager)
-    {
+    public function __construct(
+        protected ConfigurationManagerInterface $configurationManager,
+        protected SessionHandler $sessionHandler,
+        protected CartUtility $cartUtility,
+        protected EventDispatcherInterface $eventDispatcher
+    ) {
         $this->configurations = $this->configurationManager->getConfiguration(
             ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK,
             'Cart'

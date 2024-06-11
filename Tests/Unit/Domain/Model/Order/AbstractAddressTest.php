@@ -655,7 +655,7 @@ class AbstractAddressTest extends UnitTestCase
     /**
      * @test
      */
-    public function getAdditionalInitiallyReturnsEmptyArray()
+    public function getAdditionalInitiallyReturnsEmptyArray(): void
     {
         self::assertIsArray(
             $this->address->getAdditional()
@@ -668,7 +668,7 @@ class AbstractAddressTest extends UnitTestCase
     /**
      * @test
      */
-    public function setAdditionalSetsAdditional()
+    public function setAdditionalSetsAdditional(): void
     {
         $additional = [
             'additional' => true,
@@ -685,7 +685,7 @@ class AbstractAddressTest extends UnitTestCase
     /**
      * @test
      */
-    public function additionalIsInternallyJsonString()
+    public function additionalIsInternallyJsonString(): void
     {
         $additional = [
             'additional' => true,
