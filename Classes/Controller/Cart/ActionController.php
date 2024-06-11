@@ -52,7 +52,15 @@ abstract class ActionController extends \TYPO3\CMS\Extbase\Mvc\Controller\Action
         $this->paymentMethodsService = $paymentMethodsService;
     }
 
-    public function injectShippingMethodsService(ShippingMethodsServiceInterface $shippingMethodsService): void {}
+    public function injectShippingMethodsService(ShippingMethodsServiceInterface $shippingMethodsService): void
+    {
+        $this->shippingMethodsService = $shippingMethodsService;
+    }
+
+    public function injectSpecialOptionsService(SpecialOptionsServiceInterface $specialOptionsService): void
+    {
+        $this->specialOptionsService = $specialOptionsService;
+    }
 
     public function initializeAction(): void
     {

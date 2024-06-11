@@ -2,16 +2,17 @@
 
 declare(strict_types=1);
 
+use Rector\CodeQuality\Rector\ClassMethod\OptionalParametersAfterRequiredRector;
 use Rector\Config\RectorConfig;
 use Rector\PostRector\Rector\NameImportingPostRector;
 use Rector\TypeDeclaration\Rector\ClassMethod\AddVoidReturnTypeWhereNoReturnRector;
 use Rector\ValueObject\PhpVersion;
 use Ssch\TYPO3Rector\CodeQuality\General\ConvertImplicitVariablesToExplicitGlobalsRector;
 use Ssch\TYPO3Rector\CodeQuality\General\ExtEmConfRector;
+use Ssch\TYPO3Rector\CodeQuality\General\InjectMethodToConstructorInjectionRector;
 use Ssch\TYPO3Rector\Configuration\Typo3Option;
 use Ssch\TYPO3Rector\Set\Typo3LevelSetList;
 use Ssch\TYPO3Rector\Set\Typo3SetList;
-use Ssch\TYPO3Rector\TYPO311\v0\ReplaceInjectAnnotationWithMethodRector;
 
 return RectorConfig::configure()
     ->withImportNames(true, true, false, true)
@@ -50,6 +51,7 @@ return RectorConfig::configure()
         NameImportingPostRector::class => [
             'ClassAliasMap.php',
         ],
-        ReplaceInjectAnnotationWithMethodRector::class,
+        InjectMethodToConstructorInjectionRector::class,
+        OptionalParametersAfterRequiredRector::class,
     ])
 ;
