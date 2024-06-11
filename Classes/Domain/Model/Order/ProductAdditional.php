@@ -16,7 +16,12 @@ class ProductAdditional extends AbstractEntity
 {
     protected string $additional;
 
-    public function __construct(protected string $additionalType, protected string $additionalKey, protected string $additionalValue, protected string $additionalData = '') {}
+    public function __construct(
+        protected string $additionalType,
+        protected string $additionalKey,
+        protected string $additionalValue,
+        protected string $additionalData = ''
+    ) {}
 
     public function getAdditionalType(): string
     {
