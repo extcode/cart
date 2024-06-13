@@ -423,6 +423,18 @@
             <trans-unit id="tx_cart_domain_model_order_address.salutation">
                 <source>Salutation</source>
             </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_address.gender.female">
+                <source>Female</source>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_address.gender.male">
+                <source>Male</source>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_address.gender.not_set">
+                <source>Not set</source>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_address.gender.various">
+                <source>Various</source>
+            </trans-unit>
             <trans-unit id="tx_cart_domain_model_order_address.first_name">
                 <source>First Name</source>
             </trans-unit>
