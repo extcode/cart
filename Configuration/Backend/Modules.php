@@ -14,7 +14,7 @@ $_LLL_be = 'LLL:EXT:cart/Resources/Private/Language/locallang_be.xlf:';
  */
 return [
     'cart_cart_main' => [
-        'access' => 'user, group',
+        'access' => '',
         'workspaces' => 'live',
         'path' => '/module/cart',
         'labels' => $_LLL_be . 'tx_cart.module.main',
@@ -25,7 +25,7 @@ return [
     'cart_cart_orders' => [
         'parent' => 'cart_cart_main',
         'position' => ['before' => '*'],
-        'access' => 'user, group',
+        'access' => 'user',
         'workspaces' => 'live',
         'path' => '/module/cart/orders',
         'labels' => [
