@@ -48,7 +48,7 @@ abstract class AbstractConfigurationFromTypoScriptService
 
     public function getConfigurationsForType(string $configurationType, ?string $country = null): ?array
     {
-        $configuration = $this->configurations[$configurationType];
+        $configuration = $this->configurations[$configurationType] ?? [];
 
         if (is_null($country)) {
             if (isset($configuration['settings']['countries']['options'][$configuration['settings']['countries']['preset']]['code'])) {
