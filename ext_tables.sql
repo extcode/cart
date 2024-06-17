@@ -2,9 +2,6 @@
 # Table structure for table 'tx_cart_domain_model_order_item'
 #
 CREATE TABLE tx_cart_domain_model_order_item (
-    uid int(11) NOT NULL auto_increment,
-    pid int(11) DEFAULT '0' NOT NULL,
-
     cart_pid int(11) DEFAULT '0' NOT NULL,
 
     fe_user int(11) unsigned DEFAULT '0',
@@ -45,15 +42,12 @@ CREATE TABLE tx_cart_domain_model_order_item (
     additional_data text,
 
     INDEX `parent` (pid), INDEX `t3ver_oid` (t3ver_oid,t3ver_wsid),
-    PRIMARY KEY (uid)
 );
 
 #
 # Table structure for table 'tx_cart_domain_model_order_address'
 #
 CREATE TABLE tx_cart_domain_model_order_address (
-    uid int(11) NOT NULL auto_increment,
-    pid int(11) DEFAULT '0' NOT NULL,
     record_type varchar(255) DEFAULT '' NOT NULL,
 
     item int(11) unsigned DEFAULT '0' NOT NULL,
@@ -77,16 +71,12 @@ CREATE TABLE tx_cart_domain_model_order_address (
     additional text,
 
     INDEX `parent` (pid), INDEX `t3ver_oid` (t3ver_oid,t3ver_wsid),
-    PRIMARY KEY (uid)
 );
 
 #
 # Table structure for table 'tx_cart_domain_model_order_taxclass'
 #
 CREATE TABLE tx_cart_domain_model_order_taxclass (
-    uid int(11) NOT NULL auto_increment,
-    pid int(11) DEFAULT '0' NOT NULL,
-
     item int(11) unsigned DEFAULT '0' NOT NULL,
 
     title varchar(255) DEFAULT '' NOT NULL,
@@ -94,16 +84,12 @@ CREATE TABLE tx_cart_domain_model_order_taxclass (
     calc double(11,2) DEFAULT '0.00' NOT NULL,
 
     INDEX `parent` (pid), INDEX `t3ver_oid` (t3ver_oid,t3ver_wsid),
-    PRIMARY KEY (uid)
 );
 
 #
 # Table structure for table 'tx_cart_domain_model_order_tax'
 #
 CREATE TABLE tx_cart_domain_model_order_tax (
-    uid int(11) NOT NULL auto_increment,
-    pid int(11) DEFAULT '0' NOT NULL,
-
     item int(11) unsigned DEFAULT '0' NOT NULL,
     record_type varchar(255) DEFAULT '' NOT NULL,
 
@@ -111,16 +97,12 @@ CREATE TABLE tx_cart_domain_model_order_tax (
     tax_class int(11) unsigned DEFAULT '0' NOT NULL,
 
     INDEX `parent` (pid), INDEX `t3ver_oid` (t3ver_oid,t3ver_wsid),
-    PRIMARY KEY (uid)
 );
 
 #
 # Table structure for table 'tx_cart_domain_model_order_product'
 #
 CREATE TABLE tx_cart_domain_model_order_product (
-    uid int(11) NOT NULL auto_increment,
-    pid int(11) DEFAULT '0' NOT NULL,
-
     item int(11) unsigned DEFAULT '0' NOT NULL,
 
     product_id int(11) unsigned DEFAULT '0' NOT NULL,
@@ -142,16 +124,12 @@ CREATE TABLE tx_cart_domain_model_order_product (
     product_additional int(11) unsigned DEFAULT '0' NOT NULL,
 
     INDEX `parent` (pid), INDEX `t3ver_oid` (t3ver_oid,t3ver_wsid),
-    PRIMARY KEY (uid)
 );
 
 #
 # Table structure for table 'tx_cart_domain_model_order_discount'
 #
 CREATE TABLE tx_cart_domain_model_order_discount (
-    uid int(11) NOT NULL auto_increment,
-    pid int(11) DEFAULT '0' NOT NULL,
-
     item int(11) unsigned DEFAULT '0' NOT NULL,
 
     title varchar(255) DEFAULT '' NOT NULL,
@@ -162,16 +140,12 @@ CREATE TABLE tx_cart_domain_model_order_discount (
     tax double(11,2) DEFAULT '0.00' NOT NULL,
 
     INDEX `parent` (pid), INDEX `t3ver_oid` (t3ver_oid,t3ver_wsid),
-    PRIMARY KEY (uid)
 );
 
 #
 # Table structure for table 'tx_cart_domain_model_order_productadditional'
 #
 CREATE TABLE tx_cart_domain_model_order_productadditional (
-    uid int(11) NOT NULL auto_increment,
-    pid int(11) DEFAULT '0' NOT NULL,
-
     product int(11) unsigned DEFAULT '0' NOT NULL,
 
     additional_type varchar(255) DEFAULT '' NOT NULL,
@@ -182,16 +156,12 @@ CREATE TABLE tx_cart_domain_model_order_productadditional (
     additional_data text,
 
     INDEX `parent` (pid), INDEX `t3ver_oid` (t3ver_oid,t3ver_wsid),
-    PRIMARY KEY (uid)
 );
 
 #
 # Table structure for table 'tx_cart_domain_model_order_shipping'
 #
 CREATE TABLE tx_cart_domain_model_order_shipping (
-    uid int(11) NOT NULL auto_increment,
-    pid int(11) DEFAULT '0' NOT NULL,
-
     item int(11) unsigned DEFAULT '0' NOT NULL,
 
     service_country varchar(255) DEFAULT '' NOT NULL,
@@ -206,16 +176,12 @@ CREATE TABLE tx_cart_domain_model_order_shipping (
     note text,
 
     INDEX `parent` (pid), INDEX `t3ver_oid` (t3ver_oid,t3ver_wsid),
-    PRIMARY KEY (uid)
 );
 
 #
 # Table structure for table 'tx_cart_domain_model_order_payment'
 #
 CREATE TABLE tx_cart_domain_model_order_payment (
-    uid int(11) NOT NULL auto_increment,
-    pid int(11) DEFAULT '0' NOT NULL,
-
     item int(11) unsigned DEFAULT '0' NOT NULL,
 
     service_country varchar(255) DEFAULT '' NOT NULL,
@@ -233,16 +199,12 @@ CREATE TABLE tx_cart_domain_model_order_payment (
     transactions int(11) unsigned DEFAULT '0' NOT NULL,
 
     INDEX `parent` (pid), INDEX `t3ver_oid` (t3ver_oid,t3ver_wsid),
-    PRIMARY KEY (uid)
 );
 
 #
 # Table structure for table 'tx_cart_domain_model_order_transaction'
 #
 CREATE TABLE tx_cart_domain_model_order_transaction (
-    uid int(11) NOT NULL auto_increment,
-    pid int(11) DEFAULT '0' NOT NULL,
-
     payment int(11) unsigned DEFAULT '0' NOT NULL,
 
     provider varchar(20) DEFAULT ''  NOT NULL,
@@ -253,16 +215,12 @@ CREATE TABLE tx_cart_domain_model_order_transaction (
     note text,
 
     INDEX `parent` (pid),
-    PRIMARY KEY (uid)
 );
 
 #
 # Table structure for table 'tx_cart_domain_model_coupon'
 #
 CREATE TABLE tx_cart_domain_model_coupon (
-    uid int(11) NOT NULL auto_increment,
-    pid int(11) DEFAULT '0' NOT NULL,
-
     title varchar(255) DEFAULT '' NOT NULL,
     code varchar(255) DEFAULT '' NOT NULL,
     coupon_type varchar(255) DEFAULT 'cartdiscount' NOT NULL,
@@ -276,20 +234,15 @@ CREATE TABLE tx_cart_domain_model_coupon (
     number_used int(11) DEFAULT '0' NOT NULL,
 
     INDEX `parent` (pid), INDEX `t3ver_oid` (t3ver_oid,t3ver_wsid),
-    PRIMARY KEY (uid)
 );
 
 #
 # Table structure for table 'tx_cart_domain_model_tag'
 #
 CREATE TABLE tx_cart_domain_model_tag (
-    uid int(11) NOT NULL auto_increment,
-    pid int(11) DEFAULT '0' NOT NULL,
-
     title varchar(255) DEFAULT '' NOT NULL,
 
     KEY language (l10n_parent,sys_language_uid),
 
     INDEX `parent` (pid), INDEX `t3ver_oid` (t3ver_oid,t3ver_wsid),
-    PRIMARY KEY (uid)
 );
