@@ -568,10 +568,6 @@
                 <source>Title</source>
             </trans-unit>
 
-            <trans-unit id="tx_cart_domain_model_cart">
-                <source>Cart Session</source>
-            </trans-unit>
-
             <trans-unit id="pages.doktype.181">
                 <source>Cart: Cart</source>
             </trans-unit>

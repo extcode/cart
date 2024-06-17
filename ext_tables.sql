@@ -185,7 +185,6 @@ CREATE TABLE tx_cart_domain_model_order_productadditional (
     PRIMARY KEY (uid)
 );
 
-
 #
 # Table structure for table 'tx_cart_domain_model_order_shipping'
 #
@@ -277,28 +276,6 @@ CREATE TABLE tx_cart_domain_model_coupon (
     number_used int(11) DEFAULT '0' NOT NULL,
 
     INDEX `parent` (pid), INDEX `t3ver_oid` (t3ver_oid,t3ver_wsid),
-    PRIMARY KEY (uid)
-);
-
-#
-# Table structure for table 'tx_cart_domain_model_cart'
-#
-CREATE TABLE tx_cart_domain_model_cart (
-    uid int(11) NOT NULL auto_increment,
-    pid int(11) DEFAULT '0' NOT NULL,
-
-    f_hash varchar(255) DEFAULT '' NOT NULL,
-    s_hash varchar(255) DEFAULT '' NOT NULL,
-
-    fe_user int(11) DEFAULT '0' NOT NULL,
-
-    order_item int(11) unsigned DEFAULT '0' NOT NULL,
-
-    cart text,
-
-    was_ordered tinyint(4) unsigned DEFAULT '0' NOT NULL,
-
-    INDEX `parent` (pid),
     PRIMARY KEY (uid)
 );
 
