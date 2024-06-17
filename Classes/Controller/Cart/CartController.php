@@ -65,6 +65,8 @@ class CartController extends ActionController
     ): ResponseInterface {
         $this->restoreSession();
 
+        $extbaseAttribute = $this->request->getAttribute('extbase');
+
         if (!is_null($billingAddress)) {
             $this->sessionHandler->writeAddress('billing_address_' . $this->settings['cart']['pid'], $billingAddress);
         } else {
@@ -87,7 +89,6 @@ class CartController extends ActionController
                 Item::class
             );
 
-            $extbaseAttribute = $this->request->getAttribute('extbase');
             if ($extbaseAttribute instanceof ExtbaseRequestParameters &&
                 $extbaseAttribute->getOriginalRequest() &&
                 $extbaseAttribute->getOriginalRequest()->hasArgument('orderItem')
@@ -125,7 +126,18 @@ class CartController extends ActionController
             $currentStep = (int)$this->request->getArgument('step');
         }
 
-        if ($currentStep && $this->request->getMethod() === 'POST') {
+        $currentStepHasError = false;
+        if ($extbaseAttribute instanceof ExtbaseRequestParameters
+            && $extbaseAttribute->getOriginalRequestMappingResults()
+            && $extbaseAttribute->getOriginalRequestMappingResults()->hasErrors()
+        ) {
+            $currentStepHasError = true;
+        }
+
+        if ($currentStep
+            && $this->request->getMethod() === 'POST'
+            && !$currentStepHasError
+        ) {
             return $this->redirect('show', null, null, ['step' => $currentStep])->withStatus(303);
         }
         // Redirect to step 1 if cart is empty.
