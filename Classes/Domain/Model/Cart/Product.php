@@ -60,6 +60,8 @@ class Product
      */
     protected bool $handleStockInVariants = false;
 
+    protected array $detailPageParameter = [];
+
     public function __construct(
         protected string $productType,
         protected int $productId,
@@ -69,7 +71,6 @@ class Product
         protected TaxClass $taxClass,
         protected int $quantity,
         protected bool $isNetPrice = false,
-        protected array $detailViewParameter = [],
         FeVariant $feVariant = null
     ) {
         if ($feVariant) {
@@ -700,18 +701,18 @@ class Product
         $this->handleStockInVariants = $handleStockInVariants;
     }
 
-    public function getDetailViewParameter(): array
+    public function getDetailPageParameter(): array
     {
-        return $this->detailViewParameter;
+        return $this->detailPageParameter;
     }
 
-    public function setDetailViewParameter(array $detailViewParameter): void
+    public function setDetailPageParameter(array $detailPageParameter): void
     {
-        $this->detailViewParameter = $detailViewParameter;
+        $this->detailPageParameter = $detailPageParameter;
     }
 
-    public function addDetailViewParameter(string $key, int|string $value): void
+    public function addDetailPageParameter(string $key, int|string $value): void
     {
-        $this->detailViewParameter[$key] = $value;
+        $this->detailPageParameter[$key] = $value;
     }
 }
