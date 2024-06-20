@@ -71,7 +71,7 @@ let
     ];
     text = ''
       project-install
-      vendor/bin/phpunit -c build/UnitTests.xml
+      vendor/bin/phpunit -c build/phpunit.xml.dist --testsuite unit
     '';
   };
 
@@ -83,7 +83,7 @@ let
     ];
     text = ''
       project-install
-      vendor/bin/phpunit -c build/FunctionalTests.xml
+      vendor/bin/phpunit -c build/phpunit.xml.dist --testsuite functional
     '';
   };
 

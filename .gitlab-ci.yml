@@ -94,13 +94,13 @@ phpstan:analyse:
   script:
     - >
       if [[ "$COVERAGE" == "0" ]]; then
-        vendor/bin/phpunit -c build/UnitTests.xml
+        vendor/bin/phpunit -c build/phpunit.xml.dist --testsuite unit
       fi
     - >
       if [[ "$COVERAGE" == "1" ]]; then
-        XDEBUG_MODE=coverage vendor/bin/phpunit --coverage-clover=phpunit.coverage.xml --log-junit=phpunit.report.xml -c build/UnitTests.xml
+        XDEBUG_MODE=coverage vendor/bin/phpunit --coverage-clover=phpunit.coverage.xml --log-junit=phpunit.report.xml -c build/phpunit.xml.dist --testsuite unit
       fi
-    - typo3DatabaseDriver=pdo_sqlite vendor/bin/phpunit -c build/FunctionalTests.xml
+    - typo3DatabaseDriver=pdo_sqlite vendor/bin/phpunit -c build/phpunit.xml.dist --testsuite functional
   artifacts:
     paths:
       - phpunit.coverage.xml

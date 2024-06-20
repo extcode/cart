@@ -75,10 +75,10 @@
             "vendor/bin/phplint -c build/phplint.yaml"
         ],
         "test:php:unit": [
-            "vendor/bin/phpunit -c build/UnitTests.xml"
+            "vendor/bin/phpunit -c build/phpunit.xml.dist --testsuite unit"
         ],
         "test:php:functional": [
-            "typo3DatabaseDriver=\"pdo_sqlite\" vendor/bin/phpunit -c build/FunctionalTests.xml"
+            "typo3DatabaseDriver=\"pdo_sqlite\" vendor/bin/phpunit -c build/phpunit.xml.dist --testsuite functional"
         ],
         "test:phpstan:analyse": [
             "vendor/bin/phpstan analyse -c build/phpstan.neon --memory-limit 256M"
