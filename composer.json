@@ -69,22 +69,22 @@
     },
     "scripts": {
         "test:cgl": [
-            ".build/bin/php-cs-fixer fix --config=Build/.php-cs-fixer.dist.php -v --using-cache=no --path-mode=intersection ./"
+            ".build/bin/php-cs-fixer fix --config=build/.php-cs-fixer.dist.php -v --using-cache=no --path-mode=intersection ./"
         ],
         "test:cgl:dry-run": [
-            ".build/bin/php-cs-fixer fix --config=Build/.php-cs-fixer.dist.php -v --dry-run --using-cache=no --path-mode=intersection ./"
+            ".build/bin/php-cs-fixer fix --config=build/.php-cs-fixer.dist.php -v --dry-run --using-cache=no --path-mode=intersection ./"
         ],
         "test:php:lint": [
-            ".build/bin/phplint -c Build/phplint.yaml"
+            ".build/bin/phplint -c build/phplint.yaml"
         ],
         "test:php:unit": [
-            ".build/bin/phpunit -c Build/UnitTests.xml"
+            ".build/bin/phpunit -c build/UnitTests.xml"
         ],
         "test:php:functional": [
-            "typo3DatabaseDriver=\"pdo_sqlite\" .build/bin/phpunit -c Build/FunctionalTests.xml"
+            "typo3DatabaseDriver=\"pdo_sqlite\" .build/bin/phpunit -c build/FunctionalTests.xml"
         ],
         "test:phpstan:analyse": [
-            ".build/bin/phpstan analyse -c Build/phpstan.neon --memory-limit 256M"
+            ".build/bin/phpstan analyse -c build/phpstan.neon --memory-limit 256M"
         ],
         "test:rector:process": [
             ".build/bin/rector process *"
@@ -93,7 +93,7 @@
             ".build/bin/rector process * --dry-run"
         ],
         "test:typoscript:lint": [
-            ".build/bin/typoscript-lint -c Build/typoscriptlint.yaml Configuration"
+            ".build/bin/typoscript-lint -c build/typoscriptlint.yaml Configuration"
         ],
         "test:php": [
             "@test:php:lint",

@@ -35,7 +35,7 @@ let
     ];
 
     text = ''
-      ./.build/bin/php-cs-fixer fix --config=Build/.php-cs-fixer.dist.php -v --dry-run --diff
+      ./.build/bin/php-cs-fixer fix --config=build/.php-cs-fixer.dist.php -v --dry-run --diff
     '';
   };
 
@@ -47,7 +47,7 @@ let
     ];
 
     text = ''
-      ./.build/bin/php-cs-fixer fix --config=Build/.php-cs-fixer.dist.php
+      ./.build/bin/php-cs-fixer fix --config=build/.php-cs-fixer.dist.php
     '';
   };
 
@@ -59,7 +59,7 @@ let
     ];
     text = ''
       project-install
-      .build/bin/phpunit -c Build/UnitTests.xml
+      .build/bin/phpunit -c build/UnitTests.xml
     '';
   };
 
@@ -71,7 +71,7 @@ let
     ];
     text = ''
       project-install
-      .build/bin/phpunit -c Build/FunctionalTests.xml
+      .build/bin/phpunit -c build/FunctionalTests.xml
     '';
   };
 

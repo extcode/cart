@@ -3,7 +3,7 @@ composer.lock
 
 .php_cs.cache
 .phplint.cache
-Build/.phpunit.cache
+build/.phpunit.cache
 
 Documentation/_make
 Documentation-GENERATED-temp/
@@ -16,5 +16,5 @@ var/
 phpunit.coverage.xml
 phpunit.report.xml
 
-Build/Sources/node_modules
+build/Sources/node_modules
 package-lock.json
