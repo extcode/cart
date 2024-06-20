@@ -66,7 +66,7 @@ jobs:
         run: composer install --prefer-dist --no-progress --no-suggest
 
       - name: Coding Guideline
-        run: .build/bin/php-cs-fixer fix --config=build/.php-cs-fixer.dist.php -v --dry-run --using-cache=no --path-mode=intersection ./
+        run: vendor/bin/php-cs-fixer fix --config=build/.php-cs-fixer.dist.php -v --dry-run --using-cache=no --path-mode=intersection ./
 
   code-quality:
     runs-on: ubuntu-latest
@@ -95,7 +95,7 @@ jobs:
           composer require --no-interaction --prefer-dist --no-progress "typo3/cms-core:${{ matrix.typo3-version }}" "typo3/cms-extbase:${{ matrix.typo3-version }}" "typo3/cms-frontend:${{ matrix.typo3-version }}"
 
       - name: Code Quality (by PHPStan)
-        run: .build/bin/phpstan analyse -c build/phpstan.neon
+        run: vendor/bin/phpstan analyse -c build/phpstan.neon
 
   tests-phpunit:
     runs-on: ubuntu-latest

@@ -33,8 +33,6 @@
         }
     },
     "config": {
-        "bin-dir": ".build/bin",
-        "vendor-dir": ".build/vendor",
         "allow-plugins": {
             "typo3/class-alias-loader": true,
             "typo3/cms-composer-installers": true,
@@ -44,8 +42,7 @@
     "extra": {
         "typo3/cms": {
             "extension-key": "cart",
-            "app-dir": ".build",
-            "web-dir": ".build/public"
+            "web-dir": ".build/web"
         }
     },
     "require": {
@@ -69,31 +66,31 @@
     },
     "scripts": {
         "test:cgl": [
-            ".build/bin/php-cs-fixer fix --config=build/.php-cs-fixer.dist.php -v --using-cache=no --path-mode=intersection ./"
+            "vendor/bin/php-cs-fixer fix --config=build/.php-cs-fixer.dist.php -v --using-cache=no --path-mode=intersection ./"
         ],
         "test:cgl:dry-run": [
-            ".build/bin/php-cs-fixer fix --config=build/.php-cs-fixer.dist.php -v --dry-run --using-cache=no --path-mode=intersection ./"
+            "vendor/bin/php-cs-fixer fix --config=build/.php-cs-fixer.dist.php -v --dry-run --using-cache=no --path-mode=intersection ./"
         ],
         "test:php:lint": [
-            ".build/bin/phplint -c build/phplint.yaml"
+            "vendor/bin/phplint -c build/phplint.yaml"
         ],
         "test:php:unit": [
-            ".build/bin/phpunit -c build/UnitTests.xml"
+            "vendor/bin/phpunit -c build/UnitTests.xml"
         ],
         "test:php:functional": [
-            "typo3DatabaseDriver=\"pdo_sqlite\" .build/bin/phpunit -c build/FunctionalTests.xml"
+            "typo3DatabaseDriver=\"pdo_sqlite\" vendor/bin/phpunit -c build/FunctionalTests.xml"
         ],
         "test:phpstan:analyse": [
-            ".build/bin/phpstan analyse -c build/phpstan.neon --memory-limit 256M"
+            "vendor/bin/phpstan analyse -c build/phpstan.neon --memory-limit 256M"
         ],
         "test:rector:process": [
-            ".build/bin/rector process *"
+            "vendor/bin/rector process *"
         ],
         "test:rector:process:dry-run": [
-            ".build/bin/rector process * --dry-run"
+            "vendor/bin/rector process * --dry-run"
         ],
         "test:typoscript:lint": [
-            ".build/bin/typoscript-lint -c build/typoscriptlint.yaml Configuration"
+            "vendor/bin/typoscript-lint -c build/typoscriptlint.yaml Configuration"
         ],
         "test:php": [
             "@test:php:lint",

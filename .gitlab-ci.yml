@@ -6,7 +6,7 @@ cache:
 
 variables:
   COMPOSER_CACHE_DIR: ".composer"
-  TYPO3_PATH_WEB: "$CI_PROJECT_DIR/.build/public"
+  TYPO3_PATH_WEB: "$CI_PROJECT_DIR/.build/web"
   MYSQL_DATABASE: "typo3"
   MYSQL_ROOT_PASSWORD: "joh316"
   typo3DatabaseName: "typo3"
@@ -31,7 +31,7 @@ lint:cgl:
     - composer config --no-plugins allow-plugins.sbuerk/typo3-cmscomposerinstallers-testingframework-bridge true
     - composer install --no-progress --no-ansi --no-interaction
   script:
-    - .build/bin/php-cs-fixer fix --config=build/.php-cs-fixer.dist.php -v --dry-run --using-cache=no --path-mode=intersection ./
+    - vendor/bin/php-cs-fixer fix --config=build/.php-cs-fixer.dist.php -v --dry-run --using-cache=no --path-mode=intersection ./
 
 #lint:typoscriptcgl:
 #  stage: lint
@@ -40,7 +40,7 @@ lint:cgl:
 #    - composer config platform.php 7.1
 #    - composer remove typo3/cms-core --no-update
 #    - composer install --no-progress --no-ansi --no-interaction
-#    - .build/bin/typoscript-lint -c build/typoscriptlint.yaml Configuration
+#    - vendor/bin/typoscript-lint -c build/typoscriptlint.yaml Configuration
 
 lint:yaml:
   stage: lint
@@ -75,7 +75,7 @@ phpstan:analyse:
     - composer config platform.php 8.1
     - composer install --no-progress --no-ansi --no-interaction
   script:
-    - .build/bin/phpstan analyse -c build/phpstan.neon --memory-limit 256M
+    - vendor/bin/phpstan analyse -c build/phpstan.neon --memory-limit 256M
 
 .test: &test_php
   stage: test
@@ -94,13 +94,13 @@ phpstan:analyse:
   script:
     - >
       if [[ "$COVERAGE" == "0" ]]; then
-        .build/bin/phpunit -c build/UnitTests.xml
+        vendor/bin/phpunit -c build/UnitTests.xml
       fi
     - >
       if [[ "$COVERAGE" == "1" ]]; then
-        XDEBUG_MODE=coverage .build/bin/phpunit --coverage-clover=phpunit.coverage.xml --log-junit=phpunit.report.xml -c build/UnitTests.xml
+        XDEBUG_MODE=coverage vendor/bin/phpunit --coverage-clover=phpunit.coverage.xml --log-junit=phpunit.report.xml -c build/UnitTests.xml
       fi
-    - typo3DatabaseDriver=pdo_sqlite .build/bin/phpunit -c build/FunctionalTests.xml
+    - typo3DatabaseDriver=pdo_sqlite vendor/bin/phpunit -c build/FunctionalTests.xml
   artifacts:
     paths:
       - phpunit.coverage.xml
