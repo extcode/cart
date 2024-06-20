@@ -6,13 +6,13 @@
     <tr class="{f:if(condition: product.quantityInRange, then: '', else: 'danger')}">
         <td colspan="2" class="col-md-6">
             <div class="product-name">
-                <f:if condition="{product.detailPageParameter.pageUid} && {product.detailPageParameter.extensionName}">
+                <f:if condition="{product.detailPageLink}">
                     <f:then>
                         <f:link.action
-                            pageUid="{product.detailPageParameter.pageUid}"
-                            extensionName="{product.detailPageParameter.extensionName}"
-                            pluginName="{product.detailPageParameter.pluginName}"
-                            controller="{product.detailPageParameter.controller}"
+                            pageUid="{product.detailPageLink.pageUid}"
+                            extensionName="{product.detailPageLink.extensionName}"
+                            pluginName="{product.detailPageLink.pluginName}"
+                            controller="{product.detailPageLink.controller}"
                             arguments="{product: product.productId}">
                             {product.title} {f:if(condition:'{product.feVariant.value}',then:'- {product.feVariant.value}')}
                         </f:link.action>
@@ -77,10 +77,10 @@
                         <f:if condition="{product.detailPageParameter.pageUid} && {product.detailPageParameter.extensionName}">
                             <f:then>
                                 <f:link.action
-                                    pageUid="{product.detailPageParameter.pageUid}"
-                                    extensionName="{product.detailPageParameter.extensionName}"
-                                    pluginName="{product.detailPageParameter.pluginName}"
-                                    controller="{product.detailPageParameter.controller}"
+                                    pageUid="{product.detailPageLink.pageUid}"
+                                    extensionName="{product.detailPageLink.extensionName}"
+                                    pluginName="{product.detailPageLink.pluginName}"
+                                    controller="{product.detailPageLink.controller}"
                                     arguments="{product: product.productId}">
                                     {variant.title}
                                 </f:link.action>

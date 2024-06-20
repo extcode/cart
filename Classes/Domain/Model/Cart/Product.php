@@ -60,7 +60,7 @@ class Product
      */
     protected bool $handleStockInVariants = false;
 
-    protected array $detailPageParameter = [];
+    protected DetailPageLink $detailPageLink;
 
     public function __construct(
         protected string $productType,
@@ -701,18 +701,13 @@ class Product
         $this->handleStockInVariants = $handleStockInVariants;
     }
 
-    public function getDetailPageParameter(): array
+    public function getDetailPageLink(): DetailPageLink
     {
-        return $this->detailPageParameter;
+        return $this->detailPageLink;
     }
 
-    public function setDetailPageParameter(array $detailPageParameter): void
+    public function setDetailPageLink(DetailPageLink $detailPageLink): void
     {
-        $this->detailPageParameter = $detailPageParameter;
-    }
-
-    public function addDetailPageParameter(string $key, int|string $value): void
-    {
-        $this->detailPageParameter[$key] = $value;
+        $this->detailPageLink = $detailPageLink;
     }
 }
