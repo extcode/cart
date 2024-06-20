@@ -51,6 +51,18 @@ let
     '';
   };
 
+  projectPhpstan = pkgs.writeShellApplication {
+    name = "project-phpstan";
+
+    runtimeInputs = [
+      php
+    ];
+
+    text = ''
+      vendor/bin/phpstan analyse -c build/phpstan.neon
+    '';
+  };
+
   projectTestUnit = pkgs.writeShellApplication {
     name = "project-test-unit";
     runtimeInputs = [
@@ -83,6 +95,7 @@ in pkgs.mkShell {
     projectInstall
     projectCgl
     projectCglFix
+    projectPhpstan
     projectTestUnit
     projectTestFunctional
   ];
