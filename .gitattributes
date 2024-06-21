@@ -1,5 +1,5 @@
 /.github/ export-ignore
-/Build/ export-ignore
+/build/ export-ignore
 /Tests/ export-ignore
 /.gitattributes export-ignore
 /.gitlab-ci.yml export-ignore

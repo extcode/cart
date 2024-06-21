@@ -4,6 +4,8 @@
 }:
 
 let
+  nodejs = pkgs.nodejs_20;
+
   php = pkgs.${phpVersion}.buildEnv {
     extensions = { enabled, all }: enabled ++ (with all; [
       xdebug
@@ -35,7 +37,7 @@ let
     ];
 
     text = ''
-      ./.build/bin/php-cs-fixer fix --config=Build/.php-cs-fixer.dist.php -v --dry-run --diff
+      ./vendor/bin/php-cs-fixer fix --config=build/.php-cs-fixer.dist.php -v --dry-run --diff
     '';
   };
 
@@ -47,7 +49,19 @@ let
     ];
 
     text = ''
-      ./.build/bin/php-cs-fixer fix --config=Build/.php-cs-fixer.dist.php
+      ./vendor/bin/php-cs-fixer fix --config=build/.php-cs-fixer.dist.php
+    '';
+  };
+
+  projectPhpstan = pkgs.writeShellApplication {
+    name = "project-phpstan";
+
+    runtimeInputs = [
+      php
+    ];
+
+    text = ''
+      vendor/bin/phpstan analyse -c build/phpstan.neon
     '';
   };
 
@@ -59,7 +73,7 @@ let
     ];
     text = ''
       project-install
-      .build/bin/phpunit -c Build/UnitTests.xml
+      vendor/bin/phpunit -c build/phpunit.xml.dist --testsuite unit
     '';
   };
 
@@ -71,7 +85,7 @@ let
     ];
     text = ''
       project-install
-      .build/bin/phpunit -c Build/FunctionalTests.xml
+      vendor/bin/phpunit -c build/phpunit.xml.dist --testsuite functional
     '';
   };
 
@@ -80,9 +94,11 @@ in pkgs.mkShell {
   buildInputs = [
     php
     composer
+    nodejs
     projectInstall
     projectCgl
     projectCglFix
+    projectPhpstan
     projectTestUnit
     projectTestFunctional
   ];
