@@ -220,12 +220,12 @@ class Service implements ServiceInterface
     public function isFree(): bool
     {
         if (isset($this->config['free']['from']) || isset($this->config['free']['until'])) {
-            $freeFrom = $this->config['free']['from'];
+            $freeFrom = $this->config['free']['from'] ?? null;
             if (isset($freeFrom) && $this->cart->getGross() < (float)$freeFrom) {
                 return false;
             }
 
-            $freeUntil = $this->config['free']['until'];
+            $freeUntil = $this->config['free']['until'] ?? null;
             if (isset($freeUntil) && $this->cart->getGross() > (float)$freeUntil) {
                 return false;
             }
