@@ -1,7 +1,7 @@
 {
   "scripts": {
-    "build": "esbuild JavaScript/add_to_cart.js JavaScript/change_be_variant.js JavaScript/prevent_multi_submit.js JavaScript/update_country.js JavaScript/update_currency.js JavaScript/update_payment_shipping.js --bundle --outdir=../../Resources/Public/JavaScript",
-    "lint": "./node_modules/.bin/eslint JavaScript/"
+    "build": "node_modules/.bin/esbuild Resources/Private/JavaScript/add_to_cart.js Resources/Private/JavaScript/change_be_variant.js Resources/Private/JavaScript/prevent_multi_submit.js Resources/Private/JavaScript/update_country.js Resources/Private/JavaScript/update_currency.js Resources/Private/JavaScript/update_payment_shipping.js --bundle --outdir=../Resources/Public/JavaScript",
+    "lint": "node_modules/.bin/eslint Resources/Private/JavaScript"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.0.2",

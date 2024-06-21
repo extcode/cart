@@ -43,11 +43,11 @@ jobs:
 
       - name: Install modules based on package-lock.json
         run: npm install
-        working-directory: ./build/Sources
+        working-directory: ./
 
       - name: Run ESLint
         run: npm run lint
-        working-directory: ./build/Sources
+        working-directory: ./
 
   coding-guideline:
     runs-on: ubuntu-latest

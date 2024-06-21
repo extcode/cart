@@ -17,5 +17,5 @@ vendor/
 phpunit.coverage.xml
 phpunit.report.xml
 
-build/Sources/node_modules
+node_modules/
 package-lock.json

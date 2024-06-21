@@ -4,6 +4,8 @@
 }:
 
 let
+  nodejs = pkgs.nodejs_20;
+
   php = pkgs.${phpVersion}.buildEnv {
     extensions = { enabled, all }: enabled ++ (with all; [
       xdebug
@@ -92,6 +94,7 @@ in pkgs.mkShell {
   buildInputs = [
     php
     composer
+    nodejs
     projectInstall
     projectCgl
     projectCglFix
