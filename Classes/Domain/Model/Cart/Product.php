@@ -60,6 +60,8 @@ class Product
      */
     protected bool $handleStockInVariants = false;
 
+    protected DetailPageLink $detailPageLink;
+
     public function __construct(
         protected string $productType,
         protected int $productId,
@@ -696,5 +698,15 @@ class Product
     public function setHandleStockInVariants(bool $handleStockInVariants): void
     {
         $this->handleStockInVariants = $handleStockInVariants;
+    }
+
+    public function getDetailPageLink(): DetailPageLink
+    {
+        return $this->detailPageLink;
+    }
+
+    public function setDetailPageLink(DetailPageLink $detailPageLink): void
+    {
+        $this->detailPageLink = $detailPageLink;
     }
 }
