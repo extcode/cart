@@ -289,3 +289,4 @@ See :ref:`plugin.tx_cart.settings.showCartAction.showPartials.shippingMethodForm
    :titlesonly:
 
    FlexiblePricesForShipping/Index
+   FlexibleAvailabilityForShipping/Index
