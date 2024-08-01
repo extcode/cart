@@ -20,7 +20,7 @@ email, or any other method with the owners of this repository before making a ch
     fix/master/my_contribution master`. Please avoid working directly on the
     `master` branch.
 * Make commits of logical units.
-* Use `./php-cs-fixer fix --config-file Build/.php_cs` to make sure the code is formatted correctly.
+* Use `./php-cs-fixer fix --config-file build/.php_cs` to make sure the code is formatted correctly.
 * Make sure your commit messages are in the proper format. Use either `[TASK]`, `[FEATURE]`, `[BUGFIX]` or `[DOC]`
 
 ````
