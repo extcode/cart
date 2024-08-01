@@ -1,6 +1,6 @@
 {
   pkgs ? import <nixpkgs> { }
-  ,phpVersion ? "php81"
+  ,phpVersion ? "php82"
 }:
 
 let
@@ -83,7 +83,7 @@ let
     ];
     text = ''
       project-install
-      .build/bin/phpunit -c Build/UnitTests.xml
+      .build/bin/phpunit -c Build/UnitTests.xml --display-deprecations --display-warnings
     '';
   };
 
@@ -95,7 +95,7 @@ let
     ];
     text = ''
       project-install
-      .build/bin/phpunit -c Build/FunctionalTests.xml --display-deprecations
+      .build/bin/phpunit -c Build/FunctionalTests.xml --display-deprecations --display-warnings
     '';
   };
 
@@ -105,6 +105,7 @@ in pkgs.mkShell {
     php
     composer
     projectInstall
+    projectPhpstan
     projectCgl
     projectCglFix
     projectLint

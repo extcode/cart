@@ -148,9 +148,6 @@ services:
   Extcode\Cart\Service\TaxClassService:
     public: true
 
-  Extcode\Cart\View\CartTemplateView:
-    public: true
-
   querybuilder.tx_cart_domain_model_order_item:
     class: 'TYPO3\CMS\Core\Database\Query\QueryBuilder'
     factory:

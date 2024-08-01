@@ -13,7 +13,9 @@ use Codappix\Typo3PhpDatasets\TestingFramework;
 use Extcode\Cart\Event\Mail\AttachmentEvent;
 use Extcode\Cart\EventListener\Mail\AttachmentFromTypoScript;
 use PHPUnit\Framework\Attributes\Test;
+use TYPO3\CMS\Core\Core\SystemEnvironmentBuilder;
 use TYPO3\CMS\Core\EventDispatcher\ListenerProvider;
+use TYPO3\CMS\Core\Http\ServerRequest;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManager;
 use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
@@ -30,6 +32,10 @@ class AttachmentFromTypoScriptTest extends FunctionalTestCase
     public function setUp(): void
     {
         parent::setUp();
+
+        $GLOBALS['TYPO3_REQUEST'] = (new ServerRequest())
+            ->withAttribute('applicationType', SystemEnvironmentBuilder::REQUESTTYPE_BE);
+
         $this->importPHPDataSet(__DIR__ . '/../../../Fixtures/BaseDatabase.php');
     }
 

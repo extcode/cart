@@ -48,22 +48,21 @@
         }
     },
     "require": {
-        "php": "^8.1",
+        "php": "^8.2",
         "ext-json": "*",
         "ext-openssl": "*",
-        "typo3/cms-core": "^12.4",
-        "typo3/cms-extbase": "^12.4",
-        "typo3/cms-fluid": "^12.4",
-        "typo3/cms-form": "^12.4"
+        "typo3/cms-core": "^13.4",
+        "typo3/cms-extbase": "^13.4",
+        "typo3/cms-fluid": "^13.4",
+        "typo3/cms-form": "^13.4"
     },
     "require-dev": {
         "codappix/typo3-php-datasets": "^1.5",
-        "friendsofphp/php-cs-fixer": "^3.16",
-        "phpstan/phpstan": "^1.10",
-        "sbuerk/typo3-cmscomposerinstallers-testingframework-bridge": "^0.0.1",
-        "ssch/typo3-rector": "^2.6",
-        "typo3/cms-dashboard": "^12.4",
-        "typo3/testing-framework": "^8.0"
+        "friendsofphp/php-cs-fixer": "^3.64",
+        "phpstan/phpstan": "^1.12",
+        "ssch/typo3-rector": "^2.9",
+        "typo3/cms-dashboard": "^13.4",
+        "typo3/testing-framework": "^8.2"
     },
     "scripts": {
         "test:cgl": [
@@ -85,10 +84,10 @@
             ".build/bin/phpstan analyse -c Build/phpstan.neon --memory-limit 256M"
         ],
         "test:rector:process": [
-            ".build/bin/rector process"
+            ".build/bin/rector process *"
         ],
         "test:rector:process:dry-run": [
-            ".build/bin/rector process --dry-run"
+            ".build/bin/rector process * --dry-run"
         ],
         "test:typoscript:lint": [
             ".build/bin/typoscript-lint -c Build/typoscriptlint.yaml Configuration"
@@ -107,6 +106,6 @@
         ]
     },
     "suggest": {
-        "typo3/cms-dashboard": "^12.3"
+        "typo3/cms-dashboard": "^13.4"
     }
 }
