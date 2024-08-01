@@ -33,7 +33,7 @@ use TYPO3\CMS\Extbase\Validation\ValidatorResolver;
 
 class OrderController extends ActionController
 {
-    protected function getErrorFlashMessage()
+    protected function getErrorFlashMessage(): string|bool
     {
         return LocalizationUtility::translate(
             'tx_cart.error.validation',

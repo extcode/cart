@@ -1,6 +1,6 @@
 {
   pkgs ? import <nixpkgs> { }
-  ,phpVersion ? "php81"
+  ,phpVersion ? "php82"
 }:
 
 let
@@ -24,6 +24,18 @@ let
     ];
     text = ''
       composer update --prefer-dist --no-progress
+    '';
+  };
+
+  projectPhpstan = pkgs.writeShellApplication {
+    name = "project-phpstan";
+
+    runtimeInputs = [
+      php
+    ];
+
+    text = ''
+      ./.build/bin/phpstan analyse -c Build/phpstan.neon --memory-limit 256M
     '';
   };
 
@@ -81,6 +93,7 @@ in pkgs.mkShell {
     php
     composer
     projectInstall
+    projectPhpstan
     projectCgl
     projectCglFix
     projectTestUnit
