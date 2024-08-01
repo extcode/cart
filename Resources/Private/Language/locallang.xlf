@@ -591,6 +591,9 @@
             <trans-unit id="tx_cart.backend.filter.end_date">
                 <source>End Date</source>
             </trans-unit>
+            <trans-unit id="tx_cart.backend.pagination.records">
+                <source>Records</source>
+            </trans-unit>
             <trans-unit id="tx_cart.backend.filter.no_results">
                 <source>No results for this filter</source>
             </trans-unit>
