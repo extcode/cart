@@ -1,4 +1,4 @@
-.. include:: ../../Includes.txt
+.. include:: ../../Includes.rst.txt
 
 =========================================================
 Breaking: #333 - Switch from jQuery to vanilla JavaScript

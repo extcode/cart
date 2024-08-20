@@ -1,4 +1,4 @@
-.. include:: ../../Includes.txt
+.. include:: ../../Includes.rst.txt
 
 =============================================
 Feature: 369 - Add Multi-Step Checkout Option

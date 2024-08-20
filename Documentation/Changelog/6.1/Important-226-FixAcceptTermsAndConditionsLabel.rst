@@ -1,4 +1,4 @@
-.. include:: ../../Includes.txt
+.. include:: ../../Includes.rst.txt
 
 =======================================================
 Important: #226 - Fix accept_terms_and_conditions label

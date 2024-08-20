@@ -1,4 +1,4 @@
-.. include:: ../../Includes.txt
+.. include:: ../../Includes.rst.txt
 
 =========================================================
 Feature: #251 - Declare extension compatible with PHP 7.3

@@ -1,4 +1,4 @@
-.. include:: ../../Includes.txt
+.. include:: ../../Includes.rst.txt
 
 ==================================================
 Important: #103 - Fix exception in sql strict mode

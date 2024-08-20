@@ -1,4 +1,4 @@
-.. include:: ../../Includes.txt
+.. include:: ../../Includes.rst.txt
 
 ======================================================
 Breaking: #505 - Replace ParserUtility::parseTax by DI

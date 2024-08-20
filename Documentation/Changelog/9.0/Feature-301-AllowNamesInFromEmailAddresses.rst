@@ -1,4 +1,4 @@
-.. include:: ../../Includes.txt
+.. include:: ../../Includes.rst.txt
 
 =====================================================
 Feature: #301 - Allow names in "from" email addresses

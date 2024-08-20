@@ -1,4 +1,4 @@
-.. include:: ../../Includes.txt
+.. include:: ../../Includes.rst.txt
 
 =================================================================================
 Feature: 351 - Allow to Change $settings Property for all Order Processing Events

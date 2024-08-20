@@ -1,4 +1,4 @@
-.. include:: ../../Includes.txt
+.. include:: ../../Includes.rst.txt
 
 ======================================================
 Breaking: #288 - Use PSR-14 Events for Order Finishers

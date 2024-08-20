@@ -1,4 +1,4 @@
-.. include:: ../../Includes.txt
+.. include:: ../../Includes.rst.txt
 
 ============================================================================
 Breaking: #413 - Remove \\Extcode\\Cart\\ViewHelpers\\Form\\SelectViewHelper

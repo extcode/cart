@@ -1,4 +1,4 @@
-.. include:: ../../Includes.txt
+.. include:: ../../Includes.rst.txt
 
 ============================================
 Feature: #465 - DateFormat in Backend Module
