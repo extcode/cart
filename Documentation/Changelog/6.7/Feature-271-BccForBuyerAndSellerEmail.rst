@@ -1,4 +1,4 @@
-.. include:: ../../Includes.txt
+.. include:: ../../Includes.rst.txt
 
 ==================================================================
 Feature: #271 - BCC (Blind Carbon Copy) for Buyer and Seller Email

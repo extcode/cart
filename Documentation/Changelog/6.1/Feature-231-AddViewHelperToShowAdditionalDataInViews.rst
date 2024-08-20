@@ -1,4 +1,4 @@
-.. include:: ../../Includes.txt
+.. include:: ../../Includes.rst.txt
 
 ==============================================================
 Feature: #231 - Add ViewHelper to show additionalData in views

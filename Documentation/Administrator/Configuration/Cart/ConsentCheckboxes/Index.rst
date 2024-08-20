@@ -1,4 +1,4 @@
-.. include:: ../../../../Includes.txt
+.. include:: ../../../../Includes.rst.txt
 
 ==================
 Consent Checkboxes

@@ -1,4 +1,4 @@
-.. include:: ../../Includes.txt
+.. include:: ../../Includes.rst.txt
 
 ===============================================
 Breaking: #288 - Remove Order Statistics Module

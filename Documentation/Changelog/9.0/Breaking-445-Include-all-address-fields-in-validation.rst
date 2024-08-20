@@ -1,4 +1,4 @@
-.. include:: ../../Includes.txt
+.. include:: ../../Includes.rst.txt
 
 =========================================================
 Breaking: #445 - Include all address fields in validation

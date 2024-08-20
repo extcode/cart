@@ -1,4 +1,4 @@
-.. include:: ../../Includes.txt
+.. include:: ../../Includes.rst.txt
 
 ===============================================
 Breaking: #480 - Refactored PageTitleViewhelper

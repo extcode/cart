@@ -1,4 +1,4 @@
-.. include:: ../../Includes.txt
+.. include:: ../../Includes.rst.txt
 
 ====================================================================
 Important: #228 - Fix JavaScript variable update_country in template

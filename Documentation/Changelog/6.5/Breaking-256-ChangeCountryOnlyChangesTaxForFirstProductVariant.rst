@@ -1,4 +1,4 @@
-.. include:: ../../Includes.txt
+.. include:: ../../Includes.rst.txt
 
 ==========================================================================
 Breaking: #256 - Change country only changes tax for first product variant

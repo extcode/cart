@@ -1,4 +1,4 @@
-.. include:: ../../Includes.txt
+.. include:: ../../Includes.rst.txt
 
 =============================================================================
 Feature: #274 - Add Extra Condition to only Charge Service for Physical Goods

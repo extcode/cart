@@ -1,4 +1,4 @@
-.. include:: ../../Includes.txt
+.. include:: ../../Includes.rst.txt
 
 ================================================================
 Breaking: #242 - Use defaultCountry setting for shipping address

@@ -1,4 +1,4 @@
-.. include:: ../../Includes.txt
+.. include:: ../../Includes.rst.txt
 
 =======================================================================
 Breaking: #360 - Remove Split Up ProcessOrderCreateEvent Feature Toggle

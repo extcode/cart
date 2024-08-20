@@ -1,4 +1,4 @@
-.. include:: ../../Includes.txt
+.. include:: ../../Includes.rst.txt
 
 ========================================================================
 Breaking: #288 - Parameter of Mail Attachment Hook Interface was Changed

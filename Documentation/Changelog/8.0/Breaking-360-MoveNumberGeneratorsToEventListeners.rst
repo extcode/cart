@@ -1,4 +1,4 @@
-.. include:: ../../Includes.txt
+.. include:: ../../Includes.rst.txt
 
 =========================================================
 Breaking: #360 - Move Number Generators To EventListeners
