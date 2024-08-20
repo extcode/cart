@@ -1,8 +1,11 @@
-.. include:: Includes.txt
+.. include:: Includes.rst.txt
 
 .. _start:
 
-=================================
+====
+Cart
+====
+
 Cart - a TYPO3-native shop system
 =================================
 

@@ -1,5 +1,7 @@
 .. include:: ../../../../Includes.rst.txt
 
+.. _consent_checkboxes:
+
 ==================
 Consent Checkboxes
 ==================
@@ -55,7 +57,7 @@ plugin.tx_cart.settings.cart
    *tx_cart_domain_model_order_item.accept_revocation_instruction*
    translation key will be used in frontend.
 
-.. confval:: acceptRevocationInstruction.pid
+.. confval:: acceptPrivacyPolicy.pid
 
    :Type: int
    :Default: empty

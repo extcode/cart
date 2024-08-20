@@ -102,7 +102,7 @@ translation for the new ones.
         }
     }
 
-For more information see: `Checkbox Configuration <../../AdministratorManual/Configuration/Cart/Checkbox/Index.html>`__
+For more information see: :ref:`Checkbox Configuration <consent_checkboxes>`__
 
 **6. check used hooks and signal slots**
 

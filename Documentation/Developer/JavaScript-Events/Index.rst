@@ -41,6 +41,7 @@ The following example shows how to listen for an event.
 
 .. code-block:: javascript
    :caption: Extract of some JavaScript added with e.g. an AssetViewhelper
+   
    document.addEventListener("extcode:country-updated", (event) => {
      console.log("The event 'extcode:country-updated' was fired.");
      console.log("The event contains the following detail data:");
