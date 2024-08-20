@@ -31,6 +31,18 @@ jobs:
       - name: PHP lint
         run: "find *.php Classes Configuration Tests -name '*.php' -print0 | xargs -0 -n 1 -P 4 php -l"
 
+  documentation-rendering:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Documentation without warnings
+        run: |
+          mkdir -p Documentation-GENERATED-temp \
+          && docker run --rm --pull always -v $(pwd):/project \
+             ghcr.io/typo3-documentation/render-guides:latest --config=Documentation --no-progress --fail-on-log
+
   js-linting:
     runs-on: ubuntu-latest
     steps:
@@ -126,3 +138,4 @@ jobs:
 
       - name: Run Functional Tests PHP8.3
         run: nix-shell --arg phpVersion \"php83\" --pure --run project-test-functional
+
