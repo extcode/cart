@@ -1,6 +1,7 @@
 .. include:: ../../Includes.rst.txt
 
 .. _breaking-437-allowedCountries:
+
 ===================================================================
 Breaking: #437 - Refactor allowedCountries TypoScript Configuration
 ===================================================================

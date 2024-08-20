@@ -1,4 +1,5 @@
 .. include:: ../../Includes.rst.txt
+    
 .. _other_cart_extensions:
 
 =====================
@@ -26,10 +27,6 @@ Extension Key    Composer Package                                               
 `cart_books`     `extcode/cart-books <https://packagist.org/packages/extcode/cart-books>`__         `github.com/extcode/cart_books <https://github.com/extcode/cart_books>`__
 `cart_events`    `extcode/cart-events <https://packagist.org/packages/extcode/cart-events>`__       `github.com/extcode/cart_event <https://github.com/extcode/cart_events>`__
 ================ ================================================================================== =================================================================================
-
-
-For own product storages you have to implement the `\Extcode\Cart\Domain\Finisher\Cart\AddToCartFinisherInterface`.
-Please have a look at `Hooks <../../DeveloperManual/Hooks/Index.html>`__.
 
 
 Payment solutions

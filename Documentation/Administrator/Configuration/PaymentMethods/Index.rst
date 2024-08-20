@@ -73,7 +73,6 @@ Configuration given by this extension
 
 plugin.tx_cart.settings
 -----------------------
-The parameter `plugin.tx_cart.settings.countries.preset`
 
 .. confval:: countries.preset
 
@@ -86,7 +85,7 @@ The parameter `plugin.tx_cart.settings.countries.preset`
 plugin.tx_cart.payments.countries
 ---------------------------------
 
-.. confval:: <country-code>.preset
+.. confval:: payments.countries.<country-code>.preset
 
    :Type: int
 
@@ -97,20 +96,20 @@ plugin.tx_cart.payments.countries
    the payment method defined here for the country of invoice will also be
    selected.
 
-.. confval:: <country-code>.options.<n>
+.. confval:: payments.countries.<country-code>.options.<n>
 
    :Type: array
    :Default: options.1
 
    You can configure n different payment methods.
 
-.. confval:: <country-code>.options.<n>.title
+.. confval:: payments.countries.<country-code>.options.<n>.title
 
    :Type: string
 
    Name of the payment method (e.g.: prepayment, cash on delivery).
 
-.. confval:: <country-code>.options.<n>.extra
+.. confval:: payments.countries.<country-code>.options.<n>.extra
 
    :Type: float
    :Default: 0.00
@@ -118,7 +117,7 @@ plugin.tx_cart.payments.countries
    Costs for the payment method to be billed to the customer (for example, 1.50).
    The currency depends on the standard configuration.
 
-.. confval:: <country-code>.options.<n>.taxClassId
+.. confval:: payments.countries.<country-code>.options.<n>.taxClassId
 
    :Type: int
 
@@ -136,7 +135,7 @@ plugin.tx_cart.payments.countries
      payment method costs is calculated as a percentage of the tax of those
      products.
 
-.. confval:: <country-code>.options.<n>.status
+.. confval:: payments.countries.<country-code>.options.<n>.status
 
    :Type: string
 
@@ -148,28 +147,28 @@ Country configuration
 plugin.tx_cart.payments.countries
 ---------------------------------
 
-.. confval:: <country-code>.options.<n>.free.from
+.. confval:: payments.countries.<country-code>.options.<n>.free.from
 
    :Type: float
 
    If the gross price of the products is greater than or equal to the
    specified value, the price for the payment method is 0.00.
 
-.. confval:: <country-code>.options.<n>.free.until
+.. confval:: payments.countries.<country-code>.options.<n>.free.until
 
    :Type: float
 
    If the gross price of the products is less than or equal to the
    specified value, the price for the payment method is 0.00.
 
-.. confval:: <country-code>.options.<n>.fallBackId
+.. confval:: payments.countries.<country-code>.options.<n>.fallBackId
 
    :Type: int
 
    If the payment method is not available, the payment method with
    this ID is used.
 
-.. confval:: <country-code>.options.<n>.available.from
+.. confval:: payments.countries.<country-code>.options.<n>.available.from
 
    :Type: float
 
@@ -177,7 +176,7 @@ plugin.tx_cart.payments.countries
    is greater than or equal to the specified value, otherwise the fallback
    payment method is used.
 
-.. confval:: <country-code>.options.<n>.available.until
+.. confval:: payments.countries.<country-code>.options.<n>.available.until
 
    :Type: float
 
@@ -185,7 +184,7 @@ plugin.tx_cart.payments.countries
    is less than or equal to the specified value, otherwise the fallback
    payment method is used.
 
-.. confval:: <country-code>.options.<n>.redirects.success.url
+.. confval:: payments.countries.<country-code>.options.<n>.redirects.success.url
 
    :Type: string
 
@@ -226,13 +225,13 @@ countries.
        }
    }
 
-.. confval:: <n>
+.. confval:: payments.zones.<n>
 
    :Type: int
 
    You can configure up to n different zones.
 
-.. confval:: <n>.countries
+.. confval:: payments.zones.<n>.countries
 
    :Type: int
 

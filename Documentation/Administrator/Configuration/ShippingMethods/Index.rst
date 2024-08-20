@@ -71,21 +71,11 @@ Configuration given by this extension
        }
    }
 
-plugin.tx_cart.settings
------------------------
-The parameter `plugin.tx_cart.settings.countries.preset`
-
-.. confval:: countries.preset
-
-   :Type: int
-   :Default: 1
-
-   Defines which country will be preselected.
 
 plugin.tx_cart.shippings.countries
 ----------------------------------
 
-.. confval:: <country-code>.preset
+.. confval:: shippings.countries.<country-code>.preset
 
    :Type: int
 
@@ -96,20 +86,20 @@ plugin.tx_cart.shippings.countries
    changed, the shipping method defined here for the destination country is
    also selected.
 
-.. confval:: <country-code>.options.<n>
+.. confval:: shippings.countries.<country-code>.options.<n>
 
    :Type: array
    :Default: options.1
 
    You can configure n different shipping methods.
 
-.. confval:: <country-code>.options.<n>.title
+.. confval:: shippings.countries.<country-code>.options.<n>.title
 
    :Type: string
 
    Name of the shipping type (for example: Standard, Express).
 
-.. confval:: <country-code>.options.<n>.extra
+.. confval:: shippings.countries.<country-code>.options.<n>.extra
 
    :Type: float
    :Default: 0.00
@@ -117,7 +107,7 @@ plugin.tx_cart.shippings.countries
    Shipping costs that are to be billed to the customer (for example: 1.50).
    The currency depends on the standard configuration.
 
-.. confval:: <country-code>.options.<n>.taxClassId
+.. confval:: shippings.countries.<country-code>.options.<n>.taxClassId
 
    :Type: int
 
@@ -137,13 +127,14 @@ plugin.tx_cart.shippings.countries
    * `-2` → The products within the shopping cart are taken. The tax for the
      shipping costs is calculated as a percentage of the tax of those products.
 
-.. confval:: <country-code>.options.<n>.status
+.. confval:: shippings.countries.<country-code>.options.<n>.status
 
    :Type: string
 
    The status that the order with this shipping method should have by default.
 
 .. _country-configuration:
+
 Country Configuration
 =====================
 
@@ -175,7 +166,7 @@ Country Configuration
 plugin.tx_cart.shippings.countries
 ----------------------------------
 
-.. confval:: <country-code>.options.<n>.free.from
+.. confval:: shippings.countries.<country-code>.options.<n>.free.from
 
    :Type: float
 
@@ -183,14 +174,14 @@ plugin.tx_cart.shippings.countries
    specified value, the price for the shipping method is 0.00.
    This can be used for free shipping from a defined order value.
 
-.. confval:: <country-code>.options.<n>.free.until
+.. confval:: shippings.countries.<country-code>.options.<n>.free.until
 
    :Type: float
 
    If the gross price of the products is less than or equal to the specified
    value, the price for the shipping method is 0.00.
 
-.. confval:: <country-code>.options.<n>.available.from
+.. confval:: shippings.countries.<country-code>.options.<n>.available.from
 
    :Type: float
 
@@ -198,7 +189,7 @@ plugin.tx_cart.shippings.countries
    specified value, this shipping method is available, otherwise the
    fallback shipping method will be used.
 
-.. confval:: <country-code>.options.<n>.available.until
+.. confval:: shippings.countries.<country-code>.options.<n>.available.until
 
    :Type: float
 
@@ -206,7 +197,7 @@ plugin.tx_cart.shippings.countries
    specified value, this shipping method is available, otherwise the
    fallback shipping method will be used.
 
-.. confval:: <country-code>.options.<n>.fallBackId
+.. confval:: shippings.countries.<country-code>.options.<n>.fallBackId
 
    :Type: int
 
@@ -247,13 +238,13 @@ countries.
 
 |
 
-.. confval:: <n>
+.. confval:: shippings.zones.<n>
 
    :Type: int
 
    You can configure up to n different zones.
 
-.. confval:: <n>.countries
+.. confval:: shippings.zones.<n>.countries
 
    :Type: array
 

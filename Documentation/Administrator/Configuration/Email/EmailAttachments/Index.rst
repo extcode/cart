@@ -1,5 +1,7 @@
 .. include:: ../../../../Includes.rst.txt
+
 .. _mail_attachments:
+
 =================
 Email attachments
 =================
