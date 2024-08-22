@@ -306,8 +306,9 @@ class Product
     {
         $bestPrice = $this->getQuantityDiscountPrice($quantity);
 
-        if ($this->getTranslatedSpecialPrice() && ($this->getTranslatedSpecialPrice() < $bestPrice)) {
-            $bestPrice = $this->getTranslatedSpecialPrice();
+        $translatedSpecialPrice = $this->getTranslatedSpecialPrice();
+        if ($translatedSpecialPrice !== null && $translatedSpecialPrice < $bestPrice) {
+            $bestPrice = $translatedSpecialPrice;
         }
 
         return $bestPrice;
