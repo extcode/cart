@@ -65,19 +65,13 @@ class AdditionalJsonViewHelper extends AbstractViewHelper
         return $content;
     }
 
-    /**
-     * @param array $data
-     * @param string $key
-     *
-     * @return string
-     */
-    protected function getValue($data, $key): string
+    protected function getValue(array $data, string $key): string
     {
-        [$key, $residual] = explode('|', $key, 2);
+        [$key, $residual] = array_pad(explode('|', $key, 2), 2, '');
         if (!empty($residual)) {
             return $this->getValue($data[$key], $residual);
         }
 
-        return $data[$key];
+        return $data[$key] ?? '';
     }
 }
