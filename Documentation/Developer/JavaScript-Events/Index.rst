@@ -29,7 +29,7 @@ Event name                                  User action which triggers the event
 .. TIP::
    The best way to understand when the event is executed and which data it
    contains can be seen in it's context. Search in the directory
-   `/Build/Sources/` for the event name.
+   `/build/Sources/` for the event name.
 
 How to listen for events
 ========================
