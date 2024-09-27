@@ -11,9 +11,6 @@ use Extcode\Cart\Controller\Cart\OrderController;
 use Extcode\Cart\Controller\Cart\PaymentController;
 use Extcode\Cart\Controller\Cart\ProductController;
 use Extcode\Cart\Controller\Cart\ShippingController;
-use TYPO3\CMS\Core\Imaging\IconProvider\SvgIconProvider;
-use TYPO3\CMS\Core\Imaging\IconRegistry;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Utility\ExtensionUtility;
 
 // configure plugins
@@ -77,31 +74,6 @@ ExtensionUtility::configurePlugin(
         \Extcode\Cart\Controller\Order\OrderController::class => 'list, show',
     ]
 );
-
-// Icon Registry
-
-$icons = [
-    'apps-pagetree-folder-cart-coupons' => 'apps_pagetree_folder_cart_coupons.svg',
-    'apps-pagetree-folder-cart-orders' => 'apps_pagetree_folder_cart_orders.svg',
-    'apps-pagetree-page-cart-cart' => 'apps_pagetree_page_cart_cart.svg',
-    'ext-cart-wizard-icon' => 'cart_plugin_wizard.svg',
-    'ext-cart-module' => 'module.svg',
-    'ext-cart-module-order' => 'module_orders.svg',
-];
-
-$iconRegistry = GeneralUtility::makeInstance(
-    IconRegistry::class
-);
-
-foreach ($icons as $identifier => $fileName) {
-    $iconRegistry->registerIcon(
-        $identifier,
-        SvgIconProvider::class,
-        [
-            'source' => 'EXT:cart/Resources/Public/Icons/' . $fileName,
-        ]
-    );
-}
 
 // register "cart:" namespace
 $GLOBALS['TYPO3_CONF_VARS']['SYS']['fluid']['namespaces']['cart'][] = 'Extcode\\Cart\\ViewHelpers';
