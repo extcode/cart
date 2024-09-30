@@ -51,7 +51,7 @@ class AdditionalJsonViewHelper extends AbstractViewHelper
         if (is_string($data)) {
             $data = json_decode($data, true);
 
-            if (!$data || empty($data)) {
+            if (empty($data)) {
                 return 'Parameter additional seems to be an invalid JSON string!';
             }
         }
