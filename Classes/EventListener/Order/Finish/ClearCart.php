@@ -13,7 +13,7 @@ namespace Extcode\Cart\EventListener\Order\Finish;
 
 use Extcode\Cart\Domain\Model\Order\BillingAddress;
 use Extcode\Cart\Domain\Model\Order\ShippingAddress;
-use Extcode\Cart\Event\Order\EventInterface;
+use Extcode\Cart\Event\Order\FinishEvent;
 use Extcode\Cart\Service\PaymentMethodsServiceInterface;
 use Extcode\Cart\Service\SessionHandler;
 use Extcode\Cart\Utility\CartUtility;
@@ -27,7 +27,7 @@ class ClearCart
         protected readonly SessionHandler $sessionHandler
     ) {}
 
-    public function __invoke(EventInterface $event): void
+    public function __invoke(FinishEvent $event): void
     {
         $cart = $event->getCart();
         $settings = $event->getSettings();

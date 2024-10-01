@@ -15,7 +15,7 @@ use Extcode\Cart\Domain\Model\Order\Item as OrderItem;
 use Extcode\Cart\Domain\Model\Order\Tax as OrderTax;
 use Extcode\Cart\Domain\Repository\Order\ItemRepository;
 use Extcode\Cart\Domain\Repository\Order\TaxRepository;
-use Extcode\Cart\Event\Order\PersistOrderEventInterface;
+use Extcode\Cart\Event\Order\PersistOrderEvent;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
 
@@ -27,7 +27,7 @@ class Taxes
         private readonly TaxRepository $taxRepository
     ) {}
 
-    public function __invoke(PersistOrderEventInterface $event): void
+    public function __invoke(PersistOrderEvent $event): void
     {
         $orderItem = $event->getOrderItem();
 
@@ -39,7 +39,7 @@ class Taxes
     }
 
     protected function addTaxToRepositoryAndItem(
-        PersistOrderEventInterface $event,
+        PersistOrderEvent $event,
         OrderItem $orderItem,
         string $typeOfTax
     ): OrderItem {
