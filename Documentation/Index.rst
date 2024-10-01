@@ -28,14 +28,8 @@ Cart - a TYPO3-native shop system
    :Language:
       en
 
-   :Keywords:
-      cart, shop, shopping, e-commerce, ecommerce, checkout, payment
-
    :Author:
-      Daniel Gohlke
-
-   :Email:
-      ext@extco.de
+      Daniel Gohlke & Contributors
 
    :License:
       This document is published under the
@@ -48,100 +42,47 @@ Cart - a TYPO3-native shop system
 
 This extension is the base for a TYPO3-native shop solution.
 
-Together with other extisting extensions for products and payment solutions
-a shop using Extbase & Fluid can be implemented.
+Together with other existing extensions for products and payment solutions
+a shop using Extbase & Fluid can be implemented. This might be the best
+extendable shop solution for TYPO3.
 
 -----
 
-.. container:: row m-0 p-0
+..  card-grid::
+    :columns: 1
+    :columns-md: 2
+    :gap: 4
+    :class: pb-4
+    :card-height: 100
 
-   .. container:: col-12 col-md-6 pl-0 pr-3 py-3 m-0
+    ..  card:: :ref:`Introduction <introduction>`
 
-      .. container:: card px-0 h-100
+        Introduction to the extension cart, general information.
 
-         .. rst-class:: card-header h3
+    ..  card:: :ref:`Quick start <quick_start>`
 
-            .. rubric:: :ref:`Introduction <introduction>`
+        How to setup a minimal working installation.
 
-         .. container:: card-body
+    ..  card:: :ref:`For Administrators <administrator>`
 
-            Introduction to the extension cart, general information.
+        Install the extension and configure it correctly.
 
-   .. container:: col-12 col-md-6 pl-0 pr-3 py-3 m-0
+    ..  card:: :ref:`For Editors <editor>`
 
-      .. container:: card px-0 h-100
+        Information about how to use this extension in the backend.
 
-         .. rst-class:: card-header h3
+    ..  card:: :ref:`For Developers <developer>`
 
-            .. rubric:: :ref:`Quick start <quick_start>`
+        Information about existing events to extend functionality.
 
-         .. container:: card-body
+    ..  card:: :ref:`FAQ <faq>`
 
-            How to setup a minimal working installation.
+        Answers to frequently asked questions.
 
-   .. container:: col-12 col-md-6 pl-0 pr-3 py-3 m-0
+    ..  card:: :ref:`Changelog <changelog>`
 
-      .. container:: card px-0 h-100
+        Changes of this extension during updates.
 
-         .. rst-class:: card-header h3
-
-            .. rubric:: :ref:`For Administrators <administrator>`
-
-         .. container:: card-body
-
-            Install the extension and configure it correctly.
-
-   .. container:: col-12 col-md-6 pl-0 pr-3 py-3 m-0
-
-      .. container:: card px-0 h-100
-
-         .. rst-class:: card-header h3
-
-            .. rubric:: :ref:`For Editors <editor>`
-
-         .. container:: card-body
-
-            Information about how to use this extension in the backend.
-
-   .. container:: col-12 col-md-6 pl-0 pr-3 py-3 m-0
-
-      .. container:: card px-0 h-100
-
-         .. rst-class:: card-header h3
-
-            .. rubric:: :ref:`For Developers <developer>`
-
-         .. container:: card-body
-
-            Information about existing events to extend functionality.
-
-   .. container:: col-12 col-md-6 pl-0 pr-3 py-3 m-0
-
-      .. container:: card px-0 h-100
-
-         .. rst-class:: card-header h3
-
-            .. rubric:: :ref:`FAQ <faq>`
-
-         .. container:: card-body
-
-            Answers to frequently asked questions.
-
-   .. container:: col-12 col-md-6 pl-0 pr-3 py-3 m-0
-
-      .. container:: card px-0 h-100
-
-         .. rst-class:: card-header h3
-
-            .. rubric:: :ref:`Changelog <changelog>`
-
-         .. container:: card-body
-
-            Changes of this extension during updates.
-
-
-
-.. Table of Contents
 
 .. toctree::
    :maxdepth: 2
