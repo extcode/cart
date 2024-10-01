@@ -15,7 +15,7 @@ use Extcode\Cart\Domain\Repository\FrontendUserRepository;
 use Extcode\Cart\Domain\Repository\Order\BillingAddressRepository;
 use Extcode\Cart\Domain\Repository\Order\ItemRepository;
 use Extcode\Cart\Domain\Repository\Order\ShippingAddressRepository;
-use Extcode\Cart\Event\Order\PersistOrderEventInterface;
+use Extcode\Cart\Event\Order\PersistOrderEvent;
 use TYPO3\CMS\Core\Context\Context;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
@@ -29,7 +29,7 @@ class Item
         private readonly ShippingAddressRepository $shippingAddressRepository
     ) {}
 
-    public function __invoke(PersistOrderEventInterface $event): void
+    public function __invoke(PersistOrderEvent $event): void
     {
         $settings = $event->getSettings();
         $storagePid = $event->getStoragePid();

@@ -16,7 +16,7 @@ use Extcode\Cart\Domain\Model\Order\Discount;
 use Extcode\Cart\Domain\Repository\CouponRepository;
 use Extcode\Cart\Domain\Repository\Order\DiscountRepository;
 use Extcode\Cart\Domain\Repository\Order\ItemRepository;
-use Extcode\Cart\Event\Order\PersistOrderEventInterface;
+use Extcode\Cart\Event\Order\PersistOrderEvent;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
 
@@ -29,7 +29,7 @@ class Coupons
         private readonly CouponRepository $couponRepository
     ) {}
 
-    public function __invoke(PersistOrderEventInterface $event): void
+    public function __invoke(PersistOrderEvent $event): void
     {
         $cart = $event->getCart();
         $orderItem = $event->getOrderItem();

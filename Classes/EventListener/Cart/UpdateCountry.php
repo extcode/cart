@@ -11,11 +11,11 @@ namespace Extcode\Cart\EventListener\Cart;
  * LICENSE file that was distributed with this source code.
  */
 
-use Extcode\Cart\Event\Cart\UpdateCountryEventInterface;
+use Extcode\Cart\Event\Cart\UpdateCountryEvent;
 
 class UpdateCountry
 {
-    public function __invoke(UpdateCountryEventInterface $event): void
+    public function __invoke(UpdateCountryEvent $event): void
     {
         $cart = $event->getCart();
         $request = $event->getRequest();

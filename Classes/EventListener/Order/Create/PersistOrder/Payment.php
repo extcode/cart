@@ -13,7 +13,7 @@ namespace Extcode\Cart\EventListener\Order\Create\PersistOrder;
 
 use Extcode\Cart\Domain\Repository\Order\ItemRepository;
 use Extcode\Cart\Domain\Repository\Order\PaymentRepository;
-use Extcode\Cart\Event\Order\PersistOrderEventInterface;
+use Extcode\Cart\Event\Order\PersistOrderEvent;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
 
@@ -25,7 +25,7 @@ class Payment
         private readonly PaymentRepository $paymentRepository
     ) {}
 
-    public function __invoke(PersistOrderEventInterface $event): void
+    public function __invoke(PersistOrderEvent $event): void
     {
         $cart = $event->getCart();
         $orderItem = $event->getOrderItem();

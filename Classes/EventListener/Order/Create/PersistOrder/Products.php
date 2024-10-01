@@ -18,7 +18,7 @@ use Extcode\Cart\Domain\Model\Order\Item;
 use Extcode\Cart\Domain\Model\Order\ProductAdditional;
 use Extcode\Cart\Domain\Repository\Order\ProductAdditionalRepository;
 use Extcode\Cart\Domain\Repository\Order\ProductRepository;
-use Extcode\Cart\Event\Order\PersistOrderEventInterface;
+use Extcode\Cart\Event\Order\PersistOrderEvent;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
 
@@ -36,7 +36,7 @@ class Products
         private readonly ProductAdditionalRepository $productAdditionalRepository
     ) {}
 
-    public function __invoke(PersistOrderEventInterface $event): void
+    public function __invoke(PersistOrderEvent $event): void
     {
         $cart = $event->getCart();
         $this->orderItem = $event->getOrderItem();

@@ -11,7 +11,7 @@ namespace Extcode\Cart\EventListener\Order\Create;
  * LICENSE file that was distributed with this source code.
  */
 
-use Extcode\Cart\Event\Order\EventInterface;
+use Extcode\Cart\Event\Order\CreateEvent;
 use Extcode\Cart\Event\Order\PersistOrderEvent;
 use Psr\EventDispatcher\EventDispatcherInterface;
 use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
@@ -23,7 +23,7 @@ class Order
         private readonly PersistenceManager $persistenceManager
     ) {}
 
-    public function __invoke(EventInterface $event): void
+    public function __invoke(CreateEvent $event): void
     {
         $settings = $event->getSettings();
         $cart = $event->getCart();
