@@ -75,6 +75,10 @@ extendable shop solution for TYPO3.
 
         Information about existing events to extend functionality.
 
+    ..  card:: :ref:`Tutorials <tutorials>`
+
+        Tutorials for a smooth setup of the extension.
+
     ..  card:: :ref:`FAQ <faq>`
 
         Answers to frequently asked questions.
@@ -94,5 +98,6 @@ extendable shop solution for TYPO3.
    Administrator/Index
    Developer/Index
    Editor/Index
+   Tutorials/Index
    Faq/Index
    Changelog/Index
