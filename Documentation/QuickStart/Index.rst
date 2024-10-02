@@ -9,6 +9,11 @@ Quick start
 Watch the video and/or read the instructions to get a (minimal) working
 shop setup.
 
+..  note::
+    The video shows the setup for an older version. Some parts are outdated,
+    nonetheless the video still gives a good overview. 
+    Please also read the instructions below which work with the current version. 
+
 .. youtube:: lAu7hlRmZP8
 
 Instructions
