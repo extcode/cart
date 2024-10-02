@@ -21,32 +21,7 @@ Plugin "Cart: Mini Cart"
 
 This plugin can be included as mini cart and gives a shortened view of the cart.
 
-An option to add this plugin is via TypoScript as shown below:
-
-.. code-block:: typoscript
-   :caption: EXT:sitepackage/Configuration/TypoScript/setup.typoscript
-
-   lib.miniCart = COA_INT
-   lib.miniCart {
-     10 = USER_INT
-     10 {
-       userFunc = TYPO3\CMS\Extbase\Core\Bootstrap->run
-       extensionName = Cart
-       pluginName = MiniCart
-       vendorName = Extcode
-     }
-   }
-
-This TypoScript object can then be used within a Fluid template:
-
-.. code-block:: html
-   :caption: e.g. EXT:sitepackage/Resources/Private/Partials/Header.html
-
-   <header>
-       <!-- Other elements within your header ... -->
-       <f:cObject typoscriptObjectPath="lib.miniCart"/>
-   </header>
-
+For an example of an implementation see :ref:`Integrate a MiniCart <minicart>`.
 
 .. _plugin_cart_orders:
 
