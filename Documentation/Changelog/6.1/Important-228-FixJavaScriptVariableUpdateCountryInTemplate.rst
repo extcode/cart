@@ -4,7 +4,7 @@
 Important: #228 - Fix JavaScript variable update_country in template
 ====================================================================
 
-See :issue:`228`
+See `Issue 228 <https://github.com/extcode/cart/issues/228>`__
 
 Description
 ===========

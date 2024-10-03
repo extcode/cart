@@ -4,7 +4,7 @@
 Feature: #413 - Provide Product Traits
 ======================================
 
-See :issue:`413`
+See `Issue 413 <https://github.com/extcode/cart/issues/413>`__
 
 Description
 ===========

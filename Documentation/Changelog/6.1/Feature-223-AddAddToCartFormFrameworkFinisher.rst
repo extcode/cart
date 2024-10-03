@@ -4,7 +4,7 @@
 Feature: #223 - Add addToCart form framework finisher
 =====================================================
 
-See :issue:`223`
+See `Issue 223 <https://github.com/extcode/cart/issues/223>`__
 
 Description
 ===========

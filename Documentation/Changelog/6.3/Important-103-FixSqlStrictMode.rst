@@ -4,7 +4,7 @@
 Important: #103 - Fix exception in sql strict mode
 ==================================================
 
-See :issue:`103`
+See `Issue 103 <https://github.com/extcode/cart/issues/103>`__
 
 Description
 ===========

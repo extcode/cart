@@ -4,7 +4,7 @@
 Feature: #271 - BCC (Blind Carbon Copy) for Buyer and Seller Email
 ==================================================================
 
-See :issue:`271`
+See `Issue 271 <https://github.com/extcode/cart/issues/271>`__
 
 Description
 ===========

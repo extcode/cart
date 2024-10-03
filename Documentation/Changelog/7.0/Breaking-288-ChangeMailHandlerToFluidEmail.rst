@@ -4,7 +4,7 @@
 Breaking: #288 - Change MailHandler to FluidEmail
 =================================================
 
-See :issue:`288`
+See `Issue 288 <https://github.com/extcode/cart/issues/288>`__
 
 Description
 ===========

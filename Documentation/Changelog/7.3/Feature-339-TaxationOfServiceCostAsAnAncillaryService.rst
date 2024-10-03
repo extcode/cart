@@ -4,7 +4,7 @@
 Deprecation: 339 - Taxation of Service Cost as an Ancillary Service
 ===================================================================
 
-See :issue:`339`
+See `Issue 339 <https://github.com/extcode/cart/issues/339>`__
 
 Description
 ===========

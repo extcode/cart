@@ -4,7 +4,7 @@
 Feature: #465 - DateFormat in Backend Module
 ============================================
 
-See :issue:`465`
+See `Issue 465 <https://github.com/extcode/cart/issues/465>`__
 
 Description
 ===========

@@ -4,7 +4,7 @@
 Feature: #309 - Improve ProcessOrderCheckStockEvent
 ===================================================
 
-See :issue:`309`
+See `Issue 309 <https://github.com/extcode/cart/issues/309>`__
 
 Description
 ===========

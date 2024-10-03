@@ -4,7 +4,7 @@
 Important: #263 - Bugfix for TypeNum in RouteEnhancer
 =====================================================
 
-See :issue:`263`
+See `Issue 263 <https://github.com/extcode/cart/issues/263>`__
 
 Description
 ===========

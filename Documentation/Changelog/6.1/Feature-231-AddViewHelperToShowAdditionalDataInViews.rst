@@ -4,7 +4,7 @@
 Feature: #231 - Add ViewHelper to show additionalData in views
 ==============================================================
 
-See :issue:`231`
+See `Issue 231 <https://github.com/extcode/cart/issues/231>`__
 
 Description
 ===========

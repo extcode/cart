@@ -4,7 +4,7 @@
 Breaking: #404 - Change Checkbox Value in OrderForm
 ===================================================
 
-See :issue:`360`
+See `Issue 360 <https://github.com/extcode/cart/issues/360>`__
 
 Description
 ===========

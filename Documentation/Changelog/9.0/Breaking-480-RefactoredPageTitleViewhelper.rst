@@ -4,7 +4,7 @@
 Breaking: #480 - Refactored PageTitleViewhelper
 ===============================================
 
-See :issue:`480`
+See `Issue 480 <https://github.com/extcode/cart/issues/480>`__
 
 Description
 ===========

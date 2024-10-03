@@ -4,7 +4,7 @@
 Important: #237 - Remove showToTopLink-function call from JavaScript
 ====================================================================
 
-See :issue:`237`
+See `Issue 237 <https://github.com/extcode/cart/issues/237>`__
 
 Description
 ===========

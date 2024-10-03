@@ -4,7 +4,7 @@
 Feature: 337 - Split Up ProcessOrderCreateEvent
 ===============================================
 
-See :issue:`337`
+See `Issue 337 <https://github.com/extcode/cart/issues/337>`__
 
 Description
 ===========

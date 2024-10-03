@@ -4,7 +4,7 @@
 Breaking: #413 - Remove Signal Slots
 ====================================
 
-See :issue:`413`
+See `Issue 413 <https://github.com/extcode/cart/issues/413>`__
 
 Description
 ===========

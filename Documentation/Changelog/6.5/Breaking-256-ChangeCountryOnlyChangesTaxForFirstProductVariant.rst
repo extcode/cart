@@ -4,7 +4,7 @@
 Breaking: #256 - Change country only changes tax for first product variant
 ==========================================================================
 
-See :issue:`256`
+See `Issue 256 <https://github.com/extcode/cart/issues/256>`__
 
 Description
 ===========

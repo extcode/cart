@@ -4,7 +4,7 @@
 Deprecation: 392 - Add Percentage Discount
 ==========================================
 
-See :issue:`392`
+See `Issue 392 <https://github.com/extcode/cart/issues/392>`__
 
 Description
 ===========

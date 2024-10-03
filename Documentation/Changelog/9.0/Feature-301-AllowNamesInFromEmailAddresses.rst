@@ -4,7 +4,7 @@
 Feature: #301 - Allow names in "from" email addresses
 =====================================================
 
-See :issue:`301`
+See `Issue 301 <https://github.com/extcode/cart/issues/301>`__
 
 Description
 ===========

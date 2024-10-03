@@ -4,7 +4,7 @@
 Breaking: #288 - Use PSR-14 Events for Order Finishers
 ======================================================
 
-See :issue:`288`
+See `Issue 288 <https://github.com/extcode/cart/issues/288>`__
 
 Description
 ===========

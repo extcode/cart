@@ -4,7 +4,7 @@
 Breaking: #242 - Use defaultCountry setting for shipping address
 ================================================================
 
-See :issue:`242`
+See `Issue 242 <https://github.com/extcode/cart/issues/242>`__
 
 Description
 ===========

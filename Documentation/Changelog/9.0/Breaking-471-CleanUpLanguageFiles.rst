@@ -4,7 +4,7 @@
 Breaking: #471 - Clean up language files
 ===========================================================
 
-See :issue:`471`
+See `Issue 471 <https://github.com/extcode/cart/issues/471>`__
 
 Description
 ===========

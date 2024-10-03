@@ -4,7 +4,7 @@
 Feature: #274 - Add Extra Condition to only Charge Service for Physical Goods
 =============================================================================
 
-See :issue:`274`
+See `Issue 274 <https://github.com/extcode/cart/issues/274>`__
 
 Description
 ===========

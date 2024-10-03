@@ -4,7 +4,7 @@
 Feature: #241 - Add Service Interface
 =====================================
 
-See :issue:`241`
+See `Issue 241 <https://github.com/extcode/cart/issues/241>`__
 
 Description
 ===========

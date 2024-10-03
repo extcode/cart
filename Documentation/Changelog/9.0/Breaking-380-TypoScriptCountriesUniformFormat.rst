@@ -4,7 +4,7 @@
 Breaking: #380 - TypoScript for countries in uniform format
 ===========================================================
 
-See :issue:`380` and :issue:`435`
+See `Issue 380` and :issue:`435 <https://github.com/extcode/cart/issues/380` and :issue:`435>`__
 
 Description
 ===========

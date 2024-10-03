@@ -4,7 +4,7 @@
 Feature: #277 - Add TaxClass Interface
 ======================================
 
-See :issue:`277`
+See `Issue 277 <https://github.com/extcode/cart/issues/277>`__
 
 Description
 ===========

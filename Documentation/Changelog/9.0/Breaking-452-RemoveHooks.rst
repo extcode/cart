@@ -4,7 +4,7 @@
 Breaking: #452 - Remove Hooks
 =============================
 
-See :issue:`452`
+See `Issue 452 <https://github.com/extcode/cart/issues/452>`__
 
 Description
 ===========

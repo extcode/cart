@@ -4,7 +4,7 @@
 Feature: #246 - MailAttachmentsHook
 ===================================
 
-See :issue:`246`
+See `Issue 246 <https://github.com/extcode/cart/issues/246>`__
 
 Description
 ===========
