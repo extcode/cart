@@ -4,7 +4,7 @@
 Feature: 369 - Add Multi-Step Checkout Option
 =============================================
 
-See :issue:`369`
+See `Issue 369 <https://github.com/extcode/cart/issues/369>`__
 
 Description
 ===========

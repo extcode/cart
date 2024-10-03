@@ -4,7 +4,7 @@
 Feature: #272 - Use Buyer Email for replyTo
 ===========================================
 
-See :issue:`272`
+See `Issue 272 <https://github.com/extcode/cart/issues/272>`__
 
 Description
 ===========

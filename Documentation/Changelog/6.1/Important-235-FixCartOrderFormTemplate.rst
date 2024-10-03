@@ -4,7 +4,7 @@
 Important: #235 - Fix cart order form template
 ==============================================
 
-See :issue:`235`
+See `Issue 235 <https://github.com/extcode/cart/issues/235>`__
 
 Description
 ===========

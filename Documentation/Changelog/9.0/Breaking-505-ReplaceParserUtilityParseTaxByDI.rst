@@ -4,7 +4,7 @@
 Breaking: #505 - Replace ParserUtility::parseTax by DI
 ======================================================
 
-See :issue:`480`
+See `Issue 480 <https://github.com/extcode/cart/issues/480>`__
 
 Description
 ===========

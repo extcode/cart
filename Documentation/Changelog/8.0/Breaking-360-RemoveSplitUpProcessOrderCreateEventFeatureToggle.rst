@@ -4,7 +4,7 @@
 Breaking: #360 - Remove Split Up ProcessOrderCreateEvent Feature Toggle
 =======================================================================
 
-See :issue:`360`
+See `Issue 360 <https://github.com/extcode/cart/issues/360>`__
 
 Description
 ===========

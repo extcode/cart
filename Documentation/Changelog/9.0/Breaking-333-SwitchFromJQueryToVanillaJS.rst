@@ -4,7 +4,7 @@
 Breaking: #333 - Switch from jQuery to vanilla JavaScript
 =========================================================
 
-See :issue:`333`
+See `Issue 333 <https://github.com/extcode/cart/issues/333>`__
 
 Description
 ===========

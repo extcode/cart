@@ -4,7 +4,7 @@
 Feature: #267 - Declare extension compatible with PHP 7.4
 =========================================================
 
-See :issue:`267`
+See `Issue 267 <https://github.com/extcode/cart/issues/267>`__
 
 Description
 ===========

@@ -4,7 +4,7 @@
 Breaking: #445 - Include all address fields in validation
 =========================================================
 
-See :issue:`445`
+See `Issue 445 <https://github.com/extcode/cart/issues/445>`__
 
 Description
 ===========

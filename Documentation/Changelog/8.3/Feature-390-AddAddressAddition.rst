@@ -4,7 +4,7 @@
 Feature: 390 - Add Address Addition
 ===================================
 
-See :issue:`390`
+See `Issue 390 <https://github.com/extcode/cart/issues/390>`__
 
 Description
 ===========

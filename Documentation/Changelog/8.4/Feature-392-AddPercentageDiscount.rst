@@ -1,12 +1,12 @@
 .. include:: ../../Includes.rst.txt
-    
+
 .. _feature_392:
 
 ======================================
 Feature: 392 - Add Percentage Discount
 ======================================
 
-See :issue:`392`
+See `Issue 392 <https://github.com/extcode/cart/issues/392>`__
 
 Description
 ===========

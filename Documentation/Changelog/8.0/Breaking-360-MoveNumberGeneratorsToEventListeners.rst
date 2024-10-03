@@ -4,7 +4,7 @@
 Breaking: #360 - Move Number Generators To EventListeners
 =========================================================
 
-See :issue:`360`
+See `Issue 360 <https://github.com/extcode/cart/issues/360>`__
 
 Description
 ===========

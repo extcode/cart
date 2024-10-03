@@ -6,7 +6,7 @@
 Breaking: #437 - Refactor Currency TypoScript Configuration
 ===========================================================
 
-See :issue:`413`
+See `Issue 413 <https://github.com/extcode/cart/issues/413>`__
 
 Description
 ===========
