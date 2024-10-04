@@ -21,10 +21,6 @@ Tutorials
 
         Prefill address fields with data of an logged-in Frontend user.
 
-    ..  card:: :ref:`Images of products in the cart <images-cart-product-list>`
-
-        A way to render an image of a product in the cart product list.
-
     ..  card:: :ref:`Routing for multistep checkout <routing-multistep-checkout>`
 
         A possible setup for routing in multistep checkout
@@ -35,5 +31,4 @@ Tutorials
 
    MiniCart/Index
    PrefillAddress/Index
-   ImagesInCart/Index
    RoutingMultistepCheckout/Index
