@@ -135,17 +135,15 @@ test:php83:typo3_12:
 documentation:
   stage: documentation
   image:
-    name: t3docs/render-documentation:v2.4.0
-    entrypoint: [""]
-  before_script:
-    - cp -a ${CI_PROJECT_DIR}/. /PROJECT
-    - mkdir -p ${CI_PROJECT_DIR}/Documentation-GENERATED-temp
+    name: ghcr.io/typo3-documentation/render-guides:latest
+    entrypoint: [ "" ]
   script:
-    - cd /ALL/venv
-    - /ALL/Menu/mainmenu.sh makehtml-no-cache -c resultdir ${CI_PROJECT_DIR}/Documentation-GENERATED-temp
+    - mkdir -p Documentation-GENERATED-temp
+    - /opt/guides/entrypoint.sh --config=Documentation --no-progress --fail-on-log
+  before_script: []
   artifacts:
     paths:
-      - ${CI_PROJECT_DIR}/Documentation-GENERATED-temp/Result/project/0.0.0
+      - Documentation-GENERATED-temp/
     expire_in: 1 day
     when: always
 
