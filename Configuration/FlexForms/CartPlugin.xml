@@ -11,109 +11,89 @@
                 <type>array</type>
                 <el>
                     <settings.seller.emailFromName>
-                        <TCEforms>
-                            <label>
-                                LLL:EXT:cart/Resources/Private/Language/locallang_db.xml:tx_cart.flexform.seller.email_from_name
-                            </label>
-                            <config>
-                                <type>input</type>
-                            </config>
-                        </TCEforms>
+                        <label>
+                            LLL:EXT:cart/Resources/Private/Language/locallang_db.xml:tx_cart.flexform.seller.email_from_name
+                        </label>
+                        <config>
+                            <type>input</type>
+                        </config>
                     </settings.seller.emailFromName>
                     <settings.seller.emailFromAddress>
-                        <TCEforms>
-                            <label>
-                                LLL:EXT:cart/Resources/Private/Language/locallang_db.xml:tx_cart.flexform.seller.email_from_address
-                            </label>
-                            <config>
-                                <type>input</type>
-                            </config>
-                        </TCEforms>
+                        <label>
+                            LLL:EXT:cart/Resources/Private/Language/locallang_db.xml:tx_cart.flexform.seller.email_from_address
+                        </label>
+                        <config>
+                            <type>input</type>
+                        </config>
                     </settings.seller.emailFromAddress>
                     <settings.seller.emailToAddress>
-                        <TCEforms>
-                            <label>
-                                LLL:EXT:cart/Resources/Private/Language/locallang_db.xml:tx_cart.flexform.seller.email_to_address
-                            </label>
-                            <config>
-                                <type>input</type>
-                            </config>
-                        </TCEforms>
+                        <label>
+                            LLL:EXT:cart/Resources/Private/Language/locallang_db.xml:tx_cart.flexform.seller.email_to_address
+                        </label>
+                        <config>
+                            <type>input</type>
+                        </config>
                     </settings.seller.emailToAddress>
                     <settings.seller.emailCcAddress>
-                        <TCEforms>
-                            <label>
-                                LLL:EXT:cart/Resources/Private/Language/locallang_db.xml:tx_cart.flexform.seller.email_cc_address
-                            </label>
-                            <description>LLL:EXT:cart/Resources/Private/Language/locallang_db.xml:tx_cart.flexform.seller.email_cc_address.description</description>
-                            <config>
-                                <type>input</type>
-                            </config>
-                        </TCEforms>
+                        <label>
+                            LLL:EXT:cart/Resources/Private/Language/locallang_db.xml:tx_cart.flexform.seller.email_cc_address
+                        </label>
+                        <description>LLL:EXT:cart/Resources/Private/Language/locallang_db.xml:tx_cart.flexform.seller.email_cc_address.description</description>
+                        <config>
+                            <type>input</type>
+                        </config>
                     </settings.seller.emailCcAddress>
                     <settings.seller.emailBccAddress>
-                        <TCEforms>
-                            <label>
-                                LLL:EXT:cart/Resources/Private/Language/locallang_db.xml:tx_cart.flexform.seller.email_bcc_address
-                            </label>
-                            <description>LLL:EXT:cart/Resources/Private/Language/locallang_db.xml:tx_cart.flexform.seller.email_bcc_address.description</description>
-                            <config>
-                                <type>input</type>
-                            </config>
-                        </TCEforms>
+                        <label>
+                            LLL:EXT:cart/Resources/Private/Language/locallang_db.xml:tx_cart.flexform.seller.email_bcc_address
+                        </label>
+                        <description>LLL:EXT:cart/Resources/Private/Language/locallang_db.xml:tx_cart.flexform.seller.email_bcc_address.description</description>
+                        <config>
+                            <type>input</type>
+                        </config>
                     </settings.seller.emailBccAddress>
                     <settings.buyer.emailFromName>
-                        <TCEforms>
-                            <label>
-                                LLL:EXT:cart/Resources/Private/Language/locallang_db.xml:tx_cart.flexform.buyer.email_from_name
-                            </label>
-                            <config>
-                                <type>input</type>
-                            </config>
-                        </TCEforms>
+                        <label>
+                            LLL:EXT:cart/Resources/Private/Language/locallang_db.xml:tx_cart.flexform.buyer.email_from_name
+                        </label>
+                        <config>
+                            <type>input</type>
+                        </config>
                     </settings.buyer.emailFromName>
                     <settings.buyer.emailFromAddress>
-                        <TCEforms>
-                            <label>
-                                LLL:EXT:cart/Resources/Private/Language/locallang_db.xml:tx_cart.flexform.buyer.email_from_address
-                            </label>
-                            <config>
-                                <type>input</type>
-                            </config>
-                        </TCEforms>
+                        <label>
+                            LLL:EXT:cart/Resources/Private/Language/locallang_db.xml:tx_cart.flexform.buyer.email_from_address
+                        </label>
+                        <config>
+                            <type>input</type>
+                        </config>
                     </settings.buyer.emailFromAddress>
                     <settings.buyer.emailCcAddress>
-                        <TCEforms>
-                            <label>
-                                LLL:EXT:cart/Resources/Private/Language/locallang_db.xml:tx_cart.flexform.buyer.email_cc_address
-                            </label>
-                            <description>LLL:EXT:cart/Resources/Private/Language/locallang_db.xml:tx_cart.flexform.buyer.email_cc_address.description</description>
-                            <config>
-                                <type>input</type>
-                            </config>
-                        </TCEforms>
+                        <label>
+                            LLL:EXT:cart/Resources/Private/Language/locallang_db.xml:tx_cart.flexform.buyer.email_cc_address
+                        </label>
+                        <description>LLL:EXT:cart/Resources/Private/Language/locallang_db.xml:tx_cart.flexform.buyer.email_cc_address.description</description>
+                        <config>
+                            <type>input</type>
+                        </config>
                     </settings.buyer.emailCcAddress>
                     <settings.buyer.emailBccAddress>
-                        <TCEforms>
-                            <label>
-                                LLL:EXT:cart/Resources/Private/Language/locallang_db.xml:tx_cart.flexform.buyer.email_bcc_address
-                            </label>
-                            <description>LLL:EXT:cart/Resources/Private/Language/locallang_db.xml:tx_cart.flexform.buyer.email_bcc_address.description</description>
-                            <config>
-                                <type>input</type>
-                            </config>
-                        </TCEforms>
+                        <label>
+                            LLL:EXT:cart/Resources/Private/Language/locallang_db.xml:tx_cart.flexform.buyer.email_bcc_address
+                        </label>
+                        <description>LLL:EXT:cart/Resources/Private/Language/locallang_db.xml:tx_cart.flexform.buyer.email_bcc_address.description</description>
+                        <config>
+                            <type>input</type>
+                        </config>
                     </settings.buyer.emailBccAddress>
                     <settings.buyer.emailReplyToAddress>
-                        <TCEforms>
-                            <label>
-                                LLL:EXT:cart/Resources/Private/Language/locallang_db.xml:tx_cart.flexform.buyer.email_reply_to_address
-                            </label>
-                            <description>LLL:EXT:cart/Resources/Private/Language/locallang_db.xml:tx_cart.flexform.buyer.email_reply_to_address.description</description>
-                            <config>
-                                <type>input</type>
-                            </config>
-                        </TCEforms>
+                        <label>
+                            LLL:EXT:cart/Resources/Private/Language/locallang_db.xml:tx_cart.flexform.buyer.email_reply_to_address
+                        </label>
+                        <description>LLL:EXT:cart/Resources/Private/Language/locallang_db.xml:tx_cart.flexform.buyer.email_reply_to_address.description</description>
+                        <config>
+                            <type>input</type>
+                        </config>
                     </settings.buyer.emailReplyToAddress>
                 </el>
             </ROOT>
