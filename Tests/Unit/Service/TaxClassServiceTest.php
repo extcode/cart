@@ -1,6 +1,6 @@
 <?php
 
-namespace Extcode\Cart\Tests\Functional\Service;
+namespace Extcode\Cart\Tests\Unit\Service;
 
 /*
  * This file is part of the package extcode/cart.
@@ -10,28 +10,17 @@ namespace Extcode\Cart\Tests\Functional\Service;
  */
 
 use Extcode\Cart\Domain\Model\Cart\TaxClass;
+use Extcode\Cart\Domain\Model\Cart\TaxClassFactory;
 use Extcode\Cart\Service\TaxClassService;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Test;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
+use Psr\Log\LoggerInterface;
+use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
+use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
-#[CoversClass(FunctionalTestCase::class)]
-class TaxClassServiceTest extends FunctionalTestCase
+#[CoversClass(TaxClassService::class)]
+class TaxClassServiceTest extends UnitTestCase
 {
-    protected TaxClassService $taxClassService;
-
-    public function setUp(): void
-    {
-        $this->testExtensionsToLoad[] = 'extcode/cart';
-
-        parent::setUp();
-
-        $this->taxClassService = GeneralUtility::makeInstance(
-            TaxClassService::class
-        );
-    }
-
     #[Test]
     public function parsingTaxClassesFromTypoScriptWithoutCountryCodeReturnsDirectlyConfiguredArrayOfTaxClasses(): void
     {
@@ -55,14 +44,9 @@ class TaxClassServiceTest extends FunctionalTestCase
             ],
         ];
 
-        $reflection = new \ReflectionClass($this->taxClassService);
-        $reflection_property = $reflection->getProperty('settings');
-        $reflection_property->setAccessible(true);
-        $reflection_property->setValue($this->taxClassService, $settings);
-
         $countryCode = '';
 
-        $taxClasses = $this->taxClassService->getTaxClasses($countryCode);
+        $taxClasses = $this->createSubject($settings)->getTaxClasses($countryCode);
 
         self::assertIsArray(
             $taxClasses
@@ -127,14 +111,9 @@ class TaxClassServiceTest extends FunctionalTestCase
             ],
         ];
 
-        $reflection = new \ReflectionClass($this->taxClassService);
-        $reflection_property = $reflection->getProperty('settings');
-        $reflection_property->setAccessible(true);
-        $reflection_property->setValue($this->taxClassService, $settings);
-
         $countryCode = 'AT';
 
-        $taxClasses = $this->taxClassService->getTaxClasses($countryCode);
+        $taxClasses = $this->createSubject($settings)->getTaxClasses($countryCode);
 
         self::assertIsArray(
             $taxClasses
@@ -216,14 +195,9 @@ class TaxClassServiceTest extends FunctionalTestCase
             ],
         ];
 
-        $reflection = new \ReflectionClass($this->taxClassService);
-        $reflection_property = $reflection->getProperty('settings');
-        $reflection_property->setAccessible(true);
-        $reflection_property->setValue($this->taxClassService, $settings);
-
         $countryCode = 'CH';
 
-        $taxClasses = $this->taxClassService->getTaxClasses($countryCode);
+        $taxClasses = $this->createSubject($settings)->getTaxClasses($countryCode);
 
         self::assertIsArray(
             $taxClasses
@@ -259,16 +233,24 @@ class TaxClassServiceTest extends FunctionalTestCase
             ],
         ];
 
-        $reflection = new \ReflectionClass($this->taxClassService);
-        $reflection_property = $reflection->getProperty('settings');
-        $reflection_property->setAccessible(true);
-        $reflection_property->setValue($this->taxClassService, $settings);
-
-        $taxClasses = $this->taxClassService->getTaxClasses();
+        $taxClasses = $this->createSubject($settings)->getTaxClasses();
 
         self::assertEquals(
             $taxClasses[1]->getCalc(),
             0
+        );
+    }
+
+    private function createSubject(array $settings): TaxClassService
+    {
+        $configurationManager = $this->createStub(ConfigurationManagerInterface::class);
+        $configurationManager->method('getConfiguration')->willReturn($settings);
+
+        return new TaxClassService(
+            $configurationManager,
+            new TaxClassFactory(
+                $this->createStub(LoggerInterface::class)
+            )
         );
     }
 }
