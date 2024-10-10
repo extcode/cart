@@ -17,10 +17,11 @@ class DetailPageLinkFactory implements DetailPageLinkFactoryInterface
         int $detailPageUid,
         string $extensionName = '',
         string $pluginName = '',
-        string $controller = ''
+        string $controller = '',
+        string $action = '',
     ): ?DetailPageLink {
         if ($detailPageUid > 0) {
-            return new DetailPageLink($detailPageUid, $extensionName, $pluginName, $controller);
+            return new DetailPageLink($detailPageUid, $extensionName, $pluginName, $controller, $action);
         }
         return null;
     }

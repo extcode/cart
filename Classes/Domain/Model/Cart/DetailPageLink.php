@@ -17,7 +17,8 @@ final class DetailPageLink
         protected int $pageUid,
         protected string $extensionName = '',
         protected string $pluginName = '',
-        protected string $controller = ''
+        protected string $controller = '',
+        protected string $action = '',
     ) {}
 
     public function getPageUid(): int
@@ -38,5 +39,17 @@ final class DetailPageLink
     public function getController(): string
     {
         return $this->controller;
+    }
+    public function getAction(): string
+    {
+        return $this->action;
+    }
+
+    public function isActionLink(): bool
+    {
+        if ($this->pageUid && $this->extensionName && $this->pluginName && $this->controller && $this->action) {
+            return true;
+        }
+        return false;
     }
 }

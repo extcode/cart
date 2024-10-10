@@ -17,6 +17,7 @@ interface DetailPageLinkFactoryInterface
         int $detailPageUid,
         string $extensionName = '',
         string $pluginName = '',
-        string $controller = ''
+        string $controller = '',
+        string $action = ''
     ): ?DetailPageLink;
 }

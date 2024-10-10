@@ -2,25 +2,41 @@
       xmlns:cart="http://typo3.org/ns/Extcode/Cart/ViewHelpers"
       data-namespace-typo3-fluid="true">
 
+<f:section name="detailLink">
+    <f:if condition="{product.detailPageLink}">
+        <f:then>
+            <f:if condition="{product.detailPageLink.actionLink}">
+                    <f:link.action
+                        pageUid="{product.detailPageLink.pageUid}"
+                        extensionName="{product.detailPageLink.extensionName}"
+                        pluginName="{product.detailPageLink.pluginName}"
+                        controller="{product.detailPageLink.controller}"
+                        action="{product.detailPageLink.action}"
+                        arguments="{product: product.productId}">
+                        {linkedTitle}
+                    </f:link.action>
+              </f:if>
+              <f:if condition="!{product.detailPageLink.actionLink} && {product.detailPageLink.pageUid}">
+                    <f:link.page pageUid="{product.detailPageLink.pageUid}">
+                        {linkedTitle}
+                    </f:link.page>
+            </f:if>
+
+        </f:then>
+        <f:else>
+            {linkedTitle}
+        </f:else>
+    </f:if>
+</f:section>
+
 <f:section name="withoutVariant">
     <tr class="{f:if(condition: product.quantityInRange, then: '', else: 'danger')}">
         <td colspan="2" class="col-md-6">
             <div class="product-name">
-                <f:if condition="{product.detailPageLink}">
-                    <f:then>
-                        <f:link.action
-                            pageUid="{product.detailPageLink.pageUid}"
-                            extensionName="{product.detailPageLink.extensionName}"
-                            pluginName="{product.detailPageLink.pluginName}"
-                            controller="{product.detailPageLink.controller}"
-                            arguments="{product: product.productId}">
-                            {product.title} {f:if(condition:'{product.feVariant.value}',then:'- {product.feVariant.value}')}
-                        </f:link.action>
-                    </f:then>
-                    <f:else>
-                        {product.title} {f:if(condition:'{product.feVariant.value}',then:'- {product.feVariant.value}')}
-                    </f:else>
-                </f:if>
+                <f:variable name="linkedTitle">
+                    {product.title} {f:if(condition:'{product.feVariant.value}',then:'- {product.feVariant.value}')}
+                </f:variable>
+                <f:render section="detailLink" arguments="{product: product, linkedTitle: linkedTitle}"/>
             </div>
             <p>
                 <f:translate key="tx_cart_domain_model_order_product.sku.short"/>
@@ -74,21 +90,10 @@
                 <td class="col-md-1">&nbsp;</td>
                 <td class="col-md-5">
                     <div class="product-name">
-                        <f:if condition="{product.detailPageParameter.pageUid} && {product.detailPageParameter.extensionName}">
-                            <f:then>
-                                <f:link.action
-                                    pageUid="{product.detailPageLink.pageUid}"
-                                    extensionName="{product.detailPageLink.extensionName}"
-                                    pluginName="{product.detailPageLink.pluginName}"
-                                    controller="{product.detailPageLink.controller}"
-                                    arguments="{product: product.productId}">
-                                    {variant.title}
-                                </f:link.action>
-                            </f:then>
-                            <f:else>
-                                {variant.title}
-                            </f:else>
-                        </f:if>
+                        <f:variable name="linkedTitle">
+                            {variant.title}
+                        </f:variable>
+                        <f:render section="detailLink" arguments="{product: product, linkedTitle: linkedTitle}"/>
                     </div>
                     <p>
                         <f:translate key="tx_cart_domain_model_order_product.sku.short"/>
