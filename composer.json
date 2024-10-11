@@ -44,7 +44,6 @@
     "extra": {
         "typo3/cms": {
             "extension-key": "cart",
-            "app-dir": ".build",
             "web-dir": ".build/public"
         }
     },
@@ -60,7 +59,6 @@
     "require-dev": {
         "codappix/typo3-php-datasets": "^1.5",
         "friendsofphp/php-cs-fixer": "^3.16",
-        "overtrue/phplint": "^5.5",
         "phpstan/phpstan": "^1.10",
         "sbuerk/typo3-cmscomposerinstallers-testingframework-bridge": "^0.0.1",
         "ssch/typo3-rector": "^2.6",
@@ -75,7 +73,7 @@
             ".build/bin/php-cs-fixer fix --config=Build/.php-cs-fixer.dist.php -v --dry-run --using-cache=no --path-mode=intersection ./"
         ],
         "test:php:lint": [
-            ".build/bin/phplint -c Build/phplint.yaml"
+            "find *.php Classes Configuration Tests -name '*.php' -print0 | xargs -0 -n 1 -P 4 php -l"
         ],
         "test:php:unit": [
             ".build/bin/phpunit -c Build/UnitTests.xml"
@@ -87,10 +85,10 @@
             ".build/bin/phpstan analyse -c Build/phpstan.neon --memory-limit 256M"
         ],
         "test:rector:process": [
-            ".build/bin/rector process *"
+            ".build/bin/rector process"
         ],
         "test:rector:process:dry-run": [
-            ".build/bin/rector process * --dry-run"
+            ".build/bin/rector process --dry-run"
         ],
         "test:typoscript:lint": [
             ".build/bin/typoscript-lint -c Build/typoscriptlint.yaml Configuration"

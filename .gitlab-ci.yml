@@ -50,23 +50,27 @@ lint:yaml:
   script:
     - yamllint -c Build/yamllint.yaml Configuration/ Resources/
 
-lint:php81:
+.lint_php: &lint_php
   stage: lint
-  image: php:8.1-alpine
+  image: $CONTAINER_IMAGE
   script:
-    - find . -name \*.php -exec php -l "{}" \;
+    - find *.php Classes Configuration Tests -name '*.php' -print0 | xargs -0 -n 1 -P 4 php -l
+
+lint:php81:
+  <<: *lint_php
+  stage: lint
+  variables:
+    CONTAINER_IMAGE: php:8.1-alpine
 
 lint:php82:
-  stage: lint
-  image: php:8.2-alpine
-  script:
-    - find . -name \*.php -exec php -l "{}" \;
+  <<: *lint_php
+  variables:
+    CONTAINER_IMAGE: php:8.2-alpine
 
 lint:php83:
-  stage: lint
-  image: php:8.3-alpine
-  script:
-    - find . -name \*.php -exec php -l "{}" \;
+  <<: *lint_php
+  variables:
+    CONTAINER_IMAGE: php:8.3-alpine
 
 phpstan:analyse:
   image: $CI_REGISTRY/containers/phpunit-with-php-8.1:main
