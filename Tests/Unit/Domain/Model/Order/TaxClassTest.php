@@ -17,25 +17,13 @@ use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 #[CoversClass(TaxClass::class)]
 class TaxClassTest extends UnitTestCase
 {
-    /**
-     * @var TaxClass
-     */
-    protected $taxClass;
+    protected TaxClass $taxClass;
 
-    /**
-     * @var string
-     */
-    protected $title;
+    protected string $title;
 
-    /**
-     * @var string
-     */
-    protected $value;
+    protected string $value;
 
-    /**
-     * @var float
-     */
-    protected $calc = 0.0;
+    protected float $calc = 0.0;
 
     public function setUp(): void
     {

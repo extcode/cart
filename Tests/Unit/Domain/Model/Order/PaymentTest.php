@@ -19,10 +19,7 @@ use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 #[CoversClass(Payment::class)]
 class PaymentTest extends UnitTestCase
 {
-    /**
-     * @var Payment
-     */
-    protected $payment;
+    protected Payment $payment;
 
     public function setUp(): void
     {

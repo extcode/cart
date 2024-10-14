@@ -17,15 +17,9 @@ use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 #[CoversClass(Item::class)]
 class ItemTest extends UnitTestCase
 {
-    /**
-     * @var int
-     */
-    protected $cartPid = 1;
+    protected int $cartPid = 1;
 
-    /**
-     * @var Item
-     */
-    protected $item;
+    protected Item $item;
 
     public function setUp(): void
     {

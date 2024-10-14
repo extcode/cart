@@ -17,10 +17,7 @@ use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 #[CoversClass(Transaction::class)]
 class TransactionTest extends UnitTestCase
 {
-    /**
-     * @var Transaction
-     */
-    protected $transaction;
+    protected Transaction $transaction;
 
     public function setUp(): void
     {

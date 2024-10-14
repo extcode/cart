@@ -17,25 +17,13 @@ use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 #[CoversClass(ProductAdditional::class)]
 class ProductAdditionalTest extends UnitTestCase
 {
-    /**
-     * @var string
-     */
-    protected $additionalType = '';
+    protected string $additionalType = '';
 
-    /**
-     * @var string
-     */
-    protected $additionalKey = '';
+    protected string $additionalKey = '';
 
-    /**
-     * @var string
-     */
-    protected $additionalValue = '';
+    protected string $additionalValue = '';
 
-    /**
-     * @var ProductAdditional
-     */
-    protected $productAdditional;
+    protected ProductAdditional $productAdditional;
 
     public function setUp(): void
     {

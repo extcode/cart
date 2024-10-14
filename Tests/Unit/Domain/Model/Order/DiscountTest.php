@@ -18,52 +18,19 @@ use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 #[CoversClass(Discount::class)]
 class DiscountTest extends UnitTestCase
 {
-    /**
-     * @var Discount
-     */
-    protected $discount;
+    protected Discount $discount;
 
-    /**
-     * Title
-     *
-     * @var string
-     */
-    protected $title = '';
+    protected string $title = '';
 
-    /**
-     * Code
-     *
-     * @var string
-     */
-    protected $code = '';
+    protected string $code = '';
 
-    /**
-     * Gross
-     *
-     * @var float
-     */
-    protected $gross = 0.0;
+    protected float $gross = 0.0;
 
-    /**
-     * Net
-     *
-     * @var float
-     */
-    protected $net = 0.0;
+    protected float $net = 0.0;
 
-    /**
-     * TaxClass
-     *
-     * @var TaxClass
-     */
-    protected $taxClass;
+    protected TaxClass $taxClass;
 
-    /**
-     * Tax
-     *
-     * @var float
-     */
-    protected $tax = 0.0;
+    protected float $tax = 0.0;
 
     public function setUp(): void
     {

@@ -17,15 +17,9 @@ use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 #[CoversClass(Tag::class)]
 class TagTest extends UnitTestCase
 {
-    /**
-     * @var Tag
-     */
-    protected $tag;
+    protected Tag $tag;
 
-    /**
-     * @var string
-     */
-    protected $title = '';
+    protected string $title = '';
 
     public function setUp(): void
     {

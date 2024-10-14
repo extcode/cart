@@ -17,30 +17,22 @@ use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 #[CoversClass(EmptyValidator::class)]
 class EmptyValidatorTest extends UnitTestCase
 {
-    /**
-     * @var string
-     */
-    protected $validatorClassName = EmptyValidator::class;
+    protected string $validatorClassName = EmptyValidator::class;
 
-    /**
-     * @var ValidatorInterface
-     */
-    protected $validator;
+    protected ValidatorInterface $validator;
 
     /**
      * @param array $options
-     * @return mixed
      */
-    protected function getValidator($options = [])
+    protected function getValidator(array $options = []): ValidatorInterface
     {
-        $validator = new $this->validatorClassName($options);
-        return $validator;
+        return new $this->validatorClassName($options);
     }
 
     /**
      * @param array $options
      */
-    protected function validatorOptions($options)
+    protected function validatorOptions(array $options): void
     {
         $this->validator = $this->getValidator($options);
     }

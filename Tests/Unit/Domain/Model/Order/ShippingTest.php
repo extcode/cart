@@ -17,10 +17,7 @@ use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 #[CoversClass(Shipping::class)]
 class ShippingTest extends UnitTestCase
 {
-    /**
-     * @var Shipping
-     */
-    protected $shipping;
+    protected Shipping $shipping;
 
     public function setUp(): void
     {

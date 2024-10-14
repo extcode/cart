@@ -17,35 +17,17 @@ use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 #[CoversClass(Coupon::class)]
 class CouponTest extends UnitTestCase
 {
-    /**
-     * @var Coupon
-     */
-    protected $coupon;
+    protected Coupon $coupon;
 
-    /**
-     * @var string
-     */
-    protected $title = '';
+    protected string $title = '';
 
-    /**
-     * @var string
-     */
-    protected $code = '';
+    protected string $code = '';
 
-    /**
-     * @var string
-     */
-    protected $couponType = '';
+    protected string $couponType = '';
 
-    /**
-     * @var float
-     */
-    protected $discount = 0.0;
+    protected float $discount = 0.0;
 
-    /**
-     * @var int
-     */
-    protected $taxClassId = 0;
+    protected int $taxClassId = 0;
 
     public function setUp(): void
     {
