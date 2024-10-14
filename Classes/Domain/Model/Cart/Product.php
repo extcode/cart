@@ -140,7 +140,6 @@ class Product
     public function changeVariantsQuantity(array $variantQuantity): void
     {
         foreach ($variantQuantity as $variantId => $quantity) {
-            /** @var BeVariant $variant */
             $variant = $this->beVariants[$variantId];
 
             if (ctype_digit((string)$quantity)) {
@@ -172,7 +171,6 @@ class Product
     public function removeBeVariants(array $variantsArray): int
     {
         foreach ($variantsArray as $variantId => $value) {
-            /** @var BeVariant $variant */
             $variant = $this->beVariants[$variantId];
             if ($variant) {
                 if (is_array($value)) {
@@ -554,7 +552,6 @@ class Product
             if ($this->beVariants) {
                 $sum = 0.0;
                 foreach ($this->beVariants as $variant) {
-                    /** @var BeVariant $variant */
                     $sum += $variant->getGross();
                 }
                 $this->gross = $sum;
@@ -583,7 +580,6 @@ class Product
             if ($this->beVariants) {
                 $sum = 0.0;
                 foreach ($this->beVariants as $variant) {
-                    /** @var BeVariant $variant */
                     $sum += $variant->getNet();
                 }
                 $this->net = $sum;
@@ -602,7 +598,6 @@ class Product
         if ($this->beVariants) {
             $quantity = 0;
             foreach ($this->beVariants as $variant) {
-                /** @var BeVariant $variant */
                 $quantity += $variant->getQuantity();
             }
 

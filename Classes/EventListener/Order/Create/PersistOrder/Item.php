@@ -17,6 +17,7 @@ use Extcode\Cart\Domain\Repository\Order\ItemRepository;
 use Extcode\Cart\Domain\Repository\Order\ShippingAddressRepository;
 use Extcode\Cart\Event\Order\PersistOrderEvent;
 use TYPO3\CMS\Core\Context\Context;
+use TYPO3\CMS\Core\Context\UserAspect;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
 
@@ -38,10 +39,11 @@ class Item
 
         $orderItem->setPid($storagePid);
 
-        /** @var  $userAspect */
         $userAspect = GeneralUtility::makeInstance(Context::class)->getAspect('frontend.user');
-
-        if ($userAspect->isLoggedIn()) {
+        if (
+            $userAspect instanceof UserAspect &&
+            $userAspect->isLoggedIn()
+        ) {
             $frontendUserRepository = GeneralUtility::makeInstance(
                 FrontendUserRepository::class
             );

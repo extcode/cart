@@ -63,7 +63,6 @@ class OrderItemValidator extends AbstractGenericObjectValidator
      */
     protected function checkProperty(mixed $value, \Traversable $validators, string $propertyName): void
     {
-        /** @var Result $result */
         $result = null;
         foreach ($validators as $validator) {
             if ($validator instanceof ObjectValidatorInterface) {

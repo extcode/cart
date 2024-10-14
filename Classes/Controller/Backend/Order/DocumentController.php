@@ -72,8 +72,8 @@ class DocumentController extends ActionController
     {
         $getter = 'get' . ucfirst($pdfType) . 'Pdfs';
         $pdfs = $orderItem->$getter();
-        /** @var File $originalPdf */
-        $originalPdf = end($pdfs->toArray())->getOriginalResource();
+        $pdfs = $pdfs->toArray();
+        $originalPdf = end($pdfs)->getOriginalResource();
 
         if ($originalPdf) {
             return $this->responseFactory->createResponse()
