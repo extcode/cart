@@ -12,8 +12,11 @@ namespace Extcode\Cart\Tests\Unit\Domain\Model\Product;
  */
 
 use Extcode\Cart\Domain\Model\Product\StockTrait;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\Test;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
+#[CoversClass(StockTrait::class)]
 class StockTraitTest extends UnitTestCase
 {
     protected $trait;
@@ -25,9 +28,7 @@ class StockTraitTest extends UnitTestCase
         $this->trait = $this->getObjectForTrait(StockTrait::class);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function isHandleStockReturnsInitialFalse(): void
     {
         self::assertFalse(
@@ -35,9 +36,7 @@ class StockTraitTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function setIsHandleStockSetsIsHandleStock(): void
     {
         $this->trait->setIsHandleStock(true);
@@ -47,9 +46,7 @@ class StockTraitTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getStockReturnsInitialZero(): void
     {
         self::assertSame(
@@ -58,9 +55,7 @@ class StockTraitTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function setStockSetsStock(): void
     {
         $this->trait->setStock(10);

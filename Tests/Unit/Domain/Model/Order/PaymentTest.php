@@ -11,9 +11,12 @@ namespace Extcode\Cart\Tests\Unit\Domain\Model\Order;
 
 use Extcode\Cart\Domain\Model\Order\Payment;
 use Extcode\Cart\Domain\Model\Order\Transaction;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\Test;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
+#[CoversClass(Payment::class)]
 class PaymentTest extends UnitTestCase
 {
     /**
@@ -28,9 +31,7 @@ class PaymentTest extends UnitTestCase
         parent::setUp();
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function toArrayReturnsArray(): void
     {
         $provider = 'test_provider';
@@ -49,9 +50,7 @@ class PaymentTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getProviderInitiallyReturnsEmptyString(): void
     {
         self::assertSame(
@@ -60,9 +59,7 @@ class PaymentTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function setProviderSetsProvider(): void
     {
         $provider = 'provider';
@@ -74,9 +71,7 @@ class PaymentTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getTransactionsInitiallyIsEmpty(): void
     {
         self::assertEmpty(
@@ -84,9 +79,7 @@ class PaymentTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function setTransactionsSetsTransactions(): void
     {
         $transaction1 = new Transaction();
@@ -108,9 +101,7 @@ class PaymentTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function addTransactionAddsTransaction(): void
     {
         $transaction = new Transaction();
@@ -123,9 +114,7 @@ class PaymentTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function removeTransactionRemovesTransaction(): void
     {
         $transaction = new Transaction();

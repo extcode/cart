@@ -11,8 +11,11 @@ namespace Extcode\Cart\Tests\Unit\Domain\Model\Order;
 
 use Extcode\Cart\Domain\Model\Cart\TaxClass;
 use Extcode\Cart\Domain\Model\Order\Discount;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\Test;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
+#[CoversClass(Discount::class)]
 class DiscountTest extends UnitTestCase
 {
     /**
@@ -84,9 +87,7 @@ class DiscountTest extends UnitTestCase
         parent::setUp();
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function constructDiscountWithoutTitleThrowsException(): void
     {
         $this->expectException(\TypeError::class);
@@ -101,9 +102,7 @@ class DiscountTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function constructDiscountWithoutCodeThrowsException(): void
     {
         $this->expectException(\TypeError::class);
@@ -118,9 +117,7 @@ class DiscountTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function constructDiscountWithoutGrossThrowsException(): void
     {
         $this->expectException(\TypeError::class);
@@ -135,9 +132,7 @@ class DiscountTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function constructDiscountWithoutNetThrowsException(): void
     {
         $this->expectException(\TypeError::class);
@@ -152,9 +147,7 @@ class DiscountTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function constructDiscountWithoutTaxClassThrowsException(): void
     {
         $this->expectException(\TypeError::class);
@@ -169,9 +162,7 @@ class DiscountTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function constructDiscountWithoutTaxThrowsException(): void
     {
         $this->expectException(\TypeError::class);
@@ -186,9 +177,7 @@ class DiscountTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getTitleInitiallyReturnsTitleSetDirectlyByConstructor(): void
     {
         self::assertSame(
@@ -197,9 +186,7 @@ class DiscountTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getCodeInitiallyReturnsCodeSetDirectlyByConstructor(): void
     {
         self::assertSame(
@@ -208,9 +195,7 @@ class DiscountTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getGrossInitiallyReturnsGrossSetDirectlyByConstructor(): void
     {
         self::assertSame(
@@ -219,9 +204,7 @@ class DiscountTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getNetInitiallyReturnsNetSetDirectlyByConstructor(): void
     {
         self::assertSame(
@@ -230,9 +213,7 @@ class DiscountTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getTaxClassInitiallyReturnsTaxClassSetDirectlyByConstructor(): void
     {
         self::assertSame(
@@ -241,9 +222,7 @@ class DiscountTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getTaxInitiallyReturnsTaxSetDirectlyByConstructor(): void
     {
         self::assertSame(

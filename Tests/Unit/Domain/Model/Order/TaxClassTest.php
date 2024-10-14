@@ -10,8 +10,11 @@ namespace Extcode\Cart\Tests\Unit\Domain\Model\Order;
  */
 
 use Extcode\Cart\Domain\Model\Order\TaxClass;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\Test;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
+#[CoversClass(TaxClass::class)]
 class TaxClassTest extends UnitTestCase
 {
     /**
@@ -45,9 +48,7 @@ class TaxClassTest extends UnitTestCase
         parent::setUp();
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getTitleInitiallyReturnsEmptyString(): void
     {
         self::assertSame(
@@ -56,9 +57,7 @@ class TaxClassTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function setTitleSetsTitle(): void
     {
         $this->taxClass->setTitle('normal');
@@ -69,9 +68,7 @@ class TaxClassTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getValueInitiallyReturnsEmptyString(): void
     {
         self::assertSame(
@@ -80,9 +77,7 @@ class TaxClassTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function setValueSetsValue(): void
     {
         $this->taxClass->setValue('19');
@@ -93,9 +88,7 @@ class TaxClassTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getCalcInitiallyReturnsZero(): void
     {
         self::assertSame(
@@ -104,9 +97,7 @@ class TaxClassTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function setCalcSetsCalc(): void
     {
         $this->taxClass->setCalc(0.19);
@@ -117,9 +108,7 @@ class TaxClassTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function toArrayReturnsArray(): void
     {
         $taxClassArray = [

@@ -12,10 +12,13 @@ namespace Extcode\Cart\Tests\Unit\Domain\Model\Product;
  */
 
 use Extcode\Cart\Domain\Model\Product\CategoryTrait;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\Test;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Domain\Model\Category;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
+#[CoversClass(CategoryTrait::class)]
 class CategoryTraitTest extends UnitTestCase
 {
     protected $trait;
@@ -27,9 +30,7 @@ class CategoryTraitTest extends UnitTestCase
         $this->trait = $this->getObjectForTrait(CategoryTrait::class);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getCategoryInitialReturnsNull(): void
     {
         self::assertNull(
@@ -37,9 +38,7 @@ class CategoryTraitTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function setCategorySetsCategory(): void
     {
         $category = GeneralUtility::makeInstance(Category::class);
@@ -51,9 +50,7 @@ class CategoryTraitTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getCategoriesInitialReturnsEmptyObjectStorage(): void
     {
         self::assertSame(

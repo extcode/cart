@@ -10,8 +10,11 @@ namespace Extcode\Cart\Tests\Unit\Domain\Model\Order;
  */
 
 use Extcode\Cart\Domain\Model\Order\ProductAdditional;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\Test;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
+#[CoversClass(ProductAdditional::class)]
 class ProductAdditionalTest extends UnitTestCase
 {
     /**
@@ -49,9 +52,7 @@ class ProductAdditionalTest extends UnitTestCase
         parent::setUp();
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function constructProductAdditionalWithoutAdditionalTypeThrowsException(): void
     {
         $this->expectException(\TypeError::class);
@@ -63,9 +64,7 @@ class ProductAdditionalTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function constructProductAdditionalWithoutAdditionalKeyThrowsException(): void
     {
         $this->expectException(\TypeError::class);
@@ -77,9 +76,7 @@ class ProductAdditionalTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function constructProductAdditionalWithoutAdditionalValueThrowsException(): void
     {
         $this->expectException(\TypeError::class);
@@ -91,9 +88,7 @@ class ProductAdditionalTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getAdditionalTypeInitiallyReturnsAdditionalTypeSetDirectlyByConstructor(): void
     {
         self::assertSame(
@@ -102,9 +97,7 @@ class ProductAdditionalTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getAdditionalKeyInitiallyReturnsAdditionalKeySetDirectlyByConstructor(): void
     {
         self::assertSame(
@@ -113,9 +106,7 @@ class ProductAdditionalTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getAdditionalValueInitiallyReturnsAdditionalValueSetDirectlyByConstructor(): void
     {
         self::assertSame(
@@ -124,9 +115,7 @@ class ProductAdditionalTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getAdditionalDataInitiallyReturnsAdditionalDataSetDirectlyByConstructor(): void
     {
         $additionalData = 'additional-data';
@@ -144,9 +133,7 @@ class ProductAdditionalTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getAdditionalDataInitiallyReturnsEmptyString(): void
     {
         self::assertSame(
@@ -155,9 +142,7 @@ class ProductAdditionalTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function setAdditionalDataSetsAdditionalData(): void
     {
         $additionalData = 'additional-data';

@@ -11,8 +11,11 @@ namespace Extcode\Cart\Tests\Unit\Domain\Model\Order;
 
 use Extcode\Cart\Domain\Model\Order\AbstractAddress;
 use Extcode\Cart\Domain\Model\Order\Item;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\Test;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
+#[CoversClass(AbstractAddress::class)]
 class AbstractAddressTest extends UnitTestCase
 {
     protected AbstractAddress $address;
@@ -24,9 +27,7 @@ class AbstractAddressTest extends UnitTestCase
         parent::setUp();
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function toArrayReturnsArray(): void
     {
         $salutation = 'salutation';
@@ -82,9 +83,7 @@ class AbstractAddressTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getItemInitiallyReturnsNull(): void
     {
         self::assertNull(
@@ -92,9 +91,7 @@ class AbstractAddressTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function setItemSetsItem(): void
     {
         $item = new Item();
@@ -107,9 +104,7 @@ class AbstractAddressTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getTitleInitiallyReturnsEmptyString(): void
     {
         self::assertSame(
@@ -118,9 +113,7 @@ class AbstractAddressTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function setTitleSetsTitle(): void
     {
         $title = 'title';
@@ -132,9 +125,7 @@ class AbstractAddressTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getSalutationInitiallyReturnsEmptyString(): void
     {
         self::assertSame(
@@ -143,9 +134,7 @@ class AbstractAddressTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function setSalutationSetsSalutation(): void
     {
         $salutation = 'salutation';
@@ -157,9 +146,7 @@ class AbstractAddressTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getFirstNameInitiallyReturnsEmptyString(): void
     {
         self::assertSame(
@@ -168,9 +155,7 @@ class AbstractAddressTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function setFirstNameSetsFirstName(): void
     {
         $firstName = 'first name';
@@ -182,9 +167,7 @@ class AbstractAddressTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getLastNameInitiallyReturnsEmptyString(): void
     {
         self::assertSame(
@@ -193,9 +176,7 @@ class AbstractAddressTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function setLastNameSetsLastName(): void
     {
         $lastName = 'last name';
@@ -207,9 +188,7 @@ class AbstractAddressTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getSalutationLastNameReturnsConcatenation(): void
     {
         $salutation = 'salutation';
@@ -223,9 +202,7 @@ class AbstractAddressTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getTitleLastNameWithoutTitleReturnsCorrectConcatenation(): void
     {
         $lastName = 'last name';
@@ -237,9 +214,7 @@ class AbstractAddressTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getTitleLastNameWithTitleReturnsCorrectConcatenation(): void
     {
         $title = 'title';
@@ -253,9 +228,7 @@ class AbstractAddressTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getSalutationTitleLastNameWithoutTitleReturnsCorrectConcatenation(): void
     {
         $salutation = 'salutation';
@@ -269,9 +242,7 @@ class AbstractAddressTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getSalutationTitleLastNameWithTitleReturnsCorrectConcatenation(): void
     {
         $salutation = 'salutation';
@@ -287,9 +258,7 @@ class AbstractAddressTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getSalutationOrTitleLastNameWithoutTitleReturnsCorrectConcatenation(): void
     {
         $salutation = 'salutation';
@@ -303,9 +272,7 @@ class AbstractAddressTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getSalutationOrTitleLastNameWithTitleReturnsCorrectConcatenation(): void
     {
         $salutation = 'salutation';
@@ -321,9 +288,7 @@ class AbstractAddressTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getFullNameReturnsCorrectConcatenation(): void
     {
         $firstName = 'first name';
@@ -337,9 +302,7 @@ class AbstractAddressTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getSalutationFullNameReturnsCorrectConcatenation(): void
     {
         $salutation = 'salutation';
@@ -355,9 +318,7 @@ class AbstractAddressTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getTitleFullNameWithoutTitleReturnsCorrectConcatenation(): void
     {
         $firstName = 'first name';
@@ -371,9 +332,7 @@ class AbstractAddressTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getTitleFullNameWithTitleReturnsCorrectConcatenation(): void
     {
         $title = 'title';
@@ -389,9 +348,7 @@ class AbstractAddressTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getSalutationTitleFullNameWithoutTitleReturnsCorrectConcatenation(): void
     {
         $salutation = 'salutation';
@@ -407,9 +364,7 @@ class AbstractAddressTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getSalutationTitleFullNameWithTitleReturnsCorrectConcatenation(): void
     {
         $salutation = 'salutation';
@@ -427,9 +382,7 @@ class AbstractAddressTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getCompanyInitiallyReturnsEmptyString(): void
     {
         self::assertSame(
@@ -438,9 +391,7 @@ class AbstractAddressTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function setCompanySetsCompany(): void
     {
         $company = 'company';
@@ -452,9 +403,7 @@ class AbstractAddressTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getStreetInitiallyReturnsEmptyString(): void
     {
         self::assertSame(
@@ -463,9 +412,7 @@ class AbstractAddressTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function setStreetSetsStreet(): void
     {
         $street = 'street';
@@ -477,9 +424,7 @@ class AbstractAddressTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getAdditionInitiallyReturnsEmptyString(): void
     {
         self::assertSame(
@@ -488,9 +433,7 @@ class AbstractAddressTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function setAdditionSetsAddition(): void
     {
         $addition = 'addition';
@@ -502,9 +445,7 @@ class AbstractAddressTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getZipInitiallyReturnsEmptyString(): void
     {
         self::assertSame(
@@ -513,9 +454,7 @@ class AbstractAddressTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function setZipSetsZip(): void
     {
         $zip = 'zip';
@@ -527,9 +466,7 @@ class AbstractAddressTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getCityInitiallyReturnsEmptyString(): void
     {
         self::assertSame(
@@ -538,9 +475,7 @@ class AbstractAddressTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function setCitySetsCity(): void
     {
         $city = 'city';
@@ -552,9 +487,7 @@ class AbstractAddressTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getCountryInitiallyReturnsEmptyString(): void
     {
         self::assertSame(
@@ -563,9 +496,7 @@ class AbstractAddressTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function setCountrySetsCountry(): void
     {
         $country = 'country';
@@ -577,9 +508,7 @@ class AbstractAddressTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getEmailInitiallyReturnsEmptyString(): void
     {
         self::assertSame(
@@ -588,9 +517,7 @@ class AbstractAddressTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function setEmailSetsEmail(): void
     {
         $email = 'email';
@@ -602,9 +529,7 @@ class AbstractAddressTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getPhoneInitiallyReturnsEmptyString(): void
     {
         self::assertSame(
@@ -613,9 +538,7 @@ class AbstractAddressTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function setPhoneSetsPhone(): void
     {
         $phone = 'phone';
@@ -627,9 +550,7 @@ class AbstractAddressTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getFaxInitiallyReturnsEmptyString(): void
     {
         self::assertSame(
@@ -638,9 +559,7 @@ class AbstractAddressTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function setFaxSetsFax(): void
     {
         $fax = 'fax';
@@ -652,9 +571,7 @@ class AbstractAddressTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getAdditionalInitiallyReturnsEmptyArray(): void
     {
         self::assertIsArray(
@@ -665,9 +582,7 @@ class AbstractAddressTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function setAdditionalSetsAdditional(): void
     {
         $additional = [
@@ -682,9 +597,7 @@ class AbstractAddressTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function additionalIsInternallyJsonString(): void
     {
         $additional = [

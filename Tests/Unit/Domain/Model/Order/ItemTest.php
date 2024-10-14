@@ -10,8 +10,11 @@ namespace Extcode\Cart\Tests\Unit\Domain\Model\Order;
  */
 
 use Extcode\Cart\Domain\Model\Order\Item;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\Test;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
+#[CoversClass(Item::class)]
 class ItemTest extends UnitTestCase
 {
     /**
@@ -31,9 +34,7 @@ class ItemTest extends UnitTestCase
         parent::setUp();
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getCartPidInitiallyReturnsZero(): void
     {
         self::assertSame(
@@ -42,9 +43,7 @@ class ItemTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function setCartPidSetsCartPid(): void
     {
         $this->item->setCartPid(1);
@@ -55,9 +54,7 @@ class ItemTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getCurrencyInitiallyReturnsEuroSignString(): void
     {
         self::assertSame(
@@ -66,9 +63,7 @@ class ItemTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function setCurrencySetsCurrency(): void
     {
         $this->item->setCurrency('$');
@@ -79,9 +74,7 @@ class ItemTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getCurrencyCodeInitiallyReturnsEmptyString(): void
     {
         self::assertSame(
@@ -90,9 +83,7 @@ class ItemTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function setCurrencyCodeSetsCurrencyCode(): void
     {
         $this->item->setCurrencyCode('EUR');
@@ -103,9 +94,7 @@ class ItemTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getCurrencySignInitiallyReturnsEmptyString(): void
     {
         self::assertSame(
@@ -114,9 +103,7 @@ class ItemTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function setCurrencySignSetsCurrencySign(): void
     {
         $this->item->setCurrencySign('€');
@@ -127,9 +114,7 @@ class ItemTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getCurrencyTranslationInitiallyReturnsEmptyString(): void
     {
         self::assertSame(
@@ -138,9 +123,7 @@ class ItemTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function setCurrencyTranslationSetsCurrencyTranslation(): void
     {
         $this->item->setCurrencyTranslation(0.50);

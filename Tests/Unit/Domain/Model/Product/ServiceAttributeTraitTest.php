@@ -12,8 +12,11 @@ namespace Extcode\Cart\Tests\Unit\Domain\Model\Product;
  */
 
 use Extcode\Cart\Domain\Model\Product\ServiceAttributeTrait;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\Test;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
+#[CoversClass(ServiceAttributeTrait::class)]
 class ServiceAttributeTraitTest extends UnitTestCase
 {
     protected $trait;
@@ -25,9 +28,7 @@ class ServiceAttributeTraitTest extends UnitTestCase
         $this->trait = $this->getObjectForTrait(ServiceAttributeTrait::class);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getServiceAttribute1ReturnsZero(): void
     {
         self::assertSame(
@@ -36,9 +37,7 @@ class ServiceAttributeTraitTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function setServiceAttribute1SetsServiceAttribute1(): void
     {
         $serviceAttribute1 = 1.0;
@@ -51,9 +50,7 @@ class ServiceAttributeTraitTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getServiceAttribute2ReturnsZero(): void
     {
         self::assertSame(
@@ -62,9 +59,7 @@ class ServiceAttributeTraitTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function setServiceAttribute2SetsServiceAttribute2(): void
     {
         $serviceAttribute2 = 2.0;
@@ -77,9 +72,7 @@ class ServiceAttributeTraitTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getServiceAttribute3ReturnsZero(): void
     {
         self::assertSame(
@@ -88,9 +81,7 @@ class ServiceAttributeTraitTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function setServiceAttribute3SetsServiceAttribute3(): void
     {
         $serviceAttribute3 = 3.0;
