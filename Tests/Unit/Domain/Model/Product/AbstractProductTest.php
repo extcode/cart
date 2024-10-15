@@ -18,6 +18,9 @@ use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 #[CoversClass(AbstractProduct::class)]
 class AbstractProductTest extends UnitTestCase
 {
+    /**
+     * @var MockObject&AbstractProduct
+     */
     protected MockObject $product;
 
     public function setUp(): void

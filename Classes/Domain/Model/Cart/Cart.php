@@ -66,9 +66,6 @@ class Cart
 
     protected string $shippingCountry = '';
 
-    /**
-     * @var TaxClass[] $taxClasses
-     */
     public function __construct(
         protected array $taxClasses,
         protected bool $isNetCart = false,

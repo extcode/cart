@@ -13,12 +13,17 @@ use Extcode\Cart\Domain\Model\Order\AbstractAddress;
 use Extcode\Cart\Domain\Model\Order\Item;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Test;
+use PHPUnit\Framework\MockObject\MockObject;
+use TYPO3\TestingFramework\Core\AccessibleObjectInterface;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 #[CoversClass(AbstractAddress::class)]
 class AbstractAddressTest extends UnitTestCase
 {
-    protected AbstractAddress $address;
+    /**
+     * @var MockObject&AbstractAddress
+     */
+    protected MockObject $address;
 
     public function setUp(): void
     {
@@ -604,6 +609,7 @@ class AbstractAddressTest extends UnitTestCase
             'additional' => true,
         ];
 
+        /** @var AccessibleObjectInterface&MockObject&AbstractAddress $address */
         $address = $this->getAccessibleMock(
             AbstractAddress::class,
             [],
@@ -641,7 +647,7 @@ class AbstractAddressTest extends UnitTestCase
      * @param bool $callOriginalClone whether to call the __clone method
      * @param bool $callAutoload whether to call any autoload function
      *
-     * @return MockObject&AccessibleObjectInterface&T a mock of `$originalClassName` with access methods added
+     * @return MockObject&AccessibleObjectInterface
      *
      * @throws \InvalidArgumentException
      */
@@ -653,7 +659,7 @@ class AbstractAddressTest extends UnitTestCase
         bool $callOriginalConstructor = true,
         bool $callOriginalClone = true,
         bool $callAutoload = true
-    ) {
+    ): MockObject {
         if ($originalClassName === '') {
             throw new \InvalidArgumentException('$originalClassName must not be empty.', 1334701880);
         }
