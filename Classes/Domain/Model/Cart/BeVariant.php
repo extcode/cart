@@ -619,10 +619,7 @@ class BeVariant
         return $this->additional[$key];
     }
 
-    /**
-     * @param string $key
-     */
-    public function setAdditional($key, mixed $value): void
+    public function setAdditional(string $key, mixed $value): void
     {
         $this->additional[$key] = $value;
     }
