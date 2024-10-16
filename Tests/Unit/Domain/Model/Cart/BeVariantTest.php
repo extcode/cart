@@ -526,10 +526,6 @@ class BeVariantTest extends UnitTestCase
         bool $callOriginalClone = true,
         bool $callAutoload = true
     ) {
-        if ($originalClassName === '') {
-            throw new \InvalidArgumentException('$originalClassName must not be empty.', 1334701880);
-        }
-
         $mockBuilder = $this->getMockBuilder($this->buildAccessibleProxy($originalClassName))
             ->onlyMethods($methods)
             ->setConstructorArgs($arguments)

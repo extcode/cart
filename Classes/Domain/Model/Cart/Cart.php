@@ -66,9 +66,6 @@ class Cart
 
     protected string $shippingCountry = '';
 
-    /**
-     * @var TaxClass[] $taxClasses
-     */
     public function __construct(
         protected array $taxClasses,
         protected bool $isNetCart = false,
@@ -576,7 +573,7 @@ class Cart
 
     public function removeCoupon(string $couponCode): int
     {
-        if (!$this->coupons[$couponCode]) {
+        if (!isset($this->coupons[$couponCode])) {
             return -1;
         }
 
@@ -718,7 +715,7 @@ class Cart
         foreach ($productQuantityArray as $productPuid => $quantity) {
             $product = $this->products[$productPuid];
 
-            if ($product) {
+            if ($product instanceof Product) {
                 if (is_array($quantity)) {
                     $this->subCount($product->getQuantity());
                     $this->subGross($product->getGross());
@@ -763,11 +760,7 @@ class Cart
         }
 
         $product = $this->products[$productId];
-        if ($product) {
-            $this->removeProduct($product, $products[$productId]);
-        } else {
-            return false;
-        }
+        $this->removeProduct($product, $products[$productId]);
 
         $this->updateServiceAttributes();
 

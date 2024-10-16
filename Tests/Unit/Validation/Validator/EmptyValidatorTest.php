@@ -11,6 +11,7 @@ namespace Extcode\Cart\Tests\Unit\Validation\Validator;
 use Extcode\Cart\Validation\Validator\EmptyValidator;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Test;
+use PHPUnit\Framework\MockObject\MockObject;
 use TYPO3\CMS\Extbase\Validation\Validator\ValidatorInterface;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
@@ -39,9 +40,12 @@ class EmptyValidatorTest extends UnitTestCase
 
     public function setUp(): void
     {
-        $this->validator = $this->getMockBuilder($this->validatorClassName)
+        /** @var MockObject&EmptyValidator $validator */
+        $validator = $this->getMockBuilder($this->validatorClassName)
             ->onlyMethods(['translateErrorMessage'])
             ->getMock();
+
+        $this->validator = $validator;
 
         parent::setUp();
     }

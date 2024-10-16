@@ -1,0 +1,26 @@
+parameters:
+	ignoreErrors:
+		-
+			message: "#^Call to an undefined method Extcode\\\\Cart\\\\Service\\\\PaymentMethodsServiceInterface\\:\\:getConfigurationsForType\\(\\)\\.$#"
+			count: 1
+			path: ../Classes/Controller/Cart/OrderController.php
+
+		-
+			message: "#^Call to an undefined method Extcode\\\\Cart\\\\Domain\\\\Model\\\\Cart\\\\CartCouponInterface\\:\\:getTaxClass\\(\\)\\.$#"
+			count: 2
+			path: ../Classes/Domain/Model/Cart/Cart.php
+
+		-
+			message: "#^Call to an undefined method Extcode\\\\Cart\\\\Domain\\\\Model\\\\Cart\\\\CartCouponInterface\\:\\:setCart\\(\\)\\.$#"
+			count: 1
+			path: ../Classes/Domain/Model/Cart/Cart.php
+
+		-
+			message: "#^Call to an undefined method Extcode\\\\Cart\\\\Service\\\\PaymentMethodsServiceInterface\\:\\:getConfigurationsForType\\(\\)\\.$#"
+			count: 1
+			path: ../Classes/EventListener/Order/Finish/ClearCart.php
+
+		-
+			message: "#^Call to an undefined method TYPO3Fluid\\\\Fluid\\\\Core\\\\Rendering\\\\RenderingContextInterface\\:\\:getRequest\\(\\)\\.$#"
+			count: 1
+			path: ../Classes/View/CartTemplateView.php

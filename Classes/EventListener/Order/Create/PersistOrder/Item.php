@@ -40,6 +40,7 @@ class Item
         $orderItem->setPid($storagePid);
 
         $userAspect = GeneralUtility::makeInstance(Context::class)->getAspect('frontend.user');
+
         if (
             $userAspect instanceof UserAspect &&
             $userAspect->isLoggedIn()

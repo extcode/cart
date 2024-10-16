@@ -20,7 +20,6 @@ use Extcode\Cart\View\CartTemplateView;
 use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\ExtbaseRequestParameters;
-use TYPO3Fluid\Fluid\View\ViewInterface;
 
 class CartController extends ActionController
 {
@@ -29,7 +28,7 @@ class CartController extends ActionController
         $this->defaultViewObjectName = CartTemplateView::class;
     }
 
-    protected function initializeView(ViewInterface $view): void
+    protected function initializeView(CartTemplateView $view): void
     {
         if ($this->request->getControllerActionName() !== 'show') {
             return;
@@ -131,7 +130,6 @@ class CartController extends ActionController
 
         $currentStepHasError = false;
         if ($extbaseAttribute instanceof ExtbaseRequestParameters
-            && $extbaseAttribute->getOriginalRequestMappingResults()
             && $extbaseAttribute->getOriginalRequestMappingResults()->hasErrors()
         ) {
             $currentStepHasError = true;
