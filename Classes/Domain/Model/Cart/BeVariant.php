@@ -11,12 +11,8 @@ namespace Extcode\Cart\Domain\Model\Cart;
  * LICENSE file that was distributed with this source code.
  */
 
-use Psr\EventDispatcher\EventDispatcherInterface;
-
 class BeVariant
 {
-    private ?EventDispatcherInterface $eventDispatcher = null;
-
     protected ?Product $product = null;
 
     protected ?BeVariant $parentBeVariant = null;

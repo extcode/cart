@@ -130,7 +130,6 @@ class CartController extends ActionController
 
         $currentStepHasError = false;
         if ($extbaseAttribute instanceof ExtbaseRequestParameters
-            && $extbaseAttribute->getOriginalRequestMappingResults()
             && $extbaseAttribute->getOriginalRequestMappingResults()->hasErrors()
         ) {
             $currentStepHasError = true;

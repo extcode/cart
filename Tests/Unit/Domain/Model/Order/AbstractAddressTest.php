@@ -660,10 +660,6 @@ class AbstractAddressTest extends UnitTestCase
         bool $callOriginalClone = true,
         bool $callAutoload = true
     ): MockObject {
-        if ($originalClassName === '') {
-            throw new \InvalidArgumentException('$originalClassName must not be empty.', 1334701880);
-        }
-
         $mockBuilder = $this->getMockBuilder($this->buildAccessibleProxy($originalClassName))
             ->addMethods($methods)
             ->setConstructorArgs($arguments)

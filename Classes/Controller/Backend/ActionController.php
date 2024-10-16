@@ -26,7 +26,7 @@ class ActionController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControlle
                 ConfigurationManager::CONFIGURATION_TYPE_FRAMEWORK
             );
 
-        $pageId = (int)$this->request->getQueryParams()['id'] ?? 1;
+        $pageId = (int)($this->request->getQueryParams()['id'] ?? 1);
 
         BackendUtility::readPageAccess(
             $pageId,
