@@ -24,8 +24,7 @@ use TYPO3\CMS\Form\Slot\FilePersistenceSlot;
 
 class ItemsProcFunc
 {
-    /** @var TemplateLayout $templateLayoutsUtility */
-    protected $templateLayoutsUtility;
+    protected TemplateLayout $templateLayoutsUtility;
 
     public function __construct()
     {
@@ -34,8 +33,6 @@ class ItemsProcFunc
 
     /**
      * Itemsproc function to extend the selection of templateLayouts in the plugin
-     *
-     * @param array &$config configuration array
      */
     public function user_templateLayout(array &$config): void
     {
@@ -99,12 +96,8 @@ class ItemsProcFunc
 
     /**
      * Reduce the template layouts by the ones that are not allowed in given colPos
-     *
-     * @param array $templateLayouts
-     * @param int $currentColPos
-     * @return array
      */
-    protected function reduceTemplateLayouts($templateLayouts, $currentColPos)
+    protected function reduceTemplateLayouts(array $templateLayouts, int $currentColPos): array
     {
         $currentColPos = (int)$currentColPos;
         $restrictions = [];
@@ -132,11 +125,8 @@ class ItemsProcFunc
 
     /**
      * Get page id, if negative, then it is a "after record"
-     *
-     * @param int $pid
-     * @return int
      */
-    protected function getPageId($pid)
+    protected function getPageId(int $pid): int
     {
         $pid = (int)$pid;
 

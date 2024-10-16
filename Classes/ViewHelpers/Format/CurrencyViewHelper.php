@@ -13,15 +13,9 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 class CurrencyViewHelper extends AbstractViewHelper
 {
-    /**
-     * @var ConfigurationManager
-     */
-    protected $configurationManager;
-
-    public function __construct(ConfigurationManager $configurationManager)
-    {
-        $this->configurationManager = $configurationManager;
-    }
+    public function __construct(
+        protected readonly ConfigurationManager $configurationManager
+    ) {}
 
     /**
      * Output is escaped already. We must not escape children, to avoid double encoding.
@@ -82,7 +76,7 @@ class CurrencyViewHelper extends AbstractViewHelper
     /**
      * @return string the formatted amount.
      */
-    public function render()
+    public function render(): string
     {
         if ($this->hasArgument('currencySign')) {
             $currencySign = $this->arguments['currencySign'];

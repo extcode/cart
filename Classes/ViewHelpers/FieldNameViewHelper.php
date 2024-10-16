@@ -51,12 +51,7 @@ class FieldNameViewHelper extends AbstractViewHelper
         return $fieldName;
     }
 
-    /**
-     * @param BeVariant $variant
-     *
-     * @return string
-     */
-    protected function getVariantFieldName($variant)
+    protected function getVariantFieldName(BeVariant $variant): string
     {
         $fieldName = '';
 

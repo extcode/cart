@@ -24,14 +24,6 @@ class ProductController extends ActionController
 {
     public const AJAX_CART_TYPE_NUM = '2278001';
 
-    /**
-     * @var EventDispatcherInterface
-     */
-    protected $eventDispatcher;
-
-    /**
-     * @param EventDispatcherInterface|null $eventDispatcher
-     */
     public function __construct(
         EventDispatcherInterface $eventDispatcher = null
     ) {

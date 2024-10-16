@@ -10,7 +10,6 @@ namespace Extcode\Cart\Utility;
  */
 
 use Extcode\Cart\Domain\Model\Cart\Cart;
-use Extcode\Cart\Domain\Model\Cart\Service;
 use Extcode\Cart\Event\Cart\UpdateCountryEvent;
 use Extcode\Cart\Service\PaymentMethodsServiceInterface;
 use Extcode\Cart\Service\SessionHandler;
@@ -98,7 +97,6 @@ class CartUtility
 
         $taxClasses = $this->taxClassService->getTaxClasses($defaultCountry);
 
-        /** @var Cart $cart */
         $cart = GeneralUtility::makeInstance(
             Cart::class,
             $taxClasses,
@@ -125,10 +123,6 @@ class CartUtility
         $shippings = $this->shippingMethodsService->getShippingMethods($cart);
 
         foreach ($shippings as $shipping) {
-            /**
-             * Shipping
-             * @var Service $shipping
-             */
             if ($shipping->isPreset()) {
                 if (!$shipping->isAvailable()) {
                     $fallBackId = $shipping->getFallBackId();
@@ -145,10 +139,6 @@ class CartUtility
         $payments = $this->paymentMethodsService->getPaymentMethods($cart);
 
         foreach ($payments as $payment) {
-            /**
-             * Payment
-             * @var Service $payment
-             */
             if ($payment->isPreset()) {
                 if (!$payment->isAvailable()) {
                     $fallBackId = $payment->getFallBackId();

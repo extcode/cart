@@ -9,7 +9,6 @@ namespace Extcode\Cart\ViewHelpers;
  * LICENSE file that was distributed with this source code.
  */
 
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManager;
 use TYPO3\CMS\Extbase\Reflection\ObjectAccess;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
@@ -17,14 +16,17 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 class MapModelPropertiesToTableColumnsViewHelper extends AbstractViewHelper
 {
     /**
-     * @var ConfigurationManager
+     * @var array<mixed>
      */
-    protected $configurationManager;
+    protected array $configuration;
 
-    /**
-     * @var array
-     */
-    protected $configuration;
+    public function __construct(
+        protected readonly ConfigurationManager $configurationManager
+    ) {
+        $this->configuration = $this->configurationManager->getConfiguration(
+            ConfigurationManager::CONFIGURATION_TYPE_FRAMEWORK
+        );
+    }
 
     public function initializeArguments(): void
     {
@@ -51,17 +53,13 @@ class MapModelPropertiesToTableColumnsViewHelper extends AbstractViewHelper
     }
 
     /**
-     * render
-     *
-     * @return array
+     * @return array<string, mixed>
      */
-    public function render()
+    public function render(): array
     {
         $class = $this->arguments['class'];
         $table = $this->arguments['table'];
         $data = $this->arguments['data'];
-
-        $this->getConfiguration();
 
         if (isset($this->configuration['persistence']['classes'][$class]['mapping']) &&
             $this->configuration['persistence']['classes'][$class]['mapping']['tableName'] == $table
@@ -84,15 +82,5 @@ class MapModelPropertiesToTableColumnsViewHelper extends AbstractViewHelper
             return $data;
         }
         return $data;
-    }
-
-    protected function getConfiguration()
-    {
-        $this->configurationManager = GeneralUtility::makeInstance(
-            ConfigurationManager::class
-        );
-        $this->configuration = $this->configurationManager->getConfiguration(
-            ConfigurationManager::CONFIGURATION_TYPE_FRAMEWORK
-        );
     }
 }

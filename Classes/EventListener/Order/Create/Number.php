@@ -19,20 +19,11 @@ use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
 
 abstract class Number
 {
-    /**
-     * @var PersistenceManager
-     */
-    protected $persistenceManager;
+    protected PersistenceManager $persistenceManager;
 
-    /**
-     * @var OrderItemRepository
-     */
-    protected $orderItemRepository;
+    protected OrderItemRepository $orderItemRepository;
 
-    /**
-     * @var array
-     */
-    protected $options;
+    protected array $options;
 
     abstract protected function getRegistryName(NumberGeneratorEventInterface $event): string;
 

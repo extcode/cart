@@ -77,9 +77,6 @@ class CheckProductAvailabilityEvent implements CheckProductAvailabilityEventInte
         $this->messages = $messages;
     }
 
-    /**
-     * @param FlashMessage $message
-     */
     public function addMessage(FlashMessage $message): void
     {
         $this->messages[] = $message;

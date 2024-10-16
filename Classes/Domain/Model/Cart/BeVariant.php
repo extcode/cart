@@ -97,7 +97,6 @@ class BeVariant
             $innerVariantArr = [];
 
             foreach ($this->beVariants as $variant) {
-                /** @var BeVariant $variant */
                 $innerVariantArr[] = [$variant->getId() => $variant->toArray()];
             }
 
@@ -535,7 +534,6 @@ class BeVariant
             if ($this->beVariants) {
                 $sum = 0.0;
                 foreach ($this->beVariants as $beVariant) {
-                    /** @var BeVariant $beVariant */
                     $sum += $beVariant->getGross();
                 }
                 $this->gross = $sum;
@@ -621,10 +619,7 @@ class BeVariant
         return $this->additional[$key];
     }
 
-    /**
-     * @param string $key
-     */
-    public function setAdditional($key, mixed $value): void
+    public function setAdditional(string $key, mixed $value): void
     {
         $this->additional[$key] = $value;
     }

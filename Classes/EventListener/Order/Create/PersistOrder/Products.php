@@ -85,10 +85,6 @@ class Products
     protected function addProductVariants(Product $product): void
     {
         foreach ($product->getBeVariants() as $variant) {
-            /**
-             * Cart Variant
-             * @var BeVariant $variant
-             */
             if ($variant->getBeVariants()) {
                 $this->addVariantsOfVariant($variant, 1);
             } else {
@@ -116,9 +112,6 @@ class Products
         \Extcode\Cart\Domain\Model\Order\Product $product,
         array $feVariant
     ): void {
-        /**
-         * @var ProductAdditional $productAdditional
-         */
         $productAdditional = GeneralUtility::makeInstance(
             ProductAdditional::class,
             $productAdditionalType,
@@ -138,10 +131,6 @@ class Products
         $level += 1;
 
         foreach ($variant->getBeVariants() as $variantInner) {
-            /**
-             * Cart Variant Inner
-             * @var BeVariant $variantInner
-             */
             if ($variantInner->getBeVariants()) {
                 $this->addVariantsOfVariant($variantInner, $level);
             } else {
