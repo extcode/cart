@@ -13,10 +13,10 @@ namespace Extcode\Cart\Domain\Model\Cart;
 
 use Psr\Log\LoggerInterface;
 
-final class TaxClassFactory implements TaxClassFactoryInterface
+final readonly class TaxClassFactory implements TaxClassFactoryInterface
 {
     public function __construct(
-        private readonly LoggerInterface $logger
+        private LoggerInterface $logger
     ) {}
 
     public function getTaxClass(int $taxClassKey, array $taxClassValue): ?TaxClass

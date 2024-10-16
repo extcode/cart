@@ -3,16 +3,16 @@
     <file source-language="en" datatype="plaintext" original="messages" date="2022-05-31T19:53:00Z" product-name="cart">
         <header/>
         <body>
-            <trans-unit id="tx_cart.plugin.mini_cart">
+            <trans-unit id="tx_cart.plugin.cart_minicart">
                 <source>Cart: Mini-Cart</source>
             </trans-unit>
-            <trans-unit id="tx_cart.plugin.cart">
+            <trans-unit id="tx_cart.plugin.cart_cart">
                 <source>Cart: Cart</source>
             </trans-unit>
-            <trans-unit id="tx_cart.plugin.currency">
+            <trans-unit id="tx_cart.plugin.cart_currency">
                 <source>Cart: Currency Selector</source>
             </trans-unit>
-            <trans-unit id="tx_cart.plugin.order">
+            <trans-unit id="tx_cart.plugin.cart_order">
                 <source>Cart: Orders</source>
             </trans-unit>
 

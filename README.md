@@ -1,4 +1,7 @@
+# Cart Products
+
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/5b5b6e0c8ac143c381026061abf3c9e8)](https://www.codacy.com/app/extcode/cart?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=extcode/cart&amp;utm_campaign=Badge_Grade)
+![GitHub Actions](https://github.com/extcode/cart/actions/workflows/ci.yaml/badge.svg?branch=10.x-dev)
 
 The extension is a small but powerful extension which "solely" adds a shopping cart to your TYPO3 installation and is
 well suited for content commerce.
@@ -45,17 +48,18 @@ Sometimes minor versions also result in minor adjustments to own templates or co
 
 ## 3.1 Compatibility and supported Versions
 
-| Cart  | TYPO3      | PHP       | Support/Development                  |
-|-------|------------|-----------|--------------------------------------|
-| 9.x.x | 12.0       | 8.1+      | Features, Bugfixes, Security Updates |
-| 8.x.x | 10.4, 11.5 | 7.2+      | Features, Bugfixes, Security Updates |
-| 7.x.x | 10.4       | 7.2 - 7.4 | Security Updates                     |
-| 6.x.x | 9.5        | 7.2 - 7.4 |                                      |
-| 5.x.x | 8.7        | 7.0 - 7.4 |                                      |
-| 4.x.x | 7.6 - 8.7  | 5.6 - 7.2 |                                      |
-| 3.x.x | 6.2 - 8.7  | 5.6 - 7.0 |                                      |
-| 2.x.x |            |           |                                      |
-| 1.x.x |            |           |                                      |
+| Cart   | TYPO3      | PHP       | Support/Development                  |
+|--------|------------|-----------|--------------------------------------|
+| 10.x.x | 13.0       | 8.2+      | Features, Bugfixes, Security Updates |
+| 9.x.x  | 12.4       | 8.1+      | Bugfixes, Security Updates           |
+| 8.x.x  | 10.4, 11.5 | 7.2+      | Security Updates                     |
+| 7.x.x  | 10.4       | 7.2 - 7.4 |                                      |
+| 6.x.x  | 9.5        | 7.2 - 7.4 |                                      |
+| 5.x.x  | 8.7        | 7.0 - 7.4 |                                      |
+| 4.x.x  | 7.6 - 8.7  | 5.6 - 7.2 |                                      |
+| 3.x.x  | 6.2 - 8.7  | 5.6 - 7.0 |                                      |
+| 2.x.x  |            |           |                                      |
+| 1.x.x  |            |           |                                      |
 
 If you need extended support for features and bug fixes outside of the currently supported versions,
 we are happy to offer paid services.
