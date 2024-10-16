@@ -13,10 +13,13 @@ namespace Extcode\Cart\Tests\Unit\Domain\Model\Product;
 
 use Extcode\Cart\Domain\Model\Product\TagTrait;
 use Extcode\Cart\Domain\Model\Tag;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\Test;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
+#[CoversClass(TagTrait::class)]
 class TagTraitTest extends UnitTestCase
 {
     protected $trait;
@@ -28,9 +31,7 @@ class TagTraitTest extends UnitTestCase
         $this->trait = $this->getObjectForTrait(TagTrait::class);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getTagsInitialReturnsEmptyObjectStorage(): void
     {
         self::assertSame(
@@ -39,9 +40,7 @@ class TagTraitTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function setTagsSetsTagsObjectStorage(): void
     {
         $tag = GeneralUtility::makeInstance(
@@ -65,9 +64,7 @@ class TagTraitTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function addTagAddsTagToObjectStorage(): void
     {
         $tag = GeneralUtility::makeInstance(
@@ -91,9 +88,7 @@ class TagTraitTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function removeTagRemovesTagToObjectStorage(): void
     {
         $tag1 = GeneralUtility::makeInstance(

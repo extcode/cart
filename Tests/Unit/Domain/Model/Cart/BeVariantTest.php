@@ -12,10 +12,13 @@ namespace Extcode\Cart\Tests\Unit\Domain\Model\Cart;
 use Extcode\Cart\Domain\Model\Cart\BeVariant;
 use Extcode\Cart\Domain\Model\Cart\Product;
 use Extcode\Cart\Domain\Model\Cart\TaxClass;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
 use TYPO3\TestingFramework\Core\AccessibleObjectInterface;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
+#[CoversClass(BeVariant::class)]
 class BeVariantTest extends UnitTestCase
 {
     protected TaxClass $taxClass;
@@ -78,9 +81,7 @@ class BeVariantTest extends UnitTestCase
         parent::setUp();
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getIdReturnsIdSetByConstructor(): void
     {
         self::assertSame(
@@ -89,9 +90,7 @@ class BeVariantTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getSkuReturnsSkuSetByConstructor(): void
     {
         self::assertSame(
@@ -100,9 +99,7 @@ class BeVariantTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getCompleteSkuReturnsCompleteSkuSetByConstructor(): void
     {
         $sku = $this->product->getSku() . '-' . $this->sku;
@@ -112,9 +109,7 @@ class BeVariantTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getSkuWithSkuDelimiterReturnsSkuSetByConstructorWithGivenSkuDelimiter(): void
     {
         $skuDelimiter = '_';
@@ -127,9 +122,7 @@ class BeVariantTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getTitleReturnsTitleSetByConstructor(): void
     {
         self::assertSame(
@@ -138,9 +131,7 @@ class BeVariantTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getCompleteTitleReturnsCompleteTitleSetByConstructor(): void
     {
         $title = $this->product->getTitle() . ' - ' . $this->title;
@@ -150,9 +141,7 @@ class BeVariantTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getTitleWithTitleDelimiterReturnsTitleSetByConstructorWithGivenTitleDelimiter(): void
     {
         $titleDelimiter = ',';
@@ -165,9 +154,7 @@ class BeVariantTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getPriceReturnsPriceSetByConstructor(): void
     {
         self::assertSame(
@@ -176,9 +163,7 @@ class BeVariantTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getPriceCalcMethodReturnsPriceCalcSetByConstructor(): void
     {
         self::assertSame(
@@ -187,9 +172,7 @@ class BeVariantTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getQuantityReturnsQuantitySetByConstructor(): void
     {
         self::assertSame(
@@ -198,9 +181,7 @@ class BeVariantTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function constructVariantWithoutCartProductOrVariantThrowsInvalidArgumentException(): void
     {
         $this->expectException(\InvalidArgumentException::class);
@@ -217,9 +198,7 @@ class BeVariantTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function constructVariantWithCartProductAndVariantThrowsInvalidArgumentException(): void
     {
         $this->expectException(\InvalidArgumentException::class);
@@ -236,9 +215,7 @@ class BeVariantTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function constructWithoutTitleThrowsException(): void
     {
         $this->expectException(\TypeError::class);
@@ -255,9 +232,7 @@ class BeVariantTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function constructWithoutSkuThrowsException(): void
     {
         $this->expectException(\TypeError::class);
@@ -274,9 +249,7 @@ class BeVariantTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function constructWithoutQuantityThrowsException(): void
     {
         $this->expectException(\TypeError::class);
@@ -293,9 +266,7 @@ class BeVariantTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getMinReturnsInitialValueMin(): void
     {
         self::assertSame(
@@ -304,9 +275,7 @@ class BeVariantTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function setMinIfMinIsEqualToMax(): void
     {
         $min = 1;
@@ -321,9 +290,7 @@ class BeVariantTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function setMinIfMinIsLesserThanMax(): void
     {
         $min = 1;
@@ -338,9 +305,7 @@ class BeVariantTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function throwsInvalidArgumentExceptionIfMinIsGreaterThanMax(): void
     {
         $this->expectException(\InvalidArgumentException::class);
@@ -352,9 +317,7 @@ class BeVariantTest extends UnitTestCase
         $this->beVariant->setMin($min);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function throwsInvalidArgumentExceptionIfMinIsNegativ(): void
     {
         $this->expectException(\InvalidArgumentException::class);
@@ -366,9 +329,7 @@ class BeVariantTest extends UnitTestCase
         $this->beVariant->setMin($min);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getMaxReturnsInitialValueMax(): void
     {
         self::assertSame(
@@ -377,9 +338,7 @@ class BeVariantTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function setMaxIfMaxIsEqualToMin(): void
     {
         $min = 1;
@@ -397,9 +356,7 @@ class BeVariantTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function setMaxIfMaxIsGreaterThanMin(): void
     {
         $min = 1;
@@ -417,9 +374,7 @@ class BeVariantTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function throwsInvalidArgumentExceptionIfMaxIsLesserThanMin(): void
     {
         $this->expectException(\InvalidArgumentException::class);
@@ -434,9 +389,7 @@ class BeVariantTest extends UnitTestCase
         $this->beVariant->setMax($max);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getParentPriceReturnsProductPriceForCalculationMethodZero(): void
     {
         self::assertSame(
@@ -445,9 +398,7 @@ class BeVariantTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getParentPriceReturnsZeroPriceForCalculationMethodOne(): void
     {
         $this->beVariant->setPriceCalcMethod(1);
@@ -457,9 +408,7 @@ class BeVariantTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getParentPriceRespectsTheQuantityDiscountsOfProductsForEachVariant(): void
     {
         $quantityDiscounts = [

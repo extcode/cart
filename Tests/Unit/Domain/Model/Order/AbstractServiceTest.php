@@ -12,8 +12,11 @@ namespace Extcode\Cart\Tests\Unit\Domain\Model\Order;
 use Extcode\Cart\Domain\Model\Order\AbstractService;
 use Extcode\Cart\Domain\Model\Order\Item;
 use Extcode\Cart\Domain\Model\Order\TaxClass;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\Test;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
+#[CoversClass(AbstractService::class)]
 class AbstractServiceTest extends UnitTestCase
 {
     protected AbstractService $service;
@@ -25,9 +28,7 @@ class AbstractServiceTest extends UnitTestCase
         parent::setUp();
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function toArrayReturnsArray(): void
     {
         $serviceCountry = 'de';
@@ -80,9 +81,7 @@ class AbstractServiceTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getItemInitiallyReturnsNull(): void
     {
         self::assertNull(
@@ -90,9 +89,7 @@ class AbstractServiceTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function setItemSetsItem(): void
     {
         $item = new Item();
@@ -105,9 +102,7 @@ class AbstractServiceTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getNameInitiallyReturnsEmptyString(): void
     {
         self::assertSame(
@@ -116,9 +111,7 @@ class AbstractServiceTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function setNameSetsName(): void
     {
         $this->service->setName('foo bar');
@@ -129,9 +122,7 @@ class AbstractServiceTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getStatusInitiallyReturnsEmptyString(): void
     {
         self::assertSame(
@@ -140,9 +131,7 @@ class AbstractServiceTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function setStatusSetsStatus(): void
     {
         $this->service->setStatus('paid');
@@ -153,9 +142,7 @@ class AbstractServiceTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getNoteInitiallyReturnsEmptyString(): void
     {
         self::assertSame(
@@ -164,9 +151,7 @@ class AbstractServiceTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function setNoteSetsNote(): void
     {
         $note = 'note';
@@ -178,9 +163,7 @@ class AbstractServiceTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getGrossInitiallyReturnsZero(): void
     {
         self::assertSame(
@@ -189,9 +172,7 @@ class AbstractServiceTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function setGrossSetsGross(): void
     {
         $this->service->setGross(1234.56);
@@ -202,9 +183,7 @@ class AbstractServiceTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getNetInitiallyReturnsZero(): void
     {
         self::assertSame(
@@ -213,9 +192,7 @@ class AbstractServiceTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function setNetSetsNet(): void
     {
         $this->service->setNet(1234.56);
@@ -226,9 +203,7 @@ class AbstractServiceTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getTaxClassInitiallyReturnsNull(): void
     {
         self::assertNull(
@@ -236,9 +211,7 @@ class AbstractServiceTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function setTaxClassSetsTaxClass(): void
     {
         $taxClass = new TaxClass();
@@ -254,9 +227,7 @@ class AbstractServiceTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getTaxInitiallyReturnsZero(): void
     {
         self::assertSame(
@@ -265,9 +236,7 @@ class AbstractServiceTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function setTaxSetsTax(): void
     {
         $this->service->setTax(1234.56);

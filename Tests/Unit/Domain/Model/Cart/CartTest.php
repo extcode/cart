@@ -13,8 +13,11 @@ use Extcode\Cart\Domain\Model\Cart\Cart;
 use Extcode\Cart\Domain\Model\Cart\CartCouponFix;
 use Extcode\Cart\Domain\Model\Cart\Product;
 use Extcode\Cart\Domain\Model\Cart\TaxClass;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\Test;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
+#[CoversClass(Cart::class)]
 class CartTest extends UnitTestCase
 {
     protected Cart $grossCart;
@@ -61,9 +64,7 @@ class CartTest extends UnitTestCase
         parent::tearDown();
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getNetInitiallyReturnsZero(): void
     {
         self::assertSame(
@@ -77,9 +78,7 @@ class CartTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getSubtotalNetInitiallyReturnsZero(): void
     {
         self::assertSame(
@@ -93,9 +92,7 @@ class CartTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getTotalNetInitiallyReturnsZero(): void
     {
         self::assertSame(
@@ -109,9 +106,7 @@ class CartTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getGrossInitiallyReturnsZero(): void
     {
         self::assertSame(
@@ -125,9 +120,7 @@ class CartTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getTotalGrossInitiallyReturnsZero(): void
     {
         self::assertSame(
@@ -141,9 +134,7 @@ class CartTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getTaxesInitiallyReturnsEmptyArray(): void
     {
         self::assertEmpty(
@@ -155,9 +146,7 @@ class CartTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getCouponTaxesInitiallyReturnsEmptyArray(): void
     {
         self::assertEmpty(
@@ -169,9 +158,7 @@ class CartTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getSubtotalTaxesInitiallyReturnsEmptyArray(): void
     {
         self::assertEmpty(
@@ -183,9 +170,7 @@ class CartTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getTotalTaxesInitiallyReturnsEmptyArray(): void
     {
         self::assertEmpty(
@@ -197,9 +182,7 @@ class CartTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getCountInitiallyReturnsZero(): void
     {
         self::assertSame(
@@ -208,9 +191,7 @@ class CartTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getCountPhysicalProductsInitiallyReturnsZero(): void
     {
         self::assertSame(
@@ -219,9 +200,7 @@ class CartTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getCountVirtualProductsInitiallyReturnsZero(): void
     {
         self::assertSame(
@@ -230,9 +209,7 @@ class CartTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getProductsInitiallyReturnsEmptyArray(): void
     {
         self::assertCount(
@@ -241,9 +218,7 @@ class CartTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getOrderNumberInitiallyReturnsEmptyString(): void
     {
         self::assertSame(
@@ -252,9 +227,7 @@ class CartTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function setInitiallyOrderNumberSetsOrderNumber(): void
     {
         $this->grossCart->setOrderNumber('ValidOrderNumber');
@@ -265,9 +238,7 @@ class CartTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function resetSameOrderNumberSetsOrderNumber(): void
     {
         $this->grossCart->setOrderNumber('ValidOrderNumber');
@@ -280,9 +251,7 @@ class CartTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function resetDifferentOrderNumberThrowsException(): void
     {
         $this->grossCart->setOrderNumber('ValidOrderNumber');
@@ -312,9 +281,7 @@ class CartTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getInvoiceNumberInitiallyReturnsEmptyString(): void
     {
         self::assertSame(
@@ -323,9 +290,7 @@ class CartTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function setInitiallyInvoiceNumberSetsInvoiceNumber(): void
     {
         $this->grossCart->setInvoiceNumber('ValidInvoiceNumber');
@@ -336,9 +301,7 @@ class CartTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function resetSameInvoiceNumberSetsInvoiceNumber(): void
     {
         $this->grossCart->setInvoiceNumber('ValidInvoiceNumber');
@@ -351,9 +314,7 @@ class CartTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function resetDifferentInvoiceNumberThrowsException(): void
     {
         $this->grossCart->setInvoiceNumber('ValidInvoiceNumber');
@@ -383,9 +344,7 @@ class CartTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function addFirstCartProductToCartChangeCountOfProducts(): void
     {
         $product = new Product(
@@ -407,9 +366,7 @@ class CartTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function addFirstPhysicalCartProductToCartChangeCountOfPhysicalProducts(): void
     {
         $product = new Product(
@@ -436,9 +393,7 @@ class CartTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function addFirstVirtualCartProductToCartChangeCountOfVirtualProducts(): void
     {
         $product = new Product(
@@ -468,9 +423,7 @@ class CartTest extends UnitTestCase
 
     // Change Net Of Cart
 
-    /**
-     * @test
-     */
+    #[Test]
     public function addFirstGrossCartProductToGrossCartChangeNetOfCart(): void
     {
         $productPrice = 10.00;
@@ -493,9 +446,7 @@ class CartTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function addFirstNetCartProductToNetCartChangeNetOfCart(): void
     {
         $productPrice = 10.00;
@@ -518,9 +469,7 @@ class CartTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function addFirstGrossCartProductToNetCartChangeNetOfCart(): void
     {
         $productPrice = 10.00;
@@ -543,9 +492,7 @@ class CartTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function addFirstNetCartProductToGrossCartChangeNetOfCart(): void
     {
         $productPrice = 10.00;
@@ -570,9 +517,7 @@ class CartTest extends UnitTestCase
 
     // Change Gross Of Cart
 
-    /**
-     * @test
-     */
+    #[Test]
     public function addFirstGrossCartProductToGrossCartChangeGrossOfCart(): void
     {
         $productPrice = 10.00;
@@ -595,9 +540,7 @@ class CartTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function addFirstNetCartProductToNetCartChangeGrossOfCart(): void
     {
         $productPrice = 10.00;
@@ -621,9 +564,7 @@ class CartTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function addFirstGrossCartProductToNetCartChangeGrossOfCart(): void
     {
         $productPrice = 10.00;
@@ -646,9 +587,7 @@ class CartTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function addFirstNetCartProductToGrossCartChangeGrossOfCart(): void
     {
         $productPrice = 10.00;
@@ -672,9 +611,7 @@ class CartTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function addFirstCartProductToCartChangeTaxArray(): void
     {
         $taxId = 1;
@@ -701,9 +638,7 @@ class CartTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function addSecondCartProductWithSameTaxClassToCartChangeTaxArray(): void
     {
         $firstCartProductPrice = 10.00;
@@ -741,9 +676,7 @@ class CartTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function addSecondCartProductWithDifferentTaxClassToCartChangeTaxArray(): void
     {
         $firstCartProductPrice = 10.00;
@@ -786,9 +719,7 @@ class CartTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function isOrderableOfEmptyCartReturnsFalse(): void
     {
         self::assertFalse(
@@ -796,9 +727,7 @@ class CartTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function isOrderableOfCartReturnsTrueWhenProductNumberIsInRangeForAllProducts(): void
     {
         $taxClass = new TaxClass(1, '19', 0.19, 'normal');
@@ -865,9 +794,7 @@ class CartTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function isOrderableOfCartReturnsFalseWhenProductNumberIsNotInRangeForOneProduct(): void
     {
         $taxClass = new TaxClass(1, '19', 0.19, 'normal');
@@ -934,9 +861,7 @@ class CartTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getCouponsInitiallyReturnsEmptyArray(): void
     {
         self::assertEmpty(
@@ -948,9 +873,7 @@ class CartTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function addCouponAddsNewCoupon(): void
     {
         $coupon = new CartCouponFix(
@@ -975,9 +898,7 @@ class CartTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function addSameCouponReturnsReturnCodeOne(): void
     {
         $coupon = new CartCouponFix(
@@ -1000,9 +921,7 @@ class CartTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function addSameCouponDoesNotChangeCouponNumberInCart(): void
     {
         $coupon = new CartCouponFix(
@@ -1029,9 +948,7 @@ class CartTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function addSameCouponReturnsErrorCodeMinusOne(): void
     {
         $coupon = new CartCouponFix(
@@ -1056,9 +973,7 @@ class CartTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function addSecondNotCombinableCouponDoesNotChangeCouponNumberInCart(): void
     {
         $firstCoupon = new CartCouponFix(
@@ -1094,9 +1009,7 @@ class CartTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function addSecondNotCombinableCouponReturnsReturnErrorCodeMinusTwo(): void
     {
         $firstCoupon = new CartCouponFix(
@@ -1130,9 +1043,7 @@ class CartTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function addSecondCombinableCouponToNotCombinableCouponsDoesNotChangeCouponNumberInCart(): void
     {
         $firstCoupon = new CartCouponFix(
@@ -1170,9 +1081,7 @@ class CartTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function addSecondCombinableCouponToNotCombinableCouponsReturnsReturnErrorCodeMinusTwo(): void
     {
         $firstCoupon = new CartCouponFix(
@@ -1208,9 +1117,7 @@ class CartTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function addSecondCombinableCouponAddsCoupon(): void
     {
         $firstCoupon = new CartCouponFix(
@@ -1248,9 +1155,7 @@ class CartTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getCouponGrossInitiallyReturnsZero(): void
     {
         self::assertSame(
@@ -1264,9 +1169,7 @@ class CartTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getCouponNetInitiallyReturnsZero(): void
     {
         self::assertSame(
@@ -1280,9 +1183,7 @@ class CartTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getCouponGrossReturnsAllCouponsGrossSum(): void
     {
         $gross = 10.00;
@@ -1329,9 +1230,7 @@ class CartTest extends UnitTestCase
         $this->netCart->addProduct($product);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getCouponGrossReturnsCouponsGrossSumOfCouponsWhenCartMinPriceWasReached(): void
     {
         $this->addFirstProductToCarts();
@@ -1364,9 +1263,7 @@ class CartTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getCouponNetReturnsAllCouponsNetSum(): void
     {
         $discount = 10.00;
@@ -1397,9 +1294,7 @@ class CartTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getCouponTaxReturnsAllCouponsTaxSum(): void
     {
         $gross = 10.00;
@@ -1437,9 +1332,7 @@ class CartTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getSubtotalGrossInitiallyReturnsZero(): void
     {
         self::assertSame(
@@ -1453,9 +1346,7 @@ class CartTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getSubtotalGrossReturnsSubtotalGross(): void
     {
         $price = 100.00;
@@ -1487,9 +1378,7 @@ class CartTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getSubtotalNetReturnsSubtotalNet(): void
     {
         $price = 100.00;
@@ -1523,9 +1412,7 @@ class CartTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getCurrencyCodeInitiallyReturnsString(): void
     {
         self::assertSame(
@@ -1539,9 +1426,7 @@ class CartTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function constructorSetsCurrencyCode(): void
     {
         $this->grossCart = new Cart(
@@ -1558,9 +1443,7 @@ class CartTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function setCurrencyCodeSetsCurrencyCode(): void
     {
         $this->grossCart->setCurrencyCode('USD');
@@ -1578,9 +1461,7 @@ class CartTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getCurrencySignInitiallyReturnsString(): void
     {
         self::assertSame(
@@ -1594,9 +1475,7 @@ class CartTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function constructorSetsCurrencySign(): void
     {
         $this->grossCart = new Cart(
@@ -1613,9 +1492,7 @@ class CartTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function setCurrencySignSetsCurrencySign(): void
     {
         $this->grossCart->setCurrencySign('$');
@@ -1633,9 +1510,7 @@ class CartTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getCurrencyTranslationInitiallyReturnsFloat(): void
     {
         self::assertSame(
@@ -1649,9 +1524,7 @@ class CartTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function constructorSetsCurrencyTranslation(): void
     {
         $cart = new Cart(
@@ -1668,9 +1541,7 @@ class CartTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function setCurrencyTranslationSetsCurrencyTranslation(): void
     {
         $this->grossCart->setCurrencyTranslation(1.5);
@@ -1688,9 +1559,7 @@ class CartTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function translatePriceReturnsCorrectPrice(): void
     {
         self::assertSame(

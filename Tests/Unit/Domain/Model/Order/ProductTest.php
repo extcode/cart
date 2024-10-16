@@ -10,29 +10,20 @@ namespace Extcode\Cart\Tests\Unit\Domain\Model\Order;
  */
 
 use Extcode\Cart\Domain\Model\Order\Product;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\Test;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
+#[CoversClass(Product::class)]
 class ProductTest extends UnitTestCase
 {
-    /**
-     * @var Product
-     */
-    protected $product;
+    protected Product $product;
 
-    /**
-     * @var string
-     */
-    protected $sku;
+    protected string $sku;
 
-    /**
-     * @var string
-     */
-    protected $title;
+    protected string $title;
 
-    /**
-     * @var int
-     */
-    protected $count = 0;
+    protected int $count = 0;
 
     public function setUp(): void
     {
@@ -48,9 +39,7 @@ class ProductTest extends UnitTestCase
         parent::setUp();
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getSkuInitiallyReturnsEmptyString(): void
     {
         $product = new Product();
@@ -61,9 +50,7 @@ class ProductTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function setSkuSetsSku(): void
     {
         $product = new Product();
@@ -75,9 +62,7 @@ class ProductTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getTitleInitiallyReturnsEmptyString(): void
     {
         $product = new Product();
@@ -88,9 +73,7 @@ class ProductTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function setTitleSetsTitle(): void
     {
         $product = new Product();
@@ -102,9 +85,7 @@ class ProductTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getCountInitiallyReturnsZero(): void
     {
         $product = new Product();
@@ -115,9 +96,7 @@ class ProductTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function setCountSetsCount(): void
     {
         $product = new Product();
@@ -129,9 +108,7 @@ class ProductTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getProductTypeReturnsInitialValueForProductType(): void
     {
         self::assertSame(
@@ -140,9 +117,7 @@ class ProductTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function setProductTypeSetsProductType(): void
     {
         $this->product->setProductType('configurable');

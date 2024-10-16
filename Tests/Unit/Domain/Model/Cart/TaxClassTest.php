@@ -10,8 +10,11 @@ namespace Extcode\Cart\Tests\Unit\Domain\Model\Cart;
  */
 
 use Extcode\Cart\Domain\Model\Cart\TaxClass;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\Test;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
+#[CoversClass(TaxClass::class)]
 class TaxClassTest extends UnitTestCase
 {
     protected TaxClass $fixture;
@@ -54,9 +57,7 @@ class TaxClassTest extends UnitTestCase
         parent::tearDown();
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getIdReturnsIdSetByConstructor(): void
     {
         self::assertSame(
@@ -65,9 +66,7 @@ class TaxClassTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getValueReturnsValueSetByConstructor(): void
     {
         self::assertSame(
@@ -76,9 +75,7 @@ class TaxClassTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getCalcReturnsCalcSetByConstructor(): void
     {
         self::assertSame(
@@ -87,9 +84,7 @@ class TaxClassTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getTitleReturnsNameSetByConstructor(): void
     {
         self::assertSame(

@@ -12,8 +12,11 @@ namespace Extcode\Cart\Tests\Unit\Domain\Model\Product;
  */
 
 use Extcode\Cart\Domain\Model\Product\MeasureTrait;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\Test;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
+#[CoversClass(MeasureTrait::class)]
 class MeasureTraitTest extends UnitTestCase
 {
     protected $trait;
@@ -25,9 +28,7 @@ class MeasureTraitTest extends UnitTestCase
         $this->trait = $this->getObjectForTrait(MeasureTrait::class);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getPriceMeasure(): void
     {
         self::assertSame(
@@ -36,9 +37,7 @@ class MeasureTraitTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function setPriceMeasureSetsPriceMeasure(): void
     {
         $priceMeasure = 10.99;
@@ -70,9 +69,7 @@ class MeasureTraitTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function setMeasureUnitsSetsMeasureUnits(): void
     {
         $measureUnits = [
@@ -91,9 +88,7 @@ class MeasureTraitTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getPriceMeasureUnit(): void
     {
         self::assertSame(
@@ -102,9 +97,7 @@ class MeasureTraitTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function setPriceMeasureUnitSetsPriceMeasureUnit(): void
     {
         $priceMeasureUnit = 'l';
@@ -117,9 +110,7 @@ class MeasureTraitTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getBasePriceMeasureUnit(): void
     {
         self::assertSame(
@@ -128,9 +119,7 @@ class MeasureTraitTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function setBasePriceMeasureUnitSetsBasePriceMeasureUnit(): void
     {
         $priceBaseMeasureUnit = 'l';
@@ -143,9 +132,7 @@ class MeasureTraitTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getIsMeasureUnitCompatibilityInitiallyRetrunsFalse(): void
     {
         self::assertFalse(
@@ -153,9 +140,7 @@ class MeasureTraitTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getIsMeasureUnitCompatibilityAndNotSetPriceMeasureUnitsRetrunsFalse(): void
     {
         $this->trait->setBasePriceMeasureUnit('l');
@@ -165,9 +150,7 @@ class MeasureTraitTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getIsMeasureUnitCompatibilityAndNotSetBasePriceMeasureUnitsRetrunsFalse(): void
     {
         self::assertFalse(

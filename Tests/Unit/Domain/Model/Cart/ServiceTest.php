@@ -13,8 +13,11 @@ use Extcode\Cart\Domain\Model\Cart\Cart;
 use Extcode\Cart\Domain\Model\Cart\Product;
 use Extcode\Cart\Domain\Model\Cart\Service;
 use Extcode\Cart\Domain\Model\Cart\TaxClass;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\Test;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
+#[CoversClass(Service::class)]
 class ServiceTest extends UnitTestCase
 {
     protected int $id = 1;
@@ -58,9 +61,7 @@ class ServiceTest extends UnitTestCase
         parent::setUp();
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getServiceIdReturnsServiceIdSetByConstructor(): void
     {
         self::assertSame(
@@ -69,9 +70,7 @@ class ServiceTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getServiceConfigReturnsServiceConfigSetByConstructor(): void
     {
         self::assertSame(
@@ -80,9 +79,7 @@ class ServiceTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function isAvailableWithoutUntilAvailableConfigurationReturnsTrue(): void
     {
         self::assertTrue(
@@ -90,9 +87,7 @@ class ServiceTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function isAvailableWithCartGrossInRangeReturnsTrue(): void
     {
         $config = [
@@ -142,9 +137,7 @@ class ServiceTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function isAvailableWithCartGrossBelowRangeReturnsFalse(): void
     {
         $config = [
@@ -176,9 +169,7 @@ class ServiceTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function isAvailableWithCartGrossAboveRangeReturnsFalse(): void
     {
         $config = [
@@ -210,9 +201,7 @@ class ServiceTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function isPresetInitiallyReturnsFalse(): void
     {
         self::assertFalse(
@@ -220,9 +209,7 @@ class ServiceTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function setPresetSetsPreset(): void
     {
         $this->service->setPreset(true);
@@ -236,9 +223,7 @@ class ServiceTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getFallbackIdInitiallyReturnsNull(): void
     {
         self::assertNull(
@@ -246,9 +231,7 @@ class ServiceTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getFallbackIdIReturnsConfiguredFallbackId(): void
     {
         $config = [
@@ -270,9 +253,7 @@ class ServiceTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function isFreeInitiallyReturnsFalse(): void
     {
         self::assertNull(
@@ -280,9 +261,7 @@ class ServiceTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function isFreeWithCartGrossInRangeReturnsTrue(): void
     {
         $config = [
@@ -332,9 +311,7 @@ class ServiceTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function isFreeWithCartGrossBelowRangeReturnsFalse(): void
     {
         $config = [
@@ -366,9 +343,7 @@ class ServiceTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function isFreeWithCartGrossAboveRangeReturnsFalse(): void
     {
         $config = [
@@ -399,9 +374,7 @@ class ServiceTest extends UnitTestCase
             $service->isFree()
         );
     }
-    /**
-     * @test
-     */
+    #[Test]
     public function taxClassIdsGreaterZeroReturnsTaxClass(): void
     {
         $cart = $this->getMockBuilder(Cart::class)
@@ -443,9 +416,7 @@ class ServiceTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function forTaxClassIdMinusOneTheHighestUsedTaxRateWillBeUsed(): void
     {
         $config = [
@@ -505,9 +476,7 @@ class ServiceTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function forTaxClassIdMinusTwoReturnsPseudoTaxClassWithIdMinusTwo(): void
     {
         $config = [

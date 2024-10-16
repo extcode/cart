@@ -10,14 +10,14 @@ namespace Extcode\Cart\Tests\Unit\Domain\Model\Order;
  */
 
 use Extcode\Cart\Domain\Model\Order\Transaction;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\Test;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
+#[CoversClass(Transaction::class)]
 class TransactionTest extends UnitTestCase
 {
-    /**
-     * @var Transaction
-     */
-    protected $transaction;
+    protected Transaction $transaction;
 
     public function setUp(): void
     {
@@ -26,9 +26,7 @@ class TransactionTest extends UnitTestCase
         parent::setUp();
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getTxnIdInitiallyReturnsEmptyString(): void
     {
         self::assertSame(
@@ -37,9 +35,7 @@ class TransactionTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function setTxnIdSetsTnxId(): void
     {
         $transactionId = 'transaction-id';

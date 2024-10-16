@@ -10,14 +10,14 @@ namespace Extcode\Cart\Tests\Unit\Domain\Model\Order;
  */
 
 use Extcode\Cart\Domain\Model\Order\Shipping;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\Test;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
+#[CoversClass(Shipping::class)]
 class ShippingTest extends UnitTestCase
 {
-    /**
-     * @var Shipping
-     */
-    protected $shipping;
+    protected Shipping $shipping;
 
     public function setUp(): void
     {
@@ -26,9 +26,7 @@ class ShippingTest extends UnitTestCase
         parent::setUp();
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getNameInitiallyReturnsEmptyString(): void
     {
         self::assertSame(
@@ -37,9 +35,7 @@ class ShippingTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function setNameSetsName(): void
     {
         $this->shipping->setName('foo bar');
@@ -50,9 +46,7 @@ class ShippingTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getStatusInitiallyReturnsEmptyString(): void
     {
         self::assertSame(
@@ -61,9 +55,7 @@ class ShippingTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function setStatusSetsStatus(): void
     {
         $this->shipping->setStatus('shipped');
@@ -74,9 +66,7 @@ class ShippingTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getNetInitiallyReturnsZero(): void
     {
         self::assertSame(
@@ -85,9 +75,7 @@ class ShippingTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function setNetSetsNet(): void
     {
         $this->shipping->setNet(1234.56);
@@ -98,9 +86,7 @@ class ShippingTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getGrossInitiallyReturnsZero(): void
     {
         self::assertSame(
@@ -109,9 +95,7 @@ class ShippingTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function setGrossSetsGross(): void
     {
         $this->shipping->setGross(1234.56);
@@ -122,9 +106,7 @@ class ShippingTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getTaxInitiallyReturnsZero(): void
     {
         self::assertSame(
@@ -133,9 +115,7 @@ class ShippingTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function setTaxSetsTax(): void
     {
         $this->shipping->setTax(1234.56);
@@ -146,9 +126,7 @@ class ShippingTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getNoteInitiallyReturnsEmptyString(): void
     {
         self::assertSame(
@@ -157,9 +135,7 @@ class ShippingTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function setNoteSetsNote(): void
     {
         $this->shipping->setNote('foo bar');

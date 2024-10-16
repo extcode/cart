@@ -12,8 +12,11 @@ namespace Extcode\Cart\Tests\Unit\Domain\Model\Cart;
 use Extcode\Cart\Domain\Model\Cart\Cart;
 use Extcode\Cart\Domain\Model\Cart\CartCouponFix;
 use Extcode\Cart\Domain\Model\Cart\TaxClass;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\Test;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
+#[CoversClass(CartCouponFix::class)]
 class CartCouponFixTest extends UnitTestCase
 {
     protected CartCouponFix $coupon;
@@ -51,9 +54,7 @@ class CartCouponFixTest extends UnitTestCase
         parent::setUp();
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function constructCouponWithoutTitleThrowsException(): void
     {
         $this->expectException(\TypeError::class);
@@ -68,9 +69,7 @@ class CartCouponFixTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function constructCouponWithoutCodeThrowsException(): void
     {
         $this->expectException(\TypeError::class);
@@ -85,9 +84,7 @@ class CartCouponFixTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function constructCouponWithoutCouponTypeThrowsException(): void
     {
         $this->expectException(\TypeError::class);
@@ -102,9 +99,7 @@ class CartCouponFixTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function constructCouponWithoutDiscountThrowsException(): void
     {
         $this->expectException(\TypeError::class);
@@ -119,9 +114,7 @@ class CartCouponFixTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function constructCouponWithoutTaxClassThrowsException(): void
     {
         $this->expectException(\TypeError::class);
@@ -136,9 +129,7 @@ class CartCouponFixTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function isCombinableInitiallyReturnsFalse(): void
     {
         self::assertFalse(
@@ -146,9 +137,7 @@ class CartCouponFixTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function constructorSetsIsCombinable(): void
     {
         $this->coupon = new CartCouponFix(
@@ -166,9 +155,7 @@ class CartCouponFixTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getDiscountInitiallyReturnsDiscountSetDirectlyByConstructor(): void
     {
         self::assertSame(
@@ -177,9 +164,7 @@ class CartCouponFixTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getGrossInitiallyReturnsGrossSetDirectlyByConstructor(): void
     {
         self::assertSame(
@@ -188,9 +173,7 @@ class CartCouponFixTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getGrossReturnsTranslatedDiscount(): void
     {
         $currencyTranslation = 2.0;
@@ -209,9 +192,7 @@ class CartCouponFixTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getNetInitiallyReturnsNetSetIndirectlyByConstructor(): void
     {
         $net = $this->discount / ($this->taxClass->getCalc() + 1);
@@ -221,9 +202,7 @@ class CartCouponFixTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getTaxClassInitiallyReturnsTaxClassSetDirectlyByConstructor(): void
     {
         self::assertSame(
@@ -232,9 +211,7 @@ class CartCouponFixTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getTaxInitiallyReturnsTaxSetIndirectlyByConstructor(): void
     {
         $tax = $this->discount - ($this->discount / ($this->taxClass->getCalc() + 1));
@@ -245,9 +222,7 @@ class CartCouponFixTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getCartMinPriceInitiallyReturnsCartMinPriceSetDirectlyByConstructor(): void
     {
         self::assertSame(
@@ -256,9 +231,7 @@ class CartCouponFixTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function isUsableReturnsTrueIfCartMinPriceIsLessToGivenPrice(): void
     {
         $gross = 10.00;
@@ -287,9 +260,7 @@ class CartCouponFixTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function isUsableReturnsTrueIfCartMinPriceIsEqualToGivenPrice(): void
     {
         $gross = 10.00;
@@ -318,9 +289,7 @@ class CartCouponFixTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function isUsableReturnsFalseIfCartMinPriceIsGreaterToGivenPrice(): void
     {
         $gross = 10.00;

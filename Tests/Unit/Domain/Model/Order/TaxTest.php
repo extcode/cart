@@ -11,24 +11,18 @@ namespace Extcode\Cart\Tests\Unit\Domain\Model\Order;
 
 use Extcode\Cart\Domain\Model\Order\Tax;
 use Extcode\Cart\Domain\Model\Order\TaxClass;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\Test;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
+#[CoversClass(Tax::class)]
 class TaxTest extends UnitTestCase
 {
-    /**
-     * @var Tax
-     */
-    protected $orderTax;
+    protected Tax $orderTax;
 
-    /**
-     * @var float
-     */
-    protected $tax;
+    protected float $tax;
 
-    /**
-     * @var TaxClass
-     */
-    protected $taxClass;
+    protected TaxClass $taxClass;
 
     public function setUp(): void
     {
@@ -47,9 +41,7 @@ class TaxTest extends UnitTestCase
         parent::setUp();
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function constructTaxWithoutTaxThrowsException(): void
     {
         $this->expectException(\TypeError::class);
@@ -60,9 +52,7 @@ class TaxTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function constructTaxWithoutTaxClassThrowsException(): void
     {
         $this->expectException(\TypeError::class);
@@ -73,9 +63,7 @@ class TaxTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getTaxInitiallyReturnsTaxSetDirectlyByConstructor(): void
     {
         self::assertSame(
@@ -84,9 +72,7 @@ class TaxTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getTaxClassInitiallyReturnsTaxClassSetDirectlyByConstructor(): void
     {
         self::assertSame(

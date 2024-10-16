@@ -12,8 +12,11 @@ namespace Extcode\Cart\Tests\Unit\Domain\Model\Cart;
 use Extcode\Cart\Domain\Model\Cart\Product;
 use Extcode\Cart\Domain\Model\Cart\TaxClass;
 use InvalidArgumentException;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\Test;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
+#[CoversClass(Product::class)]
 class ProductTest extends UnitTestCase
 {
     protected TaxClass $taxClass;
@@ -72,9 +75,7 @@ class ProductTest extends UnitTestCase
         parent::tearDown();
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function constructCartProductWithoutProductTypeThrowsException(): void
     {
         $this->expectException(\TypeError::class);
@@ -90,9 +91,7 @@ class ProductTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function constructCartProductWithoutProductIdThrowsException(): void
     {
         $this->expectException(\TypeError::class);
@@ -108,9 +107,7 @@ class ProductTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function constructCartProductWithoutSkuThrowsException(): void
     {
         $this->expectException(\TypeError::class);
@@ -126,9 +123,7 @@ class ProductTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function constructCartProductWithoutTitleThrowsException(): void
     {
         $this->expectException(\TypeError::class);
@@ -144,9 +139,7 @@ class ProductTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function constructCartProductWithoutPriceThrowsException(): void
     {
         $this->expectException(\TypeError::class);
@@ -162,9 +155,7 @@ class ProductTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function constructCartProductWithoutTaxClassThrowsException(): void
     {
         $this->expectException(\TypeError::class);
@@ -180,9 +171,7 @@ class ProductTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function constructCartProductWithoutQuantityThrowsException(): void
     {
         $this->expectException(\TypeError::class);
@@ -198,9 +187,7 @@ class ProductTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getCartProductTypeReturnsProductTypeSetByConstructor(): void
     {
         self::assertSame(
@@ -209,9 +196,7 @@ class ProductTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getCartProductIdReturnsProductIdSetByConstructor(): void
     {
         self::assertSame(
@@ -220,9 +205,7 @@ class ProductTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getIdForTableProductReturnsTableProductIdSetIndirectlyByConstructor(): void
     {
         $product = new Product(
@@ -241,9 +224,7 @@ class ProductTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getSkuReturnsSkuSetByConstructor(): void
     {
         self::assertSame(
@@ -252,9 +233,7 @@ class ProductTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getTitleReturnsTitleSetByConstructor(): void
     {
         self::assertSame(
@@ -263,9 +242,7 @@ class ProductTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getPriceReturnsPriceSetByConstructor(): void
     {
         self::assertSame(
@@ -274,9 +251,7 @@ class ProductTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getSpecialPriceInitiallyReturnsNull(): void
     {
         self::assertNull(
@@ -284,9 +259,7 @@ class ProductTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function setSpecialPriceSetsSpecialPrice(): void
     {
         $price = 10.00;
@@ -309,9 +282,7 @@ class ProductTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getSpecialPriceDiscountForEmptySpecialPriceReturnsDiscount(): void
     {
         $price = 10.00;
@@ -332,9 +303,7 @@ class ProductTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getSpecialPriceDiscountForZeroPriceReturnsZero(): void
     {
         $price = 0.0;
@@ -357,9 +326,7 @@ class ProductTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getSpecialPriceDiscountForGivenSpecialPriceReturnsPercentageDiscount(): void
     {
         $price = 10.00;
@@ -382,9 +349,7 @@ class ProductTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getBestPriceInitiallyReturnsPrice(): void
     {
         $price = 10.00;
@@ -405,9 +370,7 @@ class ProductTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getBestPriceReturnsPriceWhenPriceIsLessThanSpecialPrice(): void
     {
         $price = 10.00;
@@ -430,9 +393,7 @@ class ProductTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getBestPriceReturnsSpecialPriceWhenSpecialPriceIsLessThanPrice(): void
     {
         $price = 10.00;
@@ -455,9 +416,7 @@ class ProductTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getQuantityDiscountPriceWithoutQuantityPriceReturnsPrice(): void
     {
         $price = 10.00;
@@ -479,9 +438,7 @@ class ProductTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getQuantityDiscountPriceWithLowerQuantityReturnsPrice(): void
     {
         $price = 10.00;
@@ -511,9 +468,7 @@ class ProductTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getQuantityDiscountPriceWithSameQuantityReturnsPriceOfQuantityDiscount(): void
     {
         $price = 10.00;
@@ -543,9 +498,7 @@ class ProductTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getQuantityDiscountPriceWithHigherQuantityReturnsPriceOfQuantityDiscount(): void
     {
         $price = 10.00;
@@ -575,9 +528,7 @@ class ProductTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getQuantityDiscountPriceWithHigherQuantityReturnsCorrectPriceOfQuantityDiscountArray(): void
     {
         $price = 10.00;
@@ -626,9 +577,7 @@ class ProductTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getQuantityDiscountPriceWithGivenQuantityReturnsCorrectPriceOfQuantityDiscountArray(): void
     {
         $price = 10.00;
@@ -677,9 +626,7 @@ class ProductTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getBestPriceWithSpecialPriceIsLessThanQuantityPriceArrayReturnsSpecialPrice(): void
     {
         $price = 10.00;
@@ -732,9 +679,7 @@ class ProductTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getBestPriceWithSpecialPriceIsGreaterThanQuantityPriceArrayReturnsCorrectPriceOfQuantityDiscounts(): void
     {
         $price = 10.00;
@@ -787,9 +732,7 @@ class ProductTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getBestPriceWithSpecialPriceIsGreaterThanGivenQuantityPriceArrayReturnsCorrectPriceOfQuantityDiscounts(): void
     {
         $price = 10.00;
@@ -842,9 +785,7 @@ class ProductTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getQuantityReturnsQuantitySetByConstructor(): void
     {
         self::assertSame(
@@ -853,9 +794,7 @@ class ProductTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function isNetPriceReturnsFalseSetByDefaultConstructor(): void
     {
         self::assertFalse(
@@ -863,9 +802,7 @@ class ProductTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function isNetPriceReturnsTrueSetByDefaultConstructor(): void
     {
         $net_fixture = new Product(
@@ -884,9 +821,7 @@ class ProductTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function setTitleSetsTitle(): void
     {
         $sku = 'new-test-product-sku';
@@ -899,9 +834,7 @@ class ProductTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function setSkuSetsSku(): void
     {
         $title = 'New Test Product';
@@ -914,9 +847,7 @@ class ProductTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getMinNumberInCartReturnsInitialValueMinNumber(): void
     {
         self::assertSame(
@@ -925,9 +856,7 @@ class ProductTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function setMinNumberInCartIfMinNumberIsEqualToMaxNumber(): void
     {
         $minNumber = 1;
@@ -942,9 +871,7 @@ class ProductTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function setMinNumberInCartIfMinNumberIsLesserThanMax(): void
     {
         $minNumber = 1;
@@ -959,9 +886,7 @@ class ProductTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function throwsInvalidArgumentExceptionIfMinNumberIsGreaterThanMaxNumber(): void
     {
         $this->expectException(InvalidArgumentException::class);
@@ -973,9 +898,7 @@ class ProductTest extends UnitTestCase
         $this->product->setMinNumberInCart($minNumber);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function throwsInvalidArgumentExceptionIfMinNumberIsNegativ(): void
     {
         $this->expectException(InvalidArgumentException::class);
@@ -987,9 +910,7 @@ class ProductTest extends UnitTestCase
         $this->product->setMinNumberInCart($minNumber);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getMaxNumberInCartReturnsInitialValueMaxNumber(): void
     {
         self::assertSame(
@@ -998,9 +919,7 @@ class ProductTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function setMaxNumberInCartIfMaxNumberIsEqualToMinNumber(): void
     {
         $minNumber = 1;
@@ -1015,9 +934,7 @@ class ProductTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function setMaxNumberInCartIfMaxNumerIsGreaterThanMinNumber(): void
     {
         $minNumber = 1;
@@ -1032,9 +949,7 @@ class ProductTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function throwsInvalidArgumentExceptionIfMaxNumberIsLesserThanMinNUmber(): void
     {
         $this->expectException(InvalidArgumentException::class);
@@ -1046,9 +961,7 @@ class ProductTest extends UnitTestCase
         $this->product->setMaxNumberInCart($maxNumber);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getQuantityIsLeavingRangeReturnsZeroIfQuantityIsInRange(): void
     {
         $minNumber = 5;
@@ -1074,9 +987,7 @@ class ProductTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getQuantityIsLeavingRangeReturnsZeroIfQuantityIsEqualToMinimum(): void
     {
         $minNumber = 5;
@@ -1102,9 +1013,7 @@ class ProductTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getQuantityIsLeavingRangeReturnsZeroIfQuantityIsEqualToMaximum(): void
     {
         $minNumber = 5;
@@ -1130,9 +1039,7 @@ class ProductTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getQuantityIsLeavingRangeReturnsMinusOneIfQuantityIsLessThanMinimum(): void
     {
         $minNumber = 5;
@@ -1158,9 +1065,7 @@ class ProductTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getQuantityIsLeavingRangeReturnsOneIfQuantityIsGreaterThanMaximum(): void
     {
         $minNumber = 5;
@@ -1186,9 +1091,7 @@ class ProductTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function isQuantityInRangeReturnsTrueIfQuantityIsInRange(): void
     {
         $minNumber = 5;
@@ -1213,9 +1116,7 @@ class ProductTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function isQuantityInRangeReturnsTrueIfQuantityIsEqualToMinimum(): void
     {
         $minNumber = 5;
@@ -1240,9 +1141,7 @@ class ProductTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function isQuantityInRangeReturnsTrueIfQuantityIsEqualToMaximum(): void
     {
         $minNumber = 5;
@@ -1267,9 +1166,7 @@ class ProductTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function isQuantityInRangeReturnsFalseIfQuantityIsLessThanMinimum(): void
     {
         $minNumber = 5;
@@ -1294,9 +1191,7 @@ class ProductTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function isQuantityInRangeReturnsFalseIfQuantityIsGreaterThanMaximum(): void
     {
         $minNumber = 5;
@@ -1321,9 +1216,7 @@ class ProductTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getGrossReturnsZeroIfNumberIsOutOfRange(): void
     {
         $minNumber = 5;
@@ -1369,9 +1262,7 @@ class ProductTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getNetReturnsZeroIfNumberIsOutOfRange(): void
     {
         $minNumber = 5;
@@ -1417,9 +1308,7 @@ class ProductTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getTaxReturnsZeroIfNumberIsOutOfRange(): void
     {
         $minNumber = 5;
@@ -1465,9 +1354,7 @@ class ProductTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function isVirtualProductInitiallyReturnsFalse(): void
     {
         self::assertFalse(
@@ -1475,9 +1362,7 @@ class ProductTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function setIsVirtualProductSetsIsVirtualProduct(): void
     {
         $this->product->setIsVirtualProduct(true);

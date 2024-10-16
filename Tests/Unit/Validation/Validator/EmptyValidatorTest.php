@@ -9,35 +9,30 @@ namespace Extcode\Cart\Tests\Unit\Validation\Validator;
  * LICENSE file that was distributed with this source code.
  */
 use Extcode\Cart\Validation\Validator\EmptyValidator;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\Test;
 use TYPO3\CMS\Extbase\Validation\Validator\ValidatorInterface;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
+#[CoversClass(EmptyValidator::class)]
 class EmptyValidatorTest extends UnitTestCase
 {
-    /**
-     * @var string
-     */
-    protected $validatorClassName = EmptyValidator::class;
+    protected string $validatorClassName = EmptyValidator::class;
 
-    /**
-     * @var ValidatorInterface
-     */
-    protected $validator;
+    protected ValidatorInterface $validator;
 
     /**
      * @param array $options
-     * @return mixed
      */
-    protected function getValidator($options = [])
+    protected function getValidator(array $options = []): ValidatorInterface
     {
-        $validator = new $this->validatorClassName($options);
-        return $validator;
+        return new $this->validatorClassName($options);
     }
 
     /**
      * @param array $options
      */
-    protected function validatorOptions($options)
+    protected function validatorOptions(array $options): void
     {
         $this->validator = $this->getValidator($options);
     }
@@ -51,25 +46,19 @@ class EmptyValidatorTest extends UnitTestCase
         parent::setUp();
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function emptyValidatorReturnsErrorForASimpleString(): void
     {
         self::assertTrue($this->validator->validate('a not empty string')->hasErrors());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function emptyValidatorReturnsNoErrorForAnEmptyString(): void
     {
         self::assertFalse($this->validator->validate('')->hasErrors());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function emptyValidatorReturnsErrorForASimpleNumber(): void
     {
         self::assertTrue($this->validator->validate(1)->hasErrors());
@@ -77,42 +66,32 @@ class EmptyValidatorTest extends UnitTestCase
         self::assertTrue($this->validator->validate(1.5)->hasErrors());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function emptyValidatorReturnsNoErrorForANullValue(): void
     {
         self::assertFalse($this->validator->validate(null)->hasErrors());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function emptyValidatorCreatesTheCorrectErrorForAnEmptySubject(): void
     {
         self::assertEquals(1, count($this->validator->validate('a not empty string')->getErrors()));
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function emptyValidatorWorksForArrays(): void
     {
         self::assertFalse($this->validator->validate([])->hasErrors());
         self::assertTrue($this->validator->validate([1 => 2])->hasErrors());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function emptyValidatorWorksForCountableObjects(): void
     {
         self::assertFalse($this->validator->validate(new \SplObjectStorage())->hasErrors());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function emptyValidatorWorksForEmptyCountableObjects(): void
     {
         $countableObject = new \SplObjectStorage();

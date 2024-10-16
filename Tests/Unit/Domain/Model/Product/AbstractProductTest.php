@@ -10,9 +10,12 @@ namespace Extcode\Cart\Tests\Unit\Domain\Model\Product;
  */
 
 use Extcode\Cart\Domain\Model\Product\AbstractProduct;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
+#[CoversClass(AbstractProduct::class)]
 class AbstractProductTest extends UnitTestCase
 {
     protected MockObject $product;
@@ -26,9 +29,7 @@ class AbstractProductTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getSkuInitiallyReturnsEmptyString(): void
     {
         self::assertSame(
@@ -37,9 +38,7 @@ class AbstractProductTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function setSkuSetsSku(): void
     {
         $this->product->setSku('Abstract Product SKU');
@@ -50,9 +49,7 @@ class AbstractProductTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getTitleInitiallyReturnsEmptyString(): void
     {
         self::assertSame(
@@ -61,9 +58,7 @@ class AbstractProductTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function setTitleSetsTitle(): void
     {
         $this->product->setTitle('Abstract Product Title');
@@ -74,9 +69,7 @@ class AbstractProductTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getTeaserInitiallyReturnsEmptyString(): void
     {
         self::assertSame(
@@ -85,9 +78,7 @@ class AbstractProductTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function setTeaserSetsTeaser(): void
     {
         $this->product->setTeaser('Abstract Product Teaser');
@@ -98,9 +89,7 @@ class AbstractProductTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getDescriptionInitiallyReturnsEmptyString(): void
     {
         self::assertSame(
@@ -109,9 +98,7 @@ class AbstractProductTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function setDescriptionSetsDescription(): void
     {
         $this->product->setDescription('Abstract Product Description');

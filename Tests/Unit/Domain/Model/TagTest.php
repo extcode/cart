@@ -10,19 +10,16 @@ namespace Extcode\Cart\Tests\Unit\Domain\Model;
  */
 
 use Extcode\Cart\Domain\Model\Tag;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\Test;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
+#[CoversClass(Tag::class)]
 class TagTest extends UnitTestCase
 {
-    /**
-     * @var Tag
-     */
-    protected $tag;
+    protected Tag $tag;
 
-    /**
-     * @var string
-     */
-    protected $title = '';
+    protected string $title = '';
 
     public function setUp(): void
     {
@@ -35,9 +32,7 @@ class TagTest extends UnitTestCase
         parent::setUp();
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function constructCouponWithoutTitleThrowsException(): void
     {
         $this->expectException(\TypeError::class);
@@ -47,9 +42,7 @@ class TagTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getTitleInitiallyReturnsTitleSetDirectlyByConstructor(): void
     {
         self::assertSame(
@@ -58,9 +51,7 @@ class TagTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function setTitleSetsTitle(): void
     {
         $newTitle = 'new Title';
