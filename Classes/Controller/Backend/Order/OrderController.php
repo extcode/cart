@@ -15,6 +15,7 @@ use Extcode\Cart\Controller\Backend\ActionController;
 use Extcode\Cart\Domain\Model\Cart\Cart;
 use Extcode\Cart\Domain\Model\Order\Item;
 use Extcode\Cart\Domain\Repository\Order\ItemRepository;
+use Extcode\Cart\Event\Order\InitOrderListModuleTemplateEvent;
 use Extcode\Cart\Event\Order\NumberGeneratorEvent;
 use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Backend\Template\Components\ButtonBar;
@@ -63,6 +64,13 @@ class OrderController extends ActionController
 
         $this->setDocHeader($this->getListButtons());
         $this->addBackendAssets();
+
+        $initOrderListModuleTemplateEvent = new InitOrderListModuleTemplateEvent(
+            $this->moduleTemplate,
+            $this->uriBuilder,
+            $this
+        );
+        $this->eventDispatcher->dispatch($initOrderListModuleTemplateEvent);
 
         $this->moduleTemplate->assign('settings', $this->settings);
         $this->moduleTemplate->assign('searchArguments', $this->searchArguments);
