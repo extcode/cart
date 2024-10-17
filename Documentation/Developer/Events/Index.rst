@@ -110,29 +110,27 @@ events:
    payment process was successful and an invoice is to be sent instead
    of an order confirmation.
 
-.. confval:: \Extcode\Cart\Event\Order\PaymentEvent
-
-   This third event in the row can be implemented by payment provider
-   extensions to forward to the payment provider at this point.
-
-   In case of forwarding, the processing of the following events should be
-   prevented via the `StoppableEventInterface`, because
-   `\Extcode\Cart\Event\Order\StockEvent` and
-   `\Extcode\Cart\Event\Order\FinishEvent` are only necessary if the
-   payment process is successful.
-
-   If the payment process is successful, the payment provider extension
-   should trigger the events `\Extcode\Cart\Event\Order\StockEvent` and
-   `\Extcode\Cart\Event\Order\FinishEvent` itself.
-
 .. confval:: \Extcode\Cart\Event\Order\StockEvent
 
-   The fourth event should again be used by product extensions if they
+   The third event should again be used by product extensions if they
    provide stock management.
 
    The EventListener should perform stock management for products of this
    extension. Either count down the stock counter in the database or tell
    the product service via an interface which products were bought how often.
+
+.. confval:: \Extcode\Cart\Event\Order\PaymentEvent
+
+   This fourth event in the row can be implemented by payment provider
+   extensions to forward to the payment provider at this point.
+
+   In case of forwarding, the processing of the following events should be
+   prevented via the `StoppableEventInterface`, because
+   `\Extcode\Cart\Event\Order\FinishEvent` is only necessary if the
+   payment process is successful.
+
+   If the payment process is successful, the payment provider extension
+   should trigger the event `\Extcode\Cart\Event\Order\FinishEvent`.
 
 .. confval:: \Extcode\Cart\Event\Order\FinishEvent
 
