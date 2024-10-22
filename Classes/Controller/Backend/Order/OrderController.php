@@ -16,6 +16,7 @@ use Extcode\Cart\Domain\Model\Cart\Cart;
 use Extcode\Cart\Domain\Model\Order\Item;
 use Extcode\Cart\Domain\Repository\Order\ItemRepository;
 use Extcode\Cart\Event\Order\NumberGeneratorEvent;
+use Extcode\Cart\Event\Template\Components\ModifyButtonBarEvent;
 use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Backend\Template\Components\ButtonBar;
 use TYPO3\CMS\Backend\Template\ModuleTemplate;
@@ -61,7 +62,7 @@ class OrderController extends ActionController
     {
         $this->moduleTemplate = $this->moduleTemplateFactory->create($this->request);
 
-        $this->setDocHeader($this->getListButtons());
+        $this->setDocHeader($this->getListActionButtons());
         $this->addBackendAssets();
 
         $this->moduleTemplate->assign('settings', $this->settings);
@@ -119,8 +120,7 @@ class OrderController extends ActionController
     public function showAction(Item $orderItem): ResponseInterface
     {
         $this->moduleTemplate = $this->moduleTemplateFactory->create($this->request);
-        $buttons = $this->getOrderButtons($orderItem);
-        $this->setDocHeader($buttons);
+        $this->setDocHeader($this->getShowActionButtons($orderItem));
 
         $this->addBackendAssets();
 
@@ -257,99 +257,31 @@ class OrderController extends ActionController
         return $GLOBALS['LANG'];
     }
 
-    private function getOrderButtons(Item $orderItem): array
+    private function getShowActionButtons(Item $orderItem): array
     {
-        $buttons = [
-            [
-                'link' => $this->uriBuilder->reset()->setRequest($this->request)
-                    ->uriFor(
-                        'list'
-                    ),
-                'title' => 'tx_cart.controller.order.action.close',
-                'icon' => 'actions-close',
-                'group' => 1,
-                'showLabel' => true,
-            ],
-        ];
+        $showButtonEvent = new ModifyButtonBarEvent(
+            $this->request,
+            $this->settings,
+            $this->searchArguments,
+            $orderItem
+        );
 
-        $buttons = array_merge($buttons, $this->getDocumentButtons($orderItem, 'order', 2));
-        $buttons = array_merge($buttons, $this->getDocumentButtons($orderItem, 'invoice', 3));
-        $buttons = array_merge($buttons, $this->getDocumentButtons($orderItem, 'delivery', 4));
+        $this->eventDispatcher->dispatch($showButtonEvent);
 
-        return $buttons;
+        return $showButtonEvent->getButtons();
     }
 
-    private function getDocumentButtons(Item $orderItem, string $type, int $groupId): array
+    private function getListActionButtons(): array
     {
-        $buttons = [];
+        $listButtonEvent = new ModifyButtonBarEvent(
+            $this->request,
+            $this->settings,
+            $this->searchArguments
+        );
 
-        $numberGetter = 'get' . ucfirst($type) . 'Number';
-        $documentGetter = 'get' . ucfirst($type) . 'Pdfs';
+        $this->eventDispatcher->dispatch($listButtonEvent);
 
-        $numberExists = $orderItem->$numberGetter();
-        $documentExists = $orderItem->$documentGetter()->current();
-
-        if (!$numberExists) {
-            $buttons[] = [
-                'link' => $this->uriBuilder->reset()->setRequest($this->request)
-                    ->uriFor(
-                        'generateNumber',
-                        ['orderItem' => $orderItem, 'numberType' => $type]
-                    ),
-                'title' => 'tx_cart.controller.order.action.generate' . ucfirst($type) . 'Number',
-                'icon' => 'actions-duplicates',
-                'group' => $groupId,
-                'showLabel' => true,
-            ];
-        }
-
-        if ($numberExists && ExtensionManagementUtility::isLoaded('cart_pdf')) {
-            $buttons[] = [
-                'link' => $this->uriBuilder->reset()->setRequest($this->request)
-                    ->uriFor(
-                        'create',
-                        ['orderItem' => $orderItem, 'pdfType' => $type],
-                        'Backend\Order\Document'
-                    ),
-                'title' => 'tx_cart.controller.order.action.generate' . ucfirst($type) . 'Document',
-                'icon' => 'actions-file-pdf',
-                'group' => $groupId,
-                'showLabel' => true,
-            ];
-        }
-
-        if ($documentExists) {
-            $buttons[] = [
-                'link' => $this->uriBuilder->reset()->setRequest($this->request)
-                    ->uriFor(
-                        'download',
-                        ['orderItem' => $orderItem, 'pdfType' => $type],
-                        'Backend\Order\Document'
-                    ),
-                'title' => 'tx_cart.controller.order.action.download' . ucfirst($type) . 'Document',
-                'icon' => 'actions-file-t3d-download',
-                'group' => $groupId,
-                'showLabel' => true,
-            ];
-        }
-
-        return $buttons;
-    }
-
-    private function getListButtons(): array
-    {
-        return [
-            [
-                'link' => $this->uriBuilder->reset()->setRequest($this->request)
-                    ->setArguments(['searchArguments' => $this->searchArguments])
-                    ->setFormat('csv')
-                    ->uriFor('export'),
-                'title' => 'tx_cart.controller.order.action.export.csv',
-                'icon' => 'actions-file-csv-download',
-                'group' => 1,
-                'showLabel' => true,
-            ],
-        ];
+        return $listButtonEvent->getButtons();
     }
 
     private function addBackendAssets(): void
