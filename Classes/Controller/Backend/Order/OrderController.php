@@ -62,7 +62,7 @@ class OrderController extends ActionController
     {
         $this->moduleTemplate = $this->moduleTemplateFactory->create($this->request);
 
-        $this->setDocHeader($this->getListActionButtons());
+        $this->setDocHeader($this->dispatchModifyButtonBarEvent());
         $this->addBackendAssets();
 
         $this->moduleTemplate->assign('settings', $this->settings);
@@ -95,32 +95,11 @@ class OrderController extends ActionController
         return $this->moduleTemplate->renderResponse('List');
     }
 
-    public function exportAction(): ResponseInterface
-    {
-        $format = $this->request->getFormat();
-        $orderItems = $this->itemRepository->findAll($this->searchArguments);
-
-        $this->view->assign('searchArguments', $this->searchArguments);
-        $this->view->assign('orderItems', $orderItems);
-
-        $pdfRendererInstalled = ExtensionManagementUtility::isLoaded('cart_pdf');
-        $this->view->assign('pdfRendererInstalled', $pdfRendererInstalled);
-
-        $title = 'Order-Export-' . date('Y-m-d_H-i');
-        $filename = $title . '.' . $format;
-
-        return $this->responseFactory->createResponse()
-            ->withAddedHeader('Content-Type', 'text/' . $format)
-            ->withAddedHeader('Content-Description', 'File transfer')
-            ->withAddedHeader('Content-Disposition', 'attachment; filename="' . $filename . '"')
-            ->withBody($this->streamFactory->createStream($this->view->render()));
-    }
-
     #[IgnoreValidation(['value' => 'orderItem'])]
     public function showAction(Item $orderItem): ResponseInterface
     {
         $this->moduleTemplate = $this->moduleTemplateFactory->create($this->request);
-        $this->setDocHeader($this->getShowActionButtons($orderItem));
+        $this->setDocHeader($this->dispatchModifyButtonBarEvent($orderItem));
 
         $this->addBackendAssets();
 
@@ -153,22 +132,25 @@ class OrderController extends ActionController
         return $this->moduleTemplate->renderResponse('Show');
     }
 
-    private function setDocHeader(array $buttons): void
+    public function exportAction(): ResponseInterface
     {
-        $buttonBar = $this->moduleTemplate->getDocHeaderComponent()->getButtonBar();
+        $format = $this->request->getFormat();
+        $orderItems = $this->itemRepository->findAll($this->searchArguments);
 
-        foreach ($buttons as $button) {
-            $title = $this->getLanguageService()->sL(self::LANG_FILE . $button['title']);
-            $icon = $this->iconFactory->getIcon($button['icon'], Icon::SIZE_SMALL);
+        $this->view->assign('searchArguments', $this->searchArguments);
+        $this->view->assign('orderItems', $orderItems);
 
-            $viewButton = $buttonBar->makeLinkButton()
-                ->setHref($button['link'])
-                ->setTitle($title)
-                ->setShowLabelText($button['showLabel'])
-                ->setIcon($icon);
-            $buttonBar->addButton($viewButton, ButtonBar::BUTTON_POSITION_LEFT, $button['group']);
-        }
+        $pdfRendererInstalled = ExtensionManagementUtility::isLoaded('cart_pdf');
+        $this->view->assign('pdfRendererInstalled', $pdfRendererInstalled);
 
+        $title = 'Order-Export-' . date('Y-m-d_H-i');
+        $filename = $title . '.' . $format;
+
+        return $this->responseFactory->createResponse()
+            ->withAddedHeader('Content-Type', 'text/' . $format)
+            ->withAddedHeader('Content-Description', 'File transfer')
+            ->withAddedHeader('Content-Disposition', 'attachment; filename="' . $filename . '"')
+            ->withBody($this->streamFactory->createStream($this->view->render()));
     }
 
     public function generateNumberAction(Item $orderItem, string $numberType): ResponseInterface
@@ -257,31 +239,35 @@ class OrderController extends ActionController
         return $GLOBALS['LANG'];
     }
 
-    private function getShowActionButtons(Item $orderItem): array
+    private function dispatchModifyButtonBarEvent(?Item $orderItem = null): array
     {
-        $showButtonEvent = new ModifyButtonBarEvent(
+        $modifyButtonBarEvent = new ModifyButtonBarEvent(
             $this->request,
             $this->settings,
             $this->searchArguments,
             $orderItem
         );
 
-        $this->eventDispatcher->dispatch($showButtonEvent);
+        $this->eventDispatcher->dispatch($modifyButtonBarEvent);
 
-        return $showButtonEvent->getButtons();
+        return $modifyButtonBarEvent->getButtons();
     }
 
-    private function getListActionButtons(): array
+    private function setDocHeader(array $buttons): void
     {
-        $listButtonEvent = new ModifyButtonBarEvent(
-            $this->request,
-            $this->settings,
-            $this->searchArguments
-        );
+        $buttonBar = $this->moduleTemplate->getDocHeaderComponent()->getButtonBar();
 
-        $this->eventDispatcher->dispatch($listButtonEvent);
+        foreach ($buttons as $button) {
+            $title = $this->getLanguageService()->sL(self::LANG_FILE . $button['title']);
+            $icon = $this->iconFactory->getIcon($button['icon'], Icon::SIZE_SMALL);
 
-        return $listButtonEvent->getButtons();
+            $viewButton = $buttonBar->makeLinkButton()
+                ->setHref($button['link'])
+                ->setTitle($title)
+                ->setShowLabelText($button['showLabel'])
+                ->setIcon($icon);
+            $buttonBar->addButton($viewButton, ButtonBar::BUTTON_POSITION_LEFT, $button['group']);
+        }
     }
 
     private function addBackendAssets(): void
