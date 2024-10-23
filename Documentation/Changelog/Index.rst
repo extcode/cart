@@ -1,5 +1,5 @@
 .. include:: ../Includes.rst.txt
-   
+
 .. _changelog:
 
 =========
@@ -10,6 +10,7 @@ ChangeLog
    :maxdepth: 5
    :titlesonly:
 
+   9.1/Index
    9.0/Index
    8.5/Index
    8.4/Index
