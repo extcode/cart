@@ -145,8 +145,10 @@ class CartController extends ActionController
         if (count($this->cart->getProducts()) === 0 && $currentStep > 1) {
             return $this->redirect('show', null, null, ['step' => 1])->withStatus(303);
         }
-        return $this->htmlResponse();
 
+        $this->dispatchModifyViewEvent();
+
+        return $this->htmlResponse();
     }
 
     public function clearAction(): ResponseInterface

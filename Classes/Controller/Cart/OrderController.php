@@ -113,6 +113,7 @@ class OrderController extends ActionController
         $isPropagationStopped = $this->dispatchOrderCreateEvents($orderItem);
 
         if ($isPropagationStopped) {
+            $this->dispatchModifyViewEvent();
             // @todo Check the Response Type
             return $this->htmlResponse();
         }
@@ -127,12 +128,16 @@ class OrderController extends ActionController
             $this->redirectToUri($paymentSettings['options'][$paymentId]['redirects']['success']['url'], 0, 200);
         }
 
+        $this->dispatchModifyViewEvent();
+
         return $this->htmlResponse();
     }
 
     public function showAction(Item $orderItem): ResponseInterface
     {
         $this->view->assign('orderItem', $orderItem);
+
+        $this->dispatchModifyViewEvent();
 
         return $this->htmlResponse();
     }

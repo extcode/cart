@@ -41,6 +41,8 @@ class CurrencyController extends ActionController
             $this->parseServicesAndAssignToView();
         }
 
+        $this->dispatchModifyViewEvent();
+
         return $this->htmlResponse();
     }
 }
