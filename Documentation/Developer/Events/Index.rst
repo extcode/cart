@@ -10,14 +10,6 @@ integrate custom requirements in the ordering process.
 You can register your own EventListener for the following
 events:
 
-.. confval:: \Extcode\Cart\Event\Template\Components\ModifyButtonBarEvent
-
-   This event is triggered in the `listAction` and `showAction` of the backend
-   module `OrderController`.
-
-   The event allows to add own buttons or change existing buttons in the
-   DocHeader of the module template.
-
 .. confval:: \Extcode\Cart\Event\Cart\BeforeShowCartEvent
 
    Triggered before the cart is shown.
@@ -175,3 +167,26 @@ events:
 
    This event is triggered in the `SessionHandler` and can be used to validate
    or change the cart before writing the data to the session.
+
+
+
+.. confval:: \Extcode\Cart\Event\Template\Components\ModifyButtonBarEvent
+
+   This event is triggered in the `listAction` and `showAction` of the backend
+   module `OrderController`.
+
+   The event allows to add own buttons or change existing buttons in the
+   DocHeader of the module template.
+
+.. confval:: \Extcode\Cart\Event\Template\Components\ModifyModuleTemplateEvent
+
+   This event is triggered in the `listAction` and `showAction` of the backend
+   module `OrderController`.
+
+   The event allows to assign own data to the module template.
+
+.. confval:: \Extcode\Cart\Event\View\ModifyViewEvent
+
+   This event is triggered in the several actions of the frontend plugins.
+
+   The event allows to assign own data to the view.
