@@ -8,6 +8,12 @@ services:
     resource: '../Classes/*'
     exclude: '../Classes/Widgets/*'
 
+  Extcode\Cart\EventListener\Template\Components\ModifyButtonBar:
+    tags:
+      - name: event.listener
+        identifier: 'cart--cart--template--components--modify-button-bar'
+        event: Extcode\Cart\Event\Template\Components\ModifyButtonBarEvent
+
   Extcode\Cart\EventListener\Cart\UpdateCountry:
     tags:
       - name: event.listener
