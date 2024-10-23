@@ -11,4 +11,3 @@ Email
    EmailAddresses/Index
    EmailAttachments/Index
    EMailContent/Index
-   OverwriteEmailTemplates/Index

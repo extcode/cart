@@ -25,10 +25,16 @@ Tutorials
 
         A possible setup for routing in multistep checkout
 
+    ..  card:: :ref:`Overwrite email templates <overwrite-email-templates>`
+
+        Use own templates in the emails which are sent by EXT:cart.
+
 .. toctree::
    :maxdepth: 1
    :titlesonly:
+   :hidden:
 
    MiniCart/Index
    PrefillAddress/Index
    RoutingMultistepCheckout/Index
+   OverwriteEmailTemplates/Index
