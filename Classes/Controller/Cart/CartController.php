@@ -16,50 +16,12 @@ use Extcode\Cart\Domain\Model\Order\Item;
 use Extcode\Cart\Domain\Model\Order\ShippingAddress;
 use Extcode\Cart\Event\Cart\BeforeShowCartEvent;
 use Extcode\Cart\Event\CheckProductAvailabilityEvent;
-use Extcode\Cart\View\CartTemplateView;
 use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\ExtbaseRequestParameters;
 
 class CartController extends ActionController
 {
-    public function __construct()
-    {
-        $this->defaultViewObjectName = CartTemplateView::class;
-    }
-
-    protected function initializeView(CartTemplateView $view): void
-    {
-        if ($this->request->getControllerActionName() !== 'show') {
-            return;
-        }
-
-        if (!isset($this->settings['cart']['steps'])) {
-            return;
-        }
-
-        $steps = (int)($this->settings['cart']['steps'] ?? 0);
-        if ($steps > 1) {
-            if ($this->request->hasArgument('step')) {
-                $currentStep = (int)$this->request->getArgument('step') ?: 1;
-            } else {
-                $currentStep = 1;
-            }
-
-            if ($currentStep > $steps) {
-                throw new \InvalidArgumentException();
-            }
-            $view->setStep($currentStep);
-
-            if ($currentStep < $steps) {
-                $view->assign('nextStep', $currentStep + 1);
-            }
-            if ($currentStep > 1) {
-                $view->assign('previousStep', $currentStep - 1);
-            }
-        }
-    }
-
     public function showAction(
         Item $orderItem = null,
         BillingAddress $billingAddress = null,
@@ -146,9 +108,12 @@ class CartController extends ActionController
             return $this->redirect('show', null, null, ['step' => 1])->withStatus(303);
         }
 
+        $template = $this->getTemplateForShowAction();
+
         $this->dispatchModifyViewEvent();
 
-        return $this->htmlResponse();
+        return $this->htmlResponse($this->view->render($template));
+
     }
 
     public function clearAction(): ResponseInterface
@@ -205,5 +170,32 @@ class CartController extends ActionController
         $this->sessionHandler->writeCart($this->settings['cart']['pid'], $this->cart);
 
         return $this->redirect('show');
+    }
+
+    private function getTemplateForShowAction(): string
+    {
+        $steps = (int)($this->settings['cart']['steps'] ?? 1);
+
+        if ($steps === 1) {
+            return 'Show';
+        }
+
+        $currentStep = 1;
+        if ($this->request->hasArgument('step')) {
+            $currentStep = (int)$this->request->getArgument('step') ?: 1;
+        }
+
+        if ($currentStep > $steps) {
+            throw new \InvalidArgumentException();
+        }
+
+        if ($currentStep < $steps) {
+            $this->view->assign('nextStep', $currentStep + 1);
+        }
+        if ($currentStep > 1) {
+            $this->view->assign('previousStep', $currentStep - 1);
+        }
+
+        return 'ShowStep' . $currentStep;
     }
 }

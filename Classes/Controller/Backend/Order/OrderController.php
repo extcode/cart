@@ -22,8 +22,8 @@ use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Backend\Template\Components\ButtonBar;
 use TYPO3\CMS\Backend\Template\ModuleTemplate;
 use TYPO3\CMS\Backend\Template\ModuleTemplateFactory;
-use TYPO3\CMS\Core\Imaging\Icon;
 use TYPO3\CMS\Core\Imaging\IconFactory;
+use TYPO3\CMS\Core\Imaging\IconSize;
 use TYPO3\CMS\Core\Localization\LanguageService;
 use TYPO3\CMS\Core\Page\PageRenderer;
 use TYPO3\CMS\Core\Pagination\SimplePagination;
@@ -275,7 +275,7 @@ class OrderController extends ActionController
 
         foreach ($buttons as $button) {
             $title = $this->getLanguageService()->sL(self::LANG_FILE . $button['title']);
-            $icon = $this->iconFactory->getIcon($button['icon'], Icon::SIZE_SMALL);
+            $icon = $this->iconFactory->getIcon($button['icon'], IconSize::SMALL->value);
 
             $viewButton = $buttonBar->makeLinkButton()
                 ->setHref($button['link'])

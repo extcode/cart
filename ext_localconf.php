@@ -25,7 +25,8 @@ ExtensionUtility::configurePlugin(
     [
         CartPreviewController::class => 'show',
         CurrencyController::class => 'update',
-    ]
+    ],
+    ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT
 );
 
 ExtensionUtility::configurePlugin(
@@ -50,7 +51,8 @@ ExtensionUtility::configurePlugin(
         PaymentController::class => 'update',
         ProductController::class => 'add, remove',
         ShippingController::class => 'update',
-    ]
+    ],
+    ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT
 );
 
 ExtensionUtility::configurePlugin(
@@ -61,7 +63,8 @@ ExtensionUtility::configurePlugin(
     ],
     [
         CurrencyController::class => 'edit, update',
-    ]
+    ],
+    ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT
 );
 
 ExtensionUtility::configurePlugin(
@@ -72,7 +75,8 @@ ExtensionUtility::configurePlugin(
     ],
     [
         \Extcode\Cart\Controller\Order\OrderController::class => 'list, show',
-    ]
+    ],
+    ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT
 );
 
 // register "cart:" namespace
