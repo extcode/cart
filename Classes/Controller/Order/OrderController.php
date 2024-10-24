@@ -10,6 +10,8 @@ namespace Extcode\Cart\Controller\Order;
  * For the full copyright and license information, please read the
  * LICENSE file that was distributed with this source code.
  */
+
+use Extcode\Cart\Controller\ActionController;
 use Extcode\Cart\Domain\Model\Order\Item;
 use Extcode\Cart\Domain\Repository\Order\ItemRepository;
 use Psr\Http\Message\ResponseInterface;
@@ -19,7 +21,6 @@ use TYPO3\CMS\Core\Type\ContextualFeedbackSeverity;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Extbase\Annotation\IgnoreValidation;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManager;
-use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use TYPO3\CMS\Extbase\Pagination\QueryResultPaginator;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 
@@ -65,6 +66,8 @@ class OrderController extends ActionController
             ]
         );
 
+        $this->dispatchModifyViewEvent();
+
         return $this->htmlResponse();
     }
 
@@ -105,6 +108,8 @@ class OrderController extends ActionController
 
         $pdfRendererInstalled = ExtensionManagementUtility::isLoaded('cart_pdf');
         $this->view->assign('pdfRendererInstalled', $pdfRendererInstalled);
+
+        $this->dispatchModifyViewEvent();
 
         return $this->htmlResponse();
     }

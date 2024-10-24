@@ -19,7 +19,7 @@ use Extcode\Cart\Service\SpecialOptionsServiceInterface;
 use Extcode\Cart\Utility\CartUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManager;
 
-abstract class ActionController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
+abstract class ActionController extends \Extcode\Cart\Controller\ActionController
 {
     protected SessionHandler $sessionHandler;
 

@@ -63,6 +63,8 @@ class CountryController extends ActionController
 
         $this->view->assign('cart', $this->cart);
 
+        $this->dispatchModifyViewEvent();
+
         return $this->htmlResponse();
     }
 }

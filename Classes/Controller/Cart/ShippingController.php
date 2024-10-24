@@ -50,6 +50,9 @@ class ShippingController extends ActionController
             $this->view->assign('cart', $this->cart);
 
             $this->parseServicesAndAssignToView();
+
+            $this->dispatchModifyViewEvent();
+
             return $this->htmlResponse();
         }
 

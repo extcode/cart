@@ -17,6 +17,7 @@ use Extcode\Cart\Domain\Model\Order\Item;
 use Extcode\Cart\Domain\Repository\Order\ItemRepository;
 use Extcode\Cart\Event\Order\NumberGeneratorEvent;
 use Extcode\Cart\Event\Template\Components\ModifyButtonBarEvent;
+use Extcode\Cart\Event\Template\Components\ModifyModuleTemplateEvent;
 use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Backend\Template\Components\ButtonBar;
 use TYPO3\CMS\Backend\Template\ModuleTemplate;
@@ -92,6 +93,8 @@ class OrderController extends ActionController
         $pdfRendererInstalled = ExtensionManagementUtility::isLoaded('cart_pdf');
         $this->moduleTemplate->assign('pdfRendererInstalled', $pdfRendererInstalled);
 
+        $this->dispatchModifyModuleTemplateEvent();
+
         return $this->moduleTemplate->renderResponse('List');
     }
 
@@ -128,6 +131,8 @@ class OrderController extends ActionController
 
         $pdfRendererInstalled = ExtensionManagementUtility::isLoaded('cart_pdf');
         $this->moduleTemplate->assign('pdfRendererInstalled', $pdfRendererInstalled);
+
+        $this->dispatchModifyModuleTemplateEvent();
 
         return $this->moduleTemplate->renderResponse('Show');
     }
@@ -241,16 +246,27 @@ class OrderController extends ActionController
 
     private function dispatchModifyButtonBarEvent(?Item $orderItem = null): array
     {
-        $modifyButtonBarEvent = new ModifyButtonBarEvent(
+        $event = new ModifyButtonBarEvent(
             $this->request,
             $this->settings,
             $this->searchArguments,
             $orderItem
         );
 
-        $this->eventDispatcher->dispatch($modifyButtonBarEvent);
+        $this->eventDispatcher->dispatch($event);
 
-        return $modifyButtonBarEvent->getButtons();
+        return $event->getButtons();
+    }
+
+    private function dispatchModifyModuleTemplateEvent(): void
+    {
+        $event = new ModifyModuleTemplateEvent(
+            $this->request,
+            $this->settings,
+            $this->moduleTemplate
+        );
+
+        $this->eventDispatcher->dispatch($event);
     }
 
     private function setDocHeader(array $buttons): void
