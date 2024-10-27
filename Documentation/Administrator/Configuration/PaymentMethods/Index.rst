@@ -200,11 +200,6 @@ Zone configuration
 plugin.tx_cart.payments.zones
 -----------------------------
 
-If no individual country configuration can be found, it is also possible to
-work with zones in the TypoScript.
-This saves a lot of configuration work if you want to deliver to many
-countries.
-
 The configuration of payment zones can be used to ease the configuration
 of payments for multiple countries. Their usage saves a lot of configuration
 work, if you want to deliver to many countries.
@@ -214,8 +209,8 @@ a dedicated country, the country configuration has precedence over the zone conf
 .. NOTE::
    * The system first searches for a suitable configuration in the list of country configurations.
    * The list of zone configurations is then looked through. The first matching configuration is used.
-   * Make sure to remove any (example) country-based payment configuration coming with the extension 
-     to avoid interference with the zone configuration otherwise explicitly wished.  
+   * The country-based payment configuration coming with the extension can interfere with your zone configuration for payments. 
+     Therefore, check if you need to remove the country-based configuration when using zones as shown below.
 
 .. code-block:: typoscript
    :caption: Can be set in e.g. EXT:sitepackage/Configuration/TypoScript/setup.typoscript

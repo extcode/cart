@@ -221,8 +221,8 @@ a dedicated country, the country configuration has precedence over the zone conf
 .. NOTE::
    * The system first searches for a suitable configuration in the list of country configurations.
    * The list of zone configurations is then looked through. The first matching configuration is used.
-   * Make sure to remove any (example) country-based shipping configuration coming with the extension
-     to avoid interference with the zone configuration otherwise explicitly wished.
+   * The country-based shipping configuration coming with the extension can interfere with your zone configuration for shippings. 
+     Therefore, check if you need to remove the country-based configuration when using zones as shown below.
 
 .. code-block:: typoscript
    :caption: Can be set in e.g. EXT:sitepackage/Configuration/TypoScript/setup.typoscript
