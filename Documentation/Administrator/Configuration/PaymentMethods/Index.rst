@@ -8,7 +8,9 @@ Payment methods
 
 The payment methods are defined via TypoScript for each shopping cart.
 The standard template already includes a payment method (prepayment) as
-shown below.
+shown below. In case the payment method(s) for several countries shall
+be configured, please also check the possibility to use a 'zone' based 
+configuration. This reduces the amount of configuration necessary.
 
 With the definition `plugin.tx_cart.settings.allowedCountries` the output of
 the selector in the shopping cart is defined. The options can also be
@@ -203,14 +205,28 @@ work with zones in the TypoScript.
 This saves a lot of configuration work if you want to deliver to many
 countries.
 
+The configuration of payment zones can be used to ease the configuration
+of payments for multiple countries. Their usage saves a lot of configuration
+work, if you want to deliver to many countries.
+In case both country configuration as well as zone configuration are valid for
+a dedicated country, the country configuration has precedence over the zone configuration. 
+
+.. NOTE::
+   * The system first searches for a suitable configuration in the list of country configurations.
+   * The list of zone configurations is then looked through. The first matching configuration is used.
+   * Make sure to remove any (example) country-based payment configuration coming with the extension 
+     to avoid interference with the zone configuration otherwise explicitly wished.  
+
 .. code-block:: typoscript
    :caption: Can be set in e.g. EXT:sitepackage/Configuration/TypoScript/setup.typoscript
 
    plugin.tx_cart {
        payments {
+           // this removes any previous country based payment configuration
+           countries >       
            zones {
                1 {
-                   preset = 1
+                   preset = 2
                    countries = de,at,ch
                    options {
                        1 {
@@ -219,7 +235,14 @@ countries.
                            taxClassId = 1
                            status = open
                        }
-                   }
+                       2 {
+                           provider = PAYPAL
+                           title = Paypal
+                           extra = 0.50
+                           taxClassId = 1
+                           status = open
+                         }                       
+                    }
                }
            }
        }
@@ -236,10 +259,6 @@ countries.
    :Type: int
 
    List of countries for which this configuration is valid.
-
-.. NOTE::
-   * The system first searches for a suitable configuration in the list of country configurations.
-   * The list of zone configurations is then looked through. The first matching configuration is used.
 
 Deactivate payment methods
 ==========================
