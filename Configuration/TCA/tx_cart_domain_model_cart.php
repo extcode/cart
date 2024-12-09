@@ -22,7 +22,7 @@ return [
     'types' => [
         '1' => [
             'showitem' =>
-                'pid, f_hash, s_hash, fe_user, was_ordered, order_item, cart',
+                'pid, f_hash, s_hash, fe_user, was_ordered, order_item, serialized_cart',
         ],
     ],
     'palettes' => [
@@ -90,9 +90,9 @@ return [
                 'maxitems' => 1,
             ],
         ],
-        'cart' => [
+        'serialized_cart' => [
             'exclude' => 0,
-            'label' => $_LLL . ':tx_cart_domain_model_cart.cart',
+            'label' => $_LLL . ':tx_cart_domain_model_cart.serialized_cart',
             'config' => [
                 'type' => 'text',
                 'cols' => 48,
