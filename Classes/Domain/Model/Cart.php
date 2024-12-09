@@ -24,7 +24,7 @@ class Cart extends AbstractEntity
 
     protected ?Item $orderItem = null;
 
-    protected ?string $cart = null;
+    protected ?string $serializedCart = null;
 
     protected bool $wasOrdered = false;
 
@@ -66,12 +66,12 @@ class Cart extends AbstractEntity
 
     public function getCart(): ?Cart\Cart
     {
-        return unserialize($this->cart);
+        return unserialize($this->serializedCart);
     }
 
     public function setCart(Cart\Cart $cart): void
     {
-        $this->cart = serialize($cart);
+        $this->serializedCart = serialize($cart);
     }
 
     /**
