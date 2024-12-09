@@ -251,7 +251,7 @@ CREATE TABLE tx_cart_domain_model_cart (
 
     order_item int(11) unsigned DEFAULT '0' NOT NULL,
 
-    cart text,
+    serialized_cart text,
 
     was_ordered tinyint(4) unsigned DEFAULT '0' NOT NULL,
 
