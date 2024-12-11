@@ -12,7 +12,7 @@ namespace Extcode\Cart\EventListener\Order\Finish;
  */
 use Extcode\Cart\Domain\Model\Cart\Cart;
 use Extcode\Cart\Domain\Model\Order\Item;
-use Extcode\Cart\Event\Order\FinishEvent;
+use Extcode\Cart\Event\Order\EventInterface;
 use Extcode\Cart\Service\MailHandler;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
@@ -20,7 +20,7 @@ class Email
 {
     protected Cart $cart;
 
-    public function __invoke(FinishEvent $event): void
+    public function __invoke(EventInterface $event): void
     {
         $this->cart = $event->getCart();
         $orderItem = $event->getOrderItem();
