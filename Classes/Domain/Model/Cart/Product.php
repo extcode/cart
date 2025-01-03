@@ -37,7 +37,7 @@ class Product
 
     protected array $beVariants = [];
 
-    protected ?FeVariant $feVariant = null;
+    protected ?FeVariantInterface $feVariant = null;
 
     protected array $additional = [];
 
@@ -69,7 +69,7 @@ class Product
         protected TaxClass $taxClass,
         protected int $quantity,
         protected bool $isNetPrice = false,
-        ?FeVariant $feVariant = null
+        ?FeVariantInterface $feVariant = null
     ) {
         if ($feVariant) {
             $this->feVariant = $feVariant;
@@ -153,7 +153,7 @@ class Product
         }
     }
 
-    public function getFeVariant(): ?FeVariant
+    public function getFeVariant(): ?FeVariantInterface
     {
         return $this->feVariant;
     }
@@ -554,9 +554,16 @@ class Product
                 foreach ($this->beVariants as $variant) {
                     $sum += $variant->getGross();
                 }
+                if ($this->feVariant instanceof FeVariantWithPriceInterface) {
+                    $sum += $this->feVariant->getPrice();
+                }
                 $this->gross = $sum;
             } else {
-                $this->gross = $this->getBestPrice() * $this->quantity;
+                $sum = $this->getBestPrice();
+                if ($this->feVariant instanceof FeVariantWithPriceInterface) {
+                    $sum += $this->feVariant->getPrice();
+                }
+                $this->gross = $sum * $this->quantity;
             }
         } else {
             $this->calcNet();
@@ -582,9 +589,16 @@ class Product
                 foreach ($this->beVariants as $variant) {
                     $sum += $variant->getNet();
                 }
+                if ($this->feVariant instanceof FeVariantWithPriceInterface) {
+                    $sum += $this->feVariant->getPrice();
+                }
                 $this->net = $sum;
             } else {
-                $this->net = $this->getBestPrice() * $this->quantity;
+                $sum = $this->getBestPrice();
+                if ($this->feVariant instanceof FeVariantWithPriceInterface) {
+                    $sum += $this->feVariant->getPrice();
+                }
+                $this->net = $sum * $this->quantity;
             }
         } else {
             $this->calcGross();

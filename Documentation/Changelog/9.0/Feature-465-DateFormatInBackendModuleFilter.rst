@@ -32,6 +32,7 @@ Before this the dates in the backend were always in the format `d.m.Y`, now it
 
  Migration
  =========
+
  To get the old formatting you need to overwrite the above shown TypoScript
  constants:
 

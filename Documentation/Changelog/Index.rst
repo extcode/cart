@@ -11,6 +11,7 @@ ChangeLog
    :titlesonly:
 
    10.0/Index
+   9.4/Index
    9.3/Index
    9.1/Index
    9.0/Index
