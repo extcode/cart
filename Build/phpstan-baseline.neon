@@ -6,6 +6,26 @@ parameters:
 			path: ../Classes/Controller/Cart/OrderController.php
 
 		-
+			message: "#^Deprecated in PHP 8\\.0\\: Required parameter \\$price follows optional parameter \\$beVariant\\.$#"
+			count: 1
+			path: ../Classes/Domain/Model/Cart/BeVariant.php
+
+		-
+			message: "#^Deprecated in PHP 8\\.0\\: Required parameter \\$priceCalcMethod follows optional parameter \\$beVariant\\.$#"
+			count: 1
+			path: ../Classes/Domain/Model/Cart/BeVariant.php
+
+		-
+			message: "#^Deprecated in PHP 8\\.0\\: Required parameter \\$sku follows optional parameter \\$beVariant\\.$#"
+			count: 1
+			path: ../Classes/Domain/Model/Cart/BeVariant.php
+
+		-
+			message: "#^Deprecated in PHP 8\\.1\\: Required parameter \\$title follows optional parameter \\$beVariant\\.$#"
+			count: 1
+			path: ../Classes/Domain/Model/Cart/BeVariant.php
+
+		-
 			message: "#^Call to an undefined method Extcode\\\\Cart\\\\Domain\\\\Model\\\\Cart\\\\CartCouponInterface\\:\\:getTaxClass\\(\\)\\.$#"
 			count: 2
 			path: ../Classes/Domain/Model/Cart/Cart.php

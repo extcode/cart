@@ -61,9 +61,9 @@ class CartController extends ActionController
     }
 
     public function showAction(
-        Item $orderItem = null,
-        BillingAddress $billingAddress = null,
-        ShippingAddress $shippingAddress = null
+        ?Item $orderItem = null,
+        ?BillingAddress $billingAddress = null,
+        ?ShippingAddress $shippingAddress = null
     ): ResponseInterface {
         $this->restoreSession();
 

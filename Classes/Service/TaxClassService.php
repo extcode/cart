@@ -33,7 +33,7 @@ final class TaxClassService implements TaxClassServiceInterface
     /**
      * @return TaxClass[]
      */
-    public function getTaxClasses(string $countryCode = null): array
+    public function getTaxClasses(?string $countryCode = null): array
     {
         $taxClasses = [];
         $taxClassSettings = $this->settings['taxClasses'];
