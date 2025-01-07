@@ -45,8 +45,8 @@ class BeVariant
 
     public function __construct(
         protected string $id,
-        Product $product = null,
-        self $beVariant = null,
+        ?Product $product = null,
+        ?self $beVariant = null,
         protected string $title,
         protected string $sku,
         protected int $priceCalcMethod,

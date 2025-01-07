@@ -87,9 +87,11 @@ jobs:
       matrix:
         include:
           - php-version: '8.2'
-            typo3-version: '^13.2'
+            typo3-version: '^13.4'
           - php-version: '8.3'
-            typo3-version: '^13.2'
+            typo3-version: '^13.4'
+          - php-version: '8.4'
+            typo3-version: '^13.4'
     steps:
       - uses: actions/checkout@v4
 
@@ -126,9 +128,15 @@ jobs:
       - name: Run Unit Tests PHP8.3
         run: nix-shell --arg phpVersion \"php83\" --pure --run project-test-unit
 
+      - name: Run Unit Tests PHP8.4
+        run: nix-shell --arg phpVersion \"php84\" --pure --run project-test-unit
+
       - name: Run Functional Tests PHP8.2
         run: nix-shell --arg phpVersion \"php82\" --pure --run project-test-functional
 
       - name: Run Functional Tests PHP8.3
         run: nix-shell --arg phpVersion \"php83\" --pure --run project-test-functional
+
+      - name: Run Functional Tests PHP8.4
+        run: nix-shell --arg phpVersion \"php84\" --pure --run project-test-functional
 

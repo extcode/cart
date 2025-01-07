@@ -23,9 +23,9 @@ use TYPO3\CMS\Extbase\Mvc\ExtbaseRequestParameters;
 class CartController extends ActionController
 {
     public function showAction(
-        Item $orderItem = null,
-        BillingAddress $billingAddress = null,
-        ShippingAddress $shippingAddress = null
+        ?Item $orderItem = null,
+        ?BillingAddress $billingAddress = null,
+        ?ShippingAddress $shippingAddress = null
     ): ResponseInterface {
         $this->restoreSession();
 
