@@ -1111,7 +1111,7 @@ class Cart
         $this->currencySign = $currencySign;
     }
 
-    public function translatePrice(float $price = null): ?float
+    public function translatePrice(?float $price = null): ?float
     {
         if ($price !== null) {
             $price /= $this->getCurrencyTranslation();

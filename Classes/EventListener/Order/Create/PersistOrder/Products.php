@@ -95,7 +95,7 @@ class Products
 
     protected function addFeVariants(
         \Extcode\Cart\Domain\Model\Order\Product $product,
-        FeVariant $feVariant = null
+        ?FeVariant $feVariant = null
     ): void {
         if ($feVariant) {
             $feVariantsData = $feVariant->getVariantData();

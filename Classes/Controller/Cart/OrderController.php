@@ -57,9 +57,9 @@ class OrderController extends ActionController
 
     #[IgnoreValidation(['value' => 'shippingAddress'])]
     public function createAction(
-        Item $orderItem = null,
-        BillingAddress $billingAddress = null,
-        ShippingAddress $shippingAddress = null
+        ?Item $orderItem = null,
+        ?BillingAddress $billingAddress = null,
+        ?ShippingAddress $shippingAddress = null
     ): ResponseInterface {
         $this->restoreSession();
 
