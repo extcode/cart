@@ -243,13 +243,13 @@ class TaxClassServiceTest extends UnitTestCase
 
     private function createSubject(array $settings): TaxClassService
     {
-        $configurationManager = $this->createStub(ConfigurationManagerInterface::class);
+        $configurationManager = self::createStub(ConfigurationManagerInterface::class);
         $configurationManager->method('getConfiguration')->willReturn($settings);
 
         return new TaxClassService(
             $configurationManager,
             new TaxClassFactory(
-                $this->createStub(LoggerInterface::class)
+                self::createStub(LoggerInterface::class)
             )
         );
     }
