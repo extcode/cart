@@ -14,7 +14,6 @@ namespace Extcode\Cart\Controller\Cart;
 use Extcode\Cart\Domain\Model\Cart\Product;
 use Extcode\Cart\Event\CheckProductAvailabilityEvent;
 use Extcode\Cart\Event\RetrieveProductsFromRequestEvent;
-use Psr\EventDispatcher\EventDispatcherInterface;
 use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Core\Messaging\AbstractMessage;
 use TYPO3\CMS\Core\Type\ContextualFeedbackSeverity;
@@ -23,14 +22,6 @@ use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 class ProductController extends ActionController
 {
     public const AJAX_CART_TYPE_NUM = '2278001';
-
-    public function __construct(
-        EventDispatcherInterface $eventDispatcher = null
-    ) {
-        if ($eventDispatcher !== null) {
-            $this->eventDispatcher = $eventDispatcher;
-        }
-    }
 
     public function addAction(): ResponseInterface
     {

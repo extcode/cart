@@ -95,7 +95,7 @@ class Products
 
     protected function addFeVariants(
         \Extcode\Cart\Domain\Model\Order\Product $product,
-        FeVariant $feVariant = null
+        ?FeVariant $feVariant = null
     ): void {
         if ($feVariant) {
             $feVariantsData = $feVariant->getVariantData();
@@ -141,20 +141,7 @@ class Products
 
     protected function addBeVariant(BeVariant $variant, int $level): void
     {
-        $variantInner = $variant;
-        for ($count = $level; $count > 0; $count--) {
-            if ($count > 1) {
-                $variantInner = $variantInner->getParentBeVariant();
-            } else {
-                $cartProduct = $variantInner->getProduct();
-            }
-        }
-        unset($variantInner);
-
-        if (!isset($cartProduct)) {
-            // ToDo Add Error Message
-            return;
-        }
+        $cartProduct = $variant->getProduct();
 
         $orderProduct = GeneralUtility::makeInstance(
             \Extcode\Cart\Domain\Model\Order\Product::class
@@ -193,11 +180,7 @@ class Products
 
             $orderProduct->addProductAdditional($orderProductAdditional);
 
-            if ($count > 1) {
-                $variantInner = $variantInner->getParentBeVariant();
-            } else {
-                $cartProduct = $variantInner->getProduct();
-            }
+            $variantInner = $variantInner->getParent();
         }
         unset($variantInner);
 

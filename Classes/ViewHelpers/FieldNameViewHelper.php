@@ -55,11 +55,12 @@ class FieldNameViewHelper extends AbstractViewHelper
     {
         $fieldName = '';
 
-        if ($variant->getParentBeVariant()) {
-            $fieldName .= $this->getVariantFieldName($variant->getParentBeVariant());
+        if ($variant->getParent() instanceof BeVariant) {
+            $fieldName .= $this->getVariantFieldName($variant->getParent());
         }
-        if ($variant->getProduct()) {
-            $fieldName .= '[' . $variant->getProduct()->getId() . ']';
+
+        if ($variant->getParent() instanceof Product) {
+            $fieldName .= '[' . $variant->getParent()->getId() . ']';
         }
 
         $fieldName .= '[' . $variant->getId() . ']';

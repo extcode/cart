@@ -11,7 +11,10 @@ $EM_CONF['cart'] = [
     'author_company' => 'extco.de UG (haftungsbeschränkt)',
     'constraints' => [
         'depends' => [
+            'php' => '8.1.0-8.4.99',
             'typo3' => '13.4.0-13.4.99',
+            'extbase' => '13.4.0-13.4.99',
+            'fluid' => '13.4.0-13.4.99',
         ],
         'conflicts' => [],
         'suggests' => [],

@@ -65,6 +65,11 @@ lint:php83:
   variables:
     CONTAINER_IMAGE: php:8.3-alpine
 
+lint:php84:
+  <<: *lint_php
+  variables:
+    CONTAINER_IMAGE: php:8.4-alpine
+
 phpstan:analyse:
   image: $CI_REGISTRY/containers/phpunit-with-php-8.2:main
   stage: lint
@@ -94,19 +99,26 @@ phpstan:analyse:
     - .build/bin/phpunit -c Build/UnitTests.xml
     - typo3DatabaseDriver=pdo_sqlite .build/bin/phpunit -c Build/FunctionalTests.xml
 
-# Build in PHP 8.2 and TYPO3 13.3
+# Build in PHP 8.2 and TYPO3 13.4
 test:php82:typo3_13:
   <<: *test_php
   variables:
     CONTAINER_IMAGE: $CI_REGISTRY/containers/phpunit-with-php-8.2:main
-    TYPO3_VERSION: ^13.3
+    TYPO3_VERSION: ^13.4
 
-# Build in PHP 8.3 and TYPO3 13.2
+# Build in PHP 8.3 and TYPO3 13.4
 test:php83:typo3_13:
   <<: *test_php
   variables:
     CONTAINER_IMAGE: $CI_REGISTRY/containers/phpunit-with-php-8.3:main
-    TYPO3_VERSION: ^13.3
+    TYPO3_VERSION: ^13.4
+
+# Build in PHP 8.4 and TYPO3 13.4
+test:php84:typo3_13:
+  <<: *test_php
+  variables:
+    CONTAINER_IMAGE: $CI_REGISTRY/containers/phpunit-with-php-8.4:main
+    TYPO3_VERSION: ^13.4
 
 documentation:
   stage: documentation

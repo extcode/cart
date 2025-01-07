@@ -69,7 +69,7 @@ class Product
         protected TaxClass $taxClass,
         protected int $quantity,
         protected bool $isNetPrice = false,
-        FeVariant $feVariant = null
+        ?FeVariant $feVariant = null
     ) {
         if ($feVariant) {
             $this->feVariant = $feVariant;
@@ -130,7 +130,7 @@ class Product
                 $variant->setQuantity($newQuantity);
             }
         } else {
-            $newVariant->setProduct($this);
+            $newVariant->setParent($this);
             $this->beVariants[$newVariantsId] = $newVariant;
         }
 
@@ -275,7 +275,7 @@ class Product
         return $this->quantityDiscounts;
     }
 
-    public function getQuantityDiscountPrice(int $quantity = null): float
+    public function getQuantityDiscountPrice(?int $quantity = null): float
     {
         $price = $this->getTranslatedPrice();
 
@@ -300,7 +300,7 @@ class Product
     /**
      * Returns Best Price (min of Price and Special Price)
      */
-    public function getBestPrice(int $quantity = null): ?float
+    public function getBestPrice(?int $quantity = null): ?float
     {
         $bestPrice = $this->getQuantityDiscountPrice($quantity);
 

@@ -13,10 +13,6 @@ namespace Extcode\Cart\Domain\Model\Cart;
 
 class BeVariant
 {
-    protected ?Product $product = null;
-
-    protected ?BeVariant $parentBeVariant = null;
-
     protected string $titleDelimiter = ' - ';
 
     protected string $skuDelimiter = '-';
@@ -45,30 +41,13 @@ class BeVariant
 
     public function __construct(
         protected string $id,
-        Product $product = null,
-        self $beVariant = null,
+        protected self|Product $parent,
         protected string $title,
         protected string $sku,
         protected int $priceCalcMethod,
         protected float $price,
         protected int $quantity = 0
     ) {
-        if ($product === null && $beVariant === null) {
-            throw new \InvalidArgumentException();
-        }
-
-        if ($product != null && $beVariant != null) {
-            throw new \InvalidArgumentException();
-        }
-
-        if ($product !== null) {
-            $this->product = $product;
-        }
-
-        if ($beVariant !== null) {
-            $this->parentBeVariant = $beVariant;
-        }
-
         $this->reCalc();
     }
 
@@ -102,36 +81,28 @@ class BeVariant
         return $variantArr;
     }
 
-    public function getProduct(): ?Product
+    public function getParent(): self|Product
     {
-        return $this->product;
+        return $this->parent;
     }
 
-    public function setProduct(Product $product): void
+    public function setParent(self|Product $parent): void
     {
-        $this->product = $product;
+        $this->parent = $parent;
     }
 
-    public function getParentBeVariant(): ?self
+    public function getProduct(): Product
     {
-        return $this->parentBeVariant;
-    }
+        if ($this->parent instanceof Product) {
+            return $this->parent;
+        }
 
-    public function setParentBeVariant(self $parentBeVariant): void
-    {
-        $this->parentBeVariant = $parentBeVariant;
+        return $this->parent->getProduct();
     }
 
     public function isNetPrice(): bool
     {
-        if ($this->getParentBeVariant()) {
-            return $this->getParentBeVariant()->isNetPrice();
-        }
-        if ($this->getProduct()) {
-            return $this->getProduct()->isNetPrice();
-        }
-
-        return false;
+        return $this->parent->isNetPrice();
     }
 
     public function getId(): string
@@ -158,10 +129,10 @@ class BeVariant
     {
         $title = '';
 
-        if ($this->getParentBeVariant()) {
-            $title = $this->getParentBeVariant()->getCompleteTitle();
-        } elseif ($this->getProduct()) {
-            $title = $this->getProduct()->getTitle();
+        if ($this->parent instanceof self) {
+            $title = $this->parent->getCompleteTitle();
+        } elseif ($this->parent instanceof Product) {
+            $title = $this->parent->getTitle();
         }
 
         if ($this->isFeVariant) {
@@ -178,8 +149,8 @@ class BeVariant
         $title = '';
         $titleDelimiter = '';
 
-        if ($this->getParentBeVariant()) {
-            $title = $this->getParentBeVariant()->getCompleteTitleWithoutProduct();
+        if ($this->parent instanceof self) {
+            $title = $this->parent->getCompleteTitleWithoutProduct();
             $titleDelimiter = $this->titleDelimiter;
         }
 
@@ -244,12 +215,12 @@ class BeVariant
     {
         $price = $this->getBestPrice();
 
-        if ($this->getParentBeVariant()) {
-            $parentPrice = $this->getParentBeVariant()->getBestPrice();
-        } elseif ($this->getProduct()) {
-            $parentPrice = $this->getProduct()->getBestPrice($this->getQuantity());
+        if ($this->parent instanceof self) {
+            $parentPrice = $this->parent->getBestPrice();
+        } elseif ($this->parent instanceof Product) {
+            $parentPrice = $this->parent->getBestPrice($this->getQuantity());
         } else {
-            $parentPrice = 0;
+            $parentPrice = 0.0;
         }
 
         if ($this->priceCalcMethod === 0) {
@@ -285,15 +256,11 @@ class BeVariant
             return 0.0;
         }
 
-        if ($this->getParentBeVariant()) {
-            return $this->getParentBeVariant()->getBestPrice();
+        if ($this->parent instanceof self) {
+            return $this->parent->getBestPrice();
         }
 
-        if ($this->getProduct()) {
-            return $this->getProduct()->getBestPrice($this->getQuantity());
-        }
-
-        return 0.0;
+        return $this->parent->getBestPrice($this->getQuantity());
     }
 
     public function setPrice(float $price): void
@@ -332,10 +299,10 @@ class BeVariant
     {
         $sku = '';
 
-        if ($this->getParentBeVariant()) {
-            $sku = $this->getParentBeVariant()->getCompleteSku();
-        } elseif ($this->getProduct()) {
-            $sku = $this->getProduct()->getSku();
+        if ($this->parent instanceof self) {
+            $sku = $this->parent->getCompleteSku();
+        } elseif ($this->parent instanceof Product) {
+            $sku = $this->parent->getSku();
         }
 
         if ($this->isFeVariant) {
@@ -353,8 +320,8 @@ class BeVariant
 
         $skuDelimiter = '';
 
-        if ($this->getParentBeVariant()) {
-            $sku = $this->getParentBeVariant()->getCompleteSkuWithoutProduct();
+        if ($this->parent instanceof self) {
+            $sku = $this->parent->getCompleteSkuWithoutProduct();
             $skuDelimiter = $this->titleDelimiter;
         }
 
@@ -416,14 +383,7 @@ class BeVariant
 
     public function getTaxClass(): ?TaxClass
     {
-        if ($this->getParentBeVariant()) {
-            return $this->getParentBeVariant()->getTaxClass();
-        }
-        if ($this->getProduct()) {
-            return $this->getProduct()->getTaxClass();
-        }
-
-        return null;
+        return $this->parent->getTaxClass();
     }
 
     public function setQuantity(int $newQuantity): void

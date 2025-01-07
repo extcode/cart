@@ -31,7 +31,7 @@ class Extra
         protected TaxClass $taxClass,
         protected bool $isNetPrice = false,
         protected string $extraType = '',
-        Service $service = null
+        ?Service $service = null
     ) {
         $this->service = $service;
 
