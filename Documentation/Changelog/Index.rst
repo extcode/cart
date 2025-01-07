@@ -10,6 +10,7 @@ ChangeLog
    :maxdepth: 5
    :titlesonly:
 
+   10.0/Index
    9.3/Index
    9.1/Index
    9.0/Index

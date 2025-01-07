@@ -130,7 +130,7 @@ class Product
                 $variant->setQuantity($newQuantity);
             }
         } else {
-            $newVariant->setProduct($this);
+            $newVariant->setParent($this);
             $this->beVariants[$newVariantsId] = $newVariant;
         }
 
