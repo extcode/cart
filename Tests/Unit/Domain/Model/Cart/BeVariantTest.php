@@ -68,7 +68,6 @@ class BeVariantTest extends UnitTestCase
         $this->beVariant = new BeVariant(
             $this->id,
             $this->product,
-            null,
             $this->title,
             $this->sku,
             $this->priceCalcMethod,
@@ -182,40 +181,6 @@ class BeVariantTest extends UnitTestCase
     }
 
     #[Test]
-    public function constructVariantWithoutCartProductOrVariantThrowsInvalidArgumentException(): void
-    {
-        $this->expectException(\InvalidArgumentException::class);
-
-        new BeVariant(
-            $this->id,
-            null,
-            null,
-            $this->sku,
-            $this->title,
-            $this->priceCalcMethod,
-            $this->price,
-            $this->quantity
-        );
-    }
-
-    #[Test]
-    public function constructVariantWithCartProductAndVariantThrowsInvalidArgumentException(): void
-    {
-        $this->expectException(\InvalidArgumentException::class);
-
-        new BeVariant(
-            $this->id,
-            $this->product,
-            $this->beVariant,
-            $this->sku,
-            $this->title,
-            $this->priceCalcMethod,
-            $this->price,
-            $this->quantity
-        );
-    }
-
-    #[Test]
     public function constructWithoutTitleThrowsException(): void
     {
         $this->expectException(\TypeError::class);
@@ -223,7 +188,6 @@ class BeVariantTest extends UnitTestCase
         new BeVariant(
             1,
             $this->product,
-            null,
             null,
             'test-variant-sku',
             0,
@@ -240,7 +204,6 @@ class BeVariantTest extends UnitTestCase
         new BeVariant(
             1,
             $this->product,
-            null,
             'Test Variant',
             null,
             0,
@@ -257,7 +220,6 @@ class BeVariantTest extends UnitTestCase
         new BeVariant(
             1,
             $this->product,
-            null,
             'Test Variant',
             'test-variant-sku',
             0,
@@ -448,7 +410,6 @@ class BeVariantTest extends UnitTestCase
         $beVariant1 = new BeVariant(
             '1',
             $this->product,
-            null,
             $title,
             $sku,
             $priceCalcMethod,
@@ -460,7 +421,6 @@ class BeVariantTest extends UnitTestCase
         $beVariant2 = new BeVariant(
             '2',
             $this->product,
-            null,
             $title,
             $sku,
             $priceCalcMethod,
@@ -472,7 +432,6 @@ class BeVariantTest extends UnitTestCase
         $beVariant3 = new BeVariant(
             '3',
             $this->product,
-            null,
             $title,
             $sku,
             $priceCalcMethod,
