@@ -180,7 +180,7 @@ class AbstractConfigurationFromTypoScriptServiceTest extends UnitTestCase
 
     private function createSubject(array $configurations)
     {
-        $configurationManager = $this->createStub(ConfigurationManagerInterface::class);
+        $configurationManager = self::createStub(ConfigurationManagerInterface::class);
         $configurationManager->method('getConfiguration')->willReturn($configurations);
 
         return new class ($configurationManager, new ServiceFactory()) extends AbstractConfigurationFromTypoScriptService {};
