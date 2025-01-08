@@ -16,6 +16,7 @@ interface ServiceInterface
     public function __construct(int $id, array $config);
 
     public function getId(): int;
+
     public function getFallBackId(): ?int;
 
     public function getConfig(): array;

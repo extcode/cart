@@ -36,9 +36,9 @@ class ServiceTest extends UnitTestCase
 
     public function setUp(): void
     {
-        $this->normalTaxClass = new TaxClass(1, '19', 0.19, 'Normal');
-        $this->reducedTaxClass = new TaxClass(2, '7%', 0.07, 'Reduced');
-        $this->freeTaxClass = new TaxClass(3, '0%', 0.00, 'Free');
+        $this->normalTaxClass = new TaxClass(1, '19 %', 0.19, 'Normal');
+        $this->reducedTaxClass = new TaxClass(2, '7 %', 0.07, 'Reduced');
+        $this->freeTaxClass = new TaxClass(3, '0 %', 0.00, 'Free');
 
         $this->taxClasses = [
             1 => $this->normalTaxClass,

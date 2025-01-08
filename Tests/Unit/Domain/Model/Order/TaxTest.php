@@ -28,7 +28,7 @@ class TaxTest extends UnitTestCase
     {
         $this->taxClass = new TaxClass();
         $this->taxClass->setTitle('normal');
-        $this->taxClass->setValue('19');
+        $this->taxClass->setValue('19 %');
         $this->taxClass->setCalc(0.19);
 
         $this->tax = 10.00;

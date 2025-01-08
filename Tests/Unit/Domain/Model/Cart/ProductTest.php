@@ -10,18 +10,24 @@ namespace Extcode\Cart\Tests\Unit\Domain\Model\Cart;
  */
 
 use Extcode\Cart\Domain\Model\Cart\Product;
+use Extcode\Cart\Domain\Model\Cart\ProductFactory;
+use Extcode\Cart\Domain\Model\Cart\ProductFactoryInterface;
+use Extcode\Cart\Domain\Model\Cart\ProductInterface;
 use Extcode\Cart\Domain\Model\Cart\TaxClass;
 use InvalidArgumentException;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Test;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 #[CoversClass(Product::class)]
 class ProductTest extends UnitTestCase
 {
+    private ProductFactoryInterface $productFactory;
+
     protected TaxClass $taxClass;
 
-    protected Product $product;
+    protected ProductInterface $product;
 
     protected string $productType;
 
@@ -37,7 +43,11 @@ class ProductTest extends UnitTestCase
 
     public function setUp(): void
     {
-        $this->taxClass = new TaxClass(1, '19', 0.19, 'normal');
+        parent::setUp();
+
+        $this->productFactory = GeneralUtility::makeInstance(ProductFactory::class);
+
+        $this->taxClass = new TaxClass(1, '19 %', 0.19, 'normal');
 
         $this->productType = 'simple';
         $this->productId = 1001;
@@ -46,7 +56,7 @@ class ProductTest extends UnitTestCase
         $this->price = 10.00;
         $this->quantity = 1;
 
-        $this->product = new Product(
+        $this->product = $this->productFactory->create(
             $this->productType,
             $this->productId,
             $this->sku,
@@ -55,8 +65,6 @@ class ProductTest extends UnitTestCase
             $this->taxClass,
             $this->quantity
         );
-
-        parent::setUp();
     }
 
     public function tearDown(): void
@@ -80,7 +88,7 @@ class ProductTest extends UnitTestCase
     {
         $this->expectException(\TypeError::class);
 
-        new Product(
+        $this->productFactory->create(
             null,
             $this->productId,
             $this->sku,
@@ -96,7 +104,7 @@ class ProductTest extends UnitTestCase
     {
         $this->expectException(\TypeError::class);
 
-        new Product(
+        $this->productFactory->create(
             $this->productType,
             null,
             $this->sku,
@@ -112,7 +120,7 @@ class ProductTest extends UnitTestCase
     {
         $this->expectException(\TypeError::class);
 
-        new Product(
+        $this->productFactory->create(
             $this->productType,
             $this->productId,
             null,
@@ -128,7 +136,7 @@ class ProductTest extends UnitTestCase
     {
         $this->expectException(\TypeError::class);
 
-        new Product(
+        $this->productFactory->create(
             $this->productType,
             $this->productId,
             $this->sku,
@@ -144,7 +152,7 @@ class ProductTest extends UnitTestCase
     {
         $this->expectException(\TypeError::class);
 
-        new Product(
+        $this->productFactory->create(
             $this->productType,
             $this->productId,
             $this->sku,
@@ -160,7 +168,7 @@ class ProductTest extends UnitTestCase
     {
         $this->expectException(\TypeError::class);
 
-        new Product(
+        $this->productFactory->create(
             $this->productType,
             $this->productId,
             $this->sku,
@@ -176,7 +184,7 @@ class ProductTest extends UnitTestCase
     {
         $this->expectException(\TypeError::class);
 
-        new Product(
+        $this->productFactory->create(
             $this->productType,
             $this->productId,
             $this->sku,
@@ -208,7 +216,7 @@ class ProductTest extends UnitTestCase
     #[Test]
     public function getIdForTableProductReturnsTableProductIdSetIndirectlyByConstructor(): void
     {
-        $product = new Product(
+        $product = $this->productFactory->create(
             $this->productType,
             $this->productId,
             $this->sku,
@@ -265,7 +273,7 @@ class ProductTest extends UnitTestCase
         $price = 10.00;
         $specialPrice = 1.00;
 
-        $product = new Product(
+        $product = $this->productFactory->create(
             $this->productType,
             $this->productId,
             $this->sku,
@@ -287,7 +295,7 @@ class ProductTest extends UnitTestCase
     {
         $price = 10.00;
 
-        $product = new Product(
+        $product = $this->productFactory->create(
             $this->productType,
             $this->productId,
             $this->sku,
@@ -309,7 +317,7 @@ class ProductTest extends UnitTestCase
         $price = 0.0;
         $specialPrice = 0.00;
 
-        $product = new Product(
+        $product = $this->productFactory->create(
             $this->productType,
             $this->productId,
             $this->sku,
@@ -332,7 +340,7 @@ class ProductTest extends UnitTestCase
         $price = 10.00;
         $specialPrice = 9.00;
 
-        $product = new Product(
+        $product = $this->productFactory->create(
             $this->productType,
             $this->productId,
             $this->sku,
@@ -354,7 +362,7 @@ class ProductTest extends UnitTestCase
     {
         $price = 10.00;
 
-        $product = new Product(
+        $product = $this->productFactory->create(
             $this->productType,
             $this->productId,
             $this->sku,
@@ -376,7 +384,7 @@ class ProductTest extends UnitTestCase
         $price = 10.00;
         $specialPrice = 11.00;
 
-        $product = new Product(
+        $product = $this->productFactory->create(
             $this->productType,
             $this->productId,
             $this->sku,
@@ -399,7 +407,7 @@ class ProductTest extends UnitTestCase
         $price = 10.00;
         $specialPrice = 5.00;
 
-        $product = new Product(
+        $product = $this->productFactory->create(
             $this->productType,
             $this->productId,
             $this->sku,
@@ -421,7 +429,7 @@ class ProductTest extends UnitTestCase
     {
         $price = 10.00;
 
-        $product = new Product(
+        $product = $this->productFactory->create(
             $this->productType,
             $this->productId,
             $this->sku,
@@ -450,7 +458,7 @@ class ProductTest extends UnitTestCase
             'price' => $quantityDiscountPrice,
         ]];
 
-        $product = new Product(
+        $product = $this->productFactory->create(
             $this->productType,
             $this->productId,
             $this->sku,
@@ -480,7 +488,7 @@ class ProductTest extends UnitTestCase
             'price' => $quantityDiscountPrice,
         ]];
 
-        $product = new Product(
+        $product = $this->productFactory->create(
             $this->productType,
             $this->productId,
             $this->sku,
@@ -510,7 +518,7 @@ class ProductTest extends UnitTestCase
             'price' => $quantityDiscountPrice,
         ]];
 
-        $product = new Product(
+        $product = $this->productFactory->create(
             $this->productType,
             $this->productId,
             $this->sku,
@@ -559,7 +567,7 @@ class ProductTest extends UnitTestCase
             ],
         ];
 
-        $product = new Product(
+        $product = $this->productFactory->create(
             $this->productType,
             $this->productId,
             $this->sku,
@@ -608,7 +616,7 @@ class ProductTest extends UnitTestCase
             ],
         ];
 
-        $product = new Product(
+        $product = $this->productFactory->create(
             $this->productType,
             $this->productId,
             $this->sku,
@@ -659,7 +667,7 @@ class ProductTest extends UnitTestCase
             ],
         ];
 
-        $product = new Product(
+        $product = $this->productFactory->create(
             $this->productType,
             $this->productId,
             $this->sku,
@@ -712,7 +720,7 @@ class ProductTest extends UnitTestCase
             ],
         ];
 
-        $product = new Product(
+        $product = $this->productFactory->create(
             $this->productType,
             $this->productId,
             $this->sku,
@@ -765,7 +773,7 @@ class ProductTest extends UnitTestCase
             ],
         ];
 
-        $product = new Product(
+        $product = $this->productFactory->create(
             $this->productType,
             $this->productId,
             $this->sku,
@@ -805,7 +813,7 @@ class ProductTest extends UnitTestCase
     #[Test]
     public function isNetPriceReturnsTrueSetByDefaultConstructor(): void
     {
-        $net_fixture = new Product(
+        $net_fixture = $this->productFactory->create(
             $this->productType,
             $this->productId,
             $this->sku,
@@ -818,32 +826,6 @@ class ProductTest extends UnitTestCase
 
         self::assertTrue(
             $net_fixture->isNetPrice()
-        );
-    }
-
-    #[Test]
-    public function setTitleSetsTitle(): void
-    {
-        $sku = 'new-test-product-sku';
-
-        $this->product->setSku($sku);
-
-        self::assertSame(
-            $sku,
-            $this->product->getSku()
-        );
-    }
-
-    #[Test]
-    public function setSkuSetsSku(): void
-    {
-        $title = 'New Test Product';
-
-        $this->product->setTitle($title);
-
-        self::assertSame(
-            $title,
-            $this->product->getTitle()
         );
     }
 
@@ -935,7 +917,7 @@ class ProductTest extends UnitTestCase
     }
 
     #[Test]
-    public function setMaxNumberInCartIfMaxNumerIsGreaterThanMinNumber(): void
+    public function setMaxNumberInCartIfMaxNumberIsGreaterThanMinNumber(): void
     {
         $minNumber = 1;
         $maxNumber = 2;
@@ -962,143 +944,13 @@ class ProductTest extends UnitTestCase
     }
 
     #[Test]
-    public function getQuantityIsLeavingRangeReturnsZeroIfQuantityIsInRange(): void
-    {
-        $minNumber = 5;
-        $maxNumber = 10;
-        $quantity = 7;
-
-        $this->product = new Product(
-            $this->productType,
-            $this->productId,
-            $this->sku,
-            $this->title,
-            $this->price,
-            $this->taxClass,
-            $quantity
-        );
-
-        $this->product->setMinNumberInCart($minNumber);
-        $this->product->setMaxNumberInCart($maxNumber);
-
-        self::assertSame(
-            0,
-            $this->product->getQuantityIsLeavingRange()
-        );
-    }
-
-    #[Test]
-    public function getQuantityIsLeavingRangeReturnsZeroIfQuantityIsEqualToMinimum(): void
-    {
-        $minNumber = 5;
-        $maxNumber = 10;
-        $quantity = 5;
-
-        $this->product = new Product(
-            $this->productType,
-            $this->productId,
-            $this->sku,
-            $this->title,
-            $this->price,
-            $this->taxClass,
-            $quantity
-        );
-
-        $this->product->setMinNumberInCart($minNumber);
-        $this->product->setMaxNumberInCart($maxNumber);
-
-        self::assertSame(
-            0,
-            $this->product->getQuantityIsLeavingRange()
-        );
-    }
-
-    #[Test]
-    public function getQuantityIsLeavingRangeReturnsZeroIfQuantityIsEqualToMaximum(): void
-    {
-        $minNumber = 5;
-        $maxNumber = 10;
-        $quantity = 10;
-
-        $this->product = new Product(
-            $this->productType,
-            $this->productId,
-            $this->sku,
-            $this->title,
-            $this->price,
-            $this->taxClass,
-            $quantity
-        );
-
-        $this->product->setMinNumberInCart($minNumber);
-        $this->product->setMaxNumberInCart($maxNumber);
-
-        self::assertSame(
-            0,
-            $this->product->getQuantityIsLeavingRange()
-        );
-    }
-
-    #[Test]
-    public function getQuantityIsLeavingRangeReturnsMinusOneIfQuantityIsLessThanMinimum(): void
-    {
-        $minNumber = 5;
-        $maxNumber = 10;
-        $quantity = 4;
-
-        $this->product = new Product(
-            $this->productType,
-            $this->productId,
-            $this->sku,
-            $this->title,
-            $this->price,
-            $this->taxClass,
-            $quantity
-        );
-
-        $this->product->setMinNumberInCart($minNumber);
-        $this->product->setMaxNumberInCart($maxNumber);
-
-        self::assertSame(
-            -1,
-            $this->product->getQuantityIsLeavingRange()
-        );
-    }
-
-    #[Test]
-    public function getQuantityIsLeavingRangeReturnsOneIfQuantityIsGreaterThanMaximum(): void
-    {
-        $minNumber = 5;
-        $maxNumber = 10;
-        $quantity = 11;
-
-        $this->product = new Product(
-            $this->productType,
-            $this->productId,
-            $this->sku,
-            $this->title,
-            $this->price,
-            $this->taxClass,
-            $quantity
-        );
-
-        $this->product->setMinNumberInCart($minNumber);
-        $this->product->setMaxNumberInCart($maxNumber);
-
-        self::assertSame(
-            1,
-            $this->product->getQuantityIsLeavingRange()
-        );
-    }
-
-    #[Test]
     public function isQuantityInRangeReturnsTrueIfQuantityIsInRange(): void
     {
         $minNumber = 5;
         $maxNumber = 10;
         $quantity = 7;
 
-        $this->product = new Product(
+        $this->product = $this->productFactory->create(
             $this->productType,
             $this->productId,
             $this->sku,
@@ -1123,7 +975,7 @@ class ProductTest extends UnitTestCase
         $maxNumber = 10;
         $quantity = 5;
 
-        $this->product = new Product(
+        $this->product = $this->productFactory->create(
             $this->productType,
             $this->productId,
             $this->sku,
@@ -1148,7 +1000,7 @@ class ProductTest extends UnitTestCase
         $maxNumber = 10;
         $quantity = 10;
 
-        $this->product = new Product(
+        $this->product = $this->productFactory->create(
             $this->productType,
             $this->productId,
             $this->sku,
@@ -1173,7 +1025,7 @@ class ProductTest extends UnitTestCase
         $maxNumber = 10;
         $quantity = 4;
 
-        $this->product = new Product(
+        $this->product = $this->productFactory->create(
             $this->productType,
             $this->productId,
             $this->sku,
@@ -1198,7 +1050,7 @@ class ProductTest extends UnitTestCase
         $maxNumber = 10;
         $quantity = 11;
 
-        $this->product = new Product(
+        $this->product = $this->productFactory->create(
             $this->productType,
             $this->productId,
             $this->sku,
@@ -1223,7 +1075,7 @@ class ProductTest extends UnitTestCase
         $maxNumber = 10;
         $quantity = 4;
 
-        $this->product = new Product(
+        $this->product = $this->productFactory->create(
             $this->productType,
             $this->productId,
             $this->sku,
@@ -1243,7 +1095,7 @@ class ProductTest extends UnitTestCase
 
         $quantity = 11;
 
-        $this->product = new Product(
+        $this->product = $this->productFactory->create(
             $this->productType,
             $this->productId,
             $this->sku,
@@ -1269,7 +1121,7 @@ class ProductTest extends UnitTestCase
         $maxNumber = 10;
         $quantity = 4;
 
-        $this->product = new Product(
+        $this->product = $this->productFactory->create(
             $this->productType,
             $this->productId,
             $this->sku,
@@ -1289,7 +1141,7 @@ class ProductTest extends UnitTestCase
 
         $quantity = 11;
 
-        $this->product = new Product(
+        $this->product = $this->productFactory->create(
             $this->productType,
             $this->productId,
             $this->sku,
@@ -1315,7 +1167,7 @@ class ProductTest extends UnitTestCase
         $maxNumber = 10;
         $quantity = 4;
 
-        $this->product = new Product(
+        $this->product = $this->productFactory->create(
             $this->productType,
             $this->productId,
             $this->sku,
@@ -1335,7 +1187,7 @@ class ProductTest extends UnitTestCase
 
         $quantity = 11;
 
-        $this->product = new Product(
+        $this->product = $this->productFactory->create(
             $this->productType,
             $this->productId,
             $this->sku,

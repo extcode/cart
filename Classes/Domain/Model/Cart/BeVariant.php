@@ -11,8 +11,10 @@ namespace Extcode\Cart\Domain\Model\Cart;
  * LICENSE file that was distributed with this source code.
  */
 
-class BeVariant
+final class BeVariant implements AdditionalDataInterface, BeVariantInterface
 {
+    use AdditionalDataTrait;
+
     protected string $titleDelimiter = ' - ';
 
     protected string $skuDelimiter = '-';
@@ -29,19 +31,15 @@ class BeVariant
 
     protected bool $isFeVariant = false;
 
-    protected int $hasFeVariants;
-
     protected int $min = 0;
 
     protected int $max = 0;
-
-    protected array $additional = [];
 
     protected int $stock = 0;
 
     public function __construct(
         protected string $id,
-        protected self|Product $parent,
+        protected BeVariantInterface|ProductInterface $parent,
         protected string $title,
         protected string $sku,
         protected int $priceCalcMethod,
@@ -65,7 +63,7 @@ class BeVariant
             'price_total_gross' => $this->gross,
             'price_total_net' => $this->net,
             'tax' => $this->tax,
-            'additional' => $this->additional,
+            'additionals' => $this->getAdditionals(),
         ];
 
         if ($this->beVariants) {
@@ -81,19 +79,19 @@ class BeVariant
         return $variantArr;
     }
 
-    public function getParent(): self|Product
+    public function getParent(): BeVariantInterface|ProductInterface
     {
         return $this->parent;
     }
 
-    public function setParent(self|Product $parent): void
+    public function setParent(BeVariantInterface|ProductInterface $parent): void
     {
         $this->parent = $parent;
     }
 
-    public function getProduct(): Product
+    public function getProduct(): ProductInterface
     {
-        if ($this->parent instanceof Product) {
+        if ($this->parent instanceof ProductInterface) {
             return $this->parent;
         }
 
@@ -129,9 +127,9 @@ class BeVariant
     {
         $title = '';
 
-        if ($this->parent instanceof self) {
+        if ($this->parent instanceof BeVariantInterface) {
             $title = $this->parent->getCompleteTitle();
-        } elseif ($this->parent instanceof Product) {
+        } elseif ($this->parent instanceof ProductInterface) {
             $title = $this->parent->getTitle();
         }
 
@@ -149,7 +147,7 @@ class BeVariant
         $title = '';
         $titleDelimiter = '';
 
-        if ($this->parent instanceof self) {
+        if ($this->parent instanceof BeVariantInterface) {
             $title = $this->parent->getCompleteTitleWithoutProduct();
             $titleDelimiter = $this->titleDelimiter;
         }
@@ -215,9 +213,9 @@ class BeVariant
     {
         $price = $this->getBestPrice();
 
-        if ($this->parent instanceof self) {
+        if ($this->parent instanceof BeVariantInterface) {
             $parentPrice = $this->parent->getBestPrice();
-        } elseif ($this->parent instanceof Product) {
+        } elseif ($this->parent instanceof ProductInterface) {
             $parentPrice = $this->parent->getBestPrice($this->getQuantity());
         } else {
             $parentPrice = 0.0;
@@ -256,7 +254,7 @@ class BeVariant
             return 0.0;
         }
 
-        if ($this->parent instanceof self) {
+        if ($this->parent instanceof BeVariantInterface) {
             return $this->parent->getBestPrice();
         }
 
@@ -299,17 +297,13 @@ class BeVariant
     {
         $sku = '';
 
-        if ($this->parent instanceof self) {
+        if ($this->parent instanceof BeVariantInterface) {
             $sku = $this->parent->getCompleteSku();
-        } elseif ($this->parent instanceof Product) {
+        } elseif ($this->parent instanceof ProductInterface) {
             $sku = $this->parent->getSku();
         }
 
-        if ($this->isFeVariant) {
-            $sku .= $this->skuDelimiter . $this->id;
-        } else {
-            $sku .= $this->skuDelimiter . $this->sku;
-        }
+        $sku .= $this->skuDelimiter . $this->sku;
 
         return $sku;
     }
@@ -318,45 +312,13 @@ class BeVariant
     {
         $sku = '';
 
-        $skuDelimiter = '';
-
-        if ($this->parent instanceof self) {
+        if ($this->parent instanceof BeVariantInterface) {
             $sku = $this->parent->getCompleteSkuWithoutProduct();
-            $skuDelimiter = $this->titleDelimiter;
         }
 
-        if ($this->isFeVariant) {
-            $sku .= $skuDelimiter . $this->id;
-        } else {
-            $sku .= $skuDelimiter . $this->sku;
-        }
+        $sku .= $this->skuDelimiter . $this->sku;
 
         return $sku;
-    }
-
-    public function setSku(string $sku): void
-    {
-        $this->sku = $sku;
-    }
-
-    public function getHasFeVariants(): int
-    {
-        return $this->hasFeVariants;
-    }
-
-    public function setHasFeVariants(int $hasFeVariants): void
-    {
-        $this->hasFeVariants = $hasFeVariants;
-    }
-
-    public function isFeVariant(): bool
-    {
-        return $this->isFeVariant;
-    }
-
-    public function setIsFeVariant(bool $isFeVariant): void
-    {
-        $this->isFeVariant = $isFeVariant;
     }
 
     public function getQuantity(): int
@@ -381,7 +343,7 @@ class BeVariant
         return $this->tax;
     }
 
-    public function getTaxClass(): ?TaxClass
+    public function getTaxClass(): TaxClass
     {
         return $this->parent->getTaxClass();
     }
@@ -427,7 +389,7 @@ class BeVariant
         }
     }
 
-    public function addBeVariant(self $newBeVariant): void
+    public function addBeVariant(BeVariantInterface $newBeVariant): void
     {
         $newBeVariantId = $newBeVariant->getId();
 
@@ -452,7 +414,7 @@ class BeVariant
         return $this->beVariants;
     }
 
-    public function getBeVariantById(int $beVariantId): ?self
+    public function getBeVariantById(int $beVariantId): ?BeVariantInterface
     {
         return $this->beVariants[$beVariantId] ?? null;
     }
@@ -555,29 +517,6 @@ class BeVariant
             $this->calcTax();
             $this->calcGross();
         }
-    }
-
-    public function getAdditionalArray(): array
-    {
-        return $this->additional;
-    }
-
-    public function setAdditionalArray(array $additional): void
-    {
-        $this->additional = $additional;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getAdditional(string $key)
-    {
-        return $this->additional[$key];
-    }
-
-    public function setAdditional(string $key, mixed $value): void
-    {
-        $this->additional[$key] = $value;
     }
 
     public function getMin(): int

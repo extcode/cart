@@ -11,8 +11,10 @@ namespace Extcode\Cart\Domain\Model\Cart;
  * LICENSE file that was distributed with this source code.
  */
 
-class Product
+final class Product implements AdditionalDataInterface, ProductInterface
 {
+    use AdditionalDataTrait;
+
     protected ?Cart $cart = null;
 
     protected ?float $specialPrice = null;
@@ -35,11 +37,12 @@ class Product
 
     protected ?float $serviceAttribute3 = null;
 
+    /**
+     * @var array<string, BeVariantInterface>
+     */
     protected array $beVariants = [];
 
     protected ?FeVariantInterface $feVariant = null;
-
-    protected array $additional = [];
 
     protected int $minNumberInCart = 0;
 
@@ -110,6 +113,9 @@ class Product
         return $this->isNetPrice;
     }
 
+    /**
+     * @param BeVariantInterface[] $newVariants
+     */
     public function addBeVariants(array $newVariants): void
     {
         foreach ($newVariants as $newVariant) {
@@ -117,7 +123,7 @@ class Product
         }
     }
 
-    public function addBeVariant(BeVariant $newVariant): void
+    public function addBeVariant(BeVariantInterface $newVariant): void
     {
         $newVariantsId = $newVariant->getId();
 
@@ -158,21 +164,27 @@ class Product
         return $this->feVariant;
     }
 
+    /**
+     * @return BeVariantInterface[]
+     */
     public function getBeVariants(): array
     {
         return $this->beVariants;
     }
 
-    public function getBeVariantById(string $variantId): ?BeVariant
+    public function getBeVariantById(string $variantId): ?BeVariantInterface
     {
         return $this->beVariants[$variantId] ?? null;
     }
 
+    /**
+     * @param array<string, mixed> $variantsArray
+     */
     public function removeBeVariants(array $variantsArray): int
     {
         foreach ($variantsArray as $variantId => $value) {
-            $variant = $this->beVariants[$variantId];
-            if ($variant) {
+            if (isset($this->beVariants[$variantId])) {
+                $variant = $this->beVariants[$variantId];
                 if (is_array($value)) {
                     $variant->removeBeVariants($value);
 
@@ -385,44 +397,9 @@ class Product
         return !$this->isQuantityBelowRange() && !$this->isQuantityAboveRange();
     }
 
-    /**
-     * returns 0 if quantity is in rage
-     * returns -1 if minimum was not reached
-     * returns 1 if maximum was exceeded
-     *
-     * @deprecated
-     */
-    public function getQuantityIsLeavingRange(): int
-    {
-        if ($this->getQuantityBelowRange()) {
-            return -1;
-        }
-        if ($this->getQuantityAboveRange()) {
-            return 1;
-        }
-
-        return 0;
-    }
-
-    /**
-     * @deprecated
-     */
-    public function getQuantityBelowRange(): bool
-    {
-        return $this->isQuantityBelowRange();
-    }
-
     public function isQuantityBelowRange(): bool
     {
         return $this->quantity < $this->minNumberInCart;
-    }
-
-    /**
-     * @deprecated
-     */
-    public function getQuantityAboveRange(): bool
-    {
-        return $this->isQuantityAboveRange();
     }
 
     public function isQuantityAboveRange(): bool
@@ -525,7 +502,7 @@ class Product
             'price_total_gross' => $this->gross,
             'price_total_net' => $this->net,
             'tax' => $this->tax,
-            'additional' => $this->additional,
+            'additionals' => $this->getAdditionals(),
         ];
 
         if ($this->beVariants) {
@@ -623,29 +600,6 @@ class Product
         $this->calcGross();
         $this->calcTax();
         $this->calcNet();
-    }
-
-    public function getAdditionalArray(): array
-    {
-        return $this->additional;
-    }
-
-    public function setAdditionalArray(array $additional): void
-    {
-        $this->additional = $additional;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getAdditional(string $key)
-    {
-        return $this->additional[$key];
-    }
-
-    public function setAdditional(string $key, mixed $value): void
-    {
-        $this->additional[$key] = $value;
     }
 
     public function getMinNumberInCart(): int
