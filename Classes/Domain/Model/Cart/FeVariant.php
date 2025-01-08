@@ -11,7 +11,7 @@ namespace Extcode\Cart\Domain\Model\Cart;
  * LICENSE file that was distributed with this source code.
  */
 
-class FeVariant
+class FeVariant implements FeVariantInterface
 {
     protected ?Product $product = null;
 
