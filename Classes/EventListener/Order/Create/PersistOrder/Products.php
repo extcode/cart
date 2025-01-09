@@ -12,11 +12,11 @@ namespace Extcode\Cart\EventListener\Order\Create\PersistOrder;
  */
 
 use Extcode\Cart\Domain\Model\Cart\AdditionalDataInterface;
-use Extcode\Cart\Domain\Model\Cart\BeVariant;
-use Extcode\Cart\Domain\Model\Cart\FeVariant;
-use Extcode\Cart\Domain\Model\Cart\Product;
+use Extcode\Cart\Domain\Model\Cart\BeVariantInterface;
+use Extcode\Cart\Domain\Model\Cart\FeVariantInterface;
 use Extcode\Cart\Domain\Model\Cart\ProductInterface;
 use Extcode\Cart\Domain\Model\Order\Item;
+use Extcode\Cart\Domain\Model\Order\Product;
 use Extcode\Cart\Domain\Model\Order\ProductAdditional;
 use Extcode\Cart\Domain\Repository\Order\ProductAdditionalRepository;
 use Extcode\Cart\Domain\Repository\Order\ProductRepository;
@@ -59,7 +59,7 @@ class Products
     protected function addProduct(ProductInterface $cartProduct): void
     {
         $orderProduct = GeneralUtility::makeInstance(
-            \Extcode\Cart\Domain\Model\Order\Product::class
+            Product::class
         );
         $orderProduct->setSku($cartProduct->getSku());
         $orderProduct->setTitle($cartProduct->getTitle());
@@ -86,7 +86,7 @@ class Products
         $this->addFeVariants($orderProduct, $cartProduct->getFeVariant());
     }
 
-    protected function addProductVariants(Product $product): void
+    protected function addProductVariants(ProductInterface $product): void
     {
         foreach ($product->getBeVariants() as $variant) {
             if ($variant->getBeVariants()) {
@@ -98,8 +98,8 @@ class Products
     }
 
     protected function addFeVariants(
-        \Extcode\Cart\Domain\Model\Order\Product $product,
-        ?FeVariant $feVariant = null
+        Product $product,
+        ?FeVariantInterface $feVariant = null
     ): void {
         if ($feVariant) {
             $feVariantsData = $feVariant->getVariantData();
@@ -113,7 +113,7 @@ class Products
 
     protected function addProductAdditional(
         string $productAdditionalType,
-        \Extcode\Cart\Domain\Model\Order\Product $product,
+        Product $product,
         array $feVariant
     ): void {
         $productAdditional = GeneralUtility::makeInstance(
@@ -130,7 +130,7 @@ class Products
         $product->addProductAdditional($productAdditional);
     }
 
-    protected function addVariantsOfVariant(BeVariant $variant, int $level): void
+    protected function addVariantsOfVariant(BeVariantInterface $variant, int $level): void
     {
         $level += 1;
 
@@ -143,12 +143,12 @@ class Products
         }
     }
 
-    protected function addBeVariant(BeVariant $variant, int $level): void
+    protected function addBeVariant(BeVariantInterface $variant, int $level): void
     {
         $cartProduct = $variant->getProduct();
 
         $orderProduct = GeneralUtility::makeInstance(
-            \Extcode\Cart\Domain\Model\Order\Product::class
+            Product::class
         );
         $orderProduct->setSku($variant->getCompleteSku());
         $orderProduct->setTitle($variant->getCompleteTitle());
