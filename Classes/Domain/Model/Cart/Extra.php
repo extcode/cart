@@ -13,11 +13,6 @@ namespace Extcode\Cart\Domain\Model\Cart;
 
 class Extra
 {
-    /**
-     * @var ServiceInterface
-     */
-    protected $service;
-
     protected float $gross = 0.0;
 
     protected float $net = 0.0;
@@ -31,14 +26,12 @@ class Extra
         protected TaxClass $taxClass,
         protected bool $isNetPrice = false,
         protected string $extraType = '',
-        ?Service $service = null
+        protected ?ServiceInterface $service = null
     ) {
-        $this->service = $service;
-
         $this->reCalc();
     }
 
-    public function getService(): ServiceInterface
+    public function getService(): ?ServiceInterface
     {
         return $this->service;
     }

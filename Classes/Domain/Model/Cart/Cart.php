@@ -11,8 +11,10 @@ namespace Extcode\Cart\Domain\Model\Cart;
  * LICENSE file that was distributed with this source code.
  */
 
-class Cart
+class Cart implements AdditionalDataInterface
 {
+    use AdditionalDataTrait;
+
     protected float $net;
 
     protected float $gross;
@@ -50,8 +52,6 @@ class Cart
     protected string $orderNumber = '';
 
     protected string $invoiceNumber = '';
-
-    protected array $additional = [];
 
     protected int $orderId;
 
@@ -112,7 +112,7 @@ class Cart
             'orderId',
             'orderNumber',
             'invoiceNumber',
-            'additional',
+            'additionals',
             'billingCountry',
             'shippingSameAsBilling',
             'shippingCountry',
@@ -505,7 +505,7 @@ class Cart
             'sumServiceAttribute1' => $this->sumServiceAttr1,
             'sumServiceAttribute2' => $this->sumServiceAttr2,
             'sumServiceAttribute3' => $this->sumServiceAttr3,
-            'additional' => $this->additional,
+            'additionals' => $this->getAdditionals(),
         ];
 
         if ($this->payment) {
@@ -948,41 +948,6 @@ class Cart
         $this->calcTax();
 
         $this->updateServiceAttributes();
-    }
-
-    public function getAdditionalArray(): array
-    {
-        return $this->additional;
-    }
-
-    public function setAdditionalArray(array $additional): void
-    {
-        $this->additional = $additional;
-    }
-
-    public function unsetAdditionalArray(): void
-    {
-        $this->additional = [];
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getAdditional(string $key)
-    {
-        return $this->additional[$key];
-    }
-
-    public function setAdditional(string $key, mixed $value): void
-    {
-        $this->additional[$key] = $value;
-    }
-
-    public function unsetAdditional(string $key): void
-    {
-        if ($this->additional[$key]) {
-            unset($this->additional[$key]);
-        }
     }
 
     public function setOrderId(int $orderId): void

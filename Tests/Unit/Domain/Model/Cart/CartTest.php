@@ -11,15 +11,19 @@ namespace Extcode\Cart\Tests\Unit\Domain\Model\Cart;
 
 use Extcode\Cart\Domain\Model\Cart\Cart;
 use Extcode\Cart\Domain\Model\Cart\CartCouponFix;
-use Extcode\Cart\Domain\Model\Cart\Product;
+use Extcode\Cart\Domain\Model\Cart\ProductFactory;
+use Extcode\Cart\Domain\Model\Cart\ProductFactoryInterface;
 use Extcode\Cart\Domain\Model\Cart\TaxClass;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Test;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 #[CoversClass(Cart::class)]
 class CartTest extends UnitTestCase
 {
+    private ProductFactoryInterface $productFactory;
+
     protected Cart $grossCart;
 
     protected Cart $netCart;
@@ -34,9 +38,13 @@ class CartTest extends UnitTestCase
 
     public function setUp(): void
     {
-        $this->normalTaxClass = new TaxClass(1, '19', 0.19, 'Normal');
-        $this->reducedTaxClass = new TaxClass(2, '7%', 0.07, 'Reduced');
-        $this->freeTaxClass = new TaxClass(3, '0%', 0.00, 'Free');
+        parent::setUp();
+
+        $this->productFactory = GeneralUtility::makeInstance(ProductFactory::class);
+
+        $this->normalTaxClass = new TaxClass(1, '19 %', 0.19, 'Normal');
+        $this->reducedTaxClass = new TaxClass(2, '7 %', 0.07, 'Reduced');
+        $this->freeTaxClass = new TaxClass(3, '0 %', 0.00, 'Free');
 
         $this->taxClasses = [
             1 => $this->normalTaxClass,
@@ -46,8 +54,6 @@ class CartTest extends UnitTestCase
 
         $this->grossCart = new Cart($this->taxClasses, false);
         $this->netCart = new Cart($this->taxClasses, true);
-
-        parent::setUp();
     }
 
     public function tearDown(): void
@@ -347,7 +353,7 @@ class CartTest extends UnitTestCase
     #[Test]
     public function addFirstCartProductToCartChangeCountOfProducts(): void
     {
-        $product = new Product(
+        $product = $this->productFactory->create(
             'simple',
             1,
             'SKU',
@@ -369,7 +375,7 @@ class CartTest extends UnitTestCase
     #[Test]
     public function addFirstPhysicalCartProductToCartChangeCountOfPhysicalProducts(): void
     {
-        $product = new Product(
+        $product = $this->productFactory->create(
             'simple',
             1,
             'SKU',
@@ -396,7 +402,7 @@ class CartTest extends UnitTestCase
     #[Test]
     public function addFirstVirtualCartProductToCartChangeCountOfVirtualProducts(): void
     {
-        $product = new Product(
+        $product = $this->productFactory->create(
             'simple',
             1,
             'SKU',
@@ -427,7 +433,7 @@ class CartTest extends UnitTestCase
     public function addFirstGrossCartProductToGrossCartChangeNetOfCart(): void
     {
         $productPrice = 10.00;
-        $grossProduct = new Product(
+        $grossProduct = $this->productFactory->create(
             'simple',
             1,
             'SKU',
@@ -450,7 +456,7 @@ class CartTest extends UnitTestCase
     public function addFirstNetCartProductToNetCartChangeNetOfCart(): void
     {
         $productPrice = 10.00;
-        $netProduct = new Product(
+        $netProduct = $this->productFactory->create(
             'simple',
             1,
             'SKU',
@@ -473,7 +479,7 @@ class CartTest extends UnitTestCase
     public function addFirstGrossCartProductToNetCartChangeNetOfCart(): void
     {
         $productPrice = 10.00;
-        $grossProduct = new Product(
+        $grossProduct = $this->productFactory->create(
             'simple',
             1,
             'SKU',
@@ -496,7 +502,7 @@ class CartTest extends UnitTestCase
     public function addFirstNetCartProductToGrossCartChangeNetOfCart(): void
     {
         $productPrice = 10.00;
-        $netProduct = new Product(
+        $netProduct = $this->productFactory->create(
             'simple',
             1,
             'SKU',
@@ -521,7 +527,7 @@ class CartTest extends UnitTestCase
     public function addFirstGrossCartProductToGrossCartChangeGrossOfCart(): void
     {
         $productPrice = 10.00;
-        $grossProduct = new Product(
+        $grossProduct = $this->productFactory->create(
             'simple',
             1,
             'SKU',
@@ -544,7 +550,7 @@ class CartTest extends UnitTestCase
     public function addFirstNetCartProductToNetCartChangeGrossOfCart(): void
     {
         $productPrice = 10.00;
-        $netProduct = new Product(
+        $netProduct = $this->productFactory->create(
             'simple',
             1,
             'SKU',
@@ -568,7 +574,7 @@ class CartTest extends UnitTestCase
     public function addFirstGrossCartProductToNetCartChangeGrossOfCart(): void
     {
         $productPrice = 10.00;
-        $grossProduct = new Product(
+        $grossProduct = $this->productFactory->create(
             'simple',
             1,
             'SKU',
@@ -591,7 +597,7 @@ class CartTest extends UnitTestCase
     public function addFirstNetCartProductToGrossCartChangeGrossOfCart(): void
     {
         $productPrice = 10.00;
-        $netProduct = new Product(
+        $netProduct = $this->productFactory->create(
             'simple',
             1,
             'SKU',
@@ -616,7 +622,7 @@ class CartTest extends UnitTestCase
     {
         $taxId = 1;
         $productPrice = 10.00;
-        $product = new Product(
+        $product = $this->productFactory->create(
             'simple',
             1,
             'SKU',
@@ -642,7 +648,7 @@ class CartTest extends UnitTestCase
     public function addSecondCartProductWithSameTaxClassToCartChangeTaxArray(): void
     {
         $firstCartProductPrice = 10.00;
-        $firstCartProduct = new Product(
+        $firstCartProduct = $this->productFactory->create(
             'simple',
             1,
             'SKU 1',
@@ -655,7 +661,7 @@ class CartTest extends UnitTestCase
         $this->grossCart->addProduct($firstCartProduct);
 
         $secondCartProductPrice = 20.00;
-        $secondCartProduct = new Product(
+        $secondCartProduct = $this->productFactory->create(
             'simple',
             2,
             'SKU 2',
@@ -680,7 +686,7 @@ class CartTest extends UnitTestCase
     public function addSecondCartProductWithDifferentTaxClassToCartChangeTaxArray(): void
     {
         $firstCartProductPrice = 10.00;
-        $firstCartProduct = new Product(
+        $firstCartProduct = $this->productFactory->create(
             'simple',
             1,
             'SKU 1',
@@ -693,7 +699,7 @@ class CartTest extends UnitTestCase
         $this->grossCart->addProduct($firstCartProduct);
 
         $secondCartProductPrice = 20.00;
-        $secondCartProduct = new Product(
+        $secondCartProduct = $this->productFactory->create(
             'simple',
             2,
             'SKU 2',
@@ -730,62 +736,50 @@ class CartTest extends UnitTestCase
     #[Test]
     public function isOrderableOfCartReturnsTrueWhenProductNumberIsInRangeForAllProducts(): void
     {
-        $taxClass = new TaxClass(1, '19', 0.19, 'normal');
+        $taxClass = new TaxClass(1, '19 %', 0.19, 'normal');
 
-        $product = $this->getMockBuilder(Product::class)
-            ->onlyMethods(['getBestPrice', 'getId', 'isQuantityInRange'])
-            ->setConstructorArgs(
-                [
-                    'Cart',
-                    1,
-                    'SKU',
-                    'TITLE',
-                    10.00,
-                    $taxClass,
-                    1,
-                ]
-            )->getMock();
-        $product->method('getBestPrice')->willReturn(10.00);
-        $product->method('getId')->willReturn('simple_1');
-        $product->method('isQuantityInRange')->willReturn(true);
+        $product = $this->productFactory->create(
+            'simple',
+            1,
+            'SKU',
+            'TITLE',
+            10.00,
+            $taxClass,
+            1,
+        );
+        self::assertTrue(
+            $product->isQuantityInRange()
+        );
 
         $this->grossCart->addProduct($product);
 
-        $product = $this->getMockBuilder(Product::class)
-            ->onlyMethods(['getBestPrice', 'getId', 'isQuantityInRange'])
-            ->setConstructorArgs(
-                [
-                    'Cart',
-                    1,
-                    'SKU',
-                    'TITLE',
-                    10.00,
-                    $taxClass,
-                    1,
-                ]
-            )->getMock();
-        $product->method('getBestPrice')->willReturn(10.00);
-        $product->method('getId')->willReturn('simple_2');
-        $product->method('isQuantityInRange')->willReturn(true);
+        $product = $this->productFactory->create(
+            'simple',
+            2,
+            'SKU',
+            'TITLE',
+            10.00,
+            $taxClass,
+            1
+        );
+        self::assertTrue(
+            $product->isQuantityInRange()
+        );
 
         $this->grossCart->addProduct($product);
 
-        $product = $this->getMockBuilder(Product::class)
-            ->onlyMethods(['getBestPrice', 'getId', 'isQuantityInRange'])
-            ->setConstructorArgs(
-                [
-                    'Cart',
-                    1,
-                    'SKU',
-                    'TITLE',
-                    10.00,
-                    $taxClass,
-                    1,
-                ]
-            )->getMock();
-        $product->method('getBestPrice')->willReturn(10.00);
-        $product->method('getId')->willReturn('simple_3');
-        $product->method('isQuantityInRange')->willReturn(true);
+        $product = $this->productFactory->create(
+            'simple',
+            3,
+            'SKU',
+            'TITLE',
+            10.00,
+            $taxClass,
+            1
+        );
+        self::assertTrue(
+            $product->isQuantityInRange()
+        );
 
         $this->grossCart->addProduct($product);
 
@@ -797,62 +791,51 @@ class CartTest extends UnitTestCase
     #[Test]
     public function isOrderableOfCartReturnsFalseWhenProductNumberIsNotInRangeForOneProduct(): void
     {
-        $taxClass = new TaxClass(1, '19', 0.19, 'normal');
+        $taxClass = new TaxClass(1, '19 %', 0.19, 'normal');
 
-        $product = $this->getMockBuilder(Product::class)
-            ->onlyMethods(['getBestPrice', 'getId', 'isQuantityInRange'])
-            ->setConstructorArgs(
-                [
-                    'Cart',
-                    1,
-                    'SKU',
-                    'TITLE',
-                    10.00,
-                    $taxClass,
-                    1,
-                ]
-            )->getMock();
-        $product->method('getBestPrice')->willReturn(10.00);
-        $product->method('getId')->willReturn('simple_1');
-        $product->method('isQuantityInRange')->willReturn(true);
+        $product = $this->productFactory->create(
+            'simple',
+            1,
+            'SKU',
+            'TITLE',
+            10.00,
+            $taxClass,
+            1,
+        );
+        self::assertTrue(
+            $product->isQuantityInRange()
+        );
 
         $this->grossCart->addProduct($product);
 
-        $product = $this->getMockBuilder(Product::class)
-            ->onlyMethods(['getBestPrice', 'getId', 'isQuantityInRange'])
-            ->setConstructorArgs(
-                [
-                    'Cart',
-                    1,
-                    'SKU',
-                    'TITLE',
-                    10.00,
-                    $taxClass,
-                    1,
-                ]
-            )->getMock();
-        $product->method('getBestPrice')->willReturn(10.00);
-        $product->method('getId')->willReturn('simple_2');
-        $product->method('isQuantityInRange')->willReturn(false);
+        $product = $this->productFactory->create(
+            'simple',
+            2,
+            'SKU',
+            'TITLE',
+            10.00,
+            $taxClass,
+            10,
+        );
+        $product->setMaxNumberInCart(5);
+        self::assertFalse(
+            $product->isQuantityInRange()
+        );
 
         $this->grossCart->addProduct($product);
 
-        $product = $this->getMockBuilder(Product::class)
-            ->onlyMethods(['getBestPrice', 'getId', 'isQuantityInRange'])
-            ->setConstructorArgs(
-                [
-                    'Cart',
-                    1,
-                    'SKU',
-                    'TITLE',
-                    10.00,
-                    $taxClass,
-                    1,
-                ]
-            )->getMock();
-        $product->method('getBestPrice')->willReturn(10.00);
-        $product->method('getId')->willReturn('simple_3');
-        $product->method('isQuantityInRange')->willReturn(true);
+        $product = $this->productFactory->create(
+            'simple',
+            3,
+            'SKU',
+            'TITLE',
+            10.00,
+            $taxClass,
+            1,
+        );
+        self::assertTrue(
+            $product->isQuantityInRange()
+        );
 
         $this->grossCart->addProduct($product);
 
@@ -1215,7 +1198,7 @@ class CartTest extends UnitTestCase
 
     protected function addFirstProductToCarts(): void
     {
-        $product = new Product(
+        $product = $this->productFactory->create(
             'simple',
             1,
             'SKU',
@@ -1359,7 +1342,7 @@ class CartTest extends UnitTestCase
         $cart->method('getCouponGross')->willReturn($couponGross);
         $cart->method('getCurrencyTranslation')->willReturn(1.00);
 
-        $product = new Product(
+        $product = $this->productFactory->create(
             'simple',
             1,
             'SKU',
@@ -1392,7 +1375,7 @@ class CartTest extends UnitTestCase
         $cart->method('getCouponNet')->willReturn($couponNet);
         $cart->method('getCurrencyTranslation')->willReturn(1.00);
 
-        $product = new Product(
+        $product = $this->productFactory->create(
             'simple',
             1,
             'SKU',

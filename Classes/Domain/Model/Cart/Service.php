@@ -15,8 +15,6 @@ class Service implements ServiceInterface
 {
     protected Cart $cart;
 
-    protected int $fallBackId;
-
     protected bool $preset = false;
 
     public function __construct(

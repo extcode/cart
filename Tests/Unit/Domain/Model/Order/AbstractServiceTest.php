@@ -40,7 +40,7 @@ class AbstractServiceTest extends UnitTestCase
         $net = 8.40;
         $taxClass = new TaxClass();
         $taxClass->setTitle('normal');
-        $taxClass->setValue('19');
+        $taxClass->setValue('19 %');
         $taxClass->setCalc(0.19);
         $tax = 1.60;
 
@@ -216,7 +216,7 @@ class AbstractServiceTest extends UnitTestCase
     {
         $taxClass = new TaxClass();
         $taxClass->setTitle('normal');
-        $taxClass->setValue('19');
+        $taxClass->setValue('19 %');
         $taxClass->setCalc(0.19);
 
         $this->service->setTaxClass($taxClass);

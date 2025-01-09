@@ -28,7 +28,7 @@ class TaxClassTest extends UnitTestCase
     public function setUp(): void
     {
         $this->title = 'normal';
-        $this->value = '19';
+        $this->value = '19 %';
         $this->calc = 0.19;
 
         $this->taxClass = new TaxClass();

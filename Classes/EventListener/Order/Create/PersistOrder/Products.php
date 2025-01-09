@@ -11,9 +11,11 @@ namespace Extcode\Cart\EventListener\Order\Create\PersistOrder;
  * LICENSE file that was distributed with this source code.
  */
 
+use Extcode\Cart\Domain\Model\Cart\AdditionalDataInterface;
 use Extcode\Cart\Domain\Model\Cart\BeVariant;
 use Extcode\Cart\Domain\Model\Cart\FeVariant;
 use Extcode\Cart\Domain\Model\Cart\Product;
+use Extcode\Cart\Domain\Model\Cart\ProductInterface;
 use Extcode\Cart\Domain\Model\Order\Item;
 use Extcode\Cart\Domain\Model\Order\ProductAdditional;
 use Extcode\Cart\Domain\Repository\Order\ProductAdditionalRepository;
@@ -54,7 +56,7 @@ class Products
         $this->persistenceManager->persistAll();
     }
 
-    protected function addProduct(Product $cartProduct): void
+    protected function addProduct(ProductInterface $cartProduct): void
     {
         $orderProduct = GeneralUtility::makeInstance(
             \Extcode\Cart\Domain\Model\Order\Product::class
@@ -71,7 +73,9 @@ class Products
         $orderProduct->setNet($cartProduct->getNet());
         $orderProduct->setTaxClass($this->taxClasses[$cartProduct->getTaxClass()->getId()]);
         $orderProduct->setTax($cartProduct->getTax());
-        $orderProduct->setAdditional($cartProduct->getAdditionalArray());
+        if ($cartProduct instanceof AdditionalDataInterface) {
+            $orderProduct->setAdditional($cartProduct->getAdditionals());
+        }
 
         $orderProduct->setPid($this->storagePid);
 
@@ -157,7 +161,9 @@ class Products
         $orderProduct->setNet($variant->getNet());
         $orderProduct->setTaxClass($this->taxClasses[$variant->getTaxClass()->getId()]);
         $orderProduct->setTax($variant->getTax());
-        $orderProduct->setAdditional($cartProduct->getAdditionalArray());
+        if ($cartProduct instanceof AdditionalDataInterface) {
+            $orderProduct->setAdditional($cartProduct->getAdditionals());
+        }
 
         if (!$orderProduct->_isDirty()) {
             $this->productRepository->add($orderProduct);
@@ -173,7 +179,9 @@ class Products
                 $variantInner->getCompleteSku(),
                 $variantInner->getTitle()
             );
-            $orderProductAdditional->setAdditional($variantInner->getAdditionalArray());
+            if ($variantInner instanceof AdditionalDataInterface) {
+                $orderProductAdditional->setAdditional($variantInner->getAdditionals());
+            }
             $orderProductAdditional->setPid($this->storagePid);
 
             $this->productAdditionalRepository->add($orderProductAdditional);

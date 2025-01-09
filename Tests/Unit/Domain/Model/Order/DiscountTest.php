@@ -34,7 +34,7 @@ class DiscountTest extends UnitTestCase
 
     public function setUp(): void
     {
-        $this->taxClass = new TaxClass(1, '19', 0.19, 'normal');
+        $this->taxClass = new TaxClass(1, '19 %', 0.19, 'normal');
 
         $this->title = 'Discount';
         $this->code = 'discount';

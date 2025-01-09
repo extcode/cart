@@ -11,11 +11,11 @@ namespace Extcode\Cart\Domain\Model\Cart;
  * LICENSE file that was distributed with this source code.
  */
 
-class FeVariant implements FeVariantInterface
+final class FeVariant implements FeVariantInterface
 {
     protected ?Product $product = null;
 
-    protected ?BeVariant $beVariant = null;
+    protected ?BeVariantInterface $beVariant = null;
 
     protected string $titleGlue = ' ';
 
@@ -37,7 +37,7 @@ class FeVariant implements FeVariantInterface
         return $this->product;
     }
 
-    public function getVariant(): ?BeVariant
+    public function getVariant(): ?BeVariantInterface
     {
         return $this->beVariant;
     }

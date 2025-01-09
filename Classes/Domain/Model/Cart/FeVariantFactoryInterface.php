@@ -11,9 +11,7 @@ namespace Extcode\Cart\Domain\Model\Cart;
  * LICENSE file that was distributed with this source code.
  */
 
-interface FeVariantInterface extends MinimalInterface
+interface FeVariantFactoryInterface
 {
-    public function getVariantData(): array;
-
-    public function getValue(): string;
+    public function create(array $variantData = []): FeVariantInterface;
 }

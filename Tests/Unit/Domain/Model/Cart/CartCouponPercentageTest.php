@@ -35,7 +35,7 @@ class CartCouponPercentageTest extends UnitTestCase
 
     public function setUp(): void
     {
-        $this->taxClass = new TaxClass(1, '19', 0.19, 'normal');
+        $this->taxClass = new TaxClass(1, '19 %', 0.19, 'normal');
 
         $this->title = 'title';
         $this->code = 'code';
@@ -149,7 +149,7 @@ class CartCouponPercentageTest extends UnitTestCase
     #[Test]
     public function getGrossInitiallyReturnsGrossSetDirectlyByConstructor(): void
     {
-        $taxClass = new TaxClass(1, '19', 0.19, 'normal');
+        $taxClass = new TaxClass(1, '19 %', 0.19, 'normal');
 
         $cart = $this->getMockBuilder(Cart::class)
             ->onlyMethods(['getGross'])
@@ -168,7 +168,7 @@ class CartCouponPercentageTest extends UnitTestCase
     #[Test]
     public function getGrossReturnsTranslatedDiscount(): void
     {
-        $taxClass = new TaxClass(1, '19', 0.19, 'normal');
+        $taxClass = new TaxClass(1, '19 %', 0.19, 'normal');
         $currencyTranslation = 1.0;
 
         $cart = $this->getMockBuilder(Cart::class)
@@ -189,7 +189,7 @@ class CartCouponPercentageTest extends UnitTestCase
     #[Test]
     public function getNetInitiallyReturnsNetSetIndirectlyByConstructor(): void
     {
-        $taxClass = new TaxClass(1, '19', 0.19, 'normal');
+        $taxClass = new TaxClass(1, '19 %', 0.19, 'normal');
 
         $cart = $this->getMockBuilder(Cart::class)
             ->onlyMethods(['getGross'])
@@ -240,7 +240,7 @@ class CartCouponPercentageTest extends UnitTestCase
     #[Test]
     public function getTaxesInitiallyReturnsTaxesSetIndirectlyByConstructor(): void
     {
-        $taxClass = new TaxClass(1, '19', 0.19, 'normal');
+        $taxClass = new TaxClass(1, '19 %', 0.19, 'normal');
 
         $cart = $this->getMockBuilder(Cart::class)
             ->onlyMethods(['getGross'])
