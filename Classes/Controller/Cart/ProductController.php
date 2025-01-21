@@ -51,7 +51,7 @@ class ProductController extends ActionController
 
         $messageBody = '';
         $messageTitle = '';
-        $severity = ContextualFeedbackSeverity::OK;
+        $severity = ContextualFeedbackSeverity::OK->value;
 
         if (!empty($errors)) {
             foreach ($errors as $error) {
@@ -59,7 +59,7 @@ class ProductController extends ActionController
                     continue;
                 }
                 $message = $error->jsonSerialize();
-                if ($message['severity'] >= (int)$severity) {
+                if ($message['severity'] >= $severity) {
                     $severity = $message['severity'];
                     $messageBody = $message['message'];
                     $messageTitle = $message['title'];
