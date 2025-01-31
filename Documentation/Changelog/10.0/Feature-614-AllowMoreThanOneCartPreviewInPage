@@ -1,0 +1,21 @@
+.. include:: ../../Includes.rst.txt
+
+======================================================================
+Feature: #614 - Allow more than one CartPreview (aka minicart) in page
+======================================================================
+
+See `Issue 614 <https://github.com/extcode/cart/issues/614>`__
+
+Description
+===========
+
+You can now integrate several CartPreview plugins (aka minicarts) on one page.
+The provided JavaScript now uses the `class` "cart-preview" instead of the `id` "cart-preview".
+The `id` "cart-preview" was removed from the default template file.
+
+Impact
+======
+
+No direct impact.
+
+.. index:: Backend, API
