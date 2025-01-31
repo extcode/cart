@@ -1,0 +1,27 @@
+.. include:: ../../Includes.rst.txt
+
+=======================================================================
+Breaking: #614 - Allow more than one CartPreview (aka minicart) in page
+=======================================================================
+
+See `Issue 614 <https://github.com/extcode/cart/issues/614>`__
+
+Description
+===========
+
+The `id` "cart-preview" was removed from the default template file.
+The provided JavaScript now uses the `class` "cart-preview" instead of the `id` "cart-preview".
+
+
+Affected Installations
+======================
+
+All installations using the CartPreview with an own template without the
+`class` "cart-preview".
+
+Migration
+=========
+
+Replace `id` "cart-preview" with `class` "cart-preview" in the CartPreview template.
+
+.. index:: Frontend

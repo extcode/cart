@@ -18,3 +18,13 @@ Breaking
    :glob:
 
    Breaking-*
+
+Features
+--------
+
+.. toctree::
+   :maxdepth: 1
+   :titlesonly:
+   :glob:
+
+   Feature-*
