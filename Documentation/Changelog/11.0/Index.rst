@@ -9,7 +9,7 @@
    :local:
    :depth: 1
 
-Breaking
+Features
 --------
 
 .. toctree::
@@ -17,4 +17,4 @@ Breaking
    :titlesonly:
    :glob:
 
-   Breaking-*
+   Feature-*

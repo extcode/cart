@@ -50,8 +50,9 @@ Sometimes minor versions also result in minor adjustments to own templates or co
 
 | Cart   | TYPO3      | PHP       | Support/Development                  |
 |--------|------------|-----------|--------------------------------------|
-| 10.x.x | 13.4       | 8.2 - 8.4 | Features, Bugfixes, Security Updates |
-| 9.x.x  | 12.4       | 8.1 - 8.4 | Bugfixes, Security Updates           |
+| 11.x.x | 13.4       | 8.2 - 8.4 | Features, Bugfixes, Security Updates |
+| 10.x.x | 12.4       | 8.1 - 8.4 | Bugfixes, Security Updates           |
+| 9.x.x  | 12.4       | 8.1 - 8.4 | Security Updates                     |
 | 8.x.x  | 10.4, 11.5 | 7.2+      | Security Updates                     |
 | 7.x.x  | 10.4       | 7.2 - 7.4 |                                      |
 | 6.x.x  | 9.5        | 7.2 - 7.4 |                                      |
