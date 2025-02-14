@@ -13,7 +13,7 @@
     <project title="Cart"
              release="11.0.0"
              version="11.0"
-             copyright="2018 - 2024"
+             copyright="2018 - 2025"
     />
     <inventory id="t3tsref" url="https://docs.typo3.org/typo3cms/TyposcriptReference/"/>
 </guides>
