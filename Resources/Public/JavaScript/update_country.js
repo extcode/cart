@@ -20,8 +20,7 @@
   }
   function replaceHtmlElementByIdentifier(responseAsHtml, identifier) {
     const existingElement = document.querySelector(identifier);
-    if (!existingElement)
-      return;
+    if (!existingElement) return;
     const newElement = responseAsHtml.querySelector(identifier);
     existingElement.parentNode.replaceChild(newElement, existingElement);
   }
