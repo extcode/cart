@@ -16,7 +16,7 @@ trait AdditionalDataTrait
     /**
      * @var array<string, mixed>
      */
-    private array $additionals;
+    private array $additionals = [];
 
     /**
      * @return array<string, mixed>
