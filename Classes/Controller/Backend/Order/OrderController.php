@@ -95,7 +95,7 @@ class OrderController extends ActionController
 
         $this->dispatchModifyModuleTemplateEvent();
 
-        return $this->moduleTemplate->renderResponse('List');
+        return $this->moduleTemplate->renderResponse('Backend/Order/Order/List');
     }
 
     #[IgnoreValidation(['value' => 'orderItem'])]
@@ -134,7 +134,7 @@ class OrderController extends ActionController
 
         $this->dispatchModifyModuleTemplateEvent();
 
-        return $this->moduleTemplate->renderResponse('Show');
+        return $this->moduleTemplate->renderResponse('Backend/Order/Order/Show');
     }
 
     public function exportAction(): ResponseInterface
