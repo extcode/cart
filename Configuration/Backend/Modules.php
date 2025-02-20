@@ -17,7 +17,9 @@ return [
         'access' => '',
         'workspaces' => 'live',
         'path' => '/module/cart',
-        'labels' => $_LLL_be . 'tx_cart.module.main',
+        'labels' => [
+            'title' => $_LLL_be . 'tx_cart.module.main',
+        ],
         'extensionName' => 'Cart',
         'iconIdentifier' => 'ext-cart-module',
         'navigationComponent' => '@typo3/backend/page-tree/page-tree-element',
