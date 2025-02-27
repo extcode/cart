@@ -22,6 +22,7 @@ Base
            }
 
            itemsPerPage =
+           stockEventAfterPaymentEvent =
        }
    }
 
@@ -67,3 +68,20 @@ plugin.tx_cart.settings
    Defines how many records should be displayed per page in the list action.
 
    Also valid: `module.tx_cart.settings.itemsPerPage`.
+
+.. confval:: stockEventAfterPaymentEvent
+
+   :Required: false
+   :Type: boolean
+   :Default: false
+
+   Switch order of PaymentEvent and StockEvent.
+
+   If set to `1`, stock handling is processed after payment. This is useful for
+   external provider (Paypal, Stripe). In this case, the payment provider extension
+   is responsable to handle StockEvent and FinishingEvent after successful payment.
+   This ensures that stock isn't changed on failed or aborted payment.
+
+   Note: Switching the events can lead to understocking if two customers order
+   the last product at the same time and the first customer is still in the
+   payment process..
