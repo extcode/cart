@@ -54,6 +54,7 @@ plugin.tx_cart {
     autoGenerateNumbers = order
 
     settings {
+        stockEventAfterPaymentEvent = {$plugin.tx_cart.settings.stockEventAfterPaymentEvent}
         cart {
             pid = {$plugin.tx_cart.settings.cart.pid}
             isNetCart = {$plugin.tx_cart.settings.cart.isNetCart}
