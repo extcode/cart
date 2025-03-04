@@ -11,9 +11,14 @@ namespace Extcode\Cart\Domain\Model\Cart;
  * LICENSE file that was distributed with this source code.
  */
 
+use Extcode\Cart\Service\CurrencyTranslationServiceInterface;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+
 class Cart implements AdditionalDataInterface
 {
     use AdditionalDataTrait;
+
+    private ?CurrencyTranslationServiceInterface $currencyTranslationService = null;
 
     protected float $net;
 
@@ -73,6 +78,8 @@ class Cart implements AdditionalDataInterface
         protected string $currencySign = '€',
         protected float $currencyTranslation = 1.00
     ) {
+        $this->currencyTranslationService = GeneralUtility::makeInstance(CurrencyTranslationServiceInterface::class);
+
         $this->net = 0.0;
         $this->gross = 0.0;
         $this->count = 0;
@@ -1078,11 +1085,10 @@ class Cart implements AdditionalDataInterface
 
     public function translatePrice(?float $price = null): ?float
     {
-        if ($price !== null) {
-            $price /= $this->getCurrencyTranslation();
-            return round($price * 100.0) / 100.0;
+        if (is_null($this->currencyTranslationService)) {
+            $this->currencyTranslationService = GeneralUtility::makeInstance(CurrencyTranslationServiceInterface::class);
         }
 
-        return null;
+        return $this->currencyTranslationService->translatePrice($this->getCurrencyTranslation(), $price);
     }
 }

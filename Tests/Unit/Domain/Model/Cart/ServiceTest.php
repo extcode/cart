@@ -13,8 +13,12 @@ use Extcode\Cart\Domain\Model\Cart\Cart;
 use Extcode\Cart\Domain\Model\Cart\Product;
 use Extcode\Cart\Domain\Model\Cart\Service;
 use Extcode\Cart\Domain\Model\Cart\TaxClass;
+use Extcode\Cart\Service\CurrencyTranslationService;
+use Extcode\Cart\Service\CurrencyTranslationServiceInterface;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Test;
+use PHPUnit\Framework\MockObject\MockObject;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 #[CoversClass(Service::class)]
@@ -106,30 +110,21 @@ class ServiceTest extends UnitTestCase
             $config
         );
 
-        $cart1 = $this->getMockBuilder(Cart::class)
-            ->onlyMethods(['getGross'])
-            ->setConstructorArgs([$this->taxClasses])
-            ->getMock();
+        $cart1 = $this->createCartMock();
         $cart1->method('getGross')->willReturn(20.00);
         $service->setCart($cart1);
         self::assertTrue(
             $service->isAvailable()
         );
 
-        $cart2 = $this->getMockBuilder(Cart::class)
-            ->onlyMethods(['getGross'])
-            ->setConstructorArgs([$this->taxClasses])
-            ->getMock();
+        $cart2 = $this->createCartMock();
         $cart2->method('getGross')->willReturn(50.00);
         $service->setCart($cart2);
         self::assertTrue(
             $service->isAvailable()
         );
 
-        $cart3 = $this->getMockBuilder(Cart::class)
-            ->onlyMethods(['getGross'])
-            ->setConstructorArgs([$this->taxClasses])
-            ->getMock();
+        $cart3 = $this->createCartMock();
         $cart3->method('getGross')->willReturn(100.00);
         $service->setCart($cart3);
         self::assertTrue(
@@ -156,10 +151,7 @@ class ServiceTest extends UnitTestCase
             $config
         );
 
-        $cart = $this->getMockBuilder(Cart::class)
-            ->onlyMethods(['getGross'])
-            ->setConstructorArgs([$this->taxClasses])
-            ->getMock();
+        $cart = $this->createCartMock();
         $cart->method('getGross')->willReturn(19.99);
 
         $service->setCart($cart);
@@ -188,10 +180,7 @@ class ServiceTest extends UnitTestCase
             $config
         );
 
-        $cart = $this->getMockBuilder(Cart::class)
-            ->onlyMethods(['getGross'])
-            ->setConstructorArgs([$this->taxClasses])
-            ->getMock();
+        $cart = $this->createCartMock();
         $cart->method('getGross')->willReturn(100.01);
 
         $service->setCart($cart);
@@ -280,30 +269,21 @@ class ServiceTest extends UnitTestCase
             $config
         );
 
-        $cart1 = $this->getMockBuilder(Cart::class)
-            ->onlyMethods(['getGross'])
-            ->setConstructorArgs([$this->taxClasses])
-            ->getMock();
+        $cart1 = $this->createCartMock();
         $cart1->method('getGross')->willReturn(20.00);
         $service->setCart($cart1);
         self::assertTrue(
             $service->isFree()
         );
 
-        $cart2 = $this->getMockBuilder(Cart::class)
-            ->onlyMethods(['getGross'])
-            ->setConstructorArgs([$this->taxClasses])
-            ->getMock();
+        $cart2 = $this->createCartMock();
         $cart2->method('getGross')->willReturn(50.00);
         $service->setCart($cart2);
         self::assertTrue(
             $service->isFree()
         );
 
-        $cart3 = $this->getMockBuilder(Cart::class)
-            ->onlyMethods(['getGross'])
-            ->setConstructorArgs([$this->taxClasses])
-            ->getMock();
+        $cart3 = $this->createCartMock();
         $cart3->method('getGross')->willReturn(100.00);
         $service->setCart($cart3);
         self::assertTrue(
@@ -330,10 +310,7 @@ class ServiceTest extends UnitTestCase
             $config
         );
 
-        $cart = $this->getMockBuilder(Cart::class)
-            ->onlyMethods(['getGross'])
-            ->setConstructorArgs([$this->taxClasses])
-            ->getMock();
+        $cart = $this->createCartMock();
         $cart->method('getGross')->willReturn(19.99);
 
         $service->setCart($cart);
@@ -362,10 +339,7 @@ class ServiceTest extends UnitTestCase
             $config
         );
 
-        $cart = $this->getMockBuilder(Cart::class)
-            ->onlyMethods(['getGross'])
-            ->setConstructorArgs([$this->taxClasses])
-            ->getMock();
+        $cart = $this->createCartMock();
         $cart->method('getGross')->willReturn(100.01);
 
         $service->setCart($cart);
@@ -377,10 +351,7 @@ class ServiceTest extends UnitTestCase
     #[Test]
     public function taxClassIdsGreaterZeroReturnsTaxClass(): void
     {
-        $cart = $this->getMockBuilder(Cart::class)
-            ->onlyMethods(['getGross'])
-            ->setConstructorArgs([$this->taxClasses])
-            ->getMock();
+        $cart = $this->createCartMock();
         $cart->method('getGross')->willReturn(20.00);
 
         $config = [
@@ -431,10 +402,7 @@ class ServiceTest extends UnitTestCase
             $config
         );
 
-        $cart = $this->getMockBuilder(Cart::class)
-            ->onlyMethods(['getGross'])
-            ->setConstructorArgs([$this->taxClasses])
-            ->getMock();
+        $cart = $this->createCartMock();
         $cart->method('getGross')->willReturn(100.00);
 
         $firstCartProductPrice = 10.00;
@@ -495,5 +463,18 @@ class ServiceTest extends UnitTestCase
             -2,
             $service->getTaxClass()->getId()
         );
+    }
+
+    private function createCartMock(array $methods = ['getGross']): Cart|MockObject
+    {
+        GeneralUtility::addInstance(
+            CurrencyTranslationServiceInterface::class,
+            new CurrencyTranslationService()
+        );
+
+        return $this->getMockBuilder(Cart::class)
+            ->onlyMethods($methods)
+            ->setConstructorArgs([$this->taxClasses])
+            ->getMock();
     }
 }
