@@ -9,12 +9,14 @@ namespace Extcode\Cart\Tests\Unit\Validation\Validator;
  * LICENSE file that was distributed with this source code.
  */
 use Extcode\Cart\Validation\Validator\EmptyValidator;
+use PHPUnit\Framework\Attributes\AllowMockObjectsWithoutExpectations;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
 use TYPO3\CMS\Extbase\Validation\Validator\ValidatorInterface;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
+#[AllowMockObjectsWithoutExpectations]
 #[CoversClass(EmptyValidator::class)]
 class EmptyValidatorTest extends UnitTestCase
 {

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Extcode\Cart\Tests\Unit\Domain\Model\Cart;
 
 /*
@@ -16,11 +18,13 @@ use Extcode\Cart\Domain\Model\Cart\ProductFactoryInterface;
 use Extcode\Cart\Domain\Model\Cart\TaxClass;
 use Extcode\Cart\Service\CurrencyTranslationService;
 use Extcode\Cart\Service\CurrencyTranslationServiceInterface;
+use PHPUnit\Framework\Attributes\AllowMockObjectsWithoutExpectations;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Test;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
+#[AllowMockObjectsWithoutExpectations]
 #[CoversClass(Cart::class)]
 class CartTest extends UnitTestCase
 {
@@ -60,15 +64,6 @@ class CartTest extends UnitTestCase
 
     public function tearDown(): void
     {
-        unset($this->grossCart);
-        unset($this->netCart);
-
-        unset($this->taxClasses);
-
-        unset($this->normalTaxClass);
-        unset($this->reducedTaxClass);
-        unset($this->freeTaxClass);
-
         parent::tearDown();
     }
 

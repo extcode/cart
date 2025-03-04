@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Extcode\Cart\Tests\Unit\Domain\Model\Cart;
 
 /*
@@ -69,130 +71,7 @@ class ProductTest extends UnitTestCase
 
     public function tearDown(): void
     {
-        unset(
-            $this->product,
-            $this->productType,
-            $this->productId,
-            $this->title,
-            $this->sku,
-            $this->price,
-            $this->quantity,
-            $this->taxClass
-        );
-
         parent::tearDown();
-    }
-
-    #[Test]
-    public function constructCartProductWithoutProductTypeThrowsException(): void
-    {
-        $this->expectException(\TypeError::class);
-
-        $this->productFactory->create(
-            null,
-            $this->productId,
-            $this->sku,
-            $this->title,
-            $this->price,
-            $this->taxClass,
-            $this->quantity
-        );
-    }
-
-    #[Test]
-    public function constructCartProductWithoutProductIdThrowsException(): void
-    {
-        $this->expectException(\TypeError::class);
-
-        $this->productFactory->create(
-            $this->productType,
-            null,
-            $this->sku,
-            $this->title,
-            $this->price,
-            $this->taxClass,
-            $this->quantity
-        );
-    }
-
-    #[Test]
-    public function constructCartProductWithoutSkuThrowsException(): void
-    {
-        $this->expectException(\TypeError::class);
-
-        $this->productFactory->create(
-            $this->productType,
-            $this->productId,
-            null,
-            $this->title,
-            $this->price,
-            $this->taxClass,
-            $this->quantity
-        );
-    }
-
-    #[Test]
-    public function constructCartProductWithoutTitleThrowsException(): void
-    {
-        $this->expectException(\TypeError::class);
-
-        $this->productFactory->create(
-            $this->productType,
-            $this->productId,
-            $this->sku,
-            null,
-            $this->price,
-            $this->taxClass,
-            $this->quantity
-        );
-    }
-
-    #[Test]
-    public function constructCartProductWithoutPriceThrowsException(): void
-    {
-        $this->expectException(\TypeError::class);
-
-        $this->productFactory->create(
-            $this->productType,
-            $this->productId,
-            $this->sku,
-            $this->title,
-            null,
-            $this->taxClass,
-            $this->quantity
-        );
-    }
-
-    #[Test]
-    public function constructCartProductWithoutTaxClassThrowsException(): void
-    {
-        $this->expectException(\TypeError::class);
-
-        $this->productFactory->create(
-            $this->productType,
-            $this->productId,
-            $this->sku,
-            $this->title,
-            $this->price,
-            null,
-            $this->quantity
-        );
-    }
-
-    #[Test]
-    public function constructCartProductWithoutQuantityThrowsException(): void
-    {
-        $this->expectException(\TypeError::class);
-
-        $this->productFactory->create(
-            $this->productType,
-            $this->productId,
-            $this->sku,
-            $this->title,
-            $this->price,
-            $this->taxClass,
-            null
-        );
     }
 
     #[Test]

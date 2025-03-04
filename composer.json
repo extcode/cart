@@ -38,9 +38,11 @@
         "allow-plugins": {
             "typo3/class-alias-loader": true,
             "typo3/cms-composer-installers": true,
-            "sbuerk/typo3-cmscomposerinstallers-testingframework-bridge": true
+            "sbuerk/typo3-cmscomposerinstallers-testingframework-bridge": true,
+            "phpstan/extension-installer": true
         }
     },
+    "version": "12.0.0",
     "extra": {
         "typo3/cms": {
             "extension-key": "cart",
@@ -51,19 +53,26 @@
         "php": "~8.2.0 || ~8.3.0 || ~8.4.0 || ~8.5.0",
         "ext-json": "*",
         "ext-openssl": "*",
-        "typo3/cms-core": "^13.4",
-        "typo3/cms-extbase": "^13.4",
-        "typo3/cms-fluid": "^13.4"
+        "typo3/cms-core": "^14.0",
+        "typo3/cms-extbase": "^14.0",
+        "typo3/cms-fluid": "^14.0",
+        "typo3/cms-form": "^14.0",
+        "typo3/cms-frontend": "^14.0"
     },
     "require-dev": {
-        "codappix/typo3-php-datasets": "^2.0",
+	    "codappix/typo3-php-datasets": "^2.1",
         "friendsofphp/php-cs-fixer": "^3.64",
-        "phpstan/phpstan": "^1.12",
-        "ssch/typo3-rector": "^2.9",
-        "typo3/cms-beuser": "^13.4",
-        "typo3/cms-dashboard": "^13.4",
-        "typo3/cms-form": "^13.4",
-        "typo3/testing-framework": "^8.2"
+        "phpstan/extension-installer": "^1.4",
+        "phpstan/phpstan": "^2.1",
+        "phpstan/phpstan-deprecation-rules": "^2.0",
+        "phpstan/phpstan-phpunit": "^2.0",
+        "spaze/phpstan-disallowed-calls": "^4.7",
+        "staabm/phpstan-todo-by": "^0.3",
+        "typo3/cms-beuser": "^14.0",
+        "typo3/cms-dashboard": "^14.0",
+        "typo3/cms-form": "^14.0",
+        "typo3/testing-framework": "^9.0",
+        "ssch/typo3-rector": "^3.11"
     },
     "scripts": {
         "test:cgl": [
@@ -79,7 +88,7 @@
             ".build/bin/phpunit -c Build/UnitTests.xml"
         ],
         "test:php:functional": [
-            "typo3DatabaseDriver=\"pdo_sqlite\" .build/bin/phpunit -c Build/FunctionalTests.xml"
+            "typo3DatabaseDriver=\"pdo_sqlite\" .build/bin/phpunit -c Build/phpunit.xml.dist"
         ],
         "test:phpstan:analyse": [
             ".build/bin/phpstan analyse -c Build/phpstan.neon --memory-limit 256M"
@@ -107,7 +116,7 @@
         ]
     },
     "suggest": {
-        "typo3/cms-dashboard": "^13.4",
-        "typo3/cms-form": "^13.4"
+        "typo3/cms-dashboard": "^14.0",
+        "typo3/cms-form": "^14.0"
     }
 }

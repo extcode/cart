@@ -4,11 +4,15 @@ declare(strict_types=1);
 
 namespace Extcode\Cart\Configuration;
 
+use Extcode\Cart\Hooks\ItemsProcFunc;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+use TYPO3\CMS\Dashboard\Widgets\BarChartWidget;
+use TYPO3\CMS\Form\Mvc\Configuration\ConfigurationManager;
+use TYPO3\CMS\Form\Mvc\Persistence\FormPersistenceManager;
 
 return function (ContainerConfigurator $containerConfigurator, ContainerBuilder $containerBuilder) {
-    if ($containerBuilder->hasDefinition('TYPO3\CMS\Dashboard\Widgets\BarChartWidget')) {
+    if ($containerBuilder->hasDefinition(BarChartWidget::class)) {
         $containerConfigurator->import('Backend/Provider/PaymentPaidShippingOpenProvider.php');
         $containerConfigurator->import('Backend/Widgets/PaymentPaidShippingOpenWidget.php');
 
@@ -20,12 +24,12 @@ return function (ContainerConfigurator $containerConfigurator, ContainerBuilder 
     }
 
     if (
-        $containerBuilder->hasDefinition('TYPO3\CMS\Form\Mvc\Configuration\ConfigurationManager')
-        && $containerBuilder->hasDefinition('TYPO3\CMS\Form\Mvc\Persistence\FormPersistenceManager')
+        $containerBuilder->hasDefinition(ConfigurationManager::class)
+        && $containerBuilder->hasDefinition(FormPersistenceManager::class)
     ) {
         $services = $containerConfigurator->services();
 
-        $services->set('Extcode\Cart\Hooks\ItemsProcFunc')
+        $services->set(ItemsProcFunc::class)
             ->public();
     }
 

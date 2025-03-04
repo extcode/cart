@@ -14,7 +14,7 @@ namespace Extcode\Cart\Event;
 use Extcode\Cart\Domain\Model\Cart\Cart;
 use Extcode\Cart\Domain\Model\Cart\Product;
 use TYPO3\CMS\Core\Messaging\FlashMessage;
-use TYPO3\CMS\Extbase\Mvc\Request;
+use TYPO3\CMS\Extbase\Mvc\RequestInterface;
 
 final class RetrieveProductsFromRequestEvent implements RetrieveProductsFromRequestEventInterface
 {
@@ -31,7 +31,7 @@ final class RetrieveProductsFromRequestEvent implements RetrieveProductsFromRequ
     private array $products = [];
 
     public function __construct(
-        private readonly Request $request,
+        private readonly RequestInterface $request,
         private readonly Cart $cart
     ) {}
 
@@ -40,7 +40,7 @@ final class RetrieveProductsFromRequestEvent implements RetrieveProductsFromRequ
         return $this->cart;
     }
 
-    public function getRequest(): Request
+    public function getRequest(): RequestInterface
     {
         return $this->request;
     }

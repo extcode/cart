@@ -39,7 +39,7 @@ class EmptyValidator extends AbstractValidator
                 );
             } elseif (
                 is_string($value)
-                && $value != ''
+                && !empty($value)
             ) {
                 $this->addError(
                     $this->translateErrorMessage(
@@ -59,7 +59,11 @@ class EmptyValidator extends AbstractValidator
                     ),
                     1500493650
                 );
-            } elseif (is_object($value) && $value instanceof \Countable && $value->count() != 0) {
+            } elseif (
+                is_object($value)
+                && $value instanceof \Countable
+                && $value->count() != 0
+            ) {
                 $this->addError(
                     $this->translateErrorMessage(
                         'validator.empty.notempty',

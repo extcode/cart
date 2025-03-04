@@ -125,11 +125,9 @@ final class BeVariant implements AdditionalDataInterface, BeVariantInterface
 
     public function getCompleteTitle(): string
     {
-        $title = '';
-
         if ($this->parent instanceof BeVariantInterface) {
             $title = $this->parent->getCompleteTitle();
-        } elseif ($this->parent instanceof ProductInterface) {
+        } else {
             $title = $this->parent->getTitle();
         }
 
@@ -215,10 +213,8 @@ final class BeVariant implements AdditionalDataInterface, BeVariantInterface
 
         if ($this->parent instanceof BeVariantInterface) {
             $parentPrice = $this->parent->getBestPrice();
-        } elseif ($this->parent instanceof ProductInterface) {
-            $parentPrice = $this->parent->getBestPrice($this->getQuantity());
         } else {
-            $parentPrice = 0.0;
+            $parentPrice = $this->parent->getBestPrice($this->getQuantity());
         }
 
         if ($this->priceCalcMethod === 0) {
@@ -295,11 +291,9 @@ final class BeVariant implements AdditionalDataInterface, BeVariantInterface
 
     public function getCompleteSku(): string
     {
-        $sku = '';
-
         if ($this->parent instanceof BeVariantInterface) {
             $sku = $this->parent->getCompleteSku();
-        } elseif ($this->parent instanceof ProductInterface) {
+        } else {
             $sku = $this->parent->getSku();
         }
 

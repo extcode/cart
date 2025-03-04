@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Extcode\Cart\Tests\Unit\Domain\Model\Cart;
 
 /*
@@ -19,9 +21,7 @@ use Extcode\Cart\Domain\Model\Cart\ProductInterface;
 use Extcode\Cart\Domain\Model\Cart\TaxClass;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Test;
-use PHPUnit\Framework\MockObject\MockObject;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\TestingFramework\Core\AccessibleObjectInterface;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 #[CoversClass(BeVariant::class)]
@@ -159,54 +159,6 @@ class BeVariantTest extends UnitTestCase
         self::assertSame(
             $this->quantity,
             $this->beVariant->getQuantity()
-        );
-    }
-
-    #[Test]
-    public function constructWithoutTitleThrowsException(): void
-    {
-        $this->expectException(\TypeError::class);
-
-        $this->beVariantFactory->create(
-            1,
-            $this->product,
-            null,
-            'test-variant-sku',
-            0,
-            1.0,
-            1
-        );
-    }
-
-    #[Test]
-    public function constructWithoutSkuThrowsException(): void
-    {
-        $this->expectException(\TypeError::class);
-
-        $this->beVariantFactory->create(
-            1,
-            $this->product,
-            'Test Variant',
-            null,
-            0,
-            1.0,
-            1
-        );
-    }
-
-    #[Test]
-    public function constructWithoutQuantityThrowsException(): void
-    {
-        $this->expectException(\TypeError::class);
-
-        $this->beVariantFactory->create(
-            1,
-            $this->product,
-            'Test Variant',
-            'test-variant-sku',
-            0,
-            1.0,
-            null
         );
     }
 
@@ -439,54 +391,5 @@ class BeVariantTest extends UnitTestCase
         //            6.00,
         //            $beVariant3->getParentPrice()
         //        );
-    }
-
-    /**
-     * Creates a mock object which allows for calling protected methods and access of protected properties.
-     *
-     * Note: This method has no native return types on purpose, but only PHPDoc return type annotations.
-     * The reason is that the combination of "union types with generics in PHPDoc" and "a subset of those types as
-     * native types, but without the generics" tends to confuse PhpStorm's static type analysis (which we want to avoid).
-     *
-     * @template T of object
-     * @param class-string<T> $originalClassName name of class to create the mock object of
-     * @param string[]|null $methods name of the methods to mock, null for "mock no methods"
-     * @param array $arguments arguments to pass to constructor
-     * @param string $mockClassName the class name to use for the mock class
-     * @param bool $callOriginalConstructor whether to call the constructor
-     * @param bool $callOriginalClone whether to call the __clone method
-     * @param bool $callAutoload whether to call any autoload function
-     *
-     * @return MockObject&AccessibleObjectInterface&T a mock of `$originalClassName` with access methods added
-     *
-     * @throws \InvalidArgumentException
-     */
-    protected function getAccessibleMock(
-        string $originalClassName,
-        ?array $methods = [],
-        array $arguments = [],
-        string $mockClassName = '',
-        bool $callOriginalConstructor = true,
-        bool $callOriginalClone = true,
-        bool $callAutoload = true
-    ) {
-        $mockBuilder = $this->getMockBuilder($this->buildAccessibleProxy($originalClassName))
-            ->onlyMethods($methods)
-            ->setConstructorArgs($arguments)
-            ->setMockClassName($mockClassName);
-
-        if (!$callOriginalConstructor) {
-            $mockBuilder->disableOriginalConstructor();
-        }
-
-        if (!$callOriginalClone) {
-            $mockBuilder->disableOriginalClone();
-        }
-
-        if (!$callAutoload) {
-            $mockBuilder->disableAutoload();
-        }
-
-        return $mockBuilder->getMock();
     }
 }

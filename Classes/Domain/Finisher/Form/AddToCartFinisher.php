@@ -37,7 +37,9 @@ class AddToCartFinisher extends AbstractFinisher
         protected ConfigurationManagerInterface $configurationManager,
         protected SessionHandler $sessionHandler,
         protected CartUtility $cartUtility,
-        protected EventDispatcherInterface $eventDispatcher
+        protected EventDispatcherInterface $eventDispatcher,
+        private readonly ExtensionService $extensionService,
+        private readonly FlashMessageService $flashMessageService
     ) {
         $this->configurations = $this->configurationManager->getConfiguration(
             ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK,
@@ -109,8 +111,8 @@ class AddToCartFinisher extends AbstractFinisher
                 true
             );
 
-            $extensionService = GeneralUtility::makeInstance(ExtensionService::class);
-            $flashMessageService = GeneralUtility::makeInstance(FlashMessageService::class);
+            $extensionService = $this->extensionService;
+            $flashMessageService = $this->flashMessageService;
 
             // todo: this value has to be taken from the request directly in the future
             $pluginNamespace = $extensionService->getPluginNamespace(

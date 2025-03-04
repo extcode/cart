@@ -48,16 +48,14 @@ class TaxClassServiceTest extends UnitTestCase
 
         $taxClasses = $this->createSubject($settings)->getTaxClasses($countryCode);
 
-        self::assertIsArray(
-            $taxClasses
-        );
-
         self::assertEquals(
             3,
             count($taxClasses)
         );
 
         $firstTaxClasses = $taxClasses[1];
+
+        // @phpstan-ignore-next-line staticMethod.alreadyNarrowedType
         self::assertInstanceOf(
             TaxClass::class,
             $firstTaxClasses
@@ -115,16 +113,14 @@ class TaxClassServiceTest extends UnitTestCase
 
         $taxClasses = $this->createSubject($settings)->getTaxClasses($countryCode);
 
-        self::assertIsArray(
-            $taxClasses
-        );
-
         self::assertEquals(
             3,
             count($taxClasses)
         );
 
         $firstTaxClasses = $taxClasses[1];
+
+        // @phpstan-ignore-next-line staticMethod.alreadyNarrowedType
         self::assertInstanceOf(
             TaxClass::class,
             $firstTaxClasses
@@ -199,16 +195,14 @@ class TaxClassServiceTest extends UnitTestCase
 
         $taxClasses = $this->createSubject($settings)->getTaxClasses($countryCode);
 
-        self::assertIsArray(
-            $taxClasses
-        );
-
         self::assertEquals(
             3,
             count($taxClasses)
         );
 
         $firstTaxClasses = $taxClasses[1];
+
+        // @phpstan-ignore-next-line staticMethod.alreadyNarrowedType
         self::assertInstanceOf(
             TaxClass::class,
             $firstTaxClasses

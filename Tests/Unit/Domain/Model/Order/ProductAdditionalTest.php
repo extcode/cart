@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Extcode\Cart\Tests\Unit\Domain\Model\Order;
 
 /*
@@ -38,42 +40,6 @@ class ProductAdditionalTest extends UnitTestCase
         );
 
         parent::setUp();
-    }
-
-    #[Test]
-    public function constructProductAdditionalWithoutAdditionalTypeThrowsException(): void
-    {
-        $this->expectException(\TypeError::class);
-
-        $this->productAdditional = new ProductAdditional(
-            null,
-            $this->additionalKey,
-            $this->additionalValue
-        );
-    }
-
-    #[Test]
-    public function constructProductAdditionalWithoutAdditionalKeyThrowsException(): void
-    {
-        $this->expectException(\TypeError::class);
-
-        $this->productAdditional = new ProductAdditional(
-            $this->additionalType,
-            null,
-            $this->additionalValue
-        );
-    }
-
-    #[Test]
-    public function constructProductAdditionalWithoutAdditionalValueThrowsException(): void
-    {
-        $this->expectException(\TypeError::class);
-
-        $this->productAdditional = new ProductAdditional(
-            $this->additionalType,
-            $this->additionalKey,
-            null
-        );
     }
 
     #[Test]

@@ -33,16 +33,16 @@ final class OrderItemCleanupCommandTest extends AbstractCommandTestCase
         (new PhpDataSet())->import([
             'tx_cart_domain_model_order_item' => [
                 [
-                    'crdate' => (int)(new DateTimeImmutable('2026-01-21'))->format('U'),
+                    'crdate' => (new DateTimeImmutable('2026-01-21'))->format('U'),
                 ],
                 [
-                    'crdate' => (int)(new DateTimeImmutable('2025-01-21'))->format('U'),
+                    'crdate' => (new DateTimeImmutable('2025-01-21'))->format('U'),
                 ],
                 [
-                    'crdate' => (int)(new DateTimeImmutable('2025-01-02'))->format('U'),
+                    'crdate' => (new DateTimeImmutable('2025-01-02'))->format('U'),
                 ],
                 [
-                    'crdate' => (int)(new DateTimeImmutable('2025-01-01'))->format('U'),
+                    'crdate' => (new DateTimeImmutable('2025-01-01'))->format('U'),
                 ],
             ],
         ]);
@@ -67,10 +67,10 @@ final class OrderItemCleanupCommandTest extends AbstractCommandTestCase
         (new PhpDataSet())->import([
             'tx_cart_domain_model_order_item' => [
                 [
-                    'crdate' => (int)(new DateTimeImmutable('2024-12-31'))->format('U'),
+                    'crdate' => (new DateTimeImmutable('2024-12-31'))->format('U'),
                 ],
                 [
-                    'crdate' => (int)(new DateTimeImmutable('2024-10-12'))->format('U'),
+                    'crdate' => (new DateTimeImmutable('2024-10-12'))->format('U'),
                 ],
             ],
         ]);
@@ -94,62 +94,62 @@ final class OrderItemCleanupCommandTest extends AbstractCommandTestCase
         (new PhpDataSet())->import([
             'tx_cart_domain_model_order_item' => [
                 [
-                    'uid' => 10,
-                    'products' => 2,
-                    'billing_address' => 1,
-                    'shipping_address' => 1,
-                    'payment' => 1,
-                    'shipping' => 1,
-                    'tax_class' => 3,
-                    'crdate' => (int)(new DateTimeImmutable('2024-12-31'))->format('U'),
+                    'uid' => '10',
+                    'products' => '2',
+                    'billing_address' => '1',
+                    'shipping_address' => '1',
+                    'payment' => '1',
+                    'shipping' => '1',
+                    'tax_class' => '3',
+                    'crdate' => (new DateTimeImmutable('2024-12-31'))->format('U'),
                 ],
             ],
             'tx_cart_domain_model_order_product' => [
                 [
-                    'uid' => 1,
-                    'item' => 10,
+                    'uid' => '1',
+                    'item' => '10',
                 ],
                 [
-                    'uid' => 2,
-                    'item' => 10,
+                    'uid' => '2',
+                    'item' => '10',
                 ],
             ],
             'tx_cart_domain_model_order_address' => [
                 [
-                    'uid' => 100,
-                    'item' => 10,
+                    'uid' => '100',
+                    'item' => '10',
                     'record_type' => '\\' . BillingAddress::class,
                 ],
                 [
-                    'uid' => 101,
-                    'item' => 10,
+                    'uid' => '101',
+                    'item' => '10',
                     'record_type' => '\\' . ShippingAddress::class,
                 ],
             ],
             'tx_cart_domain_model_order_payment' => [
                 [
-                    'uid' => 30,
-                    'item' => 10,
+                    'uid' => '30',
+                    'item' => '10',
                 ],
             ],
             'tx_cart_domain_model_order_shipping' => [
                 [
-                    'uid' => 30,
-                    'item' => 10,
+                    'uid' => '30',
+                    'item' => '10',
                 ],
             ],
             'tx_cart_domain_model_order_taxclass' => [
                 [
-                    'uid' => 30,
-                    'item' => 10,
+                    'uid' => '30',
+                    'item' => '10',
                 ],
                 [
-                    'uid' => 31,
-                    'item' => 10,
+                    'uid' => '31',
+                    'item' => '10',
                 ],
                 [
-                    'uid' => 32,
-                    'item' => 10,
+                    'uid' => '32',
+                    'item' => '10',
                 ],
             ],
         ]);
@@ -186,78 +186,78 @@ final class OrderItemCleanupCommandTest extends AbstractCommandTestCase
         (new PhpDataSet())->import([
             'tx_cart_domain_model_order_item' => [
                 [
-                    'uid' => 10,
-                    'products' => 2,
-                    'billing_address' => 1,
-                    'shipping_address' => 1,
-                    'payment' => 1,
-                    'shipping' => 1,
-                    'tax_class' => 3,
-                    'crdate' => (int)(new DateTimeImmutable('2024-12-31'))->format('U'),
+                    'uid' => '10',
+                    'products' => '2',
+                    'billing_address' => '1',
+                    'shipping_address' => '1',
+                    'payment' => '1',
+                    'shipping' => '1',
+                    'tax_class' => '3',
+                    'crdate' => (new DateTimeImmutable('2024-12-31'))->format('U'),
                 ],
             ],
             'tx_cart_domain_model_order_product' => [
                 [
-                    'uid' => 1,
-                    'item' => 9,
+                    'uid' => '1',
+                    'item' => '9',
                 ],
                 [
-                    'uid' => 2,
-                    'item' => 11,
+                    'uid' => '2',
+                    'item' => '11',
                 ],
             ],
             'tx_cart_domain_model_order_address' => [
                 [
-                    'item' => 9,
+                    'item' => '9',
                     'record_type' => '\\' . BillingAddress::class,
                 ],
                 [
-                    'item' => 9,
+                    'item' => '9',
                     'record_type' => '\\' . ShippingAddress::class,
                 ],
                 [
-                    'item' => 11,
+                    'item' => '11',
                     'record_type' => '\\' . BillingAddress::class,
                 ],
                 [
-                    'item' => 11,
+                    'item' => '11',
                     'record_type' => '\\' . ShippingAddress::class,
                 ],
             ],
             'tx_cart_domain_model_order_payment' => [
                 [
-                    'item' => 9,
+                    'item' => '9',
                 ],
                 [
-                    'item' => 11,
+                    'item' => '11',
                 ],
             ],
             'tx_cart_domain_model_order_shipping' => [
                 [
-                    'item' => 9,
+                    'item' => '9',
                 ],
                 [
-                    'item' => 11,
+                    'item' => '11',
                 ],
             ],
             'tx_cart_domain_model_order_taxclass' => [
                 [
-                    'item' => 9,
+                    'item' => '9',
                 ],
                 [
-                    'item' => 9,
+                    'item' => '9',
                 ],
                 [
-                    'item' => 9,
+                    'item' => '9',
                 ],
                 [
-                    'item' => 11,
+                    'item' => '11',
                 ],
                 [
-                    'item' => 11,
+                    'item' => '11',
                 ],
                 [
-                    'item' => 11,
+                    'item' => '11',
                 ],
             ],
         ]);

@@ -33,7 +33,7 @@ class ClearCart
         $settings = $event->getSettings();
 
         $paymentId = $cart->getPayment()->getId();
-        $paymentSettings = $this->paymentMethodsService->getConfigurationsForType('payments', $cart->getBillingCountry());
+        $paymentSettings = $this->paymentMethodsService->getPaymentMethods($cart);
 
         if ((int)($paymentSettings['options'][$paymentId]['preventClearCart'] ?? 0) != 1) {
             $cartPid = $settings['settings']['cart']['pid'];

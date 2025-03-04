@@ -11,6 +11,7 @@ namespace Extcode\Cart\Controller\Cart;
  * LICENSE file that was distributed with this source code.
  */
 
+use Extcode\Cart\Domain\Model\Order\AddressInterface;
 use Extcode\Cart\Domain\Model\Order\BillingAddress;
 use Extcode\Cart\Domain\Model\Order\Item;
 use Extcode\Cart\Domain\Model\Order\ShippingAddress;
@@ -24,8 +25,8 @@ class CartController extends ActionController
 {
     public function showAction(
         ?Item $orderItem = null,
-        ?BillingAddress $billingAddress = null,
-        ?ShippingAddress $shippingAddress = null
+        ?AddressInterface $billingAddress = null,
+        ?AddressInterface $shippingAddress = null
     ): ResponseInterface {
         $this->restoreSession();
 
@@ -69,7 +70,12 @@ class CartController extends ActionController
             $this->sessionHandler->writeCart($this->settings['cart']['pid'], $this->cart);
         }
 
-        $beforeShowCartEvent = new BeforeShowCartEvent($this->cart, $orderItem, $billingAddress, $shippingAddress);
+        $beforeShowCartEvent = new BeforeShowCartEvent(
+            $this->cart,
+            $orderItem,
+            $billingAddress,
+            $shippingAddress
+        );
         $this->eventDispatcher->dispatch($beforeShowCartEvent);
 
         $orderItem = $beforeShowCartEvent->getOrderItem();

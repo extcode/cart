@@ -13,15 +13,13 @@ namespace Extcode\Cart\Domain\Model\Cart;
 
 interface CartCouponInterface
 {
-    /**
-     * Returns the coupon title.
-     */
     public function getTitle(): string;
 
-    /**
-     * Returns the coupon code.
-     */
     public function getCode(): string;
+
+    public function getTaxClass(): TaxClass;
+
+    public function setCart(Cart $cart): void;
 
     /**
      * Returns true if a coupon can be combined with other coupons.

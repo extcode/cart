@@ -113,11 +113,8 @@ class OrdersPerDayProvider implements ChartDataProviderInterface
 
         $this->queryBuilder
             ->count('*')
-            ->from('tx_cart_domain_model_order_item');
-
-        if ($constraints !== []) {
-            $this->queryBuilder->where(... $constraints);
-        }
+            ->from('tx_cart_domain_model_order_item')
+            ->where(... $constraints);
 
         return $this->queryBuilder->executeQuery()->fetchOne();
     }

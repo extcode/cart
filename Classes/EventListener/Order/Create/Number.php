@@ -19,25 +19,11 @@ use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
 
 abstract class Number
 {
-    protected PersistenceManager $persistenceManager;
-
-    protected OrderItemRepository $orderItemRepository;
-
-    protected array $options;
-
     abstract protected function getRegistryName(NumberGeneratorEventInterface $event): string;
 
     abstract public function __invoke(NumberGeneratorEventInterface $event): void;
 
-    public function __construct(
-        PersistenceManager $persistenceManager,
-        OrderItemRepository $orderItemRepository,
-        array $options = []
-    ) {
-        $this->persistenceManager = $persistenceManager;
-        $this->orderItemRepository = $orderItemRepository;
-        $this->options = $options;
-    }
+    public function __construct(protected PersistenceManager $persistenceManager, protected OrderItemRepository $orderItemRepository, protected array $options = []) {}
 
     protected function generateNumber(NumberGeneratorEventInterface $event): string
     {

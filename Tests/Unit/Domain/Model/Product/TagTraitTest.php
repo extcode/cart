@@ -28,7 +28,7 @@ class TagTraitTest extends UnitTestCase
     {
         parent::setUp();
 
-        $this->trait = $this->getObjectForTrait(TagTrait::class);
+        $this->trait = new TagTraitStub();
     }
 
     #[Test]

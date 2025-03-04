@@ -24,7 +24,11 @@ class CurrencyController extends ActionController
 
     public function updateAction(): ResponseInterface
     {
-        $this->currencyUtility->updateCurrency($this->settings['cart'], $this->configurations, $this->request);
+        $this->currencyUtility->updateCurrency(
+            $this->settings['cart'],
+            $this->configurations,
+            $this->request
+        );
 
         $this->restoreSession();
 

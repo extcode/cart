@@ -33,7 +33,7 @@ class ProductAdditionalRepository extends Repository
             }
         }
 
-        $constraint = $query->logicalAnd($and);
+        $constraint = $query->logicalAnd(...$and);
         $query->matching($constraint);
 
         return $query->execute();

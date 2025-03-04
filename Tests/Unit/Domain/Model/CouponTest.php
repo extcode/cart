@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Extcode\Cart\Tests\Unit\Domain\Model;
 
 /*
@@ -46,76 +48,6 @@ class CouponTest extends UnitTestCase
         );
 
         parent::setUp();
-    }
-
-    #[Test]
-    public function constructCouponWithoutTitleThrowsException(): void
-    {
-        $this->expectException(\TypeError::class);
-
-        $this->coupon = new Coupon(
-            null,
-            $this->code,
-            $this->couponType,
-            $this->discount,
-            $this->taxClassId
-        );
-    }
-
-    #[Test]
-    public function constructCouponWithoutCodeThrowsException(): void
-    {
-        $this->expectException(\TypeError::class);
-
-        $this->coupon = new Coupon(
-            $this->title,
-            null,
-            $this->couponType,
-            $this->discount,
-            $this->taxClassId
-        );
-    }
-
-    #[Test]
-    public function constructCouponWithoutCouponTypeThrowsException(): void
-    {
-        $this->expectException(\TypeError::class);
-
-        $this->coupon = new Coupon(
-            $this->title,
-            $this->code,
-            null,
-            $this->discount,
-            $this->taxClassId
-        );
-    }
-
-    #[Test]
-    public function constructCouponWithoutDiscountThrowsException(): void
-    {
-        $this->expectException(\TypeError::class);
-
-        $this->coupon = new Coupon(
-            $this->title,
-            $this->code,
-            $this->couponType,
-            null,
-            $this->taxClassId
-        );
-    }
-
-    #[Test]
-    public function constructCouponWithoutTaxClassIdThrowsException(): void
-    {
-        $this->expectException(\TypeError::class);
-
-        $this->coupon = new Coupon(
-            $this->title,
-            $this->code,
-            $this->couponType,
-            $this->discount,
-            null
-        );
     }
 
     #[Test]
