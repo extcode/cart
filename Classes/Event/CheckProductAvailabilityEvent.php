@@ -12,7 +12,7 @@ namespace Extcode\Cart\Event;
  */
 
 use Extcode\Cart\Domain\Model\Cart\Cart;
-use Extcode\Cart\Domain\Model\Cart\Product;
+use Extcode\Cart\Domain\Model\Cart\ProductInterface;
 use TYPO3\CMS\Core\Messaging\FlashMessage;
 
 class CheckProductAvailabilityEvent implements CheckProductAvailabilityEventInterface
@@ -26,7 +26,7 @@ class CheckProductAvailabilityEvent implements CheckProductAvailabilityEventInte
 
     public function __construct(
         private readonly Cart $cart,
-        private readonly Product $product,
+        private readonly ProductInterface $product,
         private readonly mixed $quantity,
         private readonly string $mode = 'update'
     ) {}
@@ -36,7 +36,7 @@ class CheckProductAvailabilityEvent implements CheckProductAvailabilityEventInte
         return $this->cart;
     }
 
-    public function getProduct(): Product
+    public function getProduct(): ProductInterface
     {
         return $this->product;
     }

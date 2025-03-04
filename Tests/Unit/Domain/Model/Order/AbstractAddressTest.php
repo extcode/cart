@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Extcode\Cart\Tests\Unit\Domain\Model\Order;
 
 /*
@@ -11,23 +13,19 @@ namespace Extcode\Cart\Tests\Unit\Domain\Model\Order;
 
 use Extcode\Cart\Domain\Model\Order\AbstractAddress;
 use Extcode\Cart\Domain\Model\Order\Item;
+use Extcode\Cart\Tests\ObjectAccess;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Test;
-use PHPUnit\Framework\MockObject\MockObject;
-use TYPO3\TestingFramework\Core\AccessibleObjectInterface;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 #[CoversClass(AbstractAddress::class)]
 class AbstractAddressTest extends UnitTestCase
 {
-    /**
-     * @var MockObject&AbstractAddress
-     */
-    protected MockObject $address;
+    protected AbstractAddress $address;
 
     public function setUp(): void
     {
-        $this->address = $this->getMockForAbstractClass(AbstractAddress::class);
+        $this->address = new class extends AbstractAddress {};
 
         parent::setUp();
     }
@@ -579,9 +577,6 @@ class AbstractAddressTest extends UnitTestCase
     #[Test]
     public function getAdditionalInitiallyReturnsEmptyArray(): void
     {
-        self::assertIsArray(
-            $this->address->getAdditional()
-        );
         self::assertEmpty(
             $this->address->getAdditional()
         );
@@ -609,74 +604,13 @@ class AbstractAddressTest extends UnitTestCase
             'additional' => true,
         ];
 
-        /** @var AccessibleObjectInterface&MockObject&AbstractAddress $address */
-        $address = $this->getAccessibleMock(
-            AbstractAddress::class,
-            [],
-            [],
-            '',
-            false
-        );
+        $this->address->setAdditional($additional);
 
-        self::assertSame(
-            '',
-            $address->_get('additional')
-        );
-
-        $address->setAdditional($additional);
+        $additionalPropertyValue = ObjectAccess::getProperty($this->address, 'additional');
 
         self::assertSame(
             json_encode($additional),
-            $address->_get('additional')
+            $additionalPropertyValue
         );
-    }
-
-    /**
-     * Creates a mock object which allows for calling protected methods and access of protected properties.
-     *
-     * Note: This method has no native return types on purpose, but only PHPDoc return type annotations.
-     * The reason is that the combination of "union types with generics in PHPDoc" and "a subset of those types as
-     * native types, but without the generics" tends to confuse PhpStorm's static type analysis (which we want to avoid).
-     *
-     * @template T of object
-     * @param class-string<T> $originalClassName name of class to create the mock object of
-     * @param string[]|null $methods name of the methods to mock, null for "mock no methods"
-     * @param array $arguments arguments to pass to constructor
-     * @param string $mockClassName the class name to use for the mock class
-     * @param bool $callOriginalConstructor whether to call the constructor
-     * @param bool $callOriginalClone whether to call the __clone method
-     * @param bool $callAutoload whether to call any autoload function
-     *
-     * @return MockObject&AccessibleObjectInterface
-     *
-     * @throws \InvalidArgumentException
-     */
-    protected function getAccessibleMock(
-        string $originalClassName,
-        ?array $methods = [],
-        array $arguments = [],
-        string $mockClassName = '',
-        bool $callOriginalConstructor = true,
-        bool $callOriginalClone = true,
-        bool $callAutoload = true
-    ): MockObject {
-        $mockBuilder = $this->getMockBuilder($this->buildAccessibleProxy($originalClassName))
-            ->addMethods($methods)
-            ->setConstructorArgs($arguments)
-            ->setMockClassName($mockClassName);
-
-        if (!$callOriginalConstructor) {
-            $mockBuilder->disableOriginalConstructor();
-        }
-
-        if (!$callOriginalClone) {
-            $mockBuilder->disableOriginalClone();
-        }
-
-        if (!$callAutoload) {
-            $mockBuilder->disableAutoload();
-        }
-
-        return $mockBuilder->getMock();
     }
 }

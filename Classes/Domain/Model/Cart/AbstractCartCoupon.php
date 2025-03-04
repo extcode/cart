@@ -25,8 +25,6 @@ abstract class AbstractCartCoupon implements CartCouponInterface
 
     protected bool $isCombinable = false;
 
-    protected bool $isRelativeDiscount = false;
-
     public function setCart(Cart $cart): void
     {
         $this->cart = $cart;
@@ -42,11 +40,6 @@ abstract class AbstractCartCoupon implements CartCouponInterface
         return $this->code;
     }
 
-    public function getCouponType(): string
-    {
-        return $this->couponType;
-    }
-
     public function getCartMinPrice(): float
     {
         return $this->cartMinPrice;
@@ -55,11 +48,6 @@ abstract class AbstractCartCoupon implements CartCouponInterface
     public function isCombinable(): bool
     {
         return $this->isCombinable;
-    }
-
-    public function isRelativeDiscount(): bool
-    {
-        return $this->isRelativeDiscount;
     }
 
     public function isUseable(): bool

@@ -10,7 +10,8 @@ namespace Extcode\Cart\Controller\Cart;
  * For the full copyright and license information, please read the
  * LICENSE file that was distributed with this source code.
  */
-use Extcode\Cart\Domain\Model\Order\BillingAddress;
+
+use Extcode\Cart\Domain\Model\Order\AddressInterface;
 use Extcode\Cart\Domain\Model\Order\Item;
 use Extcode\Cart\Domain\Model\Order\ShippingAddress;
 use Extcode\Cart\Domain\Validator\OrderItemValidator;
@@ -21,15 +22,12 @@ use Extcode\Cart\Event\Order\PaymentEvent;
 use Extcode\Cart\Event\Order\StockEvent;
 use Extcode\Cart\Event\ProcessOrderCheckStockEvent;
 use Extcode\Cart\Validation\Validator\EmptyValidator;
-use Psr\EventDispatcher\StoppableEventInterface;
 use Psr\Http\Message\ResponseInterface;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Annotation\IgnoreValidation;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 use TYPO3\CMS\Extbase\Validation\Validator\AbstractGenericObjectValidator;
 use TYPO3\CMS\Extbase\Validation\Validator\ConjunctionValidator;
 use TYPO3\CMS\Extbase\Validation\Validator\GenericObjectValidator;
-use TYPO3\CMS\Extbase\Validation\ValidatorResolver;
 
 class OrderController extends ActionController
 {
@@ -58,8 +56,8 @@ class OrderController extends ActionController
     #[IgnoreValidation(['value' => 'shippingAddress'])]
     public function createAction(
         ?Item $orderItem = null,
-        ?BillingAddress $billingAddress = null,
-        ?ShippingAddress $shippingAddress = null
+        ?AddressInterface $billingAddress = null,
+        ?AddressInterface $shippingAddress = null
     ): ResponseInterface {
         $this->restoreSession();
 
@@ -122,10 +120,14 @@ class OrderController extends ActionController
         $this->view->assign('orderItem', $orderItem);
 
         $paymentId = $this->cart->getPayment()->getId();
-        $paymentSettings = $this->paymentMethodsService->getConfigurationsForType('payments', $this->cart->getBillingCountry());
+        $paymentSettings = $this->paymentMethodsService->getPaymentMethods($this->cart);
 
         if (isset($paymentSettings['options'][$paymentId]['redirects']['success']['url'])) {
-            $this->redirectToUri($paymentSettings['options'][$paymentId]['redirects']['success']['url'], 0, 200);
+            return $this->redirectToUri(
+                $paymentSettings['options'][$paymentId]['redirects']['success']['url'],
+                null,
+                200
+            );
         }
 
         $this->dispatchModifyViewEvent();
@@ -171,9 +173,7 @@ class OrderController extends ActionController
         array $validatorConf
     ): void {
         // build custom validation chain
-        $validatorResolver = GeneralUtility::makeInstance(
-            ValidatorResolver::class
-        );
+        $validatorResolver = $this->validatorResolver;
 
         if ($validatorConf['validator'] === 'Empty') {
             $validatorConf['validator'] = EmptyValidator::class;
@@ -209,36 +209,36 @@ class OrderController extends ActionController
     {
         $createEvent = new CreateEvent($this->cart, $orderItem, $this->configurations);
         $this->eventDispatcher->dispatch($createEvent);
-        if ($createEvent instanceof StoppableEventInterface && $createEvent->isPropagationStopped()) {
+        if ($createEvent->isPropagationStopped()) {
             return true;
         }
 
         $onlyGenerateNumberOfType = [];
         if (!empty($this->configurations['autoGenerateNumbers'])) {
-            $onlyGenerateNumberOfType = array_map('trim', explode(',', (string)$this->configurations['autoGenerateNumbers']));
+            $onlyGenerateNumberOfType = array_map(trim(...), explode(',', (string)$this->configurations['autoGenerateNumbers']));
         }
         $generateNumbersEvent = new NumberGeneratorEvent($this->cart, $orderItem, $this->configurations);
         $generateNumbersEvent->setOnlyGenerateNumberOfType($onlyGenerateNumberOfType);
         $this->eventDispatcher->dispatch($generateNumbersEvent);
-        if ($generateNumbersEvent instanceof StoppableEventInterface && $generateNumbersEvent->isPropagationStopped()) {
+        if ($generateNumbersEvent->isPropagationStopped()) {
             return true;
         }
 
         $stockEvent = new StockEvent($this->cart, $orderItem, $this->configurations);
         $this->eventDispatcher->dispatch($stockEvent);
-        if ($stockEvent instanceof StoppableEventInterface && $stockEvent->isPropagationStopped()) {
+        if ($stockEvent->isPropagationStopped()) {
             return true;
         }
 
         $paymentEvent = new PaymentEvent($this->cart, $orderItem, $this->configurations);
         $this->eventDispatcher->dispatch($paymentEvent);
-        if ($paymentEvent instanceof StoppableEventInterface && $paymentEvent->isPropagationStopped()) {
+        if ($paymentEvent->isPropagationStopped()) {
             return true;
         }
 
         $finishEvent = new FinishEvent($this->cart, $orderItem, $this->configurations);
         $this->eventDispatcher->dispatch($finishEvent);
-        if ($finishEvent instanceof StoppableEventInterface && $finishEvent->isPropagationStopped()) {
+        if ($finishEvent->isPropagationStopped()) {
             return true;
         }
 

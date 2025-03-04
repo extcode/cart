@@ -1,10 +1,36 @@
 includes:
-  - phpstan-baseline.neon
+  - 'phpstan-baseline.neon'
+
 parameters:
-  level: 4
+  level: 'max'
+
   paths:
     - ../Classes
     - ../Configuration
     - ../Tests
     - ../ext_emconf.php
     - ../ext_localconf.php
+
+  disallowedFunctionCalls:
+    -
+      function:
+        - 'var_dump()'
+        - 'xdebug_break()'
+      message: 'Do not add debugging'
+    -
+      function: 'header()'
+      message: 'Use API instead'
+
+  disallowedStaticCalls:
+      -
+        method: 'TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump()'
+        message: 'Do not add debugging'
+
+  disallowedSuperglobals:
+      -
+        superglobal:
+          - '$_GET'
+          - '$_POST'
+          - '$_FILES'
+          - '$_SERVER'
+        message: 'Use API instead'

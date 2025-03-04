@@ -31,7 +31,7 @@ class ModifyButtonBar
         }
     }
 
-    private function modifyListActionButtons(ModifyButtonBarEvent $event)
+    private function modifyListActionButtons(ModifyButtonBarEvent $event): void
     {
         $event->setButtons(
             array_merge(
@@ -51,7 +51,7 @@ class ModifyButtonBar
         );
     }
 
-    private function modifyShowActionButtons(ModifyButtonBarEvent $event)
+    private function modifyShowActionButtons(ModifyButtonBarEvent $event): void
     {
         $event->setButtons(
             array_merge(

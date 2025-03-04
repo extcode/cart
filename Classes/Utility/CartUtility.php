@@ -17,7 +17,7 @@ use Extcode\Cart\Service\ShippingMethodsServiceInterface;
 use Extcode\Cart\Service\TaxClassServiceInterface;
 use Psr\EventDispatcher\EventDispatcherInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Mvc\Request;
+use TYPO3\CMS\Extbase\Mvc\RequestInterface;
 
 class CartUtility
 {
@@ -40,11 +40,17 @@ class CartUtility
         return false;
     }
 
-    public function updateCountry(array $cartSettings, array $pluginSettings, Request $request): void
-    {
+    public function updateCountry(
+        array $cartSettings,
+        array $pluginSettings,
+        RequestInterface $request
+    ): void {
         $cart = $this->sessionHandler->restoreCart($cartSettings['pid']);
 
-        $event = new UpdateCountryEvent($cart, $request);
+        $event = new UpdateCountryEvent(
+            $cart,
+            $request
+        );
         $this->eventDispatcher->dispatch($event);
 
         $this->sessionHandler->writeCart($cartSettings['pid'], $event->getCart());
@@ -87,7 +93,7 @@ class CartUtility
         }
 
         if (!isset($currency) || !is_array($currency) || !isset($currency['code']) || !isset($currency['sign']) || !isset($currency['translation'])) {
-            throw new \InvalidArgumentException('Add propper currency TypoScript configuration.');
+            throw new \InvalidArgumentException('Add propper currency TypoScript configuration.', 5910386141);
         }
 
         // TODO: Throw exception if no currency setting is available or make an default because creating a new cart need

@@ -312,7 +312,7 @@ final class Product implements AdditionalDataInterface, ProductInterface
     /**
      * Returns Best Price (min of Price and Special Price)
      */
-    public function getBestPrice(?int $quantity = null): ?float
+    public function getBestPrice(?int $quantity = null): float
     {
         $bestPrice = $this->getQuantityDiscountPrice($quantity);
 

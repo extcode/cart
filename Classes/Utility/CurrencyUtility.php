@@ -12,7 +12,7 @@ namespace Extcode\Cart\Utility;
 use Extcode\Cart\Event\Cart\UpdateCurrencyEvent;
 use Extcode\Cart\Service\SessionHandler;
 use Psr\EventDispatcher\EventDispatcherInterface;
-use TYPO3\CMS\Extbase\Mvc\Request;
+use TYPO3\CMS\Extbase\Mvc\RequestInterface;
 
 class CurrencyUtility
 {
@@ -21,11 +21,18 @@ class CurrencyUtility
         protected SessionHandler $sessionHandler
     ) {}
 
-    public function updateCurrency(array $cartSettings, array $pluginSettings, Request $request): void
-    {
+    public function updateCurrency(
+        array $cartSettings,
+        array $pluginSettings,
+        RequestInterface $request
+    ): void {
         $cart = $this->sessionHandler->restoreCart($cartSettings['pid']);
 
-        $event = new UpdateCurrencyEvent($cart, $request, $pluginSettings['settings']['currencies']);
+        $event = new UpdateCurrencyEvent(
+            $cart,
+            $request,
+            $pluginSettings['settings']['currencies']
+        );
         $this->eventDispatcher->dispatch($event);
 
         $this->sessionHandler->writeCart($cartSettings['pid'], $event->getCart());

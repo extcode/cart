@@ -13,15 +13,15 @@ namespace Extcode\Cart\Event;
 
 use Extcode\Cart\Domain\Model\Cart\Cart;
 use Psr\EventDispatcher\StoppableEventInterface;
-use TYPO3\CMS\Extbase\Mvc\Request;
+use TYPO3\CMS\Extbase\Mvc\RequestInterface;
 
 interface RetrieveProductsFromRequestEventInterface extends StoppableEventInterface
 {
-    public function __construct(Request $request, Cart $cart);
+    public function __construct(RequestInterface $request, Cart $cart);
 
     public function getCart(): Cart;
 
-    public function getRequest(): Request;
+    public function getRequest(): RequestInterface;
 
     public function getProducts(): array;
 

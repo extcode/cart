@@ -202,12 +202,16 @@ class Service implements ServiceInterface
     public function isAvailable(): bool
     {
         if (isset($this->config['available'])) {
-            $availableFrom = $this->config['available']['from'];
-            if (isset($availableFrom) && $this->cart->getGross() < (float)$availableFrom) {
+            if (isset($this->config['available']['from'])
+                && is_numeric($this->config['available']['from'])
+                && $this->cart->getGross() < (float)$this->config['available']['from']
+            ) {
                 return false;
             }
-            $availableUntil = $this->config['available']['until'];
-            if (isset($availableUntil) && $this->cart->getGross() > (float)$availableUntil) {
+            if (isset($this->config['available']['until'])
+                && is_numeric($this->config['available']['until'])
+                && $this->cart->getGross() > (float)$this->config['available']['until']
+            ) {
                 return false;
             }
         }

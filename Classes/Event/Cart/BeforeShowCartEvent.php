@@ -12,9 +12,8 @@ namespace Extcode\Cart\Event\Cart;
  */
 
 use Extcode\Cart\Domain\Model\Cart\Cart;
-use Extcode\Cart\Domain\Model\Order\BillingAddress;
+use Extcode\Cart\Domain\Model\Order\AddressInterface;
 use Extcode\Cart\Domain\Model\Order\Item;
-use Extcode\Cart\Domain\Model\Order\ShippingAddress;
 use Psr\EventDispatcher\StoppableEventInterface;
 
 final class BeforeShowCartEvent implements StoppableEventInterface
@@ -24,8 +23,8 @@ final class BeforeShowCartEvent implements StoppableEventInterface
     public function __construct(
         private Cart $cart,
         private ?Item $orderItem = null,
-        private ?BillingAddress $billingAddress = null,
-        private ?ShippingAddress $shippingAddress = null
+        private ?AddressInterface $billingAddress = null,
+        private ?AddressInterface $shippingAddress = null
     ) {}
 
     public function getCart(): Cart
@@ -48,22 +47,22 @@ final class BeforeShowCartEvent implements StoppableEventInterface
         $this->orderItem = $orderItem;
     }
 
-    public function getBillingAddress(): ?BillingAddress
+    public function getBillingAddress(): ?AddressInterface
     {
         return $this->billingAddress;
     }
 
-    public function setBillingAddress(BillingAddress $billingAddress): void
+    public function setBillingAddress(AddressInterface $billingAddress): void
     {
         $this->billingAddress = $billingAddress;
     }
 
-    public function getShippingAddress(): ?ShippingAddress
+    public function getShippingAddress(): ?AddressInterface
     {
         return $this->shippingAddress;
     }
 
-    public function setShippingAddress(ShippingAddress $shippingAddress): void
+    public function setShippingAddress(AddressInterface $shippingAddress): void
     {
         $this->shippingAddress = $shippingAddress;
     }

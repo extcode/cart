@@ -27,7 +27,7 @@ class CategoryTraitTest extends UnitTestCase
     {
         parent::setUp();
 
-        $this->trait = $this->getObjectForTrait(CategoryTrait::class);
+        $this->trait = new CategoryTraitStub();
     }
 
     #[Test]
