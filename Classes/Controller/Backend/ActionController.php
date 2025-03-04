@@ -12,12 +12,15 @@ namespace Extcode\Cart\Controller\Backend;
  */
 
 use TYPO3\CMS\Backend\Utility\BackendUtility;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManager;
+use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 
 class ActionController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 {
     protected array $pluginSettings = [];
+    public function __construct(
+        protected ConfigurationManagerInterface $configurationManager
+    ) {}
 
     protected function initializeAction(): void
     {
@@ -33,9 +36,7 @@ class ActionController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControlle
             $GLOBALS['BE_USER']->getPagePermsClause(1)
         );
 
-        $configurationManager = GeneralUtility::makeInstance(
-            ConfigurationManager::class
-        );
+        $configurationManager = $this->configurationManager;
 
         $frameworkConf
             = $configurationManager->getConfiguration(

@@ -11,7 +11,7 @@ namespace Extcode\Cart\Domain\Model\Product;
  * LICENSE file that was distributed with this source code.
  */
 
-trait StockTrait
+trait StockTrait // @phpstan-ignore trait.unused (provided for product extensions)
 {
     protected bool $handleStock = false;
 

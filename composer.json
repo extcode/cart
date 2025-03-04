@@ -38,7 +38,8 @@
         "allow-plugins": {
             "typo3/class-alias-loader": true,
             "typo3/cms-composer-installers": true,
-            "sbuerk/typo3-cmscomposerinstallers-testingframework-bridge": true
+            "sbuerk/typo3-cmscomposerinstallers-testingframework-bridge": true,
+            "phpstan/extension-installer": true
         }
     },
     "extra": {
@@ -51,19 +52,26 @@
         "php": "~8.2.0 || ~8.3.0 || ~8.4.0 || ~8.5.0",
         "ext-json": "*",
         "ext-openssl": "*",
-        "typo3/cms-core": "^13.4",
-        "typo3/cms-extbase": "^13.4",
-        "typo3/cms-fluid": "^13.4"
+        "typo3/cms-core": "14.2.x-dev",
+        "typo3/cms-extbase": "14.2.x-dev",
+        "typo3/cms-fluid": "14.2.x-dev",
+        "typo3/cms-form": "14.2.x-dev",
+        "typo3/cms-frontend": "14.2.x-dev"
     },
     "require-dev": {
-        "codappix/typo3-php-datasets": "^2.0",
+	    "codappix/typo3-php-datasets": "^2.1",
         "friendsofphp/php-cs-fixer": "^3.64",
-        "phpstan/phpstan": "^1.12",
-        "ssch/typo3-rector": "^2.9",
-        "typo3/cms-beuser": "^13.4",
-        "typo3/cms-dashboard": "^13.4",
-        "typo3/cms-form": "^13.4",
-        "typo3/testing-framework": "^8.2"
+        "phpstan/extension-installer": "^1.4",
+        "phpstan/phpstan": "^2.1",
+        "phpstan/phpstan-deprecation-rules": "^2.0",
+        "phpstan/phpstan-phpunit": "^2.0",
+        "spaze/phpstan-disallowed-calls": "^4.7",
+        "staabm/phpstan-todo-by": "^0.3",
+        "typo3/cms-beuser": "14.2.x-dev",
+        "typo3/cms-dashboard": "14.2.x-dev",
+        "typo3/cms-form": "14.2.x-dev",
+        "typo3/testing-framework": "^9.0",
+        "ssch/typo3-rector": "^3.11"
     },
     "scripts": {
         "test:cgl": [
@@ -107,7 +115,8 @@
         ]
     },
     "suggest": {
-        "typo3/cms-dashboard": "^13.4",
-        "typo3/cms-form": "^13.4"
-    }
+        "typo3/cms-dashboard": "14.2.x-dev",
+        "typo3/cms-form": "14.2.x-dev"
+    },
+    "minimum-stability": "dev"
 }

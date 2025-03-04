@@ -40,8 +40,9 @@ call_user_func(function () {
             $GLOBALS['TCA']['tt_content']['types'][$pluginSignature]['showitem'] = 'pi_flexform';
 
             ExtensionManagementUtility::addPiFlexFormValue(
-                $pluginSignature,
-                'FILE:' . $flexFormPath
+                '*',
+                'FILE:' . $flexFormPath,
+                $pluginSignature
             );
         }
     }

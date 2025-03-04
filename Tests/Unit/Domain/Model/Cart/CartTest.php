@@ -60,15 +60,6 @@ class CartTest extends UnitTestCase
 
     public function tearDown(): void
     {
-        unset($this->grossCart);
-        unset($this->netCart);
-
-        unset($this->taxClasses);
-
-        unset($this->normalTaxClass);
-        unset($this->reducedTaxClass);
-        unset($this->freeTaxClass);
-
         parent::tearDown();
     }
 

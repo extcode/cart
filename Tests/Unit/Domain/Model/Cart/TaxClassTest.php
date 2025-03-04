@@ -46,14 +46,6 @@ class TaxClassTest extends UnitTestCase
 
     public function tearDown(): void
     {
-        unset(
-            $this->id,
-            $this->value,
-            $this->calc,
-            $this->title,
-            $this->fixture
-        );
-
         parent::tearDown();
     }
 

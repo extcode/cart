@@ -27,7 +27,7 @@ class ProductController extends ActionController
     {
         if (!$this->request->hasArgument('productType')) {
             // TODO: add own Exception
-            throw new \Exception('productType is needed');
+            throw new \Exception('productType is needed', 5200281451);
         }
 
         $this->restoreSession();

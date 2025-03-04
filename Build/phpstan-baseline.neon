@@ -1,21 +1,205 @@
 parameters:
 	ignoreErrors:
 		-
-			message: "#^Call to an undefined method Extcode\\\\Cart\\\\Service\\\\PaymentMethodsServiceInterface\\:\\:getConfigurationsForType\\(\\)\\.$#"
+			message: '#^Call to an undefined method Extcode\\Cart\\Service\\PaymentMethodsServiceInterface\:\:getConfigurationsForType\(\)\.$#'
+			identifier: method.notFound
 			count: 1
 			path: ../Classes/Controller/Cart/OrderController.php
 
 		-
-			message: "#^Call to an undefined method Extcode\\\\Cart\\\\Domain\\\\Model\\\\Cart\\\\CartCouponInterface\\:\\:getTaxClass\\(\\)\\.$#"
+			message: '#^Instanceof between Extcode\\Cart\\Domain\\Model\\Cart\\ProductInterface and Extcode\\Cart\\Domain\\Model\\Cart\\ProductInterface will always evaluate to true\.$#'
+			identifier: instanceof.alwaysTrue
+			count: 1
+			path: ../Classes/Domain/Model/Cart/BeVariant.php
+
+		-
+			message: '#^Call to an undefined method Extcode\\Cart\\Domain\\Model\\Cart\\CartCouponInterface\:\:getTaxClass\(\)\.$#'
+			identifier: method.notFound
 			count: 2
 			path: ../Classes/Domain/Model/Cart/Cart.php
 
 		-
-			message: "#^Call to an undefined method Extcode\\\\Cart\\\\Domain\\\\Model\\\\Cart\\\\CartCouponInterface\\:\\:setCart\\(\\)\\.$#"
+			message: '#^Call to an undefined method Extcode\\Cart\\Domain\\Model\\Cart\\CartCouponInterface\:\:setCart\(\)\.$#'
+			identifier: method.notFound
 			count: 1
 			path: ../Classes/Domain/Model/Cart/Cart.php
 
 		-
-			message: "#^Call to an undefined method Extcode\\\\Cart\\\\Service\\\\PaymentMethodsServiceInterface\\:\\:getConfigurationsForType\\(\\)\\.$#"
+			message: '#^Call to an undefined method Extcode\\Cart\\Service\\PaymentMethodsServiceInterface\:\:getConfigurationsForType\(\)\.$#'
+			identifier: method.notFound
 			count: 1
 			path: ../Classes/EventListener/Order/Finish/ClearCart.php
+
+		-
+			message: '#^Method TYPO3\\CMS\\Form\\Mvc\\Persistence\\FormPersistenceManagerInterface\:\:listForms\(\) invoked with 1 parameter, 2 required\.$#'
+			identifier: arguments.count
+			count: 1
+			path: ../Classes/Hooks/FormDefinitions.php
+
+		-
+			message: '#^Parameter \$cacheManager of method Extcode\\Cart\\Hooks\\ItemsProcFunc\:\:__construct\(\) has invalid type Extcode\\Cart\\Hooks\\CacheManager\.$#'
+			identifier: class.notFound
+			count: 1
+			path: ../Classes/Hooks/ItemsProcFunc.php
+
+		-
+			message: '#^Parameter \$resourceFactory of method Extcode\\Cart\\Hooks\\ItemsProcFunc\:\:__construct\(\) has invalid type Extcode\\Cart\\Hooks\\ResourceFactory\.$#'
+			identifier: class.notFound
+			count: 1
+			path: ../Classes/Hooks/ItemsProcFunc.php
+
+		-
+			message: '#^Property Extcode\\Cart\\Hooks\\ItemsProcFunc\:\:\$cacheManager has unknown class Extcode\\Cart\\Hooks\\CacheManager as its type\.$#'
+			identifier: class.notFound
+			count: 1
+			path: ../Classes/Hooks/ItemsProcFunc.php
+
+		-
+			message: '#^Property Extcode\\Cart\\Hooks\\ItemsProcFunc\:\:\$cacheManager is never read, only written\.$#'
+			identifier: property.onlyWritten
+			count: 1
+			path: ../Classes/Hooks/ItemsProcFunc.php
+
+		-
+			message: '#^Property Extcode\\Cart\\Hooks\\ItemsProcFunc\:\:\$resourceFactory has unknown class Extcode\\Cart\\Hooks\\ResourceFactory as its type\.$#'
+			identifier: class.notFound
+			count: 1
+			path: ../Classes/Hooks/ItemsProcFunc.php
+
+		-
+			message: '#^Property Extcode\\Cart\\Hooks\\ItemsProcFunc\:\:\$resourceFactory is never read, only written\.$#'
+			identifier: property.onlyWritten
+			count: 1
+			path: ../Classes/Hooks/ItemsProcFunc.php
+
+		-
+			message: '#^Attribute class TYPO3\\CMS\\Install\\Attribute\\UpgradeWizard is deprecated\: since v14\.0, will be removed in TYPO34 v15\.0\. Use \\TYPO3\\CMS\\Core\\Attribute\\UpgradeWizard instead\.$#'
+			identifier: attribute.deprecated
+			count: 1
+			path: ../Classes/Updates/ExtcodeCartCTypeMigration.php
+
+		-
+			message: '''
+				#^Class Extcode\\Cart\\Updates\\ExtcodeCartCTypeMigration extends deprecated class TYPO3\\CMS\\Install\\Updates\\AbstractListTypeToCTypeUpdate\:
+				since v14\.0, will be removed in TYPO34 v15\.0\. Use \\TYPO3\\CMS\\Core\\Upgrades\\AbstractListTypeToCTypeUpdate instead\.$#
+			'''
+			identifier: class.extendsDeprecatedClass
+			count: 1
+			path: ../Classes/Updates/ExtcodeCartCTypeMigration.php
+
+		-
+			message: '#^Loose comparison using \!\= between non\-empty\-string and '''' will always evaluate to true\.$#'
+			identifier: notEqual.alwaysTrue
+			count: 1
+			path: ../Classes/Validation/Validator/EmptyValidator.php
+
+		-
+			message: '#^Access to constant on deprecated class TYPO3\\CMS\\Frontend\\Resource\\FilePathSanitizer\.$#'
+			identifier: classConstant.deprecatedClass
+			count: 1
+			path: ../Classes/ViewHelpers/IncludeFileViewHelper.php
+
+		-
+			message: '#^Call to method sanitize\(\) of deprecated class TYPO3\\CMS\\Frontend\\Resource\\FilePathSanitizer\.$#'
+			identifier: method.deprecatedClass
+			count: 1
+			path: ../Classes/ViewHelpers/IncludeFileViewHelper.php
+
+		-
+			message: '#^Strict comparison using \!\=\= between '''' and '''' will always evaluate to false\.$#'
+			identifier: notIdentical.alwaysFalse
+			count: 1
+			path: ../Classes/ViewHelpers/TitleTagViewHelper.php
+
+		-
+			message: '#^Variable \$arguments on left side of \?\? is never defined\.$#'
+			identifier: nullCoalesce.variable
+			count: 1
+			path: ../Classes/ViewHelpers/TitleTagViewHelper.php
+
+		-
+			message: '''
+				#^Call to deprecated method addPiFlexFormValue\(\) of class TYPO3\\CMS\\Core\\Utility\\ExtensionManagementUtility\:
+				Will be removed in TYPO3 v15$#
+			'''
+			identifier: staticMethod.deprecated
+			count: 1
+			path: ../Configuration/TCA/Overrides/tt_content.php
+
+		-
+			message: '#^Call to an undefined method PHPUnit\\Framework\\MockObject\\MockBuilder\<T of object&TYPO3\\TestingFramework\\Core\\AccessibleObjectInterface\>\:\:disableAutoload\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: ../Tests/Unit/Domain/Model/Cart/BeVariantTest.php
+
+		-
+			message: '#^Call to an undefined method Extcode\\Cart\\Tests\\Unit\\Domain\\Model\\Order\\AbstractAddressTest\:\:getMockForAbstractClass\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: ../Tests/Unit/Domain/Model/Order/AbstractAddressTest.php
+
+		-
+			message: '#^Call to an undefined method PHPUnit\\Framework\\MockObject\\MockBuilder\<T of object&TYPO3\\TestingFramework\\Core\\AccessibleObjectInterface\>\:\:addMethods\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: ../Tests/Unit/Domain/Model/Order/AbstractAddressTest.php
+
+		-
+			message: '#^Call to static method PHPUnit\\Framework\\Assert\:\:assertIsArray\(\) with array will always evaluate to true\.$#'
+			identifier: staticMethod.alreadyNarrowedType
+			count: 1
+			path: ../Tests/Unit/Domain/Model/Order/AbstractAddressTest.php
+
+		-
+			message: '#^Call to an undefined method Extcode\\Cart\\Tests\\Unit\\Domain\\Model\\Order\\AbstractServiceTest\:\:getMockForAbstractClass\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: ../Tests/Unit/Domain/Model/Order/AbstractServiceTest.php
+
+		-
+			message: '#^Call to new Extcode\\Cart\\Domain\\Model\\Order\\Discount\(\) on a separate line has no effect\.$#'
+			identifier: new.resultUnused
+			count: 6
+			path: ../Tests/Unit/Domain/Model/Order/DiscountTest.php
+
+		-
+			message: '#^Call to new Extcode\\Cart\\Domain\\Model\\Order\\Tax\(\) on a separate line has no effect\.$#'
+			identifier: new.resultUnused
+			count: 2
+			path: ../Tests/Unit/Domain/Model/Order/TaxTest.php
+
+		-
+			message: '#^Call to an undefined method Extcode\\Cart\\Tests\\Unit\\Domain\\Model\\Product\\AbstractProductTest\:\:getMockForAbstractClass\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: ../Tests/Unit/Domain/Model/Product/AbstractProductTest.php
+
+		-
+			message: '#^Call to an undefined method Extcode\\Cart\\Tests\\Unit\\Domain\\Model\\Product\\CategoryTraitTest\:\:getObjectForTrait\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: ../Tests/Unit/Domain/Model/Product/CategoryTraitTest.php
+
+		-
+			message: '#^Call to an undefined method Extcode\\Cart\\Tests\\Unit\\Domain\\Model\\Product\\MeasureTraitTest\:\:getObjectForTrait\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: ../Tests/Unit/Domain/Model/Product/MeasureTraitTest.php
+
+		-
+			message: '#^Call to an undefined method Extcode\\Cart\\Tests\\Unit\\Domain\\Model\\Product\\ServiceAttributeTraitTest\:\:getObjectForTrait\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: ../Tests/Unit/Domain/Model/Product/ServiceAttributeTraitTest.php
+
+		-
+			message: '#^Call to an undefined method Extcode\\Cart\\Tests\\Unit\\Domain\\Model\\Product\\StockTraitTest\:\:getObjectForTrait\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: ../Tests/Unit/Domain/Model/Product/StockTraitTest.php
+
+		-
+			message: '#^Call to an undefined method Extcode\\Cart\\Tests\\Unit\\Domain\\Model\\Product\\TagTraitTest\:\:getObjectForTrait\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: ../Tests/Unit/Domain/Model/Product/TagTraitTest.php
