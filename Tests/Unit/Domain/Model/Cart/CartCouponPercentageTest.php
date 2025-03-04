@@ -12,8 +12,12 @@ namespace Extcode\Cart\Tests\Unit\Domain\Model\Cart;
 use Extcode\Cart\Domain\Model\Cart\Cart;
 use Extcode\Cart\Domain\Model\Cart\CartCouponPercentage;
 use Extcode\Cart\Domain\Model\Cart\TaxClass;
+use Extcode\Cart\Service\CurrencyTranslationService;
+use Extcode\Cart\Service\CurrencyTranslationServiceInterface;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Test;
+use PHPUnit\Framework\MockObject\MockObject;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 #[CoversClass(CartCouponPercentage::class)]
@@ -151,10 +155,7 @@ class CartCouponPercentageTest extends UnitTestCase
     {
         $taxClass = new TaxClass(1, '19', 0.19, 'normal');
 
-        $cart = $this->getMockBuilder(Cart::class)
-            ->onlyMethods(['getGross'])
-            ->setConstructorArgs([[$taxClass]])
-            ->getMock();
+        $cart = $this->createCartMock();
         $cart->method('getGross')->willReturn(0.0);
 
         $this->coupon->setCart($cart);
@@ -171,10 +172,7 @@ class CartCouponPercentageTest extends UnitTestCase
         $taxClass = new TaxClass(1, '19', 0.19, 'normal');
         $currencyTranslation = 1.0;
 
-        $cart = $this->getMockBuilder(Cart::class)
-            ->onlyMethods(['getGross', 'getCurrencyTranslation'])
-            ->setConstructorArgs([[$taxClass]])
-            ->getMock();
+        $cart = $this->createCartMock(['getGross', 'getCurrencyTranslation']);
         $cart->method('getGross')->willReturn(100.0);
         $cart->method('getCurrencyTranslation')->willReturn($currencyTranslation);
 
@@ -191,10 +189,7 @@ class CartCouponPercentageTest extends UnitTestCase
     {
         $taxClass = new TaxClass(1, '19', 0.19, 'normal');
 
-        $cart = $this->getMockBuilder(Cart::class)
-            ->onlyMethods(['getGross'])
-            ->setConstructorArgs([[$taxClass]])
-            ->getMock();
+        $cart = $this->createCartMock();
         $cart->method('getGross')->willReturn(0.0);
 
         $this->coupon->setCart($cart);
@@ -204,10 +199,7 @@ class CartCouponPercentageTest extends UnitTestCase
             $this->coupon->getNet()
         );
 
-        $cart = $this->getMockBuilder(Cart::class)
-            ->onlyMethods(['getGross', 'getTaxes'])
-            ->setConstructorArgs([[$taxClass]])
-            ->getMock();
+        $cart = $this->createCartMock(['getGross', 'getTaxes']);
         $cart->method('getGross')->willReturn(100.0);
         $cart->method('getTaxes')->willReturn([$taxClass->getId() => 19.0]);
 
@@ -242,10 +234,7 @@ class CartCouponPercentageTest extends UnitTestCase
     {
         $taxClass = new TaxClass(1, '19', 0.19, 'normal');
 
-        $cart = $this->getMockBuilder(Cart::class)
-            ->onlyMethods(['getGross'])
-            ->setConstructorArgs([[$taxClass]])
-            ->getMock();
+        $cart = $this->createCartMock();
         $cart->method('getGross')->willReturn(0.0);
 
         $this->coupon->setCart($cart);
@@ -255,10 +244,7 @@ class CartCouponPercentageTest extends UnitTestCase
             $this->coupon->getTaxes()
         );
 
-        $cart = $this->getMockBuilder(Cart::class)
-            ->onlyMethods(['getGross', 'getTaxes'])
-            ->setConstructorArgs([[$taxClass]])
-            ->getMock();
+        $cart = $this->createCartMock(['getGross', 'getTaxes']);
         $cart->method('getGross')->willReturn(100.0);
         $cart->method('getTaxes')->willReturn([$taxClass->getId() => 19.0]);
 
@@ -286,10 +272,7 @@ class CartCouponPercentageTest extends UnitTestCase
         $discount = 5.00;
         $cartMinPrice = 9.99;
 
-        $cart = $this->getMockBuilder(Cart::class)
-            ->onlyMethods(['getGross'])
-            ->setConstructorArgs([[$this->taxClass]])
-            ->getMock();
+        $cart = $this->createCartMock();
         $cart->method('getGross')->willReturn($gross);
 
         $coupon = new CartCouponPercentage(
@@ -314,10 +297,7 @@ class CartCouponPercentageTest extends UnitTestCase
         $discount = 5.00;
         $cartMinPrice = 10.00;
 
-        $cart = $this->getMockBuilder(Cart::class)
-            ->onlyMethods(['getGross'])
-            ->setConstructorArgs([[$this->taxClass]])
-            ->getMock();
+        $cart = $this->createCartMock();
         $cart->method('getGross')->willReturn($gross);
 
         $coupon = new CartCouponPercentage(
@@ -342,10 +322,7 @@ class CartCouponPercentageTest extends UnitTestCase
         $discount = 5.00;
         $cartMinPrice = 10.01;
 
-        $cart = $this->getMockBuilder(Cart::class)
-            ->onlyMethods(['getGross'])
-            ->setConstructorArgs([[$this->taxClass]])
-            ->getMock();
+        $cart = $this->createCartMock();
         $cart->method('getGross')->willReturn($gross);
 
         $coupon = new CartCouponPercentage(
@@ -361,5 +338,18 @@ class CartCouponPercentageTest extends UnitTestCase
         self::assertFalse(
             $coupon->isUseable()
         );
+    }
+
+    private function createCartMock(array $methods = ['getGross']): Cart|MockObject
+    {
+        GeneralUtility::addInstance(
+            CurrencyTranslationServiceInterface::class,
+            new CurrencyTranslationService()
+        );
+
+        return $this->getMockBuilder(Cart::class)
+            ->onlyMethods($methods)
+            ->setConstructorArgs([[$this->taxClass]])
+            ->getMock();
     }
 }

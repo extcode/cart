@@ -13,8 +13,11 @@ use Extcode\Cart\Domain\Model\Cart\Cart;
 use Extcode\Cart\Domain\Model\Cart\CartCouponFix;
 use Extcode\Cart\Domain\Model\Cart\Product;
 use Extcode\Cart\Domain\Model\Cart\TaxClass;
+use Extcode\Cart\Service\CurrencyTranslationService;
+use Extcode\Cart\Service\CurrencyTranslationServiceInterface;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Test;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 #[CoversClass(Cart::class)]
@@ -34,7 +37,9 @@ class CartTest extends UnitTestCase
 
     public function setUp(): void
     {
-        $this->normalTaxClass = new TaxClass(1, '19', 0.19, 'Normal');
+        parent::setUp();
+
+        $this->normalTaxClass = new TaxClass(1, '19%', 0.19, 'Normal');
         $this->reducedTaxClass = new TaxClass(2, '7%', 0.07, 'Reduced');
         $this->freeTaxClass = new TaxClass(3, '0%', 0.00, 'Free');
 
@@ -44,10 +49,8 @@ class CartTest extends UnitTestCase
             3 => $this->freeTaxClass,
         ];
 
-        $this->grossCart = new Cart($this->taxClasses, false);
-        $this->netCart = new Cart($this->taxClasses, true);
-
-        parent::setUp();
+        $this->grossCart = $this->createCart(false);
+        $this->netCart = $this->createCart(true);
     }
 
     public function tearDown(): void
@@ -1352,6 +1355,10 @@ class CartTest extends UnitTestCase
         $price = 100.00;
         $couponGross = 10.00;
 
+        GeneralUtility::addInstance(
+            CurrencyTranslationServiceInterface::class,
+            new CurrencyTranslationService()
+        );
         $cart = $this->getMockBuilder(Cart::class)
             ->onlyMethods(['getCouponGross', 'getCurrencyTranslation'])
             ->setConstructorArgs([$this->taxClasses])
@@ -1385,6 +1392,10 @@ class CartTest extends UnitTestCase
         $couponGross = 10.00;
         $couponNet = $couponGross / 1.19;
 
+        GeneralUtility::addInstance(
+            CurrencyTranslationServiceInterface::class,
+            new CurrencyTranslationService()
+        );
         $cart = $this->getMockBuilder(Cart::class)
             ->onlyMethods(['getCouponNet', 'getCurrencyTranslation'])
             ->setConstructorArgs([$this->taxClasses])
@@ -1429,7 +1440,11 @@ class CartTest extends UnitTestCase
     #[Test]
     public function constructorSetsCurrencyCode(): void
     {
-        $this->grossCart = new Cart(
+        GeneralUtility::addInstance(
+            CurrencyTranslationServiceInterface::class,
+            new CurrencyTranslationService()
+        );
+        $cart = new Cart(
             $this->taxClasses,
             false,
             'USD',
@@ -1439,7 +1454,7 @@ class CartTest extends UnitTestCase
 
         self::assertSame(
             'USD',
-            $this->grossCart->getCurrencyCode()
+            $cart->getCurrencyCode()
         );
     }
 
@@ -1478,7 +1493,11 @@ class CartTest extends UnitTestCase
     #[Test]
     public function constructorSetsCurrencySign(): void
     {
-        $this->grossCart = new Cart(
+        GeneralUtility::addInstance(
+            CurrencyTranslationServiceInterface::class,
+            new CurrencyTranslationService()
+        );
+        $cart = new Cart(
             $this->taxClasses,
             false,
             'USD',
@@ -1488,7 +1507,7 @@ class CartTest extends UnitTestCase
 
         self::assertSame(
             '$',
-            $this->grossCart->getCurrencySign()
+            $cart->getCurrencySign()
         );
     }
 
@@ -1527,6 +1546,10 @@ class CartTest extends UnitTestCase
     #[Test]
     public function constructorSetsCurrencyTranslation(): void
     {
+        GeneralUtility::addInstance(
+            CurrencyTranslationServiceInterface::class,
+            new CurrencyTranslationService()
+        );
         $cart = new Cart(
             $this->taxClasses,
             false,
@@ -1597,5 +1620,15 @@ class CartTest extends UnitTestCase
             10.0,
             $this->netCart->translatePrice(5.0)
         );
+    }
+
+    private function createCart(bool $isNetCart): Cart
+    {
+        GeneralUtility::addInstance(
+            CurrencyTranslationServiceInterface::class,
+            new CurrencyTranslationService()
+        );
+
+        return new Cart($this->taxClasses, $isNetCart);
     }
 }
