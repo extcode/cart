@@ -24,13 +24,13 @@ class AttachmentFromTypoScriptTest extends FunctionalTestCase
 {
     use TestingFramework;
 
-    protected array $testExtensionsToLoad = [
-        'extcode/cart',
-        'typo3conf/ext/cart/Tests/Fixtures/cart_example',
-    ];
-
     public function setUp(): void
     {
+        $this->coreExtensionsToLoad[] = 'typo3/cms-form';
+
+        $this->testExtensionsToLoad[] = 'extcode/cart';
+        $this->testExtensionsToLoad[] = 'typo3conf/ext/cart/Tests/Fixtures/cart_example';
+
         parent::setUp();
 
         $GLOBALS['TYPO3_REQUEST'] = (new ServerRequest())

@@ -136,6 +136,9 @@ services:
         identifier: 'cart--order--update--log-service-update'
         event: Extcode\Cart\Event\Order\UpdateServiceEvent
 
+  Extcode\Cart\Hooks\ItemsProcFunc:
+    public: true
+
   Extcode\Cart\Service\CurrencyTranslationServiceInterface:
     alias: Extcode\Cart\Service\CurrencyTranslationService
     public: true
