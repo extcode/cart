@@ -9,25 +9,22 @@ namespace Extcode\Cart\Hooks;
  * LICENSE file that was distributed with this source code.
  */
 use Extcode\Cart\Utility\TemplateLayout;
-use Psr\Log\LoggerAwareInterface;
 use TYPO3\CMS\Backend\Utility\BackendUtility as BackendUtilityCore;
-use TYPO3\CMS\Core\Cache\CacheManager;
 use TYPO3\CMS\Core\Localization\LanguageService;
-use TYPO3\CMS\Core\Resource\ResourceFactory;
-use TYPO3\CMS\Core\Resource\StorageRepository;
-use TYPO3\CMS\Core\SingletonInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Form\Mvc\Configuration\ConfigurationManager;
-use TYPO3\CMS\Form\Mvc\Configuration\YamlSource;
-use TYPO3\CMS\Form\Mvc\Persistence\FormPersistenceManager;
-use TYPO3\CMS\Form\Slot\FilePersistenceSlot;
+use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
+use TYPO3\CMS\Form\Mvc\Configuration\ConfigurationManagerInterface as ExtFormConfigurationManagerInterface;
+use TYPO3\CMS\Form\Mvc\Persistence\FormPersistenceManagerInterface;
 
 class ItemsProcFunc
 {
     protected TemplateLayout $templateLayoutsUtility;
 
-    public function __construct()
-    {
+    public function __construct(
+        private readonly FormPersistenceManagerInterface $formPersistenceManager,
+        private readonly ConfigurationManagerInterface $configurationManager,
+        private readonly ExtFormConfigurationManagerInterface $extFormConfigurationManager,
+    ) {
         $this->templateLayoutsUtility = GeneralUtility::makeInstance(TemplateLayout::class);
     }
 
@@ -68,11 +65,11 @@ class ItemsProcFunc
             $prototypeName = $config['config']['itemsProcFuncConfig']['prototypeName'];
         }
 
-        $formPersistenceManager = $this->getFormPersistenceManager();
-        $availableForms = $formPersistenceManager->listForms();
+        $formSettings = $this->getFormSettings();
+        $availableForms = $this->formPersistenceManager->listForms($formSettings);
 
         foreach ($availableForms as $availableForm) {
-            $form = $formPersistenceManager->load($availableForm['persistenceIdentifier']);
+            $form = $this->formPersistenceManager->load($availableForm['persistenceIdentifier'], $formSettings, []);
 
             if ($form['prototypeName'] === $prototypeName) {
                 $config['items'][] = [
@@ -83,15 +80,16 @@ class ItemsProcFunc
         }
     }
 
-    protected function getExtKey($listType)
+    private function getFormSettings(): array
     {
-        [$ext, $plugin] = explode('_', (string)$listType, 2);
-
-        if (str_starts_with($ext, 'cart')) {
-            return 'cart_' . substr($ext, 4);
+        $typoScriptSettings = $this->configurationManager->getConfiguration(ConfigurationManagerInterface::CONFIGURATION_TYPE_SETTINGS, 'form');
+        $formSettings = $this->extFormConfigurationManager->getYamlConfiguration($typoScriptSettings, false);
+        if (!isset($formSettings['formManager'])) {
+            // Config sub array formManager is crucial and should always exist. If it does
+            // not, this indicates an issue in config loading logic. Except in this case.
+            throw new \LogicException('Configuration could not be loaded', 1723717461);
         }
-
-        return $ext;
+        return $formSettings;
     }
 
     /**
@@ -138,49 +136,8 @@ class ItemsProcFunc
         return $row['pid'];
     }
 
-    /**
-     * Returns LanguageService
-     *
-     * @return LanguageService
-     */
-    protected function getLanguageService()
+    protected function getLanguageService(): LanguageService
     {
         return $GLOBALS['LANG'];
-    }
-
-    /**
-     * @return object|LoggerAwareInterface|SingletonInterface
-     */
-    protected function getFormPersistenceManager()
-    {
-        $resourceFactory = GeneralUtility::makeInstance(
-            ResourceFactory::class
-        );
-        $storageRepository = GeneralUtility::makeInstance(
-            StorageRepository::class
-        );
-        $yamlSource = GeneralUtility::makeInstance(
-            YamlSource::class
-        );
-
-        $filePersistenceSlot = GeneralUtility::makeInstance(
-            FilePersistenceSlot::class
-        );
-        $configurationManager = GeneralUtility::makeInstance(
-            ConfigurationManager::class
-        );
-        $cacheManager = GeneralUtility::makeInstance(
-            CacheManager::class
-        );
-
-        return GeneralUtility::makeInstance(
-            FormPersistenceManager::class,
-            $yamlSource,
-            $storageRepository,
-            $filePersistenceSlot,
-            $resourceFactory,
-            $configurationManager,
-            $cacheManager
-        );
     }
 }
