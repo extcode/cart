@@ -36,6 +36,7 @@ plugin.tx_cart {
 
     settings {
         addToCartByAjax = 2278001
+        stockEventAfterPaymentEvent =
 
         format.currency {
             currencySign       = &euro;
