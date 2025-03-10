@@ -18,4 +18,14 @@ return function (ContainerConfigurator $containerConfigurator, ContainerBuilder 
         $containerConfigurator->import('Backend/Provider/TurnoverPerDayProvider.php');
         $containerConfigurator->import('Backend/Widgets/TurnoverPerDayWidget.php');
     }
+
+    if (
+        $containerBuilder->hasDefinition('TYPO3\CMS\Form\Mvc\Configuration\ConfigurationManager') &&
+        $containerBuilder->hasDefinition('TYPO3\CMS\Form\Mvc\Persistence\FormPersistenceManager')
+    ) {
+        $services = $containerConfigurator->services();
+
+        $services->set('Extcode\Cart\Hooks\ItemsProcFunc')
+            ->public();
+    }
 };

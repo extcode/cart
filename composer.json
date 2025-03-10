@@ -53,8 +53,7 @@
         "ext-openssl": "*",
         "typo3/cms-core": "^13.4",
         "typo3/cms-extbase": "^13.4",
-        "typo3/cms-fluid": "^13.4",
-        "typo3/cms-form": "^13.4"
+        "typo3/cms-fluid": "^13.4"
     },
     "require-dev": {
         "codappix/typo3-php-datasets": "^1.5",
@@ -62,6 +61,7 @@
         "phpstan/phpstan": "^1.12",
         "ssch/typo3-rector": "^2.9",
         "typo3/cms-dashboard": "^13.4",
+        "typo3/cms-form": "^13.4",
         "typo3/testing-framework": "^8.2"
     },
     "scripts": {
@@ -106,6 +106,7 @@
         ]
     },
     "suggest": {
-        "typo3/cms-dashboard": "^13.4"
+        "typo3/cms-dashboard": "^13.4",
+        "typo3/cms-form": "^13.4"
     }
 }
