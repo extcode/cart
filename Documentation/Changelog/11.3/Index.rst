@@ -1,6 +1,6 @@
 .. include:: ../../Includes.rst.txt
 
-11.1 Changes
+11.3 Changes
 ============
 
 **Table of contents**
@@ -9,7 +9,7 @@
    :local:
    :depth: 1
 
-Features
+Breaking
 --------
 
 .. toctree::
@@ -17,4 +17,4 @@ Features
    :titlesonly:
    :glob:
 
-   Feature-*
+   Breaking-*
