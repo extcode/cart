@@ -15,7 +15,7 @@ use Extcode\Cart\Domain\Model\Cart\Product;
 use Extcode\Cart\Event\CheckProductAvailabilityEvent;
 use Extcode\Cart\Event\RetrieveProductsFromRequestEvent;
 use Psr\Http\Message\ResponseInterface;
-use TYPO3\CMS\Core\Messaging\AbstractMessage;
+use TYPO3\CMS\Core\Messaging\FlashMessage;
 use TYPO3\CMS\Core\Type\ContextualFeedbackSeverity;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 
@@ -33,7 +33,6 @@ class ProductController extends ActionController
         $this->restoreSession();
 
         $event = new RetrieveProductsFromRequestEvent($this->request, $this->cart);
-
         $this->eventDispatcher->dispatch($event);
 
         $errors = $event->getErrors();
@@ -49,46 +48,8 @@ class ProductController extends ActionController
             }
         }
 
-        $messageBody = '';
-        $messageTitle = '';
-        $severity = ContextualFeedbackSeverity::OK->value;
-
-        if (!empty($errors)) {
-            foreach ($errors as $error) {
-                if (!($error instanceof AbstractMessage)) {
-                    continue;
-                }
-                $message = $error->jsonSerialize();
-                if ($message['severity'] >= $severity) {
-                    $severity = $message['severity'];
-                    $messageBody = $message['message'];
-                    $messageTitle = $message['title'];
-                }
-            }
-
-            $pageType = $GLOBALS['TYPO3_REQUEST']->getAttribute('routing')->getPageType();
-            if ($pageType === self::AJAX_CART_TYPE_NUM) {
-                $response = [
-                    'status' => '412',
-                    'count' => $this->cart->getCount(),
-                    'net' => $this->cart->getNet(),
-                    'gross' => $this->cart->getGross(),
-                    'messageBody' => $messageBody,
-                    'messageTitle' => $messageTitle,
-                    'severity' => $severity,
-                ];
-
-                return $this->jsonResponse(json_encode($response));
-            }
-
-            $this->addFlashMessage(
-                $messageBody,
-                $messageTitle,
-                $severity,
-                true
-            );
-
-            return $this->redirect('show', 'Cart\Cart');
+        if (empty($errors) === false) {
+            return $this->responseForAddActionWithErrors($errors);
         }
 
         $quantity = $this->addProductsToCart($cartProducts);
@@ -97,39 +58,7 @@ class ProductController extends ActionController
 
         $this->sessionHandler->writeCart($this->settings['cart']['pid'], $this->cart);
 
-        $messageBody = LocalizationUtility::translate(
-            'tx_cart.success.stock_handling.add.' . ($quantity == 1 ? 'one' : 'more'),
-            'Cart',
-            [$quantity]
-        );
-
-        $pageType = $GLOBALS['TYPO3_REQUEST']->getAttribute('routing')->getPageType();
-        if ($pageType === self::AJAX_CART_TYPE_NUM) {
-            $productsChanged = $this->getChangedProducts($cartProducts);
-
-            $response = [
-                'status' => '200',
-                'added' => $quantity,
-                'count' => $this->cart->getCount(),
-                'net' => $this->cart->getNet(),
-                'gross' => $this->cart->getGross(),
-                'productsChanged' => $productsChanged,
-                'messageBody' => $messageBody,
-                'messageTitle' => $messageTitle,
-                'severity' => $severity,
-            ];
-
-            return $this->jsonResponse(json_encode($response));
-        }
-
-        $this->addFlashMessage(
-            $messageBody,
-            $messageTitle,
-            $severity,
-            true
-        );
-
-        return $this->redirect('show', 'Cart\Cart');
+        return $this->responseForAddAction($cartProducts, $quantity);
     }
 
     public function removeAction(): ResponseInterface
@@ -167,6 +96,7 @@ class ProductController extends ActionController
                 $productsChanged[$product->getId()] = $productChanged->toArray();
             }
         }
+
         return $productsChanged;
     }
 
@@ -180,6 +110,89 @@ class ProductController extends ActionController
                 $this->cart->addProduct($product);
             }
         }
+
         return $quantity;
+    }
+
+    /**
+     * @param Product[] $cartProducts
+     */
+    private function responseForAddAction(array $cartProducts, int $quantity): ResponseInterface
+    {
+        $messageBody = LocalizationUtility::translate(
+            'tx_cart.success.stock_handling.add.' . ($quantity == 1 ? 'one' : 'more'),
+            'Cart',
+            [$quantity]
+        );
+
+        $pageType = $GLOBALS['TYPO3_REQUEST']->getAttribute('routing')->getPageType();
+        if ($pageType === self::AJAX_CART_TYPE_NUM) {
+            $response = [
+                'status' => '200',
+                'added' => $quantity,
+                'count' => $this->cart->getCount(),
+                'net' => $this->cart->getNet(),
+                'gross' => $this->cart->getGross(),
+                'productsChanged' => $this->getChangedProducts($cartProducts),
+                'messageBody' => $messageBody,
+                'messageTitle' => '',
+                'severity' => ContextualFeedbackSeverity::OK->value,
+            ];
+
+            return $this->jsonResponse(json_encode($response));
+        }
+
+        $this->addFlashMessage(
+            $messageBody
+        );
+
+        return $this->redirect('show', 'Cart\Cart');
+    }
+
+    /**
+     * @param FlashMessage[] $errors
+     */
+    private function responseForAddActionWithErrors(array $errors): ResponseInterface
+    {
+        $errorWithHighestSeverity = $this->getErrorWithHighestSeverity($errors);
+
+        $pageType = $GLOBALS['TYPO3_REQUEST']->getAttribute('routing')->getPageType();
+        if ($pageType === self::AJAX_CART_TYPE_NUM) {
+            $response = [
+                'status' => '412',
+                'count' => $this->cart->getCount(),
+                'net' => $this->cart->getNet(),
+                'gross' => $this->cart->getGross(),
+                'messageBody' => $errorWithHighestSeverity->getMessage(),
+                'messageTitle' => $errorWithHighestSeverity->getTitle(),
+                'severity' => $errorWithHighestSeverity->getSeverity(),
+            ];
+
+            return $this->jsonResponse(json_encode($response));
+        }
+
+        $this->addFlashMessage(
+            $errorWithHighestSeverity->getMessage(),
+            $errorWithHighestSeverity->getTitle(),
+            $errorWithHighestSeverity->getSeverity(),
+        );
+
+        return $this->redirect('show', 'Cart\Cart');
+    }
+
+    /**
+     * @param FlashMessage[] $errors
+     */
+    private function getErrorWithHighestSeverity(array $errors): FlashMessage
+    {
+        $errorToReturn = array_shift($errors);
+
+        foreach ($errors as $error) {
+            if ($error->getSeverity()->value >= $errorToReturn->getSeverity()->value) {
+                $errorToReturn = $error;
+            }
+        }
+
+        return $errorToReturn;
     }
 }

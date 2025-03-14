@@ -60,6 +60,9 @@ final class RetrieveProductsFromRequestEvent implements RetrieveProductsFromRequ
         $this->errors[] = $error;
     }
 
+    /**
+     * @return FlashMessage[]
+     */
     public function getErrors(): array
     {
         return $this->errors;
