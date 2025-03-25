@@ -12,8 +12,12 @@ namespace Extcode\Cart\Service;
  */
 
 use Extcode\Cart\Domain\Model\Cart\Cart;
+use Extcode\Cart\Domain\Model\Cart\ServiceInterface;
 
 interface ShippingMethodsServiceInterface
 {
+    /**
+     * @return ServiceInterface[]
+     */
     public function getShippingMethods(Cart $cart): array;
 }
