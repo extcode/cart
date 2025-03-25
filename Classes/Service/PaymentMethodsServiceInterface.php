@@ -12,8 +12,12 @@ namespace Extcode\Cart\Service;
  */
 
 use Extcode\Cart\Domain\Model\Cart\Cart;
+use Extcode\Cart\Domain\Model\Cart\ServiceInterface;
 
 interface PaymentMethodsServiceInterface
 {
+    /**
+     * @return ServiceInterface[]
+     */
     public function getPaymentMethods(Cart $cart): array;
 }

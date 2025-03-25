@@ -238,6 +238,16 @@ class Service implements ServiceInterface
         return false;
     }
 
+    public function isBuyerEmailDisabled(): bool
+    {
+        return (int)($this->config['preventBuyerEmail'] ?? 0) === 1;
+    }
+
+    public function isSellerEmailDisabled(): bool
+    {
+        return (int)($this->config['preventSellerEmail'] ?? 0) === 1;
+    }
+
     protected function getExtra(): Extra
     {
         if ($this->isFree()) {

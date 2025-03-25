@@ -21,41 +21,54 @@ class PaymentController extends ActionController
 
     public function updateAction(int $paymentId): ResponseInterface
     {
-        $this->restoreSession();
+        $this->updatePaymentInSession($paymentId);
 
-        $this->payments = $this->paymentMethodsService->getPaymentMethods($this->cart);
-
-        $payment = $this->payments[$paymentId];
-
-        if ($payment) {
-            if ($payment->isAvailable($this->cart->getGross())) {
-                $this->cart->setPayment($payment);
-            } else {
-                $this->addFlashMessage(
-                    LocalizationUtility::translate(
-                        'tx_cart.controller.cart.action.set_payment.not_available',
-                        'Cart'
-                    ),
-                    '',
-                    ContextualFeedbackSeverity::ERROR,
-                    true
-                );
-            }
-        }
-
-        $this->sessionHandler->writeCart($this->settings['cart']['pid'], $this->cart);
-
-        $pageType = $GLOBALS['TYPO3_REQUEST']->getAttribute('routing')->getPageType();
-        if ($pageType === self::AJAX_CART_TYPE_NUM) {
-            $this->view->assign('cart', $this->cart);
-
-            $this->parseServicesAndAssignToView();
-
-            $this->dispatchModifyViewEvent();
-
-            return $this->htmlResponse();
+        if ($this->isAjaxRequest()) {
+            return $this->renderHtmlResponse();
         }
 
         return $this->redirect('show', 'Cart\Cart');
+    }
+
+    private function isAjaxRequest(): bool
+    {
+        $pageType = $GLOBALS['TYPO3_REQUEST']->getAttribute('routing')->getPageType();
+
+        return $pageType === self::AJAX_CART_TYPE_NUM;
+    }
+
+    private function renderHtmlResponse(): ResponseInterface
+    {
+        $this->view->assign('cart', $this->cart);
+
+        $this->parseServicesAndAssignToView();
+        $this->dispatchModifyViewEvent();
+
+        return $this->htmlResponse();
+    }
+
+    private function updatePaymentInSession(int $paymentId): void
+    {
+        $this->restoreSession();
+
+        $payments = $this->paymentMethodsService->getPaymentMethods($this->cart);
+        $payment = $payments[$paymentId] ?? null;
+
+        if (is_null($payment) || $payment->isAvailable() === false) {
+            $this->addFlashMessage(
+                LocalizationUtility::translate(
+                    'tx_cart.controller.cart.action.set_payment.not_available',
+                    'Cart'
+                ),
+                '',
+                ContextualFeedbackSeverity::ERROR,
+                true
+            );
+
+            return;
+        }
+
+        $this->cart->setPayment($payment);
+        $this->sessionHandler->writeCart($this->settings['cart']['pid'], $this->cart);
     }
 }

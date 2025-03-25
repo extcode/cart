@@ -10,60 +10,51 @@ namespace Extcode\Cart\EventListener\Order\Finish;
  * For the full copyright and license information, please read the
  * LICENSE file that was distributed with this source code.
  */
+
 use Extcode\Cart\Domain\Model\Cart\Cart;
 use Extcode\Cart\Domain\Model\Order\Item;
 use Extcode\Cart\Event\Order\EventInterface;
 use Extcode\Cart\Service\MailHandler;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
+use Extcode\Cart\Service\PaymentMethodsServiceInterface;
 
 class Email
 {
-    protected Cart $cart;
+    public function __construct(
+        private readonly PaymentMethodsServiceInterface $paymentMethodsService,
+        private readonly MailHandler $mailHandler,
+    ) {}
 
     public function __invoke(EventInterface $event): void
     {
-        $this->cart = $event->getCart();
         $orderItem = $event->getOrderItem();
-        $settings = $event->getSettings();
 
-        $paymentCountry = $orderItem->getPayment()->getServiceCountry();
+        $paymentMethods = $this->paymentMethodsService->getPaymentMethods($event->getCart());
         $paymentId = $orderItem->getPayment()->getServiceId();
+        $paymentMethod = $paymentMethods[$paymentId] ?? null;
 
-        if ($paymentCountry) {
-            $serviceSettings = $settings['payments']['countries'][$paymentCountry]['options'][$paymentId];
-        } else {
-            $serviceSettings = $settings['payments']['options'][$paymentId];
+        if (
+            method_exists($paymentMethod, 'isBuyerEmailDisabled') === false ||
+            (method_exists($paymentMethod, 'isBuyerEmailDisabled') && $paymentMethod->isBuyerEmailDisabled() === false)
+        ) {
+            $this->sendBuyerMail($orderItem, $event->getCart());
         }
-
-        if ((int)($serviceSettings['preventBuyerEmail'] ?? 0) !== 1) {
-            $this->sendBuyerMail($orderItem);
-        }
-        if ((int)($serviceSettings['preventSellerEmail'] ?? 0) !== 1) {
-            $this->sendSellerMail($orderItem);
+        if (
+            method_exists($paymentMethod, 'isSellerEmailDisabled') === false ||
+            (method_exists($paymentMethod, 'isSellerEmailDisabled') && $paymentMethod->isSellerEmailDisabled() === false)
+        ) {
+            $this->sendSellerMail($orderItem, $event->getCart());
         }
     }
 
-    /**
-     * send an email to buyer
-     */
-    protected function sendBuyerMail(Item $orderItem): void
+    protected function sendBuyerMail(Item $orderItem, Cart $cart): void
     {
-        $mailHandler = GeneralUtility::makeInstance(
-            MailHandler::class
-        );
-        $mailHandler->setCart($this->cart);
-        $mailHandler->sendBuyerMail($orderItem);
+        $this->mailHandler->setCart($cart);
+        $this->mailHandler->sendBuyerMail($orderItem);
     }
 
-    /**
-     * send an email to seller
-     */
-    protected function sendSellerMail(Item $orderItem): void
+    protected function sendSellerMail(Item $orderItem, Cart $cart): void
     {
-        $mailHandler = GeneralUtility::makeInstance(
-            MailHandler::class
-        );
-        $mailHandler->setCart($this->cart);
-        $mailHandler->sendSellerMail($orderItem);
+        $this->mailHandler->setCart($cart);
+        $this->mailHandler->sendSellerMail($orderItem);
     }
 }
