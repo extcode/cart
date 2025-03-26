@@ -72,6 +72,10 @@ class CartController extends ActionController
         $beforeShowCartEvent = new BeforeShowCartEvent($this->cart, $orderItem, $billingAddress, $shippingAddress);
         $this->eventDispatcher->dispatch($beforeShowCartEvent);
 
+        $orderItem = $beforeShowCartEvent->getOrderItem();
+        $billingAddress = $beforeShowCartEvent->getBillingAddress();
+        $shippingAddress = $beforeShowCartEvent->getShippingAddress();
+
         $this->parseServicesAndAssignToView();
 
         $this->view->assignMultiple(
