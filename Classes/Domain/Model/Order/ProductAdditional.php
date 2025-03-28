@@ -14,6 +14,9 @@ use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 
 class ProductAdditional extends AbstractEntity
 {
+    /**
+     * @var string don't remove, it's necessary for extbase database mapping
+     */
     protected string $additional;
 
     public function __construct(
