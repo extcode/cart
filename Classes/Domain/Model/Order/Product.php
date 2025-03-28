@@ -50,9 +50,6 @@ class Product extends AbstractEntity
     #[Validate(['validator' => 'NotEmpty'])]
     protected float $tax = 0.0;
 
-    /**
-     * @var string don't remove, it's necessary for extbase database mapping
-     */
     protected string $additionalData = '';
 
     /**
@@ -60,6 +57,9 @@ class Product extends AbstractEntity
      */
     protected ObjectStorage $productAdditional;
 
+    /**
+     * @var string don't remove, it's necessary for extbase database mapping
+     */
     protected string $additional = '';
 
     public function __construct()
