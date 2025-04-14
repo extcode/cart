@@ -201,18 +201,33 @@ class Service implements ServiceInterface
 
     public function isAvailable(): bool
     {
+        $return = true;
+        // keep available.from and available.until even though this is redundant to ...
         if (isset($this->config['available'])) {
-            $availableFrom = $this->config['available']['from'];
-            if (isset($availableFrom) && $this->cart->getGross() < (float)$availableFrom) {
+            $availableFrom = $this->config['available']['from'] ?? false;
+            if ($availableFrom && $this->cart->getGross() < (float)$availableFrom) {
                 return false;
             }
-            $availableUntil = $this->config['available']['until'];
-            if (isset($availableUntil) && $this->cart->getGross() > (float)$availableUntil) {
+            $availableUntil = $this->config['available']['until'] ?? false;
+            if ($availableUntil && $this->cart->getGross() > (float)$availableUntil) {
                 return false;
             }
         }
 
-        return true;
+        if (isset($this->config['available']) && is_array($this->config['available']) && isset($this->config['available']['_typoScriptNodeValue'])) {
+            $availableType = $this->config['available']['_typoScriptNodeValue'];
+
+            $conditionValue = $this->getConditionValueFromCart($availableType);
+
+            $return = false;
+            foreach ($this->config['available'] as $availableKey => $availableValue) {
+                if (is_array($availableValue) && ((float)$availableValue['value']  <= (float)$conditionValue)) {
+                    $return = (bool) ($availableValue['available'] ?? false);
+                }
+            }
+        }
+
+        return $return;
     }
 
     public function isFree(): bool
