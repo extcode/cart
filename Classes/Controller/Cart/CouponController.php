@@ -61,39 +61,7 @@ class CouponController extends ActionController
 
                     $couponWasAdded = $this->cart->addCoupon($newCartCoupon);
 
-                    if ($couponWasAdded == 1) {
-                        $this->addFlashMessage(
-                            LocalizationUtility::translate(
-                                'tx_cart.ok.coupon.added',
-                                'Cart'
-                            ),
-                            '',
-                            ContextualFeedbackSeverity::OK,
-                            true
-                        );
-                    }
-                    if ($couponWasAdded == -1) {
-                        $this->addFlashMessage(
-                            LocalizationUtility::translate(
-                                'tx_cart.error.coupon.already_added',
-                                'Cart'
-                            ),
-                            '',
-                            ContextualFeedbackSeverity::WARNING,
-                            true
-                        );
-                    }
-                    if ($couponWasAdded == -2) {
-                        $this->addFlashMessage(
-                            LocalizationUtility::translate(
-                                'tx_cart.error.coupon.not_combinable',
-                                'Cart'
-                            ),
-                            '',
-                            ContextualFeedbackSeverity::WARNING,
-                            true
-                        );
-                    }
+                    $this->addFlashMessageForAddedCoupon($couponWasAdded, $coupon);
                 } else {
                     $this->addFlashMessage(
                         LocalizationUtility::translate(
@@ -157,5 +125,62 @@ class CouponController extends ActionController
         }
 
         return $this->redirect('show', 'Cart\Cart');
+    }
+
+    private function addFlashMessageForAddedCoupon(int $couponWasAdded, Coupon $coupon): void
+    {
+        if ($couponWasAdded === 1) {
+            $messageBody = LocalizationUtility::translate(
+                'tx_cart.ok.coupon.added',
+                'Cart'
+            );
+
+            foreach ($this->cart->getCoupons() as $cartCoupon) {
+                if ($cartCoupon->getCode() !== $coupon->getCode()) {
+                    continue;
+                }
+
+                if ($cartCoupon->isUseable()) {
+                    $this->addFlashMessage(
+                        $messageBody
+                    );
+                } else {
+                    $this->addFlashMessage(
+                        LocalizationUtility::translate(
+                            'tx_cart.error.coupon.added_but_not_usable',
+                            'Cart'
+                        ),
+                        '',
+                        ContextualFeedbackSeverity::WARNING,
+                    );
+                }
+            }
+
+            return;
+        }
+
+        if ($couponWasAdded === -1) {
+            $this->addFlashMessage(
+                LocalizationUtility::translate(
+                    'tx_cart.error.coupon.already_added',
+                    'Cart'
+                ),
+                '',
+                ContextualFeedbackSeverity::WARNING,
+            );
+
+            return;
+        }
+
+        if ($couponWasAdded === -2) {
+            $this->addFlashMessage(
+                LocalizationUtility::translate(
+                    'tx_cart.error.coupon.not_combinable',
+                    'Cart'
+                ),
+                '',
+                ContextualFeedbackSeverity::WARNING,
+            );
+        }
     }
 }

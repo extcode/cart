@@ -491,6 +491,9 @@
             <trans-unit id="tx_cart.ok.coupon.added">
                 <source>Coupon was added.</source>
             </trans-unit>
+            <trans-unit id="tx_cart.error.coupon.added_but_not_usable">
+                <source>Coupon was added but is not usable.</source>
+            </trans-unit>
             <trans-unit id="tx_cart.error.coupon.not_accepted">
                 <source>Coupon code was not accepted.</source>
             </trans-unit>

@@ -562,6 +562,9 @@ class Cart implements AdditionalDataInterface
         return true;
     }
 
+    /**
+     * @todo replace return type with enum
+     */
     public function addCoupon(CartCouponInterface $coupon): int
     {
         if (!empty($this->coupons) && array_key_exists($coupon->getCode(), $this->coupons)) {
