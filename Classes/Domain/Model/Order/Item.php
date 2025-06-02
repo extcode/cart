@@ -44,6 +44,9 @@ class Item extends AbstractEntity
 
     protected string $additionalData = '';
 
+    /**
+     * @var string don't remove, it's necessary for extbase database mapping
+     */
     protected string $additional = '';
 
     protected string $currency = '€';

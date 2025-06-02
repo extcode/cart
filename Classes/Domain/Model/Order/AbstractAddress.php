@@ -45,6 +45,9 @@ abstract class AbstractAddress extends AbstractEntity
 
     protected string $fax = '';
 
+    /**
+     * @var string don't remove, it's necessary for extbase database mapping
+     */
     protected string $additional = '';
 
     public function toArray(): array
