@@ -24,7 +24,8 @@ use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 class MailHandler implements SingletonInterface
 {
     protected array $pluginSettings = [];
-    protected Cart $cart;
+
+    protected ?Cart $cart = null;
 
     protected string $buyerEmailName = '';
     protected string $buyerEmailFrom = '';
