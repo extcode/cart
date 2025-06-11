@@ -3,53 +3,49 @@
   <file source-language="en" datatype="plaintext" original="messages" date="020-11-20T08:10:00Z" product-name="cart" target-language="da">
     <header/>
     <body>
-      <trans-unit id="tcarecords-pages-contains.cart_coupons">
-        <source>Cart: Coupons</source>
-        <target state="needs-translation">Cart: Coupons</target>
+      <trans-unit id="tx_cart.module.main" approved="yes">
+        <source>Shopping Cart</source>
+        <target state="final">Indkøbskurv</target>
       </trans-unit>
-      <trans-unit id="tcarecords-pages-contains.cart_orders">
-        <source>Cart: Orders</source>
-        <target state="needs-translation">Cart: Orders</target>
+      <trans-unit id="tx_cart.module.orders" approved="yes">
+        <source>Orders</source>
+        <target state="final">Ordrer</target>
       </trans-unit>
-      <trans-unit id="tx_cart.plugin.cart.title">
+      <trans-unit id="tx_cart.plugin.cart.title" approved="yes">
         <source>Cart: Cart</source>
-        <target state="needs-translation">Cart: Cart</target>
+        <target state="final">Kurv: Indkøbskurv</target>
       </trans-unit>
-      <trans-unit id="tx_cart.plugin.cart.description">
-        <source>shows complete order form</source>
-        <target state="needs-translation">shows complete order form</target>
+      <trans-unit id="tx_cart.plugin.cart.description" approved="yes">
+        <source>Shows complete order form</source>
+        <target state="final">Viser komplet ordreformular</target>
       </trans-unit>
-      <trans-unit id="widget_group.cart">
+      <trans-unit id="widget_group.cart" approved="yes">
         <source>Cart</source>
-        <target state="needs-translation">Cart</target>
+        <target state="final">Indkøbskurv</target>
       </trans-unit>
-      <trans-unit id="dashboard.widgets.payment_paid_shipping_open.title">
+      <trans-unit id="dashboard.widgets.payment_paid_shipping_open.title" approved="yes">
         <source>Latest Orders (paid, not shipped)</source>
-        <target state="needs-translation">Latest Orders (paid, not shipped)</target>
+        <target state="final">Seneste ordrer (betalt, ikke afsendt)</target>
       </trans-unit>
-      <trans-unit id="dashboard.widgets.payment_paid_shipping_open.description">
+      <trans-unit id="dashboard.widgets.payment_paid_shipping_open.description" approved="yes">
         <source>List of Paid but not Shipped Orders</source>
-        <target state="needs-translation">List of Paid but not Shipped Orders</target>
+        <target state="final">Liste over betalte men ikke afsendte ordrer</target>
       </trans-unit>
-      <trans-unit id="dashboard.widgets.orders_per_day.chart.dataSet.0">
-        <source>Total Orders</source>
-        <target state="needs-translation">Total Orders</target>
-      </trans-unit>
-      <trans-unit id="dashboard.widgets.orders_per_day.title">
+      <trans-unit id="dashboard.widgets.orders_per_day.title" approved="yes">
         <source>Orders per Day</source>
-        <target state="needs-translation">Orders per Day</target>
+        <target state="final">Ordrer pr. dag</target>
       </trans-unit>
-      <trans-unit id="dashboard.widgets.orders_per_day.description">
+      <trans-unit id="dashboard.widgets.orders_per_day.description" approved="yes">
         <source>Orders per Day</source>
-        <target state="needs-translation">Orders per Day</target>
+        <target state="final">Ordrer pr. dag</target>
       </trans-unit>
-      <trans-unit id="dashboard.widgets.turnover_per_day.title">
+      <trans-unit id="dashboard.widgets.turnover_per_day.title" approved="yes">
         <source>Turnover per Day</source>
-        <target state="needs-translation">Turnover per Day</target>
+        <target state="final">Omsætning pr. dag</target>
       </trans-unit>
-      <trans-unit id="dashboard.widgets.turnover_per_day.description">
+      <trans-unit id="dashboard.widgets.turnover_per_day.description" approved="yes">
         <source>Turnover per Day</source>
-        <target state="needs-translation">Turnover per Day</target>
+        <target state="final">Omsætning pr. dag</target>
       </trans-unit>
     </body>
   </file>
