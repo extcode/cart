@@ -1,51 +1,27 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <xliff version="1.0">
-  <file source-language="en" datatype="plaintext" original="messages" date="2021-06-10T23:58:00Z" product-name="cart" target-language="pl">
+  <file source-language="en" datatype="plaintext" original="messages" date="2022-05-31T19:53:00Z" product-name="cart" target-language="pl">
     <header/>
     <body>
-      <trans-unit id="tx_cart.typoscript.default_configuration">
-        <source>Shopping Cart - Example Configuration</source>
-        <target state="needs-translation">Shopping Cart - Example Configuration</target>
-      </trans-unit>
-      <trans-unit id="tx_cart.module.main">
-        <source>Shopping Cart</source>
-        <target state="needs-translation">Shopping Cart</target>
-      </trans-unit>
-      <trans-unit id="tx_cart.module.orders">
-        <source>Orders</source>
-        <target state="needs-translation">Orders</target>
-      </trans-unit>
-      <trans-unit id="tx_cart.module.coupons">
-        <source>Coupons</source>
-        <target state="needs-translation">Coupons</target>
-      </trans-unit>
-      <trans-unit id="tx_cart.plugin.mini_cart">
+      <trans-unit id="tx_cart.plugin.cart_minicart">
         <source>Cart: Mini-Cart</source>
         <target state="needs-translation">Cart: Mini-Cart</target>
       </trans-unit>
-      <trans-unit id="tx_cart.plugin.cart">
+      <trans-unit id="tx_cart.plugin.cart_cart">
         <source>Cart: Cart</source>
         <target state="needs-translation">Cart: Cart</target>
       </trans-unit>
-      <trans-unit id="tx_cart.plugin.currency">
+      <trans-unit id="tx_cart.plugin.cart_currency">
         <source>Cart: Currency Selector</source>
         <target state="needs-translation">Cart: Currency Selector</target>
       </trans-unit>
-      <trans-unit id="tx_cart.plugin.product">
-        <source>Cart: Product</source>
-        <target state="needs-translation">Cart: Product</target>
-      </trans-unit>
-      <trans-unit id="tx_cart.plugin.order">
+      <trans-unit id="tx_cart.plugin.cart_order">
         <source>Cart: Orders</source>
         <target state="needs-translation">Cart: Orders</target>
       </trans-unit>
-      <trans-unit id="tx_cart.flexform.productId">
-        <source>Product Id</source>
-        <target state="needs-translation">Product Id</target>
-      </trans-unit>
-      <trans-unit id="tx_cart.flexform.cartPageId">
-        <source>Cart Page Id</source>
-        <target state="needs-translation">Cart Page Id</target>
+      <trans-unit id="tx_cart.flexform.seller.email_from_name">
+        <source>Sender email name for email to the Seller</source>
+        <target state="needs-translation">Sender email name for email to the Seller</target>
       </trans-unit>
       <trans-unit id="tx_cart.flexform.seller.email_from_address">
         <source>Sender email address for email to the Seller</source>
@@ -55,21 +31,25 @@
         <source>Receiver email addresses (seperated by comma) for email to the Seller</source>
         <target state="needs-translation">Receiver email addresses (seperated by comma) for email to the Seller</target>
       </trans-unit>
-      <trans-unit id="tx_cart.flexform.seller.email_bcc_address">
+      <trans-unit id="tx_cart.flexform.seller.email_cc_address">
         <source>CC email addresses (seperated by comma) for email to the Seller</source>
         <target state="needs-translation">CC email addresses (seperated by comma) for email to the Seller</target>
       </trans-unit>
-      <trans-unit id="tx_cart.flexform.seller.email_bcc_address.description">
-        <source>The recipients of e-mails sent to one or more e-mail addresses separated by commas and listed in the so-called CC (Carbon Copy) field will receive a copy of the sent e-mail.</source>
-        <target state="needs-translation">The recipients of e-mails sent to one or more e-mail addresses separated by commas and listed in the so-called CC (Carbon Copy) field will receive a copy of the sent e-mail.</target>
+      <trans-unit id="tx_cart.flexform.seller.email_cc_address.description">
+        <source>The recipients of emails sent to one or more email addresses separated by commas and listed in the so-called CC (Carbon Copy) field will receive a copy of the sent email.</source>
+        <target state="needs-translation">The recipients of emails sent to one or more email addresses separated by commas and listed in the so-called CC (Carbon Copy) field will receive a copy of the sent email.</target>
       </trans-unit>
       <trans-unit id="tx_cart.flexform.seller.email_bcc_address">
         <source>BCC email addresses (seperated by comma) for email to the Seller</source>
-        <target state="needs-translation">CC email addresses (seperated by comma) for email to the Seller</target>
+        <target state="needs-translation">BCC email addresses (seperated by comma) for email to the Seller</target>
       </trans-unit>
       <trans-unit id="tx_cart.flexform.seller.email_bcc_address.description">
-        <source>The recipients of e-mails sent to one or more e-mail addresses separated by commas and listed in the so-called BCC (Blind Carbon Copy) field will receive a copy of the sent e-mail without their address being visible to the other specified recipients. (Source: Wikipedia)</source>
-        <target state="needs-translation">The recipients of e-mails sent to one or more e-mail addresses separated by commas and listed in the so-called CC (Carbon Copy) field will receive a copy of the sent e-mail.</target>
+        <source>The recipients of emails sent to one or more email addresses separated by commas and listed in the so-called BCC (Blind Carbon Copy) field will receive a copy of the sent email without their address being visible to the other specified recipients. (Source: Wikipedia)</source>
+        <target state="needs-translation">The recipients of emails sent to one or more email addresses separated by commas and listed in the so-called BCC (Blind Carbon Copy) field will receive a copy of the sent email without their address being visible to the other specified recipients. (Source: Wikipedia)</target>
+      </trans-unit>
+      <trans-unit id="tx_cart.flexform.buyer.email_from_name">
+        <source>Sender email name for email to the Buyer</source>
+        <target state="needs-translation">Sender email name for email to the Buyer</target>
       </trans-unit>
       <trans-unit id="tx_cart.flexform.buyer.email_from_address">
         <source>Sender email address for email to the Buyer</source>
@@ -80,16 +60,16 @@
         <target state="needs-translation">CC email addresses (seperated by comma) for email to the Buyer</target>
       </trans-unit>
       <trans-unit id="tx_cart.flexform.buyer.email_cc_address.description">
-        <source>The recipients of e-mails sent to one or more e-mail addresses separated by commas and listed in the so-called CC (Carbon Copy) field will receive a copy of the sent e-mail.</source>
-        <target state="needs-translation">The recipients of e-mails sent to one or more e-mail addresses separated by commas and listed in the so-called CC (Carbon Copy) field will receive a copy of the sent e-mail.</target>
+        <source>The recipients of emails sent to one or more email addresses separated by commas and listed in the so-called CC (Carbon Copy) field will receive a copy of the sent email.</source>
+        <target state="needs-translation">The recipients of emails sent to one or more email addresses separated by commas and listed in the so-called CC (Carbon Copy) field will receive a copy of the sent email.</target>
       </trans-unit>
       <trans-unit id="tx_cart.flexform.buyer.email_bcc_address">
         <source>BCC email addresses (seperated by comma) for email to the Buyer</source>
         <target state="needs-translation">BCC email addresses (seperated by comma) for email to the Buyer</target>
       </trans-unit>
       <trans-unit id="tx_cart.flexform.buyer.email_bcc_address.description">
-        <source>The recipients of e-mails sent to one or more e-mail addresses separated by commas and listed in the so-called BCC (Blind Carbon Copy) field will receive a copy of the sent e-mail without their address being visible to the other specified recipients. (Source: Wikipedia)</source>
-        <target state="needs-translation">The recipients of e-mails sent to one or more e-mail addresses separated by commas and listed in the so-called BCC (Blind Carbon Copy) field will receive a copy of the sent e-mail without their address being visible to the other specified recipients. (Source: Wikipedia)</target>
+        <source>The recipients of emails sent to one or more email addresses separated by commas and listed in the so-called BCC (Blind Carbon Copy) field will receive a copy of the sent email without their address being visible to the other specified recipients. (Source: Wikipedia)</source>
+        <target state="needs-translation">The recipients of emails sent to one or more email addresses separated by commas and listed in the so-called BCC (Blind Carbon Copy) field will receive a copy of the sent email without their address being visible to the other specified recipients. (Source: Wikipedia)</target>
       </trans-unit>
       <trans-unit id="tx_cart.flexform.buyer.email_reply_to_address">
         <source>Reply To email address for email to the Buyer</source>
@@ -123,10 +103,6 @@
         <source>Order and Invoice Number</source>
         <target state="needs-translation">Order and Invoice Number</target>
       </trans-unit>
-      <trans-unit id="tx_cart_domain_model_order_item.palettes.purchaser">
-        <source>Purchaser</source>
-        <target state="needs-translation">Purchaser</target>
-      </trans-unit>
       <trans-unit id="tx_cart_domain_model_order_item.palettes.addresses">
         <source>Addresses</source>
         <target state="needs-translation">Addresses</target>
@@ -138,18 +114,6 @@
       <trans-unit id="tx_cart_domain_model_order_item.palettes.total_price">
         <source>Total Price</source>
         <target state="needs-translation">Total Price</target>
-      </trans-unit>
-      <trans-unit id="tx_cart_domain_model_order_item.palettes.payment">
-        <source>Payment</source>
-        <target state="needs-translation">Payment</target>
-      </trans-unit>
-      <trans-unit id="tx_cart_domain_model_order_item.palettes.shipping">
-        <source>Shipping</source>
-        <target state="needs-translation">Shipping</target>
-      </trans-unit>
-      <trans-unit id="tx_cart_domain_model_order_item.palettes.documents">
-        <source>Documents</source>
-        <target state="needs-translation">Documents</target>
       </trans-unit>
       <trans-unit id="tx_cart_domain_model_order_item.fe_user">
         <source>User</source>
@@ -182,18 +146,6 @@
       <trans-unit id="tx_cart_domain_model_order_item.delivery_date">
         <source>Delivery Note Date</source>
         <target state="needs-translation">Delivery Note Date</target>
-      </trans-unit>
-      <trans-unit id="tx_cart_domain_model_order_item.first_name">
-        <source>Firstname</source>
-        <target state="needs-translation">Firstname</target>
-      </trans-unit>
-      <trans-unit id="tx_cart_domain_model_order_item.last_name">
-        <source>Lastname</source>
-        <target state="needs-translation">Lastname</target>
-      </trans-unit>
-      <trans-unit id="tx_cart_domain_model_order_item.email">
-        <source>Email</source>
-        <target state="needs-translation">Email</target>
       </trans-unit>
       <trans-unit id="tx_cart_domain_model_order_item.billing_address">
         <source>Billing Address</source>
@@ -287,6 +239,10 @@
         <source>Payment</source>
         <target state="needs-translation">Payment</target>
       </trans-unit>
+      <trans-unit id="tx_cart_domain_model_order_address">
+        <source>Order Address</source>
+        <target state="needs-translation">Order Address</target>
+      </trans-unit>
       <trans-unit id="tx_cart_domain_model_order_address.record_type">
         <source>Record Type</source>
         <target state="needs-translation">Record Type</target>
@@ -343,6 +299,10 @@
         <source>Street Number</source>
         <target state="needs-translation">Street Number</target>
       </trans-unit>
+      <trans-unit id="tx_cart_domain_model_order_address.addition">
+        <source>Addition</source>
+        <target state="needs-translation">Addition</target>
+      </trans-unit>
       <trans-unit id="tx_cart_domain_model_order_address.zip">
         <source>Zip</source>
         <target state="needs-translation">Zip</target>
@@ -383,25 +343,13 @@
         <source>Product</source>
         <target state="needs-translation">Product</target>
       </trans-unit>
+      <trans-unit id="tx_cart_domain_model_order_product.product_id">
+        <source>Product Id</source>
+        <target state="needs-translation">Product Id</target>
+      </trans-unit>
       <trans-unit id="tx_cart_domain_model_order_product.product_type">
-        <source>Type</source>
-        <target state="needs-translation">Type</target>
-      </trans-unit>
-      <trans-unit id="tx_cart_domain_model_order_product.product_type.simple">
-        <source>simple</source>
-        <target state="needs-translation">simple</target>
-      </trans-unit>
-      <trans-unit id="tx_cart_domain_model_order_product.product_type.configurable">
-        <source>configurable</source>
-        <target state="needs-translation">configurable</target>
-      </trans-unit>
-      <trans-unit id="tx_cart_domain_model_order_product.product_type.virtual">
-        <source>virtual</source>
-        <target state="needs-translation">virtual</target>
-      </trans-unit>
-      <trans-unit id="tx_cart_domain_model_order_product.product_type.downloadable">
-        <source>downloadable</source>
-        <target state="needs-translation">downloadable</target>
+        <source>Product Type</source>
+        <target state="needs-translation">Product Type</target>
       </trans-unit>
       <trans-unit id="tx_cart_domain_model_order_product.sku">
         <source>SKU</source>
@@ -643,10 +591,6 @@
         <source>Note</source>
         <target state="needs-translation">Note</target>
       </trans-unit>
-      <trans-unit id="tx_cart_domain_model_order_payment.transactions">
-        <source>Transactions</source>
-        <target state="needs-translation">Transactions</target>
-      </trans-unit>
       <trans-unit id="tx_cart_domain_model_order_transaction">
         <source>Transaction</source>
         <target state="needs-translation">Transaction</target>
@@ -711,10 +655,6 @@
         <source>Calc</source>
         <target state="needs-translation">Calc</target>
       </trans-unit>
-      <trans-unit id="tx_cart_domain_model_order_address">
-        <source>Order Address</source>
-        <target state="needs-translation">Order Address</target>
-      </trans-unit>
       <trans-unit id="tx_cart_domain_model_coupon">
         <source>Coupon</source>
         <target state="needs-translation">Coupon</target>
@@ -734,6 +674,14 @@
       <trans-unit id="tx_cart_domain_model_coupon.coupon_type.cartdiscount">
         <source>Cart Discount</source>
         <target state="needs-translation">Cart Discount</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_coupon.coupon_type.cartdiscount.fix">
+        <source>Cart Discount (fix)</source>
+        <target state="needs-translation">Cart Discount (fix)</target>
+      </trans-unit>
+      <trans-unit id="tx_cart_domain_model_coupon.coupon_type.cartdiscount.percentage">
+        <source>Cart Discount (percentage)</source>
+        <target state="needs-translation">Cart Discount (percentage)</target>
       </trans-unit>
       <trans-unit id="tx_cart_domain_model_coupon.is_relative_discount">
         <source>Is Relative Discount</source>
@@ -779,17 +727,9 @@
         <source>Number of Coupons used</source>
         <target state="needs-translation">Number of Coupons used</target>
       </trans-unit>
-      <trans-unit id="tx_cart.plugin.products.action.product.flexform">
-        <source>Flexform</source>
-        <target state="needs-translation">Flexform</target>
-      </trans-unit>
       <trans-unit id="tx_cart_domain_model_tag">
         <source>Tag</source>
         <target state="needs-translation">Tag</target>
-      </trans-unit>
-      <trans-unit id="tx_cart_domain_model_tags">
-        <source>Tags</source>
-        <target state="needs-translation">Tags</target>
       </trans-unit>
       <trans-unit id="tx_cart_domain_model_tag.title">
         <source>Title</source>
@@ -799,25 +739,17 @@
         <source>Cart Session</source>
         <target state="needs-translation">Cart Session</target>
       </trans-unit>
-      <trans-unit id="tx_cart.settings.allowed_countries.de">
-        <source>Germany</source>
-        <target state="needs-translation">Germany</target>
-      </trans-unit>
-      <trans-unit id="tx_cart.settings.allowed_countries.at">
-        <source>Austria</source>
-        <target state="needs-translation">Austria</target>
-      </trans-unit>
-      <trans-unit id="tx_cart.settings.allowed_countries.ch">
-        <source>Switzerland</source>
-        <target state="needs-translation">Switzerland</target>
-      </trans-unit>
       <trans-unit id="pages.doktype.181">
         <source>Cart: Cart</source>
         <target state="needs-translation">Cart: Cart</target>
       </trans-unit>
-      <trans-unit id="pages.doktype.182">
-        <source>Cart: Product</source>
-        <target state="needs-translation">Cart: Product</target>
+      <trans-unit id="tcarecords-pages-contains.cart_coupons">
+        <source>Cart: Coupons</source>
+        <target state="needs-translation">Cart: Coupons</target>
+      </trans-unit>
+      <trans-unit id="tcarecords-pages-contains.cart_orders">
+        <source>Cart: Orders</source>
+        <target state="needs-translation">Cart: Orders</target>
       </trans-unit>
     </body>
   </file>
