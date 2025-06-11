@@ -3,21 +3,21 @@
   <file source-language="en" datatype="plaintext" original="messages" date="020-11-20T08:10:00Z" product-name="cart" target-language="cs">
     <header/>
     <body>
-      <trans-unit id="tcarecords-pages-contains.cart_coupons">
-        <source>Cart: Coupons</source>
-        <target state="needs-translation">Cart: Coupons</target>
+      <trans-unit id="tx_cart.module.main">
+        <source>Shopping Cart</source>
+        <target state="needs-translation">Shopping Cart</target>
       </trans-unit>
-      <trans-unit id="tcarecords-pages-contains.cart_orders">
-        <source>Cart: Orders</source>
-        <target state="needs-translation">Cart: Orders</target>
+      <trans-unit id="tx_cart.module.orders">
+        <source>Orders</source>
+        <target state="needs-translation">Orders</target>
       </trans-unit>
       <trans-unit id="tx_cart.plugin.cart.title">
         <source>Cart: Cart</source>
         <target state="needs-translation">Cart: Cart</target>
       </trans-unit>
       <trans-unit id="tx_cart.plugin.cart.description">
-        <source>shows complete order form</source>
-        <target state="needs-translation">shows complete order form</target>
+        <source>Shows complete order form</source>
+        <target state="needs-translation">Shows complete order form</target>
       </trans-unit>
       <trans-unit id="widget_group.cart">
         <source>Cart</source>
@@ -30,10 +30,6 @@
       <trans-unit id="dashboard.widgets.payment_paid_shipping_open.description">
         <source>List of Paid but not Shipped Orders</source>
         <target state="needs-translation">List of Paid but not Shipped Orders</target>
-      </trans-unit>
-      <trans-unit id="dashboard.widgets.orders_per_day.chart.dataSet.0">
-        <source>Total Orders</source>
-        <target state="needs-translation">Total Orders</target>
       </trans-unit>
       <trans-unit id="dashboard.widgets.orders_per_day.title">
         <source>Orders per Day</source>
