@@ -27,7 +27,7 @@ call_user_func(function () {
     foreach ($pluginNames as $pluginName => $pluginConfig) {
         $pluginSignature = 'cart_' . strtolower($pluginName);
 
-        ExtensionUtility::registerPlugin(
+        $contentTypeName = ExtensionUtility::registerPlugin(
             'Cart',
             $pluginName,
             $_LLL_db . 'tx_cart.plugin.' . $pluginSignature,
@@ -36,13 +36,22 @@ call_user_func(function () {
         );
 
         $flexFormPath = 'EXT:cart/Configuration/FlexForms/' . $pluginName . 'Plugin.xml';
+        
         if (file_exists(GeneralUtility::getFileAbsFileName($flexFormPath))) {
-            $GLOBALS['TCA']['tt_content']['types'][$pluginSignature]['showitem'] = 'pi_flexform';
 
             ExtensionManagementUtility::addPiFlexFormValue(
-                $pluginSignature,
-                'FILE:' . $flexFormPath
+                '*',
+                'FILE:' . $flexFormPath,
+                $contentTypeName
             );
+
+            ExtensionManagementUtility::addToAllTCAtypes(
+                'tt_content',
+                '--div--;Configuration,pi_flexform,',
+                $contentTypeName,
+                'after:subheader',
+            );
+            
         }
     }
 });
