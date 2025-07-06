@@ -22,7 +22,6 @@ return function (ContainerConfigurator $configurator) {
             'title' => 'LLL:EXT:cart/Resources/Private/Language/locallang_be.xlf:dashboard.widgets.orders_per_day.title',
             'description' => 'LLL:EXT:cart/Resources/Private/Language/locallang_be.xlf:dashboard.widgets.orders_per_day.description',
             'iconIdentifier' => 'content-widget-chart-bar',
-            'additionalCssClasses' => 'dashboard-item--chart',
             'height' => 'medium',
             'width' => 'medium',
         ]);
