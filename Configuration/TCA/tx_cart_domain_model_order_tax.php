@@ -35,6 +35,19 @@ return [
         ],
     ],
     'columns' => [
+        'record_type' => [
+            'exclude' => 0,
+            'label' => $_LLL . ':tx_cart_domain_model_order_tax.record_type',
+            'config' => [
+                'type' => 'select',
+                'renderType' => 'selectSingle',
+                'items' => [
+                    [$_LLL . ':tx_cart_domain_model_order_tax.record_type.tax', 'tax'],
+                    [$_LLL . ':tx_cart_domain_model_order_tax.record_type.total_tax', 'total_tax'],
+                ],
+                'default' => 'tax',
+            ],
+        ],
         'tax' => [
             'exclude' => 0,
             'label' => $_LLL . ':tx_cart_domain_model_order_tax.tax',
