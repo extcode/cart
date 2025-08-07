@@ -47,8 +47,14 @@ return [
                 'renderType' => 'selectSingle',
                 'readOnly' => 1,
                 'items' => [
-                    ['label' => $_LLL . ':tx_cart_domain_model_order_address.record_type.billing', 'value' => '\\' . BillingAddress::class],
-                    ['label' => $_LLL . ':tx_cart_domain_model_order_address.record_type.shipping', 'value' => '\\' . ShippingAddress::class],
+                    [
+                        'label' => $_LLL . ':tx_cart_domain_model_order_address.record_type.billing',
+                        'value' => '\\' . BillingAddress::class,
+                    ],
+                    [
+                        'label' => $_LLL . ':tx_cart_domain_model_order_address.record_type.shipping',
+                        'value' => '\\' . ShippingAddress::class,
+                    ],
                 ],
                 'default' => '\\' . BillingAddress::class,
             ],
