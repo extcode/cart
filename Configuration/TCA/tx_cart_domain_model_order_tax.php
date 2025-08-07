@@ -42,8 +42,14 @@ return [
                 'type' => 'select',
                 'renderType' => 'selectSingle',
                 'items' => [
-                    [$_LLL . ':tx_cart_domain_model_order_tax.record_type.tax', 'tax'],
-                    [$_LLL . ':tx_cart_domain_model_order_tax.record_type.total_tax', 'total_tax'],
+                    [
+                        'label' => $_LLL . ':tx_cart_domain_model_order_tax.record_type.tax',
+                        'value' => 'tax',
+                    ],
+                    [
+                        'label' => $_LLL . ':tx_cart_domain_model_order_tax.record_type.total_tax',
+                        'value' => 'total_tax',
+                    ],
                 ],
                 'default' => 'tax',
             ],
