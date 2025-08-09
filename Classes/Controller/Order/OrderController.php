@@ -49,7 +49,7 @@ class OrderController extends ActionController
         $feUserUid = $this->context->getPropertyFromAspect('frontend.user', 'id');
         $orderItems = $this->itemRepository->findBy(['feUser' => $feUserUid]);
 
-        $itemsPerPage = $this->settings['itemsPerPage'] ?? 20;
+        $itemsPerPage = is_numeric($this->settings['itemsPerPage']) ? (int)$this->settings['itemsPerPage'] : 20;
 
         $arrayPaginator = new QueryResultPaginator(
             $orderItems,
