@@ -92,7 +92,7 @@ class TurnoverPerDayProvider implements ChartDataProviderInterface
         ];
 
         $this->queryBuilder
-            ->addSelectLiteral(
+            ->selectLiteral(
                 $this->queryBuilder->expr()->sum('tx_cart_domain_model_order_item.' . $this->options['sum'], 'turnover')
             )
             ->from('tx_cart_domain_model_order_item');
@@ -101,6 +101,6 @@ class TurnoverPerDayProvider implements ChartDataProviderInterface
             $this->queryBuilder->where(... $constraints);
         }
 
-        return $this->queryBuilder->executeQuery()->fetchOne()['turnover'] ?? 0;
+        return $this->queryBuilder->executeQuery()->fetchOne() ?? 0;
     }
 }
