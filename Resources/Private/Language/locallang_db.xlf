@@ -267,7 +267,7 @@
                 <source>Tax</source>
             </trans-unit>
             <trans-unit id="tx_cart_domain_model_order_rax.record_type.total_tax">
-                <source>Total Tax/source>
+                <source>Total Tax</source>
             </trans-unit>
 
             <trans-unit id="tx_cart_domain_model_order_product">
