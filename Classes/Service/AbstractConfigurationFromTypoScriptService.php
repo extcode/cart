@@ -62,9 +62,9 @@ abstract class AbstractConfigurationFromTypoScriptService
 
         if (isset($country)) {
             if (
-                !empty($configuration['countries']) &&
-                !empty($configuration['countries'][$country]) &&
-                is_array($configuration['countries'][$country])
+                !empty($configuration['countries'])
+                && !empty($configuration['countries'][$country])
+                && is_array($configuration['countries'][$country])
             ) {
                 return $configuration['countries'][$country];
             }

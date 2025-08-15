@@ -61,8 +61,8 @@ class MapModelPropertiesToTableColumnsViewHelper extends AbstractViewHelper
         $table = $this->arguments['table'];
         $data = $this->arguments['data'];
 
-        if (isset($this->configuration['persistence']['classes'][$class]['mapping']) &&
-            $this->configuration['persistence']['classes'][$class]['mapping']['tableName'] == $table
+        if (isset($this->configuration['persistence']['classes'][$class]['mapping'])
+            && $this->configuration['persistence']['classes'][$class]['mapping']['tableName'] == $table
         ) {
             $mapping = [];
             foreach ($this->configuration['persistence']['classes'][$class]['mapping']['columns'] as $tableColumn => $modelPropertyData) {

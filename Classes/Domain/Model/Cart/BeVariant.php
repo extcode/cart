@@ -185,10 +185,10 @@ class BeVariant
     {
         $bestPrice = $this->price;
 
-        if ($this->specialPrice &&
-            (
-                (($this->specialPrice < $bestPrice) && in_array($this->priceCalcMethod, [0, 1, 4, 5])) ||
-                (($this->specialPrice > $bestPrice) && in_array($this->priceCalcMethod, [2, 3]))
+        if ($this->specialPrice
+            && (
+                (($this->specialPrice < $bestPrice) && in_array($this->priceCalcMethod, [0, 1, 4, 5]))
+                || (($this->specialPrice > $bestPrice) && in_array($this->priceCalcMethod, [2, 3]))
             )
         ) {
             $bestPrice = $this->specialPrice;

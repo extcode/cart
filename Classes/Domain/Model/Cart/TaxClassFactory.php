@@ -35,10 +35,10 @@ final class TaxClassFactory implements TaxClassFactoryInterface
 
     private function isValidTaxClassConfig(int $key, array $value): bool
     {
-        if (empty($value) ||
-            empty($value['name']) ||
-            !isset($value['calc']) ||
-            !is_numeric($value['calc'])
+        if (empty($value)
+            || empty($value['name'])
+            || !isset($value['calc'])
+            || !is_numeric($value['calc'])
         ) {
             $this->logger->error('Can\'t create tax class object for the configuration with the index=' . $key . '.', []);
 
