@@ -89,8 +89,8 @@ trait MeasureTrait
     {
         foreach ($this->measureUnits as $measureUnitGroup) {
             if (
-                isset($measureUnitGroup[$this->priceMeasureUnit]) &&
-                isset($measureUnitGroup[$this->basePriceMeasureUnit])
+                isset($measureUnitGroup[$this->priceMeasureUnit])
+                && isset($measureUnitGroup[$this->basePriceMeasureUnit])
             ) {
                 return true;
             }

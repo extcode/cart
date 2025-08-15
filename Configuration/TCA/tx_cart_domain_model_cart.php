@@ -21,8 +21,8 @@ return [
     ],
     'types' => [
         '1' => [
-            'showitem' =>
-                'pid, f_hash, s_hash, fe_user, was_ordered, order_item, serialized_cart',
+            'showitem'
+                => 'pid, f_hash, s_hash, fe_user, was_ordered, order_item, serialized_cart',
         ],
     ],
     'palettes' => [

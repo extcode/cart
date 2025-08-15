@@ -34,8 +34,8 @@ class CouponController extends ActionController
 
             $coupon = $this->couponRepository->findOneBy(['code' => $couponCode]);
             if (
-                $coupon instanceof Coupon &&
-                $coupon->isAvailable()
+                $coupon instanceof Coupon
+                && $coupon->isAvailable()
             ) {
                 $couponType = $coupon->getCouponType();
 

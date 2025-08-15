@@ -61,15 +61,15 @@ class TemplateLayout implements SingletonInterface
 
         if (!empty($pluginName)) {
             $pluginName .= '.';
-            if (isset($pagesTsConfig[$extKey]['templateLayouts.']) &&
-                isset($pagesTsConfig[$extKey]['templateLayouts.'][$pluginName]) &&
-                is_array($pagesTsConfig[$extKey]['templateLayouts.'][$pluginName])
+            if (isset($pagesTsConfig[$extKey]['templateLayouts.'])
+                && isset($pagesTsConfig[$extKey]['templateLayouts.'][$pluginName])
+                && is_array($pagesTsConfig[$extKey]['templateLayouts.'][$pluginName])
             ) {
                 $templateLayouts = $pagesTsConfig[$extKey]['templateLayouts.'][$pluginName];
             }
         } else {
-            if (isset($pagesTsConfig[$extKey]['templateLayouts.']) &&
-                is_array($pagesTsConfig[$extKey]['templateLayouts.'])
+            if (isset($pagesTsConfig[$extKey]['templateLayouts.'])
+                && is_array($pagesTsConfig[$extKey]['templateLayouts.'])
             ) {
                 $templateLayouts = $pagesTsConfig[$extKey]['templateLayouts.'];
             }

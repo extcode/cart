@@ -36,8 +36,8 @@ class OrderController extends ActionController
 
     protected function initializeAction(): void
     {
-        $this->pluginSettings =
-            $this->configurationManager->getConfiguration(
+        $this->pluginSettings
+            = $this->configurationManager->getConfiguration(
                 ConfigurationManager::CONFIGURATION_TYPE_FRAMEWORK
             );
     }

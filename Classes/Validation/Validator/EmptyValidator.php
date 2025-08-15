@@ -38,8 +38,8 @@ class EmptyValidator extends AbstractValidator
                     1500493634
                 );
             } elseif (
-                is_string($value) &&
-                $value != ''
+                is_string($value)
+                && $value != ''
             ) {
                 $this->addError(
                     $this->translateErrorMessage(
@@ -49,8 +49,8 @@ class EmptyValidator extends AbstractValidator
                     1500493641
                 );
             } elseif (
-                is_array($value) &&
-                !empty($value)
+                is_array($value)
+                && !empty($value)
             ) {
                 $this->addError(
                     $this->translateErrorMessage(

@@ -609,8 +609,8 @@ final class Product implements AdditionalDataInterface, ProductInterface
 
     public function setMinNumberInCart(int $minNumberInCart): void
     {
-        if ($minNumberInCart < 0 ||
-            ($this->maxNumberInCart > 0 && $minNumberInCart > $this->maxNumberInCart)
+        if ($minNumberInCart < 0
+            || ($this->maxNumberInCart > 0 && $minNumberInCart > $this->maxNumberInCart)
         ) {
             throw new \InvalidArgumentException();
         }

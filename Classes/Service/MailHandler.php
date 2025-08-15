@@ -51,8 +51,8 @@ class MailHandler implements SingletonInterface
 
     public function setPluginSettings(): void
     {
-        $this->pluginSettings =
-            $this->configurationManager->getConfiguration(
+        $this->pluginSettings
+            = $this->configurationManager->getConfiguration(
                 ConfigurationManager::CONFIGURATION_TYPE_FRAMEWORK,
                 'Cart'
             );

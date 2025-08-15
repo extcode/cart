@@ -53,9 +53,9 @@ class CartController extends ActionController
                 Item::class
             );
 
-            if ($extbaseAttribute instanceof ExtbaseRequestParameters &&
-                $extbaseAttribute->getOriginalRequest() &&
-                $extbaseAttribute->getOriginalRequest()->hasArgument('orderItem')
+            if ($extbaseAttribute instanceof ExtbaseRequestParameters
+                && $extbaseAttribute->getOriginalRequest()
+                && $extbaseAttribute->getOriginalRequest()->hasArgument('orderItem')
             ) {
                 $originalRequestOrderItem = $extbaseAttribute->getOriginalRequest()->getArgument('orderItem');
 

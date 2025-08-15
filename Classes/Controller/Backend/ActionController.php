@@ -21,8 +21,8 @@ class ActionController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControlle
 
     protected function initializeAction(): void
     {
-        $this->pluginSettings =
-            $this->configurationManager->getConfiguration(
+        $this->pluginSettings
+            = $this->configurationManager->getConfiguration(
                 ConfigurationManager::CONFIGURATION_TYPE_FRAMEWORK
             );
 
@@ -37,8 +37,8 @@ class ActionController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControlle
             ConfigurationManager::class
         );
 
-        $frameworkConf =
-            $configurationManager->getConfiguration(
+        $frameworkConf
+            = $configurationManager->getConfiguration(
                 ConfigurationManager::CONFIGURATION_TYPE_FRAMEWORK
             );
         $persistenceConf = ['persistence' => ['storagePid' => $pageId]];

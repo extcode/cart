@@ -25,8 +25,8 @@ return [
     ],
     'types' => [
         '1' => [
-            'showitem' =>
-                'pid, fe_user,
+            'showitem'
+                => 'pid, fe_user,
                 --palette--;' . $_LLL . ':tx_cart_domain_model_order_item.palettes.numbers;numbers,
                 --palette--;' . $_LLL . ':tx_cart_domain_model_order_item.palettes.addresses;addresses,
                 --palette--;' . $_LLL . ':tx_cart_domain_model_order_item.palettes.price;price,

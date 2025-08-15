@@ -653,7 +653,7 @@ class AbstractAddressTest extends UnitTestCase
      */
     protected function getAccessibleMock(
         string $originalClassName,
-        array|null $methods = [],
+        ?array $methods = [],
         array $arguments = [],
         string $mockClassName = '',
         bool $callOriginalConstructor = true,

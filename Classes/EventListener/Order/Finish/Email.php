@@ -33,14 +33,14 @@ class Email
         $paymentMethod = $paymentMethods[$paymentId] ?? null;
 
         if (
-            method_exists($paymentMethod, 'isBuyerEmailDisabled') === false ||
-            (method_exists($paymentMethod, 'isBuyerEmailDisabled') && $paymentMethod->isBuyerEmailDisabled() === false)
+            method_exists($paymentMethod, 'isBuyerEmailDisabled') === false
+            || (method_exists($paymentMethod, 'isBuyerEmailDisabled') && $paymentMethod->isBuyerEmailDisabled() === false)
         ) {
             $this->sendBuyerMail($orderItem, $event->getCart());
         }
         if (
-            method_exists($paymentMethod, 'isSellerEmailDisabled') === false ||
-            (method_exists($paymentMethod, 'isSellerEmailDisabled') && $paymentMethod->isSellerEmailDisabled() === false)
+            method_exists($paymentMethod, 'isSellerEmailDisabled') === false
+            || (method_exists($paymentMethod, 'isSellerEmailDisabled') && $paymentMethod->isSellerEmailDisabled() === false)
         ) {
             $this->sendSellerMail($orderItem, $event->getCart());
         }

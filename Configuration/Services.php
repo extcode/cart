@@ -20,8 +20,8 @@ return function (ContainerConfigurator $containerConfigurator, ContainerBuilder 
     }
 
     if (
-        $containerBuilder->hasDefinition('TYPO3\CMS\Form\Mvc\Configuration\ConfigurationManager') &&
-        $containerBuilder->hasDefinition('TYPO3\CMS\Form\Mvc\Persistence\FormPersistenceManager')
+        $containerBuilder->hasDefinition('TYPO3\CMS\Form\Mvc\Configuration\ConfigurationManager')
+        && $containerBuilder->hasDefinition('TYPO3\CMS\Form\Mvc\Persistence\FormPersistenceManager')
     ) {
         $services = $containerConfigurator->services();
 
