@@ -71,7 +71,7 @@ class AddToCartFinisher extends AbstractFinisher
 
             $this->cartUtility->updateService($this->cart);
 
-            $this->sessionHandler->writeCart($this->configurations['settings'], $this->cart);
+            $this->sessionHandler->writeCart($this->configurations['settings']['cart']['pid'], $this->cart);
 
             $status = '200';
             $messageBody = $this->getStatusMessageBody($formValues, $status);
