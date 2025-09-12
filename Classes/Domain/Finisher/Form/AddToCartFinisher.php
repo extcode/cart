@@ -29,7 +29,7 @@ use TYPO3\CMS\Form\Domain\Finishers\AbstractFinisher;
 
 class AddToCartFinisher extends AbstractFinisher
 {
-    protected Cart $cart;
+    protected ?Cart $cart = null;
 
     protected array $configurations;
 
@@ -47,9 +47,9 @@ class AddToCartFinisher extends AbstractFinisher
 
     protected function executeInternal(): ?string
     {
-        $cart = $this->sessionHandler->restoreCart($this->configurations['settings']['cart']['pid']);
+        $this->cart = $this->sessionHandler->restoreCart($this->configurations['settings']['cart']['pid']);
 
-        if (!$cart instanceof Cart) {
+        if (!$this->cart instanceof Cart) {
             $cart = $this->cartUtility->getNewCart($this->configurations);
             $this->sessionHandler->writeCart($this->configurations['settings']['cart']['pid'], $cart);
         }
