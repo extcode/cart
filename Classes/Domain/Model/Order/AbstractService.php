@@ -11,12 +11,15 @@ namespace Extcode\Cart\Domain\Model\Order;
  * LICENSE file that was distributed with this source code.
  */
 
+use TYPO3\CMS\Extbase\Annotation\ORM\Lazy;
 use TYPO3\CMS\Extbase\Annotation\Validate;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
+use TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy;
 
 abstract class AbstractService extends AbstractEntity
 {
-    protected ?Item $item = null;
+    #[Lazy]
+    protected LazyLoadingProxy|Item|null $item = null;
 
     protected string $serviceCountry = '';
 
@@ -65,6 +68,10 @@ abstract class AbstractService extends AbstractEntity
 
     public function getItem(): ?Item
     {
+        if ($this->item instanceof LazyLoadingProxy) {
+            $this->item->_loadRealInstance();
+        }
+
         return $this->item;
     }
 

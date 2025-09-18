@@ -11,13 +11,16 @@ namespace Extcode\Cart\Domain\Model\Order;
  * LICENSE file that was distributed with this source code.
  */
 
+use TYPO3\CMS\Extbase\Annotation\ORM\Lazy;
 use TYPO3\CMS\Extbase\Annotation\Validate;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
+use TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 
 class Product extends AbstractEntity
 {
-    protected Item $item;
+    #[Lazy]
+    protected LazyLoadingProxy|Item $item;
 
     protected int $productId = 0;
 
@@ -74,6 +77,10 @@ class Product extends AbstractEntity
 
     public function getItem(): ?Item
     {
+        if ($this->item instanceof LazyLoadingProxy) {
+            $this->item->_loadRealInstance();
+        }
+
         return $this->item;
     }
 
