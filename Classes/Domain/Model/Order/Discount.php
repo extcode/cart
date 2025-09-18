@@ -12,12 +12,15 @@ namespace Extcode\Cart\Domain\Model\Order;
  */
 
 use Extcode\Cart\Domain\Model\Cart\TaxClass;
+use TYPO3\CMS\Extbase\Annotation\ORM\Lazy;
 use TYPO3\CMS\Extbase\Annotation\Validate;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
+use TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy;
 
 class Discount extends AbstractEntity
 {
-    protected Item $item;
+    #[Lazy]
+    protected LazyLoadingProxy|Item $item;
 
     public function __construct(
         #[Validate(['validator' => 'NotEmpty'])]
@@ -36,6 +39,10 @@ class Discount extends AbstractEntity
 
     public function getItem(): ?Item
     {
+        if ($this->item instanceof LazyLoadingProxy) {
+            $this->item->_loadRealInstance();
+        }
+
         return $this->item;
     }
 
