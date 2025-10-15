@@ -104,7 +104,7 @@ class ProductController extends ActionController
         );
 
         $pageType = $GLOBALS['TYPO3_REQUEST']->getAttribute('routing')->getPageType();
-        if ($pageType === self::AJAX_CART_TYPE_NUM) {
+        if ($pageType === static::AJAX_CART_TYPE_NUM) {
             $productsChanged = $this->getChangedProducts($cartProducts);
 
             $response = [
