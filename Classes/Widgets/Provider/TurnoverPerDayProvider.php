@@ -14,8 +14,6 @@ namespace Extcode\Cart\Widgets\Provider;
 use Extcode\Cart\Constants;
 use TYPO3\CMS\Core\Database\Query\QueryBuilder;
 use TYPO3\CMS\Core\Localization\LanguageService;
-use TYPO3\CMS\Core\Localization\LanguageServiceFactory;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Dashboard\WidgetApi;
 use TYPO3\CMS\Dashboard\Widgets\ChartDataProviderInterface;
 
@@ -28,7 +26,7 @@ class TurnoverPerDayProvider implements ChartDataProviderInterface
         private readonly QueryBuilder $queryBuilder,
         array $options = []
     ) {
-        $this->languageService = GeneralUtility::makeInstance(LanguageServiceFactory::class)->create($GLOBALS['BE_USER']->uc['lang']);
+        $this->languageService = $GLOBALS['LANG'];
         $this->options = array_merge(
             [
                 'fieldName' => 'tx_cart_domain_model_order_item.order_date',
