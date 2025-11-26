@@ -1,10 +1,11 @@
 {
   pkgs ? import <nixpkgs> { }
+  ,phpPkgs ? import (fetchTarball "https://github.com/piotrkwiecinski/nixpkgs/archive/1c614d75004b9eb1ecda6ddeb959c4f544403de5.tar.gz") {}
   ,phpVersion ? "php82"
 }:
 
 let
-  php = pkgs.${phpVersion}.buildEnv {
+  php = phpPkgs.${phpVersion}.buildEnv {
     extensions = { enabled, all }: enabled ++ (with all; [
       xdebug
     ]);
@@ -14,7 +15,7 @@ let
       memory_limit = 4G
     '';
   };
-  inherit(pkgs."${phpVersion}Packages") composer;
+  inherit(phpPkgs."${phpVersion}Packages") composer;
 
   projectInstall = pkgs.writeShellApplication {
     name = "project-install";

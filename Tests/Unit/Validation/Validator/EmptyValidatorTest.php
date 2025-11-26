@@ -99,7 +99,7 @@ class EmptyValidatorTest extends UnitTestCase
     public function emptyValidatorWorksForEmptyCountableObjects(): void
     {
         $countableObject = new \SplObjectStorage();
-        $countableObject->attach(new \stdClass());
+        $countableObject->offsetSet(new \stdClass());
         self::assertTrue($this->validator->validate($countableObject)->hasErrors());
     }
 }
