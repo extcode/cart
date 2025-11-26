@@ -102,7 +102,7 @@ class CurrencyViewHelper extends AbstractViewHelper
 
         $settings = $this->templateVariableContainer->get('settings');
 
-        if ($settings && $settings['format'] && $settings['format']['currency']) {
+        if (isset($settings['format']['currency'])) {
             $currencyFormat = $settings['format']['currency'];
 
             if (!isset($currencySign) && isset($currencyFormat['currencySign'])) {
