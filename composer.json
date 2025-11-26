@@ -56,7 +56,7 @@
         "typo3/cms-fluid": "^13.4"
     },
     "require-dev": {
-        "codappix/typo3-php-datasets": "^1.5",
+        "codappix/typo3-php-datasets": "^2.0",
         "friendsofphp/php-cs-fixer": "^3.64",
         "phpstan/phpstan": "^1.12",
         "ssch/typo3-rector": "^2.9",
