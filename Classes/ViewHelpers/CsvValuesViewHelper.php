@@ -66,10 +66,10 @@ class CsvValuesViewHelper extends AbstractViewHelper
         $orderItemArr[] = $orderItem->getInvoiceNumber();
         $orderItemArr[] = $orderItem->getInvoiceDate() ? $orderItem->getInvoiceDate()->format('d.m.Y') : '';
 
-        $orderItemArr[] = $orderItem->getBillingAddress()->getSalutation();
-        $orderItemArr[] = $orderItem->getBillingAddress()->getTitle();
-        $orderItemArr[] = $orderItem->getBillingAddress()->getFirstName();
-        $orderItemArr[] = $orderItem->getBillingAddress()->getLastName();
+        $orderItemArr[] = $orderItem->getBillingAddress()?->getSalutation();
+        $orderItemArr[] = $orderItem->getBillingAddress()?->getTitle();
+        $orderItemArr[] = $orderItem->getBillingAddress()?->getFirstName();
+        $orderItemArr[] = $orderItem->getBillingAddress()?->getLastName();
 
         return CsvUtility::csvValues($orderItemArr, $delim, $quote);
     }
