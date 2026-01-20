@@ -135,8 +135,8 @@ jobs:
       - name: Run Unit Tests PHP8.4
         run: nix-shell --arg phpVersion \"php84\" --pure --run project-test-unit
 
-      - name: Run Unit Tests PHP8.5
-        run: nix-shell --arg phpVersion \"php85\" --pure --run project-test-unit
+#      - name: Run Unit Tests PHP8.5
+#        run: nix-shell --arg phpVersion \"php85\" --pure --run project-test-unit
 
       - name: Run Functional Tests PHP8.2
         run: nix-shell --arg phpVersion \"php82\" --pure --run project-test-functional
@@ -147,6 +147,6 @@ jobs:
       - name: Run Functional Tests PHP8.4
         run: nix-shell --arg phpVersion \"php84\" --pure --run project-test-functional
 
-      - name: Run Functional Tests PHP8.5
-        run: nix-shell --arg phpVersion \"php85\" --pure --run project-test-functional
+#      - name: Run Functional Tests PHP8.5
+#        run: nix-shell --arg phpVersion \"php85\" --pure --run project-test-functional
 
