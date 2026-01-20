@@ -39,7 +39,8 @@ final class TaxClassService implements TaxClassServiceInterface
         $taxClassSettings = $this->settings['taxClasses'];
 
         if (
-            array_key_exists($countryCode, $taxClassSettings)
+            is_null($countryCode) === false
+            && array_key_exists($countryCode, $taxClassSettings)
             && is_array($taxClassSettings[$countryCode])
         ) {
             $taxClassSettings = $taxClassSettings[$countryCode];
