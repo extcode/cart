@@ -725,7 +725,6 @@ class Cart implements AdditionalDataInterface
         foreach ($productQuantityArray as $productPuid => $quantity) {
             $product = $this->products[$productPuid];
 
-            if ($product instanceof Product) {
                 if (is_array($quantity)) {
                     $this->subCount($product->getQuantity());
                     $this->subGross($product->getGross());
@@ -754,7 +753,6 @@ class Cart implements AdditionalDataInterface
                         $this->addTax($product->getTax(), $product->getTaxClass());
                     }
                 }
-            }
 
             //update all service attributes
             $this->updateServiceAttributes();
@@ -791,7 +789,7 @@ class Cart implements AdditionalDataInterface
 
     public function removeProduct(Product $product, array $productVariantIds = []): bool
     {
-        if (is_array($productVariantIds) && !empty($productVariantIds)) {
+        if ($productVariantIds !== []) {
             $product->removeBeVariants($productVariantIds);
 
             if (!$product->getBeVariants()) {

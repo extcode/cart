@@ -48,10 +48,6 @@ class TaxClassServiceTest extends UnitTestCase
 
         $taxClasses = $this->createSubject($settings)->getTaxClasses($countryCode);
 
-        self::assertIsArray(
-            $taxClasses
-        );
-
         self::assertEquals(
             3,
             count($taxClasses)
@@ -114,10 +110,6 @@ class TaxClassServiceTest extends UnitTestCase
         $countryCode = 'AT';
 
         $taxClasses = $this->createSubject($settings)->getTaxClasses($countryCode);
-
-        self::assertIsArray(
-            $taxClasses
-        );
 
         self::assertEquals(
             3,
@@ -198,10 +190,6 @@ class TaxClassServiceTest extends UnitTestCase
         $countryCode = 'CH';
 
         $taxClasses = $this->createSubject($settings)->getTaxClasses($countryCode);
-
-        self::assertIsArray(
-            $taxClasses
-        );
 
         self::assertEquals(
             3,

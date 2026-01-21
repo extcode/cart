@@ -13,31 +13,34 @@ namespace Extcode\Cart\ViewHelpers;
 
 use Extcode\Cart\PageTitle\PageTitleProvider;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
-use TYPO3Fluid\Fluid\Core\ViewHelper\Traits\CompileWithRenderStatic;
 
 /**
  * ViewHelper to render the page title
  */
 class TitleTagViewHelper extends AbstractViewHelper
 {
-    use CompileWithRenderStatic;
-
     public function initializeArguments(): void
     {
         parent::initializeArguments();
-        $this->registerArgument('pageTitle', 'String', 'The page title');
+
+        $this->registerArgument(
+            'pageTitle',
+            'String',
+            'The page title'
+        );
     }
 
-    public static function renderStatic(
-        array $arguments,
-        \Closure $renderChildrenClosure,
-        RenderingContextInterface $renderingContext
-    ): void {
+    public function render(): void
+    {
+        // todo: add a test for this ViewHelper
         $pageTitle = $arguments['pageTitle'] ?? '';
+
         if ($pageTitle !== '') {
-            GeneralUtility::makeInstance(PageTitleProvider::class)->setTitle($pageTitle);
+            GeneralUtility::makeInstance(
+                PageTitleProvider::class
+            )
+                ->setTitle($pageTitle);
         }
     }
 }

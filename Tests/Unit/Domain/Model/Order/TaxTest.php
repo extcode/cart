@@ -42,28 +42,6 @@ class TaxTest extends UnitTestCase
     }
 
     #[Test]
-    public function constructTaxWithoutTaxThrowsException(): void
-    {
-        $this->expectException(\TypeError::class);
-
-        new Tax(
-            null,
-            $this->taxClass
-        );
-    }
-
-    #[Test]
-    public function constructTaxWithoutTaxClassThrowsException(): void
-    {
-        $this->expectException(\TypeError::class);
-
-        new Tax(
-            $this->tax,
-            null
-        );
-    }
-
-    #[Test]
     public function getTaxInitiallyReturnsTaxSetDirectlyByConstructor(): void
     {
         self::assertSame(

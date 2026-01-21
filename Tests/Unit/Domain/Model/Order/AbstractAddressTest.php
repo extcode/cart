@@ -579,9 +579,6 @@ class AbstractAddressTest extends UnitTestCase
     #[Test]
     public function getAdditionalInitiallyReturnsEmptyArray(): void
     {
-        self::assertIsArray(
-            $this->address->getAdditional()
-        );
         self::assertEmpty(
             $this->address->getAdditional()
         );

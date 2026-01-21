@@ -209,7 +209,7 @@ class OrderController extends ActionController
     {
         $createEvent = new CreateEvent($this->cart, $orderItem, $this->configurations);
         $this->eventDispatcher->dispatch($createEvent);
-        if ($createEvent instanceof StoppableEventInterface && $createEvent->isPropagationStopped()) {
+        if ($createEvent->isPropagationStopped()) {
             return true;
         }
 
@@ -220,25 +220,25 @@ class OrderController extends ActionController
         $generateNumbersEvent = new NumberGeneratorEvent($this->cart, $orderItem, $this->configurations);
         $generateNumbersEvent->setOnlyGenerateNumberOfType($onlyGenerateNumberOfType);
         $this->eventDispatcher->dispatch($generateNumbersEvent);
-        if ($generateNumbersEvent instanceof StoppableEventInterface && $generateNumbersEvent->isPropagationStopped()) {
+        if ($generateNumbersEvent->isPropagationStopped()) {
             return true;
         }
 
         $stockEvent = new StockEvent($this->cart, $orderItem, $this->configurations);
         $this->eventDispatcher->dispatch($stockEvent);
-        if ($stockEvent instanceof StoppableEventInterface && $stockEvent->isPropagationStopped()) {
+        if ($stockEvent->isPropagationStopped()) {
             return true;
         }
 
         $paymentEvent = new PaymentEvent($this->cart, $orderItem, $this->configurations);
         $this->eventDispatcher->dispatch($paymentEvent);
-        if ($paymentEvent instanceof StoppableEventInterface && $paymentEvent->isPropagationStopped()) {
+        if ($paymentEvent->isPropagationStopped()) {
             return true;
         }
 
         $finishEvent = new FinishEvent($this->cart, $orderItem, $this->configurations);
         $this->eventDispatcher->dispatch($finishEvent);
-        if ($finishEvent instanceof StoppableEventInterface && $finishEvent->isPropagationStopped()) {
+        if ($finishEvent->isPropagationStopped()) {
             return true;
         }
 
