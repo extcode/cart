@@ -22,7 +22,7 @@ return [
         ],
         'extensionName' => 'Cart',
         'iconIdentifier' => 'ext-cart-module',
-        'navigationComponent' => '@typo3/backend/page-tree/page-tree-element',
+        'navigationComponent' => '@typo3/backend/tree/page-tree-element',
     ],
     'cart_cart_orders' => [
         'parent' => 'cart_cart_main',
@@ -41,6 +41,6 @@ return [
             DocumentController::class => 'download, create',
         ],
         'iconIdentifier' => 'ext-cart-module-order',
-        'navigationComponent' => '@typo3/backend/page-tree/page-tree-element',
+        'navigationComponent' => '@typo3/backend/tree/page-tree-element',
     ],
 ];
