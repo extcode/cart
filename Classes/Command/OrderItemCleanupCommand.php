@@ -39,19 +39,29 @@ class OrderItemCleanupCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
+        $cutOffDate = $input->getArgument('cutOffDate');
+
+        if (is_string($cutOffDate) === false || $this->isCutOffDateValid($cutOffDate) === false) {
+            $output->writeln('The cutOffDate argument must follow the pattern YYYY-MM-DD.');
+
+            return Command::FAILURE;
+        }
+
         Bootstrap::initializeBackendAuthentication();
 
         $this->orderItemCleanupService->run(
-            $this->calculateCutOffDate($input)
+            new DateTimeImmutable(
+                $cutOffDate
+            )
         );
 
         return Command::SUCCESS;
     }
 
-    private function calculateCutOffDate(InputInterface $input): DateTimeImmutable
+    private function isCutOffDateValid(string $cutOffDate): bool
     {
-        return new DateTimeImmutable(
-            $input->getArgument('cutOffDate')
-        );
+        $pattern = '/^\d{4}-\d{2}-\d{2}$/';
+
+        return preg_match($pattern, $cutOffDate) === 1;
     }
 }

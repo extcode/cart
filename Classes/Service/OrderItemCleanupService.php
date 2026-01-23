@@ -24,9 +24,7 @@ final readonly class OrderItemCleanupService
 {
     public function __construct(
         private ConnectionPool $connectionPool,
-    )
-    {
-    }
+    ) {}
 
     public function run(DateTimeImmutable $cutOffDate): void
     {

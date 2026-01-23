@@ -18,7 +18,9 @@ use Extcode\Cart\Domain\Model\Order\BillingAddress;
 use Extcode\Cart\Domain\Model\Order\ShippingAddress;
 use Extcode\Cart\Service\OrderItemCleanupService;
 use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
+use Symfony\Component\Console\Exception\RuntimeException;
 use Symfony\Component\Console\Tester\CommandTester;
 
 #[CoversClass(OrderItemCleanupCommand::class)]
@@ -31,16 +33,16 @@ final class OrderItemCleanupCommandTest extends AbstractCommandTestCase
         (new PhpDataSet())->import([
             'tx_cart_domain_model_order_item' => [
                 [
-                    'crdate' => (int) (new DateTimeImmutable('2026-01-21'))->format('U'),
+                    'crdate' => (int)(new DateTimeImmutable('2026-01-21'))->format('U'),
                 ],
                 [
-                    'crdate' => (int) (new DateTimeImmutable('2025-01-21'))->format('U'),
+                    'crdate' => (int)(new DateTimeImmutable('2025-01-21'))->format('U'),
                 ],
                 [
-                    'crdate' => (int) (new DateTimeImmutable('2025-01-02'))->format('U'),
+                    'crdate' => (int)(new DateTimeImmutable('2025-01-02'))->format('U'),
                 ],
                 [
-                    'crdate' => (int) (new DateTimeImmutable('2025-01-01'))->format('U'),
+                    'crdate' => (int)(new DateTimeImmutable('2025-01-01'))->format('U'),
                 ],
             ],
         ]);
@@ -48,7 +50,7 @@ final class OrderItemCleanupCommandTest extends AbstractCommandTestCase
         $commandTester = new CommandTester($this->get(OrderItemCleanupCommand::class));
         $commandTester->execute(
             [
-                'cutOffDate' => '01-01-2025'
+                'cutOffDate' => '01-01-2025',
             ]
         );
 
@@ -65,10 +67,10 @@ final class OrderItemCleanupCommandTest extends AbstractCommandTestCase
         (new PhpDataSet())->import([
             'tx_cart_domain_model_order_item' => [
                 [
-                    'crdate' => (int) (new DateTimeImmutable('2024-12-31'))->format('U'),
+                    'crdate' => (int)(new DateTimeImmutable('2024-12-31'))->format('U'),
                 ],
                 [
-                    'crdate' => (int) (new DateTimeImmutable('2024-10-12'))->format('U'),
+                    'crdate' => (int)(new DateTimeImmutable('2024-10-12'))->format('U'),
                 ],
             ],
         ]);
@@ -76,10 +78,11 @@ final class OrderItemCleanupCommandTest extends AbstractCommandTestCase
         $commandTester = new CommandTester($this->get(OrderItemCleanupCommand::class));
         $commandTester->execute(
             [
-                'cutOffDate' => '01-01-2025'
+                'cutOffDate' => '2025-01-01',
             ]
         );
 
+        $commandTester->assertCommandIsSuccessful();
         $records = $this->getAllRecords('tx_cart_domain_model_order_item');
         self::assertSame(1, $records[0]['deleted']);
         self::assertSame(1, $records[1]['deleted']);
@@ -98,7 +101,7 @@ final class OrderItemCleanupCommandTest extends AbstractCommandTestCase
                     'payment' => 1,
                     'shipping' => 1,
                     'tax_class' => 3,
-                    'crdate' => (int) (new DateTimeImmutable('2024-12-31'))->format('U'),
+                    'crdate' => (int)(new DateTimeImmutable('2024-12-31'))->format('U'),
                 ],
             ],
             'tx_cart_domain_model_order_product' => [
@@ -154,10 +157,11 @@ final class OrderItemCleanupCommandTest extends AbstractCommandTestCase
         $commandTester = new CommandTester($this->get(OrderItemCleanupCommand::class));
         $commandTester->execute(
             [
-                'cutOffDate' => '01-01-2025'
+                'cutOffDate' => '2025-01-01',
             ]
         );
 
+        $commandTester->assertCommandIsSuccessful();
         $records = $this->getAllRecords('tx_cart_domain_model_order_item');
         self::assertSame(1, $records[0]['deleted']);
         $records = $this->getAllRecords('tx_cart_domain_model_order_product');
@@ -176,8 +180,6 @@ final class OrderItemCleanupCommandTest extends AbstractCommandTestCase
         self::assertSame(1, $records[2]['deleted']);
     }
 
-
-
     #[Test]
     public function doesNotDeletesNotRelatedRecordsCreatedBeforeCutOffDate(): void
     {
@@ -191,7 +193,7 @@ final class OrderItemCleanupCommandTest extends AbstractCommandTestCase
                     'payment' => 1,
                     'shipping' => 1,
                     'tax_class' => 3,
-                    'crdate' => (int) (new DateTimeImmutable('2024-12-31'))->format('U'),
+                    'crdate' => (int)(new DateTimeImmutable('2024-12-31'))->format('U'),
                 ],
             ],
             'tx_cart_domain_model_order_product' => [
@@ -263,10 +265,11 @@ final class OrderItemCleanupCommandTest extends AbstractCommandTestCase
         $commandTester = new CommandTester($this->get(OrderItemCleanupCommand::class));
         $commandTester->execute(
             [
-                'cutOffDate' => '01-01-2025'
+                'cutOffDate' => '2025-01-01',
             ]
         );
 
+        $commandTester->assertCommandIsSuccessful();
         $records = $this->getAllRecords('tx_cart_domain_model_order_item');
         self::assertSame(1, $records[0]['deleted']);
         $records = $this->getAllRecords('tx_cart_domain_model_order_product');
@@ -290,5 +293,45 @@ final class OrderItemCleanupCommandTest extends AbstractCommandTestCase
         self::assertSame(0, $records[3]['deleted']);
         self::assertSame(0, $records[4]['deleted']);
         self::assertSame(0, $records[5]['deleted']);
+    }
+
+    #[Test]
+    public function noCutOffDateTerminatesTheCommandWithErrorMessage(): void
+    {
+        $this->expectException(RuntimeException::class);
+        $this->expectExceptionMessage('Not enough arguments (missing: "cutOffDate").');
+
+        $commandTester = new CommandTester($this->get(OrderItemCleanupCommand::class));
+        $commandTester->execute([]);
+    }
+
+    #[DataProvider('wrongCutOffDateDataProvider')]
+    #[Test]
+    public function wrongCutOffDateFormatTerminatesTheCommandWithErrorMessage(
+        mixed $cutOffDate
+    ): void {
+        $commandTester = new CommandTester($this->get(OrderItemCleanupCommand::class));
+        $commandTester->execute(
+            [
+                'cutOffDate' => $cutOffDate,
+            ]
+        );
+
+        self::assertSame(1, $commandTester->getStatusCode());
+        self::assertSame(
+            'The cutOffDate argument must follow the pattern YYYY-MM-DD.' . "\n",
+            $commandTester->getDisplay()
+        );
+    }
+
+    public static function wrongCutOffDateDataProvider()
+    {
+        yield [ '01-01-2025' ];
+        yield [ '01.01.2025' ];
+        yield [ '01. Jan. 2025' ];
+        yield [ 'first day of month' ];
+        yield [ '1767265200' ];
+        yield [ 'Thu Jan 01 2026 11:00:00 GMT+0000' ];
+        yield [ 1 ];
     }
 }

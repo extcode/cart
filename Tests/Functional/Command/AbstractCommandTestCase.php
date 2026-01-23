@@ -25,7 +25,7 @@ abstract class AbstractCommandTestCase extends FunctionalTestCase
 
         $this->coreExtensionsToLoad = [
             'typo3/cms-beuser',
-        ];;
+        ];
 
         $this->pathsToLinkInTestInstance['typo3conf/ext/cart/Tests/Functional/Fixtures/Import/Sites/'] = 'typo3conf/sites';
 
