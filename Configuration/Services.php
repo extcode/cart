@@ -28,4 +28,6 @@ return function (ContainerConfigurator $containerConfigurator, ContainerBuilder 
         $services->set('Extcode\Cart\Hooks\ItemsProcFunc')
             ->public();
     }
+
+    $containerConfigurator->import('Services/ConsoleCommands.php');
 };

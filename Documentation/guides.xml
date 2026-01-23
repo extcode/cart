@@ -11,8 +11,8 @@
                interlink-shortcode="extcode/cart"
     />
     <project title="Cart"
-             release="11.6.0"
-             version="11.6"
+             release="11.7.0"
+             version="11.7"
              copyright="2018 - 2025"
     />
     <inventory id="t3tsref" url="https://docs.typo3.org/typo3cms/TyposcriptReference/"/>

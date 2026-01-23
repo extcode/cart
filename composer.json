@@ -60,6 +60,7 @@
         "friendsofphp/php-cs-fixer": "^3.64",
         "phpstan/phpstan": "^1.12",
         "ssch/typo3-rector": "^2.9",
+        "typo3/cms-beuser": "^13.4",
         "typo3/cms-dashboard": "^13.4",
         "typo3/cms-form": "^13.4",
         "typo3/testing-framework": "^8.2"

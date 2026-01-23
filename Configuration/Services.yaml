@@ -6,7 +6,9 @@ services:
 
   Extcode\Cart\:
     resource: '../Classes/*'
-    exclude: '../Classes/Widgets/*'
+    exclude:
+      - '../Classes/Widgets/*'
+      - '../Classes/Command/*'
 
   Extcode\Cart\EventListener\Template\Components\ModifyButtonBar:
     tags:

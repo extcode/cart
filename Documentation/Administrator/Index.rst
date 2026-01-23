@@ -14,4 +14,5 @@ Information for the installation and configuration of the extension.
 
    Installation/Index
    Configuration/Index
+   Commands/Index
    OtherCartExtensions/Index
