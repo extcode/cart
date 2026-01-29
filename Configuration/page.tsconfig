@@ -2,3 +2,24 @@
 
 # Template path for dashboard widgets
 templates.typo3/cms-dashboard.1712899110 = extcode/cart:Resources/Private/
+
+tx_cart {
+    persistence {
+        storagePid = {$module.tx_cart.persistence.storagePid}
+    }
+
+    settings {
+        format.currency {
+            currencySign       = {$plugin.tx_cart.settings.format.currency.currencySign}
+            decimalSeparator   = {$plugin.tx_cart.settings.format.currency.decimalSeparator}
+            thousandsSeparator = {$plugin.tx_cart.settings.format.currency.thousandsSeparator}
+            prependCurrency    = {$plugin.tx_cart.settings.format.currency.prependCurrency}
+            separateCurrency   = {$plugin.tx_cart.settings.format.currency.separateCurrency}
+            decimals           = {$plugin.tx_cart.settings.format.currency.decimals}
+        }
+
+        backend {
+            dateFormat = {$plugin.tx_cart.settings.backend.dateFormat}
+        }
+    }
+}
