@@ -69,7 +69,7 @@ class OrderController extends ActionController
         $this->moduleTemplate->assign('settings', $this->settings);
         $this->moduleTemplate->assign('searchArguments', $this->searchArguments);
 
-        $itemsPerPage = (int)($this->settings['itemsPerPage'] ?? 20);
+        $itemsPerPage = (isset($this->settings['itemsPerPage']) && is_numeric($this->settings['itemsPerPage'])) ? (int)$this->settings['itemsPerPage'] : 20;
 
         $orderItems = $this->itemRepository->findAll($this->searchArguments);
         $arrayPaginator = new QueryResultPaginator(
