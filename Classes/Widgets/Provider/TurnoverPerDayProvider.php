@@ -28,7 +28,7 @@ class TurnoverPerDayProvider implements ChartDataProviderInterface
         private readonly QueryBuilder $queryBuilder,
         array $options = []
     ) {
-        $this->languageService = GeneralUtility::makeInstance(LanguageServiceFactory::class)->create($GLOBALS['BE_USER']->uc['lang']);
+        $this->languageService = GeneralUtility::makeInstance(LanguageServiceFactory::class)->createFromUserPreferences($GLOBALS['BE_USER']);
         $this->options = array_merge(
             [
                 'fieldName' => 'tx_cart_domain_model_order_item.order_date',
