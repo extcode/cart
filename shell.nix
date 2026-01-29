@@ -1,10 +1,14 @@
 {
   pkgs ? import <nixpkgs> { }
+  ,php81 ? import <phps>
   ,phpVersion ? "php81"
 }:
 
 let
-  php = pkgs.${phpVersion}.buildEnv {
+  phpVersionPkgs =
+    if (phpVersion == "php81") then php81.packages.x86_64-linux.${phpVersion}
+    else pkgs.${phpVersion};
+  php = phpVersionPkgs.buildEnv {
     extensions = { enabled, all }: enabled ++ (with all; [
       xdebug
     ]);
@@ -14,7 +18,7 @@ let
       memory_limit = 4G
     '';
   };
-  inherit(pkgs."${phpVersion}Packages") composer;
+  inherit(phpVersionPkgs.packages) composer;
 
   projectInstall = pkgs.writeShellApplication {
     name = "project-install";
