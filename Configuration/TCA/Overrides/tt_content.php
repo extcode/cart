@@ -37,11 +37,17 @@ call_user_func(function () {
 
         $flexFormPath = 'EXT:cart/Configuration/FlexForms/' . $pluginName . 'Plugin.xml';
         if (file_exists(GeneralUtility::getFileAbsFileName($flexFormPath))) {
-            $GLOBALS['TCA']['tt_content']['types'][$pluginSignature]['showitem'] = 'pi_flexform';
-
             ExtensionManagementUtility::addPiFlexFormValue(
+                '*',
+                'FILE:' . $flexFormPath,
+                $pluginSignature
+            );
+            // Add the FlexForm to the show item list
+            ExtensionManagementUtility::addToAllTCAtypes(
+                'tt_content',
+                '--div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.plugin, pi_flexform',
                 $pluginSignature,
-                'FILE:' . $flexFormPath
+                'after:palette:headers'
             );
         }
     }
