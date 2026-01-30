@@ -80,7 +80,7 @@ class AttachmentFromTypoScriptTest extends FunctionalTestCase
 
         $attachments = $attachmentEvent->getAttachments();
 
-        self::assertSame(2, count($attachments));
+        self::assertCount(2, $attachments);
         self::assertContains(GeneralUtility::getFileAbsFileName('EXT:cart_example/Resources/Public/Files/Extension.pdf'), $attachments);
         self::assertContains(GeneralUtility::getFileAbsFileName('EXT:cart_example/Resources/Public/Icons/Extension.svg'), $attachments);
     }

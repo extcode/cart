@@ -21,6 +21,7 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 class IncludeFileViewHelper extends AbstractViewHelper
 {
+    public function __construct(private readonly PageRenderer $pageRenderer, private readonly TimeTracker $timeTracker) {}
     public function initializeArguments(): void
     {
         parent::initializeArguments();
@@ -48,7 +49,7 @@ class IncludeFileViewHelper extends AbstractViewHelper
         $path = $this->arguments['path'];
         $compress = $this->arguments['compress'];
 
-        $pageRenderer = GeneralUtility::makeInstance(PageRenderer::class);
+        $pageRenderer = $this->pageRenderer;
         if (ApplicationType::fromRequest($GLOBALS['TYPO3_REQUEST'])->isFrontend()) {
             try {
                 $path = GeneralUtility::makeInstance(FilePathSanitizer::class)->sanitize((string)$path);
@@ -57,7 +58,7 @@ class IncludeFileViewHelper extends AbstractViewHelper
             } catch (InvalidPathException|FileDoesNotExistException|InvalidFileException $e) {
                 $path = null;
                 if ($GLOBALS['TSFE']->tmpl->tt_track) {
-                    GeneralUtility::makeInstance(TimeTracker::class)->setTSlogMessage($e->getMessage(), 3);
+                    $this->timeTracker->setTSlogMessage($e->getMessage(), 3);
                 }
             }
         }

@@ -69,17 +69,6 @@ class ProductTest extends UnitTestCase
 
     public function tearDown(): void
     {
-        unset(
-            $this->product,
-            $this->productType,
-            $this->productId,
-            $this->title,
-            $this->sku,
-            $this->price,
-            $this->quantity,
-            $this->taxClass
-        );
-
         parent::tearDown();
     }
 

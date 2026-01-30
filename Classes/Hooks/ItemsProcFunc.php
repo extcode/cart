@@ -18,7 +18,7 @@ class ItemsProcFunc
 {
     protected TemplateLayout $templateLayoutsUtility;
 
-    public function __construct()
+    public function __construct(private readonly ResourceFactory $resourceFactory, private readonly CacheManager $cacheManager)
     {
         $this->templateLayoutsUtility = GeneralUtility::makeInstance(TemplateLayout::class);
     }

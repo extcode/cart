@@ -14,7 +14,7 @@ namespace Extcode\Cart\Domain\Model\Product;
 use TYPO3\CMS\Extbase\Domain\Model\Category;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 
-trait CategoryTrait
+trait CategoryTrait // @phpstan-ignore trait.unused (provided for product extensions)
 {
     protected ?Category $category = null;
 

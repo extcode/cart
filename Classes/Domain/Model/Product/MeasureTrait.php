@@ -9,7 +9,7 @@ namespace Extcode\Cart\Domain\Model\Product;
  * LICENSE file that was distributed with this source code.
  */
 
-trait MeasureTrait
+trait MeasureTrait // @phpstan-ignore trait.unused (provided for product extensions)
 {
     protected float $priceMeasure = 0.0;
 

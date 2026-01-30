@@ -725,34 +725,32 @@ class Cart implements AdditionalDataInterface
         foreach ($productQuantityArray as $productPuid => $quantity) {
             $product = $this->products[$productPuid];
 
-            if ($product instanceof Product) {
-                if (is_array($quantity)) {
+            if (is_array($quantity)) {
+                $this->subCount($product->getQuantity());
+                $this->subGross($product->getGross());
+                $this->subNet($product->getNet());
+                $this->subTax($product->getTax(), $product->getTaxClass());
+
+                $product->changeVariantsQuantity($quantity);
+
+                $this->addCount($product->getQuantity());
+                $this->addGross($product->getGross());
+                $this->addNet($product->getNet());
+                $this->addTax($product->getTax(), $product->getTaxClass());
+            } else {
+                // only run, if quantity was realy changed
+                if ($product->getQuantity() != $quantity) {
                     $this->subCount($product->getQuantity());
                     $this->subGross($product->getGross());
                     $this->subNet($product->getNet());
                     $this->subTax($product->getTax(), $product->getTaxClass());
 
-                    $product->changeVariantsQuantity($quantity);
+                    $product->changeQuantity($quantity);
 
                     $this->addCount($product->getQuantity());
                     $this->addGross($product->getGross());
                     $this->addNet($product->getNet());
                     $this->addTax($product->getTax(), $product->getTaxClass());
-                } else {
-                    // only run, if quantity was realy changed
-                    if ($product->getQuantity() != $quantity) {
-                        $this->subCount($product->getQuantity());
-                        $this->subGross($product->getGross());
-                        $this->subNet($product->getNet());
-                        $this->subTax($product->getTax(), $product->getTaxClass());
-
-                        $product->changeQuantity($quantity);
-
-                        $this->addCount($product->getQuantity());
-                        $this->addGross($product->getGross());
-                        $this->addNet($product->getNet());
-                        $this->addTax($product->getTax(), $product->getTaxClass());
-                    }
                 }
             }
 
@@ -791,7 +789,7 @@ class Cart implements AdditionalDataInterface
 
     public function removeProduct(Product $product, array $productVariantIds = []): bool
     {
-        if (is_array($productVariantIds) && !empty($productVariantIds)) {
+        if (!empty($productVariantIds)) {
             $product->removeBeVariants($productVariantIds);
 
             if (!$product->getBeVariants()) {

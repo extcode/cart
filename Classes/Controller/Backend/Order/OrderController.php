@@ -10,7 +10,6 @@ namespace Extcode\Cart\Controller\Backend\Order;
  * For the full copyright and license information, please read the
  * LICENSE file that was distributed with this source code.
  */
-
 use Extcode\Cart\Controller\Backend\ActionController;
 use Extcode\Cart\Domain\Model\Cart\Cart;
 use Extcode\Cart\Domain\Model\Order\Item;
@@ -20,6 +19,7 @@ use Extcode\Cart\Event\Template\Components\ModifyButtonBarEvent;
 use Extcode\Cart\Event\Template\Components\ModifyModuleTemplateEvent;
 use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Backend\Template\Components\ButtonBar;
+use TYPO3\CMS\Backend\Template\Components\ComponentFactory;
 use TYPO3\CMS\Backend\Template\ModuleTemplate;
 use TYPO3\CMS\Backend\Template\ModuleTemplateFactory;
 use TYPO3\CMS\Core\Imaging\IconFactory;
@@ -47,7 +47,8 @@ class OrderController extends ActionController
         protected readonly IconFactory $iconFactory,
         protected readonly PersistenceManager $persistenceManager,
         protected readonly ItemRepository $itemRepository,
-        private readonly PageRenderer $pageRenderer
+        private readonly PageRenderer $pageRenderer,
+        private readonly ComponentFactory $componentFactory
     ) {}
 
     protected function initializeAction(): void
@@ -275,9 +276,9 @@ class OrderController extends ActionController
 
         foreach ($buttons as $button) {
             $title = $this->getLanguageService()->sL(self::LANG_FILE . $button['title']);
-            $icon = $this->iconFactory->getIcon($button['icon'], IconSize::SMALL->value);
+            $icon = $this->iconFactory->getIcon($button['icon'], IconSize::SMALL);
 
-            $viewButton = $buttonBar->makeLinkButton()
+            $viewButton = $this->componentFactory->createLinkButton()
                 ->setHref($button['link'])
                 ->setTitle($title)
                 ->setShowLabelText($button['showLabel'])
