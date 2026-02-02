@@ -94,7 +94,7 @@ class DocumentController extends ActionController
     protected function generatePdfDocument(Item $orderItem, string $pdfType): void
     {
         if (ExtensionManagementUtility::isLoaded('cart_pdf') && (class_exists(PdfService::class) && class_exists(FileWriterService::class))) {
-            $documentRenderService = GeneralUtility::makeInstance(
+            $pdfService = GeneralUtility::makeInstance(
                 PdfService::class
             );
             $fileWriterService = GeneralUtility::makeInstance(
@@ -103,7 +103,7 @@ class DocumentController extends ActionController
             $fileWriterService->writeContentToFile(
                 $orderItem,
                 $pdfType,
-                $documentRenderService->renderDocument($orderItem, $pdfType)
+                $pdfService->renderDocument($orderItem, $pdfType)
             );
         }
     }
