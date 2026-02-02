@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 namespace Extcode\Cart\Controller\Backend\Order;
 
 /*
@@ -28,8 +29,7 @@ class DocumentController extends ActionController
     public function __construct(
         protected readonly PersistenceManager $persistenceManager,
         protected readonly ItemRepository $itemRepository
-    ) {
-    }
+    ) {}
 
     public function createAction(Item $orderItem, string $pdfType): ResponseInterface
     {
