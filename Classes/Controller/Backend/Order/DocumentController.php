@@ -16,9 +16,9 @@ use Extcode\Cart\Domain\Model\Cart\Cart;
 use Extcode\Cart\Domain\Model\Order\Item;
 use Extcode\Cart\Domain\Repository\Order\ItemRepository;
 use Extcode\Cart\Event\Order\NumberGeneratorEvent;
+use Extcode\CartPdf\Service\FileWriterService;
 use Extcode\CartPdf\Service\PdfService;
 use Psr\Http\Message\ResponseInterface;
-use TYPO3\CMS\Core\Resource\File;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
@@ -93,14 +93,18 @@ class DocumentController extends ActionController
 
     protected function generatePdfDocument(Item $orderItem, string $pdfType): void
     {
-        if (ExtensionManagementUtility::isLoaded('cart_pdf')) {
-            if (class_exists(PdfService::class)) {
-                $pdfService = GeneralUtility::makeInstance(
-                    PdfService::class
-                );
-
-                $pdfService->createPdf($orderItem, $pdfType);
-            }
+        if (ExtensionManagementUtility::isLoaded('cart_pdf') && (class_exists(PdfService::class) && class_exists(FileWriterService::class))) {
+            $pdfService = GeneralUtility::makeInstance(
+                PdfService::class
+            );
+            $fileWriterService = GeneralUtility::makeInstance(
+                FileWriterService::class
+            );
+            $fileWriterService->writeContentToFile(
+                $orderItem,
+                $pdfType,
+                $pdfService->renderDocument($orderItem, $pdfType)
+            );
         }
     }
 }
