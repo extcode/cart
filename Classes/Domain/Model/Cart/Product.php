@@ -63,6 +63,8 @@ final class Product implements AdditionalDataInterface, ProductInterface
      */
     protected bool $handleStockInVariants = false;
 
+    protected DetailPageLink $detailPageLink;
+
     public function __construct(
         protected string $productType,
         protected int $productId,
@@ -660,5 +662,15 @@ final class Product implements AdditionalDataInterface, ProductInterface
     public function setHandleStockInVariants(bool $handleStockInVariants): void
     {
         $this->handleStockInVariants = $handleStockInVariants;
+    }
+
+    public function getDetailPageLink(): DetailPageLink
+    {
+        return $this->detailPageLink;
+    }
+
+    public function setDetailPageLink(DetailPageLink $detailPageLink): void
+    {
+        $this->detailPageLink = $detailPageLink;
     }
 }
