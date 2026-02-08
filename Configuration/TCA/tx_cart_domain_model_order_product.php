@@ -154,6 +154,7 @@ return [
                 'renderType' => 'selectSingle',
                 'readOnly' => 1,
                 'foreign_table' => 'tx_cart_domain_model_order_taxclass',
+                'foreign_table_where' => 'AND {#tx_cart_domain_model_order_taxclass}.{#item} = ###REC_FIELD_item###',
                 'minitems' => 1,
                 'maxitems' => 1,
                 'appearance' => [
