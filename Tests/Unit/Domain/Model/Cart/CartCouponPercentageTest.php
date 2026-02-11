@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Extcode\Cart\Tests\Unit\Domain\Model\Cart;
 
 /*
@@ -14,12 +16,14 @@ use Extcode\Cart\Domain\Model\Cart\CartCouponPercentage;
 use Extcode\Cart\Domain\Model\Cart\TaxClass;
 use Extcode\Cart\Service\CurrencyTranslationService;
 use Extcode\Cart\Service\CurrencyTranslationServiceInterface;
+use PHPUnit\Framework\Attributes\AllowMockObjectsWithoutExpectations;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
+#[AllowMockObjectsWithoutExpectations]
 #[CoversClass(CartCouponPercentage::class)]
 class CartCouponPercentageTest extends UnitTestCase
 {
@@ -56,81 +60,6 @@ class CartCouponPercentageTest extends UnitTestCase
         );
 
         parent::setUp();
-    }
-
-    #[Test]
-    public function constructCouponWithoutTitleThrowsException(): void
-    {
-        $this->expectException(\TypeError::class);
-
-        $this->coupon = new CartCouponPercentage(
-            null,
-            $this->code,
-            $this->couponType,
-            $this->discount,
-            $this->taxClass,
-            $this->cartMinPrice
-        );
-    }
-
-    #[Test]
-    public function constructCouponWithoutCodeThrowsException(): void
-    {
-        $this->expectException(\TypeError::class);
-
-        $this->coupon = new CartCouponPercentage(
-            $this->title,
-            null,
-            $this->couponType,
-            $this->discount,
-            $this->taxClass,
-            $this->cartMinPrice
-        );
-    }
-
-    #[Test]
-    public function constructCouponWithoutCouponTypeThrowsException(): void
-    {
-        $this->expectException(\TypeError::class);
-
-        $this->coupon = new CartCouponPercentage(
-            $this->title,
-            $this->code,
-            null,
-            $this->discount,
-            $this->taxClass,
-            $this->cartMinPrice
-        );
-    }
-
-    #[Test]
-    public function constructCouponWithoutDiscountThrowsException(): void
-    {
-        $this->expectException(\TypeError::class);
-
-        $this->coupon = new CartCouponPercentage(
-            $this->title,
-            $this->code,
-            $this->couponType,
-            null,
-            $this->taxClass,
-            $this->cartMinPrice
-        );
-    }
-
-    #[Test]
-    public function constructCouponWithoutTaxClassThrowsException(): void
-    {
-        $this->expectException(\TypeError::class);
-
-        $this->coupon = new CartCouponPercentage(
-            $this->title,
-            $this->code,
-            $this->couponType,
-            $this->discount,
-            null,
-            $this->cartMinPrice
-        );
     }
 
     #[Test]

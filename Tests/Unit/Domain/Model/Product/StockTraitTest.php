@@ -25,7 +25,7 @@ class StockTraitTest extends UnitTestCase
     {
         parent::setUp();
 
-        $this->trait = $this->getObjectForTrait(StockTrait::class);
+        $this->trait = new StockTraitStub();
     }
 
     #[Test]

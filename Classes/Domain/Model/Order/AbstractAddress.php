@@ -15,7 +15,7 @@ use TYPO3\CMS\Extbase\Annotation\ORM\Lazy;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 use TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy;
 
-abstract class AbstractAddress extends AbstractEntity
+abstract class AbstractAddress extends AbstractEntity implements AddressInterface
 {
     #[Lazy]
     protected LazyLoadingProxy|Item|null $item = null;

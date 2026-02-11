@@ -83,7 +83,7 @@ let
     ];
     text = ''
       project-install
-      .build/bin/phpunit -c Build/UnitTests.xml --display-deprecations --display-warnings
+      .build/bin/phpunit -c Build/phpunit.xml.dist --testsuite unit --display-warnings --display-deprecations --display-errors --display-notices
     '';
   };
 
@@ -95,7 +95,7 @@ let
     ];
     text = ''
       project-install
-      .build/bin/phpunit -c Build/FunctionalTests.xml --display-deprecations --display-warnings
+      .build/bin/phpunit -c Build/phpunit.xml.dist --testsuite functional --display-warnings --display-deprecations --display-errors
     '';
   };
 

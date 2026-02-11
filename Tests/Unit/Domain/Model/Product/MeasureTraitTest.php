@@ -25,7 +25,7 @@ class MeasureTraitTest extends UnitTestCase
     {
         parent::setUp();
 
-        $this->trait = $this->getObjectForTrait(MeasureTrait::class);
+        $this->trait = new MeasureTraitStub();
     }
 
     #[Test]

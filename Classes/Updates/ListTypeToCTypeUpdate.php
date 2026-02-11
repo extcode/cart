@@ -1,9 +1,8 @@
 <?php
 
-namespace Extcode\Cart\Updates;
+declare(strict_types=1);
 
-use TYPO3\CMS\Install\Attribute\UpgradeWizard;
-use TYPO3\CMS\Install\Updates\AbstractListTypeToCTypeUpdate;
+namespace Extcode\Cart\Updates;
 
 /*
  * This file is part of the package extcode/cart.
@@ -11,6 +10,9 @@ use TYPO3\CMS\Install\Updates\AbstractListTypeToCTypeUpdate;
  * For the full copyright and license information, please read the
  * LICENSE file that was distributed with this source code.
  */
+
+use TYPO3\CMS\Core\Attribute\UpgradeWizard;
+use TYPO3\CMS\Core\Upgrades\AbstractListTypeToCTypeUpdate;
 
 #[UpgradeWizard('cart_updateListTypeToCType')]
 class ListTypeToCTypeUpdate extends AbstractListTypeToCTypeUpdate

@@ -29,7 +29,7 @@ class Cart implements AdditionalDataInterface
     protected int $count;
 
     /**
-     * @var Product[]
+     * @var ProductInterface[]
      */
     protected array $products = [];
 
@@ -484,14 +484,14 @@ class Cart implements AdditionalDataInterface
     }
 
     /**
-     * @return Product[]
+     * @return ProductInterface[]
      */
     public function getProducts(): array
     {
         return $this->products;
     }
 
-    public function getProductById(string $productId): ?Product
+    public function getProductById(string $productId): ?ProductInterface
     {
         return $this->products[$productId] ?? null;
     }
@@ -678,7 +678,7 @@ class Cart implements AdditionalDataInterface
         return $taxes;
     }
 
-    public function addProduct(Product $newProduct): void
+    public function addProduct(ProductInterface $newProduct): void
     {
         $id = $newProduct->getId();
 
@@ -695,7 +695,7 @@ class Cart implements AdditionalDataInterface
         }
     }
 
-    public function changeProduct(Product $product, Product $newProduct): void
+    public function changeProduct(ProductInterface $product, ProductInterface $newProduct): void
     {
         $newQuantity = $product->getQuantity() + $newProduct->getQuantity();
 
@@ -725,34 +725,32 @@ class Cart implements AdditionalDataInterface
         foreach ($productQuantityArray as $productPuid => $quantity) {
             $product = $this->products[$productPuid];
 
-            if ($product instanceof Product) {
-                if (is_array($quantity)) {
+            if (is_array($quantity)) {
+                $this->subCount($product->getQuantity());
+                $this->subGross($product->getGross());
+                $this->subNet($product->getNet());
+                $this->subTax($product->getTax(), $product->getTaxClass());
+
+                $product->changeVariantsQuantity($quantity);
+
+                $this->addCount($product->getQuantity());
+                $this->addGross($product->getGross());
+                $this->addNet($product->getNet());
+                $this->addTax($product->getTax(), $product->getTaxClass());
+            } else {
+                // only run, if quantity was realy changed
+                if ($product->getQuantity() != $quantity) {
                     $this->subCount($product->getQuantity());
                     $this->subGross($product->getGross());
                     $this->subNet($product->getNet());
                     $this->subTax($product->getTax(), $product->getTaxClass());
 
-                    $product->changeVariantsQuantity($quantity);
+                    $product->changeQuantity($quantity);
 
                     $this->addCount($product->getQuantity());
                     $this->addGross($product->getGross());
                     $this->addNet($product->getNet());
                     $this->addTax($product->getTax(), $product->getTaxClass());
-                } else {
-                    // only run, if quantity was realy changed
-                    if ($product->getQuantity() != $quantity) {
-                        $this->subCount($product->getQuantity());
-                        $this->subGross($product->getGross());
-                        $this->subNet($product->getNet());
-                        $this->subTax($product->getTax(), $product->getTaxClass());
-
-                        $product->changeQuantity($quantity);
-
-                        $this->addCount($product->getQuantity());
-                        $this->addGross($product->getGross());
-                        $this->addNet($product->getNet());
-                        $this->addTax($product->getTax(), $product->getTaxClass());
-                    }
                 }
             }
 
@@ -789,9 +787,9 @@ class Cart implements AdditionalDataInterface
         return true;
     }
 
-    public function removeProduct(Product $product, array $productVariantIds = []): bool
+    public function removeProduct(ProductInterface $product, array $productVariantIds = []): bool
     {
-        if (is_array($productVariantIds) && !empty($productVariantIds)) {
+        if (!empty($productVariantIds)) {
             $product->removeBeVariants($productVariantIds);
 
             if (!$product->getBeVariants()) {
@@ -811,7 +809,7 @@ class Cart implements AdditionalDataInterface
         return true;
     }
 
-    protected function addServiceAttributes(Product $newProduct): void
+    protected function addServiceAttributes(ProductInterface $newProduct): void
     {
         if ($this->maxServiceAttr1 < $newProduct->getServiceAttribute1()) {
             $this->maxServiceAttr1 = $newProduct->getServiceAttribute1();

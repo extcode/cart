@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Extcode\Cart\Tests\Unit\Domain\Model\Product;
 
 /*
@@ -12,24 +14,18 @@ namespace Extcode\Cart\Tests\Unit\Domain\Model\Product;
 use Extcode\Cart\Domain\Model\Product\AbstractProduct;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Test;
-use PHPUnit\Framework\MockObject\MockObject;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 #[CoversClass(AbstractProduct::class)]
 class AbstractProductTest extends UnitTestCase
 {
-    /**
-     * @var MockObject&AbstractProduct
-     */
-    protected MockObject $product;
+    protected AbstractProduct $product;
 
     public function setUp(): void
     {
         parent::setUp();
 
-        $this->product = $this->getMockForAbstractClass(
-            AbstractProduct::class
-        );
+        $this->product = new class extends AbstractProduct {};
     }
 
     #[Test]

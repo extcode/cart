@@ -23,7 +23,11 @@ class CountryController extends ActionController
     {
         //ToDo check country is allowed by TypoScript
 
-        $this->cartUtility->updateCountry($this->settings['cart'], $this->configurations, $this->request);
+        $this->cartUtility->updateCountry(
+            $this->settings['cart'],
+            $this->configurations,
+            $this->request
+        );
 
         $this->restoreSession();
 

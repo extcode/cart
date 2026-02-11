@@ -17,12 +17,11 @@ use TYPO3\CMS\Dashboard\Widgets\ListDataProviderInterface;
 use TYPO3\CMS\Dashboard\Widgets\RequestAwareWidgetInterface;
 use TYPO3\CMS\Dashboard\Widgets\WidgetConfigurationInterface;
 use TYPO3\CMS\Dashboard\Widgets\WidgetInterface;
-use TYPO3\CMS\Fluid\View\StandaloneView;
 
 class PaymentPaidShippingOpen implements WidgetInterface, RequestAwareWidgetInterface
 {
     private ServerRequestInterface $request;
-    private StandaloneView|ViewInterface $view;
+    private ViewInterface $view;
 
     public function __construct(
         private readonly WidgetConfigurationInterface $configuration,

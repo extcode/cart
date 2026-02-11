@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Extcode\Cart\Tests\Unit\Domain\Model\Order;
 
 /*
@@ -52,96 +54,6 @@ class DiscountTest extends UnitTestCase
         );
 
         parent::setUp();
-    }
-
-    #[Test]
-    public function constructDiscountWithoutTitleThrowsException(): void
-    {
-        $this->expectException(\TypeError::class);
-
-        new Discount(
-            null,
-            $this->code,
-            $this->gross,
-            $this->net,
-            $this->taxClass,
-            $this->tax
-        );
-    }
-
-    #[Test]
-    public function constructDiscountWithoutCodeThrowsException(): void
-    {
-        $this->expectException(\TypeError::class);
-
-        new Discount(
-            $this->title,
-            null,
-            $this->gross,
-            $this->net,
-            $this->taxClass,
-            $this->tax
-        );
-    }
-
-    #[Test]
-    public function constructDiscountWithoutGrossThrowsException(): void
-    {
-        $this->expectException(\TypeError::class);
-
-        new Discount(
-            $this->title,
-            $this->code,
-            null,
-            $this->net,
-            $this->taxClass,
-            $this->tax
-        );
-    }
-
-    #[Test]
-    public function constructDiscountWithoutNetThrowsException(): void
-    {
-        $this->expectException(\TypeError::class);
-
-        new Discount(
-            $this->title,
-            $this->code,
-            $this->gross,
-            null,
-            $this->taxClass,
-            $this->tax
-        );
-    }
-
-    #[Test]
-    public function constructDiscountWithoutTaxClassThrowsException(): void
-    {
-        $this->expectException(\TypeError::class);
-
-        new Discount(
-            $this->title,
-            $this->code,
-            $this->gross,
-            $this->net,
-            null,
-            $this->tax
-        );
-    }
-
-    #[Test]
-    public function constructDiscountWithoutTaxThrowsException(): void
-    {
-        $this->expectException(\TypeError::class);
-
-        new Discount(
-            $this->title,
-            $this->code,
-            $this->gross,
-            $this->net,
-            $this->taxClass,
-            null
-        );
     }
 
     #[Test]

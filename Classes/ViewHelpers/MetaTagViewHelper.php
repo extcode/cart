@@ -10,7 +10,6 @@ namespace Extcode\Cart\ViewHelpers;
  */
 
 use TYPO3\CMS\Core\MetaTag\MetaTagManagerRegistry;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 /**
@@ -27,6 +26,7 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 class MetaTagViewHelper extends AbstractViewHelper
 {
     protected string $tagName = 'meta';
+    public function __construct(private readonly MetaTagManagerRegistry $metaTagManagerRegistry) {}
 
     public function initializeArguments(): void
     {
@@ -46,7 +46,7 @@ class MetaTagViewHelper extends AbstractViewHelper
 
     public function render(): void
     {
-        $metaTagManager = GeneralUtility::makeInstance(MetaTagManagerRegistry::class)
+        $metaTagManager = $this->metaTagManagerRegistry
             ->getManagerForProperty($this->arguments['property']);
         $metaTagManager->addProperty(
             $this->arguments['property'],

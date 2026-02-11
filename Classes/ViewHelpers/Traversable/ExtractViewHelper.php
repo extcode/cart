@@ -25,7 +25,7 @@ class ExtractViewHelper extends AbstractViewHelper
         );
         $this->registerArgument(
             'content',
-            \Traversable::class,
+            'array',
             'Content',
             false
         );

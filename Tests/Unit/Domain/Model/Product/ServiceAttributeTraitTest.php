@@ -25,7 +25,7 @@ class ServiceAttributeTraitTest extends UnitTestCase
     {
         parent::setUp();
 
-        $this->trait = $this->getObjectForTrait(ServiceAttributeTrait::class);
+        $this->trait = new ServiceAttributeTraitStub();
     }
 
     #[Test]

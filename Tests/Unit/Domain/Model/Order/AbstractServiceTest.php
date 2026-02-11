@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Extcode\Cart\Tests\Unit\Domain\Model\Order;
 
 /*
@@ -23,7 +25,7 @@ class AbstractServiceTest extends UnitTestCase
 
     public function setUp(): void
     {
-        $this->service = $this->getMockForAbstractClass(AbstractService::class);
+        $this->service = new class extends AbstractService {};
 
         parent::setUp();
     }
