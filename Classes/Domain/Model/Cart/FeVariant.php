@@ -51,7 +51,9 @@ final class FeVariant implements FeVariantInterface
     {
         $titleArr = [];
         foreach ($this->variantData as $variant) {
-            $titleArr[] = $variant['title'];
+            if (is_string($variant['title'])) {
+                $titleArr[] = $variant['title'];
+            }
         }
         return implode($this->titleGlue, $titleArr);
     }
@@ -60,7 +62,9 @@ final class FeVariant implements FeVariantInterface
     {
         $skuArr = [];
         foreach ($this->variantData as $variant) {
-            $skuArr[] = $variant['sku'];
+            if (is_string($variant['sku'])) {
+                $skuArr[] = $variant['sku'];
+            }
         }
         return implode($this->skuGlue, $skuArr);
     }
@@ -69,7 +73,9 @@ final class FeVariant implements FeVariantInterface
     {
         $valueArr = [];
         foreach ($this->variantData as $variant) {
-            $valueArr[] = $variant['value'];
+            if (is_string($variant['value'])) {
+                $valueArr[] = $variant['value'];
+            }
         }
         return implode($this->valueGlue, $valueArr);
     }

@@ -127,7 +127,7 @@ class OrderItemValidator extends AbstractGenericObjectValidator
         if (!isset($this->propertyValidators[$propertyName])) {
             $this->propertyValidators[$propertyName] = new \SplObjectStorage();
         }
-        $this->propertyValidators[$propertyName]->attach($validator);
+        $this->propertyValidators[$propertyName]->offsetSet($validator);
     }
 
     protected function isValidatedAlready(object $object): bool
@@ -135,11 +135,11 @@ class OrderItemValidator extends AbstractGenericObjectValidator
         if ($this->validatedInstancesContainer === null) {
             $this->validatedInstancesContainer = new \SplObjectStorage();
         }
-        if ($this->validatedInstancesContainer->contains($object)) {
+        if ($this->validatedInstancesContainer->offsetExists($object)) {
             return true;
         }
 
-        $this->validatedInstancesContainer->attach($object);
+        $this->validatedInstancesContainer->offsetSet($object);
 
         return false;
     }

@@ -24,7 +24,7 @@ abstract class AbstractService extends AbstractEntity
     protected string $serviceCountry = '';
 
     #[Validate(['validator' => 'NotEmpty'])]
-    protected ?int $serviceId = null;
+    protected int $serviceId;
 
     #[Validate(['validator' => 'NotEmpty'])]
     protected string $name = '';
@@ -90,7 +90,7 @@ abstract class AbstractService extends AbstractEntity
         $this->serviceCountry = $serviceCountry;
     }
 
-    public function getServiceId(): ?int
+    public function getServiceId(): int
     {
         return $this->serviceId;
     }

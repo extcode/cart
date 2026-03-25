@@ -20,7 +20,6 @@ return [
         'origUid' => 't3_origuid',
         'delete' => 'deleted',
         'enablecolumns' => [],
-        'searchFields' => 'order_number, invoice_number',
         'iconfile' => 'EXT:cart/Resources/Public/Icons/Order/Item.svg',
     ],
     'types' => [

@@ -67,15 +67,18 @@ class MapModelPropertiesToTableColumnsViewHelper extends AbstractViewHelper
             $mapping = [];
             foreach ($this->configuration['persistence']['classes'][$class]['mapping']['columns'] as $tableColumn => $modelPropertyData) {
                 $modelProperty = $modelPropertyData['mapOnProperty'];
+                if (is_string($modelProperty) === false) {
+                    continue;
+                }
                 $mapping[$modelProperty] = $tableColumn;
             }
 
             $data = ObjectAccess::getGettableProperties($data);
 
             foreach ($data as $key => $value) {
-                if (isset($mapping[$key])) {
+                if (isset($mapping[$key]) && is_string($mapping[$key])) {
                     unset($data[$key]);
-                    $data[$mapping[$key]] = $value;
+                    $data[(string)$mapping[$key]] = $value;
                 }
             }
 

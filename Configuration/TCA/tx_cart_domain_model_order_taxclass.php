@@ -16,7 +16,6 @@ return [
         'hideTable' => true,
         'delete' => 'deleted',
         'enablecolumns' => [],
-        'searchFields' => 'title,value,calc',
         'iconfile' => 'EXT:cart/Resources/Public/Icons/Order/TaxClass.svg',
     ],
     'hideTable' => 1,

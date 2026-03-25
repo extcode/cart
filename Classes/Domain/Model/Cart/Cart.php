@@ -12,6 +12,7 @@ namespace Extcode\Cart\Domain\Model\Cart;
  */
 
 use Extcode\Cart\Service\CurrencyTranslationServiceInterface;
+use InvalidArgumentException;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 class Cart implements AdditionalDataInterface
@@ -762,6 +763,10 @@ class Cart implements AdditionalDataInterface
     public function removeProductByIds(array $products): bool
     {
         $productId = key($products);
+
+        if (is_string($productId) === false) {
+            throw new InvalidArgumentException('Key has to be a string.', 1774447534);
+        }
 
         if (!isset($this->products[$productId])) {
             return false;

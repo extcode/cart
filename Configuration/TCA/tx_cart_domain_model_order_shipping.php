@@ -16,7 +16,6 @@ return [
         'hideTable' => true,
         'delete' => 'deleted',
         'enablecolumns' => [],
-        'searchFields' => 'name,value,calc,sum,',
         'iconfile' => 'EXT:cart/Resources/Public/Icons/Order/Shipping.svg',
     ],
     'hideTable' => 1,

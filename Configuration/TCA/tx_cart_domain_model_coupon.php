@@ -24,7 +24,6 @@ return [
             'starttime' => 'starttime',
             'endtime' => 'endtime',
         ],
-        'searchFields' => 'title',
         'iconfile' => 'EXT:cart/Resources/Public/Icons/tx_cart_domain_model_coupon.svg',
     ],
     'hideTable' => 1,

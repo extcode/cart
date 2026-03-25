@@ -35,11 +35,12 @@ abstract class Number
 
         $format = $this->options['format'] ?? '%d';
         $numberInRegistryWithOffset = $numberInRegistry + (int)($this->options['offset'] ?? 0);
+        $number = sprintf($format, $numberInRegistryWithOffset);
 
         return implode('', [
-            $this->options['prefix'] ?? '',
-            sprintf($format, $numberInRegistryWithOffset),
-            $this->options['suffix'] ?? '',
+            is_string($this->options['prefix']) ? $this->options['prefix'] : '',
+            $number,
+            is_string($this->options['suffix']) ? $this->options['suffix'] : '',
         ]);
     }
 }

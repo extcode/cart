@@ -16,14 +16,12 @@ use Extcode\Cart\Domain\Model\Cart\CartCouponPercentage;
 use Extcode\Cart\Domain\Model\Cart\TaxClass;
 use Extcode\Cart\Service\CurrencyTranslationService;
 use Extcode\Cart\Service\CurrencyTranslationServiceInterface;
-use PHPUnit\Framework\Attributes\AllowMockObjectsWithoutExpectations;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
-#[AllowMockObjectsWithoutExpectations]
 #[CoversClass(CartCouponPercentage::class)]
 class CartCouponPercentageTest extends UnitTestCase
 {
@@ -277,7 +275,7 @@ class CartCouponPercentageTest extends UnitTestCase
         );
 
         return $this->getMockBuilder(Cart::class)
-            ->onlyMethods($methods)
+            ->onlyMethods(array_values(array_filter(array_filter($methods, 'is_string'))))
             ->setConstructorArgs([[$this->taxClass]])
             ->getMock();
     }

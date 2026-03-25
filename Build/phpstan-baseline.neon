@@ -1707,7 +1707,7 @@ parameters:
 		-
 			message: '#^Cannot cast mixed to float\.$#'
 			identifier: cast.double
-			count: 9
+			count: 7
 			path: ../Classes/Domain/Model/Cart/Service.php
 
 		-
@@ -3835,6 +3835,12 @@ parameters:
 			path: ../Classes/Service/OrderItemCleanupService.php
 
 		-
+			message: '#^Parameter \#1 \$keys of function array_fill_keys expects an array of values castable to string, array given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../Classes/Service/OrderItemCleanupService.php
+
+		-
 			message: '#^Method Extcode\\Cart\\Service\\PaymentMethodsFromTypoScriptService\:\:getPaymentMethods\(\) should return array\<Extcode\\Cart\\Domain\\Model\\Cart\\ServiceInterface\> but returns array\.$#'
 			identifier: return.type
 			count: 1
@@ -3885,12 +3891,6 @@ parameters:
 		-
 			message: '#^Argument of an invalid type mixed supplied for foreach, only iterables are supported\.$#'
 			identifier: foreach.nonIterable
-			count: 1
-			path: ../Classes/Service/TaxClassService.php
-
-		-
-			message: '#^Parameter \#1 \$key of function array_key_exists expects int\|string, string\|null given\.$#'
-			identifier: argument.type
 			count: 1
 			path: ../Classes/Service/TaxClassService.php
 
@@ -4351,24 +4351,6 @@ parameters:
 			path: ../Classes/ViewHelpers/Form/IsServiceAvailableAtPriceViewHelper.php
 
 		-
-			message: '#^Method Extcode\\Cart\\ViewHelpers\\Form\\IsServiceAvailableAtPriceViewHelper\:\:evaluateCondition\(\) has parameter \$arguments with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: ../Classes/ViewHelpers/Form/IsServiceAvailableAtPriceViewHelper.php
-
-		-
-			message: '#^Offset ''price'' might not exist on array\|null\.$#'
-			identifier: offsetAccess.notFound
-			count: 1
-			path: ../Classes/ViewHelpers/Form/IsServiceAvailableAtPriceViewHelper.php
-
-		-
-			message: '#^Offset ''service'' might not exist on array\|null\.$#'
-			identifier: offsetAccess.notFound
-			count: 1
-			path: ../Classes/ViewHelpers/Form/IsServiceAvailableAtPriceViewHelper.php
-
-		-
 			message: '#^Binary operation "\." between mixed and ''''\|''&nbsp;'' results in an error\.$#'
 			identifier: binaryOp.invalid
 			count: 1
@@ -4525,12 +4507,6 @@ parameters:
 			path: ../Classes/ViewHelpers/MapModelPropertiesToTableColumnsViewHelper.php
 
 		-
-			message: '#^Method Extcode\\Cart\\ViewHelpers\\MapModelPropertiesToTableColumnsViewHelper\:\:render\(\) should return array\<string, mixed\> but returns array\.$#'
-			identifier: return.type
-			count: 1
-			path: ../Classes/ViewHelpers/MapModelPropertiesToTableColumnsViewHelper.php
-
-		-
 			message: '#^Method Extcode\\Cart\\ViewHelpers\\MapModelPropertiesToTableColumnsViewHelper\:\:render\(\) should return array\<string, mixed\> but returns mixed\.$#'
 			identifier: return.type
 			count: 1
@@ -4540,12 +4516,6 @@ parameters:
 			message: '#^Parameter \#1 \$object of static method TYPO3\\CMS\\Extbase\\Reflection\\ObjectAccess\:\:getGettableProperties\(\) expects object, mixed given\.$#'
 			identifier: argument.type
 			count: 1
-			path: ../Classes/ViewHelpers/MapModelPropertiesToTableColumnsViewHelper.php
-
-		-
-			message: '#^Possibly invalid array key type mixed\.$#'
-			identifier: offsetAccess.invalidOffset
-			count: 2
 			path: ../Classes/ViewHelpers/MapModelPropertiesToTableColumnsViewHelper.php
 
 		-
@@ -5059,12 +5029,6 @@ parameters:
 			path: ../Tests/Unit/Domain/Model/Cart/CartCouponFixTest.php
 
 		-
-			message: '#^Parameter \#1 \$methods of method PHPUnit\\Framework\\MockObject\\TestDoubleBuilder\:\:onlyMethods\(\) expects list\<non\-empty\-string\>, array given\.$#'
-			identifier: argument.type
-			count: 1
-			path: ../Tests/Unit/Domain/Model/Cart/CartCouponFixTest.php
-
-		-
 			message: '#^Call to an undefined method Extcode\\Cart\\Domain\\Model\\Cart\\Cart\|PHPUnit\\Framework\\MockObject\\MockObject\:\:method\(\)\.$#'
 			identifier: method.notFound
 			count: 12
@@ -5083,10 +5047,16 @@ parameters:
 			path: ../Tests/Unit/Domain/Model/Cart/CartCouponPercentageTest.php
 
 		-
-			message: '#^Parameter \#1 \$methods of method PHPUnit\\Framework\\MockObject\\TestDoubleBuilder\:\:onlyMethods\(\) expects list\<non\-empty\-string\>, array given\.$#'
+			message: '#^Parameter \#1 \$array of function array_diff_assoc expects an array of values castable to string, array given\.$#'
 			identifier: argument.type
-			count: 1
-			path: ../Tests/Unit/Domain/Model/Cart/CartCouponPercentageTest.php
+			count: 2
+			path: ../Tests/Unit/Domain/Model/Cart/CartTest.php
+
+		-
+			message: '#^Parameter \#2 \$arrays of function array_diff_assoc expects an array of values castable to string, array given\.$#'
+			identifier: argument.type
+			count: 2
+			path: ../Tests/Unit/Domain/Model/Cart/CartTest.php
 
 		-
 			message: '#^Property Extcode\\Cart\\Tests\\Unit\\Domain\\Model\\Cart\\CartTest\:\:\$taxClasses type has no value type specified in iterable type array\.$#'
@@ -5116,12 +5086,6 @@ parameters:
 			message: '#^Parameter \#1 \$cart of method Extcode\\Cart\\Domain\\Model\\Cart\\Service\:\:setCart\(\) expects Extcode\\Cart\\Domain\\Model\\Cart\\Cart, Extcode\\Cart\\Domain\\Model\\Cart\\Cart\|PHPUnit\\Framework\\MockObject\\MockObject given\.$#'
 			identifier: argument.type
 			count: 14
-			path: ../Tests/Unit/Domain/Model/Cart/ServiceTest.php
-
-		-
-			message: '#^Parameter \#1 \$methods of method PHPUnit\\Framework\\MockObject\\TestDoubleBuilder\:\:onlyMethods\(\) expects list\<non\-empty\-string\>, array given\.$#'
-			identifier: argument.type
-			count: 1
 			path: ../Tests/Unit/Domain/Model/Cart/ServiceTest.php
 
 		-

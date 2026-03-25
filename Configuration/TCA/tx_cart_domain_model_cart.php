@@ -17,7 +17,6 @@ return [
         'hideTable' => true,
         'delete' => 'deleted',
         'enablecolumns' => [],
-        'searchFields' => '',
     ],
     'types' => [
         '1' => [

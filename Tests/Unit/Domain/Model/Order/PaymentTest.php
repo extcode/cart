@@ -35,6 +35,7 @@ class PaymentTest extends UnitTestCase
     {
         $provider = 'test_provider';
 
+        $this->payment->setServiceId(1);
         $this->payment->setProvider($provider);
 
         $result = $this->payment->toArray();
