@@ -3019,12 +3019,6 @@ parameters:
 			path: ../Classes/EventListener/Order/Create/PersistOrder/Coupons.php
 
 		-
-			message: '#^Parameter \#1 \$pid of method TYPO3\\CMS\\Extbase\\DomainObject\\AbstractDomainObject\:\:setPid\(\) expects int\<0, max\>, int given\.$#'
-			identifier: argument.type
-			count: 1
-			path: ../Classes/EventListener/Order/Create/PersistOrder/Coupons.php
-
-		-
 			message: '#^Cannot access offset ''currency'' on mixed\.$#'
 			identifier: offsetAccess.nonOffsetAccessible
 			count: 1
@@ -3050,18 +3044,6 @@ parameters:
 
 		-
 			message: '#^Parameter \#1 \$feUser of method Extcode\\Cart\\Domain\\Model\\Order\\Item\:\:setFeUser\(\) expects Extcode\\Cart\\Domain\\Model\\FrontendUser, TYPO3\\CMS\\Extbase\\DomainObject\\DomainObjectInterface given\.$#'
-			identifier: argument.type
-			count: 1
-			path: ../Classes/EventListener/Order/Create/PersistOrder/Item.php
-
-		-
-			message: '#^Parameter \#1 \$object of method TYPO3\\CMS\\Extbase\\Persistence\\Repository\<TYPO3\\CMS\\Extbase\\DomainObject\\DomainObjectInterface\>\:\:add\(\) expects TYPO3\\CMS\\Extbase\\DomainObject\\DomainObjectInterface, Extcode\\Cart\\Domain\\Model\\Order\\AddressInterface given\.$#'
-			identifier: argument.type
-			count: 2
-			path: ../Classes/EventListener/Order/Create/PersistOrder/Item.php
-
-		-
-			message: '#^Parameter \#1 \$pid of method TYPO3\\CMS\\Extbase\\DomainObject\\AbstractDomainObject\:\:setPid\(\) expects int\<0, max\>, int given\.$#'
 			identifier: argument.type
 			count: 1
 			path: ../Classes/EventListener/Order/Create/PersistOrder/Item.php
@@ -3124,12 +3106,6 @@ parameters:
 			message: '#^Parameter \#1 \$object_or_class of function method_exists expects object\|string, Extcode\\Cart\\Domain\\Model\\Cart\\ServiceInterface\|null given\.$#'
 			identifier: argument.type
 			count: 2
-			path: ../Classes/EventListener/Order/Create/PersistOrder/Payment.php
-
-		-
-			message: '#^Parameter \#1 \$pid of method TYPO3\\CMS\\Extbase\\DomainObject\\AbstractDomainObject\:\:setPid\(\) expects int\<0, max\>, int given\.$#'
-			identifier: argument.type
-			count: 1
 			path: ../Classes/EventListener/Order/Create/PersistOrder/Payment.php
 
 		-
@@ -3253,28 +3229,10 @@ parameters:
 			path: ../Classes/EventListener/Order/Create/PersistOrder/Shipping.php
 
 		-
-			message: '#^Parameter \#1 \$pid of method TYPO3\\CMS\\Extbase\\DomainObject\\AbstractDomainObject\:\:setPid\(\) expects int\<0, max\>, int given\.$#'
-			identifier: argument.type
-			count: 1
-			path: ../Classes/EventListener/Order/Create/PersistOrder/Shipping.php
-
-		-
 			message: '#^Parameter \#1 \$taxClass of method Extcode\\Cart\\Domain\\Model\\Order\\AbstractService\:\:setTaxClass\(\) expects Extcode\\Cart\\Domain\\Model\\Order\\TaxClass, mixed given\.$#'
 			identifier: argument.type
 			count: 1
 			path: ../Classes/EventListener/Order/Create/PersistOrder/Shipping.php
-
-		-
-			message: '#^Parameter \#1 \$pid of method TYPO3\\CMS\\Extbase\\DomainObject\\AbstractDomainObject\:\:setPid\(\) expects int\<0, max\>, int given\.$#'
-			identifier: argument.type
-			count: 1
-			path: ../Classes/EventListener/Order/Create/PersistOrder/TaxClasses.php
-
-		-
-			message: '#^Parameter \#1 \$pid of method TYPO3\\CMS\\Extbase\\DomainObject\\AbstractDomainObject\:\:setPid\(\) expects int\<0, max\>, int given\.$#'
-			identifier: argument.type
-			count: 1
-			path: ../Classes/EventListener/Order/Create/PersistOrder/Taxes.php
 
 		-
 			message: '#^Binary operation "\." between ''billing_address_'' and mixed results in an error\.$#'
@@ -3742,12 +3700,6 @@ parameters:
 			message: '#^Cannot access offset ''toAddress'' on mixed\.$#'
 			identifier: offsetAccess.nonOffsetAccessible
 			count: 1
-			path: ../Classes/Service/MailHandler.php
-
-		-
-			message: '#^Cannot call method getEmail\(\) on Extcode\\Cart\\Domain\\Model\\Order\\AddressInterface\|null\.$#'
-			identifier: method.nonObject
-			count: 4
 			path: ../Classes/Service/MailHandler.php
 
 		-

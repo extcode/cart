@@ -10,6 +10,7 @@ namespace Extcode\Cart\Service;
  */
 
 use Extcode\Cart\Domain\Model\Cart\Cart;
+use Extcode\Cart\Domain\Model\Order\AddressInterface;
 use Extcode\Cart\Domain\Model\Order\Item;
 use Extcode\Cart\Event\Mail\AttachmentEvent;
 use Psr\EventDispatcher\EventDispatcherInterface;
@@ -292,7 +293,10 @@ class MailHandler implements SingletonInterface
      */
     public function sendBuyerMail(Item $orderItem): void
     {
-        if (empty($this->getBuyerEmailFrom()) || empty($orderItem->getBillingAddress()->getEmail())) {
+        if (empty($this->getBuyerEmailFrom())
+                || ($orderItem->getBillingAddress() instanceof AddressInterface) === false
+            || empty($orderItem->getBillingAddress()->getEmail())
+        ) {
             return;
         }
 
@@ -356,7 +360,9 @@ class MailHandler implements SingletonInterface
             ->assign('cart', $this->cart)
             ->assign('orderItem', $orderItem);
 
-        if ($orderItem->getBillingAddress()->getEmail()) {
+        if (($orderItem->getBillingAddress() instanceof AddressInterface)
+                && $orderItem->getBillingAddress()->getEmail()
+        ) {
             $email->replyTo($orderItem->getBillingAddress()->getEmail());
         }
         if ($this->getSellerEmailCc()) {

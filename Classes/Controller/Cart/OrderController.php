@@ -11,7 +11,7 @@ namespace Extcode\Cart\Controller\Cart;
  * LICENSE file that was distributed with this source code.
  */
 
-use Extcode\Cart\Domain\Model\Order\AddressInterface;
+use Extcode\Cart\Domain\Model\Order\BillingAddress;
 use Extcode\Cart\Domain\Model\Order\Item;
 use Extcode\Cart\Domain\Model\Order\ShippingAddress;
 use Extcode\Cart\Domain\Validator\OrderItemValidator;
@@ -56,26 +56,32 @@ class OrderController extends ActionController
     #[IgnoreValidation(['value' => 'shippingAddress'])]
     public function createAction(
         ?Item $orderItem = null,
-        ?AddressInterface $billingAddress = null,
-        ?AddressInterface $shippingAddress = null
+        ?BillingAddress $billingAddress = null,
+        ?ShippingAddress $shippingAddress = null
     ): ResponseInterface {
         $this->restoreSession();
 
-        if (!is_null($billingAddress)) {
+        if ($billingAddress instanceof BillingAddress) {
             $this->sessionHandler->writeAddress('billing_address_' . $this->settings['cart']['pid'], $billingAddress);
         } else {
             $billingAddress = $this->sessionHandler->restoreAddress('billing_address_' . $this->settings['cart']['pid']);
         }
-        if (!is_null($shippingAddress)) {
+        if ($shippingAddress instanceof ShippingAddress) {
             $this->sessionHandler->writeAddress('shipping_address_' . $this->settings['cart']['pid'], $shippingAddress);
         } else {
             $shippingAddress = $this->sessionHandler->restoreAddress('shipping_address_' . $this->settings['cart']['pid']);
-            if (!$shippingAddress) {
-                $shippingAddress = new ShippingAddress();
-            }
         }
 
-        if (is_null($orderItem) || is_null($billingAddress) || $this->cart->getCount() === 0) {
+        if (($orderItem instanceof Item) === false
+                || ($billingAddress instanceof BillingAddress) === false
+            || $this->cart->getCount() === 0
+        ) {
+            return $this->redirect('show', 'Cart\Cart');
+        }
+
+        if ($orderItem->isShippingSameAsBilling() === false
+                && ($shippingAddress instanceof ShippingAddress) === false
+        ) {
             return $this->redirect('show', 'Cart\Cart');
         }
 
@@ -93,10 +99,10 @@ class OrderController extends ActionController
             return $this->redirect('show', 'Cart\Cart');
         }
 
-        $orderItem->setCartPid((int)$this->settings['cart']['pid']);
+        $orderItem->setCartPid($this->getCartPidFromSettings());
 
         // add billing and shipping address to order
-        $storagePid = (int)$this->settings['order']['pid'];
+        $storagePid = $this->getOrderPidFromSettings();
         $billingAddress->setPid($storagePid);
         $orderItem->setBillingAddress($billingAddress);
 
@@ -104,6 +110,9 @@ class OrderController extends ActionController
             $shippingAddress = null;
             $orderItem->removeShippingAddress();
         } else {
+            if (($shippingAddress instanceof ShippingAddress) === false) {
+                $shippingAddress = new ShippingAddress();
+            }
             $shippingAddress->setPid($storagePid);
             $orderItem->setShippingAddress($shippingAddress);
         }
@@ -243,5 +252,24 @@ class OrderController extends ActionController
         }
 
         return false;
+    }
+
+    /**
+     * @return int<0,max>
+     */
+    private function getOrderPidFromSettings(): int
+    {
+        $orderPid = (int)($this->settings['order']['pid'] ?? 0);
+
+        if ($orderPid < 0) {
+            $orderPid = 0;
+        }
+
+        return $orderPid;
+    }
+
+    private function getCartPidFromSettings(): int
+    {
+        return (int)$this->settings['cart']['pid'];
     }
 }

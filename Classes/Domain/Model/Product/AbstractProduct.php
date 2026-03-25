@@ -10,15 +10,15 @@ namespace Extcode\Cart\Domain\Model\Product;
  * For the full copyright and license information, please read the
  * LICENSE file that was distributed with this source code.
  */
-use TYPO3\CMS\Extbase\Annotation\Validate;
+use TYPO3\CMS\Extbase\Attribute\Validate;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 
 abstract class AbstractProduct extends AbstractEntity
 {
-    #[Validate(['validator' => 'NotEmpty'])]
+    #[Validate(validator: 'NotEmpty')]
     protected string $sku = '';
 
-    #[Validate(['validator' => 'NotEmpty'])]
+    #[Validate(validator: 'NotEmpty')]
     protected string $title = '';
 
     protected string $teaser = '';

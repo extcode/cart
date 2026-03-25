@@ -13,7 +13,7 @@ namespace Extcode\Cart\Domain\Model\Order;
 
 use Extcode\Cart\Domain\Model\FrontendUser;
 use Extcode\Cart\Property\Exception\ResetPropertyException;
-use TYPO3\CMS\Extbase\Annotation\ORM\Lazy;
+use TYPO3\CMS\Extbase\Attribute\ORM\Lazy;
 use TYPO3\CMS\Extbase\Domain\Model\FileReference;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
@@ -38,9 +38,9 @@ class Item extends AbstractEntity
 
     protected bool $shippingSameAsBilling = false;
 
-    protected ?AddressInterface $billingAddress = null;
+    protected ?BillingAddress $billingAddress = null;
 
-    protected ?AddressInterface $shippingAddress = null;
+    protected ?ShippingAddress $shippingAddress = null;
 
     protected string $additionalData = '';
 
@@ -259,22 +259,22 @@ class Item extends AbstractEntity
         $this->shippingSameAsBilling = $shippingSameAsBilling;
     }
 
-    public function getBillingAddress(): ?AddressInterface
+    public function getBillingAddress(): ?BillingAddress
     {
         return $this->billingAddress;
     }
 
-    public function setBillingAddress(AddressInterface $billingAddress): void
+    public function setBillingAddress(BillingAddress $billingAddress): void
     {
         $this->billingAddress = $billingAddress;
     }
 
-    public function getShippingAddress(): ?AddressInterface
+    public function getShippingAddress(): ?ShippingAddress
     {
         return $this->shippingAddress;
     }
 
-    public function setShippingAddress(AddressInterface $shippingAddress): void
+    public function setShippingAddress(ShippingAddress $shippingAddress): void
     {
         $this->shippingAddress = $shippingAddress;
     }
