@@ -156,11 +156,10 @@ class CartController extends ActionController
                     }
                 } else {
                     foreach ($checkAvailabilityEvent->getMessages() as $message) {
-                        $message = $message->jsonSerialize();
                         $this->addFlashMessage(
-                            $message['message'],
-                            $message['title'],
-                            $message['severity'],
+                            $message->getMessage(),
+                            $message->getTitle(),
+                            $message->getSeverity(),
                             true
                         );
                     }
