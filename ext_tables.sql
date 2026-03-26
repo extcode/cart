@@ -23,10 +23,10 @@ CREATE TABLE tx_cart_domain_model_order_item (
     currency_code varchar(255) DEFAULT '' NOT NULL,
     currency_sign varchar(255) DEFAULT '' NOT NULL,
     currency_translation varchar(255) DEFAULT '' NOT NULL,
-    gross double(11,2) DEFAULT '0.00' NOT NULL,
-    net double(11,2) DEFAULT '0.00' NOT NULL,
-    total_gross double(11,2) DEFAULT '0.00' NOT NULL,
-    total_net double(11,2) DEFAULT '0.00' NOT NULL,
+    gross decimal(10,2) DEFAULT '0.00' NOT NULL,
+    net decimal(10,2) DEFAULT '0.00' NOT NULL,
+    total_gross decimal(10,2) DEFAULT '0.00' NOT NULL,
+    total_net decimal(10,2) DEFAULT '0.00' NOT NULL,
 
     tax int(11) unsigned DEFAULT '0' NOT NULL,
     total_tax int(11) unsigned DEFAULT '0' NOT NULL,
@@ -81,7 +81,7 @@ CREATE TABLE tx_cart_domain_model_order_taxclass (
 
     title varchar(255) DEFAULT '' NOT NULL,
     value varchar(255) DEFAULT '' NOT NULL,
-    calc double(11,2) DEFAULT '0.00' NOT NULL,
+    calc decimal(10,2) DEFAULT '0.00' NOT NULL,
 
     INDEX `parent` (pid), INDEX `t3ver_oid` (t3ver_oid,t3ver_wsid),
 );
@@ -93,7 +93,7 @@ CREATE TABLE tx_cart_domain_model_order_tax (
     item int(11) unsigned DEFAULT '0' NOT NULL,
     record_type varchar(255) DEFAULT '' NOT NULL,
 
-    tax double(11,2) DEFAULT '0.00' NOT NULL,
+    tax decimal(10,2) DEFAULT '0.00' NOT NULL,
     tax_class int(11) unsigned DEFAULT '0' NOT NULL,
 
     INDEX `parent` (pid), INDEX `t3ver_oid` (t3ver_oid,t3ver_wsid),
@@ -111,11 +111,11 @@ CREATE TABLE tx_cart_domain_model_order_product (
     sku varchar(255) DEFAULT '' NOT NULL,
     title varchar(255) DEFAULT '' NOT NULL,
     count int(11) DEFAULT '0' NOT NULL,
-    price double(11,2) DEFAULT '0.00' NOT NULL,
-    discount double(11,2) DEFAULT '0.00' NOT NULL,
-    gross double(11,2) DEFAULT '0.00' NOT NULL,
-    net double(11,2) DEFAULT '0.00' NOT NULL,
-    tax double(11,2) DEFAULT '0.00' NOT NULL,
+    price decimal(10,2) DEFAULT '0.00' NOT NULL,
+    discount decimal(10,2) DEFAULT '0.00' NOT NULL,
+    gross decimal(10,2) DEFAULT '0.00' NOT NULL,
+    net decimal(10,2) DEFAULT '0.00' NOT NULL,
+    tax decimal(10,2) DEFAULT '0.00' NOT NULL,
     tax_class int(11) unsigned DEFAULT '0' NOT NULL,
 
     additional text,
@@ -134,10 +134,10 @@ CREATE TABLE tx_cart_domain_model_order_discount (
 
     title varchar(255) DEFAULT '' NOT NULL,
     code varchar(255) DEFAULT '' NOT NULL,
-    gross double(11,2) DEFAULT '0.00' NOT NULL,
-    net double(11,2) DEFAULT '0.00' NOT NULL,
+    gross decimal(10,2) DEFAULT '0.00' NOT NULL,
+    net decimal(10,2) DEFAULT '0.00' NOT NULL,
     tax_class_id int(11) unsigned DEFAULT '1' NOT NULL,
-    tax double(11,2) DEFAULT '0.00' NOT NULL,
+    tax decimal(10,2) DEFAULT '0.00' NOT NULL,
 
     INDEX `parent` (pid), INDEX `t3ver_oid` (t3ver_oid,t3ver_wsid),
 );
@@ -169,9 +169,9 @@ CREATE TABLE tx_cart_domain_model_order_shipping (
     service_id int(11) DEFAULT '0' NOT NULL,
     name varchar(255) DEFAULT '' NOT NULL,
     status varchar(255) DEFAULT '0' NOT NULL,
-    gross double(11,2) DEFAULT '0.00' NOT NULL,
-    net double(11,2) DEFAULT '0.00' NOT NULL,
-    tax double(11,2) DEFAULT '0.00' NOT NULL,
+    gross decimal(10,2) DEFAULT '0.00' NOT NULL,
+    net decimal(10,2) DEFAULT '0.00' NOT NULL,
+    tax decimal(10,2) DEFAULT '0.00' NOT NULL,
     tax_class int(11) unsigned DEFAULT '0' NOT NULL,
 
     note text,
@@ -190,9 +190,9 @@ CREATE TABLE tx_cart_domain_model_order_payment (
     name varchar(255) DEFAULT '' NOT NULL,
     provider varchar(255) DEFAULT '' NOT NULL,
     status varchar(255) DEFAULT '0' NOT NULL,
-    gross double(11,2) DEFAULT '0.00' NOT NULL,
-    net double(11,2) DEFAULT '0.00' NOT NULL,
-    tax double(11,2) DEFAULT '0.00' NOT NULL,
+    gross decimal(10,2) DEFAULT '0.00' NOT NULL,
+    net decimal(10,2) DEFAULT '0.00' NOT NULL,
+    tax decimal(10,2) DEFAULT '0.00' NOT NULL,
     tax_class int(11) unsigned DEFAULT '0' NOT NULL,
 
     note text,
@@ -225,9 +225,9 @@ CREATE TABLE tx_cart_domain_model_coupon (
     title varchar(255) DEFAULT '' NOT NULL,
     code varchar(255) DEFAULT '' NOT NULL,
     coupon_type varchar(255) DEFAULT 'cartdiscount' NOT NULL,
-    discount double(11,2) DEFAULT '0.00' NOT NULL,
+    discount decimal(10,2) DEFAULT '0.00' NOT NULL,
     tax_class_id int(11) unsigned DEFAULT '1' NOT NULL,
-    cart_min_price double(11,2) DEFAULT '0.00' NOT NULL,
+    cart_min_price decimal(10,2) DEFAULT '0.00' NOT NULL,
     is_combinable tinyint(4) unsigned DEFAULT '0' NOT NULL,
     is_relative_discount tinyint(4) unsigned DEFAULT '0' NOT NULL,
     handle_available tinyint(4) unsigned DEFAULT '0' NOT NULL,
