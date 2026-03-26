@@ -29,7 +29,7 @@ class TitleTagViewHelper extends AbstractViewHelper
 
         $this->registerArgument(
             'pageTitle',
-            'String',
+            'string',
             'The page title'
         );
     }
