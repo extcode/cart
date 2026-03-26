@@ -373,24 +373,6 @@ parameters:
 			path: ../Classes/Controller/Cart/CartController.php
 
 		-
-			message: '#^Parameter \#1 \$messageBody of method TYPO3\\CMS\\Extbase\\Mvc\\Controller\\ActionController\:\:addFlashMessage\(\) expects string, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: ../Classes/Controller/Cart/CartController.php
-
-		-
-			message: '#^Parameter \#2 \$messageTitle of method TYPO3\\CMS\\Extbase\\Mvc\\Controller\\ActionController\:\:addFlashMessage\(\) expects string, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: ../Classes/Controller/Cart/CartController.php
-
-		-
-			message: '#^Parameter \#3 \$severity of method TYPO3\\CMS\\Extbase\\Mvc\\Controller\\ActionController\:\:addFlashMessage\(\) expects TYPO3\\CMS\\Core\\Type\\ContextualFeedbackSeverity, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: ../Classes/Controller/Cart/CartController.php
-
-		-
 			message: '#^Cannot access offset ''pid'' on mixed\.$#'
 			identifier: offsetAccess.nonOffsetAccessible
 			count: 1
