@@ -41,7 +41,7 @@ trait AdditionalDataTrait
 
     public function getAdditional(string $key): mixed
     {
-        return $this->additionals[$key];
+        return $this->additionals[$key] ?? null;
     }
 
     public function setAdditional(string $key, mixed $value): void
