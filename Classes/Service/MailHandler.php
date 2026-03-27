@@ -9,6 +9,9 @@ namespace Extcode\Cart\Service;
  * LICENSE file that was distributed with this source code.
  */
 
+use Exception;
+use Extcode\Cart\Domain\Log\LogServiceInterface;
+use Extcode\Cart\Domain\Log\Model\Log;
 use Extcode\Cart\Domain\Model\Cart\Cart;
 use Extcode\Cart\Domain\Model\Order\AddressInterface;
 use Extcode\Cart\Domain\Model\Order\Item;
@@ -45,7 +48,8 @@ class MailHandler implements SingletonInterface
     public function __construct(
         private readonly ConfigurationManagerInterface $configurationManager,
         private readonly EventDispatcherInterface $eventDispatcher,
-        private readonly MailerInterface $mailer
+        private readonly MailerInterface $mailer,
+        private readonly LogServiceInterface $logService,
     ) {
         $this->setPluginSettings();
     }
@@ -332,7 +336,29 @@ class MailHandler implements SingletonInterface
             $email->setRequest($GLOBALS['TYPO3_REQUEST']);
         }
 
-        $this->mailer->send($email);
+        try {
+            $this->mailer->send($email);
+            $this->logService->write(
+                Log::info(
+                    (string) $orderItem->getUid(),
+                    'Mail was send to buyer.',
+                    [
+                        'time' => time(),
+                    ]
+                )
+            );
+        } catch (Exception $e) {
+            $this->logService->write(
+                Log::error(
+                    (string) $orderItem->getUid(),
+                    'Mail could not send to buyer.',
+                    [
+                        'time' => time(),
+                        'exception' => $e->__toString(),
+                    ]
+                )
+            );
+        }
     }
 
     /**
@@ -380,7 +406,29 @@ class MailHandler implements SingletonInterface
             $email->setRequest($GLOBALS['TYPO3_REQUEST']);
         }
 
-        $this->mailer->send($email);
+        try {
+            $this->mailer->send($email);
+            $this->logService->write(
+                Log::info(
+                    (string) $orderItem->getUid(),
+                    'Mail was send to seller.',
+                    [
+                        'time' => time(),
+                    ]
+                )
+            );
+        } catch (Exception $e) {
+            $this->logService->write(
+                Log::error(
+                    (string) $orderItem->getUid(),
+                    'Mail could not send to seller.',
+                    [
+                        'time' => time(),
+                        'exception' => $e->__toString(),
+                    ]
+                )
+            );
+        }
     }
 
     public function addAttachments(string $type, Item $orderItem, FluidEmail $email): void
@@ -394,6 +442,16 @@ class MailHandler implements SingletonInterface
             foreach ($attachments as $attachment) {
                 if (file_exists($attachment)) {
                     $email->attachFromPath($attachment);
+                } else {
+                    $this->logService->write(
+                        Log::warning(
+                            (string) $orderItem->getUid(),
+                            'Mail could add attachment ' . $attachment . ' to mail.',
+                            [
+                                'time' => time(),
+                            ]
+                        )
+                    );
                 }
             }
         }
