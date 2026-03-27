@@ -9,7 +9,7 @@ use TYPO3\CMS\Core\Log\LogLevel;
 final readonly class Log implements LogInterface
 {
     public function __construct(
-        private LogLevel $logLevel,
+        private string $logLevel,
         private string $identifier,
         private string $message,
         private array $arguments = [],
@@ -67,7 +67,7 @@ final readonly class Log implements LogInterface
         );
     }
 
-    public function getLogLevel(): LogLevel
+    public function getLogLevel(): string
     {
         return $this->logLevel;
     }

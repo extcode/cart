@@ -314,7 +314,7 @@ class MailHandler implements SingletonInterface
             ->from($fromAddress)
             ->setTemplate('Mail/' . ucfirst($status) . '/Buyer')
             ->format(FluidEmail::FORMAT_HTML)
-            ->assign('settings', $this->pluginSettings['settings'])
+            ->assign('settings', $this->pluginSettings['settings'] ?? [])
             ->assign('cart', $this->cart)
             ->assign('orderItem', $orderItem);
 
@@ -332,7 +332,7 @@ class MailHandler implements SingletonInterface
 
         $this->addAttachments('buyer', $orderItem, $email);
 
-        if ($GLOBALS['TYPO3_REQUEST'] instanceof ServerRequestInterface) {
+        if (($GLOBALS['TYPO3_REQUEST'] ?? null) instanceof ServerRequestInterface) {
             $email->setRequest($GLOBALS['TYPO3_REQUEST']);
         }
 
@@ -340,7 +340,7 @@ class MailHandler implements SingletonInterface
             $this->mailer->send($email);
             $this->logService->write(
                 Log::info(
-                    (string) $orderItem->getUid(),
+                    (string)$orderItem->getUid(),
                     'Mail was send to buyer.',
                     [
                         'time' => time(),
@@ -350,7 +350,7 @@ class MailHandler implements SingletonInterface
         } catch (Exception $e) {
             $this->logService->write(
                 Log::error(
-                    (string) $orderItem->getUid(),
+                    (string)$orderItem->getUid(),
                     'Mail could not send to buyer.',
                     [
                         'time' => time(),
@@ -382,7 +382,7 @@ class MailHandler implements SingletonInterface
             ->from($fromAddress)
             ->setTemplate('Mail/' . ucfirst($status) . '/Seller')
             ->format(FluidEmail::FORMAT_HTML)
-            ->assign('settings', $this->pluginSettings['settings'])
+            ->assign('settings', $this->pluginSettings['settings'] ?? [])
             ->assign('cart', $this->cart)
             ->assign('orderItem', $orderItem);
 
@@ -402,7 +402,7 @@ class MailHandler implements SingletonInterface
 
         $this->addAttachments('seller', $orderItem, $email);
 
-        if ($GLOBALS['TYPO3_REQUEST'] instanceof ServerRequestInterface) {
+        if (($GLOBALS['TYPO3_REQUEST'] ?? null) instanceof ServerRequestInterface) {
             $email->setRequest($GLOBALS['TYPO3_REQUEST']);
         }
 
@@ -410,7 +410,7 @@ class MailHandler implements SingletonInterface
             $this->mailer->send($email);
             $this->logService->write(
                 Log::info(
-                    (string) $orderItem->getUid(),
+                    (string)$orderItem->getUid(),
                     'Mail was send to seller.',
                     [
                         'time' => time(),
@@ -420,7 +420,7 @@ class MailHandler implements SingletonInterface
         } catch (Exception $e) {
             $this->logService->write(
                 Log::error(
-                    (string) $orderItem->getUid(),
+                    (string)$orderItem->getUid(),
                     'Mail could not send to seller.',
                     [
                         'time' => time(),
@@ -445,7 +445,7 @@ class MailHandler implements SingletonInterface
                 } else {
                     $this->logService->write(
                         Log::warning(
-                            (string) $orderItem->getUid(),
+                            (string)$orderItem->getUid(),
                             'Mail could add attachment ' . $attachment . ' to mail.',
                             [
                                 'time' => time(),

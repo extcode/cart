@@ -26,12 +26,11 @@ final class DatabaseWriter extends AbstractWriter
 
         $fieldValues = [
             'identifier' => $log->getIdentifier(),
-            'logLevel' => $log->getLogLevel(),
+            'message' => $record->getMessage(),
             'arguments' => $this->jsonEncodeWithThrowable($log->getArguments()),
             'request_id' => $record->getRequestId(),
             'time_micro' => $record->getCreated(),
             'level' => $record->getLevel(),
-            'message' => $record->getMessage(),
             'data' => $this->jsonEncodeWithThrowable($recordData),
         ];
 

@@ -6,16 +6,17 @@ namespace Extcode\Cart\Domain\Log\Repository;
 
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Database\Query\QueryBuilder;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 final readonly class LogRepository
 {
-    public const TABLE_NAME = 'tx_cart_domain_model_log';
+    public const TABLE_NAME = 'tx_cart_domain_model_order_log';
 
     private QueryBuilder $queryBuilder;
 
     public function __construct(
-        ConnectionPool $connectionPool,
     ) {
+        $connectionPool = GeneralUtility::makeInstance(ConnectionPool::class);
         $this->queryBuilder = $connectionPool
              ->getQueryBuilderForTable(self::TABLE_NAME)
         ;
