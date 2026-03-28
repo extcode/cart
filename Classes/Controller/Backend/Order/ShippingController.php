@@ -26,6 +26,7 @@ class ShippingController extends ActionController
 
     public function updateAction(Shipping $shipping): ResponseInterface
     {
+        // todo: add logging here
         $this->shippingRepository->update($shipping);
 
         $event = new UpdateServiceEvent($shipping);

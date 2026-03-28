@@ -25,8 +25,10 @@ final class DatabaseWriter extends AbstractWriter
         unset($recordData['log']);
 
         $fieldValues = [
-            'identifier' => $log->getIdentifier(),
-            'message' => $record->getMessage(),
+            'log_level' => $log->getLogLevel()->value,
+            'item' => $log->getOrderItemId(),
+            'type' => $log->getType(),
+            'message' => $log->getMessage(),
             'arguments' => $this->jsonEncodeWithThrowable($log->getArguments()),
             'request_id' => $record->getRequestId(),
             'time_micro' => $record->getCreated(),

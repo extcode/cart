@@ -242,11 +242,13 @@ CREATE TABLE tx_cart_domain_model_coupon (
 #
 CREATE TABLE tx_cart_domain_model_order_log (
     uid int(11) NOT NULL auto_increment,
-    identifier char(40) DEFAULT '' NOT NULL,
+    item int(11) DEFAULT '0' NOT NULL,
+    type varchar(255) DEFAULT '' NOT NULL,
 
     request_id varchar(13) DEFAULT '' NOT NULL,
     crdate int(11) DEFAULT '0' NOT NULL,
     time_micro float DEFAULT '0' NOT NULL,
+    log_level varchar(10) DEFAULT 'info' NOT NULL,
     level varchar(10) DEFAULT 'info' NOT NULL,
     message text,
     data text,

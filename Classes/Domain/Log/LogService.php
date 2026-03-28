@@ -17,7 +17,7 @@ final readonly class LogService implements LogServiceInterface
         LogInterface $log
     ): void {
         $this->logger->log(
-            $log->getLogLevel(),
+            $log->getLogLevel()->value,
             $log->getMessage(),
             [
                 'log' => $log,

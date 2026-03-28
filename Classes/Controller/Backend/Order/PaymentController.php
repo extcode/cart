@@ -26,6 +26,7 @@ class PaymentController extends ActionController
 
     public function updateAction(Payment $payment): ResponseInterface
     {
+        // todo: add logging here
         $this->paymentRepository->update($payment);
 
         $event = new UpdateServiceEvent($payment);

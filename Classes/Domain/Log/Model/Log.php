@@ -4,77 +4,89 @@ declare(strict_types=1);
 
 namespace Extcode\Cart\Domain\Log\Model;
 
-use TYPO3\CMS\Core\Log\LogLevel;
-
 final readonly class Log implements LogInterface
 {
     public function __construct(
-        private string $logLevel,
-        private string $identifier,
+        private LogLevel $logLevel,
+        private int $orderItemId,
+        private string $type,
         private string $message,
         private array $arguments = [],
     ) {}
 
     public static function info(
-        string $identifier,
+        int $orderItemId,
+        string $type,
         string $message,
         array $arguments = [],
     ): self {
         return new self(
             LogLevel::INFO,
-            $identifier,
+            $orderItemId,
+            $type,
             $message,
             $arguments,
         );
     }
 
     public static function notice(
-        string $identifier,
+        int $orderItemId,
+        string $type,
         string $message,
         array $arguments = [],
     ): self {
         return new self(
             LogLevel::NOTICE,
-            $identifier,
+            $orderItemId,
+            $type,
             $message,
             $arguments,
         );
     }
 
     public static function warning(
-        string $identifier,
+        int $orderItemId,
+        string $type,
         string $message,
         array $arguments = [],
     ): self {
         return new self(
             LogLevel::WARNING,
-            $identifier,
+            $orderItemId,
+            $type,
             $message,
             $arguments,
         );
     }
 
     public static function error(
-        string $identifier,
+        int $orderItemId,
+        string $type,
         string $message,
         array $arguments = [],
     ): self {
         return new self(
             LogLevel::ERROR,
-            $identifier,
+            $orderItemId,
+            $type,
             $message,
             $arguments,
         );
     }
 
-    public function getLogLevel(): string
+    public function getLogLevel(): LogLevel
     {
         return $this->logLevel;
     }
 
-    public function getIdentifier(): string
+    public function getOrderItemId(): int
     {
-        return $this->identifier;
+        return $this->orderItemId;
+    }
+
+    public function getType(): string
+    {
+        return $this->type;
     }
 
     public function getMessage(): string

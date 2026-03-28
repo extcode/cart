@@ -7,39 +7,46 @@ namespace Extcode\Cart\Domain\Log\Model;
 interface LogInterface
 {
     public function __construct(
-        string $logLevel,
-        string $identifier,
+        LogLevel $logLevel,
+        int $orderItemId,
+        string $type,
         string $message,
         array $arguments = [],
     );
 
     public static function info(
-        string $identifier,
+        int $orderItemId,
+        string $type,
         string $message,
         array $arguments = [],
     ): self;
 
     public static function notice(
-        string $identifier,
+        int $orderItemId,
+        string $type,
         string $message,
         array $arguments = [],
     ): self;
 
     public static function warning(
-        string $identifier,
+        int $orderItemId,
+        string $type,
         string $message,
         array $arguments = [],
     ): self;
 
     public static function error(
-        string $identifier,
+        int $orderItemId,
+        string $type,
         string $message,
         array $arguments = [],
     ): self;
 
-    public function getLogLevel(): string;
+    public function getLogLevel(): LogLevel;
 
-    public function getIdentifier(): string;
+    public function getOrderItemId(): int;
+
+    public function getType(): string;
 
     public function getMessage(): string;
 

@@ -16,6 +16,7 @@ use Extcode\Cart\Domain\Model\Cart\Cart;
 use Extcode\Cart\Domain\Model\Order\AddressInterface;
 use Extcode\Cart\Domain\Model\Order\Item;
 use Extcode\Cart\Event\Mail\AttachmentEvent;
+use InvalidArgumentException;
 use Psr\EventDispatcher\EventDispatcherInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Symfony\Component\Mime\Address;
@@ -340,7 +341,8 @@ class MailHandler implements SingletonInterface
             $this->mailer->send($email);
             $this->logService->write(
                 Log::info(
-                    (string)$orderItem->getUid(),
+                    $this->getOrderItemUid($orderItem),
+                    'sendBuyerMail',
                     'Mail was send to buyer.',
                     [
                         'time' => time(),
@@ -350,7 +352,8 @@ class MailHandler implements SingletonInterface
         } catch (Exception $e) {
             $this->logService->write(
                 Log::error(
-                    (string)$orderItem->getUid(),
+                    $this->getOrderItemUid($orderItem),
+                    'sendBuyerMail',
                     'Mail could not send to buyer.',
                     [
                         'time' => time(),
@@ -366,6 +369,9 @@ class MailHandler implements SingletonInterface
      */
     public function sendSellerMail(Item $orderItem): void
     {
+        if (is_null($orderItem->getUid())) {
+            throw new InvalidArgumentException('Method should only called for persisted orders.', 1774715307);
+        }
         $sellerEmailTo = $this->getSellerEmailTo();
         if (empty($this->getSellerEmailFrom()) || empty($sellerEmailTo)) {
             return;
@@ -410,7 +416,8 @@ class MailHandler implements SingletonInterface
             $this->mailer->send($email);
             $this->logService->write(
                 Log::info(
-                    (string)$orderItem->getUid(),
+                    $this->getOrderItemUid($orderItem),
+                    'sendSellerMail',
                     'Mail was send to seller.',
                     [
                         'time' => time(),
@@ -420,7 +427,8 @@ class MailHandler implements SingletonInterface
         } catch (Exception $e) {
             $this->logService->write(
                 Log::error(
-                    (string)$orderItem->getUid(),
+                    $this->getOrderItemUid($orderItem),
+                    'sendSellerMail',
                     'Mail could not send to seller.',
                     [
                         'time' => time(),
@@ -445,7 +453,8 @@ class MailHandler implements SingletonInterface
                 } else {
                     $this->logService->write(
                         Log::warning(
-                            (string)$orderItem->getUid(),
+                            $this->getOrderItemUid($orderItem),
+                            'addAttachments',
                             'Mail could add attachment ' . $attachment . ' to mail.',
                             [
                                 'time' => time(),
@@ -455,5 +464,16 @@ class MailHandler implements SingletonInterface
                 }
             }
         }
+    }
+
+    private function getOrderItemUid(Item $orderItem): int
+    {
+        $orderItemUid = $orderItem->getUid();
+
+        if (is_null($orderItemUid)) {
+            throw new InvalidArgumentException('Method should only called for persisted orders.', 1774715307);
+        }
+
+        return $orderItemUid;
     }
 }
