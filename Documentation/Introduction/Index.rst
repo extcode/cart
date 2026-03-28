@@ -86,13 +86,6 @@ Examples of websites which use this extension as e-commerce solution.
 
    `www.liebman-design-import.com <https://www.liebman-design-import.com/warenkorb/>`__
 
-.. figure:: ../Images/Examples/weingut-isele.de.png
-   :width: 640
-   :alt: Cart of Weingut Isele
-   :class: with-shadow
-
-   `www.weingut-isele.de <https://www.weingut-isele.de>`__
-
 **Table of contents**
 
 .. toctree::
@@ -101,4 +94,3 @@ Examples of websites which use this extension as e-commerce solution.
 
    Support/Index
    Sponsoring/Index
-   NoteOfThanks/Index
