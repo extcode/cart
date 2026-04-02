@@ -26,8 +26,15 @@ class AttachmentFromTypoScriptTest extends FunctionalTestCase
 
     public function setUp(): void
     {
-        $this->testExtensionsToLoad[] = 'extcode/cart';
-        $this->testExtensionsToLoad[] = 'typo3conf/ext/cart/Tests/Fixtures/cart_example';
+        $this->testExtensionsToLoad = [
+            'extcode/cart',
+            'typo3conf/ext/cart/Tests/Fixtures/cart_example',
+        ];
+
+        $this->coreExtensionsToLoad = [
+            'typo3/cms-beuser',
+            'typo3/cms-core',
+        ];
 
         parent::setUp();
 

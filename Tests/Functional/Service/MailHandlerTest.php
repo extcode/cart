@@ -34,8 +34,15 @@ class MailHandlerTest extends FunctionalTestCase
 
     public function setUp(): void
     {
-        $this->testExtensionsToLoad[] = 'extcode/cart';
-        $this->testExtensionsToLoad[] = 'typo3conf/ext/cart/Tests/Fixtures/cart_example';
+        $this->testExtensionsToLoad = [
+            'extcode/cart',
+            'typo3conf/ext/cart/Tests/Fixtures/cart_example',
+        ];
+
+        $this->coreExtensionsToLoad = [
+            'typo3/cms-beuser',
+            'typo3/cms-core',
+        ];
 
         $this->configurationToUseInTestInstance = [
             'LOG' => [
@@ -346,7 +353,7 @@ class MailHandlerTest extends FunctionalTestCase
             $mailer->method('send')->willThrowException(new Exception());
         }
 
-        $logger = GeneralUtility::makeInstance(LogManager::class)->getLogger(__CLASS__);
+        $logger = GeneralUtility::makeInstance(LogManager::class)->getLogger(self::class);
         $logService = GeneralUtility::makeInstance(
             LogService::class,
             $logger,
