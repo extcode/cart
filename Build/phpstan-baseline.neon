@@ -1039,6 +1039,96 @@ parameters:
 			path: ../Classes/Domain/Finisher/Form/AddToCartFinisherInterface.php
 
 		-
+			message: '#^Method Extcode\\Cart\\Domain\\Log\\DatabaseWriter\:\:jsonEncodeWithThrowable\(\) has parameter \$dataToEncode with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: ../Classes/Domain/Log/DatabaseWriter.php
+
+		-
+			message: '#^Method Extcode\\Cart\\Domain\\Log\\Model\\Log\:\:__construct\(\) has parameter \$arguments with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: ../Classes/Domain/Log/Model/Log.php
+
+		-
+			message: '#^Method Extcode\\Cart\\Domain\\Log\\Model\\Log\:\:error\(\) has parameter \$arguments with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: ../Classes/Domain/Log/Model/Log.php
+
+		-
+			message: '#^Method Extcode\\Cart\\Domain\\Log\\Model\\Log\:\:getArguments\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: ../Classes/Domain/Log/Model/Log.php
+
+		-
+			message: '#^Method Extcode\\Cart\\Domain\\Log\\Model\\Log\:\:info\(\) has parameter \$arguments with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: ../Classes/Domain/Log/Model/Log.php
+
+		-
+			message: '#^Method Extcode\\Cart\\Domain\\Log\\Model\\Log\:\:notice\(\) has parameter \$arguments with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: ../Classes/Domain/Log/Model/Log.php
+
+		-
+			message: '#^Method Extcode\\Cart\\Domain\\Log\\Model\\Log\:\:warning\(\) has parameter \$arguments with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: ../Classes/Domain/Log/Model/Log.php
+
+		-
+			message: '#^Method Extcode\\Cart\\Domain\\Log\\Model\\LogInterface\:\:__construct\(\) has parameter \$arguments with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: ../Classes/Domain/Log/Model/LogInterface.php
+
+		-
+			message: '#^Method Extcode\\Cart\\Domain\\Log\\Model\\LogInterface\:\:error\(\) has parameter \$arguments with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: ../Classes/Domain/Log/Model/LogInterface.php
+
+		-
+			message: '#^Method Extcode\\Cart\\Domain\\Log\\Model\\LogInterface\:\:getArguments\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: ../Classes/Domain/Log/Model/LogInterface.php
+
+		-
+			message: '#^Method Extcode\\Cart\\Domain\\Log\\Model\\LogInterface\:\:info\(\) has parameter \$arguments with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: ../Classes/Domain/Log/Model/LogInterface.php
+
+		-
+			message: '#^Method Extcode\\Cart\\Domain\\Log\\Model\\LogInterface\:\:notice\(\) has parameter \$arguments with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: ../Classes/Domain/Log/Model/LogInterface.php
+
+		-
+			message: '#^Method Extcode\\Cart\\Domain\\Log\\Model\\LogInterface\:\:warning\(\) has parameter \$arguments with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: ../Classes/Domain/Log/Model/LogInterface.php
+
+		-
+			message: '#^Method Extcode\\Cart\\Domain\\Log\\Repository\\LogRepository\:\:findAllByIdentifier\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: ../Classes/Domain/Log/Repository/LogRepository.php
+
+		-
+			message: '#^Method Extcode\\Cart\\Domain\\Log\\Repository\\LogRepository\:\:insert\(\) has parameter \$fieldValues with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: ../Classes/Domain/Log/Repository/LogRepository.php
+
+		-
 			message: '#^Method Extcode\\Cart\\Domain\\Model\\Cart\:\:getCart\(\) should return Extcode\\Cart\\Domain\\Model\\Cart\\Cart\|null but returns mixed\.$#'
 			identifier: return.type
 			count: 1
@@ -5472,56 +5562,3 @@ parameters:
 			count: 1
 			path: ../ext_emconf.php
 
-		-
-			message: '#^Cannot access an offset on mixed\.$#'
-			identifier: offsetAccess.nonOffsetAccessible
-			count: 1
-			path: ../ext_localconf.php
-
-		-
-			message: '#^Cannot access offset ''1588829280'' on mixed\.$#'
-			identifier: offsetAccess.nonOffsetAccessible
-			count: 2
-			path: ../ext_localconf.php
-
-		-
-			message: '#^Cannot access offset ''MAIL'' on mixed\.$#'
-			identifier: offsetAccess.nonOffsetAccessible
-			count: 1
-			path: ../ext_localconf.php
-
-		-
-			message: '#^Cannot access offset ''SYS'' on mixed\.$#'
-			identifier: offsetAccess.nonOffsetAccessible
-			count: 1
-			path: ../ext_localconf.php
-
-		-
-			message: '#^Cannot access offset ''cart'' on mixed\.$#'
-			identifier: offsetAccess.nonOffsetAccessible
-			count: 1
-			path: ../ext_localconf.php
-
-		-
-			message: '#^Cannot access offset ''fluid'' on mixed\.$#'
-			identifier: offsetAccess.nonOffsetAccessible
-			count: 1
-			path: ../ext_localconf.php
-
-		-
-			message: '#^Cannot access offset ''namespaces'' on mixed\.$#'
-			identifier: offsetAccess.nonOffsetAccessible
-			count: 1
-			path: ../ext_localconf.php
-
-		-
-			message: '#^Cannot access offset ''partialRootPaths'' on mixed\.$#'
-			identifier: offsetAccess.nonOffsetAccessible
-			count: 1
-			path: ../ext_localconf.php
-
-		-
-			message: '#^Cannot access offset ''templateRootPaths'' on mixed\.$#'
-			identifier: offsetAccess.nonOffsetAccessible
-			count: 1
-			path: ../ext_localconf.php

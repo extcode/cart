@@ -9,10 +9,14 @@ namespace Extcode\Cart\Service;
  * LICENSE file that was distributed with this source code.
  */
 
+use Exception;
+use Extcode\Cart\Domain\Log\LogServiceInterface;
+use Extcode\Cart\Domain\Log\Model\Log;
 use Extcode\Cart\Domain\Model\Cart\Cart;
 use Extcode\Cart\Domain\Model\Order\AddressInterface;
 use Extcode\Cart\Domain\Model\Order\Item;
 use Extcode\Cart\Event\Mail\AttachmentEvent;
+use InvalidArgumentException;
 use Psr\EventDispatcher\EventDispatcherInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Symfony\Component\Mime\Address;
@@ -45,7 +49,8 @@ class MailHandler implements SingletonInterface
     public function __construct(
         private readonly ConfigurationManagerInterface $configurationManager,
         private readonly EventDispatcherInterface $eventDispatcher,
-        private readonly MailerInterface $mailer
+        private readonly MailerInterface $mailer,
+        private readonly LogServiceInterface $logService,
     ) {
         $this->setPluginSettings();
     }
@@ -310,7 +315,7 @@ class MailHandler implements SingletonInterface
             ->from($fromAddress)
             ->setTemplate('Mail/' . ucfirst($status) . '/Buyer')
             ->format(FluidEmail::FORMAT_HTML)
-            ->assign('settings', $this->pluginSettings['settings'])
+            ->assign('settings', $this->pluginSettings['settings'] ?? [])
             ->assign('cart', $this->cart)
             ->assign('orderItem', $orderItem);
 
@@ -328,11 +333,35 @@ class MailHandler implements SingletonInterface
 
         $this->addAttachments('buyer', $orderItem, $email);
 
-        if ($GLOBALS['TYPO3_REQUEST'] instanceof ServerRequestInterface) {
+        if (($GLOBALS['TYPO3_REQUEST'] ?? null) instanceof ServerRequestInterface) {
             $email->setRequest($GLOBALS['TYPO3_REQUEST']);
         }
 
-        $this->mailer->send($email);
+        try {
+            $this->mailer->send($email);
+            $this->logService->write(
+                Log::info(
+                    $this->getOrderItemUid($orderItem),
+                    'sendBuyerMail',
+                    'Mail was send to buyer.',
+                    [
+                        'time' => time(),
+                    ]
+                )
+            );
+        } catch (Exception $e) {
+            $this->logService->write(
+                Log::error(
+                    $this->getOrderItemUid($orderItem),
+                    'sendBuyerMail',
+                    'Mail could not send to buyer.',
+                    [
+                        'time' => time(),
+                        'exception' => $e->__toString(),
+                    ]
+                )
+            );
+        }
     }
 
     /**
@@ -340,6 +369,9 @@ class MailHandler implements SingletonInterface
      */
     public function sendSellerMail(Item $orderItem): void
     {
+        if (is_null($orderItem->getUid())) {
+            throw new InvalidArgumentException('Method should only called for persisted orders.', 1774715307);
+        }
         $sellerEmailTo = $this->getSellerEmailTo();
         if (empty($this->getSellerEmailFrom()) || empty($sellerEmailTo)) {
             return;
@@ -356,7 +388,7 @@ class MailHandler implements SingletonInterface
             ->from($fromAddress)
             ->setTemplate('Mail/' . ucfirst($status) . '/Seller')
             ->format(FluidEmail::FORMAT_HTML)
-            ->assign('settings', $this->pluginSettings['settings'])
+            ->assign('settings', $this->pluginSettings['settings'] ?? [])
             ->assign('cart', $this->cart)
             ->assign('orderItem', $orderItem);
 
@@ -376,11 +408,35 @@ class MailHandler implements SingletonInterface
 
         $this->addAttachments('seller', $orderItem, $email);
 
-        if ($GLOBALS['TYPO3_REQUEST'] instanceof ServerRequestInterface) {
+        if (($GLOBALS['TYPO3_REQUEST'] ?? null) instanceof ServerRequestInterface) {
             $email->setRequest($GLOBALS['TYPO3_REQUEST']);
         }
 
-        $this->mailer->send($email);
+        try {
+            $this->mailer->send($email);
+            $this->logService->write(
+                Log::info(
+                    $this->getOrderItemUid($orderItem),
+                    'sendSellerMail',
+                    'Mail was send to seller.',
+                    [
+                        'time' => time(),
+                    ]
+                )
+            );
+        } catch (Exception $e) {
+            $this->logService->write(
+                Log::error(
+                    $this->getOrderItemUid($orderItem),
+                    'sendSellerMail',
+                    'Mail could not send to seller.',
+                    [
+                        'time' => time(),
+                        'exception' => $e->__toString(),
+                    ]
+                )
+            );
+        }
     }
 
     public function addAttachments(string $type, Item $orderItem, FluidEmail $email): void
@@ -394,8 +450,30 @@ class MailHandler implements SingletonInterface
             foreach ($attachments as $attachment) {
                 if (file_exists($attachment)) {
                     $email->attachFromPath($attachment);
+                } else {
+                    $this->logService->write(
+                        Log::warning(
+                            $this->getOrderItemUid($orderItem),
+                            'addAttachments',
+                            'Mail could add attachment ' . $attachment . ' to mail.',
+                            [
+                                'time' => time(),
+                            ]
+                        )
+                    );
                 }
             }
         }
+    }
+
+    private function getOrderItemUid(Item $orderItem): int
+    {
+        $orderItemUid = $orderItem->getUid();
+
+        if (is_null($orderItemUid)) {
+            throw new InvalidArgumentException('Method should only called for persisted orders.', 1774715307);
+        }
+
+        return $orderItemUid;
     }
 }
