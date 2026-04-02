@@ -25,7 +25,14 @@ final class CsvHeaderViewHelperTest extends FunctionalTestCase
 
     public function setUp(): void
     {
-        $this->testExtensionsToLoad[] = 'extcode/cart';
+        $this->testExtensionsToLoad = [
+            'extcode/cart',
+        ];
+
+        $this->coreExtensionsToLoad = [
+            'typo3/cms-beuser',
+            'typo3/cms-core',
+        ];
 
         parent::setUp();
     }

@@ -8,7 +8,6 @@ parameters:
     - ../Classes
     - ../Configuration
     - ../Tests
-    - ../ext_emconf.php
     - ../ext_localconf.php
 
   disallowedFunctionCalls:

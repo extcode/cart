@@ -74,7 +74,7 @@ final readonly class OrderItemCleanupService
 
         if ($dataHandler->errorLog !== []) {
             throw new RuntimeException(
-                'Could not properly delete records for table: ' . $tableName . ', got the following errors: ' . implode(', ', array_filter($dataHandler->errorLog, 'is_string')),
+                'Could not properly delete records for table: ' . $tableName . ', got the following errors: ' . implode(', ', array_filter($dataHandler->errorLog, is_string(...))),
                 1751526777
             );
         }

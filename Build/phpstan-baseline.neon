@@ -2437,6 +2437,12 @@ parameters:
 			path: ../Classes/Domain/Validator/OrderItemValidator.php
 
 		-
+			message: '#^Parameter \#2 \$validators of method Extcode\\Cart\\Domain\\Validator\\OrderItemValidator\:\:checkProperty\(\) expects Traversable\<mixed, TYPO3\\CMS\\Extbase\\Validation\\Validator\\ValidatorInterface\>, iterable\<TYPO3\\CMS\\Extbase\\Validation\\Validator\\ValidatorInterface\>&SplObjectStorage given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../Classes/Domain/Validator/OrderItemValidator.php
+
+		-
 			message: '#^Property TYPO3\\CMS\\Extbase\\Validation\\Validator\\AbstractGenericObjectValidator\:\:\$propertyValidators \(array\<string, iterable\<TYPO3\\CMS\\Extbase\\Validation\\Validator\\ValidatorInterface\>&SplObjectStorage\>\) does not accept array\<string, \(iterable\<TYPO3\\CMS\\Extbase\\Validation\\Validator\\ValidatorInterface\>&SplObjectStorage\)\|SplObjectStorage\<object, mixed\>\>\.$#'
 			identifier: assign.propertyType
 			count: 1
@@ -5555,10 +5561,3 @@ parameters:
 			identifier: argument.templateType
 			count: 1
 			path: ../Tests/Unit/Validation/Validator/EmptyValidatorTest.php
-
-		-
-			message: '#^Cannot access offset ''cart'' on mixed\.$#'
-			identifier: offsetAccess.nonOffsetAccessible
-			count: 1
-			path: ../ext_emconf.php
-

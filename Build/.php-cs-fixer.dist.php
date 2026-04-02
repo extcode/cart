@@ -11,6 +11,11 @@ return (new \PhpCsFixer\Config())
         (new PhpCsFixer\Finder())
             ->ignoreVCSIgnored(true)
             ->in(__DIR__ . '/../')
+            ->exclude(
+                [
+                    'var/',
+                ]
+            )
     )
     ->setRiskyAllowed(true)
     ->setRules([

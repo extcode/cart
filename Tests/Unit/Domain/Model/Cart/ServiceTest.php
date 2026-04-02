@@ -475,7 +475,7 @@ class ServiceTest extends UnitTestCase
         );
 
         return $this->getMockBuilder(Cart::class)
-            ->onlyMethods(array_values(array_filter(array_filter($methods, 'is_string'))))
+            ->onlyMethods(array_values(array_filter(array_filter($methods, is_string(...)))))
             ->setConstructorArgs([$this->taxClasses])
             ->getMock();
     }

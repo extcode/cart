@@ -38,9 +38,10 @@
         "allow-plugins": {
             "typo3/class-alias-loader": true,
             "typo3/cms-composer-installers": true,
-            "sbuerk/typo3-cmscomposerinstallers-testingframework-bridge": true,
             "phpstan/extension-installer": true
-        }
+        },
+        "lock": false,
+        "sort-packages": true
     },
     "version": "12.0.0",
     "extra": {
@@ -53,11 +54,10 @@
         "php": "~8.2.0 || ~8.3.0 || ~8.4.0 || ~8.5.0",
         "ext-json": "*",
         "ext-openssl": "*",
-        "typo3/cms-core": "^14.0",
-        "typo3/cms-extbase": "^14.0",
-        "typo3/cms-fluid": "^14.0",
-        "typo3/cms-form": "^14.0",
-        "typo3/cms-frontend": "^14.0"
+        "typo3/cms-core": "^14.2",
+        "typo3/cms-extbase": "^14.2",
+        "typo3/cms-fluid": "^14.2",
+        "typo3/cms-frontend": "^14.2"
     },
     "require-dev": {
 	    "codappix/typo3-php-datasets": "^2.1",
@@ -68,55 +68,14 @@
         "phpstan/phpstan-phpunit": "^2.0",
         "spaze/phpstan-disallowed-calls": "^4.7",
         "staabm/phpstan-todo-by": "^0.3",
-        "typo3/cms-beuser": "^14.0",
-        "typo3/cms-dashboard": "^14.0",
-        "typo3/cms-form": "^14.0",
-        "typo3/testing-framework": "^9.0",
+        "typo3/cms-beuser": "^14.2",
+        "typo3/cms-dashboard": "^14.2",
+        "typo3/cms-form": "^14.2",
+        "typo3/testing-framework": "^9.5",
         "ssch/typo3-rector": "^3.11"
     },
-    "scripts": {
-        "test:cgl": [
-            ".build/bin/php-cs-fixer fix --config=Build/.php-cs-fixer.dist.php -v --using-cache=no --path-mode=intersection ./"
-        ],
-        "test:cgl:dry-run": [
-            ".build/bin/php-cs-fixer fix --config=Build/.php-cs-fixer.dist.php -v --dry-run --using-cache=no --path-mode=intersection ./"
-        ],
-        "test:php:lint": [
-            "find *.php Classes Configuration Tests -name '*.php' -print0 | xargs -0 -n 1 -P 4 php -l"
-        ],
-        "test:php:unit": [
-            ".build/bin/phpunit -c Build/UnitTests.xml"
-        ],
-        "test:php:functional": [
-            "typo3DatabaseDriver=\"pdo_sqlite\" .build/bin/phpunit -c Build/phpunit.xml.dist"
-        ],
-        "test:phpstan:analyse": [
-            ".build/bin/phpstan analyse -c Build/phpstan.neon --memory-limit 256M"
-        ],
-        "test:rector:process": [
-            ".build/bin/rector process *"
-        ],
-        "test:rector:process:dry-run": [
-            ".build/bin/rector process * --dry-run"
-        ],
-        "test:typoscript:lint": [
-            ".build/bin/typoscript-lint -c Build/typoscriptlint.yaml Configuration"
-        ],
-        "test:php": [
-            "@test:php:lint",
-            "@test:php:unit",
-            "@test:php:functional"
-        ],
-        "test:all": [
-            "@test:phpstan:analyse",
-            "@test:rector:process",
-            "@test:cgl",
-            "@test:typoscript:lint",
-            "@test:php"
-        ]
-    },
     "suggest": {
-        "typo3/cms-dashboard": "^14.0",
-        "typo3/cms-form": "^14.0"
+        "typo3/cms-dashboard": "^14.2",
+        "typo3/cms-form": "^14.2"
     }
 }
