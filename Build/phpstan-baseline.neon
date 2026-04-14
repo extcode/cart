@@ -4867,55 +4867,7 @@ parameters:
 			path: ../Classes/Widgets/Provider/TurnoverPerDayProvider.php
 
 		-
-			message: '#^Cannot access an offset on mixed\.$#'
-			identifier: offsetAccess.nonOffsetAccessible
-			count: 3
-			path: ../Configuration/TCA/Overrides/pages.php
-
-		-
-			message: '#^Cannot access offset ''columns'' on mixed\.$#'
-			identifier: offsetAccess.nonOffsetAccessible
-			count: 1
-			path: ../Configuration/TCA/Overrides/pages.php
-
-		-
-			message: '#^Cannot access offset ''config'' on mixed\.$#'
-			identifier: offsetAccess.nonOffsetAccessible
-			count: 2
-			path: ../Configuration/TCA/Overrides/pages.php
-
-		-
-			message: '#^Cannot access offset ''contains\-coupons'' on mixed\.$#'
-			identifier: offsetAccess.nonOffsetAccessible
-			count: 1
-			path: ../Configuration/TCA/Overrides/pages.php
-
-		-
-			message: '#^Cannot access offset ''contains\-orders'' on mixed\.$#'
-			identifier: offsetAccess.nonOffsetAccessible
-			count: 1
-			path: ../Configuration/TCA/Overrides/pages.php
-
-		-
-			message: '#^Cannot access offset ''ctrl'' on mixed\.$#'
-			identifier: offsetAccess.nonOffsetAccessible
-			count: 1
-			path: ../Configuration/TCA/Overrides/pages.php
-
-		-
-			message: '#^Cannot access offset ''doktype'' on mixed\.$#'
-			identifier: offsetAccess.nonOffsetAccessible
-			count: 1
-			path: ../Configuration/TCA/Overrides/pages.php
-
-		-
-			message: '#^Cannot access offset ''items'' on mixed\.$#'
-			identifier: offsetAccess.nonOffsetAccessible
-			count: 2
-			path: ../Configuration/TCA/Overrides/pages.php
-
-		-
-			message: '#^Cannot access offset ''module'' on mixed\.$#'
+			message: '#^Cannot access offset ''1'' on mixed\.$#'
 			identifier: offsetAccess.nonOffsetAccessible
 			count: 1
 			path: ../Configuration/TCA/Overrides/pages.php
@@ -4923,18 +4875,18 @@ parameters:
 		-
 			message: '#^Cannot access offset ''pages'' on mixed\.$#'
 			identifier: offsetAccess.nonOffsetAccessible
-			count: 1
+			count: 2
 			path: ../Configuration/TCA/Overrides/pages.php
 
 		-
-			message: '#^Cannot access offset ''typeicon_classes'' on mixed\.$#'
+			message: '#^Cannot access offset ''types'' on mixed\.$#'
 			identifier: offsetAccess.nonOffsetAccessible
 			count: 1
 			path: ../Configuration/TCA/Overrides/pages.php
 
 		-
-			message: '#^Cannot access offset 181 on mixed\.$#'
-			identifier: offsetAccess.nonOffsetAccessible
+			message: '#^Parameter \#1 \$original of static method TYPO3\\CMS\\Core\\Utility\\ArrayUtility\:\:mergeRecursiveWithOverrule\(\) expects array, mixed given\.$#'
+			identifier: argument.type
 			count: 1
 			path: ../Configuration/TCA/Overrides/pages.php
 
