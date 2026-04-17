@@ -51,7 +51,7 @@ class PaymentController extends ActionController
     {
         $this->restoreSession();
 
-        $payments = $this->paymentMethodsService->getPaymentMethods($this->cart);
+        $payments = $this->paymentMethodsLoader->getPaymentMethods($this->cart);
         $payment = $payments[$paymentId] ?? null;
 
         if (is_null($payment) || $payment->isAvailable() === false) {

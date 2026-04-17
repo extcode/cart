@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Extcode\Cart\Service;
+namespace Extcode\Cart\Configuration\Loader\TypoScript;
 
 /*
  * This file is part of the package extcode/cart.
@@ -11,18 +11,19 @@ namespace Extcode\Cart\Service;
  * LICENSE file that was distributed with this source code.
  */
 
+use Extcode\Cart\Configuration\Loader\TaxClassLoaderInterface;
 use Extcode\Cart\Domain\Model\Cart\TaxClass;
 use Extcode\Cart\Domain\Model\Cart\TaxClassFactoryInterface;
 use Extcode\Cart\Domain\Model\Cart\TaxClassInterface;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 
-final class TaxClassService implements TaxClassServiceInterface
+final readonly class TaxClassLoader implements TaxClassLoaderInterface
 {
     private array $settings;
 
     public function __construct(
-        private readonly ConfigurationManagerInterface $configurationManager,
-        private readonly TaxClassFactoryInterface $taxClassFactory
+        private ConfigurationManagerInterface $configurationManager,
+        private TaxClassFactoryInterface $taxClassFactory
     ) {
         $this->settings = $this->configurationManager->getConfiguration(
             ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK,

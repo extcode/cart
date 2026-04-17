@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Extcode\Cart\Tests\Unit;
 
-use Extcode\Cart\Constants;
+use Extcode\Cart\Configuration\Constants;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Test;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;

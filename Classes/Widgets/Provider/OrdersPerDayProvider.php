@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Extcode\Cart\Widgets\Provider;
 
-use Extcode\Cart\Constants;
+use Extcode\Cart\Configuration\Constants;
 use TYPO3\CMS\Core\Database\Connection;
 use TYPO3\CMS\Core\Database\Query\QueryBuilder;
 use TYPO3\CMS\Core\Localization\LanguageService;

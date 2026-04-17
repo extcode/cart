@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Extcode\Cart\Tests\Unit\Service;
+namespace Extcode\Cart\Tests\Unit\Configuration\Loader\TypoScript;
 
 /*
  * This file is part of the package extcode/cart.
@@ -11,17 +11,17 @@ namespace Extcode\Cart\Tests\Unit\Service;
  * LICENSE file that was distributed with this source code.
  */
 
+use Extcode\Cart\Configuration\Loader\TypoScript\TaxClassLoader;
 use Extcode\Cart\Domain\Model\Cart\TaxClass;
 use Extcode\Cart\Domain\Model\Cart\TaxClassFactory;
-use Extcode\Cart\Service\TaxClassService;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Test;
 use Psr\Log\LoggerInterface;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
-#[CoversClass(TaxClassService::class)]
-class TaxClassServiceTest extends UnitTestCase
+#[CoversClass(TaxClassLoader::class)]
+class TaxClassLoaderTest extends UnitTestCase
 {
     #[Test]
     public function parsingTaxClassesFromTypoScriptWithoutCountryCodeReturnsDirectlyConfiguredArrayOfTaxClasses(): void
@@ -237,12 +237,12 @@ class TaxClassServiceTest extends UnitTestCase
         );
     }
 
-    private static function createSubject(array $settings): TaxClassService
+    private static function createSubject(array $settings): TaxClassLoader
     {
         $configurationManager = self::createStub(ConfigurationManagerInterface::class);
         $configurationManager->method('getConfiguration')->willReturn($settings);
 
-        return new TaxClassService(
+        return new TaxClassLoader(
             $configurationManager,
             new TaxClassFactory(
                 self::createStub(LoggerInterface::class)

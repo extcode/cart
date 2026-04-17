@@ -11,11 +11,11 @@ namespace Extcode\Cart\Tests\Unit\Domain\Model\Cart;
  * LICENSE file that was distributed with this source code.
  */
 
+use Extcode\Cart\Configuration\Loader\CurrencyTranslationLoader;
+use Extcode\Cart\Configuration\Loader\CurrencyTranslationLoaderInterface;
 use Extcode\Cart\Domain\Model\Cart\Cart;
 use Extcode\Cart\Domain\Model\Cart\CartCouponPercentage;
 use Extcode\Cart\Domain\Model\Cart\TaxClass;
-use Extcode\Cart\Service\CurrencyTranslationService;
-use Extcode\Cart\Service\CurrencyTranslationServiceInterface;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -270,8 +270,8 @@ class CartCouponPercentageTest extends UnitTestCase
     private function createCartMock(array $methods = ['getGross']): Cart|MockObject
     {
         GeneralUtility::addInstance(
-            CurrencyTranslationServiceInterface::class,
-            new CurrencyTranslationService()
+            CurrencyTranslationLoaderInterface::class,
+            new CurrencyTranslationLoader()
         );
 
         return $this->getMockBuilder(Cart::class)

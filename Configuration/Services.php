@@ -34,5 +34,6 @@ return static function (ContainerConfigurator $containerConfigurator, ContainerB
         ;
     }
 
+    $containerConfigurator->import('Services/Configuration.php');
     $containerConfigurator->import('Services/ConsoleCommands.php');
 };

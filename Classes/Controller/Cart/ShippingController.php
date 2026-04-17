@@ -51,7 +51,7 @@ class ShippingController extends ActionController
     {
         $this->restoreSession();
 
-        $shippings = $this->shippingMethodsService->getShippingMethods($this->cart);
+        $shippings = $this->shippingMethodsLoader->getShippingMethods($this->cart);
         $shipping = $shippings[$shippingId] ?? null;
 
         if (is_null($shipping) || $shipping->isAvailable() === false) {

@@ -122,7 +122,7 @@ class OrderController extends ActionController
         $this->view->assign('orderItem', $orderItem);
 
         $paymentId = $this->cart->getPayment()->getId();
-        $paymentSettings = $this->paymentMethodsService->getPaymentMethods($this->cart);
+        $paymentSettings = $this->paymentMethodsLoader->getPaymentMethods($this->cart);
 
         if (isset($paymentSettings['options'][$paymentId]['redirects']['success']['url'])) {
             return $this->redirectToUri(

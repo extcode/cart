@@ -1,6 +1,168 @@
 parameters:
 	ignoreErrors:
 		-
+			message: '#^Method Extcode\\Cart\\Configuration\\Loader\\SiteSets\\AbstractConfigurationLoader\:\:getConfigurationsForType\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: ../Classes/Configuration/Loader/SiteSets/AbstractConfigurationLoader.php
+
+		-
+			message: '#^Method Extcode\\Cart\\Configuration\\Loader\\SiteSets\\AbstractConfigurationLoader\:\:getCountryCodeFromPreset\(\) has parameter \$configuration with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: ../Classes/Configuration/Loader/SiteSets/AbstractConfigurationLoader.php
+
+		-
+			message: '#^Method Extcode\\Cart\\Configuration\\Loader\\SiteSets\\AbstractConfigurationLoader\:\:getServices\(\) has parameter \$configurations with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: ../Classes/Configuration/Loader/SiteSets/AbstractConfigurationLoader.php
+
+		-
+			message: '#^Method Extcode\\Cart\\Configuration\\Loader\\SiteSets\\AbstractConfigurationLoader\:\:getTypeZonesPluginSettings\(\) has parameter \$zoneSettings with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: ../Classes/Configuration/Loader/SiteSets/AbstractConfigurationLoader.php
+
+		-
+			message: '#^Method Extcode\\Cart\\Configuration\\Loader\\SiteSets\\AbstractConfigurationLoader\:\:getTypeZonesPluginSettings\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: ../Classes/Configuration/Loader/SiteSets/AbstractConfigurationLoader.php
+
+		-
+			message: '#^Method Extcode\\Cart\\Configuration\\Loader\\SpecialOptionsLoaderInterface\:\:getSpecialOptions\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: ../Classes/Configuration/Loader/SpecialOptionsLoaderInterface.php
+
+		-
+			message: '#^Argument of an invalid type mixed supplied for foreach, only iterables are supported\.$#'
+			identifier: foreach.nonIterable
+			count: 1
+			path: ../Classes/Configuration/Loader/TypoScript/AbstractConfigurationLoader.php
+
+		-
+			message: '#^Method Extcode\\Cart\\Configuration\\Loader\\TypoScript\\AbstractConfigurationLoader\:\:getConfigurationsForType\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: ../Classes/Configuration/Loader/TypoScript/AbstractConfigurationLoader.php
+
+		-
+			message: '#^Method Extcode\\Cart\\Configuration\\Loader\\TypoScript\\AbstractConfigurationLoader\:\:getCountryCodeFromPreset\(\) has parameter \$configuration with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: ../Classes/Configuration/Loader/TypoScript/AbstractConfigurationLoader.php
+
+		-
+			message: '#^Method Extcode\\Cart\\Configuration\\Loader\\TypoScript\\AbstractConfigurationLoader\:\:getServices\(\) has parameter \$configurations with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: ../Classes/Configuration/Loader/TypoScript/AbstractConfigurationLoader.php
+
+		-
+			message: '#^Method Extcode\\Cart\\Configuration\\Loader\\TypoScript\\AbstractConfigurationLoader\:\:getServices\(\) has parameter \$services with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: ../Classes/Configuration/Loader/TypoScript/AbstractConfigurationLoader.php
+
+		-
+			message: '#^Method Extcode\\Cart\\Configuration\\Loader\\TypoScript\\AbstractConfigurationLoader\:\:getServices\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: ../Classes/Configuration/Loader/TypoScript/AbstractConfigurationLoader.php
+
+		-
+			message: '#^Method Extcode\\Cart\\Configuration\\Loader\\TypoScript\\AbstractConfigurationLoader\:\:getTypeZonesPluginSettings\(\) has parameter \$zoneSettings with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: ../Classes/Configuration/Loader/TypoScript/AbstractConfigurationLoader.php
+
+		-
+			message: '#^Method Extcode\\Cart\\Configuration\\Loader\\TypoScript\\AbstractConfigurationLoader\:\:getTypeZonesPluginSettings\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: ../Classes/Configuration/Loader/TypoScript/AbstractConfigurationLoader.php
+
+		-
+			message: '#^Parameter \#1 \$serviceKey of method Extcode\\Cart\\Domain\\Model\\Cart\\ServiceFactory\:\:getService\(\) expects int, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../Classes/Configuration/Loader/TypoScript/AbstractConfigurationLoader.php
+
+		-
+			message: '#^Parameter \#2 \$serviceConfig of method Extcode\\Cart\\Domain\\Model\\Cart\\ServiceFactory\:\:getService\(\) expects array, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../Classes/Configuration/Loader/TypoScript/AbstractConfigurationLoader.php
+
+		-
+			message: '#^Possibly invalid array key type mixed\.$#'
+			identifier: offsetAccess.invalidOffset
+			count: 1
+			path: ../Classes/Configuration/Loader/TypoScript/AbstractConfigurationLoader.php
+
+		-
+			message: '#^Property Extcode\\Cart\\Configuration\\Loader\\TypoScript\\AbstractConfigurationLoader\:\:\$configurations type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: ../Classes/Configuration/Loader/TypoScript/AbstractConfigurationLoader.php
+
+		-
+			message: '#^Method Extcode\\Cart\\Configuration\\Loader\\TypoScript\\PaymentMethodsLoader\:\:getPaymentMethods\(\) should return array\<Extcode\\Cart\\Domain\\Model\\Cart\\ServiceInterface\> but returns array\.$#'
+			identifier: return.type
+			count: 1
+			path: ../Classes/Configuration/Loader/TypoScript/PaymentMethodsLoader.php
+
+		-
+			message: '#^Method Extcode\\Cart\\Configuration\\Loader\\TypoScript\\ShippingMethodsLoader\:\:getShippingMethods\(\) should return array\<Extcode\\Cart\\Domain\\Model\\Cart\\ServiceInterface\> but returns array\.$#'
+			identifier: return.type
+			count: 1
+			path: ../Classes/Configuration/Loader/TypoScript/ShippingMethodsLoader.php
+
+		-
+			message: '#^Method Extcode\\Cart\\Configuration\\Loader\\TypoScript\\SpecialOptionsLoader\:\:getSpecialOptions\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: ../Classes/Configuration/Loader/TypoScript/SpecialOptionsLoader.php
+
+		-
+			message: '#^Argument of an invalid type mixed supplied for foreach, only iterables are supported\.$#'
+			identifier: foreach.nonIterable
+			count: 1
+			path: ../Classes/Configuration/Loader/TypoScript/TaxClassLoader.php
+
+		-
+			message: '#^Parameter \#1 \$taxClassKey of method Extcode\\Cart\\Domain\\Model\\Cart\\TaxClassFactoryInterface\:\:getTaxClass\(\) expects int, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../Classes/Configuration/Loader/TypoScript/TaxClassLoader.php
+
+		-
+			message: '#^Parameter \#2 \$array of function array_key_exists expects array, mixed given\.$#'
+			identifier: argument.type
+			count: 2
+			path: ../Classes/Configuration/Loader/TypoScript/TaxClassLoader.php
+
+		-
+			message: '#^Parameter \#2 \$taxClassValue of method Extcode\\Cart\\Domain\\Model\\Cart\\TaxClassFactoryInterface\:\:getTaxClass\(\) expects array, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../Classes/Configuration/Loader/TypoScript/TaxClassLoader.php
+
+		-
+			message: '#^Possibly invalid array key type mixed\.$#'
+			identifier: offsetAccess.invalidOffset
+			count: 1
+			path: ../Classes/Configuration/Loader/TypoScript/TaxClassLoader.php
+
+		-
+			message: '#^Property Extcode\\Cart\\Configuration\\Loader\\TypoScript\\TaxClassLoader\:\:\$settings type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: ../Classes/Configuration/Loader/TypoScript/TaxClassLoader.php
+
+		-
 			message: '#^Parameter \#3 \$view of class Extcode\\Cart\\Event\\View\\ModifyViewEvent constructor expects TYPO3Fluid\\Fluid\\View\\ViewInterface, TYPO3\\CMS\\Core\\View\\ViewInterface given\.$#'
 			identifier: argument.type
 			count: 1
@@ -3565,138 +3727,6 @@ parameters:
 			path: ../Classes/Hooks/ItemsProcFunc.php
 
 		-
-			message: '#^Argument of an invalid type mixed supplied for foreach, only iterables are supported\.$#'
-			identifier: foreach.nonIterable
-			count: 1
-			path: ../Classes/Service/AbstractConfigurationFromTypoScriptService.php
-
-		-
-			message: '#^Cannot access offset ''code'' on mixed\.$#'
-			identifier: offsetAccess.nonOffsetAccessible
-			count: 1
-			path: ../Classes/Service/AbstractConfigurationFromTypoScriptService.php
-
-		-
-			message: '#^Cannot access offset ''countries'' on mixed\.$#'
-			identifier: offsetAccess.nonOffsetAccessible
-			count: 4
-			path: ../Classes/Service/AbstractConfigurationFromTypoScriptService.php
-
-		-
-			message: '#^Cannot access offset ''options'' on mixed\.$#'
-			identifier: offsetAccess.nonOffsetAccessible
-			count: 1
-			path: ../Classes/Service/AbstractConfigurationFromTypoScriptService.php
-
-		-
-			message: '#^Cannot access offset ''preset'' on mixed\.$#'
-			identifier: offsetAccess.nonOffsetAccessible
-			count: 2
-			path: ../Classes/Service/AbstractConfigurationFromTypoScriptService.php
-
-		-
-			message: '#^Cannot access offset ''settings'' on mixed\.$#'
-			identifier: offsetAccess.nonOffsetAccessible
-			count: 2
-			path: ../Classes/Service/AbstractConfigurationFromTypoScriptService.php
-
-		-
-			message: '#^Cannot access offset ''zones'' on mixed\.$#'
-			identifier: offsetAccess.nonOffsetAccessible
-			count: 1
-			path: ../Classes/Service/AbstractConfigurationFromTypoScriptService.php
-
-		-
-			message: '#^Cannot access offset mixed on mixed\.$#'
-			identifier: offsetAccess.nonOffsetAccessible
-			count: 2
-			path: ../Classes/Service/AbstractConfigurationFromTypoScriptService.php
-
-		-
-			message: '#^Method Extcode\\Cart\\Service\\AbstractConfigurationFromTypoScriptService\:\:getConfigurationsForType\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: ../Classes/Service/AbstractConfigurationFromTypoScriptService.php
-
-		-
-			message: '#^Method Extcode\\Cart\\Service\\AbstractConfigurationFromTypoScriptService\:\:getConfigurationsForType\(\) should return array\|null but returns mixed\.$#'
-			identifier: return.type
-			count: 1
-			path: ../Classes/Service/AbstractConfigurationFromTypoScriptService.php
-
-		-
-			message: '#^Method Extcode\\Cart\\Service\\AbstractConfigurationFromTypoScriptService\:\:getServices\(\) has parameter \$configurations with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: ../Classes/Service/AbstractConfigurationFromTypoScriptService.php
-
-		-
-			message: '#^Method Extcode\\Cart\\Service\\AbstractConfigurationFromTypoScriptService\:\:getServices\(\) has parameter \$services with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: ../Classes/Service/AbstractConfigurationFromTypoScriptService.php
-
-		-
-			message: '#^Method Extcode\\Cart\\Service\\AbstractConfigurationFromTypoScriptService\:\:getServices\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: ../Classes/Service/AbstractConfigurationFromTypoScriptService.php
-
-		-
-			message: '#^Method Extcode\\Cart\\Service\\AbstractConfigurationFromTypoScriptService\:\:getTypeZonesPluginSettings\(\) has parameter \$zoneSettings with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: ../Classes/Service/AbstractConfigurationFromTypoScriptService.php
-
-		-
-			message: '#^Method Extcode\\Cart\\Service\\AbstractConfigurationFromTypoScriptService\:\:getTypeZonesPluginSettings\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: ../Classes/Service/AbstractConfigurationFromTypoScriptService.php
-
-		-
-			message: '#^Method Extcode\\Cart\\Service\\AbstractConfigurationFromTypoScriptService\:\:getTypeZonesPluginSettings\(\) should return array but returns mixed\.$#'
-			identifier: return.type
-			count: 1
-			path: ../Classes/Service/AbstractConfigurationFromTypoScriptService.php
-
-		-
-			message: '#^Parameter \#1 \$serviceKey of method Extcode\\Cart\\Domain\\Model\\Cart\\ServiceFactory\:\:getService\(\) expects int, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: ../Classes/Service/AbstractConfigurationFromTypoScriptService.php
-
-		-
-			message: '#^Parameter \#2 \$country of method Extcode\\Cart\\Service\\AbstractConfigurationFromTypoScriptService\:\:getTypeZonesPluginSettings\(\) expects string, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: ../Classes/Service/AbstractConfigurationFromTypoScriptService.php
-
-		-
-			message: '#^Parameter \#2 \$serviceConfig of method Extcode\\Cart\\Domain\\Model\\Cart\\ServiceFactory\:\:getService\(\) expects array, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: ../Classes/Service/AbstractConfigurationFromTypoScriptService.php
-
-		-
-			message: '#^Parameter \#2 \$string of static method TYPO3\\CMS\\Core\\Utility\\GeneralUtility\:\:trimExplode\(\) expects string, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: ../Classes/Service/AbstractConfigurationFromTypoScriptService.php
-
-		-
-			message: '#^Possibly invalid array key type mixed\.$#'
-			identifier: offsetAccess.invalidOffset
-			count: 1
-			path: ../Classes/Service/AbstractConfigurationFromTypoScriptService.php
-
-		-
-			message: '#^Property Extcode\\Cart\\Service\\AbstractConfigurationFromTypoScriptService\:\:\$configurations type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: ../Classes/Service/AbstractConfigurationFromTypoScriptService.php
-
-		-
 			message: '#^Cannot access offset ''bccAddress'' on mixed\.$#'
 			identifier: offsetAccess.nonOffsetAccessible
 			count: 2
@@ -3871,12 +3901,6 @@ parameters:
 			path: ../Classes/Service/OrderItemCleanupService.php
 
 		-
-			message: '#^Method Extcode\\Cart\\Service\\PaymentMethodsFromTypoScriptService\:\:getPaymentMethods\(\) should return array\<Extcode\\Cart\\Domain\\Model\\Cart\\ServiceInterface\> but returns array\.$#'
-			identifier: return.type
-			count: 1
-			path: ../Classes/Service/PaymentMethodsFromTypoScriptService.php
-
-		-
 			message: '#^Binary operation "\." between mixed and string results in an error\.$#'
 			identifier: binaryOp.invalid
 			count: 5
@@ -3899,60 +3923,6 @@ parameters:
 			identifier: missingType.property
 			count: 1
 			path: ../Classes/Service/SessionHandler.php
-
-		-
-			message: '#^Method Extcode\\Cart\\Service\\ShippingMethodsFromTypoScriptService\:\:getShippingMethods\(\) should return array\<Extcode\\Cart\\Domain\\Model\\Cart\\ServiceInterface\> but returns array\.$#'
-			identifier: return.type
-			count: 1
-			path: ../Classes/Service/ShippingMethodsFromTypoScriptService.php
-
-		-
-			message: '#^Method Extcode\\Cart\\Service\\SpecialOptionsFromTypoScriptService\:\:getSpecialOptions\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: ../Classes/Service/SpecialOptionsFromTypoScriptService.php
-
-		-
-			message: '#^Method Extcode\\Cart\\Service\\SpecialOptionsServiceInterface\:\:getSpecialOptions\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: ../Classes/Service/SpecialOptionsServiceInterface.php
-
-		-
-			message: '#^Argument of an invalid type mixed supplied for foreach, only iterables are supported\.$#'
-			identifier: foreach.nonIterable
-			count: 1
-			path: ../Classes/Service/TaxClassService.php
-
-		-
-			message: '#^Parameter \#1 \$taxClassKey of method Extcode\\Cart\\Domain\\Model\\Cart\\TaxClassFactoryInterface\:\:getTaxClass\(\) expects int, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: ../Classes/Service/TaxClassService.php
-
-		-
-			message: '#^Parameter \#2 \$array of function array_key_exists expects array, mixed given\.$#'
-			identifier: argument.type
-			count: 2
-			path: ../Classes/Service/TaxClassService.php
-
-		-
-			message: '#^Parameter \#2 \$taxClassValue of method Extcode\\Cart\\Domain\\Model\\Cart\\TaxClassFactoryInterface\:\:getTaxClass\(\) expects array, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: ../Classes/Service/TaxClassService.php
-
-		-
-			message: '#^Possibly invalid array key type mixed\.$#'
-			identifier: offsetAccess.invalidOffset
-			count: 1
-			path: ../Classes/Service/TaxClassService.php
-
-		-
-			message: '#^Property Extcode\\Cart\\Service\\TaxClassService\:\:\$settings type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: ../Classes/Service/TaxClassService.php
 
 		-
 			message: '#^Cannot access offset ''cart'' on mixed\.$#'
@@ -4069,7 +4039,7 @@ parameters:
 			path: ../Classes/Utility/CartUtility.php
 
 		-
-			message: '#^Parameter \#1 \$countryCode of method Extcode\\Cart\\Service\\TaxClassServiceInterface\:\:getTaxClasses\(\) expects string\|null, mixed given\.$#'
+			message: '#^Parameter \#1 \$countryCode of method Extcode\\Cart\\Configuration\\Loader\\TaxClassLoaderInterface\:\:getTaxClasses\(\) expects string\|null, mixed given\.$#'
 			identifier: argument.type
 			count: 1
 			path: ../Classes/Utility/CartUtility.php
@@ -4237,7 +4207,19 @@ parameters:
 			path: ../Classes/Utility/TemplateLayout.php
 
 		-
-			message: '#^Binary operation "\." between ''Globals BE_USER was…'' and mixed results in an error\.$#'
+			message: '#^Binary operation "\." between ''\$GLOBALS\[\\''BE_USER\\''\]…'' and mixed results in an error\.$#'
+			identifier: binaryOp.invalid
+			count: 1
+			path: ../Classes/Utility/Typo3GlobalsUtility.php
+
+		-
+			message: '#^Binary operation "\." between ''\$GLOBALS\[\\''TYPO3…'' and mixed results in an error\.$#'
+			identifier: binaryOp.invalid
+			count: 1
+			path: ../Classes/Utility/Typo3GlobalsUtility.php
+
+		-
+			message: '#^Binary operation "\." between ''\$site was not of…'' and mixed results in an error\.$#'
 			identifier: binaryOp.invalid
 			count: 1
 			path: ../Classes/Utility/Typo3GlobalsUtility.php
@@ -4615,18 +4597,6 @@ parameters:
 			path: ../Classes/ViewHelpers/Traversable/ExtractViewHelper.php
 
 		-
-			message: '#^Method Extcode\\Cart\\ViewHelpers\\Traversable\\ExtractViewHelper\:\:render\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: ../Classes/ViewHelpers/Traversable/ExtractViewHelper.php
-
-		-
-			message: '#^Method Extcode\\Cart\\ViewHelpers\\Traversable\\ExtractViewHelper\:\:render\(\) should return array but returns mixed\.$#'
-			identifier: return.type
-			count: 2
-			path: ../Classes/ViewHelpers/Traversable/ExtractViewHelper.php
-
-		-
 			message: '#^Parameter \#2 \$key of method Extcode\\Cart\\ViewHelpers\\Traversable\\ExtractViewHelper\:\:extractByKey\(\) expects string, mixed given\.$#'
 			identifier: argument.type
 			count: 1
@@ -4949,6 +4919,18 @@ parameters:
 			identifier: method.nonObject
 			count: 1
 			path: ../Tests/Functional/EventListener/Mail/AttachmentFromTypoScriptTest.php
+
+		-
+			message: '#^Method Extcode\\Cart\\Tests\\Unit\\Configuration\\Loader\\TypoScript\\AbstractConfigurationLoaderTest\:\:createSubject\(\) has parameter \$configurations with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: ../Tests/Unit/Configuration/Loader/TypoScript/AbstractConfigurationLoaderTest.php
+
+		-
+			message: '#^Method Extcode\\Cart\\Tests\\Unit\\Configuration\\Loader\\TypoScript\\TaxClassLoaderTest\:\:createSubject\(\) has parameter \$settings with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: ../Tests/Unit/Configuration/Loader/TypoScript/TaxClassLoaderTest.php
 
 		-
 			message: '#^Cannot call method getMessage\(\) on mixed\.$#'
@@ -5459,30 +5441,6 @@ parameters:
 			identifier: missingType.property
 			count: 1
 			path: ../Tests/Unit/Domain/Model/Product/TagTraitTest.php
-
-		-
-			message: '#^Cannot call method getConfigurationsForType\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 2
-			path: ../Tests/Unit/Service/AbstractConfigurationFromTypoScriptServiceTest.php
-
-		-
-			message: '#^Method Extcode\\Cart\\Tests\\Unit\\Service\\AbstractConfigurationFromTypoScriptServiceTest\:\:createSubject\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: ../Tests/Unit/Service/AbstractConfigurationFromTypoScriptServiceTest.php
-
-		-
-			message: '#^Method Extcode\\Cart\\Tests\\Unit\\Service\\AbstractConfigurationFromTypoScriptServiceTest\:\:createSubject\(\) has parameter \$configurations with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: ../Tests/Unit/Service/AbstractConfigurationFromTypoScriptServiceTest.php
-
-		-
-			message: '#^Method Extcode\\Cart\\Tests\\Unit\\Service\\TaxClassServiceTest\:\:createSubject\(\) has parameter \$settings with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: ../Tests/Unit/Service/TaxClassServiceTest.php
 
 		-
 			message: '#^Method Extcode\\Cart\\Tests\\Unit\\Validation\\Validator\\EmptyValidatorTest\:\:getValidator\(\) has parameter \$options with no value type specified in iterable type array\.$#'
