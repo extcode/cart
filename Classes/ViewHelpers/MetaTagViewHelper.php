@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Extcode\Cart\ViewHelpers;
 
 /*
@@ -26,7 +28,11 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 class MetaTagViewHelper extends AbstractViewHelper
 {
     protected string $tagName = 'meta';
-    public function __construct(private readonly MetaTagManagerRegistry $metaTagManagerRegistry) {}
+
+    public function __construct(
+        private readonly MetaTagManagerRegistry $metaTagManagerRegistry
+    ) {
+    }
 
     public function initializeArguments(): void
     {
@@ -47,7 +53,8 @@ class MetaTagViewHelper extends AbstractViewHelper
     public function render(): void
     {
         $metaTagManager = $this->metaTagManagerRegistry
-            ->getManagerForProperty($this->arguments['property']);
+            ->getManagerForProperty($this->arguments['property'])
+        ;
         $metaTagManager->addProperty(
             $this->arguments['property'],
             $this->arguments['content']

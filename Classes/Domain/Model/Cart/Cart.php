@@ -13,13 +13,12 @@ namespace Extcode\Cart\Domain\Model\Cart;
 
 use Extcode\Cart\Service\CurrencyTranslationServiceInterface;
 use InvalidArgumentException;
+use LogicException;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 class Cart implements AdditionalDataInterface
 {
     use AdditionalDataTrait;
-
-    private ?CurrencyTranslationServiceInterface $currencyTranslationService = null;
 
     protected float $net;
 
@@ -71,6 +70,8 @@ class Cart implements AdditionalDataInterface
     protected bool $shippingSameAsBilling = true;
 
     protected string $shippingCountry = '';
+
+    private ?CurrencyTranslationServiceInterface $currencyTranslationService = null;
 
     public function __construct(
         protected array $taxClasses,
@@ -127,7 +128,9 @@ class Cart implements AdditionalDataInterface
         ];
     }
 
-    public function __wakeup() {}
+    public function __wakeup(): void
+    {
+    }
 
     /**
      * @return TaxClass[]
@@ -169,12 +172,13 @@ class Cart implements AdditionalDataInterface
 
     /**
      * Sets Order Number if no Order Number is given else throws an exception
-     * @throws \LogicException
+     *
+     * @throws LogicException
      */
     public function setOrderNumber(string $orderNumber): void
     {
-        if (($this->orderNumber) && ($this->orderNumber !== $orderNumber)) {
-            throw new \LogicException(
+        if ($this->orderNumber && ($this->orderNumber !== $orderNumber)) {
+            throw new LogicException(
                 'You can not redeclare the order number of your cart.',
                 1413969668
             );
@@ -202,12 +206,12 @@ class Cart implements AdditionalDataInterface
     /**
      * Sets Invoice Number if no Invoice Number is given else throws an exception
      *
-     * @throws \LogicException
+     * @throws LogicException
      */
     public function setInvoiceNumber(string $invoiceNumber): void
     {
-        if (($this->invoiceNumber) && ($this->invoiceNumber !== $invoiceNumber)) {
-            throw new \LogicException(
+        if ($this->invoiceNumber && ($this->invoiceNumber !== $invoiceNumber)) {
+            throw new LogicException(
                 'You can not redeclare the invoice number of your cart.',
                 1413969712
             );
@@ -497,9 +501,6 @@ class Cart implements AdditionalDataInterface
         return $this->products[$productId] ?? null;
     }
 
-    /**
-     * @return array
-     */
     public function toArray(): array
     {
         $cartArray = [
@@ -542,25 +543,10 @@ class Cart implements AdditionalDataInterface
 
     /**
      * Return Coupons
-     *
-     * @return array
      */
     public function getCoupons(): array
     {
         return $this->coupons;
-    }
-
-    protected function areCouponsCombinable(): bool
-    {
-        if ($this->coupons) {
-            foreach ($this->coupons as $coupon) {
-                if (!$coupon->isCombinable()) {
-                    return false;
-                }
-            }
-        }
-
-        return true;
     }
 
     /**
@@ -657,16 +643,12 @@ class Cart implements AdditionalDataInterface
 
     public function getDiscountGross(): float
     {
-        $gross = -1 * $this->getCouponGross();
-
-        return $gross;
+        return -1 * $this->getCouponGross();
     }
 
     public function getDiscountNet(): float
     {
-        $net = -1 * $this->getCouponNet();
-
-        return $net;
+        return -1 * $this->getCouponNet();
     }
 
     /**
@@ -674,7 +656,7 @@ class Cart implements AdditionalDataInterface
      */
     public function getDiscountTaxes(): array
     {
-        $taxes = array_map(fn($value) => -1 * $value, $this->getCouponTaxes());
+        $taxes = array_map(static fn ($value) => -1 * $value, $this->getCouponTaxes());
 
         return $taxes;
     }
@@ -717,7 +699,7 @@ class Cart implements AdditionalDataInterface
         $this->addNet($product->getNet());
         $this->addTax($product->getTax(), $product->getTaxClass());
 
-        //update all service attributes
+        // update all service attributes
         $this->updateServiceAttributes();
     }
 
@@ -755,7 +737,7 @@ class Cart implements AdditionalDataInterface
                 }
             }
 
-            //update all service attributes
+            // update all service attributes
             $this->updateServiceAttributes();
         }
     }
@@ -814,49 +796,6 @@ class Cart implements AdditionalDataInterface
         return true;
     }
 
-    protected function addServiceAttributes(ProductInterface $newProduct): void
-    {
-        if ($this->maxServiceAttr1 < $newProduct->getServiceAttribute1()) {
-            $this->maxServiceAttr1 = $newProduct->getServiceAttribute1();
-        }
-        if ($this->maxServiceAttr2 < $newProduct->getServiceAttribute2()) {
-            $this->maxServiceAttr2 = $newProduct->getServiceAttribute2();
-        }
-        if ($this->maxServiceAttr3 < $newProduct->getServiceAttribute3()) {
-            $this->maxServiceAttr3 = $newProduct->getServiceAttribute3();
-        }
-
-        $this->sumServiceAttr1 += $newProduct->getServiceAttribute1() * $newProduct->getQuantity();
-        $this->sumServiceAttr2 += $newProduct->getServiceAttribute2() * $newProduct->getQuantity();
-        $this->sumServiceAttr3 += $newProduct->getServiceAttribute3() * $newProduct->getQuantity();
-    }
-
-    protected function updateServiceAttributes(): void
-    {
-        $this->maxServiceAttr1 = 0.0;
-        $this->maxServiceAttr2 = 0.0;
-        $this->maxServiceAttr3 = 0.0;
-        $this->sumServiceAttr1 = 0.0;
-        $this->sumServiceAttr2 = 0.0;
-        $this->sumServiceAttr3 = 0.0;
-
-        foreach ($this->products as $key => $product) {
-            if ($this->maxServiceAttr1 < $product->getServiceAttribute1()) {
-                $this->maxServiceAttr1 = $product->getServiceAttribute1();
-            }
-            if ($this->maxServiceAttr2 < $product->getServiceAttribute2()) {
-                $this->maxServiceAttr2 = $product->getServiceAttribute2();
-            }
-            if ($this->maxServiceAttr3 < $product->getServiceAttribute3()) {
-                $this->maxServiceAttr3 = $product->getServiceAttribute3();
-            }
-
-            $this->sumServiceAttr1 += $product->getServiceAttribute1() * $product->getQuantity();
-            $this->sumServiceAttr2 += $product->getServiceAttribute2() * $product->getQuantity();
-            $this->sumServiceAttr3 += $product->getServiceAttribute3() * $product->getQuantity();
-        }
-    }
-
     public function getMaxServiceAttribute1(): float
     {
         return $this->maxServiceAttr1;
@@ -903,54 +842,6 @@ class Cart implements AdditionalDataInterface
     public function changeSpecials(array $specials): void
     {
         $this->specials = $specials;
-    }
-
-    protected function calcAll(): void
-    {
-        $this->calcCount();
-        $this->calcGross();
-        $this->calcTax();
-        $this->calcNet();
-    }
-
-    protected function calcCount(): void
-    {
-        $this->count = 0;
-        if ($this->products) {
-            foreach ($this->products as $product) {
-                $this->addCount($product->getQuantity());
-            }
-        }
-    }
-
-    protected function calcGross(): void
-    {
-        $this->gross = 0.0;
-        if ($this->products) {
-            foreach ($this->products as $product) {
-                $this->addGross($product->getGross());
-            }
-        }
-    }
-
-    protected function calcNet(): void
-    {
-        $this->net = 0.0;
-        if ($this->products) {
-            foreach ($this->products as $product) {
-                $this->addNet($product->getNet());
-            }
-        }
-    }
-
-    protected function calcTax(): void
-    {
-        $this->taxes = [];
-        if ($this->products) {
-            foreach ($this->products as $product) {
-                $this->addTax($product->getTax(), $product->getTaxClass());
-            }
-        }
     }
 
     public function reCalc(): void
@@ -1096,5 +987,109 @@ class Cart implements AdditionalDataInterface
         }
 
         return $this->currencyTranslationService->translatePrice($this->getCurrencyTranslation(), $price);
+    }
+
+    protected function areCouponsCombinable(): bool
+    {
+        if ($this->coupons) {
+            foreach ($this->coupons as $coupon) {
+                if (!$coupon->isCombinable()) {
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
+
+    protected function addServiceAttributes(ProductInterface $newProduct): void
+    {
+        if ($this->maxServiceAttr1 < $newProduct->getServiceAttribute1()) {
+            $this->maxServiceAttr1 = $newProduct->getServiceAttribute1();
+        }
+        if ($this->maxServiceAttr2 < $newProduct->getServiceAttribute2()) {
+            $this->maxServiceAttr2 = $newProduct->getServiceAttribute2();
+        }
+        if ($this->maxServiceAttr3 < $newProduct->getServiceAttribute3()) {
+            $this->maxServiceAttr3 = $newProduct->getServiceAttribute3();
+        }
+
+        $this->sumServiceAttr1 += $newProduct->getServiceAttribute1() * $newProduct->getQuantity();
+        $this->sumServiceAttr2 += $newProduct->getServiceAttribute2() * $newProduct->getQuantity();
+        $this->sumServiceAttr3 += $newProduct->getServiceAttribute3() * $newProduct->getQuantity();
+    }
+
+    protected function updateServiceAttributes(): void
+    {
+        $this->maxServiceAttr1 = 0.0;
+        $this->maxServiceAttr2 = 0.0;
+        $this->maxServiceAttr3 = 0.0;
+        $this->sumServiceAttr1 = 0.0;
+        $this->sumServiceAttr2 = 0.0;
+        $this->sumServiceAttr3 = 0.0;
+
+        foreach ($this->products as $key => $product) {
+            if ($this->maxServiceAttr1 < $product->getServiceAttribute1()) {
+                $this->maxServiceAttr1 = $product->getServiceAttribute1();
+            }
+            if ($this->maxServiceAttr2 < $product->getServiceAttribute2()) {
+                $this->maxServiceAttr2 = $product->getServiceAttribute2();
+            }
+            if ($this->maxServiceAttr3 < $product->getServiceAttribute3()) {
+                $this->maxServiceAttr3 = $product->getServiceAttribute3();
+            }
+
+            $this->sumServiceAttr1 += $product->getServiceAttribute1() * $product->getQuantity();
+            $this->sumServiceAttr2 += $product->getServiceAttribute2() * $product->getQuantity();
+            $this->sumServiceAttr3 += $product->getServiceAttribute3() * $product->getQuantity();
+        }
+    }
+
+    protected function calcAll(): void
+    {
+        $this->calcCount();
+        $this->calcGross();
+        $this->calcTax();
+        $this->calcNet();
+    }
+
+    protected function calcCount(): void
+    {
+        $this->count = 0;
+        if ($this->products) {
+            foreach ($this->products as $product) {
+                $this->addCount($product->getQuantity());
+            }
+        }
+    }
+
+    protected function calcGross(): void
+    {
+        $this->gross = 0.0;
+        if ($this->products) {
+            foreach ($this->products as $product) {
+                $this->addGross($product->getGross());
+            }
+        }
+    }
+
+    protected function calcNet(): void
+    {
+        $this->net = 0.0;
+        if ($this->products) {
+            foreach ($this->products as $product) {
+                $this->addNet($product->getNet());
+            }
+        }
+    }
+
+    protected function calcTax(): void
+    {
+        $this->taxes = [];
+        if ($this->products) {
+            foreach ($this->products as $product) {
+                $this->addTax($product->getTax(), $product->getTaxClass());
+            }
+        }
     }
 }

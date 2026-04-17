@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Extcode\Cart\Validation\Validator;
 
 /*
@@ -9,6 +11,7 @@ namespace Extcode\Cart\Validation\Validator;
  * LICENSE file that was distributed with this source code.
  */
 
+use Countable;
 use TYPO3\CMS\Extbase\Validation\Validator\AbstractValidator;
 
 class EmptyValidator extends AbstractValidator
@@ -19,14 +22,14 @@ class EmptyValidator extends AbstractValidator
      *
      * @var bool
      */
-    protected $acceptsEmptyValues = false;
+    protected $acceptsEmptyValues = true;
 
     /**
      * Checks if the given property ($propertyValue) is not empty (NULL, empty string, empty array or empty object).
      *
      * @param mixed $value The value that should be validated
      */
-    public function isValid(mixed $value): void
+    protected function isValid(mixed $value): void
     {
         if ($value != null) {
             if (is_numeric($value)) {
@@ -61,7 +64,7 @@ class EmptyValidator extends AbstractValidator
                 );
             } elseif (
                 is_object($value)
-                && $value instanceof \Countable
+                && $value instanceof Countable
                 && $value->count() != 0
             ) {
                 $this->addError(
@@ -75,3 +78,6 @@ class EmptyValidator extends AbstractValidator
         }
     }
 }
+
+// keep compatibility for $acceptsEmptyValues property definition of parent class
+// @php-cs-fixer-ignore phpdoc_to_property_type

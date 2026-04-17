@@ -20,7 +20,7 @@ use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 class Product extends AbstractEntity
 {
     #[Lazy]
-    protected LazyLoadingProxy|Item $item;
+    protected Item|LazyLoadingProxy $item;
 
     protected int $productId = 0;
 
@@ -68,11 +68,6 @@ class Product extends AbstractEntity
     public function __construct()
     {
         $this->initStorageObjects();
-    }
-
-    protected function initStorageObjects(): void
-    {
-        $this->productAdditional = new ObjectStorage();
     }
 
     public function getItem(): ?Item
@@ -242,5 +237,10 @@ class Product extends AbstractEntity
     public function setAdditional(array $additional): void
     {
         $this->additional = json_encode($additional);
+    }
+
+    protected function initStorageObjects(): void
+    {
+        $this->productAdditional = new ObjectStorage();
     }
 }

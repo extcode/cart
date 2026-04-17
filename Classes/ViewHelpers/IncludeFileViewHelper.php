@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Extcode\Cart\ViewHelpers;
 
 /*
@@ -26,7 +28,8 @@ class IncludeFileViewHelper extends AbstractViewHelper
         private readonly PageRenderer $pageRenderer,
         private readonly TimeTracker $timeTracker,
         private readonly FilePathSanitizer $filePathSanitizer,
-    ) {}
+    ) {
+    }
 
     public function initializeArguments(): void
     {
@@ -58,10 +61,10 @@ class IncludeFileViewHelper extends AbstractViewHelper
         $pageRenderer = $this->pageRenderer;
         if (ApplicationType::fromRequest($GLOBALS['TYPO3_REQUEST'])->isFrontend()) {
             try {
-                $path = $this->filePathSanitizer->sanitize((string)$path);
+                $path = $this->filePathSanitizer->sanitize((string) $path);
             } catch (InvalidFileNameException) {
                 $path = null;
-            } catch (InvalidPathException|FileDoesNotExistException|InvalidFileException $e) {
+            } catch (FileDoesNotExistException|InvalidFileException|InvalidPathException $e) {
                 $path = null;
                 if ($GLOBALS['TSFE']->tmpl->tt_track) {
                     $this->timeTracker->setTSlogMessage($e->getMessage(), LogLevel::ERROR);
@@ -69,9 +72,9 @@ class IncludeFileViewHelper extends AbstractViewHelper
             }
         }
 
-        if (strtolower(substr((string)$path, -3)) === '.js') {
+        if (mb_strtolower(mb_substr((string) $path, -3)) === '.js') {
             $pageRenderer->addJsFile($path, null, $compress);
-        } elseif (strtolower(substr((string)$path, -4)) === '.css') {
+        } elseif (mb_strtolower(mb_substr((string) $path, -4)) === '.css') {
             $pageRenderer->addCssFile($path, 'stylesheet', 'all', '', $compress);
         }
     }

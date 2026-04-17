@@ -20,7 +20,7 @@ use TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy;
 class Discount extends AbstractEntity
 {
     #[Lazy]
-    protected LazyLoadingProxy|Item $item;
+    protected Item|LazyLoadingProxy $item;
 
     public function __construct(
         #[Validate(validator: 'NotEmpty')]
@@ -35,7 +35,8 @@ class Discount extends AbstractEntity
         protected TaxClass $taxClass,
         #[Validate(validator: 'NotEmpty')]
         protected float $tax
-    ) {}
+    ) {
+    }
 
     public function getItem(): ?Item
     {

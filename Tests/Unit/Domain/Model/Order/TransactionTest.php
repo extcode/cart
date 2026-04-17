@@ -21,7 +21,7 @@ class TransactionTest extends UnitTestCase
 {
     protected Transaction $transaction;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->transaction = new Transaction();
 

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Extcode\Cart\Utility;
 
 /*
@@ -19,7 +21,8 @@ class CurrencyUtility
     public function __construct(
         protected EventDispatcherInterface $eventDispatcher,
         protected SessionHandler $sessionHandler
-    ) {}
+    ) {
+    }
 
     public function updateCurrency(
         array $cartSettings,

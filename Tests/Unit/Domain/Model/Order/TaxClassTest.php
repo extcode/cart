@@ -27,7 +27,7 @@ class TaxClassTest extends UnitTestCase
 
     protected float $calc = 0.0;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->title = 'normal';
         $this->value = '19 %';

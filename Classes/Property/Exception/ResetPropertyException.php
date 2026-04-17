@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Extcode\Cart\Property\Exception;
 
 /*
@@ -11,4 +13,6 @@ namespace Extcode\Cart\Property\Exception;
 
 use TYPO3\CMS\Extbase\Property\Exception;
 
-class ResetPropertyException extends Exception {}
+class ResetPropertyException extends Exception
+{
+}

@@ -34,7 +34,7 @@ class DiscountTest extends UnitTestCase
 
     protected float $tax = 0.0;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->taxClass = new TaxClass(1, '19 %', 0.19, 'normal');
 

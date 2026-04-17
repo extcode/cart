@@ -23,7 +23,7 @@ class TagTest extends UnitTestCase
 
     protected string $title = '';
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->title = 'Title';
 

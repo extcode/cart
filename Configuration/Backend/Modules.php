@@ -9,9 +9,7 @@ use Extcode\Cart\Controller\Backend\Order\ShippingController;
 
 $_LLL_be = 'LLL:EXT:cart/Resources/Private/Language/locallang_be.xlf:';
 
-/**
- * Definitions for modules provided by EXT:cart
- */
+// Definitions for modules provided by EXT:cart
 return [
     'cart_cart_main' => [
         'access' => '',

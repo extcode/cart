@@ -11,6 +11,7 @@ namespace Extcode\Cart\Domain\Model\Order;
  * LICENSE file that was distributed with this source code.
  */
 
+use DateTime;
 use Extcode\Cart\Domain\Model\FrontendUser;
 use Extcode\Cart\Property\Exception\ResetPropertyException;
 use TYPO3\CMS\Extbase\Attribute\ORM\Lazy;
@@ -26,15 +27,15 @@ class Item extends AbstractEntity
 
     protected string $orderNumber = '';
 
-    protected ?\DateTime $orderDate = null;
+    protected ?DateTime $orderDate = null;
 
     protected string $invoiceNumber = '';
 
-    protected ?\DateTime $invoiceDate = null;
+    protected ?DateTime $invoiceDate = null;
 
     protected string $deliveryNumber = '';
 
-    protected ?\DateTime $deliveryDate = null;
+    protected ?DateTime $deliveryDate = null;
 
     protected bool $shippingSameAsBilling = false;
 
@@ -112,7 +113,7 @@ class Item extends AbstractEntity
      */
     protected ObjectStorage $deliveryPdfs;
 
-    protected \DateTime $crdate;
+    protected DateTime $crdate;
 
     protected bool $acceptTermsAndConditions = false;
 
@@ -125,18 +126,6 @@ class Item extends AbstractEntity
     public function __construct()
     {
         $this->initStorageObjects();
-    }
-
-    protected function initStorageObjects(): void
-    {
-        $this->products = new ObjectStorage();
-        $this->discounts = new ObjectStorage();
-        $this->taxClass = new ObjectStorage();
-        $this->tax = new ObjectStorage();
-        $this->totalTax = new ObjectStorage();
-        $this->orderPdfs = new ObjectStorage();
-        $this->invoicePdfs = new ObjectStorage();
-        $this->deliveryPdfs = new ObjectStorage();
     }
 
     public function setCartPid(int $cartPid): void
@@ -176,15 +165,16 @@ class Item extends AbstractEntity
                 throw new ResetPropertyException('Could not reset orderNumber', 1395306283);
             }
         }
+
         return $this->orderNumber;
     }
 
-    public function getOrderDate(): ?\DateTime
+    public function getOrderDate(): ?DateTime
     {
         return $this->orderDate;
     }
 
-    public function setOrderDate(\DateTime $orderDate): void
+    public function setOrderDate(DateTime $orderDate): void
     {
         $this->orderDate = $orderDate;
     }
@@ -206,15 +196,16 @@ class Item extends AbstractEntity
                 throw new ResetPropertyException('Could not reset invoiceNumber', 1395307266);
             }
         }
+
         return $this->invoiceNumber;
     }
 
-    public function getInvoiceDate(): ?\DateTime
+    public function getInvoiceDate(): ?DateTime
     {
         return $this->invoiceDate;
     }
 
-    public function setInvoiceDate(\DateTime $invoiceDate): void
+    public function setInvoiceDate(DateTime $invoiceDate): void
     {
         $this->invoiceDate = $invoiceDate;
     }
@@ -236,15 +227,16 @@ class Item extends AbstractEntity
                 throw new ResetPropertyException('Could not reset deliveryNumber', 1475061197);
             }
         }
+
         return $this->deliveryNumber;
     }
 
-    public function getDeliveryDate(): ?\DateTime
+    public function getDeliveryDate(): ?DateTime
     {
         return $this->deliveryDate;
     }
 
-    public function setDeliveryDate(\DateTime $deliveryDate): void
+    public function setDeliveryDate(DateTime $deliveryDate): void
     {
         $this->deliveryDate = $deliveryDate;
     }
@@ -612,12 +604,12 @@ class Item extends AbstractEntity
         $this->totalTax = $taxes;
     }
 
-    public function getCrdate(): ?\DateTime
+    public function getCrdate(): ?DateTime
     {
         return $this->crdate;
     }
 
-    public function setCrdate(\DateTime $crdate): void
+    public function setCrdate(DateTime $crdate): void
     {
         $this->crdate = $crdate;
     }
@@ -674,5 +666,17 @@ class Item extends AbstractEntity
     public function setAdditional(array $additional): void
     {
         $this->additional = json_encode($additional);
+    }
+
+    protected function initStorageObjects(): void
+    {
+        $this->products = new ObjectStorage();
+        $this->discounts = new ObjectStorage();
+        $this->taxClass = new ObjectStorage();
+        $this->tax = new ObjectStorage();
+        $this->totalTax = new ObjectStorage();
+        $this->orderPdfs = new ObjectStorage();
+        $this->invoicePdfs = new ObjectStorage();
+        $this->deliveryPdfs = new ObjectStorage();
     }
 }

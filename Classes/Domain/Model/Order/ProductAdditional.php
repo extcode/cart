@@ -24,7 +24,8 @@ class ProductAdditional extends AbstractEntity
         protected string $additionalKey,
         protected string $additionalValue,
         protected string $additionalData = ''
-    ) {}
+    ) {
+    }
 
     public function getAdditionalType(): string
     {

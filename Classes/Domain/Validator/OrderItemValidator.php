@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Extcode\Cart\Domain\Validator;
 
 /*
@@ -9,10 +11,12 @@ namespace Extcode\Cart\Domain\Validator;
  * LICENSE file that was distributed with this source code.
  */
 
+use SplObjectStorage;
 use TYPO3\CMS\Extbase\Error\Result;
 use TYPO3\CMS\Extbase\Validation\Validator\AbstractGenericObjectValidator;
 use TYPO3\CMS\Extbase\Validation\Validator\ObjectValidatorInterface;
 use TYPO3\CMS\Extbase\Validation\Validator\ValidatorInterface;
+use Traversable;
 
 /**
  * A generic object validator which allows for specifying property validators
@@ -40,6 +44,27 @@ class OrderItemValidator extends AbstractGenericObjectValidator
     }
 
     /**
+     * Adds the given validator for validation of the specified property.
+     */
+    public function addPropertyValidator(string $propertyName, ValidatorInterface $validator): void
+    {
+        if (!isset($this->propertyValidators[$propertyName])) {
+            $this->propertyValidators[$propertyName] = new SplObjectStorage();
+        }
+        $this->propertyValidators[$propertyName]->offsetSet($validator);
+    }
+
+    public function countPropertyValidators(): int
+    {
+        $count = 0;
+        foreach ($this->propertyValidators as $propertyValidators) {
+            $count += $propertyValidators->count();
+        }
+
+        return $count;
+    }
+
+    /**
      * Load the property value to be used for validation.
      * In case the object is a doctrine proxy, we need to load the real instance first.
      */
@@ -61,7 +86,7 @@ class OrderItemValidator extends AbstractGenericObjectValidator
      * Checks if the specified property of the given object is valid, and adds
      * found errors to the $messages object.
      */
-    protected function checkProperty(mixed $value, \Traversable $validators, string $propertyName): void
+    protected function checkProperty(mixed $value, Traversable $validators, string $propertyName): void
     {
         $result = null;
         foreach ($validators as $validator) {
@@ -69,7 +94,7 @@ class OrderItemValidator extends AbstractGenericObjectValidator
                 $validator->setValidatedInstancesContainer($this->validatedInstancesContainer);
             }
 
-            /**
+            /*
              * File upload validation.
              *
              * If a $_FILES array is found in the request data,
@@ -77,10 +102,7 @@ class OrderItemValidator extends AbstractGenericObjectValidator
              * single file.
              */
             if (
-                isset($value[0]['name'])
-                && isset($value[0]['type'])
-                && isset($value[0]['tmp_name'])
-                && isset($value[0]['size'])
+                isset($value[0]['name'], $value[0]['type'], $value[0]['tmp_name'], $value[0]['size'])
             ) {
                 foreach ($value as $file) {
                     $currentResult = $validator->validate($file);
@@ -119,21 +141,10 @@ class OrderItemValidator extends AbstractGenericObjectValidator
         }
     }
 
-    /**
-     * Adds the given validator for validation of the specified property.
-     */
-    public function addPropertyValidator(string $propertyName, ValidatorInterface $validator): void
-    {
-        if (!isset($this->propertyValidators[$propertyName])) {
-            $this->propertyValidators[$propertyName] = new \SplObjectStorage();
-        }
-        $this->propertyValidators[$propertyName]->offsetSet($validator);
-    }
-
     protected function isValidatedAlready(object $object): bool
     {
         if ($this->validatedInstancesContainer === null) {
-            $this->validatedInstancesContainer = new \SplObjectStorage();
+            $this->validatedInstancesContainer = new SplObjectStorage();
         }
         if ($this->validatedInstancesContainer->offsetExists($object)) {
             return true;
@@ -142,14 +153,5 @@ class OrderItemValidator extends AbstractGenericObjectValidator
         $this->validatedInstancesContainer->offsetSet($object);
 
         return false;
-    }
-
-    public function countPropertyValidators(): int
-    {
-        $count = 0;
-        foreach ($this->propertyValidators as $propertyValidators) {
-            $count += $propertyValidators->count();
-        }
-        return $count;
     }
 }

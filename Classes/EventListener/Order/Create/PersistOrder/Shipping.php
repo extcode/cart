@@ -23,7 +23,8 @@ class Shipping
         private readonly PersistenceManager $persistenceManager,
         private readonly ItemRepository $itemRepository,
         private readonly ShippingRepository $shippingRepository
-    ) {}
+    ) {
+    }
 
     public function __invoke(PersistOrderEvent $event): void
     {

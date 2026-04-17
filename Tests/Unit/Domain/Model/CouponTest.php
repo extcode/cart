@@ -31,7 +31,7 @@ class CouponTest extends UnitTestCase
 
     protected int $taxClassId = 0;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->title = 'Coupon';
         $this->code = 'coupon';

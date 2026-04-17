@@ -26,7 +26,7 @@ class TaxTest extends UnitTestCase
 
     protected TaxClass $taxClass;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->taxClass = new TaxClass();
         $this->taxClass->setTitle('normal');

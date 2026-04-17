@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Extcode\Cart\Tests\Functional\EventListener\Mail;
 
 /*
@@ -22,7 +24,7 @@ class AttachmentFromOrderItemTest extends FunctionalTestCase
 {
     use TestingFramework;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->testExtensionsToLoad = [
             'extcode/cart',
@@ -37,7 +39,8 @@ class AttachmentFromOrderItemTest extends FunctionalTestCase
         parent::setUp();
 
         $GLOBALS['TYPO3_REQUEST'] = (new ServerRequest())
-            ->withAttribute('applicationType', SystemEnvironmentBuilder::REQUESTTYPE_BE);
+            ->withAttribute('applicationType', SystemEnvironmentBuilder::REQUESTTYPE_BE)
+        ;
 
         $this->importPHPDataSet(__DIR__ . '/../../../Fixtures/BaseDatabase.php');
     }

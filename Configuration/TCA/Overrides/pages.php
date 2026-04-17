@@ -1,11 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 use Extcode\Cart\Constants;
+use TYPO3\CMS\Core\Domain\Repository\PageRepository;
 use TYPO3\CMS\Core\Utility\ArrayUtility;
 
 defined('TYPO3') or die();
 
-call_user_func(function () {
+(static function (): void {
     $_LLL_db = 'LLL:EXT:cart/Resources/Private/Language/locallang_db.xlf:';
 
     ArrayUtility::mergeRecursiveWithOverrule(
@@ -49,8 +52,8 @@ call_user_func(function () {
                 ],
             ],
             'types' => [
-                Constants::DOKTYPE_CART_CART => $GLOBALS['TCA']['pages']['types'][(string)\TYPO3\CMS\Core\Domain\Repository\PageRepository::DOKTYPE_DEFAULT],
+                Constants::DOKTYPE_CART_CART => $GLOBALS['TCA']['pages']['types'][(string) PageRepository::DOKTYPE_DEFAULT],
             ],
         ]
     );
-});
+})();

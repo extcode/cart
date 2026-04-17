@@ -6,11 +6,11 @@ namespace Extcode\Cart\Domain\Log;
 
 use Extcode\Cart\Domain\Log\Model\LogInterface;
 use Extcode\Cart\Domain\Log\Repository\LogRepository;
-use Throwable;
 use TYPO3\CMS\Core\Log\LogRecord;
 use TYPO3\CMS\Core\Log\Writer\AbstractWriter;
 use TYPO3\CMS\Core\Log\Writer\WriterInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use Throwable;
 
 final class DatabaseWriter extends AbstractWriter
 {
@@ -48,7 +48,7 @@ final class DatabaseWriter extends AbstractWriter
         if (!empty($dataToEncode)) {
             // Fold an exception into the message, and string-ify it into recordData so it can be jsonified.
             if (isset($dataToEncode['exception']) && $dataToEncode['exception'] instanceof Throwable) {
-                $dataToEncode['exception'] = (string)$dataToEncode['exception'];
+                $dataToEncode['exception'] = (string) $dataToEncode['exception'];
             }
             $data = '- ' . json_encode($dataToEncode);
         }

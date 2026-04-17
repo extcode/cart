@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Extcode\Cart\Domain\Repository\Order;
 
 /*
@@ -24,11 +26,11 @@ class ProductAdditionalRepository extends Repository
         ];
 
         if (isset($arguments['filter'])) {
-            foreach ((array)$arguments['filter'] as $field => $value) {
+            foreach ((array) $arguments['filter'] as $field => $value) {
                 if ($field === 'start' && !empty($value)) {
-                    $and[] = $query->greaterThan('crdate', strtotime((string)$value));
+                    $and[] = $query->greaterThan('crdate', strtotime((string) $value));
                 } elseif ($field === 'stop' && !empty($value)) {
-                    $and[] = $query->lessThan('crdate', strtotime((string)$value));
+                    $and[] = $query->lessThan('crdate', strtotime((string) $value));
                 }
             }
         }

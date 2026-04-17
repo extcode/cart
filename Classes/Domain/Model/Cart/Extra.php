@@ -63,11 +63,7 @@ class Extra
 
     public function leq(float $condition): bool
     {
-        if ($condition < $this->condition) {
-            return false;
-        }
-
-        return true;
+        return ! ($condition < $this->condition);
     }
 
     public function getPrice(): float
@@ -114,6 +110,7 @@ class Extra
             if ($this->service->getTaxClass()->getId() === -2) {
                 $taxClassDistribution = $this->getTaxClassDistributionOverCart();
                 $factor = $taxClass->getCalc();
+
                 return ($this->net * $taxClassDistribution[$taxClass->getId()]) * $factor;
             }
         } else {
@@ -124,6 +121,7 @@ class Extra
             if ($this->service->getTaxClass()->getId() === -2) {
                 $taxClassDistribution = $this->getTaxClassDistributionOverCart();
                 $factor = $taxClass->getCalc();
+
                 return ($this->gross * $taxClassDistribution[$taxClass->getId()]) / (1 + $factor) * $factor;
             }
         }
@@ -150,7 +148,7 @@ class Extra
     {
         if ($this->isNetPrice) {
             if ($this->service->getTaxClass()->getId() > 0) {
-                $this->tax = ($this->net * $this->taxClass->getCalc());
+                $this->tax = $this->net * $this->taxClass->getCalc();
             } elseif ($this->service->getTaxClass()->getId() === -2) {
                 $tax = 0.0;
                 foreach ($this->getTaxClassDistributionOverCart() as $taxClassId => $taxClassDistribution) {
@@ -187,7 +185,7 @@ class Extra
 
         $total = array_sum($taxClassDistribution);
 
-        return array_map(fn($gross) => $gross / $total, $taxClassDistribution);
+        return array_map(static fn ($gross) => $gross / $total, $taxClassDistribution);
     }
 
     protected function calcNet(): void

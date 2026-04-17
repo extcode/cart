@@ -11,8 +11,8 @@ namespace Extcode\Cart\Utility;
  * LICENSE file that was distributed with this source code.
  */
 
-use TypeError;
 use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
+use TypeError;
 
 final readonly class Typo3GlobalsUtility
 {

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Extcode\Cart\Tests\Functional\Service;
 
 /*
@@ -32,7 +34,7 @@ class MailHandlerTest extends FunctionalTestCase
 {
     use TestingFramework;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->testExtensionsToLoad = [
             'extcode/cart',
@@ -80,7 +82,7 @@ class MailHandlerTest extends FunctionalTestCase
         $mailHandler->method('getBuyerEmailName')->willReturn('Buyer Email Name');
 
         $mailHandler->sendBuyerMail(
-            $this->createStubForOrderItem()
+            self::createStubForOrderItem()
         );
 
         $logEntries = $this->getAllRecords('tx_cart_domain_model_order_log');
@@ -140,7 +142,7 @@ class MailHandlerTest extends FunctionalTestCase
         $mailHandler->method('getBuyerEmailName')->willReturn('Buyer Email Name');
 
         $mailHandler->sendBuyerMail(
-            $this->createStubForOrderItem()
+            self::createStubForOrderItem()
         );
 
         $logEntries = $this->getAllRecords('tx_cart_domain_model_order_log');
@@ -217,7 +219,7 @@ class MailHandlerTest extends FunctionalTestCase
         $mailHandler->method('getSellerEmailName')->willReturn('Seller Email Name');
 
         $mailHandler->sendSellerMail(
-            $this->createStubForOrderItem()
+            self::createStubForOrderItem()
         );
 
         $logEntries = $this->getAllRecords('tx_cart_domain_model_order_log');
@@ -279,7 +281,7 @@ class MailHandlerTest extends FunctionalTestCase
         $mailHandler->method('getSellerEmailName')->willReturn('Seller Email Name');
 
         $mailHandler->sendSellerMail(
-            $this->createStubForOrderItem()
+            self::createStubForOrderItem()
         );
 
         $logEntries = $this->getAllRecords('tx_cart_domain_model_order_log');
@@ -372,7 +374,7 @@ class MailHandlerTest extends FunctionalTestCase
         return $mockBuilder;
     }
 
-    private function createStubForOrderItem(): OrderItem&Stub
+    private static function createStubForOrderItem(): OrderItem&Stub
     {
         $billingAddress = self::createStub(BillingAddress::class);
         $billingAddress->method('getEmail')->willReturn('billingAddress@example.com');
@@ -387,5 +389,4 @@ class MailHandlerTest extends FunctionalTestCase
 
         return $orderItem;
     }
-
 }

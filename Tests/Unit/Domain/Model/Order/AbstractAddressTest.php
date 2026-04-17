@@ -23,7 +23,7 @@ class AbstractAddressTest extends UnitTestCase
 {
     protected AbstractAddress $address;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->address = new class extends AbstractAddress {};
 

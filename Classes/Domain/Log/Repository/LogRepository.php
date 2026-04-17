@@ -18,7 +18,7 @@ final readonly class LogRepository
     ) {
         $connectionPool = GeneralUtility::makeInstance(ConnectionPool::class);
         $this->queryBuilder = $connectionPool
-             ->getQueryBuilderForTable(self::TABLE_NAME)
+            ->getQueryBuilderForTable(self::TABLE_NAME)
         ;
     }
 
@@ -53,7 +53,7 @@ final readonly class LogRepository
 
         return $queryBuilder
             ->executeQuery()
-            ->fetchAllAssociative();
+            ->fetchAllAssociative()
+        ;
     }
-
 }

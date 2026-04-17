@@ -27,7 +27,7 @@ class OrderItemCleanupCommand extends Command
         parent::__construct();
     }
 
-    protected function configure()
+    protected function configure(): void
     {
         $this->setDescription('Will remove all old orders');
         $this->addArgument(
@@ -41,7 +41,7 @@ class OrderItemCleanupCommand extends Command
     {
         $cutOffDate = $input->getArgument('cutOffDate');
 
-        if (is_string($cutOffDate) === false || $this->isCutOffDateValid($cutOffDate) === false) {
+        if (is_string($cutOffDate) === false || self::isCutOffDateValid($cutOffDate) === false) {
             $output->writeln('The cutOffDate argument must follow the pattern YYYY-MM-DD.');
 
             return Command::FAILURE;
@@ -58,7 +58,7 @@ class OrderItemCleanupCommand extends Command
         return Command::SUCCESS;
     }
 
-    private function isCutOffDateValid(string $cutOffDate): bool
+    private static function isCutOffDateValid(string $cutOffDate): bool
     {
         $pattern = '/^\d{4}-\d{2}-\d{2}$/';
 

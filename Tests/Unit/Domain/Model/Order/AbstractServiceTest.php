@@ -23,7 +23,7 @@ class AbstractServiceTest extends UnitTestCase
 {
     protected AbstractService $service;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->service = new class extends AbstractService {};
 
@@ -72,7 +72,7 @@ class AbstractServiceTest extends UnitTestCase
             $this->service->toArray()
         );
 
-        //with taxClass
+        // with taxClass
         $this->service->setTaxClass($taxClass);
 
         $serviceArr['taxClass'] = $taxClass->toArray();

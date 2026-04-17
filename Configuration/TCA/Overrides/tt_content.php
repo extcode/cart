@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 defined('TYPO3') or die();
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Utility\ExtensionUtility;
 
-call_user_func(function () {
+(static function (): void {
     $_LLL_db = 'LLL:EXT:cart/Resources/Private/Language/locallang_db.xlf:';
 
     $pluginNames = [
@@ -24,7 +26,7 @@ call_user_func(function () {
     ];
 
     foreach ($pluginNames as $pluginName => $pluginConfig) {
-        $pluginSignature = 'cart_' . strtolower($pluginName);
+        $pluginSignature = 'cart_' . mb_strtolower($pluginName);
 
         $flexFormPath = 'EXT:cart/Configuration/FlexForms/' . $pluginName . 'Plugin.xml';
         if (file_exists(GeneralUtility::getFileAbsFileName($flexFormPath))) {
@@ -43,4 +45,4 @@ call_user_func(function () {
             $flexFormPath
         );
     }
-});
+})();

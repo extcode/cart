@@ -11,15 +11,11 @@ namespace Extcode\Cart\EventListener\Order\Create;
  * LICENSE file that was distributed with this source code.
  */
 
+use DateTime;
 use Extcode\Cart\Event\Order\NumberGeneratorEventInterface;
 
 class OrderNumber extends Number
 {
-    protected function getRegistryName(NumberGeneratorEventInterface $event): string
-    {
-        return 'lastOrder' . '_' . $event->getOrderItem()->getCartPid();
-    }
-
     public function __invoke(NumberGeneratorEventInterface $event): void
     {
         $onlyGenerateNumberOfType = $event->getOnlyGenerateNumberOfType();
@@ -31,7 +27,7 @@ class OrderNumber extends Number
         $orderItem = $event->getOrderItem();
 
         $orderItem->setOrderNumber($this->generateNumber($event));
-        $orderItem->setOrderDate(new \DateTime());
+        $orderItem->setOrderDate(new DateTime());
 
         $this->orderItemRepository->update($orderItem);
 
@@ -39,5 +35,10 @@ class OrderNumber extends Number
 
         $cart->setOrderId($orderItem->getUid());
         $cart->setOrderNumber($orderItem->getOrderNumber());
+    }
+
+    protected function getRegistryName(NumberGeneratorEventInterface $event): string
+    {
+        return 'lastOrder_' . $event->getOrderItem()->getCartPid();
     }
 }

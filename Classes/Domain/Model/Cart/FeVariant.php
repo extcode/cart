@@ -25,7 +25,8 @@ final class FeVariant implements FeVariantInterface
 
     public function __construct(
         protected array $variantData = []
-    ) {}
+    ) {
+    }
 
     public function getId(): string
     {
@@ -55,6 +56,7 @@ final class FeVariant implements FeVariantInterface
                 $titleArr[] = $variant['title'];
             }
         }
+
         return implode($this->titleGlue, $titleArr);
     }
 
@@ -66,6 +68,7 @@ final class FeVariant implements FeVariantInterface
                 $skuArr[] = $variant['sku'];
             }
         }
+
         return implode($this->skuGlue, $skuArr);
     }
 
@@ -77,6 +80,7 @@ final class FeVariant implements FeVariantInterface
                 $valueArr[] = $variant['value'];
             }
         }
+
         return implode($this->valueGlue, $valueArr);
     }
 }

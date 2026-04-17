@@ -18,9 +18,11 @@ use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 class ActionController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 {
     protected array $pluginSettings = [];
+
     public function __construct(
         protected ConfigurationManagerInterface $configurationManager
-    ) {}
+    ) {
+    }
 
     protected function initializeAction(): void
     {
@@ -29,7 +31,7 @@ class ActionController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControlle
                 ConfigurationManager::CONFIGURATION_TYPE_FRAMEWORK
             );
 
-        $pageId = (int)($this->request->getQueryParams()['id'] ?? 1);
+        $pageId = (int) ($this->request->getQueryParams()['id'] ?? 1);
 
         BackendUtility::readPageAccess(
             $pageId,

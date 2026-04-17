@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Extcode\Cart\Tests\Unit\Service;
 
 /*
@@ -46,11 +48,11 @@ class TaxClassServiceTest extends UnitTestCase
 
         $countryCode = '';
 
-        $taxClasses = $this->createSubject($settings)->getTaxClasses($countryCode);
+        $taxClasses = self::createSubject($settings)->getTaxClasses($countryCode);
 
-        self::assertEquals(
+        self::assertCount(
             3,
-            count($taxClasses)
+            $taxClasses
         );
 
         $firstTaxClasses = $taxClasses[1];
@@ -111,11 +113,11 @@ class TaxClassServiceTest extends UnitTestCase
 
         $countryCode = 'AT';
 
-        $taxClasses = $this->createSubject($settings)->getTaxClasses($countryCode);
+        $taxClasses = self::createSubject($settings)->getTaxClasses($countryCode);
 
-        self::assertEquals(
+        self::assertCount(
             3,
-            count($taxClasses)
+            $taxClasses
         );
 
         $firstTaxClasses = $taxClasses[1];
@@ -193,11 +195,11 @@ class TaxClassServiceTest extends UnitTestCase
 
         $countryCode = 'CH';
 
-        $taxClasses = $this->createSubject($settings)->getTaxClasses($countryCode);
+        $taxClasses = self::createSubject($settings)->getTaxClasses($countryCode);
 
-        self::assertEquals(
+        self::assertCount(
             3,
-            count($taxClasses)
+            $taxClasses
         );
 
         $firstTaxClasses = $taxClasses[1];
@@ -227,7 +229,7 @@ class TaxClassServiceTest extends UnitTestCase
             ],
         ];
 
-        $taxClasses = $this->createSubject($settings)->getTaxClasses();
+        $taxClasses = self::createSubject($settings)->getTaxClasses();
 
         self::assertEquals(
             $taxClasses[1]->getCalc(),
@@ -235,7 +237,7 @@ class TaxClassServiceTest extends UnitTestCase
         );
     }
 
-    private function createSubject(array $settings): TaxClassService
+    private static function createSubject(array $settings): TaxClassService
     {
         $configurationManager = self::createStub(ConfigurationManagerInterface::class);
         $configurationManager->method('getConfiguration')->willReturn($settings);

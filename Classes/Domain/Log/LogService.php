@@ -11,7 +11,8 @@ final readonly class LogService implements LogServiceInterface
 {
     public function __construct(
         private LoggerInterface $logger,
-    ) {}
+    ) {
+    }
 
     public function write(
         LogInterface $log

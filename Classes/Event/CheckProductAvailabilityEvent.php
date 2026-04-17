@@ -29,7 +29,8 @@ class CheckProductAvailabilityEvent implements CheckProductAvailabilityEventInte
         private readonly ProductInterface $product,
         private readonly mixed $quantity,
         private readonly string $mode = 'update'
-    ) {}
+    ) {
+    }
 
     public function getCart(): Cart
     {

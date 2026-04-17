@@ -2,13 +2,6 @@
 
 declare(strict_types=1);
 
-/*
- * This file is part of the package extcode/cart.
- *
- * For the full copyright and license information, please read the
- * LICENSE file that was distributed with this source code.
- */
-
 namespace Extcode\Cart\Widgets\Provider;
 
 use Extcode\Cart\Constants;
@@ -22,6 +15,7 @@ use TYPO3\CMS\Dashboard\Widgets\ChartDataProviderInterface;
 class TurnoverPerDayProvider implements ChartDataProviderInterface
 {
     private readonly LanguageService $languageService;
+
     private array $options;
 
     public function __construct(
@@ -55,9 +49,27 @@ class TurnoverPerDayProvider implements ChartDataProviderInterface
         ];
     }
 
+    public function getOrderItemsInPeriod(int $start, int $end): float
+    {
+        $constraints = [
+            $this->queryBuilder->expr()->gte($this->options['fieldName'], $start),
+            $this->queryBuilder->expr()->lte($this->options['fieldName'], $end),
+        ];
+
+        $this->queryBuilder
+            ->selectLiteral(
+                $this->queryBuilder->expr()->sum('tx_cart_domain_model_order_item.' . $this->options['sum'], 'turnover')
+            )
+            ->from('tx_cart_domain_model_order_item')
+            ->where(... $constraints)
+        ;
+
+        return $this->queryBuilder->executeQuery()->fetchOne() ?? 0;
+    }
+
     private function calculateData(): array
     {
-        $days = (int)$this->options['days'];
+        $days = (int) $this->options['days'];
         $labels = [];
         $data = [];
 
@@ -82,22 +94,5 @@ class TurnoverPerDayProvider implements ChartDataProviderInterface
             $labels,
             $data,
         ];
-    }
-
-    public function getOrderItemsInPeriod(int $start, int $end): float
-    {
-        $constraints = [
-            $this->queryBuilder->expr()->gte($this->options['fieldName'], $start),
-            $this->queryBuilder->expr()->lte($this->options['fieldName'], $end),
-        ];
-
-        $this->queryBuilder
-            ->selectLiteral(
-                $this->queryBuilder->expr()->sum('tx_cart_domain_model_order_item.' . $this->options['sum'], 'turnover')
-            )
-            ->from('tx_cart_domain_model_order_item')
-            ->where(... $constraints);
-
-        return $this->queryBuilder->executeQuery()->fetchOne() ?? 0;
     }
 }

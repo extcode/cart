@@ -39,7 +39,7 @@ class CartCouponFixTest extends UnitTestCase
 
     protected float $cartMinPrice = 0.0;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->taxClass = new TaxClass(1, '19 %', 0.19, 'normal');
 
@@ -247,6 +247,7 @@ class CartCouponFixTest extends UnitTestCase
         return $this->getMockBuilder(Cart::class)
             ->onlyMethods(array_values(array_filter(array_filter($methods, is_string(...)))))
             ->setConstructorArgs([[$this->taxClass]])
-            ->getMock();
+            ->getMock()
+        ;
     }
 }

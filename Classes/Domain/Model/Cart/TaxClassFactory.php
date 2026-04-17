@@ -17,7 +17,8 @@ final readonly class TaxClassFactory implements TaxClassFactoryInterface
 {
     public function __construct(
         private LoggerInterface $logger
-    ) {}
+    ) {
+    }
 
     public function getTaxClass(int $taxClassKey, array $taxClassValue): ?TaxClass
     {
@@ -25,7 +26,7 @@ final readonly class TaxClassFactory implements TaxClassFactoryInterface
             return new TaxClass(
                 $taxClassKey,
                 $taxClassValue['value'],
-                (float)$taxClassValue['calc'],
+                (float) $taxClassValue['calc'],
                 $taxClassValue['name']
             );
         }

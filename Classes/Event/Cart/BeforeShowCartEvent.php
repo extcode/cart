@@ -25,7 +25,8 @@ final class BeforeShowCartEvent implements StoppableEventInterface
         private ?Item $orderItem = null,
         private ?AddressInterface $billingAddress = null,
         private ?AddressInterface $shippingAddress = null
-    ) {}
+    ) {
+    }
 
     public function getCart(): Cart
     {

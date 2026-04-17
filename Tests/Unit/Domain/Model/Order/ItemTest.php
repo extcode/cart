@@ -23,7 +23,7 @@ class ItemTest extends UnitTestCase
 
     protected Item $item;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->item = new Item();
 

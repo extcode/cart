@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Extcode\Cart\Service;
 
 /*
@@ -33,14 +35,23 @@ class MailHandler implements SingletonInterface
     protected ?Cart $cart = null;
 
     protected string $buyerEmailName = '';
+
     protected string $buyerEmailFrom = '';
+
     protected string $buyerEmailCc = '';
+
     protected string $buyerEmailBcc = '';
+
     protected string $buyerEmailReplyTo = '';
+
     protected string $sellerEmailName = '';
+
     protected string $sellerEmailFrom = '';
+
     protected string $sellerEmailTo = '';
+
     protected string $sellerEmailCc = '';
+
     protected string $sellerEmailBcc = '';
 
     /**
@@ -317,7 +328,8 @@ class MailHandler implements SingletonInterface
             ->format(FluidEmail::FORMAT_HTML)
             ->assign('settings', $this->pluginSettings['settings'] ?? [])
             ->assign('cart', $this->cart)
-            ->assign('orderItem', $orderItem);
+            ->assign('orderItem', $orderItem)
+        ;
 
         if ($this->getBuyerEmailCc()) {
             $cc = explode(',', $this->getBuyerEmailCc());
@@ -341,7 +353,7 @@ class MailHandler implements SingletonInterface
             $this->mailer->send($email);
             $this->logService->write(
                 Log::info(
-                    $this->getOrderItemUid($orderItem),
+                    self::getOrderItemUid($orderItem),
                     'sendBuyerMail',
                     'Mail was send to buyer.',
                     [
@@ -352,7 +364,7 @@ class MailHandler implements SingletonInterface
         } catch (Exception $e) {
             $this->logService->write(
                 Log::error(
-                    $this->getOrderItemUid($orderItem),
+                    self::getOrderItemUid($orderItem),
                     'sendBuyerMail',
                     'Mail could not send to buyer.',
                     [
@@ -390,7 +402,8 @@ class MailHandler implements SingletonInterface
             ->format(FluidEmail::FORMAT_HTML)
             ->assign('settings', $this->pluginSettings['settings'] ?? [])
             ->assign('cart', $this->cart)
-            ->assign('orderItem', $orderItem);
+            ->assign('orderItem', $orderItem)
+        ;
 
         if (($orderItem->getBillingAddress() instanceof AddressInterface)
                 && $orderItem->getBillingAddress()->getEmail()
@@ -416,7 +429,7 @@ class MailHandler implements SingletonInterface
             $this->mailer->send($email);
             $this->logService->write(
                 Log::info(
-                    $this->getOrderItemUid($orderItem),
+                    self::getOrderItemUid($orderItem),
                     'sendSellerMail',
                     'Mail was send to seller.',
                     [
@@ -427,7 +440,7 @@ class MailHandler implements SingletonInterface
         } catch (Exception $e) {
             $this->logService->write(
                 Log::error(
-                    $this->getOrderItemUid($orderItem),
+                    self::getOrderItemUid($orderItem),
                     'sendSellerMail',
                     'Mail could not send to seller.',
                     [
@@ -453,7 +466,7 @@ class MailHandler implements SingletonInterface
                 } else {
                     $this->logService->write(
                         Log::warning(
-                            $this->getOrderItemUid($orderItem),
+                            self::getOrderItemUid($orderItem),
                             'addAttachments',
                             'Mail could add attachment ' . $attachment . ' to mail.',
                             [
@@ -466,7 +479,7 @@ class MailHandler implements SingletonInterface
         }
     }
 
-    private function getOrderItemUid(Item $orderItem): int
+    private static function getOrderItemUid(Item $orderItem): int
     {
         $orderItemUid = $orderItem->getUid();
 

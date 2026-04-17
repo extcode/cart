@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Extcode\Cart\Tests\Unit\Service;
 
 /*
@@ -78,7 +80,7 @@ class AbstractConfigurationFromTypoScriptServiceTest extends UnitTestCase
             ],
         ];
 
-        $paymentMethodsService = $this->createSubject($configurations);
+        $paymentMethodsService = self::createSubject($configurations);
 
         $parsedData = $paymentMethodsService->getConfigurationsForType($type, $country);
 
@@ -86,9 +88,9 @@ class AbstractConfigurationFromTypoScriptServiceTest extends UnitTestCase
             $parsedData
         );
 
-        self::assertEquals(
+        self::assertCount(
             2,
-            count($parsedData)
+            $parsedData
         );
 
         self::assertEquals(
@@ -159,7 +161,7 @@ class AbstractConfigurationFromTypoScriptServiceTest extends UnitTestCase
             ],
         ];
 
-        $paymentMethodsService = $this->createSubject($configurations);
+        $paymentMethodsService = self::createSubject($configurations);
 
         $parsedData = $paymentMethodsService->getConfigurationsForType($type, $country);
 
@@ -167,9 +169,9 @@ class AbstractConfigurationFromTypoScriptServiceTest extends UnitTestCase
             $parsedData
         );
 
-        self::assertEquals(
+        self::assertCount(
             3,
-            count($parsedData)
+            $parsedData
         );
 
         self::assertEquals(
@@ -178,7 +180,7 @@ class AbstractConfigurationFromTypoScriptServiceTest extends UnitTestCase
         );
     }
 
-    private function createSubject(array $configurations)
+    private static function createSubject(array $configurations)
     {
         $configurationManager = self::createStub(ConfigurationManagerInterface::class);
         $configurationManager->method('getConfiguration')->willReturn($configurations);

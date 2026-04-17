@@ -19,7 +19,7 @@ use TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy;
 abstract class AbstractService extends AbstractEntity
 {
     #[Lazy]
-    protected LazyLoadingProxy|Item|null $item = null;
+    protected null|Item|LazyLoadingProxy $item = null;
 
     protected string $serviceCountry = '';
 

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Extcode\Cart\Tests\Functional\EventListener\Mail;
 
 /*
@@ -13,6 +15,7 @@ use Codappix\Typo3PhpDatasets\TestingFramework;
 use Extcode\Cart\Event\Mail\AttachmentEvent;
 use Extcode\Cart\EventListener\Mail\AttachmentFromTypoScript;
 use PHPUnit\Framework\Attributes\Test;
+use ReflectionClass;
 use TYPO3\CMS\Core\Core\SystemEnvironmentBuilder;
 use TYPO3\CMS\Core\EventDispatcher\ListenerProvider;
 use TYPO3\CMS\Core\Http\ServerRequest;
@@ -24,7 +27,7 @@ class AttachmentFromTypoScriptTest extends FunctionalTestCase
 {
     use TestingFramework;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->testExtensionsToLoad = [
             'extcode/cart',
@@ -39,7 +42,8 @@ class AttachmentFromTypoScriptTest extends FunctionalTestCase
         parent::setUp();
 
         $GLOBALS['TYPO3_REQUEST'] = (new ServerRequest())
-            ->withAttribute('applicationType', SystemEnvironmentBuilder::REQUESTTYPE_BE);
+            ->withAttribute('applicationType', SystemEnvironmentBuilder::REQUESTTYPE_BE)
+        ;
 
         $this->importPHPDataSet(__DIR__ . '/../../../Fixtures/BaseDatabase.php');
     }
@@ -79,7 +83,7 @@ class AttachmentFromTypoScriptTest extends FunctionalTestCase
             ],
         ];
 
-        $reflection = new \ReflectionClass($attachmentFromTypoScriot);
+        $reflection = new ReflectionClass($attachmentFromTypoScriot);
         $reflection_property = $reflection->getProperty('settings');
         $reflection_property->setValue($attachmentFromTypoScriot, $settings);
 

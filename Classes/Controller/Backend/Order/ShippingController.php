@@ -26,14 +26,15 @@ class ShippingController extends ActionController
     public function __construct(
         private readonly ShippingRepository $shippingRepository,
         private readonly LogServiceInterface $logService,
-    ) {}
+    ) {
+    }
 
     public function updateAction(Shipping $shipping): ResponseInterface
     {
         $this->shippingRepository->update($shipping);
         $this->logService->write(
             Log::info(
-                $this->getOrderItemUid($shipping),
+                self::getOrderItemUid($shipping),
                 'updateShipping',
                 'Shipping was set to ' . $shipping->getStatus() . '.',
                 [
@@ -55,7 +56,7 @@ class ShippingController extends ActionController
         return $this->redirect('show', 'Backend\Order\Order', null, ['orderItem' => $shipping->getItem()]);
     }
 
-    private function getOrderItemUid(Shipping $shipping): int
+    private static function getOrderItemUid(Shipping $shipping): int
     {
         $orderItemUid = $shipping->getItem()?->getUid();
 

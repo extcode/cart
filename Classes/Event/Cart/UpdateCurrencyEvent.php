@@ -20,7 +20,8 @@ final readonly class UpdateCurrencyEvent implements UpdateCurrencyEventInterface
         private Cart $cart,
         private RequestInterface $request,
         private array $settings = []
-    ) {}
+    ) {
+    }
 
     public function getCart(): Cart
     {

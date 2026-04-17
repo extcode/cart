@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use TYPO3\CMS\Core\Cache\Backend\NullBackend;
 use TYPO3\CMS\Core\Cache\Frontend\PhpFrontend;
 use TYPO3\CMS\Core\Configuration\ConfigurationManager;
@@ -39,7 +41,7 @@ use TYPO3\TestingFramework\Core\Testbase;
  * according script within TYPO3 core's Build/Scripts directory and
  * adapt to extensions needs.
  */
-(static function () {
+(static function (): void {
     $testbase = new Testbase();
 
     // These if's are for core testing (package typo3/cms) only. cms-composer-installer does

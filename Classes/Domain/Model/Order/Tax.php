@@ -21,7 +21,8 @@ class Tax extends AbstractEntity
         protected float $tax,
         #[Validate(validator: 'NotEmpty')]
         protected TaxClass $taxClass
-    ) {}
+    ) {
+    }
 
     public function getTax(): float
     {

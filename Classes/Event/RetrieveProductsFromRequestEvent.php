@@ -33,7 +33,8 @@ final class RetrieveProductsFromRequestEvent implements RetrieveProductsFromRequ
     public function __construct(
         private readonly RequestInterface $request,
         private readonly Cart $cart
-    ) {}
+    ) {
+    }
 
     public function getCart(): Cart
     {

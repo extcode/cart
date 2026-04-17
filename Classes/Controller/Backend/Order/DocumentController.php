@@ -28,7 +28,8 @@ class DocumentController extends ActionController
     public function __construct(
         protected readonly PersistenceManager $persistenceManager,
         protected readonly ItemRepository $itemRepository
-    ) {}
+    ) {
+    }
 
     public function createAction(Item $orderItem, string $pdfType): ResponseInterface
     {
@@ -79,12 +80,13 @@ class DocumentController extends ActionController
                 ->withHeader('Cache-Control', 'must-revalidate, post-check=0, pre-check=0')
                 ->withHeader('Content-Description', 'File Transfer')
                 ->withHeader('Content-Disposition', 'attachment; filename="' . $originalPdf->getName() . '"')
-                ->withHeader('Content-Length', (string)$originalPdf->getSize())
+                ->withHeader('Content-Length', (string) $originalPdf->getSize())
                 ->withHeader('Content-Transfer-Encoding', 'binary')
                 ->withHeader('Content-Type', 'application/pdf')
                 ->withHeader('Expires', '0')
                 ->withHeader('Pragma', 'public')
-                ->withBody($this->streamFactory->createStream($originalPdf->getContents()));
+                ->withBody($this->streamFactory->createStream($originalPdf->getContents()))
+            ;
         }
 
         return $this->htmlResponse();

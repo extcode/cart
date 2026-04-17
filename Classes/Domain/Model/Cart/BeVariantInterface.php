@@ -15,9 +15,9 @@ interface BeVariantInterface extends MinimalInterface
 {
     public function toArray(): array;
 
-    public function getParent(): BeVariantInterface|ProductInterface;
+    public function getParent(): ProductInterface|self;
 
-    public function setParent(BeVariantInterface|ProductInterface $parent): void;
+    public function setParent(ProductInterface|self $parent): void;
 
     public function getProduct(): ProductInterface;
 
@@ -77,10 +77,7 @@ interface BeVariantInterface extends MinimalInterface
 
     public function getBeVariantById(int $beVariantId): ?self;
 
-    /**
-     * @return bool|int
-     */
-    public function removeBeVariants(array $beVariantsArray);
+    public function removeBeVariants(array $beVariantsArray): bool|int;
 
     public function getMin(): int;
 

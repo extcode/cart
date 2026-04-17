@@ -41,7 +41,8 @@ abstract class AbstractCommandTestCase extends FunctionalTestCase
 
         $this->setUpBackendUser(1)
             ->getSession()
-            ->set('formProtectionSessionToken', self::FORM_PROTECTION_SESSION_TOKEN);
+            ->set('formProtectionSessionToken', self::FORM_PROTECTION_SESSION_TOKEN)
+        ;
 
         $GLOBALS['LANG'] = $this->get(LanguageServiceFactory::class)->create('en');
     }

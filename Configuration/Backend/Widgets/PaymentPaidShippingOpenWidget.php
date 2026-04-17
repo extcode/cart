@@ -9,7 +9,7 @@ use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigura
 use Symfony\Component\DependencyInjection\Reference;
 use TYPO3\CMS\Backend\View\BackendViewFactory;
 
-return function (ContainerConfigurator $configurator) {
+return static function (ContainerConfigurator $configurator): void {
     $services = $configurator->services();
 
     $services->set('dashboard.widget.extcode.cart.payment_paid_shipping_open')
@@ -24,5 +24,6 @@ return function (ContainerConfigurator $configurator) {
             'iconIdentifier' => 'content-widget-list',
             'height' => 'large',
             'width' => 'medium',
-        ]);
+        ])
+    ;
 };

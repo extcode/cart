@@ -18,9 +18,10 @@ use TYPO3\CMS\Dashboard\Widgets\RequestAwareWidgetInterface;
 use TYPO3\CMS\Dashboard\Widgets\WidgetConfigurationInterface;
 use TYPO3\CMS\Dashboard\Widgets\WidgetInterface;
 
-class PaymentPaidShippingOpen implements WidgetInterface, RequestAwareWidgetInterface
+class PaymentPaidShippingOpen implements RequestAwareWidgetInterface, WidgetInterface
 {
     private ServerRequestInterface $request;
+
     private ViewInterface $view;
 
     public function __construct(
@@ -28,7 +29,8 @@ class PaymentPaidShippingOpen implements WidgetInterface, RequestAwareWidgetInte
         private readonly ListDataProviderInterface $dataProvider,
         private readonly BackendViewFactory $backendViewFactory,
         private readonly array $options = []
-    ) {}
+    ) {
+    }
 
     public function setRequest(ServerRequestInterface $request): void
     {
@@ -47,6 +49,7 @@ class PaymentPaidShippingOpen implements WidgetInterface, RequestAwareWidgetInte
 
         return $this->view->render('Widget/CartPaymentPaidShippingOpen');
     }
+
     public function getOptions(): array
     {
         return $this->options;

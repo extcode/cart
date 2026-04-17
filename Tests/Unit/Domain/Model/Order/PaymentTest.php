@@ -23,7 +23,7 @@ class PaymentTest extends UnitTestCase
 {
     protected Payment $payment;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->payment = new Payment();
 

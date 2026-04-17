@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 defined('TYPO3') or die();
 
 use Extcode\Cart\Controller\Cart\CartController;
@@ -16,9 +18,9 @@ use TYPO3\CMS\Core\Log\LogLevel;
 use TYPO3\CMS\Core\Utility\ArrayUtility;
 use TYPO3\CMS\Extbase\Utility\ExtensionUtility;
 
-(static function (string $extKey) {
+(static function (string $extKey): void {
     if (is_array($GLOBALS['TYPO3_CONF_VARS'] ?? null) === false) {
-        throw new Exception('$GLOBALS[\'TYPO3_CONF_VARS\'] is not an array', 1774601240);
+        throw new \Exception('$GLOBALS[\'TYPO3_CONF_VARS\'] is not an array', 1774601240);
     }
 
     ArrayUtility::mergeRecursiveWithOverrule(
@@ -122,5 +124,4 @@ use TYPO3\CMS\Extbase\Utility\ExtensionUtility;
             \Extcode\Cart\Controller\Order\OrderController::class => 'list, show',
         ]
     );
-
 })('cart');

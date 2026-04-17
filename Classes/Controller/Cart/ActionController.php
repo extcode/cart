@@ -26,7 +26,9 @@ abstract class ActionController extends \Extcode\Cart\Controller\ActionControlle
     protected CartUtility $cartUtility;
 
     protected PaymentMethodsServiceInterface $paymentMethodsService;
+
     protected ShippingMethodsServiceInterface $shippingMethodsService;
+
     protected SpecialOptionsServiceInterface $specialOptionsService;
 
     protected array $configurations;
@@ -34,7 +36,9 @@ abstract class ActionController extends \Extcode\Cart\Controller\ActionControlle
     protected Cart $cart;
 
     protected array $payments = [];
+
     protected array $shippings = [];
+
     protected array $specials = [];
 
     public function injectSessionHandler(SessionHandler $sessionHandler): void
@@ -68,14 +72,7 @@ abstract class ActionController extends \Extcode\Cart\Controller\ActionControlle
             ConfigurationManager::CONFIGURATION_TYPE_FRAMEWORK
         );
 
-        $this->settings['addToCartByAjax'] = isset($this->settings['addToCartByAjax']) ? (int)$this->settings['addToCartByAjax'] : 0;
-    }
-
-    protected function parseServices(): void
-    {
-        $this->payments = $this->paymentMethodsService->getPaymentMethods($this->cart);
-        $this->shippings = $this->shippingMethodsService->getShippingMethods($this->cart);
-        $this->specials = $this->specialOptionsService->getSpecialOptions($this->cart);
+        $this->settings['addToCartByAjax'] = isset($this->settings['addToCartByAjax']) ? (int) $this->settings['addToCartByAjax'] : 0;
     }
 
     public function parseServicesAndAssignToView(): void
@@ -89,6 +86,13 @@ abstract class ActionController extends \Extcode\Cart\Controller\ActionControlle
                 'specials' => $this->specials,
             ]
         );
+    }
+
+    protected function parseServices(): void
+    {
+        $this->payments = $this->paymentMethodsService->getPaymentMethods($this->cart);
+        $this->shippings = $this->shippingMethodsService->getShippingMethods($this->cart);
+        $this->specials = $this->specialOptionsService->getSpecialOptions($this->cart);
     }
 
     protected function restoreSession(): void

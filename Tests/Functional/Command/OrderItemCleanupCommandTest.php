@@ -324,14 +324,14 @@ final class OrderItemCleanupCommandTest extends AbstractCommandTestCase
         );
     }
 
-    public static function wrongCutOffDateDataProvider()
+    public static function wrongCutOffDateDataProvider(): iterable
     {
-        yield [ '01-01-2025' ];
-        yield [ '01.01.2025' ];
-        yield [ '01. Jan. 2025' ];
-        yield [ 'first day of month' ];
-        yield [ '1767265200' ];
-        yield [ 'Thu Jan 01 2026 11:00:00 GMT+0000' ];
-        yield [ 1 ];
+        yield ['01-01-2025'];
+        yield ['01.01.2025'];
+        yield ['01. Jan. 2025'];
+        yield ['first day of month'];
+        yield ['1767265200'];
+        yield ['Thu Jan 01 2026 11:00:00 GMT+0000'];
+        yield [1];
     }
 }

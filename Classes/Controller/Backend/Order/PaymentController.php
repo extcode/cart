@@ -26,14 +26,15 @@ class PaymentController extends ActionController
     public function __construct(
         private readonly PaymentRepository $paymentRepository,
         private readonly LogServiceInterface $logService,
-    ) {}
+    ) {
+    }
 
     public function updateAction(Payment $payment): ResponseInterface
     {
         $this->paymentRepository->update($payment);
         $this->logService->write(
             Log::info(
-                $this->getOrderItemUid($payment),
+                self::getOrderItemUid($payment),
                 'updatePayment',
                 'Payment was set to ' . $payment->getStatus() . '.',
                 [
@@ -55,7 +56,7 @@ class PaymentController extends ActionController
         return $this->redirect('show', 'Backend\Order\Order', null, ['orderItem' => $payment->getItem()]);
     }
 
-    private function getOrderItemUid(Payment $payment): int
+    private static function getOrderItemUid(Payment $payment): int
     {
         $orderItemUid = $payment->getItem()?->getUid();
 

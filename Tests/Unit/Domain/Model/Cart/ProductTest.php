@@ -25,8 +25,6 @@ use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 #[CoversClass(Product::class)]
 class ProductTest extends UnitTestCase
 {
-    private ProductFactoryInterface $productFactory;
-
     protected TaxClass $taxClass;
 
     protected ProductInterface $product;
@@ -43,7 +41,9 @@ class ProductTest extends UnitTestCase
 
     protected int $quantity;
 
-    public function setUp(): void
+    private ProductFactoryInterface $productFactory;
+
+    protected function setUp(): void
     {
         parent::setUp();
 
@@ -69,7 +69,7 @@ class ProductTest extends UnitTestCase
         );
     }
 
-    public function tearDown(): void
+    protected function tearDown(): void
     {
         parent::tearDown();
     }

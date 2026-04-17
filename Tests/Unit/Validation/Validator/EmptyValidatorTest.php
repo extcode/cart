@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Extcode\Cart\Tests\Unit\Validation\Validator;
 
 /*
@@ -12,8 +14,10 @@ use Extcode\Cart\Validation\Validator\EmptyValidator;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
+use SplObjectStorage;
 use TYPO3\CMS\Extbase\Validation\Validator\ValidatorInterface;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
+use stdClass;
 
 #[CoversClass(EmptyValidator::class)]
 class EmptyValidatorTest extends UnitTestCase
@@ -22,28 +26,13 @@ class EmptyValidatorTest extends UnitTestCase
 
     protected ValidatorInterface $validator;
 
-    /**
-     * @param array $options
-     */
-    protected function getValidator(array $options = []): ValidatorInterface
+    protected function setUp(): void
     {
-        return new $this->validatorClassName($options);
-    }
-
-    /**
-     * @param array $options
-     */
-    protected function validatorOptions(array $options): void
-    {
-        $this->validator = $this->getValidator($options);
-    }
-
-    public function setUp(): void
-    {
-        /** @var MockObject&EmptyValidator $validator */
+        /** @var EmptyValidator&MockObject $validator */
         $validator = $this->getMockBuilder($this->validatorClassName)
             ->onlyMethods(['translateErrorMessage'])
-            ->getMock();
+            ->getMock()
+        ;
 
         $this->validator = $validator;
 
@@ -79,7 +68,7 @@ class EmptyValidatorTest extends UnitTestCase
     #[Test]
     public function emptyValidatorCreatesTheCorrectErrorForAnEmptySubject(): void
     {
-        self::assertEquals(1, count($this->validator->validate('a not empty string')->getErrors()));
+        self::assertCount(1, $this->validator->validate('a not empty string')->getErrors());
     }
 
     #[Test]
@@ -92,14 +81,24 @@ class EmptyValidatorTest extends UnitTestCase
     #[Test]
     public function emptyValidatorWorksForCountableObjects(): void
     {
-        self::assertFalse($this->validator->validate(new \SplObjectStorage())->hasErrors());
+        self::assertFalse($this->validator->validate(new SplObjectStorage())->hasErrors());
     }
 
     #[Test]
     public function emptyValidatorWorksForEmptyCountableObjects(): void
     {
-        $countableObject = new \SplObjectStorage();
-        $countableObject->offsetSet(new \stdClass());
+        $countableObject = new SplObjectStorage();
+        $countableObject->offsetSet(new stdClass());
         self::assertTrue($this->validator->validate($countableObject)->hasErrors());
+    }
+
+    protected function getValidator(array $options = []): ValidatorInterface
+    {
+        return new $this->validatorClassName($options);
+    }
+
+    protected function validatorOptions(array $options): void
+    {
+        $this->validator = $this->getValidator($options);
     }
 }

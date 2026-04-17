@@ -19,11 +19,16 @@ use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
 
 abstract class Number
 {
-    abstract protected function getRegistryName(NumberGeneratorEventInterface $event): string;
+    public function __construct(
+        protected PersistenceManager $persistenceManager,
+        protected OrderItemRepository $orderItemRepository,
+        protected array $options = []
+    ) {
+    }
 
     abstract public function __invoke(NumberGeneratorEventInterface $event): void;
 
-    public function __construct(protected PersistenceManager $persistenceManager, protected OrderItemRepository $orderItemRepository, protected array $options = []) {}
+    abstract protected function getRegistryName(NumberGeneratorEventInterface $event): string;
 
     protected function generateNumber(NumberGeneratorEventInterface $event): string
     {
@@ -34,7 +39,7 @@ abstract class Number
         $registry->set('tx_cart', $this->getRegistryName($event), $numberInRegistry);
 
         $format = $this->options['format'] ?? '%d';
-        $numberInRegistryWithOffset = $numberInRegistry + (int)($this->options['offset'] ?? 0);
+        $numberInRegistryWithOffset = $numberInRegistry + (int) ($this->options['offset'] ?? 0);
         $number = sprintf($format, $numberInRegistryWithOffset);
 
         return implode('', [

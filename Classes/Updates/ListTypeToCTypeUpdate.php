@@ -17,16 +17,6 @@ use TYPO3\CMS\Core\Upgrades\AbstractListTypeToCTypeUpdate;
 #[UpgradeWizard('cart_updateListTypeToCType')]
 class ListTypeToCTypeUpdate extends AbstractListTypeToCTypeUpdate
 {
-    protected function getListTypeToCTypeMapping(): array
-    {
-        return [
-            'cart_cart' => 'cart_cart',
-            'cart_currency' => 'cart_currency',
-            'cart_minicart' => 'cart_minicart',
-            'cart_order' => 'cart_order',
-        ];
-    }
-
     public function getTitle(): string
     {
         return 'Update cart list_type to CType.';
@@ -35,5 +25,15 @@ class ListTypeToCTypeUpdate extends AbstractListTypeToCTypeUpdate
     public function getDescription(): string
     {
         return 'Update all cart list_type plugin to CType.';
+    }
+
+    protected function getListTypeToCTypeMapping(): array
+    {
+        return [
+            'cart_cart' => 'cart_cart',
+            'cart_currency' => 'cart_currency',
+            'cart_minicart' => 'cart_minicart',
+            'cart_order' => 'cart_order',
+        ];
     }
 }

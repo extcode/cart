@@ -15,7 +15,10 @@ use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 
 class Tag extends AbstractEntity
 {
-    public function __construct(protected string $title) {}
+    public function __construct(
+        protected string $title
+    ) {
+    }
 
     public function getTitle(): string
     {

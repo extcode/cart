@@ -22,7 +22,8 @@ class Email
     public function __construct(
         private readonly PaymentMethodsServiceInterface $paymentMethodsService,
         private readonly MailHandler $mailHandler,
-    ) {}
+    ) {
+    }
 
     public function __invoke(EventInterface $event): void
     {

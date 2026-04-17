@@ -17,11 +17,12 @@ class CountryController extends ActionController
 {
     public function __construct(
         protected TaxClassServiceInterface $taxClassService
-    ) {}
+    ) {
+    }
 
     public function updateAction(): ResponseInterface
     {
-        //ToDo check country is allowed by TypoScript
+        // ToDo check country is allowed by TypoScript
 
         $this->cartUtility->updateCountry(
             $this->settings['cart'],

@@ -19,7 +19,8 @@ final readonly class UpdateCountryEvent implements UpdateCountryEventInterface
     public function __construct(
         private Cart $cart,
         private RequestInterface $request
-    ) {}
+    ) {
+    }
 
     public function getCart(): Cart
     {

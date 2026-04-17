@@ -27,19 +27,13 @@ use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 class OrderController extends ActionController
 {
     protected array $searchArguments = [];
+
     protected array $pluginSettings;
 
     public function __construct(
         private readonly Context $context,
         protected ItemRepository $itemRepository
-    ) {}
-
-    protected function initializeAction(): void
-    {
-        $this->pluginSettings
-            = $this->configurationManager->getConfiguration(
-                ConfigurationManager::CONFIGURATION_TYPE_FRAMEWORK
-            );
+    ) {
     }
 
     public function listAction(int $currentPage = 1): ResponseInterface
@@ -49,7 +43,7 @@ class OrderController extends ActionController
         $feUserUid = $this->context->getPropertyFromAspect('frontend.user', 'id');
         $orderItems = $this->itemRepository->findBy(['feUser' => $feUserUid]);
 
-        $itemsPerPage = (isset($this->settings['itemsPerPage']) && is_numeric($this->settings['itemsPerPage'])) ? (int)$this->settings['itemsPerPage'] : 20;
+        $itemsPerPage = (isset($this->settings['itemsPerPage']) && is_numeric($this->settings['itemsPerPage'])) ? (int) $this->settings['itemsPerPage'] : 20;
 
         $arrayPaginator = new QueryResultPaginator(
             $orderItems,
@@ -81,6 +75,7 @@ class OrderController extends ActionController
                 '',
                 ContextualFeedbackSeverity::ERROR
             );
+
             return $this->redirect('list');
         }
 
@@ -112,5 +107,13 @@ class OrderController extends ActionController
         $this->dispatchModifyViewEvent();
 
         return $this->htmlResponse();
+    }
+
+    protected function initializeAction(): void
+    {
+        $this->pluginSettings
+            = $this->configurationManager->getConfiguration(
+                ConfigurationManager::CONFIGURATION_TYPE_FRAMEWORK
+            );
     }
 }

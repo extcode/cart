@@ -18,7 +18,10 @@ final class AfterRestoreAddressEvent implements StoppableEventInterface
 {
     private bool $isPropagationStopped = false;
 
-    public function __construct(private AddressInterface $address) {}
+    public function __construct(
+        private AddressInterface $address
+    ) {
+    }
 
     public function getAddress(): AddressInterface
     {

@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Extcode\Cart\Domain\Model\Cart;
 
+use InvalidArgumentException;
+
 /*
  * This file is part of the package extcode/cart.
  *
@@ -201,9 +203,10 @@ final class BeVariant implements AdditionalDataInterface, BeVariantInterface
     public function getSpecialPriceDiscount(): float
     {
         $discount = 0.0;
-        if (($this->price != 0.0) && ($this->specialPrice)) {
+        if (($this->price != 0.0) && $this->specialPrice) {
             $discount = (($this->price - $this->specialPrice) / $this->price) * 100;
         }
+
         return $discount;
     }
 
@@ -236,7 +239,7 @@ final class BeVariant implements AdditionalDataInterface, BeVariantInterface
             return $parentPrice + (($price / 100) * $parentPrice);
         }
 
-        throw new \InvalidArgumentException('Unkonwn price calc method', 1711969492);
+        throw new InvalidArgumentException('Unkonwn price calc method', 1711969492);
     }
 
     public function getBestPriceCalculated(): float
@@ -413,10 +416,7 @@ final class BeVariant implements AdditionalDataInterface, BeVariantInterface
         return $this->beVariants[$beVariantId] ?? null;
     }
 
-    /**
-     * @return bool|int
-     */
-    public function removeBeVariants(array $beVariantsArray)
+    public function removeBeVariants(array $beVariantsArray): bool|int
     {
         foreach ($beVariantsArray as $beVariantId => $value) {
             $beVariant = $this->beVariants[$beVariantId];
@@ -427,7 +427,6 @@ final class BeVariant implements AdditionalDataInterface, BeVariantInterface
                     if (!$beVariant->getBeVariants()) {
                         unset($this->beVariants[$beVariantId]);
                     }
-
                 } else {
                     unset($this->beVariants[$beVariantId]);
                 }
@@ -438,6 +437,44 @@ final class BeVariant implements AdditionalDataInterface, BeVariantInterface
         }
 
         return true;
+    }
+
+    public function getMin(): int
+    {
+        return $this->min;
+    }
+
+    public function setMin(int $min): void
+    {
+        if ($min < 0 || $min > $this->max) {
+            throw new InvalidArgumentException();
+        }
+
+        $this->min = $min;
+    }
+
+    public function getMax(): int
+    {
+        return $this->max;
+    }
+
+    public function setMax(int $max): void
+    {
+        if ($max < 0 || $max < $this->min) {
+            throw new InvalidArgumentException();
+        }
+
+        $this->max = $max;
+    }
+
+    public function getStock(): int
+    {
+        return $this->stock;
+    }
+
+    public function setStock(int $stock): void
+    {
+        $this->stock = $stock;
     }
 
     protected function calcGross(): void
@@ -466,7 +503,7 @@ final class BeVariant implements AdditionalDataInterface, BeVariantInterface
             $this->tax = ($this->gross / (1 + $this->getTaxClass()->getCalc())) * ($this->getTaxClass()->getCalc());
         } else {
             $this->calcNet();
-            $this->tax = ($this->net * $this->getTaxClass()->getCalc());
+            $this->tax = $this->net * $this->getTaxClass()->getCalc();
         }
     }
 
@@ -511,43 +548,5 @@ final class BeVariant implements AdditionalDataInterface, BeVariantInterface
             $this->calcTax();
             $this->calcGross();
         }
-    }
-
-    public function getMin(): int
-    {
-        return $this->min;
-    }
-
-    public function setMin(int $min): void
-    {
-        if ($min < 0 || $min > $this->max) {
-            throw new \InvalidArgumentException();
-        }
-
-        $this->min = $min;
-    }
-
-    public function getMax(): int
-    {
-        return $this->max;
-    }
-
-    public function setMax(int $max): void
-    {
-        if ($max < 0 || $max < $this->min) {
-            throw new \InvalidArgumentException();
-        }
-
-        $this->max = $max;
-    }
-
-    public function getStock(): int
-    {
-        return $this->stock;
-    }
-
-    public function setStock(int $stock): void
-    {
-        $this->stock = $stock;
     }
 }

@@ -60,8 +60,10 @@
         "typo3/cms-frontend": "^14.2"
     },
     "require-dev": {
-	    "codappix/typo3-php-datasets": "^2.1",
-        "friendsofphp/php-cs-fixer": "^3.64",
+        "codappix/typo3-php-datasets": "^2.1",
+        "erickskrauch/php-cs-fixer-custom-fixers": "*",
+        "friendsofphp/php-cs-fixer": "^3.95",
+        "kubawerlos/php-cs-fixer-custom-fixers": "*",
         "phpstan/extension-installer": "^1.4",
         "phpstan/phpstan": "^2.1",
         "phpstan/phpstan-deprecation-rules": "^2.0",
@@ -75,8 +77,8 @@
         "ssch/typo3-rector": "^3.11"
     },
     "scripts": {
-        "project:cgl": ".build/bin/php-cs-fixer fix --config=Build/.php-cs-fixer.dist.php -v --dry-run --diff --using-cache=no --path-mode=intersection ./",
-        "project:cgl:fix": ".build/bin/php-cs-fixer fix --config=Build/.php-cs-fixer.dist.php",
+        "project:cgl": ".build/bin/php-cs-fixer fix --config=Build/.php-cs-fixer.dist.php -v --dry-run --diff --using-cache=no",
+        "project:cgl:fix": ".build/bin/php-cs-fixer fix --config=Build/.php-cs-fixer.dist.php --using-cache=no",
         "project:lint:php": "find ./*.php Classes Configuration Tests -name '*.php' -print0 | xargs -0 -n 1 -P 4 php -l",
         "project:phpstan": "./.build/bin/phpstan analyse -c Build/phpstan.neon --memory-limit 256M",
         "project:test:unit": ".build/bin/phpunit -c Build/phpunit.xml.dist --testsuite unit --display-warnings --display-deprecations --display-errors --display-notices",

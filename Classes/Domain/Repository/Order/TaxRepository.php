@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Extcode\Cart\Domain\Repository\Order;
 
 /*
@@ -11,4 +13,6 @@ namespace Extcode\Cart\Domain\Repository\Order;
 
 use TYPO3\CMS\Extbase\Persistence\Repository;
 
-class TaxRepository extends Repository {}
+class TaxRepository extends Repository
+{
+}

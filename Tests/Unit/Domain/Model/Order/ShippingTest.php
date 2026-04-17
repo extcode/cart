@@ -21,7 +21,7 @@ class ShippingTest extends UnitTestCase
 {
     protected Shipping $shipping;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->shipping = new Shipping();
 

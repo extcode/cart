@@ -2427,7 +2427,7 @@ parameters:
 		-
 			message: '#^Cannot access offset 0 on mixed\.$#'
 			identifier: offsetAccess.nonOffsetAccessible
-			count: 1
+			count: 4
 			path: ../Classes/Domain/Validator/OrderItemValidator.php
 
 		-
@@ -4197,7 +4197,7 @@ parameters:
 		-
 			message: '#^Cannot access offset ''templateLayouts\.'' on mixed\.$#'
 			identifier: offsetAccess.nonOffsetAccessible
-			count: 2
+			count: 3
 			path: ../Classes/Utility/TemplateLayout.php
 
 		-
@@ -4393,8 +4393,8 @@ parameters:
 			path: ../Classes/ViewHelpers/Format/CurrencyViewHelper.php
 
 		-
-			message: '#^Binary operation "/" between float and mixed results in an error\.$#'
-			identifier: binaryOp.invalid
+			message: '#^Binary operation "/\=" between float and mixed results in an error\.$#'
+			identifier: assignOp.invalid
 			count: 1
 			path: ../Classes/ViewHelpers/Format/CurrencyViewHelper.php
 
@@ -4903,8 +4903,8 @@ parameters:
 			path: ../Tests/Functional/Command/OrderItemCleanupCommandTest.php
 
 		-
-			message: '#^Method Extcode\\Cart\\Tests\\Functional\\Command\\OrderItemCleanupCommandTest\:\:wrongCutOffDateDataProvider\(\) has no return type specified\.$#'
-			identifier: missingType.return
+			message: '#^Method Extcode\\Cart\\Tests\\Functional\\Command\\OrderItemCleanupCommandTest\:\:wrongCutOffDateDataProvider\(\) return type has no value type specified in iterable type iterable\.$#'
+			identifier: missingType.iterableValue
 			count: 1
 			path: ../Tests/Functional/Command/OrderItemCleanupCommandTest.php
 
@@ -4975,7 +4975,7 @@ parameters:
 			path: ../Tests/Unit/Controller/ProductControllerTest.php
 
 		-
-			message: '#^Method Extcode\\Cart\\Tests\\Unit\\Controller\\ProductControllerTest\:\:getHighestSeverityDataProvider\(\) return type has no value type specified in iterable type Traversable\.$#'
+			message: '#^Method Extcode\\Cart\\Tests\\Unit\\Controller\\ProductControllerTest\:\:getHighestSeverityDataProvider\(\) return type has no value type specified in iterable type iterable\.$#'
 			identifier: missingType.iterableValue
 			count: 1
 			path: ../Tests/Unit/Controller/ProductControllerTest.php
@@ -4987,7 +4987,7 @@ parameters:
 			path: ../Tests/Unit/Controller/ProductControllerTest.php
 
 		-
-			message: '#^Method Extcode\\Cart\\Tests\\Unit\\Controller\\ProductControllerTest\:\:getLastHighestSeverityDataProvider\(\) return type has no value type specified in iterable type Traversable\.$#'
+			message: '#^Method Extcode\\Cart\\Tests\\Unit\\Controller\\ProductControllerTest\:\:getLastHighestSeverityDataProvider\(\) return type has no value type specified in iterable type iterable\.$#'
 			identifier: missingType.iterableValue
 			count: 1
 			path: ../Tests/Unit/Controller/ProductControllerTest.php
@@ -5323,7 +5323,7 @@ parameters:
 			path: ../Tests/Unit/Domain/Model/Product/MeasureTraitTest.php
 
 		-
-			message: '#^Method Extcode\\Cart\\Tests\\Unit\\Domain\\Model\\Product\\MeasureTraitTest\:\:measureUnitsProvider\(\) return type has no value type specified in iterable type array\.$#'
+			message: '#^Method Extcode\\Cart\\Tests\\Unit\\Domain\\Model\\Product\\MeasureTraitTest\:\:measureUnitsProvider\(\) return type has no value type specified in iterable type iterable\.$#'
 			identifier: missingType.iterableValue
 			count: 1
 			path: ../Tests/Unit/Domain/Model/Product/MeasureTraitTest.php

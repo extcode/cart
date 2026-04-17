@@ -12,7 +12,8 @@ final readonly class Log implements LogInterface
         private string $type,
         private string $message,
         private array $arguments = [],
-    ) {}
+    ) {
+    }
 
     public static function info(
         int $orderItemId,
@@ -98,5 +99,4 @@ final readonly class Log implements LogInterface
     {
         return $this->arguments;
     }
-
 }

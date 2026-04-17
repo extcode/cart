@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Extcode\Cart\ViewHelpers;
 
 /*
@@ -78,12 +80,13 @@ class MapModelPropertiesToTableColumnsViewHelper extends AbstractViewHelper
             foreach ($data as $key => $value) {
                 if (isset($mapping[$key]) && is_string($mapping[$key])) {
                     unset($data[$key]);
-                    $data[(string)$mapping[$key]] = $value;
+                    $data[(string) $mapping[$key]] = $value;
                 }
             }
 
             return $data;
         }
+
         return $data;
     }
 }

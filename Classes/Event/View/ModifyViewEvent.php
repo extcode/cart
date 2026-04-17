@@ -20,7 +20,8 @@ class ModifyViewEvent
         private readonly RequestInterface $request,
         private readonly array $settings,
         private readonly ViewInterface $view,
-    ) {}
+    ) {
+    }
 
     public function getRequest(): RequestInterface
     {

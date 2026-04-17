@@ -23,14 +23,14 @@ class ShippingController extends ActionController
     {
         $this->updateShippingInSession($shippingId);
 
-        if ($this->isAjaxRequest()) {
+        if (self::isAjaxRequest()) {
             return $this->renderHtmlResponse();
         }
 
         return $this->redirect('show', 'Cart\Cart');
     }
 
-    private function isAjaxRequest(): bool
+    private static function isAjaxRequest(): bool
     {
         $pageType = $GLOBALS['TYPO3_REQUEST']->getAttribute('routing')->getPageType();
 

@@ -11,7 +11,7 @@ use TYPO3\CMS\Dashboard\Widgets\BarChartWidget;
 use TYPO3\CMS\Form\Mvc\Configuration\ConfigurationManager;
 use TYPO3\CMS\Form\Mvc\Persistence\FormPersistenceManager;
 
-return function (ContainerConfigurator $containerConfigurator, ContainerBuilder $containerBuilder) {
+return static function (ContainerConfigurator $containerConfigurator, ContainerBuilder $containerBuilder): void {
     if ($containerBuilder->hasDefinition(BarChartWidget::class)) {
         $containerConfigurator->import('Backend/Provider/PaymentPaidShippingOpenProvider.php');
         $containerConfigurator->import('Backend/Widgets/PaymentPaidShippingOpenWidget.php');
@@ -30,7 +30,8 @@ return function (ContainerConfigurator $containerConfigurator, ContainerBuilder 
         $services = $containerConfigurator->services();
 
         $services->set(ItemsProcFunc::class)
-            ->public();
+            ->public()
+        ;
     }
 
     $containerConfigurator->import('Services/ConsoleCommands.php');

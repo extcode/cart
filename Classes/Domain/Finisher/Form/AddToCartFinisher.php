@@ -81,7 +81,7 @@ class AddToCartFinisher extends AbstractFinisher
             $severity = ContextualFeedbackSeverity::OK;
 
             $pageType = $GLOBALS['TYPO3_REQUEST']->getAttribute('routing')->getPageType();
-            if (in_array((int)$pageType, $this->configurations['settings']['jsonResponseForPageTypes'])) {
+            if (in_array((int) $pageType, $this->configurations['settings']['jsonResponseForPageTypes'])) {
                 $payload = [
                     'status' => $status,
                     'added' => $quantity,
@@ -98,15 +98,16 @@ class AddToCartFinisher extends AbstractFinisher
                 $response = $this->finisherContext->getFormRuntime()->getResponse()
                     ->withAddedHeader('Content-Type', 'application/json; charset=utf-8')
                     ->withBody($stream)
-                    ->withStatus((int)$status);
+                    ->withStatus((int) $status)
+                ;
 
-                /** @see \TYPO3\CMS\Form\Domain\Finishers\RedirectFinisher::redirectToUri */
+                // @see \TYPO3\CMS\Form\Domain\Finishers\RedirectFinisher::redirectToUri
                 throw new PropagateResponseException($response, 1655984985);
             }
             $flashMessage = GeneralUtility::makeInstance(
                 FlashMessage::class,
-                (string)$messageBody,
-                (string)$messageTitle,
+                (string) $messageBody,
+                (string) $messageTitle,
                 $severity,
                 true
             );
@@ -138,6 +139,7 @@ class AddToCartFinisher extends AbstractFinisher
                 return $renderable->getIdentifier();
             }
         }
+
         return '';
     }
 
@@ -151,6 +153,7 @@ class AddToCartFinisher extends AbstractFinisher
                 $this->cart->addProduct($product);
             }
         }
+
         return $quantity;
     }
 
@@ -166,6 +169,7 @@ class AddToCartFinisher extends AbstractFinisher
                 'Cart'
             );
         }
+
         return $messageBody;
     }
 
@@ -181,6 +185,7 @@ class AddToCartFinisher extends AbstractFinisher
                 'Cart'
             );
         }
+
         return $messageTitle;
     }
 }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Extcode\Cart\Domain\Repository\Order;
 
 /*
@@ -39,10 +41,8 @@ class ItemRepository extends Repository
 
     /**
      * Find all orders filtered by $searchArguments
-     *
-     * @return QueryResultInterface|array
      */
-    public function findAll(array $searchArguments = [])
+    public function findAll(array $searchArguments = []): QueryResultInterface|array
     {
         $query = $this->createQuery();
 
@@ -82,19 +82,19 @@ class ItemRepository extends Repository
                     $and[] = $query->like('orderNumber', $value);
                     break;
                 case 'orderDateStart':
-                    $and[] = $query->greaterThan('orderDate', strtotime((string)$value));
+                    $and[] = $query->greaterThan('orderDate', strtotime((string) $value));
                     break;
                 case 'orderDateEnd':
-                    $and[] = $query->lessThan('orderDate', strtotime((string)$value) + 86400);
+                    $and[] = $query->lessThan('orderDate', strtotime((string) $value) + 86400);
                     break;
                 case 'invoiceNumber':
                     $and[] = $query->like('invoiceNumber', $value);
                     break;
                 case 'invoiceDateStart':
-                    $and[] = $query->greaterThan('invoiceDate', strtotime((string)$value));
+                    $and[] = $query->greaterThan('invoiceDate', strtotime((string) $value));
                     break;
                 case 'invoiceDateEnd':
-                    $and[] = $query->lessThan('invoiceDate', strtotime((string)$value) + 86400);
+                    $and[] = $query->lessThan('invoiceDate', strtotime((string) $value) + 86400);
                     break;
                 case 'paymentStatus':
                     if ($value !== 'all') {

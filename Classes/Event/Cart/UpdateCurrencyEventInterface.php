@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Extcode\Cart\Event\Cart;
 
 use Extcode\Cart\Domain\Model\Cart\Cart;

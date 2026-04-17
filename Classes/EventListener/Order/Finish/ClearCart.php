@@ -25,7 +25,8 @@ class ClearCart
         protected readonly CartUtility $cartUtility,
         protected readonly PaymentMethodsServiceInterface $paymentMethodsService,
         protected readonly SessionHandler $sessionHandler
-    ) {}
+    ) {
+    }
 
     public function __invoke(EventInterface $event): void
     {
@@ -35,7 +36,7 @@ class ClearCart
         $paymentId = $cart->getPayment()->getId();
         $paymentSettings = $this->paymentMethodsService->getPaymentMethods($cart);
 
-        if ((int)($paymentSettings['options'][$paymentId]['preventClearCart'] ?? 0) != 1) {
+        if ((int) ($paymentSettings['options'][$paymentId]['preventClearCart'] ?? 0) != 1) {
             $cartPid = $settings['settings']['cart']['pid'];
 
             $this->sessionHandler->writeCart(

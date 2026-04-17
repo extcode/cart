@@ -19,5 +19,6 @@ class Constants
     public const DOKTYPE_CART_CART = 181;
 
     public const LANGUAGE_PATH = 'LLL:EXT:cart/Resources/Private/Language/locallang.xlf';
+
     public const LANGUAGE_BE_PATH = 'LLL:EXT:cart/Resources/Private/Language/locallang_be.xlf';
 }

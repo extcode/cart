@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Extcode\Cart\Service;
 
 /*
@@ -22,6 +24,7 @@ use TYPO3\CMS\Frontend\Authentication\FrontendUserAuthentication;
 class SessionHandler implements SingletonInterface
 {
     protected $prefixKey = 'cart_';
+
     private FrontendUserAuthentication $frontendUserAuthentication;
 
     public function __construct(
@@ -42,6 +45,7 @@ class SessionHandler implements SingletonInterface
             if ($cart instanceof Cart) {
                 $afterRestoreCartEvent = new AfterRestoreCartEvent($cart);
                 $this->eventDispatcher->dispatch($afterRestoreCartEvent);
+
                 return $cart;
             }
         }
@@ -83,6 +87,7 @@ class SessionHandler implements SingletonInterface
             if ($address instanceof AddressInterface) {
                 $afterRestoreAddressEvent = new AfterRestoreAddressEvent($address);
                 $this->eventDispatcher->dispatch($afterRestoreAddressEvent);
+
                 return $address;
             }
         }

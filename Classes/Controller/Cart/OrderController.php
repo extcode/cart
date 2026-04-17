@@ -31,14 +31,6 @@ use TYPO3\CMS\Extbase\Validation\Validator\GenericObjectValidator;
 
 class OrderController extends ActionController
 {
-    protected function getErrorFlashMessage(): bool|string
-    {
-        return LocalizationUtility::translate(
-            'tx_cart.error.validation',
-            'Cart'
-        ) ?? false;
-    }
-
     public function initializeCreateAction(): void
     {
         foreach (['orderItem', 'billingAddress', 'shippingAddress'] as $argumentName) {
@@ -49,7 +41,8 @@ class OrderController extends ActionController
 
             $this->arguments->getArgument($argumentName)
                 ->getPropertyMappingConfiguration()
-                ->setTargetTypeForSubProperty('additional', 'array');
+                ->setTargetTypeForSubProperty('additional', 'array')
+            ;
         }
     }
 
@@ -173,6 +166,14 @@ class OrderController extends ActionController
         }
     }
 
+    protected function getErrorFlashMessage(): bool|string
+    {
+        return LocalizationUtility::translate(
+            'tx_cart.error.validation',
+            'Cart'
+        ) ?? false;
+    }
+
     /**
      * Sets the dynamic validation rules.
      */
@@ -224,7 +225,7 @@ class OrderController extends ActionController
 
         $onlyGenerateNumberOfType = [];
         if (!empty($this->configurations['autoGenerateNumbers'])) {
-            $onlyGenerateNumberOfType = array_map(trim(...), explode(',', (string)$this->configurations['autoGenerateNumbers']));
+            $onlyGenerateNumberOfType = array_map(trim(...), explode(',', (string) $this->configurations['autoGenerateNumbers']));
         }
         $generateNumbersEvent = new NumberGeneratorEvent($this->cart, $orderItem, $this->configurations);
         $generateNumbersEvent->setOnlyGenerateNumberOfType($onlyGenerateNumberOfType);
@@ -247,19 +248,16 @@ class OrderController extends ActionController
 
         $finishEvent = new FinishEvent($this->cart, $orderItem, $this->configurations);
         $this->eventDispatcher->dispatch($finishEvent);
-        if ($finishEvent->isPropagationStopped()) {
-            return true;
-        }
 
-        return false;
+        return (bool) ($finishEvent->isPropagationStopped());
     }
 
     /**
-     * @return int<0,max>
+     * @return int<0, max>
      */
     private function getOrderPidFromSettings(): int
     {
-        $orderPid = (int)($this->settings['order']['pid'] ?? 0);
+        $orderPid = (int) ($this->settings['order']['pid'] ?? 0);
 
         if ($orderPid < 0) {
             $orderPid = 0;
@@ -270,6 +268,6 @@ class OrderController extends ActionController
 
     private function getCartPidFromSettings(): int
     {
-        return (int)$this->settings['cart']['pid'];
+        return (int) $this->settings['cart']['pid'];
     }
 }
