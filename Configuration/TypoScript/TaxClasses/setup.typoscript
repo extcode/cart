@@ -1,0 +1,19 @@
+plugin.tx_cart {
+    taxClasses {
+        1 {
+            value = {$plugin.tx_cart.taxClasses.1.value}
+            calc = {$plugin.tx_cart.taxClasses.1.calc}
+            name = {$plugin.tx_cart.taxClasses.1.name}
+        }
+        2 {
+            value = {$plugin.tx_cart.taxClasses.2.value}
+            calc = {$plugin.tx_cart.taxClasses.2.calc}
+            name = {$plugin.tx_cart.taxClasses.2.name}
+        }
+        3 {
+            value = {$plugin.tx_cart.taxClasses.3.value}
+            calc = {$plugin.tx_cart.taxClasses.3.calc}
+            name = {$plugin.tx_cart.taxClasses.3.name}
+        }
+    }
+}
