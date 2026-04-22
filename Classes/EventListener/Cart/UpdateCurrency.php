@@ -36,7 +36,7 @@ class UpdateCurrency
             );
 
             $cart->setCurrencyTranslation(
-                (float)($settings['options'][$currencyConfigId]['translation'])
+                (float) ($settings['options'][$currencyConfigId]['translation'])
             );
         }
 
@@ -45,10 +45,10 @@ class UpdateCurrency
 
     protected function getCurrencyConfigId(string $currencyCode, array $currencyOptions): int
     {
-        if (strlen($currencyCode) === 3) {
+        if (mb_strlen($currencyCode) === 3) {
             foreach ($currencyOptions as $currencyOptionId => $currencyOption) {
                 if (is_array($currencyOption) && $currencyOption['code'] === $currencyCode) {
-                    return (int)$currencyOptionId;
+                    return (int) $currencyOptionId;
                 }
             }
         }

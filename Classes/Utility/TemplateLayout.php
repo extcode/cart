@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Extcode\Cart\Utility;
 
 /*
@@ -39,7 +41,7 @@ class TemplateLayout implements SingletonInterface
 
         // Add TsConfig values
         foreach ($this->getTemplateLayoutsFromTsConfig($pageUid, $extKey, $pluginName) as $templateKey => $title) {
-            if (\str_starts_with((string)$title, '--div--')) {
+            if (\str_starts_with((string) $title, '--div--')) {
                 $optGroupParts = GeneralUtility::trimExplode(',', $title, true, 2);
                 $title = $optGroupParts[1];
                 $templateKey = $optGroupParts[0];
@@ -61,8 +63,7 @@ class TemplateLayout implements SingletonInterface
 
         if (!empty($pluginName)) {
             $pluginName .= '.';
-            if (isset($pagesTsConfig[$extKey]['templateLayouts.'])
-                && isset($pagesTsConfig[$extKey]['templateLayouts.'][$pluginName])
+            if (isset($pagesTsConfig[$extKey]['templateLayouts.'], $pagesTsConfig[$extKey]['templateLayouts.'][$pluginName])
                 && is_array($pagesTsConfig[$extKey]['templateLayouts.'][$pluginName])
             ) {
                 $templateLayouts = $pagesTsConfig[$extKey]['templateLayouts.'][$pluginName];
@@ -74,6 +75,7 @@ class TemplateLayout implements SingletonInterface
                 $templateLayouts = $pagesTsConfig[$extKey]['templateLayouts.'];
             }
         }
+
         return $templateLayouts;
     }
 }

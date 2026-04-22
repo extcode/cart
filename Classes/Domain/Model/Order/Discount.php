@@ -12,30 +12,31 @@ namespace Extcode\Cart\Domain\Model\Order;
  */
 
 use Extcode\Cart\Domain\Model\Cart\TaxClass;
-use TYPO3\CMS\Extbase\Annotation\ORM\Lazy;
-use TYPO3\CMS\Extbase\Annotation\Validate;
+use TYPO3\CMS\Extbase\Attribute\ORM\Lazy;
+use TYPO3\CMS\Extbase\Attribute\Validate;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 use TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy;
 
 class Discount extends AbstractEntity
 {
     #[Lazy]
-    protected LazyLoadingProxy|Item $item;
+    protected Item|LazyLoadingProxy $item;
 
     public function __construct(
-        #[Validate(['validator' => 'NotEmpty'])]
+        #[Validate(validator: 'NotEmpty')]
         protected string $title,
-        #[Validate(['validator' => 'NotEmpty'])]
+        #[Validate(validator: 'NotEmpty')]
         protected string $code,
-        #[Validate(['validator' => 'NotEmpty'])]
+        #[Validate(validator: 'NotEmpty')]
         protected float $gross,
-        #[Validate(['validator' => 'NotEmpty'])]
+        #[Validate(validator: 'NotEmpty')]
         protected float $net,
-        #[Validate(['validator' => 'NotEmpty'])]
+        #[Validate(validator: 'NotEmpty')]
         protected TaxClass $taxClass,
-        #[Validate(['validator' => 'NotEmpty'])]
+        #[Validate(validator: 'NotEmpty')]
         protected float $tax
-    ) {}
+    ) {
+    }
 
     public function getItem(): ?Item
     {

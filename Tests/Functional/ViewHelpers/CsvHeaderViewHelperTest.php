@@ -23,9 +23,16 @@ final class CsvHeaderViewHelperTest extends FunctionalTestCase
 {
     use TestingFramework;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
-        $this->testExtensionsToLoad[] = 'extcode/cart';
+        $this->testExtensionsToLoad = [
+            'extcode/cart',
+        ];
+
+        $this->coreExtensionsToLoad = [
+            'typo3/cms-beuser',
+            'typo3/cms-core',
+        ];
 
         parent::setUp();
     }
@@ -34,7 +41,7 @@ final class CsvHeaderViewHelperTest extends FunctionalTestCase
     public function headerExportsToCsvLine(): void
     {
         $template = __DIR__ . '/Fixtures/CsvHeader.html';
-        $view = $this->getView($template);
+        $view = self::getView($template);
         $content = $view->render();
 
         self::assertSame(
@@ -47,7 +54,7 @@ final class CsvHeaderViewHelperTest extends FunctionalTestCase
     public function headerExportsToCsvLineWithDifferentDelimAndQuote(): void
     {
         $template = __DIR__ . '/Fixtures/CsvHeaderWithDifferentDelimAndQuote.html';
-        $view = $this->getView($template);
+        $view = self::getView($template);
         $content = $view->render();
 
         self::assertSame(
@@ -56,7 +63,7 @@ final class CsvHeaderViewHelperTest extends FunctionalTestCase
         );
     }
 
-    private function getView(string $template): ViewInterface
+    private static function getView(string $template): ViewInterface
     {
         $viewFactory = GeneralUtility::makeInstance(ViewFactoryInterface::class);
         return $viewFactory->create(new ViewFactoryData(null, null, null, $template));

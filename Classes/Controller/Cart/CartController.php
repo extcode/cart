@@ -11,11 +11,13 @@ namespace Extcode\Cart\Controller\Cart;
  * LICENSE file that was distributed with this source code.
  */
 
+use Extcode\Cart\Domain\Model\Order\AddressInterface;
 use Extcode\Cart\Domain\Model\Order\BillingAddress;
 use Extcode\Cart\Domain\Model\Order\Item;
 use Extcode\Cart\Domain\Model\Order\ShippingAddress;
 use Extcode\Cart\Event\Cart\BeforeShowCartEvent;
 use Extcode\Cart\Event\CheckProductAvailabilityEvent;
+use InvalidArgumentException;
 use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\ExtbaseRequestParameters;
@@ -24,8 +26,8 @@ class CartController extends ActionController
 {
     public function showAction(
         ?Item $orderItem = null,
-        ?BillingAddress $billingAddress = null,
-        ?ShippingAddress $shippingAddress = null
+        ?AddressInterface $billingAddress = null,
+        ?AddressInterface $shippingAddress = null
     ): ResponseInterface {
         $this->restoreSession();
 
@@ -60,7 +62,7 @@ class CartController extends ActionController
                 $originalRequestOrderItem = $extbaseAttribute->getOriginalRequest()->getArgument('orderItem');
 
                 if (isset($originalRequestOrderItem['shippingSameAsBilling'])) {
-                    $this->cart->setShippingSameAsBilling((bool)$originalRequestOrderItem['shippingSameAsBilling']);
+                    $this->cart->setShippingSameAsBilling((bool) $originalRequestOrderItem['shippingSameAsBilling']);
                     $this->sessionHandler->writeCart($this->settings['cart']['pid'], $this->cart);
                 }
             }
@@ -69,7 +71,12 @@ class CartController extends ActionController
             $this->sessionHandler->writeCart($this->settings['cart']['pid'], $this->cart);
         }
 
-        $beforeShowCartEvent = new BeforeShowCartEvent($this->cart, $orderItem, $billingAddress, $shippingAddress);
+        $beforeShowCartEvent = new BeforeShowCartEvent(
+            $this->cart,
+            $orderItem,
+            $billingAddress,
+            $shippingAddress
+        );
         $this->eventDispatcher->dispatch($beforeShowCartEvent);
 
         $orderItem = $beforeShowCartEvent->getOrderItem();
@@ -91,7 +98,7 @@ class CartController extends ActionController
 
         $currentStep = null;
         if ($this->request->hasArgument('step')) {
-            $currentStep = (int)$this->request->getArgument('step');
+            $currentStep = (int) $this->request->getArgument('step');
         }
 
         $currentStepHasError = false;
@@ -117,7 +124,6 @@ class CartController extends ActionController
         $this->dispatchModifyViewEvent();
 
         return $this->htmlResponse($this->view->render($template));
-
     }
 
     public function clearAction(): ResponseInterface
@@ -152,7 +158,7 @@ class CartController extends ActionController
                     if (is_array($quantity)) {
                         $cartProduct->changeQuantities($quantity);
                     } else {
-                        $cartProduct->changeQuantity((int)$quantity);
+                        $cartProduct->changeQuantity((int) $quantity);
                     }
                 } else {
                     foreach ($checkAvailabilityEvent->getMessages() as $message) {
@@ -177,7 +183,7 @@ class CartController extends ActionController
 
     private function getTemplateForShowAction(): string
     {
-        $steps = (int)($this->settings['cart']['steps'] ?? 1);
+        $steps = (int) ($this->settings['cart']['steps'] ?? 1);
 
         if ($steps === 1) {
             return 'Show';
@@ -185,11 +191,11 @@ class CartController extends ActionController
 
         $currentStep = 1;
         if ($this->request->hasArgument('step')) {
-            $currentStep = (int)$this->request->getArgument('step') ?: 1;
+            $currentStep = (int) $this->request->getArgument('step') ?: 1;
         }
 
         if ($currentStep > $steps) {
-            throw new \InvalidArgumentException();
+            throw new InvalidArgumentException();
         }
 
         if ($currentStep < $steps) {

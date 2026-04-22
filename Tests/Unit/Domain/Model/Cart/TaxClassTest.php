@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Extcode\Cart\Tests\Unit\Domain\Model\Cart;
 
 /*
@@ -27,7 +29,7 @@ class TaxClassTest extends UnitTestCase
 
     private string $title;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->id = 1;
         $this->value = '19 %%';
@@ -44,16 +46,8 @@ class TaxClassTest extends UnitTestCase
         parent::setUp();
     }
 
-    public function tearDown(): void
+    protected function tearDown(): void
     {
-        unset(
-            $this->id,
-            $this->value,
-            $this->calc,
-            $this->title,
-            $this->fixture
-        );
-
         parent::tearDown();
     }
 

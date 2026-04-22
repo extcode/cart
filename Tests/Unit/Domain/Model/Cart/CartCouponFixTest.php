@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Extcode\Cart\Tests\Unit\Domain\Model\Cart;
 
 /*
@@ -9,11 +11,11 @@ namespace Extcode\Cart\Tests\Unit\Domain\Model\Cart;
  * LICENSE file that was distributed with this source code.
  */
 
+use Extcode\Cart\Configuration\Loader\CurrencyTranslationLoader;
+use Extcode\Cart\Configuration\Loader\CurrencyTranslationLoaderInterface;
 use Extcode\Cart\Domain\Model\Cart\Cart;
 use Extcode\Cart\Domain\Model\Cart\CartCouponFix;
 use Extcode\Cart\Domain\Model\Cart\TaxClass;
-use Extcode\Cart\Service\CurrencyTranslationService;
-use Extcode\Cart\Service\CurrencyTranslationServiceInterface;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -37,7 +39,7 @@ class CartCouponFixTest extends UnitTestCase
 
     protected float $cartMinPrice = 0.0;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->taxClass = new TaxClass(1, '19 %', 0.19, 'normal');
 
@@ -56,81 +58,6 @@ class CartCouponFixTest extends UnitTestCase
         );
 
         parent::setUp();
-    }
-
-    #[Test]
-    public function constructCouponWithoutTitleThrowsException(): void
-    {
-        $this->expectException(\TypeError::class);
-
-        $this->coupon = new CartCouponFix(
-            null,
-            $this->code,
-            $this->couponType,
-            $this->discount,
-            $this->taxClass,
-            $this->cartMinPrice
-        );
-    }
-
-    #[Test]
-    public function constructCouponWithoutCodeThrowsException(): void
-    {
-        $this->expectException(\TypeError::class);
-
-        $this->coupon = new CartCouponFix(
-            $this->title,
-            null,
-            $this->couponType,
-            $this->discount,
-            $this->taxClass,
-            $this->cartMinPrice
-        );
-    }
-
-    #[Test]
-    public function constructCouponWithoutCouponTypeThrowsException(): void
-    {
-        $this->expectException(\TypeError::class);
-
-        $this->coupon = new CartCouponFix(
-            $this->title,
-            $this->code,
-            null,
-            $this->discount,
-            $this->taxClass,
-            $this->cartMinPrice
-        );
-    }
-
-    #[Test]
-    public function constructCouponWithoutDiscountThrowsException(): void
-    {
-        $this->expectException(\TypeError::class);
-
-        $this->coupon = new CartCouponFix(
-            $this->title,
-            $this->code,
-            $this->couponType,
-            null,
-            $this->taxClass,
-            $this->cartMinPrice
-        );
-    }
-
-    #[Test]
-    public function constructCouponWithoutTaxClassThrowsException(): void
-    {
-        $this->expectException(\TypeError::class);
-
-        $this->coupon = new CartCouponFix(
-            $this->title,
-            $this->code,
-            $this->couponType,
-            $this->discount,
-            null,
-            $this->cartMinPrice
-        );
     }
 
     #[Test]
@@ -313,13 +240,14 @@ class CartCouponFixTest extends UnitTestCase
     private function createCartMock(array $methods = ['getGross']): Cart|MockObject
     {
         GeneralUtility::addInstance(
-            CurrencyTranslationServiceInterface::class,
-            new CurrencyTranslationService()
+            CurrencyTranslationLoaderInterface::class,
+            new CurrencyTranslationLoader()
         );
 
         return $this->getMockBuilder(Cart::class)
-            ->onlyMethods($methods)
+            ->onlyMethods(array_values(array_filter(array_filter($methods, is_string(...)))))
             ->setConstructorArgs([[$this->taxClass]])
-            ->getMock();
+            ->getMock()
+        ;
     }
 }

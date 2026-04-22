@@ -14,21 +14,22 @@ namespace Extcode\Cart\Service;
 use DateTimeImmutable;
 use Extcode\Cart\Utility\Typo3GlobalsUtility;
 use RuntimeException;
+use TYPO3\CMS\Core\DataHandling\DataHandler;
 use TYPO3\CMS\Core\Database\Connection;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Database\Query\Restriction\DeletedRestriction;
-use TYPO3\CMS\Core\DataHandling\DataHandler;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 final readonly class OrderItemCleanupService
 {
     public function __construct(
         private ConnectionPool $connectionPool,
-    ) {}
+    ) {
+    }
 
     public function run(DateTimeImmutable $cutOffDate): void
     {
-        $this->deleteRecordsFromTable(
+        self::deleteRecordsFromTable(
             'tx_cart_domain_model_order_item',
             $this->getRecordUidsToDelete(
                 'tx_cart_domain_model_order_item',
@@ -43,7 +44,8 @@ final readonly class OrderItemCleanupService
         $queryBuilder
             ->getRestrictions()
             ->removeAll()
-            ->add(GeneralUtility::makeInstance(DeletedRestriction::class));
+            ->add(GeneralUtility::makeInstance(DeletedRestriction::class))
+        ;
 
         return $queryBuilder
             ->select('uid')
@@ -55,10 +57,11 @@ final readonly class OrderItemCleanupService
                 ),
             )
             ->executeQuery()
-            ->fetchFirstColumn();
+            ->fetchFirstColumn()
+        ;
     }
 
-    private function deleteRecordsFromTable(string $tableName, array $recordUids): void
+    private static function deleteRecordsFromTable(string $tableName, array $recordUids): void
     {
         $dataHandler = GeneralUtility::makeInstance(DataHandler::class);
         $dataHandler->start(
@@ -74,7 +77,7 @@ final readonly class OrderItemCleanupService
 
         if ($dataHandler->errorLog !== []) {
             throw new RuntimeException(
-                'Could not properly delete records for table: ' . $tableName . ', got the following errors: ' . implode(', ', $dataHandler->errorLog),
+                'Could not properly delete records for table: ' . $tableName . ', got the following errors: ' . implode(', ', array_filter($dataHandler->errorLog, is_string(...))),
                 1751526777
             );
         }

@@ -23,7 +23,8 @@ class CouponController extends ActionController
 {
     public function __construct(
         protected CouponRepository $couponRepository
-    ) {}
+    ) {
+    }
 
     public function addAction(): ResponseInterface
     {

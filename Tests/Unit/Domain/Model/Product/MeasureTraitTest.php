@@ -21,11 +21,11 @@ class MeasureTraitTest extends UnitTestCase
 {
     protected $trait;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
 
-        $this->trait = $this->getObjectForTrait(MeasureTrait::class);
+        $this->trait = new MeasureTraitStub();
     }
 
     #[Test]
@@ -159,30 +159,8 @@ class MeasureTraitTest extends UnitTestCase
     }
 
     /**
-     * Measurement Units Provider
-     *
-     * @return array
-     */
-    public static function measureUnitsProvider()
-    {
-        return [
-            ['mg', 'kg', 1000000.0, 1000.0, 1000.0],
-            ['g', 'kg', 1000.0, 1000.0, 1.0],
-            ['kg', 'kg', 1.0, 1000.0, 0.001],
-            ['ml', 'l', 1000.0, 1000.0, 1.0],
-            ['cl', 'l', 100.0, 1000.0, 0.1],
-            ['l', 'l', 1.0, 1000.0, 0.001],
-            ['cbm', 'l', 0.001, 1.0, 0.001],
-            ['mm', 'm', 1000.0, 1000.0, 1.0],
-            ['cm', 'm', 100.0, 1000.0, 0.1],
-            ['m', 'm', 1.0, 2.0, 0.5],
-            ['km', 'm', 0.001, 2.0, 0.0005],
-            ['m2', 'm2', 1.0, 20.0, 0.05],
-        ];
-    }
-
-    /**
      * @test
+     *
      * @dataProvider measureUnitsProvider
      */
     public function getIsMeasureUnitCompatibilityRetrunsTrueOnSameTypeOfMeasureUnit(
@@ -202,6 +180,7 @@ class MeasureTraitTest extends UnitTestCase
 
     /**
      * @test
+     *
      * @dataProvider measureUnitsProvider
      */
     public function getMeasureUnitFactorForGivenPriceMeasureUnitAndBasePriceMeasureUnitReturnsFactor(
@@ -223,6 +202,7 @@ class MeasureTraitTest extends UnitTestCase
 
     /**
      * @test
+     *
      * @dataProvider measureUnitsProvider
      */
     public function getCalculatedBasePriceForGivenPriceMeasureUnitAndBasePriceMeasureUnitRetrunsPrice(
@@ -240,5 +220,26 @@ class MeasureTraitTest extends UnitTestCase
             $calculatedBasePrice,
             $this->trait->getMeasureUnitFactor()
         );
+    }
+
+    /**
+     * Measurement Units Provider
+     *
+     * @return array
+     */
+    public static function measureUnitsProvider(): iterable
+    {
+        yield ['mg', 'kg', 1000000.0, 1000.0, 1000.0];
+        yield ['g', 'kg', 1000.0, 1000.0, 1.0];
+        yield ['kg', 'kg', 1.0, 1000.0, 0.001];
+        yield ['ml', 'l', 1000.0, 1000.0, 1.0];
+        yield ['cl', 'l', 100.0, 1000.0, 0.1];
+        yield ['l', 'l', 1.0, 1000.0, 0.001];
+        yield ['cbm', 'l', 0.001, 1.0, 0.001];
+        yield ['mm', 'm', 1000.0, 1000.0, 1.0];
+        yield ['cm', 'm', 100.0, 1000.0, 0.1];
+        yield ['m', 'm', 1.0, 2.0, 0.5];
+        yield ['km', 'm', 0.001, 2.0, 0.0005];
+        yield ['m2', 'm2', 1.0, 20.0, 0.05];
     }
 }

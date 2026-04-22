@@ -20,7 +20,8 @@ class Service implements ServiceInterface
     public function __construct(
         protected int $id,
         protected array $config = []
-    ) {}
+    ) {
+    }
 
     public function getId(): int
     {
@@ -133,7 +134,7 @@ class Service implements ServiceInterface
                 $taxValue = $this->cart->translatePrice($extraTax);
 
                 if ($extra->getExtraType() === 'each') {
-                    $taxValue = $this->cart->getCount() * $taxValue;
+                    $taxValue *= $this->cart->getCount();
                 }
 
                 $taxes[] = [
@@ -150,11 +151,11 @@ class Service implements ServiceInterface
     {
         $taxClass = null;
 
-        if ((int)$this->config['taxClassId'] > 0) {
-            return $this->cart->getTaxClass((int)$this->config['taxClassId']);
+        if ((int) $this->config['taxClassId'] > 0) {
+            return $this->cart->getTaxClass((int) $this->config['taxClassId']);
         }
 
-        if ((int)$this->config['taxClassId'] === -1) {
+        if ((int) $this->config['taxClassId'] === -1) {
             // assign lowest TaxClass
             foreach ($this->cart->getTaxClasses() as $cartTaxClass) {
                 if ($taxClass === null || $taxClass->getCalc() > $cartTaxClass->getCalc()) {
@@ -169,7 +170,7 @@ class Service implements ServiceInterface
             }
         }
 
-        if ((int)$this->config['taxClassId'] === -2) {
+        if ((int) $this->config['taxClassId'] === -2) {
             $taxClass = new TaxClass(
                 $this->id = -2,
                 '0',
@@ -196,18 +197,23 @@ class Service implements ServiceInterface
         if (!isset($this->config['fallBackId'])) {
             return null;
         }
-        return (int)$this->config['fallBackId'];
+
+        return (int) $this->config['fallBackId'];
     }
 
     public function isAvailable(): bool
     {
         if (isset($this->config['available'])) {
-            $availableFrom = $this->config['available']['from'];
-            if (isset($availableFrom) && $this->cart->getGross() < (float)$availableFrom) {
+            if (isset($this->config['available']['from'])
+                && is_numeric($this->config['available']['from'])
+                && $this->cart->getGross() < (float) $this->config['available']['from']
+            ) {
                 return false;
             }
-            $availableUntil = $this->config['available']['until'];
-            if (isset($availableUntil) && $this->cart->getGross() > (float)$availableUntil) {
+            if (isset($this->config['available']['until'])
+                && is_numeric($this->config['available']['until'])
+                && $this->cart->getGross() > (float) $this->config['available']['until']
+            ) {
                 return false;
             }
         }
@@ -217,20 +223,15 @@ class Service implements ServiceInterface
 
     public function isFree(): bool
     {
-
         $freeFrom = $this->config['free']['from'] ?? null;
         $freeUntil = $this->config['free']['until'] ?? null;
 
         if ($freeFrom || $freeUntil) {
-            if ($freeFrom && $this->cart->getGross() < (float)$freeFrom) {
+            if ($freeFrom && $this->cart->getGross() < (float) $freeFrom) {
                 return false;
             }
 
-            if ($freeUntil && $this->cart->getGross() > (float)$freeUntil) {
-                return false;
-            }
-
-            return true;
+            return ! ($freeUntil && $this->cart->getGross() > (float) $freeUntil);
         }
 
         return false;
@@ -238,12 +239,12 @@ class Service implements ServiceInterface
 
     public function isBuyerEmailDisabled(): bool
     {
-        return (int)($this->config['preventBuyerEmail'] ?? 0) === 1;
+        return (int) ($this->config['preventBuyerEmail'] ?? 0) === 1;
     }
 
     public function isSellerEmailDisabled(): bool
     {
-        return (int)($this->config['preventSellerEmail'] ?? 0) === 1;
+        return (int) ($this->config['preventSellerEmail'] ?? 0) === 1;
     }
 
     protected function getExtra(): Extra
@@ -267,7 +268,7 @@ class Service implements ServiceInterface
                 return new Extra(
                     0,
                     0,
-                    (float)$this->config['extra']['extra'],
+                    (float) $this->config['extra']['extra'],
                     $this->getTaxClass(),
                     $this->cart->isNetCart(),
                     $extraType,
@@ -280,11 +281,11 @@ class Service implements ServiceInterface
             $extra = null;
 
             foreach ($this->config['extra'] as $extraKey => $extraValue) {
-                if (is_array($extraValue) && ((float)$extraValue['value'] <= (float)$conditionValue)) {
+                if (is_array($extraValue) && ((float) $extraValue['value'] <= (float) $conditionValue)) {
                     $extra = new Extra(
                         $extraKey,
-                        (float)$extraValue['value'],
-                        (float)$extraValue['extra'],
+                        (float) $extraValue['value'],
+                        (float) $extraValue['extra'],
                         $this->getTaxClass(),
                         $this->cart->isNetCart(),
                         $extraType,
@@ -299,7 +300,7 @@ class Service implements ServiceInterface
         return new Extra(
             0,
             0,
-            (float)$this->config['extra'],
+            (float) $this->config['extra'],
             $this->getTaxClass(),
             $this->cart->isNetCart(),
             '',
@@ -307,10 +308,7 @@ class Service implements ServiceInterface
         );
     }
 
-    /**
-     * @return float|int|null
-     */
-    protected function getConditionValueFromCart(string $extraType)
+    protected function getConditionValueFromCart(string $extraType): null|float|int
     {
         return match ($extraType) {
             'by_price' => $this->cart->getGross(),

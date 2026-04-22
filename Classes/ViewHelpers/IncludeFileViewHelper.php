@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Extcode\Cart\ViewHelpers;
 
 /*
@@ -8,6 +10,8 @@ namespace Extcode\Cart\ViewHelpers;
  * For the full copyright and license information, please read the
  * LICENSE file that was distributed with this source code.
  */
+
+use Psr\Log\LogLevel;
 use TYPO3\CMS\Core\Http\ApplicationType;
 use TYPO3\CMS\Core\Page\PageRenderer;
 use TYPO3\CMS\Core\Resource\Exception\FileDoesNotExistException;
@@ -15,12 +19,18 @@ use TYPO3\CMS\Core\Resource\Exception\InvalidFileException;
 use TYPO3\CMS\Core\Resource\Exception\InvalidFileNameException;
 use TYPO3\CMS\Core\Resource\Exception\InvalidPathException;
 use TYPO3\CMS\Core\TimeTracker\TimeTracker;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Frontend\Resource\FilePathSanitizer;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 class IncludeFileViewHelper extends AbstractViewHelper
 {
+    public function __construct(
+        private readonly PageRenderer $pageRenderer,
+        private readonly TimeTracker $timeTracker,
+        private readonly FilePathSanitizer $filePathSanitizer,
+    ) {
+    }
+
     public function initializeArguments(): void
     {
         parent::initializeArguments();
@@ -48,23 +58,23 @@ class IncludeFileViewHelper extends AbstractViewHelper
         $path = $this->arguments['path'];
         $compress = $this->arguments['compress'];
 
-        $pageRenderer = GeneralUtility::makeInstance(PageRenderer::class);
+        $pageRenderer = $this->pageRenderer;
         if (ApplicationType::fromRequest($GLOBALS['TYPO3_REQUEST'])->isFrontend()) {
             try {
-                $path = GeneralUtility::makeInstance(FilePathSanitizer::class)->sanitize((string)$path);
+                $path = $this->filePathSanitizer->sanitize((string) $path);
             } catch (InvalidFileNameException) {
                 $path = null;
-            } catch (InvalidPathException|FileDoesNotExistException|InvalidFileException $e) {
+            } catch (FileDoesNotExistException|InvalidFileException|InvalidPathException $e) {
                 $path = null;
                 if ($GLOBALS['TSFE']->tmpl->tt_track) {
-                    GeneralUtility::makeInstance(TimeTracker::class)->setTSlogMessage($e->getMessage(), 3);
+                    $this->timeTracker->setTSlogMessage($e->getMessage(), LogLevel::ERROR);
                 }
             }
         }
 
-        if (strtolower(substr((string)$path, -3)) === '.js') {
+        if (mb_strtolower(mb_substr((string) $path, -3)) === '.js') {
             $pageRenderer->addJsFile($path, null, $compress);
-        } elseif (strtolower(substr((string)$path, -4)) === '.css') {
+        } elseif (mb_strtolower(mb_substr((string) $path, -4)) === '.css') {
             $pageRenderer->addCssFile($path, 'stylesheet', 'all', '', $compress);
         }
     }

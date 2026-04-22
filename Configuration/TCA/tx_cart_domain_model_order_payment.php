@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 defined('TYPO3') or die();
 
 $_LLL = 'LLL:EXT:cart/Resources/Private/Language/locallang_db.xlf';
@@ -16,7 +18,6 @@ return [
         'hideTable' => true,
         'delete' => 'deleted',
         'enablecolumns' => [],
-        'searchFields' => 'name,value,calc,sum,',
         'iconfile' => 'EXT:cart/Resources/Public/Icons/Order/Payment.svg',
     ],
     'hideTable' => 1,

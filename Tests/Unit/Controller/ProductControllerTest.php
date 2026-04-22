@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Extcode\Cart\Tests\Unit\Controller;
 
 /*
@@ -13,7 +15,7 @@ use Extcode\Cart\Controller\Cart\ProductController;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
-use Traversable;
+use ReflectionClass;
 use TYPO3\CMS\Core\Messaging\FlashMessage;
 use TYPO3\CMS\Core\Type\ContextualFeedbackSeverity;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -28,7 +30,7 @@ class ProductControllerTest extends UnitTestCase
     {
         $productController = GeneralUtility::makeInstance(ProductController::class);
 
-        $reflection = new \ReflectionClass(ProductController::class);
+        $reflection = new ReflectionClass(ProductController::class);
         $method = $reflection->getMethod('getErrorWithHighestSeverity');
         $error = $method->invoke($productController, $errors);
 
@@ -38,7 +40,7 @@ class ProductControllerTest extends UnitTestCase
         );
     }
 
-    public static function getHighestSeverityDataProvider(): Traversable
+    public static function getHighestSeverityDataProvider(): iterable
     {
         yield [
             'errors' => [
@@ -113,7 +115,7 @@ class ProductControllerTest extends UnitTestCase
     {
         $productController = GeneralUtility::makeInstance(ProductController::class);
 
-        $reflection = new \ReflectionClass(ProductController::class);
+        $reflection = new ReflectionClass(ProductController::class);
         $method = $reflection->getMethod('getErrorWithHighestSeverity');
         $error = $method->invoke($productController, $errors);
 
@@ -133,7 +135,7 @@ class ProductControllerTest extends UnitTestCase
         );
     }
 
-    public static function getLastHighestSeverityDataProvider(): Traversable
+    public static function getLastHighestSeverityDataProvider(): iterable
     {
         yield [
             'errors' => [
@@ -199,5 +201,4 @@ class ProductControllerTest extends UnitTestCase
             'expectedMessage' => 'ERROR 2',
         ];
     }
-
 }

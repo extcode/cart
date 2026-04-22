@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Extcode\Cart\Domain\Model\Order\BillingAddress;
 use Extcode\Cart\Domain\Model\Order\ShippingAddress;
 
@@ -20,13 +22,11 @@ return [
         'origUid' => 't3_origuid',
         'delete' => 'deleted',
         'enablecolumns' => [],
-        'searchFields' => 'order_number, invoice_number',
         'iconfile' => 'EXT:cart/Resources/Public/Icons/Order/Item.svg',
     ],
     'types' => [
         '1' => [
-            'showitem'
-                => 'pid, fe_user,
+            'showitem' => 'pid, fe_user,
                 --palette--;' . $_LLL . ':tx_cart_domain_model_order_item.palettes.numbers;numbers,
                 --palette--;' . $_LLL . ':tx_cart_domain_model_order_item.palettes.addresses;addresses,
                 --palette--;' . $_LLL . ':tx_cart_domain_model_order_item.palettes.price;price,

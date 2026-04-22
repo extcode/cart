@@ -33,7 +33,8 @@ class Coupon extends AbstractEntity
         protected string $couponType,
         protected float $discount,
         protected int $taxClassId
-    ) {}
+    ) {
+    }
 
     public function getTitle(): string
     {
@@ -105,7 +106,7 @@ class Coupon extends AbstractEntity
      */
     public function incNumberUsed(): void
     {
-        $this->numberUsed += 1;
+        $this->numberUsed++;
     }
 
     public function setNumberUsed(int $numberUsed): void

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Extcode\Cart\Tests\Unit\Domain\Model\Cart;
 
 /*
@@ -9,12 +11,12 @@ namespace Extcode\Cart\Tests\Unit\Domain\Model\Cart;
  * LICENSE file that was distributed with this source code.
  */
 
+use Extcode\Cart\Configuration\Loader\CurrencyTranslationLoader;
+use Extcode\Cart\Configuration\Loader\CurrencyTranslationLoaderInterface;
 use Extcode\Cart\Domain\Model\Cart\Cart;
 use Extcode\Cart\Domain\Model\Cart\Product;
 use Extcode\Cart\Domain\Model\Cart\Service;
 use Extcode\Cart\Domain\Model\Cart\TaxClass;
-use Extcode\Cart\Service\CurrencyTranslationService;
-use Extcode\Cart\Service\CurrencyTranslationServiceInterface;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -38,7 +40,7 @@ class ServiceTest extends UnitTestCase
 
     protected TaxClass $freeTaxClass;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->normalTaxClass = new TaxClass(1, '19 %', 0.19, 'Normal');
         $this->reducedTaxClass = new TaxClass(2, '7 %', 0.07, 'Reduced');
@@ -348,6 +350,7 @@ class ServiceTest extends UnitTestCase
             $service->isFree()
         );
     }
+
     #[Test]
     public function taxClassIdsGreaterZeroReturnsTaxClass(): void
     {
@@ -468,13 +471,14 @@ class ServiceTest extends UnitTestCase
     private function createCartMock(array $methods = ['getGross']): Cart|MockObject
     {
         GeneralUtility::addInstance(
-            CurrencyTranslationServiceInterface::class,
-            new CurrencyTranslationService()
+            CurrencyTranslationLoaderInterface::class,
+            new CurrencyTranslationLoader()
         );
 
         return $this->getMockBuilder(Cart::class)
-            ->onlyMethods($methods)
+            ->onlyMethods(array_values(array_filter(array_filter($methods, is_string(...)))))
             ->setConstructorArgs([$this->taxClasses])
-            ->getMock();
+            ->getMock()
+        ;
     }
 }

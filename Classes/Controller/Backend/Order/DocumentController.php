@@ -18,7 +18,6 @@ use Extcode\Cart\Domain\Repository\Order\ItemRepository;
 use Extcode\Cart\Event\Order\NumberGeneratorEvent;
 use Extcode\CartPdf\Service\PdfService;
 use Psr\Http\Message\ResponseInterface;
-use TYPO3\CMS\Core\Resource\File;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
@@ -29,7 +28,8 @@ class DocumentController extends ActionController
     public function __construct(
         protected readonly PersistenceManager $persistenceManager,
         protected readonly ItemRepository $itemRepository
-    ) {}
+    ) {
+    }
 
     public function createAction(Item $orderItem, string $pdfType): ResponseInterface
     {
@@ -80,12 +80,13 @@ class DocumentController extends ActionController
                 ->withHeader('Cache-Control', 'must-revalidate, post-check=0, pre-check=0')
                 ->withHeader('Content-Description', 'File Transfer')
                 ->withHeader('Content-Disposition', 'attachment; filename="' . $originalPdf->getName() . '"')
-                ->withHeader('Content-Length', (string)$originalPdf->getSize())
+                ->withHeader('Content-Length', (string) $originalPdf->getSize())
                 ->withHeader('Content-Transfer-Encoding', 'binary')
                 ->withHeader('Content-Type', 'application/pdf')
                 ->withHeader('Expires', '0')
                 ->withHeader('Pragma', 'public')
-                ->withBody($this->streamFactory->createStream($originalPdf->getContents()));
+                ->withBody($this->streamFactory->createStream($originalPdf->getContents()))
+            ;
         }
 
         return $this->htmlResponse();

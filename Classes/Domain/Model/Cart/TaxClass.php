@@ -18,7 +18,8 @@ final readonly class TaxClass implements TaxClassInterface
         private string $value,
         private float $calc,
         private string $title
-    ) {}
+    ) {
+    }
 
     public function getId(): int
     {

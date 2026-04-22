@@ -21,7 +21,8 @@ class Order
     public function __construct(
         private readonly EventDispatcherInterface $eventDispatcher,
         private readonly PersistenceManager $persistenceManager
-    ) {}
+    ) {
+    }
 
     public function __invoke(EventInterface $event): void
     {

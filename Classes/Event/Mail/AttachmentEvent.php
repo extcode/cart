@@ -13,7 +13,11 @@ final class AttachmentEvent implements StoppableEventInterface
 
     private bool $isPropagationStopped = false;
 
-    public function __construct(private readonly string $type, private ?Item $orderItem = null) {}
+    public function __construct(
+        private readonly string $type,
+        private ?Item $orderItem = null
+    ) {
+    }
 
     public function getType(): string
     {

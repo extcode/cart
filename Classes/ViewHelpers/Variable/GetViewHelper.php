@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Extcode\Cart\ViewHelpers\Variable;
 
 /*
@@ -9,6 +11,7 @@ namespace Extcode\Cart\ViewHelpers\Variable;
  * LICENSE file that was distributed with this source code.
  */
 
+use Exception;
 use TYPO3\CMS\Extbase\Reflection\ObjectAccess;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
@@ -70,20 +73,18 @@ class GetViewHelper extends AbstractViewHelper
 
     /**
      * Get the value of $name.
-     *
-     * @return mixed
      */
-    public function render()
+    public function render(): mixed
     {
         $name = $this->arguments['name'];
         $useRawKeys = $this->arguments['useRawKeys'];
 
-        if (!str_contains((string)$name, '.')) {
+        if (!str_contains((string) $name, '.')) {
             if ($this->templateVariableContainer->exists($name) === true) {
                 return $this->templateVariableContainer->get($name);
             }
         } else {
-            $segments = explode('.', (string)$name);
+            $segments = explode('.', (string) $name);
             $templateVariableRootName = $lastSegment = array_shift($segments);
             if ($this->templateVariableContainer->exists($templateVariableRootName) === true) {
                 $templateVariableRoot = $this->templateVariableContainer->get($templateVariableRootName);
@@ -94,7 +95,7 @@ class GetViewHelper extends AbstractViewHelper
                     $value = $templateVariableRoot;
                     foreach ($segments as $segment) {
                         if (ctype_digit($segment) === true) {
-                            $segment = (int)$segment;
+                            $segment = (int) $segment;
                             $index = 0;
                             // Note: this loop approach is not a stupid solution. If you doubt this,
                             // attempt to feth a number at a numeric index from ObjectStorage ;)
@@ -103,18 +104,20 @@ class GetViewHelper extends AbstractViewHelper
                                     $value = $possibleValue;
                                     break;
                                 }
-                                ++$index;
+                                $index++;
                             }
                             continue;
                         }
                         $value = ObjectAccess::getProperty($value, $segment);
                     }
+
                     return $value;
-                } catch (\Exception) {
+                } catch (Exception) {
                     return null;
                 }
             }
         }
+
         return null;
     }
 }

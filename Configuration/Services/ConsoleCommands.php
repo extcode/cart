@@ -5,7 +5,7 @@ declare(strict_types=1);
 use Extcode\Cart\Command\OrderItemCleanupCommand;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
-return static function (ContainerConfigurator $containerConfigurator) {
+return static function (ContainerConfigurator $containerConfigurator): void {
     $services = $containerConfigurator
         ->services()
         ->defaults()

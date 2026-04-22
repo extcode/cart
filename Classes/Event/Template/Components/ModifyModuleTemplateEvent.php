@@ -20,7 +20,8 @@ class ModifyModuleTemplateEvent
         private readonly RequestInterface $request,
         private readonly array $settings,
         private readonly ModuleTemplate $moduleTemplate,
-    ) {}
+    ) {
+    }
 
     public function getRequest(): RequestInterface
     {

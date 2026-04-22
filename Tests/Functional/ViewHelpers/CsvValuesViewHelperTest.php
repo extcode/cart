@@ -27,9 +27,16 @@ final class CsvValuesViewHelperTest extends FunctionalTestCase
 
     private ItemRepository $itemRepository;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
-        $this->testExtensionsToLoad[] = 'extcode/cart';
+        $this->testExtensionsToLoad = [
+            'extcode/cart',
+        ];
+
+        $this->coreExtensionsToLoad = [
+            'typo3/cms-beuser',
+            'typo3/cms-core',
+        ];
 
         parent::setUp();
 
@@ -49,7 +56,7 @@ final class CsvValuesViewHelperTest extends FunctionalTestCase
         $orderItem = $this->itemRepository->findByUid(10);
 
         $template = __DIR__ . '/Fixtures/CsvValues.html';
-        $view = $this->getView($template);
+        $view = self::getView($template);
         $view->assign('orderItem', $orderItem);
         $content = $view->render();
 
@@ -65,7 +72,7 @@ final class CsvValuesViewHelperTest extends FunctionalTestCase
         $orderItem = $this->itemRepository->findByUid(11);
 
         $template = __DIR__ . '/Fixtures/CsvValues.html';
-        $view = $this->getView($template);
+        $view = self::getView($template);
         $view->assign('orderItem', $orderItem);
         $content = $view->render();
 
@@ -81,7 +88,7 @@ final class CsvValuesViewHelperTest extends FunctionalTestCase
         $orderItem = $this->itemRepository->findByUid(11);
 
         $template = __DIR__ . '/Fixtures/CsvValuesWithDifferentDelimAndQuote.html';
-        $view = $this->getView($template);
+        $view = self::getView($template);
         $view->assign('orderItem', $orderItem);
         $content = $view->render();
 
@@ -97,7 +104,7 @@ final class CsvValuesViewHelperTest extends FunctionalTestCase
         $orderItem = $this->itemRepository->findByUid(12);
 
         $template = __DIR__ . '/Fixtures/CsvValues.html';
-        $view = $this->getView($template);
+        $view = self::getView($template);
         $view->assign('orderItem', $orderItem);
         $content = $view->render();
 
@@ -107,7 +114,7 @@ final class CsvValuesViewHelperTest extends FunctionalTestCase
         );
     }
 
-    private function getView(string $template): ViewInterface
+    private static function getView(string $template): ViewInterface
     {
         $viewFactory = GeneralUtility::makeInstance(ViewFactoryInterface::class);
         return $viewFactory->create(new ViewFactoryData(null, null, null, $template));

@@ -10,7 +10,6 @@ namespace Extcode\Cart\Controller\Backend\Order;
  * For the full copyright and license information, please read the
  * LICENSE file that was distributed with this source code.
  */
-
 use Extcode\Cart\Controller\Backend\ActionController;
 use Extcode\Cart\Domain\Model\Cart\Cart;
 use Extcode\Cart\Domain\Model\Order\Item;
@@ -20,6 +19,7 @@ use Extcode\Cart\Event\Template\Components\ModifyButtonBarEvent;
 use Extcode\Cart\Event\Template\Components\ModifyModuleTemplateEvent;
 use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Backend\Template\Components\ButtonBar;
+use TYPO3\CMS\Backend\Template\Components\ComponentFactory;
 use TYPO3\CMS\Backend\Template\ModuleTemplate;
 use TYPO3\CMS\Backend\Template\ModuleTemplateFactory;
 use TYPO3\CMS\Core\Imaging\IconFactory;
@@ -33,30 +33,24 @@ use TYPO3\CMS\Extbase\Annotation\IgnoreValidation;
 use TYPO3\CMS\Extbase\Pagination\QueryResultPaginator;
 use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
+use stdClass;
 
 class OrderController extends ActionController
 {
     private const LANG_FILE = 'LLL:EXT:cart/Resources/Private/Language/locallang.xlf:';
 
-    private ModuleTemplate $moduleTemplate;
-
     protected array $searchArguments = [];
+
+    private ModuleTemplate $moduleTemplate;
 
     public function __construct(
         protected readonly ModuleTemplateFactory $moduleTemplateFactory,
         protected readonly IconFactory $iconFactory,
         protected readonly PersistenceManager $persistenceManager,
         protected readonly ItemRepository $itemRepository,
-        private readonly PageRenderer $pageRenderer
-    ) {}
-
-    protected function initializeAction(): void
-    {
-        parent::initializeAction();
-
-        if ($this->request->hasArgument('search')) {
-            $this->searchArguments = $this->request->getArgument('search');
-        }
+        private readonly PageRenderer $pageRenderer,
+        private readonly ComponentFactory $componentFactory
+    ) {
     }
 
     public function listAction(int $currentPage = 1): ResponseInterface
@@ -69,7 +63,7 @@ class OrderController extends ActionController
         $this->moduleTemplate->assign('settings', $this->settings);
         $this->moduleTemplate->assign('searchArguments', $this->searchArguments);
 
-        $itemsPerPage = (isset($this->settings['itemsPerPage']) && is_numeric($this->settings['itemsPerPage'])) ? (int)$this->settings['itemsPerPage'] : 20;
+        $itemsPerPage = (isset($this->settings['itemsPerPage']) && is_numeric($this->settings['itemsPerPage'])) ? (int) $this->settings['itemsPerPage'] : 20;
 
         $orderItems = $this->itemRepository->findAll($this->searchArguments);
         $arrayPaginator = new QueryResultPaginator(
@@ -155,7 +149,8 @@ class OrderController extends ActionController
             ->withAddedHeader('Content-Type', 'text/' . $format)
             ->withAddedHeader('Content-Description', 'File transfer')
             ->withAddedHeader('Content-Disposition', 'attachment; filename="' . $filename . '"')
-            ->withBody($this->streamFactory->createStream($this->view->render()));
+            ->withBody($this->streamFactory->createStream($this->view->render()))
+        ;
     }
 
     public function generateNumberAction(Item $orderItem, string $numberType): ResponseInterface
@@ -193,7 +188,7 @@ class OrderController extends ActionController
     {
         $paymentStatusArray = [];
 
-        $paymentStatus = new \stdClass();
+        $paymentStatus = new stdClass();
         $paymentStatus->key = '';
         $paymentStatus->value = LocalizationUtility::translate(
             'tx_cart_domain_model_order_payment.status.all',
@@ -203,7 +198,7 @@ class OrderController extends ActionController
 
         $entries = ['open', 'pending', 'paid', 'canceled'];
         foreach ($entries as $entry) {
-            $paymentStatus = new \stdClass();
+            $paymentStatus = new stdClass();
             $paymentStatus->key = $entry;
             $paymentStatus->value = LocalizationUtility::translate(
                 'tx_cart_domain_model_order_payment.status.' . $entry,
@@ -211,6 +206,7 @@ class OrderController extends ActionController
             );
             $paymentStatusArray[] = $paymentStatus;
         }
+
         return $paymentStatusArray;
     }
 
@@ -218,7 +214,7 @@ class OrderController extends ActionController
     {
         $shippingStatusArray = [];
 
-        $shippingStatus = new \stdClass();
+        $shippingStatus = new stdClass();
         $shippingStatus->key = '';
         $shippingStatus->value = LocalizationUtility::translate(
             'tx_cart_domain_model_order_shipping.status.all',
@@ -228,7 +224,7 @@ class OrderController extends ActionController
 
         $entries = ['open', 'on_hold', 'in_process', 'shipped'];
         foreach ($entries as $entry) {
-            $shippingStatus = new \stdClass();
+            $shippingStatus = new stdClass();
             $shippingStatus->key = $entry;
             $shippingStatus->value = LocalizationUtility::translate(
                 'tx_cart_domain_model_order_shipping.status.' . $entry,
@@ -236,7 +232,17 @@ class OrderController extends ActionController
             );
             $shippingStatusArray[] = $shippingStatus;
         }
+
         return $shippingStatusArray;
+    }
+
+    protected function initializeAction(): void
+    {
+        parent::initializeAction();
+
+        if ($this->request->hasArgument('search')) {
+            $this->searchArguments = $this->request->getArgument('search');
+        }
     }
 
     protected function getLanguageService(): LanguageService
@@ -275,13 +281,14 @@ class OrderController extends ActionController
 
         foreach ($buttons as $button) {
             $title = $this->getLanguageService()->sL(self::LANG_FILE . $button['title']);
-            $icon = $this->iconFactory->getIcon($button['icon'], IconSize::SMALL->value);
+            $icon = $this->iconFactory->getIcon($button['icon'], IconSize::SMALL);
 
-            $viewButton = $buttonBar->makeLinkButton()
+            $viewButton = $this->componentFactory->createLinkButton()
                 ->setHref($button['link'])
                 ->setTitle($title)
                 ->setShowLabelText($button['showLabel'])
-                ->setIcon($icon);
+                ->setIcon($icon)
+            ;
             $buttonBar->addButton($viewButton, ButtonBar::BUTTON_POSITION_LEFT, $button['group']);
         }
     }

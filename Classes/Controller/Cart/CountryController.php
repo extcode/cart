@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Extcode\Cart\Controller\Cart;
 
-use Extcode\Cart\Service\TaxClassServiceInterface;
+use Extcode\Cart\Configuration\Loader\TaxClassLoaderInterface;
 use Psr\Http\Message\ResponseInterface;
 
 /*
@@ -16,18 +16,23 @@ use Psr\Http\Message\ResponseInterface;
 class CountryController extends ActionController
 {
     public function __construct(
-        protected TaxClassServiceInterface $taxClassService
-    ) {}
+        protected TaxClassLoaderInterface $taxClassLoader
+    ) {
+    }
 
     public function updateAction(): ResponseInterface
     {
-        //ToDo check country is allowed by TypoScript
+        // ToDo check country is allowed by TypoScript
 
-        $this->cartUtility->updateCountry($this->settings['cart'], $this->configurations, $this->request);
+        $this->cartUtility->updateCountry(
+            $this->settings['cart'],
+            $this->configurations,
+            $this->request
+        );
 
         $this->restoreSession();
 
-        $taxClasses = $this->taxClassService->getTaxClasses($this->cart->getBillingCountry());
+        $taxClasses = $this->taxClassLoader->getTaxClasses($this->cart->getBillingCountry());
 
         $this->cart->setTaxClasses($taxClasses);
         $this->cart->reCalc();

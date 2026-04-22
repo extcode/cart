@@ -16,5 +16,23 @@ return [
             'deleted' => '0',
             'is_siteroot' => '1',
         ],
+        100 => [
+            'uid' => '101',
+            'pid' => '0',
+            'title' => 'Shop',
+            'doktype' => PageRepository::DOKTYPE_SYSFOLDER,
+            'slug' => '/shop-folder',
+            'sorting' => '128',
+            'deleted' => '0',
+        ],
+        104 => [
+            'uid' => '105',
+            'pid' => '101',
+            'title' => 'Orders',
+            'doktype' => PageRepository::DOKTYPE_SYSFOLDER,
+            'slug' => '/orders-folder',
+            'sorting' => '128',
+            'deleted' => '0',
+        ],
     ],
 ];

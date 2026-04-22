@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Extcode\Cart\Domain\Model\Order\BillingAddress;
 use Extcode\Cart\Domain\Model\Order\ShippingAddress;
 
@@ -22,7 +24,6 @@ return [
         'hideTable' => true,
         'delete' => 'deleted',
         'enablecolumns' => [],
-        'searchFields' => 'first_name, last_name, street, zip, city',
         'iconfile' => 'EXT:cart/Resources/Public/Icons/Order/Address.svg',
     ],
     'hideTable' => 1,

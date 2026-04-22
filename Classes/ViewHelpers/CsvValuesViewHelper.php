@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Extcode\Cart\ViewHelpers;
 
 /*
@@ -50,10 +52,8 @@ class CsvValuesViewHelper extends AbstractViewHelper
 
     /**
      * Format OrderItem to CSV format
-     *
-     * @return string
      */
-    public function render()
+    public function render(): string
     {
         $orderItem = $this->arguments['orderItem'];
         $delim = $this->arguments['delim'];
@@ -74,3 +74,6 @@ class CsvValuesViewHelper extends AbstractViewHelper
         return CsvUtility::csvValues($orderItemArr, $delim, $quote);
     }
 }
+
+// keep compatibility for $escapeOutput property definition of parent class
+// @php-cs-fixer-ignore phpdoc_to_property_type

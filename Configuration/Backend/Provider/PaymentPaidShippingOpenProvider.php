@@ -8,7 +8,7 @@ use Extcode\Cart\Widgets\Provider\OrderItemsProvider;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symfony\Component\DependencyInjection\Reference;
 
-return function (ContainerConfigurator $configurator) {
+return static function (ContainerConfigurator $configurator): void {
     $services = $configurator->services();
 
     $services->set('extcode.cart.provider.payment_paid_shipping_open')
@@ -23,5 +23,6 @@ return function (ContainerConfigurator $configurator) {
                     'status' => 'open',
                 ],
             ],
-        ]);
+        ])
+    ;
 };

@@ -24,11 +24,11 @@ class TagTraitTest extends UnitTestCase
 {
     protected $trait;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
 
-        $this->trait = $this->getObjectForTrait(TagTrait::class);
+        $this->trait = new TagTraitStub();
     }
 
     #[Test]

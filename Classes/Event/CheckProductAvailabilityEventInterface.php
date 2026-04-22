@@ -12,16 +12,21 @@ namespace Extcode\Cart\Event;
  */
 
 use Extcode\Cart\Domain\Model\Cart\Cart;
-use Extcode\Cart\Domain\Model\Cart\Product;
+use Extcode\Cart\Domain\Model\Cart\ProductInterface;
 use TYPO3\CMS\Core\Messaging\FlashMessage;
 
 interface CheckProductAvailabilityEventInterface
 {
-    public function __construct(Cart $cart, Product $product, $quantity, string $mode = 'update');
+    public function __construct(
+        Cart $cart,
+        ProductInterface $product,
+        $quantity,
+        string $mode = 'update'
+    );
 
     public function getCart(): Cart;
 
-    public function getProduct(): Product;
+    public function getProduct(): ProductInterface;
 
     public function getQuantity();
 

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Extcode\Cart\Tests\Unit\Domain\Model\Order;
 
 /*
@@ -19,7 +21,7 @@ class ShippingTest extends UnitTestCase
 {
     protected Shipping $shipping;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->shipping = new Shipping();
 

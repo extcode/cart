@@ -11,6 +11,7 @@ namespace Extcode\Cart\Controller\Cart;
  * LICENSE file that was distributed with this source code.
  */
 
+use Exception;
 use Extcode\Cart\Domain\Model\Cart\Product;
 use Extcode\Cart\Event\CheckProductAvailabilityEvent;
 use Extcode\Cart\Event\RetrieveProductsFromRequestEvent;
@@ -27,7 +28,7 @@ class ProductController extends ActionController
     {
         if (!$this->request->hasArgument('productType')) {
             // TODO: add own Exception
-            throw new \Exception('productType is needed');
+            throw new Exception('productType is needed', 5200281451);
         }
 
         $this->restoreSession();
@@ -154,7 +155,7 @@ class ProductController extends ActionController
      */
     private function responseForAddActionWithErrors(array $errors): ResponseInterface
     {
-        $errorWithHighestSeverity = $this->getErrorWithHighestSeverity($errors);
+        $errorWithHighestSeverity = self::getErrorWithHighestSeverity($errors);
 
         $pageType = $GLOBALS['TYPO3_REQUEST']->getAttribute('routing')->getPageType();
         if ($pageType === self::AJAX_CART_TYPE_NUM) {
@@ -183,7 +184,7 @@ class ProductController extends ActionController
     /**
      * @param FlashMessage[] $errors
      */
-    private function getErrorWithHighestSeverity(array $errors): FlashMessage
+    private static function getErrorWithHighestSeverity(array $errors): FlashMessage
     {
         $errorToReturn = array_shift($errors);
 
