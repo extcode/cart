@@ -41,7 +41,7 @@ class ExtractViewHelper extends AbstractViewHelper
         );
     }
 
-    public function render(): array
+    public function render(): mixed
     {
         $key = $this->arguments['key'];
         $content = $this->arguments['content'];

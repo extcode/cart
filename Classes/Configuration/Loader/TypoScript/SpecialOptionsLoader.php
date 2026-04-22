@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Extcode\Cart\Service;
+namespace Extcode\Cart\Configuration\Loader\TypoScript;
 
 /*
  * This file is part of the package extcode/cart.
@@ -11,9 +11,10 @@ namespace Extcode\Cart\Service;
  * LICENSE file that was distributed with this source code.
  */
 
+use Extcode\Cart\Configuration\Loader\SpecialOptionsLoaderInterface;
 use Extcode\Cart\Domain\Model\Cart\Cart;
 
-class SpecialOptionsFromTypoScriptService extends AbstractConfigurationFromTypoScriptService implements SpecialOptionsServiceInterface
+final readonly class SpecialOptionsLoader extends AbstractConfigurationLoader implements SpecialOptionsLoaderInterface
 {
     public function getSpecialOptions(Cart $cart): array
     {

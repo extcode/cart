@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Extcode\Cart\Service;
+namespace Extcode\Cart\Configuration\Loader\TypoScript;
 
 /*
  * This file is part of the package extcode/cart.
@@ -11,9 +11,10 @@ namespace Extcode\Cart\Service;
  * LICENSE file that was distributed with this source code.
  */
 
+use Extcode\Cart\Configuration\Loader\ShippingMethodsLoaderInterface;
 use Extcode\Cart\Domain\Model\Cart\Cart;
 
-class ShippingMethodsFromTypoScriptService extends AbstractConfigurationFromTypoScriptService implements ShippingMethodsServiceInterface
+final readonly class ShippingMethodsLoader extends AbstractConfigurationLoader implements ShippingMethodsLoaderInterface
 {
     public function getShippingMethods(Cart $cart): array
     {

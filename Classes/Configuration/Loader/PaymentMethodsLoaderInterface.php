@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Extcode\Cart\Service;
+namespace Extcode\Cart\Configuration\Loader;
 
 /*
  * This file is part of the package extcode/cart.
@@ -14,7 +14,7 @@ namespace Extcode\Cart\Service;
 use Extcode\Cart\Domain\Model\Cart\Cart;
 use Extcode\Cart\Domain\Model\Cart\ServiceInterface;
 
-interface PaymentMethodsServiceInterface
+interface PaymentMethodsLoaderInterface
 {
     /**
      * @return ServiceInterface[]

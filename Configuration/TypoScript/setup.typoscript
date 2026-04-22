@@ -120,8 +120,8 @@ plugin.tx_cart {
     }
 }
 
-@import 'EXT:cart/Configuration/TypoScript/Settings/*.typoscript
-@import 'EXT:cart/Configuration/TypoScript/TaxClasses/setup.typoscript
+@import 'EXT:cart/Configuration/TypoScript/Settings/*.typoscript'
+@import 'EXT:cart/Configuration/TypoScript/TaxClasses/setup.typoscript'
 @import 'EXT:cart/Configuration/TypoScript/Payments/setup.typoscript
 @import 'EXT:cart/Configuration/TypoScript/Shippings/setup.typoscript
 

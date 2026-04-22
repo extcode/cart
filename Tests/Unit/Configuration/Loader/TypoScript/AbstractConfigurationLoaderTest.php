@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Extcode\Cart\Tests\Unit\Service;
+namespace Extcode\Cart\Tests\Unit\Configuration\Loader\TypoScript;
 
 /*
  * This file is part of the package extcode/cart.
@@ -11,15 +11,15 @@ namespace Extcode\Cart\Tests\Unit\Service;
  * LICENSE file that was distributed with this source code.
  */
 
+use Extcode\Cart\Configuration\Loader\TypoScript\AbstractConfigurationLoader;
 use Extcode\Cart\Domain\Model\Cart\ServiceFactory;
-use Extcode\Cart\Service\AbstractConfigurationFromTypoScriptService;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Test;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
-#[CoversClass(AbstractConfigurationFromTypoScriptService::class)]
-class AbstractConfigurationFromTypoScriptServiceTest extends UnitTestCase
+#[CoversClass(AbstractConfigurationLoader::class)]
+class AbstractConfigurationLoaderTest extends UnitTestCase
 {
     #[Test]
     public function getTypePluginSettingsReturnsTypeCountrySettings(): void
@@ -180,11 +180,15 @@ class AbstractConfigurationFromTypoScriptServiceTest extends UnitTestCase
         );
     }
 
-    private static function createSubject(array $configurations)
+    private static function createSubject(array $configurations): AbstractConfigurationLoader
     {
         $configurationManager = self::createStub(ConfigurationManagerInterface::class);
         $configurationManager->method('getConfiguration')->willReturn($configurations);
 
-        return new class ($configurationManager, new ServiceFactory()) extends AbstractConfigurationFromTypoScriptService {};
+        return new TestConfigurationLoader($configurationManager, new ServiceFactory());
     }
+}
+
+readonly class TestConfigurationLoader extends AbstractConfigurationLoader
+{
 }

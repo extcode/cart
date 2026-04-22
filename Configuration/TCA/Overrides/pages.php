@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use Extcode\Cart\Constants;
+use Extcode\Cart\Configuration\Constants;
 use TYPO3\CMS\Core\Domain\Repository\PageRepository;
 use TYPO3\CMS\Core\Utility\ArrayUtility;
 

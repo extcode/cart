@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Extcode\Cart\Service;
+namespace Extcode\Cart\Configuration\Loader;
 
 /*
  * This file is part of the package extcode/cart.
@@ -11,7 +11,7 @@ namespace Extcode\Cart\Service;
  * LICENSE file that was distributed with this source code.
  */
 
-class CurrencyTranslationService implements CurrencyTranslationServiceInterface
+class CurrencyTranslationLoader implements CurrencyTranslationLoaderInterface
 {
     public function translatePrice(float $factor, ?float $price = null): ?float
     {

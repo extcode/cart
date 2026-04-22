@@ -11,10 +11,10 @@ namespace Extcode\Cart\EventListener\Order\Finish;
  * LICENSE file that was distributed with this source code.
  */
 
+use Extcode\Cart\Configuration\Loader\PaymentMethodsLoaderInterface;
 use Extcode\Cart\Domain\Model\Order\BillingAddress;
 use Extcode\Cart\Domain\Model\Order\ShippingAddress;
 use Extcode\Cart\Event\Order\EventInterface;
-use Extcode\Cart\Service\PaymentMethodsServiceInterface;
 use Extcode\Cart\Service\SessionHandler;
 use Extcode\Cart\Utility\CartUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -23,7 +23,7 @@ class ClearCart
 {
     public function __construct(
         protected readonly CartUtility $cartUtility,
-        protected readonly PaymentMethodsServiceInterface $paymentMethodsService,
+        protected readonly PaymentMethodsLoaderInterface $paymentMethodsLoader,
         protected readonly SessionHandler $sessionHandler
     ) {
     }
@@ -34,7 +34,7 @@ class ClearCart
         $settings = $event->getSettings();
 
         $paymentId = $cart->getPayment()->getId();
-        $paymentSettings = $this->paymentMethodsService->getPaymentMethods($cart);
+        $paymentSettings = $this->paymentMethodsLoader->getPaymentMethods($cart);
 
         if ((int) ($paymentSettings['options'][$paymentId]['preventClearCart'] ?? 0) != 1) {
             $cartPid = $settings['settings']['cart']['pid'];
