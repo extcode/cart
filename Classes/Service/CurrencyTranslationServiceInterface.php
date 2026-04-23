@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Extcode\Cart\Configuration\Loader;
+namespace Extcode\Cart\Service;
 
 /*
  * This file is part of the package extcode/cart.
@@ -14,7 +14,7 @@ namespace Extcode\Cart\Configuration\Loader;
 /**
  * @internal This class is marked internal and is not considered part of the public API. The interface will change in the next major version (v12.0.0).
  */
-interface CurrencyTranslationLoaderInterface
+interface CurrencyTranslationServiceInterface
 {
     public function translatePrice(float $factor, ?float $price = null): ?float;
 }

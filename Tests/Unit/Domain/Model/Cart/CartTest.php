@@ -11,13 +11,13 @@ namespace Extcode\Cart\Tests\Unit\Domain\Model\Cart;
  * LICENSE file that was distributed with this source code.
  */
 
-use Extcode\Cart\Configuration\Loader\CurrencyTranslationLoader;
-use Extcode\Cart\Configuration\Loader\CurrencyTranslationLoaderInterface;
 use Extcode\Cart\Domain\Model\Cart\Cart;
 use Extcode\Cart\Domain\Model\Cart\CartCouponFix;
 use Extcode\Cart\Domain\Model\Cart\ProductFactory;
 use Extcode\Cart\Domain\Model\Cart\ProductFactoryInterface;
 use Extcode\Cart\Domain\Model\Cart\TaxClass;
+use Extcode\Cart\Service\CurrencyTranslationService;
+use Extcode\Cart\Service\CurrencyTranslationServiceInterface;
 use LogicException;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Test;
@@ -1315,8 +1315,8 @@ class CartTest extends UnitTestCase
         $couponGross = 10.00;
 
         GeneralUtility::addInstance(
-            CurrencyTranslationLoaderInterface::class,
-            new CurrencyTranslationLoader()
+            CurrencyTranslationServiceInterface::class,
+            new CurrencyTranslationService()
         );
         $cart = $this->getMockBuilder(Cart::class)
             ->onlyMethods(['getCouponGross', 'getCurrencyTranslation'])
@@ -1353,8 +1353,8 @@ class CartTest extends UnitTestCase
         $couponNet = $couponGross / 1.19;
 
         GeneralUtility::addInstance(
-            CurrencyTranslationLoaderInterface::class,
-            new CurrencyTranslationLoader()
+            CurrencyTranslationServiceInterface::class,
+            new CurrencyTranslationService()
         );
         $cart = $this->getMockBuilder(Cart::class)
             ->onlyMethods(['getCouponNet', 'getCurrencyTranslation'])
@@ -1402,8 +1402,8 @@ class CartTest extends UnitTestCase
     public function constructorSetsCurrencyCode(): void
     {
         GeneralUtility::addInstance(
-            CurrencyTranslationLoaderInterface::class,
-            new CurrencyTranslationLoader()
+            CurrencyTranslationServiceInterface::class,
+            new CurrencyTranslationService()
         );
         $cart = new Cart(
             $this->taxClasses,
@@ -1455,8 +1455,8 @@ class CartTest extends UnitTestCase
     public function constructorSetsCurrencySign(): void
     {
         GeneralUtility::addInstance(
-            CurrencyTranslationLoaderInterface::class,
-            new CurrencyTranslationLoader()
+            CurrencyTranslationServiceInterface::class,
+            new CurrencyTranslationService()
         );
         $cart = new Cart(
             $this->taxClasses,
@@ -1508,8 +1508,8 @@ class CartTest extends UnitTestCase
     public function constructorSetsCurrencyTranslation(): void
     {
         GeneralUtility::addInstance(
-            CurrencyTranslationLoaderInterface::class,
-            new CurrencyTranslationLoader()
+            CurrencyTranslationServiceInterface::class,
+            new CurrencyTranslationService()
         );
         $cart = new Cart(
             $this->taxClasses,
@@ -1603,8 +1603,8 @@ class CartTest extends UnitTestCase
     private function createCart(bool $isNetCart): Cart
     {
         GeneralUtility::addInstance(
-            CurrencyTranslationLoaderInterface::class,
-            new CurrencyTranslationLoader()
+            CurrencyTranslationServiceInterface::class,
+            new CurrencyTranslationService()
         );
 
         return new Cart($this->taxClasses, $isNetCart);

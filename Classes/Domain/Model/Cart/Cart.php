@@ -11,7 +11,7 @@ namespace Extcode\Cart\Domain\Model\Cart;
  * LICENSE file that was distributed with this source code.
  */
 
-use Extcode\Cart\Configuration\Loader\CurrencyTranslationLoaderInterface;
+use Extcode\Cart\Service\CurrencyTranslationServiceInterface;
 use InvalidArgumentException;
 use LogicException;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -71,7 +71,7 @@ class Cart implements AdditionalDataInterface
 
     protected string $shippingCountry = '';
 
-    private ?CurrencyTranslationLoaderInterface $currencyTranslationLoader = null;
+    private ?CurrencyTranslationServiceInterface $currencyTranslationLoader = null;
 
     public function __construct(
         protected array $taxClasses,
@@ -80,7 +80,7 @@ class Cart implements AdditionalDataInterface
         protected string $currencySign = '€',
         protected float $currencyTranslation = 1.00
     ) {
-        $this->currencyTranslationLoader = GeneralUtility::makeInstance(CurrencyTranslationLoaderInterface::class);
+        $this->currencyTranslationLoader = GeneralUtility::makeInstance(CurrencyTranslationServiceInterface::class);
 
         $this->net = 0.0;
         $this->gross = 0.0;
@@ -983,7 +983,7 @@ class Cart implements AdditionalDataInterface
     public function translatePrice(?float $price = null): ?float
     {
         if (is_null($this->currencyTranslationLoader)) {
-            $this->currencyTranslationLoader = GeneralUtility::makeInstance(CurrencyTranslationLoaderInterface::class);
+            $this->currencyTranslationLoader = GeneralUtility::makeInstance(CurrencyTranslationServiceInterface::class);
         }
 
         return $this->currencyTranslationLoader->translatePrice($this->getCurrencyTranslation(), $price);

@@ -2,8 +2,6 @@
 
 declare(strict_types=1);
 
-use Extcode\Cart\Configuration\Loader\CurrencyTranslationLoader;
-use Extcode\Cart\Configuration\Loader\CurrencyTranslationLoaderInterface;
 use Extcode\Cart\Configuration\Loader\PaymentMethodsLoaderInterface;
 use Extcode\Cart\Configuration\Loader\ShippingMethodsLoaderInterface;
 use Extcode\Cart\Configuration\Loader\SiteSets\PaymentMethodsLoader as SiteSetsPaymentMethodsLoader;
@@ -19,13 +17,9 @@ use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigura
 return static function (ContainerConfigurator $containerConfigurator): void {
     $services = $containerConfigurator
         ->services()
-    ;
-
-    $services
-        ->alias(
-            CurrencyTranslationLoaderInterface::class,
-            CurrencyTranslationLoader::class
-        )
+        ->defaults()
+        ->autowire()
+        ->autoconfigure()
     ;
 
     $services
@@ -33,6 +27,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
             PaymentMethodsLoaderInterface::class,
             TypoScriptPaymentMethodsLoader::class
         )
+        ->public()
     ;
 
     $services
@@ -50,6 +45,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
             ShippingMethodsLoaderInterface::class,
             TypoScriptShippingMethodsLoader::class
         )
+        ->public()
     ;
 
     $services
@@ -72,6 +68,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
             TaxClassLoaderInterface::class,
             TypoScriptTaxClassLoader::class
         )
+        ->public()
     ;
 
     $services
