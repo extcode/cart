@@ -15,7 +15,6 @@ moved to `Configuration/Loader`.
 
 The interfaces was moved form `Service` to `Configuration`:
 
-`Classes/Service/CurrencyTranslationServiceInterface.php` => `Classes/Configuration/Loader/CurrencyTranslationLoaderInterface.php`
 `Classes/Service/TaxClassServiceInterface.php` => `Classes/Configuration/Loader/TaxClassLoaderInterface.php`
 `Classes/Service/PaymentMethodsServiceInterface.php` => `Classes/Configuration/Loader/PaymentMethodsLoaderInterface.php`
 `Classes/Service/ShippingMethodsServiceInterface.php` => `Classes/Configuration/Loader/ShippingMethodsLoaderInterface.php`
@@ -23,7 +22,6 @@ The interfaces was moved form `Service` to `Configuration`:
 
 The classes was moved form `Service` to `Configuration` or `Configuration/TypoScript`:
 
-`Classes/Service/CurrencyTranslationService.php` => `Classes/Configuration/Loader/CurrencyTranslationLoader.php`
 `Classes/Service/PaymentMethodsFromTypoScriptService.php` => `Classes/Configuration/Loader/TypoScript/PaymentMethodsLoader.php`
 `Classes/Service/ShippingMethodsFromTypoScriptService.php` => `Classes/Configuration/Loader/TypoScript/ShippingMethodsLoader.php`
 `Classes/Service/SpecialOptionsFromTypoScriptService.php` => `Classes/Configuration/Loader/TypoScript/SpecialOptionsLoader.php`

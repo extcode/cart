@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Extcode\Cart\Configuration;
 
 use Extcode\Cart\Hooks\ItemsProcFunc;
+use Extcode\Cart\Service\CurrencyTranslationService;
+use Extcode\Cart\Service\CurrencyTranslationServiceInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use TYPO3\CMS\Dashboard\Widgets\BarChartWidget;
@@ -23,17 +25,43 @@ return static function (ContainerConfigurator $containerConfigurator, ContainerB
         $containerConfigurator->import('Backend/Widgets/TurnoverPerDayWidget.php');
     }
 
+    $services = $containerConfigurator
+        ->services()
+        ->defaults()
+        ->autowire()
+        ->autoconfigure()
+    ;
+
+    $services
+        ->load(
+            'Extcode\\Cart\\',
+            '../Classes/*'
+        )
+        ->exclude(
+            [
+                '../Classes/Widgets/*',
+                '../Classes/Command/*',
+            ]
+        )
+    ;
+
+    $services
+        ->alias(
+            CurrencyTranslationServiceInterface::class,
+            CurrencyTranslationService::class
+        )
+        ->public()
+    ;
+
     if (
         $containerBuilder->hasDefinition(ConfigurationManager::class)
         && $containerBuilder->hasDefinition(FormPersistenceManager::class)
     ) {
-        $services = $containerConfigurator->services();
-
         $services->set(ItemsProcFunc::class)
             ->public()
         ;
     }
 
-    $containerConfigurator->import('Services/Configuration.php');
+    $containerConfigurator->import('Services/ConfigurationLoader.php');
     $containerConfigurator->import('Services/ConsoleCommands.php');
 };

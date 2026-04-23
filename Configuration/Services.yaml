@@ -4,12 +4,6 @@ services:
     autoconfigure: true
     public: false
 
-  Extcode\Cart\:
-    resource: '../Classes/*'
-    exclude:
-      - '../Classes/Widgets/*'
-      - '../Classes/Command/*'
-
   Extcode\Cart\EventListener\Template\Components\ModifyButtonBar:
     tags:
       - name: event.listener
