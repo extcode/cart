@@ -48,7 +48,7 @@ abstract readonly class AbstractConfigurationLoader
 
     public function getConfigurationsForType(string $configurationType, ?string $country = null): ?array
     {
-        if (is_array($this->configurations[$configurationType]) === false
+        if (is_array($this->configurations[$configurationType] ?? null) === false
         ) {
             return null;
         }
