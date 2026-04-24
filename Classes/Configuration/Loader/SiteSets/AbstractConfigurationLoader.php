@@ -63,7 +63,7 @@ abstract readonly class AbstractConfigurationLoader
     {
         $configurations = $this->site->getSettings()->getAll();
         if (is_array($configurations['extcode']) === false
-            || is_array($configurations['extcode'][$configurationType]) === false
+            || is_array($configurations['extcode'][$configurationType] ?? null) === false
         ) {
             return null;
         }
