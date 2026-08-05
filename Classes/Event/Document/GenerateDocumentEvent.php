@@ -12,12 +12,15 @@ namespace Extcode\Cart\Event\Document;
  */
 
 use Extcode\Cart\Domain\Model\Order\Item as OrderItem;
+use Psr\EventDispatcher\StoppableEventInterface;
 
-final readonly class GenerateDocumentEvent
+final class GenerateDocumentEvent implements StoppableEventInterface
 {
+    private bool $isPropagationStopped = false;
+
     public function __construct(
-        private OrderItem $orderItem,
-        private string $type
+        private readonly OrderItem $orderItem,
+        private readonly string $type
     ) {
     }
 
@@ -29,5 +32,15 @@ final readonly class GenerateDocumentEvent
     public function getType(): string
     {
         return $this->type;
+    }
+
+    public function setPropagationStopped(bool $isPropagationStopped): void
+    {
+        $this->isPropagationStopped = $isPropagationStopped;
+    }
+
+    public function isPropagationStopped(): bool
+    {
+        return $this->isPropagationStopped;
     }
 }
