@@ -127,18 +127,6 @@ parameters:
 			path: ../Classes/Configuration/Loader/TypoScript/SpecialOptionsLoader.php
 
 		-
-			message: '#^Argument of an invalid type mixed supplied for foreach, only iterables are supported\.$#'
-			identifier: foreach.nonIterable
-			count: 1
-			path: ../Classes/Configuration/Loader/TypoScript/TaxClassLoader.php
-
-		-
-			message: '#^Parameter \#1 \$taxClassKey of method Extcode\\Cart\\Domain\\Model\\Cart\\TaxClassFactoryInterface\:\:getTaxClass\(\) expects int, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: ../Classes/Configuration/Loader/TypoScript/TaxClassLoader.php
-
-		-
 			message: '#^Parameter \#2 \$array of function array_key_exists expects array, mixed given\.$#'
 			identifier: argument.type
 			count: 2
@@ -147,12 +135,6 @@ parameters:
 		-
 			message: '#^Parameter \#2 \$taxClassValue of method Extcode\\Cart\\Domain\\Model\\Cart\\TaxClassFactoryInterface\:\:getTaxClass\(\) expects array, mixed given\.$#'
 			identifier: argument.type
-			count: 1
-			path: ../Classes/Configuration/Loader/TypoScript/TaxClassLoader.php
-
-		-
-			message: '#^Possibly invalid array key type mixed\.$#'
-			identifier: offsetAccess.invalidOffset
 			count: 1
 			path: ../Classes/Configuration/Loader/TypoScript/TaxClassLoader.php
 
@@ -397,7 +379,7 @@ parameters:
 			path: ../Classes/Controller/Backend/Order/OrderController.php
 
 		-
-			message: '#^Parameter \#1 \$queryResult of class TYPO3\\CMS\\Extbase\\Pagination\\QueryResultPaginator constructor expects TYPO3\\CMS\\Extbase\\Persistence\\QueryResultInterface, array\|TYPO3\\CMS\\Extbase\\Persistence\\QueryResultInterface given\.$#'
+			message: '#^Parameter \#1 \$queryResult of class TYPO3\\CMS\\Extbase\\Pagination\\QueryResultPaginator constructor expects TYPO3\\CMS\\Extbase\\Persistence\\QueryResultInterface, array\|TYPO3\\CMS\\Extbase\\Persistence\\QueryResultInterface\<int, TYPO3\\CMS\\Extbase\\DomainObject\\DomainObjectInterface\> given\.$#'
 			identifier: argument.type
 			count: 1
 			path: ../Classes/Controller/Backend/Order/OrderController.php
@@ -2395,14 +2377,8 @@ parameters:
 			path: ../Classes/Domain/Repository/Order/ItemRepository.php
 
 		-
-			message: '#^Method Extcode\\Cart\\Domain\\Repository\\Order\\ItemRepository\:\:findAll\(\) return type has no value type specified in iterable type array\|TYPO3\\CMS\\Extbase\\Persistence\\QueryResultInterface\.$#'
+			message: '#^Method Extcode\\Cart\\Domain\\Repository\\Order\\ItemRepository\:\:findAll\(\) return type has no value type specified in iterable type array\|TYPO3\\CMS\\Extbase\\Persistence\\QueryResultInterface\<int, TYPO3\\CMS\\Extbase\\DomainObject\\DomainObjectInterface\>\.$#'
 			identifier: missingType.iterableValue
-			count: 1
-			path: ../Classes/Domain/Repository/Order/ItemRepository.php
-
-		-
-			message: '#^Method Extcode\\Cart\\Domain\\Repository\\Order\\ItemRepository\:\:findAll\(\) return type with generic interface TYPO3\\CMS\\Extbase\\Persistence\\QueryResultInterface does not specify its types\: TKey, TValue$#'
-			identifier: missingType.generics
 			count: 1
 			path: ../Classes/Domain/Repository/Order/ItemRepository.php
 
@@ -2491,14 +2467,8 @@ parameters:
 			path: ../Classes/Domain/Repository/Order/ProductRepository.php
 
 		-
-			message: '#^Method Extcode\\Cart\\Domain\\Repository\\Order\\ProductRepository\:\:findAll\(\) return type has no value type specified in iterable type array\|TYPO3\\CMS\\Extbase\\Persistence\\QueryResultInterface\.$#'
+			message: '#^Method Extcode\\Cart\\Domain\\Repository\\Order\\ProductRepository\:\:findAll\(\) return type has no value type specified in iterable type array\|TYPO3\\CMS\\Extbase\\Persistence\\QueryResultInterface\<int, TYPO3\\CMS\\Extbase\\DomainObject\\DomainObjectInterface\>\.$#'
 			identifier: missingType.iterableValue
-			count: 1
-			path: ../Classes/Domain/Repository/Order/ProductRepository.php
-
-		-
-			message: '#^Method Extcode\\Cart\\Domain\\Repository\\Order\\ProductRepository\:\:findAll\(\) return type with generic interface TYPO3\\CMS\\Extbase\\Persistence\\QueryResultInterface does not specify its types\: TKey, TValue$#'
-			identifier: missingType.generics
 			count: 1
 			path: ../Classes/Domain/Repository/Order/ProductRepository.php
 

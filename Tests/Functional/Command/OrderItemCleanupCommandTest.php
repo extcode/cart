@@ -298,8 +298,9 @@ final class OrderItemCleanupCommandTest extends AbstractCommandTestCase
     #[Test]
     public function noCutOffDateTerminatesTheCommandWithErrorMessage(): void
     {
-        $this->expectException(RuntimeException::class);
-        $this->expectExceptionMessage('Not enough arguments (missing: "cutOffDate").');
+        $this->expectExceptionObject(
+            new RuntimeException('Not enough arguments (missing: "cutOffDate").')
+        );
 
         $commandTester = new CommandTester($this->get(OrderItemCleanupCommand::class));
         $commandTester->execute([]);
