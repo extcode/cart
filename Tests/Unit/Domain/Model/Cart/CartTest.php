@@ -258,14 +258,11 @@ class CartTest extends UnitTestCase
     {
         $this->grossCart->setOrderNumber('ValidOrderNumber');
 
-        $this->expectException(
-            LogicException::class
-        );
-        $this->expectExceptionMessage(
-            'You can not redeclare the order number of your cart.'
-        );
-        $this->expectExceptionCode(
-            1413969668
+        $this->expectExceptionObject(
+            new LogicException(
+                'You can not redeclare the order number of your cart.',
+                1413969668
+            )
         );
 
         $this->grossCart->setOrderNumber('NotValidOrderNumber');
@@ -321,14 +318,11 @@ class CartTest extends UnitTestCase
     {
         $this->grossCart->setInvoiceNumber('ValidInvoiceNumber');
 
-        $this->expectException(
-            LogicException::class
-        );
-        $this->expectExceptionMessage(
-            'You can not redeclare the invoice number of your cart.',
-        );
-        $this->expectExceptionCode(
-            1413969712
+        $this->expectExceptionObject(
+            new LogicException(
+                'You can not redeclare the invoice number of your cart.',
+                1413969712
+            )
         );
 
         $this->grossCart->setInvoiceNumber('NotValidInvoiceNumber');
