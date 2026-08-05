@@ -11,11 +11,23 @@ namespace Extcode\Cart\Event\Document;
  * LICENSE file that was distributed with this source code.
  */
 
-use Extcode\Cart\Domain\Model\Order\Item;
+use Extcode\Cart\Domain\Model\Order\Item as OrderItem;
 
 final readonly class GenerateDocumentEvent
 {
-    public function __construct(public Item $orderItem, public string $pdfType)
+    public function __construct(
+        private OrderItem $orderItem,
+        private string $type
+    ) {
+    }
+
+    public function getOrderItem(): OrderItem
     {
+        return $this->orderItem;
+    }
+
+    public function getType(): string
+    {
+        return $this->type;
     }
 }
