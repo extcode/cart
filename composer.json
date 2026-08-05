@@ -43,7 +43,6 @@
         "lock": false,
         "sort-packages": true
     },
-    "version": "12.0.0",
     "extra": {
         "typo3/cms": {
             "extension-key": "cart",
