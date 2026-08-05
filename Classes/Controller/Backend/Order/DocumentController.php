@@ -15,11 +15,9 @@ use Extcode\Cart\Controller\Backend\ActionController;
 use Extcode\Cart\Domain\Model\Cart\Cart;
 use Extcode\Cart\Domain\Model\Order\Item;
 use Extcode\Cart\Domain\Repository\Order\ItemRepository;
+use Extcode\Cart\Event\Document\GenerateDocumentEvent;
 use Extcode\Cart\Event\Order\NumberGeneratorEvent;
-use Extcode\CartPdf\Service\PdfService;
 use Psr\Http\Message\ResponseInterface;
-use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 
@@ -57,7 +55,7 @@ class DocumentController extends ActionController
             $this->persistenceManager->persistAll();
         }
 
-        $this->generatePdfDocument($orderItem, $pdfType);
+        $this->eventDispatcher->dispatch(new GenerateDocumentEvent($orderItem, $pdfType));
 
         $this->itemRepository->update($orderItem);
         $this->persistenceManager->persistAll();
@@ -90,18 +88,5 @@ class DocumentController extends ActionController
         }
 
         return $this->htmlResponse();
-    }
-
-    protected function generatePdfDocument(Item $orderItem, string $pdfType): void
-    {
-        if (ExtensionManagementUtility::isLoaded('cart_pdf')) {
-            if (class_exists(PdfService::class)) {
-                $pdfService = GeneralUtility::makeInstance(
-                    PdfService::class
-                );
-
-                $pdfService->createPdf($orderItem, $pdfType);
-            }
-        }
     }
 }
