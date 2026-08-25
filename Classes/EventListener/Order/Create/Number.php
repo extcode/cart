@@ -43,9 +43,9 @@ abstract class Number
         $number = sprintf($format, $numberInRegistryWithOffset);
 
         return implode('', [
-            is_string($this->options['prefix']) ? $this->options['prefix'] : '',
+            is_string($this->options['prefix'] ?? null) ? $this->options['prefix'] : '',
             $number,
-            is_string($this->options['suffix']) ? $this->options['suffix'] : '',
+            is_string($this->options['suffix'] ?? null) ? $this->options['suffix'] : '',
         ]);
     }
 }
