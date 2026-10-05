@@ -11,15 +11,11 @@ namespace Extcode\Cart\EventListener\Order\Create;
  * LICENSE file that was distributed with this source code.
  */
 
+use DateTime;
 use Extcode\Cart\Event\Order\NumberGeneratorEventInterface;
 
 class DeliveryNumber extends Number
 {
-    protected function getRegistryName(NumberGeneratorEventInterface $event): string
-    {
-        return 'lastDelivery' . '_' . $event->getOrderItem()->getCartPid();
-    }
-
     public function __invoke(NumberGeneratorEventInterface $event): void
     {
         $onlyGenerateNumberOfType = $event->getOnlyGenerateNumberOfType();
@@ -30,10 +26,15 @@ class DeliveryNumber extends Number
         $orderItem = $event->getOrderItem();
 
         $orderItem->setDeliveryNumber($this->generateNumber($event));
-        $orderItem->setDeliveryDate(new \DateTime());
+        $orderItem->setDeliveryDate(new DateTime());
 
         $this->orderItemRepository->update($orderItem);
 
         $this->persistenceManager->persistAll();
+    }
+
+    protected function getRegistryName(NumberGeneratorEventInterface $event): string
+    {
+        return 'lastDelivery_' . $event->getOrderItem()->getCartPid();
     }
 }

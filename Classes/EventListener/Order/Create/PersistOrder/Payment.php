@@ -23,7 +23,8 @@ class Payment
         private readonly PersistenceManager $persistenceManager,
         private readonly ItemRepository $itemRepository,
         private readonly PaymentRepository $paymentRepository
-    ) {}
+    ) {
+    }
 
     public function __invoke(PersistOrderEvent $event): void
     {

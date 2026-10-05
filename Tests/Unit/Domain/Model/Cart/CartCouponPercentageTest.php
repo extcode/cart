@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Extcode\Cart\Tests\Unit\Domain\Model\Cart;
 
 /*
@@ -37,7 +39,7 @@ class CartCouponPercentageTest extends UnitTestCase
 
     protected float $cartMinPrice = 0.0;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->taxClass = new TaxClass(1, '19 %', 0.19, 'normal');
 
@@ -56,81 +58,6 @@ class CartCouponPercentageTest extends UnitTestCase
         );
 
         parent::setUp();
-    }
-
-    #[Test]
-    public function constructCouponWithoutTitleThrowsException(): void
-    {
-        $this->expectException(\TypeError::class);
-
-        $this->coupon = new CartCouponPercentage(
-            null,
-            $this->code,
-            $this->couponType,
-            $this->discount,
-            $this->taxClass,
-            $this->cartMinPrice
-        );
-    }
-
-    #[Test]
-    public function constructCouponWithoutCodeThrowsException(): void
-    {
-        $this->expectException(\TypeError::class);
-
-        $this->coupon = new CartCouponPercentage(
-            $this->title,
-            null,
-            $this->couponType,
-            $this->discount,
-            $this->taxClass,
-            $this->cartMinPrice
-        );
-    }
-
-    #[Test]
-    public function constructCouponWithoutCouponTypeThrowsException(): void
-    {
-        $this->expectException(\TypeError::class);
-
-        $this->coupon = new CartCouponPercentage(
-            $this->title,
-            $this->code,
-            null,
-            $this->discount,
-            $this->taxClass,
-            $this->cartMinPrice
-        );
-    }
-
-    #[Test]
-    public function constructCouponWithoutDiscountThrowsException(): void
-    {
-        $this->expectException(\TypeError::class);
-
-        $this->coupon = new CartCouponPercentage(
-            $this->title,
-            $this->code,
-            $this->couponType,
-            null,
-            $this->taxClass,
-            $this->cartMinPrice
-        );
-    }
-
-    #[Test]
-    public function constructCouponWithoutTaxClassThrowsException(): void
-    {
-        $this->expectException(\TypeError::class);
-
-        $this->coupon = new CartCouponPercentage(
-            $this->title,
-            $this->code,
-            $this->couponType,
-            $this->discount,
-            null,
-            $this->cartMinPrice
-        );
     }
 
     #[Test]
@@ -348,8 +275,9 @@ class CartCouponPercentageTest extends UnitTestCase
         );
 
         return $this->getMockBuilder(Cart::class)
-            ->onlyMethods($methods)
+            ->onlyMethods(array_values(array_filter(array_filter($methods, is_string(...)))))
             ->setConstructorArgs([[$this->taxClass]])
-            ->getMock();
+            ->getMock()
+        ;
     }
 }

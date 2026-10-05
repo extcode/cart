@@ -8,7 +8,7 @@ use Extcode\Cart\Widgets\Provider\TurnoverPerDayProvider;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symfony\Component\DependencyInjection\Reference;
 
-return function (ContainerConfigurator $configurator) {
+return static function (ContainerConfigurator $configurator): void {
     $services = $configurator->services();
 
     $services->set('extcode.cart.provider.turnover_per_day')
@@ -16,5 +16,6 @@ return function (ContainerConfigurator $configurator) {
         ->arg('$queryBuilder', new Reference('querybuilder.tx_cart_domain_model_order_item'))
         ->arg('$options', [
             'sum' => 'total_gross',
-        ]);
+        ])
+    ;
 };

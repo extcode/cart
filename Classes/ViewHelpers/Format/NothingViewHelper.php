@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Extcode\Cart\ViewHelpers\Format;
 
 /*
@@ -25,3 +27,6 @@ class NothingViewHelper extends AbstractViewHelper
         $this->renderChildren();
     }
 }
+
+// keep compatibility for $escapeOutput property definition of parent class
+// @php-cs-fixer-ignore phpdoc_to_property_type

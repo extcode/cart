@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Extcode\Cart\Service;
 
 /*
@@ -10,7 +12,7 @@ namespace Extcode\Cart\Service;
  */
 
 use Extcode\Cart\Domain\Model\Cart\Cart;
-use Extcode\Cart\Domain\Model\Order\AbstractAddress;
+use Extcode\Cart\Domain\Model\Order\AddressInterface;
 use Extcode\Cart\Event\Session\AfterRestoreAddressEvent;
 use Extcode\Cart\Event\Session\AfterRestoreCartEvent;
 use Extcode\Cart\Event\Session\BeforeWriteAddressEvent;
@@ -22,6 +24,7 @@ use TYPO3\CMS\Frontend\Authentication\FrontendUserAuthentication;
 class SessionHandler implements SingletonInterface
 {
     protected $prefixKey = 'cart_';
+
     private FrontendUserAuthentication $frontendUserAuthentication;
 
     public function __construct(
@@ -42,6 +45,7 @@ class SessionHandler implements SingletonInterface
             if ($cart instanceof Cart) {
                 $afterRestoreCartEvent = new AfterRestoreCartEvent($cart);
                 $this->eventDispatcher->dispatch($afterRestoreCartEvent);
+
                 return $cart;
             }
         }
@@ -72,17 +76,18 @@ class SessionHandler implements SingletonInterface
     }
 
     /**
-     * restore an AbstractAddress object from session
+     * restore an AddressInterface object from session
      */
-    public function restoreAddress(string $key): ?AbstractAddress
+    public function restoreAddress(string $key): ?AddressInterface
     {
         $sessionData = $this->frontendUserAuthentication->getKey('ses', $this->prefixKey . $key);
 
         if (is_string($sessionData)) {
             $address = unserialize($sessionData);
-            if ($address instanceof AbstractAddress) {
+            if ($address instanceof AddressInterface) {
                 $afterRestoreAddressEvent = new AfterRestoreAddressEvent($address);
                 $this->eventDispatcher->dispatch($afterRestoreAddressEvent);
+
                 return $address;
             }
         }
@@ -91,9 +96,9 @@ class SessionHandler implements SingletonInterface
     }
 
     /**
-     * writes an AbstractAddress object to session
+     * writes an AddressInterface object to session
      */
-    public function writeAddress(string $key, AbstractAddress $address): void
+    public function writeAddress(string $key, AddressInterface $address): void
     {
         $beforeWriteAddressEvent = new BeforeWriteAddressEvent($address);
         $this->eventDispatcher->dispatch($beforeWriteAddressEvent);

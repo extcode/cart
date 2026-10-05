@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Extcode\Cart\Event\Form;
 
 use Extcode\Cart\Domain\Model\Cart\Cart;
@@ -17,7 +19,8 @@ class AddToCartFinisherEvent
     public function __construct(
         private readonly array $formValues,
         private readonly Cart $cart
-    ) {}
+    ) {
+    }
 
     public function getFormValues(): array
     {

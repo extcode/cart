@@ -23,11 +23,11 @@ class CategoryTraitTest extends UnitTestCase
 {
     protected $trait;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
 
-        $this->trait = $this->getObjectForTrait(CategoryTrait::class);
+        $this->trait = new CategoryTraitStub();
     }
 
     #[Test]

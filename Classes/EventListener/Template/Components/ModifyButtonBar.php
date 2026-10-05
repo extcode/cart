@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Extcode\Cart\EventListener\Template\Components;
 
 use Extcode\Cart\Event\Template\Components\ModifyButtonBarEvent;
@@ -10,7 +12,8 @@ class ModifyButtonBar
 {
     public function __construct(
         private readonly UriBuilder $uriBuilder
-    ) {}
+    ) {
+    }
 
     public function __invoke(ModifyButtonBarEvent $event): void
     {
@@ -31,12 +34,12 @@ class ModifyButtonBar
         }
     }
 
-    private function modifyListActionButtons(ModifyButtonBarEvent $event)
+    private function modifyListActionButtons(ModifyButtonBarEvent $event): void
     {
         $event->setButtons(
             array_merge(
                 $event->getButtons(),
-                [ 'action-export-csv' => [
+                ['action-export-csv' => [
                     'link' => $this->uriBuilder->reset()->setRequest($event->getRequest())
                         ->setArguments(['searchArguments' => $event->getSearchArguments()])
                         ->setFormat('csv')
@@ -51,12 +54,12 @@ class ModifyButtonBar
         );
     }
 
-    private function modifyShowActionButtons(ModifyButtonBarEvent $event)
+    private function modifyShowActionButtons(ModifyButtonBarEvent $event): void
     {
         $event->setButtons(
             array_merge(
                 $event->getButtons(),
-                [ 'action-close' => [
+                ['action-close' => [
                     'link' => $this->uriBuilder->reset()->setRequest($event->getRequest())
                         ->uriFor(
                             'list'

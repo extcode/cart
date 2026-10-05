@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Extcode\Cart\Tests\Unit\Domain\Model\Order;
 
 /*
@@ -25,7 +27,7 @@ class TaxClassTest extends UnitTestCase
 
     protected float $calc = 0.0;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->title = 'normal';
         $this->value = '19 %';

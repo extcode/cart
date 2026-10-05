@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Extcode\Cart\ViewHelpers\Variable;
 
 /*
@@ -9,6 +11,7 @@ namespace Extcode\Cart\ViewHelpers\Variable;
  * LICENSE file that was distributed with this source code.
  */
 
+use Exception;
 use TYPO3\CMS\Extbase\Reflection\ObjectAccess;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
@@ -85,13 +88,13 @@ class SetViewHelper extends AbstractViewHelper
         if ($value === null) {
             $value = $this->renderChildren();
         }
-        if (!str_contains((string)$name, '.')) {
+        if (!str_contains((string) $name, '.')) {
             if ($this->templateVariableContainer->exists($name) === true) {
                 $this->templateVariableContainer->remove($name);
             }
             $this->templateVariableContainer->add($name, $value);
-        } elseif (substr_count((string)$name, '.') === 1) {
-            $parts = explode('.', (string)$name);
+        } elseif (mb_substr_count((string) $name, '.') === 1) {
+            $parts = explode('.', (string) $name);
             $objectName = array_shift($parts);
             $path = implode('.', $parts);
             if ($this->templateVariableContainer->exists($objectName) === false) {
@@ -103,10 +106,11 @@ class SetViewHelper extends AbstractViewHelper
                 // Note: re-insert the variable to ensure unreferenced values like arrays also get updated
                 $this->templateVariableContainer->remove($objectName);
                 $this->templateVariableContainer->add($objectName, $object);
-            } catch (\Exception) {
+            } catch (Exception) {
                 return null;
             }
         }
+
         return null;
     }
 }

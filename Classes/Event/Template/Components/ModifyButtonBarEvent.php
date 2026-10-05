@@ -23,7 +23,8 @@ final class ModifyButtonBarEvent
         private readonly array $settings,
         private readonly array $searchArguments,
         private readonly ?Item $orderItem = null,
-    ) {}
+    ) {
+    }
 
     public function getRequest(): RequestInterface
     {

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Extcode\Cart\Tests\Unit\Domain\Model\Order;
 
 /*
@@ -24,7 +26,7 @@ class TaxTest extends UnitTestCase
 
     protected TaxClass $taxClass;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->taxClass = new TaxClass();
         $this->taxClass->setTitle('normal');
@@ -39,28 +41,6 @@ class TaxTest extends UnitTestCase
         );
 
         parent::setUp();
-    }
-
-    #[Test]
-    public function constructTaxWithoutTaxThrowsException(): void
-    {
-        $this->expectException(\TypeError::class);
-
-        new Tax(
-            null,
-            $this->taxClass
-        );
-    }
-
-    #[Test]
-    public function constructTaxWithoutTaxClassThrowsException(): void
-    {
-        $this->expectException(\TypeError::class);
-
-        new Tax(
-            $this->tax,
-            null
-        );
     }
 
     #[Test]

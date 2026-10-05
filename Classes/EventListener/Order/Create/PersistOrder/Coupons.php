@@ -27,7 +27,8 @@ class Coupons
         private readonly ItemRepository $itemRepository,
         private readonly DiscountRepository $discountRepository,
         private readonly CouponRepository $couponRepository
-    ) {}
+    ) {
+    }
 
     public function __invoke(PersistOrderEvent $event): void
     {

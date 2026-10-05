@@ -105,10 +105,7 @@ interface ProductInterface extends MinimalInterface
 
     public function getTax(): float;
 
-    /**
-     * @return mixed
-     */
-    public function getError();
+    public function getError(): mixed;
 
     public function isVirtualProduct(): bool;
 

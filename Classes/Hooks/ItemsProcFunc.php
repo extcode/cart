@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Extcode\Cart\Hooks;
 
 /*
@@ -53,13 +55,13 @@ class ItemsProcFunc
      */
     protected function reduceTemplateLayouts(array $templateLayouts, int $currentColPos): array
     {
-        $currentColPos = (int)$currentColPos;
+        $currentColPos = (int) $currentColPos;
         $restrictions = [];
         $allLayouts = [];
         foreach ($templateLayouts as $key => $layout) {
             if (is_array($layout[0])) {
-                if (isset($layout[0]['allowedColPos']) && \str_ends_with((string)$layout[1], '.')) {
-                    $layoutKey = substr((string)$layout[1], 0, -1);
+                if (isset($layout[0]['allowedColPos']) && \str_ends_with((string) $layout[1], '.')) {
+                    $layoutKey = mb_substr((string) $layout[1], 0, -1);
                     $restrictions[$layoutKey] = GeneralUtility::intExplode(',', $layout[0]['allowedColPos'], true);
                 }
             } else {
@@ -87,6 +89,7 @@ class ItemsProcFunc
         }
 
         $row = BackendUtilityCore::getRecord('tt_content', abs($pid), 'uid,pid');
+
         return $row['pid'];
     }
 

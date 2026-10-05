@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Extcode\Cart\Tests\Unit\Domain\Model\Cart;
 
 /*
@@ -16,6 +18,7 @@ use Extcode\Cart\Domain\Model\Cart\ProductFactoryInterface;
 use Extcode\Cart\Domain\Model\Cart\TaxClass;
 use Extcode\Cart\Service\CurrencyTranslationService;
 use Extcode\Cart\Service\CurrencyTranslationServiceInterface;
+use LogicException;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Test;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -24,8 +27,6 @@ use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 #[CoversClass(Cart::class)]
 class CartTest extends UnitTestCase
 {
-    private ProductFactoryInterface $productFactory;
-
     protected Cart $grossCart;
 
     protected Cart $netCart;
@@ -38,7 +39,9 @@ class CartTest extends UnitTestCase
 
     protected array $taxClasses = [];
 
-    public function setUp(): void
+    private ProductFactoryInterface $productFactory;
+
+    protected function setUp(): void
     {
         parent::setUp();
 
@@ -58,17 +61,8 @@ class CartTest extends UnitTestCase
         $this->netCart = $this->createCart(true);
     }
 
-    public function tearDown(): void
+    protected function tearDown(): void
     {
-        unset($this->grossCart);
-        unset($this->netCart);
-
-        unset($this->taxClasses);
-
-        unset($this->normalTaxClass);
-        unset($this->reducedTaxClass);
-        unset($this->freeTaxClass);
-
         parent::tearDown();
     }
 
@@ -264,14 +258,11 @@ class CartTest extends UnitTestCase
     {
         $this->grossCart->setOrderNumber('ValidOrderNumber');
 
-        $this->expectException(
-            'LogicException'
-        );
-        $this->expectExceptionMessage(
-            'You can not redeclare the order number of your cart.'
-        );
-        $this->expectExceptionCode(
-            1413969668
+        $this->expectExceptionObject(
+            new LogicException(
+                'You can not redeclare the order number of your cart.',
+                1413969668
+            )
         );
 
         $this->grossCart->setOrderNumber('NotValidOrderNumber');
@@ -327,14 +318,11 @@ class CartTest extends UnitTestCase
     {
         $this->grossCart->setInvoiceNumber('ValidInvoiceNumber');
 
-        $this->expectException(
-            'LogicException'
-        );
-        $this->expectExceptionMessage(
-            'You can not redeclare the invoice number of your cart.',
-        );
-        $this->expectExceptionCode(
-            1413969712
+        $this->expectExceptionObject(
+            new LogicException(
+                'You can not redeclare the invoice number of your cart.',
+                1413969712
+            )
         );
 
         $this->grossCart->setInvoiceNumber('NotValidInvoiceNumber');
@@ -1198,23 +1186,6 @@ class CartTest extends UnitTestCase
         );
     }
 
-    protected function addFirstProductToCarts(): void
-    {
-        $product = $this->productFactory->create(
-            'simple',
-            1,
-            'SKU',
-            'First Product',
-            10.00,
-            $this->normalTaxClass,
-            1,
-            false
-        );
-
-        $this->grossCart->addProduct($product);
-        $this->netCart->addProduct($product);
-    }
-
     #[Test]
     public function getCouponGrossReturnsCouponsGrossSumOfCouponsWhenCartMinPriceWasReached(): void
     {
@@ -1344,7 +1315,8 @@ class CartTest extends UnitTestCase
         $cart = $this->getMockBuilder(Cart::class)
             ->onlyMethods(['getCouponGross', 'getCurrencyTranslation'])
             ->setConstructorArgs([$this->taxClasses])
-            ->getMock();
+            ->getMock()
+        ;
         $cart->method('getCouponGross')->willReturn($couponGross);
         $cart->method('getCurrencyTranslation')->willReturn(1.00);
 
@@ -1381,7 +1353,8 @@ class CartTest extends UnitTestCase
         $cart = $this->getMockBuilder(Cart::class)
             ->onlyMethods(['getCouponNet', 'getCurrencyTranslation'])
             ->setConstructorArgs([$this->taxClasses])
-            ->getMock();
+            ->getMock()
+        ;
         $cart->method('getCouponNet')->willReturn($couponNet);
         $cart->method('getCurrencyTranslation')->willReturn(1.00);
 
@@ -1602,6 +1575,23 @@ class CartTest extends UnitTestCase
             10.0,
             $this->netCart->translatePrice(5.0)
         );
+    }
+
+    protected function addFirstProductToCarts(): void
+    {
+        $product = $this->productFactory->create(
+            'simple',
+            1,
+            'SKU',
+            'First Product',
+            10.00,
+            $this->normalTaxClass,
+            1,
+            false
+        );
+
+        $this->grossCart->addProduct($product);
+        $this->netCart->addProduct($product);
     }
 
     private function createCart(bool $isNetCart): Cart

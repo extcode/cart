@@ -17,7 +17,6 @@ use Extcode\Cart\Domain\Repository\Order\ItemRepository;
 use Extcode\Cart\Domain\Repository\Order\ShippingAddressRepository;
 use Extcode\Cart\Event\Order\PersistOrderEvent;
 use TYPO3\CMS\Core\Context\Context;
-use TYPO3\CMS\Core\Context\UserAspect;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
 
@@ -27,8 +26,10 @@ class Item
         private readonly PersistenceManager $persistenceManager,
         private readonly ItemRepository $itemRepository,
         private readonly BillingAddressRepository $billingAddressRepository,
-        private readonly ShippingAddressRepository $shippingAddressRepository
-    ) {}
+        private readonly ShippingAddressRepository $shippingAddressRepository,
+        private readonly Context $context
+    ) {
+    }
 
     public function __invoke(PersistOrderEvent $event): void
     {
@@ -39,12 +40,9 @@ class Item
 
         $orderItem->setPid($storagePid);
 
-        $userAspect = GeneralUtility::makeInstance(Context::class)->getAspect('frontend.user');
+        $userAspect = $this->context->getAspect('frontend.user');
 
-        if (
-            $userAspect instanceof UserAspect
-            && $userAspect->isLoggedIn()
-        ) {
+        if ($userAspect->isLoggedIn()) {
             $frontendUserRepository = GeneralUtility::makeInstance(
                 FrontendUserRepository::class
             );
@@ -63,8 +61,10 @@ class Item
         $orderItem->setTotalGross($cart->getTotalGross());
         $orderItem->setTotalNet($cart->getTotalNet());
 
-        /* In multistep checkout the setting `shippingSameAsBilling` might get lost for the orderItem,
-           but it does not get lost for the cart as the cart is stored between every step in the session */
+        /*
+           * In multistep checkout the setting `shippingSameAsBilling` might get lost for the orderItem,
+           but it does not get lost for the cart as the cart is stored between every step in the session
+           */
         $orderItem->setShippingSameAsBilling($cart->isShippingSameAsBilling());
         if ($orderItem->isShippingSameAsBilling()) {
             $orderItem->removeShippingAddress();

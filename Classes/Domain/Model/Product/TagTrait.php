@@ -14,7 +14,7 @@ namespace Extcode\Cart\Domain\Model\Product;
 use Extcode\Cart\Domain\Model\Tag;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 
-trait TagTrait
+trait TagTrait // @phpstan-ignore trait.unused (provided for product extensions)
 {
     /**
      * @var ObjectStorage<Tag>

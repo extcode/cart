@@ -8,7 +8,7 @@ use Extcode\Cart\Widgets\Provider\OrdersPerDayProvider;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symfony\Component\DependencyInjection\Reference;
 
-return function (ContainerConfigurator $configurator) {
+return static function (ContainerConfigurator $configurator): void {
     $services = $configurator->services();
 
     $services->set('extcode.cart.provider.orders_per_day')
@@ -23,5 +23,6 @@ return function (ContainerConfigurator $configurator) {
                     'status' => 'open',
                 ],
             ],
-        ]);
+        ])
+    ;
 };

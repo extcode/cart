@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Extcode\Cart\Hooks;
 
 /*
@@ -9,6 +11,7 @@ namespace Extcode\Cart\Hooks;
  * LICENSE file that was distributed with this source code.
  */
 
+use LogicException;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Form\Mvc\Configuration\ConfigurationManagerInterface as ExtFormConfigurationManagerInterface;
 use TYPO3\CMS\Form\Mvc\Persistence\FormPersistenceManagerInterface;
@@ -19,7 +22,8 @@ class FormDefinitions
         private readonly FormPersistenceManagerInterface $formPersistenceManager,
         private readonly ConfigurationManagerInterface $configurationManager,
         private readonly ExtFormConfigurationManagerInterface $extFormConfigurationManager,
-    ) {}
+    ) {
+    }
 
     public function getItems(array &$config): void
     {
@@ -54,8 +58,9 @@ class FormDefinitions
         if (!isset($formSettings['formManager'])) {
             // Config sub array formManager is crucial and should always exist. If it does
             // not, this indicates an issue in config loading logic. Except in this case.
-            throw new \LogicException('Configuration could not be loaded', 1723717461);
+            throw new LogicException('Configuration could not be loaded', 1723717461);
         }
+
         return $formSettings;
     }
 }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Extcode\Cart\ViewHelpers\Traversable;
 
 /*
@@ -9,7 +11,9 @@ namespace Extcode\Cart\ViewHelpers\Traversable;
  * LICENSE file that was distributed with this source code.
  */
 
+use Exception;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
+use Traversable;
 
 class ExtractViewHelper extends AbstractViewHelper
 {
@@ -25,7 +29,7 @@ class ExtractViewHelper extends AbstractViewHelper
         );
         $this->registerArgument(
             'content',
-            \Traversable::class,
+            'array',
             'Content',
             false
         );
@@ -37,10 +41,7 @@ class ExtractViewHelper extends AbstractViewHelper
         );
     }
 
-    /**
-     * @return array
-     */
-    public function render()
+    public function render(): mixed
     {
         $key = $this->arguments['key'];
         $content = $this->arguments['content'];
@@ -51,7 +52,7 @@ class ExtractViewHelper extends AbstractViewHelper
 
         try {
             $result = $this->extractByKey($content, $key);
-        } catch (\Exception) {
+        } catch (Exception) {
             $result = [];
         }
 
@@ -66,6 +67,7 @@ class ExtractViewHelper extends AbstractViewHelper
             if (isset($backup) === true) {
                 $this->templateVariableContainer->add($this->arguments['as'], $backup);
             }
+
             return $content;
         }
 
@@ -75,12 +77,12 @@ class ExtractViewHelper extends AbstractViewHelper
     /**
      * Extract by key
      *
-     * @throws \Exception
+     * @throws Exception
      */
     public function extractByKey($iterator, string $key): mixed
     {
-        if ((is_array($iterator) === false) && ($iterator instanceof \Traversable === false)) {
-            throw new \Exception('Traversable object or array expected but received ' . gettype($iterator), 1361532490);
+        if ((is_array($iterator) === false) && ($iterator instanceof Traversable === false)) {
+            throw new Exception('Traversable object or array expected but received ' . gettype($iterator), 1361532490);
         }
 
         return $iterator[$key];

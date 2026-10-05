@@ -13,7 +13,7 @@ namespace Extcode\Cart\Domain\Model\Product;
 use TYPO3\CMS\Extbase\Domain\Model\FileReference;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 
-trait FileAndImageTrait
+trait FileAndImageTrait // @phpstan-ignore trait.unused (provided for product extensions)
 {
     /**
      * @var ObjectStorage<FileReference>

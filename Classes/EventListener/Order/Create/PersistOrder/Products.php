@@ -26,9 +26,9 @@ use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
 
 class Products
 {
-    private Item $orderItem;
-
     protected array $taxClasses;
+
+    private Item $orderItem;
 
     private int $storagePid;
 
@@ -36,7 +36,8 @@ class Products
         private readonly PersistenceManager $persistenceManager,
         private readonly ProductRepository $productRepository,
         private readonly ProductAdditionalRepository $productAdditionalRepository
-    ) {}
+    ) {
+    }
 
     public function __invoke(PersistOrderEvent $event): void
     {
@@ -132,7 +133,7 @@ class Products
 
     protected function addVariantsOfVariant(BeVariantInterface $variant, int $level): void
     {
-        $level += 1;
+        $level++;
 
         foreach ($variant->getBeVariants() as $variantInner) {
             if ($variantInner->getBeVariants()) {

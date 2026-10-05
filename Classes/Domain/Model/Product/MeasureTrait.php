@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Extcode\Cart\Domain\Model\Product;
 
 /*
@@ -9,7 +11,7 @@ namespace Extcode\Cart\Domain\Model\Product;
  * LICENSE file that was distributed with this source code.
  */
 
-trait MeasureTrait
+trait MeasureTrait // @phpstan-ignore trait.unused (provided for product extensions)
 {
     protected float $priceMeasure = 0.0;
 
@@ -89,8 +91,7 @@ trait MeasureTrait
     {
         foreach ($this->measureUnits as $measureUnitGroup) {
             if (
-                isset($measureUnitGroup[$this->priceMeasureUnit])
-                && isset($measureUnitGroup[$this->basePriceMeasureUnit])
+                isset($measureUnitGroup[$this->priceMeasureUnit], $measureUnitGroup[$this->basePriceMeasureUnit])
             ) {
                 return true;
             }
@@ -105,10 +106,10 @@ trait MeasureTrait
 
         foreach ($this->measureUnits as $measureUnit) {
             if (array_key_exists($this->priceMeasureUnit, $measureUnit)) {
-                $factor = $factor / ($this->priceMeasure / $measureUnit[$this->priceMeasureUnit]);
+                $factor /= ($this->priceMeasure / $measureUnit[$this->priceMeasureUnit]);
             }
             if (array_key_exists($this->basePriceMeasureUnit, $measureUnit)) {
-                $factor = $factor * (1.0 / $measureUnit[$this->basePriceMeasureUnit]);
+                $factor *= (1.0 / $measureUnit[$this->basePriceMeasureUnit]);
             }
         }
 

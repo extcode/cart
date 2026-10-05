@@ -18,7 +18,8 @@ class LogServiceUpdate
 {
     public function __construct(
         private readonly LoggerInterface $logger
-    ) {}
+    ) {
+    }
 
     public function __invoke(UpdateServiceEvent $event): void
     {

@@ -9,7 +9,7 @@ use Symfony\Component\DependencyInjection\Reference;
 use TYPO3\CMS\Backend\View\BackendViewFactory;
 use TYPO3\CMS\Dashboard\Widgets\BarChartWidget;
 
-return function (ContainerConfigurator $configurator) {
+return static function (ContainerConfigurator $configurator): void {
     $services = $configurator->services();
 
     $services->set('dashboard.widget.extcode.cart.turnover_per_day')
@@ -24,5 +24,6 @@ return function (ContainerConfigurator $configurator) {
             'iconIdentifier' => 'content-widget-chart-bar',
             'height' => 'medium',
             'width' => 'medium',
-        ]);
+        ])
+    ;
 };

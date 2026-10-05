@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Extcode\Cart\Domain\Model\Cart;
 
+use InvalidArgumentException;
+
 /*
  * This file is part of the package extcode/cart.
  *
@@ -148,8 +150,8 @@ final class Product implements AdditionalDataInterface, ProductInterface
         foreach ($variantQuantity as $variantId => $quantity) {
             $variant = $this->beVariants[$variantId];
 
-            if (ctype_digit((string)$quantity)) {
-                $quantity = (int)$quantity;
+            if (ctype_digit((string) $quantity)) {
+                $quantity = (int) $quantity;
                 $variant->changeQuantity($quantity);
             } elseif (is_array($quantity)) {
                 $variant->changeVariantsQuantity($quantity);
@@ -240,15 +242,6 @@ final class Product implements AdditionalDataInterface, ProductInterface
         return $this->getTableProductId();
     }
 
-    protected function getTableProductId(): string
-    {
-        $tableProductId = $this->getProductType() . '_' . $this->getProductId();
-        if ($this->getFeVariant()) {
-            $tableProductId .= '_' . $this->getFeVariant()->getId();
-        }
-        return $tableProductId;
-    }
-
     public function getPrice(): float
     {
         return $this->price;
@@ -312,7 +305,7 @@ final class Product implements AdditionalDataInterface, ProductInterface
     /**
      * Returns Best Price (min of Price and Special Price)
      */
-    public function getBestPrice(?int $quantity = null): ?float
+    public function getBestPrice(?int $quantity = null): float
     {
         $bestPrice = $this->getQuantityDiscountPrice($quantity);
 
@@ -329,9 +322,7 @@ final class Product implements AdditionalDataInterface, ProductInterface
      */
     public function getDiscount(): float
     {
-        $discount = $this->getTranslatedPrice() - $this->getBestPrice();
-
-        return $discount;
+        return $this->getTranslatedPrice() - $this->getBestPrice();
     }
 
     /**
@@ -343,6 +334,7 @@ final class Product implements AdditionalDataInterface, ProductInterface
         if (($this->getTranslatedPrice() != 0.0) && ($this->getTranslatedSpecialPrice())) {
             $discount = (($this->getTranslatedPrice() - $this->getTranslatedSpecialPrice()) / $this->getTranslatedPrice()) * 100;
         }
+
         return $discount;
     }
 
@@ -376,12 +368,12 @@ final class Product implements AdditionalDataInterface, ProductInterface
     public function changeQuantities(array $newQuantities): void
     {
         foreach ($newQuantities as $newQuantityKey => $newQuantityValue) {
-            $newQuantityKey = (string)$newQuantityKey;
-            $newQuantityValue = (int)$newQuantityValue;
+            $newQuantityKey = (string) $newQuantityKey;
+            $newQuantityValue = (int) $newQuantityValue;
             if ($newQuantityValue === 0) {
-                $this->removeVariantById((string)$newQuantityKey);
+                $this->removeVariantById((string) $newQuantityKey);
             } else {
-                $this->getBeVariantById((string)$newQuantityKey)->setQuantity($newQuantityValue);
+                $this->getBeVariantById((string) $newQuantityKey)->setQuantity($newQuantityValue);
                 $this->reCalc();
             }
         }
@@ -414,6 +406,7 @@ final class Product implements AdditionalDataInterface, ProductInterface
             $this->calcGross();
             $gross = $this->gross;
         }
+
         return $gross;
     }
 
@@ -424,6 +417,7 @@ final class Product implements AdditionalDataInterface, ProductInterface
             $this->calcNet();
             $net = $this->net;
         }
+
         return $net;
     }
 
@@ -434,13 +428,11 @@ final class Product implements AdditionalDataInterface, ProductInterface
             $this->calcTax();
             $tax = $this->tax;
         }
+
         return $tax;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getError()
+    public function getError(): mixed
     {
         return $this->error;
     }
@@ -523,6 +515,76 @@ final class Product implements AdditionalDataInterface, ProductInterface
         return json_encode($this->toArray());
     }
 
+    public function getMinNumberInCart(): int
+    {
+        return $this->minNumberInCart;
+    }
+
+    public function setMinNumberInCart(int $minNumberInCart): void
+    {
+        if ($minNumberInCart < 0
+            || ($this->maxNumberInCart > 0 && $minNumberInCart > $this->maxNumberInCart)
+        ) {
+            throw new InvalidArgumentException();
+        }
+
+        $this->minNumberInCart = $minNumberInCart;
+    }
+
+    public function getMaxNumberInCart(): int
+    {
+        return $this->maxNumberInCart;
+    }
+
+    public function setMaxNumberInCart(int $maxNumberInCart): void
+    {
+        if ($maxNumberInCart < 0 || $maxNumberInCart < $this->minNumberInCart) {
+            throw new InvalidArgumentException();
+        }
+
+        $this->maxNumberInCart = $maxNumberInCart;
+    }
+
+    public function getStock(): int
+    {
+        return $this->stock;
+    }
+
+    public function setStock(int $stock): void
+    {
+        $this->stock = $stock;
+    }
+
+    public function isHandleStock(): bool
+    {
+        return $this->handleStock;
+    }
+
+    public function setHandleStock(bool $handleStock): void
+    {
+        $this->handleStock = $handleStock;
+    }
+
+    public function isHandleStockInVariants(): bool
+    {
+        return $this->handleStockInVariants;
+    }
+
+    public function setHandleStockInVariants(bool $handleStockInVariants): void
+    {
+        $this->handleStockInVariants = $handleStockInVariants;
+    }
+
+    protected function getTableProductId(): string
+    {
+        $tableProductId = $this->getProductType() . '_' . $this->getProductId();
+        if ($this->getFeVariant()) {
+            $tableProductId .= '_' . $this->getFeVariant()->getId();
+        }
+
+        return $tableProductId;
+    }
+
     protected function calcGross(): void
     {
         if ($this->isNetPrice == false) {
@@ -554,7 +616,7 @@ final class Product implements AdditionalDataInterface, ProductInterface
         if ($this->isNetPrice == false) {
             $this->tax = ($this->gross / (1 + $this->getTaxClass()->getCalc())) * ($this->getTaxClass()->getCalc());
         } else {
-            $this->tax = ($this->net * $this->getTaxClass()->getCalc());
+            $this->tax = $this->net * $this->getTaxClass()->getCalc();
         }
     }
 
@@ -600,65 +662,5 @@ final class Product implements AdditionalDataInterface, ProductInterface
         $this->calcGross();
         $this->calcTax();
         $this->calcNet();
-    }
-
-    public function getMinNumberInCart(): int
-    {
-        return $this->minNumberInCart;
-    }
-
-    public function setMinNumberInCart(int $minNumberInCart): void
-    {
-        if ($minNumberInCart < 0
-            || ($this->maxNumberInCart > 0 && $minNumberInCart > $this->maxNumberInCart)
-        ) {
-            throw new \InvalidArgumentException();
-        }
-
-        $this->minNumberInCart = $minNumberInCart;
-    }
-
-    public function getMaxNumberInCart(): int
-    {
-        return $this->maxNumberInCart;
-    }
-
-    public function setMaxNumberInCart(int $maxNumberInCart): void
-    {
-        if ($maxNumberInCart < 0 || $maxNumberInCart < $this->minNumberInCart) {
-            throw new \InvalidArgumentException();
-        }
-
-        $this->maxNumberInCart = $maxNumberInCart;
-    }
-
-    public function getStock(): int
-    {
-        return $this->stock;
-    }
-
-    public function setStock(int $stock): void
-    {
-        $this->stock = $stock;
-    }
-
-    public function isHandleStock(): bool
-    {
-        return $this->handleStock;
-    }
-
-    public function setHandleStock(bool $handleStock): void
-    {
-        $this->handleStock = $handleStock;
-    }
-
-    public function isHandleStockInVariants(): bool
-    {
-        return $this->handleStockInVariants;
-    }
-
-    public function setHandleStockInVariants(bool $handleStockInVariants): void
-    {
-        $this->handleStockInVariants = $handleStockInVariants;
     }
 }

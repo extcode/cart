@@ -11,11 +11,11 @@ namespace Extcode\Cart\Controller\Cart;
  * LICENSE file that was distributed with this source code.
  */
 
+use Extcode\Cart\Configuration\Loader\PaymentMethodsLoaderInterface;
+use Extcode\Cart\Configuration\Loader\ShippingMethodsLoaderInterface;
+use Extcode\Cart\Configuration\Loader\SpecialOptionsLoaderInterface;
 use Extcode\Cart\Domain\Model\Cart\Cart;
-use Extcode\Cart\Service\PaymentMethodsServiceInterface;
 use Extcode\Cart\Service\SessionHandler;
-use Extcode\Cart\Service\ShippingMethodsServiceInterface;
-use Extcode\Cart\Service\SpecialOptionsServiceInterface;
 use Extcode\Cart\Utility\CartUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManager;
 
@@ -25,16 +25,20 @@ abstract class ActionController extends \Extcode\Cart\Controller\ActionControlle
 
     protected CartUtility $cartUtility;
 
-    protected PaymentMethodsServiceInterface $paymentMethodsService;
-    protected ShippingMethodsServiceInterface $shippingMethodsService;
-    protected SpecialOptionsServiceInterface $specialOptionsService;
+    protected PaymentMethodsLoaderInterface $paymentMethodsLoader;
+
+    protected ShippingMethodsLoaderInterface $shippingMethodsLoader;
+
+    protected SpecialOptionsLoaderInterface $specialOptionsLoader;
 
     protected array $configurations;
 
     protected Cart $cart;
 
     protected array $payments = [];
+
     protected array $shippings = [];
+
     protected array $specials = [];
 
     public function injectSessionHandler(SessionHandler $sessionHandler): void
@@ -47,19 +51,19 @@ abstract class ActionController extends \Extcode\Cart\Controller\ActionControlle
         $this->cartUtility = $cartUtility;
     }
 
-    public function injectPaymentMethodsService(PaymentMethodsServiceInterface $paymentMethodsService): void
+    public function injectPaymentMethodsService(PaymentMethodsLoaderInterface $paymentMethodsLoader): void
     {
-        $this->paymentMethodsService = $paymentMethodsService;
+        $this->paymentMethodsLoader = $paymentMethodsLoader;
     }
 
-    public function injectShippingMethodsService(ShippingMethodsServiceInterface $shippingMethodsService): void
+    public function injectShippingMethodsService(ShippingMethodsLoaderInterface $shippingMethodsLoader): void
     {
-        $this->shippingMethodsService = $shippingMethodsService;
+        $this->shippingMethodsLoader = $shippingMethodsLoader;
     }
 
-    public function injectSpecialOptionsService(SpecialOptionsServiceInterface $specialOptionsService): void
+    public function injectSpecialOptionsService(SpecialOptionsLoaderInterface $specialOptionsLoader): void
     {
-        $this->specialOptionsService = $specialOptionsService;
+        $this->specialOptionsLoader = $specialOptionsLoader;
     }
 
     public function initializeAction(): void
@@ -68,14 +72,7 @@ abstract class ActionController extends \Extcode\Cart\Controller\ActionControlle
             ConfigurationManager::CONFIGURATION_TYPE_FRAMEWORK
         );
 
-        $this->settings['addToCartByAjax'] = isset($this->settings['addToCartByAjax']) ? (int)$this->settings['addToCartByAjax'] : 0;
-    }
-
-    protected function parseServices(): void
-    {
-        $this->payments = $this->paymentMethodsService->getPaymentMethods($this->cart);
-        $this->shippings = $this->shippingMethodsService->getShippingMethods($this->cart);
-        $this->specials = $this->specialOptionsService->getSpecialOptions($this->cart);
+        $this->settings['addToCartByAjax'] = isset($this->settings['addToCartByAjax']) ? (int) $this->settings['addToCartByAjax'] : 0;
     }
 
     public function parseServicesAndAssignToView(): void
@@ -89,6 +86,13 @@ abstract class ActionController extends \Extcode\Cart\Controller\ActionControlle
                 'specials' => $this->specials,
             ]
         );
+    }
+
+    protected function parseServices(): void
+    {
+        $this->payments = $this->paymentMethodsLoader->getPaymentMethods($this->cart);
+        $this->shippings = $this->shippingMethodsLoader->getShippingMethods($this->cart);
+        $this->specials = $this->specialOptionsLoader->getSpecialOptions($this->cart);
     }
 
     protected function restoreSession(): void

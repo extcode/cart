@@ -16,16 +16,17 @@ use TYPO3\CMS\Core\Messaging\FlashMessage;
 
 final class ProcessOrderCheckStockEvent
 {
-    private bool $everyProductAvailable = true;
-
     /**
      * @var FlashMessage[]
      */
     protected array $insufficientStockMessages = [];
 
+    private bool $everyProductAvailable = true;
+
     public function __construct(
         private readonly Cart $cart
-    ) {}
+    ) {
+    }
 
     public function getCart(): Cart
     {

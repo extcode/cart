@@ -1,8 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Extcode\Cart\ViewHelpers\Form;
 
-/**
+/*
  * This file is part of the TYPO3 CMS project.
  *
  * It is free software; you can redistribute it and/or modify it under
@@ -14,8 +16,8 @@ namespace Extcode\Cart\ViewHelpers\Form;
  *
  * The TYPO3 project - inspiring people to share!
  */
-
 use Extcode\Cart\Domain\Model\Cart\ServiceInterface;
+use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractConditionViewHelper;
 
 /**
@@ -26,6 +28,7 @@ class IsServiceAvailableAtPriceViewHelper extends AbstractConditionViewHelper
     public function initializeArguments(): void
     {
         parent::initializeArguments();
+
         $this->registerArgument(
             'service',
             ServiceInterface::class,
@@ -38,15 +41,11 @@ class IsServiceAvailableAtPriceViewHelper extends AbstractConditionViewHelper
         );
     }
 
-    /**
-     * @param array|null $arguments
-     * @return bool
-     * @api
-     */
-    protected static function evaluateCondition($arguments = null)
+    public static function verdict(array $arguments, RenderingContextInterface $renderingContext): bool
     {
         $service = $arguments['service'];
         $price = $arguments['price'];
-        return (bool)$service->isAvailable($price);
+
+        return (bool) $service->isAvailable($price);
     }
 }

@@ -10,6 +10,7 @@ namespace Extcode\Cart\Controller\Cart;
  * For the full copyright and license information, please read the
  * LICENSE file that was distributed with this source code.
  */
+
 use Extcode\Cart\Domain\Model\Order\BillingAddress;
 use Extcode\Cart\Domain\Model\Order\Item;
 use Extcode\Cart\Domain\Model\Order\ShippingAddress;
@@ -21,26 +22,15 @@ use Extcode\Cart\Event\Order\PaymentEvent;
 use Extcode\Cart\Event\Order\StockEvent;
 use Extcode\Cart\Event\ProcessOrderCheckStockEvent;
 use Extcode\Cart\Validation\Validator\EmptyValidator;
-use Psr\EventDispatcher\StoppableEventInterface;
 use Psr\Http\Message\ResponseInterface;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Annotation\IgnoreValidation;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 use TYPO3\CMS\Extbase\Validation\Validator\AbstractGenericObjectValidator;
 use TYPO3\CMS\Extbase\Validation\Validator\ConjunctionValidator;
 use TYPO3\CMS\Extbase\Validation\Validator\GenericObjectValidator;
-use TYPO3\CMS\Extbase\Validation\ValidatorResolver;
 
 class OrderController extends ActionController
 {
-    protected function getErrorFlashMessage(): bool|string
-    {
-        return LocalizationUtility::translate(
-            'tx_cart.error.validation',
-            'Cart'
-        ) ?? false;
-    }
-
     public function initializeCreateAction(): void
     {
         foreach (['orderItem', 'billingAddress', 'shippingAddress'] as $argumentName) {
@@ -51,7 +41,8 @@ class OrderController extends ActionController
 
             $this->arguments->getArgument($argumentName)
                 ->getPropertyMappingConfiguration()
-                ->setTargetTypeForSubProperty('additional', 'array');
+                ->setTargetTypeForSubProperty('additional', 'array')
+            ;
         }
     }
 
@@ -63,21 +54,27 @@ class OrderController extends ActionController
     ): ResponseInterface {
         $this->restoreSession();
 
-        if (!is_null($billingAddress)) {
+        if ($billingAddress instanceof BillingAddress) {
             $this->sessionHandler->writeAddress('billing_address_' . $this->settings['cart']['pid'], $billingAddress);
         } else {
             $billingAddress = $this->sessionHandler->restoreAddress('billing_address_' . $this->settings['cart']['pid']);
         }
-        if (!is_null($shippingAddress)) {
+        if ($shippingAddress instanceof ShippingAddress) {
             $this->sessionHandler->writeAddress('shipping_address_' . $this->settings['cart']['pid'], $shippingAddress);
         } else {
             $shippingAddress = $this->sessionHandler->restoreAddress('shipping_address_' . $this->settings['cart']['pid']);
-            if (!$shippingAddress) {
-                $shippingAddress = new ShippingAddress();
-            }
         }
 
-        if (is_null($orderItem) || is_null($billingAddress) || $this->cart->getCount() === 0) {
+        if (($orderItem instanceof Item) === false
+                || ($billingAddress instanceof BillingAddress) === false
+            || $this->cart->getCount() === 0
+        ) {
+            return $this->redirect('show', 'Cart\Cart');
+        }
+
+        if ($orderItem->isShippingSameAsBilling() === false
+                && ($shippingAddress instanceof ShippingAddress) === false
+        ) {
             return $this->redirect('show', 'Cart\Cart');
         }
 
@@ -95,10 +92,10 @@ class OrderController extends ActionController
             return $this->redirect('show', 'Cart\Cart');
         }
 
-        $orderItem->setCartPid((int)$this->settings['cart']['pid']);
+        $orderItem->setCartPid($this->getCartPidFromSettings());
 
         // add billing and shipping address to order
-        $storagePid = (int)$this->settings['order']['pid'];
+        $storagePid = $this->getOrderPidFromSettings();
         $billingAddress->setPid($storagePid);
         $orderItem->setBillingAddress($billingAddress);
 
@@ -106,6 +103,9 @@ class OrderController extends ActionController
             $shippingAddress = null;
             $orderItem->removeShippingAddress();
         } else {
+            if (($shippingAddress instanceof ShippingAddress) === false) {
+                $shippingAddress = new ShippingAddress();
+            }
             $shippingAddress->setPid($storagePid);
             $orderItem->setShippingAddress($shippingAddress);
         }
@@ -122,10 +122,14 @@ class OrderController extends ActionController
         $this->view->assign('orderItem', $orderItem);
 
         $paymentId = $this->cart->getPayment()->getId();
-        $paymentSettings = $this->paymentMethodsService->getConfigurationsForType('payments', $this->cart->getBillingCountry());
+        $paymentSettings = $this->paymentMethodsLoader->getPaymentMethods($this->cart);
 
         if (isset($paymentSettings['options'][$paymentId]['redirects']['success']['url'])) {
-            $this->redirectToUri($paymentSettings['options'][$paymentId]['redirects']['success']['url'], 0, 200);
+            return $this->redirectToUri(
+                $paymentSettings['options'][$paymentId]['redirects']['success']['url'],
+                null,
+                200
+            );
         }
 
         $this->dispatchModifyViewEvent();
@@ -162,6 +166,14 @@ class OrderController extends ActionController
         }
     }
 
+    protected function getErrorFlashMessage(): bool|string
+    {
+        return LocalizationUtility::translate(
+            'tx_cart.error.validation',
+            'Cart'
+        ) ?? false;
+    }
+
     /**
      * Sets the dynamic validation rules.
      */
@@ -171,9 +183,7 @@ class OrderController extends ActionController
         array $validatorConf
     ): void {
         // build custom validation chain
-        $validatorResolver = GeneralUtility::makeInstance(
-            ValidatorResolver::class
-        );
+        $validatorResolver = $this->validatorResolver;
 
         if ($validatorConf['validator'] === 'Empty') {
             $validatorConf['validator'] = EmptyValidator::class;
@@ -209,39 +219,55 @@ class OrderController extends ActionController
     {
         $createEvent = new CreateEvent($this->cart, $orderItem, $this->configurations);
         $this->eventDispatcher->dispatch($createEvent);
-        if ($createEvent instanceof StoppableEventInterface && $createEvent->isPropagationStopped()) {
+        if ($createEvent->isPropagationStopped()) {
             return true;
         }
 
         $onlyGenerateNumberOfType = [];
         if (!empty($this->configurations['autoGenerateNumbers'])) {
-            $onlyGenerateNumberOfType = array_map('trim', explode(',', (string)$this->configurations['autoGenerateNumbers']));
+            $onlyGenerateNumberOfType = array_map(trim(...), explode(',', (string) $this->configurations['autoGenerateNumbers']));
         }
         $generateNumbersEvent = new NumberGeneratorEvent($this->cart, $orderItem, $this->configurations);
         $generateNumbersEvent->setOnlyGenerateNumberOfType($onlyGenerateNumberOfType);
         $this->eventDispatcher->dispatch($generateNumbersEvent);
-        if ($generateNumbersEvent instanceof StoppableEventInterface && $generateNumbersEvent->isPropagationStopped()) {
+        if ($generateNumbersEvent->isPropagationStopped()) {
             return true;
         }
 
         $stockEvent = new StockEvent($this->cart, $orderItem, $this->configurations);
         $this->eventDispatcher->dispatch($stockEvent);
-        if ($stockEvent instanceof StoppableEventInterface && $stockEvent->isPropagationStopped()) {
+        if ($stockEvent->isPropagationStopped()) {
             return true;
         }
 
         $paymentEvent = new PaymentEvent($this->cart, $orderItem, $this->configurations);
         $this->eventDispatcher->dispatch($paymentEvent);
-        if ($paymentEvent instanceof StoppableEventInterface && $paymentEvent->isPropagationStopped()) {
+        if ($paymentEvent->isPropagationStopped()) {
             return true;
         }
 
         $finishEvent = new FinishEvent($this->cart, $orderItem, $this->configurations);
         $this->eventDispatcher->dispatch($finishEvent);
-        if ($finishEvent instanceof StoppableEventInterface && $finishEvent->isPropagationStopped()) {
-            return true;
+
+        return (bool) ($finishEvent->isPropagationStopped());
+    }
+
+    /**
+     * @return int<0, max>
+     */
+    private function getOrderPidFromSettings(): int
+    {
+        $orderPid = (int) ($this->settings['order']['pid'] ?? 0);
+
+        if ($orderPid < 0) {
+            $orderPid = 0;
         }
 
-        return false;
+        return $orderPid;
+    }
+
+    private function getCartPidFromSettings(): int
+    {
+        return (int) $this->settings['cart']['pid'];
     }
 }

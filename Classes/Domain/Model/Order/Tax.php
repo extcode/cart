@@ -11,17 +11,18 @@ namespace Extcode\Cart\Domain\Model\Order;
  * LICENSE file that was distributed with this source code.
  */
 
-use TYPO3\CMS\Extbase\Annotation\Validate;
+use TYPO3\CMS\Extbase\Attribute\Validate;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 
 class Tax extends AbstractEntity
 {
     public function __construct(
-        #[Validate(['validator' => 'NotEmpty'])]
+        #[Validate(validator: 'NotEmpty')]
         protected float $tax,
-        #[Validate(['validator' => 'NotEmpty'])]
+        #[Validate(validator: 'NotEmpty')]
         protected TaxClass $taxClass
-    ) {}
+    ) {
+    }
 
     public function getTax(): float
     {

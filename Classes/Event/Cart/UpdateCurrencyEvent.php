@@ -12,22 +12,23 @@ namespace Extcode\Cart\Event\Cart;
  */
 
 use Extcode\Cart\Domain\Model\Cart\Cart;
-use TYPO3\CMS\Extbase\Mvc\Request;
+use TYPO3\CMS\Extbase\Mvc\RequestInterface;
 
 final readonly class UpdateCurrencyEvent implements UpdateCurrencyEventInterface
 {
     public function __construct(
         private Cart $cart,
-        private Request $request,
+        private RequestInterface $request,
         private array $settings = []
-    ) {}
+    ) {
+    }
 
     public function getCart(): Cart
     {
         return $this->cart;
     }
 
-    public function getRequest(): Request
+    public function getRequest(): RequestInterface
     {
         return $this->request;
     }

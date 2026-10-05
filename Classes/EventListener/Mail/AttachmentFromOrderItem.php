@@ -44,7 +44,7 @@ class AttachmentFromOrderItem
             if ($pdfData !== '1' && $pdfData !== 'true') {
                 continue;
             }
-            $getter = 'get' . ucfirst((string)$pdfType) . 'Pdfs';
+            $getter = 'get' . ucfirst((string) $pdfType) . 'Pdfs';
             $pdfs = $orderItem->$getter();
             if ($pdfs && ($pdfs instanceof ObjectStorage)) {
                 $documents = $pdfs->toArray();

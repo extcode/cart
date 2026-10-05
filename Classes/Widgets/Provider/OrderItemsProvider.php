@@ -2,13 +2,6 @@
 
 declare(strict_types=1);
 
-/*
- * This file is part of the package extcode/cart.
- *
- * For the full copyright and license information, please read the
- * LICENSE file that was distributed with this source code.
- */
-
 namespace Extcode\Cart\Widgets\Provider;
 
 use TYPO3\CMS\Core\Database\Connection;
@@ -33,9 +26,6 @@ class OrderItemsProvider implements ListDataProviderInterface
         );
     }
 
-    /**
-     * @return array
-     */
     public function getItems(): array
     {
         $constraints = [];
@@ -51,7 +41,8 @@ class OrderItemsProvider implements ListDataProviderInterface
             )
             ->from('tx_cart_domain_model_order_item')
             ->orderBy($this->options['order_by'], $this->options['order_order'])
-            ->setMaxResults($this->options['limit']);
+            ->setMaxResults($this->options['limit'])
+        ;
 
         $this->queryBuilder
             ->leftJoin(
@@ -63,7 +54,8 @@ class OrderItemsProvider implements ListDataProviderInterface
                     $this->queryBuilder->quoteIdentifier('payment.item')
                 )
             )
-            ->addSelect('payment.name AS payment_name', 'payment.status AS payment_status');
+            ->addSelect('payment.name AS payment_name', 'payment.status AS payment_status')
+        ;
 
         if (is_array($this->options['filter']) && is_array($this->options['filter']['payment']) && !empty($this->options['filter']['payment']['status'])) {
             $constraints[] = $this->queryBuilder->expr()->eq(
@@ -85,11 +77,13 @@ class OrderItemsProvider implements ListDataProviderInterface
                     $this->queryBuilder->quoteIdentifier('shipping.item')
                 )
             )
-            ->addSelect('shipping.name AS shipping_name', 'shipping.status AS shipping_status');
+            ->addSelect('shipping.name AS shipping_name', 'shipping.status AS shipping_status')
+        ;
 
         if (is_array($this->options['filter'])
             && is_array($this->options['filter']['shipping'])
-            && !empty($this->options['filter']['shipping']['status'])) {
+            && !empty($this->options['filter']['shipping']['status'])
+        ) {
             $constraints[] = $this->queryBuilder->expr()->eq(
                 'shipping.status',
                 $this->queryBuilder->createNamedParameter(

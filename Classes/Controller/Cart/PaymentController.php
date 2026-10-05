@@ -23,14 +23,14 @@ class PaymentController extends ActionController
     {
         $this->updatePaymentInSession($paymentId);
 
-        if ($this->isAjaxRequest()) {
+        if (self::isAjaxRequest()) {
             return $this->renderHtmlResponse();
         }
 
         return $this->redirect('show', 'Cart\Cart');
     }
 
-    private function isAjaxRequest(): bool
+    private static function isAjaxRequest(): bool
     {
         $pageType = $GLOBALS['TYPO3_REQUEST']->getAttribute('routing')->getPageType();
 
@@ -51,7 +51,7 @@ class PaymentController extends ActionController
     {
         $this->restoreSession();
 
-        $payments = $this->paymentMethodsService->getPaymentMethods($this->cart);
+        $payments = $this->paymentMethodsLoader->getPaymentMethods($this->cart);
         $payment = $payments[$paymentId] ?? null;
 
         if (is_null($payment) || $payment->isAvailable() === false) {

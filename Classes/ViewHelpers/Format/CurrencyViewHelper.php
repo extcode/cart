@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Extcode\Cart\ViewHelpers\Format;
 
 /*
@@ -13,16 +15,17 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 class CurrencyViewHelper extends AbstractViewHelper
 {
-    public function __construct(
-        protected readonly ConfigurationManager $configurationManager
-    ) {}
-
     /**
      * Output is escaped already. We must not escape children, to avoid double encoding.
      *
      * @var bool
      */
     protected $escapeOutput = false;
+
+    public function __construct(
+        protected readonly ConfigurationManager $configurationManager
+    ) {
+    }
 
     public function initializeArguments(): void
     {
@@ -102,7 +105,7 @@ class CurrencyViewHelper extends AbstractViewHelper
 
         $settings = $this->templateVariableContainer->get('settings');
 
-        if ($settings && $settings['format'] && $settings['format']['currency']) {
+        if (isset($settings['format']['currency']) && is_array($settings['format']['currency'])) {
             $currencyFormat = $settings['format']['currency'];
 
             if (!isset($currencySign) && isset($currencyFormat['currencySign'])) {
@@ -126,7 +129,7 @@ class CurrencyViewHelper extends AbstractViewHelper
             }
             if (!isset($decimals)) {
                 if (isset($currencyFormat['decimals'])) {
-                    $decimals = (int)($currencyFormat['decimals']);
+                    $decimals = (int) ($currencyFormat['decimals']);
                 } else {
                     $decimals = 0;
                 }
@@ -141,11 +144,11 @@ class CurrencyViewHelper extends AbstractViewHelper
         if (empty($floatToFormat)) {
             $floatToFormat = 0.0;
         } else {
-            $floatToFormat = (float)$floatToFormat;
+            $floatToFormat = (float) $floatToFormat;
         }
 
         if (isset($currencyTranslation) && $currencyTranslation > 0.0) {
-            $floatToFormat = $floatToFormat / $currencyTranslation;
+            $floatToFormat /= $currencyTranslation;
         }
 
         $output = number_format($floatToFormat, $decimals, $decimalSeparator, $thousandsSeparator);
@@ -157,6 +160,10 @@ class CurrencyViewHelper extends AbstractViewHelper
                 $output = $output . $currencySeparator . $currencySign;
             }
         }
+
         return $output;
     }
 }
+
+// keep compatibility for $escapeOutput property definition of parent class
+// @php-cs-fixer-ignore phpdoc_to_property_type

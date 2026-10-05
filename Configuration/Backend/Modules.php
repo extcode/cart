@@ -9,9 +9,7 @@ use Extcode\Cart\Controller\Backend\Order\ShippingController;
 
 $_LLL_be = 'LLL:EXT:cart/Resources/Private/Language/locallang_be.xlf:';
 
-/**
- * Definitions for modules provided by EXT:cart
- */
+// Definitions for modules provided by EXT:cart
 return [
     'cart_cart_main' => [
         'access' => '',
@@ -22,7 +20,7 @@ return [
         ],
         'extensionName' => 'Cart',
         'iconIdentifier' => 'ext-cart-module',
-        'navigationComponent' => '@typo3/backend/page-tree/page-tree-element',
+        'navigationComponent' => '@typo3/backend/tree/page-tree-element',
     ],
     'cart_cart_orders' => [
         'parent' => 'cart_cart_main',
@@ -41,6 +39,6 @@ return [
             DocumentController::class => 'download, create',
         ],
         'iconIdentifier' => 'ext-cart-module-order',
-        'navigationComponent' => '@typo3/backend/page-tree/page-tree-element',
+        'navigationComponent' => '@typo3/backend/tree/page-tree-element',
     ],
 ];

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Extcode\Cart\Utility;
 
 /*
@@ -13,12 +15,10 @@ class EvalPrice
 {
     /**
      * Returns Field JS
-     *
-     * @return string
      */
-    public function returnFieldJs()
+    public function returnFieldJs(): string
     {
-        $js = '
+        return '
             var re = new RegExp("^[0-9]{1,}[.,]{0,1}[0-9]{0,2}$");
 
             if(value == "" || !value.match(re)) {
@@ -27,24 +27,16 @@ class EvalPrice
             }
 
             return value;';
-
-        return $js;
     }
 
     /**
      * Evaluate Field Value
-     *
-     * @param $value
-     * @param $is_in
-     * @param $set
-     *
-     * @return string
      */
-    public function evaluateFieldValue($value, $is_in, &$set)
+    public function evaluateFieldValue($value, $is_in, &$set): string
     {
         if ($value == ''
             || $value == 'please enter a price'
-            || !preg_match('/^[0-9]{1,}[.,]{0,1}[0-9]{0,2}$/', (string)$value)
+            || !preg_match('/^[0-9]{1,}[.,]{0,1}[0-9]{0,2}$/', (string) $value)
         ) {
             return 'please enter a price';
         }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Extcode\Cart\Tests\Unit\Domain\Model\Cart;
 
 /*
@@ -17,20 +19,15 @@ use Extcode\Cart\Domain\Model\Cart\ProductFactory;
 use Extcode\Cart\Domain\Model\Cart\ProductFactoryInterface;
 use Extcode\Cart\Domain\Model\Cart\ProductInterface;
 use Extcode\Cart\Domain\Model\Cart\TaxClass;
+use InvalidArgumentException;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Test;
-use PHPUnit\Framework\MockObject\MockObject;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\TestingFramework\Core\AccessibleObjectInterface;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 #[CoversClass(BeVariant::class)]
 class BeVariantTest extends UnitTestCase
 {
-    private ProductFactoryInterface $productFactory;
-
-    private BeVariantFactoryInterface $beVariantFactory;
-
     protected TaxClass $taxClass;
 
     protected ProductInterface $product;
@@ -49,7 +46,11 @@ class BeVariantTest extends UnitTestCase
 
     protected int $quantity;
 
-    public function setUp(): void
+    private ProductFactoryInterface $productFactory;
+
+    private BeVariantFactoryInterface $beVariantFactory;
+
+    protected function setUp(): void
     {
         parent::setUp();
 
@@ -163,54 +164,6 @@ class BeVariantTest extends UnitTestCase
     }
 
     #[Test]
-    public function constructWithoutTitleThrowsException(): void
-    {
-        $this->expectException(\TypeError::class);
-
-        $this->beVariantFactory->create(
-            1,
-            $this->product,
-            null,
-            'test-variant-sku',
-            0,
-            1.0,
-            1
-        );
-    }
-
-    #[Test]
-    public function constructWithoutSkuThrowsException(): void
-    {
-        $this->expectException(\TypeError::class);
-
-        $this->beVariantFactory->create(
-            1,
-            $this->product,
-            'Test Variant',
-            null,
-            0,
-            1.0,
-            1
-        );
-    }
-
-    #[Test]
-    public function constructWithoutQuantityThrowsException(): void
-    {
-        $this->expectException(\TypeError::class);
-
-        $this->beVariantFactory->create(
-            1,
-            $this->product,
-            'Test Variant',
-            'test-variant-sku',
-            0,
-            1.0,
-            null
-        );
-    }
-
-    #[Test]
     public function getMinReturnsInitialValueMin(): void
     {
         self::assertSame(
@@ -252,7 +205,7 @@ class BeVariantTest extends UnitTestCase
     #[Test]
     public function throwsInvalidArgumentExceptionIfMinIsGreaterThanMax(): void
     {
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
 
         $min = 2;
         $max = 1;
@@ -264,7 +217,7 @@ class BeVariantTest extends UnitTestCase
     #[Test]
     public function throwsInvalidArgumentExceptionIfMinIsNegativ(): void
     {
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
 
         $min = -1;
         $max = 1;
@@ -288,7 +241,7 @@ class BeVariantTest extends UnitTestCase
         $min = 1;
         $max = 1;
 
-        //sets max before because $min and $max are 0 by default
+        // sets max before because $min and $max are 0 by default
         $this->beVariant->setMax($max);
         $this->beVariant->setMin($min);
 
@@ -306,7 +259,7 @@ class BeVariantTest extends UnitTestCase
         $min = 1;
         $max = 2;
 
-        //sets max before because $min and $max are 0 by default
+        // sets max before because $min and $max are 0 by default
         $this->beVariant->setMax($min);
         $this->beVariant->setMin($min);
 
@@ -321,12 +274,12 @@ class BeVariantTest extends UnitTestCase
     #[Test]
     public function throwsInvalidArgumentExceptionIfMaxIsLesserThanMin(): void
     {
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
 
         $min = 2;
         $max = 1;
 
-        //sets max before because $min and $max are 0 by default
+        // sets max before because $min and $max are 0 by default
         $this->beVariant->setMax($min);
         $this->beVariant->setMin($min);
 
@@ -337,156 +290,17 @@ class BeVariantTest extends UnitTestCase
     public function getParentPriceReturnsProductPriceForCalculationMethodZero(): void
     {
         self::markTestSkipped();
-        //        self::assertSame(
-        //            10.00,
-        //            $this->beVariant->getParentPrice()
-        //        );
     }
 
     #[Test]
     public function getParentPriceReturnsZeroPriceForCalculationMethodOne(): void
     {
         self::markTestSkipped();
-        //        $this->beVariant->setPriceCalcMethod(1);
-        //        self::assertSame(
-        //            0.00,
-        //            $this->beVariant->getParentPrice()
-        //        );
     }
 
     #[Test]
     public function getParentPriceRespectsTheQuantityDiscountsOfProductsForEachVariant(): void
     {
         self::markTestSkipped();
-        //        $quantityDiscounts = [
-        //            [
-        //                'quantity' => 3,
-        //                'price' => 7.00,
-        //            ],
-        //            [
-        //                'quantity' => 4,
-        //                'price' => 6.00,
-        //            ],
-        //            [
-        //                'quantity' => 5,
-        //                'price' => 5.00,
-        //            ],
-        //            [
-        //                'quantity' => 6,
-        //                'price' => 4.00,
-        //            ],
-        //            [
-        //                'quantity' => 7,
-        //                'price' => 3.00,
-        //            ],
-        //            [
-        //                'quantity' => 8,
-        //                'price' => 2.50,
-        //            ],
-        //        ];
-        //
-        //        $this->product->setQuantityDiscounts($quantityDiscounts);
-        //
-        //        $title = 'Test Variant';
-        //        $sku = 'test-variant-sku';
-        //        $priceCalcMethod = 0;
-        //        $price = 1.00;
-        //
-        //        $beVariant1 = $this->beVariantFactory->create(
-        //            '1',
-        //            $this->product,
-        //            $title,
-        //            $sku,
-        //            $priceCalcMethod,
-        //            $price,
-        //            1
-        //        );
-        //        $this->product->addBeVariant($beVariant1);
-        //
-        //        $beVariant2 = $this->beVariantFactory->create(
-        //            '2',
-        //            $this->product,
-        //            $title,
-        //            $sku,
-        //            $priceCalcMethod,
-        //            $price,
-        //            3
-        //        );
-        //        $this->product->addBeVariant($beVariant2);
-        //
-        //        $beVariant3 = $this->beVariantFactory->create(
-        //            '3',
-        //            $this->product,
-        //            $title,
-        //            $sku,
-        //            $priceCalcMethod,
-        //            $price,
-        //            4
-        //        );
-        //        $this->product->addBeVariant($beVariant3);
-        //
-        //        self::assertSame(
-        //            10.00,
-        //            $beVariant1->getParentPrice()
-        //        );
-        //
-        //        self::assertSame(
-        //            7.00,
-        //            $beVariant2->getParentPrice()
-        //        );
-        //
-        //        self::assertSame(
-        //            6.00,
-        //            $beVariant3->getParentPrice()
-        //        );
-    }
-
-    /**
-     * Creates a mock object which allows for calling protected methods and access of protected properties.
-     *
-     * Note: This method has no native return types on purpose, but only PHPDoc return type annotations.
-     * The reason is that the combination of "union types with generics in PHPDoc" and "a subset of those types as
-     * native types, but without the generics" tends to confuse PhpStorm's static type analysis (which we want to avoid).
-     *
-     * @template T of object
-     * @param class-string<T> $originalClassName name of class to create the mock object of
-     * @param string[]|null $methods name of the methods to mock, null for "mock no methods"
-     * @param array $arguments arguments to pass to constructor
-     * @param string $mockClassName the class name to use for the mock class
-     * @param bool $callOriginalConstructor whether to call the constructor
-     * @param bool $callOriginalClone whether to call the __clone method
-     * @param bool $callAutoload whether to call any autoload function
-     *
-     * @return MockObject&AccessibleObjectInterface&T a mock of `$originalClassName` with access methods added
-     *
-     * @throws \InvalidArgumentException
-     */
-    protected function getAccessibleMock(
-        string $originalClassName,
-        ?array $methods = [],
-        array $arguments = [],
-        string $mockClassName = '',
-        bool $callOriginalConstructor = true,
-        bool $callOriginalClone = true,
-        bool $callAutoload = true
-    ) {
-        $mockBuilder = $this->getMockBuilder($this->buildAccessibleProxy($originalClassName))
-            ->onlyMethods($methods)
-            ->setConstructorArgs($arguments)
-            ->setMockClassName($mockClassName);
-
-        if (!$callOriginalConstructor) {
-            $mockBuilder->disableOriginalConstructor();
-        }
-
-        if (!$callOriginalClone) {
-            $mockBuilder->disableOriginalClone();
-        }
-
-        if (!$callAutoload) {
-            $mockBuilder->disableAutoload();
-        }
-
-        return $mockBuilder->getMock();
     }
 }

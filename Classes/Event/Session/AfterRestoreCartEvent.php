@@ -18,7 +18,10 @@ final class AfterRestoreCartEvent implements StoppableEventInterface
 {
     private bool $isPropagationStopped = false;
 
-    public function __construct(private Cart $cart) {}
+    public function __construct(
+        private Cart $cart
+    ) {
+    }
 
     public function getCart(): Cart
     {

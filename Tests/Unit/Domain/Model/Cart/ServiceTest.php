@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Extcode\Cart\Tests\Unit\Domain\Model\Cart;
 
 /*
@@ -38,7 +40,7 @@ class ServiceTest extends UnitTestCase
 
     protected TaxClass $freeTaxClass;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->normalTaxClass = new TaxClass(1, '19 %', 0.19, 'Normal');
         $this->reducedTaxClass = new TaxClass(2, '7 %', 0.07, 'Reduced');
@@ -348,6 +350,7 @@ class ServiceTest extends UnitTestCase
             $service->isFree()
         );
     }
+
     #[Test]
     public function taxClassIdsGreaterZeroReturnsTaxClass(): void
     {
@@ -473,8 +476,9 @@ class ServiceTest extends UnitTestCase
         );
 
         return $this->getMockBuilder(Cart::class)
-            ->onlyMethods($methods)
+            ->onlyMethods(array_values(array_filter(array_filter($methods, is_string(...)))))
             ->setConstructorArgs([$this->taxClasses])
-            ->getMock();
+            ->getMock()
+        ;
     }
 }

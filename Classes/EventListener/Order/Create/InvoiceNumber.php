@@ -11,15 +11,11 @@ namespace Extcode\Cart\EventListener\Order\Create;
  * LICENSE file that was distributed with this source code.
  */
 
+use DateTime;
 use Extcode\Cart\Event\Order\NumberGeneratorEventInterface;
 
 class InvoiceNumber extends Number
 {
-    protected function getRegistryName(NumberGeneratorEventInterface $event): string
-    {
-        return 'lastInvoice' . '_' . $event->getOrderItem()->getCartPid();
-    }
-
     public function __invoke(NumberGeneratorEventInterface $event): void
     {
         $onlyGenerateNumberOfType = $event->getOnlyGenerateNumberOfType();
@@ -30,10 +26,15 @@ class InvoiceNumber extends Number
         $orderItem = $event->getOrderItem();
 
         $orderItem->setInvoiceNumber($this->generateNumber($event));
-        $orderItem->setInvoiceDate(new \DateTime());
+        $orderItem->setInvoiceDate(new DateTime());
 
         $this->orderItemRepository->update($orderItem);
 
         $this->persistenceManager->persistAll();
+    }
+
+    protected function getRegistryName(NumberGeneratorEventInterface $event): string
+    {
+        return 'lastInvoice_' . $event->getOrderItem()->getCartPid();
     }
 }

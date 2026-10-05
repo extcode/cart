@@ -25,7 +25,8 @@ final class PersistOrderEvent implements PersistOrderEventInterface, StoppableEv
         private readonly Cart $cart,
         private readonly OrderItem $orderItem,
         private array $settings = []
-    ) {}
+    ) {
+    }
 
     public function getCart(): Cart
     {
@@ -47,13 +48,18 @@ final class PersistOrderEvent implements PersistOrderEventInterface, StoppableEv
         $this->settings = $settings;
     }
 
+    /**
+     * @return int<0, max>
+     */
     public function getStoragePid(): int
     {
-        if (!isset($this->settings['settings']['order']['pid'])) {
-            return 0;
+        $orderPid = (int) ($this->settings['settings']['order']['pid'] ?? 0);
+
+        if ($orderPid < 0) {
+            $orderPid = 0;
         }
 
-        return (int)$this->settings['settings']['order']['pid'];
+        return $orderPid;
     }
 
     public function setPropagationStopped(bool $isPropagationStopped): void

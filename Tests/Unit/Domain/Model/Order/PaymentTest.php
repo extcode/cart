@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Extcode\Cart\Tests\Unit\Domain\Model\Order;
 
 /*
@@ -21,7 +23,7 @@ class PaymentTest extends UnitTestCase
 {
     protected Payment $payment;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->payment = new Payment();
 
@@ -33,6 +35,7 @@ class PaymentTest extends UnitTestCase
     {
         $provider = 'test_provider';
 
+        $this->payment->setServiceId(1);
         $this->payment->setProvider($provider);
 
         $result = $this->payment->toArray();

@@ -24,7 +24,8 @@ class TaxClasses
         private readonly PersistenceManager $persistenceManager,
         private readonly ItemRepository $itemRepository,
         private readonly TaxClassRepository $taxClassRepository
-    ) {}
+    ) {
+    }
 
     public function __invoke(PersistOrderEvent $event): void
     {

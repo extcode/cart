@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Extcode\Cart\Domain\Repository\Order;
 
 /*
@@ -17,10 +19,8 @@ class ProductRepository extends Repository
 {
     /**
      * Find all products
-     *
-     * @return QueryResultInterface|array
      */
-    public function findAll(array $searchArguments = [])
+    public function findAll(array $searchArguments = []): QueryResultInterface|array
     {
         $query = $this->createQuery();
 
@@ -38,11 +38,11 @@ class ProductRepository extends Repository
         $and = [];
 
         if (isset($searchArguments['filter'])) {
-            foreach ((array)$searchArguments['filter'] as $field => $value) {
+            foreach ((array) $searchArguments['filter'] as $field => $value) {
                 if ($field == 'start' && !empty($value)) {
-                    $and[] = $query->greaterThan('crdate', strtotime((string)$value));
+                    $and[] = $query->greaterThan('crdate', strtotime((string) $value));
                 } elseif ($field == 'stop' && !empty($value)) {
-                    $and[] = $query->lessThan('crdate', strtotime((string)$value));
+                    $and[] = $query->lessThan('crdate', strtotime((string) $value));
                 }
             }
         }
