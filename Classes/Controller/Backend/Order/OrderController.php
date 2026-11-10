@@ -59,10 +59,13 @@ class OrderController extends ActionController
     /**
      * The search arguments are only sent by the filter form. They are saved for the backend user,
      * so they are kept when using the pagination or when returning from another module.
+     * The reset link of the filter form removes them again.
      */
     public function initializeListAction(): void
     {
-        if ($this->request->hasArgument('search')) {
+        if ($this->request->hasArgument('resetSearch')) {
+            $this->backendUserConfigurationService->removeOrderSearchArguments();
+        } elseif ($this->request->hasArgument('search')) {
             $searchArguments = $this->request->getArgument('search');
             $this->backendUserConfigurationService->saveOrderSearchArguments(
                 is_array($searchArguments) ? $searchArguments : []

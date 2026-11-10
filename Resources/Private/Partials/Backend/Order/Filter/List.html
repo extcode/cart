@@ -121,5 +121,8 @@
         </div>
     </div>
     <f:form.submit value="{f:translate(key: 'tx_cart.backend.filter')}" class="my-3 btn btn-default"/>
+    <f:link.action action="{action}" arguments="{resetSearch: 1}" id="searchReset" class="my-3 btn btn-default">
+        <f:translate key="tx_cart.backend.filter.reset"/>
+    </f:link.action>
 </f:form>
 </html>

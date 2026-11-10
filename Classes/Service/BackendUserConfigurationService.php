@@ -64,6 +64,17 @@ class BackendUserConfigurationService
         $backendUser->writeUC();
     }
 
+    public function removeOrderSearchArguments(): void
+    {
+        $backendUser = self::getBackendUser();
+        if ($backendUser === null || array_key_exists(self::USER_CONFIGURATION_KEY_ORDER_SEARCH, $backendUser->uc) === false) {
+            return;
+        }
+
+        unset($backendUser->uc[self::USER_CONFIGURATION_KEY_ORDER_SEARCH]);
+        $backendUser->writeUC();
+    }
+
     /**
      * @param array<array-key, mixed> $searchArguments
      *

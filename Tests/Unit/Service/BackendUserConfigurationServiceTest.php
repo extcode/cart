@@ -165,6 +165,32 @@ class BackendUserConfigurationServiceTest extends UnitTestCase
         yield 'integer' => ['userConfiguration' => 1];
     }
 
+    #[Test]
+    public function removeOrderSearchArgumentsRemovesOnlyTheSearchArgumentsFromTheUserConfiguration(): void
+    {
+        $this->backendUser->uc = [
+            'lang' => 'de',
+            BackendUserConfigurationService::USER_CONFIGURATION_KEY_ORDER_SEARCH => self::ORDER_SEARCH_ARGUMENTS,
+        ];
+        $this->backendUser->expects(self::once())->method('writeUC');
+
+        $this->subject->removeOrderSearchArguments();
+
+        self::assertSame(['lang' => 'de'], $this->backendUser->uc);
+        self::assertSame([], $this->subject->getOrderSearchArguments());
+    }
+
+    #[Test]
+    public function removeOrderSearchArgumentsDoesNotWriteTheUserConfigurationIfNoSearchArgumentsHaveBeenSaved(): void
+    {
+        $this->backendUser->uc = ['lang' => 'de'];
+        $this->backendUser->expects(self::never())->method('writeUC');
+
+        $this->subject->removeOrderSearchArguments();
+
+        self::assertSame(['lang' => 'de'], $this->backendUser->uc);
+    }
+
     #[DataProvider('missingBackendUserDataProvider')]
     #[Test]
     public function getOrderSearchArgumentsReturnsAnEmptyArrayWithoutBackendUser(mixed $backendUser): void
@@ -187,6 +213,22 @@ class BackendUserConfigurationServiceTest extends UnitTestCase
         $this->subject->saveOrderSearchArguments(self::ORDER_SEARCH_ARGUMENTS);
 
         self::assertSame([], $this->backendUser->uc);
+    }
+
+    #[DataProvider('missingBackendUserDataProvider')]
+    #[Test]
+    public function removeOrderSearchArgumentsDoesNothingWithoutBackendUser(mixed $backendUser): void
+    {
+        $this->backendUser->uc[BackendUserConfigurationService::USER_CONFIGURATION_KEY_ORDER_SEARCH] = self::ORDER_SEARCH_ARGUMENTS;
+        $this->backendUser->expects(self::never())->method('writeUC');
+        $GLOBALS['BE_USER'] = $backendUser;
+
+        $this->subject->removeOrderSearchArguments();
+
+        self::assertSame(
+            self::ORDER_SEARCH_ARGUMENTS,
+            $this->backendUser->uc[BackendUserConfigurationService::USER_CONFIGURATION_KEY_ORDER_SEARCH]
+        );
     }
 
     /**

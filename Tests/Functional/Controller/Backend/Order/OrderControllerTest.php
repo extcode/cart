@@ -276,6 +276,43 @@ class OrderControllerTest extends FunctionalTestCase
     }
 
     #[Test]
+    public function listActionRemovesTheSavedSearchArgumentsWhenFollowingTheResetLink(): void
+    {
+        $this->importPHPDataSet(__DIR__ . '/../../../../Fixtures/Orders.php');
+
+        $unfilteredOrderNumbers = self::getRenderedOrderNumbers(
+            (string) self::dispatchListAction()->getBody()
+        );
+        self::assertCount(self::ITEMS_PER_PAGE, $unfilteredOrderNumbers);
+
+        $filteredPage = (string) self::dispatchListAction(searchArguments: ['customer' => 'Smith'])->getBody();
+        self::assertSame(['O-20260222-1'], self::getRenderedOrderNumbers($filteredPage));
+        self::assertSame('Smith', self::getValueOfCustomerSearchField($filteredPage));
+
+        // the request only uses the reset link of the filter form, like a click in the backend module does
+        $resetPage = (string) self::dispatchListActionWithQueryParameters(
+            self::getQueryParametersOfResetLink($filteredPage)
+        )->getBody();
+        self::assertSame(
+            $unfilteredOrderNumbers,
+            self::getRenderedOrderNumbers($resetPage),
+            'The reset link must remove the filter of the order list.'
+        );
+        self::assertSame(
+            '',
+            self::getValueOfCustomerSearchField($resetPage),
+            'The reset link must clear the filter form.'
+        );
+
+        // e.g. when returning from another module
+        self::assertSame(
+            $unfilteredOrderNumbers,
+            self::getRenderedOrderNumbers((string) self::dispatchListAction()->getBody()),
+            'The reset link must remove the search arguments from the user configuration.'
+        );
+    }
+
+    #[Test]
     public function listActionRendersOnlyTheOrdersOfTheMonthGivenAsOrderNumberSearchArgumentOnAllPages(): void
     {
         // allows to test several pages with the 24 orders of May 2026 in Tests/Fixtures/Orders.php
@@ -427,10 +464,42 @@ class OrderControllerTest extends FunctionalTestCase
         preg_match('/<a href="([^"]*)" class="page-link">' . $page . '<\/a>/', $html, $matches);
         self::assertArrayHasKey(1, $matches, 'No pagination link to page ' . $page . ' has been rendered.');
 
-        $query = (string) parse_url(html_entity_decode($matches[1]), PHP_URL_QUERY);
+        return self::getQueryParametersOfHref($matches[1]);
+    }
+
+    /**
+     * @return array<array-key, mixed> the query parameters of the reset link of the filter form
+     */
+    private static function getQueryParametersOfResetLink(string $html): array
+    {
+        preg_match('/<a [^>]*id="searchReset"[^>]*>/', $html, $linkMatches);
+        self::assertArrayHasKey(0, $linkMatches, 'No reset link of the filter form has been rendered.');
+
+        preg_match('/href="([^"]*)"/', $linkMatches[0], $hrefMatches);
+        self::assertArrayHasKey(1, $hrefMatches, 'The reset link of the filter form has no href.');
+
+        return self::getQueryParametersOfHref($hrefMatches[1]);
+    }
+
+    /**
+     * @return array<array-key, mixed>
+     */
+    private static function getQueryParametersOfHref(string $href): array
+    {
+        $query = (string) parse_url(html_entity_decode($href), PHP_URL_QUERY);
         parse_str($query, $queryParameters);
 
         return $queryParameters;
+    }
+
+    private static function getValueOfCustomerSearchField(string $html): string
+    {
+        preg_match('/<input [^>]*id="searchCustomer"[^>]*>/', $html, $inputMatches);
+        self::assertArrayHasKey(0, $inputMatches, 'No customer field of the filter form has been rendered.');
+
+        preg_match('/value="([^"]*)"/', $inputMatches[0], $valueMatches);
+
+        return html_entity_decode($valueMatches[1] ?? '');
     }
 
     private static function normalizeWhitespace(string $html): string
