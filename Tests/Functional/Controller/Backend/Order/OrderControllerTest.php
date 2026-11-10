@@ -240,6 +240,42 @@ class OrderControllerTest extends FunctionalTestCase
     }
 
     #[Test]
+    public function listActionResetsTheSavedSearchArgumentsWhenTheFilterFormIsSubmittedEmpty(): void
+    {
+        $this->importPHPDataSet(__DIR__ . '/../../../../Fixtures/Orders.php');
+
+        $unfilteredOrderNumbers = self::getRenderedOrderNumbers(
+            (string) self::dispatchListAction()->getBody()
+        );
+        self::assertCount(self::ITEMS_PER_PAGE, $unfilteredOrderNumbers);
+
+        $filteredOrderNumbers = self::getRenderedOrderNumbers(
+            (string) self::dispatchListAction(searchArguments: ['customer' => 'Smith'])->getBody()
+        );
+        self::assertSame(['O-20260222-1'], $filteredOrderNumbers);
+
+        // the filter form sends all of its fields, the empty ones as empty strings
+        $resetOrderNumbers = self::getRenderedOrderNumbers(
+            (string) self::dispatchListAction(searchArguments: ['customer' => '', 'orderNumber' => ''])->getBody()
+        );
+        self::assertSame(
+            $unfilteredOrderNumbers,
+            $resetOrderNumbers,
+            'An empty filter form must reset the saved search arguments.'
+        );
+
+        // e.g. when returning from another module
+        $orderNumbersOfFollowingRequest = self::getRenderedOrderNumbers(
+            (string) self::dispatchListAction()->getBody()
+        );
+        self::assertSame(
+            $unfilteredOrderNumbers,
+            $orderNumbersOfFollowingRequest,
+            'The reset search arguments must not be restored by a following request.'
+        );
+    }
+
+    #[Test]
     public function listActionRendersOnlyTheOrdersOfTheMonthGivenAsOrderNumberSearchArgumentOnAllPages(): void
     {
         // allows to test several pages with the 24 orders of May 2026 in Tests/Fixtures/Orders.php
