@@ -39,6 +39,11 @@ class OrderControllerTest extends FunctionalTestCase
 
     private const ITEMS_PER_PAGE = 20;
 
+    /**
+     * Page uid of the root page of the order storage, see Tests/Fixtures/BaseDatabase.php
+     */
+    private const SHOP_ROOT_PID = 101;
+
     protected function setUp(): void
     {
         $this->testExtensionsToLoad = [
@@ -235,12 +240,17 @@ class OrderControllerTest extends FunctionalTestCase
     }
 
     #[Test]
-    public function listActionRendersOnlyTheOrdersOfTheMonthGivenAsOrderNumberSearchArgument(): void
+    public function listActionRendersOnlyTheOrdersOfTheMonthGivenAsOrderNumberSearchArgumentOnAllPages(): void
     {
-        $this->importPHPDataSet(__DIR__ . '/../../../../Fixtures/Orders.php');
+        // allows to test several pages with the 24 orders of May 2026 in Tests/Fixtures/Orders.php
+        $itemsPerPage = 10;
 
-        // May 2026 is the month with the most orders in Tests/Fixtures/Orders.php
-        $expectedOrderNumbers = [
+        $this->importPHPDataSet(__DIR__ . '/../../../../Fixtures/Orders.php');
+        $this->setItemsPerPage($itemsPerPage);
+
+        // May 2026 is the month with the most orders in Tests/Fixtures/Orders.php, the latest one first
+        $searchArguments = ['orderNumber' => 'O-202605%'];
+        $expectedOrderNumbersOfFirstPage = [
             'O-20260530-1',
             'O-20260528-1',
             'O-20260527-4',
@@ -251,6 +261,8 @@ class OrderControllerTest extends FunctionalTestCase
             'O-20260524-1',
             'O-20260519-4',
             'O-20260519-3',
+        ];
+        $expectedOrderNumbersOfSecondPage = [
             'O-20260519-2',
             'O-20260519-1',
             'O-20260518-2',
@@ -261,36 +273,49 @@ class OrderControllerTest extends FunctionalTestCase
             'O-20260513-1',
             'O-20260507-1',
             'O-20260504-2',
+        ];
+        $expectedOrderNumbersOfThirdPage = [
             'O-20260504-1',
             'O-20260501-3',
             'O-20260501-2',
             'O-20260501-1',
         ];
 
-        // an order number starts with the date of the order, the wildcard is not added by the repository
-        $searchArguments = ['orderNumber' => 'O-202605%'];
-
         $firstPage = self::normalizeWhitespace(
             (string) self::dispatchListAction(1, $searchArguments)->getBody()
         );
+        // the following requests only use the links of the pagination, like a click in the backend module does
         $secondPage = self::normalizeWhitespace(
-            (string) self::dispatchListAction(2, $searchArguments)->getBody()
+            (string) self::dispatchListActionWithQueryParameters(
+                self::getQueryParametersOfPaginationLink($firstPage, 2)
+            )->getBody()
+        );
+        $thirdPage = self::normalizeWhitespace(
+            (string) self::dispatchListActionWithQueryParameters(
+                self::getQueryParametersOfPaginationLink($secondPage, 3)
+            )->getBody()
         );
 
         self::assertSame(
-            $expectedOrderNumbers,
-            array_merge(
-                self::getRenderedOrderNumbers($firstPage),
-                self::getRenderedOrderNumbers($secondPage)
-            ),
-            'All orders of the searched month must be rendered, the latest one first.'
+            $expectedOrderNumbersOfFirstPage,
+            self::getRenderedOrderNumbers($firstPage),
+            'Only the orders of the searched month must be rendered on page 1.'
         );
+        self::assertStringContainsString('Records 1 - 10', $firstPage);
 
-        self::assertStringContainsString('Records 1 - ' . self::ITEMS_PER_PAGE, $firstPage);
-        self::assertStringContainsString(
-            'Records ' . (self::ITEMS_PER_PAGE + 1) . ' - ' . count($expectedOrderNumbers),
-            $secondPage
+        self::assertSame(
+            $expectedOrderNumbersOfSecondPage,
+            self::getRenderedOrderNumbers($secondPage),
+            'The pagination link to page 2 must keep the search arguments of the current list.'
         );
+        self::assertStringContainsString('Records 11 - 20', $secondPage);
+
+        self::assertSame(
+            $expectedOrderNumbersOfThirdPage,
+            self::getRenderedOrderNumbers($thirdPage),
+            'The pagination link to page 3 must keep the search arguments of the current list.'
+        );
+        self::assertStringContainsString('Records 21 - 24', $thirdPage);
     }
 
     /**
@@ -298,7 +323,24 @@ class OrderControllerTest extends FunctionalTestCase
      */
     private static function dispatchListAction(int $currentPage = 1, array $searchArguments = []): ResponseInterface
     {
-        $request = self::buildListActionRequest($currentPage, $searchArguments);
+        $queryParameters = [
+            'id' => self::ORDER_STORAGE_PID,
+            'currentPage' => $currentPage,
+        ];
+
+        if ($searchArguments !== []) {
+            $queryParameters['search'] = $searchArguments;
+        }
+
+        return self::dispatchListActionWithQueryParameters($queryParameters);
+    }
+
+    /**
+     * @param array<array-key, mixed> $queryParameters
+     */
+    private static function dispatchListActionWithQueryParameters(array $queryParameters): ResponseInterface
+    {
+        $request = self::buildListActionRequest($queryParameters);
 
         $GLOBALS['TYPO3_REQUEST'] = $request;
 
@@ -306,22 +348,14 @@ class OrderControllerTest extends FunctionalTestCase
     }
 
     /**
-     * @param array<string, string> $searchArguments
+     * @param array<array-key, mixed> $queryParameters
      */
-    private static function buildListActionRequest(int $currentPage, array $searchArguments): ServerRequestInterface
+    private static function buildListActionRequest(array $queryParameters): ServerRequestInterface
     {
         $route = GeneralUtility::makeInstance(Router::class)->getRoute('cart_cart_orders');
         self::assertNotNull($route, 'The backend module of the order list is not registered.');
 
-        $queryParameters = [
-            'id' => self::ORDER_STORAGE_PID,
-            'route' => $route->getPath(),
-            'currentPage' => $currentPage,
-        ];
-
-        if ($searchArguments !== []) {
-            $queryParameters['search'] = $searchArguments;
-        }
+        $queryParameters['route'] = $route->getPath();
 
         $request = (new ServerRequest(
             'https://localhost/typo3' . $route->getPath() . '?' . http_build_query($queryParameters),
@@ -349,6 +383,20 @@ class OrderControllerTest extends FunctionalTestCase
         return $matches[0];
     }
 
+    /**
+     * @return array<array-key, mixed> the query parameters of the link to the given page in the pagination
+     */
+    private static function getQueryParametersOfPaginationLink(string $html, int $page): array
+    {
+        preg_match('/<a href="([^"]*)" class="page-link">' . $page . '<\/a>/', $html, $matches);
+        self::assertArrayHasKey(1, $matches, 'No pagination link to page ' . $page . ' has been rendered.');
+
+        $query = (string) parse_url(html_entity_decode($matches[1]), PHP_URL_QUERY);
+        parse_str($query, $queryParameters);
+
+        return $queryParameters;
+    }
+
     private static function normalizeWhitespace(string $html): string
     {
         return trim((string) preg_replace('/\s+/', ' ', $html));
@@ -357,6 +405,24 @@ class OrderControllerTest extends FunctionalTestCase
     private static function buildOrderNumber(int $number): string
     {
         return sprintf('O-%03d', $number);
+    }
+
+    /**
+     * The backend module reads module.tx_cart.settings from the TypoScript of the rootline of the order storage.
+     */
+    private function setItemsPerPage(int $itemsPerPage): void
+    {
+        $this->getConnectionPool()->getConnectionForTable('sys_template')->insert(
+            'sys_template',
+            [
+                'uid' => 1,
+                'pid' => self::SHOP_ROOT_PID,
+                'title' => 'Shop',
+                'root' => 1,
+                'clear' => 3,
+                'config' => 'module.tx_cart.settings.itemsPerPage = ' . $itemsPerPage,
+            ]
+        );
     }
 
     private function createOrders(int $numberOfOrders): void

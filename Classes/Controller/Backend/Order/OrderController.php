@@ -10,6 +10,7 @@ namespace Extcode\Cart\Controller\Backend\Order;
  * For the full copyright and license information, please read the
  * LICENSE file that was distributed with this source code.
  */
+
 use Extcode\Cart\Controller\Backend\ActionController;
 use Extcode\Cart\Domain\Model\Cart\Cart;
 use Extcode\Cart\Domain\Model\Order\Item;
@@ -17,6 +18,7 @@ use Extcode\Cart\Domain\Repository\Order\ItemRepository;
 use Extcode\Cart\Event\Order\NumberGeneratorEvent;
 use Extcode\Cart\Event\Template\Components\ModifyButtonBarEvent;
 use Extcode\Cart\Event\Template\Components\ModifyModuleTemplateEvent;
+use Extcode\Cart\Service\BackendUserConfigurationService;
 use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Backend\Template\Components\ButtonBar;
 use TYPO3\CMS\Backend\Template\Components\ComponentFactory;
@@ -49,8 +51,25 @@ class OrderController extends ActionController
         protected readonly PersistenceManager $persistenceManager,
         protected readonly ItemRepository $itemRepository,
         private readonly PageRenderer $pageRenderer,
-        private readonly ComponentFactory $componentFactory
+        private readonly ComponentFactory $componentFactory,
+        private readonly BackendUserConfigurationService $backendUserConfigurationService
     ) {
+    }
+
+    /**
+     * The search arguments are only sent by the filter form. They are saved for the backend user,
+     * so they are kept when using the pagination or when returning from another module.
+     */
+    public function initializeListAction(): void
+    {
+        if ($this->request->hasArgument('search')) {
+            $searchArguments = $this->request->getArgument('search');
+            $this->backendUserConfigurationService->saveOrderSearchArguments(
+                is_array($searchArguments) ? $searchArguments : []
+            );
+        }
+
+        $this->searchArguments = $this->backendUserConfigurationService->getOrderSearchArguments();
     }
 
     public function listAction(int $currentPage = 1): ResponseInterface
