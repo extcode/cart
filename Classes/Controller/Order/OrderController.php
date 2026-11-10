@@ -19,7 +19,7 @@ use TYPO3\CMS\Core\Context\Context;
 use TYPO3\CMS\Core\Pagination\SimplePagination;
 use TYPO3\CMS\Core\Type\ContextualFeedbackSeverity;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
-use TYPO3\CMS\Extbase\Annotation\IgnoreValidation;
+use TYPO3\CMS\Extbase\Attribute\IgnoreValidation;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManager;
 use TYPO3\CMS\Extbase\Pagination\QueryResultPaginator;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
@@ -65,9 +65,10 @@ class OrderController extends ActionController
         return $this->htmlResponse();
     }
 
-    #[IgnoreValidation(['value' => 'orderItem'])]
-    public function showAction(Item $orderItem): ResponseInterface
-    {
+    public function showAction(
+        #[IgnoreValidation]
+        Item $orderItem
+    ): ResponseInterface {
         $feUserUid = $this->context->getPropertyFromAspect('frontend.user', 'id');
         if ($orderItem->getFeUser()->getUid() !== $feUserUid) {
             $this->addFlashMessage(

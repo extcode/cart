@@ -31,7 +31,7 @@ use TYPO3\CMS\Core\Page\PageRenderer;
 use TYPO3\CMS\Core\Pagination\SimplePagination;
 use TYPO3\CMS\Core\Type\ContextualFeedbackSeverity;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
-use TYPO3\CMS\Extbase\Annotation\IgnoreValidation;
+use TYPO3\CMS\Extbase\Attribute\IgnoreValidation;
 use TYPO3\CMS\Extbase\Pagination\QueryResultPaginator;
 use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
@@ -114,9 +114,10 @@ class OrderController extends ActionController
         return $this->moduleTemplate->renderResponse('Backend/Order/Order/List');
     }
 
-    #[IgnoreValidation(['value' => 'orderItem'])]
-    public function showAction(Item $orderItem): ResponseInterface
-    {
+    public function showAction(
+        #[IgnoreValidation]
+        Item $orderItem
+    ): ResponseInterface {
         $this->moduleTemplate = $this->moduleTemplateFactory->create($this->request);
         $this->setDocHeader($this->dispatchModifyButtonBarEvent($orderItem));
 

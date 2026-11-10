@@ -23,7 +23,7 @@ use Extcode\Cart\Event\Order\StockEvent;
 use Extcode\Cart\Event\ProcessOrderCheckStockEvent;
 use Extcode\Cart\Validation\Validator\EmptyValidator;
 use Psr\Http\Message\ResponseInterface;
-use TYPO3\CMS\Extbase\Annotation\IgnoreValidation;
+use TYPO3\CMS\Extbase\Attribute\IgnoreValidation;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 use TYPO3\CMS\Extbase\Validation\Validator\AbstractGenericObjectValidator;
 use TYPO3\CMS\Extbase\Validation\Validator\ConjunctionValidator;
@@ -46,10 +46,10 @@ class OrderController extends ActionController
         }
     }
 
-    #[IgnoreValidation(['value' => 'shippingAddress'])]
     public function createAction(
         ?Item $orderItem = null,
         ?BillingAddress $billingAddress = null,
+        #[IgnoreValidation]
         ?ShippingAddress $shippingAddress = null
     ): ResponseInterface {
         $this->restoreSession();
