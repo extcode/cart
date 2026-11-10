@@ -30,7 +30,7 @@ jobs:
           tools: composer:v2
 
       - name: PHP lint
-        run: "find *.php Classes Configuration Tests -name '*.php' -print0 | xargs -0 -n 1 -P 4 php -l"
+        run: Build/Scripts/lint-php.sh
 
   documentation-rendering:
     runs-on: ubuntu-latest
@@ -79,7 +79,7 @@ jobs:
         run: composer install --prefer-dist --no-progress --no-suggest
 
       - name: Coding Guideline
-        run: composer project:cgl
+        run: Build/Scripts/cgl.sh
 
   code-quality:
     runs-on: ubuntu-latest
@@ -108,7 +108,7 @@ jobs:
           && composer install --no-progress --no-ansi --no-interaction
 
       - name: Code Quality (by PHPStan)
-        run: composer project:phpstan
+        run: Build/Scripts/phpstan.sh
 
   tests-unit-and-functional:
     runs-on: ubuntu-latest
@@ -135,8 +135,8 @@ jobs:
         run: composer install --prefer-dist --no-progress --no-suggest
 
       - name: Run unit tests
-        run: composer project:test:unit
+        run: Build/Scripts/phpunit.sh unit
 
       - name: Run functional tests
-        run: export typo3DatabaseDriver=pdo_sqlite && composer project:test:functional
+        run: Build/Scripts/phpunit.sh functional
 
