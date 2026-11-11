@@ -332,7 +332,7 @@ class OrderController extends ActionController
 
         foreach ($buttons as $button) {
             $title = $this->getLanguageService()->sL(self::LANG_FILE . $button['title']);
-            $icon = $this->iconFactory->getIcon($button['icon'], IconSize::SMALL->value);
+            $icon = $this->iconFactory->getIcon($button['icon'], IconSize::SMALL);
 
             $viewButton = $buttonBar->makeLinkButton()
                 ->setHref($button['link'])
