@@ -10,6 +10,7 @@ namespace Extcode\Cart\Controller\Backend\Order;
  * For the full copyright and license information, please read the
  * LICENSE file that was distributed with this source code.
  */
+
 use Extcode\Cart\Controller\Backend\ActionController;
 use Extcode\Cart\Domain\Model\Cart\Cart;
 use Extcode\Cart\Domain\Model\Order\Item;
@@ -18,10 +19,12 @@ use Extcode\Cart\Event\Order\NumberGeneratorEvent;
 use Extcode\Cart\Event\Template\Components\ModifyButtonBarEvent;
 use Extcode\Cart\Event\Template\Components\ModifyModuleTemplateEvent;
 use Psr\Http\Message\ResponseInterface;
+use TYPO3\CMS\Backend\Module\ModuleData;
 use TYPO3\CMS\Backend\Template\Components\ButtonBar;
 use TYPO3\CMS\Backend\Template\Components\ComponentFactory;
 use TYPO3\CMS\Backend\Template\ModuleTemplate;
 use TYPO3\CMS\Backend\Template\ModuleTemplateFactory;
+use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
 use TYPO3\CMS\Core\Imaging\IconFactory;
 use TYPO3\CMS\Core\Imaging\IconSize;
 use TYPO3\CMS\Core\Localization\LanguageService;
@@ -29,7 +32,7 @@ use TYPO3\CMS\Core\Page\PageRenderer;
 use TYPO3\CMS\Core\Pagination\SimplePagination;
 use TYPO3\CMS\Core\Type\ContextualFeedbackSeverity;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
-use TYPO3\CMS\Extbase\Annotation\IgnoreValidation;
+use TYPO3\CMS\Extbase\Attribute\IgnoreValidation;
 use TYPO3\CMS\Extbase\Pagination\QueryResultPaginator;
 use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
@@ -38,6 +41,18 @@ use stdClass;
 class OrderController extends ActionController
 {
     private const LANG_FILE = 'LLL:EXT:cart/Resources/Private/Language/locallang.xlf:';
+
+    private const ALLOWED_SEARCH_ARGUMENTS = [
+        'customer',
+        'orderNumber',
+        'orderDateStart',
+        'orderDateEnd',
+        'invoiceNumber',
+        'invoiceDateStart',
+        'invoiceDateEnd',
+        'paymentStatus',
+        'shippingStatus',
+    ];
 
     protected array $searchArguments = [];
 
@@ -51,6 +66,22 @@ class OrderController extends ActionController
         private readonly PageRenderer $pageRenderer,
         private readonly ComponentFactory $componentFactory
     ) {
+    }
+
+    public function initializeListAction(): void
+    {
+        $moduleData = $this->request->getAttribute('moduleData');
+        if (!$moduleData instanceof ModuleData) {
+            return;
+        }
+
+        if ($this->request->hasArgument('resetSearch')) {
+            $moduleData->set('search', []);
+            $this->getBackendUser()->pushModuleData($moduleData->getModuleIdentifier(), $moduleData->toArray());
+        }
+
+        $searchArguments = $moduleData->get('search', []);
+        $this->searchArguments = self::filterSearchArguments(is_array($searchArguments) ? $searchArguments : []);
     }
 
     public function listAction(int $currentPage = 1): ResponseInterface
@@ -92,9 +123,10 @@ class OrderController extends ActionController
         return $this->moduleTemplate->renderResponse('Backend/Order/Order/List');
     }
 
-    #[IgnoreValidation(['value' => 'orderItem'])]
-    public function showAction(Item $orderItem): ResponseInterface
-    {
+    public function showAction(
+        #[IgnoreValidation]
+        Item $orderItem
+    ): ResponseInterface {
         $this->moduleTemplate = $this->moduleTemplateFactory->create($this->request);
         $this->setDocHeader($this->dispatchModifyButtonBarEvent($orderItem));
 
@@ -248,6 +280,33 @@ class OrderController extends ActionController
     protected function getLanguageService(): LanguageService
     {
         return $GLOBALS['LANG'];
+    }
+
+    protected function getBackendUser(): BackendUserAuthentication
+    {
+        $backendUser = $GLOBALS['BE_USER'];
+        assert($backendUser instanceof BackendUserAuthentication);
+
+        return $backendUser;
+    }
+
+    /**
+     * @param array<array-key, mixed> $searchArguments
+     *
+     * @return array<string, string>
+     */
+    private static function filterSearchArguments(array $searchArguments): array
+    {
+        $filteredSearchArguments = [];
+
+        foreach (self::ALLOWED_SEARCH_ARGUMENTS as $name) {
+            $value = $searchArguments[$name] ?? null;
+            if (is_scalar($value) && (string) $value !== '') {
+                $filteredSearchArguments[$name] = (string) $value;
+            }
+        }
+
+        return $filteredSearchArguments;
     }
 
     private function dispatchModifyButtonBarEvent(?Item $orderItem = null): array

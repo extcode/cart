@@ -77,7 +77,7 @@ final class CsvValuesViewHelperTest extends FunctionalTestCase
         $content = $view->render();
 
         self::assertSame(
-            '"O-20260121-7","21.01.2026","I-20260122-3","22.01.2026","Mr",,"Arthur","Dent"' . "\n",
+            '"O-20260121-1","21.01.2026","I-20260122-1","22.01.2026","Mr",,"Arthur","Dent"' . "\n",
             $content
         );
     }
@@ -93,7 +93,7 @@ final class CsvValuesViewHelperTest extends FunctionalTestCase
         $content = $view->render();
 
         self::assertSame(
-            '\'O-20260121-7\'|\'21.01.2026\'|\'I-20260122-3\'|\'22.01.2026\'|\'Mr\'||\'Arthur\'|\'Dent\'' . "\n",
+            '\'O-20260121-1\'|\'21.01.2026\'|\'I-20260122-1\'|\'22.01.2026\'|\'Mr\'||\'Arthur\'|\'Dent\'' . "\n",
             $content
         );
     }
@@ -109,7 +109,7 @@ final class CsvValuesViewHelperTest extends FunctionalTestCase
         $content = $view->render();
 
         self::assertSame(
-            '"O-20260121-7","21.01.2026","I-20260122-3","22.01.2026","","","",""' . "\n",
+            '"O-20260121-2","21.01.2026","I-20260122-2","22.01.2026","","","",""' . "\n",
             $content
         );
     }
