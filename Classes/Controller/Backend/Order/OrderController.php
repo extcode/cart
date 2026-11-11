@@ -300,8 +300,9 @@ class OrderController extends ActionController
         $filteredSearchArguments = [];
 
         foreach (self::ALLOWED_SEARCH_ARGUMENTS as $name) {
-            if (is_scalar($searchArguments[$name] ?? null)) {
-                $filteredSearchArguments[$name] = (string) $searchArguments[$name];
+            $value = $searchArguments[$name] ?? null;
+            if (is_scalar($value) && (string) $value !== '') {
+                $filteredSearchArguments[$name] = (string) $value;
             }
         }
 

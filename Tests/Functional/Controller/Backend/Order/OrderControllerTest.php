@@ -338,6 +338,48 @@ class OrderControllerTest extends FunctionalTestCase
     }
 
     #[Test]
+    public function listActionRendersTheResetLinkOnlyIfThereIsAnActiveSearch(): void
+    {
+        $this->importPHPDataSet(__DIR__ . '/../../../../Fixtures/Orders.php');
+
+        self::assertFalse(
+            self::hasResetLink((string) self::dispatchListAction()->getBody()),
+            'Without a search the reset link must not be rendered.'
+        );
+
+        $filteredPage = (string) self::dispatchListAction(searchArguments: ['customer' => 'Smith'])->getBody();
+        self::assertTrue(
+            self::hasResetLink($filteredPage),
+            'With a search the reset link must be rendered.'
+        );
+
+        $resetPage = (string) self::dispatchListActionWithQueryParameters(
+            self::getQueryParametersOfResetLink($filteredPage)
+        )->getBody();
+        self::assertFalse(
+            self::hasResetLink($resetPage),
+            'After following the reset link the reset link must not be rendered.'
+        );
+
+        // the filter form sends all of its fields, the empty ones as empty strings, "all" of the status selects as well
+        $emptyFormPage = (string) self::dispatchListAction(searchArguments: [
+            'customer' => '',
+            'orderNumber' => '',
+            'orderDateStart' => '',
+            'orderDateEnd' => '',
+            'invoiceNumber' => '',
+            'invoiceDateStart' => '',
+            'invoiceDateEnd' => '',
+            'paymentStatus' => '',
+            'shippingStatus' => '',
+        ])->getBody();
+        self::assertFalse(
+            self::hasResetLink($emptyFormPage),
+            'After submitting an empty filter form the reset link must not be rendered.'
+        );
+    }
+
+    #[Test]
     public function listActionRendersOnlyTheOrdersOfTheMonthGivenAsOrderNumberSearchArgumentOnAllPages(): void
     {
         // allows to test several pages with the 24 orders of May 2026 in Tests/Fixtures/Orders.php
@@ -499,6 +541,11 @@ class OrderControllerTest extends FunctionalTestCase
         self::assertArrayHasKey(1, $matches, 'No pagination link to page ' . $page . ' has been rendered.');
 
         return self::getQueryParametersOfHref($matches[1]);
+    }
+
+    private static function hasResetLink(string $html): bool
+    {
+        return preg_match('/<a [^>]*id="searchReset"[^>]*>/', $html) === 1;
     }
 
     /**
