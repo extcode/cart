@@ -17,6 +17,8 @@ use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Psr\Http\Server\RequestHandlerInterface;
+use TYPO3\CMS\Backend\Middleware\BackendModuleValidator;
 use TYPO3\CMS\Backend\Routing\Router;
 use TYPO3\CMS\Core\Core\SystemEnvironmentBuilder;
 use TYPO3\CMS\Core\Http\NormalizedParams;
@@ -276,6 +278,29 @@ class OrderControllerTest extends FunctionalTestCase
     }
 
     #[Test]
+    public function listActionIgnoresUnknownSearchArgumentsAndSearchArgumentsWithoutScalarValue(): void
+    {
+        $this->importPHPDataSet(__DIR__ . '/../../../../Fixtures/Orders.php');
+
+        $unfilteredOrderNumbers = self::getRenderedOrderNumbers(
+            (string) self::dispatchListAction()->getBody()
+        );
+
+        $html = (string) self::dispatchListActionWithQueryParameters([
+            'id' => self::ORDER_STORAGE_PID,
+            'search' => [
+                'customer' => ['Smith'],
+                'unknownArgument' => 'Smith',
+            ],
+        ])->getBody();
+
+        self::assertSame(
+            $unfilteredOrderNumbers,
+            self::getRenderedOrderNumbers($html)
+        );
+    }
+
+    #[Test]
     public function listActionRemovesTheSavedSearchArgumentsWhenFollowingTheResetLink(): void
     {
         $this->importPHPDataSet(__DIR__ . '/../../../../Fixtures/Orders.php');
@@ -415,9 +440,18 @@ class OrderControllerTest extends FunctionalTestCase
     {
         $request = self::buildListActionRequest($queryParameters);
 
-        $GLOBALS['TYPO3_REQUEST'] = $request;
+        // the middleware adds the module data to the request and saves the search arguments of the filter form
+        return GeneralUtility::makeInstance(BackendModuleValidator::class)->process(
+            $request,
+            new class implements RequestHandlerInterface {
+                public function handle(ServerRequestInterface $request): ResponseInterface
+                {
+                    $GLOBALS['TYPO3_REQUEST'] = $request;
 
-        return GeneralUtility::makeInstance(Bootstrap::class)->handleBackendRequest($request);
+                    return GeneralUtility::makeInstance(Bootstrap::class)->handleBackendRequest($request);
+                }
+            }
+        );
     }
 
     /**

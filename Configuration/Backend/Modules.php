@@ -40,5 +40,8 @@ return [
         ],
         'iconIdentifier' => 'ext-cart-module-order',
         'navigationComponent' => '@typo3/backend/tree/page-tree-element',
+        'moduleData' => [
+            'search' => [],
+        ],
     ],
 ];
