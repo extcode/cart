@@ -32,6 +32,27 @@ jobs:
       - name: PHP lint
         run: Build/Scripts/lint-php.sh
 
+  xml-linting:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.2"
+          tools: composer:v2
+
+      - name: Install xmllint
+        run: sudo apt-get update && sudo apt-get install -y libxml2-utils
+
+      - name: Install dependencies
+        run: composer install --prefer-dist --no-progress --no-suggest
+
+      - name: XML lint
+        run: Build/Scripts/lint-xml.sh
+
   yaml-linting:
     runs-on: ubuntu-latest
     steps:
