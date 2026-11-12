@@ -39,7 +39,8 @@
             "typo3/class-alias-loader": true,
             "typo3/cms-composer-installers": true,
             "sbuerk/typo3-cmscomposerinstallers-testingframework-bridge": true
-        }
+        },
+        "lock": false
     },
     "extra": {
         "typo3/cms": {
