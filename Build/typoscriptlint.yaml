@@ -3,13 +3,13 @@ sniffs:
     parameters:
       useSpaces: true
       indentPerLevel: 4
-      indentConditions: false
+      indentConditions: true
   - class: DeadCode
   - class: OperatorWhitespace
+  # Values like validator names or paths are repeated on purpose. Moving them
+  # to constants would add them to the public configuration of the extension.
   - class: RepeatingRValue
-    parameters:
-      allowedRightValues:
-        - "TYPO3\\CMS\\Frontend\\DataProcessing\\DatabaseQueryProcessor"
+    disabled: true
   - class: DuplicateAssignment
   - class: EmptySection
   - class: NestingConsistency
@@ -17,3 +17,4 @@ sniffs:
       commonPathPrefixThreshold: 1
 filePatterns:
   - "*.typoscript"
+  - "*.tsconfig"
