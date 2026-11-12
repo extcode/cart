@@ -93,9 +93,6 @@
             <trans-unit id="tx_cart_domain_model_order_product.sku.short">
                 <source>SKU</source>
             </trans-unit>
-            <trans-unit id="tx_cart_domain_model_order_product.count">
-                <source>Quantity</source>
-            </trans-unit>
             <trans-unit id="tx_cart_domain_model_order_product.price">
                 <source>Price (gross)</source>
             </trans-unit>
@@ -107,12 +104,6 @@
             </trans-unit>
             <trans-unit id="tx_cart_domain_model_order_product.discount">
                 <source>Discount</source>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_order_product.net">
-                <source>Price (net)</source>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_order_product.gross">
-                <source>Price (gross)</source>
             </trans-unit>
             <trans-unit id="tx_cart_domain_model_order_product.total_net">
                 <source>Total Price (net)</source>
@@ -126,7 +117,7 @@
             <trans-unit id="tx_cart_domain_model_order_product.service_gross">
                 <source>Service- and Shipping costs (gross)</source>
             </trans-unit>
-            <trans-unit id="tx_cart_domain_model_order_product.service_net">
+            <trans-unit id="tx_cart_domain_model_order_product.discount_net">
                 <source>Discount (net)</source>
             </trans-unit>
             <trans-unit id="tx_cart_domain_model_order_product.discount_gross">
@@ -362,9 +353,6 @@
 
             <trans-unit id="tx_cart_domain_model_order_product.count">
                 <source>Count</source>
-            </trans-unit>
-            <trans-unit id="tx_cart_domain_model_order_product.discount">
-                <source>Discount</source>
             </trans-unit>
             <trans-unit id="tx_cart_domain_model_order_product.gross">
                 <source>Gross</source>
