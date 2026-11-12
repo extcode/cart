@@ -18,7 +18,7 @@ cd "${PROJECT_ROOT}"
 
 PHP_BIN="${PHP_BIN:-php}"
 PHP_MEMORY_LIMIT="${PHP_MEMORY_LIMIT:--1}"
-BIN_DIR="${PROJECT_ROOT}/.build/bin"
+BIN_DIR="${PROJECT_ROOT}/.Build/bin"
 readonly PHP_BIN PHP_MEMORY_LIMIT BIN_DIR
 
 # Runs php with the configured memory limit, independent of the php.ini in use.
