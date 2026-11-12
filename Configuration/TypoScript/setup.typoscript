@@ -122,8 +122,8 @@ plugin.tx_cart {
 
 @import 'EXT:cart/Configuration/TypoScript/Settings/*.typoscript'
 @import 'EXT:cart/Configuration/TypoScript/TaxClasses/setup.typoscript'
-@import 'EXT:cart/Configuration/TypoScript/Payments/setup.typoscript
-@import 'EXT:cart/Configuration/TypoScript/Shippings/setup.typoscript
+@import 'EXT:cart/Configuration/TypoScript/Payments/setup.typoscript'
+@import 'EXT:cart/Configuration/TypoScript/Shippings/setup.typoscript'
 
 # use this lib to add custom information or content elements to your email template
 
