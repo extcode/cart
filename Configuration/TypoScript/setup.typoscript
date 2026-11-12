@@ -32,300 +32,306 @@ page {
     includeCSS.tx_cart = EXT:cart/Resources/Public/Stylesheets/cart.css
 }
 
-plugin.tx_cart {
-    view {
-        templateRootPaths.0 = {$plugin.tx_cart.view.templateRootPath}
-        partialRootPaths.0 = {$plugin.tx_cart.view.partialRootPath}
-        layoutRootPaths.0 = {$plugin.tx_cart.view.layoutRootPath}
-    }
-
-    persistence {
-        storagePid = {$plugin.tx_cart.persistence.storagePid}
-    }
-
-    mvc {
-        callDefaultActionIfActionCantBeResolved = 1
-    }
-
-    features {
-        skipDefaultArguments = 1
-    }
-
-    autoGenerateNumbers = order
-
-    settings {
-        cart {
-            pid = {$plugin.tx_cart.settings.cart.pid}
-            isNetCart = {$plugin.tx_cart.settings.cart.isNetCart}
-
-            acceptTermsAndConditions.pid = {$plugin.tx_cart.settings.cart.acceptTermsAndConditions.pid}
-            acceptRevocationInstruction.pid = {$plugin.tx_cart.settings.cart.acceptRevocationInstruction.pid}
-            acceptPrivacyPolicy.pid = {$plugin.tx_cart.settings.cart.acceptPrivacyPolicy.pid}
+plugin {
+    tx_cart {
+        view {
+            templateRootPaths.0 = {$plugin.tx_cart.view.templateRootPath}
+            partialRootPaths.0 = {$plugin.tx_cart.view.partialRootPath}
+            layoutRootPaths.0 = {$plugin.tx_cart.view.layoutRootPath}
         }
 
-        order {
-            pid = {$plugin.tx_cart.settings.order.pid}
+        persistence {
+            storagePid = {$plugin.tx_cart.persistence.storagePid}
         }
 
-        jsonResponseForPageTypes {
-            addToCartByAjax = {$plugin.tx_cart.settings.addToCartByAjax}
+        mvc {
+            callDefaultActionIfActionCantBeResolved = 1
         }
 
-        countries {
-            preset = 1
-            options {
-                1 {
-                    code = de
-                    label = Deutschland
-                }
-                2 {
-                    code = at
-                    label = Österreich
-                }
-                3 {
-                    code = ch
-                    label = Schweiz
-                }
-            }
+        features {
+            skipDefaultArguments = 1
         }
 
-        currencies {
-            preset = 1
-            options {
-                1 {
-                    code = EUR
-                    sign = €
-                    translation = 1.00
-                }
-            }
-        }
+        autoGenerateNumbers = order
 
-        format.currency {
-            currencySign = {$plugin.tx_cart.settings.format.currency.currencySign}
-            decimalSeparator = {$plugin.tx_cart.settings.format.currency.decimalSeparator}
-            thousandsSeparator = {$plugin.tx_cart.settings.format.currency.thousandsSeparator}
-            prependCurrency = {$plugin.tx_cart.settings.format.currency.prependCurrency}
-            separateCurrency = {$plugin.tx_cart.settings.format.currency.separateCurrency}
-            decimals = {$plugin.tx_cart.settings.format.currency.decimals}
-        }
+        settings {
+            cart {
+                pid = {$plugin.tx_cart.settings.cart.pid}
+                isNetCart = {$plugin.tx_cart.settings.cart.isNetCart}
 
-        showAction {
-            media {
-                image {
-                    size {
-                        small {
-                            maxWidth = 100
-                            maxHeight =
-                        }
-                        medium {
-                            maxWidth = 300
-                            maxHeight =
-                        }
-                        large {
-                            maxWidth = 600
-                            maxHeight =
-                        }
-                    }
-                }
-            }
-        }
-        teaserAction < .showAction
-        listAction < .showAction
-
-        showCartAction {
-            showPartials {
-                couponForm = true
-
-                # if setting shippingAddressForm to false please disable all validations too
-                shippingAddressForm = true
-
-                shippingMethodForm = true
-                paymentMethodForm = true
+                acceptTermsAndConditions.pid = {$plugin.tx_cart.settings.cart.acceptTermsAndConditions.pid}
+                acceptRevocationInstruction.pid = {$plugin.tx_cart.settings.cart.acceptRevocationInstruction.pid}
+                acceptPrivacyPolicy.pid = {$plugin.tx_cart.settings.cart.acceptPrivacyPolicy.pid}
             }
 
-            summary {
-                fields {
-                    cart {
-                        net = true
-                        taxes = true
-                    }
-                    discount.gross = true
-                    service.gross = true
-                    total.gross = true
-                }
+            order {
+                pid = {$plugin.tx_cart.settings.order.pid}
             }
-        }
 
-        validation {
-            orderItem {
-                fields {
-                    acceptTermsAndConditions {
-                        validator = {$plugin.tx_cart.settings.validation.orderItem.fields.acceptTermsAndConditions.validator}
-                        options.is = {$plugin.tx_cart.settings.validation.orderItem.fields.acceptTermsAndConditions.options.is}
-                    }
-                    acceptRevocationInstruction {
-                        validator = {$plugin.tx_cart.settings.validation.orderItem.fields.acceptRevocationInstruction.validator}
-                        options.is = {$plugin.tx_cart.settings.validation.orderItem.fields.acceptRevocationInstruction.options.is}
-                    }
-                    acceptPrivacyPolicy {
-                        validator = {$plugin.tx_cart.settings.validation.orderItem.fields.acceptPrivacyPolicy.validator}
-                        options.is = {$plugin.tx_cart.settings.validation.orderItem.fields.acceptPrivacyPolicy.options.is}
-                    }
-                }
+            jsonResponseForPageTypes {
+                addToCartByAjax = {$plugin.tx_cart.settings.addToCartByAjax}
             }
-            billingAddress {
-                fields {
-                    salutation {
-                        validator = {$plugin.tx_cart.settings.validation.billingAddress.fields.salutation.validator}
-                    }
-                    title {
-                        validator = {$plugin.tx_cart.settings.validation.billingAddress.fields.title.validator}
-                    }
-                    firstName {
-                        validator = {$plugin.tx_cart.settings.validation.billingAddress.fields.firstName.validator}
-                    }
-                    lastName {
-                        validator = {$plugin.tx_cart.settings.validation.billingAddress.fields.lastName.validator}
-                    }
-                    email {
-                        validator = {$plugin.tx_cart.settings.validation.billingAddress.fields.email.validator}
-                    }
-                    phone {
-                        validator = {$plugin.tx_cart.settings.validation.billingAddress.fields.phone.validator}
-                    }
-                    fax {
-                        validator = {$plugin.tx_cart.settings.validation.billingAddress.fields.fax.validator}
-                    }
-                    company {
-                        validator = {$plugin.tx_cart.settings.validation.billingAddress.fields.company.validator}
-                    }
-                    taxIdentificationNumber {
-                        validator = {$plugin.tx_cart.settings.validation.billingAddress.fields.taxIdentificationNumber.validator}
-                    }
-                    street {
-                        validator = {$plugin.tx_cart.settings.validation.billingAddress.fields.street.validator}
-                    }
-                    streetNumber {
-                        validator = {$plugin.tx_cart.settings.validation.billingAddress.fields.streetNumber.validator}
-                    }
-                    addition {
-                        validator = {$plugin.tx_cart.settings.validation.billingAddress.fields.addition.validator}
-                    }
-                    zip {
-                        validator = {$plugin.tx_cart.settings.validation.billingAddress.fields.zip.validator}
-                    }
-                    city {
-                        validator = {$plugin.tx_cart.settings.validation.billingAddress.fields.city.validator}
-                    }
-                    country {
-                        validator = {$plugin.tx_cart.settings.validation.billingAddress.fields.country.validator}
-                    }
-                }
-            }
-            shippingAddress {
-                fields {
-                    salutation {
-                        validator = {$plugin.tx_cart.settings.validation.shippingAddress.fields.salutation.validator}
-                    }
-                    title {
-                        validator = {$plugin.tx_cart.settings.validation.shippingAddress.fields.title.validator}
-                    }
-                    firstName {
-                        validator = {$plugin.tx_cart.settings.validation.shippingAddress.fields.firstName.validator}
-                    }
-                    lastName {
-                        validator = {$plugin.tx_cart.settings.validation.shippingAddress.fields.lastName.validator}
-                    }
-                    email {
-                        validator = {$plugin.tx_cart.settings.validation.shippingAddress.fields.email.validator}
-                    }
-                    phone {
-                        validator = {$plugin.tx_cart.settings.validation.shippingAddress.fields.phone.validator}
-                    }
-                    fax {
-                        validator = {$plugin.tx_cart.settings.validation.shippingAddress.fields.fax.validator}
-                    }
-                    company {
-                        validator = {$plugin.tx_cart.settings.validation.shippingAddress.fields.company.validator}
-                    }
-                    taxIdentificationNumber {
-                        validator = {$plugin.tx_cart.settings.validation.shippingAddress.fields.taxIdentificationNumber.validator}
-                    }
-                    street {
-                        validator = {$plugin.tx_cart.settings.validation.shippingAddress.fields.street.validator}
-                    }
-                    streetNumber {
-                        validator = {$plugin.tx_cart.settings.validation.shippingAddress.fields.streetNumber.validator}
-                    }
-                    addition {
-                        validator = {$plugin.tx_cart.settings.validation.shippingAddress.fields.addition.validator}
-                    }
-                    zip {
-                        validator = {$plugin.tx_cart.settings.validation.shippingAddress.fields.zip.validator}
-                    }
-                    city {
-                        validator = {$plugin.tx_cart.settings.validation.shippingAddress.fields.city.validator}
-                    }
-                    country {
-                        validator = {$plugin.tx_cart.settings.validation.shippingAddress.fields.country.validator}
-                    }
-                }
-            }
-        }
-    }
 
-    taxClasses {
-        1 {
-            value = {$plugin.tx_cart.taxClasses.1.value}
-            calc = {$plugin.tx_cart.taxClasses.1.calc}
-            name = {$plugin.tx_cart.taxClasses.1.name}
-        }
-        2 {
-            value = {$plugin.tx_cart.taxClasses.2.value}
-            calc = {$plugin.tx_cart.taxClasses.2.calc}
-            name = {$plugin.tx_cart.taxClasses.2.name}
-        }
-        3 {
-            value = {$plugin.tx_cart.taxClasses.3.value}
-            calc = {$plugin.tx_cart.taxClasses.3.calc}
-            name = {$plugin.tx_cart.taxClasses.3.name}
-        }
-    }
-
-    shippings {
-        countries {
-            de {
+            countries {
                 preset = 1
                 options {
                     1 {
-                        title = Standard
-                        extra = 0.00
-                        taxClassId = 1
-                        status = open
+                        code = de
+                        label = Deutschland
+                    }
+                    2 {
+                        code = at
+                        label = Österreich
+                    }
+                    3 {
+                        code = ch
+                        label = Schweiz
                     }
                 }
             }
-            at < .de
-            ch < .de
-        }
-    }
 
-    payments {
-        countries {
-            de {
+            currencies {
                 preset = 1
                 options {
                     1 {
-                        title = Vorkasse
-                        extra = 0.00
-                        taxClassId = 1
-                        status = open
+                        code = EUR
+                        sign = €
+                        translation = 1.00
                     }
                 }
             }
-            at < .de
-            ch < .de
+
+            format.currency {
+                currencySign = {$plugin.tx_cart.settings.format.currency.currencySign}
+                decimalSeparator = {$plugin.tx_cart.settings.format.currency.decimalSeparator}
+                thousandsSeparator = {$plugin.tx_cart.settings.format.currency.thousandsSeparator}
+                prependCurrency = {$plugin.tx_cart.settings.format.currency.prependCurrency}
+                separateCurrency = {$plugin.tx_cart.settings.format.currency.separateCurrency}
+                decimals = {$plugin.tx_cart.settings.format.currency.decimals}
+            }
+
+            showAction {
+                media {
+                    image {
+                        size {
+                            small {
+                                maxWidth = 100
+                                maxHeight =
+                            }
+                            medium {
+                                maxWidth = 300
+                                maxHeight =
+                            }
+                            large {
+                                maxWidth = 600
+                                maxHeight =
+                            }
+                        }
+                    }
+                }
+            }
+            teaserAction < .showAction
+            listAction < .showAction
+
+            showCartAction {
+                showPartials {
+                    couponForm = true
+
+                    # if setting shippingAddressForm to false please disable all validations too
+                    shippingAddressForm = true
+
+                    shippingMethodForm = true
+                    paymentMethodForm = true
+                }
+
+                summary {
+                    fields {
+                        cart {
+                            net = true
+                            taxes = true
+                        }
+                        discount.gross = true
+                        service.gross = true
+                        total.gross = true
+                    }
+                }
+            }
+
+            validation {
+                orderItem {
+                    fields {
+                        acceptTermsAndConditions {
+                            validator = {$plugin.tx_cart.settings.validation.orderItem.fields.acceptTermsAndConditions.validator}
+                            options.is = {$plugin.tx_cart.settings.validation.orderItem.fields.acceptTermsAndConditions.options.is}
+                        }
+                        acceptRevocationInstruction {
+                            validator = {$plugin.tx_cart.settings.validation.orderItem.fields.acceptRevocationInstruction.validator}
+                            options.is = {$plugin.tx_cart.settings.validation.orderItem.fields.acceptRevocationInstruction.options.is}
+                        }
+                        acceptPrivacyPolicy {
+                            validator = {$plugin.tx_cart.settings.validation.orderItem.fields.acceptPrivacyPolicy.validator}
+                            options.is = {$plugin.tx_cart.settings.validation.orderItem.fields.acceptPrivacyPolicy.options.is}
+                        }
+                    }
+                }
+                billingAddress {
+                    fields {
+                        salutation {
+                            validator = {$plugin.tx_cart.settings.validation.billingAddress.fields.salutation.validator}
+                        }
+                        title {
+                            validator = {$plugin.tx_cart.settings.validation.billingAddress.fields.title.validator}
+                        }
+                        firstName {
+                            validator = {$plugin.tx_cart.settings.validation.billingAddress.fields.firstName.validator}
+                        }
+                        lastName {
+                            validator = {$plugin.tx_cart.settings.validation.billingAddress.fields.lastName.validator}
+                        }
+                        email {
+                            validator = {$plugin.tx_cart.settings.validation.billingAddress.fields.email.validator}
+                        }
+                        phone {
+                            validator = {$plugin.tx_cart.settings.validation.billingAddress.fields.phone.validator}
+                        }
+                        fax {
+                            validator = {$plugin.tx_cart.settings.validation.billingAddress.fields.fax.validator}
+                        }
+                        company {
+                            validator = {$plugin.tx_cart.settings.validation.billingAddress.fields.company.validator}
+                        }
+                        taxIdentificationNumber {
+                            validator = {$plugin.tx_cart.settings.validation.billingAddress.fields.taxIdentificationNumber.validator}
+                        }
+                        street {
+                            validator = {$plugin.tx_cart.settings.validation.billingAddress.fields.street.validator}
+                        }
+                        streetNumber {
+                            validator = {$plugin.tx_cart.settings.validation.billingAddress.fields.streetNumber.validator}
+                        }
+                        addition {
+                            validator = {$plugin.tx_cart.settings.validation.billingAddress.fields.addition.validator}
+                        }
+                        zip {
+                            validator = {$plugin.tx_cart.settings.validation.billingAddress.fields.zip.validator}
+                        }
+                        city {
+                            validator = {$plugin.tx_cart.settings.validation.billingAddress.fields.city.validator}
+                        }
+                        country {
+                            validator = {$plugin.tx_cart.settings.validation.billingAddress.fields.country.validator}
+                        }
+                    }
+                }
+                shippingAddress {
+                    fields {
+                        salutation {
+                            validator = {$plugin.tx_cart.settings.validation.shippingAddress.fields.salutation.validator}
+                        }
+                        title {
+                            validator = {$plugin.tx_cart.settings.validation.shippingAddress.fields.title.validator}
+                        }
+                        firstName {
+                            validator = {$plugin.tx_cart.settings.validation.shippingAddress.fields.firstName.validator}
+                        }
+                        lastName {
+                            validator = {$plugin.tx_cart.settings.validation.shippingAddress.fields.lastName.validator}
+                        }
+                        email {
+                            validator = {$plugin.tx_cart.settings.validation.shippingAddress.fields.email.validator}
+                        }
+                        phone {
+                            validator = {$plugin.tx_cart.settings.validation.shippingAddress.fields.phone.validator}
+                        }
+                        fax {
+                            validator = {$plugin.tx_cart.settings.validation.shippingAddress.fields.fax.validator}
+                        }
+                        company {
+                            validator = {$plugin.tx_cart.settings.validation.shippingAddress.fields.company.validator}
+                        }
+                        taxIdentificationNumber {
+                            validator = {$plugin.tx_cart.settings.validation.shippingAddress.fields.taxIdentificationNumber.validator}
+                        }
+                        street {
+                            validator = {$plugin.tx_cart.settings.validation.shippingAddress.fields.street.validator}
+                        }
+                        streetNumber {
+                            validator = {$plugin.tx_cart.settings.validation.shippingAddress.fields.streetNumber.validator}
+                        }
+                        addition {
+                            validator = {$plugin.tx_cart.settings.validation.shippingAddress.fields.addition.validator}
+                        }
+                        zip {
+                            validator = {$plugin.tx_cart.settings.validation.shippingAddress.fields.zip.validator}
+                        }
+                        city {
+                            validator = {$plugin.tx_cart.settings.validation.shippingAddress.fields.city.validator}
+                        }
+                        country {
+                            validator = {$plugin.tx_cart.settings.validation.shippingAddress.fields.country.validator}
+                        }
+                    }
+                }
+            }
         }
+
+        taxClasses {
+            1 {
+                value = {$plugin.tx_cart.taxClasses.1.value}
+                calc = {$plugin.tx_cart.taxClasses.1.calc}
+                name = {$plugin.tx_cart.taxClasses.1.name}
+            }
+            2 {
+                value = {$plugin.tx_cart.taxClasses.2.value}
+                calc = {$plugin.tx_cart.taxClasses.2.calc}
+                name = {$plugin.tx_cart.taxClasses.2.name}
+            }
+            3 {
+                value = {$plugin.tx_cart.taxClasses.3.value}
+                calc = {$plugin.tx_cart.taxClasses.3.calc}
+                name = {$plugin.tx_cart.taxClasses.3.name}
+            }
+        }
+
+        shippings {
+            countries {
+                de {
+                    preset = 1
+                    options {
+                        1 {
+                            title = Standard
+                            extra = 0.00
+                            taxClassId = 1
+                            status = open
+                        }
+                    }
+                }
+                at < .de
+                ch < .de
+            }
+        }
+
+        payments {
+            countries {
+                de {
+                    preset = 1
+                    options {
+                        1 {
+                            title = Vorkasse
+                            extra = 0.00
+                            taxClassId = 1
+                            status = open
+                        }
+                    }
+                }
+                at < .de
+                ch < .de
+            }
+        }
+    }
+
+    tx_form.settings.yamlConfigurations {
+        1543219101 = EXT:cart/Configuration/Yaml/FormSetup.yaml
     }
 }
 
@@ -379,10 +385,6 @@ lib {
     cartMailFooterImpress {
         source = {$plugin.tx_cart.uids.lib.cartMailFooterImpress}
     }
-}
-
-plugin.tx_form.settings.yamlConfigurations {
-    1543219101 = EXT:cart/Configuration/Yaml/FormSetup.yaml
 }
 
 module.tx_form.settings.yamlConfigurations {

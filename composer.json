@@ -63,12 +63,22 @@
         "typo3/cms-beuser": "^13.4",
         "typo3/cms-dashboard": "^13.4",
         "typo3/cms-form": "^13.4",
-        "typo3/testing-framework": "^8.2"
+        "typo3/testing-framework": "^8.2",
+        "helmich/typo3-typoscript-lint": "^3.3"
     },
     "scripts": {
         "project:cgl": "Build/Scripts/cgl.sh",
         "project:cgl:fix": "Build/Scripts/cgl.sh --fix",
+        "project:lint": [
+            "@project:lint:php",
+            "@project:lint:typoscript",
+            "@project:lint:xml",
+            "@project:lint:yaml"
+        ],
         "project:lint:php": "Build/Scripts/lint-php.sh",
+        "project:lint:typoscript": "Build/Scripts/lint-typoscript.sh",
+        "project:lint:xml": "Build/Scripts/lint-xml.sh",
+        "project:lint:yaml": "Build/Scripts/lint-yaml.sh",
         "project:phpstan": "Build/Scripts/phpstan.sh",
         "project:test:unit": "Build/Scripts/phpunit.sh unit",
         "project:test:functional": "Build/Scripts/phpunit.sh functional"
