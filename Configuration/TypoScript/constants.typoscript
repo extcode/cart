@@ -38,12 +38,12 @@ plugin.tx_cart {
         addToCartByAjax = 2278001
 
         format.currency {
-            currencySign       = &euro;
-            decimalSeparator   = ,
+            currencySign = &euro;
+            decimalSeparator = ,
             thousandsSeparator = .
-            prependCurrency    = false
-            separateCurrency   = true
-            decimals           = 2
+            prependCurrency = false
+            separateCurrency = true
+            decimals = 2
         }
 
         backend {
