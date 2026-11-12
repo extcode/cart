@@ -32,6 +32,18 @@ jobs:
       - name: PHP lint
         run: Build/Scripts/lint-php.sh
 
+  yaml-linting:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install yamllint
+        run: pipx install yamllint
+
+      - name: YAML lint
+        run: Build/Scripts/lint-yaml.sh
+
   documentation-rendering:
     runs-on: ubuntu-latest
     steps:
@@ -139,4 +151,3 @@ jobs:
 
       - name: Run functional tests
         run: Build/Scripts/phpunit.sh functional
-
