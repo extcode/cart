@@ -66,6 +66,18 @@ let
     '';
   };
 
+  projectLintYaml = pkgs.writeShellApplication {
+    name = "project-lint-yaml";
+
+    runtimeInputs = [
+      pkgs.yamllint
+    ];
+
+    text = ''
+      "$PROJECT_ROOT/Build/Scripts/lint-yaml.sh"
+    '';
+  };
+
   projectPhpstan = pkgs.writeShellApplication {
     name = "project-phpstan";
 
@@ -108,12 +120,14 @@ let
 in pkgs.mkShell {
   name = "TYPO3 Extension cart";
   buildInputs = [
+    pkgs.yamllint
     php
     composer
     projectInstall
     projectCgl
     projectCglFix
     projectLintPhp
+    projectLintYaml
     projectPhpstan
     projectTestUnit
     projectTestFunctional
