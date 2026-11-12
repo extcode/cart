@@ -3,7 +3,7 @@
 /Tests/ export-ignore
 /.editorconfig export-ignore
 /.gitattributes export-ignore
-/.gitlab-ci.yml export-ignore
+/.gitignore export-ignore
 /crowdin.yml export-ignore
 /Makefile export-ignore
 /rector.php export-ignore
