@@ -1,5 +1,7 @@
 extends: default
 
+ignore-from-file: .gitignore
+
 rules:
   line-length: disable
   document-start: disable
@@ -21,3 +23,5 @@ rules:
     forbid-in-flow-mappings: true
   indentation:
     spaces: 2
+  truthy:
+    check-keys: false

@@ -32,98 +32,104 @@ page {
     includeCSS.tx_cart = EXT:cart/Resources/Public/Stylesheets/cart.css
 }
 
-plugin.tx_cart {
-    view {
-        templateRootPaths.0 = {$plugin.tx_cart.view.templateRootPath}
-        partialRootPaths.0 = {$plugin.tx_cart.view.partialRootPath}
-        layoutRootPaths.0 = {$plugin.tx_cart.view.layoutRootPath}
-    }
-
-    persistence {
-        storagePid = {$plugin.tx_cart.persistence.storagePid}
-    }
-
-    mvc {
-        callDefaultActionIfActionCantBeResolved = 1
-    }
-
-    features {
-        skipDefaultArguments = 1
-    }
-
-    autoGenerateNumbers = order
-
-    settings {
-        cart {
-            pid = {$plugin.tx_cart.settings.cart.pid}
-            isNetCart = {$plugin.tx_cart.settings.cart.isNetCart}
-
-            acceptTermsAndConditions.pid = {$plugin.tx_cart.settings.cart.acceptTermsAndConditions.pid}
-            acceptRevocationInstruction.pid = {$plugin.tx_cart.settings.cart.acceptRevocationInstruction.pid}
-            acceptPrivacyPolicy.pid = {$plugin.tx_cart.settings.cart.acceptPrivacyPolicy.pid}
+plugin {
+    tx_cart {
+        view {
+            templateRootPaths.0 = {$plugin.tx_cart.view.templateRootPath}
+            partialRootPaths.0 = {$plugin.tx_cart.view.partialRootPath}
+            layoutRootPaths.0 = {$plugin.tx_cart.view.layoutRootPath}
         }
 
-        order {
-            pid = {$plugin.tx_cart.settings.order.pid}
+        persistence {
+            storagePid = {$plugin.tx_cart.persistence.storagePid}
         }
 
-        jsonResponseForPageTypes {
-            addToCartByAjax = {$plugin.tx_cart.settings.addToCartByAjax}
+        mvc {
+            callDefaultActionIfActionCantBeResolved = 1
         }
 
-        showAction {
-            media {
-                image {
-                    size {
-                        small {
-                            maxWidth = 100
-                            maxHeight =
-                        }
-                        medium {
-                            maxWidth = 300
-                            maxHeight =
-                        }
-                        large {
-                            maxWidth = 600
-                            maxHeight =
+        features {
+            skipDefaultArguments = 1
+        }
+
+        autoGenerateNumbers = order
+
+        settings {
+            cart {
+                pid = {$plugin.tx_cart.settings.cart.pid}
+                isNetCart = {$plugin.tx_cart.settings.cart.isNetCart}
+
+                acceptTermsAndConditions.pid = {$plugin.tx_cart.settings.cart.acceptTermsAndConditions.pid}
+                acceptRevocationInstruction.pid = {$plugin.tx_cart.settings.cart.acceptRevocationInstruction.pid}
+                acceptPrivacyPolicy.pid = {$plugin.tx_cart.settings.cart.acceptPrivacyPolicy.pid}
+            }
+
+            order {
+                pid = {$plugin.tx_cart.settings.order.pid}
+            }
+
+            jsonResponseForPageTypes {
+                addToCartByAjax = {$plugin.tx_cart.settings.addToCartByAjax}
+            }
+
+            showAction {
+                media {
+                    image {
+                        size {
+                            small {
+                                maxWidth = 100
+                                maxHeight =
+                            }
+                            medium {
+                                maxWidth = 300
+                                maxHeight =
+                            }
+                            large {
+                                maxWidth = 600
+                                maxHeight =
+                            }
                         }
                     }
                 }
             }
-        }
-        teaserAction < .showAction
-        listAction < .showAction
+            teaserAction < .showAction
+            listAction < .showAction
 
-        showCartAction {
-            showPartials {
-                couponForm = true
+            showCartAction {
+                showPartials {
+                    couponForm = true
 
-                # if setting shippingAddressForm to false please disable all validations too
-                shippingAddressForm = true
+                    # if setting shippingAddressForm to false please disable all validations too
+                    shippingAddressForm = true
 
-                shippingMethodForm = true
-                paymentMethodForm = true
-            }
+                    shippingMethodForm = true
+                    paymentMethodForm = true
+                }
 
-            summary {
-                fields {
-                    cart {
-                        net = true
-                        taxes = true
+                summary {
+                    fields {
+                        cart {
+                            net = true
+                            taxes = true
+                        }
+                        discount.gross = true
+                        service.gross = true
+                        total.gross = true
                     }
-                    discount.gross = true
-                    service.gross = true
-                    total.gross = true
                 }
             }
         }
+    }
+
+    tx_form.settings.yamlConfigurations {
+        1543219101 = EXT:cart/Configuration/Yaml/FormSetup.yaml
     }
 }
 
 @import 'EXT:cart/Configuration/TypoScript/Settings/*.typoscript'
 @import 'EXT:cart/Configuration/TypoScript/TaxClasses/setup.typoscript'
-@import 'EXT:cart/Configuration/TypoScript/Payments/setup.typoscript
-@import 'EXT:cart/Configuration/TypoScript/Shippings/setup.typoscript
+@import 'EXT:cart/Configuration/TypoScript/Payments/setup.typoscript'
+@import 'EXT:cart/Configuration/TypoScript/Shippings/setup.typoscript'
 
 # use this lib to add custom information or content elements to your email template
 
@@ -175,10 +181,6 @@ lib {
     cartMailFooterImpress {
         source = {$plugin.tx_cart.uids.lib.cartMailFooterImpress}
     }
-}
-
-plugin.tx_form.settings.yamlConfigurations {
-    1543219101 = EXT:cart/Configuration/Yaml/FormSetup.yaml
 }
 
 module.tx_form.settings.yamlConfigurations {
