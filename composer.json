@@ -33,8 +33,8 @@
         }
     },
     "config": {
-        "bin-dir": ".build/bin",
-        "vendor-dir": ".build/vendor",
+        "bin-dir": ".Build/bin",
+        "vendor-dir": ".Build/vendor",
         "allow-plugins": {
             "typo3/class-alias-loader": true,
             "typo3/cms-composer-installers": true,
@@ -44,7 +44,7 @@
     "extra": {
         "typo3/cms": {
             "extension-key": "cart",
-            "web-dir": ".build/public"
+            "web-dir": ".Build/public"
         }
     },
     "require": {

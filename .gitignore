@@ -1,4 +1,4 @@
-.build
+.Build
 composer.lock
 
 .php-cs-fixer.cache
