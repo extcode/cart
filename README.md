@@ -58,13 +58,6 @@ we are happy to offer paid services.
 
 Please have a look into the [official extension documentation in changelog chapter](https://docs.typo3.org/p/extcode/cart/main/en-us/Changelog/Index.html)
 
-### 3.3. Release Management
-
-News uses **semantic versioning** which basically means for you, that
-- **bugfix updates** (e.g. 1.0.0 => 1.0.1) just includes small bugfixes or security relevant stuff without breaking changes.
-- **minor updates** (e.g. 1.0.0 => 1.1.0) includes new features and smaller tasks without breaking changes.
-- **major updates** (e.g. 1.0.0 => 2.0.0) breaking changes wich can be refactorings, features or bugfixes.
-
 ## 4. Sponsoring
 
 * Ask for an invoice.
