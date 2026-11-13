@@ -138,10 +138,8 @@ let
     runtimeInputs = [
       composer
       php
-      projectInstall
     ];
     text = ''
-      project-install
       "$PROJECT_ROOT/Build/Scripts/phpunit.sh" unit
     '';
   };
@@ -151,10 +149,8 @@ let
     runtimeInputs = [
       composer
       php
-      projectInstall
     ];
     text = ''
-      project-install
       "$PROJECT_ROOT/Build/Scripts/phpunit.sh" functional
     '';
   };
