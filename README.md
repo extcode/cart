@@ -10,6 +10,8 @@ handle different types of products.
 Furthermore, you will find some payment provider extensions like `extcode/cart-payone`, `extcode/cart-paypal`,
 `extcode/cart-saverpay`, and more to add payment methods to the checkout process.
 
+Read the [extension documentation](https://docs.typo3.org/p/extcode/cart/main/en-us/).
+
 ## 1. Features
 
 - makes intensive use of the TYPO3 Core API functionality
@@ -22,24 +24,9 @@ Furthermore, you will find some payment provider extensions like `extcode/cart-p
 - proved Bootstrap templates
 - backend module to show and utilize orders
 
-## 2. Installation / Upgrade
+## 2. Installation
 
-### 2.1 Installation
-
-#### Installation using Composer
-
-The recommended way to install the extension is by using Composer.
-In your Composer based TYPO3 project root, just do `composer require extcode/cart`.
-
-#### Installation as extension from TYPO3 Extension Repository (TER)
-
-Download and install the extension with the extension manager module.
-
-### 2.2 Update and Upgrade
-
-**Attention:** Before updating to a new minor version or upgrading to a new major version, be sure to check the
-changelog section in the documentation.
-Sometimes minor versions also result in minor adjustments to own templates or configurations.
+Please have a look into the [installation chapter of the documentation](https://docs.typo3.org/p/extcode/cart/main/en-us/Administrator/Installation/Index.html).
 
 ## 3. Versions
 
@@ -54,6 +41,10 @@ we are happy to offer paid services.
 ### 3.2 Changelog
 
 Please have a look into the [official extension documentation in changelog chapter](https://docs.typo3.org/p/extcode/cart/main/en-us/Changelog/Index.html)
+
+**Attention:** Before updating to a new minor version or upgrading to a new major version, be sure to check the
+changelog section in the documentation.
+Sometimes minor versions also result in minor adjustments to own templates or configurations.
 
 ## 4. Sponsoring
 
