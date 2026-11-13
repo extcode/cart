@@ -1,7 +1,4 @@
-# Cart Products
-
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/5b5b6e0c8ac143c381026061abf3c9e8)](https://www.codacy.com/app/extcode/cart?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=extcode/cart&amp;utm_campaign=Badge_Grade)
-![GitHub Actions](https://github.com/extcode/cart/actions/workflows/ci.yaml/badge.svg?branch=10.x-dev)
+# Cart
 
 The extension is a small but powerful extension which "solely" adds a shopping cart to your TYPO3 installation and is
 well suited for content commerce.
