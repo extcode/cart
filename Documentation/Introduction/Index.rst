@@ -92,5 +92,6 @@ Examples of websites which use this extension as e-commerce solution.
    :maxdepth: 5
    :titlesonly:
 
+   SupportedVersions/Index
    Support/Index
    Sponsoring/Index
