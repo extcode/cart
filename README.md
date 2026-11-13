@@ -8,7 +8,7 @@ There are other awesome extensions like `extcode/cart-products`, `extcode/cart-e
 handle different types of products.
 
 Furthermore, you will find some payment provider extensions like `extcode/cart-payone`, `extcode/cart-paypal`,
-`extcode/cart-saverpay`, and more to add payment methods to the checkout process.
+`extcode/cart-saferpay`, and more to add payment methods to the checkout process.
 
 Read the [extension documentation](https://docs.typo3.org/p/extcode/cart/main/en-us/).
 
@@ -16,8 +16,9 @@ Read the [extension documentation](https://docs.typo3.org/p/extcode/cart/main/en
 
 - makes intensive use of the TYPO3 Core API functionality
 - very well expandable
-  - several hooks, signal slots, and interfaces
-  - API (finisher pipeline) to process the order with possibility to register own tasks
+  - PSR-14 events along the whole order process, from adding a product to the cart to finishing the order,
+    e.g. to check the product availability, generate order numbers, handle the stock, or add mail attachments
+  - several interfaces
   - API to add payment providers
   - API to connect your own product extensions
 - highly configurable through TypoScript
