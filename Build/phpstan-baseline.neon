@@ -4507,18 +4507,6 @@ parameters:
 			path: ../Classes/ViewHelpers/MetaTagViewHelper.php
 
 		-
-			message: '#^Strict comparison using \!\=\= between '''' and '''' will always evaluate to false\.$#'
-			identifier: notIdentical.alwaysFalse
-			count: 1
-			path: ../Classes/ViewHelpers/TitleTagViewHelper.php
-
-		-
-			message: '#^Variable \$arguments on left side of \?\? is never defined\.$#'
-			identifier: nullCoalesce.variable
-			count: 1
-			path: ../Classes/ViewHelpers/TitleTagViewHelper.php
-
-		-
 			message: '#^Cannot access offset string on array\<mixed, mixed\>\|Traversable\.$#'
 			identifier: offsetAccess.nonOffsetAccessible
 			count: 1

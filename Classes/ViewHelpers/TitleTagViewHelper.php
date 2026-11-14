@@ -30,8 +30,8 @@ class TitleTagViewHelper extends AbstractViewHelper
 
     public function render(): void
     {
-        $pageTitle = $arguments['pageTitle'] ?? '';
-        if ($pageTitle !== '') {
+        $pageTitle = $this->arguments['pageTitle'] ?? '';
+        if (is_string($pageTitle) && $pageTitle !== '') {
             $this->pageTitleProvider->setTitle($pageTitle);
         }
     }
