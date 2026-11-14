@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Extcode\Cart\Configuration;
 
-use Extcode\Cart\Hooks\ItemsProcFunc;
+use Extcode\Cart\Hooks\FormDefinitions;
 use Extcode\Cart\Service\CurrencyTranslationService;
 use Extcode\Cart\Service\CurrencyTranslationServiceInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -75,7 +75,7 @@ return static function (ContainerConfigurator $containerConfigurator, ContainerB
         $containerBuilder->hasDefinition(ConfigurationManager::class)
         && $containerBuilder->hasDefinition(FormPersistenceManager::class)
     ) {
-        $services->set(ItemsProcFunc::class)
+        $services->set(FormDefinitions::class)
             ->public()
         ;
     }

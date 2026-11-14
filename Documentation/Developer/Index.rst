@@ -14,3 +14,4 @@ Information for developer how to extend the extension.
 
    Events/Index
    JavaScript-Events/Index
+   Forms/Index

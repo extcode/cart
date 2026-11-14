@@ -13,11 +13,19 @@ namespace Extcode\Cart\Hooks;
 
 use LogicException;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
+use TYPO3\CMS\Form\Domain\DTO\FormMetadata;
+use TYPO3\CMS\Form\Domain\DTO\SearchCriteria;
+use TYPO3\CMS\Form\Exception as FormException;
 use TYPO3\CMS\Form\Mvc\Configuration\ConfigurationManagerInterface as ExtFormConfigurationManagerInterface;
 use TYPO3\CMS\Form\Mvc\Persistence\FormPersistenceManagerInterface;
 
 class FormDefinitions
 {
+    /**
+     * Type identifier of TYPO3\CMS\Form\Storage\DatabaseStorageAdapter
+     */
+    private const DATABASE_STORAGE_TYPE = 'database';
+
     public function __construct(
         private readonly FormPersistenceManagerInterface $formPersistenceManager,
         private readonly ConfigurationManagerInterface $configurationManager,
@@ -36,19 +44,46 @@ class FormDefinitions
             $prototypeName = $config['config']['itemsProcFuncConfig']['prototypeName'];
         }
 
-        $formSettings = $this->getFormSettings();
-        $availableForms = $this->formPersistenceManager->listForms($formSettings);
+        $availableForms = $this->formPersistenceManager->listForms($this->getFormSettings(), new SearchCriteria());
 
         foreach ($availableForms as $availableForm) {
-            $form = $this->formPersistenceManager->load($availableForm['persistenceIdentifier'], $formSettings, []);
-
-            if ($form['prototypeName'] === $prototypeName) {
-                $config['items'][] = [
-                    0 => $availableForm['name'],
-                    1 => $availableForm['persistenceIdentifier'],
-                ];
+            if (!$availableForm instanceof FormMetadata
+                || $availableForm->invalid
+                || $this->getPrototypeName($availableForm) !== $prototypeName
+            ) {
+                continue;
             }
+
+            $config['items'][] = [
+                'label' => $availableForm->name,
+                'value' => $availableForm->persistenceIdentifier,
+            ];
         }
+    }
+
+    /**
+     * The file storages read the prototype name from the form definition for
+     * the listing. The database storage does not, it always lists the forms
+     * with the prototype "standard". Only these forms are loaded completely.
+     */
+    private function getPrototypeName(FormMetadata $formMetadata): ?string
+    {
+        if ($formMetadata->storageType !== self::DATABASE_STORAGE_TYPE) {
+            return $formMetadata->prototypeName;
+        }
+        if ($formMetadata->persistenceIdentifier === null) {
+            return null;
+        }
+
+        try {
+            $formDefinition = $this->formPersistenceManager->load($formMetadata->persistenceIdentifier);
+        } catch (FormException) {
+            return null;
+        }
+
+        $prototypeName = $formDefinition['prototypeName'] ?? null;
+
+        return is_string($prototypeName) ? $prototypeName : null;
     }
 
     private function getFormSettings(): array
