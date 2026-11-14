@@ -228,7 +228,7 @@ class Cart implements AdditionalDataInterface
      */
     public function resetInvoiceNumber(): void
     {
-        $this->orderNumber = '';
+        $this->invoiceNumber = '';
     }
 
     public function getInvoiceNumber(): string
