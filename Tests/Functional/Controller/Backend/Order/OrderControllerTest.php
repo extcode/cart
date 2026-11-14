@@ -585,7 +585,7 @@ class OrderControllerTest extends FunctionalTestCase
 
     private static function normalizeWhitespace(string $html): string
     {
-        return trim((string) preg_replace('/\s+/', ' ', $html));
+        return mb_trim((string) preg_replace('/\s+/', ' ', $html));
     }
 
     private static function buildOrderNumber(int $number): string

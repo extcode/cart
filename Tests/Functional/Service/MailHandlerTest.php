@@ -115,7 +115,7 @@ class MailHandlerTest extends FunctionalTestCase
             $logEntries[0]['arguments']
         );
         $arguments = json_decode(
-            ltrim($logEntries[0]['arguments'], '- '),
+            mb_ltrim($logEntries[0]['arguments'], '- '),
             true
         );
         self::assertIsArray(
@@ -175,7 +175,7 @@ class MailHandlerTest extends FunctionalTestCase
             $logEntries[0]['arguments']
         );
         $arguments = json_decode(
-            ltrim($logEntries[0]['arguments'], '- '),
+            mb_ltrim($logEntries[0]['arguments'], '- '),
             true
         );
         self::assertIsArray(
@@ -252,7 +252,7 @@ class MailHandlerTest extends FunctionalTestCase
             $logEntries[0]['arguments']
         );
         $arguments = json_decode(
-            ltrim($logEntries[0]['arguments'], '- '),
+            mb_ltrim($logEntries[0]['arguments'], '- '),
             true
         );
         self::assertIsArray(
@@ -314,7 +314,7 @@ class MailHandlerTest extends FunctionalTestCase
             $logEntries[0]['arguments']
         );
         $arguments = json_decode(
-            ltrim($logEntries[0]['arguments'], '- '),
+            mb_ltrim($logEntries[0]['arguments'], '- '),
             true
         );
         self::assertIsArray(
