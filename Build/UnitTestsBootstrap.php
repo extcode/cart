@@ -52,10 +52,10 @@ use TYPO3\TestingFramework\Core\Testbase;
     // SystemEnvironmentBuilder is not used. However, the binary must be called from the document
     // root since getWebRoot() uses 'getcwd()'.
     if (!getenv('TYPO3_PATH_ROOT')) {
-        putenv('TYPO3_PATH_ROOT=' . rtrim($testbase->getWebRoot(), '/'));
+        putenv('TYPO3_PATH_ROOT=' . mb_rtrim($testbase->getWebRoot(), '/'));
     }
     if (!getenv('TYPO3_PATH_WEB')) {
-        putenv('TYPO3_PATH_WEB=' . rtrim($testbase->getWebRoot(), '/'));
+        putenv('TYPO3_PATH_WEB=' . mb_rtrim($testbase->getWebRoot(), '/'));
     }
 
     $testbase->defineSitePath();

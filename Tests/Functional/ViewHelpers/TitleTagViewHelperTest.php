@@ -65,6 +65,6 @@ final class TitleTagViewHelperTest extends FunctionalTestCase
         ;
         $view->assign('pageTitle', $pageTitle);
 
-        self::assertSame('', trim($view->render()));
+        self::assertSame('', mb_trim($view->render()));
     }
 }
