@@ -1057,24 +1057,6 @@ parameters:
 			path: ../Classes/Domain/Finisher/Form/AddToCartFinisher.php
 
 		-
-			message: '#^Cannot call method getCount\(\) on Extcode\\Cart\\Domain\\Model\\Cart\\Cart\|null\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: ../Classes/Domain/Finisher/Form/AddToCartFinisher.php
-
-		-
-			message: '#^Cannot call method getGross\(\) on Extcode\\Cart\\Domain\\Model\\Cart\\Cart\|null\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: ../Classes/Domain/Finisher/Form/AddToCartFinisher.php
-
-		-
-			message: '#^Cannot call method getNet\(\) on Extcode\\Cart\\Domain\\Model\\Cart\\Cart\|null\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: ../Classes/Domain/Finisher/Form/AddToCartFinisher.php
-
-		-
 			message: '#^Cannot call method getPageType\(\) on mixed\.$#'
 			identifier: method.nonObject
 			count: 1
@@ -1123,12 +1105,6 @@ parameters:
 			path: ../Classes/Domain/Finisher/Form/AddToCartFinisher.php
 
 		-
-			message: '#^Parameter \#1 \$cart of method Extcode\\Cart\\Utility\\CartUtility\:\:updateService\(\) expects Extcode\\Cart\\Domain\\Model\\Cart\\Cart, Extcode\\Cart\\Domain\\Model\\Cart\\Cart\|null given\.$#'
-			identifier: argument.type
-			count: 1
-			path: ../Classes/Domain/Finisher/Form/AddToCartFinisher.php
-
-		-
 			message: '#^Parameter \#1 \$content of method TYPO3\\CMS\\Core\\Http\\StreamFactory\:\:createStream\(\) expects string, string\|false given\.$#'
 			identifier: argument.type
 			count: 1
@@ -1144,18 +1120,6 @@ parameters:
 			message: '#^Parameter \#1 \$key of method Extcode\\Cart\\Service\\SessionHandler\:\:writeCart\(\) expects string, mixed given\.$#'
 			identifier: argument.type
 			count: 2
-			path: ../Classes/Domain/Finisher/Form/AddToCartFinisher.php
-
-		-
-			message: '#^Parameter \#2 \$cart of class Extcode\\Cart\\Event\\Form\\AddToCartFinisherEvent constructor expects Extcode\\Cart\\Domain\\Model\\Cart\\Cart, Extcode\\Cart\\Domain\\Model\\Cart\\Cart\|null given\.$#'
-			identifier: argument.type
-			count: 1
-			path: ../Classes/Domain/Finisher/Form/AddToCartFinisher.php
-
-		-
-			message: '#^Parameter \#2 \$cart of method Extcode\\Cart\\Service\\SessionHandler\:\:writeCart\(\) expects Extcode\\Cart\\Domain\\Model\\Cart\\Cart, Extcode\\Cart\\Domain\\Model\\Cart\\Cart\|null given\.$#'
-			identifier: argument.type
-			count: 1
 			path: ../Classes/Domain/Finisher/Form/AddToCartFinisher.php
 
 		-
