@@ -50,8 +50,8 @@ class AddToCartFinisher extends AbstractFinisher
         $this->cart = $this->sessionHandler->restoreCart($this->configurations['settings']['cart']['pid']);
 
         if (!$this->cart instanceof Cart) {
-            $cart = $this->cartUtility->getNewCart($this->configurations);
-            $this->sessionHandler->writeCart($this->configurations['settings']['cart']['pid'], $cart);
+            $this->cart = $this->cartUtility->getNewCart($this->configurations);
+            $this->sessionHandler->writeCart($this->configurations['settings']['cart']['pid'], $this->cart);
         }
 
         $formValues = $this->getFormValues();
