@@ -25,7 +25,8 @@ return function (ContainerConfigurator $containerConfigurator, ContainerBuilder 
     ) {
         $services = $containerConfigurator->services();
 
-        $services->set('Extcode\Cart\Hooks\ItemsProcFunc')
+        $services->set('Extcode\Cart\Hooks\FormDefinitions')
+            ->autowire()
             ->public();
     }
 

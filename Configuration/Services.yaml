@@ -9,6 +9,8 @@ services:
     exclude:
       - '../Classes/Widgets/*'
       - '../Classes/Command/*'
+      # registered in Services.php, only if EXT:form is loaded
+      - '../Classes/Hooks/FormDefinitions.php'
 
   Extcode\Cart\EventListener\Template\Components\ModifyButtonBar:
     tags:
