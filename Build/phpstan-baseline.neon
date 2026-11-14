@@ -3523,18 +3523,6 @@ parameters:
 			path: ../Classes/Hooks/FormDefinitions.php
 
 		-
-			message: '#^Cannot access offset ''name'' on mixed\.$#'
-			identifier: offsetAccess.nonOffsetAccessible
-			count: 1
-			path: ../Classes/Hooks/FormDefinitions.php
-
-		-
-			message: '#^Cannot access offset ''persistenceIdentifier'' on mixed\.$#'
-			identifier: offsetAccess.nonOffsetAccessible
-			count: 2
-			path: ../Classes/Hooks/FormDefinitions.php
-
-		-
 			message: '#^Method Extcode\\Cart\\Hooks\\FormDefinitions\:\:getFormSettings\(\) return type has no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
 			count: 1
@@ -3543,24 +3531,6 @@ parameters:
 		-
 			message: '#^Method Extcode\\Cart\\Hooks\\FormDefinitions\:\:getItems\(\) has parameter \$config with no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
-			count: 1
-			path: ../Classes/Hooks/FormDefinitions.php
-
-		-
-			message: '#^Method TYPO3\\CMS\\Form\\Mvc\\Persistence\\FormPersistenceManagerInterface\:\:listForms\(\) invoked with 1 parameter, 2 required\.$#'
-			identifier: arguments.count
-			count: 1
-			path: ../Classes/Hooks/FormDefinitions.php
-
-		-
-			message: '#^Parameter \#1 \$persistenceIdentifier of method TYPO3\\CMS\\Form\\Mvc\\Persistence\\FormPersistenceManagerInterface\:\:load\(\) expects string, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: ../Classes/Hooks/FormDefinitions.php
-
-		-
-			message: '#^Parameter \#3 \$request of method TYPO3\\CMS\\Form\\Mvc\\Persistence\\FormPersistenceManagerInterface\:\:load\(\) expects Psr\\Http\\Message\\ServerRequestInterface\|null, array given\.$#'
-			identifier: argument.type
 			count: 1
 			path: ../Classes/Hooks/FormDefinitions.php
 
