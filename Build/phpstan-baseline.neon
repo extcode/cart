@@ -3469,18 +3469,6 @@ parameters:
 			path: ../Classes/EventListener/Order/Finish/ClearCart.php
 
 		-
-			message: '#^Cannot access offset ''preventClearCart'' on mixed\.$#'
-			identifier: offsetAccess.nonOffsetAccessible
-			count: 1
-			path: ../Classes/EventListener/Order/Finish/ClearCart.php
-
-		-
-			message: '#^Cannot access offset int on Extcode\\Cart\\Domain\\Model\\Cart\\ServiceInterface\.$#'
-			identifier: offsetAccess.nonOffsetAccessible
-			count: 1
-			path: ../Classes/EventListener/Order/Finish/ClearCart.php
-
-		-
 			message: '#^Cannot call method getId\(\) on Extcode\\Cart\\Domain\\Model\\Cart\\ServiceInterface\|null\.$#'
 			identifier: method.nonObject
 			count: 1
