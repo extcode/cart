@@ -16,6 +16,7 @@ namespace Extcode\Cart\ViewHelpers\Form;
  */
 
 use Extcode\Cart\Domain\Model\Cart\ServiceInterface;
+use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractConditionViewHelper;
 
 /**
@@ -38,12 +39,7 @@ class IsServiceAvailableAtPriceViewHelper extends AbstractConditionViewHelper
         );
     }
 
-    /**
-     * @param array|null $arguments
-     * @return bool
-     * @api
-     */
-    protected static function evaluateCondition($arguments = null)
+    public static function verdict(array $arguments, RenderingContextInterface $renderingContext): bool
     {
         $service = $arguments['service'];
         $price = $arguments['price'];
