@@ -11,17 +11,23 @@ namespace Extcode\Cart\Tests\Functional\Controller\Backend\Order;
  * LICENSE file that was distributed with this source code.
  */
 
+use Closure;
 use Codappix\Typo3PhpDatasets\TestingFramework;
 use Extcode\Cart\Domain\Model\Order\BillingAddress;
+use Extcode\Cart\Event\Order\ExportEvent;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
+use RuntimeException;
+use Symfony\Component\DependencyInjection\Container;
 use TYPO3\CMS\Backend\Middleware\BackendModuleValidator;
 use TYPO3\CMS\Backend\Routing\Router;
 use TYPO3\CMS\Core\Core\SystemEnvironmentBuilder;
+use TYPO3\CMS\Core\EventDispatcher\ListenerProvider;
 use TYPO3\CMS\Core\Http\NormalizedParams;
+use TYPO3\CMS\Core\Http\Response;
 use TYPO3\CMS\Core\Http\ServerRequest;
 use TYPO3\CMS\Core\Localization\LanguageServiceFactory;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -501,6 +507,76 @@ class OrderControllerTest extends FunctionalTestCase
             ['O-20260823-1', 'O-20260225-1'],
             self::getExportedOrderNumbers($csv),
             'The export must only contain the orders of the search of the order list.'
+        );
+    }
+
+    #[Test]
+    public function exportActionReturnsTheResponseOfAnEventListenerForAnotherFormat(): void
+    {
+        $this->createOrders(3);
+
+        $this->addExportEventListener(
+            static function (ExportEvent $event): void {
+                if ($event->getFormat() !== 'xml') {
+                    return;
+                }
+
+                $response = new Response();
+                $response->getBody()->write('<orders/>');
+
+                $event->setResponse($response->withHeader('Content-Type', 'text/xml'));
+            }
+        );
+
+        $response = self::dispatchExportAction(['format' => 'xml']);
+
+        self::assertSame('text/xml', $response->getHeaderLine('Content-Type'));
+        self::assertSame('<orders/>', (string)$response->getBody());
+    }
+
+    #[Test]
+    public function exportActionKeepsTheResponseOfTheFluidTemplateForCsv(): void
+    {
+        $this->createOrders(3);
+
+        $this->addExportEventListener(
+            static function (ExportEvent $event): void {
+                $event->setResponse(new Response());
+            }
+        );
+
+        $response = self::dispatchExportAction();
+
+        self::assertSame('text/csv', $response->getHeaderLine('Content-Type'));
+        self::assertSame(
+            ['O-003', 'O-002', 'O-001'],
+            self::getExportedOrderNumbers((string)$response->getBody()),
+            'The EventListener of cart renders the template and stops the propagation of the event.'
+        );
+    }
+
+    #[Test]
+    public function exportActionThrowsExceptionIfNoEventListenerIsResponsibleForTheFormat(): void
+    {
+        $this->expectExceptionObject(
+            new RuntimeException(
+                'There is no EventListener for the ExportEvent, which exports the orders in the format "json".',
+                1794833771
+            )
+        );
+
+        self::dispatchExportAction(['format' => 'json']);
+    }
+
+    private function addExportEventListener(Closure $listener): void
+    {
+        $container = $this->getContainer();
+        assert($container instanceof Container);
+
+        $container->set('cart-test--event-listener--order--export', $listener);
+        GeneralUtility::makeInstance(ListenerProvider::class)->addListener(
+            ExportEvent::class,
+            'cart-test--event-listener--order--export'
         );
     }
 

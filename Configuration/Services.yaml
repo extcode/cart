@@ -40,6 +40,12 @@ services:
       - name: event.listener
         identifier: 'cart--mail--attachment-from-typoscript'
 
+  Extcode\Cart\EventListener\Order\Export\FluidTemplate:
+    tags:
+      - name: event.listener
+        identifier: 'cart--order--export--fluid-template'
+        event: Extcode\Cart\Event\Order\ExportEvent
+
   Extcode\Cart\EventListener\Order\Create\Order:
     tags:
       - name: event.listener
