@@ -2523,7 +2523,7 @@ parameters:
 		-
 			message: '#^Cannot access offset 0 on mixed\.$#'
 			identifier: offsetAccess.nonOffsetAccessible
-			count: 4
+			count: 1
 			path: ../Classes/Domain/Validator/OrderItemValidator.php
 
 		-
@@ -4059,7 +4059,7 @@ parameters:
 		-
 			message: '#^Cannot access offset ''templateLayouts\.'' on mixed\.$#'
 			identifier: offsetAccess.nonOffsetAccessible
-			count: 3
+			count: 2
 			path: ../Classes/Utility/TemplateLayout.php
 
 		-
