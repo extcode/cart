@@ -286,7 +286,7 @@ class OrderControllerTest extends FunctionalTestCase
             (string)self::dispatchListAction()->getBody()
         );
 
-        $html = (string)self::dispatchListActionWithQueryParameters([
+        $html = (string)self::dispatchRequestWithQueryParameters([
             'id' => self::ORDER_STORAGE_PID,
             'search' => [
                 'customer' => ['Smith'],
@@ -315,7 +315,7 @@ class OrderControllerTest extends FunctionalTestCase
         self::assertSame('Smith', self::getValueOfCustomerSearchField($filteredPage));
 
         // the request only uses the reset link of the filter form, like a click in the backend module does
-        $resetPage = (string)self::dispatchListActionWithQueryParameters(
+        $resetPage = (string)self::dispatchRequestWithQueryParameters(
             self::getQueryParametersOfResetLink($filteredPage)
         )->getBody();
         self::assertSame(
@@ -353,7 +353,7 @@ class OrderControllerTest extends FunctionalTestCase
             'With a search the reset link must be rendered.'
         );
 
-        $resetPage = (string)self::dispatchListActionWithQueryParameters(
+        $resetPage = (string)self::dispatchRequestWithQueryParameters(
             self::getQueryParametersOfResetLink($filteredPage)
         )->getBody();
         self::assertFalse(
@@ -426,12 +426,12 @@ class OrderControllerTest extends FunctionalTestCase
         );
         // the following requests only use the links of the pagination, like a click in the backend module does
         $secondPage = self::normalizeWhitespace(
-            (string)self::dispatchListActionWithQueryParameters(
+            (string)self::dispatchRequestWithQueryParameters(
                 self::getQueryParametersOfPaginationLink($firstPage, 2)
             )->getBody()
         );
         $thirdPage = self::normalizeWhitespace(
-            (string)self::dispatchListActionWithQueryParameters(
+            (string)self::dispatchRequestWithQueryParameters(
                 self::getQueryParametersOfPaginationLink($secondPage, 3)
             )->getBody()
         );
@@ -458,6 +458,63 @@ class OrderControllerTest extends FunctionalTestCase
         self::assertStringContainsString('Records 21 - 24', $thirdPage);
     }
 
+    #[Test]
+    public function exportActionRendersCsvWithOneLinePerOrder(): void
+    {
+        $this->createOrders(3);
+
+        $response = self::dispatchExportAction();
+
+        self::assertSame(200, $response->getStatusCode());
+        self::assertSame('text/csv', $response->getHeaderLine('Content-Type'));
+        self::assertMatchesRegularExpression(
+            '/^attachment; filename="Order-Export-\d{4}-\d{2}-\d{2}_\d{2}-\d{2}\.csv"$/',
+            $response->getHeaderLine('Content-Disposition')
+        );
+        self::assertSame(
+            implode("\n", [
+                '"Order Number","Order Date","Invoice Number","Invoice Date","Salutation","Title","FirstName","LastName"',
+                '"O-003","21.01.2026",,,,,"Arthur","Dent"',
+                '"O-002","21.01.2026",,,,,"Arthur","Dent"',
+                '"O-001","21.01.2026",,,,,"Arthur","Dent"',
+                '',
+            ]),
+            (string)$response->getBody()
+        );
+    }
+
+    #[Test]
+    public function exportActionExportsOnlyTheOrdersOfTheSearchOfTheOrderList(): void
+    {
+        $this->importPHPDataSet(__DIR__ . '/../../../../Fixtures/Orders.php');
+
+        $filteredPage = (string)self::dispatchListAction(searchArguments: ['customer' => 'Wolf'])->getBody();
+        self::assertSame(['O-20260823-1', 'O-20260225-1'], self::getRenderedOrderNumbers($filteredPage));
+
+        // the request only uses the export link of the button bar, like a click in the backend module does
+        $csv = (string)self::dispatchRequestWithQueryParameters(
+            self::getQueryParametersOfExportLink($filteredPage),
+            'cart_cart_orders.Backend\Order\Order_export'
+        )->getBody();
+
+        self::assertSame(
+            ['O-20260823-1', 'O-20260225-1'],
+            self::getExportedOrderNumbers($csv),
+            'The export must only contain the orders of the search of the order list.'
+        );
+    }
+
+    /**
+     * @param array<array-key, mixed> $queryParameters
+     */
+    private static function dispatchExportAction(array $queryParameters = []): ResponseInterface
+    {
+        return self::dispatchRequestWithQueryParameters(
+            array_merge(['id' => self::ORDER_STORAGE_PID, 'format' => 'csv'], $queryParameters),
+            'cart_cart_orders.Backend\Order\Order_export'
+        );
+    }
+
     /**
      * @param array<string, string> $searchArguments the filters of OrderController::listAction
      */
@@ -472,15 +529,15 @@ class OrderControllerTest extends FunctionalTestCase
             $queryParameters['search'] = $searchArguments;
         }
 
-        return self::dispatchListActionWithQueryParameters($queryParameters);
+        return self::dispatchRequestWithQueryParameters($queryParameters);
     }
 
     /**
      * @param array<array-key, mixed> $queryParameters
      */
-    private static function dispatchListActionWithQueryParameters(array $queryParameters): ResponseInterface
+    private static function dispatchRequestWithQueryParameters(array $queryParameters, string $routeIdentifier = 'cart_cart_orders'): ResponseInterface
     {
-        $request = self::buildListActionRequest($queryParameters);
+        $request = self::buildRequest($queryParameters, $routeIdentifier);
 
         // the middleware adds the module data to the request and saves the search arguments of the filter form
         return GeneralUtility::makeInstance(BackendModuleValidator::class)->process(
@@ -499,10 +556,10 @@ class OrderControllerTest extends FunctionalTestCase
     /**
      * @param array<array-key, mixed> $queryParameters
      */
-    private static function buildListActionRequest(array $queryParameters): ServerRequestInterface
+    private static function buildRequest(array $queryParameters, string $routeIdentifier): ServerRequestInterface
     {
-        $route = GeneralUtility::makeInstance(Router::class)->getRoute('cart_cart_orders');
-        self::assertNotNull($route, 'The backend module of the order list is not registered.');
+        $route = GeneralUtility::makeInstance(Router::class)->getRoute($routeIdentifier);
+        self::assertNotNull($route, 'The route ' . $routeIdentifier . ' of the backend module is not registered.');
 
         $queryParameters['route'] = $route->getPath();
 
@@ -541,6 +598,27 @@ class OrderControllerTest extends FunctionalTestCase
         self::assertArrayHasKey(1, $matches, 'No pagination link to page ' . $page . ' has been rendered.');
 
         return self::getQueryParametersOfHref($matches[1]);
+    }
+
+    /**
+     * @return array<array-key, mixed> the query parameters of the CSV export button of the button bar
+     */
+    private static function getQueryParametersOfExportLink(string $html): array
+    {
+        preg_match('/<a [^>]*href="([^"]*\/export\?[^"]*)"/', $html, $matches);
+        self::assertArrayHasKey(1, $matches, 'No export link has been rendered.');
+
+        return self::getQueryParametersOfHref($matches[1]);
+    }
+
+    /**
+     * @return string[] the order numbers in the order they are exported
+     */
+    private static function getExportedOrderNumbers(string $csv): array
+    {
+        preg_match_all('/^"(O-[^"]+)"/m', $csv, $matches);
+
+        return $matches[1];
     }
 
     private static function hasResetLink(string $html): bool

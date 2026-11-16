@@ -85,8 +85,20 @@ class OrderController extends ActionController
             $this->getBackendUser()->pushModuleData($moduleData->getModuleIdentifier(), $moduleData->toArray());
         }
 
-        $searchArguments = $moduleData->get('search', []);
-        $this->searchArguments = self::filterSearchArguments(is_array($searchArguments) ? $searchArguments : []);
+        $this->searchArguments = self::getSearchArgumentsOfModuleData($moduleData);
+    }
+
+    /**
+     * The export uses the search of the order list, which is saved in the ModuleData of the backend user.
+     */
+    public function initializeExportAction(): void
+    {
+        $moduleData = $this->request->getAttribute('moduleData');
+        if (!$moduleData instanceof ModuleData) {
+            return;
+        }
+
+        $this->searchArguments = self::getSearchArgumentsOfModuleData($moduleData);
     }
 
     public function listAction(int $currentPage = 1): ResponseInterface
@@ -280,6 +292,16 @@ class OrderController extends ActionController
         assert($backendUser instanceof BackendUserAuthentication);
 
         return $backendUser;
+    }
+
+    /**
+     * @return array<string, string>
+     */
+    private static function getSearchArgumentsOfModuleData(ModuleData $moduleData): array
+    {
+        $searchArguments = $moduleData->get('search', []);
+
+        return self::filterSearchArguments(is_array($searchArguments) ? $searchArguments : []);
     }
 
     /**
