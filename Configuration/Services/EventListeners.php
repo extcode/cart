@@ -5,6 +5,7 @@ declare(strict_types=1);
 use Extcode\Cart\Event\Cart\UpdateCountryEvent;
 use Extcode\Cart\Event\Cart\UpdateCurrencyEvent;
 use Extcode\Cart\Event\Order\CreateEvent;
+use Extcode\Cart\Event\Order\ExportEvent;
 use Extcode\Cart\Event\Order\FinishEvent;
 use Extcode\Cart\Event\Order\NumberGeneratorEvent;
 use Extcode\Cart\Event\Order\PersistOrderEvent;
@@ -25,6 +26,7 @@ use Extcode\Cart\EventListener\Order\Create\PersistOrder\Products;
 use Extcode\Cart\EventListener\Order\Create\PersistOrder\Shipping;
 use Extcode\Cart\EventListener\Order\Create\PersistOrder\TaxClasses;
 use Extcode\Cart\EventListener\Order\Create\PersistOrder\Taxes;
+use Extcode\Cart\EventListener\Order\Export\FluidTemplate;
 use Extcode\Cart\EventListener\Order\Finish\ClearCart;
 use Extcode\Cart\EventListener\Order\Finish\Email;
 use Extcode\Cart\EventListener\Order\Update\LogServiceUpdate;
@@ -91,6 +93,17 @@ return static function (ContainerConfigurator $containerConfigurator): void {
             'event.listener',
             [
                 'identifier' => 'cart--mail--attachment-from-typoscript',
+            ]
+        )
+    ;
+
+    $services
+        ->set(FluidTemplate::class)
+        ->tag(
+            'event.listener',
+            [
+                'event' => ExportEvent::class,
+                'identifier' => 'cart--order--export--fluid-template',
             ]
         )
     ;

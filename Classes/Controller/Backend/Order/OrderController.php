@@ -15,10 +15,12 @@ use Extcode\Cart\Controller\Backend\ActionController;
 use Extcode\Cart\Domain\Model\Cart\Cart;
 use Extcode\Cart\Domain\Model\Order\Item;
 use Extcode\Cart\Domain\Repository\Order\ItemRepository;
+use Extcode\Cart\Event\Order\ExportEvent;
 use Extcode\Cart\Event\Order\NumberGeneratorEvent;
 use Extcode\Cart\Event\Template\Components\ModifyButtonBarEvent;
 use Extcode\Cart\Event\Template\Components\ModifyModuleTemplateEvent;
 use Psr\Http\Message\ResponseInterface;
+use RuntimeException;
 use TYPO3\CMS\Backend\Module\ModuleData;
 use TYPO3\CMS\Backend\Template\Components\ButtonBar;
 use TYPO3\CMS\Backend\Template\Components\ComponentFactory;
@@ -54,6 +56,9 @@ class OrderController extends ActionController
         'shippingStatus',
     ];
 
+    /**
+     * @var array<string, string>
+     */
     protected array $searchArguments = [];
 
     private ModuleTemplate $moduleTemplate;
@@ -177,24 +182,23 @@ class OrderController extends ActionController
 
     public function exportAction(): ResponseInterface
     {
-        $format = $this->request->getFormat();
-        $orderItems = $this->itemRepository->findAll($this->searchArguments);
+        $exportEvent = new ExportEvent(
+            $this->request,
+            $this->settings,
+            $this->searchArguments
+        );
 
-        $this->view->assign('searchArguments', $this->searchArguments);
-        $this->view->assign('orderItems', $orderItems);
+        $this->eventDispatcher->dispatch($exportEvent);
 
-        $pdfRendererInstalled = ExtensionManagementUtility::isLoaded('cart_pdf');
-        $this->view->assign('pdfRendererInstalled', $pdfRendererInstalled);
+        $response = $exportEvent->getResponse();
+        if (!$response instanceof ResponseInterface) {
+            throw new RuntimeException(
+                'There is no EventListener for the ExportEvent, which exports the orders in the format "' . $this->request->getFormat() . '".',
+                1794833771
+            );
+        }
 
-        $title = 'Order-Export-' . date('Y-m-d_H-i');
-        $filename = $title . '.' . $format;
-
-        return $this->responseFactory->createResponse()
-            ->withAddedHeader('Content-Type', 'text/' . $format)
-            ->withAddedHeader('Content-Description', 'File transfer')
-            ->withAddedHeader('Content-Disposition', 'attachment; filename="' . $filename . '"')
-            ->withBody($this->streamFactory->createStream($this->view->render()))
-        ;
+        return $response;
     }
 
     public function generateNumberAction(Item $orderItem, string $numberType): ResponseInterface
@@ -285,7 +289,8 @@ class OrderController extends ActionController
         parent::initializeAction();
 
         if ($this->request->hasArgument('search')) {
-            $this->searchArguments = $this->request->getArgument('search');
+            $searchArguments = $this->request->getArgument('search');
+            $this->searchArguments = self::filterSearchArguments(is_array($searchArguments) ? $searchArguments : []);
         }
     }
 

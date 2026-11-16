@@ -403,18 +403,6 @@ parameters:
 			path: ../Classes/Controller/Backend/Order/OrderController.php
 
 		-
-			message: '#^Property Extcode\\Cart\\Controller\\Backend\\Order\\OrderController\:\:\$searchArguments \(array\) does not accept mixed\.$#'
-			identifier: assign.propertyType
-			count: 1
-			path: ../Classes/Controller/Backend/Order/OrderController.php
-
-		-
-			message: '#^Property Extcode\\Cart\\Controller\\Backend\\Order\\OrderController\:\:\$searchArguments type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: ../Classes/Controller/Backend/Order/OrderController.php
-
-		-
 			message: '#^Parameter \#1 \$messageBody of method TYPO3\\CMS\\Extbase\\Mvc\\Controller\\ActionController\:\:addFlashMessage\(\) expects string, string\|null given\.$#'
 			identifier: argument.type
 			count: 1
