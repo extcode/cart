@@ -148,6 +148,26 @@ events:
    This event is triggered when the payment or shipping of an order is edited
    in the backend.
 
+.. confval:: \Extcode\Cart\Event\Order\ExportEvent
+
+   This event is triggered in the `exportAction` of the backend module
+   `OrderController`. It passes the request with the requested format,
+   the settings and the search arguments of the order list.
+
+   An EventListener checks whether it is responsible for the requested format
+   (`getFormat()`) and sets the response with the exported orders
+   (`setResponse()`). The first response set stops the propagation of the
+   event.
+
+   The extension itself registers the EventListener
+   `\Extcode\Cart\EventListener\Order\Export\FluidTemplate` with the
+   identifier `cart--order--export--fluid-template`. It is responsible for
+   every format for which the template `Backend/Order/Order/Export.<format>`
+   exists in the template root paths of the backend module, e.g. the
+   `Export.csv` of the extension.
+
+   See :ref:`replace-order-export` how to replace this EventListener.
+
 .. confval:: `Extcode\Cart\Event\Session\AfterRestoreAddressEvent`
 
    This event is triggered in the `SessionHandler` and can be used to validate
@@ -190,3 +210,90 @@ events:
    This event is triggered in the several actions of the frontend plugins.
 
    The event allows to assign own data to the view.
+
+.. _replace-order-export:
+
+Replace the order export
+========================
+
+The EventListener `cart--order--export--fluid-template` renders the export
+with Fluid and the Extbase domain models. For a large number of orders it can
+be faster to fetch the data directly from the database and to generate the
+file with PHP.
+
+Register an own EventListener before the one of the extension
+--------------------------------------------------------------
+
+This is the recommended way. The own EventListener is called first. As soon
+as it sets a response, the propagation of the event is stopped and the
+EventListener of the extension is not called anymore. For all other formats
+the EventListener of the extension is still used.
+
+..  code-block:: php
+    :caption: EXT:my_extension/Classes/EventListener/Order/Export/Csv.php
+
+    <?php
+
+    declare(strict_types=1);
+
+    namespace MyVendor\MyExtension\EventListener\Order\Export;
+
+    use Extcode\Cart\Event\Order\ExportEvent;
+    use Psr\Http\Message\ResponseFactoryInterface;
+    use Psr\Http\Message\StreamFactoryInterface;
+
+    final readonly class Csv
+    {
+        public function __construct(
+            private ResponseFactoryInterface $responseFactory,
+            private StreamFactoryInterface $streamFactory,
+        ) {}
+
+        public function __invoke(ExportEvent $event): void
+        {
+            if ($event->getFormat() !== 'csv') {
+                return;
+            }
+
+            // fetch the orders with the QueryBuilder, respect
+            // $event->getSearchArguments() and write them with fputcsv()
+            $csv = '...';
+
+            $event->setResponse(
+                $this->responseFactory->createResponse()
+                    ->withHeader('Content-Type', 'text/csv; charset=utf-8')
+                    ->withHeader('Content-Disposition', 'attachment; filename="orders.csv"')
+                    ->withBody($this->streamFactory->createStream($csv))
+            );
+        }
+    }
+
+..  code-block:: yaml
+    :caption: EXT:my_extension/Configuration/Services.yaml
+
+    services:
+      MyVendor\MyExtension\EventListener\Order\Export\Csv:
+        tags:
+          - name: event.listener
+            identifier: 'my-extension--order--export--csv'
+            before: 'cart--order--export--fluid-template'
+
+Replace the EventListener of the extension
+------------------------------------------
+
+Alternatively the service definition of the EventListener of the extension
+can be overwritten with the same identifier. The EventListener of the
+extension is not called anymore, for no format at all. The own EventListener
+has to handle every format offered in the backend module.
+
+..  code-block:: yaml
+    :caption: EXT:my_extension/Configuration/Services.yaml
+
+    services:
+      MyVendor\MyExtension\EventListener\Order\Export\Csv:
+        tags:
+          - name: event.listener
+            identifier: 'cart--order--export--fluid-template'
+
+The extension providing this service definition has to be loaded after the
+cart extension, e.g. by requiring `extcode/cart` in its `composer.json`.
