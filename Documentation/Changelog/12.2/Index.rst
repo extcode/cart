@@ -18,3 +18,13 @@ Features
    :glob:
 
    Feature-*
+
+Deprecation
+-----------
+
+.. toctree::
+   :maxdepth: 1
+   :titlesonly:
+   :glob:
+
+   Deprecation-*
