@@ -28,6 +28,7 @@ final class Environment extends BackendEnvironment
                 'typo3/cms-extbase',
                 'typo3/cms-frontend',
                 'typo3/cms-fluid',
+                'typo3/cms-dashboard',
             ],
             'testExtensionsToLoad' => [
                 'extcode/cart',
@@ -35,6 +36,8 @@ final class Environment extends BackendEnvironment
             'phpDatabaseFixtures' => [
                 __DIR__ . '/../Fixtures/BackendUserDatabase.php',
                 __DIR__ . '/../../Fixtures/BaseDatabase.php',
+                __DIR__ . '/../Fixtures/DashboardDatabase.php',
+                __DIR__ . '/../Fixtures/OrdersDatabase.php',
             ],
             'configurationToUseInTestInstance' => [
                 'SYS' => [
