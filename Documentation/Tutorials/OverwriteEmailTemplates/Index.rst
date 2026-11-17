@@ -18,7 +18,7 @@ to overwrite the give templates/partials.
 The files need then to be placed in a directory named `Mail`.
 
 The following tree view shows an example how the overwrite the mail template
-which is used when sending an email to the customer (=buyer) when the order is not payed yet
+which is used when sending an email to the customer (=buyer) when the order is not paid yet
 ("open"). Furthermore the address partial is overwritten.
 
 .. code-block:: typoscript

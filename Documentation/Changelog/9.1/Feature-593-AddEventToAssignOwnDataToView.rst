@@ -13,7 +13,7 @@ Adding your own data to plugin templates is not so easy. In order to assign
 own data to the view, you need a lib in TypoScript and a f:cObject in the
 template with some JavaScript on top.
 
-This `\Extcode\Cart\Event\View\ModifyViewEvent` event is dispached in all
+This `\Extcode\Cart\Event\View\ModifyViewEvent` event is dispatched in all
 actions for which an output is generated via a template. Actions that are
 forwarded to another action do not require the event.
 

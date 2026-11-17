@@ -240,7 +240,7 @@ final class BeVariant implements AdditionalDataInterface, BeVariantInterface
             return $parentPrice + (($price / 100) * $parentPrice);
         }
 
-        throw new \InvalidArgumentException('Unkonwn price calc method', 1711969492);
+        throw new \InvalidArgumentException('Unknown price calc method', 1711969492);
     }
 
     public function getBestPriceCalculated(): float
