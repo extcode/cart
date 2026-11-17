@@ -49,7 +49,7 @@ class CurrencyViewHelper extends AbstractViewHelper
         $this->registerArgument(
             'prependCurrency',
             'bool',
-            'Select if the curreny sign should be prepended',
+            'Select if the currency sign should be prepended',
             false
         );
         $this->registerArgument(

@@ -133,7 +133,7 @@ class MeasureTraitTest extends UnitTestCase
     }
 
     #[Test]
-    public function getIsMeasureUnitCompatibilityInitiallyRetrunsFalse(): void
+    public function getIsMeasureUnitCompatibilityInitiallyReturnsFalse(): void
     {
         self::assertFalse(
             $this->trait->getIsMeasureUnitCompatibility()
@@ -141,7 +141,7 @@ class MeasureTraitTest extends UnitTestCase
     }
 
     #[Test]
-    public function getIsMeasureUnitCompatibilityAndNotSetPriceMeasureUnitsRetrunsFalse(): void
+    public function getIsMeasureUnitCompatibilityAndNotSetPriceMeasureUnitsReturnsFalse(): void
     {
         $this->trait->setBasePriceMeasureUnit('l');
 
@@ -151,7 +151,7 @@ class MeasureTraitTest extends UnitTestCase
     }
 
     #[Test]
-    public function getIsMeasureUnitCompatibilityAndNotSetBasePriceMeasureUnitsRetrunsFalse(): void
+    public function getIsMeasureUnitCompatibilityAndNotSetBasePriceMeasureUnitsReturnsFalse(): void
     {
         self::assertFalse(
             $this->trait->getIsMeasureUnitCompatibility()
@@ -185,7 +185,7 @@ class MeasureTraitTest extends UnitTestCase
      * @test
      * @dataProvider measureUnitsProvider
      */
-    public function getIsMeasureUnitCompatibilityRetrunsTrueOnSameTypeOfMeasureUnit(
+    public function getIsMeasureUnitCompatibilityReturnsTrueOnSameTypeOfMeasureUnit(
         $sourceMeasureUnit,
         $targetMeasureUnit,
         $factor,
@@ -225,7 +225,7 @@ class MeasureTraitTest extends UnitTestCase
      * @test
      * @dataProvider measureUnitsProvider
      */
-    public function getCalculatedBasePriceForGivenPriceMeasureUnitAndBasePriceMeasureUnitRetrunsPrice(
+    public function getCalculatedBasePriceForGivenPriceMeasureUnitAndBasePriceMeasureUnitReturnsPrice(
         $sourceMeasureUnit,
         $targetMeasureUnit,
         $factor,

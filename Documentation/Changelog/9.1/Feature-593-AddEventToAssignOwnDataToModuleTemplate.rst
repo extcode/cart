@@ -14,7 +14,7 @@ own data to the moduleTemplate, you need a way to assign your own data if you
 do not want to develop your own backend module.
 
 The `\Extcode\Cart\Event\Template\Components\ModifyModuleTemplateEvent` event
-is dispached in the OrderController for the backend module.
+is dispatched in the OrderController for the backend module.
 
 An own EventListener can use the methods `getRequest()`, `getSettings()`,
 `getModuleTemplate()` to retrieve all the necessary information to assign custom

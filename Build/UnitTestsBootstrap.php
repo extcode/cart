@@ -14,7 +14,7 @@
  */
 
 /**
- * Boilerplate for a unit test phpunit boostrap file.
+ * Boilerplate for a unit test phpunit bootstrap file.
  *
  * This file is loosely maintained within TYPO3 testing-framework, extensions
  * are encouraged to not use it directly, but to copy it to an own place,
