@@ -4615,12 +4615,6 @@ parameters:
 			path: ../Classes/Widgets/Provider/OrdersPerDayProvider.php
 
 		-
-			message: '#^Method Extcode\\Cart\\Widgets\\Provider\\OrdersPerDayProvider\:\:getOrderItemsInPeriod\(\) should return int but returns mixed\.$#'
-			identifier: return.type
-			count: 1
-			path: ../Classes/Widgets/Provider/OrdersPerDayProvider.php
-
-		-
 			message: '#^Parameter \#1 \$fieldName of method TYPO3\\CMS\\Core\\Database\\Query\\Expression\\ExpressionBuilder\:\:gte\(\) expects string, mixed given\.$#'
 			identifier: argument.type
 			count: 1
@@ -4671,12 +4665,6 @@ parameters:
 		-
 			message: '#^Method Extcode\\Cart\\Widgets\\Provider\\TurnoverPerDayProvider\:\:getChartData\(\) return type has no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
-			count: 1
-			path: ../Classes/Widgets/Provider/TurnoverPerDayProvider.php
-
-		-
-			message: '#^Method Extcode\\Cart\\Widgets\\Provider\\TurnoverPerDayProvider\:\:getOrderItemsInPeriod\(\) should return float but returns mixed\.$#'
-			identifier: return.type
 			count: 1
 			path: ../Classes/Widgets/Provider/TurnoverPerDayProvider.php
 

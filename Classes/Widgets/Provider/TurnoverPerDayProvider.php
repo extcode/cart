@@ -51,20 +51,24 @@ class TurnoverPerDayProvider implements ChartDataProviderInterface
 
     public function getOrderItemsInPeriod(int $start, int $end): float
     {
+        $queryBuilder = clone $this->queryBuilder;
+
         $constraints = [
-            $this->queryBuilder->expr()->gte($this->options['fieldName'], $start),
-            $this->queryBuilder->expr()->lte($this->options['fieldName'], $end),
+            $queryBuilder->expr()->gte($this->options['fieldName'], $start),
+            $queryBuilder->expr()->lte($this->options['fieldName'], $end),
         ];
 
-        $this->queryBuilder
+        $queryBuilder
             ->selectLiteral(
-                $this->queryBuilder->expr()->sum('tx_cart_domain_model_order_item.' . $this->options['sum'], 'turnover')
+                $queryBuilder->expr()->sum('tx_cart_domain_model_order_item.' . $this->options['sum'], 'turnover')
             )
             ->from('tx_cart_domain_model_order_item')
             ->where(... $constraints)
         ;
 
-        return $this->queryBuilder->executeQuery()->fetchOne() ?? 0;
+        $turnover = $queryBuilder->executeQuery()->fetchOne();
+
+        return is_numeric($turnover) ? (float) $turnover : 0.0;
     }
 
     private function calculateData(): array
