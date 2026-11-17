@@ -28,9 +28,10 @@ class OrderItemsProvider implements ListDataProviderInterface
 
     public function getItems(): array
     {
+        $queryBuilder = clone $this->queryBuilder;
         $constraints = [];
 
-        $this->queryBuilder
+        $queryBuilder
             ->select(
                 'tx_cart_domain_model_order_item.uid',
                 'tx_cart_domain_model_order_item.pid',
@@ -44,59 +45,36 @@ class OrderItemsProvider implements ListDataProviderInterface
             ->setMaxResults($this->options['limit'])
         ;
 
-        $this->queryBuilder
-            ->leftJoin(
-                'tx_cart_domain_model_order_item',
-                'tx_cart_domain_model_order_payment',
-                'payment',
-                $this->queryBuilder->expr()->eq(
-                    'tx_cart_domain_model_order_item.uid',
-                    $this->queryBuilder->quoteIdentifier('payment.item')
+        $filter = $this->options['filter'] ?? [];
+        foreach (['payment', 'shipping'] as $type) {
+            $queryBuilder
+                ->leftJoin(
+                    'tx_cart_domain_model_order_item',
+                    'tx_cart_domain_model_order_' . $type,
+                    $type,
+                    $queryBuilder->expr()->eq(
+                        'tx_cart_domain_model_order_item.uid',
+                        $queryBuilder->quoteIdentifier($type . '.item')
+                    )
                 )
-            )
-            ->addSelect('payment.name AS payment_name', 'payment.status AS payment_status')
-        ;
+                ->addSelect($type . '.name AS ' . $type . '_name', $type . '.status AS ' . $type . '_status')
+            ;
 
-        if (is_array($this->options['filter']) && is_array($this->options['filter']['payment']) && !empty($this->options['filter']['payment']['status'])) {
-            $constraints[] = $this->queryBuilder->expr()->eq(
-                'payment.status',
-                $this->queryBuilder->createNamedParameter(
-                    $this->options['filter']['payment']['status'],
-                    Connection::PARAM_STR
-                )
-            );
-        }
+            $status = is_array($filter) && is_array($filter[$type] ?? null) ? ($filter[$type]['status'] ?? '') : '';
+            if (!is_string($status) || $status === '') {
+                continue;
+            }
 
-        $this->queryBuilder
-            ->leftJoin(
-                'tx_cart_domain_model_order_item',
-                'tx_cart_domain_model_order_shipping',
-                'shipping',
-                $this->queryBuilder->expr()->eq(
-                    'tx_cart_domain_model_order_item.uid',
-                    $this->queryBuilder->quoteIdentifier('shipping.item')
-                )
-            )
-            ->addSelect('shipping.name AS shipping_name', 'shipping.status AS shipping_status')
-        ;
-
-        if (is_array($this->options['filter'])
-            && is_array($this->options['filter']['shipping'])
-            && !empty($this->options['filter']['shipping']['status'])
-        ) {
-            $constraints[] = $this->queryBuilder->expr()->eq(
-                'shipping.status',
-                $this->queryBuilder->createNamedParameter(
-                    $this->options['filter']['shipping']['status'],
-                    Connection::PARAM_STR
-                )
+            $constraints[] = $queryBuilder->expr()->eq(
+                $type . '.status',
+                $queryBuilder->createNamedParameter($status, Connection::PARAM_STR)
             );
         }
 
         if ($constraints !== []) {
-            $this->queryBuilder->where(... $constraints);
+            $queryBuilder->where(...$constraints);
         }
 
-        return $this->queryBuilder->executeQuery()->fetchAllAssociative();
+        return $queryBuilder->executeQuery()->fetchAllAssociative();
     }
 }
