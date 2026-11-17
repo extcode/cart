@@ -32,6 +32,18 @@ jobs:
       - name: PHP lint
         run: Build/Scripts/lint-php.sh
 
+  typos-linting:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install typos
+        run: pipx install typos
+
+      - name: Typos lint
+        run: Build/Scripts/lint-typos.sh
+
   typoscript-linting:
     runs-on: ubuntu-latest
     steps:
