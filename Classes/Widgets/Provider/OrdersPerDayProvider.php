@@ -35,26 +35,6 @@ class OrdersPerDayProvider implements ChartDataProviderInterface
 
     public function getChartData(): array
     {
-        if (is_array($this->options['filter']) && is_array($this->options['filter']['payment']) && !empty($this->options['filter']['payment']['status'])) {
-            $constraints[] = $this->queryBuilder->expr()->eq(
-                'payment.status',
-                $this->queryBuilder->createNamedParameter(
-                    $this->options['filter']['payment']['status'],
-                    Connection::PARAM_STR
-                )
-            );
-        }
-
-        if (is_array($this->options['filter']) && is_array($this->options['filter']['shipping']) && !empty($this->options['filter']['shipping']['status'])) {
-            $constraints[] = $this->queryBuilder->expr()->eq(
-                'shipping.status',
-                $this->queryBuilder->createNamedParameter(
-                    $this->options['filter']['shipping']['status'],
-                    Connection::PARAM_STR
-                )
-            );
-        }
-
         [$labels, $data] = $this->calculateData();
 
         return [
@@ -71,18 +51,46 @@ class OrdersPerDayProvider implements ChartDataProviderInterface
 
     public function getOrderItemsInPeriod(int $start, int $end): int
     {
+        $queryBuilder = clone $this->queryBuilder;
+
         $constraints = [
-            $this->queryBuilder->expr()->gte($this->options['fieldName'], $start),
-            $this->queryBuilder->expr()->lte($this->options['fieldName'], $end),
+            $queryBuilder->expr()->gte($this->options['fieldName'], $start),
+            $queryBuilder->expr()->lte($this->options['fieldName'], $end),
         ];
 
-        $this->queryBuilder
+        $queryBuilder
             ->count('*')
             ->from('tx_cart_domain_model_order_item')
-            ->where(... $constraints)
         ;
 
-        return $this->queryBuilder->executeQuery()->fetchOne();
+        $filter = $this->options['filter'] ?? [];
+        foreach (['payment', 'shipping'] as $type) {
+            $status = is_array($filter) && is_array($filter[$type] ?? null) ? ($filter[$type]['status'] ?? '') : '';
+            if (!is_string($status) || $status === '') {
+                continue;
+            }
+
+            $queryBuilder->join(
+                'tx_cart_domain_model_order_item',
+                'tx_cart_domain_model_order_' . $type,
+                $type,
+                $queryBuilder->expr()->eq(
+                    'tx_cart_domain_model_order_item.uid',
+                    $queryBuilder->quoteIdentifier($type . '.item')
+                )
+            );
+
+            $constraints[] = $queryBuilder->expr()->eq(
+                $type . '.status',
+                $queryBuilder->createNamedParameter($status, Connection::PARAM_STR)
+            );
+        }
+
+        $queryBuilder->where(...$constraints);
+
+        $count = $queryBuilder->executeQuery()->fetchOne();
+
+        return is_numeric($count) ? (int) $count : 0;
     }
 
     private function calculateData(): array
