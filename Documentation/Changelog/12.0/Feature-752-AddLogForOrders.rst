@@ -11,7 +11,7 @@ Description
 
 Currently there is no logging for an order. An editor can
 change the shipping status, but nobody knows, when this is
-happend.
+happened.
 
 Impact
 ======

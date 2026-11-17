@@ -721,7 +721,7 @@ class Cart implements AdditionalDataInterface
                 $this->addNet($product->getNet());
                 $this->addTax($product->getTax(), $product->getTaxClass());
             } else {
-                // only run, if quantity was realy changed
+                // only run, if quantity was really changed
                 if ($product->getQuantity() != $quantity) {
                     $this->subCount($product->getQuantity());
                     $this->subGross($product->getGross());

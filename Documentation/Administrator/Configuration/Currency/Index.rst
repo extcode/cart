@@ -32,7 +32,7 @@ ViewHelper.
        }
    }
 
-.. _adminstration_currency_translation:
+.. _administration_currency_translation:
 
 Currency Translation
 ====================

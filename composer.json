@@ -81,11 +81,14 @@
         "project:cgl:fix": "Build/Scripts/cgl.sh --fix",
         "project:lint": [
             "@project:lint:php",
+            "@project:lint:typos",
             "@project:lint:typoscript",
             "@project:lint:xml",
             "@project:lint:yaml"
         ],
         "project:lint:php": "Build/Scripts/lint-php.sh",
+        "project:lint:typos": "Build/Scripts/lint-typos.sh",
+        "project:lint:typos:fix": "Build/Scripts/lint-typos.sh --fix",
         "project:lint:typoscript": "Build/Scripts/lint-typoscript.sh",
         "project:lint:xml": "Build/Scripts/lint-xml.sh",
         "project:lint:yaml": "Build/Scripts/lint-yaml.sh",

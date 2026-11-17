@@ -215,7 +215,7 @@ class BeVariantTest extends UnitTestCase
     }
 
     #[Test]
-    public function throwsInvalidArgumentExceptionIfMinIsNegativ(): void
+    public function throwsInvalidArgumentExceptionIfMinIsNegative(): void
     {
         $this->expectException(InvalidArgumentException::class);
 
