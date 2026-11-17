@@ -109,32 +109,30 @@ For more information see: :ref:`Checkbox Configuration <consent_checkboxes>`__
 If you extend or override classes, use hooks or signal slots you have to check them carefully. They can be removed or
 moved to another location.
 
-Sortierung von Frontend- und Backendvarianten
-=============================================
+Sorting of frontend and backend variants
+========================================
 
-In der Produktkonfiguration können die Frontend und Backendvarianten sortiert werden.
-
-.. IMPORTANT::
-   Es ist eine Aktualisierung der Datenbank erforderlich. Da dieses Feld neu hinzu kommt sind keine Probleme zu erwarten.
-
-Speichern des Rechungs- und Versandländercodes in den Bestelldaten
-==================================================================
-
-In der Bestellung werden nun die Ländercodes aus dem TypoScript gespeichert, um in der späteren Verarbeitung auf die
-richtige Konfiguration zugreifen zu können.
+The frontend and backend variants can be sorted in the product configuration.
 
 .. IMPORTANT::
-   Es ist eine Aktualisierung der Datenbank erforderlich. Da dieses Feld neu hinzu kommt sind keine Probleme zu erwarten.
+   A database update is required. As this field is new, no problems are expected.
 
-#59 und #64 Füllen der Rechnungs- und Lieferadresse mit Nutzerdaten
+Storing the billing and shipping country codes in the order data
+================================================================
+
+The order now stores the country codes from the TypoScript, so that later processing can access the right
+configuration.
+
+.. IMPORTANT::
+   A database update is required. As this field is new, no problems are expected.
+
+#59 and #64 Filling the billing and shipping address with user data
 ===================================================================
 
-In der showCartAction des Warenkorbplugins wird nun ein Hook *showCartActionAfterCartWasLoaded* bereitgestellt, der
-es erlaubt, neben zusätzlichen Änderungen im Warenkorb auch die Rechnungs- und Lieferadresse mit Daten eines
-eingeloggten Nutzers vorauszufüllen.
+The showCartAction of the cart plugin now provides a hook *showCartActionAfterCartWasLoaded*. Besides further changes
+to the cart, it allows to prefill the billing and shipping address with data of a logged-in user.
 
 .. IMPORTANT::
-   Ein Vorausfüllen der Adressfelder mit Daten aus einem eingeloggten Frontend Benutzer wird es nicht geben.
-   Zum einen ist das nicht in jedem Fall gewünscht, zum anderen müsste das FrontendUser Model erweitert werden,
-   um alle relevanten Daten eines Nutzers speichern zu können. Oft werden diese Felder schon an anderer Stelle
-   bereitgestellt.
+   The address fields will not be prefilled with data of a logged-in frontend user out of the box.
+   On the one hand this is not wanted in every case, on the other hand the FrontendUser model would have to be
+   extended to store all relevant data of a user. Often these fields are already provided elsewhere.
