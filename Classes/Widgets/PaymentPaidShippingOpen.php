@@ -38,7 +38,7 @@ class PaymentPaidShippingOpen implements WidgetInterface, RequestAwareWidgetInte
 
     public function renderWidgetContent(): string
     {
-        $this->view = $this->backendViewFactory->create($this->request);
+        $this->view = $this->backendViewFactory->create($this->request, ['typo3/cms-dashboard', 'extcode/cart']);
 
         $this->view->assignMultiple([
             'items' => $this->dataProvider->getItems(),
