@@ -1,0 +1,42 @@
+namespace: 'Extcode\Cart\Tests\Acceptance\Support'
+
+paths:
+  tests: 'Tests/Acceptance'
+  data: 'Tests/Acceptance/Data'
+  output: '.Build/public/typo3temp/var/tests/acceptance-reports'
+  support: 'Tests/Acceptance/Support'
+
+settings:
+  debug: true
+
+# geckodriver and the php built-in webserver are started by
+# Build/Scripts/acceptance.sh.
+extensions:
+  enabled:
+    -
+      'Codeception\Extension\Recorder'
+    -
+      'Extcode\Cart\Tests\Acceptance\Support\Environment':
+        typo3DatabaseDriver: 'pdo_sqlite'
+
+suites:
+  acceptance:
+    actor: 'Tester'
+    path: '.'
+    modules:
+      enabled:
+        -
+          WebDriver:
+            url: 'http://127.0.0.1:8080/'
+            browser: 'firefox'
+            restart: true
+            path: ''
+            wait: 5
+            window_size: '1920x1080'
+            capabilities:
+              moz:firefoxOptions:
+                args:
+                  - '-headless'
+
+    step_decorators:
+      - 'Codeception\Step\Retry'

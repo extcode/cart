@@ -10,6 +10,9 @@ parameters:
     - ../Tests
     - ../ext_localconf.php
 
+  excludePaths:
+    - ../Tests/Acceptance/Support/_generated
+
   disallowedFunctionCalls:
     -
       function:
