@@ -164,11 +164,8 @@ jobs:
           php-version: "${{ matrix.php-version }}"
           tools: composer:v2
 
-      - name: Install dependencies with expected TYPO3 version
-        run: |-
-          composer remove --dev ssch/typo3-rector \
-          && composer require typo3/cms-install "*" \
-          && composer install --no-progress --no-ansi --no-interaction
+      - name: Install dependencies
+        run: composer install --no-progress --no-ansi --no-interaction
 
       - name: Code Quality (by PHPStan)
         run: Build/Scripts/phpstan.sh
