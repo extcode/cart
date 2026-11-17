@@ -4669,12 +4669,6 @@ parameters:
 			path: ../Classes/Widgets/Provider/TurnoverPerDayProvider.php
 
 		-
-			message: '#^Method Extcode\\Cart\\Widgets\\Provider\\TurnoverPerDayProvider\:\:getOrderItemsInPeriod\(\) should return float but returns mixed\.$#'
-			identifier: return.type
-			count: 1
-			path: ../Classes/Widgets/Provider/TurnoverPerDayProvider.php
-
-		-
 			message: '#^Parameter \#1 \$fieldName of method TYPO3\\CMS\\Core\\Database\\Query\\Expression\\ExpressionBuilder\:\:gte\(\) expects string, mixed given\.$#'
 			identifier: argument.type
 			count: 1
