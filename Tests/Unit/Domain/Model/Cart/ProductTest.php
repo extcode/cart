@@ -760,7 +760,7 @@ class ProductTest extends UnitTestCase
     }
 
     #[Test]
-    public function throwsInvalidArgumentExceptionIfMinNumberIsNegativ(): void
+    public function throwsInvalidArgumentExceptionIfMinNumberIsNegative(): void
     {
         $this->expectException(InvalidArgumentException::class);
 

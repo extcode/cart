@@ -7,7 +7,7 @@ Installation
 ============
 
 The installation consists of adding the extension and including the TypoScript.
-To get a working cart you need to process further steps which are descriped in
+To get a working cart you need to process further steps which are described in
 :ref:`the quick start<quick_start>`.
 
 .. _installation_extension:

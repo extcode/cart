@@ -5083,61 +5083,61 @@ parameters:
 			path: ../Tests/Unit/Domain/Model/Product/MeasureTraitTest.php
 
 		-
-			message: '#^Method Extcode\\Cart\\Tests\\Unit\\Domain\\Model\\Product\\MeasureTraitTest\:\:getCalculatedBasePriceForGivenPriceMeasureUnitAndBasePriceMeasureUnitRetrunsPrice\(\) has parameter \$calculatedBasePrice with no type specified\.$#'
+			message: '#^Method Extcode\\Cart\\Tests\\Unit\\Domain\\Model\\Product\\MeasureTraitTest\:\:getCalculatedBasePriceForGivenPriceMeasureUnitAndBasePriceMeasureUnitReturnsPrice\(\) has parameter \$calculatedBasePrice with no type specified\.$#'
 			identifier: missingType.parameter
 			count: 1
 			path: ../Tests/Unit/Domain/Model/Product/MeasureTraitTest.php
 
 		-
-			message: '#^Method Extcode\\Cart\\Tests\\Unit\\Domain\\Model\\Product\\MeasureTraitTest\:\:getCalculatedBasePriceForGivenPriceMeasureUnitAndBasePriceMeasureUnitRetrunsPrice\(\) has parameter \$factor with no type specified\.$#'
+			message: '#^Method Extcode\\Cart\\Tests\\Unit\\Domain\\Model\\Product\\MeasureTraitTest\:\:getCalculatedBasePriceForGivenPriceMeasureUnitAndBasePriceMeasureUnitReturnsPrice\(\) has parameter \$factor with no type specified\.$#'
 			identifier: missingType.parameter
 			count: 1
 			path: ../Tests/Unit/Domain/Model/Product/MeasureTraitTest.php
 
 		-
-			message: '#^Method Extcode\\Cart\\Tests\\Unit\\Domain\\Model\\Product\\MeasureTraitTest\:\:getCalculatedBasePriceForGivenPriceMeasureUnitAndBasePriceMeasureUnitRetrunsPrice\(\) has parameter \$priceMeasure with no type specified\.$#'
+			message: '#^Method Extcode\\Cart\\Tests\\Unit\\Domain\\Model\\Product\\MeasureTraitTest\:\:getCalculatedBasePriceForGivenPriceMeasureUnitAndBasePriceMeasureUnitReturnsPrice\(\) has parameter \$priceMeasure with no type specified\.$#'
 			identifier: missingType.parameter
 			count: 1
 			path: ../Tests/Unit/Domain/Model/Product/MeasureTraitTest.php
 
 		-
-			message: '#^Method Extcode\\Cart\\Tests\\Unit\\Domain\\Model\\Product\\MeasureTraitTest\:\:getCalculatedBasePriceForGivenPriceMeasureUnitAndBasePriceMeasureUnitRetrunsPrice\(\) has parameter \$sourceMeasureUnit with no type specified\.$#'
+			message: '#^Method Extcode\\Cart\\Tests\\Unit\\Domain\\Model\\Product\\MeasureTraitTest\:\:getCalculatedBasePriceForGivenPriceMeasureUnitAndBasePriceMeasureUnitReturnsPrice\(\) has parameter \$sourceMeasureUnit with no type specified\.$#'
 			identifier: missingType.parameter
 			count: 1
 			path: ../Tests/Unit/Domain/Model/Product/MeasureTraitTest.php
 
 		-
-			message: '#^Method Extcode\\Cart\\Tests\\Unit\\Domain\\Model\\Product\\MeasureTraitTest\:\:getCalculatedBasePriceForGivenPriceMeasureUnitAndBasePriceMeasureUnitRetrunsPrice\(\) has parameter \$targetMeasureUnit with no type specified\.$#'
+			message: '#^Method Extcode\\Cart\\Tests\\Unit\\Domain\\Model\\Product\\MeasureTraitTest\:\:getCalculatedBasePriceForGivenPriceMeasureUnitAndBasePriceMeasureUnitReturnsPrice\(\) has parameter \$targetMeasureUnit with no type specified\.$#'
 			identifier: missingType.parameter
 			count: 1
 			path: ../Tests/Unit/Domain/Model/Product/MeasureTraitTest.php
 
 		-
-			message: '#^Method Extcode\\Cart\\Tests\\Unit\\Domain\\Model\\Product\\MeasureTraitTest\:\:getIsMeasureUnitCompatibilityRetrunsTrueOnSameTypeOfMeasureUnit\(\) has parameter \$calculatedBasePrice with no type specified\.$#'
+			message: '#^Method Extcode\\Cart\\Tests\\Unit\\Domain\\Model\\Product\\MeasureTraitTest\:\:getIsMeasureUnitCompatibilityReturnsTrueOnSameTypeOfMeasureUnit\(\) has parameter \$calculatedBasePrice with no type specified\.$#'
 			identifier: missingType.parameter
 			count: 1
 			path: ../Tests/Unit/Domain/Model/Product/MeasureTraitTest.php
 
 		-
-			message: '#^Method Extcode\\Cart\\Tests\\Unit\\Domain\\Model\\Product\\MeasureTraitTest\:\:getIsMeasureUnitCompatibilityRetrunsTrueOnSameTypeOfMeasureUnit\(\) has parameter \$factor with no type specified\.$#'
+			message: '#^Method Extcode\\Cart\\Tests\\Unit\\Domain\\Model\\Product\\MeasureTraitTest\:\:getIsMeasureUnitCompatibilityReturnsTrueOnSameTypeOfMeasureUnit\(\) has parameter \$factor with no type specified\.$#'
 			identifier: missingType.parameter
 			count: 1
 			path: ../Tests/Unit/Domain/Model/Product/MeasureTraitTest.php
 
 		-
-			message: '#^Method Extcode\\Cart\\Tests\\Unit\\Domain\\Model\\Product\\MeasureTraitTest\:\:getIsMeasureUnitCompatibilityRetrunsTrueOnSameTypeOfMeasureUnit\(\) has parameter \$priceMeasure with no type specified\.$#'
+			message: '#^Method Extcode\\Cart\\Tests\\Unit\\Domain\\Model\\Product\\MeasureTraitTest\:\:getIsMeasureUnitCompatibilityReturnsTrueOnSameTypeOfMeasureUnit\(\) has parameter \$priceMeasure with no type specified\.$#'
 			identifier: missingType.parameter
 			count: 1
 			path: ../Tests/Unit/Domain/Model/Product/MeasureTraitTest.php
 
 		-
-			message: '#^Method Extcode\\Cart\\Tests\\Unit\\Domain\\Model\\Product\\MeasureTraitTest\:\:getIsMeasureUnitCompatibilityRetrunsTrueOnSameTypeOfMeasureUnit\(\) has parameter \$sourceMeasureUnit with no type specified\.$#'
+			message: '#^Method Extcode\\Cart\\Tests\\Unit\\Domain\\Model\\Product\\MeasureTraitTest\:\:getIsMeasureUnitCompatibilityReturnsTrueOnSameTypeOfMeasureUnit\(\) has parameter \$sourceMeasureUnit with no type specified\.$#'
 			identifier: missingType.parameter
 			count: 1
 			path: ../Tests/Unit/Domain/Model/Product/MeasureTraitTest.php
 
 		-
-			message: '#^Method Extcode\\Cart\\Tests\\Unit\\Domain\\Model\\Product\\MeasureTraitTest\:\:getIsMeasureUnitCompatibilityRetrunsTrueOnSameTypeOfMeasureUnit\(\) has parameter \$targetMeasureUnit with no type specified\.$#'
+			message: '#^Method Extcode\\Cart\\Tests\\Unit\\Domain\\Model\\Product\\MeasureTraitTest\:\:getIsMeasureUnitCompatibilityReturnsTrueOnSameTypeOfMeasureUnit\(\) has parameter \$targetMeasureUnit with no type specified\.$#'
 			identifier: missingType.parameter
 			count: 1
 			path: ../Tests/Unit/Domain/Model/Product/MeasureTraitTest.php

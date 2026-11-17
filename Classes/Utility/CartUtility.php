@@ -97,7 +97,7 @@ class CartUtility
         }
 
         if (!isset($currency) || !is_array($currency) || !isset($currency['code']) || !isset($currency['sign']) || !isset($currency['translation'])) {
-            throw new InvalidArgumentException('Add propper currency TypoScript configuration.', 5910386141);
+            throw new InvalidArgumentException('Add proper currency TypoScript configuration.', 5910386141);
         }
 
         // TODO: Throw exception if no currency setting is available or make an default because creating a new cart need

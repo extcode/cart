@@ -68,7 +68,7 @@ class MailHandlerTest extends FunctionalTestCase
     }
 
     #[Test]
-    public function logSucessAfterEmailToBuyerWasSend(): void
+    public function logSuccessAfterEmailToBuyerWasSend(): void
     {
         $mockBuilder = $this->getMockBuilderForMailHandlerClass();
         $mockBuilder->onlyMethods(
@@ -203,7 +203,7 @@ class MailHandlerTest extends FunctionalTestCase
     }
 
     #[Test]
-    public function logSucessAfterEmailToSellerWasSend(): void
+    public function logSuccessAfterEmailToSellerWasSend(): void
     {
         $mockBuilder = $this->getMockBuilderForMailHandlerClass();
         $mockBuilder->onlyMethods(

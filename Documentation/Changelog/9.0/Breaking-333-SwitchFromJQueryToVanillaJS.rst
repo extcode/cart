@@ -10,7 +10,7 @@ Description
 ===========
 
 Using the jQuery library is outdated. Therefore jQuery in the existing JavaScript code is replaced with vanilla
-JavaScript. Furthermore is the JavaScript code splitted up and via
+JavaScript. Furthermore is the JavaScript code split up and via
 [Asset Viewhelper](https://docs.typo3.org/other/typo3/view-helper-reference/12.4/en-us/typo3/fluid/latest/Asset/Script.html) included in the templates and partials where the corresponding JavaScript is needed.
 
 For better development of the JavaScript a build process is added, using [esbuild](https://esbuild.github.io/). The original JavaScript files are now located in `Build/Sources/` where you can find further information how to work with these files during development.
