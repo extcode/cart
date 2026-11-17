@@ -60,7 +60,10 @@
     },
     "require-dev": {
         "codappix/typo3-php-datasets": "^2.1",
+        "codeception/codeception": "^5.0",
+        "codeception/module-webdriver": "^4.0",
         "erickskrauch/php-cs-fixer-custom-fixers": "*",
+        "extcode/testing-framework": "^1.0",
         "friendsofphp/php-cs-fixer": "^3.95",
         "helmich/typo3-typoscript-lint": "^3.3",
         "kubawerlos/php-cs-fixer-custom-fixers": "*",
@@ -94,7 +97,11 @@
         "project:lint:yaml": "Build/Scripts/lint-yaml.sh",
         "project:phpstan": "Build/Scripts/phpstan.sh",
         "project:test:unit": "Build/Scripts/phpunit.sh unit",
-        "project:test:functional": "Build/Scripts/phpunit.sh functional"
+        "project:test:functional": "Build/Scripts/phpunit.sh functional",
+        "project:test:acceptance": [
+            "Composer\\Config::disableProcessTimeout",
+            "Build/Scripts/acceptance.sh"
+        ]
     },
     "suggest": {
         "typo3/cms-dashboard": "^14.3",

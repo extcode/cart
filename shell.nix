@@ -181,9 +181,23 @@ let
     '';
   };
 
+  projectTestAcceptance = pkgs.writeShellApplication {
+    name = "project-test-acceptance";
+    runtimeInputs = [
+      pkgs.firefox
+      pkgs.geckodriver
+      php
+    ];
+    text = ''
+      "$PROJECT_ROOT/Build/Scripts/acceptance.sh" "$@"
+    '';
+  };
+
 in pkgs.mkShell {
   name = "TYPO3 Extension cart";
   buildInputs = [
+    pkgs.firefox
+    pkgs.geckodriver
     pkgs.libxml2
     pkgs.typos
     pkgs.yamllint
@@ -202,6 +216,7 @@ in pkgs.mkShell {
     projectPhpstan
     projectTestUnit
     projectTestFunctional
+    projectTestAcceptance
   ];
 
   shellHook = ''
