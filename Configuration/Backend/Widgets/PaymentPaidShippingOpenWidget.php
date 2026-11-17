@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Extcode\Cart\Configuration\Backend\Widget;
+namespace Extcode\Cart\Configuration\Backend\Widgets;
 
 use Extcode\Cart\Widgets\PaymentPaidShippingOpen;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;

@@ -54,13 +54,53 @@ class TurnoverPerDayProviderTest extends AbstractWidgetTestCase
         self::assertSame($expected, $data);
     }
 
-    private function createProvider(): TurnoverPerDayProvider
+    #[Test]
+    public function getChartDataSumsOnlyOrdersMatchingTheConfiguredStatusFilter(): void
+    {
+        $this->createOrder(6, 'today 13:00', 'canceled', 'open', 1000.0);
+
+        $data = self::getData($this->createProvider([
+            'days' => 0,
+            'filter' => ['payment' => ['status' => 'paid']],
+        ])->getChartData());
+
+        self::assertSame([30.75], $data);
+    }
+
+    #[Test]
+    public function getChartDataSumsTheConfiguredField(): void
+    {
+        $this->getConnectionPool()->getConnectionForTable('tx_cart_domain_model_order_item')->update(
+            'tx_cart_domain_model_order_item',
+            ['total_net' => 8.4],
+            ['uid' => 1]
+        );
+
+        $data = self::getData($this->createProvider(['days' => 0, 'sum' => 'total_net'])->getChartData());
+
+        self::assertSame([8.4], $data);
+    }
+
+    #[Test]
+    public function getOrderItemsInPeriodSumsTheGrossTotalOfThePeriod(): void
+    {
+        $turnover = $this->createProvider()->getOrderItemsInPeriod(
+            (int) strtotime('-1 day 0:00'),
+            (int) strtotime('today 23:59:59')
+        );
+
+        self::assertSame(35.75, $turnover);
+    }
+
+    /**
+     * @param array<string, mixed> $options
+     */
+    private function createProvider(array $options = []): TurnoverPerDayProvider
     {
         return new TurnoverPerDayProvider(
-            $this->getConnectionPool()->getQueryBuilderForTable('tx_cart_domain_model_order_item'),
-            [
-                'sum' => 'total_gross',
-            ]
+            $this->createOrderItemQuery(),
+            $this->createStoragePidAccess(),
+            $options
         );
     }
 }

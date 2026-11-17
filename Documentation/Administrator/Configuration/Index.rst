@@ -20,4 +20,5 @@ extension with TypoScript, PageTS and YAML.
    ShippingMethods/Index
    TaxClasses/Index
    BackendModule/Index
+   DashboardWidgets/Index
    Ajax/Index
