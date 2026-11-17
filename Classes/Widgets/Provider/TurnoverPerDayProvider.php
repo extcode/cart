@@ -4,99 +4,42 @@ declare(strict_types=1);
 
 namespace Extcode\Cart\Widgets\Provider;
 
-use Extcode\Cart\Configuration\Constants;
-use TYPO3\CMS\Core\Database\Query\QueryBuilder;
-use TYPO3\CMS\Core\Localization\LanguageService;
-use TYPO3\CMS\Core\Localization\LanguageServiceFactory;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Dashboard\WidgetApi;
-use TYPO3\CMS\Dashboard\Widgets\ChartDataProviderInterface;
+/*
+ * This file is part of the package extcode/cart.
+ *
+ * For the full copyright and license information, please read the
+ * LICENSE file that was distributed with this source code.
+ */
 
-class TurnoverPerDayProvider implements ChartDataProviderInterface
+/**
+ * Turnover per day, see AbstractPerDayProvider for the options.
+ *
+ * Additional option:
+ * - sum: field of the order item to sum up, defaults to total_gross
+ */
+class TurnoverPerDayProvider extends AbstractPerDayProvider
 {
-    private readonly LanguageService $languageService;
-
-    private array $options;
-
-    public function __construct(
-        private readonly QueryBuilder $queryBuilder,
-        array $options = []
-    ) {
-        $this->languageService = GeneralUtility::makeInstance(LanguageServiceFactory::class)->createFromUserPreferences($GLOBALS['BE_USER']);
-        $this->options = array_merge(
-            [
-                'fieldName' => 'tx_cart_domain_model_order_item.order_date',
-                'days' => 28,
-                'sum' => 'gross',
-            ],
-            $options
-        );
-    }
-
-    public function getChartData(): array
-    {
-        [$labels, $data] = $this->calculateData();
-
-        return [
-            'labels' => $labels,
-            'datasets' => [
-                [
-                    'backgroundColor' => WidgetApi::getDefaultChartColors()[0],
-                    'border' => 0,
-                    'data' => $data,
-                ],
-            ],
-        ];
-    }
-
     public function getOrderItemsInPeriod(int $start, int $end): float
     {
-        $queryBuilder = clone $this->queryBuilder;
-
-        $constraints = [
-            $queryBuilder->expr()->gte($this->options['fieldName'], $start),
-            $queryBuilder->expr()->lte($this->options['fieldName'], $end),
-        ];
-
-        $queryBuilder
-            ->selectLiteral(
-                $queryBuilder->expr()->sum('tx_cart_domain_model_order_item.' . $this->options['sum'], 'turnover')
-            )
-            ->from('tx_cart_domain_model_order_item')
-            ->where(... $constraints)
-        ;
-
-        $turnover = $queryBuilder->executeQuery()->fetchOne();
-
-        return is_numeric($turnover) ? (float) $turnover : 0.0;
+        return (float) array_sum($this->getValuesPerDay($start, $end));
     }
 
-    private function calculateData(): array
+    protected function getDefaultOptions(): array
     {
-        $days = (int) $this->options['days'];
-        $labels = [];
-        $data = [];
-
-        $dateFormat = $this->languageService->sL(
-            Constants::LANGUAGE_PATH . ':tx_cart.format.date'
-        );
-
-        for ($daysBefore = $days; $daysBefore >= 0; $daysBefore--) {
-            $timeForLabel = strtotime('-' . $daysBefore . ' day');
-            $startPeriod = strtotime('-' . $daysBefore . ' day 0:00:00');
-            $endPeriod =  strtotime('-' . $daysBefore . ' day 23:59:59');
-
-            if ($timeForLabel === false || $startPeriod === false || $endPeriod === false) {
-                continue;
-            }
-
-            $labels[] = date($dateFormat, $timeForLabel);
-            $data[] = $this->getOrderItemsInPeriod($startPeriod, $endPeriod);
-        }
-
         return [
-            $labels,
-            $data,
+            'sum' => 'total_gross',
         ];
+    }
+
+    protected function getValueField(): string
+    {
+        $sum = $this->options['sum'];
+
+        return is_string($sum) && $sum !== '' ? $sum : 'total_gross';
+    }
+
+    protected function castValue(mixed $value): float
+    {
+        return is_numeric($value) ? (float) $value : 0.0;
     }
 }

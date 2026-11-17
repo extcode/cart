@@ -12,7 +12,11 @@ namespace Extcode\Cart\Tests\Functional\Widgets;
  */
 
 use Codappix\Typo3PhpDatasets\TestingFramework;
+use Extcode\Cart\Widgets\Access\StoragePidAccess;
+use Extcode\Cart\Widgets\Query\OrderItemQuery;
+use TYPO3\CMS\Core\Domain\Repository\PageRepository;
 use TYPO3\CMS\Core\Localization\LanguageServiceFactory;
+use TYPO3\CMS\Core\Type\Bitmask\Permission;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
 
@@ -24,6 +28,11 @@ abstract class AbstractWidgetTestCase extends FunctionalTestCase
      * Page uid of the sysfolder holding the orders, see Tests/Fixtures/BaseDatabase.php
      */
     protected const ORDER_STORAGE_PID = 105;
+
+    /**
+     * Page uid of a second sysfolder for orders, see createSecondStorageFolder()
+     */
+    protected const SECOND_ORDER_STORAGE_PID = 106;
 
     protected const FILTER_PAYMENT_PAID_SHIPPING_OPEN = [
         'filter' => [
@@ -65,6 +74,18 @@ abstract class AbstractWidgetTestCase extends FunctionalTestCase
         parent::tearDown();
     }
 
+    protected function createOrderItemQuery(): OrderItemQuery
+    {
+        return new OrderItemQuery(
+            $this->getConnectionPool()->getQueryBuilderForTable('tx_cart_domain_model_order_item')
+        );
+    }
+
+    protected function createStoragePidAccess(): StoragePidAccess
+    {
+        return new StoragePidAccess($this->createOrderItemQuery());
+    }
+
     /**
      * Creates an order with one payment and one shipping.
      *
@@ -76,6 +97,7 @@ abstract class AbstractWidgetTestCase extends FunctionalTestCase
         string $paymentStatus = 'paid',
         string $shippingStatus = 'open',
         float $totalGross = 0.0,
+        int $pid = self::ORDER_STORAGE_PID,
     ): void {
         $connectionPool = $this->getConnectionPool();
 
@@ -83,7 +105,7 @@ abstract class AbstractWidgetTestCase extends FunctionalTestCase
             'tx_cart_domain_model_order_item',
             [
                 'uid' => $uid,
-                'pid' => self::ORDER_STORAGE_PID,
+                'pid' => $pid,
                 'crdate' => strtotime($orderDate),
                 'order_number' => 'O-' . $uid,
                 'order_date' => strtotime($orderDate),
@@ -108,6 +130,51 @@ abstract class AbstractWidgetTestCase extends FunctionalTestCase
                 'status' => $shippingStatus,
             ]
         );
+    }
+
+    /**
+     * Creates a second sysfolder for orders next to "Orders", which everybody
+     * may show, like its parent page "Shop". "Orders" itself grants no
+     * permissions to non-admin users.
+     */
+    protected function createSecondStorageFolder(): void
+    {
+        $this->getConnectionPool()->getConnectionForTable('pages')->update(
+            'pages',
+            ['perms_everybody' => Permission::PAGE_SHOW],
+            ['uid' => 101]
+        );
+        $this->getConnectionPool()->getConnectionForTable('pages')->insert(
+            'pages',
+            [
+                'uid' => self::SECOND_ORDER_STORAGE_PID,
+                'pid' => 101,
+                'title' => 'More Orders',
+                'doktype' => PageRepository::DOKTYPE_SYSFOLDER,
+                'perms_everybody' => Permission::PAGE_SHOW,
+            ]
+        );
+    }
+
+    /**
+     * Logs in a non-admin backend user with the page "Shop" as mount point.
+     */
+    protected function setUpEditor(): void
+    {
+        $this->getConnectionPool()->getConnectionForTable('be_users')->insert(
+            'be_users',
+            [
+                'uid' => 2,
+                'pid' => 0,
+                'username' => 'editor',
+                'password' => '',
+                'admin' => 0,
+                'db_mountpoints' => '101',
+                'options' => 3,
+            ]
+        );
+
+        $this->setUpBackendUser(2);
     }
 
     /**

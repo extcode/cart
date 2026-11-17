@@ -68,13 +68,57 @@ class OrdersPerDayProviderTest extends AbstractWidgetTestCase
         self::assertSame($expected, $data);
     }
 
+    #[Test]
+    public function getChartDataReturnsTheConfiguredNumberOfDays(): void
+    {
+        $chartData = $this->createProvider(['days' => 1])->getChartData();
+
+        self::assertSame([date('Y-m-d', (int) strtotime('-1 day')), date('Y-m-d')], $chartData['labels']);
+        self::assertSame([1, 3], self::getData($chartData));
+    }
+
+    #[Test]
+    public function getChartDataCountsOnlyOrdersOfTheConfiguredStorageFolders(): void
+    {
+        $this->createSecondStorageFolder();
+        $this->createOrder(7, 'today 13:00', pid: self::SECOND_ORDER_STORAGE_PID);
+
+        $data = self::getData($this->createProvider(['days' => 0, 'storagePids' => [self::SECOND_ORDER_STORAGE_PID]])->getChartData());
+
+        self::assertSame([1], $data);
+    }
+
+    #[Test]
+    public function getChartDataCountsOnlyOrdersOfStorageFoldersTheBackendUserMayShow(): void
+    {
+        $this->createSecondStorageFolder();
+        $this->createOrder(7, 'today 13:00', pid: self::SECOND_ORDER_STORAGE_PID);
+        $this->setUpEditor();
+
+        $data = self::getData($this->createProvider(['days' => 0])->getChartData());
+
+        self::assertSame([1], $data);
+    }
+
+    #[Test]
+    public function getOrderItemsInPeriodCountsTheOrdersMatchingTheConfiguredStatusFilter(): void
+    {
+        $count = $this->createProvider(self::FILTER_PAYMENT_PAID_SHIPPING_OPEN)->getOrderItemsInPeriod(
+            (int) strtotime('-1 day 0:00'),
+            (int) strtotime('today 23:59:59')
+        );
+
+        self::assertSame(2, $count);
+    }
+
     /**
      * @param array<string, mixed> $options
      */
     private function createProvider(array $options): OrdersPerDayProvider
     {
         return new OrdersPerDayProvider(
-            $this->getConnectionPool()->getQueryBuilderForTable('tx_cart_domain_model_order_item'),
+            $this->createOrderItemQuery(),
+            $this->createStoragePidAccess(),
             $options
         );
     }

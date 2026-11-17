@@ -80,13 +80,81 @@ class OrderItemsProviderTest extends AbstractWidgetTestCase
         self::assertSame($provider->getItems(), $provider->getItems());
     }
 
+    #[Test]
+    public function getItemsReturnsOnlyOrdersOfTheConfiguredStorageFolders(): void
+    {
+        $this->createSecondStorageFolder();
+        $this->createOrder(1, '-1 day 12:00', pid: self::ORDER_STORAGE_PID);
+        $this->createOrder(2, 'today 12:00', pid: self::SECOND_ORDER_STORAGE_PID);
+
+        $items = $this->createProvider(['storagePids' => [self::SECOND_ORDER_STORAGE_PID]])->getItems();
+
+        self::assertSame([2], array_column($items, 'uid'));
+    }
+
+    #[Test]
+    public function getItemsAcceptsTheStorageFoldersAsCommaSeparatedList(): void
+    {
+        $this->createSecondStorageFolder();
+        $this->createOrder(1, '-1 day 12:00', pid: self::ORDER_STORAGE_PID);
+        $this->createOrder(2, 'today 12:00', pid: self::SECOND_ORDER_STORAGE_PID);
+        $this->createOrder(3, 'today 13:00', pid: 1);
+
+        $items = $this->createProvider(['storagePids' => self::ORDER_STORAGE_PID . ',' . self::SECOND_ORDER_STORAGE_PID])->getItems();
+
+        self::assertSame([2, 1], array_column($items, 'uid'));
+    }
+
+    #[Test]
+    public function getItemsReturnsOnlyOrdersOfStorageFoldersTheBackendUserMayShow(): void
+    {
+        $this->createSecondStorageFolder();
+        $this->createOrder(1, '-1 day 12:00', pid: self::ORDER_STORAGE_PID);
+        $this->createOrder(2, 'today 12:00', pid: self::SECOND_ORDER_STORAGE_PID);
+        $this->setUpEditor();
+
+        $items = $this->createProvider([])->getItems();
+
+        self::assertSame([2], array_column($items, 'uid'));
+    }
+
+    #[Test]
+    public function getItemsReturnsNoOrdersIfTheBackendUserMayNotShowTheConfiguredStorageFolders(): void
+    {
+        $this->createSecondStorageFolder();
+        $this->createOrder(1, '-1 day 12:00', pid: self::ORDER_STORAGE_PID);
+        $this->createOrder(2, 'today 12:00', pid: self::SECOND_ORDER_STORAGE_PID);
+        $this->setUpEditor();
+
+        $items = $this->createProvider(['storagePids' => [self::ORDER_STORAGE_PID]])->getItems();
+
+        self::assertSame([], $items);
+    }
+
+    #[Test]
+    public function getItemsReturnsTheConfiguredLimitAndOrder(): void
+    {
+        for ($uid = 1; $uid <= 5; $uid++) {
+            $this->createOrder($uid, '-' . (5 - $uid) . ' days 12:00');
+        }
+
+        $items = $this->createProvider([
+            'order_by' => 'tx_cart_domain_model_order_item.order_date',
+            'order_order' => 'asc',
+            'limit' => 3,
+        ])->getItems();
+
+        self::assertSame([1, 2, 3], array_column($items, 'uid'));
+    }
+
     /**
      * @param array<string, mixed> $options
      */
     private function createProvider(array $options): OrderItemsProvider
     {
         return new OrderItemsProvider(
-            $this->getConnectionPool()->getQueryBuilderForTable('tx_cart_domain_model_order_item'),
+            $this->createOrderItemQuery(),
+            $this->createStoragePidAccess(),
             $options
         );
     }
