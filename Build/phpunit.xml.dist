@@ -29,8 +29,5 @@
     <include>
       <directory suffix=".php">../Classes/</directory>
     </include>
-    <exclude>
-      <directory suffix=".php">../Classes/Widgets</directory>
-    </exclude>
   </source>
 </phpunit>
