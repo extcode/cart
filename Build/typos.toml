@@ -3,8 +3,6 @@ extend-exclude = [
     # Vendored schemas, kept as published.
     "Build/xliff-core-1.2-strict.xsd",
     "Build/xml.xsd",
-    # Written in German.
-    "Documentation/Changelog/6.0/Index.rst",
 ]
 
 [default.extend-words]
