@@ -11,7 +11,15 @@
 # argument is taken as the testsuite name unless it starts with a dash.
 #
 # Environment variables used as overrides:
-#   typo3DatabaseDriver  database driver to test against, defaults to "pdo_sqlite"
+#   typo3DatabaseDriver    database driver to test against, defaults to "pdo_sqlite"
+#
+# For other drivers, e.g. "pdo_mysql", the typo3/testing-framework reads the
+# connection from these environment variables:
+#   typo3DatabaseHost      host of the database server
+#   typo3DatabasePort      port of the database server
+#   typo3DatabaseUsername  user, needs the privilege to create databases
+#   typo3DatabasePassword  password of the user
+#   typo3DatabaseName      prefix for the databases created per test case
 
 source "$(dirname "${BASH_SOURCE[0]}")/common.sh"
 

@@ -206,6 +206,45 @@ jobs:
       - name: Run functional tests
         run: Build/Scripts/phpunit.sh functional
 
+  tests-functional-mariadb:
+    runs-on: ubuntu-latest
+    needs:
+      - coding-guideline
+      - code-quality
+    services:
+      mariadb:
+        image: mariadb:10.4
+        env:
+          MARIADB_ROOT_PASSWORD: root
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mysqladmin ping -h 127.0.0.1 -proot"
+          --health-interval=5s
+          --health-timeout=5s
+          --health-retries=20
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.2"
+          tools: composer:v2
+
+      - name: Install dependencies
+        run: composer install --prefer-dist --no-progress --no-suggest
+
+      - name: Run functional tests
+        env:
+          typo3DatabaseDriver: pdo_mysql
+          typo3DatabaseHost: 127.0.0.1
+          typo3DatabasePort: 3306
+          typo3DatabaseUsername: root
+          typo3DatabasePassword: root
+          typo3DatabaseName: cart_test
+        run: Build/Scripts/phpunit.sh functional
+
   test-acceptance:
     runs-on: ubuntu-latest
     needs:
