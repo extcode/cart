@@ -193,11 +193,7 @@ class MailHandlerTest extends FunctionalTestCase
             $arguments['exception']
         );
         self::assertStringStartsWith(
-            'Exception in ',
-            $arguments['exception']
-        );
-        self::assertStringContainsString(
-            '/cart/Tests/Functional/Service/MailHandlerTest.php',
+            'Exception in ' . __FILE__ . ':',
             $arguments['exception']
         );
     }
@@ -332,11 +328,7 @@ class MailHandlerTest extends FunctionalTestCase
             $arguments['exception']
         );
         self::assertStringStartsWith(
-            'Exception in ',
-            $arguments['exception']
-        );
-        self::assertStringContainsString(
-            '/cart/Tests/Functional/Service/MailHandlerTest.php',
+            'Exception in ' . __FILE__ . ':',
             $arguments['exception']
         );
     }
