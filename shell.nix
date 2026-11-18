@@ -181,6 +181,62 @@ let
     '';
   };
 
+  projectTestFunctionalMariadb = pkgs.writeShellApplication {
+    name = "project-test-functional-mariadb";
+    runtimeInputs = [
+      composer
+      php
+      pkgs.mariadb
+    ];
+    text = ''
+      MARIADB_DIR="$(mktemp -d)"
+      MARIADB_PORT="''${MARIADB_PORT:-33306}"
+      MARIADB_SOCKET="$MARIADB_DIR/mariadb.sock"
+
+      stopMariadb() {
+        mariadb-admin --no-defaults --socket="$MARIADB_SOCKET" --user=root shutdown 2> /dev/null || true
+        rm -rf "$MARIADB_DIR"
+      }
+      trap stopMariadb EXIT
+
+      mariadb-install-db \
+        --no-defaults \
+        --auth-root-authentication-method=normal \
+        --datadir="$MARIADB_DIR/data" \
+        > "$MARIADB_DIR/install.log" 2>&1
+
+      mariadbd \
+        --no-defaults \
+        --datadir="$MARIADB_DIR/data" \
+        --socket="$MARIADB_SOCKET" \
+        --pid-file="$MARIADB_DIR/mariadb.pid" \
+        --port="$MARIADB_PORT" \
+        --bind-address=127.0.0.1 \
+        > "$MARIADB_DIR/mariadb.log" 2>&1 &
+
+      mariadbIsReady() {
+        mariadb-admin --no-defaults --socket="$MARIADB_SOCKET" --user=root ping > /dev/null 2>&1
+      }
+      for _ in $(seq 1 30); do
+        mariadbIsReady && break
+        sleep 1
+      done
+      if ! mariadbIsReady; then
+        echo "MariaDB did not start:" >&2
+        cat "$MARIADB_DIR/mariadb.log" >&2
+        exit 1
+      fi
+
+      typo3DatabaseDriver=pdo_mysql \
+      typo3DatabaseHost=127.0.0.1 \
+      typo3DatabasePort="$MARIADB_PORT" \
+      typo3DatabaseUsername=root \
+      typo3DatabasePassword="" \
+      typo3DatabaseName=cart_test \
+        "$PROJECT_ROOT/Build/Scripts/phpunit.sh" functional "$@"
+    '';
+  };
+
 in pkgs.mkShell {
   name = "TYPO3 Extension cart";
   buildInputs = [
@@ -202,6 +258,7 @@ in pkgs.mkShell {
     projectPhpstan
     projectTestUnit
     projectTestFunctional
+    projectTestFunctionalMariadb
   ];
 
   shellHook = ''
