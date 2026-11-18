@@ -13,6 +13,10 @@ following widgets to the widget group "Cart":
 *  **Turnover per Day**: gross total of all orders per day
 *  **Latest Orders (paid, not shipped)**: the ten latest paid but not shipped
    orders with a link to the order in the backend module
+*  **Orders Today**, **Orders this Month**: number of orders today or in
+   the current month, without canceled payments
+*  **Turnover Today**, **Turnover this Month**: gross total of the orders
+   today or in the current month, without canceled payments
 
 The widgets only show orders in storage folders the backend user may show
 (page permissions and mount points), admins see all orders.
@@ -29,6 +33,12 @@ the service configuration of the extension:
    (`\Extcode\Cart\Widgets\Provider\TurnoverPerDayProvider`)
 *  `extcode.cart.provider.payment_paid_shipping_open`
    (`\Extcode\Cart\Widgets\Provider\OrderItemsProvider`)
+*  `extcode.cart.provider.orders_today` and
+   `extcode.cart.provider.orders_this_month`
+   (`\Extcode\Cart\Widgets\Provider\OrdersInPeriodProvider`)
+*  `extcode.cart.provider.turnover_today` and
+   `extcode.cart.provider.turnover_this_month`
+   (`\Extcode\Cart\Widgets\Provider\TurnoverInPeriodProvider`)
 
 To change the options, overwrite the service in the `Configuration/Services.php`
 of your site package. The site package has to depend on `extcode/cart`, so its
@@ -75,6 +85,15 @@ Options of all providers
    `['payment' => ['status' => 'paid'], 'shipping' => ['status' => 'open']]`.
    All orders are taken into account if empty.
 
+   Several status are given as list or comma separated string; an order
+   matches if it has one of them, e.g. only open and paid invoices:
+   `['payment' => ['status' => ['open', 'paid']]]` or
+   `['payment' => ['status' => 'open,paid']]`.
+
+   The status of a payment are `open`, `pending`, `paid` and `canceled`. The
+   number widgets show orders with the payment status `open`, `pending` or
+   `paid` by default, so canceled orders are left out.
+
 .. confval:: storagePids
 
    :Type: array or comma separated string of page uids
@@ -88,6 +107,19 @@ Fields of the following options are fields of the order
 (`tx_cart_domain_model_order_item`), with or without the table name. Other
 fields throw an exception.
 
+Options of the chart and number providers
+-----------------------------------------
+
+These options apply to `OrdersPerDayProvider`, `TurnoverPerDayProvider`,
+`OrdersInPeriodProvider` and `TurnoverInPeriodProvider`.
+
+.. confval:: fieldName
+
+   :Type: string
+   :Default: `order_date`
+
+   Date field of the order which assigns the order to a day or period.
+
 Options of OrdersPerDayProvider and TurnoverPerDayProvider
 ----------------------------------------------------------
 
@@ -98,15 +130,20 @@ Options of OrdersPerDayProvider and TurnoverPerDayProvider
 
    Number of days before today shown in the chart.
 
-.. confval:: fieldName
+Options of OrdersInPeriodProvider and TurnoverInPeriodProvider
+--------------------------------------------------------------
+
+.. confval:: period
 
    :Type: string
-   :Default: `order_date`
+   :Default: `today`
 
-   Date field of the order which assigns the order to a day.
+   Period up to the end of today: `today`, `week` (since Monday), `month` or
+   `year`. Other values throw an exception. Days, weeks, months and years
+   start in the time zone of the server.
 
-Options of TurnoverPerDayProvider
----------------------------------
+Options of TurnoverPerDayProvider and TurnoverInPeriodProvider
+--------------------------------------------------------------
 
 .. confval:: sum
 
@@ -114,6 +151,10 @@ Options of TurnoverPerDayProvider
    :Default: `total_gross`
 
    Field of the order which is summed up, e.g. `total_net`.
+
+The turnover widgets add up the amounts of all orders regardless of their
+currency. Restrict them with `storagePids` if a site uses its own storage
+folder for orders in another currency.
 
 Options of OrderItemsProvider
 -----------------------------
@@ -138,3 +179,69 @@ Options of OrderItemsProvider
    :Default: 10
 
    Number of orders in the list.
+
+Number widgets
+==============
+
+The number widgets use the widget `\Extcode\Cart\Widgets\NumberWidget`. Like
+the `NumberWithIconWidget` of the dashboard it shows a number with an icon
+(option `icon`), but the options `title` and `subtitle` are optional, so the
+title of the widget is not repeated. With a data provider implementing
+`\Extcode\Cart\Widgets\AmountDataProviderInterface`, like the
+`TurnoverInPeriodProvider`, the number is shown as amount with currency. The
+option `currency` takes the arguments of the currency ViewHelper
+(`f:format.currency`), the default is `1.234,56 €`.
+
+The following example adds a widget "Turnover this Week" in US dollars:
+
+.. code-block:: php
+   :caption: EXT:site_package/Configuration/Services.php
+
+   <?php
+
+   declare(strict_types=1);
+
+   use Extcode\Cart\Widgets\NumberWidget;
+   use Extcode\Cart\Widgets\Provider\TurnoverInPeriodProvider;
+   use Symfony\Component\DependencyInjection\ContainerBuilder;
+   use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+   use Symfony\Component\DependencyInjection\Reference;
+   use TYPO3\CMS\Backend\View\BackendViewFactory;
+   use TYPO3\CMS\Dashboard\Widgets\BarChartWidget;
+
+   return static function (ContainerConfigurator $configurator, ContainerBuilder $containerBuilder): void {
+       if (!$containerBuilder->hasDefinition(BarChartWidget::class)) {
+           return;
+       }
+
+       $services = $configurator->services();
+
+       $services->set('site_package.provider.turnover_this_week')
+           ->class(TurnoverInPeriodProvider::class)
+           ->autowire()
+           ->arg('$options', [
+               'period' => 'week',
+           ]);
+
+       $services->set('dashboard.widget.site_package.turnover_this_week')
+           ->class(NumberWidget::class)
+           ->arg('$backendViewFactory', new Reference(BackendViewFactory::class))
+           ->arg('$dataProvider', new Reference('site_package.provider.turnover_this_week'))
+           ->arg('$options', [
+               'icon' => 'actions-money',
+               'currency' => [
+                   'currencySign' => '$',
+                   'decimalSeparator' => '.',
+                   'thousandsSeparator' => ',',
+                   'prependCurrency' => true,
+                   'separateCurrency' => false,
+               ],
+           ])
+           ->tag('dashboard.widget', [
+               'identifier' => 'TurnoverThisWeek',
+               'groupNames' => 'cart',
+               'title' => 'Turnover this Week',
+               'description' => 'Gross total of all orders in the current week',
+               'iconIdentifier' => 'content-widget-number',
+           ]);
+   };

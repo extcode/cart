@@ -1,0 +1,38 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:core="http://typo3.org/ns/TYPO3/CMS/Core/ViewHelpers"
+      data-namespace-typo3-fluid="true">
+<f:layout name="Widget/Widget" />
+<f:section name="main">
+
+    <div class="widget-number">
+        <f:if condition="{icon}">
+            <div class="widget-number-icon">
+                <core:icon identifier="{icon}" size="large" alternativeMarkupIdentifier="inline" />
+            </div>
+        </f:if>
+        <div class="widget-number-content">
+            <f:if condition="{title}">
+                <div class="widget-number-title"><f:translate key="{title}" default="{title}" /></div>
+            </f:if>
+            <f:if condition="{subtitle}">
+                <div class="widget-number-subtitle"><small><f:translate key="{subtitle}" default="{subtitle}" /></small></div>
+            </f:if>
+            <div class="widget-number-number">
+                <f:if condition="{isAmount}">
+                    <f:then>
+                        <f:format.currency
+                            currencySign="{currency.currencySign}"
+                            decimalSeparator="{currency.decimalSeparator}"
+                            thousandsSeparator="{currency.thousandsSeparator}"
+                            prependCurrency="{currency.prependCurrency}"
+                            separateCurrency="{currency.separateCurrency}"
+                            decimals="{currency.decimals}">{number}</f:format.currency>
+                    </f:then>
+                    <f:else>{number}</f:else>
+                </f:if>
+            </div>
+        </div>
+    </div>
+
+</f:section>
+</html>

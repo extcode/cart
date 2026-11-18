@@ -38,6 +38,30 @@
             <trans-unit id="dashboard.widgets.turnover_per_day.description">
                 <source>Turnover per Day</source>
             </trans-unit>
+            <trans-unit id="dashboard.widgets.orders_today.title">
+                <source>Orders Today</source>
+            </trans-unit>
+            <trans-unit id="dashboard.widgets.orders_today.description">
+                <source>Number of orders today</source>
+            </trans-unit>
+            <trans-unit id="dashboard.widgets.orders_this_month.title">
+                <source>Orders this Month</source>
+            </trans-unit>
+            <trans-unit id="dashboard.widgets.orders_this_month.description">
+                <source>Number of orders in the current month</source>
+            </trans-unit>
+            <trans-unit id="dashboard.widgets.turnover_today.title">
+                <source>Turnover Today</source>
+            </trans-unit>
+            <trans-unit id="dashboard.widgets.turnover_today.description">
+                <source>Gross total of all orders today</source>
+            </trans-unit>
+            <trans-unit id="dashboard.widgets.turnover_this_month.title">
+                <source>Turnover this Month</source>
+            </trans-unit>
+            <trans-unit id="dashboard.widgets.turnover_this_month.description">
+                <source>Gross total of all orders in the current month</source>
+            </trans-unit>
 
         </body>
     </file>

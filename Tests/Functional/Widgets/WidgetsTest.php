@@ -11,6 +11,7 @@ namespace Extcode\Cart\Tests\Functional\Widgets;
  * LICENSE file that was distributed with this source code.
  */
 
+use Extcode\Cart\Widgets\NumberWidget;
 use Extcode\Cart\Widgets\PaymentPaidShippingOpen;
 use Generator;
 use PHPUnit\Framework\Attributes\CoversClass;
@@ -24,8 +25,10 @@ use TYPO3\CMS\Core\Http\ServerRequest;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Dashboard\WidgetRegistry;
 use TYPO3\CMS\Dashboard\Widgets\BarChartWidget;
+use TYPO3\CMS\Dashboard\Widgets\WidgetInterface;
 
 #[CoversClass(PaymentPaidShippingOpen::class)]
+#[CoversClass(NumberWidget::class)]
 class WidgetsTest extends AbstractWidgetTestCase
 {
     protected function tearDown(): void
@@ -68,6 +71,41 @@ class WidgetsTest extends AbstractWidgetTestCase
         yield 'OrdersPerDay' => ['OrdersPerDay', BarChartWidget::class, 'dashboard.widgets.orders_per_day.title'];
         yield 'TurnoverPerDay' => ['TurnoverPerDay', BarChartWidget::class, 'dashboard.widgets.turnover_per_day.title'];
         yield 'PaymentPaidShippingOpen' => ['PaymentPaidShippingOpen', PaymentPaidShippingOpen::class, 'dashboard.widgets.payment_paid_shipping_open.title'];
+        yield 'OrdersToday' => ['OrdersToday', NumberWidget::class, 'dashboard.widgets.orders_today.title'];
+        yield 'OrdersThisMonth' => ['OrdersThisMonth', NumberWidget::class, 'dashboard.widgets.orders_this_month.title'];
+        yield 'TurnoverToday' => ['TurnoverToday', NumberWidget::class, 'dashboard.widgets.turnover_today.title'];
+        yield 'TurnoverThisMonth' => ['TurnoverThisMonth', NumberWidget::class, 'dashboard.widgets.turnover_this_month.title'];
+    }
+
+    #[Test]
+    public function ordersTodayRendersTheNumberOfNotCanceledOrdersOfToday(): void
+    {
+        $this->createOrder(1, 'today 12:00');
+        $this->createOrder(2, 'today 13:00', 'open', 'open');
+        $this->createOrder(3, '-1 year');
+        $this->createOrder(4, 'today 14:00', 'canceled', 'open');
+
+        $content = $this->renderWidget('OrdersToday');
+
+        self::assertStringNotContainsString('Orders Today', $content);
+        self::assertStringNotContainsString('widget-number-title', $content);
+        self::assertMatchesRegularExpression('#<div class="widget-number-number">\s*2\s*</div>#', $content);
+    }
+
+    #[Test]
+    public function turnoverThisMonthRendersTheGrossTotalOfNotCanceledOrdersOfTheCurrentMonthWithCurrency(): void
+    {
+        $this->createOrder(1, 'today 12:00', totalGross: 1000.5);
+        $this->createOrder(2, 'first day of this month 12:00', totalGross: 234.06);
+        $this->createOrder(3, 'last day of previous month 12:00', totalGross: 100.0);
+        $this->createOrder(4, 'today 14:00', 'canceled', 'open', 500.0);
+
+        $content = $this->renderWidget('TurnoverThisMonth');
+
+        self::assertStringNotContainsString('Turnover this Month', $content);
+        self::assertStringNotContainsString('widget-number-title', $content);
+        self::assertMatchesRegularExpression('#<div class="widget-number-number">\s*1\.234,56 €\s*</div>#', $content);
+        self::assertStringNotContainsString('widget-content-title', $content);
     }
 
     #[Test]
@@ -88,11 +126,16 @@ class WidgetsTest extends AbstractWidgetTestCase
 
     private function renderPaymentPaidShippingOpen(): string
     {
+        return $this->renderWidget('PaymentPaidShippingOpen');
+    }
+
+    private function renderWidget(string $identifier): string
+    {
         $widgetRegistry = $this->get(WidgetRegistry::class);
         self::assertInstanceOf(WidgetRegistry::class, $widgetRegistry);
 
-        $widget = $widgetRegistry->getAvailableWidget(self::createDashboardRequest(), 'PaymentPaidShippingOpen');
-        self::assertInstanceOf(PaymentPaidShippingOpen::class, $widget);
+        $widget = $widgetRegistry->getAvailableWidget(self::createDashboardRequest(), $identifier);
+        self::assertInstanceOf(WidgetInterface::class, $widget);
 
         return $widget->renderWidgetContent();
     }
