@@ -13,6 +13,7 @@ namespace Extcode\Cart\Tests\Unit\Domain\Model\Product;
 
 use Extcode\Cart\Domain\Model\Product\MeasureTrait;
 use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
@@ -50,6 +51,7 @@ class MeasureTraitTest extends UnitTestCase
         );
     }
 
+    #[Test]
     public function getMeasureUnitsInitiallyReturnsArrayWithWeightsVolumesAndLengths(): void
     {
         self::assertIsArray(
@@ -158,11 +160,8 @@ class MeasureTraitTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     *
-     * @dataProvider measureUnitsProvider
-     */
+    #[DataProvider('measureUnitsProvider')]
+    #[Test]
     public function getIsMeasureUnitCompatibilityReturnsTrueOnSameTypeOfMeasureUnit(
         $sourceMeasureUnit,
         $targetMeasureUnit,
@@ -178,11 +177,8 @@ class MeasureTraitTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     *
-     * @dataProvider measureUnitsProvider
-     */
+    #[DataProvider('measureUnitsProvider')]
+    #[Test]
     public function getMeasureUnitFactorForGivenPriceMeasureUnitAndBasePriceMeasureUnitReturnsFactor(
         $sourceMeasureUnit,
         $targetMeasureUnit,
@@ -200,11 +196,8 @@ class MeasureTraitTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     *
-     * @dataProvider measureUnitsProvider
-     */
+    #[DataProvider('measureUnitsProvider')]
+    #[Test]
     public function getCalculatedBasePriceForGivenPriceMeasureUnitAndBasePriceMeasureUnitReturnsPrice(
         $sourceMeasureUnit,
         $targetMeasureUnit,
