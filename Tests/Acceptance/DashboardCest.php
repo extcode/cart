@@ -89,6 +89,23 @@ class DashboardCest
         $I->see('Shipping 4');
     }
 
+    public function paymentPaidShippingOpenLinksToTheFilteredOrderList(Tester $I): void
+    {
+        $I->waitForElement(self::PAYMENT_PAID_SHIPPING_OPEN . ' .widget-content-footer a', 10);
+        $I->scrollTo(self::PAYMENT_PAID_SHIPPING_OPEN . ' .widget-content-footer a');
+
+        $I->click('Show all orders', self::PAYMENT_PAID_SHIPPING_OPEN);
+
+        $I->waitForElement('table.table tbody', 10);
+        Assert::assertSame('paid', $I->grabValueFrom('#searchPaymentStatus'));
+        Assert::assertSame('open', $I->grabValueFrom('#searchShippingStatus'));
+        $I->see('O-1004', 'table.table tbody');
+        $I->see('O-1002', 'table.table tbody');
+        $I->dontSee('O-1001', 'table.table tbody');
+        $I->dontSee('O-1003', 'table.table tbody');
+        $I->dontSee('O-1005', 'table.table tbody');
+    }
+
     public function ordersTodayShowsTheNumberOfOrdersOfToday(Tester $I): void
     {
         $I->waitForText('Orders Today', 10, self::ORDERS_TODAY . ' .widget-title');

@@ -1,62 +1,67 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
-      xmlns:be="http://typo3.org/ns/TYPO3/CMS/Backend/ViewHelpers"
       xmlns:core="http://typo3.org/ns/TYPO3/CMS/Core/ViewHelpers"
+      xmlns:dashboard="http://typo3.org/ns/TYPO3/CMS/Dashboard/ViewHelpers"
       data-namespace-typo3-fluid="true">
 <f:layout name="Widget/Widget" />
 <f:section name="main">
-    <div class="widget-table-wrapper">
-        <table class="widget-table">
-            <thead>
-            <tr class="t3-row-header">
-                <th>
-                    <f:translate key="LLL:EXT:cart/Resources/Private/Language/locallang.xlf:tx_cart_domain_model_order_item.order_number"/>
-                </th>
-                <th>
-                    <f:translate key="LLL:EXT:cart/Resources/Private/Language/locallang.xlf:tx_cart_domain_model_order_item.order_date"/>
-                </th>
-                <th>
-                    <f:translate key="LLL:EXT:cart/Resources/Private/Language/locallang.xlf:tx_cart_domain_model_order_payment"/>
-                </th>
-                <th>
-                    <f:translate key="LLL:EXT:cart/Resources/Private/Language/locallang.xlf:tx_cart_domain_model_order_shipping"/>
-                </th>
-                <th>
 
-                </th>
-            </tr>
-            </thead>
-            <tbody>
-            <f:for each="{items}" as="item">
-                <tr>
-                    <td>
-                        {item.order_number}
-                    </td>
-                    <td>
-                        <f:format.date format="{f:translate(key: 'LLL:EXT:cart/Resources/Private/Language/locallang.xlf:tx_cart.format.date')}" date="{item.order_date}"/>
-                    </td>
-                    <td>
-                        {item.payment_name}
-                    </td>
-                    <td>
-                        {item.shipping_name}
-                    </td>
-                    <td>
-                        <f:be.link
-                            route="cart_cart_orders.Backend\Order\Order_show"
-                            class="btn"
-                            parameters="{id: item.pid, 'orderItem': item.uid}"
-                            title="{f:translate(key: 'LLL:EXT:cart/Resources/Private/Language/locallang.xlf:tx_cart.controller.order.action.show')}">
-                            <core:icon identifier="actions-view" />
-                        </f:be.link>
-                    </td>
-                </tr>
-            </f:for>
-            </tbody>
-        </table>
-    </div>
+    <f:if condition="{items}">
+        <f:then>
+            <div class="widget-table-wrapper">
+                <table class="widget-table table table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th>{f:translate(key: 'LLL:EXT:cart/Resources/Private/Language/locallang.xlf:tx_cart_domain_model_order_item.order_number')}</th>
+                            <th>{f:translate(key: 'LLL:EXT:cart/Resources/Private/Language/locallang.xlf:tx_cart_domain_model_order_item.order_date')}</th>
+                            <th>{f:translate(key: 'LLL:EXT:cart/Resources/Private/Language/locallang.xlf:tx_cart_domain_model_order_payment')}</th>
+                            <th>{f:translate(key: 'LLL:EXT:cart/Resources/Private/Language/locallang.xlf:tx_cart_domain_model_order_shipping')}</th>
+                            <th class="text-end">{f:translate(key: 'LLL:EXT:cart/Resources/Private/Language/locallang_be.xlf:dashboard.widgets.list.column.total')}</th>
+                            <th class="col-control nowrap"><span class="visually-hidden">{f:translate(key: 'LLL:EXT:cart/Resources/Private/Language/locallang.xlf:tx_cart.controller.order.action.show')}</span></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <f:for each="{items}" as="item">
+                            <tr>
+                                <td class="col-nowrap">{item.order_number}</td>
+                                <td class="col-nowrap"><f:format.date format="{f:translate(key: 'LLL:EXT:cart/Resources/Private/Language/locallang.xlf:tx_cart.format.date')}" date="{item.order_date}"/></td>
+                                <td>{item.payment_name}</td>
+                                <td>{item.shipping_name}</td>
+                                <td class="col-nowrap text-end"><f:format.currency currencySign="{item.currency_sign}" decimalSeparator="," thousandsSeparator=".">{item.total_gross}</f:format.currency></td>
+                                <td class="col-control nowrap">
+                                    <f:be.link
+                                        route="cart_cart_orders.Backend\Order\Order_show"
+                                        class="btn btn-default btn-sm"
+                                        parameters="{id: item.pid, 'orderItem': item.uid}"
+                                        title="{f:translate(key: 'LLL:EXT:cart/Resources/Private/Language/locallang.xlf:tx_cart.controller.order.action.show')}">
+                                        <core:icon identifier="actions-view" />
+                                    </f:be.link>
+                                </td>
+                            </tr>
+                        </f:for>
+                    </tbody>
+                </table>
+            </div>
+        </f:then>
+        <f:else>
+            <div class="callout callout-info">
+                <div class="callout-icon">
+                    <span class="icon-emphasized">
+                        <core:icon identifier="actions-cart" />
+                    </span>
+                </div>
+                <div class="callout-content">
+                    <div class="callout-title">
+                        {f:translate(key: 'LLL:EXT:cart/Resources/Private/Language/locallang_be.xlf:dashboard.widgets.list.empty')}
+                    </div>
+                </div>
+            </div>
+        </f:else>
+    </f:if>
 
 </f:section>
 <f:section name="footer">
-
+    <f:if condition="{button.link}">
+        <dashboard:widget.button button="{button}" class="widget-cta">{f:translate(id: button.title, default: button.title)}</dashboard:widget.button>
+    </f:if>
 </f:section>
 </html>

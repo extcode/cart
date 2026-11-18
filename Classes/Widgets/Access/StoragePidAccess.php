@@ -53,6 +53,18 @@ class StoragePidAccess
         );
     }
 
+    /**
+     * Returns the storage folders of the criteria the backend user may show,
+     * or all storage folders with orders the backend user may show, if the
+     * criteria has no storage folders.
+     *
+     * @return list<int>
+     */
+    public function findStoragePids(OrderItemCriteria $criteria, ?BackendUserAuthentication $backendUser = null): array
+    {
+        return $this->restrict($criteria, $backendUser)->storagePids ?? $this->orderItemQuery->findStoragePids();
+    }
+
     private static function getBackendUser(): ?BackendUserAuthentication
     {
         $backendUser = $GLOBALS['BE_USER'] ?? null;

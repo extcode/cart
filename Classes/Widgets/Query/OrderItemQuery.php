@@ -128,7 +128,9 @@ class OrderItemQuery
                 self::TABLE . '.order_number',
                 self::TABLE . '.order_date',
                 self::TABLE . '.invoice_number',
-                self::TABLE . '.invoice_date'
+                self::TABLE . '.invoice_date',
+                self::TABLE . '.total_gross',
+                self::TABLE . '.currency_sign'
             )
             ->orderBy(
                 self::getQualifiedField($orderBy),
