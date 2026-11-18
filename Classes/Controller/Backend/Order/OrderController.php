@@ -42,9 +42,11 @@ use stdClass;
 
 class OrderController extends ActionController
 {
-    private const LANG_FILE = 'LLL:EXT:cart/Resources/Private/Language/locallang.xlf:';
-
-    private const ALLOWED_SEARCH_ARGUMENTS = [
+    /**
+     * Search arguments of the order list, e.g. search[paymentStatus]=paid in
+     * the URL of the module.
+     */
+    public const ALLOWED_SEARCH_ARGUMENTS = [
         'customer',
         'orderNumber',
         'orderDateStart',
@@ -55,6 +57,8 @@ class OrderController extends ActionController
         'paymentStatus',
         'shippingStatus',
     ];
+
+    private const LANG_FILE = 'LLL:EXT:cart/Resources/Private/Language/locallang.xlf:';
 
     /**
      * @var array<string, string>

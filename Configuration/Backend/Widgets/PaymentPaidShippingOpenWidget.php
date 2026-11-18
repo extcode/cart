@@ -16,6 +16,7 @@ return static function (ContainerConfigurator $configurator): void {
         ->class(PaymentPaidShippingOpen::class)
         ->arg('$backendViewFactory', new Reference(BackendViewFactory::class))
         ->arg('$dataProvider', new Reference('extcode.cart.provider.payment_paid_shipping_open'))
+        ->arg('$buttonProvider', new Reference('extcode.cart.button.payment_paid_shipping_open'))
         ->tag('dashboard.widget', [
             'identifier' => 'PaymentPaidShippingOpen',
             'groupNames' => 'cart',

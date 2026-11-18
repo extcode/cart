@@ -13,7 +13,10 @@ following widgets to the widget group "Cart":
 *  **Turnover per Day**: gross total of the orders per day, without canceled
    payments
 *  **Latest Orders (paid, not shipped)**: the ten latest paid but not shipped
-   orders with a link to the order in the backend module
+   orders with their total and a link to the order in the backend module.
+   If the backend user may show only one storage folder with orders, the
+   button "Show all orders" opens the order list of this folder, searched for
+   paid but not shipped orders.
 *  **Orders Today**, **Orders this Month**: number of orders today or in
    the current month, without canceled payments
 *  **Turnover Today**, **Turnover this Month**: gross total of the orders
@@ -181,6 +184,20 @@ Options of OrderItemsProvider
    :Default: 10
 
    Number of orders in the list.
+
+Button of the order list
+------------------------
+
+The button "Show all orders" of the widget "Latest Orders" is configured as
+service `extcode.cart.button.payment_paid_shipping_open`
+(`\Extcode\Cart\Widgets\Provider\OrderListButtonProvider`). It takes the
+options `filter` and `storagePids` like the data provider, so both should get
+the same values. Its option `title` sets the text of the button.
+
+The button links to the order list, if the backend user may show exactly one
+storage folder with orders. The order list is searched for the status of the
+filter, if the filter has one status for payment or shipping. Former searches
+of the backend user in the order list are reset.
 
 Number widgets
 ==============

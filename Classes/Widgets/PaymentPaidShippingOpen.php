@@ -13,6 +13,7 @@ namespace Extcode\Cart\Widgets;
 use Psr\Http\Message\ServerRequestInterface;
 use TYPO3\CMS\Backend\View\BackendViewFactory;
 use TYPO3\CMS\Core\View\ViewInterface;
+use TYPO3\CMS\Dashboard\Widgets\ButtonProviderInterface;
 use TYPO3\CMS\Dashboard\Widgets\ListDataProviderInterface;
 use TYPO3\CMS\Dashboard\Widgets\RequestAwareWidgetInterface;
 use TYPO3\CMS\Dashboard\Widgets\WidgetConfigurationInterface;
@@ -28,7 +29,8 @@ class PaymentPaidShippingOpen implements RequestAwareWidgetInterface, WidgetInte
         private readonly WidgetConfigurationInterface $configuration,
         private readonly ListDataProviderInterface $dataProvider,
         private readonly BackendViewFactory $backendViewFactory,
-        private readonly array $options = []
+        private readonly array $options = [],
+        private readonly ?ButtonProviderInterface $buttonProvider = null,
     ) {
     }
 
@@ -45,6 +47,7 @@ class PaymentPaidShippingOpen implements RequestAwareWidgetInterface, WidgetInte
             'items' => $this->dataProvider->getItems(),
             'options' => $this->options,
             'configuration' => $this->configuration,
+            'button' => $this->buttonProvider,
         ]);
 
         return $this->view->render('Widget/CartPaymentPaidShippingOpen');

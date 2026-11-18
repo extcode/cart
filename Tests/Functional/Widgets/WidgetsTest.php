@@ -131,17 +131,55 @@ class WidgetsTest extends AbstractWidgetTestCase
     #[Test]
     public function paymentPaidShippingOpenRendersOrdersWithPaymentPaidAndShippingOpen(): void
     {
-        $this->createOrder(1, '-1 day 12:00', 'paid', 'open');
+        $this->createOrder(1, '-1 day 12:00', 'paid', 'open', 1089.95);
         $this->createOrder(2, 'today 12:00', 'paid', 'shipped');
 
         $content = $this->renderPaymentPaidShippingOpen();
 
+        self::assertStringContainsString('<table class="widget-table table table-striped table-hover">', $content);
         self::assertStringContainsString('O-1', $content);
         self::assertStringContainsString('Payment 1', $content);
         self::assertStringContainsString('Shipping 1', $content);
         self::assertStringContainsString(date('Y-m-d', (int) strtotime('-1 day 12:00')), $content);
+        self::assertStringContainsString('1.089,95', $content);
         self::assertStringContainsString('&amp;orderItem=1', $content);
         self::assertStringNotContainsString('O-2', $content);
+    }
+
+    #[Test]
+    public function paymentPaidShippingOpenRendersAButtonToTheOrderListOfTheOnlyStorageFolder(): void
+    {
+        $this->createOrder(1, '-1 day 12:00', 'paid', 'open');
+
+        $content = $this->renderPaymentPaidShippingOpen();
+
+        self::assertMatchesRegularExpression('#<a [^>]*href="/?typo3/module/cart/orders\?[^"]*id=' . self::ORDER_STORAGE_PID . '[^"]*"[^>]*>\s*Show all orders\s*</a>#', $content);
+        self::assertStringContainsString('search%5BpaymentStatus%5D=paid', $content);
+        self::assertStringContainsString('search%5BshippingStatus%5D=open', $content);
+    }
+
+    #[Test]
+    public function paymentPaidShippingOpenRendersNoButtonForSeveralStorageFolders(): void
+    {
+        $this->createSecondStorageFolder();
+        $this->createOrder(1, '-1 day 12:00', 'paid', 'open');
+        $this->createOrder(2, '-1 day 12:00', 'paid', 'open', pid: self::SECOND_ORDER_STORAGE_PID);
+
+        $content = $this->renderPaymentPaidShippingOpen();
+
+        self::assertStringContainsString('O-2', $content);
+        self::assertStringNotContainsString('Show all orders', $content);
+        self::assertStringNotContainsString('widget-content-footer', $content);
+    }
+
+    #[Test]
+    public function paymentPaidShippingOpenRendersAMessageWithoutOrders(): void
+    {
+        $content = $this->renderPaymentPaidShippingOpen();
+
+        self::assertStringContainsString('No orders found.', $content);
+        self::assertStringNotContainsString('<table', $content);
+        self::assertStringNotContainsString('Show all orders', $content);
     }
 
     private function renderPaymentPaidShippingOpen(): string

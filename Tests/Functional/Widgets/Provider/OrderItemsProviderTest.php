@@ -25,11 +25,17 @@ class OrderItemsProviderTest extends AbstractWidgetTestCase
         $this->createOrder(1, '-3 days 12:00', 'paid', 'open');
         $this->createOrder(2, '-2 days 12:00', 'open', 'open');
         $this->createOrder(3, '-1 day 12:00', 'paid', 'shipped');
-        $this->createOrder(4, 'today 12:00', 'paid', 'open');
+        $this->createOrder(4, 'today 12:00', 'paid', 'open', 89.95);
 
         $items = $this->createProvider(self::FILTER_PAYMENT_PAID_SHIPPING_OPEN)->getItems();
 
         self::assertSame([4, 1], array_column($items, 'uid'));
+
+        // DECIMAL values are strings on MySQL/MariaDB, numbers on SQLite
+        self::assertIsNumeric($items[0]['total_gross']);
+        self::assertSame(89.95, (float) $items[0]['total_gross']);
+        unset($items[0]['total_gross']);
+
         self::assertSame(
             [
                 'uid' => 4,
@@ -38,6 +44,7 @@ class OrderItemsProviderTest extends AbstractWidgetTestCase
                 'order_date' => strtotime('today 12:00'),
                 'invoice_number' => '',
                 'invoice_date' => 0,
+                'currency_sign' => '',
                 'payment_name' => 'Payment 4',
                 'payment_status' => 'paid',
                 'shipping_name' => 'Shipping 4',

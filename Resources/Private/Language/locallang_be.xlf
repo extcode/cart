@@ -26,6 +26,15 @@
             <trans-unit id="dashboard.widgets.payment_paid_shipping_open.description">
                 <source>List of Paid but not Shipped Orders</source>
             </trans-unit>
+            <trans-unit id="dashboard.widgets.list.column.total">
+                <source>Total</source>
+            </trans-unit>
+            <trans-unit id="dashboard.widgets.list.empty">
+                <source>No orders found.</source>
+            </trans-unit>
+            <trans-unit id="dashboard.widgets.button.show_orders">
+                <source>Show all orders</source>
+            </trans-unit>
             <trans-unit id="dashboard.widgets.orders_per_day.title">
                 <source>Orders per Day</source>
             </trans-unit>
