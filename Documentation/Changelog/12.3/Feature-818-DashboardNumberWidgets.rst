@@ -1,8 +1,10 @@
 .. include:: ../../Includes.rst.txt
 
-================================================
-Feature: Number widgets for orders and turnover
-================================================
+========================================================
+Feature: #818 - Number widgets for orders and turnover
+========================================================
+
+See `Issue 818 <https://github.com/extcode/cart/issues/818>`__
 
 Description
 ===========
