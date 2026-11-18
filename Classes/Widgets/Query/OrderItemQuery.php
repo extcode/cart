@@ -50,20 +50,13 @@ class OrderItemQuery
         int $start,
         int $end,
     ): iterable {
-        $dateField = self::getQualifiedField($dateField);
-
-        $queryBuilder = $this->createQueryBuilder($criteria);
-        $queryBuilder->addSelect($dateField . ' AS date');
+        $queryBuilder = $this->createPeriodQueryBuilder($criteria, $dateField, $start, $end);
+        $queryBuilder->addSelect(self::getQualifiedField($dateField) . ' AS date');
         if ($valueField === null) {
             $queryBuilder->addSelectLiteral('1 AS value');
         } else {
             $queryBuilder->addSelect(self::getQualifiedField($valueField) . ' AS value');
         }
-        $queryBuilder->andWhere(
-            $queryBuilder->expr()->gte($dateField, $queryBuilder->createNamedParameter($start, Connection::PARAM_INT)),
-            $queryBuilder->expr()->lte($dateField, $queryBuilder->createNamedParameter($end, Connection::PARAM_INT))
-        );
-        self::addStatusFilter($queryBuilder, $criteria);
 
         foreach ($queryBuilder->executeQuery()->iterateAssociative() as $row) {
             yield [
@@ -71,6 +64,48 @@ class OrderItemQuery
                 'value' => $row['value'],
             ];
         }
+    }
+
+    /**
+     * Returns the number of order items with a date in the period.
+     *
+     * @param string $dateField field with the timestamp of the order item
+     */
+    public function countInPeriod(
+        OrderItemCriteria $criteria,
+        string $dateField,
+        int $start,
+        int $end,
+    ): int {
+        $queryBuilder = $this->createPeriodQueryBuilder($criteria, $dateField, $start, $end);
+        $queryBuilder->count(self::TABLE . '.uid');
+
+        $count = $queryBuilder->executeQuery()->fetchOne();
+
+        return is_numeric($count) ? (int) $count : 0;
+    }
+
+    /**
+     * Returns the sum of a field of the order items with a date in the period.
+     *
+     * @param string $dateField field with the timestamp of the order item
+     * @param string $valueField field with the value to sum up
+     */
+    public function sumInPeriod(
+        OrderItemCriteria $criteria,
+        string $dateField,
+        string $valueField,
+        int $start,
+        int $end,
+    ): float {
+        $queryBuilder = $this->createPeriodQueryBuilder($criteria, $dateField, $start, $end);
+        $queryBuilder->addSelectLiteral(
+            'SUM(' . $queryBuilder->quoteIdentifier(self::getQualifiedField($valueField)) . ') AS value'
+        );
+
+        $sum = $queryBuilder->executeQuery()->fetchOne();
+
+        return is_numeric($sum) ? (float) $sum : 0.0;
     }
 
     /**
@@ -138,6 +173,24 @@ class OrderItemQuery
         return $storagePids;
     }
 
+    /**
+     * Creates a query builder for the order items of the criteria with a
+     * date in the period.
+     */
+    private function createPeriodQueryBuilder(OrderItemCriteria $criteria, string $dateField, int $start, int $end): QueryBuilder
+    {
+        $dateField = self::getQualifiedField($dateField);
+
+        $queryBuilder = $this->createQueryBuilder($criteria);
+        $queryBuilder->andWhere(
+            $queryBuilder->expr()->gte($dateField, $queryBuilder->createNamedParameter($start, Connection::PARAM_INT)),
+            $queryBuilder->expr()->lte($dateField, $queryBuilder->createNamedParameter($end, Connection::PARAM_INT))
+        );
+        self::addStatusFilter($queryBuilder, $criteria);
+
+        return $queryBuilder;
+    }
+
     private function createQueryBuilder(OrderItemCriteria $criteria): QueryBuilder
     {
         $queryBuilder = clone $this->queryBuilder;
@@ -169,8 +222,8 @@ class OrderItemQuery
      */
     private static function addStatusFilter(QueryBuilder $queryBuilder, OrderItemCriteria $criteria, bool $isJoined = false): void
     {
-        foreach ($criteria->statusFilter as $type => $status) {
-            if (!array_key_exists($type, self::STATUS_TABLES)) {
+        foreach ($criteria->statusFilter as $type => $statusList) {
+            if (!array_key_exists($type, self::STATUS_TABLES) || $statusList === []) {
                 continue;
             }
 
@@ -179,9 +232,9 @@ class OrderItemQuery
             }
 
             $queryBuilder->andWhere(
-                $queryBuilder->expr()->eq(
+                $queryBuilder->expr()->in(
                     $type . '.status',
-                    $queryBuilder->createNamedParameter($status, Connection::PARAM_STR)
+                    $queryBuilder->createNamedParameter($statusList, Connection::PARAM_STR_ARRAY)
                 )
             );
         }

@@ -40,7 +40,45 @@ class OrderItemCriteriaTest extends UnitTestCase
             ],
         ]);
 
-        self::assertSame(['payment' => 'paid'], $criteria->statusFilter);
+        self::assertSame(['payment' => ['paid']], $criteria->statusFilter);
+    }
+
+    /**
+     * @param list<string> $expected
+     */
+    #[DataProvider('statusListDataProvider')]
+    #[Test]
+    public function fromOptionsTakesSeveralStatus(mixed $status, array $expected): void
+    {
+        $criteria = OrderItemCriteria::fromOptions([
+            'filter' => [
+                'payment' => ['status' => $status],
+            ],
+        ]);
+
+        self::assertSame(['payment' => $expected], $criteria->statusFilter);
+    }
+
+    /**
+     * @return iterable<string, array{mixed, list<string>}>
+     */
+    public static function statusListDataProvider(): iterable
+    {
+        yield 'list' => [['open', 'paid', 'open', ''], ['open', 'paid']];
+        yield 'comma separated list' => ['open, pending,paid', ['open', 'pending', 'paid']];
+    }
+
+    #[Test]
+    public function fromOptionsIgnoresAnEmptyListOfStatus(): void
+    {
+        $criteria = OrderItemCriteria::fromOptions([
+            'filter' => [
+                'payment' => ['status' => []],
+                'shipping' => ['status' => ' , '],
+            ],
+        ]);
+
+        self::assertSame([], $criteria->statusFilter);
     }
 
     /**
@@ -68,9 +106,9 @@ class OrderItemCriteriaTest extends UnitTestCase
     #[Test]
     public function withStoragePidsKeepsTheStatusFilter(): void
     {
-        $criteria = (new OrderItemCriteria(['payment' => 'paid'], [105]))->withStoragePids([]);
+        $criteria = (new OrderItemCriteria(['payment' => ['paid']], [105]))->withStoragePids([]);
 
-        self::assertSame(['payment' => 'paid'], $criteria->statusFilter);
+        self::assertSame(['payment' => ['paid']], $criteria->statusFilter);
         self::assertSame([], $criteria->storagePids);
     }
 }

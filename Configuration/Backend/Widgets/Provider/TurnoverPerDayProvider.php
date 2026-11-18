@@ -14,6 +14,11 @@ return static function (ContainerConfigurator $configurator): void {
         ->class(TurnoverPerDayProvider::class)
         ->autowire()
         ->arg('$options', [
+            'filter' => [
+                'payment' => [
+                    'status' => ['open', 'pending', 'paid'],
+                ],
+            ],
             'sum' => 'total_gross',
         ])
     ;

@@ -20,6 +20,12 @@ return [
                 'payment-paid-shipping-open' => [
                     'identifier' => 'PaymentPaidShippingOpen',
                 ],
+                'orders-today' => [
+                    'identifier' => 'OrdersToday',
+                ],
+                'turnover-today' => [
+                    'identifier' => 'TurnoverToday',
+                ],
             ], JSON_THROW_ON_ERROR),
         ],
     ],

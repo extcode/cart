@@ -39,4 +39,10 @@ return static function (ContainerConfigurator $configurator, ContainerBuilder $c
 
     $configurator->import('Provider/TurnoverPerDayProvider.php');
     $configurator->import('TurnoverPerDayWidget.php');
+
+    $configurator->import('Provider/OrdersInPeriodProvider.php');
+    $configurator->import('OrdersInPeriodWidget.php');
+
+    $configurator->import('Provider/TurnoverInPeriodProvider.php');
+    $configurator->import('TurnoverInPeriodWidget.php');
 };

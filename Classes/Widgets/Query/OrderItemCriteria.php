@@ -19,7 +19,7 @@ final readonly class OrderItemCriteria
     private const STATUS_TYPES = ['payment', 'shipping'];
 
     /**
-     * @param array<string, string> $statusFilter status per type (payment, shipping)
+     * @param array<string, list<string>> $statusFilter allowed status per type (payment, shipping)
      * @param null|list<int> $storagePids storage folders of the orders, null for all
      */
     public function __construct(
@@ -30,8 +30,9 @@ final readonly class OrderItemCriteria
 
     /**
      * Creates the criteria from the options of a data provider:
-     * - filter: status of payment and/or shipping an order must have, e.g.
-     *   ['payment' => ['status' => 'paid'], 'shipping' => ['status' => 'open']]
+     * - filter: status of payment and/or shipping an order must have, as
+     *   string, list or comma separated list, e.g.
+     *   ['payment' => ['status' => 'open,paid'], 'shipping' => ['status' => 'open']]
      * - storagePids: list or comma separated list of storage folders (page
      *   uids) of the orders, all storage folders if empty
      *
@@ -56,7 +57,7 @@ final readonly class OrderItemCriteria
     }
 
     /**
-     * @return array<string, string>
+     * @return array<string, list<string>>
      */
     private static function getStatusFilter(mixed $filter): array
     {
@@ -66,13 +67,35 @@ final readonly class OrderItemCriteria
 
         $statusFilter = [];
         foreach (self::STATUS_TYPES as $type) {
-            $status = is_array($filter[$type] ?? null) ? ($filter[$type]['status'] ?? '') : '';
-            if (is_string($status) && $status !== '') {
+            $status = self::getStatusList(is_array($filter[$type] ?? null) ? ($filter[$type]['status'] ?? []) : []);
+            if ($status !== []) {
                 $statusFilter[$type] = $status;
             }
         }
 
         return $statusFilter;
+    }
+
+    /**
+     * @return list<string>
+     */
+    private static function getStatusList(mixed $status): array
+    {
+        if (is_string($status)) {
+            $status = explode(',', $status);
+        }
+        if (!is_array($status)) {
+            return [];
+        }
+
+        $statusList = [];
+        foreach ($status as $value) {
+            if (is_string($value) && trim($value) !== '') {
+                $statusList[] = trim($value);
+            }
+        }
+
+        return array_values(array_unique($statusList));
     }
 
     /**

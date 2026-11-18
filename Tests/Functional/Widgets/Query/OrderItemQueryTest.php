@@ -59,9 +59,25 @@ class OrderItemQueryTest extends AbstractWidgetTestCase
     #[Test]
     public function findValuesInPeriodReturnsOnlyOrdersMatchingTheStatusFilter(): void
     {
-        $rows = $this->findValuesInPeriod(new OrderItemCriteria(['payment' => 'paid', 'shipping' => 'open']), 'total_gross');
+        $rows = $this->findValuesInPeriod(new OrderItemCriteria(['payment' => ['paid'], 'shipping' => ['open']]), 'total_gross');
 
         self::assertSame([(int) strtotime('-2 days 12:00')], array_column($rows, 'date'));
+    }
+
+    #[Test]
+    public function countInPeriodCountsOrdersMatchingOneOfTheStatusOfTheFilter(): void
+    {
+        $this->createOrder(4, 'today 13:00', 'canceled', 'open', 40.0);
+
+        self::assertSame(3, $this->countInPeriod(new OrderItemCriteria(['payment' => ['open', 'pending', 'paid']])));
+        self::assertSame(2, $this->countInPeriod(new OrderItemCriteria(['payment' => ['open', 'canceled']])));
+        self::assertSame(1, $this->countInPeriod(new OrderItemCriteria(['payment' => ['open', 'paid'], 'shipping' => ['shipped']])));
+    }
+
+    #[Test]
+    public function countInPeriodIgnoresAnEmptyListOfStatus(): void
+    {
+        self::assertSame(3, $this->countInPeriod(new OrderItemCriteria(['payment' => []])));
     }
 
     #[Test]
@@ -89,10 +105,55 @@ class OrderItemQueryTest extends AbstractWidgetTestCase
     }
 
     #[Test]
+    public function countInPeriodCountsTheOrdersInThePeriod(): void
+    {
+        self::assertSame(2, $this->countInPeriod(new OrderItemCriteria(), '-1 day 0:00'));
+        self::assertSame(3, $this->countInPeriod(new OrderItemCriteria()));
+    }
+
+    #[Test]
+    public function countInPeriodCountsOnlyOrdersMatchingTheCriteria(): void
+    {
+        self::assertSame(2, $this->countInPeriod(new OrderItemCriteria(['payment' => ['paid']])));
+        self::assertSame(1, $this->countInPeriod(new OrderItemCriteria([], [self::SECOND_ORDER_STORAGE_PID])));
+        self::assertSame(0, $this->countInPeriod(new OrderItemCriteria([], [])));
+    }
+
+    #[Test]
+    public function sumInPeriodSumsTheFieldOfTheOrdersInThePeriod(): void
+    {
+        self::assertSame(50.0, $this->sumInPeriod(new OrderItemCriteria(), '-1 day 0:00'));
+        self::assertSame(60.0, $this->sumInPeriod(new OrderItemCriteria()));
+    }
+
+    #[Test]
+    public function sumInPeriodSumsOnlyOrdersMatchingTheCriteria(): void
+    {
+        self::assertSame(40.0, $this->sumInPeriod(new OrderItemCriteria(['payment' => ['paid']])));
+        self::assertSame(30.0, $this->sumInPeriod(new OrderItemCriteria([], [self::SECOND_ORDER_STORAGE_PID])));
+    }
+
+    #[Test]
+    public function sumInPeriodReturnsZeroWithoutOrders(): void
+    {
+        self::assertSame(0.0, $this->sumInPeriod(new OrderItemCriteria([], [])));
+    }
+
+    #[Test]
+    public function sumInPeriodThrowsAnExceptionForAnUnknownField(): void
+    {
+        $this->expectExceptionObject(
+            new InvalidArgumentException('"total_gross; DROP" is no field of the table tx_cart_domain_model_order_item.', 1794946139)
+        );
+
+        $this->createOrderItemQuery()->sumInPeriod(new OrderItemCriteria(), 'order_date', 'total_gross; DROP', 0, PHP_INT_MAX);
+    }
+
+    #[Test]
     public function findLatestReturnsTheOrdersWithPaymentAndShipping(): void
     {
         $items = $this->createOrderItemQuery()->findLatest(
-            new OrderItemCriteria(['payment' => 'paid']),
+            new OrderItemCriteria(['payment' => ['paid']]),
             'tx_cart_domain_model_order_item.order_date',
             'asc',
             10
@@ -110,6 +171,27 @@ class OrderItemQueryTest extends AbstractWidgetTestCase
         sort($storagePids);
 
         self::assertSame([self::ORDER_STORAGE_PID, self::SECOND_ORDER_STORAGE_PID], $storagePids);
+    }
+
+    private function countInPeriod(OrderItemCriteria $criteria, string $start = '-2 days 0:00'): int
+    {
+        return $this->createOrderItemQuery()->countInPeriod(
+            $criteria,
+            'order_date',
+            (int) strtotime($start),
+            (int) strtotime('today 23:59:59')
+        );
+    }
+
+    private function sumInPeriod(OrderItemCriteria $criteria, string $start = '-2 days 0:00'): float
+    {
+        return $this->createOrderItemQuery()->sumInPeriod(
+            $criteria,
+            'order_date',
+            'total_gross',
+            (int) strtotime($start),
+            (int) strtotime('today 23:59:59')
+        );
     }
 
     /**

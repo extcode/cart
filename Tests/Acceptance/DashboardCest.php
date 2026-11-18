@@ -27,6 +27,10 @@ class DashboardCest
 
     private const PAYMENT_PAID_SHIPPING_OPEN = 'typo3-dashboard-widget[identifier="payment-paid-shipping-open"]';
 
+    private const ORDERS_TODAY = 'typo3-dashboard-widget[identifier="orders-today"]';
+
+    private const TURNOVER_TODAY = 'typo3-dashboard-widget[identifier="turnover-today"]';
+
     public function _before(Tester $I): void
     {
         $I->loginAsAdmin();
@@ -85,11 +89,29 @@ class DashboardCest
         $I->see('Shipping 4');
     }
 
+    public function ordersTodayShowsTheNumberOfOrdersOfToday(Tester $I): void
+    {
+        $I->waitForText('Orders Today', 10, self::ORDERS_TODAY . ' .widget-title');
+
+        $I->waitForText('1', 10, self::ORDERS_TODAY . ' .widget-number-number');
+        $number = $I->grabTextFrom(self::ORDERS_TODAY . ' .widget-number-number');
+        Assert::assertIsString($number);
+        Assert::assertSame('1', trim($number));
+    }
+
+    public function turnoverTodayShowsTheGrossTotalOfTodayWithCurrency(Tester $I): void
+    {
+        $I->waitForText('Turnover Today', 10, self::TURNOVER_TODAY . ' .widget-title');
+
+        $I->waitForText('15,00 €', 10, self::TURNOVER_TODAY . ' .widget-number-number');
+    }
+
     public function widgetsRenderTheirTitleOnlyInTheHeader(Tester $I): void
     {
         $I->waitForElement(self::PAYMENT_PAID_SHIPPING_OPEN . ' table', 10);
+        $I->waitForElement(self::TURNOVER_TODAY . ' .widget-number-number', 10);
 
-        $I->seeNumberOfElements('typo3-dashboard-widget .widget-title', 3);
+        $I->seeNumberOfElements('typo3-dashboard-widget .widget-title', 5);
         $I->dontSeeElement('typo3-dashboard-widget .widget-content-title');
     }
 
