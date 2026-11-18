@@ -32,4 +32,8 @@ should see all orders in the widgets.
 The default of the option `sum` of the `TurnoverPerDayProvider` is
 `total_gross` now. The former default `gross` was no field of the order.
 
+The widget "Turnover per Day" leaves out orders with the payment status
+`canceled` now. A payment is canceled e.g. if the customer aborts the payment
+at the payment provider. Set the option `filter` to get the former behavior.
+
 .. index:: Backend

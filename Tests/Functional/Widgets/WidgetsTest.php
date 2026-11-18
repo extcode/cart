@@ -78,6 +78,26 @@ class WidgetsTest extends AbstractWidgetTestCase
     }
 
     #[Test]
+    public function turnoverPerDayLeavesOutCanceledOrders(): void
+    {
+        $this->createOrder(1, 'today 12:00', 'paid', 'open', 10.5);
+        $this->createOrder(2, 'today 13:00', 'open', 'open', 20.0);
+        $this->createOrder(3, 'today 14:00', 'canceled', 'open', 500.0);
+
+        $widgetRegistry = $this->get(WidgetRegistry::class);
+        self::assertInstanceOf(WidgetRegistry::class, $widgetRegistry);
+        $widget = $widgetRegistry->getAvailableWidget(self::createDashboardRequest(), 'TurnoverPerDay');
+        self::assertInstanceOf(BarChartWidget::class, $widget);
+
+        $graphConfig = $widget->getEventData()['graphConfig'];
+        self::assertIsArray($graphConfig);
+        self::assertIsArray($graphConfig['data']);
+        $data = self::getData($graphConfig['data']);
+
+        self::assertSame(30.5, $data[array_key_last($data)]);
+    }
+
+    #[Test]
     public function ordersTodayRendersTheNumberOfNotCanceledOrdersOfToday(): void
     {
         $this->createOrder(1, 'today 12:00');

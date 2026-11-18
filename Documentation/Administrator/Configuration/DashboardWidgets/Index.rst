@@ -10,7 +10,8 @@ If the dashboard (`typo3/cms-dashboard`) is installed, the extension adds the
 following widgets to the widget group "Cart":
 
 *  **Orders per Day**: number of paid but not shipped orders per day
-*  **Turnover per Day**: gross total of all orders per day
+*  **Turnover per Day**: gross total of the orders per day, without canceled
+   payments
 *  **Latest Orders (paid, not shipped)**: the ten latest paid but not shipped
    orders with a link to the order in the backend module
 *  **Orders Today**, **Orders this Month**: number of orders today or in
@@ -91,8 +92,9 @@ Options of all providers
    `['payment' => ['status' => 'open,paid']]`.
 
    The status of a payment are `open`, `pending`, `paid` and `canceled`. The
-   number widgets show orders with the payment status `open`, `pending` or
-   `paid` by default, so canceled orders are left out.
+   turnover and number widgets show orders with the payment status `open`,
+   `pending` or `paid` by default. A payment is canceled e.g. if the customer
+   aborts the payment at the payment provider, so these orders are left out.
 
 .. confval:: storagePids
 
