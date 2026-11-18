@@ -48,10 +48,6 @@ plugin {
             callDefaultActionIfActionCantBeResolved = 1
         }
 
-        features {
-            skipDefaultArguments = 1
-        }
-
         autoGenerateNumbers = order
 
         settings {
