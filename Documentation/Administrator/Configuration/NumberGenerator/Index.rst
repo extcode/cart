@@ -16,13 +16,11 @@ Define which numbers are generated
    :caption: EXT:cart/Configuration/TypoScript/setup.typoscript
 
    plugin.tx_cart {
-       settings {
-           autoGenerateNumbers = order
-       }
+       autoGenerateNumbers = order
    }
 
-plugin.tx_cart.settings
------------------------
+plugin.tx_cart
+--------------
 
 .. confval:: autoGenerateNumbers
 
