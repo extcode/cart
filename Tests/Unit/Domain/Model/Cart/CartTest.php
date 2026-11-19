@@ -1305,6 +1305,32 @@ class CartTest extends UnitTestCase
     }
 
     #[Test]
+    public function getTotalTaxesSubtractsCouponTaxesOnce(): void
+    {
+        $this->addFirstProductToCarts();
+
+        $firstCoupon = new CartCouponFix(
+            'FirstCouponTitle',
+            'FirstCouponCode',
+            'FirstCouponType',
+            5.00,
+            $this->normalTaxClass,
+            0,
+            false
+        );
+
+        $this->grossCart->addCoupon($firstCoupon);
+
+        $totalTaxes = $this->grossCart->getTotalTaxes();
+
+        self::assertEqualsWithDelta(
+            5.00 - (5.00 / (1 + $this->normalTaxClass->getCalc())),
+            $totalTaxes[$this->normalTaxClass->getId()],
+            0.000000000001
+        );
+    }
+
+    #[Test]
     public function getSubtotalGrossInitiallyReturnsZero(): void
     {
         self::assertSame(
