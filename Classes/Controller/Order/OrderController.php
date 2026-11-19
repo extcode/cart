@@ -34,7 +34,7 @@ class OrderController extends ActionController
     public function __construct(
         private readonly Context $context,
         protected ItemRepository $itemRepository,
-        protected readonly OrderStatusRegistry $orderStatusRegistry,
+        private readonly OrderStatusRegistry $orderStatusRegistry,
     ) {
     }
 

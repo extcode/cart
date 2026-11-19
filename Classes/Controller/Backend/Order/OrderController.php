@@ -77,8 +77,8 @@ class OrderController extends ActionController
         protected readonly ItemRepository $itemRepository,
         private readonly PageRenderer $pageRenderer,
         private readonly ComponentFactory $componentFactory,
-        protected readonly OrderStatusRegistry $orderStatusRegistry,
-        protected readonly OrderHistoryService $orderHistoryService,
+        private readonly OrderStatusRegistry $orderStatusRegistry,
+        private readonly OrderHistoryService $orderHistoryService,
     ) {
     }
 

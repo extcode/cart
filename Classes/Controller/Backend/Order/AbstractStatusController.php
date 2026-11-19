@@ -30,8 +30,8 @@ use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 abstract class AbstractStatusController extends ActionController
 {
     public function __construct(
-        protected readonly StatusChangeService $statusChangeService,
-        protected readonly LogServiceInterface $logService,
+        private readonly StatusChangeService $statusChangeService,
+        private readonly LogServiceInterface $logService,
     ) {
     }
 
