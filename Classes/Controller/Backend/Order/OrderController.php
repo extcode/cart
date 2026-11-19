@@ -21,6 +21,7 @@ use Extcode\Cart\Event\Order\ExportEvent;
 use Extcode\Cart\Event\Order\NumberGeneratorEvent;
 use Extcode\Cart\Event\Template\Components\ModifyButtonBarEvent;
 use Extcode\Cart\Event\Template\Components\ModifyModuleTemplateEvent;
+use Extcode\Cart\Service\Order\OrderHistoryService;
 use Psr\Http\Message\ResponseInterface;
 use RuntimeException;
 use TYPO3\CMS\Backend\Module\ModuleData;
@@ -69,6 +70,8 @@ class OrderController extends ActionController
 
     protected OrderStatusRegistry $orderStatusRegistry;
 
+    protected OrderHistoryService $orderHistoryService;
+
     private ModuleTemplate $moduleTemplate;
 
     public function __construct(
@@ -84,6 +87,11 @@ class OrderController extends ActionController
     public function injectOrderStatusRegistry(OrderStatusRegistry $orderStatusRegistry): void
     {
         $this->orderStatusRegistry = $orderStatusRegistry;
+    }
+
+    public function injectOrderHistoryService(OrderHistoryService $orderHistoryService): void
+    {
+        $this->orderHistoryService = $orderHistoryService;
     }
 
     public function initializeListAction(): void
@@ -172,6 +180,10 @@ class OrderController extends ActionController
         $this->moduleTemplate->assign(
             'shippingStatusOptions',
             $this->orderStatusRegistry->getLocalizedLabels(ServiceType::Shipping, $orderItem->getShipping()?->getStatus())
+        );
+        $this->moduleTemplate->assign(
+            'orderHistory',
+            $this->orderHistoryService->getEntries((int) $orderItem->getUid())
         );
 
         $pdfRendererInstalled = ExtensionManagementUtility::isLoaded('cart_pdf');

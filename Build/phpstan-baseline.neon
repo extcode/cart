@@ -337,18 +337,6 @@ parameters:
 			path: ../Classes/Controller/Backend/Order/OrderController.php
 
 		-
-			message: '#^Parameter \#1 \$messageBody of method TYPO3\\CMS\\Extbase\\Mvc\\Controller\\ActionController\:\:addFlashMessage\(\) expects string, string\|null given\.$#'
-			identifier: argument.type
-			count: 1
-			path: ../Classes/Controller/Backend/Order/PaymentController.php
-
-		-
-			message: '#^Parameter \#1 \$messageBody of method TYPO3\\CMS\\Extbase\\Mvc\\Controller\\ActionController\:\:addFlashMessage\(\) expects string, string\|null given\.$#'
-			identifier: argument.type
-			count: 1
-			path: ../Classes/Controller/Backend/Order/ShippingController.php
-
-		-
 			message: '#^Cannot access offset ''pid'' on mixed\.$#'
 			identifier: offsetAccess.nonOffsetAccessible
 			count: 2

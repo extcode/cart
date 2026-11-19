@@ -76,11 +76,11 @@
                 </th>
                 <td>
                     <f:form controller="Backend\Order\Payment" action="update" name="paymentStatus"
-                            object="{orderItem.payment}"
-                            objectName="payment">
+                            arguments="{payment: orderItem.payment}">
+                        <f:form.hidden name="fromStatus" value="{orderItem.payment.status}"/>
                         <div class="row gap-1">
-                            <f:form.select class="col form-select" property="status" options="{paymentStatusOptions}"
-                                           optionValueField="value" optionLabelField="label"/>
+                            <f:form.select class="col form-select" name="status" options="{paymentStatusOptions}"
+                                           value="{orderItem.payment.status}"/>
                             <f:form.submit class="col btn btn-default" value="{f:translate(key: 'tx_cart.update_status')}"/>
                         </div>
                     </f:form>
@@ -135,10 +135,11 @@
                 </th>
                 <td>
                     <f:form controller="Backend\Order\Shipping" action="update" name="shippingStatus"
-                            object="{orderItem.shipping}" objectName="shipping">
+                            arguments="{shipping: orderItem.shipping}">
+                        <f:form.hidden name="fromStatus" value="{orderItem.shipping.status}"/>
                         <div class="row gap-1">
-                            <f:form.select class="col form-select" property="status" options="{shippingStatusOptions}"
-                                           optionValueField="value" optionLabelField="label"/>
+                            <f:form.select class="col form-select" name="status" options="{shippingStatusOptions}"
+                                           value="{orderItem.shipping.status}"/>
                             <f:form.submit class="col btn btn-default" value="{f:translate(key: 'tx_cart.update_status')}"/>
                         </div>
                     </f:form>

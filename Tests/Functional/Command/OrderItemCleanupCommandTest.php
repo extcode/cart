@@ -335,4 +335,49 @@ final class OrderItemCleanupCommandTest extends AbstractCommandTestCase
         yield ['Thu Jan 01 2026 11:00:00 GMT+0000'];
         yield [1];
     }
+
+    #[Test]
+    public function deletesTheOrderHistoryOfOrdersCreatedBeforeCutOffDate(): void
+    {
+        (new PhpDataSet())->import([
+            'tx_cart_domain_model_order_item' => [
+                [
+                    'uid' => '10',
+                    'crdate' => (new DateTimeImmutable('2024-12-31'))->format('U'),
+                ],
+                [
+                    // e.g. deleted by hand in the list module before
+                    'uid' => '11',
+                    'deleted' => '1',
+                    'crdate' => (new DateTimeImmutable('2024-12-30'))->format('U'),
+                ],
+                [
+                    'uid' => '12',
+                    'crdate' => (new DateTimeImmutable('2025-01-02'))->format('U'),
+                ],
+            ],
+            'tx_cart_domain_model_order_change' => [
+                ['uid' => '1', 'item' => '10', 'type' => 'payment_status'],
+                ['uid' => '2', 'item' => '10', 'type' => 'shipping_status'],
+                ['uid' => '3', 'item' => '11', 'type' => 'payment_status'],
+                ['uid' => '4', 'item' => '12', 'type' => 'payment_status'],
+            ],
+        ]);
+
+        $command = $this->get(OrderItemCleanupCommand::class);
+        self::assertInstanceOf(OrderItemCleanupCommand::class, $command);
+        $commandTester = new CommandTester($command);
+        $commandTester->execute(
+            [
+                'cutOffDate' => '2025-01-01',
+            ]
+        );
+
+        $commandTester->assertCommandIsSuccessful();
+        self::assertSame(
+            [4],
+            array_column($this->getAllRecords('tx_cart_domain_model_order_change'), 'uid'),
+            'Only the changes of the order created after the cut-off date must be kept.'
+        );
+    }
 }

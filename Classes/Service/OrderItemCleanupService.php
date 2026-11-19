@@ -12,6 +12,7 @@ namespace Extcode\Cart\Service;
  */
 
 use DateTimeImmutable;
+use Extcode\Cart\Domain\Repository\Order\OrderChangeRepository;
 use Extcode\Cart\Utility\Typo3GlobalsUtility;
 use RuntimeException;
 use TYPO3\CMS\Core\DataHandling\DataHandler;
@@ -36,16 +37,24 @@ final readonly class OrderItemCleanupService
                 $cutOffDate
             )
         );
+
+        // the order history has no deleted field, the changes of orders deleted before (e.g. by hand) are removed as well
+        $this->deleteOrderChanges(
+            $this->getRecordUidsToDelete(
+                'tx_cart_domain_model_order_item',
+                $cutOffDate,
+                includeDeletedRecords: true
+            )
+        );
     }
 
-    private function getRecordUidsToDelete(string $tableName, DateTimeImmutable $cutOffDate): array
+    private function getRecordUidsToDelete(string $tableName, DateTimeImmutable $cutOffDate, bool $includeDeletedRecords = false): array
     {
         $queryBuilder = $this->connectionPool->getQueryBuilderForTable($tableName);
-        $queryBuilder
-            ->getRestrictions()
-            ->removeAll()
-            ->add(GeneralUtility::makeInstance(DeletedRestriction::class))
-        ;
+        $queryBuilder->getRestrictions()->removeAll();
+        if (!$includeDeletedRecords) {
+            $queryBuilder->getRestrictions()->add(GeneralUtility::makeInstance(DeletedRestriction::class));
+        }
 
         return $queryBuilder
             ->select('uid')
@@ -59,6 +68,29 @@ final readonly class OrderItemCleanupService
             ->executeQuery()
             ->fetchFirstColumn()
         ;
+    }
+
+    /**
+     * @param array<array-key, mixed> $orderItemUids
+     */
+    private function deleteOrderChanges(array $orderItemUids): void
+    {
+        $orderItemUids = array_map(intval(...), array_filter($orderItemUids, is_numeric(...)));
+        $connection = $this->connectionPool->getConnectionForTable(OrderChangeRepository::TABLE_NAME);
+
+        foreach (array_chunk($orderItemUids, 1000) as $chunk) {
+            $queryBuilder = $connection->createQueryBuilder();
+            $queryBuilder
+                ->delete(OrderChangeRepository::TABLE_NAME)
+                ->where(
+                    $queryBuilder->expr()->in(
+                        'item',
+                        $queryBuilder->createNamedParameter($chunk, Connection::PARAM_INT_ARRAY)
+                    )
+                )
+                ->executeStatement()
+            ;
+        }
     }
 
     private static function deleteRecordsFromTable(string $tableName, array $recordUids): void

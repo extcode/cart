@@ -37,6 +37,14 @@
             </h4>
             <f:render partial="Backend/Order/Show/Cart" arguments="{orderItem: orderItem}"/>
         </div>
+        <f:if condition="{orderHistory}">
+            <div class="card p-4 mt-3">
+                <h4>
+                    <f:translate key="tx_cart.backend.order.history"/>
+                </h4>
+                <f:render partial="Backend/Order/Show/History" arguments="{orderHistory: orderHistory, settings: settings}"/>
+            </div>
+        </f:if>
     </div>
 </f:section>
 </html>

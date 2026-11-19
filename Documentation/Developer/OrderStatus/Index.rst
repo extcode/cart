@@ -122,6 +122,58 @@ its identifier:
 
     <cart:order.statusLabel serviceType="payment" status="{orderItem.payment.status}"/>
 
+.. _developer-order-status-change:
+
+Change the status
+=================
+
+Change the status of an order with
+``\Extcode\Cart\Service\Order\StatusChangeService`` instead of setting it and
+persisting the payment or the shipping, e.g. in the notification of a payment
+provider:
+
+..  code-block:: php
+
+    use Extcode\Cart\Domain\Model\Order\Change\OrderChangeSource;
+    use Extcode\Cart\Domain\Model\Order\Status\PaymentStatus;
+    use Extcode\Cart\Service\Order\StatusChangeResult;
+    use Extcode\Cart\Service\Order\StatusChangeService;
+
+    $result = $this->statusChangeService->change(
+        $orderItem->getPayment(),
+        PaymentStatus::PAID,
+        $orderItem->getPayment()->getStatus(),
+        OrderChangeSource::FRONTEND
+    );
+
+The service
+
+*  only sets registered status,
+*  only changes the status if the order still has the expected status (the
+   third argument), so an outdated form or a repeated notification does not
+   overwrite a newer status,
+*  updates the status atomically, so of several requests with the same
+   expected status only one changes it,
+*  writes the change to the order history.
+
+It returns a ``\Extcode\Cart\Service\Order\StatusChangeResult``: ``Changed``,
+``Unchanged`` (the order has the status already), ``Stale`` (the order has not
+the expected status anymore) or ``UnknownStatus``.
+
+Order history
+-------------
+
+Every change is written to the table ``tx_cart_domain_model_order_change`` and
+shown as order history in the order details of the backend module. A change
+has a type (e.g. ``OrderChangeType::PAYMENT_STATUS``), the old and the new
+value, the date, the source (``OrderChangeSource::BACKEND``, ``FRONTEND`` or
+``CLI``) and the backend user, if there is one.
+
+The table is not limited to status changes. Your extension can write its own
+changes of an order with
+``\Extcode\Cart\Domain\Repository\Order\OrderChangeRepository::add()``, using
+an own type, a subject (e.g. ``product:12``) and details in ``data``.
+
 Emails
 ======
 
