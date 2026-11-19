@@ -13,6 +13,9 @@ ChangeLog
    11.9/Index
    11.8/Index
    11.7/Index
+   11.6/Index
+   11.5/Index
+   11.4/Index
    11.3/Index
    11.1/Index
    11.0/Index
