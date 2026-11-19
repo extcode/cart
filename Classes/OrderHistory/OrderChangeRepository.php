@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Extcode\Cart\Domain\Repository\Order;
+namespace Extcode\Cart\OrderHistory;
 
 /*
  * This file is part of the package extcode/cart.
@@ -12,8 +12,6 @@ namespace Extcode\Cart\Domain\Repository\Order;
  */
 
 use DateTimeImmutable;
-use Extcode\Cart\Domain\Model\Order\Change\OrderChange;
-use Extcode\Cart\Domain\Model\Order\Change\OrderChangeSource;
 use TYPO3\CMS\Core\Database\Connection;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 

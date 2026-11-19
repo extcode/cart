@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Extcode\Cart\Configuration\OrderStatus;
+namespace Extcode\Cart\OrderStatus;
 
 /*
  * This file is part of the package extcode/cart.
@@ -11,7 +11,6 @@ namespace Extcode\Cart\Configuration\OrderStatus;
  * LICENSE file that was distributed with this source code.
  */
 
-use Extcode\Cart\Domain\Model\Order\Status\ServiceType;
 use TYPO3\CMS\Core\Service\DependencyOrderingService;
 use UnexpectedValueException;
 

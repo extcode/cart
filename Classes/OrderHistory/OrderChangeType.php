@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Extcode\Cart\Domain\Model\Order\Change;
+namespace Extcode\Cart\OrderHistory;
 
 /*
  * This file is part of the package extcode/cart.

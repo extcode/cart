@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Extcode\Cart\Service\Order;
+namespace Extcode\Cart\OrderStatus;
 
 /*
  * This file is part of the package extcode/cart.
@@ -12,15 +12,13 @@ namespace Extcode\Cart\Service\Order;
  */
 
 use DateTimeImmutable;
-use Extcode\Cart\Configuration\OrderStatus\OrderStatusRegistry;
 use Extcode\Cart\Domain\Model\Order\AbstractService;
-use Extcode\Cart\Domain\Model\Order\Change\OrderChange;
-use Extcode\Cart\Domain\Model\Order\Change\OrderChangeSource;
-use Extcode\Cart\Domain\Model\Order\Change\OrderChangeType;
 use Extcode\Cart\Domain\Model\Order\Payment;
 use Extcode\Cart\Domain\Model\Order\Shipping;
-use Extcode\Cart\Domain\Model\Order\Status\ServiceType;
-use Extcode\Cart\Domain\Repository\Order\OrderChangeRepository;
+use Extcode\Cart\OrderHistory\OrderChange;
+use Extcode\Cart\OrderHistory\OrderChangeRepository;
+use Extcode\Cart\OrderHistory\OrderChangeSource;
+use Extcode\Cart\OrderHistory\OrderChangeType;
 use InvalidArgumentException;
 use Psr\Http\Message\ServerRequestInterface;
 use TYPO3\CMS\Core\Context\Context;

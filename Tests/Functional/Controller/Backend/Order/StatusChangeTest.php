@@ -12,12 +12,12 @@ namespace Extcode\Cart\Tests\Functional\Controller\Backend\Order;
  */
 
 use DateTimeImmutable;
-use Extcode\Cart\Domain\Model\Order\Change\OrderChange;
-use Extcode\Cart\Domain\Model\Order\Change\OrderChangeSource;
-use Extcode\Cart\Domain\Model\Order\Change\OrderChangeType;
-use Extcode\Cart\Domain\Model\Order\Status\PaymentStatus;
-use Extcode\Cart\Domain\Model\Order\Status\ShippingStatus;
-use Extcode\Cart\Domain\Repository\Order\OrderChangeRepository;
+use Extcode\Cart\OrderHistory\OrderChange;
+use Extcode\Cart\OrderHistory\OrderChangeRepository;
+use Extcode\Cart\OrderHistory\OrderChangeSource;
+use Extcode\Cart\OrderHistory\OrderChangeType;
+use Extcode\Cart\OrderStatus\PaymentStatus;
+use Extcode\Cart\OrderStatus\ShippingStatus;
 use PHPUnit\Framework\Attributes\Test;
 
 /**

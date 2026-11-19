@@ -12,8 +12,8 @@ namespace Extcode\Cart\Tests\Unit\Domain\Model\Order;
  */
 
 use Extcode\Cart\Domain\Model\Order\Payment;
-use Extcode\Cart\Domain\Model\Order\Status\PaymentStatus;
 use Extcode\Cart\Domain\Model\Order\Transaction;
+use Extcode\Cart\OrderStatus\PaymentStatus;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Test;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;

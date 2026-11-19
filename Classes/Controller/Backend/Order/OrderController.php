@@ -11,17 +11,17 @@ namespace Extcode\Cart\Controller\Backend\Order;
  * LICENSE file that was distributed with this source code.
  */
 
-use Extcode\Cart\Configuration\OrderStatus\OrderStatusRegistry;
 use Extcode\Cart\Controller\Backend\ActionController;
 use Extcode\Cart\Domain\Model\Cart\Cart;
 use Extcode\Cart\Domain\Model\Order\Item;
-use Extcode\Cart\Domain\Model\Order\Status\ServiceType;
 use Extcode\Cart\Domain\Repository\Order\ItemRepository;
 use Extcode\Cart\Event\Order\ExportEvent;
 use Extcode\Cart\Event\Order\NumberGeneratorEvent;
 use Extcode\Cart\Event\Template\Components\ModifyButtonBarEvent;
 use Extcode\Cart\Event\Template\Components\ModifyModuleTemplateEvent;
-use Extcode\Cart\Service\Order\OrderHistoryService;
+use Extcode\Cart\OrderHistory\OrderHistoryService;
+use Extcode\Cart\OrderStatus\OrderStatusRegistry;
+use Extcode\Cart\OrderStatus\ServiceType;
 use Psr\Http\Message\ResponseInterface;
 use RuntimeException;
 use TYPO3\CMS\Backend\Module\ModuleData;

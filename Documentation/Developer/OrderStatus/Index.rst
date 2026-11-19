@@ -17,8 +17,8 @@ shipping   ``open``, ``on_hold``, ``in_process``, ``shipped``
 =========  =================================================
 
 The identifiers of these status are available as constants of
-``\Extcode\Cart\Domain\Model\Order\Status\PaymentStatus`` and
-``\Extcode\Cart\Domain\Model\Order\Status\ShippingStatus``, e.g.
+``\Extcode\Cart\OrderStatus\PaymentStatus`` and
+``\Extcode\Cart\OrderStatus\ShippingStatus``, e.g.
 ``PaymentStatus::PAID``. The constants only name the status of EXT:cart.
 
 The status are no enum, so your own extension can register further status,
@@ -41,9 +41,9 @@ case letters, digits and underscores and starts with a letter.
 
     <?php
 
-    use Extcode\Cart\Domain\Model\Order\Change\OrderChangeSource;
-    use Extcode\Cart\Domain\Model\Order\Status\PaymentStatus;
-    use Extcode\Cart\Domain\Model\Order\Status\ShippingStatus;
+    use Extcode\Cart\OrderHistory\OrderChangeSource;
+    use Extcode\Cart\OrderStatus\PaymentStatus;
+    use Extcode\Cart\OrderStatus\ShippingStatus;
 
     return [
         'payment' => [
@@ -91,13 +91,13 @@ changing a :file:`Configuration/OrderStatus.php`.
 Use the registered status
 =========================
 
-The service ``\Extcode\Cart\Configuration\OrderStatus\OrderStatusRegistry``
+The service ``\Extcode\Cart\OrderStatus\OrderStatusRegistry``
 returns the registered status in their order:
 
 ..  code-block:: php
 
-    use Extcode\Cart\Configuration\OrderStatus\OrderStatusRegistry;
-    use Extcode\Cart\Domain\Model\Order\Status\ServiceType;
+    use Extcode\Cart\OrderStatus\OrderStatusRegistry;
+    use Extcode\Cart\OrderStatus\ServiceType;
 
     final readonly class MyService
     {
@@ -111,7 +111,7 @@ returns the registered status in their order:
         }
     }
 
-``getStatuses()`` returns the ``\Extcode\Cart\Domain\Model\Order\Status\Status``
+``getStatuses()`` returns the ``\Extcode\Cart\OrderStatus\Status``
 objects, ``getLocalizedLabels()`` the translated labels by identifier, e.g. for
 the options of a select.
 
@@ -129,16 +129,16 @@ Change the status
 =================
 
 Change the status of an order with
-``\Extcode\Cart\Service\Order\StatusChangeService`` instead of setting it and
+``\Extcode\Cart\OrderStatus\StatusChangeService`` instead of setting it and
 persisting the payment or the shipping, e.g. in the notification of a payment
 provider:
 
 ..  code-block:: php
 
-    use Extcode\Cart\Domain\Model\Order\Change\OrderChangeSource;
-    use Extcode\Cart\Domain\Model\Order\Status\PaymentStatus;
-    use Extcode\Cart\Service\Order\StatusChangeResult;
-    use Extcode\Cart\Service\Order\StatusChangeService;
+    use Extcode\Cart\OrderHistory\OrderChangeSource;
+    use Extcode\Cart\OrderStatus\PaymentStatus;
+    use Extcode\Cart\OrderStatus\StatusChangeResult;
+    use Extcode\Cart\OrderStatus\StatusChangeService;
 
     // the notification of the payment provider, sent by its server
     $result = $this->statusChangeService->change(
@@ -154,7 +154,7 @@ a backend user, e.g. your extension, an ERP synchronisation or a scheduler
 task.
 
 The source is the channel of the change, the enum
-``\Extcode\Cart\Domain\Model\Order\Change\OrderChangeSource``:
+``\Extcode\Cart\OrderHistory\OrderChangeSource``:
 
 ``Backend``
     An editor in the backend.
@@ -186,7 +186,7 @@ The service
    expected status only one changes it,
 *  writes the change to the order history.
 
-It returns a ``\Extcode\Cart\Service\Order\StatusChangeResult``: ``Changed``,
+It returns a ``\Extcode\Cart\OrderStatus\StatusChangeResult``: ``Changed``,
 ``Unchanged`` (the order has the status already), ``Stale`` (the order has not
 the expected status anymore) or ``UnknownStatus``.
 
@@ -202,7 +202,7 @@ the source, e.g. "my_payment_provider (API)", otherwise the source.
 
 The table is not limited to status changes. Your extension can write its own
 changes of an order with
-``\Extcode\Cart\Domain\Repository\Order\OrderChangeRepository::add()``, using
+``\Extcode\Cart\OrderHistory\OrderChangeRepository::add()``, using
 an own type, a subject (e.g. ``product:12``) and details in ``data``.
 
 Emails

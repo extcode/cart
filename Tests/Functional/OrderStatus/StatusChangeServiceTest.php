@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Extcode\Cart\Tests\Functional\Service\Order;
+namespace Extcode\Cart\Tests\Functional\OrderStatus;
 
 /*
  * This file is part of the package extcode/cart.
@@ -14,14 +14,14 @@ namespace Extcode\Cart\Tests\Functional\Service\Order;
 use Codappix\Typo3PhpDatasets\PhpDataSet;
 use Codappix\Typo3PhpDatasets\TestingFramework;
 use DateTimeImmutable;
-use Extcode\Cart\Domain\Model\Order\Change\OrderChangeSource;
-use Extcode\Cart\Domain\Model\Order\Change\OrderChangeType;
 use Extcode\Cart\Domain\Model\Order\Payment;
 use Extcode\Cart\Domain\Model\Order\Shipping;
-use Extcode\Cart\Domain\Model\Order\Status\PaymentStatus;
-use Extcode\Cart\Domain\Model\Order\Status\ShippingStatus;
-use Extcode\Cart\Service\Order\StatusChangeResult;
-use Extcode\Cart\Service\Order\StatusChangeService;
+use Extcode\Cart\OrderHistory\OrderChangeSource;
+use Extcode\Cart\OrderHistory\OrderChangeType;
+use Extcode\Cart\OrderStatus\PaymentStatus;
+use Extcode\Cart\OrderStatus\ShippingStatus;
+use Extcode\Cart\OrderStatus\StatusChangeResult;
+use Extcode\Cart\OrderStatus\StatusChangeService;
 use InvalidArgumentException;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
@@ -51,8 +51,8 @@ final class StatusChangeServiceTest extends FunctionalTestCase
     {
         parent::setUp();
 
-        $this->importPHPDataSet(__DIR__ . '/../../../Fixtures/BaseDatabase.php');
-        $this->importPHPDataSet(__DIR__ . '/../../../Fixtures/BackendUser.php');
+        $this->importPHPDataSet(__DIR__ . '/../../Fixtures/BaseDatabase.php');
+        $this->importPHPDataSet(__DIR__ . '/../../Fixtures/BackendUser.php');
         self::createOrder(1, PaymentStatus::OPEN, ShippingStatus::OPEN);
 
         GeneralUtility::makeInstance(Context::class)->setAspect(

@@ -11,7 +11,7 @@ Description
 
 The payment and the shipping status in the order details of the backend
 module are changed by the new
-``\Extcode\Cart\Service\Order\StatusChangeService``:
+``\Extcode\Cart\OrderStatus\StatusChangeService``:
 
 *  Only registered status are accepted.
 *  The form sends the status it showed. If the order has another status in

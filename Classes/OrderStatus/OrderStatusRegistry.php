@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Extcode\Cart\Configuration\OrderStatus;
+namespace Extcode\Cart\OrderStatus;
 
 /*
  * This file is part of the package extcode/cart.
@@ -11,8 +11,6 @@ namespace Extcode\Cart\Configuration\OrderStatus;
  * LICENSE file that was distributed with this source code.
  */
 
-use Extcode\Cart\Domain\Model\Order\Status\ServiceType;
-use Extcode\Cart\Domain\Model\Order\Status\Status;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use TYPO3\CMS\Core\Cache\Frontend\PhpFrontend;
 use TYPO3\CMS\Core\Package\PackageManager;
