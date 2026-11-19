@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Extcode\Cart\Configuration\Backend\Widgets\Provider;
 
+use Extcode\Cart\Domain\Model\Order\Status\PaymentStatus;
+use Extcode\Cart\Domain\Model\Order\Status\ShippingStatus;
 use Extcode\Cart\Widgets\Provider\OrdersPerDayProvider;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
@@ -16,10 +18,10 @@ return static function (ContainerConfigurator $configurator): void {
         ->arg('$options', [
             'filter' => [
                 'payment' => [
-                    'status' => 'paid',
+                    'status' => PaymentStatus::PAID,
                 ],
                 'shipping' => [
-                    'status' => 'open',
+                    'status' => ShippingStatus::OPEN,
                 ],
             ],
         ])

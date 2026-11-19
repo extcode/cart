@@ -11,8 +11,10 @@ namespace Extcode\Cart\Controller\Order;
  * LICENSE file that was distributed with this source code.
  */
 
+use Extcode\Cart\Configuration\OrderStatus\OrderStatusRegistry;
 use Extcode\Cart\Controller\ActionController;
 use Extcode\Cart\Domain\Model\Order\Item;
+use Extcode\Cart\Domain\Model\Order\Status\ServiceType;
 use Extcode\Cart\Domain\Repository\Order\ItemRepository;
 use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Core\Context\Context;
@@ -22,7 +24,6 @@ use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Extbase\Attribute\IgnoreValidation;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManager;
 use TYPO3\CMS\Extbase\Pagination\QueryResultPaginator;
-use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 
 class OrderController extends ActionController
 {
@@ -30,10 +31,17 @@ class OrderController extends ActionController
 
     protected array $pluginSettings;
 
+    protected OrderStatusRegistry $orderStatusRegistry;
+
     public function __construct(
         private readonly Context $context,
         protected ItemRepository $itemRepository
     ) {
+    }
+
+    public function injectOrderStatusRegistry(OrderStatusRegistry $orderStatusRegistry): void
+    {
+        $this->orderStatusRegistry = $orderStatusRegistry;
     }
 
     public function listAction(int $currentPage = 1): ResponseInterface
@@ -82,25 +90,14 @@ class OrderController extends ActionController
 
         $this->view->assign('orderItem', $orderItem);
 
-        $paymentStatusOptions = [];
-        $items = $GLOBALS['TCA']['tx_cart_domain_model_order_payment']['columns']['status']['config']['items'];
-        foreach ($items as $item) {
-            $paymentStatusOptions[$item['value']] = LocalizationUtility::translate(
-                $item['label'],
-                'Cart'
-            );
-        }
-        $this->view->assign('paymentStatusOptions', $paymentStatusOptions);
-
-        $shippingStatusOptions = [];
-        $items = $GLOBALS['TCA']['tx_cart_domain_model_order_shipping']['columns']['status']['config']['items'];
-        foreach ($items as $item) {
-            $shippingStatusOptions[$item['value']] = LocalizationUtility::translate(
-                $item['label'],
-                'Cart'
-            );
-        }
-        $this->view->assign('shippingStatusOptions', $shippingStatusOptions);
+        $this->view->assign(
+            'paymentStatusOptions',
+            $this->orderStatusRegistry->getLocalizedLabels(ServiceType::Payment, $orderItem->getPayment()?->getStatus())
+        );
+        $this->view->assign(
+            'shippingStatusOptions',
+            $this->orderStatusRegistry->getLocalizedLabels(ServiceType::Shipping, $orderItem->getShipping()?->getStatus())
+        );
 
         $pdfRendererInstalled = ExtensionManagementUtility::isLoaded('cart_pdf');
         $this->view->assign('pdfRendererInstalled', $pdfRendererInstalled);

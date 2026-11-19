@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Extcode\Cart\Configuration\Backend\Widgets\Provider;
 
+use Extcode\Cart\Domain\Model\Order\Status\PaymentStatus;
 use Extcode\Cart\Widgets\Provider\OrdersInPeriodProvider;
 use Extcode\Cart\Widgets\Query\Period;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
@@ -18,7 +19,7 @@ return static function (ContainerConfigurator $configurator): void {
             'period' => Period::TODAY,
             'filter' => [
                 'payment' => [
-                    'status' => ['open', 'pending', 'paid'],
+                    'status' => [PaymentStatus::OPEN, PaymentStatus::PENDING, PaymentStatus::PAID],
                 ],
             ],
         ])
@@ -31,7 +32,7 @@ return static function (ContainerConfigurator $configurator): void {
             'period' => Period::MONTH,
             'filter' => [
                 'payment' => [
-                    'status' => ['open', 'pending', 'paid'],
+                    'status' => [PaymentStatus::OPEN, PaymentStatus::PENDING, PaymentStatus::PAID],
                 ],
             ],
         ])

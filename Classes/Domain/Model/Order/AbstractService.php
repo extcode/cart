@@ -30,7 +30,7 @@ abstract class AbstractService extends AbstractEntity
     protected string $name = '';
 
     #[Validate(validator: 'NotEmpty')]
-    protected string $status = 'open';
+    protected string $status = '';
 
     protected float $net = 0.0;
 

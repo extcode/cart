@@ -235,27 +235,9 @@ parameters:
 			path: ../Classes/Controller/Backend/Order/DocumentController.php
 
 		-
-			message: '#^Argument of an invalid type mixed supplied for foreach, only iterables are supported\.$#'
-			identifier: foreach.nonIterable
-			count: 2
-			path: ../Classes/Controller/Backend/Order/OrderController.php
-
-		-
 			message: '#^Binary operation "\." between ''LLL\:EXT\:cart…'' and mixed results in an error\.$#'
 			identifier: binaryOp.invalid
 			count: 1
-			path: ../Classes/Controller/Backend/Order/OrderController.php
-
-		-
-			message: '#^Cannot access offset ''columns'' on mixed\.$#'
-			identifier: offsetAccess.nonOffsetAccessible
-			count: 2
-			path: ../Classes/Controller/Backend/Order/OrderController.php
-
-		-
-			message: '#^Cannot access offset ''config'' on mixed\.$#'
-			identifier: offsetAccess.nonOffsetAccessible
-			count: 2
 			path: ../Classes/Controller/Backend/Order/OrderController.php
 
 		-
@@ -271,18 +253,6 @@ parameters:
 			path: ../Classes/Controller/Backend/Order/OrderController.php
 
 		-
-			message: '#^Cannot access offset ''items'' on mixed\.$#'
-			identifier: offsetAccess.nonOffsetAccessible
-			count: 2
-			path: ../Classes/Controller/Backend/Order/OrderController.php
-
-		-
-			message: '#^Cannot access offset ''label'' on mixed\.$#'
-			identifier: offsetAccess.nonOffsetAccessible
-			count: 2
-			path: ../Classes/Controller/Backend/Order/OrderController.php
-
-		-
 			message: '#^Cannot access offset ''link'' on mixed\.$#'
 			identifier: offsetAccess.nonOffsetAccessible
 			count: 1
@@ -295,33 +265,9 @@ parameters:
 			path: ../Classes/Controller/Backend/Order/OrderController.php
 
 		-
-			message: '#^Cannot access offset ''status'' on mixed\.$#'
-			identifier: offsetAccess.nonOffsetAccessible
-			count: 2
-			path: ../Classes/Controller/Backend/Order/OrderController.php
-
-		-
 			message: '#^Cannot access offset ''title'' on mixed\.$#'
 			identifier: offsetAccess.nonOffsetAccessible
 			count: 1
-			path: ../Classes/Controller/Backend/Order/OrderController.php
-
-		-
-			message: '#^Cannot access offset ''tx_cart_domain_model_order_payment'' on mixed\.$#'
-			identifier: offsetAccess.nonOffsetAccessible
-			count: 1
-			path: ../Classes/Controller/Backend/Order/OrderController.php
-
-		-
-			message: '#^Cannot access offset ''tx_cart_domain_model_order_shipping'' on mixed\.$#'
-			identifier: offsetAccess.nonOffsetAccessible
-			count: 1
-			path: ../Classes/Controller/Backend/Order/OrderController.php
-
-		-
-			message: '#^Cannot access offset ''value'' on mixed\.$#'
-			identifier: offsetAccess.nonOffsetAccessible
-			count: 2
 			path: ../Classes/Controller/Backend/Order/OrderController.php
 
 		-
@@ -367,12 +313,6 @@ parameters:
 			path: ../Classes/Controller/Backend/Order/OrderController.php
 
 		-
-			message: '#^Parameter \#1 \$key of static method TYPO3\\CMS\\Extbase\\Utility\\LocalizationUtility\:\:translate\(\) expects string, mixed given\.$#'
-			identifier: argument.type
-			count: 2
-			path: ../Classes/Controller/Backend/Order/OrderController.php
-
-		-
 			message: '#^Parameter \#1 \$messageBody of method TYPO3\\CMS\\Extbase\\Mvc\\Controller\\ActionController\:\:addFlashMessage\(\) expects string, string\|null given\.$#'
 			identifier: argument.type
 			count: 2
@@ -394,12 +334,6 @@ parameters:
 			message: '#^Parameter \#3 \$buttonGroup of method TYPO3\\CMS\\Backend\\Template\\Components\\ButtonBar\:\:addButton\(\) expects int, mixed given\.$#'
 			identifier: argument.type
 			count: 1
-			path: ../Classes/Controller/Backend/Order/OrderController.php
-
-		-
-			message: '#^Possibly invalid array key type mixed\.$#'
-			identifier: offsetAccess.invalidOffset
-			count: 2
 			path: ../Classes/Controller/Backend/Order/OrderController.php
 
 		-
@@ -919,75 +853,9 @@ parameters:
 			path: ../Classes/Controller/Cart/ShippingController.php
 
 		-
-			message: '#^Argument of an invalid type mixed supplied for foreach, only iterables are supported\.$#'
-			identifier: foreach.nonIterable
-			count: 2
-			path: ../Classes/Controller/Order/OrderController.php
-
-		-
-			message: '#^Cannot access offset ''columns'' on mixed\.$#'
-			identifier: offsetAccess.nonOffsetAccessible
-			count: 2
-			path: ../Classes/Controller/Order/OrderController.php
-
-		-
-			message: '#^Cannot access offset ''config'' on mixed\.$#'
-			identifier: offsetAccess.nonOffsetAccessible
-			count: 2
-			path: ../Classes/Controller/Order/OrderController.php
-
-		-
-			message: '#^Cannot access offset ''items'' on mixed\.$#'
-			identifier: offsetAccess.nonOffsetAccessible
-			count: 2
-			path: ../Classes/Controller/Order/OrderController.php
-
-		-
-			message: '#^Cannot access offset ''label'' on mixed\.$#'
-			identifier: offsetAccess.nonOffsetAccessible
-			count: 2
-			path: ../Classes/Controller/Order/OrderController.php
-
-		-
-			message: '#^Cannot access offset ''status'' on mixed\.$#'
-			identifier: offsetAccess.nonOffsetAccessible
-			count: 2
-			path: ../Classes/Controller/Order/OrderController.php
-
-		-
-			message: '#^Cannot access offset ''tx_cart_domain_model_order_payment'' on mixed\.$#'
-			identifier: offsetAccess.nonOffsetAccessible
-			count: 1
-			path: ../Classes/Controller/Order/OrderController.php
-
-		-
-			message: '#^Cannot access offset ''tx_cart_domain_model_order_shipping'' on mixed\.$#'
-			identifier: offsetAccess.nonOffsetAccessible
-			count: 1
-			path: ../Classes/Controller/Order/OrderController.php
-
-		-
-			message: '#^Cannot access offset ''value'' on mixed\.$#'
-			identifier: offsetAccess.nonOffsetAccessible
-			count: 2
-			path: ../Classes/Controller/Order/OrderController.php
-
-		-
 			message: '#^Cannot call method getUid\(\) on Extcode\\Cart\\Domain\\Model\\FrontendUser\|null\.$#'
 			identifier: method.nonObject
 			count: 1
-			path: ../Classes/Controller/Order/OrderController.php
-
-		-
-			message: '#^Parameter \#1 \$key of static method TYPO3\\CMS\\Extbase\\Utility\\LocalizationUtility\:\:translate\(\) expects string, mixed given\.$#'
-			identifier: argument.type
-			count: 2
-			path: ../Classes/Controller/Order/OrderController.php
-
-		-
-			message: '#^Possibly invalid array key type mixed\.$#'
-			identifier: offsetAccess.invalidOffset
-			count: 2
 			path: ../Classes/Controller/Order/OrderController.php
 
 		-

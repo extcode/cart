@@ -1,4 +1,5 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:cart="http://typo3.org/ns/Extcode/Cart/ViewHelpers"
       data-namespace-typo3-fluid="true">
 
 <table class="order-properties-table table data-table">
@@ -59,13 +60,13 @@
             <f:translate key="tx_cart_domain_model_order_payment.status"/>
         </th>
         <td>
-            <f:translate key="tx_cart_domain_model_order_payment.status.{orderItem.payment.status}"/>
+            <cart:order.statusLabel serviceType="payment" status="{orderItem.payment.status}"/>
         </td>
         <th class="bg-light-grey border-left-grey">
             <f:translate key="tx_cart_domain_model_order_shipping.status"/>
         </th>
         <td>
-            <f:translate key="tx_cart_domain_model_order_shipping.status.{orderItem.shipping.status}"/>
+            <cart:order.statusLabel serviceType="shipping" status="{orderItem.shipping.status}"/>
         </td>
     </tr>
 </table>

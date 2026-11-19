@@ -11,6 +11,7 @@ namespace Extcode\Cart\Domain\Model\Order;
  * LICENSE file that was distributed with this source code.
  */
 
+use Extcode\Cart\Domain\Model\Order\Status\PaymentStatus;
 use TYPO3\CMS\Extbase\Attribute\ORM\Lazy;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 
@@ -26,6 +27,7 @@ class Payment extends AbstractService
 
     public function __construct()
     {
+        $this->status = PaymentStatus::OPEN;
         $this->transactions = new ObjectStorage();
     }
 
