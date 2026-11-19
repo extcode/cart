@@ -204,6 +204,12 @@
             <trans-unit id="tx_cart.controller.order.action.update_shipping_action.stale">
                 <source>The shipping status was changed in the meantime, e.g. in another tab. Nothing was changed, please check the current status.</source>
             </trans-unit>
+            <trans-unit id="tx_cart.controller.order.action.update_payment_action.vetoed">
+                <source>The payment status was not changed: %s</source>
+            </trans-unit>
+            <trans-unit id="tx_cart.controller.order.action.update_shipping_action.vetoed">
+                <source>The shipping status was not changed: %s</source>
+            </trans-unit>
             <trans-unit id="tx_cart.controller.order.action.update_payment_action.unknown_status">
                 <source>The payment status "%s" is not available, nothing was changed.</source>
             </trans-unit>

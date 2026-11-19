@@ -57,4 +57,21 @@ final readonly class OrderChange
         public int $uid = 0,
     ) {
     }
+
+    public function withUid(int $uid): self
+    {
+        return new self(
+            $this->orderItem,
+            $this->type,
+            $this->oldValue,
+            $this->newValue,
+            $this->date,
+            $this->source,
+            $this->backendUser,
+            $this->initiator,
+            $this->subject,
+            $this->data,
+            $uid,
+        );
+    }
 }

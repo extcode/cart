@@ -143,10 +143,25 @@ events:
    use this event to generate PDF documents, register users or assign
    registered users to another user group.
 
+.. confval:: \Extcode\Cart\Event\Order\BeforeStatusChangeEvent
+
+   This event is triggered by the `StatusChangeService` before the payment or
+   the shipping status of an order is changed. Listeners can prevent the
+   change with `veto()`. See :ref:`developer-order-status-events`.
+
+.. confval:: \Extcode\Cart\Event\Order\AfterStatusChangeEvent
+
+   This event is triggered by the `StatusChangeService` after the payment or
+   the shipping status of an order was changed and written to the order
+   history, e.g. to send an email. See :ref:`developer-order-status-events`.
+
 .. confval:: `Extcode\Cart\Event\Order\UpdateServiceEvent
 
-   This event is triggered when the payment or shipping of an order is edited
-   in the backend.
+   This event is triggered when the payment or shipping status of an order is
+   changed in the backend.
+
+   .. deprecated:: 12.4
+      Will be removed in cart 13.0, use the `AfterStatusChangeEvent` instead.
 
 .. confval:: \Extcode\Cart\Event\Order\ExportEvent
 
