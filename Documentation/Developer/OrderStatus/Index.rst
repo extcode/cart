@@ -186,9 +186,81 @@ The service
    expected status only one changes it,
 *  writes the change to the order history.
 
-It returns a ``\Extcode\Cart\OrderStatus\StatusChangeResult``: ``Changed``,
-``Unchanged`` (the order has the status already), ``Stale`` (the order has not
-the expected status anymore) or ``UnknownStatus``.
+It returns a ``\Extcode\Cart\OrderStatus\StatusChangeResult`` with the
+``outcome``: ``Changed``, ``Unchanged`` (the order has the status already),
+``Stale`` (the order has not the expected status anymore), ``UnknownStatus``
+or ``Vetoed`` (a listener prevented the change, see ``vetoReason``). After a
+change ``orderChange`` contains the stored change.
+
+.. _developer-order-status-events:
+
+Events
+------
+
+``\Extcode\Cart\Event\Order\BeforeStatusChangeEvent``
+    Dispatched before the status is changed, with the order, the payment or
+    the shipping, the old and the new status, the source, the initiator and
+    the backend user. A listener can prevent the change with
+    ``veto('reason')``; the reason is shown to the editor in the backend. The
+    first veto stops the other listeners.
+
+    Use it for checks only. The change can still fail after this event, e.g.
+    if another request changed the status in the meantime.
+
+``\Extcode\Cart\Event\Order\AfterStatusChangeEvent``
+    Dispatched after the status was changed and written to the order history,
+    the place for side effects like emails or shipping labels. The uid of the
+    stored change (``getOrderChange()->uid``) identifies the change; use it to
+    execute an action only once.
+
+Both events are only dispatched by the ``StatusChangeService``, not for an
+unknown or unchanged status.
+
+..  code-block:: php
+    :caption: EXT:my_extension/Classes/EventListener/RequireDeliveryNumber.php
+
+    use Extcode\Cart\Event\Order\BeforeStatusChangeEvent;
+    use Extcode\Cart\OrderStatus\ServiceType;
+    use Extcode\Cart\OrderStatus\ShippingStatus;
+    use TYPO3\CMS\Core\Attribute\AsEventListener;
+
+    #[AsEventListener('my-extension--order--require-delivery-number')]
+    final readonly class RequireDeliveryNumber
+    {
+        public function __invoke(BeforeStatusChangeEvent $event): void
+        {
+            if ($event->getServiceType() === ServiceType::Shipping
+                && $event->getToStatus() === ShippingStatus::SHIPPED
+                && (string) $event->getOrderItem()->getDeliveryNumber() === ''
+            ) {
+                $event->veto('Generate the delivery number first.');
+            }
+        }
+    }
+
+..  code-block:: php
+    :caption: EXT:my_extension/Classes/EventListener/SendPaidEmail.php
+
+    use Extcode\Cart\Event\Order\AfterStatusChangeEvent;
+    use Extcode\Cart\OrderStatus\PaymentStatus;
+    use Extcode\Cart\OrderStatus\ServiceType;
+    use TYPO3\CMS\Core\Attribute\AsEventListener;
+
+    #[AsEventListener('my-extension--order--send-paid-email')]
+    final readonly class SendPaidEmail
+    {
+        public function __invoke(AfterStatusChangeEvent $event): void
+        {
+            if ($event->getServiceType() !== ServiceType::Payment
+                || $event->getToStatus() !== PaymentStatus::PAID
+            ) {
+                return;
+            }
+
+            // send the email, e.g. remember $event->getOrderChange()->uid
+            // to send it only once
+        }
+    }
 
 Order history
 -------------

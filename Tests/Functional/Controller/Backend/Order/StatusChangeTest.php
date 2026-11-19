@@ -11,14 +11,22 @@ namespace Extcode\Cart\Tests\Functional\Controller\Backend\Order;
  * LICENSE file that was distributed with this source code.
  */
 
+use Closure;
 use DateTimeImmutable;
+use Extcode\Cart\Event\Order\AfterStatusChangeEvent;
+use Extcode\Cart\Event\Order\BeforeStatusChangeEvent;
+use Extcode\Cart\Event\Order\UpdateServiceEvent;
 use Extcode\Cart\OrderHistory\OrderChange;
 use Extcode\Cart\OrderHistory\OrderChangeRepository;
 use Extcode\Cart\OrderHistory\OrderChangeSource;
 use Extcode\Cart\OrderHistory\OrderChangeType;
 use Extcode\Cart\OrderStatus\PaymentStatus;
 use Extcode\Cart\OrderStatus\ShippingStatus;
+use PHPUnit\Framework\Attributes\IgnoreDeprecations;
 use PHPUnit\Framework\Attributes\Test;
+use Symfony\Component\DependencyInjection\Container;
+use TYPO3\CMS\Core\EventDispatcher\ListenerProvider;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * Changes the payment and the shipping status with the forms of the order
@@ -171,6 +179,76 @@ final class StatusChangeTest extends AbstractOrderStatusTestCase
             'Order history',
             (string) self::dispatchShowAction(1)->getBody()
         );
+    }
+
+    #[Test]
+    public function theReasonOfAVetoIsShownAndTheStatusIsNotChanged(): void
+    {
+        $this->createOrder(1, PaymentStatus::PAID, ShippingStatus::OPEN);
+        $this->addEventListener(
+            BeforeStatusChangeEvent::class,
+            static function (BeforeStatusChangeEvent $event): void {
+                if ($event->getToStatus() === ShippingStatus::SHIPPED) {
+                    $event->veto('Create the shipping label first.');
+                }
+            }
+        );
+
+        self::submitForm(
+            (string) self::dispatchShowAction(1)->getBody(),
+            'shippingStatus',
+            self::SHIPPING_UPDATE_ROUTE,
+            ['status' => ShippingStatus::SHIPPED]
+        );
+
+        self::assertSame(ShippingStatus::OPEN, $this->getStoredStatus('tx_cart_domain_model_order_shipping', 1));
+        self::assertStringContainsString(
+            'The shipping status was not changed: Create the shipping label first.',
+            (string) self::dispatchShowAction(1)->getBody()
+        );
+    }
+
+    /**
+     * @deprecated since cart 12.4, will be removed in cart 13.0
+     *
+     * TODO: 13.0.0 Remove together with the UpdateServiceEvent, see Deprecation #840.
+     */
+    #[IgnoreDeprecations]
+    #[Test]
+    public function aListenerOfTheUpdateServiceEventTriggersADeprecation(): void
+    {
+        $this->createOrder(1, PaymentStatus::OPEN, ShippingStatus::OPEN);
+        $updatedServices = [];
+        $this->addEventListener(
+            UpdateServiceEvent::class,
+            static function (UpdateServiceEvent $event) use (&$updatedServices): void {
+                $updatedServices[] = $event->getService()->getStatus();
+            }
+        );
+
+        $this->expectUserDeprecationMessage(
+            'The event ' . UpdateServiceEvent::class . ' is deprecated since cart 12.4 and will be removed in cart 13.0.'
+            . ' Listen to the ' . AfterStatusChangeEvent::class . ' instead.'
+        );
+
+        self::submitForm(
+            (string) self::dispatchShowAction(1)->getBody(),
+            'paymentStatus',
+            self::PAYMENT_UPDATE_ROUTE,
+            ['status' => PaymentStatus::PAID]
+        );
+
+        self::assertSame([PaymentStatus::PAID], $updatedServices, 'The deprecated event is still dispatched.');
+    }
+
+    private function addEventListener(string $eventClass, Closure $listener): void
+    {
+        $container = $this->getContainer();
+        assert($container instanceof Container);
+
+        $identifier = 'cart-test--event-listener--' . md5($eventClass);
+        $container->set($identifier, $listener);
+        GeneralUtility::makeInstance(ListenerProvider::class)->addListener($eventClass, $identifier);
     }
 
     private function addOrderChange(string $oldStatus, string $newStatus, string $date, OrderChangeSource $source, string $initiator = ''): void

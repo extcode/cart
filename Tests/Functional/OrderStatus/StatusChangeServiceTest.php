@@ -11,24 +11,30 @@ namespace Extcode\Cart\Tests\Functional\OrderStatus;
  * LICENSE file that was distributed with this source code.
  */
 
+use Closure;
 use Codappix\Typo3PhpDatasets\PhpDataSet;
 use Codappix\Typo3PhpDatasets\TestingFramework;
 use DateTimeImmutable;
 use Extcode\Cart\Domain\Model\Order\Payment;
 use Extcode\Cart\Domain\Model\Order\Shipping;
+use Extcode\Cart\Event\Order\AfterStatusChangeEvent;
+use Extcode\Cart\Event\Order\BeforeStatusChangeEvent;
 use Extcode\Cart\OrderHistory\OrderChangeSource;
 use Extcode\Cart\OrderHistory\OrderChangeType;
 use Extcode\Cart\OrderStatus\PaymentStatus;
+use Extcode\Cart\OrderStatus\ServiceType;
 use Extcode\Cart\OrderStatus\ShippingStatus;
-use Extcode\Cart\OrderStatus\StatusChangeResult;
+use Extcode\Cart\OrderStatus\StatusChangeOutcome;
 use Extcode\Cart\OrderStatus\StatusChangeService;
 use InvalidArgumentException;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
+use Symfony\Component\DependencyInjection\Container;
 use TYPO3\CMS\Core\Context\Context;
 use TYPO3\CMS\Core\Context\DateTimeAspect;
 use TYPO3\CMS\Core\Core\SystemEnvironmentBuilder;
+use TYPO3\CMS\Core\EventDispatcher\ListenerProvider;
 use TYPO3\CMS\Core\Http\ServerRequest;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
@@ -72,7 +78,7 @@ final class StatusChangeServiceTest extends FunctionalTestCase
 
         $result = $this->subject->change($payment, PaymentStatus::PAID, PaymentStatus::OPEN);
 
-        self::assertSame(StatusChangeResult::Changed, $result);
+        self::assertSame(StatusChangeOutcome::Changed, $result->outcome);
         self::assertSame(PaymentStatus::PAID, $this->getStoredStatus('tx_cart_domain_model_order_payment', 1));
         self::assertSame(PaymentStatus::PAID, $payment->getStatus(), 'The new status must be set to the payment.');
         self::assertSame(
@@ -102,7 +108,7 @@ final class StatusChangeServiceTest extends FunctionalTestCase
             ShippingStatus::OPEN
         );
 
-        self::assertSame(StatusChangeResult::Changed, $result);
+        self::assertSame(StatusChangeOutcome::Changed, $result->outcome);
         self::assertSame(ShippingStatus::SHIPPED, $this->getStoredStatus('tx_cart_domain_model_order_shipping', 1));
         self::assertSame(PaymentStatus::OPEN, $this->getStoredStatus('tx_cart_domain_model_order_payment', 1));
         self::assertSame(OrderChangeType::SHIPPING_STATUS, $this->getStoredOrderChanges()[0]['type'] ?? null);
@@ -206,7 +212,7 @@ final class StatusChangeServiceTest extends FunctionalTestCase
     {
         $result = $this->subject->change(self::getPayment(1), PaymentStatus::OPEN, PaymentStatus::OPEN);
 
-        self::assertSame(StatusChangeResult::Unchanged, $result);
+        self::assertSame(StatusChangeOutcome::Unchanged, $result->outcome);
         self::assertSame(PaymentStatus::OPEN, $this->getStoredStatus('tx_cart_domain_model_order_payment', 1));
         self::assertSame([], $this->getStoredOrderChanges());
     }
@@ -218,7 +224,7 @@ final class StatusChangeServiceTest extends FunctionalTestCase
 
         $result = $this->subject->change($payment, 'not_registered', PaymentStatus::OPEN);
 
-        self::assertSame(StatusChangeResult::UnknownStatus, $result);
+        self::assertSame(StatusChangeOutcome::UnknownStatus, $result->outcome);
         self::assertSame(PaymentStatus::OPEN, $this->getStoredStatus('tx_cart_domain_model_order_payment', 1));
         self::assertSame(PaymentStatus::OPEN, $payment->getStatus());
         self::assertSame([], $this->getStoredOrderChanges());
@@ -232,7 +238,7 @@ final class StatusChangeServiceTest extends FunctionalTestCase
 
         $result = $this->subject->change(self::getPayment(1), PaymentStatus::PAID, PaymentStatus::OPEN);
 
-        self::assertSame(StatusChangeResult::Stale, $result);
+        self::assertSame(StatusChangeOutcome::Stale, $result->outcome);
         self::assertSame(PaymentStatus::PENDING, $this->getStoredStatus('tx_cart_domain_model_order_payment', 1));
         self::assertSame([], $this->getStoredOrderChanges());
     }
@@ -245,9 +251,9 @@ final class StatusChangeServiceTest extends FunctionalTestCase
         $second = $this->subject->change(self::getPayment(1), PaymentStatus::CANCELED, PaymentStatus::OPEN);
         $third = $this->subject->change(self::getPayment(1), PaymentStatus::PAID, PaymentStatus::OPEN);
 
-        self::assertSame(StatusChangeResult::Changed, $first);
-        self::assertSame(StatusChangeResult::Stale, $second, 'Another status must not overwrite the changed status.');
-        self::assertSame(StatusChangeResult::Unchanged, $third, 'The same status again must not be reported as stale.');
+        self::assertSame(StatusChangeOutcome::Changed, $first->outcome);
+        self::assertSame(StatusChangeOutcome::Stale, $second->outcome, 'Another status must not overwrite the changed status.');
+        self::assertSame(StatusChangeOutcome::Unchanged, $third->outcome, 'The same status again must not be reported as stale.');
         self::assertSame(PaymentStatus::PAID, $this->getStoredStatus('tx_cart_domain_model_order_payment', 1));
         self::assertCount(1, $this->getStoredOrderChanges());
     }
@@ -260,6 +266,178 @@ final class StatusChangeServiceTest extends FunctionalTestCase
         );
 
         $this->subject->change(new Payment(), PaymentStatus::PAID, PaymentStatus::OPEN);
+    }
+
+    #[Test]
+    public function changeDispatchesTheBeforeAndTheAfterEventOnceWithTheChange(): void
+    {
+        $beforeEvents = [];
+        $afterEvents = [];
+        $this->addEventListener(BeforeStatusChangeEvent::class, static function (BeforeStatusChangeEvent $event) use (&$beforeEvents): void {
+            $beforeEvents[] = $event;
+        });
+        $this->addEventListener(AfterStatusChangeEvent::class, static function (AfterStatusChangeEvent $event) use (&$afterEvents): void {
+            $afterEvents[] = $event;
+        });
+        $payment = self::getPayment(1);
+
+        $result = $this->subject->change($payment, PaymentStatus::PAID, PaymentStatus::OPEN, 'cart_paypal');
+
+        self::assertCount(1, $beforeEvents);
+        $beforeEvent = $beforeEvents[0];
+        self::assertSame(1, $beforeEvent->getOrderItem()->getUid());
+        self::assertSame($payment, $beforeEvent->getService());
+        self::assertSame(ServiceType::Payment, $beforeEvent->getServiceType());
+        self::assertSame(PaymentStatus::OPEN, $beforeEvent->getFromStatus());
+        self::assertSame(PaymentStatus::PAID, $beforeEvent->getToStatus());
+        self::assertSame(OrderChangeSource::Cli, $beforeEvent->getSource());
+        self::assertSame('cart_paypal', $beforeEvent->getInitiator());
+        self::assertSame(0, $beforeEvent->getBackendUser());
+
+        self::assertCount(1, $afterEvents);
+        $afterEvent = $afterEvents[0];
+        self::assertSame(1, $afterEvent->getOrderItem()->getUid());
+        self::assertSame(ServiceType::Payment, $afterEvent->getServiceType());
+        self::assertSame(PaymentStatus::OPEN, $afterEvent->getFromStatus());
+        self::assertSame(PaymentStatus::PAID, $afterEvent->getToStatus());
+        self::assertSame(PaymentStatus::PAID, $afterEvent->getService()->getStatus(), 'The service has the new status already.');
+        self::assertSame($result->orderChange, $afterEvent->getOrderChange());
+        self::assertSame(
+            $this->getStoredOrderChangeUids(),
+            [$afterEvent->getOrderChange()->uid],
+            'The order change of the event has the uid of the stored change.'
+        );
+    }
+
+    #[Test]
+    public function theAfterEventIsDispatchedWhenTheChangeIsStored(): void
+    {
+        $storedStatus = null;
+        $storedOrderChangeUids = null;
+        $this->addEventListener(AfterStatusChangeEvent::class, function () use (&$storedStatus, &$storedOrderChangeUids): void {
+            $storedStatus = $this->getStoredStatus('tx_cart_domain_model_order_payment', 1);
+            $storedOrderChangeUids = $this->getStoredOrderChangeUids();
+        });
+
+        $this->subject->change(self::getPayment(1), PaymentStatus::PAID, PaymentStatus::OPEN);
+
+        self::assertSame(PaymentStatus::PAID, $storedStatus);
+        self::assertCount(1, $storedOrderChangeUids ?? []);
+    }
+
+    #[Test]
+    public function aVetoOfABeforeEventListenerPreventsTheChange(): void
+    {
+        $afterEvents = [];
+        $this->addEventListener(BeforeStatusChangeEvent::class, static function (BeforeStatusChangeEvent $event): void {
+            $event->veto('No tracking number');
+        });
+        $this->addEventListener(AfterStatusChangeEvent::class, static function (AfterStatusChangeEvent $event) use (&$afterEvents): void {
+            $afterEvents[] = $event;
+        });
+        $payment = self::getPayment(1);
+
+        $result = $this->subject->change($payment, PaymentStatus::PAID, PaymentStatus::OPEN);
+
+        self::assertSame(StatusChangeOutcome::Vetoed, $result->outcome);
+        self::assertSame('No tracking number', $result->vetoReason);
+        self::assertNull($result->orderChange);
+        self::assertSame(PaymentStatus::OPEN, $this->getStoredStatus('tx_cart_domain_model_order_payment', 1));
+        self::assertSame(PaymentStatus::OPEN, $payment->getStatus());
+        self::assertSame([], $this->getStoredOrderChanges());
+        self::assertSame([], $afterEvents);
+    }
+
+    #[Test]
+    public function theFirstVetoStopsTheOtherBeforeEventListeners(): void
+    {
+        $calledListeners = [];
+        $this->addEventListener(BeforeStatusChangeEvent::class, static function (BeforeStatusChangeEvent $event) use (&$calledListeners): void {
+            $calledListeners[] = 'first';
+            $event->veto('First reason');
+        }, 'first');
+        $this->addEventListener(BeforeStatusChangeEvent::class, static function (BeforeStatusChangeEvent $event) use (&$calledListeners): void {
+            $calledListeners[] = 'second';
+            $event->veto('Second reason');
+        }, 'second');
+
+        $result = $this->subject->change(self::getPayment(1), PaymentStatus::PAID, PaymentStatus::OPEN);
+
+        self::assertSame(['first'], $calledListeners);
+        self::assertSame('First reason', $result->vetoReason);
+    }
+
+    #[DataProvider('noChangeDataProvider')]
+    #[Test]
+    public function noEventIsDispatchedForAStatusWhichIsNotChanged(string $toStatus, string $fromStatus): void
+    {
+        $events = [];
+        $listener = static function (object $event) use (&$events): void {
+            $events[] = $event;
+        };
+        $this->addEventListener(BeforeStatusChangeEvent::class, $listener, 'before');
+        $this->addEventListener(AfterStatusChangeEvent::class, $listener, 'after');
+
+        $this->subject->change(self::getPayment(1), $toStatus, $fromStatus);
+
+        self::assertSame([], $events);
+    }
+
+    /**
+     * @return iterable<string, array{toStatus: string, fromStatus: string}>
+     */
+    public static function noChangeDataProvider(): iterable
+    {
+        yield 'status not registered' => [
+            'toStatus' => 'not_registered',
+            'fromStatus' => PaymentStatus::OPEN,
+        ];
+        yield 'same status' => [
+            'toStatus' => PaymentStatus::OPEN,
+            'fromStatus' => PaymentStatus::OPEN,
+        ];
+    }
+
+    #[Test]
+    public function onlyTheBeforeEventIsDispatchedIfTheOrderHasNotTheExpectedStatusAnymore(): void
+    {
+        $events = [];
+        $listener = static function (object $event) use (&$events): void {
+            $events[] = $event::class;
+        };
+        $this->addEventListener(BeforeStatusChangeEvent::class, $listener, 'before');
+        $this->addEventListener(AfterStatusChangeEvent::class, $listener, 'after');
+        $this->setStoredStatus('tx_cart_domain_model_order_payment', 1, PaymentStatus::PENDING);
+
+        $result = $this->subject->change(self::getPayment(1), PaymentStatus::PAID, PaymentStatus::OPEN);
+
+        self::assertSame(StatusChangeOutcome::Stale, $result->outcome);
+        self::assertSame([BeforeStatusChangeEvent::class], $events, 'The change can fail after the BeforeStatusChangeEvent.');
+    }
+
+    private function addEventListener(string $eventClass, Closure $listener, string $name = 'listener'): void
+    {
+        $container = $this->getContainer();
+        assert($container instanceof Container);
+
+        $identifier = 'cart-test--event-listener--' . $name . '--' . md5($eventClass);
+        $container->set($identifier, $listener);
+        GeneralUtility::makeInstance(ListenerProvider::class)->addListener($eventClass, $identifier);
+    }
+
+    /**
+     * @return list<int>
+     */
+    private function getStoredOrderChangeUids(): array
+    {
+        $table = 'tx_cart_domain_model_order_change';
+
+        return array_map(
+            static fn (mixed $uid): int => is_numeric($uid) ? (int) $uid : 0,
+            $this->getConnectionPool()->getConnectionForTable($table)
+                ->select(['uid'], $table)
+                ->fetchFirstColumn()
+        );
     }
 
     private static function getPayment(int $uid): Payment

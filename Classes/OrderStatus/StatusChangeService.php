@@ -15,11 +15,14 @@ use DateTimeImmutable;
 use Extcode\Cart\Domain\Model\Order\AbstractService;
 use Extcode\Cart\Domain\Model\Order\Payment;
 use Extcode\Cart\Domain\Model\Order\Shipping;
+use Extcode\Cart\Event\Order\AfterStatusChangeEvent;
+use Extcode\Cart\Event\Order\BeforeStatusChangeEvent;
 use Extcode\Cart\OrderHistory\OrderChange;
 use Extcode\Cart\OrderHistory\OrderChangeRepository;
 use Extcode\Cart\OrderHistory\OrderChangeSource;
 use Extcode\Cart\OrderHistory\OrderChangeType;
 use InvalidArgumentException;
+use Psr\EventDispatcher\EventDispatcherInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use TYPO3\CMS\Core\Context\Context;
 use TYPO3\CMS\Core\Database\Connection;
@@ -32,6 +35,9 @@ use TYPO3\CMS\Core\Database\ConnectionPool;
  * The status is only changed if the order still has the expected status
  * ($fromStatus). The update is atomic, so of several requests with the same
  * expected status only one changes the status.
+ *
+ * Listeners of the BeforeStatusChangeEvent can veto a change, the
+ * AfterStatusChangeEvent is dispatched after a change.
  */
 final readonly class StatusChangeService
 {
@@ -40,6 +46,7 @@ final readonly class StatusChangeService
         private OrderStatusRegistry $orderStatusRegistry,
         private OrderChangeRepository $orderChangeRepository,
         private Context $context,
+        private EventDispatcherInterface $eventDispatcher,
     ) {
     }
 
@@ -70,29 +77,56 @@ final readonly class StatusChangeService
 
         [$serviceType, $changeType] = self::getServiceTypeAndChangeType($service);
         $serviceUid = $service->getUid();
-        $orderItemUid = $service->getItem()?->getUid();
-        if ($serviceUid === null || $orderItemUid === null) {
+        $orderItem = $service->getItem();
+        $orderItemUid = $orderItem?->getUid();
+        if ($serviceUid === null || $orderItem === null || $orderItemUid === null) {
             throw new InvalidArgumentException('The status can only be changed for persisted orders.', 1795089001);
         }
 
         if (!$this->orderStatusRegistry->hasStatus($serviceType, $toStatus)) {
-            return StatusChangeResult::UnknownStatus;
+            return new StatusChangeResult(StatusChangeOutcome::UnknownStatus);
         }
         if ($toStatus === $fromStatus) {
-            return StatusChangeResult::Unchanged;
+            return new StatusChangeResult(StatusChangeOutcome::Unchanged);
+        }
+
+        $backendUser = $this->getBackendUserUid();
+
+        $beforeEvent = new BeforeStatusChangeEvent(
+            $orderItem,
+            $service,
+            $serviceType,
+            $fromStatus,
+            $toStatus,
+            $source,
+            $initiator,
+            $backendUser
+        );
+        $this->eventDispatcher->dispatch($beforeEvent);
+        if ($beforeEvent->isVetoed()) {
+            return new StatusChangeResult(StatusChangeOutcome::Vetoed, vetoReason: $beforeEvent->getVetoReason());
         }
 
         $table = 'tx_cart_domain_model_order_' . $serviceType->value;
         $connection = $this->connectionPool->getConnectionForTable($table);
-        $now = $this->getNow();
+        $orderChange = new OrderChange(
+            orderItem: $orderItemUid,
+            type: $changeType,
+            oldValue: $fromStatus,
+            newValue: $toStatus,
+            date: $this->getNow(),
+            source: $source,
+            backendUser: $backendUser,
+            initiator: $initiator,
+        );
 
         $result = $connection->transactional(
-            function (Connection $connection) use ($table, $serviceUid, $orderItemUid, $toStatus, $fromStatus, $changeType, $source, $initiator, $now): StatusChangeResult {
+            function (Connection $connection) use ($table, $serviceUid, $toStatus, $fromStatus, $orderChange): StatusChangeResult {
                 $affectedRows = $connection->update(
                     $table,
                     [
                         'status' => $toStatus,
-                        'tstamp' => $now->getTimestamp(),
+                        'tstamp' => $orderChange->date->getTimestamp(),
                     ],
                     [
                         'uid' => $serviceUid,
@@ -105,30 +139,26 @@ final readonly class StatusChangeService
                 );
 
                 if ($affectedRows === 0) {
-                    return $this->getStoredStatus($table, $serviceUid) === $toStatus
-                        ? StatusChangeResult::Unchanged
-                        : StatusChangeResult::Stale;
+                    return new StatusChangeResult(
+                        $this->getStoredStatus($table, $serviceUid) === $toStatus
+                            ? StatusChangeOutcome::Unchanged
+                            : StatusChangeOutcome::Stale
+                    );
                 }
 
-                $this->orderChangeRepository->add(
-                    new OrderChange(
-                        orderItem: $orderItemUid,
-                        type: $changeType,
-                        oldValue: $fromStatus,
-                        newValue: $toStatus,
-                        date: $now,
-                        source: $source,
-                        backendUser: $this->getBackendUserUid(),
-                        initiator: $initiator,
-                    )
+                return new StatusChangeResult(
+                    StatusChangeOutcome::Changed,
+                    $orderChange->withUid($this->orderChangeRepository->add($orderChange))
                 );
-
-                return StatusChangeResult::Changed;
             }
         );
 
-        if ($result === StatusChangeResult::Changed) {
+        if ($result->orderChange !== null) {
             $service->setStatus($toStatus);
+            // after the transaction, listeners may take time, e.g. to send an email
+            $this->eventDispatcher->dispatch(
+                new AfterStatusChangeEvent($orderItem, $service, $serviceType, $result->orderChange)
+            );
         }
 
         return $result;
