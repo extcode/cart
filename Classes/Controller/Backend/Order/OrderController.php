@@ -11,16 +11,17 @@ namespace Extcode\Cart\Controller\Backend\Order;
  * LICENSE file that was distributed with this source code.
  */
 
-use Extcode\Cart\Configuration\OrderStatus\OrderStatusRegistry;
 use Extcode\Cart\Controller\Backend\ActionController;
 use Extcode\Cart\Domain\Model\Cart\Cart;
 use Extcode\Cart\Domain\Model\Order\Item;
-use Extcode\Cart\Domain\Model\Order\Status\ServiceType;
 use Extcode\Cart\Domain\Repository\Order\ItemRepository;
 use Extcode\Cart\Event\Order\ExportEvent;
 use Extcode\Cart\Event\Order\NumberGeneratorEvent;
 use Extcode\Cart\Event\Template\Components\ModifyButtonBarEvent;
 use Extcode\Cart\Event\Template\Components\ModifyModuleTemplateEvent;
+use Extcode\Cart\OrderHistory\OrderHistoryService;
+use Extcode\Cart\OrderStatus\OrderStatusRegistry;
+use Extcode\Cart\OrderStatus\ServiceType;
 use Psr\Http\Message\ResponseInterface;
 use RuntimeException;
 use TYPO3\CMS\Backend\Module\ModuleData;
@@ -67,8 +68,6 @@ class OrderController extends ActionController
      */
     protected array $searchArguments = [];
 
-    protected OrderStatusRegistry $orderStatusRegistry;
-
     private ModuleTemplate $moduleTemplate;
 
     public function __construct(
@@ -77,13 +76,10 @@ class OrderController extends ActionController
         protected readonly PersistenceManager $persistenceManager,
         protected readonly ItemRepository $itemRepository,
         private readonly PageRenderer $pageRenderer,
-        private readonly ComponentFactory $componentFactory
+        private readonly ComponentFactory $componentFactory,
+        private readonly OrderStatusRegistry $orderStatusRegistry,
+        private readonly OrderHistoryService $orderHistoryService,
     ) {
-    }
-
-    public function injectOrderStatusRegistry(OrderStatusRegistry $orderStatusRegistry): void
-    {
-        $this->orderStatusRegistry = $orderStatusRegistry;
     }
 
     public function initializeListAction(): void
@@ -172,6 +168,10 @@ class OrderController extends ActionController
         $this->moduleTemplate->assign(
             'shippingStatusOptions',
             $this->orderStatusRegistry->getLocalizedLabels(ServiceType::Shipping, $orderItem->getShipping()?->getStatus())
+        );
+        $this->moduleTemplate->assign(
+            'orderHistory',
+            $this->orderHistoryService->getEntries((int) $orderItem->getUid())
         );
 
         $pdfRendererInstalled = ExtensionManagementUtility::isLoaded('cart_pdf');

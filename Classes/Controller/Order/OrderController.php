@@ -11,11 +11,11 @@ namespace Extcode\Cart\Controller\Order;
  * LICENSE file that was distributed with this source code.
  */
 
-use Extcode\Cart\Configuration\OrderStatus\OrderStatusRegistry;
 use Extcode\Cart\Controller\ActionController;
 use Extcode\Cart\Domain\Model\Order\Item;
-use Extcode\Cart\Domain\Model\Order\Status\ServiceType;
 use Extcode\Cart\Domain\Repository\Order\ItemRepository;
+use Extcode\Cart\OrderStatus\OrderStatusRegistry;
+use Extcode\Cart\OrderStatus\ServiceType;
 use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Core\Context\Context;
 use TYPO3\CMS\Core\Pagination\SimplePagination;
@@ -31,17 +31,11 @@ class OrderController extends ActionController
 
     protected array $pluginSettings;
 
-    protected OrderStatusRegistry $orderStatusRegistry;
-
     public function __construct(
         private readonly Context $context,
-        protected ItemRepository $itemRepository
+        protected ItemRepository $itemRepository,
+        private readonly OrderStatusRegistry $orderStatusRegistry,
     ) {
-    }
-
-    public function injectOrderStatusRegistry(OrderStatusRegistry $orderStatusRegistry): void
-    {
-        $this->orderStatusRegistry = $orderStatusRegistry;
     }
 
     public function listAction(int $currentPage = 1): ResponseInterface

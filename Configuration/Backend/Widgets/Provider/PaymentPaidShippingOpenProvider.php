@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Extcode\Cart\Configuration\Backend\Widgets\Provider;
 
-use Extcode\Cart\Domain\Model\Order\Status\PaymentStatus;
-use Extcode\Cart\Domain\Model\Order\Status\ShippingStatus;
+use Extcode\Cart\OrderStatus\PaymentStatus;
+use Extcode\Cart\OrderStatus\ShippingStatus;
 use Extcode\Cart\Widgets\Provider\OrderItemsProvider;
 use Extcode\Cart\Widgets\Provider\OrderListButtonProvider;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;

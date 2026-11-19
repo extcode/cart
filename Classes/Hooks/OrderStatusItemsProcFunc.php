@@ -11,8 +11,8 @@ namespace Extcode\Cart\Hooks;
  * LICENSE file that was distributed with this source code.
  */
 
-use Extcode\Cart\Configuration\OrderStatus\OrderStatusRegistry;
-use Extcode\Cart\Domain\Model\Order\Status\ServiceType;
+use Extcode\Cart\OrderStatus\OrderStatusRegistry;
+use Extcode\Cart\OrderStatus\ServiceType;
 use Symfony\Component\DependencyInjection\Attribute\Autoconfigure;
 
 /**

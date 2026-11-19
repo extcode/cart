@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Extcode\Cart\Configuration\Backend\Widgets\Provider;
 
-use Extcode\Cart\Domain\Model\Order\Status\PaymentStatus;
+use Extcode\Cart\OrderStatus\PaymentStatus;
 use Extcode\Cart\Widgets\Provider\OrdersInPeriodProvider;
 use Extcode\Cart\Widgets\Query\Period;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;

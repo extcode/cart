@@ -666,17 +666,6 @@ class OrderControllerTest extends FunctionalTestCase
         return self::getQueryParametersOfHref($hrefMatches[1]);
     }
 
-    /**
-     * @return array<array-key, mixed>
-     */
-    private static function getQueryParametersOfHref(string $href): array
-    {
-        $query = (string) parse_url(html_entity_decode($href), PHP_URL_QUERY);
-        parse_str($query, $queryParameters);
-
-        return $queryParameters;
-    }
-
     private static function getValueOfCustomerSearchField(string $html): string
     {
         preg_match('/<input [^>]*id="searchCustomer"[^>]*>/', $html, $inputMatches);

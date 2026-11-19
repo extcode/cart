@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Extcode\Cart\Tests\Unit\Configuration\OrderStatus;
+namespace Extcode\Cart\Tests\Unit\OrderStatus;
 
 /*
  * This file is part of the package extcode/cart.
@@ -11,7 +11,7 @@ namespace Extcode\Cart\Tests\Unit\Configuration\OrderStatus;
  * LICENSE file that was distributed with this source code.
  */
 
-use Extcode\Cart\Configuration\OrderStatus\OrderStatusConfigurationBuilder;
+use Extcode\Cart\OrderStatus\OrderStatusConfigurationBuilder;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
@@ -357,7 +357,7 @@ final class OrderStatusConfigurationBuilderTest extends UnitTestCase
      */
     private static function getCartConfiguration(): array
     {
-        $configuration = require __DIR__ . '/../../../../Configuration/OrderStatus.php';
+        $configuration = require __DIR__ . '/../../../Configuration/OrderStatus.php';
         self::assertIsArray($configuration);
 
         return $configuration;

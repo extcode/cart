@@ -57,7 +57,7 @@ Remove the status from the TCA override and register them in
 
    <?php
 
-   use Extcode\Cart\Domain\Model\Order\Status\PaymentStatus;
+   use Extcode\Cart\OrderStatus\PaymentStatus;
 
    return [
        'payment' => [

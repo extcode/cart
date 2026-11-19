@@ -2,8 +2,8 @@
 
 declare(strict_types=1);
 
-use Extcode\Cart\Domain\Model\Order\Status\PaymentStatus;
-use Extcode\Cart\Domain\Model\Order\Status\ShippingStatus;
+use Extcode\Cart\OrderStatus\PaymentStatus;
+use Extcode\Cart\OrderStatus\ShippingStatus;
 
 $_LLL = 'LLL:EXT:cart_order_status/Resources/Private/Language/locallang.xlf';
 

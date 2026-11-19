@@ -17,8 +17,8 @@ shipping   ``open``, ``on_hold``, ``in_process``, ``shipped``
 =========  =================================================
 
 The identifiers of these status are available as constants of
-``\Extcode\Cart\Domain\Model\Order\Status\PaymentStatus`` and
-``\Extcode\Cart\Domain\Model\Order\Status\ShippingStatus``, e.g.
+``\Extcode\Cart\OrderStatus\PaymentStatus`` and
+``\Extcode\Cart\OrderStatus\ShippingStatus``, e.g.
 ``PaymentStatus::PAID``. The constants only name the status of EXT:cart.
 
 The status are no enum, so your own extension can register further status,
@@ -41,8 +41,9 @@ case letters, digits and underscores and starts with a letter.
 
     <?php
 
-    use Extcode\Cart\Domain\Model\Order\Status\PaymentStatus;
-    use Extcode\Cart\Domain\Model\Order\Status\ShippingStatus;
+    use Extcode\Cart\OrderHistory\OrderChangeSource;
+    use Extcode\Cart\OrderStatus\PaymentStatus;
+    use Extcode\Cart\OrderStatus\ShippingStatus;
 
     return [
         'payment' => [
@@ -90,13 +91,13 @@ changing a :file:`Configuration/OrderStatus.php`.
 Use the registered status
 =========================
 
-The service ``\Extcode\Cart\Configuration\OrderStatus\OrderStatusRegistry``
+The service ``\Extcode\Cart\OrderStatus\OrderStatusRegistry``
 returns the registered status in their order:
 
 ..  code-block:: php
 
-    use Extcode\Cart\Configuration\OrderStatus\OrderStatusRegistry;
-    use Extcode\Cart\Domain\Model\Order\Status\ServiceType;
+    use Extcode\Cart\OrderStatus\OrderStatusRegistry;
+    use Extcode\Cart\OrderStatus\ServiceType;
 
     final readonly class MyService
     {
@@ -110,7 +111,7 @@ returns the registered status in their order:
         }
     }
 
-``getStatuses()`` returns the ``\Extcode\Cart\Domain\Model\Order\Status\Status``
+``getStatuses()`` returns the ``\Extcode\Cart\OrderStatus\Status``
 objects, ``getLocalizedLabels()`` the translated labels by identifier, e.g. for
 the options of a select.
 
@@ -121,6 +122,88 @@ its identifier:
 ..  code-block:: html
 
     <cart:order.statusLabel serviceType="payment" status="{orderItem.payment.status}"/>
+
+.. _developer-order-status-change:
+
+Change the status
+=================
+
+Change the status of an order with
+``\Extcode\Cart\OrderStatus\StatusChangeService`` instead of setting it and
+persisting the payment or the shipping, e.g. in the notification of a payment
+provider:
+
+..  code-block:: php
+
+    use Extcode\Cart\OrderHistory\OrderChangeSource;
+    use Extcode\Cart\OrderStatus\PaymentStatus;
+    use Extcode\Cart\OrderStatus\StatusChangeResult;
+    use Extcode\Cart\OrderStatus\StatusChangeService;
+
+    // the notification of the payment provider, sent by its server
+    $result = $this->statusChangeService->change(
+        $orderItem->getPayment(),
+        PaymentStatus::PAID,
+        $orderItem->getPayment()->getStatus(),
+        initiator: 'my_payment_provider',
+        source: OrderChangeSource::Api
+    );
+
+The optional ``initiator`` tells who or what triggered the change if it is not
+a backend user, e.g. your extension, an ERP synchronisation or a scheduler
+task.
+
+The source is the channel of the change, the enum
+``\Extcode\Cart\OrderHistory\OrderChangeSource``:
+
+``Backend``
+    An editor in the backend.
+
+``Frontend``
+    The browser of a customer, e.g. redirected back from a payment provider.
+
+``Api``
+    A server-to-server request, e.g. the notification (IPN, webhook) of a
+    payment provider or a request of an ERP.
+
+``Cli``
+    A command or a scheduler task.
+
+Without a given source it is determined from the request (``Backend``,
+``Frontend`` or ``Cli``), by default from ``$GLOBALS['TYPO3_REQUEST']``.
+TYPO3 handles a server-to-server request as frontend request, so pass
+``OrderChangeSource::Api`` for notifications and webhooks. Then the history
+tells whether the customer or the server of the payment provider changed the
+status.
+
+The service
+
+*  only sets registered status,
+*  only changes the status if the order still has the expected status (the
+   third argument), so an outdated form or a repeated notification does not
+   overwrite a newer status,
+*  updates the status atomically, so of several requests with the same
+   expected status only one changes it,
+*  writes the change to the order history.
+
+It returns a ``\Extcode\Cart\OrderStatus\StatusChangeResult``: ``Changed``,
+``Unchanged`` (the order has the status already), ``Stale`` (the order has not
+the expected status anymore) or ``UnknownStatus``.
+
+Order history
+-------------
+
+Every change is written to the table ``tx_cart_domain_model_order_change`` and
+shown as order history in the order details of the backend module. A change
+has a type (e.g. ``OrderChangeType::PAYMENT_STATUS``), the old and the new
+value, the date, the source, the backend user, if there is one, and the
+initiator. The history shows the backend user, otherwise the initiator with
+the source, e.g. "my_payment_provider (API)", otherwise the source.
+
+The table is not limited to status changes. Your extension can write its own
+changes of an order with
+``\Extcode\Cart\OrderHistory\OrderChangeRepository::add()``, using
+an own type, a subject (e.g. ``product:12``) and details in ``data``.
 
 Emails
 ======

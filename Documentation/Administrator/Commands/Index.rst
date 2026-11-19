@@ -18,6 +18,10 @@ accepts the format YYYY-MM-DD.
 
 The DataHandler is then used to process all orders before this date.
 
+The order history (table ``tx_cart_domain_model_order_change``) of these orders
+is removed from the database directly, also the one of orders before this date
+which were deleted before, e.g. in the list module.
+
 .. IMPORTANT::
    Orders are only set to deleted, but not removed from the database. The
    database must be cleaned up afterwards using `vendor/bin/typo3 cleanup:deletedrecords`.

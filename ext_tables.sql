@@ -291,3 +291,23 @@ CREATE TABLE tx_cart_domain_model_tag (
     INDEX `parent` (pid), INDEX `t3ver_oid` (t3ver_oid,t3ver_wsid),
 );
 
+
+#
+# Table structure for table 'tx_cart_domain_model_order_change'
+#
+CREATE TABLE tx_cart_domain_model_order_change (
+    uid int(11) NOT NULL auto_increment,
+    item int(11) DEFAULT '0' NOT NULL,
+    type varchar(255) DEFAULT '' NOT NULL,
+    subject varchar(255) DEFAULT '' NOT NULL,
+    old_value varchar(255) DEFAULT '' NOT NULL,
+    new_value varchar(255) DEFAULT '' NOT NULL,
+    data text,
+    crdate int(11) DEFAULT '0' NOT NULL,
+    be_user int(11) DEFAULT '0' NOT NULL,
+    source varchar(30) DEFAULT '' NOT NULL,
+    initiator varchar(255) DEFAULT '' NOT NULL,
+
+    PRIMARY KEY (uid),
+    KEY item (item,type),
+);

@@ -1,0 +1,26 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      data-namespace-typo3-fluid="true">
+
+<table class="table order-history">
+    <thead>
+    <tr>
+        <th><f:translate key="tx_cart.backend.order.history.date"/></th>
+        <th><f:translate key="tx_cart.backend.order.history.change"/></th>
+        <th><f:translate key="tx_cart.backend.order.history.old_value"/></th>
+        <th><f:translate key="tx_cart.backend.order.history.new_value"/></th>
+        <th><f:translate key="tx_cart.backend.order.history.user"/></th>
+    </tr>
+    </thead>
+    <tbody>
+    <f:for each="{orderHistory}" as="entry">
+        <tr>
+            <td><f:format.date format="{settings.backend.dateFormat}" date="{entry.date}"/> <f:format.date format="H:i" date="{entry.date}"/></td>
+            <td>{entry.type}</td>
+            <td>{entry.oldValue}</td>
+            <td>{entry.newValue}</td>
+            <td>{entry.user}</td>
+        </tr>
+    </f:for>
+    </tbody>
+</table>
+</html>

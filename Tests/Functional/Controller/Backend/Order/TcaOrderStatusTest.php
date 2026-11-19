@@ -11,8 +11,8 @@ namespace Extcode\Cart\Tests\Functional\Controller\Backend\Order;
  * LICENSE file that was distributed with this source code.
  */
 
-use Extcode\Cart\Domain\Model\Order\Status\PaymentStatus;
-use Extcode\Cart\Domain\Model\Order\Status\ShippingStatus;
+use Extcode\Cart\OrderStatus\PaymentStatus;
+use Extcode\Cart\OrderStatus\ShippingStatus;
 use PHPUnit\Framework\Attributes\IgnoreDeprecations;
 use PHPUnit\Framework\Attributes\Test;
 
@@ -91,11 +91,11 @@ final class TcaOrderStatusTest extends AbstractOrderStatusTestCase
 
         $html = (string) self::dispatchShowAction(1)->getBody();
 
-        self::assertSame(self::EXPECTED_PAYMENT_STATUS, self::getOptionsOfSelect($html, 'payment[status]'));
-        self::assertSame('refunded_via_tca', self::getSelectedOptionOfSelect($html, 'payment[status]'));
+        self::assertSame(self::EXPECTED_PAYMENT_STATUS, self::getOptionsOfSelect($html, 'status', 'paymentStatus'));
+        self::assertSame('refunded_via_tca', self::getSelectedOptionOfSelect($html, 'status', 'paymentStatus'));
 
-        self::assertSame(self::EXPECTED_SHIPPING_STATUS, self::getOptionsOfSelect($html, 'shipping[status]'));
-        self::assertSame('delivered_via_tca', self::getSelectedOptionOfSelect($html, 'shipping[status]'));
+        self::assertSame(self::EXPECTED_SHIPPING_STATUS, self::getOptionsOfSelect($html, 'status', 'shippingStatus'));
+        self::assertSame('delivered_via_tca', self::getSelectedOptionOfSelect($html, 'status', 'shippingStatus'));
     }
 
     private function expectDeprecationsOfTheStatusOfTheTca(): void

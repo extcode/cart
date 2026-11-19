@@ -192,6 +192,24 @@
             <trans-unit id="tx_cart.controller.order.action.update_shipping_action.success">
                 <source>The shipping was successfully updated.</source>
             </trans-unit>
+            <trans-unit id="tx_cart.controller.order.action.update_payment_action.unchanged">
+                <source>The payment has this status already, nothing was changed.</source>
+            </trans-unit>
+            <trans-unit id="tx_cart.controller.order.action.update_shipping_action.unchanged">
+                <source>The shipping has this status already, nothing was changed.</source>
+            </trans-unit>
+            <trans-unit id="tx_cart.controller.order.action.update_payment_action.stale">
+                <source>The payment status was changed in the meantime, e.g. in another tab. Nothing was changed, please check the current status.</source>
+            </trans-unit>
+            <trans-unit id="tx_cart.controller.order.action.update_shipping_action.stale">
+                <source>The shipping status was changed in the meantime, e.g. in another tab. Nothing was changed, please check the current status.</source>
+            </trans-unit>
+            <trans-unit id="tx_cart.controller.order.action.update_payment_action.unknown_status">
+                <source>The payment status "%s" is not available, nothing was changed.</source>
+            </trans-unit>
+            <trans-unit id="tx_cart.controller.order.action.update_shipping_action.unknown_status">
+                <source>The shipping status "%s" is not available, nothing was changed.</source>
+            </trans-unit>
 
             <trans-unit id="tx_cart.controller.order.action.show">
                 <source>Show</source>
@@ -559,6 +577,42 @@
             </trans-unit>
             <trans-unit id="tx_cart.backend.order.comment">
                 <source>Customer comment</source>
+            </trans-unit>
+            <trans-unit id="tx_cart.backend.order.history">
+                <source>Order history</source>
+            </trans-unit>
+            <trans-unit id="tx_cart.backend.order.history.date">
+                <source>Date</source>
+            </trans-unit>
+            <trans-unit id="tx_cart.backend.order.history.change">
+                <source>Change</source>
+            </trans-unit>
+            <trans-unit id="tx_cart.backend.order.history.old_value">
+                <source>From</source>
+            </trans-unit>
+            <trans-unit id="tx_cart.backend.order.history.new_value">
+                <source>To</source>
+            </trans-unit>
+            <trans-unit id="tx_cart.backend.order.history.user">
+                <source>By</source>
+            </trans-unit>
+            <trans-unit id="tx_cart.backend.order.history.type.payment_status">
+                <source>Payment status</source>
+            </trans-unit>
+            <trans-unit id="tx_cart.backend.order.history.type.shipping_status">
+                <source>Shipping status</source>
+            </trans-unit>
+            <trans-unit id="tx_cart.backend.order.history.source.backend">
+                <source>Backend</source>
+            </trans-unit>
+            <trans-unit id="tx_cart.backend.order.history.source.frontend">
+                <source>Frontend</source>
+            </trans-unit>
+            <trans-unit id="tx_cart.backend.order.history.source.api">
+                <source>API</source>
+            </trans-unit>
+            <trans-unit id="tx_cart.backend.order.history.source.cli">
+                <source>Command line</source>
             </trans-unit>
             <trans-unit id="tx_cart.backend.order.items">
                 <source>Ordered items</source>

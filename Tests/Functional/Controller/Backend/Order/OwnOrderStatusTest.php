@@ -11,8 +11,8 @@ namespace Extcode\Cart\Tests\Functional\Controller\Backend\Order;
  * LICENSE file that was distributed with this source code.
  */
 
-use Extcode\Cart\Domain\Model\Order\Status\PaymentStatus;
-use Extcode\Cart\Domain\Model\Order\Status\ShippingStatus;
+use Extcode\Cart\OrderStatus\PaymentStatus;
+use Extcode\Cart\OrderStatus\ShippingStatus;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 
@@ -165,11 +165,11 @@ final class OwnOrderStatusTest extends AbstractOrderStatusTestCase
 
         $html = (string) self::dispatchShowAction(1)->getBody();
 
-        self::assertSame(self::EXPECTED_PAYMENT_STATUS, self::getOptionsOfSelect($html, 'payment[status]'));
-        self::assertSame($paymentStatus, self::getSelectedOptionOfSelect($html, 'payment[status]'));
+        self::assertSame(self::EXPECTED_PAYMENT_STATUS, self::getOptionsOfSelect($html, 'status', 'paymentStatus'));
+        self::assertSame($paymentStatus, self::getSelectedOptionOfSelect($html, 'status', 'paymentStatus'));
 
-        self::assertSame(self::EXPECTED_SHIPPING_STATUS, self::getOptionsOfSelect($html, 'shipping[status]'));
-        self::assertSame($shippingStatus, self::getSelectedOptionOfSelect($html, 'shipping[status]'));
+        self::assertSame(self::EXPECTED_SHIPPING_STATUS, self::getOptionsOfSelect($html, 'status', 'shippingStatus'));
+        self::assertSame($shippingStatus, self::getSelectedOptionOfSelect($html, 'status', 'shippingStatus'));
     }
 
     /**
@@ -207,14 +207,14 @@ final class OwnOrderStatusTest extends AbstractOrderStatusTestCase
 
         self::assertSame(
             self::EXPECTED_PAYMENT_STATUS + ['not_registered' => 'not_registered'],
-            self::getOptionsOfSelect($html, 'payment[status]'),
+            self::getOptionsOfSelect($html, 'status', 'paymentStatus'),
             'Otherwise saving the form would change the status of the order unnoticed.'
         );
-        self::assertSame('not_registered', self::getSelectedOptionOfSelect($html, 'payment[status]'));
+        self::assertSame('not_registered', self::getSelectedOptionOfSelect($html, 'status', 'paymentStatus'));
 
         self::assertSame(
             self::EXPECTED_SHIPPING_STATUS,
-            self::getOptionsOfSelect($html, 'shipping[status]'),
+            self::getOptionsOfSelect($html, 'status', 'shippingStatus'),
             'A registered status of the other service must not add an option.'
         );
     }

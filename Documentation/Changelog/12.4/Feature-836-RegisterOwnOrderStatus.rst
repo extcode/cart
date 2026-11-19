@@ -20,8 +20,8 @@ in the order list, the selects in the order details of the backend module,
 the order details in the frontend and the items of the status fields in the
 TCA. The new ViewHelper ``cart:order.statusLabel`` renders the label of a
 status. The identifiers of the status of EXT:cart are available as constants
-of ``\Extcode\Cart\Domain\Model\Order\Status\PaymentStatus`` and
-``\Extcode\Cart\Domain\Model\Order\Status\ShippingStatus``.
+of ``\Extcode\Cart\OrderStatus\PaymentStatus`` and
+``\Extcode\Cart\OrderStatus\ShippingStatus``.
 
 See :ref:`developer-order-status`.
 
