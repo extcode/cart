@@ -16,7 +16,7 @@ use Extcode\Cart\Domain\Model\Order\Status\ServiceType;
 use Symfony\Component\DependencyInjection\Attribute\Autoconfigure;
 
 /**
- * Adds the registered status as items to the status field of the payment and
+ * Sets the registered status as items of the status field of the payment and
  * the shipping, the service type is given in the itemsProcConfig of the TCA.
  */
 #[Autoconfigure(public: true)]
@@ -34,11 +34,22 @@ final readonly class OrderStatusItemsProcFunc
     {
         $serviceType = ServiceType::from($parameters['config']['itemsProcConfig']['serviceType']);
 
+        $items = [];
         foreach ($this->orderStatusRegistry->getStatuses($serviceType) as $status) {
-            $parameters['items'][] = [
+            $items[] = [
                 'label' => $status->label,
                 'value' => $status->identifier,
             ];
         }
+
+        // items of the TCA are part of the registered status already (deprecated), e.g. ones of page TSconfig are kept
+        foreach ($parameters['items'] as $item) {
+            $value = is_array($item) ? ($item['value'] ?? null) : null;
+            if (!is_string($value) || !$this->orderStatusRegistry->hasStatus($serviceType, $value)) {
+                $items[] = $item;
+            }
+        }
+
+        $parameters['items'] = $items;
     }
 }

@@ -16,6 +16,7 @@ use Extcode\Cart\Domain\Model\Order\Status\Status;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use TYPO3\CMS\Core\Cache\Frontend\PhpFrontend;
 use TYPO3\CMS\Core\Package\PackageManager;
+use TYPO3\CMS\Core\Utility\ArrayUtility;
 
 /**
  * The payment and shipping status registered in Configuration/OrderStatus.php
@@ -100,16 +101,71 @@ final class OrderStatusRegistry
             return $this->configuration;
         }
 
-        /** @var array<value-of<ServiceType>, array<string, string>>|false $cached */
-        $cached = $this->cache->require($this->cacheIdentifier);
-        if (is_array($cached)) {
-            return $this->configuration = $cached;
+        /** @var array<value-of<ServiceType>, array<string, string>>|false $configuration */
+        $configuration = $this->cache->require($this->cacheIdentifier);
+        if (!is_array($configuration)) {
+            $configuration = $this->configurationBuilder->build($this->loadConfigurationFiles());
+            $this->cache->set($this->cacheIdentifier, 'return ' . var_export($configuration, true) . ';');
         }
 
-        $configuration = $this->configurationBuilder->build($this->loadConfigurationFiles());
-        $this->cache->set($this->cacheIdentifier, 'return ' . var_export($configuration, true) . ';');
+        return $this->configuration = self::addStatusOfTcaItems($configuration);
+    }
 
-        return $this->configuration = $configuration;
+    /**
+     * Until cart 12.3 own status were added to the items of the status field
+     * in the TCA, e.g. by a TCA override. The items of the TCA of cart are
+     * empty now, every status found there is added after the registered ones.
+     *
+     * TODO: 13.0.0 Remove the status in the items of the TCA, see Deprecation #836.
+     *
+     * @param array<value-of<ServiceType>, array<string, string>> $configuration
+     *
+     * @return array<value-of<ServiceType>, array<string, string>>
+     */
+    private static function addStatusOfTcaItems(array $configuration): array
+    {
+        $tca = $GLOBALS['TCA'] ?? null;
+        if (!is_array($tca)) {
+            return $configuration;
+        }
+
+        foreach (ServiceType::cases() as $serviceType) {
+            $table = self::getTableName($serviceType);
+            $path = [$table, 'columns', 'status', 'config', 'items'];
+            $items = ArrayUtility::isValidPath($tca, $path) ? ArrayUtility::getValueByPath($tca, $path) : [];
+            if (!is_array($items)) {
+                continue;
+            }
+
+            $addedStatus = [];
+            foreach ($items as $item) {
+                $identifier = is_array($item) ? ($item['value'] ?? null) : null;
+                $label = is_array($item) ? ($item['label'] ?? null) : null;
+                if (!is_string($identifier) || $identifier === '' || isset($configuration[$serviceType->value][$identifier])) {
+                    continue;
+                }
+
+                $configuration[$serviceType->value][$identifier] = is_string($label) && $label !== '' ? $label : $identifier;
+                $addedStatus[] = $identifier;
+            }
+
+            if ($addedStatus !== []) {
+                trigger_error(
+                    'Adding the ' . $serviceType->value . ' status "' . implode('", "', $addedStatus) . '" to'
+                    . ' $GLOBALS[\'TCA\'][\'' . $table . '\'][\'columns\'][\'status\'][\'config\'][\'items\'] is deprecated'
+                    . ' since cart 12.4 and will stop working in cart 13.0.'
+                    . ' Register the status in Configuration/OrderStatus.php of your extension instead.',
+                    E_USER_DEPRECATED
+                );
+            }
+        }
+
+        return $configuration;
+    }
+
+    private static function getTableName(ServiceType $serviceType): string
+    {
+        return 'tx_cart_domain_model_order_' . $serviceType->value;
     }
 
     /**

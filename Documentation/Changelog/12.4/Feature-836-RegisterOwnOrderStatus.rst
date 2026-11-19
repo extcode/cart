@@ -31,9 +31,9 @@ Impact
 The status fields of ``tx_cart_domain_model_order_payment`` and
 ``tx_cart_domain_model_order_shipping`` get their items from the
 ``itemsProcFunc`` ``\Extcode\Cart\Hooks\OrderStatusItemsProcFunc``, the
-``items`` in the TCA are empty. Extensions adding status via a TCA override
-of these ``items`` should register them in :file:`Configuration/OrderStatus.php`
-instead.
+``items`` in the TCA are empty. Status added to these ``items``, e.g. by a
+TCA override, still work but are deprecated, see
+:doc:`Deprecation-836-OrderStatusInTcaItems`.
 
 The templates use ``cart:order.statusLabel`` instead of the translation keys
 ``tx_cart_domain_model_order_payment.status.<status>`` and
