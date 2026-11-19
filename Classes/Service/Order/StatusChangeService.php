@@ -50,8 +50,10 @@ final readonly class StatusChangeService
      * not persisted again by Extbase as long as the service is not passed to
      * a repository; the clean state still contains the old status.
      *
-     * The source (backend, frontend or CLI) is determined from the request,
-     * by default the one in $GLOBALS['TYPO3_REQUEST'].
+     * Without a given source it is determined from the request (backend,
+     * frontend or CLI), by default the one in $GLOBALS['TYPO3_REQUEST']. A
+     * server-to-server request, e.g. the notification of a payment provider,
+     * passes OrderChangeSource::Api.
      *
      * @param string $initiator who or what triggered the change if not a backend user, e.g. "cart_paypal" or "erp_sync"
      */
@@ -60,10 +62,13 @@ final readonly class StatusChangeService
         string $toStatus,
         string $fromStatus,
         string $initiator = '',
-        ?ServerRequestInterface $request = null
+        ?ServerRequestInterface $request = null,
+        ?OrderChangeSource $source = null
     ): StatusChangeResult {
-        $request ??= $GLOBALS['TYPO3_REQUEST'] ?? null;
-        $source = OrderChangeSource::fromRequest($request instanceof ServerRequestInterface ? $request : null);
+        if ($source === null) {
+            $request ??= $GLOBALS['TYPO3_REQUEST'] ?? null;
+            $source = OrderChangeSource::fromRequest($request instanceof ServerRequestInterface ? $request : null);
+        }
 
         [$serviceType, $changeType] = self::getServiceTypeAndChangeType($service);
         $serviceUid = $service->getUid();

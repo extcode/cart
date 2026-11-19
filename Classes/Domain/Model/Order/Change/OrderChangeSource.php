@@ -16,9 +16,8 @@ use TYPO3\CMS\Core\Core\Environment;
 use TYPO3\CMS\Core\Http\ApplicationType;
 
 /**
- * The TYPO3 entry point a change of an order comes through. It is determined
- * from the request, who or what triggered the change is the initiator of the
- * change, e.g. a payment provider.
+ * The channel a change of an order comes through. Who or what triggered the
+ * change is the initiator of the change, e.g. a payment provider.
  */
 enum OrderChangeSource: string
 {
@@ -28,15 +27,26 @@ enum OrderChangeSource: string
     case Backend = 'backend';
 
     /**
-     * A request in the frontend, e.g. the notification of a payment provider.
+     * A request of a browser in the frontend, e.g. the customer redirected back
+     * from a payment provider.
      */
     case Frontend = 'frontend';
+
+    /**
+     * A server-to-server request, e.g. the notification (IPN, webhook) of a
+     * payment provider or an ERP. TYPO3 handles it as a frontend request, so it
+     * is never determined from the request, the code handling it sets it.
+     */
+    case Api = 'api';
 
     /**
      * A command or a scheduler task.
      */
     case Cli = 'cli';
 
+    /**
+     * Backend, Frontend or Cli, Api can not be determined from a request.
+     */
     public static function fromRequest(?ServerRequestInterface $request): self
     {
         if ($request !== null && is_int($request->getAttribute('applicationType'))) {

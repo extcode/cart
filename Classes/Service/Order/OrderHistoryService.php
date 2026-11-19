@@ -66,8 +66,8 @@ final readonly class OrderHistoryService
     }
 
     /**
-     * The name of the backend user, otherwise the initiator, e.g. "cart_paypal",
-     * otherwise the source, e.g. "Command line".
+     * The name of the backend user, otherwise the initiator with the source,
+     * e.g. "cart_paypal (API)", otherwise the source, e.g. "Command line".
      */
     private static function getUser(OrderChange $orderChange): string
     {
@@ -81,14 +81,15 @@ final readonly class OrderHistoryService
             }
         }
 
-        if ($orderChange->initiator !== '') {
-            return $orderChange->initiator;
-        }
-        if ($orderChange->source === null) {
-            return '';
-        }
+        $source = $orderChange->source === null
+            ? ''
+            : self::translate('source.' . $orderChange->source->value) ?? $orderChange->source->value;
 
-        return self::translate('source.' . $orderChange->source->value) ?? $orderChange->source->value;
+        return match (true) {
+            $orderChange->initiator === '' => $source,
+            $source === '' => $orderChange->initiator,
+            default => $orderChange->initiator . ' (' . $source . ')',
+        };
     }
 
     private static function translate(string $key): ?string

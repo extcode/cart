@@ -608,6 +608,9 @@
             <trans-unit id="tx_cart.backend.order.history.source.frontend">
                 <source>Frontend</source>
             </trans-unit>
+            <trans-unit id="tx_cart.backend.order.history.source.api">
+                <source>API</source>
+            </trans-unit>
             <trans-unit id="tx_cart.backend.order.history.source.cli">
                 <source>Command line</source>
             </trans-unit>

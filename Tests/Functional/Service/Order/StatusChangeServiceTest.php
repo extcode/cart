@@ -174,6 +174,26 @@ final class StatusChangeServiceTest extends FunctionalTestCase
     }
 
     #[Test]
+    public function changeWritesTheGivenSourceInsteadOfTheOneOfTheRequest(): void
+    {
+        // e.g. the notification of a payment provider, which TYPO3 handles as frontend request
+        $request = (new ServerRequest('https://localhost/'))
+            ->withAttribute('applicationType', SystemEnvironmentBuilder::REQUESTTYPE_FE)
+        ;
+
+        $this->subject->change(
+            self::getPayment(1),
+            PaymentStatus::PAID,
+            PaymentStatus::OPEN,
+            'cart_paypal',
+            $request,
+            OrderChangeSource::Api
+        );
+
+        self::assertSame(OrderChangeSource::Api->value, $this->getStoredOrderChanges()[0]['source'] ?? null);
+    }
+
+    #[Test]
     public function changeWritesTheInitiatorToTheOrderHistory(): void
     {
         $this->subject->change(self::getPayment(1), PaymentStatus::PAID, PaymentStatus::OPEN, 'cart_paypal');

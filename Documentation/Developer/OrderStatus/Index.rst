@@ -41,6 +41,7 @@ case letters, digits and underscores and starts with a letter.
 
     <?php
 
+    use Extcode\Cart\Domain\Model\Order\Change\OrderChangeSource;
     use Extcode\Cart\Domain\Model\Order\Status\PaymentStatus;
     use Extcode\Cart\Domain\Model\Order\Status\ShippingStatus;
 
@@ -134,23 +135,46 @@ provider:
 
 ..  code-block:: php
 
+    use Extcode\Cart\Domain\Model\Order\Change\OrderChangeSource;
     use Extcode\Cart\Domain\Model\Order\Status\PaymentStatus;
     use Extcode\Cart\Service\Order\StatusChangeResult;
     use Extcode\Cart\Service\Order\StatusChangeService;
 
+    // the notification of the payment provider, sent by its server
     $result = $this->statusChangeService->change(
         $orderItem->getPayment(),
         PaymentStatus::PAID,
         $orderItem->getPayment()->getStatus(),
         initiator: 'my_payment_provider',
-        request: $request
+        source: OrderChangeSource::Api
     );
 
 The optional ``initiator`` tells who or what triggered the change if it is not
 a backend user, e.g. your extension, an ERP synchronisation or a scheduler
-task. The source (backend, frontend or command line) is determined from the
-given request, by default from ``$GLOBALS['TYPO3_REQUEST']``; without a request
-on the command line it is ``OrderChangeSource::Cli``.
+task.
+
+The source is the channel of the change, the enum
+``\Extcode\Cart\Domain\Model\Order\Change\OrderChangeSource``:
+
+``Backend``
+    An editor in the backend.
+
+``Frontend``
+    The browser of a customer, e.g. redirected back from a payment provider.
+
+``Api``
+    A server-to-server request, e.g. the notification (IPN, webhook) of a
+    payment provider or a request of an ERP.
+
+``Cli``
+    A command or a scheduler task.
+
+Without a given source it is determined from the request (``Backend``,
+``Frontend`` or ``Cli``), by default from ``$GLOBALS['TYPO3_REQUEST']``.
+TYPO3 handles a server-to-server request as frontend request, so pass
+``OrderChangeSource::Api`` for notifications and webhooks. Then the history
+tells whether the customer or the server of the payment provider changed the
+status.
 
 The service
 
@@ -172,10 +196,9 @@ Order history
 Every change is written to the table ``tx_cart_domain_model_order_change`` and
 shown as order history in the order details of the backend module. A change
 has a type (e.g. ``OrderChangeType::PAYMENT_STATUS``), the old and the new
-value, the date, the source (the enum ``OrderChangeSource``: ``Backend``,
-``Frontend`` or ``Cli``), the backend user, if there is one, and the initiator.
-The history shows the backend user, otherwise the initiator, otherwise the
-source.
+value, the date, the source, the backend user, if there is one, and the
+initiator. The history shows the backend user, otherwise the initiator with
+the source, e.g. "my_payment_provider (API)", otherwise the source.
 
 The table is not limited to status changes. Your extension can write its own
 changes of an order with

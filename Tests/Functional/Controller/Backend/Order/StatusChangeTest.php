@@ -132,27 +132,11 @@ final class StatusChangeTest extends AbstractOrderStatusTestCase
     public function theOrderDetailsShowTheChangesOfTheOrderTheLatestFirst(): void
     {
         $this->createOrder(1, PaymentStatus::OPEN, ShippingStatus::OPEN);
-        $this->getOrderChangeRepository()->add(
-            new OrderChange(
-                orderItem: 1,
-                type: OrderChangeType::PAYMENT_STATUS,
-                oldValue: PaymentStatus::OPEN,
-                newValue: PaymentStatus::PAID,
-                date: new DateTimeImmutable('2026-11-18 09:15:00'),
-                source: OrderChangeSource::Cli,
-            )
-        );
-        $this->getOrderChangeRepository()->add(
-            new OrderChange(
-                orderItem: 1,
-                type: OrderChangeType::PAYMENT_STATUS,
-                oldValue: PaymentStatus::PAID,
-                newValue: PaymentStatus::CANCELED,
-                date: new DateTimeImmutable('2026-11-18 10:00:00'),
-                source: OrderChangeSource::Frontend,
-                initiator: 'cart_paypal',
-            )
-        );
+        // e.g. a payment provider: the customer is redirected back, the server of the provider sends a notification
+        $this->addOrderChange(PaymentStatus::OPEN, PaymentStatus::PENDING, '2026-11-18 09:00:00', OrderChangeSource::Frontend, 'cart_paypal');
+        $this->addOrderChange(PaymentStatus::PENDING, PaymentStatus::PAID, '2026-11-18 09:05:00', OrderChangeSource::Api, 'cart_paypal');
+        // e.g. a command without initiator
+        $this->addOrderChange(PaymentStatus::PAID, PaymentStatus::CANCELED, '2026-11-18 09:15:00', OrderChangeSource::Cli);
         self::submitForm(
             (string) self::dispatchShowAction(1)->getBody(),
             'shippingStatus',
@@ -167,10 +151,11 @@ final class StatusChangeTest extends AbstractOrderStatusTestCase
             [
                 // a backend user
                 ['Shipping status', 'open', 'in process', 'admin'],
-                // the initiator without backend user
-                ['Payment status', 'paid', 'canceled', 'cart_paypal'],
                 // the source without backend user and initiator
-                ['Payment status', 'open', 'paid', 'Command line'],
+                ['Payment status', 'paid', 'canceled', 'Command line'],
+                // the initiator with the source without backend user
+                ['Payment status', 'pending', 'paid', 'cart_paypal (API)'],
+                ['Payment status', 'open', 'pending', 'cart_paypal (Frontend)'],
             ],
             array_map(static fn (array $match): array => array_slice($match, 1), $rowMatches)
         );
@@ -185,6 +170,21 @@ final class StatusChangeTest extends AbstractOrderStatusTestCase
         self::assertStringNotContainsString(
             'Order history',
             (string) self::dispatchShowAction(1)->getBody()
+        );
+    }
+
+    private function addOrderChange(string $oldStatus, string $newStatus, string $date, OrderChangeSource $source, string $initiator = ''): void
+    {
+        $this->getOrderChangeRepository()->add(
+            new OrderChange(
+                orderItem: 1,
+                type: OrderChangeType::PAYMENT_STATUS,
+                oldValue: $oldStatus,
+                newValue: $newStatus,
+                date: new DateTimeImmutable($date),
+                source: $source,
+                initiator: $initiator,
+            )
         );
     }
 

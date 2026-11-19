@@ -22,9 +22,9 @@ module are changed by the new
    expected status only one changes it.
 
 Every change is written to the new table ``tx_cart_domain_model_order_change``
-with the old and the new value, the date, the source (backend, frontend or
-command line), the backend user, if there is one, and an optional initiator,
-e.g. a payment provider. The order details of the backend module show these
+with the old and the new value, the date, the source (backend, frontend, API
+or command line), the backend user, if there is one, and an optional
+initiator, e.g. a payment provider. The order details of the backend module show these
 changes as order history. The table is generic, other changes of an order can
 be written to it as well. The command ``order:cleanup`` removes the order
 history of the orders it deletes.
