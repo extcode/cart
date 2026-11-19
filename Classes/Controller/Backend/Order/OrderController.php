@@ -68,10 +68,6 @@ class OrderController extends ActionController
      */
     protected array $searchArguments = [];
 
-    protected OrderStatusRegistry $orderStatusRegistry;
-
-    protected OrderHistoryService $orderHistoryService;
-
     private ModuleTemplate $moduleTemplate;
 
     public function __construct(
@@ -80,18 +76,10 @@ class OrderController extends ActionController
         protected readonly PersistenceManager $persistenceManager,
         protected readonly ItemRepository $itemRepository,
         private readonly PageRenderer $pageRenderer,
-        private readonly ComponentFactory $componentFactory
+        private readonly ComponentFactory $componentFactory,
+        protected readonly OrderStatusRegistry $orderStatusRegistry,
+        protected readonly OrderHistoryService $orderHistoryService,
     ) {
-    }
-
-    public function injectOrderStatusRegistry(OrderStatusRegistry $orderStatusRegistry): void
-    {
-        $this->orderStatusRegistry = $orderStatusRegistry;
-    }
-
-    public function injectOrderHistoryService(OrderHistoryService $orderHistoryService): void
-    {
-        $this->orderHistoryService = $orderHistoryService;
     }
 
     public function initializeListAction(): void

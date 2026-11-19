@@ -306,6 +306,7 @@ CREATE TABLE tx_cart_domain_model_order_change (
     crdate int(11) DEFAULT '0' NOT NULL,
     be_user int(11) DEFAULT '0' NOT NULL,
     source varchar(30) DEFAULT '' NOT NULL,
+    initiator varchar(255) DEFAULT '' NOT NULL,
 
     PRIMARY KEY (uid),
     KEY item (item,type),

@@ -15,12 +15,14 @@ use DateTimeImmutable;
 use Extcode\Cart\Configuration\OrderStatus\OrderStatusRegistry;
 use Extcode\Cart\Domain\Model\Order\AbstractService;
 use Extcode\Cart\Domain\Model\Order\Change\OrderChange;
+use Extcode\Cart\Domain\Model\Order\Change\OrderChangeSource;
 use Extcode\Cart\Domain\Model\Order\Change\OrderChangeType;
 use Extcode\Cart\Domain\Model\Order\Payment;
 use Extcode\Cart\Domain\Model\Order\Shipping;
 use Extcode\Cart\Domain\Model\Order\Status\ServiceType;
 use Extcode\Cart\Domain\Repository\Order\OrderChangeRepository;
 use InvalidArgumentException;
+use Psr\Http\Message\ServerRequestInterface;
 use TYPO3\CMS\Core\Context\Context;
 use TYPO3\CMS\Core\Database\Connection;
 use TYPO3\CMS\Core\Database\ConnectionPool;
@@ -48,10 +50,21 @@ final readonly class StatusChangeService
      * not persisted again by Extbase as long as the service is not passed to
      * a repository; the clean state still contains the old status.
      *
-     * @param string $source where the change comes from, e.g. OrderChangeSource::BACKEND
+     * The source (backend, frontend or CLI) is determined from the request,
+     * by default the one in $GLOBALS['TYPO3_REQUEST'].
+     *
+     * @param string $initiator who or what triggered the change if not a backend user, e.g. "cart_paypal" or "erp_sync"
      */
-    public function change(AbstractService $service, string $toStatus, string $fromStatus, string $source): StatusChangeResult
-    {
+    public function change(
+        AbstractService $service,
+        string $toStatus,
+        string $fromStatus,
+        string $initiator = '',
+        ?ServerRequestInterface $request = null
+    ): StatusChangeResult {
+        $request ??= $GLOBALS['TYPO3_REQUEST'] ?? null;
+        $source = OrderChangeSource::fromRequest($request instanceof ServerRequestInterface ? $request : null);
+
         [$serviceType, $changeType] = self::getServiceTypeAndChangeType($service);
         $serviceUid = $service->getUid();
         $orderItemUid = $service->getItem()?->getUid();
@@ -71,7 +84,7 @@ final readonly class StatusChangeService
         $now = $this->getNow();
 
         $result = $connection->transactional(
-            function (Connection $connection) use ($table, $serviceUid, $orderItemUid, $toStatus, $fromStatus, $changeType, $source, $now): StatusChangeResult {
+            function (Connection $connection) use ($table, $serviceUid, $orderItemUid, $toStatus, $fromStatus, $changeType, $source, $initiator, $now): StatusChangeResult {
                 $affectedRows = $connection->update(
                     $table,
                     [
@@ -103,6 +116,7 @@ final readonly class StatusChangeService
                         date: $now,
                         source: $source,
                         backendUser: $this->getBackendUserUid(),
+                        initiator: $initiator,
                     )
                 );
 

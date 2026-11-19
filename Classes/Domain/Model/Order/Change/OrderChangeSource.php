@@ -11,24 +11,38 @@ namespace Extcode\Cart\Domain\Model\Order\Change;
  * LICENSE file that was distributed with this source code.
  */
 
+use Psr\Http\Message\ServerRequestInterface;
+use TYPO3\CMS\Core\Core\Environment;
+use TYPO3\CMS\Core\Http\ApplicationType;
+
 /**
- * Where a change of an order comes from. Other extensions may use their own
- * sources, the source is a plain string.
+ * The TYPO3 entry point a change of an order comes through. It is determined
+ * from the request, who or what triggered the change is the initiator of the
+ * change, e.g. a payment provider.
  */
-final class OrderChangeSource
+enum OrderChangeSource: string
 {
     /**
-     * An editor in the backend, e.g. in the order details of the backend module.
+     * A request in the backend, e.g. an editor in the order details.
      */
-    public const BACKEND = 'backend';
+    case Backend = 'backend';
 
     /**
      * A request in the frontend, e.g. the notification of a payment provider.
      */
-    public const FRONTEND = 'frontend';
+    case Frontend = 'frontend';
 
     /**
      * A command or a scheduler task.
      */
-    public const CLI = 'cli';
+    case Cli = 'cli';
+
+    public static function fromRequest(?ServerRequestInterface $request): self
+    {
+        if ($request !== null && is_int($request->getAttribute('applicationType'))) {
+            return ApplicationType::fromRequest($request)->isFrontend() ? self::Frontend : self::Backend;
+        }
+
+        return Environment::isCli() ? self::Cli : self::Frontend;
+    }
 }

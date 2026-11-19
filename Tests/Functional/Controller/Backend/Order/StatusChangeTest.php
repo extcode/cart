@@ -139,7 +139,18 @@ final class StatusChangeTest extends AbstractOrderStatusTestCase
                 oldValue: PaymentStatus::OPEN,
                 newValue: PaymentStatus::PAID,
                 date: new DateTimeImmutable('2026-11-18 09:15:00'),
-                source: OrderChangeSource::CLI,
+                source: OrderChangeSource::Cli,
+            )
+        );
+        $this->getOrderChangeRepository()->add(
+            new OrderChange(
+                orderItem: 1,
+                type: OrderChangeType::PAYMENT_STATUS,
+                oldValue: PaymentStatus::PAID,
+                newValue: PaymentStatus::CANCELED,
+                date: new DateTimeImmutable('2026-11-18 10:00:00'),
+                source: OrderChangeSource::Frontend,
+                initiator: 'cart_paypal',
             )
         );
         self::submitForm(
@@ -154,7 +165,11 @@ final class StatusChangeTest extends AbstractOrderStatusTestCase
         preg_match_all('/<tr> <td>[^<]*<\/td> <td>([^<]*)<\/td> <td>([^<]*)<\/td> <td>([^<]*)<\/td> <td>([^<]*)<\/td> <\/tr>/', $html, $rowMatches, PREG_SET_ORDER);
         self::assertSame(
             [
+                // a backend user
                 ['Shipping status', 'open', 'in process', 'admin'],
+                // the initiator without backend user
+                ['Payment status', 'paid', 'canceled', 'cart_paypal'],
+                // the source without backend user and initiator
                 ['Payment status', 'open', 'paid', 'Command line'],
             ],
             array_map(static fn (array $match): array => array_slice($match, 1), $rowMatches)

@@ -31,17 +31,11 @@ class OrderController extends ActionController
 
     protected array $pluginSettings;
 
-    protected OrderStatusRegistry $orderStatusRegistry;
-
     public function __construct(
         private readonly Context $context,
-        protected ItemRepository $itemRepository
+        protected ItemRepository $itemRepository,
+        protected readonly OrderStatusRegistry $orderStatusRegistry,
     ) {
-    }
-
-    public function injectOrderStatusRegistry(OrderStatusRegistry $orderStatusRegistry): void
-    {
-        $this->orderStatusRegistry = $orderStatusRegistry;
     }
 
     public function listAction(int $currentPage = 1): ResponseInterface

@@ -15,7 +15,6 @@ use Extcode\Cart\Controller\Backend\ActionController;
 use Extcode\Cart\Domain\Log\LogServiceInterface;
 use Extcode\Cart\Domain\Log\Model\Log;
 use Extcode\Cart\Domain\Model\Order\AbstractService;
-use Extcode\Cart\Domain\Model\Order\Change\OrderChangeSource;
 use Extcode\Cart\Event\Order\UpdateServiceEvent;
 use Extcode\Cart\Service\Order\StatusChangeResult;
 use Extcode\Cart\Service\Order\StatusChangeService;
@@ -47,7 +46,7 @@ abstract class AbstractStatusController extends ActionController
             throw new InvalidArgumentException('Method should only called for persisted orders.', 1774715307);
         }
 
-        $result = $this->statusChangeService->change($service, $status, $fromStatus, OrderChangeSource::BACKEND);
+        $result = $this->statusChangeService->change($service, $status, $fromStatus, request: $this->request);
 
         if ($result === StatusChangeResult::Changed) {
             $this->logService->write(

@@ -134,7 +134,6 @@ provider:
 
 ..  code-block:: php
 
-    use Extcode\Cart\Domain\Model\Order\Change\OrderChangeSource;
     use Extcode\Cart\Domain\Model\Order\Status\PaymentStatus;
     use Extcode\Cart\Service\Order\StatusChangeResult;
     use Extcode\Cart\Service\Order\StatusChangeService;
@@ -143,8 +142,15 @@ provider:
         $orderItem->getPayment(),
         PaymentStatus::PAID,
         $orderItem->getPayment()->getStatus(),
-        OrderChangeSource::FRONTEND
+        initiator: 'my_payment_provider',
+        request: $request
     );
+
+The optional ``initiator`` tells who or what triggered the change if it is not
+a backend user, e.g. your extension, an ERP synchronisation or a scheduler
+task. The source (backend, frontend or command line) is determined from the
+given request, by default from ``$GLOBALS['TYPO3_REQUEST']``; without a request
+on the command line it is ``OrderChangeSource::Cli``.
 
 The service
 
@@ -166,8 +172,10 @@ Order history
 Every change is written to the table ``tx_cart_domain_model_order_change`` and
 shown as order history in the order details of the backend module. A change
 has a type (e.g. ``OrderChangeType::PAYMENT_STATUS``), the old and the new
-value, the date, the source (``OrderChangeSource::BACKEND``, ``FRONTEND`` or
-``CLI``) and the backend user, if there is one.
+value, the date, the source (the enum ``OrderChangeSource``: ``Backend``,
+``Frontend`` or ``Cli``), the backend user, if there is one, and the initiator.
+The history shows the backend user, otherwise the initiator, otherwise the
+source.
 
 The table is not limited to status changes. Your extension can write its own
 changes of an order with

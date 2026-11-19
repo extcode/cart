@@ -32,13 +32,17 @@ final readonly class OrderChange
         public string $newValue,
         public DateTimeImmutable $date,
         /**
-         * E.g. OrderChangeSource::BACKEND.
+         * The TYPO3 entry point, null for an unknown value in the database.
          */
-        public string $source,
+        public ?OrderChangeSource $source,
         /**
          * The uid of the backend user, 0 if there is none, e.g. on the CLI.
          */
         public int $backendUser = 0,
+        /**
+         * Who or what triggered the change if not a backend user, e.g. "cart_paypal" or "erp_sync", empty if unknown.
+         */
+        public string $initiator = '',
         /**
          * What was changed if the type is not enough, e.g. "product:12".
          */

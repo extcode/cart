@@ -22,11 +22,12 @@ module are changed by the new
    expected status only one changes it.
 
 Every change is written to the new table ``tx_cart_domain_model_order_change``
-with the old and the new value, the date, the source and the backend user, if
-there is one. The order details of the backend module show these changes as
-order history. The table is generic, other changes of an order can be written
-to it as well. The command ``order:cleanup`` removes the order history of the
-orders it deletes.
+with the old and the new value, the date, the source (backend, frontend or
+command line), the backend user, if there is one, and an optional initiator,
+e.g. a payment provider. The order details of the backend module show these
+changes as order history. The table is generic, other changes of an order can
+be written to it as well. The command ``order:cleanup`` removes the order
+history of the orders it deletes.
 
 See :ref:`developer-order-status-change`.
 
@@ -47,5 +48,10 @@ argument of the action. Overridden partials have to be adapted.
 instead of the repositories. The event
 ``\Extcode\Cart\Event\Order\UpdateServiceEvent`` is only dispatched if the
 status was changed.
+
+The backend and the frontend ``OrderController`` get the
+``OrderStatusRegistry`` (the backend one also the ``OrderHistoryService``)
+injected by the constructor instead of an inject method. Subclasses which
+override the constructor have to be adapted.
 
 .. index:: Backend, Database

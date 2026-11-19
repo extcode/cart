@@ -13,6 +13,7 @@ namespace Extcode\Cart\Domain\Repository\Order;
 
 use DateTimeImmutable;
 use Extcode\Cart\Domain\Model\Order\Change\OrderChange;
+use Extcode\Cart\Domain\Model\Order\Change\OrderChangeSource;
 use TYPO3\CMS\Core\Database\Connection;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 
@@ -45,7 +46,8 @@ final readonly class OrderChangeRepository
                 'data' => $orderChange->data === [] ? '' : json_encode($orderChange->data, JSON_THROW_ON_ERROR),
                 'crdate' => $orderChange->date->getTimestamp(),
                 'be_user' => $orderChange->backendUser,
-                'source' => $orderChange->source,
+                'source' => $orderChange->source->value ?? '',
+                'initiator' => $orderChange->initiator,
             ],
             [
                 'item' => Connection::PARAM_INT,
@@ -94,8 +96,9 @@ final readonly class OrderChangeRepository
             oldValue: self::toString($row['old_value'] ?? ''),
             newValue: self::toString($row['new_value'] ?? ''),
             date: new DateTimeImmutable('@' . self::toInt($row['crdate'] ?? 0)),
-            source: self::toString($row['source'] ?? ''),
+            source: OrderChangeSource::tryFrom(self::toString($row['source'] ?? '')),
             backendUser: self::toInt($row['be_user'] ?? 0),
+            initiator: self::toString($row['initiator'] ?? ''),
             subject: self::toString($row['subject'] ?? ''),
             data: is_array($data) ? array_filter($data, is_string(...), ARRAY_FILTER_USE_KEY) : [],
             uid: self::toInt($row['uid'] ?? 0),

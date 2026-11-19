@@ -24,9 +24,12 @@ use Extcode\Cart\Service\Order\StatusChangeResult;
 use Extcode\Cart\Service\Order\StatusChangeService;
 use InvalidArgumentException;
 use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 use TYPO3\CMS\Core\Context\Context;
 use TYPO3\CMS\Core\Context\DateTimeAspect;
+use TYPO3\CMS\Core\Core\SystemEnvironmentBuilder;
+use TYPO3\CMS\Core\Http\ServerRequest;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
 use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
@@ -67,7 +70,7 @@ final class StatusChangeServiceTest extends FunctionalTestCase
     {
         $payment = self::getPayment(1);
 
-        $result = $this->subject->change($payment, PaymentStatus::PAID, PaymentStatus::OPEN, OrderChangeSource::BACKEND);
+        $result = $this->subject->change($payment, PaymentStatus::PAID, PaymentStatus::OPEN);
 
         self::assertSame(StatusChangeResult::Changed, $result);
         self::assertSame(PaymentStatus::PAID, $this->getStoredStatus('tx_cart_domain_model_order_payment', 1));
@@ -82,7 +85,8 @@ final class StatusChangeServiceTest extends FunctionalTestCase
                     'new_value' => PaymentStatus::PAID,
                     'crdate' => (new DateTimeImmutable(self::NOW))->getTimestamp(),
                     'be_user' => 0,
-                    'source' => OrderChangeSource::BACKEND,
+                    'source' => OrderChangeSource::Cli->value,
+                    'initiator' => '',
                 ],
             ],
             $this->getStoredOrderChanges()
@@ -95,8 +99,7 @@ final class StatusChangeServiceTest extends FunctionalTestCase
         $result = $this->subject->change(
             self::getShipping(1),
             ShippingStatus::SHIPPED,
-            ShippingStatus::OPEN,
-            OrderChangeSource::BACKEND
+            ShippingStatus::OPEN
         );
 
         self::assertSame(StatusChangeResult::Changed, $result);
@@ -110,15 +113,78 @@ final class StatusChangeServiceTest extends FunctionalTestCase
     {
         $this->setUpBackendUser(1);
 
-        $this->subject->change(self::getPayment(1), PaymentStatus::PAID, PaymentStatus::OPEN, OrderChangeSource::BACKEND);
+        $this->subject->change(self::getPayment(1), PaymentStatus::PAID, PaymentStatus::OPEN);
 
         self::assertSame(1, $this->getStoredOrderChanges()[0]['be_user'] ?? null);
+    }
+
+    /**
+     * @param null|int $applicationType null for a request without application type, e.g. of a command
+     */
+    #[DataProvider('sourceDataProvider')]
+    #[Test]
+    public function changeWritesTheSourceOfTheRequestToTheOrderHistory(?int $applicationType, OrderChangeSource $expectedSource): void
+    {
+        $request = new ServerRequest('https://localhost/');
+        if ($applicationType !== null) {
+            $request = $request->withAttribute('applicationType', $applicationType);
+        }
+
+        $this->subject->change(self::getPayment(1), PaymentStatus::PAID, PaymentStatus::OPEN, request: $request);
+
+        self::assertSame($expectedSource->value, $this->getStoredOrderChanges()[0]['source'] ?? null);
+    }
+
+    /**
+     * @return iterable<string, array{applicationType: null|int, expectedSource: OrderChangeSource}>
+     */
+    public static function sourceDataProvider(): iterable
+    {
+        yield 'backend request' => [
+            'applicationType' => SystemEnvironmentBuilder::REQUESTTYPE_BE,
+            'expectedSource' => OrderChangeSource::Backend,
+        ];
+        yield 'frontend request' => [
+            'applicationType' => SystemEnvironmentBuilder::REQUESTTYPE_FE,
+            'expectedSource' => OrderChangeSource::Frontend,
+        ];
+        yield 'command line without application type' => [
+            'applicationType' => null,
+            'expectedSource' => OrderChangeSource::Cli,
+        ];
+    }
+
+    #[Test]
+    public function changeWritesTheSourceOfTheGlobalRequestIfNoRequestIsGiven(): void
+    {
+        // loaded before with its order, Extbase would need the TypoScript of the frontend request otherwise
+        $payment = self::getPayment(1);
+        self::assertSame(1, $payment->getItem()?->getUid());
+        $GLOBALS['TYPO3_REQUEST'] = (new ServerRequest('https://localhost/'))
+            ->withAttribute('applicationType', SystemEnvironmentBuilder::REQUESTTYPE_FE)
+        ;
+
+        try {
+            $this->subject->change($payment, PaymentStatus::PAID, PaymentStatus::OPEN);
+        } finally {
+            unset($GLOBALS['TYPO3_REQUEST']);
+        }
+
+        self::assertSame(OrderChangeSource::Frontend->value, $this->getStoredOrderChanges()[0]['source'] ?? null);
+    }
+
+    #[Test]
+    public function changeWritesTheInitiatorToTheOrderHistory(): void
+    {
+        $this->subject->change(self::getPayment(1), PaymentStatus::PAID, PaymentStatus::OPEN, 'cart_paypal');
+
+        self::assertSame('cart_paypal', $this->getStoredOrderChanges()[0]['initiator'] ?? null);
     }
 
     #[Test]
     public function changeDoesNothingIfTheStatusIsNotChanged(): void
     {
-        $result = $this->subject->change(self::getPayment(1), PaymentStatus::OPEN, PaymentStatus::OPEN, OrderChangeSource::BACKEND);
+        $result = $this->subject->change(self::getPayment(1), PaymentStatus::OPEN, PaymentStatus::OPEN);
 
         self::assertSame(StatusChangeResult::Unchanged, $result);
         self::assertSame(PaymentStatus::OPEN, $this->getStoredStatus('tx_cart_domain_model_order_payment', 1));
@@ -130,7 +196,7 @@ final class StatusChangeServiceTest extends FunctionalTestCase
     {
         $payment = self::getPayment(1);
 
-        $result = $this->subject->change($payment, 'not_registered', PaymentStatus::OPEN, OrderChangeSource::BACKEND);
+        $result = $this->subject->change($payment, 'not_registered', PaymentStatus::OPEN);
 
         self::assertSame(StatusChangeResult::UnknownStatus, $result);
         self::assertSame(PaymentStatus::OPEN, $this->getStoredStatus('tx_cart_domain_model_order_payment', 1));
@@ -144,7 +210,7 @@ final class StatusChangeServiceTest extends FunctionalTestCase
         // e.g. changed in another tab
         $this->setStoredStatus('tx_cart_domain_model_order_payment', 1, PaymentStatus::PENDING);
 
-        $result = $this->subject->change(self::getPayment(1), PaymentStatus::PAID, PaymentStatus::OPEN, OrderChangeSource::BACKEND);
+        $result = $this->subject->change(self::getPayment(1), PaymentStatus::PAID, PaymentStatus::OPEN);
 
         self::assertSame(StatusChangeResult::Stale, $result);
         self::assertSame(PaymentStatus::PENDING, $this->getStoredStatus('tx_cart_domain_model_order_payment', 1));
@@ -155,9 +221,9 @@ final class StatusChangeServiceTest extends FunctionalTestCase
     public function changeChangesTheStatusOnlyOnceForTheSameExpectedStatus(): void
     {
         // e.g. a form submitted twice
-        $first = $this->subject->change(self::getPayment(1), PaymentStatus::PAID, PaymentStatus::OPEN, OrderChangeSource::BACKEND);
-        $second = $this->subject->change(self::getPayment(1), PaymentStatus::CANCELED, PaymentStatus::OPEN, OrderChangeSource::BACKEND);
-        $third = $this->subject->change(self::getPayment(1), PaymentStatus::PAID, PaymentStatus::OPEN, OrderChangeSource::BACKEND);
+        $first = $this->subject->change(self::getPayment(1), PaymentStatus::PAID, PaymentStatus::OPEN);
+        $second = $this->subject->change(self::getPayment(1), PaymentStatus::CANCELED, PaymentStatus::OPEN);
+        $third = $this->subject->change(self::getPayment(1), PaymentStatus::PAID, PaymentStatus::OPEN);
 
         self::assertSame(StatusChangeResult::Changed, $first);
         self::assertSame(StatusChangeResult::Stale, $second, 'Another status must not overwrite the changed status.');
@@ -173,7 +239,7 @@ final class StatusChangeServiceTest extends FunctionalTestCase
             new InvalidArgumentException('The status can only be changed for persisted orders.', 1795089001)
         );
 
-        $this->subject->change(new Payment(), PaymentStatus::PAID, PaymentStatus::OPEN, OrderChangeSource::BACKEND);
+        $this->subject->change(new Payment(), PaymentStatus::PAID, PaymentStatus::OPEN);
     }
 
     private static function getPayment(int $uid): Payment
@@ -219,7 +285,7 @@ final class StatusChangeServiceTest extends FunctionalTestCase
         $table = 'tx_cart_domain_model_order_change';
 
         return $this->getConnectionPool()->getConnectionForTable($table)
-            ->select(['item', 'type', 'subject', 'old_value', 'new_value', 'crdate', 'be_user', 'source'], $table, [], [], ['uid' => 'ASC'])
+            ->select(['item', 'type', 'subject', 'old_value', 'new_value', 'crdate', 'be_user', 'source', 'initiator'], $table, [], [], ['uid' => 'ASC'])
             ->fetchAllAssociative()
         ;
     }
