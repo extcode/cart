@@ -11,6 +11,12 @@ namespace Extcode\Cart\Domain\Model\Order;
  * LICENSE file that was distributed with this source code.
  */
 
+use Extcode\Cart\Domain\Model\Order\Status\ShippingStatus;
+
 class Shipping extends AbstractService
 {
+    public function __construct()
+    {
+        $this->status = ShippingStatus::OPEN;
+    }
 }

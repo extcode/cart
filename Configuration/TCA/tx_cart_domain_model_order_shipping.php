@@ -2,6 +2,9 @@
 
 declare(strict_types=1);
 
+use Extcode\Cart\Domain\Model\Order\Status\ServiceType;
+use Extcode\Cart\Hooks\OrderStatusItemsProcFunc;
+
 defined('TYPO3') or die();
 
 $_LLL = 'LLL:EXT:cart/Resources/Private/Language/locallang_db.xlf';
@@ -75,11 +78,10 @@ return [
             'config' => [
                 'type' => 'select',
                 'renderType' => 'selectSingle',
-                'items' => [
-                    ['label' => $_LLL . ':tx_cart_domain_model_order_shipping.status.open', 'value' => 'open'],
-                    ['label' => $_LLL . ':tx_cart_domain_model_order_shipping.status.on_hold', 'value' => 'on_hold'],
-                    ['label' => $_LLL . ':tx_cart_domain_model_order_shipping.status.in_process', 'value' => 'in_process'],
-                    ['label' => $_LLL . ':tx_cart_domain_model_order_shipping.status.shipped', 'value' => 'shipped'],
+                'items' => [],
+                'itemsProcFunc' => OrderStatusItemsProcFunc::class . '->addItems',
+                'itemsProcConfig' => [
+                    'serviceType' => ServiceType::Shipping->value,
                 ],
                 'size' => 1,
                 'maxitems' => 1,

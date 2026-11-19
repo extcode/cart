@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Extcode\Cart\Configuration\Backend\Widgets\Provider;
 
+use Extcode\Cart\Domain\Model\Order\Status\PaymentStatus;
 use Extcode\Cart\Widgets\Provider\TurnoverPerDayProvider;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
@@ -16,7 +17,7 @@ return static function (ContainerConfigurator $configurator): void {
         ->arg('$options', [
             'filter' => [
                 'payment' => [
-                    'status' => ['open', 'pending', 'paid'],
+                    'status' => [PaymentStatus::OPEN, PaymentStatus::PENDING, PaymentStatus::PAID],
                 ],
             ],
             'sum' => 'total_gross',

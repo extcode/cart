@@ -11,9 +11,11 @@ namespace Extcode\Cart\Controller\Backend\Order;
  * LICENSE file that was distributed with this source code.
  */
 
+use Extcode\Cart\Configuration\OrderStatus\OrderStatusRegistry;
 use Extcode\Cart\Controller\Backend\ActionController;
 use Extcode\Cart\Domain\Model\Cart\Cart;
 use Extcode\Cart\Domain\Model\Order\Item;
+use Extcode\Cart\Domain\Model\Order\Status\ServiceType;
 use Extcode\Cart\Domain\Repository\Order\ItemRepository;
 use Extcode\Cart\Event\Order\ExportEvent;
 use Extcode\Cart\Event\Order\NumberGeneratorEvent;
@@ -65,6 +67,8 @@ class OrderController extends ActionController
      */
     protected array $searchArguments = [];
 
+    protected OrderStatusRegistry $orderStatusRegistry;
+
     private ModuleTemplate $moduleTemplate;
 
     public function __construct(
@@ -75,6 +79,11 @@ class OrderController extends ActionController
         private readonly PageRenderer $pageRenderer,
         private readonly ComponentFactory $componentFactory
     ) {
+    }
+
+    public function injectOrderStatusRegistry(OrderStatusRegistry $orderStatusRegistry): void
+    {
+        $this->orderStatusRegistry = $orderStatusRegistry;
     }
 
     public function initializeListAction(): void
@@ -156,25 +165,14 @@ class OrderController extends ActionController
         $this->moduleTemplate->assign('settings', $this->settings);
         $this->moduleTemplate->assign('orderItem', $orderItem);
 
-        $paymentStatusOptions = [];
-        $items = $GLOBALS['TCA']['tx_cart_domain_model_order_payment']['columns']['status']['config']['items'];
-        foreach ($items as $item) {
-            $paymentStatusOptions[$item['value']] = LocalizationUtility::translate(
-                $item['label'],
-                'Cart'
-            );
-        }
-        $this->moduleTemplate->assign('paymentStatusOptions', $paymentStatusOptions);
-
-        $shippingStatusOptions = [];
-        $items = $GLOBALS['TCA']['tx_cart_domain_model_order_shipping']['columns']['status']['config']['items'];
-        foreach ($items as $item) {
-            $shippingStatusOptions[$item['value']] = LocalizationUtility::translate(
-                $item['label'],
-                'Cart'
-            );
-        }
-        $this->moduleTemplate->assign('shippingStatusOptions', $shippingStatusOptions);
+        $this->moduleTemplate->assign(
+            'paymentStatusOptions',
+            $this->orderStatusRegistry->getLocalizedLabels(ServiceType::Payment, $orderItem->getPayment()?->getStatus())
+        );
+        $this->moduleTemplate->assign(
+            'shippingStatusOptions',
+            $this->orderStatusRegistry->getLocalizedLabels(ServiceType::Shipping, $orderItem->getShipping()?->getStatus())
+        );
 
         $pdfRendererInstalled = ExtensionManagementUtility::isLoaded('cart_pdf');
         $this->moduleTemplate->assign('pdfRendererInstalled', $pdfRendererInstalled);
@@ -248,14 +246,10 @@ class OrderController extends ActionController
         );
         $paymentStatusArray[] = $paymentStatus;
 
-        $entries = ['open', 'pending', 'paid', 'canceled'];
-        foreach ($entries as $entry) {
+        foreach ($this->orderStatusRegistry->getLocalizedLabels(ServiceType::Payment) as $identifier => $label) {
             $paymentStatus = new stdClass();
-            $paymentStatus->key = $entry;
-            $paymentStatus->value = LocalizationUtility::translate(
-                'tx_cart_domain_model_order_payment.status.' . $entry,
-                'Cart'
-            );
+            $paymentStatus->key = $identifier;
+            $paymentStatus->value = $label;
             $paymentStatusArray[] = $paymentStatus;
         }
 
@@ -274,14 +268,10 @@ class OrderController extends ActionController
         );
         $shippingStatusArray[] = $shippingStatus;
 
-        $entries = ['open', 'on_hold', 'in_process', 'shipped'];
-        foreach ($entries as $entry) {
+        foreach ($this->orderStatusRegistry->getLocalizedLabels(ServiceType::Shipping) as $identifier => $label) {
             $shippingStatus = new stdClass();
-            $shippingStatus->key = $entry;
-            $shippingStatus->value = LocalizationUtility::translate(
-                'tx_cart_domain_model_order_shipping.status.' . $entry,
-                'Cart'
-            );
+            $shippingStatus->key = $identifier;
+            $shippingStatus->value = $label;
             $shippingStatusArray[] = $shippingStatus;
         }
 

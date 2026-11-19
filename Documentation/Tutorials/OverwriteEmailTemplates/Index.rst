@@ -31,3 +31,28 @@ which is used when sending an email to the customer (=buyer) when the order is n
        └── Mail
            └── Open
                └── Buyer.html
+
+.. _overwrite-email-templates-status:
+
+Templates per payment status
+============================
+
+The template of the emails to the buyer and the seller is chosen by the payment
+status of the order when the order is finished: the identifier of the status
+with an upper case first letter is used as directory, e.g. `Mail/Paid/Buyer.html`
+for the status `paid`. EXT:cart ships templates for the status `open` and
+`paid` only.
+
+If an extension registers an own payment status (see
+:ref:`developer-order-status`) and the order can have this status when it is
+finished, e.g. set by a payment provider, add the templates for it as well,
+e.g. for the status `authorized`:
+
+.. code-block:: text
+   :caption: Treeview under EXT:my_extension/Resources/Private
+
+   └── Templates
+       └── Mail
+           └── Authorized
+               ├── Buyer.html
+               └── Seller.html

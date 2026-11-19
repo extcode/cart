@@ -12,6 +12,7 @@ namespace Extcode\Cart\Tests\Unit\Domain\Model\Order;
  */
 
 use Extcode\Cart\Domain\Model\Order\Shipping;
+use Extcode\Cart\Domain\Model\Order\Status\ShippingStatus;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Test;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
@@ -49,10 +50,10 @@ class ShippingTest extends UnitTestCase
     }
 
     #[Test]
-    public function getStatusInitiallyReturnsEmptyString(): void
+    public function getStatusInitiallyReturnsOpen(): void
     {
         self::assertSame(
-            'open',
+            ShippingStatus::OPEN,
             $this->shipping->getStatus()
         );
     }
@@ -60,10 +61,10 @@ class ShippingTest extends UnitTestCase
     #[Test]
     public function setStatusSetsStatus(): void
     {
-        $this->shipping->setStatus('shipped');
+        $this->shipping->setStatus(ShippingStatus::SHIPPED);
 
         self::assertSame(
-            'shipped',
+            ShippingStatus::SHIPPED,
             $this->shipping->getStatus()
         );
     }

@@ -2,6 +2,9 @@
 
 declare(strict_types=1);
 
+use Extcode\Cart\Domain\Model\Order\Status\ServiceType;
+use Extcode\Cart\Hooks\OrderStatusItemsProcFunc;
+
 defined('TYPO3') or die();
 
 $_LLL = 'LLL:EXT:cart/Resources/Private/Language/locallang_db.xlf';
@@ -85,11 +88,10 @@ return [
             'config' => [
                 'type' => 'select',
                 'renderType' => 'selectSingle',
-                'items' => [
-                    ['label' => $_LLL . ':tx_cart_domain_model_order_payment.status.open', 'value' => 'open'],
-                    ['label' => $_LLL . ':tx_cart_domain_model_order_payment.status.pending', 'value' => 'pending'],
-                    ['label' => $_LLL . ':tx_cart_domain_model_order_payment.status.paid', 'value' => 'paid'],
-                    ['label' => $_LLL . ':tx_cart_domain_model_order_payment.status.canceled', 'value' => 'canceled'],
+                'items' => [],
+                'itemsProcFunc' => OrderStatusItemsProcFunc::class . '->addItems',
+                'itemsProcConfig' => [
+                    'serviceType' => ServiceType::Payment->value,
                 ],
                 'size' => 1,
                 'maxitems' => 1,

@@ -128,7 +128,7 @@ class AbstractServiceTest extends UnitTestCase
     public function getStatusInitiallyReturnsEmptyString(): void
     {
         self::assertSame(
-            'open',
+            '',
             $this->service->getStatus()
         );
     }

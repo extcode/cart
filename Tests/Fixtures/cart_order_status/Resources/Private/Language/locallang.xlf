@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file source-language="en" datatype="plaintext" original="EXT:cart_order_status/Resources/Private/Language/locallang.xlf">
+        <body>
+            <trans-unit id="payment.status.new">
+                <source>New</source>
+            </trans-unit>
+            <trans-unit id="payment.status.refunded">
+                <source>Refunded</source>
+            </trans-unit>
+            <trans-unit id="payment.status.chargeback">
+                <source>Chargeback</source>
+            </trans-unit>
+            <trans-unit id="shipping.status.ordered">
+                <source>Ordered</source>
+            </trans-unit>
+            <trans-unit id="shipping.status.packed">
+                <source>Packed</source>
+            </trans-unit>
+            <trans-unit id="shipping.status.delivered">
+                <source>Delivered</source>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

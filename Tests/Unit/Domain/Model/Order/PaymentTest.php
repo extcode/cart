@@ -12,6 +12,7 @@ namespace Extcode\Cart\Tests\Unit\Domain\Model\Order;
  */
 
 use Extcode\Cart\Domain\Model\Order\Payment;
+use Extcode\Cart\Domain\Model\Order\Status\PaymentStatus;
 use Extcode\Cart\Domain\Model\Order\Transaction;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Test;
@@ -28,6 +29,15 @@ class PaymentTest extends UnitTestCase
         $this->payment = new Payment();
 
         parent::setUp();
+    }
+
+    #[Test]
+    public function getStatusInitiallyReturnsOpen(): void
+    {
+        self::assertSame(
+            PaymentStatus::OPEN,
+            $this->payment->getStatus()
+        );
     }
 
     #[Test]

@@ -18,24 +18,18 @@ use Extcode\Cart\Event\Order\ExportEvent;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 use Psr\Http\Message\ResponseInterface;
-use Psr\Http\Message\ServerRequestInterface;
-use Psr\Http\Server\RequestHandlerInterface;
 use RuntimeException;
 use Symfony\Component\DependencyInjection\Container;
-use TYPO3\CMS\Backend\Middleware\BackendModuleValidator;
-use TYPO3\CMS\Backend\Routing\Router;
-use TYPO3\CMS\Core\Core\SystemEnvironmentBuilder;
 use TYPO3\CMS\Core\EventDispatcher\ListenerProvider;
-use TYPO3\CMS\Core\Http\NormalizedParams;
 use TYPO3\CMS\Core\Http\Response;
-use TYPO3\CMS\Core\Http\ServerRequest;
 use TYPO3\CMS\Core\Localization\LanguageServiceFactory;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Core\Bootstrap;
 use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
 
 class OrderControllerTest extends FunctionalTestCase
 {
+    use BackendModuleTrait;
+
     use TestingFramework;
 
     /**
@@ -606,50 +600,6 @@ class OrderControllerTest extends FunctionalTestCase
         }
 
         return self::dispatchRequestWithQueryParameters($queryParameters);
-    }
-
-    /**
-     * @param array<array-key, mixed> $queryParameters
-     */
-    private static function dispatchRequestWithQueryParameters(array $queryParameters, string $routeIdentifier = 'cart_cart_orders'): ResponseInterface
-    {
-        $request = self::buildRequest($queryParameters, $routeIdentifier);
-
-        // the middleware adds the module data to the request and saves the search arguments of the filter form
-        return GeneralUtility::makeInstance(BackendModuleValidator::class)->process(
-            $request,
-            new class implements RequestHandlerInterface {
-                public function handle(ServerRequestInterface $request): ResponseInterface
-                {
-                    $GLOBALS['TYPO3_REQUEST'] = $request;
-
-                    return GeneralUtility::makeInstance(Bootstrap::class)->handleBackendRequest($request);
-                }
-            }
-        );
-    }
-
-    /**
-     * @param array<array-key, mixed> $queryParameters
-     */
-    private static function buildRequest(array $queryParameters, string $routeIdentifier): ServerRequestInterface
-    {
-        $route = GeneralUtility::makeInstance(Router::class)->getRoute($routeIdentifier);
-        self::assertNotNull($route, 'The route ' . $routeIdentifier . ' of the backend module is not registered.');
-
-        $queryParameters['route'] = $route->getPath();
-
-        $request = (new ServerRequest(
-            'https://localhost/typo3' . $route->getPath() . '?' . http_build_query($queryParameters),
-            'GET'
-        ))
-            ->withAttribute('applicationType', SystemEnvironmentBuilder::REQUESTTYPE_BE)
-            ->withAttribute('route', $route)
-            ->withAttribute('module', $route->getOption('module'))
-            ->withQueryParams($queryParameters)
-        ;
-
-        return $request->withAttribute('normalizedParams', NormalizedParams::createFromRequest($request));
     }
 
     /**
