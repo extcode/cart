@@ -20,32 +20,31 @@ final readonly class TaxClassFactory implements TaxClassFactoryInterface
     ) {
     }
 
+    /**
+     * @param array<array-key, mixed> $taxClassValue the configuration with "value", "calc" and "name", strings of
+     *                                               TypoScript or typed values of site settings (e.g. "value: 19")
+     */
     public function getTaxClass(int $taxClassKey, array $taxClassValue): ?TaxClass
     {
-        if ($this->isValidTaxClassConfig($taxClassKey, $taxClassValue)) {
-            return new TaxClass(
-                $taxClassKey,
-                $taxClassValue['value'],
-                (float) $taxClassValue['calc'],
-                $taxClassValue['name']
-            );
-        }
+        $value = $taxClassValue['value'] ?? null;
+        $calc = $taxClassValue['calc'] ?? null;
+        $name = $taxClassValue['name'] ?? null;
 
-        return null;
-    }
-
-    private function isValidTaxClassConfig(int $key, array $value): bool
-    {
-        if (empty($value)
-            || empty($value['name'])
-            || !isset($value['calc'])
-            || !is_numeric($value['calc'])
+        if (!is_scalar($value)
+            || !is_numeric($calc)
+            || !is_scalar($name)
+            || empty($name)
         ) {
-            $this->logger->error('Can\'t create tax class object for the configuration with the index=' . $key . '.', []);
+            $this->logger->error('Can\'t create tax class object for the configuration with the index=' . $taxClassKey . '.', []);
 
-            return false;
+            return null;
         }
 
-        return true;
+        return new TaxClass(
+            $taxClassKey,
+            (string) $value,
+            (float) $calc,
+            (string) $name
+        );
     }
 }

@@ -17,6 +17,7 @@ use Extcode\Cart\Domain\Model\Cart\TaxClassFactoryInterface;
 use Extcode\Cart\Domain\Model\Cart\TaxClassInterface;
 use Extcode\Cart\Utility\Typo3GlobalsUtility;
 use TYPO3\CMS\Core\Site\Entity\Site;
+use TYPO3\CMS\Core\Utility\ArrayUtility;
 
 final readonly class TaxClassLoader implements TaxClassLoaderInterface
 {
@@ -35,14 +36,11 @@ final readonly class TaxClassLoader implements TaxClassLoaderInterface
     {
         $taxClasses = [];
 
-        $configuration = $this->site->getSettings()->getAll();
-        if (is_array($configuration['extcode']) === false
-            || is_array($configuration['extcode']['taxclasses']) === false
-        ) {
+        $taxClassSettings = $this->getTaxClassSettings();
+        if ($taxClassSettings === null) {
             return [];
         }
 
-        $taxClassSettings = $configuration['extcode']['taxclasses'];
         if (
             is_string($countryCode)
                 && array_key_exists($countryCode, $taxClassSettings)
@@ -67,6 +65,52 @@ final readonly class TaxClassLoader implements TaxClassLoaderInterface
             }
         }
 
+        // the site settings do not keep the order of the keys, e.g. 3, 2, 1
+        ksort($taxClasses);
+
         return $taxClasses;
+    }
+
+    /**
+     * @return null|array<array-key, mixed> the tax classes of extcode.cart.taxClasses, null if there are none
+     */
+    private function getTaxClassSettings(): ?array
+    {
+        $configuration = $this->site->getSettings()->getAll();
+
+        $taxClassSettings = self::getArrayByPath($configuration, 'extcode.cart.taxClasses');
+        if ($taxClassSettings !== null) {
+            return $taxClassSettings;
+        }
+
+        // TODO: 13.0.0 Remove the fallback to extcode.taxclasses, see Deprecation #847.
+        $taxClassSettings = self::getArrayByPath($configuration, 'extcode.taxclasses');
+        if ($taxClassSettings !== null) {
+            trigger_error(
+                'The site setting "extcode.taxclasses" is deprecated since cart 12.4 and will stop working in cart 13.0.'
+                . ' Use "extcode.cart.taxClasses" instead.',
+                E_USER_DEPRECATED
+            );
+
+            return $taxClassSettings;
+        }
+
+        return null;
+    }
+
+    /**
+     * @param array<array-key, mixed> $settings the site settings as tree
+     * @param string $path e.g. "extcode.cart.taxClasses"
+     *
+     * @return null|array<array-key, mixed> null if the path does not exist or is no array
+     */
+    private static function getArrayByPath(array $settings, string $path): ?array
+    {
+        if (!ArrayUtility::isValidPath($settings, $path, '.')) {
+            return null;
+        }
+        $value = ArrayUtility::getValueByPath($settings, $path, '.');
+
+        return is_array($value) ? $value : null;
     }
 }
