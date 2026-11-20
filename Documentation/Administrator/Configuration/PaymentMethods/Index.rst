@@ -263,3 +263,29 @@ In this case the selection block for the payment can be hidden.
 
 See :ref:`plugin.tx_cart.settings.showCartAction.showPartials.paymentMethodForm <plugin_tx_cart_settings_showCartAction_showPartials_paymentMethodForm>`
 
+
+Site set
+========
+
+Instead of TypoScript, the payment methods can be configured in the site settings
+``extcode.cart.payments`` of the site set ``extcode/cart-payments``, see
+:ref:`configuration-site-sets`. The keys are the same as in TypoScript,
+including the zones. The site set provides the following configuration:
+
+.. code-block:: yaml
+   :caption: EXT:cart/Configuration/Sets/Payments/settings.yaml
+
+   extcode:
+     cart:
+       payments:
+         countries:
+           de: &de
+             preset: 1
+             options:
+               1:
+                 title: 'Vorkasse'
+                 extra: 0.0
+                 taxClassId: 1
+                 status: 'open'
+           at: *de
+           ch: *de

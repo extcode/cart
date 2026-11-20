@@ -280,3 +280,29 @@ See :ref:`plugin.tx_cart.settings.showCartAction.showPartials.shippingMethodForm
    :titlesonly:
 
    FlexiblePricesForShipping/Index
+
+Site set
+========
+
+Instead of TypoScript, the shipping methods can be configured in the site settings
+``extcode.cart.shippings`` of the site set ``extcode/cart-shippings``, see
+:ref:`configuration-site-sets`. The keys are the same as in TypoScript,
+including the zones. The site set provides the following configuration:
+
+.. code-block:: yaml
+   :caption: EXT:cart/Configuration/Sets/Shippings/settings.yaml
+
+   extcode:
+     cart:
+       shippings:
+         countries:
+           de: &de
+             preset: 1
+             options:
+               1:
+                 title: 'Standard'
+                 extra: 7.95
+                 taxClassId: 1
+                 status: 'open'
+           at: *de
+           ch: *de
