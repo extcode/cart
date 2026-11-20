@@ -10,6 +10,7 @@ namespace Extcode\Cart\Controller\Cart;
  * For the full copyright and license information, please read the
  * LICENSE file that was distributed with this source code.
  */
+use Extcode\Cart\Domain\Model\Cart\ServiceInterface;
 use Extcode\Cart\Domain\Model\Order\BillingAddress;
 use Extcode\Cart\Domain\Model\Order\Item;
 use Extcode\Cart\Domain\Model\Order\ShippingAddress;
@@ -23,6 +24,7 @@ use Extcode\Cart\Event\ProcessOrderCheckStockEvent;
 use Extcode\Cart\Validation\Validator\EmptyValidator;
 use Psr\EventDispatcher\StoppableEventInterface;
 use Psr\Http\Message\ResponseInterface;
+use TYPO3\CMS\Core\Utility\ArrayUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Annotation\IgnoreValidation;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
@@ -33,6 +35,25 @@ use TYPO3\CMS\Extbase\Validation\ValidatorResolver;
 
 class OrderController extends ActionController
 {
+    /**
+     * @return string|null the URL of "redirects.success.url" of the payment method of the cart, null without
+     */
+    private function getSuccessRedirectUrl(): ?string
+    {
+        $paymentMethods = $this->paymentMethodsService->getPaymentMethods($this->cart);
+        $paymentMethod = $paymentMethods[$this->cart->getPayment()->getId()] ?? null;
+        if (!$paymentMethod instanceof ServiceInterface) {
+            return null;
+        }
+
+        $config = $paymentMethod->getConfig();
+        $url = ArrayUtility::isValidPath($config, 'redirects/success/url')
+            ? ArrayUtility::getValueByPath($config, 'redirects/success/url')
+            : null;
+
+        return is_string($url) && trim($url) !== '' ? trim($url) : null;
+    }
+
     protected function getErrorFlashMessage(): bool|string
     {
         return LocalizationUtility::translate(
@@ -121,11 +142,9 @@ class OrderController extends ActionController
         $this->view->assign('cart', $this->cart);
         $this->view->assign('orderItem', $orderItem);
 
-        $paymentId = $this->cart->getPayment()->getId();
-        $paymentSettings = $this->paymentMethodsService->getConfigurationsForType('payments', $this->cart->getBillingCountry());
-
-        if (isset($paymentSettings['options'][$paymentId]['redirects']['success']['url'])) {
-            $this->redirectToUri($paymentSettings['options'][$paymentId]['redirects']['success']['url'], 0, 200);
+        $successRedirectUrl = $this->getSuccessRedirectUrl();
+        if ($successRedirectUrl !== null) {
+            return $this->redirectToUri($successRedirectUrl);
         }
 
         $this->dispatchModifyViewEvent();
