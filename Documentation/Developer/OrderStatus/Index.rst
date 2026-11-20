@@ -287,6 +287,12 @@ changes of an order with
 ``\Extcode\Cart\OrderHistory\OrderChangeRepository::add()``, using
 an own type, a subject (e.g. ``product:12``) and details in ``data``.
 
+.. WARNING::
+   The order history is new and its structure may still change in minor
+   versions. If a change cannot be migrated, the existing entries of
+   ``tx_cart_domain_model_order_change`` may have to be removed. Do not rely
+   on the order history as the only record of status changes yet.
+
 Emails
 ======
 
