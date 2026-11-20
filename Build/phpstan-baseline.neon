@@ -1,11 +1,6 @@
 parameters:
 	ignoreErrors:
 		-
-			message: "#^Call to an undefined method Extcode\\\\Cart\\\\Service\\\\PaymentMethodsServiceInterface\\:\\:getConfigurationsForType\\(\\)\\.$#"
-			count: 1
-			path: ../Classes/Controller/Cart/OrderController.php
-
-		-
 			message: "#^Call to an undefined method Extcode\\\\Cart\\\\Domain\\\\Model\\\\Cart\\\\CartCouponInterface\\:\\:getTaxClass\\(\\)\\.$#"
 			count: 2
 			path: ../Classes/Domain/Model/Cart/Cart.php
