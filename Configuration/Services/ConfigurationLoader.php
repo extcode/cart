@@ -2,12 +2,14 @@
 
 declare(strict_types=1);
 
+use Extcode\Cart\Configuration\Loader\MailConfigurationLoaderInterface;
 use Extcode\Cart\Configuration\Loader\PaymentMethodsLoaderInterface;
 use Extcode\Cart\Configuration\Loader\ShippingMethodsLoaderInterface;
 use Extcode\Cart\Configuration\Loader\SiteSets\PaymentMethodsLoader as SiteSetsPaymentMethodsLoader;
 use Extcode\Cart\Configuration\Loader\SiteSets\ShippingMethodsLoader as SiteSetsShippingMethodsLoader;
 use Extcode\Cart\Configuration\Loader\SiteSets\TaxClassLoader as SiteSetsTaxClassLoader;
 use Extcode\Cart\Configuration\Loader\TaxClassLoaderInterface;
+use Extcode\Cart\Configuration\Loader\TypoScript\MailConfigurationLoader as TypoScriptMailConfigurationLoader;
 use Extcode\Cart\Configuration\Loader\TypoScript\PaymentMethodsLoader as TypoScriptPaymentMethodsLoader;
 use Extcode\Cart\Configuration\Loader\TypoScript\ShippingMethodsLoader as TypoScriptShippingMethodsLoader;
 use Extcode\Cart\Configuration\Loader\TypoScript\SpecialOptionsLoader;
@@ -78,6 +80,19 @@ return static function (ContainerConfigurator $containerConfigurator): void {
 
     $services
         ->set(TypoScriptTaxClassLoader::class)
+        ->public()
+    ;
+
+    $services
+        ->alias(
+            MailConfigurationLoaderInterface::class,
+            TypoScriptMailConfigurationLoader::class
+        )
+        ->public()
+    ;
+
+    $services
+        ->set(TypoScriptMailConfigurationLoader::class)
         ->public()
     ;
 };

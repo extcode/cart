@@ -11,23 +11,30 @@ namespace Extcode\Cart\Service;
  * LICENSE file that was distributed with this source code.
  */
 
-use Exception;
 use Extcode\Cart\Domain\Log\LogServiceInterface;
 use Extcode\Cart\Domain\Log\Model\Log;
 use Extcode\Cart\Domain\Model\Cart\Cart;
 use Extcode\Cart\Domain\Model\Order\AddressInterface;
 use Extcode\Cart\Domain\Model\Order\Item;
 use Extcode\Cart\Event\Mail\AttachmentEvent;
+use Extcode\Cart\EventListener\Order\Finish\Email;
+use Extcode\Cart\Mail\BuyerMailConfiguration;
+use Extcode\Cart\Mail\InvalidMailConfigurationException;
+use Extcode\Cart\Mail\OrderMailSender;
+use Extcode\Cart\Mail\SellerMailConfiguration;
 use InvalidArgumentException;
 use Psr\EventDispatcher\EventDispatcherInterface;
-use Psr\Http\Message\ServerRequestInterface;
-use Symfony\Component\Mime\Address;
 use TYPO3\CMS\Core\Mail\FluidEmail;
-use TYPO3\CMS\Core\Mail\MailerInterface;
 use TYPO3\CMS\Core\SingletonInterface;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManager;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 
+/**
+ * @deprecated since cart 12.4, will be removed in cart 13.0. Use \Extcode\Cart\Mail\OrderMailSender to send the
+ *             emails of an order, or \Extcode\Cart\Mail\Mailer with a mail configuration of
+ *             \Extcode\Cart\Configuration\Loader\MailConfigurationLoaderInterface.
+ *             TODO: 13.0.0 Remove the class, see Deprecation #845.
+ */
 class MailHandler implements SingletonInterface
 {
     protected array $pluginSettings = [];
@@ -54,14 +61,11 @@ class MailHandler implements SingletonInterface
 
     protected string $sellerEmailBcc = '';
 
-    /**
-     * MailHandler constructor
-     */
     public function __construct(
         private readonly ConfigurationManagerInterface $configurationManager,
         private readonly EventDispatcherInterface $eventDispatcher,
-        private readonly MailerInterface $mailer,
         private readonly LogServiceInterface $logService,
+        private readonly OrderMailSender $orderMailSender,
     ) {
         $this->setPluginSettings();
     }
@@ -309,71 +313,31 @@ class MailHandler implements SingletonInterface
      */
     public function sendBuyerMail(Item $orderItem): void
     {
+        self::triggerDeprecation();
+
         if (empty($this->getBuyerEmailFrom())
-                || ($orderItem->getBillingAddress() instanceof AddressInterface) === false
+            || ($orderItem->getBillingAddress() instanceof AddressInterface) === false
             || empty($orderItem->getBillingAddress()->getEmail())
         ) {
             return;
         }
 
-        $status = $orderItem->getPayment()->getStatus();
-
-        $fromAddress = new Address($this->getBuyerEmailFrom(), $this->getBuyerEmailName());
-
-        $email = new FluidEmail();
-        $email
-            ->to($orderItem->getBillingAddress()->getEmail())
-            ->from($fromAddress)
-            ->setTemplate('Mail/' . ucfirst($status) . '/Buyer')
-            ->format(FluidEmail::FORMAT_HTML)
-            ->assign('settings', $this->pluginSettings['settings'] ?? [])
-            ->assign('cart', $this->cart)
-            ->assign('orderItem', $orderItem)
-        ;
-
-        if ($this->getBuyerEmailCc()) {
-            $cc = explode(',', $this->getBuyerEmailCc());
-            $email->cc(...$cc);
-        }
-        if ($this->getBuyerEmailBcc()) {
-            $bcc = explode(',', $this->getBuyerEmailBcc());
-            $email->bcc(...$bcc);
-        }
-        if ($this->getbuyerEmailReplyTo()) {
-            $email->replyTo($this->getbuyerEmailReplyTo());
-        }
-
-        $this->addAttachments('buyer', $orderItem, $email);
-
-        if (($GLOBALS['TYPO3_REQUEST'] ?? null) instanceof ServerRequestInterface) {
-            $email->setRequest($GLOBALS['TYPO3_REQUEST']);
-        }
-
         try {
-            $this->mailer->send($email);
-            $this->logService->write(
-                Log::info(
-                    self::getOrderItemUid($orderItem),
-                    'sendBuyerMail',
-                    'Mail was send to buyer.',
-                    [
-                        'time' => time(),
-                    ]
-                )
+            $mailConfiguration = new BuyerMailConfiguration(
+                'Mail/' . ucfirst($orderItem->getPayment()->getStatus()) . '/Buyer',
+                $this->getBuyerEmailFrom(),
+                $this->getBuyerEmailName(),
+                self::splitAddresses($this->getBuyerEmailCc()),
+                self::splitAddresses($this->getBuyerEmailBcc()),
+                self::splitAddresses($this->getBuyerEmailReplyTo()),
             );
-        } catch (Exception $e) {
-            $this->logService->write(
-                Log::error(
-                    self::getOrderItemUid($orderItem),
-                    'sendBuyerMail',
-                    'Mail could not send to buyer.',
-                    [
-                        'time' => time(),
-                        'exception' => $e->__toString(),
-                    ]
-                )
-            );
+        } catch (InvalidMailConfigurationException $exception) {
+            $this->logInvalidConfiguration($orderItem, 'buyer', $exception);
+
+            return;
         }
+
+        $this->orderMailSender->send($mailConfiguration, $orderItem, $this->cart);
     }
 
     /**
@@ -381,75 +345,31 @@ class MailHandler implements SingletonInterface
      */
     public function sendSellerMail(Item $orderItem): void
     {
+        self::triggerDeprecation();
+
         if (is_null($orderItem->getUid())) {
             throw new InvalidArgumentException('Method should only called for persisted orders.', 1774715307);
         }
-        $sellerEmailTo = $this->getSellerEmailTo();
-        if (empty($this->getSellerEmailFrom()) || empty($sellerEmailTo)) {
+        if (empty($this->getSellerEmailFrom()) || empty($this->getSellerEmailTo())) {
             return;
         }
 
-        $status = $orderItem->getPayment()->getStatus();
-
-        $fromAddress = new Address($this->getSellerEmailFrom(), $this->getSellerEmailName());
-
-        $to = explode(',', $sellerEmailTo);
-        $email = new FluidEmail();
-        $email
-            ->to(...$to)
-            ->from($fromAddress)
-            ->setTemplate('Mail/' . ucfirst($status) . '/Seller')
-            ->format(FluidEmail::FORMAT_HTML)
-            ->assign('settings', $this->pluginSettings['settings'] ?? [])
-            ->assign('cart', $this->cart)
-            ->assign('orderItem', $orderItem)
-        ;
-
-        if (($orderItem->getBillingAddress() instanceof AddressInterface)
-                && $orderItem->getBillingAddress()->getEmail()
-        ) {
-            $email->replyTo($orderItem->getBillingAddress()->getEmail());
-        }
-        if ($this->getSellerEmailCc()) {
-            $cc = explode(',', $this->getSellerEmailCc());
-            $email->cc(...$cc);
-        }
-        if ($this->getSellerEmailBcc()) {
-            $bcc = explode(',', $this->getSellerEmailBcc());
-            $email->bcc(...$bcc);
-        }
-
-        $this->addAttachments('seller', $orderItem, $email);
-
-        if (($GLOBALS['TYPO3_REQUEST'] ?? null) instanceof ServerRequestInterface) {
-            $email->setRequest($GLOBALS['TYPO3_REQUEST']);
-        }
-
         try {
-            $this->mailer->send($email);
-            $this->logService->write(
-                Log::info(
-                    self::getOrderItemUid($orderItem),
-                    'sendSellerMail',
-                    'Mail was send to seller.',
-                    [
-                        'time' => time(),
-                    ]
-                )
+            $mailConfiguration = new SellerMailConfiguration(
+                'Mail/' . ucfirst($orderItem->getPayment()->getStatus()) . '/Seller',
+                self::splitAddresses($this->getSellerEmailTo()),
+                $this->getSellerEmailFrom(),
+                $this->getSellerEmailName(),
+                self::splitAddresses($this->getSellerEmailCc()),
+                self::splitAddresses($this->getSellerEmailBcc()),
             );
-        } catch (Exception $e) {
-            $this->logService->write(
-                Log::error(
-                    self::getOrderItemUid($orderItem),
-                    'sendSellerMail',
-                    'Mail could not send to seller.',
-                    [
-                        'time' => time(),
-                        'exception' => $e->__toString(),
-                    ]
-                )
-            );
+        } catch (InvalidMailConfigurationException $exception) {
+            $this->logInvalidConfiguration($orderItem, 'seller', $exception);
+
+            return;
         }
+
+        $this->orderMailSender->send($mailConfiguration, $orderItem, $this->cart);
     }
 
     public function addAttachments(string $type, Item $orderItem, FluidEmail $email): void
@@ -477,6 +397,41 @@ class MailHandler implements SingletonInterface
                 }
             }
         }
+    }
+
+    private static function triggerDeprecation(): void
+    {
+        trigger_error(
+            'Sending the emails of an order with ' . self::class . ' is deprecated since cart 12.4 and will stop working in cart 13.0.'
+            . ' Enable the feature toggle "' . Email::FEATURE . '" or use ' . OrderMailSender::class . ' instead.',
+            E_USER_DEPRECATED
+        );
+    }
+
+    /**
+     * @return list<string>
+     */
+    private static function splitAddresses(string $addresses): array
+    {
+        return array_values(array_filter(
+            array_map(trim(...), explode(',', $addresses)),
+            static fn (string $address): bool => $address !== ''
+        ));
+    }
+
+    private function logInvalidConfiguration(Item $orderItem, string $recipient, InvalidMailConfigurationException $exception): void
+    {
+        $this->logService->write(
+            Log::error(
+                self::getOrderItemUid($orderItem),
+                'send' . ucfirst($recipient) . 'Mail',
+                'Mail could not send to ' . $recipient . '.',
+                [
+                    'time' => time(),
+                    'exception' => $exception->__toString(),
+                ]
+            )
+        );
     }
 
     private static function getOrderItemUid(Item $orderItem): int

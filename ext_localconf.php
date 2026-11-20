@@ -14,6 +14,7 @@ use Extcode\Cart\Controller\Cart\PaymentController;
 use Extcode\Cart\Controller\Cart\ProductController;
 use Extcode\Cart\Controller\Cart\ShippingController;
 use Extcode\Cart\Domain\Log\DatabaseWriter;
+use Extcode\Cart\EventListener\Order\Finish\Email as FinishEmail;
 use Extcode\Cart\EventListener\Order\StatusChange\Mail as StatusChangeMail;
 use TYPO3\CMS\Core\Log\LogLevel;
 use TYPO3\CMS\Core\Utility\ArrayUtility;
@@ -68,6 +69,13 @@ use TYPO3\CMS\Extbase\Utility\ExtensionUtility;
     // experimental, disabled by default, enabled e.g. in config/system/additional.php
     $configuration = $GLOBALS['TYPO3_CONF_VARS'];
     $featurePath = ['SYS', 'features', StatusChangeMail::FEATURE];
+    if (is_array($configuration) && !ArrayUtility::isValidPath($configuration, $featurePath)) {
+        $GLOBALS['TYPO3_CONF_VARS'] = ArrayUtility::setValueByPath($configuration, $featurePath, false);
+    }
+
+    // disabled by default, enabled by default in cart 13.0, see Deprecation #845
+    $configuration = $GLOBALS['TYPO3_CONF_VARS'];
+    $featurePath = ['SYS', 'features', FinishEmail::FEATURE];
     if (is_array($configuration) && !ArrayUtility::isValidPath($configuration, $featurePath)) {
         $GLOBALS['TYPO3_CONF_VARS'] = ArrayUtility::setValueByPath($configuration, $featurePath, false);
     }

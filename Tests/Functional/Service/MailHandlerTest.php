@@ -13,12 +13,18 @@ namespace Extcode\Cart\Tests\Functional\Service;
 
 use Codappix\Typo3PhpDatasets\TestingFramework;
 use Exception;
+use Extcode\Cart\Configuration\Loader\TypoScript\MailConfigurationLoader;
 use Extcode\Cart\Domain\Log\DatabaseWriter;
 use Extcode\Cart\Domain\Log\LogService;
 use Extcode\Cart\Domain\Model\Order\BillingAddress;
 use Extcode\Cart\Domain\Model\Order\Item as OrderItem;
 use Extcode\Cart\Domain\Model\Order\Payment;
+use Extcode\Cart\EventListener\Order\Finish\Email;
+use Extcode\Cart\Mail\Mailer;
+use Extcode\Cart\Mail\OrderMailSender;
 use Extcode\Cart\Service\MailHandler;
+use Extcode\Cart\Tests\Functional\Mail\CollectingTransport;
+use PHPUnit\Framework\Attributes\IgnoreDeprecations;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockBuilder;
 use PHPUnit\Framework\MockObject\Stub;
@@ -30,6 +36,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
 
+#[IgnoreDeprecations]
 class MailHandlerTest extends FunctionalTestCase
 {
     use TestingFramework;
@@ -58,6 +65,12 @@ class MailHandlerTest extends FunctionalTestCase
                             ],
                         ],
                     ],
+                ],
+            ],
+            'MAIL' => [
+                'transport' => CollectingTransport::class,
+                'templateRootPaths' => [
+                    1795110000 => 'EXT:cart/Tests/Functional/Fixtures/Templates/',
                 ],
             ],
         ];
@@ -353,13 +366,24 @@ class MailHandlerTest extends FunctionalTestCase
             $logger,
         );
 
+        $this->expectUserDeprecationMessage(
+            'Sending the emails of an order with ' . MailHandler::class . ' is deprecated since cart 12.4 and will stop working in cart 13.0.'
+            . ' Enable the feature toggle "' . Email::FEATURE . '" or use ' . OrderMailSender::class . ' instead.'
+        );
+
         $mockBuilder = $this->getMockBuilder(MailHandler::class);
         $mockBuilder->setConstructorArgs(
             [
                 $configurationManager,
                 $eventDispatcher,
-                $mailer,
                 $logService,
+                new OrderMailSender(
+                    new MailConfigurationLoader($configurationManager),
+                    new Mailer($mailer),
+                    $configurationManager,
+                    $eventDispatcher,
+                    $logService,
+                ),
             ]
         );
 
