@@ -1,13 +1,14 @@
 extcode:
-  cart-payments:
-    countries:
-      de:
-        preset: 1
-        options:
-          1:
-            title: 'Vorkasse'
-            extra: 0.0
-            taxClassId: 1
-            status: 'open'
-      at: .de
-      ch: .de
+  cart:
+    payments:
+      countries:
+        de: &de
+          preset: 1
+          options:
+            1:
+              title: 'Vorkasse'
+              extra: 0.0
+              taxClassId: 1
+              status: 'open'
+        at: *de
+        ch: *de

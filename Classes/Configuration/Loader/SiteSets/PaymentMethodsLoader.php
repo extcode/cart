@@ -20,7 +20,7 @@ final readonly class PaymentMethodsLoader extends AbstractConfigurationLoader im
     {
         $services = [];
 
-        $configurations = $this->getConfigurationsForType('cart-payments', $cart->getBillingCountry());
+        $configurations = $this->getConfigurationsForType($this->resolveConfigurationType('cart.payments', 'cart-payments'), $cart->getBillingCountry());
 
         return $this->getServices($configurations, $services, $cart);
     }
