@@ -11,3 +11,4 @@ Email
    EmailAddresses/Index
    EmailAttachments/Index
    EMailContent/Index
+   StatusChangeEmails/Index

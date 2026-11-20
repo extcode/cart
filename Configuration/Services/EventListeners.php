@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use Extcode\Cart\Event\Cart\UpdateCountryEvent;
 use Extcode\Cart\Event\Cart\UpdateCurrencyEvent;
+use Extcode\Cart\Event\Order\AfterStatusChangeEvent;
 use Extcode\Cart\Event\Order\CreateEvent;
 use Extcode\Cart\Event\Order\ExportEvent;
 use Extcode\Cart\Event\Order\FinishEvent;
@@ -28,6 +29,7 @@ use Extcode\Cart\EventListener\Order\Create\PersistOrder\Taxes;
 use Extcode\Cart\EventListener\Order\Export\FluidTemplate;
 use Extcode\Cart\EventListener\Order\Finish\ClearCart;
 use Extcode\Cart\EventListener\Order\Finish\Email;
+use Extcode\Cart\EventListener\Order\StatusChange\Mail as StatusChangeMail;
 use Extcode\Cart\EventListener\Template\Components\ModifyButtonBar;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
@@ -267,6 +269,17 @@ return static function (ContainerConfigurator $containerConfigurator): void {
             [
                 'event' => FinishEvent::class,
                 'identifier' => 'cart--order--finish--email',
+            ]
+        )
+    ;
+
+    $services
+        ->set(StatusChangeMail::class)
+        ->tag(
+            'event.listener',
+            [
+                'event' => AfterStatusChangeEvent::class,
+                'identifier' => 'cart--order--status-change--mail',
             ]
         )
     ;

@@ -23,15 +23,40 @@ use Extcode\Cart\OrderStatus\ServiceType;
  *
  * The uid of the order change (getOrderChange()->uid) identifies this change,
  * a listener can use it to execute an action only once.
+ *
+ * A listener which fails, e.g. because an email can not be sent, adds an
+ * error. The status stays changed; the errors are returned in the
+ * StatusChangeResult and shown to the editor in the backend.
  */
-final readonly class AfterStatusChangeEvent
+final class AfterStatusChangeEvent
 {
+    /**
+     * @var list<string>
+     */
+    private array $errors = [];
+
     public function __construct(
-        private Item $orderItem,
-        private AbstractService $service,
-        private ServiceType $serviceType,
-        private OrderChange $orderChange,
+        private readonly Item $orderItem,
+        private readonly AbstractService $service,
+        private readonly ServiceType $serviceType,
+        private readonly OrderChange $orderChange,
     ) {
+    }
+
+    /**
+     * Adds a message for the editor, e.g. "The email to the buyer could not be sent."
+     */
+    public function addError(string $message): void
+    {
+        $this->errors[] = $message;
+    }
+
+    /**
+     * @return list<string>
+     */
+    public function getErrors(): array
+    {
+        return $this->errors;
     }
 
     public function getOrderItem(): Item

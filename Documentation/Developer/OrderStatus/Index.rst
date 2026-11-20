@@ -213,6 +213,16 @@ Events
     stored change (``getOrderChange()->uid``) identifies the change; use it to
     execute an action only once.
 
+    A listener which fails adds a message with ``addError()``. The status
+    stays changed; the errors are returned in ``StatusChangeResult::$errors``
+    and shown to the editor in the backend.
+
+    EXT:cart registers the listener
+    ``\Extcode\Cart\EventListener\Order\StatusChange\Mail`` with the identifier
+    ``cart--order--status-change--mail``, which sends the emails configured in
+    TypoScript, see :ref:`status-change-emails`. It is experimental and only
+    active with the feature toggle ``cart.experimental.statusChangeMails``.
+
 Both events are only dispatched by the ``StatusChangeService``, not for an
 unknown or unchanged status.
 

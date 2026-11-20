@@ -93,6 +93,11 @@ abstract class AbstractStatusController extends ActionController
             ),
         };
 
+        // e.g. an email which could not be sent, the status is changed anyway
+        foreach ($result->errors as $error) {
+            $this->addFlashMessage($error, '', ContextualFeedbackSeverity::ERROR);
+        }
+
         return $this->redirect('show', 'Backend\Order\Order', null, ['orderItem' => $orderItem]);
     }
 
