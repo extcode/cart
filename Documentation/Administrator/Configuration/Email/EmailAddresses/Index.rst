@@ -112,3 +112,44 @@ plugin.tx_cart.mail
    (Blind Carbon Copy).
 
    Multiple recipients can be given separated by commas.
+
+Site set
+========
+
+With the feature toggle ``cart.useNewOrderMailSender`` the emails at the end
+of an order are sent by ``\Extcode\Cart\Mail\OrderMailSender``. It reads the
+email addresses from the site settings ``extcode.cart.mail`` of the site set
+``extcode/cart-mail`` of the site of the storage page of the order, see
+:ref:`configuration-site-sets`. ``plugin.tx_cart.mail`` and the email
+addresses in the settings of the cart plugin are not used then.
+
+.. code-block:: php
+   :caption: e.g. config/system/additional.php
+
+   $GLOBALS['TYPO3_CONF_VARS']['SYS']['features']['cart.useNewOrderMailSender'] = true;
+
+The keys are the same as in TypoScript, but the addresses are lists:
+
+.. code-block:: yaml
+   :caption: config/sites/<site>/settings.yaml
+
+   extcode:
+     cart:
+       mail:
+         buyer:
+           fromName: 'Your Brand name'
+           fromAddress: 'cart.buyer.sender@example.com'
+           ccAddress: ['cart.buyer.cc1@example.com', 'cart.buyer.cc2@example.com']
+           bccAddress: []
+           replyToAddress: ['cart.buyer.reply@example.com']
+         seller:
+           fromName: 'Cart TYPO3 System'
+           fromAddress: 'cart.seller.sender@example.com'
+           toAddress: ['cart.seller.to1@example.com', 'cart.seller.to2@example.com']
+           ccAddress: []
+           bccAddress: []
+
+Without ``fromAddress`` no email is sent to the buyer or to the seller. The
+seller needs ``toAddress``, otherwise an error is written to the order log.
+The attachments are still configured with TypoScript, see
+:ref:`mail_attachments`.

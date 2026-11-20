@@ -80,3 +80,31 @@ Tax classes can also depend on countries:
            }
        }
    }
+
+Site set
+========
+
+Instead of TypoScript, the tax classes can be configured in the site settings
+``extcode.cart.taxClasses`` of the site set ``extcode/cart-taxclasses``, see
+:ref:`configuration-site-sets`. The keys are the same as in TypoScript,
+including the tax classes per country. The site set provides the following
+configuration:
+
+.. code-block:: yaml
+   :caption: EXT:cart/Configuration/Sets/TaxClass/settings.yaml
+
+   extcode:
+     cart:
+       taxClasses:
+         1:
+           value: 19
+           calc: 0.19
+           name: 'normal'
+         2:
+           value: 7
+           calc: 0.07
+           name: 'reduced'
+         3:
+           value: 0
+           calc: 0.00
+           name: 'free'
