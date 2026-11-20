@@ -20,7 +20,8 @@ final readonly class ShippingMethodsLoader extends AbstractConfigurationLoader i
     {
         $services = [];
 
-        $configurations = $this->getConfigurationsForType($this->resolveConfigurationType('cart.shippings', 'cart-shippings'), $cart->getBillingCountry());
+        // the country of the shipping address, without it the one of the billing address
+        $configurations = $this->getConfigurationsForType($this->resolveConfigurationType('cart.shippings', 'cart-shippings'), $cart->getCountry());
 
         return $this->getServices($configurations, $services, $cart);
     }

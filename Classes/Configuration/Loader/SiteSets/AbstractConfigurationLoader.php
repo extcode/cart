@@ -60,6 +60,9 @@ abstract readonly class AbstractConfigurationLoader
         return $services;
     }
 
+    /**
+     * @param string $configurationType the path below "extcode" of the site settings, e.g. "cart.payments"
+     */
     public function getConfigurationsForType(string $configurationType, ?string $country = null): ?array
     {
         $configuration = $this->getSettingsByPath('extcode.' . $configurationType);
@@ -92,9 +95,6 @@ abstract readonly class AbstractConfigurationLoader
         return $configuration;
     }
 
-    /**
-     * @param string $configurationType the path below "extcode" of the site settings, e.g. "cart.payments"
-     */
     /**
      * Returns the configuration type to read, the deprecated one only if the
      * site has settings there but none for the configuration type.
