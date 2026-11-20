@@ -41,7 +41,6 @@ case letters, digits and underscores and starts with a letter.
 
     <?php
 
-    use Extcode\Cart\OrderHistory\OrderChangeSource;
     use Extcode\Cart\OrderStatus\PaymentStatus;
     use Extcode\Cart\OrderStatus\ShippingStatus;
 
