@@ -11,11 +11,11 @@ namespace Extcode\Cart\Mail;
  * LICENSE file that was distributed with this source code.
  */
 
+use Extcode\Cart\Utility\ArrayUtility;
 use Psr\Http\Message\ServerRequestInterface;
 use TYPO3\CMS\Core\Http\ApplicationType;
 use TYPO3\CMS\Core\TypoScript\FrontendTypoScript;
 use TYPO3\CMS\Core\TypoScript\TypoScriptService;
-use TYPO3\CMS\Core\Utility\ArrayUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Extbase\Configuration\Exception\NoServerRequestGivenException;
 
@@ -56,14 +56,7 @@ final readonly class PluginConfigurationProvider
      */
     public function getMailConfiguration(string $recipient, string $key): array
     {
-        $configuration = $this->getConfiguration();
-        $path = 'mail/' . $recipient . '/' . $key;
-        if (!ArrayUtility::isValidPath($configuration, $path)) {
-            return [];
-        }
-        $value = ArrayUtility::getValueByPath($configuration, $path);
-
-        return is_array($value) ? $value : [];
+        return ArrayUtility::getArrayByPathWithFallback($this->getConfiguration(), 'mail/' . $recipient . '/' . $key, '/', []);
     }
 
     /**
@@ -99,9 +92,9 @@ final readonly class PluginConfigurationProvider
     private function getPluginTypoScript(): array
     {
         $setup = $this->configurationManager->getConfiguration(ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT);
-        $pluginSetup = ArrayUtility::isValidPath($setup, 'plugin./tx_cart.') ? ArrayUtility::getValueByPath($setup, 'plugin./tx_cart.') : [];
+        $pluginSetup = ArrayUtility::getArrayByPathWithFallback($setup, 'plugin./tx_cart.');
 
-        return is_array($pluginSetup) ? $this->typoScriptService->convertTypoScriptArrayToPlainArray($pluginSetup) : [];
+        return $pluginSetup === null ? [] : $this->typoScriptService->convertTypoScriptArrayToPlainArray($pluginSetup);
     }
 
     private static function hasFrontendTypoScript(?ServerRequestInterface $request): bool

@@ -22,9 +22,9 @@ use Extcode\Cart\Event\Order\NumberGeneratorEvent;
 use Extcode\Cart\Event\Order\PaymentEvent;
 use Extcode\Cart\Event\Order\StockEvent;
 use Extcode\Cart\Event\ProcessOrderCheckStockEvent;
+use Extcode\Cart\Utility\ArrayUtility;
 use Extcode\Cart\Validation\Validator\EmptyValidator;
 use Psr\Http\Message\ResponseInterface;
-use TYPO3\CMS\Core\Utility\ArrayUtility;
 use TYPO3\CMS\Extbase\Attribute\IgnoreValidation;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 use TYPO3\CMS\Extbase\Validation\Validator\AbstractGenericObjectValidator;
@@ -259,10 +259,7 @@ class OrderController extends ActionController
             return null;
         }
 
-        $config = $paymentMethod->getConfig();
-        $url = ArrayUtility::isValidPath($config, 'redirects/success/url')
-            ? ArrayUtility::getValueByPath($config, 'redirects/success/url')
-            : null;
+        $url = ArrayUtility::getValueByPathWithFallback($paymentMethod->getConfig(), 'redirects/success/url');
 
         return is_string($url) && trim($url) !== '' ? trim($url) : null;
     }

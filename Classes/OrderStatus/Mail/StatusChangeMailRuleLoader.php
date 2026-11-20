@@ -14,9 +14,9 @@ namespace Extcode\Cart\OrderStatus\Mail;
 use Extcode\Cart\Domain\Model\Order\Item;
 use Extcode\Cart\Mail\InvalidMailConfigurationException;
 use Extcode\Cart\OrderStatus\ServiceType;
+use Extcode\Cart\Utility\ArrayUtility;
 use TYPO3\CMS\Core\Exception\SiteNotFoundException;
 use TYPO3\CMS\Core\Site\SiteFinder;
-use TYPO3\CMS\Core\Utility\ArrayUtility;
 
 /**
  * Reads the email rules of the site settings extcode.cart.statusChange.mail
@@ -44,8 +44,8 @@ final readonly class StatusChangeMailRuleLoader
         }
 
         $path = 'extcode.cart.statusChange.mail.' . $serviceType->value;
-        $configurations = ArrayUtility::isValidPath($settings, $path, '.') ? ArrayUtility::getValueByPath($settings, $path, '.') : [];
-        if (!is_array($configurations)) {
+        $configurations = ArrayUtility::getArrayByPathWithFallback($settings, $path, '.');
+        if ($configurations === null) {
             return [];
         }
 

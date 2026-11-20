@@ -15,9 +15,9 @@ use Extcode\Cart\Configuration\Loader\TaxClassLoaderInterface;
 use Extcode\Cart\Domain\Model\Cart\TaxClass;
 use Extcode\Cart\Domain\Model\Cart\TaxClassFactoryInterface;
 use Extcode\Cart\Domain\Model\Cart\TaxClassInterface;
+use Extcode\Cart\Utility\ArrayUtility;
 use Extcode\Cart\Utility\Typo3GlobalsUtility;
 use TYPO3\CMS\Core\Site\Entity\Site;
-use TYPO3\CMS\Core\Utility\ArrayUtility;
 
 final readonly class TaxClassLoader implements TaxClassLoaderInterface
 {
@@ -78,13 +78,13 @@ final readonly class TaxClassLoader implements TaxClassLoaderInterface
     {
         $configuration = $this->site->getSettings()->getAll();
 
-        $taxClassSettings = self::getArrayByPath($configuration, 'extcode.cart.taxClasses');
+        $taxClassSettings = ArrayUtility::getArrayByPathWithFallback($configuration, 'extcode.cart.taxClasses', '.');
         if ($taxClassSettings !== null) {
             return $taxClassSettings;
         }
 
         // TODO: 13.0.0 Remove the fallback to extcode.taxclasses, see Deprecation #847.
-        $taxClassSettings = self::getArrayByPath($configuration, 'extcode.taxclasses');
+        $taxClassSettings = ArrayUtility::getArrayByPathWithFallback($configuration, 'extcode.taxclasses', '.');
         if ($taxClassSettings !== null) {
             trigger_error(
                 'The site setting "extcode.taxclasses" is deprecated since cart 12.4 and will stop working in cart 13.0.'
@@ -96,21 +96,5 @@ final readonly class TaxClassLoader implements TaxClassLoaderInterface
         }
 
         return null;
-    }
-
-    /**
-     * @param array<array-key, mixed> $settings the site settings as tree
-     * @param string $path e.g. "extcode.cart.taxClasses"
-     *
-     * @return null|array<array-key, mixed> null if the path does not exist or is no array
-     */
-    private static function getArrayByPath(array $settings, string $path): ?array
-    {
-        if (!ArrayUtility::isValidPath($settings, $path, '.')) {
-            return null;
-        }
-        $value = ArrayUtility::getValueByPath($settings, $path, '.');
-
-        return is_array($value) ? $value : null;
     }
 }

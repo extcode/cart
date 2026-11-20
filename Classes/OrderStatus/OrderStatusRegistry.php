@@ -11,10 +11,10 @@ namespace Extcode\Cart\OrderStatus;
  * LICENSE file that was distributed with this source code.
  */
 
+use Extcode\Cart\Utility\ArrayUtility;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use TYPO3\CMS\Core\Cache\Frontend\PhpFrontend;
 use TYPO3\CMS\Core\Package\PackageManager;
-use TYPO3\CMS\Core\Utility\ArrayUtility;
 
 /**
  * The payment and shipping status registered in Configuration/OrderStatus.php
@@ -130,8 +130,8 @@ final class OrderStatusRegistry
         foreach (ServiceType::cases() as $serviceType) {
             $table = self::getTableName($serviceType);
             $path = [$table, 'columns', 'status', 'config', 'items'];
-            $items = ArrayUtility::isValidPath($tca, $path) ? ArrayUtility::getValueByPath($tca, $path) : [];
-            if (!is_array($items)) {
+            $items = ArrayUtility::getArrayByPathWithFallback($tca, $path);
+            if ($items === null) {
                 continue;
             }
 
