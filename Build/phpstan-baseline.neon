@@ -589,31 +589,7 @@ parameters:
 			path: ../Classes/Controller/Cart/OrderController.php
 
 		-
-			message: '#^Cannot access offset ''redirects'' on mixed\.$#'
-			identifier: offsetAccess.nonOffsetAccessible
-			count: 1
-			path: ../Classes/Controller/Cart/OrderController.php
-
-		-
-			message: '#^Cannot access offset ''success'' on mixed\.$#'
-			identifier: offsetAccess.nonOffsetAccessible
-			count: 1
-			path: ../Classes/Controller/Cart/OrderController.php
-
-		-
-			message: '#^Cannot access offset ''url'' on mixed\.$#'
-			identifier: offsetAccess.nonOffsetAccessible
-			count: 1
-			path: ../Classes/Controller/Cart/OrderController.php
-
-		-
 			message: '#^Cannot access offset ''validator'' on mixed\.$#'
-			identifier: offsetAccess.nonOffsetAccessible
-			count: 1
-			path: ../Classes/Controller/Cart/OrderController.php
-
-		-
-			message: '#^Cannot access offset int on Extcode\\Cart\\Domain\\Model\\Cart\\ServiceInterface\.$#'
 			identifier: offsetAccess.nonOffsetAccessible
 			count: 1
 			path: ../Classes/Controller/Cart/OrderController.php
@@ -645,12 +621,6 @@ parameters:
 		-
 			message: '#^Method Extcode\\Cart\\Controller\\Cart\\OrderController\:\:setDynamicValidation\(\) has parameter \$validatorConf with no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
-			count: 1
-			path: ../Classes/Controller/Cart/OrderController.php
-
-		-
-			message: '#^Parameter \#1 \$uri of method TYPO3\\CMS\\Extbase\\Mvc\\Controller\\ActionController\:\:redirectToUri\(\) expects Psr\\Http\\Message\\UriInterface\|string, mixed given\.$#'
-			identifier: argument.type
 			count: 1
 			path: ../Classes/Controller/Cart/OrderController.php
 

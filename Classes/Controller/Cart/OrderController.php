@@ -11,6 +11,7 @@ namespace Extcode\Cart\Controller\Cart;
  * LICENSE file that was distributed with this source code.
  */
 
+use Extcode\Cart\Domain\Model\Cart\ServiceInterface;
 use Extcode\Cart\Domain\Model\Order\BillingAddress;
 use Extcode\Cart\Domain\Model\Order\Item;
 use Extcode\Cart\Domain\Model\Order\ShippingAddress;
@@ -23,6 +24,7 @@ use Extcode\Cart\Event\Order\StockEvent;
 use Extcode\Cart\Event\ProcessOrderCheckStockEvent;
 use Extcode\Cart\Validation\Validator\EmptyValidator;
 use Psr\Http\Message\ResponseInterface;
+use TYPO3\CMS\Core\Utility\ArrayUtility;
 use TYPO3\CMS\Extbase\Attribute\IgnoreValidation;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 use TYPO3\CMS\Extbase\Validation\Validator\AbstractGenericObjectValidator;
@@ -121,15 +123,9 @@ class OrderController extends ActionController
         $this->view->assign('cart', $this->cart);
         $this->view->assign('orderItem', $orderItem);
 
-        $paymentId = $this->cart->getPayment()->getId();
-        $paymentSettings = $this->paymentMethodsLoader->getPaymentMethods($this->cart);
-
-        if (isset($paymentSettings['options'][$paymentId]['redirects']['success']['url'])) {
-            return $this->redirectToUri(
-                $paymentSettings['options'][$paymentId]['redirects']['success']['url'],
-                null,
-                200
-            );
+        $successRedirectUrl = $this->getSuccessRedirectUrl();
+        if ($successRedirectUrl !== null) {
+            return $this->redirectToUri($successRedirectUrl);
         }
 
         $this->dispatchModifyViewEvent();
@@ -250,6 +246,25 @@ class OrderController extends ActionController
         $this->eventDispatcher->dispatch($finishEvent);
 
         return (bool) ($finishEvent->isPropagationStopped());
+    }
+
+    /**
+     * @return null|string the URL of "redirects.success.url" of the payment method of the cart, null without
+     */
+    private function getSuccessRedirectUrl(): ?string
+    {
+        $paymentMethods = $this->paymentMethodsLoader->getPaymentMethods($this->cart);
+        $paymentMethod = $paymentMethods[$this->cart->getPayment()->getId()] ?? null;
+        if (!$paymentMethod instanceof ServiceInterface) {
+            return null;
+        }
+
+        $config = $paymentMethod->getConfig();
+        $url = ArrayUtility::isValidPath($config, 'redirects/success/url')
+            ? ArrayUtility::getValueByPath($config, 'redirects/success/url')
+            : null;
+
+        return is_string($url) && trim($url) !== '' ? trim($url) : null;
     }
 
     /**
