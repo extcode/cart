@@ -13,13 +13,16 @@ namespace Extcode\Cart\Tests\Unit\Domain\Model\Cart;
 
 use Extcode\Cart\Domain\Model\Cart\Cart;
 use Extcode\Cart\Domain\Model\Cart\CartCouponFix;
+use Extcode\Cart\Domain\Model\Cart\CartCouponPercentage;
 use Extcode\Cart\Domain\Model\Cart\ProductFactory;
 use Extcode\Cart\Domain\Model\Cart\ProductFactoryInterface;
+use Extcode\Cart\Domain\Model\Cart\ProductInterface;
 use Extcode\Cart\Domain\Model\Cart\TaxClass;
 use Extcode\Cart\Service\CurrencyTranslationService;
 use Extcode\Cart\Service\CurrencyTranslationServiceInterface;
 use LogicException;
 use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
@@ -27,6 +30,8 @@ use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 #[CoversClass(Cart::class)]
 class CartTest extends UnitTestCase
 {
+    private const DELTA = 0.000001;
+
     protected Cart $grossCart;
 
     protected Cart $netCart;
@@ -1304,30 +1309,116 @@ class CartTest extends UnitTestCase
         );
     }
 
+    #[DataProvider('grossAndNetCartDataProvider')]
     #[Test]
-    public function getTotalTaxesSubtractsCouponTaxesOnce(): void
+    public function getSubtotalTaxesSubtractsTheTaxOfAFixCoupon(bool $isNetCart): void
     {
-        $this->addFirstProductToCarts();
-
-        $firstCoupon = new CartCouponFix(
-            'FirstCouponTitle',
-            'FirstCouponCode',
-            'FirstCouponType',
-            5.00,
-            $this->normalTaxClass,
-            0,
-            false
-        );
-
-        $this->grossCart->addCoupon($firstCoupon);
-
-        $totalTaxes = $this->grossCart->getTotalTaxes();
+        $cart = $this->createCart($isNetCart);
+        $cart->addProduct($this->createProduct(1, 11.90, $this->normalTaxClass));
+        $cart->addCoupon(self::createFixCoupon(5.95, $this->normalTaxClass));
 
         self::assertEqualsWithDelta(
-            5.00 - (5.00 / (1 + $this->normalTaxClass->getCalc())),
-            $totalTaxes[$this->normalTaxClass->getId()],
-            0.000000000001
+            [$this->normalTaxClass->getId() => 1.90 - 0.95],
+            $cart->getSubtotalTaxes(),
+            self::DELTA
         );
+    }
+
+    #[DataProvider('grossAndNetCartDataProvider')]
+    #[Test]
+    public function getTotalTaxesSubtractsTheTaxOfAFixCouponOnlyOnce(bool $isNetCart): void
+    {
+        $cart = $this->createCart($isNetCart);
+        $cart->addProduct($this->createProduct(1, 11.90, $this->normalTaxClass));
+        $cart->addCoupon(self::createFixCoupon(5.95, $this->normalTaxClass));
+
+        self::assertEqualsWithDelta(
+            [$this->normalTaxClass->getId() => 1.90 - 0.95],
+            $cart->getTotalTaxes(),
+            self::DELTA
+        );
+    }
+
+    #[Test]
+    public function getTotalTaxesSubtractsTheTaxesOfAllFixCoupons(): void
+    {
+        $this->grossCart->addProduct($this->createProduct(1, 11.90, $this->normalTaxClass));
+        $this->grossCart->addProduct($this->createProduct(2, 10.70, $this->reducedTaxClass));
+        $this->grossCart->addCoupon(self::createFixCoupon(5.95, $this->normalTaxClass, 'FirstCouponCode'));
+        $this->grossCart->addCoupon(self::createFixCoupon(5.35, $this->reducedTaxClass, 'SecondCouponCode'));
+
+        self::assertEqualsWithDelta(
+            [
+                $this->normalTaxClass->getId() => 1.90 - 0.95,
+                $this->reducedTaxClass->getId() => 0.70 - 0.35,
+            ],
+            $this->grossCart->getTotalTaxes(),
+            self::DELTA
+        );
+    }
+
+    #[Test]
+    public function getTotalTaxesIgnoresTheTaxOfAFixCouponBelowItsMinimumPrice(): void
+    {
+        $this->grossCart->addProduct($this->createProduct(1, 11.90, $this->normalTaxClass));
+        $this->grossCart->addCoupon(self::createFixCoupon(5.95, $this->normalTaxClass, 'FirstCouponCode', 20.00));
+
+        self::assertEqualsWithDelta(
+            [$this->normalTaxClass->getId() => 1.90],
+            $this->grossCart->getTotalTaxes(),
+            self::DELTA
+        );
+    }
+
+    #[DataProvider('grossAndNetCartDataProvider')]
+    #[Test]
+    public function getSubtotalTaxesSubtractsTheTaxesOfAPercentageCoupon(bool $isNetCart): void
+    {
+        $cart = $this->createCart($isNetCart);
+        $cart->addProduct($this->createProduct(1, 11.90, $this->normalTaxClass));
+        $cart->addProduct($this->createProduct(2, 10.70, $this->reducedTaxClass));
+        $cart->addCoupon($this->createPercentageCoupon(10.0));
+
+        self::assertEqualsWithDelta(
+            [
+                $this->normalTaxClass->getId() => 1.90 - 0.19,
+                $this->reducedTaxClass->getId() => 0.70 - 0.07,
+            ],
+            $cart->getSubtotalTaxes(),
+            self::DELTA
+        );
+    }
+
+    #[DataProvider('grossAndNetCartDataProvider')]
+    #[Test]
+    public function getTotalTaxesSubtractsTheTaxesOfAPercentageCouponOnlyOnce(bool $isNetCart): void
+    {
+        $cart = $this->createCart($isNetCart);
+        $cart->addProduct($this->createProduct(1, 11.90, $this->normalTaxClass));
+        $cart->addProduct($this->createProduct(2, 10.70, $this->reducedTaxClass));
+        $cart->addCoupon($this->createPercentageCoupon(10.0));
+
+        self::assertEqualsWithDelta(
+            [
+                $this->normalTaxClass->getId() => 1.90 - 0.19,
+                $this->reducedTaxClass->getId() => 0.70 - 0.07,
+            ],
+            $cart->getTotalTaxes(),
+            self::DELTA
+        );
+    }
+
+    /**
+     * The coupon tax tests use prices with even taxes:
+     * 11.90 gross = 10.00 net + 1.90 tax (19 %), 10.70 gross = 10.00 net + 0.70 tax (7 %),
+     * 5.95 gross = 5.00 net + 0.95 tax (19 %), 5.35 gross = 5.00 net + 0.35 tax (7 %).
+     *
+     * @return iterable<string, array{bool}>
+     */
+    public static function grossAndNetCartDataProvider(): iterable
+    {
+        yield 'gross cart' => [false];
+        yield 'net cart' => [true];
     }
 
     #[Test]
@@ -1634,6 +1725,49 @@ class CartTest extends UnitTestCase
 
         $this->grossCart->addProduct($product);
         $this->netCart->addProduct($product);
+    }
+
+    private function createProduct(int $id, float $gross, TaxClass $taxClass): ProductInterface
+    {
+        return $this->productFactory->create(
+            'simple',
+            $id,
+            'SKU-' . $id,
+            'Product ' . $id,
+            $gross,
+            $taxClass,
+            1,
+            false
+        );
+    }
+
+    private static function createFixCoupon(
+        float $gross,
+        TaxClass $taxClass,
+        string $code = 'FixCouponCode',
+        float $cartMinPrice = 0.0
+    ): CartCouponFix {
+        return new CartCouponFix(
+            'Fix Coupon',
+            $code,
+            'cartdiscount',
+            $gross,
+            $taxClass,
+            $cartMinPrice,
+            true
+        );
+    }
+
+    private function createPercentageCoupon(float $percent): CartCouponPercentage
+    {
+        return new CartCouponPercentage(
+            'Percentage Coupon',
+            'PercentageCouponCode',
+            'cartdiscount',
+            $percent,
+            $this->normalTaxClass,
+            0.0
+        );
     }
 
     private function createCart(bool $isNetCart): Cart
