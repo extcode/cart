@@ -42,3 +42,23 @@ parameters:
           - '$_FILES'
           - '$_SERVER'
         message: 'Use API instead'
+
+  ignoreErrors:
+    # The deprecated MailHandler is still used without the feature toggle cart.useNewOrderMailSender.
+    # TODO: 13.0.0 Remove with the MailHandler, see Deprecation #845.
+    -
+      identifiers:
+        - 'method.deprecatedClass'
+        - 'parameter.deprecatedClass'
+      path: '../Classes/EventListener/Order/Finish/Email.php'
+    -
+      identifiers:
+        - 'classConstant.deprecatedClass'
+        - 'method.deprecatedClass'
+        - 'return.deprecatedClass'
+      path: '../Tests/Functional/Service/MailHandlerTest.php'
+    -
+      identifiers:
+        - 'classConstant.deprecatedClass'
+        - 'parameter.deprecatedClass'
+      path: '../Tests/Unit/EventListener/Order/Finish/EmailTest.php'

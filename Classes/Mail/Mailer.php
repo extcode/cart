@@ -31,14 +31,16 @@ final readonly class Mailer
 
     /**
      * @param array<string, mixed> $templateVariables additional variables of the template, the order is "orderItem"
+     * @param list<string> $attachments absolute paths of the files to attach
      *
-     * @throws MailException if the email can not be sent, e.g. because the template is missing
+     * @throws MailException if the email can not be sent, e.g. because the template or an attachment is missing
      */
     public function send(
         AbstractMailConfiguration $mailConfiguration,
         Item $orderItem,
         array $templateVariables = [],
-        ?ServerRequestInterface $request = null
+        ?ServerRequestInterface $request = null,
+        array $attachments = [],
     ): void {
         $envelope = $mailConfiguration->getEnvelope($orderItem);
 
@@ -64,6 +66,12 @@ final readonly class Mailer
         }
         if ($envelope->replyTo !== []) {
             $email->replyTo(...$envelope->replyTo);
+        }
+        foreach ($attachments as $attachment) {
+            if (!is_file($attachment)) {
+                throw new MailException('The attachment "' . $attachment . '" does not exist.', 1795140001);
+            }
+            $email->attachFromPath($attachment);
         }
 
         try {
