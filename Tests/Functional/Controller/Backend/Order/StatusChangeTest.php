@@ -13,7 +13,6 @@ namespace Extcode\Cart\Tests\Functional\Controller\Backend\Order;
 
 use Closure;
 use DateTimeImmutable;
-use Extcode\Cart\Event\Order\AfterStatusChangeEvent;
 use Extcode\Cart\Event\Order\BeforeStatusChangeEvent;
 use Extcode\Cart\Event\Order\UpdateServiceEvent;
 use Extcode\Cart\OrderHistory\OrderChange;
@@ -22,7 +21,6 @@ use Extcode\Cart\OrderHistory\OrderChangeSource;
 use Extcode\Cart\OrderHistory\OrderChangeType;
 use Extcode\Cart\OrderStatus\PaymentStatus;
 use Extcode\Cart\OrderStatus\ShippingStatus;
-use PHPUnit\Framework\Attributes\IgnoreDeprecations;
 use PHPUnit\Framework\Attributes\Test;
 use Symfony\Component\DependencyInjection\Container;
 use TYPO3\CMS\Core\EventDispatcher\ListenerProvider;
@@ -208,14 +206,8 @@ final class StatusChangeTest extends AbstractOrderStatusTestCase
         );
     }
 
-    /**
-     * @deprecated since cart 12.4, will be removed in cart 13.0
-     *
-     * TODO: 13.0.0 Remove together with the UpdateServiceEvent, see Deprecation #840.
-     */
-    #[IgnoreDeprecations]
     #[Test]
-    public function aListenerOfTheUpdateServiceEventTriggersADeprecation(): void
+    public function aListenerOfTheUpdateServiceEventIsCalledAfterAChange(): void
     {
         $this->createOrder(1, PaymentStatus::OPEN, ShippingStatus::OPEN);
         $updatedServices = [];
@@ -226,11 +218,6 @@ final class StatusChangeTest extends AbstractOrderStatusTestCase
             }
         );
 
-        $this->expectUserDeprecationMessage(
-            'The event ' . UpdateServiceEvent::class . ' is deprecated since cart 12.4 and will be removed in cart 13.0.'
-            . ' Listen to the ' . AfterStatusChangeEvent::class . ' instead.'
-        );
-
         self::submitForm(
             (string) self::dispatchShowAction(1)->getBody(),
             'paymentStatus',
@@ -238,7 +225,7 @@ final class StatusChangeTest extends AbstractOrderStatusTestCase
             ['status' => PaymentStatus::PAID]
         );
 
-        self::assertSame([PaymentStatus::PAID], $updatedServices, 'The deprecated event is still dispatched.');
+        self::assertSame([PaymentStatus::PAID], $updatedServices, 'The listener gets the service with the new status.');
     }
 
     private function addEventListener(string $eventClass, Closure $listener): void

@@ -204,6 +204,12 @@
             <trans-unit id="tx_cart.controller.order.action.update_shipping_action.stale">
                 <source>The shipping status was changed in the meantime, e.g. in another tab. Nothing was changed, please check the current status.</source>
             </trans-unit>
+            <trans-unit id="tx_cart.status_change.mail.not_sent">
+                <source>The email "%1$s" to the %2$s was not sent: %3$s</source>
+            </trans-unit>
+            <trans-unit id="tx_cart.status_change.mail.invalid_configuration">
+                <source>The email configuration "%1$s" is invalid, no email was sent: %2$s</source>
+            </trans-unit>
             <trans-unit id="tx_cart.controller.order.action.update_payment_action.vetoed">
                 <source>The payment status was not changed: %s</source>
             </trans-unit>

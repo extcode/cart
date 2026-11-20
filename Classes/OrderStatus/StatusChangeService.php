@@ -92,7 +92,7 @@ final readonly class StatusChangeService
 
         $backendUser = $this->getBackendUserUid();
 
-        $beforeEvent = new BeforeStatusChangeEvent(
+        $beforeStatusChangeEvent = new BeforeStatusChangeEvent(
             $orderItem,
             $service,
             $serviceType,
@@ -102,9 +102,9 @@ final readonly class StatusChangeService
             $initiator,
             $backendUser
         );
-        $this->eventDispatcher->dispatch($beforeEvent);
-        if ($beforeEvent->isVetoed()) {
-            return new StatusChangeResult(StatusChangeOutcome::Vetoed, vetoReason: $beforeEvent->getVetoReason());
+        $this->eventDispatcher->dispatch($beforeStatusChangeEvent);
+        if ($beforeStatusChangeEvent->isVetoed()) {
+            return new StatusChangeResult(StatusChangeOutcome::Vetoed, vetoReason: $beforeStatusChangeEvent->getVetoReason());
         }
 
         $table = 'tx_cart_domain_model_order_' . $serviceType->value;
@@ -156,9 +156,11 @@ final readonly class StatusChangeService
         if ($result->orderChange !== null) {
             $service->setStatus($toStatus);
             // after the transaction, listeners may take time, e.g. to send an email
-            $this->eventDispatcher->dispatch(
-                new AfterStatusChangeEvent($orderItem, $service, $serviceType, $result->orderChange)
-            );
+            $afterStatusChangeEvent = new AfterStatusChangeEvent($orderItem, $service, $serviceType, $result->orderChange);
+            $this->eventDispatcher->dispatch($afterStatusChangeEvent);
+            if ($afterStatusChangeEvent->getErrors() !== []) {
+                return new StatusChangeResult($result->outcome, $result->orderChange, errors: $afterStatusChangeEvent->getErrors());
+            }
         }
 
         return $result;

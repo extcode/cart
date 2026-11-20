@@ -175,17 +175,6 @@ parameters:
 			path: ../Classes/Controller/Backend/ActionController.php
 
 		-
-			message: '''
-				#^Call to deprecated method dispatchUpdateServiceEvent\(\) of class Extcode\\Cart\\Controller\\Backend\\Order\\AbstractStatusController\:
-				since cart 12\.4, will be removed in cart 13\.0
-
-				TODO\: 13\.0\.0 Remove together with the UpdateServiceEvent, see Deprecation \#840\.$#
-			'''
-			identifier: method.deprecated
-			count: 1
-			path: ../Classes/Controller/Backend/Order/AbstractStatusController.php
-
-		-
 			message: '#^Binary operation "\." between ''attachment;…'' and mixed results in an error\.$#'
 			identifier: binaryOp.invalid
 			count: 1

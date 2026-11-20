@@ -160,9 +160,6 @@ events:
    This event is triggered when the payment or shipping status of an order is
    changed in the backend.
 
-   .. deprecated:: 12.4
-      Will be removed in cart 13.0, use the `AfterStatusChangeEvent` instead.
-
 .. confval:: \Extcode\Cart\Event\Order\ExportEvent
 
    This event is triggered in the `exportAction` of the backend module

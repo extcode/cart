@@ -28,6 +28,10 @@ final readonly class StatusChangeResult
          * The reason of the veto if a listener vetoed the change.
          */
         public string $vetoReason = '',
+        /**
+         * @var list<string> errors of listeners of the AfterStatusChangeEvent, the status is changed anyway
+         */
+        public array $errors = [],
     ) {
     }
 

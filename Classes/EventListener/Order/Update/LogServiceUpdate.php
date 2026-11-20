@@ -14,13 +14,6 @@ namespace Extcode\Cart\EventListener\Order\Update;
 use Extcode\Cart\Event\Order\UpdateServiceEvent;
 use Psr\Log\LoggerInterface;
 
-/**
- * Not registered anymore, the order history replaces it.
- *
- * @deprecated since cart 12.4, will be removed in cart 13.0
- *
- * TODO: 13.0.0 Remove the LogServiceUpdate, see Deprecation #840.
- */
 class LogServiceUpdate
 {
     public function __construct(

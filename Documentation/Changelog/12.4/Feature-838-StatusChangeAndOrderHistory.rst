@@ -37,6 +37,10 @@ Impact
 Run the database analyzer to create the table
 ``tx_cart_domain_model_order_change``.
 
+The structure of the order history may still change in minor versions. If a
+change cannot be migrated, the existing entries of
+``tx_cart_domain_model_order_change`` may have to be removed.
+
 The forms of the payment and the shipping status in
 ``Resources/Private/Partials/Backend/Order/Show/Properties.html`` send the
 fields ``status`` and ``fromStatus`` and pass the payment or the shipping as

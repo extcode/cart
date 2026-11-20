@@ -213,6 +213,16 @@ Events
     stored change (``getOrderChange()->uid``) identifies the change; use it to
     execute an action only once.
 
+    A listener which fails adds a message with ``addError()``. The status
+    stays changed; the errors are returned in ``StatusChangeResult::$errors``
+    and shown to the editor in the backend.
+
+    EXT:cart registers the listener
+    ``\Extcode\Cart\EventListener\Order\StatusChange\Mail`` with the identifier
+    ``cart--order--status-change--mail``, which sends the emails configured in
+    TypoScript, see :ref:`status-change-emails`. It is experimental and only
+    active with the feature toggle ``cart.experimental.statusChangeMails``.
+
 Both events are only dispatched by the ``StatusChangeService``, not for an
 unknown or unchanged status.
 
@@ -276,6 +286,12 @@ The table is not limited to status changes. Your extension can write its own
 changes of an order with
 ``\Extcode\Cart\OrderHistory\OrderChangeRepository::add()``, using
 an own type, a subject (e.g. ``product:12``) and details in ``data``.
+
+.. WARNING::
+   The order history is new and its structure may still change in minor
+   versions. If a change cannot be migrated, the existing entries of
+   ``tx_cart_domain_model_order_change`` may have to be removed. Do not rely
+   on the order history as the only record of status changes yet.
 
 Emails
 ======
