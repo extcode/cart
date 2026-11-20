@@ -1,7 +1,7 @@
 extcode:
   cart-payments:
     countries:
-      de:
+      de: &de
         preset: 1
         options:
           1:
@@ -9,5 +9,5 @@ extcode:
             extra: 0.0
             taxClassId: 1
             status: 'open'
-      at: .de
-      ch: .de
+      at: *de
+      ch: *de
