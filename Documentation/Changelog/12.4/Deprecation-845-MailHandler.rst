@@ -15,10 +15,10 @@ uses the same classes as the emails on status changes:
 
 *  ``\Extcode\Cart\Configuration\Loader\MailConfigurationLoaderInterface``
    loads the configuration of the emails to the buyer and to the seller. The
-   implementation ``\Extcode\Cart\Configuration\Loader\TypoScript\MailConfigurationLoader``
-   reads ``plugin.tx_cart.mail.buyer`` and ``plugin.tx_cart.mail.seller``,
-   overridden by the settings of the plugin, e.g.
-   ``settings.buyer.emailFromAddress``.
+   implementation ``\Extcode\Cart\Configuration\Loader\SiteSets\MailConfigurationLoader``
+   reads the settings of the new site set ``extcode/cart-mail`` from the site
+   of the storage page of the order, see below. It works without request too,
+   e.g. in a command.
 *  ``\Extcode\Cart\Mail\Mailer`` sends the email. It takes the attachments as
    new argument ``$attachments``.
 
@@ -33,6 +33,33 @@ emails with the ``OrderMailSender`` if the feature toggle
 Without the toggle the listener uses the ``MailHandler`` as before, so a
 ``MailHandler`` replaced in the dependency injection keeps working.
 
+The site set ``extcode/cart-mail`` defines typed settings for the addresses,
+which can be edited in the backend module "Site Settings":
+
+.. code-block:: yaml
+   :caption: config/sites/<site>/settings.yaml
+
+   extcode:
+     cart:
+       mail:
+         buyer:
+           fromName: 'Shop'
+           fromAddress: 'shop@example.com'
+           ccAddress: []
+           bccAddress: ['archive@example.com']
+           replyToAddress: []
+         seller:
+           fromName: 'Shop'
+           fromAddress: 'shop@example.com'
+           toAddress: ['orders@example.com']
+           ccAddress: []
+           bccAddress: []
+
+The addresses are lists, not comma separated strings. ``plugin.tx_cart.mail``
+and the email settings of the cart plugin (FlexForm) are not used by the
+``OrderMailSender``. Attachments are still configured in
+``plugin.tx_cart.mail.<buyer|seller>.attachments`` and ``attachDocuments``.
+
 Impact
 ======
 
@@ -43,27 +70,35 @@ always sent by the ``OrderMailSender``.
 The ``MailHandler`` still works. It sends the emails with the
 ``OrderMailSender``, using the addresses of its getters and setters.
 
-The configuration and the templates of the emails are not changed. With the
-feature toggle:
+The templates of the emails are not changed. With the feature toggle:
 
-*  The seller needs ``plugin.tx_cart.mail.seller.toAddress`` (or
-   ``settings.seller.emailToAddress`` of the plugin). Without it an error is
-   written to the order log of each order. Previously the email to the seller
-   was skipped.
+*  The addresses are read from the site settings of the set
+   ``extcode/cart-mail`` instead of TypoScript and the FlexForm of the plugin.
+*  The seller needs ``extcode.cart.mail.seller.toAddress``. Without it an
+   error is written to the order log of each order. Previously the email to
+   the seller was skipped.
+*  If the storage page of the order is in no site, an error is written to the
+   order log.
 *  Invalid email addresses in the configuration are written to the order log
    before the email is sent. Previously sending the email failed.
+*  Errors of the template, e.g. a view helper which needs a request, and of
+   listeners of the ``AttachmentEvent`` are written to the order log with the
+   reason, the email is not sent. Previously a failing listener of the
+   ``AttachmentEvent`` stopped the order.
 
 Affected Installations
 ======================
 
-All installations with extensions which use or replace the ``MailHandler``,
-e.g. to send the emails of an order again, and all installations without
-email address of the seller.
+All installations which want to use the ``OrderMailSender`` before cart 13.0,
+and all installations with extensions which use or replace the ``MailHandler``,
+e.g. to send the emails of an order again.
 
 Migration
 =========
 
-Configure the email address of the seller and enable the feature toggle
+Add the site set ``extcode/cart-mail`` to the dependencies of the site, move
+the addresses from ``plugin.tx_cart.mail`` and the cart plugin to the site
+settings ``extcode.cart.mail.*`` and enable the feature toggle
 ``cart.useNewOrderMailSender``.
 
 Extensions which replace the ``MailHandler`` move the changes to an own
@@ -88,4 +123,4 @@ To send an email with an own configuration, e.g. other addresses, create a
 ``\Extcode\Cart\Mail\SellerMailConfiguration`` and send it with
 ``OrderMailSender::send()``.
 
-.. index:: Frontend, PHP-API
+.. index:: Frontend, PHP-API, TypoScript

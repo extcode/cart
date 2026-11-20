@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file source-language="en" datatype="plaintext" original="EXT:cart/Configuration/Sets/Mail/labels.xlf" date="2026-11-20T10:00:00Z" product-name="cart">
+        <header/>
+        <body>
+            <trans-unit id="label">
+                <source>Cart Mail</source>
+            </trans-unit>
+            <trans-unit id="categories.extcode.cart.mail">
+                <source>Cart Emails</source>
+            </trans-unit>
+            <trans-unit id="categories.extcode.cart.mail.buyer">
+                <source>Emails to the buyer</source>
+            </trans-unit>
+            <trans-unit id="categories.extcode.cart.mail.seller">
+                <source>Emails to the seller</source>
+            </trans-unit>
+            <trans-unit id="settings.extcode.cart.mail.buyer.fromName">
+                <source>Sender name</source>
+            </trans-unit>
+            <trans-unit id="settings.extcode.cart.mail.buyer.fromAddress">
+                <source>Sender email address</source>
+            </trans-unit>
+            <trans-unit id="settings.description.extcode.cart.mail.buyer.fromAddress">
+                <source>Without sender address no email is sent to the buyer.</source>
+            </trans-unit>
+            <trans-unit id="settings.extcode.cart.mail.buyer.ccAddress">
+                <source>CC email addresses</source>
+            </trans-unit>
+            <trans-unit id="settings.extcode.cart.mail.buyer.bccAddress">
+                <source>BCC email addresses</source>
+            </trans-unit>
+            <trans-unit id="settings.extcode.cart.mail.buyer.replyToAddress">
+                <source>Reply-to email addresses</source>
+            </trans-unit>
+            <trans-unit id="settings.extcode.cart.mail.seller.fromName">
+                <source>Sender name</source>
+            </trans-unit>
+            <trans-unit id="settings.extcode.cart.mail.seller.fromAddress">
+                <source>Sender email address</source>
+            </trans-unit>
+            <trans-unit id="settings.description.extcode.cart.mail.seller.fromAddress">
+                <source>Without sender address no email is sent to the seller.</source>
+            </trans-unit>
+            <trans-unit id="settings.extcode.cart.mail.seller.toAddress">
+                <source>Recipient email addresses</source>
+            </trans-unit>
+            <trans-unit id="settings.description.extcode.cart.mail.seller.toAddress">
+                <source>Required. The seller replies to the email address of the buyer.</source>
+            </trans-unit>
+            <trans-unit id="settings.extcode.cart.mail.seller.ccAddress">
+                <source>CC email addresses</source>
+            </trans-unit>
+            <trans-unit id="settings.extcode.cart.mail.seller.bccAddress">
+                <source>BCC email addresses</source>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

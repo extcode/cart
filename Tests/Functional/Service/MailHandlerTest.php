@@ -13,7 +13,7 @@ namespace Extcode\Cart\Tests\Functional\Service;
 
 use Codappix\Typo3PhpDatasets\TestingFramework;
 use Exception;
-use Extcode\Cart\Configuration\Loader\TypoScript\MailConfigurationLoader;
+use Extcode\Cart\Configuration\Loader\SiteSets\MailConfigurationLoader;
 use Extcode\Cart\Domain\Log\DatabaseWriter;
 use Extcode\Cart\Domain\Log\LogService;
 use Extcode\Cart\Domain\Model\Order\BillingAddress;
@@ -32,6 +32,7 @@ use Psr\EventDispatcher\EventDispatcherInterface;
 use TYPO3\CMS\Core\Log\LogLevel;
 use TYPO3\CMS\Core\Log\LogManager;
 use TYPO3\CMS\Core\Mail\MailerInterface;
+use TYPO3\CMS\Core\Site\SiteFinder;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
@@ -378,7 +379,7 @@ class MailHandlerTest extends FunctionalTestCase
                 $eventDispatcher,
                 $logService,
                 new OrderMailSender(
-                    new MailConfigurationLoader($configurationManager),
+                    new MailConfigurationLoader(self::createStub(SiteFinder::class)),
                     new Mailer($mailer),
                     $configurationManager,
                     $eventDispatcher,
