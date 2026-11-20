@@ -20,8 +20,10 @@ use Extcode\Cart\Domain\Model\Order\BillingAddress;
 use Extcode\Cart\Domain\Model\Order\Item as OrderItem;
 use Extcode\Cart\Domain\Model\Order\Payment;
 use Extcode\Cart\EventListener\Order\Finish\Email;
+use Extcode\Cart\Mail\AttachmentCollector;
 use Extcode\Cart\Mail\Mailer;
 use Extcode\Cart\Mail\OrderMailSender;
+use Extcode\Cart\Mail\PluginConfigurationProvider;
 use Extcode\Cart\Service\MailHandler;
 use Extcode\Cart\Tests\Functional\Mail\CollectingTransport;
 use PHPUnit\Framework\Attributes\IgnoreDeprecations;
@@ -33,6 +35,7 @@ use TYPO3\CMS\Core\Log\LogLevel;
 use TYPO3\CMS\Core\Log\LogManager;
 use TYPO3\CMS\Core\Mail\MailerInterface;
 use TYPO3\CMS\Core\Site\SiteFinder;
+use TYPO3\CMS\Core\TypoScript\TypoScriptService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
@@ -381,8 +384,8 @@ class MailHandlerTest extends FunctionalTestCase
                 new OrderMailSender(
                     new MailConfigurationLoader(self::createStub(SiteFinder::class)),
                     new Mailer($mailer),
-                    $configurationManager,
-                    $eventDispatcher,
+                    new PluginConfigurationProvider($configurationManager, new TypoScriptService()),
+                    new AttachmentCollector($eventDispatcher, $logService),
                     $logService,
                 ),
             ]

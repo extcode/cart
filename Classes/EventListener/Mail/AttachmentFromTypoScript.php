@@ -12,31 +12,19 @@ namespace Extcode\Cart\EventListener\Mail;
  */
 
 use Extcode\Cart\Event\Mail\AttachmentEvent;
+use Extcode\Cart\Mail\PluginConfigurationProvider;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Configuration\ConfigurationManager;
 
 class AttachmentFromTypoScript
 {
-    private array $settings;
-
     public function __construct(
-        private readonly ConfigurationManager $configurationManager
+        private readonly PluginConfigurationProvider $pluginConfigurationProvider
     ) {
-        $this->settings = $this->configurationManager->getConfiguration(
-            ConfigurationManager::CONFIGURATION_TYPE_FRAMEWORK,
-            'Cart'
-        );
     }
 
     public function __invoke(AttachmentEvent $event): void
     {
-        $type = $event->getType();
-        if (!isset($this->settings['mail'][$type]['attachments'])) {
-            return;
-        }
-
-        $attachments = $this->settings['mail'][$type]['attachments'];
-
+        $attachments = $this->pluginConfigurationProvider->getMailConfiguration($event->getType(), 'attachments');
         foreach ($attachments as $attachment) {
             $attachmentFile = GeneralUtility::getFileAbsFileName($attachment);
             if (file_exists($attachmentFile)) {

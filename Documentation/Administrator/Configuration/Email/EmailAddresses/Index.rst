@@ -123,6 +123,9 @@ email addresses from the site settings ``extcode.cart.mail`` of the site set
 :ref:`configuration-site-sets`. ``plugin.tx_cart.mail`` and the email
 addresses in the settings of the cart plugin are not used then.
 
+The emails on status changes always use these addresses, see
+:ref:`status-change-emails`.
+
 .. code-block:: php
    :caption: e.g. config/system/additional.php
 

@@ -12,7 +12,7 @@ namespace Extcode\Cart\OrderStatus\Mail;
  */
 
 /**
- * A rule of plugin.tx_cart.statusChange.mail.<serviceType>.<key> which can not be used.
+ * A rule of the site settings extcode.cart.statusChange.mail.<serviceType>.<key> which can not be used.
  */
 final readonly class InvalidStatusChangeMailRule
 {

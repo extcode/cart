@@ -14,9 +14,9 @@ namespace Extcode\Cart\Configuration\Loader\SiteSets;
 use Extcode\Cart\Domain\Model\Cart\Cart;
 use Extcode\Cart\Domain\Model\Cart\ServiceFactory;
 use Extcode\Cart\Domain\Model\Cart\ServiceInterface;
+use Extcode\Cart\Utility\ArrayUtility;
 use Extcode\Cart\Utility\Typo3GlobalsUtility;
 use TYPO3\CMS\Core\Site\Entity\Site;
-use TYPO3\CMS\Core\Utility\ArrayUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 abstract readonly class AbstractConfigurationLoader
@@ -167,12 +167,6 @@ abstract readonly class AbstractConfigurationLoader
      */
     private function getSettingsByPath(string $path): ?array
     {
-        $settings = $this->site->getSettings()->getAll();
-        if (!ArrayUtility::isValidPath($settings, $path, '.')) {
-            return null;
-        }
-        $value = ArrayUtility::getValueByPath($settings, $path, '.');
-
-        return is_array($value) ? $value : null;
+        return ArrayUtility::getArrayByPathWithFallback($this->site->getSettings()->getAll(), $path, '.');
     }
 }

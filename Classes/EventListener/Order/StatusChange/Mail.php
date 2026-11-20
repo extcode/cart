@@ -11,20 +11,29 @@ namespace Extcode\Cart\EventListener\Order\StatusChange;
  * LICENSE file that was distributed with this source code.
  */
 
+use Extcode\Cart\Configuration\Loader\MailConfigurationLoaderInterface;
 use Extcode\Cart\Domain\Log\LogServiceInterface;
 use Extcode\Cart\Domain\Log\Model\Log;
+use Extcode\Cart\Domain\Model\Order\Item;
 use Extcode\Cart\Event\Order\AfterStatusChangeEvent;
+use Extcode\Cart\Mail\AbstractMailConfiguration;
+use Extcode\Cart\Mail\AttachmentCollector;
+use Extcode\Cart\Mail\InvalidMailConfigurationException;
 use Extcode\Cart\Mail\MailException;
 use Extcode\Cart\Mail\Mailer;
+use Extcode\Cart\Mail\PluginConfigurationProvider;
 use Extcode\Cart\OrderStatus\Mail\InvalidStatusChangeMailRule;
+use Extcode\Cart\OrderStatus\Mail\StatusChangeMailRule;
 use Extcode\Cart\OrderStatus\Mail\StatusChangeMailRuleLoader;
 use Psr\Http\Message\ServerRequestInterface;
 use TYPO3\CMS\Core\Configuration\Features;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 
 /**
- * Sends the emails configured in plugin.tx_cart.statusChange.mail.<serviceType>
- * for the transition of the status. A failed email does not undo the change,
+ * Sends the emails configured in the site settings
+ * extcode.cart.statusChange.mail.<serviceType> of the site of the order for the
+ * transition of the status, with the addresses of extcode.cart.mail and the
+ * attachments of the AttachmentEvent. A failed email does not undo the change,
  * it is added as error to the event and written to the order log.
  *
  * Experimental: only active with the feature toggle
@@ -39,7 +48,10 @@ final readonly class Mail
 
     public function __construct(
         private StatusChangeMailRuleLoader $statusChangeMailRuleLoader,
+        private MailConfigurationLoaderInterface $mailConfigurationLoader,
         private Mailer $mailer,
+        private AttachmentCollector $attachmentCollector,
+        private PluginConfigurationProvider $pluginConfigurationProvider,
         private LogServiceInterface $logService,
         private Features $features,
     ) {
@@ -52,14 +64,15 @@ final readonly class Mail
         }
 
         $orderChange = $event->getOrderChange();
+        $orderItem = $event->getOrderItem();
 
-        $pluginTypoScript = $this->statusChangeMailRuleLoader->loadPluginTypoScript();
-        if ($pluginTypoScript === null) {
+        $rules = $this->statusChangeMailRuleLoader->getRules($orderItem, $event->getServiceType());
+        if ($rules === null) {
             $this->logService->write(
                 Log::warning(
                     $orderChange->orderItem,
                     self::LOG_TYPE,
-                    'No emails of status changes are sent, because the TypoScript is not available, e.g. on the command line.',
+                    'No emails of status changes are sent, because the storage page of the order is in no site.',
                     ['orderChange' => $orderChange->uid]
                 )
             );
@@ -67,12 +80,10 @@ final readonly class Mail
             return;
         }
 
-        $settings = is_array($pluginTypoScript['settings'] ?? null) ? $pluginTypoScript['settings'] : [];
         $request = ($GLOBALS['TYPO3_REQUEST'] ?? null) instanceof ServerRequestInterface ? $GLOBALS['TYPO3_REQUEST'] : null;
+        $templateVariables = ['orderChange' => $orderChange, 'settings' => $this->pluginConfigurationProvider->getSettings()];
 
-        $templateVariables = ['orderChange' => $orderChange, 'settings' => $settings];
-
-        foreach ($this->statusChangeMailRuleLoader->getRules($pluginTypoScript, $event->getServiceType()) as $rule) {
+        foreach ($rules as $rule) {
             if ($rule instanceof InvalidStatusChangeMailRule) {
                 $this->reportError($event, $rule->key, '', $rule->reason);
                 continue;
@@ -81,10 +92,22 @@ final readonly class Mail
                 continue;
             }
 
-            foreach ($rule->mailConfigurations as $mailConfiguration) {
-                $recipient = $mailConfiguration->getRecipientName();
+            foreach ($rule->recipients as $recipient) {
                 try {
-                    $this->mailer->send($mailConfiguration, $event->getOrderItem(), $templateVariables, $request);
+                    $mailConfiguration = $this->getMailConfiguration($rule, $recipient, $orderItem);
+                } catch (InvalidMailConfigurationException $exception) {
+                    $this->reportError($event, $rule->key, '', $exception->getMessage());
+                    continue;
+                }
+
+                try {
+                    $this->mailer->send(
+                        $mailConfiguration,
+                        $orderItem,
+                        $templateVariables,
+                        $request,
+                        $this->attachmentCollector->collect($recipient, $orderItem)
+                    );
                     $this->logService->write(
                         Log::info(
                             $orderChange->orderItem,
@@ -101,7 +124,21 @@ final readonly class Mail
     }
 
     /**
-     * @param string $recipient e.g. "buyer", empty for an invalid rule
+     * @param string $recipient "buyer" or "seller"
+     *
+     * @throws InvalidMailConfigurationException
+     */
+    private function getMailConfiguration(StatusChangeMailRule $rule, string $recipient, Item $orderItem): AbstractMailConfiguration
+    {
+        $template = $rule->getTemplate($recipient);
+
+        return $recipient === 'buyer'
+            ? $this->mailConfigurationLoader->getBuyerMailConfiguration($template, $orderItem)
+            : $this->mailConfigurationLoader->getSellerMailConfiguration($template, $orderItem);
+    }
+
+    /**
+     * @param string $recipient e.g. "buyer", empty for an invalid configuration
      */
     private function reportError(AfterStatusChangeEvent $event, string $key, string $recipient, string $reason, ?MailException $exception = null): void
     {
