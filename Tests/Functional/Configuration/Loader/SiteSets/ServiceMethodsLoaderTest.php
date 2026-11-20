@@ -91,6 +91,32 @@ final class ServiceMethodsLoaderTest extends FunctionalTestCase
         yield 'ch, reference to de' => ['ch'];
     }
 
+    #[Test]
+    public function theShippingMethodsDependOnTheCountryOfTheShippingAddress(): void
+    {
+        $this->createSite([], self::createShippingSettingsForDeAndAt());
+        $cart = self::createCart('de');
+        $cart->setShippingCountry('at');
+
+        self::assertSame(
+            [1 => 'Shipping AT'],
+            self::getNames((new ShippingMethodsLoader(new ServiceFactory()))->getShippingMethods($cart))
+        );
+    }
+
+    #[Test]
+    public function withoutShippingCountryTheShippingMethodsDependOnTheCountryOfTheBillingAddress(): void
+    {
+        $this->createSite([], self::createShippingSettingsForDeAndAt());
+        $cart = self::createCart('at');
+        $cart->setShippingCountry('');
+
+        self::assertSame(
+            [1 => 'Shipping AT'],
+            self::getNames((new ShippingMethodsLoader(new ServiceFactory()))->getShippingMethods($cart))
+        );
+    }
+
     #[IgnoreDeprecations]
     #[Test]
     public function readsTheDeprecatedSettingsOfAnOwnSiteSet(): void
@@ -137,18 +163,45 @@ final class ServiceMethodsLoaderTest extends FunctionalTestCase
     }
 
     /**
+     * @return array<string, mixed> the site settings with different shipping methods for de and at
+     */
+    private static function createShippingSettingsForDeAndAt(): array
+    {
+        return [
+            'extcode' => [
+                'cart' => [
+                    'shippings' => [
+                        'countries' => [
+                            'de' => self::createCountrySettings('Shipping DE'),
+                            'at' => self::createCountrySettings('Shipping AT'),
+                        ],
+                    ],
+                ],
+            ],
+        ];
+    }
+
+    /**
      * @return array<string, mixed> the settings of one service for de
      */
     private static function createServiceSettings(string $title): array
     {
         return [
             'countries' => [
-                'de' => [
-                    'preset' => 1,
-                    'options' => [
-                        1 => ['title' => $title, 'extra' => 0.0, 'taxClassId' => 1, 'status' => 'open'],
-                    ],
-                ],
+                'de' => self::createCountrySettings($title),
+            ],
+        ];
+    }
+
+    /**
+     * @return array<string, mixed> the settings of one country with one service
+     */
+    private static function createCountrySettings(string $title): array
+    {
+        return [
+            'preset' => 1,
+            'options' => [
+                1 => ['title' => $title, 'extra' => 0.0, 'taxClassId' => 1, 'status' => 'open'],
             ],
         ];
     }
