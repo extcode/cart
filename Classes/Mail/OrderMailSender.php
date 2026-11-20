@@ -17,13 +17,8 @@ use Extcode\Cart\Domain\Log\Model\Log;
 use Extcode\Cart\Domain\Model\Cart\Cart;
 use Extcode\Cart\Domain\Model\Order\AddressInterface;
 use Extcode\Cart\Domain\Model\Order\Item;
-use Extcode\Cart\Event\Mail\AttachmentEvent;
 use InvalidArgumentException;
-use Psr\EventDispatcher\EventDispatcherInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
-use TYPO3\CMS\Extbase\Configuration\Exception\NoServerRequestGivenException;
-use Throwable;
 
 /**
  * Sends the emails to the buyer and to the seller at the end of an order with
@@ -35,8 +30,8 @@ final readonly class OrderMailSender
     public function __construct(
         private MailConfigurationLoaderInterface $mailConfigurationLoader,
         private Mailer $mailer,
-        private ConfigurationManagerInterface $configurationManager,
-        private EventDispatcherInterface $eventDispatcher,
+        private PluginConfigurationProvider $pluginConfigurationProvider,
+        private AttachmentCollector $attachmentCollector,
         private LogServiceInterface $logService,
     ) {
     }
@@ -111,11 +106,11 @@ final readonly class OrderMailSender
                 $mailConfiguration,
                 $orderItem,
                 [
-                    'settings' => $this->getPluginSettings(),
+                    'settings' => $this->pluginConfigurationProvider->getSettings(),
                     'cart' => $cart,
                 ],
                 $request,
-                $this->getAttachments($recipient, $orderItem),
+                $this->attachmentCollector->collect($recipient, $orderItem),
             );
         } catch (MailException $exception) {
             $this->logError($orderItem, $recipient, $exception);
@@ -133,63 +128,6 @@ final readonly class OrderMailSender
                 ]
             )
         );
-    }
-
-    /**
-     * @return array<array-key, mixed> the settings of the cart plugin for the templates, empty without request, e.g. on the command line
-     */
-    private function getPluginSettings(): array
-    {
-        try {
-            $configuration = $this->configurationManager->getConfiguration(
-                ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK,
-                'Cart'
-            );
-        } catch (NoServerRequestGivenException) {
-            return [];
-        }
-
-        return is_array($configuration['settings'] ?? null) ? $configuration['settings'] : [];
-    }
-
-    /**
-     * @throws MailException if a listener of the AttachmentEvent fails, the email is not sent without its attachments
-     *
-     * @return list<string> the existing files of the AttachmentEvent, missing files are logged
-     */
-    private function getAttachments(string $recipient, Item $orderItem): array
-    {
-        $attachmentEvent = new AttachmentEvent($recipient, $orderItem);
-        try {
-            $this->eventDispatcher->dispatch($attachmentEvent);
-        } catch (Throwable $exception) {
-            // e.g. a listener which needs TypoScript, like on the command line
-            throw new MailException(
-                'The attachments could not be collected: ' . $exception->getMessage(),
-                1795140003,
-                $exception
-            );
-        }
-
-        $attachments = [];
-        foreach ($attachmentEvent->getAttachments() as $attachment) {
-            if (is_file($attachment)) {
-                $attachments[] = $attachment;
-                continue;
-            }
-            $this->logService->write(
-                Log::warning(
-                    self::getOrderItemUid($orderItem),
-                    'addAttachments',
-                    'Mail could add attachment ' . $attachment . ' to mail.',
-                    [
-                        'time' => time(),
-                    ]
-                )
-            );
-        }
-
-        return $attachments;
     }
 
     private function logError(Item $orderItem, string $recipient, InvalidMailConfigurationException|MailException $exception): void

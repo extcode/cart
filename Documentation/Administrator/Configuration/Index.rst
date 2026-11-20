@@ -83,6 +83,8 @@ To use a site set:
    The email addresses of the site set ``extcode/cart-mail`` are always read
    from the site settings. They are used with the feature toggle
    ``cart.useNewOrderMailSender``, see :ref:`mail_addresses`.
+   The emails on status changes use them too, their rules are site settings
+   in ``extcode.cart.statusChange.mail``, see :ref:`status-change-emails`.
 
 Differences to TypoScript:
 

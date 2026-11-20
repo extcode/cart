@@ -2863,12 +2863,6 @@ parameters:
 			path: ../Classes/EventListener/Mail/AttachmentFromOrderItem.php
 
 		-
-			message: '#^Property Extcode\\Cart\\EventListener\\Mail\\AttachmentFromOrderItem\:\:\$settings type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: ../Classes/EventListener/Mail/AttachmentFromOrderItem.php
-
-		-
 			message: '#^Argument of an invalid type mixed supplied for foreach, only iterables are supported\.$#'
 			identifier: foreach.nonIterable
 			count: 1
@@ -2889,12 +2883,6 @@ parameters:
 		-
 			message: '#^Parameter \#1 \$fileName of static method TYPO3\\CMS\\Core\\Utility\\GeneralUtility\:\:getFileAbsFileName\(\) expects string, mixed given\.$#'
 			identifier: argument.type
-			count: 1
-			path: ../Classes/EventListener/Mail/AttachmentFromTypoScript.php
-
-		-
-			message: '#^Property Extcode\\Cart\\EventListener\\Mail\\AttachmentFromTypoScript\:\:\$settings type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
 			count: 1
 			path: ../Classes/EventListener/Mail/AttachmentFromTypoScript.php
 

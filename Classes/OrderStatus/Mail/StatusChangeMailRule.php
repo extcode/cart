@@ -11,19 +11,17 @@ namespace Extcode\Cart\OrderStatus\Mail;
  * LICENSE file that was distributed with this source code.
  */
 
-use Extcode\Cart\Mail\AbstractMailConfiguration;
-use Extcode\Cart\Mail\BuyerMailConfiguration;
 use Extcode\Cart\Mail\InvalidMailConfigurationException;
-use Extcode\Cart\Mail\SellerMailConfiguration;
 use Extcode\Cart\OrderStatus\ServiceType;
 
 /**
- * A rule of plugin.tx_cart.statusChange.mail.<serviceType>.<key>: the emails
- * which are sent for a transition of the status.
+ * A rule of the site settings extcode.cart.statusChange.mail.<serviceType>.<key>:
+ * the emails which are sent for a transition of the status. The addresses are
+ * the ones of extcode.cart.mail.buyer and extcode.cart.mail.seller.
  */
 final readonly class StatusChangeMailRule
 {
-    private const RECIPIENTS = ['buyer', 'seller'];
+    public const RECIPIENTS = ['buyer', 'seller'];
 
     private const KEY_PATTERN = '/^[a-zA-Z][a-zA-Z0-9]*$/';
 
@@ -36,19 +34,24 @@ final readonly class StatusChangeMailRule
         public ?array $fromStatus,
         public string $toStatus,
         /**
-         * @var list<AbstractMailConfiguration>
+         * The template folder, e.g. "Mail/StatusChange/Payment/PendingToPaid".
          */
-        public array $mailConfigurations,
+        public string $template,
+        /**
+         * @var list<string> "buyer" and/or "seller"
+         */
+        public array $recipients,
     ) {
     }
 
     /**
-     * Creates the rule from TypoScript as plain array, e.g.
-     * ['from' => 'pending', 'to' => 'paid', 'recipients' => ['buyer' => ['fromAddress' => '...']]].
+     * Creates the rule from the site settings, e.g.
+     * ['from' => 'pending', 'to' => 'paid', 'recipients' => ['buyer']].
      *
-     * Without "template" the template folder is the key with an upper case
-     * first letter, e.g. "Mail/StatusChange/Payment/PendingToPaid"; the
-     * templates are "Buyer" and "Seller" in this folder.
+     * "from" is a status, a list of status (also comma separated) or "*" for
+     * any status. Without "template" the template folder is the key with an
+     * upper case first letter, e.g. "Mail/StatusChange/Payment/PendingToPaid";
+     * the templates are "Buyer" and "Seller" in this folder.
      *
      * @param array<array-key, mixed> $configuration
      *
@@ -56,9 +59,9 @@ final readonly class StatusChangeMailRule
      */
     public static function fromArray(string $key, ServiceType $serviceType, array $configuration): self
     {
-        $from = is_string($configuration['from'] ?? null) ? trim($configuration['from']) : '';
+        $from = self::getStrings($configuration['from'] ?? null);
         $to = is_string($configuration['to'] ?? null) ? trim($configuration['to']) : '';
-        if ($from === '') {
+        if ($from === []) {
             throw new InvalidMailConfigurationException('The old status "from" is missing, use "*" for any status.', 1795120001);
         }
         if ($to === '') {
@@ -76,11 +79,14 @@ final readonly class StatusChangeMailRule
             $template = 'Mail/StatusChange/' . ucfirst($serviceType->value) . '/' . ucfirst($key);
         }
 
-        $fromStatus = $from === '*'
-            ? null
-            : array_values(array_filter(array_map(trim(...), explode(',', $from)), static fn (string $status): bool => $status !== ''));
-
-        return new self($key, $serviceType, $fromStatus, $to, self::getMailConfigurations($configuration['recipients'] ?? [], $template));
+        return new self(
+            $key,
+            $serviceType,
+            $from === ['*'] ? null : $from,
+            $to,
+            $template,
+            self::getRecipients($configuration['recipients'] ?? null)
+        );
     }
 
     public function matches(string $fromStatus, string $toStatus): bool
@@ -90,34 +96,54 @@ final readonly class StatusChangeMailRule
     }
 
     /**
+     * @param string $recipient "buyer" or "seller"
+     *
+     * @return string e.g. "Mail/StatusChange/Payment/PendingToPaid/Buyer"
+     */
+    public function getTemplate(string $recipient): string
+    {
+        return $this->template . '/' . ucfirst($recipient);
+    }
+
+    /**
      * @throws InvalidMailConfigurationException
      *
-     * @return list<AbstractMailConfiguration>
+     * @return list<string>
      */
-    private static function getMailConfigurations(mixed $recipients, string $template): array
+    private static function getRecipients(mixed $recipients): array
     {
-        if (!is_array($recipients) || $recipients === []) {
-            throw new InvalidMailConfigurationException('The "recipients" are missing, e.g. "recipients.buyer".', 1795120005);
+        $recipients = self::getStrings($recipients);
+        if ($recipients === []) {
+            throw new InvalidMailConfigurationException('The "recipients" are missing, e.g. "recipients: [buyer]".', 1795120005);
         }
-        $unknownRecipients = array_diff(array_map(strval(...), array_keys($recipients)), self::RECIPIENTS);
+        $unknownRecipients = array_diff($recipients, self::RECIPIENTS);
         if ($unknownRecipients !== []) {
             throw new InvalidMailConfigurationException('The recipients "' . implode('", "', $unknownRecipients) . '" are unknown, allowed are "' . implode('", "', self::RECIPIENTS) . '".', 1795120006);
         }
 
-        $mailConfigurations = [];
-        foreach (self::RECIPIENTS as $recipient) {
-            if (!array_key_exists($recipient, $recipients)) {
-                continue;
-            }
-            $settings = $recipients[$recipient];
-            if (!is_array($settings)) {
-                throw new InvalidMailConfigurationException('The settings of the recipient "' . $recipient . '" must be an array.', 1795120007);
-            }
-            $mailConfigurations[] = $recipient === 'buyer'
-                ? BuyerMailConfiguration::fromArray($template . '/Buyer', $settings)
-                : SellerMailConfiguration::fromArray($template . '/Seller', $settings);
+        return array_values(array_intersect(self::RECIPIENTS, $recipients));
+    }
+
+    /**
+     * @return list<string> the non-empty strings of a list or of a comma separated string
+     */
+    private static function getStrings(mixed $value): array
+    {
+        if (is_string($value)) {
+            $value = explode(',', $value);
+        }
+        if (!is_array($value)) {
+            return [];
         }
 
-        return $mailConfigurations;
+        $strings = [];
+        foreach ($value as $string) {
+            $string = is_scalar($string) ? trim((string) $string) : '';
+            if ($string !== '') {
+                $strings[] = $string;
+            }
+        }
+
+        return $strings;
     }
 }

@@ -20,8 +20,10 @@ use Extcode\Cart\Domain\Model\Order\BillingAddress;
 use Extcode\Cart\Domain\Model\Order\Item as OrderItem;
 use Extcode\Cart\Domain\Model\Order\Payment;
 use Extcode\Cart\Event\Mail\AttachmentEvent;
+use Extcode\Cart\Mail\AttachmentCollector;
 use Extcode\Cart\Mail\Mailer;
 use Extcode\Cart\Mail\OrderMailSender;
+use Extcode\Cart\Mail\PluginConfigurationProvider;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\Stub;
@@ -35,6 +37,7 @@ use TYPO3\CMS\Core\Settings\Settings;
 use TYPO3\CMS\Core\Site\Entity\Site;
 use TYPO3\CMS\Core\Site\Entity\SiteSettings;
 use TYPO3\CMS\Core\Site\SiteFinder;
+use TYPO3\CMS\Core\TypoScript\TypoScriptService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Extbase\Configuration\Exception\NoServerRequestGivenException;
@@ -326,8 +329,8 @@ final class OrderMailSenderTest extends FunctionalTestCase
         return new OrderMailSender(
             new MailConfigurationLoader($siteFinder),
             new Mailer($mailer ?? GeneralUtility::makeInstance(MailerInterface::class)),
-            $configurationManager,
-            $eventDispatcher ?? self::createStub(EventDispatcherInterface::class),
+            new PluginConfigurationProvider($configurationManager, new TypoScriptService()),
+            new AttachmentCollector($eventDispatcher ?? self::createStub(EventDispatcherInterface::class), $logService),
             $logService,
         );
     }

@@ -11,63 +11,40 @@ namespace Extcode\Cart\OrderStatus\Mail;
  * LICENSE file that was distributed with this source code.
  */
 
+use Extcode\Cart\Domain\Model\Order\Item;
 use Extcode\Cart\Mail\InvalidMailConfigurationException;
 use Extcode\Cart\OrderStatus\ServiceType;
-use Psr\Http\Message\ServerRequestInterface;
-use TYPO3\CMS\Core\Http\ApplicationType;
-use TYPO3\CMS\Core\TypoScript\FrontendTypoScript;
-use TYPO3\CMS\Core\TypoScript\TypoScriptService;
+use TYPO3\CMS\Core\Exception\SiteNotFoundException;
+use TYPO3\CMS\Core\Site\SiteFinder;
 use TYPO3\CMS\Core\Utility\ArrayUtility;
-use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
-use TYPO3\CMS\Extbase\Configuration\Exception\NoServerRequestGivenException;
 
 /**
- * Reads the email rules of plugin.tx_cart.statusChange.mail from the
- * TypoScript of the current request, e.g. of the storage folder of the order
- * in the backend module.
+ * Reads the email rules of the site settings extcode.cart.statusChange.mail
+ * from the site of the storage page of the order, so it works without request
+ * too, e.g. on the command line.
  */
 final readonly class StatusChangeMailRuleLoader
 {
     public function __construct(
-        private ConfigurationManagerInterface $configurationManager,
-        private TypoScriptService $typoScriptService,
+        private SiteFinder $siteFinder,
     ) {
     }
 
     /**
-     * @return null|array<array-key, mixed> plugin.tx_cart as plain array, null if no TypoScript is available, e.g. on the command line
+     * @return null|list<InvalidStatusChangeMailRule|StatusChangeMailRule> the rules of
+     *                                                                     extcode.cart.statusChange.mail.<serviceType>, null if
+     *                                                                     the storage page of the order is in no site
      */
-    public function loadPluginTypoScript(): ?array
+    public function getRules(Item $orderItem, ServiceType $serviceType): ?array
     {
-        $request = $GLOBALS['TYPO3_REQUEST'] ?? null;
-        if ($request instanceof ServerRequestInterface
-            && ApplicationType::fromRequest($request)->isFrontend()
-            && !self::hasFrontendTypoScript($request)
-        ) {
-            // e.g. a notification of a payment provider handled by a middleware
-            return null;
-        }
-
         try {
-            $setup = $this->configurationManager->getConfiguration(ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT);
-        } catch (NoServerRequestGivenException) {
+            $settings = $this->siteFinder->getSiteByPageId((int) $orderItem->getPid())->getSettings()->getAll();
+        } catch (SiteNotFoundException) {
             return null;
         }
 
-        $pluginSetup = ArrayUtility::isValidPath($setup, 'plugin./tx_cart.') ? ArrayUtility::getValueByPath($setup, 'plugin./tx_cart.') : [];
-
-        return is_array($pluginSetup) ? $this->typoScriptService->convertTypoScriptArrayToPlainArray($pluginSetup) : [];
-    }
-
-    /**
-     * @param array<array-key, mixed> $pluginTypoScript plugin.tx_cart as plain array
-     *
-     * @return list<InvalidStatusChangeMailRule|StatusChangeMailRule> the rules of plugin.tx_cart.statusChange.mail.<serviceType>
-     */
-    public function getRules(array $pluginTypoScript, ServiceType $serviceType): array
-    {
-        $path = 'statusChange/mail/' . $serviceType->value;
-        $configurations = ArrayUtility::isValidPath($pluginTypoScript, $path) ? ArrayUtility::getValueByPath($pluginTypoScript, $path) : [];
+        $path = 'extcode.cart.statusChange.mail.' . $serviceType->value;
+        $configurations = ArrayUtility::isValidPath($settings, $path, '.') ? ArrayUtility::getValueByPath($settings, $path, '.') : [];
         if (!is_array($configurations)) {
             return [];
         }
@@ -87,12 +64,5 @@ final readonly class StatusChangeMailRuleLoader
         }
 
         return $result;
-    }
-
-    private static function hasFrontendTypoScript(ServerRequestInterface $request): bool
-    {
-        $frontendTypoScript = $request->getAttribute('frontend.typoscript');
-
-        return $frontendTypoScript instanceof FrontendTypoScript && $frontendTypoScript->hasSetup();
     }
 }

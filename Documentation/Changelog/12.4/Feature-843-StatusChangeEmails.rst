@@ -10,24 +10,29 @@ Description
 ===========
 
 EXT:cart sends emails when the payment or the shipping status of an order is
-changed, for the transitions configured in TypoScript under
-``plugin.tx_cart.statusChange.mail.payment`` and
-``plugin.tx_cart.statusChange.mail.shipping``:
+changed, for the transitions configured in the site settings
+``extcode.cart.statusChange.mail.payment`` and
+``extcode.cart.statusChange.mail.shipping`` of the site of the order:
 
-.. code-block:: typoscript
+.. code-block:: yaml
+   :caption: config/sites/<site>/settings.yaml
 
-   plugin.tx_cart.statusChange.mail.payment {
-       pendingToPaid {
-           from = pending
-           to = paid
-           recipients.buyer < plugin.tx_cart.mail.buyer
-       }
-   }
+   extcode:
+     cart:
+       statusChange:
+         mail:
+           payment:
+             pendingToPaid:
+               from: pending
+               to: paid
+               recipients: [buyer]
 
-The recipients ``buyer`` and ``seller`` take the keys of
-``plugin.tx_cart.mail.buyer`` and ``plugin.tx_cart.mail.seller``, so they can
-be copied. The template of the example is
-``Mail/StatusChange/Payment/PendingToPaid/Buyer.html``.
+The addresses of the recipients ``buyer`` and ``seller`` are the ones of the
+site settings ``extcode.cart.mail`` (site set ``extcode/cart-mail``, see
+#845). The emails get the attachments of the ``AttachmentEvent`` like the
+emails at the end of an order. As the site is the one of the storage folder
+of the order, the emails are sent on the command line too. The template of
+the example is ``Mail/StatusChange/Payment/PendingToPaid/Buyer.html``.
 
 The listener ``\Extcode\Cart\EventListener\Order\StatusChange\Mail`` of the
 ``AfterStatusChangeEvent`` sends the emails. Listeners of this event can add
@@ -46,10 +51,10 @@ feature toggle ``cart.experimental.statusChangeMails``:
 
    $GLOBALS['TYPO3_CONF_VARS']['SYS']['features']['cart.experimental.statusChangeMails'] = true;
 
-Classes and the TypoScript configuration of the feature may change in minor
+Classes and the configuration of the feature may change in minor
 versions, even incompatibly.
 
 No emails are configured by default, the emails at the end of an order are
 not changed.
 
-.. index:: Backend, TypoScript
+.. index:: Backend

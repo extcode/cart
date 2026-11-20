@@ -8,6 +8,11 @@ Email attachments
 
 Email attachments can be configured as shown below.
 
+The attachments of the emails to the buyer and to the seller are added to the
+emails at the end of an order and to the emails on status changes, see
+:ref:`status-change-emails`. They are read from TypoScript, so they are not
+available on the command line.
+
 .. code-block:: typoscript
    :caption: Can be set in e.g. EXT:sitepackage/Configuration/TypoScript/setup.typoscript
 

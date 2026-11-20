@@ -21,10 +21,12 @@ use Extcode\Cart\Domain\Model\Order\Item as OrderItem;
 use Extcode\Cart\Domain\Model\Order\Payment;
 use Extcode\Cart\Event\Order\FinishEvent;
 use Extcode\Cart\EventListener\Order\Finish\Email;
+use Extcode\Cart\Mail\AttachmentCollector;
 use Extcode\Cart\Mail\BuyerMailConfiguration;
 use Extcode\Cart\Mail\InvalidMailConfigurationException;
 use Extcode\Cart\Mail\Mailer;
 use Extcode\Cart\Mail\OrderMailSender;
+use Extcode\Cart\Mail\PluginConfigurationProvider;
 use Extcode\Cart\Service\MailHandler;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Test;
@@ -32,6 +34,7 @@ use PHPUnit\Framework\MockObject\MockObject;
 use Psr\EventDispatcher\EventDispatcherInterface;
 use TYPO3\CMS\Core\Configuration\Features;
 use TYPO3\CMS\Core\Mail\MailerInterface;
+use TYPO3\CMS\Core\TypoScript\TypoScriptService;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
@@ -130,8 +133,8 @@ final class EmailTest extends UnitTestCase
             new OrderMailSender(
                 $mailConfigurationLoader,
                 new Mailer(self::createStub(MailerInterface::class)),
-                self::createStub(ConfigurationManagerInterface::class),
-                self::createStub(EventDispatcherInterface::class),
+                new PluginConfigurationProvider(self::createStub(ConfigurationManagerInterface::class), new TypoScriptService()),
+                new AttachmentCollector(self::createStub(EventDispatcherInterface::class), self::createStub(LogServiceInterface::class)),
                 self::createStub(LogServiceInterface::class),
             ),
             $features,

@@ -20,13 +20,16 @@ use Extcode\Cart\Tests\Functional\Mail\CollectingTransport;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Test;
 use Symfony\Component\Mime\Address;
+use TYPO3\CMS\Core\Configuration\SiteWriter;
+use TYPO3\CMS\Core\Site\SiteFinder;
 use TYPO3\CMS\Core\Utility\ArrayUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
 
 /**
- * Emails of status changes configured in plugin.tx_cart.statusChange.mail,
- * sent when an editor changes the status in the order details.
+ * Emails of status changes configured in the site settings
+ * extcode.cart.statusChange.mail of the site of the order, sent when an editor
+ * changes the status in the order details.
  */
 #[CoversClass(Mail::class)]
 final class StatusChangeMailTest extends AbstractOrderStatusTestCase
@@ -40,19 +43,20 @@ final class StatusChangeMailTest extends AbstractOrderStatusTestCase
      */
     private const SHOP_ROOT_PID = 101;
 
-    private const MAIL_TYPOSCRIPT = <<<'TYPOSCRIPT'
-        plugin.tx_cart.mail {
-            buyer {
-                fromName = Shop
-                fromAddress = shop@example.com
-                bccAddress = archive@example.com
-            }
-            seller {
-                fromAddress = shop@example.com
-                toAddress = orders@example.com
-            }
-        }
-        TYPOSCRIPT;
+    /**
+     * The addresses of the site set extcode/cart-mail.
+     */
+    private const MAIL_SETTINGS = [
+        'buyer' => [
+            'fromName' => 'Shop',
+            'fromAddress' => 'shop@example.com',
+            'bccAddress' => ['archive@example.com'],
+        ],
+        'seller' => [
+            'fromAddress' => 'shop@example.com',
+            'toAddress' => ['orders@example.com'],
+        ],
+    ];
 
     protected array $configurationToUseInTestInstance = [
         'MAIL' => [
@@ -84,15 +88,9 @@ final class StatusChangeMailTest extends AbstractOrderStatusTestCase
     #[Test]
     public function aConfiguredTransitionSendsTheEmailToTheBuyer(): void
     {
-        $this->setStatusChangeTypoScript(<<<'TYPOSCRIPT'
-            plugin.tx_cart.statusChange.mail.payment {
-                openToPaid {
-                    from = open
-                    to = paid
-                    recipients.buyer < plugin.tx_cart.mail.buyer
-                }
-            }
-            TYPOSCRIPT);
+        self::createSite(['payment' => [
+            'openToPaid' => ['from' => 'open', 'to' => 'paid', 'recipients' => ['buyer']],
+        ]]);
 
         $html = self::changePaymentStatus(PaymentStatus::PAID);
 
@@ -115,18 +113,9 @@ final class StatusChangeMailTest extends AbstractOrderStatusTestCase
     #[Test]
     public function anyOldStatusSendsTheEmailsToTheBuyerAndTheSeller(): void
     {
-        $this->setStatusChangeTypoScript(<<<'TYPOSCRIPT'
-            plugin.tx_cart.statusChange.mail.payment {
-                anyToCanceled {
-                    from = *
-                    to = canceled
-                    recipients {
-                        buyer < plugin.tx_cart.mail.buyer
-                        seller < plugin.tx_cart.mail.seller
-                    }
-                }
-            }
-            TYPOSCRIPT);
+        self::createSite(['payment' => [
+            'anyToCanceled' => ['from' => '*', 'to' => 'canceled', 'recipients' => ['buyer', 'seller']],
+        ]]);
 
         self::changePaymentStatus(PaymentStatus::CANCELED);
 
@@ -142,16 +131,14 @@ final class StatusChangeMailTest extends AbstractOrderStatusTestCase
     #[Test]
     public function aListOfOldStatusAndAnExplicitTemplateSendTheEmail(): void
     {
-        $this->setStatusChangeTypoScript(<<<'TYPOSCRIPT'
-            plugin.tx_cart.statusChange.mail.shipping {
-                10 {
-                    from = in_process, open
-                    to = shipped
-                    template = Mail/StatusChange/Shipped
-                    recipients.seller < plugin.tx_cart.mail.seller
-                }
-            }
-            TYPOSCRIPT);
+        self::createSite(['shipping' => [
+            10 => [
+                'from' => ['in_process', 'open'],
+                'to' => 'shipped',
+                'template' => 'Mail/StatusChange/Shipped',
+                'recipients' => ['seller'],
+            ],
+        ]]);
 
         self::submitForm(
             (string) self::dispatchShowAction(1)->getBody(),
@@ -166,21 +153,43 @@ final class StatusChangeMailTest extends AbstractOrderStatusTestCase
     }
 
     #[Test]
+    public function theAttachmentsOfTheAttachmentEventAreSent(): void
+    {
+        self::createSite(['payment' => [
+            'openToPaid' => ['from' => 'open', 'to' => 'paid', 'recipients' => ['buyer']],
+        ]]);
+        // attachments of the emails to the buyer, read by the listener AttachmentFromTypoScript
+        $this->getConnectionPool()->getConnectionForTable('sys_template')->insert(
+            'sys_template',
+            [
+                'uid' => 1,
+                'pid' => self::SHOP_ROOT_PID,
+                'title' => 'Shop',
+                'root' => 1,
+                'clear' => 3,
+                'config' => 'plugin.tx_cart.mail.buyer.attachments.1 = EXT:cart/Tests/Functional/Fixtures/Templates/Mail/StatusChange/Shipped/Seller.html',
+            ]
+        );
+
+        self::changePaymentStatus(PaymentStatus::PAID);
+
+        $emails = CollectingTransport::getEmails();
+        self::assertCount(1, $emails);
+        $attachments = $emails[0]->getAttachments();
+        self::assertCount(1, $attachments);
+        self::assertSame('Seller.html', $attachments[0]->getFilename());
+    }
+
+    #[Test]
     public function noEmailIsSentWithoutTheFeatureToggle(): void
     {
         $configuration = $GLOBALS['TYPO3_CONF_VARS'];
         self::assertIsArray($configuration);
         $GLOBALS['TYPO3_CONF_VARS'] = ArrayUtility::setValueByPath($configuration, ['SYS', 'features', Mail::FEATURE], false);
-        $this->setStatusChangeTypoScript(<<<'TYPOSCRIPT'
-            plugin.tx_cart.statusChange.mail.payment {
-                openToPaid {
-                    from = open
-                    to = paid
-                    recipients.buyer < plugin.tx_cart.mail.buyer
-                }
-                invalid = 1
-            }
-            TYPOSCRIPT);
+        self::createSite(['payment' => [
+            'openToPaid' => ['from' => 'open', 'to' => 'paid', 'recipients' => ['buyer']],
+            'invalid' => 1,
+        ]]);
 
         $html = $this->changePaymentStatus(PaymentStatus::PAID);
 
@@ -193,22 +202,14 @@ final class StatusChangeMailTest extends AbstractOrderStatusTestCase
     #[Test]
     public function anotherTransitionSendsNoEmail(): void
     {
-        $this->setStatusChangeTypoScript(<<<'TYPOSCRIPT'
-            plugin.tx_cart.statusChange.mail.payment {
-                openToPaid {
-                    from = open
-                    to = paid
-                    recipients.buyer < plugin.tx_cart.mail.buyer
-                }
-            }
-            plugin.tx_cart.statusChange.mail.shipping {
-                pendingToShipped {
-                    from = pending
-                    to = shipped
-                    recipients.buyer < plugin.tx_cart.mail.buyer
-                }
-            }
-            TYPOSCRIPT);
+        self::createSite([
+            'payment' => [
+                'openToPaid' => ['from' => 'open', 'to' => 'paid', 'recipients' => ['buyer']],
+            ],
+            'shipping' => [
+                'pendingToShipped' => ['from' => 'pending', 'to' => 'shipped', 'recipients' => ['buyer']],
+            ],
+        ]);
 
         $html = self::changePaymentStatus(PaymentStatus::PENDING);
 
@@ -220,15 +221,9 @@ final class StatusChangeMailTest extends AbstractOrderStatusTestCase
     #[Test]
     public function aMissingTemplateShowsAnErrorAndTheStatusIsChangedAnyway(): void
     {
-        $this->setStatusChangeTypoScript(<<<'TYPOSCRIPT'
-            plugin.tx_cart.statusChange.mail.payment {
-                openToPending {
-                    from = open
-                    to = pending
-                    recipients.buyer < plugin.tx_cart.mail.buyer
-                }
-            }
-            TYPOSCRIPT);
+        self::createSite(['payment' => [
+            'openToPending' => ['from' => 'open', 'to' => 'pending', 'recipients' => ['buyer']],
+        ]]);
 
         $html = self::changePaymentStatus(PaymentStatus::PENDING);
 
@@ -243,15 +238,9 @@ final class StatusChangeMailTest extends AbstractOrderStatusTestCase
     #[Test]
     public function anInvalidConfigurationShowsAnError(): void
     {
-        $this->setStatusChangeTypoScript(<<<'TYPOSCRIPT'
-            plugin.tx_cart.statusChange.mail.payment {
-                10 {
-                    from = open
-                    to = paid
-                    recipients.buyer < plugin.tx_cart.mail.buyer
-                }
-            }
-            TYPOSCRIPT);
+        self::createSite(['payment' => [
+            10 => ['from' => 'open', 'to' => 'paid', 'recipients' => ['buyer']],
+        ]]);
 
         $html = self::changePaymentStatus(PaymentStatus::PAID);
 
@@ -270,15 +259,9 @@ final class StatusChangeMailTest extends AbstractOrderStatusTestCase
             ['email' => ''],
             ['uid' => 1]
         );
-        $this->setStatusChangeTypoScript(<<<'TYPOSCRIPT'
-            plugin.tx_cart.statusChange.mail.payment {
-                openToPaid {
-                    from = open
-                    to = paid
-                    recipients.buyer < plugin.tx_cart.mail.buyer
-                }
-            }
-            TYPOSCRIPT);
+        self::createSite(['payment' => [
+            'openToPaid' => ['from' => 'open', 'to' => 'paid', 'recipients' => ['buyer']],
+        ]]);
 
         $html = self::changePaymentStatus(PaymentStatus::PAID);
 
@@ -297,15 +280,9 @@ final class StatusChangeMailTest extends AbstractOrderStatusTestCase
             ['email' => 'customer'],
             ['uid' => 1]
         );
-        $this->setStatusChangeTypoScript(<<<'TYPOSCRIPT'
-            plugin.tx_cart.statusChange.mail.payment {
-                openToPaid {
-                    from = open
-                    to = paid
-                    recipients.buyer < plugin.tx_cart.mail.buyer
-                }
-            }
-            TYPOSCRIPT);
+        self::createSite(['payment' => [
+            'openToPaid' => ['from' => 'open', 'to' => 'paid', 'recipients' => ['buyer']],
+        ]]);
 
         $html = $this->changePaymentStatus(PaymentStatus::PAID);
 
@@ -318,18 +295,13 @@ final class StatusChangeMailTest extends AbstractOrderStatusTestCase
     }
 
     #[Test]
-    public function anInvalidEmailAddressInTypoScriptShowsAnError(): void
+    public function anInvalidEmailAddressInTheSiteSettingsShowsAnError(): void
     {
-        $this->setStatusChangeTypoScript(<<<'TYPOSCRIPT'
-            plugin.tx_cart.statusChange.mail.payment {
-                openToPaid {
-                    from = open
-                    to = paid
-                    recipients.buyer < plugin.tx_cart.mail.buyer
-                    recipients.buyer.bccAddress = archive
-                }
-            }
-            TYPOSCRIPT);
+        $mailSettings = self::MAIL_SETTINGS;
+        $mailSettings['buyer']['bccAddress'] = ['archive'];
+        self::createSite(['payment' => [
+            'openToPaid' => ['from' => 'open', 'to' => 'paid', 'recipients' => ['buyer']],
+        ]], $mailSettings);
 
         $html = $this->changePaymentStatus(PaymentStatus::PAID);
 
@@ -341,32 +313,92 @@ final class StatusChangeMailTest extends AbstractOrderStatusTestCase
     }
 
     #[Test]
-    public function aChangeWithoutTypoScriptSendsNoEmailAndLogsAWarning(): void
+    public function aMissingAddressOfTheSellerShowsAnError(): void
     {
+        $mailSettings = self::MAIL_SETTINGS;
+        unset($mailSettings['seller']['toAddress']);
+        self::createSite(['payment' => [
+            'anyToCanceled' => ['from' => '*', 'to' => 'canceled', 'recipients' => ['buyer', 'seller']],
+        ]], $mailSettings);
+
+        $html = $this->changePaymentStatus(PaymentStatus::CANCELED);
+
+        self::assertCount(1, CollectingTransport::getEmails(), 'The email to the buyer is sent.');
+        self::assertStringContainsString(
+            '[ERROR] The email configuration "anyToCanceled" is invalid, no email was sent: The setting "extcode.cart.mail.seller.toAddress" of the site is missing.',
+            $html
+        );
+    }
+
+    #[Test]
+    public function aChangeWithoutRequestSendsTheEmail(): void
+    {
+        self::createSite(['payment' => [
+            'openToPaid' => ['from' => 'open', 'to' => 'paid', 'recipients' => ['buyer']],
+        ]]);
         // e.g. on the command line
         unset($GLOBALS['TYPO3_REQUEST']);
-        $this->setStatusChangeTypoScript(<<<'TYPOSCRIPT'
-            plugin.tx_cart.statusChange.mail.payment {
-                openToPaid {
-                    from = open
-                    to = paid
-                    recipients.buyer < plugin.tx_cart.mail.buyer
-                }
-            }
-            TYPOSCRIPT);
+
+        $result = $this->changePaymentStatusWithTheService();
+
+        self::assertTrue($result);
+        self::assertCount(1, CollectingTransport::getEmails());
+        self::assertSame(
+            [['info', 'The email "openToPaid" was sent to the buyer.']],
+            $this->getOrderLog()
+        );
+    }
+
+    #[Test]
+    public function anOrderInNoSiteSendsNoEmailAndLogsAWarning(): void
+    {
+        unset($GLOBALS['TYPO3_REQUEST']);
+
+        $result = $this->changePaymentStatusWithTheService();
+
+        self::assertTrue($result);
+        self::assertSame([], CollectingTransport::getEmails());
+        self::assertSame(
+            [['warning', 'No emails of status changes are sent, because the storage page of the order is in no site.']],
+            $this->getOrderLog()
+        );
+    }
+
+    /**
+     * Creates the site of the shop with the email rules and the addresses.
+     *
+     * @param array<string, array<array-key, mixed>> $rules the rules of extcode.cart.statusChange.mail per service type
+     * @param array<string, array<string, mixed>> $mailSettings the addresses of extcode.cart.mail
+     */
+    private static function createSite(array $rules, array $mailSettings = self::MAIL_SETTINGS): void
+    {
+        $siteWriter = GeneralUtility::makeInstance(SiteWriter::class);
+        $siteWriter->createNewBasicSite('shop', self::SHOP_ROOT_PID, 'https://example.com/', ['extcode/cart-mail']);
+        $siteWriter->writeSettings('shop', [
+            'extcode' => [
+                'cart' => [
+                    'mail' => $mailSettings,
+                    'statusChange' => ['mail' => $rules],
+                ],
+            ],
+        ]);
+        // reads the sites without cache, as the site of the previous test is cached
+        GeneralUtility::makeInstance(SiteFinder::class)->getAllSites(false);
+    }
+
+    /**
+     * Changes the payment status to paid without the backend module, e.g. like a command.
+     *
+     * @return bool whether the status was changed
+     */
+    private function changePaymentStatusWithTheService(): bool
+    {
         $payment = GeneralUtility::makeInstance(PersistenceManager::class)->getObjectByIdentifier(1, Payment::class);
         self::assertInstanceOf(Payment::class, $payment);
         $statusChangeService = $this->get(StatusChangeService::class);
         self::assertInstanceOf(StatusChangeService::class, $statusChangeService);
 
-        $result = $statusChangeService->change($payment, PaymentStatus::PAID, PaymentStatus::OPEN);
-
-        self::assertTrue($result->isChanged());
-        self::assertSame([], CollectingTransport::getEmails());
-        self::assertSame(
-            [['warning', 'No emails of status changes are sent, because the TypoScript is not available, e.g. on the command line.']],
-            $this->getOrderLog()
-        );
+        return $statusChangeService->change($payment, PaymentStatus::PAID, PaymentStatus::OPEN)->isChanged();
     }
 
     /**
@@ -382,21 +414,6 @@ final class StatusChangeMailTest extends AbstractOrderStatusTestCase
         );
 
         return (string) self::dispatchShowAction(1)->getBody();
-    }
-
-    private function setStatusChangeTypoScript(string $typoScript): void
-    {
-        $this->getConnectionPool()->getConnectionForTable('sys_template')->insert(
-            'sys_template',
-            [
-                'uid' => 1,
-                'pid' => self::SHOP_ROOT_PID,
-                'title' => 'Shop',
-                'root' => 1,
-                'clear' => 3,
-                'config' => self::MAIL_TYPOSCRIPT . "\n" . $typoScript,
-            ]
-        );
     }
 
     private function getStoredPaymentStatus(): mixed

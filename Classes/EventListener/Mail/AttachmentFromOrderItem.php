@@ -12,26 +12,21 @@ namespace Extcode\Cart\EventListener\Mail;
  */
 
 use Extcode\Cart\Event\Mail\AttachmentEvent;
-use TYPO3\CMS\Extbase\Configuration\ConfigurationManager;
+use Extcode\Cart\Mail\PluginConfigurationProvider;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 
 class AttachmentFromOrderItem
 {
-    private array $settings;
-
     public function __construct(
-        private readonly ConfigurationManager $configurationManager
+        private readonly PluginConfigurationProvider $pluginConfigurationProvider
     ) {
-        $this->settings = $this->configurationManager->getConfiguration(
-            ConfigurationManager::CONFIGURATION_TYPE_FRAMEWORK,
-            'Cart'
-        );
     }
 
     public function __invoke(AttachmentEvent $event): void
     {
+        $settings = $this->pluginConfigurationProvider->getConfiguration();
         $type = $event->getType();
-        if (!isset($this->settings['mail'][$type]['attachDocuments'])) {
+        if (!isset($settings['mail'][$type]['attachDocuments'])) {
             return;
         }
 
@@ -40,7 +35,7 @@ class AttachmentFromOrderItem
             return;
         }
 
-        foreach ($this->settings['mail'][$type]['attachDocuments'] as $pdfType => $pdfData) {
+        foreach ($settings['mail'][$type]['attachDocuments'] as $pdfType => $pdfData) {
             if ($pdfData !== '1' && $pdfData !== 'true') {
                 continue;
             }
