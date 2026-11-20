@@ -76,19 +76,53 @@ final class EmailTest extends UnitTestCase
         $subject(self::createEvent());
     }
 
+    #[Test]
+    public function withoutThePaymentMethodOfTheOrderBothEmailsAreSent(): void
+    {
+        $mailHandler = $this->createMock(MailHandler::class);
+        $mailHandler->expects(self::once())->method('sendBuyerMail');
+        $mailHandler->expects(self::once())->method('sendSellerMail');
+
+        $subject = self::createSubject(false, $mailHandler, $this->createMock(MailConfigurationLoaderInterface::class), []);
+
+        $subject(self::createEvent());
+    }
+
+    #[Test]
+    public function theEmailsDisabledByThePaymentMethodAreNotSent(): void
+    {
+        $mailHandler = $this->createMock(MailHandler::class);
+        $mailHandler->expects(self::never())->method('sendBuyerMail');
+        $mailHandler->expects(self::once())->method('sendSellerMail');
+
+        $subject = self::createSubject(false, $mailHandler, $this->createMock(MailConfigurationLoaderInterface::class), [1 => self::createPaymentMethod(true, false)]);
+
+        $subject(self::createEvent());
+    }
+
+    private static function createPaymentMethod(bool $buyerEmailDisabled, bool $sellerEmailDisabled): Service
+    {
+        $paymentMethod = self::createStub(Service::class);
+        $paymentMethod->method('isBuyerEmailDisabled')->willReturn($buyerEmailDisabled);
+        $paymentMethod->method('isSellerEmailDisabled')->willReturn($sellerEmailDisabled);
+
+        return $paymentMethod;
+    }
+
+    /**
+     * @param null|array<int, Service> $paymentMethods the payment methods of the cart, default the one of the order
+     */
     private static function createSubject(
         bool $featureEnabled,
         MailHandler&MockObject $mailHandler,
         MailConfigurationLoaderInterface&MockObject $mailConfigurationLoader,
+        ?array $paymentMethods = null,
     ): Email {
         $features = self::createStub(Features::class);
         $features->method('isFeatureEnabled')->willReturnMap([[Email::FEATURE, $featureEnabled]]);
 
         $paymentMethodsLoader = self::createStub(PaymentMethodsLoaderInterface::class);
-        $paymentMethod = self::createStub(Service::class);
-        $paymentMethod->method('isBuyerEmailDisabled')->willReturn(false);
-        $paymentMethod->method('isSellerEmailDisabled')->willReturn(false);
-        $paymentMethodsLoader->method('getPaymentMethods')->willReturn([1 => $paymentMethod]);
+        $paymentMethodsLoader->method('getPaymentMethods')->willReturn($paymentMethods ?? [1 => self::createPaymentMethod(false, false)]);
 
         return new Email(
             $paymentMethodsLoader,
