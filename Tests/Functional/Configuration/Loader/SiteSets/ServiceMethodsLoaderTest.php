@@ -21,6 +21,7 @@ use Extcode\Cart\Domain\Model\Cart\ServiceInterface;
 use Extcode\Cart\Domain\Model\Cart\TaxClass;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\IgnoreDeprecations;
 use PHPUnit\Framework\Attributes\Test;
 use TYPO3\CMS\Core\Configuration\SiteWriter;
 use TYPO3\CMS\Core\Http\ServerRequest;
@@ -88,6 +89,68 @@ final class ServiceMethodsLoaderTest extends FunctionalTestCase
         yield 'de' => ['de'];
         yield 'at, reference to de' => ['at'];
         yield 'ch, reference to de' => ['ch'];
+    }
+
+    #[IgnoreDeprecations]
+    #[Test]
+    public function readsTheDeprecatedSettingsOfAnOwnSiteSet(): void
+    {
+        $this->createSite([], [
+            'extcode' => [
+                'cart-payments' => self::createServiceSettings('Own payment'),
+                'cart-shippings' => self::createServiceSettings('Own shipping'),
+            ],
+        ]);
+
+        $this->expectUserDeprecationMessage(
+            'The site setting "extcode.cart-payments" is deprecated since cart 12.4 and will stop working in cart 13.0.'
+            . ' Use "extcode.cart.payments" instead.'
+        );
+        $this->expectUserDeprecationMessage(
+            'The site setting "extcode.cart-shippings" is deprecated since cart 12.4 and will stop working in cart 13.0.'
+            . ' Use "extcode.cart.shippings" instead.'
+        );
+
+        self::assertSame(
+            [1 => 'Own payment'],
+            self::getNames((new PaymentMethodsLoader(new ServiceFactory()))->getPaymentMethods(self::createCart('de')))
+        );
+        self::assertSame(
+            [1 => 'Own shipping'],
+            self::getNames((new ShippingMethodsLoader(new ServiceFactory()))->getShippingMethods(self::createCart('de')))
+        );
+    }
+
+    #[Test]
+    public function theDeprecatedSettingsAreIgnoredWithTheNewSettings(): void
+    {
+        $this->createSite(['extcode/cart-payments'], [
+            'extcode' => [
+                'cart-payments' => self::createServiceSettings('Own payment'),
+            ],
+        ]);
+
+        self::assertSame(
+            [1 => 'Vorkasse'],
+            self::getNames((new PaymentMethodsLoader(new ServiceFactory()))->getPaymentMethods(self::createCart('de')))
+        );
+    }
+
+    /**
+     * @return array<string, mixed> the settings of one service for de
+     */
+    private static function createServiceSettings(string $title): array
+    {
+        return [
+            'countries' => [
+                'de' => [
+                    'preset' => 1,
+                    'options' => [
+                        1 => ['title' => $title, 'extra' => 0.0, 'taxClassId' => 1, 'status' => 'open'],
+                    ],
+                ],
+            ],
+        ];
     }
 
     private static function createCart(string $country): Cart

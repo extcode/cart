@@ -16,6 +16,7 @@ use Extcode\Cart\Domain\Model\Cart\ServiceFactory;
 use Extcode\Cart\Domain\Model\Cart\ServiceInterface;
 use Extcode\Cart\Utility\Typo3GlobalsUtility;
 use TYPO3\CMS\Core\Site\Entity\Site;
+use TYPO3\CMS\Core\Utility\ArrayUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 abstract readonly class AbstractConfigurationLoader
@@ -61,14 +62,10 @@ abstract readonly class AbstractConfigurationLoader
 
     public function getConfigurationsForType(string $configurationType, ?string $country = null): ?array
     {
-        $configurations = $this->site->getSettings()->getAll();
-        if (is_array($configurations['extcode']) === false
-            || is_array($configurations['extcode'][$configurationType] ?? null) === false
-        ) {
+        $configuration = $this->getSettingsByPath('extcode.' . $configurationType);
+        if ($configuration === null) {
             return null;
         }
-
-        $configuration = $configurations['extcode'][$configurationType];
 
         if (is_null($country)) {
             $country = self::getCountryCodeFromPreset($configuration);
@@ -77,8 +74,8 @@ abstract readonly class AbstractConfigurationLoader
             return null;
         }
 
-        if (is_array($configuration['countries'])
-            && is_array($configuration['countries'][$country])
+        if (is_array($configuration['countries'] ?? null)
+            && is_array($configuration['countries'][$country] ?? null)
         ) {
             return $configuration['countries'][$country];
         }
@@ -93,6 +90,35 @@ abstract readonly class AbstractConfigurationLoader
         }
 
         return $configuration;
+    }
+
+    /**
+     * @param string $configurationType the path below "extcode" of the site settings, e.g. "cart.payments"
+     */
+    /**
+     * Returns the configuration type to read, the deprecated one only if the
+     * site has settings there but none for the configuration type.
+     *
+     * TODO: 13.0.0 Remove with the deprecated configuration types, see Deprecation #848.
+     *
+     * @param string $configurationType e.g. "cart.payments"
+     * @param string $deprecatedConfigurationType e.g. "cart-payments"
+     */
+    protected function resolveConfigurationType(string $configurationType, string $deprecatedConfigurationType): string
+    {
+        if ($this->getSettingsByPath('extcode.' . $configurationType) !== null
+            || $this->getSettingsByPath('extcode.' . $deprecatedConfigurationType) === null
+        ) {
+            return $configurationType;
+        }
+
+        trigger_error(
+            'The site setting "extcode.' . $deprecatedConfigurationType . '" is deprecated since cart 12.4 and will stop working in cart 13.0.'
+            . ' Use "extcode.' . $configurationType . '" instead.',
+            E_USER_DEPRECATED
+        );
+
+        return $deprecatedConfigurationType;
     }
 
     protected function getTypeZonesPluginSettings(array $zoneSettings, string $country): array
@@ -132,5 +158,21 @@ abstract readonly class AbstractConfigurationLoader
         }
 
         return $configuration['settings']['countries']['options'][$preset]['code'];
+    }
+
+    /**
+     * @param string $path e.g. "extcode.cart.payments"
+     *
+     * @return null|array<array-key, mixed> null if the path does not exist in the site settings or is no array
+     */
+    private function getSettingsByPath(string $path): ?array
+    {
+        $settings = $this->site->getSettings()->getAll();
+        if (!ArrayUtility::isValidPath($settings, $path, '.')) {
+            return null;
+        }
+        $value = ArrayUtility::getValueByPath($settings, $path, '.');
+
+        return is_array($value) ? $value : null;
     }
 }
