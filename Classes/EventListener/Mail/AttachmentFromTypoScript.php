@@ -24,14 +24,7 @@ class AttachmentFromTypoScript
 
     public function __invoke(AttachmentEvent $event): void
     {
-        $settings = $this->pluginConfigurationProvider->getConfiguration();
-        $type = $event->getType();
-        if (!isset($settings['mail'][$type]['attachments'])) {
-            return;
-        }
-
-        $attachments = $settings['mail'][$type]['attachments'];
-
+        $attachments = $this->pluginConfigurationProvider->getMailConfiguration($event->getType(), 'attachments');
         foreach ($attachments as $attachment) {
             $attachmentFile = GeneralUtility::getFileAbsFileName($attachment);
             if (file_exists($attachmentFile)) {

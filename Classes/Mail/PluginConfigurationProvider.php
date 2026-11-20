@@ -49,6 +49,24 @@ final readonly class PluginConfigurationProvider
     }
 
     /**
+     * @param string $recipient "buyer" or "seller"
+     * @param string $key e.g. "attachments"
+     *
+     * @return array<array-key, mixed> plugin.tx_cart.mail.<recipient>.<key>, empty if it is missing or no array
+     */
+    public function getMailConfiguration(string $recipient, string $key): array
+    {
+        $configuration = $this->getConfiguration();
+        $path = 'mail/' . $recipient . '/' . $key;
+        if (!ArrayUtility::isValidPath($configuration, $path)) {
+            return [];
+        }
+        $value = ArrayUtility::getValueByPath($configuration, $path);
+
+        return is_array($value) ? $value : [];
+    }
+
+    /**
      * @return array<array-key, mixed> plugin.tx_cart as plain array, empty without TypoScript
      */
     public function getConfiguration(): array

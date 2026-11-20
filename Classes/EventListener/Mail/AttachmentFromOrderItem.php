@@ -24,9 +24,8 @@ class AttachmentFromOrderItem
 
     public function __invoke(AttachmentEvent $event): void
     {
-        $settings = $this->pluginConfigurationProvider->getConfiguration();
-        $type = $event->getType();
-        if (!isset($settings['mail'][$type]['attachDocuments'])) {
+        $attachDocuments = $this->pluginConfigurationProvider->getMailConfiguration($event->getType(), 'attachDocuments');
+        if ($attachDocuments === []) {
             return;
         }
 
@@ -35,7 +34,7 @@ class AttachmentFromOrderItem
             return;
         }
 
-        foreach ($settings['mail'][$type]['attachDocuments'] as $pdfType => $pdfData) {
+        foreach ($attachDocuments as $pdfType => $pdfData) {
             if ($pdfData !== '1' && $pdfData !== 'true') {
                 continue;
             }
