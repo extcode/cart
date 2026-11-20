@@ -30,16 +30,19 @@ class Email
 
         $paymentMethods = $this->paymentMethodsService->getPaymentMethods($event->getCart());
         $paymentId = $orderItem->getPayment()->getServiceId();
+        // null if the payment method of the order is not configured for the cart any more, e.g. for another country
         $paymentMethod = $paymentMethods[$paymentId] ?? null;
 
         if (
-            method_exists($paymentMethod, 'isBuyerEmailDisabled') === false
+            is_object($paymentMethod) === false
+            || method_exists($paymentMethod, 'isBuyerEmailDisabled') === false
             || (method_exists($paymentMethod, 'isBuyerEmailDisabled') && $paymentMethod->isBuyerEmailDisabled() === false)
         ) {
             $this->sendBuyerMail($orderItem, $event->getCart());
         }
         if (
-            method_exists($paymentMethod, 'isSellerEmailDisabled') === false
+            is_object($paymentMethod) === false
+            || method_exists($paymentMethod, 'isSellerEmailDisabled') === false
             || (method_exists($paymentMethod, 'isSellerEmailDisabled') && $paymentMethod->isSellerEmailDisabled() === false)
         ) {
             $this->sendSellerMail($orderItem, $event->getCart());
