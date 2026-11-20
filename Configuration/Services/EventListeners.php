@@ -10,6 +10,7 @@ use Extcode\Cart\Event\Order\ExportEvent;
 use Extcode\Cart\Event\Order\FinishEvent;
 use Extcode\Cart\Event\Order\NumberGeneratorEvent;
 use Extcode\Cart\Event\Order\PersistOrderEvent;
+use Extcode\Cart\Event\Order\UpdateServiceEvent;
 use Extcode\Cart\Event\Template\Components\ModifyButtonBarEvent;
 use Extcode\Cart\EventListener\Cart\UpdateCountry;
 use Extcode\Cart\EventListener\Cart\UpdateCurrency;
@@ -30,6 +31,7 @@ use Extcode\Cart\EventListener\Order\Export\FluidTemplate;
 use Extcode\Cart\EventListener\Order\Finish\ClearCart;
 use Extcode\Cart\EventListener\Order\Finish\Email;
 use Extcode\Cart\EventListener\Order\StatusChange\Mail as StatusChangeMail;
+use Extcode\Cart\EventListener\Order\Update\LogServiceUpdate;
 use Extcode\Cart\EventListener\Template\Components\ModifyButtonBar;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
@@ -269,6 +271,17 @@ return static function (ContainerConfigurator $containerConfigurator): void {
             [
                 'event' => FinishEvent::class,
                 'identifier' => 'cart--order--finish--email',
+            ]
+        )
+    ;
+
+    $services
+        ->set(LogServiceUpdate::class)
+        ->tag(
+            'event.listener',
+            [
+                'event' => UpdateServiceEvent::class,
+                'identifier' => 'cart--order--update--log-service-update',
             ]
         )
     ;
