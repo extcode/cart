@@ -17,6 +17,7 @@ use Extcode\Cart\Domain\Model\Cart\CartCouponPercentage;
 use Extcode\Cart\Domain\Model\Cart\ProductFactory;
 use Extcode\Cart\Domain\Model\Cart\ProductFactoryInterface;
 use Extcode\Cart\Domain\Model\Cart\ProductInterface;
+use Extcode\Cart\Domain\Model\Cart\Service;
 use Extcode\Cart\Domain\Model\Cart\TaxClass;
 use Extcode\Cart\Service\CurrencyTranslationService;
 use Extcode\Cart\Service\CurrencyTranslationServiceInterface;
@@ -1351,6 +1352,48 @@ class CartTest extends UnitTestCase
             [
                 $this->normalTaxClass->getId() => 1.90 - 0.95,
                 $this->reducedTaxClass->getId() => 0.70 - 0.35,
+            ],
+            $this->grossCart->getTotalTaxes(),
+            self::DELTA
+        );
+    }
+
+    #[Test]
+    public function getTotalTaxesSubtractsTheTaxOfAFixCouponWithATaxClassWithoutProducts(): void
+    {
+        $this->grossCart->addProduct($this->createProduct(1, 10.70, $this->reducedTaxClass));
+        $this->grossCart->addCoupon(self::createFixCoupon(5.95, $this->normalTaxClass));
+
+        self::assertEqualsWithDelta(
+            [
+                $this->reducedTaxClass->getId() => 0.70,
+                $this->normalTaxClass->getId() => -0.95,
+            ],
+            $this->grossCart->getTotalTaxes(),
+            self::DELTA
+        );
+    }
+
+    #[Test]
+    public function getTotalTaxesAddsTheTaxOfAShippingWithATaxClassWithoutProducts(): void
+    {
+        $this->grossCart->addProduct($this->createProduct(1, 10.70, $this->reducedTaxClass));
+        $shipping = new Service(
+            1,
+            [
+                'title' => 'Standard',
+                'extra' => 5.95,
+                'taxClassId' => $this->normalTaxClass->getId(),
+                'status' => 'open',
+            ]
+        );
+        $shipping->setCart($this->grossCart);
+        $this->grossCart->setShipping($shipping);
+
+        self::assertEqualsWithDelta(
+            [
+                $this->reducedTaxClass->getId() => 0.70,
+                $this->normalTaxClass->getId() => 0.95,
             ],
             $this->grossCart->getTotalTaxes(),
             self::DELTA

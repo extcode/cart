@@ -327,6 +327,7 @@ class Cart implements AdditionalDataInterface
 
         $couponTaxes = $this->getCouponTaxes();
         foreach ($couponTaxes as $taxClassId => $tax) {
+            $taxes[$taxClassId] ??= 0.0;
             $taxes[$taxClassId] -= $tax;
         }
 
@@ -339,6 +340,7 @@ class Cart implements AdditionalDataInterface
 
         $serviceTaxes = $this->getServiceTaxes();
         foreach ($serviceTaxes as $taxClassId => $tax) {
+            $taxes[$taxClassId] ??= 0.0;
             $taxes[$taxClassId] += $tax;
         }
 
