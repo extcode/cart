@@ -22,6 +22,8 @@ use InvalidArgumentException;
 use Psr\EventDispatcher\EventDispatcherInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
+use TYPO3\CMS\Extbase\Configuration\Exception\NoServerRequestGivenException;
+use Throwable;
 
 /**
  * Sends the emails to the buyer and to the seller at the end of an order with
@@ -51,7 +53,8 @@ final readonly class OrderMailSender
 
         try {
             $mailConfiguration = $this->mailConfigurationLoader->getBuyerMailConfiguration(
-                self::getTemplate($orderItem, 'Buyer')
+                self::getTemplate($orderItem, 'Buyer'),
+                $orderItem
             );
         } catch (InvalidMailConfigurationException $exception) {
             $this->logError($orderItem, 'buyer', $exception);
@@ -77,7 +80,8 @@ final readonly class OrderMailSender
 
         try {
             $mailConfiguration = $this->mailConfigurationLoader->getSellerMailConfiguration(
-                self::getTemplate($orderItem, 'Seller')
+                self::getTemplate($orderItem, 'Seller'),
+                $orderItem
             );
         } catch (InvalidMailConfigurationException $exception) {
             $this->logError($orderItem, 'seller', $exception);
@@ -100,10 +104,6 @@ final readonly class OrderMailSender
     {
         $recipient = $mailConfiguration->getRecipientName();
 
-        $configuration = $this->configurationManager->getConfiguration(
-            ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK,
-            'Cart'
-        );
         $request = ($GLOBALS['TYPO3_REQUEST'] ?? null) instanceof ServerRequestInterface ? $GLOBALS['TYPO3_REQUEST'] : null;
 
         try {
@@ -111,7 +111,7 @@ final readonly class OrderMailSender
                 $mailConfiguration,
                 $orderItem,
                 [
-                    'settings' => $configuration['settings'] ?? [],
+                    'settings' => $this->getPluginSettings(),
                     'cart' => $cart,
                 ],
                 $request,
@@ -136,12 +136,40 @@ final readonly class OrderMailSender
     }
 
     /**
+     * @return array<array-key, mixed> the settings of the cart plugin for the templates, empty without request, e.g. on the command line
+     */
+    private function getPluginSettings(): array
+    {
+        try {
+            $configuration = $this->configurationManager->getConfiguration(
+                ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK,
+                'Cart'
+            );
+        } catch (NoServerRequestGivenException) {
+            return [];
+        }
+
+        return is_array($configuration['settings'] ?? null) ? $configuration['settings'] : [];
+    }
+
+    /**
+     * @throws MailException if a listener of the AttachmentEvent fails, the email is not sent without its attachments
+     *
      * @return list<string> the existing files of the AttachmentEvent, missing files are logged
      */
     private function getAttachments(string $recipient, Item $orderItem): array
     {
         $attachmentEvent = new AttachmentEvent($recipient, $orderItem);
-        $this->eventDispatcher->dispatch($attachmentEvent);
+        try {
+            $this->eventDispatcher->dispatch($attachmentEvent);
+        } catch (Throwable $exception) {
+            // e.g. a listener which needs TypoScript, like on the command line
+            throw new MailException(
+                'The attachments could not be collected: ' . $exception->getMessage(),
+                1795140003,
+                $exception
+            );
+        }
 
         $attachments = [];
         foreach ($attachmentEvent->getAttachments() as $attachment) {
@@ -173,6 +201,7 @@ final readonly class OrderMailSender
                 'Mail could not send to ' . $recipient . '.',
                 [
                     'time' => time(),
+                    'reason' => $exception->getMessage(),
                     'exception' => ($exception->getPrevious() ?? $exception)->__toString(),
                 ]
             )

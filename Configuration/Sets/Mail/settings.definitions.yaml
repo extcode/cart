@@ -1,0 +1,48 @@
+categories:
+  extcode.cart.mail: ~
+  extcode.cart.mail.buyer:
+    parent: extcode.cart.mail
+  extcode.cart.mail.seller:
+    parent: extcode.cart.mail
+
+settings:
+  extcode.cart.mail.buyer.fromName:
+    default: ''
+    type: string
+    category: extcode.cart.mail.buyer
+  extcode.cart.mail.buyer.fromAddress:
+    default: ''
+    type: string
+    category: extcode.cart.mail.buyer
+  extcode.cart.mail.buyer.ccAddress:
+    default: [ ]
+    type: stringlist
+    category: extcode.cart.mail.buyer
+  extcode.cart.mail.buyer.bccAddress:
+    default: [ ]
+    type: stringlist
+    category: extcode.cart.mail.buyer
+  extcode.cart.mail.buyer.replyToAddress:
+    default: [ ]
+    type: stringlist
+    category: extcode.cart.mail.buyer
+  extcode.cart.mail.seller.fromName:
+    default: ''
+    type: string
+    category: extcode.cart.mail.seller
+  extcode.cart.mail.seller.fromAddress:
+    default: ''
+    type: string
+    category: extcode.cart.mail.seller
+  extcode.cart.mail.seller.toAddress:
+    default: [ ]
+    type: stringlist
+    category: extcode.cart.mail.seller
+  extcode.cart.mail.seller.ccAddress:
+    default: [ ]
+    type: stringlist
+    category: extcode.cart.mail.seller
+  extcode.cart.mail.seller.bccAddress:
+    default: [ ]
+    type: stringlist
+    category: extcode.cart.mail.seller

@@ -75,10 +75,17 @@ final readonly class Mailer
         }
 
         try {
-            // renders the template, so a missing template is reported before sending
+            // renders the template, so errors of the template are reported before sending
             $email->getHtmlBody();
         } catch (InvalidTemplateResourceException $exception) {
             throw new MailException('The template "' . $mailConfiguration->template . '" is missing.', 1795110003, $exception);
+        } catch (Throwable $exception) {
+            // e.g. a view helper which needs a request, like on the command line
+            throw new MailException(
+                'The template "' . $mailConfiguration->template . '" could not be rendered: ' . $exception->getMessage(),
+                1795140002,
+                $exception
+            );
         }
 
         try {

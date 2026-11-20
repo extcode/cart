@@ -63,11 +63,11 @@ final class EmailTest extends UnitTestCase
 
         $mailConfigurationLoader = $this->createMock(MailConfigurationLoaderInterface::class);
         $mailConfigurationLoader->expects(self::once())->method('getBuyerMailConfiguration')
-            ->with('Mail/Open/Buyer')
+            ->with('Mail/Open/Buyer', self::isInstanceOf(OrderItem::class))
             ->willReturn(new BuyerMailConfiguration('Mail/Open/Buyer'))
         ;
         $mailConfigurationLoader->expects(self::once())->method('getSellerMailConfiguration')
-            ->with('Mail/Open/Seller')
+            ->with('Mail/Open/Seller', self::isInstanceOf(OrderItem::class))
             ->willThrowException(new InvalidMailConfigurationException('The seller has no "toAddress".', 1795110002))
         ;
 
