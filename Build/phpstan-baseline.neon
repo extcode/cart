@@ -1867,36 +1867,6 @@ parameters:
 			path: ../Classes/Domain/Model/Cart/ServiceInterface.php
 
 		-
-			message: '#^Cannot cast mixed to float\.$#'
-			identifier: cast.double
-			count: 1
-			path: ../Classes/Domain/Model/Cart/TaxClassFactory.php
-
-		-
-			message: '#^Method Extcode\\Cart\\Domain\\Model\\Cart\\TaxClassFactory\:\:getTaxClass\(\) has parameter \$taxClassValue with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: ../Classes/Domain/Model/Cart/TaxClassFactory.php
-
-		-
-			message: '#^Method Extcode\\Cart\\Domain\\Model\\Cart\\TaxClassFactory\:\:isValidTaxClassConfig\(\) has parameter \$value with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: ../Classes/Domain/Model/Cart/TaxClassFactory.php
-
-		-
-			message: '#^Parameter \#2 \$value of class Extcode\\Cart\\Domain\\Model\\Cart\\TaxClass constructor expects string, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: ../Classes/Domain/Model/Cart/TaxClassFactory.php
-
-		-
-			message: '#^Parameter \#4 \$title of class Extcode\\Cart\\Domain\\Model\\Cart\\TaxClass constructor expects string, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: ../Classes/Domain/Model/Cart/TaxClassFactory.php
-
-		-
 			message: '#^Method Extcode\\Cart\\Domain\\Model\\Cart\\TaxClassFactoryInterface\:\:getTaxClass\(\) has parameter \$taxClassValue with no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
 			count: 1
