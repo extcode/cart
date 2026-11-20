@@ -3271,12 +3271,6 @@ parameters:
 			path: ../Classes/EventListener/Order/Finish/Email.php
 
 		-
-			message: '#^Parameter \#1 \$object_or_class of function method_exists expects object\|string, Extcode\\Cart\\Domain\\Model\\Cart\\ServiceInterface\|null given\.$#'
-			identifier: argument.type
-			count: 2
-			path: ../Classes/EventListener/Order/Finish/Email.php
-
-		-
 			message: '#^Cannot call method current\(\) on mixed\.$#'
 			identifier: method.nonObject
 			count: 1
