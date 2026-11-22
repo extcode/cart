@@ -201,7 +201,17 @@ It returns a ``\Extcode\Cart\OrderStatus\StatusChangeResult`` with the
 ``outcome``: ``Changed``, ``Unchanged`` (the order has the status already),
 ``Stale`` (the order has not the expected status anymore), ``UnknownStatus``
 or ``Vetoed`` (a listener prevented the change, see ``vetoReason``). After a
-change ``orderChange`` contains the stored change.
+change ``orderChange`` contains the stored change. If the outcome is ``Stale``,
+``storedStatus`` contains the status stored in the database, e.g. to try
+again with it:
+
+.. code-block:: php
+
+   $result = $this->statusChangeService->change($payment, PaymentStatus::PAID, $payment->getStatus());
+   if ($result->outcome === StatusChangeOutcome::Stale && $result->storedStatus !== null) {
+       $payment->setStatus($result->storedStatus);
+       $result = $this->statusChangeService->change($payment, PaymentStatus::PAID, $result->storedStatus);
+   }
 
 .. _developer-order-status-events:
 
