@@ -8,6 +8,7 @@ namespace Extcode\Cart\ViewHelpers;
  * For the full copyright and license information, please read the
  * LICENSE file that was distributed with this source code.
  */
+use Psr\Log\LogLevel;
 use TYPO3\CMS\Core\Http\ApplicationType;
 use TYPO3\CMS\Core\Page\PageRenderer;
 use TYPO3\CMS\Core\Resource\Exception\FileDoesNotExistException;
@@ -56,9 +57,7 @@ class IncludeFileViewHelper extends AbstractViewHelper
                 $path = null;
             } catch (InvalidPathException|FileDoesNotExistException|InvalidFileException $e) {
                 $path = null;
-                if ($GLOBALS['TSFE']->tmpl->tt_track) {
-                    GeneralUtility::makeInstance(TimeTracker::class)->setTSlogMessage($e->getMessage(), 3);
-                }
+                GeneralUtility::makeInstance(TimeTracker::class)->setTSlogMessage($e->getMessage(), LogLevel::ERROR);
             }
         }
 
