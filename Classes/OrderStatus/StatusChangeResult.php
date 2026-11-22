@@ -32,6 +32,11 @@ final readonly class StatusChangeResult
          * @var list<string> errors of listeners of the AfterStatusChangeEvent, the status is changed anyway
          */
         public array $errors = [],
+        /**
+         * The status stored in the database if the order has not the expected
+         * status anymore (StatusChangeOutcome::Stale), e.g. to try again with it.
+         */
+        public ?string $storedStatus = null,
     ) {
     }
 

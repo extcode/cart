@@ -239,6 +239,7 @@ final class StatusChangeServiceTest extends FunctionalTestCase
         $result = $this->subject->change(self::getPayment(1), PaymentStatus::PAID, PaymentStatus::OPEN);
 
         self::assertSame(StatusChangeOutcome::Stale, $result->outcome);
+        self::assertSame(PaymentStatus::PENDING, $result->storedStatus);
         self::assertSame(PaymentStatus::PENDING, $this->getStoredStatus('tx_cart_domain_model_order_payment', 1));
         self::assertSame([], $this->getStoredOrderChanges());
     }
@@ -254,6 +255,9 @@ final class StatusChangeServiceTest extends FunctionalTestCase
         self::assertSame(StatusChangeOutcome::Changed, $first->outcome);
         self::assertSame(StatusChangeOutcome::Stale, $second->outcome, 'Another status must not overwrite the changed status.');
         self::assertSame(StatusChangeOutcome::Unchanged, $third->outcome, 'The same status again must not be reported as stale.');
+        self::assertSame(PaymentStatus::PAID, $second->storedStatus, 'The stale result must name the stored status.');
+        self::assertNull($first->storedStatus);
+        self::assertNull($third->storedStatus);
         self::assertSame(PaymentStatus::PAID, $this->getStoredStatus('tx_cart_domain_model_order_payment', 1));
         self::assertCount(1, $this->getStoredOrderChanges());
     }

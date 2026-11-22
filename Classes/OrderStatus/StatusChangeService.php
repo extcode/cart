@@ -139,11 +139,11 @@ final readonly class StatusChangeService
                 );
 
                 if ($affectedRows === 0) {
-                    return new StatusChangeResult(
-                        $this->getStoredStatus($table, $serviceUid) === $toStatus
-                            ? StatusChangeOutcome::Unchanged
-                            : StatusChangeOutcome::Stale
-                    );
+                    $storedStatus = $this->getStoredStatus($table, $serviceUid);
+
+                    return $storedStatus === $toStatus
+                        ? new StatusChangeResult(StatusChangeOutcome::Unchanged)
+                        : new StatusChangeResult(StatusChangeOutcome::Stale, storedStatus: $storedStatus);
                 }
 
                 return new StatusChangeResult(
