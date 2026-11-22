@@ -22,6 +22,11 @@ Deprecations
 
 *  :doc:`#869 - IncludeFileViewHelper <Deprecation-869-IncludeFileViewHelper>`
 
+Bugfixes
+~~~~~~~~
+
+*  Include files of extensions with IncludeFileViewHelper (`#870 <https://github.com/extcode/cart/pull/870>`__)
+
 .. toctree::
    :hidden:
    :glob:
