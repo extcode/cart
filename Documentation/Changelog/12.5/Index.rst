@@ -12,6 +12,11 @@
 12.5.0
 ------
 
+Features
+~~~~~~~~
+
+*  :doc:`#866 - Status methods of the payment and the shipping of an order <Feature-866-OrderStatusMethods>`
+
 Deprecations
 ~~~~~~~~~~~~
 
