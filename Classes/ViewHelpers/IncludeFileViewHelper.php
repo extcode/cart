@@ -17,6 +17,11 @@ use TYPO3\CMS\Core\SystemResource\Exception\SystemResourceException;
 use TYPO3\CMS\Core\TimeTracker\TimeTracker;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
+/**
+ * @deprecated since cart 12.5, will be removed in cart 13.0. Use the view helpers <f:asset.css> and <f:asset.script>
+ *             of the TYPO3 core instead.
+ *             TODO: 13.0.0 Remove the class, see Deprecation #869.
+ */
 class IncludeFileViewHelper extends AbstractViewHelper
 {
     public function __construct(
@@ -49,6 +54,12 @@ class IncludeFileViewHelper extends AbstractViewHelper
      */
     public function render(): void
     {
+        trigger_error(
+            'The view helper <cart:includeFile> is deprecated since cart 12.5 and will be removed in cart 13.0.'
+            . ' Use <f:asset.css> or <f:asset.script> instead.',
+            E_USER_DEPRECATED
+        );
+
         $path = $this->arguments['path'];
         if (!is_string($path)) {
             return;

@@ -14,6 +14,7 @@ namespace Extcode\Cart\Tests\Functional\ViewHelpers;
 use Extcode\Cart\ViewHelpers\IncludeFileViewHelper;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\IgnoreDeprecations;
 use PHPUnit\Framework\Attributes\Test;
 use Psr\Http\Message\ServerRequestInterface;
 use TYPO3\CMS\Core\Core\SystemEnvironmentBuilder;
@@ -55,10 +56,11 @@ final class IncludeFileViewHelperTest extends FunctionalTestCase
     }
 
     #[DataProvider('includedFileDataProvider')]
+    #[IgnoreDeprecations]
     #[Test]
     public function includesAFile(string $path, string $expectedTag): void
     {
-        self::renderIncludeFile($path);
+        $this->renderIncludeFile($path);
 
         self::assertStringContainsString($expectedTag, $this->renderPage());
     }
@@ -74,10 +76,11 @@ final class IncludeFileViewHelperTest extends FunctionalTestCase
     }
 
     #[DataProvider('invalidPathDataProvider')]
+    #[IgnoreDeprecations]
     #[Test]
     public function ignoresAnInvalidPath(string $path): void
     {
-        self::renderIncludeFile($path);
+        $this->renderIncludeFile($path);
 
         self::assertStringNotContainsString('does-not-exist', $this->renderPage());
     }
@@ -99,12 +102,17 @@ final class IncludeFileViewHelperTest extends FunctionalTestCase
         return (string) $pageRenderer->renderResponse($this->request)->getBody();
     }
 
-    private static function renderIncludeFile(string $path): void
+    private function renderIncludeFile(string $path): void
     {
         $view = GeneralUtility::makeInstance(ViewFactoryInterface::class)
             ->create(new ViewFactoryData(null, null, null, __DIR__ . '/Fixtures/IncludeFile.html'))
         ;
         $view->assign('path', $path);
+
+        $this->expectUserDeprecationMessage(
+            'The view helper <cart:includeFile> is deprecated since cart 12.5 and will be removed in cart 13.0.'
+            . ' Use <f:asset.css> or <f:asset.script> instead.'
+        );
 
         self::assertSame('', mb_trim($view->render()));
     }

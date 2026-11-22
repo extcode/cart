@@ -62,3 +62,8 @@ parameters:
         - 'classConstant.deprecatedClass'
         - 'parameter.deprecatedClass'
       path: '../Tests/Unit/EventListener/Order/Finish/EmailTest.php'
+    # The deprecated IncludeFileViewHelper is still tested.
+    # TODO: 13.0.0 Remove with the IncludeFileViewHelper, see Deprecation #869.
+    -
+      identifier: 'classConstant.deprecatedClass'
+      path: '../Tests/Functional/ViewHelpers/IncludeFileViewHelperTest.php'
