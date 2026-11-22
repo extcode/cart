@@ -12,6 +12,7 @@ namespace Extcode\Cart\Tests\Unit\Domain\Model\Order;
 use Extcode\Cart\Domain\Model\Order\Payment;
 use Extcode\Cart\Domain\Model\Order\Transaction;
 use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
@@ -26,6 +27,35 @@ class PaymentTest extends UnitTestCase
         $this->payment = new Payment();
 
         parent::setUp();
+    }
+
+    #[DataProvider('statusDataProvider')]
+    #[Test]
+    public function statusMethodsReturnWhetherThePaymentHasTheStatus(
+        string $status,
+        bool $isOpen,
+        bool $isPending,
+        bool $isPaid,
+        bool $isCanceled,
+    ): void {
+        $this->payment->setStatus($status);
+
+        self::assertSame($isOpen, $this->payment->isOpen());
+        self::assertSame($isPending, $this->payment->isPending());
+        self::assertSame($isPaid, $this->payment->isPaid());
+        self::assertSame($isCanceled, $this->payment->isCanceled());
+    }
+
+    /**
+     * @return iterable<string, array{string, bool, bool, bool, bool}>
+     */
+    public static function statusDataProvider(): iterable
+    {
+        yield 'open' => ['open', true, false, false, false];
+        yield 'pending' => ['pending', false, true, false, false];
+        yield 'paid' => ['paid', false, false, true, false];
+        yield 'canceled' => ['canceled', false, false, false, true];
+        yield 'status of another extension' => ['refunded', false, false, false, false];
     }
 
     #[Test]
