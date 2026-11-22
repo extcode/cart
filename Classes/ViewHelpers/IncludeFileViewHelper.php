@@ -12,22 +12,21 @@ namespace Extcode\Cart\ViewHelpers;
  */
 
 use Psr\Log\LogLevel;
-use TYPO3\CMS\Core\Http\ApplicationType;
 use TYPO3\CMS\Core\Page\PageRenderer;
-use TYPO3\CMS\Core\Resource\Exception\FileDoesNotExistException;
-use TYPO3\CMS\Core\Resource\Exception\InvalidFileException;
-use TYPO3\CMS\Core\Resource\Exception\InvalidFileNameException;
-use TYPO3\CMS\Core\Resource\Exception\InvalidPathException;
+use TYPO3\CMS\Core\SystemResource\Exception\SystemResourceException;
 use TYPO3\CMS\Core\TimeTracker\TimeTracker;
-use TYPO3\CMS\Frontend\Resource\FilePathSanitizer;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
+/**
+ * @deprecated since cart 12.5, will be removed in cart 13.0. Use the view helpers <f:asset.css> and <f:asset.script>
+ *             of the TYPO3 core instead.
+ *             TODO: 13.0.0 Remove the class, see Deprecation #869.
+ */
 class IncludeFileViewHelper extends AbstractViewHelper
 {
     public function __construct(
         private readonly PageRenderer $pageRenderer,
         private readonly TimeTracker $timeTracker,
-        private readonly FilePathSanitizer $filePathSanitizer,
     ) {
     }
 
@@ -44,7 +43,7 @@ class IncludeFileViewHelper extends AbstractViewHelper
         $this->registerArgument(
             'compress',
             'bool',
-            'Define if file should be compressed',
+            'Not used anymore, TYPO3 does not compress files since v14',
             false,
             false
         );
@@ -55,27 +54,25 @@ class IncludeFileViewHelper extends AbstractViewHelper
      */
     public function render(): void
     {
-        $path = $this->arguments['path'];
-        $compress = $this->arguments['compress'];
+        trigger_error(
+            'The view helper <cart:includeFile> is deprecated since cart 12.5 and will be removed in cart 13.0.'
+            . ' Use <f:asset.css> or <f:asset.script> instead.',
+            E_USER_DEPRECATED
+        );
 
-        $pageRenderer = $this->pageRenderer;
-        if (ApplicationType::fromRequest($GLOBALS['TYPO3_REQUEST'])->isFrontend()) {
-            try {
-                $path = $this->filePathSanitizer->sanitize((string) $path);
-            } catch (InvalidFileNameException) {
-                $path = null;
-            } catch (FileDoesNotExistException|InvalidFileException|InvalidPathException $e) {
-                $path = null;
-                if ($GLOBALS['TSFE']->tmpl->tt_track) {
-                    $this->timeTracker->setTSlogMessage($e->getMessage(), LogLevel::ERROR);
-                }
-            }
+        $path = $this->arguments['path'];
+        if (!is_string($path)) {
+            return;
         }
 
-        if (mb_strtolower(mb_substr((string) $path, -3)) === '.js') {
-            $pageRenderer->addJsFile($path, null, $compress);
-        } elseif (mb_strtolower(mb_substr((string) $path, -4)) === '.css') {
-            $pageRenderer->addCssFile($path, 'stylesheet', 'all', '', $compress);
+        try {
+            if (mb_strtolower(mb_substr($path, -3)) === '.js') {
+                $this->pageRenderer->addJsFile($path);
+            } elseif (mb_strtolower(mb_substr($path, -4)) === '.css') {
+                $this->pageRenderer->addCssFile($path);
+            }
+        } catch (SystemResourceException $e) {
+            $this->timeTracker->setTSlogMessage($e->getMessage(), LogLevel::ERROR);
         }
     }
 }
