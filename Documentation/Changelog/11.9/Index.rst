@@ -9,6 +9,15 @@
    :local:
    :depth: 1
 
+11.9.4
+------
+
+Bugfixes
+~~~~~~~~
+
+*  Stop database compare from changing double columns (`#868 <https://github.com/extcode/cart/pull/868>`__)
+*  Do not read TSFE in IncludeFileViewHelper (`#871 <https://github.com/extcode/cart/pull/871>`__)
+
 11.9.3
 ------
 
