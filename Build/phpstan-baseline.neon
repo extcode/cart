@@ -4045,54 +4045,6 @@ parameters:
 			path: ../Classes/ViewHelpers/Format/CurrencyViewHelper.php
 
 		-
-			message: '#^Call to method sanitize\(\) of deprecated class TYPO3\\CMS\\Frontend\\Resource\\FilePathSanitizer\.$#'
-			identifier: method.deprecatedClass
-			count: 1
-			path: ../Classes/ViewHelpers/IncludeFileViewHelper.php
-
-		-
-			message: '#^Cannot access property \$tmpl on mixed\.$#'
-			identifier: property.nonObject
-			count: 1
-			path: ../Classes/ViewHelpers/IncludeFileViewHelper.php
-
-		-
-			message: '#^Cannot access property \$tt_track on mixed\.$#'
-			identifier: property.nonObject
-			count: 1
-			path: ../Classes/ViewHelpers/IncludeFileViewHelper.php
-
-		-
-			message: '#^Cannot cast mixed to string\.$#'
-			identifier: cast.string
-			count: 3
-			path: ../Classes/ViewHelpers/IncludeFileViewHelper.php
-
-		-
-			message: '#^Parameter \#1 \$file of method TYPO3\\CMS\\Core\\Page\\PageRenderer\:\:addCssFile\(\) expects string\|TYPO3\\CMS\\Core\\SystemResource\\Type\\StaticResourceInterface, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: ../Classes/ViewHelpers/IncludeFileViewHelper.php
-
-		-
-			message: '#^Parameter \#1 \$file of method TYPO3\\CMS\\Core\\Page\\PageRenderer\:\:addJsFile\(\) expects string\|TYPO3\\CMS\\Core\\SystemResource\\Type\\StaticResourceInterface, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: ../Classes/ViewHelpers/IncludeFileViewHelper.php
-
-		-
-			message: '#^Parameter \#1 \$request of static method TYPO3\\CMS\\Core\\Http\\ApplicationType\:\:fromRequest\(\) expects Psr\\Http\\Message\\ServerRequestInterface, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: ../Classes/ViewHelpers/IncludeFileViewHelper.php
-
-		-
-			message: '#^Parameter \$filePathSanitizer of method Extcode\\Cart\\ViewHelpers\\IncludeFileViewHelper\:\:__construct\(\) has typehint with deprecated class TYPO3\\CMS\\Frontend\\Resource\\FilePathSanitizer\.$#'
-			identifier: parameter.deprecatedClass
-			count: 1
-			path: ../Classes/ViewHelpers/IncludeFileViewHelper.php
-
-		-
 			message: '#^Argument of an invalid type mixed supplied for foreach, only iterables are supported\.$#'
 			identifier: foreach.nonIterable
 			count: 1
