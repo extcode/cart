@@ -11,6 +11,7 @@ namespace Extcode\Cart\Tests\Unit\Domain\Model\Order;
 
 use Extcode\Cart\Domain\Model\Order\Shipping;
 use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
@@ -24,6 +25,35 @@ class ShippingTest extends UnitTestCase
         $this->shipping = new Shipping();
 
         parent::setUp();
+    }
+
+    #[DataProvider('statusDataProvider')]
+    #[Test]
+    public function statusMethodsReturnWhetherTheShippingHasTheStatus(
+        string $status,
+        bool $isOpen,
+        bool $isOnHold,
+        bool $isInProcess,
+        bool $isShipped,
+    ): void {
+        $this->shipping->setStatus($status);
+
+        self::assertSame($isOpen, $this->shipping->isOpen());
+        self::assertSame($isOnHold, $this->shipping->isOnHold());
+        self::assertSame($isInProcess, $this->shipping->isInProcess());
+        self::assertSame($isShipped, $this->shipping->isShipped());
+    }
+
+    /**
+     * @return iterable<string, array{string, bool, bool, bool, bool}>
+     */
+    public static function statusDataProvider(): iterable
+    {
+        yield 'open' => ['open', true, false, false, false];
+        yield 'on hold' => ['on_hold', false, true, false, false];
+        yield 'in process' => ['in_process', false, false, true, false];
+        yield 'shipped' => ['shipped', false, false, false, true];
+        yield 'status of another extension' => ['delivered', false, false, false, false];
     }
 
     #[Test]
