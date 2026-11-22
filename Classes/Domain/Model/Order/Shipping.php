@@ -19,4 +19,24 @@ class Shipping extends AbstractService
     {
         $this->status = ShippingStatus::OPEN;
     }
+
+    public function isOpen(): bool
+    {
+        return $this->getStatus() === ShippingStatus::OPEN;
+    }
+
+    public function isOnHold(): bool
+    {
+        return $this->getStatus() === ShippingStatus::ON_HOLD;
+    }
+
+    public function isInProcess(): bool
+    {
+        return $this->getStatus() === ShippingStatus::IN_PROCESS;
+    }
+
+    public function isShipped(): bool
+    {
+        return $this->getStatus() === ShippingStatus::SHIPPED;
+    }
 }

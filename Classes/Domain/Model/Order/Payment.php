@@ -40,6 +40,26 @@ class Payment extends AbstractService
         return $payment;
     }
 
+    public function isOpen(): bool
+    {
+        return $this->getStatus() === PaymentStatus::OPEN;
+    }
+
+    public function isPending(): bool
+    {
+        return $this->getStatus() === PaymentStatus::PENDING;
+    }
+
+    public function isPaid(): bool
+    {
+        return $this->getStatus() === PaymentStatus::PAID;
+    }
+
+    public function isCanceled(): bool
+    {
+        return $this->getStatus() === PaymentStatus::CANCELED;
+    }
+
     public function getProvider(): ?string
     {
         return $this->provider;

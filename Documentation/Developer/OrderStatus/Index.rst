@@ -21,6 +21,18 @@ The identifiers of these status are available as constants of
 ``\Extcode\Cart\OrderStatus\ShippingStatus``, e.g.
 ``PaymentStatus::PAID``. The constants only name the status of EXT:cart.
 
+The payment and the shipping of an order tell whether they have one of the
+status of EXT:cart, e.g. to check whether an order may still be paid:
+
+=========  ==================================================================
+Service    Methods
+=========  ==================================================================
+payment    ``isOpen()``, ``isPending()``, ``isPaid()``, ``isCanceled()``
+shipping   ``isOpen()``, ``isOnHold()``, ``isInProcess()``, ``isShipped()``
+=========  ==================================================================
+
+Compare the status registered by other extensions with ``getStatus()``.
+
 The status are no enum, so your own extension can register further status,
 e.g. ``refunded`` for the payment or ``delivered`` for the shipping. The
 registered status are used in the backend module (the filter of the order
