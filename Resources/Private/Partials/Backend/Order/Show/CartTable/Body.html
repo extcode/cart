@@ -25,23 +25,13 @@
         <td class="cart-figure">
             <cart:format.currency currencySign="{currencySign}">{product.gross}</cart:format.currency>
         </td>
-        <f:for each="{product.orderItem.orderTotalTax}" as="orderTotalTax">
-            <td class="cart-figure">
-                <f:if condition="{0: orderTotalTax.orderTaxClass.id} == {0: {product.orderTaxClass.id}}">
-                    <f:then>
-                        <cart:format.currency currencySign="{currencySign}">{product.orderTax.tax}</cart:format.currency>
-                    </f:then>
-                    <f:else>
-                        <!-- -->
-                    </f:else>
-                </f:if>
-            </td>
-        </f:for>
+        <f:render partial="Backend/Order/Show/CartTable/TaxColumns"
+                  arguments="{totalTaxes: totalTaxes, taxClass: product.taxClass, tax: product.tax, currencySign: currencySign}"/>
     </tr>
 </f:section>
 
 <f:for each="{orderItem.products}" as="product">
     <f:render section="product"
-              arguments="{product: product, currencySign: orderItem.currency}"/>
+              arguments="{product: product, totalTaxes: orderItem.totalTax, currencySign: orderItem.currency}"/>
 </f:for>
 </html>

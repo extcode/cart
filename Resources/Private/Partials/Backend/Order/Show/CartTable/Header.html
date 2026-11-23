@@ -23,10 +23,10 @@
     <th class="cart-figure">
         <f:translate key="tx_cart_domain_model_order_product.gross"/>
     </th>
-    <f:for each="{orderItem.orderTotalTax}" as="orderTotalTax">
-        <td>
-            <f:translate key="plugin.cart.product.tax" arguments="{0: orderTotalTax.orderTaxClass.name}"/>
-        </td>
+    <f:for each="{orderItem.totalTax}" as="totalTax">
+        <th class="cart-figure">
+            <f:translate key="tx_cart.tax_vat.value" arguments="{0: totalTax.taxClass.value}"/>
+        </th>
     </f:for>
 </tr>
 </html>
