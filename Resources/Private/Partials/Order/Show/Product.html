@@ -24,17 +24,7 @@
     <td class="product-gross">
         <cart:format.currency>{product.gross}</cart:format.currency>
     </td>
-    <f:for each="{product.orderItem.orderTotalTax}" as="orderTotalTax">
-        <td class="order-tax">
-            <f:if condition="{0: orderTotalTax.orderTaxClass.id} == {0: {product.orderTaxClass.id}}">
-                <f:then>
-                    <cart:format.currency>{product.orderTax.tax}</cart:format.currency>
-                </f:then>
-                <f:else>
-                    &nbsp;
-                </f:else>
-            </f:if>
-        </td>
-    </f:for>
+    <f:render partial="Order/Show/TaxColumns"
+              arguments="{totalTaxes: totalTaxes, taxClass: product.taxClass, tax: product.tax, currencySign: currencySign}"/>
 </tr>
 </html>

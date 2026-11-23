@@ -12,62 +12,50 @@
     <td>
         <cart:format.currency currencySign="{orderItem.currency}">{orderItem.gross}</cart:format.currency>
     </td>
-    <f:for each="{orderItem.orderTax}" as="orderTax">
+    <f:for each="{orderItem.totalTax}" as="totalTax">
         <td>
-            <cart:format.currency currencySign="{orderItem.currency}">{orderTax.tax}</cart:format.currency>
+            <f:for each="{orderItem.tax}" as="tax">
+                <f:if condition="{tax.taxClass.uid} == {totalTax.taxClass.uid}">
+                    <cart:format.currency currencySign="{orderItem.currency}">{tax.tax}</cart:format.currency>
+                </f:if>
+            </f:for>
         </td>
     </f:for>
 </tr>
 
-<tr class="summary-shipping">
-    <td colspan="5">
-        <f:translate key="tx_cart_domain_model_order_item.order_shipping"/>
-        {orderItem.orderShipping.name}
-    </td>
-    <td>
-        <cart:format.currency currencySign="{orderItem.currency}">{orderItem.orderShipping.net}</cart:format.currency>
-    </td>
-    <td>
-        <cart:format.currency currencySign="{orderItem.currency}">{orderItem.orderShipping.gross}</cart:format.currency>
-    </td>
-    <f:for each="{orderItem.orderTotalTax}" as="orderTotalTax">
-        <td>
-            <f:if condition="{0: orderTotalTax.orderTaxClass.id} == {0: orderItem.orderShipping.orderTaxClass.id}">
-                <f:then>
-                    <cart:format.currency currencySign="{orderItem.currency}">{orderItem.orderShipping.orderTax.tax}</cart:format.currency>
-                </f:then>
-                <f:else>
-                    &nbsp;
-                </f:else>
-            </f:if>
+<f:if condition="{orderItem.shipping}">
+    <tr class="summary-shipping">
+        <td colspan="5">
+            <f:translate key="tx_cart_domain_model_order_item.order_shipping"/>
+            {orderItem.shipping.name}
         </td>
-    </f:for>
-</tr>
+        <td>
+            <cart:format.currency currencySign="{orderItem.currency}">{orderItem.shipping.net}</cart:format.currency>
+        </td>
+        <td>
+            <cart:format.currency currencySign="{orderItem.currency}">{orderItem.shipping.gross}</cart:format.currency>
+        </td>
+        <f:render partial="Order/Show/TaxColumns"
+                  arguments="{totalTaxes: orderItem.totalTax, taxClass: orderItem.shipping.taxClass, tax: orderItem.shipping.tax, currencySign: orderItem.currency}"/>
+    </tr>
+</f:if>
 
-<tr class="summary-payment">
-    <td colspan="5">
-        <f:translate key="tx_cart_domain_model_order_item.order_payment"/>
-        {orderItem.orderPayment.name}
-    </td>
-    <td>
-        <cart:format.currency currencySign="{orderItem.currency}">{orderItem.orderPayment.net}</cart:format.currency>
-    </td>
-    <td>
-        <cart:format.currency currencySign="{orderItem.currency}">{orderItem.orderPayment.gross}</cart:format.currency>
-    </td>
-    <f:for each="{orderItem.orderTotalTax}" as="orderTotalTax">
-        <td>
-            <f:if condition="{0: orderTotalTax.orderTaxClass.id} == {0: orderItem.orderPayment.orderTaxClass.id}">
-                <f:then>
-                    <cart:format.currency currencySign="{orderItem.currency}">{orderItem.orderPayment.orderTax.tax}</cart:format.currency>
-                </f:then>
-                <f:else>
-                    &nbsp;
-                </f:else>
-            </f:if>
+<f:if condition="{orderItem.payment}">
+    <tr class="summary-payment">
+        <td colspan="5">
+            <f:translate key="tx_cart_domain_model_order_item.order_payment"/>
+            {orderItem.payment.name}
         </td>
-    </f:for>
-</tr>
+        <td>
+            <cart:format.currency currencySign="{orderItem.currency}">{orderItem.payment.net}</cart:format.currency>
+        </td>
+        <td>
+            <cart:format.currency currencySign="{orderItem.currency}">{orderItem.payment.gross}</cart:format.currency>
+        </td>
+        <f:render partial="Order/Show/TaxColumns"
+                  arguments="{totalTaxes: orderItem.totalTax, taxClass: orderItem.payment.taxClass, tax: orderItem.payment.tax, currencySign: orderItem.currency}"/>
+    </tr>
+</f:if>
 
 <tr class="summary-total-price">
     <td colspan="5">
@@ -79,9 +67,9 @@
     <td>
         <cart:format.currency currencySign="{orderItem.currency}">{orderItem.totalGross}</cart:format.currency>
     </td>
-    <f:for each="{orderItem.orderTotalTax}" as="orderTotalTax">
+    <f:for each="{orderItem.totalTax}" as="totalTax">
         <td>
-            <cart:format.currency currencySign="{orderItem.currency}">{orderTotalTax.tax}</cart:format.currency>
+            <cart:format.currency currencySign="{orderItem.currency}">{totalTax.tax}</cart:format.currency>
         </td>
     </f:for>
 </tr>

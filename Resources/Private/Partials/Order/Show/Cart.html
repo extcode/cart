@@ -25,10 +25,10 @@
             <th class="bg-light-grey border-left-grey">
                 <f:translate key="LLL:EXT:cart/Resources/Private/Language/locallang.xlf:tx_cart_domain_model_order_product.gross"/>
             </th>
-            <f:for each="{orderItem.orderTotalTax}" as="orderTotalTax">
+            <f:for each="{orderItem.totalTax}" as="totalTax">
                 <th class="bg-light-grey border-left-grey">
-                    <f:translate key="LLL:EXT:cart/Resources/Private/Language/locallang.xlf:plugin.cart.product.tax"
-                                 arguments="{0: orderTotalTax.orderTaxClass.name}"/>
+                    <f:translate key="LLL:EXT:cart/Resources/Private/Language/locallang.xlf:tx_cart.tax_vat.value"
+                                 arguments="{0: totalTax.taxClass.value}"/>
                 </th>
             </f:for>
         </tr>
@@ -36,7 +36,7 @@
     <tbody>
         <f:for each="{orderItem.products}" as="product">
             <f:render partial="Order/Show/Product"
-                      arguments="{product: product, currencySign: orderItem.currency}"/>
+                      arguments="{product: product, totalTaxes: orderItem.totalTax, currencySign: orderItem.currency}"/>
         </f:for>
     </tbody>
     <tfoot>
