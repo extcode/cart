@@ -2845,12 +2845,6 @@ parameters:
 			path: ../Classes/EventListener/Mail/AttachmentFromTypoScript.php
 
 		-
-			message: '#^Binary operation "\+" between mixed and 1 results in an error\.$#'
-			identifier: binaryOp.invalid
-			count: 1
-			path: ../Classes/EventListener/Order/Create/Number.php
-
-		-
 			message: '#^Cannot cast mixed to int\.$#'
 			identifier: cast.int
 			count: 1
