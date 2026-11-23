@@ -127,6 +127,30 @@ plugin {
 @import 'EXT:cart/Configuration/TypoScript/Payments/setup.typoscript'
 @import 'EXT:cart/Configuration/TypoScript/Shippings/setup.typoscript'
 
+module {
+    # settings of the backend module, Extbase reads them from the TypoScript setup (not from page TSconfig)
+    tx_cart {
+        settings {
+            format.currency {
+                currencySign = {$plugin.tx_cart.settings.format.currency.currencySign}
+                decimalSeparator = {$plugin.tx_cart.settings.format.currency.decimalSeparator}
+                thousandsSeparator = {$plugin.tx_cart.settings.format.currency.thousandsSeparator}
+                prependCurrency = {$plugin.tx_cart.settings.format.currency.prependCurrency}
+                separateCurrency = {$plugin.tx_cart.settings.format.currency.separateCurrency}
+                decimals = {$plugin.tx_cart.settings.format.currency.decimals}
+            }
+
+            backend {
+                dateFormat = {$plugin.tx_cart.settings.backend.dateFormat}
+            }
+        }
+    }
+
+    tx_form.settings.yamlConfigurations {
+        1543219101 = EXT:cart/Configuration/Yaml/FormSetup.yaml
+    }
+}
+
 # use this lib to add custom information or content elements to your email template
 
 temp.cartMailContentElement = RECORDS
@@ -177,8 +201,4 @@ lib {
     cartMailFooterImpress {
         source = {$plugin.tx_cart.uids.lib.cartMailFooterImpress}
     }
-}
-
-module.tx_form.settings.yamlConfigurations {
-    1543219101 = EXT:cart/Configuration/Yaml/FormSetup.yaml
 }
