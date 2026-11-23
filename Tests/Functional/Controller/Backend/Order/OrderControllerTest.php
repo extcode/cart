@@ -386,6 +386,23 @@ class OrderControllerTest extends FunctionalTestCase
     }
 
     #[Test]
+    public function listActionFormatsPricesAndDatesWithTheSettingsOfTheTypoScriptOfCart(): void
+    {
+        $this->importPHPDataSet(__DIR__ . '/../../../../Fixtures/Orders.php');
+        $this->includeTypoScriptOfCart();
+
+        $html = self::normalizeWhitespace(
+            (string)self::dispatchListAction(1, ['orderNumber' => 'O-20260222-1'])->getBody()
+        );
+
+        // order number and date, invoice number and date, total gross and net of the order in Tests/Fixtures/Orders.php
+        self::assertSame(
+            ['O-20260222-1', '2026-02-22', 'I-20260224-1', '2026-02-24', '21,52 €', '18,08 €'],
+            array_slice(self::getCellsOfOrderRow($html, 'O-20260222-1'), 3, 6)
+        );
+    }
+
+    #[Test]
     public function listActionRendersOnlyTheOrdersOfTheMonthGivenAsOrderNumberSearchArgumentOnAllPages(): void
     {
         // allows to test several pages with the 24 orders of May 2026 in Tests/Fixtures/Orders.php
@@ -762,6 +779,41 @@ class OrderControllerTest extends FunctionalTestCase
                 'clear' => 3,
                 'config' => 'module.tx_cart.settings.itemsPerPage = ' . $itemsPerPage,
             ]
+        );
+    }
+
+    /**
+     * The static TypoScript of cart on the root page of the order storage, like a shop includes it.
+     */
+    private function includeTypoScriptOfCart(): void
+    {
+        $this->getConnectionPool()->getConnectionForTable('sys_template')->insert(
+            'sys_template',
+            [
+                'uid' => 1,
+                'pid' => self::SHOP_ROOT_PID,
+                'title' => 'Shop',
+                'root' => 1,
+                'clear' => 3,
+                'include_static_file' => 'EXT:cart/Configuration/TypoScript',
+            ]
+        );
+    }
+
+    /**
+     * @return list<string> the text of the cells of the row of the order in the order list
+     */
+    private static function getCellsOfOrderRow(string $html, string $orderNumber): array
+    {
+        $orderList = mb_strstr($html, '<table') ?: '';
+        preg_match('/<tr[^>]*>(?:(?!<\/tr>).)*' . preg_quote($orderNumber, '/') . '.*?<\/tr>/s', $orderList, $rowMatches);
+        self::assertArrayHasKey(0, $rowMatches, 'The order ' . $orderNumber . ' has not been rendered.');
+
+        preg_match_all('/<td[^>]*>(.*?)<\/td>/s', $rowMatches[0], $cellMatches);
+
+        return array_map(
+            static fn(string $cell): string => trim(str_replace("\u{a0}", ' ', html_entity_decode(strip_tags($cell)))),
+            $cellMatches[1]
         );
     }
 
