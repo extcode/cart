@@ -1,0 +1,20 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:cart="http://typo3.org/ns/Extcode/Cart/ViewHelpers"
+      data-namespace-typo3-fluid="true">
+
+<f:comment>
+    One column per tax class of the order (totalTaxes), the tax is shown in the column of its tax class.
+</f:comment>
+<f:for each="{totalTaxes}" as="totalTax">
+    <td class="order-tax">
+        <f:if condition="{taxClass} && {totalTax.taxClass.uid} == {taxClass.uid}">
+            <f:then>
+                <cart:format.currency currencySign="{currencySign}">{tax}</cart:format.currency>
+            </f:then>
+            <f:else>
+                &nbsp;
+            </f:else>
+        </f:if>
+    </td>
+</f:for>
+</html>
