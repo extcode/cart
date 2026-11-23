@@ -12,10 +12,10 @@ namespace Extcode\Cart\Tests\Functional\Controller\Backend\Order;
  */
 
 use Extcode\Cart\Domain\Model\Order\Payment;
+use Extcode\Cart\Domain\Order\Status\PaymentStatus;
+use Extcode\Cart\Domain\Order\Status\ShippingStatus;
+use Extcode\Cart\Domain\Order\Status\StatusChangeService;
 use Extcode\Cart\EventListener\Order\StatusChange\Mail;
-use Extcode\Cart\OrderStatus\PaymentStatus;
-use Extcode\Cart\OrderStatus\ShippingStatus;
-use Extcode\Cart\OrderStatus\StatusChangeService;
 use Extcode\Cart\Tests\Functional\Mail\CollectingTransport;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Test;

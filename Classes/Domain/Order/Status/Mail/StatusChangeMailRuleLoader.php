@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Extcode\Cart\OrderStatus\Mail;
+namespace Extcode\Cart\Domain\Order\Status\Mail;
 
 /*
  * This file is part of the package extcode/cart.
@@ -12,8 +12,8 @@ namespace Extcode\Cart\OrderStatus\Mail;
  */
 
 use Extcode\Cart\Domain\Model\Order\Item;
+use Extcode\Cart\Domain\Order\Status\ServiceType;
 use Extcode\Cart\Mail\InvalidMailConfigurationException;
-use Extcode\Cart\OrderStatus\ServiceType;
 use Extcode\Cart\Utility\ArrayUtility;
 use TYPO3\CMS\Core\Exception\SiteNotFoundException;
 use TYPO3\CMS\Core\Site\SiteFinder;

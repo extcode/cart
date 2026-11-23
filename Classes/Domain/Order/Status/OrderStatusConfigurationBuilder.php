@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Extcode\Cart\OrderStatus;
+namespace Extcode\Cart\Domain\Order\Status;
 
 /*
  * This file is part of the package extcode/cart.

@@ -13,7 +13,7 @@ namespace Extcode\Cart\Tests\Unit\Domain\Model\Order;
 
 use Extcode\Cart\Domain\Model\Order\Payment;
 use Extcode\Cart\Domain\Model\Order\Transaction;
-use Extcode\Cart\OrderStatus\PaymentStatus;
+use Extcode\Cart\Domain\Order\Status\PaymentStatus;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;

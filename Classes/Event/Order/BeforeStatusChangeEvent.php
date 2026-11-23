@@ -13,8 +13,8 @@ namespace Extcode\Cart\Event\Order;
 
 use Extcode\Cart\Domain\Model\Order\AbstractService;
 use Extcode\Cart\Domain\Model\Order\Item;
-use Extcode\Cart\OrderHistory\OrderChangeSource;
-use Extcode\Cart\OrderStatus\ServiceType;
+use Extcode\Cart\Domain\Order\History\OrderChangeSource;
+use Extcode\Cart\Domain\Order\Status\ServiceType;
 use Psr\EventDispatcher\StoppableEventInterface;
 
 /**

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Extcode\Cart\OrderStatus;
+namespace Extcode\Cart\Domain\Order\Status;
 
 /*
  * This file is part of the package extcode/cart.
@@ -15,12 +15,12 @@ use DateTimeImmutable;
 use Extcode\Cart\Domain\Model\Order\AbstractService;
 use Extcode\Cart\Domain\Model\Order\Payment;
 use Extcode\Cart\Domain\Model\Order\Shipping;
+use Extcode\Cart\Domain\Order\History\OrderChange;
+use Extcode\Cart\Domain\Order\History\OrderChangeRepository;
+use Extcode\Cart\Domain\Order\History\OrderChangeSource;
+use Extcode\Cart\Domain\Order\History\OrderChangeType;
 use Extcode\Cart\Event\Order\AfterStatusChangeEvent;
 use Extcode\Cart\Event\Order\BeforeStatusChangeEvent;
-use Extcode\Cart\OrderHistory\OrderChange;
-use Extcode\Cart\OrderHistory\OrderChangeRepository;
-use Extcode\Cart\OrderHistory\OrderChangeSource;
-use Extcode\Cart\OrderHistory\OrderChangeType;
 use InvalidArgumentException;
 use Psr\EventDispatcher\EventDispatcherInterface;
 use Psr\Http\Message\ServerRequestInterface;

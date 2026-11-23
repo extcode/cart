@@ -12,7 +12,7 @@ namespace Extcode\Cart\Service;
  */
 
 use DateTimeImmutable;
-use Extcode\Cart\OrderHistory\OrderChangeRepository;
+use Extcode\Cart\Domain\Order\History\OrderChangeRepository;
 use Extcode\Cart\Utility\Typo3GlobalsUtility;
 use RuntimeException;
 use TYPO3\CMS\Core\DataHandling\DataHandler;

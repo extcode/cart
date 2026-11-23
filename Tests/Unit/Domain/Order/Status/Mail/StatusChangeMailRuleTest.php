@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Extcode\Cart\Tests\Unit\OrderStatus\Mail;
+namespace Extcode\Cart\Tests\Unit\Domain\Order\Status\Mail;
 
 /*
  * This file is part of the package extcode/cart.
@@ -11,9 +11,9 @@ namespace Extcode\Cart\Tests\Unit\OrderStatus\Mail;
  * LICENSE file that was distributed with this source code.
  */
 
+use Extcode\Cart\Domain\Order\Status\Mail\StatusChangeMailRule;
+use Extcode\Cart\Domain\Order\Status\ServiceType;
 use Extcode\Cart\Mail\InvalidMailConfigurationException;
-use Extcode\Cart\OrderStatus\Mail\StatusChangeMailRule;
-use Extcode\Cart\OrderStatus\ServiceType;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
