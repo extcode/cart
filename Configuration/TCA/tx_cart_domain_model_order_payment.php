@@ -2,8 +2,8 @@
 
 declare(strict_types=1);
 
+use Extcode\Cart\Domain\Order\Status\ServiceType;
 use Extcode\Cart\Hooks\OrderStatusItemsProcFunc;
-use Extcode\Cart\OrderStatus\ServiceType;
 
 defined('TYPO3') or die();
 

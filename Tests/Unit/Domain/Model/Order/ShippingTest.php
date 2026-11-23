@@ -12,7 +12,7 @@ namespace Extcode\Cart\Tests\Unit\Domain\Model\Order;
  */
 
 use Extcode\Cart\Domain\Model\Order\Shipping;
-use Extcode\Cart\OrderStatus\ShippingStatus;
+use Extcode\Cart\Domain\Order\Status\ShippingStatus;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;

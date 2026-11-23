@@ -4,6 +4,12 @@ declare(strict_types=1);
 
 namespace Extcode\Cart\Configuration;
 
+use Extcode\Cart\Domain\Order\History\OrderChangeRepository;
+use Extcode\Cart\Domain\Order\History\OrderHistoryService;
+use Extcode\Cart\Domain\Order\Status\Mail\StatusChangeMailRuleLoader;
+use Extcode\Cart\Domain\Order\Status\OrderStatusConfigurationBuilder;
+use Extcode\Cart\Domain\Order\Status\OrderStatusRegistry;
+use Extcode\Cart\Domain\Order\Status\StatusChangeService;
 use Extcode\Cart\Hooks\FormDefinitions;
 use Extcode\Cart\Service\CurrencyTranslationService;
 use Extcode\Cart\Service\CurrencyTranslationServiceInterface;
@@ -46,6 +52,30 @@ return static function (ContainerConfigurator $containerConfigurator, ContainerB
         )
         ->public()
     ;
+
+    // @deprecated since cart 12.7, will be removed in cart 13.0
+    $deprecatedServiceIds = [
+        'Extcode\\Cart\\OrderHistory\\OrderChangeRepository' => OrderChangeRepository::class,
+        'Extcode\\Cart\\OrderHistory\\OrderHistoryService' => OrderHistoryService::class,
+        'Extcode\\Cart\\OrderStatus\\Mail\\StatusChangeMailRuleLoader' => StatusChangeMailRuleLoader::class,
+        'Extcode\\Cart\\OrderStatus\\OrderStatusConfigurationBuilder' => OrderStatusConfigurationBuilder::class,
+        'Extcode\\Cart\\OrderStatus\\OrderStatusRegistry' => OrderStatusRegistry::class,
+        'Extcode\\Cart\\OrderStatus\\StatusChangeService' => StatusChangeService::class,
+    ];
+    foreach ($deprecatedServiceIds as $deprecatedServiceId => $serviceId) {
+        $services
+            ->alias(
+                $deprecatedServiceId,
+                $serviceId
+            )
+            ->public()
+            ->deprecate(
+                'extcode/cart',
+                '12.7',
+                'The service "%alias_id%" is deprecated, use "' . $serviceId . '" instead.'
+            )
+        ;
+    }
 
     $services
         ->set(

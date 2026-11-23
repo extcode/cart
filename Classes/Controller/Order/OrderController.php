@@ -13,9 +13,9 @@ namespace Extcode\Cart\Controller\Order;
 
 use Extcode\Cart\Controller\ActionController;
 use Extcode\Cart\Domain\Model\Order\Item;
+use Extcode\Cart\Domain\Order\Status\OrderStatusRegistry;
+use Extcode\Cart\Domain\Order\Status\ServiceType;
 use Extcode\Cart\Domain\Repository\Order\ItemRepository;
-use Extcode\Cart\OrderStatus\OrderStatusRegistry;
-use Extcode\Cart\OrderStatus\ServiceType;
 use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Core\Context\Context;
 use TYPO3\CMS\Core\Pagination\SimplePagination;

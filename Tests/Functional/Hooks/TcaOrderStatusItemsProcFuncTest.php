@@ -11,8 +11,8 @@ namespace Extcode\Cart\Tests\Functional\Hooks;
  * LICENSE file that was distributed with this source code.
  */
 
+use Extcode\Cart\Domain\Order\Status\PaymentStatus;
 use Extcode\Cart\Hooks\OrderStatusItemsProcFunc;
-use Extcode\Cart\OrderStatus\PaymentStatus;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\IgnoreDeprecations;
 use PHPUnit\Framework\Attributes\Test;

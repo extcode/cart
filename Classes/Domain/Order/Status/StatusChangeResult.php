@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Extcode\Cart\OrderStatus;
+namespace Extcode\Cart\Domain\Order\Status;
 
 /*
  * This file is part of the package extcode/cart.
@@ -11,7 +11,7 @@ namespace Extcode\Cart\OrderStatus;
  * LICENSE file that was distributed with this source code.
  */
 
-use Extcode\Cart\OrderHistory\OrderChange;
+use Extcode\Cart\Domain\Order\History\OrderChange;
 
 /**
  * The result of StatusChangeService::change().

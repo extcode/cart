@@ -11,7 +11,7 @@ namespace Extcode\Cart\Domain\Model\Order;
  * LICENSE file that was distributed with this source code.
  */
 
-use Extcode\Cart\OrderStatus\PaymentStatus;
+use Extcode\Cart\Domain\Order\Status\PaymentStatus;
 use TYPO3\CMS\Extbase\Attribute\ORM\Lazy;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 

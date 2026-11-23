@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use Extcode\Cart\OrderStatus\PaymentStatus;
+use Extcode\Cart\Domain\Order\Status\PaymentStatus;
 
 return [
     'payment' => [

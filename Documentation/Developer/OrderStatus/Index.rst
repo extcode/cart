@@ -17,8 +17,8 @@ shipping   ``open``, ``on_hold``, ``in_process``, ``shipped``
 =========  =================================================
 
 The identifiers of these status are available as constants of
-``\Extcode\Cart\OrderStatus\PaymentStatus`` and
-``\Extcode\Cart\OrderStatus\ShippingStatus``, e.g.
+``\Extcode\Cart\Domain\Order\Status\PaymentStatus`` and
+``\Extcode\Cart\Domain\Order\Status\ShippingStatus``, e.g.
 ``PaymentStatus::PAID``. The constants only name the status of EXT:cart.
 
 The payment and the shipping of an order tell whether they have one of the
@@ -53,8 +53,8 @@ case letters, digits and underscores and starts with a letter.
 
     <?php
 
-    use Extcode\Cart\OrderStatus\PaymentStatus;
-    use Extcode\Cart\OrderStatus\ShippingStatus;
+    use Extcode\Cart\Domain\Order\Status\PaymentStatus;
+    use Extcode\Cart\Domain\Order\Status\ShippingStatus;
 
     return [
         'payment' => [
@@ -102,13 +102,13 @@ changing a :file:`Configuration/OrderStatus.php`.
 Use the registered status
 =========================
 
-The service ``\Extcode\Cart\OrderStatus\OrderStatusRegistry``
+The service ``\Extcode\Cart\Domain\Order\Status\OrderStatusRegistry``
 returns the registered status in their order:
 
 ..  code-block:: php
 
-    use Extcode\Cart\OrderStatus\OrderStatusRegistry;
-    use Extcode\Cart\OrderStatus\ServiceType;
+    use Extcode\Cart\Domain\Order\Status\OrderStatusRegistry;
+    use Extcode\Cart\Domain\Order\Status\ServiceType;
 
     final readonly class MyService
     {
@@ -122,7 +122,7 @@ returns the registered status in their order:
         }
     }
 
-``getStatuses()`` returns the ``\Extcode\Cart\OrderStatus\Status``
+``getStatuses()`` returns the ``\Extcode\Cart\Domain\Order\Status\Status``
 objects, ``getLocalizedLabels()`` the translated labels by identifier, e.g. for
 the options of a select.
 
@@ -140,16 +140,16 @@ Change the status
 =================
 
 Change the status of an order with
-``\Extcode\Cart\OrderStatus\StatusChangeService`` instead of setting it and
+``\Extcode\Cart\Domain\Order\Status\StatusChangeService`` instead of setting it and
 persisting the payment or the shipping, e.g. in the notification of a payment
 provider:
 
 ..  code-block:: php
 
-    use Extcode\Cart\OrderHistory\OrderChangeSource;
-    use Extcode\Cart\OrderStatus\PaymentStatus;
-    use Extcode\Cart\OrderStatus\StatusChangeResult;
-    use Extcode\Cart\OrderStatus\StatusChangeService;
+    use Extcode\Cart\Domain\Order\History\OrderChangeSource;
+    use Extcode\Cart\Domain\Order\Status\PaymentStatus;
+    use Extcode\Cart\Domain\Order\Status\StatusChangeResult;
+    use Extcode\Cart\Domain\Order\Status\StatusChangeService;
 
     // the notification of the payment provider, sent by its server
     $result = $this->statusChangeService->change(
@@ -165,7 +165,7 @@ a backend user, e.g. your extension, an ERP synchronisation or a scheduler
 task.
 
 The source is the channel of the change, the enum
-``\Extcode\Cart\OrderHistory\OrderChangeSource``:
+``\Extcode\Cart\Domain\Order\History\OrderChangeSource``:
 
 ``Backend``
     An editor in the backend.
@@ -197,7 +197,7 @@ The service
    expected status only one changes it,
 *  writes the change to the order history.
 
-It returns a ``\Extcode\Cart\OrderStatus\StatusChangeResult`` with the
+It returns a ``\Extcode\Cart\Domain\Order\Status\StatusChangeResult`` with the
 ``outcome``: ``Changed``, ``Unchanged`` (the order has the status already),
 ``Stale`` (the order has not the expected status anymore), ``UnknownStatus``
 or ``Vetoed`` (a listener prevented the change, see ``vetoReason``). After a
@@ -251,8 +251,8 @@ unknown or unchanged status.
     :caption: EXT:my_extension/Classes/EventListener/RequireDeliveryNumber.php
 
     use Extcode\Cart\Event\Order\BeforeStatusChangeEvent;
-    use Extcode\Cart\OrderStatus\ServiceType;
-    use Extcode\Cart\OrderStatus\ShippingStatus;
+    use Extcode\Cart\Domain\Order\Status\ServiceType;
+    use Extcode\Cart\Domain\Order\Status\ShippingStatus;
     use TYPO3\CMS\Core\Attribute\AsEventListener;
 
     #[AsEventListener('my-extension--order--require-delivery-number')]
@@ -273,8 +273,8 @@ unknown or unchanged status.
     :caption: EXT:my_extension/Classes/EventListener/SendPaidEmail.php
 
     use Extcode\Cart\Event\Order\AfterStatusChangeEvent;
-    use Extcode\Cart\OrderStatus\PaymentStatus;
-    use Extcode\Cart\OrderStatus\ServiceType;
+    use Extcode\Cart\Domain\Order\Status\PaymentStatus;
+    use Extcode\Cart\Domain\Order\Status\ServiceType;
     use TYPO3\CMS\Core\Attribute\AsEventListener;
 
     #[AsEventListener('my-extension--order--send-paid-email')]
@@ -305,7 +305,7 @@ the source, e.g. "my_payment_provider (API)", otherwise the source.
 
 The table is not limited to status changes. Your extension can write its own
 changes of an order with
-``\Extcode\Cart\OrderHistory\OrderChangeRepository::add()``, using
+``\Extcode\Cart\Domain\Order\History\OrderChangeRepository::add()``, using
 an own type, a subject (e.g. ``product:12``) and details in ``data``.
 
 .. WARNING::

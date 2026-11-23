@@ -11,7 +11,7 @@ namespace Extcode\Cart\Domain\Model\Order;
  * LICENSE file that was distributed with this source code.
  */
 
-use Extcode\Cart\OrderStatus\ShippingStatus;
+use Extcode\Cart\Domain\Order\Status\ShippingStatus;
 
 class Shipping extends AbstractService
 {
