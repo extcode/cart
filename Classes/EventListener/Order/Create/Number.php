@@ -11,9 +11,9 @@ namespace Extcode\Cart\EventListener\Order\Create;
  * LICENSE file that was distributed with this source code.
  */
 
+use Extcode\Cart\Domain\Order\Number\NumberCounter;
 use Extcode\Cart\Domain\Repository\Order\ItemRepository as OrderItemRepository;
 use Extcode\Cart\Event\Order\NumberGeneratorEventInterface;
-use TYPO3\CMS\Core\Registry;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
 
@@ -29,23 +29,23 @@ abstract class Number
 
     abstract public function __invoke(NumberGeneratorEventInterface $event): void;
 
+    private readonly NumberCounter $numberCounter;
+
     public function __construct(
         PersistenceManager $persistenceManager,
         OrderItemRepository $orderItemRepository,
-        array $options = []
+        array $options = [],
+        ?NumberCounter $numberCounter = null
     ) {
         $this->persistenceManager = $persistenceManager;
         $this->orderItemRepository = $orderItemRepository;
         $this->options = $options;
+        $this->numberCounter = $numberCounter ?? GeneralUtility::makeInstance(NumberCounter::class);
     }
 
     protected function generateNumber(NumberGeneratorEventInterface $event): string
     {
-        $registry = GeneralUtility::makeInstance(Registry::class);
-
-        $numberInRegistry = $registry->get('tx_cart', $this->getRegistryName($event));
-        $numberInRegistry = $numberInRegistry ? $numberInRegistry + 1 : 1;
-        $registry->set('tx_cart', $this->getRegistryName($event), $numberInRegistry);
+        $numberInRegistry = $this->numberCounter->increment($this->getRegistryName($event));
 
         $format = $this->options['format'] ?? '%d';
         $numberInRegistryWithOffset = $numberInRegistry + (int)($this->options['offset'] ?? 0);
