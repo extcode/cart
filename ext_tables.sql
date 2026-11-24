@@ -123,6 +123,10 @@ CREATE TABLE tx_cart_domain_model_order_product (
 
     product_additional int(11) unsigned DEFAULT '0' NOT NULL,
 
+    shippable tinyint(4) unsigned DEFAULT '1' NOT NULL,
+    cancelable tinyint(4) unsigned DEFAULT '1' NOT NULL,
+    returnable tinyint(4) unsigned DEFAULT '1' NOT NULL,
+
     INDEX `parent` (pid), INDEX `t3ver_oid` (t3ver_oid,t3ver_wsid),
 );
 

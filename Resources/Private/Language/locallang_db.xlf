@@ -312,6 +312,18 @@
             <trans-unit id="tx_cart_domain_model_order_product.product_additional">
                 <source>Product Additional</source>
             </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_product.properties.group">
+                <source>Properties at order time</source>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_product.shippable">
+                <source>Shippable</source>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_product.cancelable">
+                <source>Cancelable</source>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_product.returnable">
+                <source>Returnable</source>
+            </trans-unit>
 
             <trans-unit id="tx_cart_domain_model_order_discount">
                 <source>Discount</source>

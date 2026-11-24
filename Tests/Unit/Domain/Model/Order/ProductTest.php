@@ -129,4 +129,49 @@ class ProductTest extends UnitTestCase
             $this->product->getProductType()
         );
     }
+
+    #[Test]
+    public function isShippableInitiallyReturnsTrue(): void
+    {
+        self::assertTrue((new Product())->isShippable());
+    }
+
+    #[Test]
+    public function setShippableSetsShippable(): void
+    {
+        $product = new Product();
+        $product->setShippable(false);
+
+        self::assertFalse($product->isShippable());
+    }
+
+    #[Test]
+    public function isCancelableInitiallyReturnsTrue(): void
+    {
+        self::assertTrue((new Product())->isCancelable());
+    }
+
+    #[Test]
+    public function setCancelableSetsCancelable(): void
+    {
+        $product = new Product();
+        $product->setCancelable(false);
+
+        self::assertFalse($product->isCancelable());
+    }
+
+    #[Test]
+    public function isReturnableInitiallyReturnsTrue(): void
+    {
+        self::assertTrue((new Product())->isReturnable());
+    }
+
+    #[Test]
+    public function setReturnableSetsReturnable(): void
+    {
+        $product = new Product();
+        $product->setReturnable(false);
+
+        self::assertFalse($product->isReturnable());
+    }
 }

@@ -25,7 +25,7 @@ return [
     'hideTable' => 1,
     'types' => [
         '1' => [
-            'showitem' => '--palette--;;product_type_and_id, sku, title, count, --palette--;' . $_LLL . ':tx_cart_domain_model_order_product.price.group;price, product_additional, additional, additional_data',
+            'showitem' => '--palette--;;product_type_and_id, sku, title, count, --palette--;' . $_LLL . ':tx_cart_domain_model_order_product.price.group;price, --palette--;' . $_LLL . ':tx_cart_domain_model_order_product.properties.group;properties, product_additional, additional, additional_data',
         ],
     ],
     'palettes' => [
@@ -37,6 +37,9 @@ return [
         ],
         'product_type_and_id' => [
             'showitem' => 'product_type, product_id',
+        ],
+        'properties' => [
+            'showitem' => 'shippable, cancelable, returnable',
         ],
     ],
     'columns' => [
@@ -168,6 +171,33 @@ return [
                         'localize' => false,
                     ],
                 ],
+            ],
+        ],
+        'shippable' => [
+            'exclude' => 0,
+            'label' => $_LLL . ':tx_cart_domain_model_order_product.shippable',
+            'config' => [
+                'type' => 'check',
+                'readOnly' => 1,
+                'default' => 1,
+            ],
+        ],
+        'cancelable' => [
+            'exclude' => 0,
+            'label' => $_LLL . ':tx_cart_domain_model_order_product.cancelable',
+            'config' => [
+                'type' => 'check',
+                'readOnly' => 1,
+                'default' => 1,
+            ],
+        ],
+        'returnable' => [
+            'exclude' => 0,
+            'label' => $_LLL . ':tx_cart_domain_model_order_product.returnable',
+            'config' => [
+                'type' => 'check',
+                'readOnly' => 1,
+                'default' => 1,
             ],
         ],
         'additional' => [
