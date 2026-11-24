@@ -33,8 +33,9 @@ use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
  * The cart table of the order in the backend (partial Backend/Order/Show/Cart)
  * and in the frontend (partial Order/Show/Cart) renders one column per tax
  * class of the order with the taxes of the products and the services in the
- * column of their tax class. The tax class of a discount is not stored, its
- * row has empty tax columns.
+ * column of their tax class. The taxes of a discount are shown in the columns
+ * of their tax classes; a discount without taxes per tax class (orders created
+ * before cart 12.8) has empty tax columns.
  */
 final class OrderTaxColumnsTest extends FunctionalTestCase
 {
@@ -55,6 +56,7 @@ final class OrderTaxColumnsTest extends FunctionalTestCase
                 ['3,80€', '0,70€'],
                 ['0,95€', ''],
                 ['0,19€', ''],
+                ['-1,90€', ''],
                 ['', ''],
                 ['3,04€', '0,70€'],
             ],
@@ -71,6 +73,8 @@ final class OrderTaxColumnsTest extends FunctionalTestCase
                 ['', '0,70€'],
                 ['3,80€', ''],
                 ['3,80€', '0,70€'],
+                ['-1,90€', ''],
+                ['', ''],
                 ['0,95€', ''],
                 ['0,19€', ''],
                 ['3,04€', '0,70€'],

@@ -1,0 +1,23 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:cart="http://typo3.org/ns/Extcode/Cart/ViewHelpers"
+      data-namespace-typo3-fluid="true">
+
+<f:comment>
+    One column per tax class of the order (totalTaxes), the taxes of a discount (tax class uid => tax) are shown in the
+    columns of their tax classes. The columns stay empty if the discount has no tax in the tax class or if the taxes
+    of the discount are unknown (orders which were not migrated by the upgrade wizard).
+</f:comment>
+<f:for each="{totalTaxes}" as="totalTax">
+    <td class="order-tax">
+        <f:variable name="discountTax" value="{taxes.{totalTax.taxClass.uid}}"/>
+        <f:if condition="{discountTax}">
+            <f:then>
+                <cart:format.currency currencySign="{currencySign}">{discountTax}</cart:format.currency>
+            </f:then>
+            <f:else>
+                &nbsp;
+            </f:else>
+        </f:if>
+    </td>
+</f:for>
+</html>

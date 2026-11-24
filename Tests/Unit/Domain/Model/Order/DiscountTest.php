@@ -11,9 +11,12 @@ namespace Extcode\Cart\Tests\Unit\Domain\Model\Order;
  * LICENSE file that was distributed with this source code.
  */
 
-use Extcode\Cart\Domain\Model\Cart\TaxClass;
+use Extcode\Cart\Domain\Model\Cart\CartCouponPercentage;
+use Extcode\Cart\Domain\Model\Cart\TaxClass as CartTaxClass;
 use Extcode\Cart\Domain\Model\Order\Discount;
+use Extcode\Cart\Domain\Model\Order\TaxClass;
 use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\IgnoreDeprecations;
 use PHPUnit\Framework\Attributes\Test;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
@@ -36,7 +39,10 @@ class DiscountTest extends UnitTestCase
 
     protected function setUp(): void
     {
-        $this->taxClass = new TaxClass(1, '19 %', 0.19, 'normal');
+        $this->taxClass = new TaxClass();
+        $this->taxClass->setTitle('normal');
+        $this->taxClass->setValue('19');
+        $this->taxClass->setCalc(0.19);
 
         $this->title = 'Discount';
         $this->code = 'discount';
@@ -102,11 +108,81 @@ class DiscountTest extends UnitTestCase
     }
 
     #[Test]
+    public function constructorAcceptsNoTaxClass(): void
+    {
+        $discount = new Discount('Discount', 'discount', 10.0, 10.0, null, 0.0);
+
+        self::assertNull($discount->getTaxClass());
+    }
+
+    #[IgnoreDeprecations]
+    #[Test]
+    public function constructorIgnoresTheDeprecatedTaxClassOfTheCart(): void
+    {
+        $this->expectUserDeprecationMessage(
+            'Passing a tax class of the cart (' . CartTaxClass::class . ') to ' . Discount::class . ' is deprecated'
+            . ' since cart 12.8 and will stop working in cart 13.0. Pass the tax class of the order ('
+            . TaxClass::class . ') instead.'
+        );
+
+        $discount = new Discount('Discount', 'discount', 10.0, 8.40, new CartTaxClass(1, '19 %', 0.19, 'normal'), 1.60);
+
+        self::assertNull($discount->getTaxClass());
+    }
+
+    #[Test]
     public function getTaxInitiallyReturnsTaxSetDirectlyByConstructor(): void
     {
         self::assertSame(
             $this->tax,
             $this->discount->getTax()
         );
+    }
+
+    #[Test]
+    public function getCouponTypeInitiallyReturnsEmptyString(): void
+    {
+        self::assertSame('', $this->discount->getCouponType());
+    }
+
+    #[Test]
+    public function getCouponTypeReturnsCouponTypeSetByConstructor(): void
+    {
+        $discount = new Discount('Discount', 'discount', 10.0, 8.40, null, 0.0, CartCouponPercentage::class);
+
+        self::assertSame(CartCouponPercentage::class, $discount->getCouponType());
+    }
+
+    #[Test]
+    public function getTaxesInitiallyReturnsEmptyArrayAndHasTaxesReturnsFalse(): void
+    {
+        self::assertSame([], $this->discount->getTaxes());
+        self::assertFalse($this->discount->hasTaxes());
+    }
+
+    #[Test]
+    public function getTaxesReturnsTaxesPerTaxClassSetByConstructor(): void
+    {
+        $discount = new Discount('Discount', 'discount', 10.0, 7.40, null, 0.0, CartCouponPercentage::class, [1 => 1.9, 2 => 0.7]);
+
+        self::assertSame([1 => 1.9, 2 => 0.7], $discount->getTaxes());
+        self::assertTrue($discount->hasTaxes());
+    }
+
+    #[Test]
+    public function emptyTaxesMarkTheTaxesAsKnown(): void
+    {
+        $discount = new Discount('Discount', 'discount', 10.0, 10.0, null, 0.0, CartCouponPercentage::class, []);
+
+        self::assertSame([], $discount->getTaxes());
+        self::assertTrue($discount->hasTaxes());
+    }
+
+    #[Test]
+    public function getTaxesReturnsFloatsForStoredIntegers(): void
+    {
+        $this->discount->_setProperty('taxes', '{"3":2,"4":"0.5"}');
+
+        self::assertSame([3 => 2.0, 4 => 0.5], $this->discount->getTaxes());
     }
 }

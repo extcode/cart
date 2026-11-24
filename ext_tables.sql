@@ -138,6 +138,9 @@ CREATE TABLE tx_cart_domain_model_order_discount (
     net decimal(17,5) DEFAULT '0.00' NOT NULL,
     tax_class_id int(11) unsigned DEFAULT '1' NOT NULL,
     tax decimal(17,5) DEFAULT '0.00' NOT NULL,
+    tax_class int(11) unsigned DEFAULT '0' NOT NULL,
+    coupon_type varchar(255) DEFAULT '' NOT NULL,
+    taxes text,
 
     INDEX `parent` (pid), INDEX `t3ver_oid` (t3ver_oid,t3ver_wsid),
 );

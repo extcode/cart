@@ -343,6 +343,15 @@
             <trans-unit id="tx_cart_domain_model_order_discount.tax">
                 <source>Tax</source>
             </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_discount.tax_class">
+                <source>Tax Class</source>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_discount.coupon_type">
+                <source>Coupon Type</source>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_discount.taxes">
+                <source>Taxes per Tax Class</source>
+            </trans-unit>
 
             <trans-unit id="tx_cart_domain_model_order_productadditional">
                 <source>Order Product Additional</source>
