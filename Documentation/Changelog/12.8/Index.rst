@@ -12,6 +12,11 @@
 12.8.0
 ------
 
+Features
+~~~~~~~~
+
+*  :doc:`#896 - Taxes per tax class of the discounts of an order <Feature-896-OrderDiscountTaxesPerTaxClass>`
+
 Deprecations
 ~~~~~~~~~~~~
 

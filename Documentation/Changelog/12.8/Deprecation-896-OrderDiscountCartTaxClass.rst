@@ -61,6 +61,6 @@ cart as key:
    );
 
 The parameters ``$couponType`` and ``$taxes`` are optional, see
-:doc:`Feature-OrderDiscountTaxesPerTaxClass`.
+:doc:`Feature-896-OrderDiscountTaxesPerTaxClass`.
 
 .. index:: PHP-API
