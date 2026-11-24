@@ -6,7 +6,7 @@ parameters:
     # The version being developed, checked by version TODOs like
     # "TODO: 13.0.0 Remove ...". Bump it in the prepare-release PR and set the
     # next major as soon as the work on it starts.
-    referenceVersion: '12.8.0'
+    referenceVersion: '12.9.0'
 
   level: 'max'
 
