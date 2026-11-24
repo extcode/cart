@@ -9,6 +9,19 @@
         </td>
         <td>
             {product.title}
+            <f:if condition="!{product.shippable} || !{product.cancelable} || !{product.returnable}">
+                <div class="mt-1">
+                    <f:if condition="!{product.shippable}">
+                        <span class="badge badge-info" data-order-product-property="not-shippable"><f:translate key="tx_cart_domain_model_order_product.not_shippable"/></span>
+                    </f:if>
+                    <f:if condition="!{product.cancelable}">
+                        <span class="badge badge-warning" data-order-product-property="not-cancelable"><f:translate key="tx_cart_domain_model_order_product.not_cancelable"/></span>
+                    </f:if>
+                    <f:if condition="!{product.returnable}">
+                        <span class="badge badge-warning" data-order-product-property="not-returnable"><f:translate key="tx_cart_domain_model_order_product.not_returnable"/></span>
+                    </f:if>
+                </div>
+            </f:if>
         </td>
         <td class="cart-figure">
             <cart:format.currency currencySign="{currencySign}">{product.price}</cart:format.currency>

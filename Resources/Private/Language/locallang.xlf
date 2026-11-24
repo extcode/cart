@@ -390,6 +390,15 @@
             <trans-unit id="tx_cart_domain_model_order_product.net">
                 <source>Net</source>
             </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_product.not_shippable">
+                <source>not shippable</source>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_product.not_cancelable">
+                <source>not cancelable</source>
+            </trans-unit>
+            <trans-unit id="tx_cart_domain_model_order_product.not_returnable">
+                <source>not returnable</source>
+            </trans-unit>
 
             <trans-unit id="tx_cart_domain_model_order_shipping">
                 <source>Shipping</source>

@@ -20,7 +20,9 @@ use Extcode\Cart\Domain\Model\Order\Product;
 use Extcode\Cart\Domain\Model\Order\ProductAdditional;
 use Extcode\Cart\Domain\Repository\Order\ProductAdditionalRepository;
 use Extcode\Cart\Domain\Repository\Order\ProductRepository;
+use Extcode\Cart\Event\Order\BeforePersistOrderProductEvent;
 use Extcode\Cart\Event\Order\PersistOrderEvent;
+use Psr\EventDispatcher\EventDispatcherInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
 
@@ -32,11 +34,21 @@ class Products
 
     private int $storagePid;
 
+    private readonly EventDispatcherInterface $eventDispatcher;
+
+    /**
+     * The event dispatcher is optional, so subclasses calling the constructor
+     * with the former three arguments keep working.
+     *
+     * TODO: 13.0.0 Make the event dispatcher required.
+     */
     public function __construct(
         private readonly PersistenceManager $persistenceManager,
         private readonly ProductRepository $productRepository,
-        private readonly ProductAdditionalRepository $productAdditionalRepository
+        private readonly ProductAdditionalRepository $productAdditionalRepository,
+        ?EventDispatcherInterface $eventDispatcher = null
     ) {
+        $this->eventDispatcher = $eventDispatcher ?? GeneralUtility::makeInstance(EventDispatcherInterface::class);
     }
 
     public function __invoke(PersistOrderEvent $event): void
@@ -77,6 +89,8 @@ class Products
         if ($cartProduct instanceof AdditionalDataInterface) {
             $orderProduct->setAdditional($cartProduct->getAdditionals());
         }
+
+        $this->setFulfillmentOptions($orderProduct, $cartProduct);
 
         $orderProduct->setPid($this->storagePid);
 
@@ -166,6 +180,8 @@ class Products
             $orderProduct->setAdditional($cartProduct->getAdditionals());
         }
 
+        $this->setFulfillmentOptions($orderProduct, $cartProduct, $variant);
+
         if (!$orderProduct->_isDirty()) {
             $this->productRepository->add($orderProduct);
         }
@@ -197,5 +213,26 @@ class Products
         $this->productRepository->add($orderProduct);
 
         $this->orderItem->addProduct($orderProduct);
+    }
+
+    private function setFulfillmentOptions(
+        Product $orderProduct,
+        ProductInterface $cartProduct,
+        ?BeVariantInterface $beVariant = null
+    ): void {
+        $event = new BeforePersistOrderProductEvent(
+            $this->orderItem,
+            $orderProduct,
+            $cartProduct,
+            $beVariant,
+            !$cartProduct->isVirtualProduct(),
+            true,
+            true
+        );
+        $this->eventDispatcher->dispatch($event);
+
+        $orderProduct->setShippable($event->isShippable());
+        $orderProduct->setCancelable($event->isCancelable());
+        $orderProduct->setReturnable($event->isReturnable());
     }
 }

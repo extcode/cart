@@ -55,6 +55,12 @@ class Product extends AbstractEntity
 
     protected string $additionalData = '';
 
+    protected bool $shippable = true;
+
+    protected bool $cancelable = true;
+
+    protected bool $returnable = true;
+
     /**
      * @var ObjectStorage<ProductAdditional>
      */
@@ -197,6 +203,45 @@ class Product extends AbstractEntity
     public function setTitle(string $title): void
     {
         $this->title = $title;
+    }
+
+    public function isShippable(): bool
+    {
+        return $this->shippable;
+    }
+
+    /**
+     * Set once when the order is persisted, see BeforePersistOrderProductEvent.
+     */
+    public function setShippable(bool $shippable): void
+    {
+        $this->shippable = $shippable;
+    }
+
+    public function isCancelable(): bool
+    {
+        return $this->cancelable;
+    }
+
+    /**
+     * Set once when the order is persisted, see BeforePersistOrderProductEvent.
+     */
+    public function setCancelable(bool $cancelable): void
+    {
+        $this->cancelable = $cancelable;
+    }
+
+    public function isReturnable(): bool
+    {
+        return $this->returnable;
+    }
+
+    /**
+     * Set once when the order is persisted, see BeforePersistOrderProductEvent.
+     */
+    public function setReturnable(bool $returnable): void
+    {
+        $this->returnable = $returnable;
     }
 
     public function addProductAdditional(ProductAdditional $productAdditional): void

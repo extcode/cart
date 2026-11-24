@@ -93,6 +93,51 @@ events:
    needed information (addresses, products, tax classes, usage of coupons,
    payment, shipping and other data related to an order).
 
+.. confval:: \Extcode\Cart\Event\Order\BeforePersistOrderProductEvent
+
+   This event is triggered by the EventListener which stores the products of
+   the order (`PersistOrderEvent`), once per ordered product or backend
+   variant before it is stored.
+
+   Product extensions can decide whether the ordered product is shippable,
+   cancelable and returnable with `setShippable()`, `setCancelable()` and
+   `setReturnable()`. The event provides the order, the ordered product, the
+   product of the cart and, for backend variants, the variant.
+
+   By default an ordered product is shippable unless the product of the cart
+   is a virtual product, and it is cancelable and returnable.
+
+   The values are a snapshot at order time and are not changed afterwards.
+   Rules depending on the time, e.g. a ticket can be canceled until 14 days
+   before the event, do not belong here.
+
+   ..  code-block:: php
+       :caption: EXT:my_extension/Classes/EventListener/Order/OrderProductProperties.php
+
+       <?php
+
+       declare(strict_types=1);
+
+       namespace MyVendor\MyExtension\EventListener\Order;
+
+       use Extcode\Cart\Event\Order\BeforePersistOrderProductEvent;
+       use TYPO3\CMS\Core\Attribute\AsEventListener;
+
+       #[AsEventListener('my-extension--order--order-product-properties')]
+       final readonly class OrderProductProperties
+       {
+           public function __invoke(BeforePersistOrderProductEvent $event): void
+           {
+               if ($event->getCartProduct()->getProductType() !== 'MyProductType') {
+                   return;
+               }
+
+               // e.g. personalized products
+               $event->setCancelable(false);
+               $event->setReturnable(false);
+           }
+       }
+
 .. confval:: \Extcode\Cart\Event\Order\NumberGeneratorEvent
 
    It is the second event that is called when the order is submitted.
