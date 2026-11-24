@@ -44,7 +44,7 @@ class DocumentController extends ActionController
                 'tx_cart.controller.order.action.generate_number_action.' . $pdfType . '.success',
                 'Cart',
                 [
-                    0 => $orderItem->getInvoiceNumber(),
+                    0 => $orderItem->$getNumber(),
                 ]
             );
 
