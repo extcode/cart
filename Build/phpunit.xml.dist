@@ -17,6 +17,9 @@
          stopOnSkipped="false"
 >
   <coverage/>
+  <extensions>
+    <bootstrap class="Extcode\Cart\Tests\PhpUnit\GarbageCollectionExtension"/>
+  </extensions>
   <testsuites>
     <testsuite name="functional">
       <directory>../Tests/Functional/</directory>
