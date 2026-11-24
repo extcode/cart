@@ -2875,48 +2875,6 @@ parameters:
 			path: ../Classes/EventListener/Order/Create/OrderNumber.php
 
 		-
-			message: '#^Cannot call method getCode\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 2
-			path: ../Classes/EventListener/Order/Create/PersistOrder/Coupons.php
-
-		-
-			message: '#^Cannot call method getGross\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: ../Classes/EventListener/Order/Create/PersistOrder/Coupons.php
-
-		-
-			message: '#^Cannot call method getNet\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: ../Classes/EventListener/Order/Create/PersistOrder/Coupons.php
-
-		-
-			message: '#^Cannot call method getTax\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: ../Classes/EventListener/Order/Create/PersistOrder/Coupons.php
-
-		-
-			message: '#^Cannot call method getTaxClass\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: ../Classes/EventListener/Order/Create/PersistOrder/Coupons.php
-
-		-
-			message: '#^Cannot call method getTitle\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: ../Classes/EventListener/Order/Create/PersistOrder/Coupons.php
-
-		-
-			message: '#^Cannot call method isUseable\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: ../Classes/EventListener/Order/Create/PersistOrder/Coupons.php
-
-		-
 			message: '#^Cannot access offset ''currency'' on mixed\.$#'
 			identifier: offsetAccess.nonOffsetAccessible
 			count: 1

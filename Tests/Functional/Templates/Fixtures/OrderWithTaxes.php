@@ -1,6 +1,10 @@
 <?php
 
 declare(strict_types=1);
+
+use Extcode\Cart\Domain\Model\Cart\CartCouponFix;
+
+// The discount "Old coupon" has no taxes per tax class, like discounts of orders created before cart 12.8.
 return [
     'tx_cart_domain_model_order_item' => [
         [
@@ -80,6 +84,20 @@ return [
             'net' => -10.00,
             'tax_class_id' => 1,
             'tax' => -1.90,
+            'tax_class' => 1,
+            'coupon_type' => CartCouponFix::class,
+            'taxes' => '{"1":-1.9}',
+        ],
+        [
+            'uid' => 2,
+            'pid' => 1,
+            'item' => 1,
+            'title' => 'Old coupon',
+            'code' => 'old-coupon',
+            'gross' => 0.0,
+            'net' => 0.0,
+            'tax_class_id' => 1,
+            'tax' => 0.0,
         ],
     ],
     'tx_cart_domain_model_order_tax' => [

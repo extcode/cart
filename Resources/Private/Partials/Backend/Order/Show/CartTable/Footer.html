@@ -67,12 +67,8 @@
         <td class="cart-figure">
             <cart:format.currency currencySign="{orderItem.currency}">{orderDiscount.gross}</cart:format.currency>
         </td>
-        <f:comment>
-            The tax class of a discount is not stored in the order, so its tax can not be assigned to a column.
-        </f:comment>
-        <f:for each="{orderItem.totalTax}" as="totalTax">
-            <td class="cart-figure"></td>
-        </f:for>
+        <f:render partial="Backend/Order/Show/CartTable/DiscountTaxColumns"
+                  arguments="{totalTaxes: orderItem.totalTax, taxes: orderDiscount.taxes, currencySign: orderItem.currency}"/>
     </tr>
 </f:for>
 

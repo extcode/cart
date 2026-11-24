@@ -25,7 +25,7 @@ return [
     'hideTable' => 1,
     'types' => [
         '1' => [
-            'showitem' => 'title, code, gross, net, tax_class_id, tax',
+            'showitem' => 'title, code, coupon_type, gross, net, tax_class, tax, taxes',
         ],
     ],
     'palettes' => [
@@ -72,6 +72,7 @@ return [
                 'format' => 'decimal',
             ],
         ],
+        // TODO: 13.0.0 Remove the column tax_class_id, it is replaced by tax_class, see Deprecation #896.
         'tax_class_id' => [
             'exclude' => 1,
             'label' => $_LLL . ':tx_cart_domain_model_order_discount.tax_class_id',
@@ -93,6 +94,35 @@ return [
                 'type' => 'number',
                 'size' => 30,
                 'format' => 'decimal',
+            ],
+        ],
+
+        'tax_class' => [
+            'exclude' => 0,
+            'label' => $_LLL . ':tx_cart_domain_model_order_discount.tax_class',
+            'config' => [
+                'type' => 'inline',
+                'readOnly' => 1,
+                'foreign_table' => 'tx_cart_domain_model_order_taxclass',
+                'minitems' => 0,
+                'maxitems' => 1,
+            ],
+        ],
+        'coupon_type' => [
+            'exclude' => 0,
+            'label' => $_LLL . ':tx_cart_domain_model_order_discount.coupon_type',
+            'config' => [
+                'type' => 'input',
+                'readOnly' => 1,
+                'size' => 30,
+            ],
+        ],
+        'taxes' => [
+            'exclude' => 0,
+            'label' => $_LLL . ':tx_cart_domain_model_order_discount.taxes',
+            'config' => [
+                'type' => 'text',
+                'readOnly' => 1,
             ],
         ],
 

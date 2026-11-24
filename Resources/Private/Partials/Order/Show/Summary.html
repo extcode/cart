@@ -23,6 +23,23 @@
     </f:for>
 </tr>
 
+<f:for each="{orderItem.discounts}" as="orderDiscount">
+    <tr class="summary-discount">
+        <td colspan="5">
+            <f:translate key="LLL:EXT:cart/Resources/Private/Language/locallang_db.xlf:tx_cart_domain_model_order_discount"/>
+            {orderDiscount.title}
+        </td>
+        <td>
+            <cart:format.currency currencySign="{orderItem.currency}">{orderDiscount.net}</cart:format.currency>
+        </td>
+        <td>
+            <cart:format.currency currencySign="{orderItem.currency}">{orderDiscount.gross}</cart:format.currency>
+        </td>
+        <f:render partial="Order/Show/DiscountTaxColumns"
+                  arguments="{totalTaxes: orderItem.totalTax, taxes: orderDiscount.taxes, currencySign: orderItem.currency}"/>
+    </tr>
+</f:for>
+
 <f:if condition="{orderItem.shipping}">
     <tr class="summary-shipping">
         <td colspan="5">
