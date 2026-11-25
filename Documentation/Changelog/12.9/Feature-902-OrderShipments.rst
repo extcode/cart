@@ -36,8 +36,9 @@ New status (see :ref:`developer-order-status`):
    product is shippable).
 
 The new feature toggle ``cart.orderFulfillment`` is disabled by default. It
-will enable the backend UI for shipments and the derived shipping status of
-the order; for now it has no effect.
+sets the shipping status ``not_required`` for orders without shippable
+products, see :doc:`Feature-905-CreateShipmentsAndDeriveShippingStatus`, and
+will enable the backend UI for shipments.
 
 Impact
 ======

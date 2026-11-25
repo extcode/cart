@@ -20,4 +20,6 @@ final class OrderChangeType
     public const PAYMENT_STATUS = 'payment_status';
 
     public const SHIPPING_STATUS = 'shipping_status';
+
+    public const SHIPMENT_STATUS = 'shipment_status';
 }

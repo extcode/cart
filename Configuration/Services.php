@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Extcode\Cart\Configuration;
 
+use Extcode\Cart\Domain\Order\Fulfillment\OrderProductQuantityCalculator;
+use Extcode\Cart\Domain\Order\Fulfillment\ShipmentCreationService;
+use Extcode\Cart\Domain\Order\Fulfillment\ShipmentStatusChangeService;
 use Extcode\Cart\Domain\Order\History\OrderChangeRepository;
 use Extcode\Cart\Domain\Order\History\OrderHistoryService;
 use Extcode\Cart\Domain\Order\Status\Mail\StatusChangeMailRuleLoader;
@@ -52,6 +55,10 @@ return static function (ContainerConfigurator $containerConfigurator, ContainerB
         )
         ->public()
     ;
+
+    $services->set(OrderProductQuantityCalculator::class)->public();
+    $services->set(ShipmentCreationService::class)->public();
+    $services->set(ShipmentStatusChangeService::class)->public();
 
     // @deprecated since cart 12.7, will be removed in cart 13.0
     $deprecatedServiceIds = [

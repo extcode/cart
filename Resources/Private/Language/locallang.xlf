@@ -222,6 +222,12 @@
             <trans-unit id="tx_cart.controller.order.action.update_shipping_action.unknown_status">
                 <source>The shipping status "%s" is not available, nothing was changed.</source>
             </trans-unit>
+            <trans-unit id="tx_cart.controller.order.action.update_payment_action.not_allowed">
+                <source>The payment status can not be changed to "%s", nothing was changed.</source>
+            </trans-unit>
+            <trans-unit id="tx_cart.controller.order.action.update_shipping_action.not_allowed">
+                <source>The shipping status can not be changed to "%s", nothing was changed.</source>
+            </trans-unit>
 
             <trans-unit id="tx_cart.controller.order.action.show">
                 <source>Show</source>
@@ -622,6 +628,9 @@
             </trans-unit>
             <trans-unit id="tx_cart.backend.order.history.type.shipping_status">
                 <source>Shipping status</source>
+            </trans-unit>
+            <trans-unit id="tx_cart.backend.order.history.type.shipment_status">
+                <source>Shipment status</source>
             </trans-unit>
             <trans-unit id="tx_cart.backend.order.history.source.backend">
                 <source>Backend</source>

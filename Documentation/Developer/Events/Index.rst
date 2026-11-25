@@ -200,6 +200,18 @@ events:
    the shipping status of an order was changed and written to the order
    history, e.g. to send an email. See :ref:`developer-order-status-events`.
 
+.. confval:: \Extcode\Cart\Event\Order\BeforeShipmentStatusChangeEvent
+
+   This event is triggered by the `ShipmentStatusChangeService` before the
+   status of a shipment is changed. Listeners can prevent the change with
+   `veto()`.
+
+.. confval:: \Extcode\Cart\Event\Order\AfterShipmentStatusChangeEvent
+
+   This event is triggered by the `ShipmentStatusChangeService` after the
+   status of a shipment was changed and written to the order history, before
+   the shipping status of the order is derived from its shipments.
+
 .. confval:: `Extcode\Cart\Event\Order\UpdateServiceEvent
 
    This event is triggered when the payment or shipping status of an order is

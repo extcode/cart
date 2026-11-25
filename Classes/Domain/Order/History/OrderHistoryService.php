@@ -53,6 +53,7 @@ final readonly class OrderHistoryService
         $serviceType = match ($type) {
             OrderChangeType::PAYMENT_STATUS => ServiceType::Payment,
             OrderChangeType::SHIPPING_STATUS => ServiceType::Shipping,
+            OrderChangeType::SHIPMENT_STATUS => ServiceType::Shipment,
             default => null,
         };
         if ($serviceType === null) {
