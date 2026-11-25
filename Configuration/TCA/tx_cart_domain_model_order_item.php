@@ -39,6 +39,7 @@ return [
                 discounts,
                 payment,
                 shipping,
+                shipments,
                 --palette--;' . $_LLL . ':tx_cart_domain_model_order_item.palettes.documents;pdfs',
         ],
     ],
@@ -441,6 +442,29 @@ return [
                     'showSynchronizationLink' => 1,
                     'showPossibleLocalizationRecords' => 1,
                     'showAllLocalizationLink' => 1,
+                    'enabledControls' => [
+                        'info' => false,
+                        'new' => false,
+                        'dragdrop' => false,
+                        'sort' => false,
+                        'hide' => false,
+                        'delete' => false,
+                        'localize' => false,
+                    ],
+                ],
+            ],
+        ],
+        'shipments' => [
+            'exclude' => 0,
+            'label' => $_LLL . ':tx_cart_domain_model_order_item.shipments',
+            'config' => [
+                'type' => 'inline',
+                'readOnly' => 1,
+                'foreign_table' => 'tx_cart_domain_model_order_shipment',
+                'foreign_field' => 'item',
+                'maxitems' => 9999,
+                'appearance' => [
+                    'collapseAll' => 1,
                     'enabledControls' => [
                         'info' => false,
                         'new' => false,

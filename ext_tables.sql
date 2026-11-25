@@ -34,6 +34,7 @@ CREATE TABLE tx_cart_domain_model_order_item (
     products int(11) unsigned DEFAULT '0' NOT NULL,
     discounts int(11) unsigned DEFAULT '0' NOT NULL,
     shipping int(11) unsigned DEFAULT '0',
+    shipments int(11) unsigned DEFAULT '0' NOT NULL,
     payment int(11) unsigned DEFAULT '0',
 
     comment text,
@@ -317,4 +318,35 @@ CREATE TABLE tx_cart_domain_model_order_change (
 
     PRIMARY KEY (uid),
     KEY item (item,type),
+);
+
+#
+# Table structure for table 'tx_cart_domain_model_order_shipment'
+#
+CREATE TABLE tx_cart_domain_model_order_shipment (
+    item int(11) unsigned DEFAULT '0' NOT NULL,
+
+    status varchar(255) DEFAULT '' NOT NULL,
+    replacement tinyint(4) unsigned DEFAULT '0' NOT NULL,
+    carrier varchar(255) DEFAULT '' NOT NULL,
+    tracking_number varchar(255) DEFAULT '' NOT NULL,
+    tracking_url varchar(2048) DEFAULT '' NOT NULL,
+    shipped_date int(11) unsigned DEFAULT '0' NOT NULL,
+    note text,
+
+    products int(11) unsigned DEFAULT '0' NOT NULL,
+
+    KEY item (item),
+);
+
+#
+# Table structure for table 'tx_cart_domain_model_order_shipment_product'
+#
+CREATE TABLE tx_cart_domain_model_order_shipment_product (
+    shipment int(11) unsigned DEFAULT '0' NOT NULL,
+    order_product int(11) unsigned DEFAULT '0' NOT NULL,
+    count int(11) unsigned DEFAULT '0' NOT NULL,
+
+    KEY shipment (shipment),
+    KEY order_product (order_product),
 );

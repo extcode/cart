@@ -11,6 +11,7 @@ namespace Extcode\Cart\Tests\Functional\Hooks;
  * LICENSE file that was distributed with this source code.
  */
 
+use Extcode\Cart\Domain\Order\Fulfillment\ShipmentStatus;
 use Extcode\Cart\Domain\Order\Status\PaymentStatus;
 use Extcode\Cart\Domain\Order\Status\ShippingStatus;
 use Extcode\Cart\Hooks\OrderStatusItemsProcFunc;
@@ -22,7 +23,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
 
 /**
- * The status field of the payment and the shipping in the TCA (e.g. the list
+ * The status field of the payment, the shipping and the shipment in the TCA (e.g. the list
  * module) contains the registered status of cart and of other extensions,
  * see Tests/Fixtures/cart_order_status/Configuration/OrderStatus.php.
  */
@@ -91,8 +92,20 @@ final class OrderStatusItemsProcFuncTest extends FunctionalTestCase
                 ['label' => $cartLLL . 'tx_cart_domain_model_order_shipping.status.on_hold', 'value' => ShippingStatus::ON_HOLD],
                 ['label' => $cartLLL . 'tx_cart_domain_model_order_shipping.status.in_process', 'value' => ShippingStatus::IN_PROCESS],
                 ['label' => $ownLLL . 'shipping.status.packed', 'value' => 'packed'],
+                ['label' => $cartLLL . 'tx_cart_domain_model_order_shipping.status.partially_shipped', 'value' => ShippingStatus::PARTIALLY_SHIPPED],
                 ['label' => $cartLLL . 'tx_cart_domain_model_order_shipping.status.shipped', 'value' => ShippingStatus::SHIPPED],
                 ['label' => $ownLLL . 'shipping.status.delivered', 'value' => 'delivered'],
+                ['label' => $cartLLL . 'tx_cart_domain_model_order_shipping.status.not_required', 'value' => ShippingStatus::NOT_REQUIRED],
+            ],
+        ];
+        yield 'shipment' => [
+            'table' => 'tx_cart_domain_model_order_shipment',
+            'expectedItems' => [
+                ['label' => $cartLLL . 'tx_cart_domain_model_order_shipment.status.open', 'value' => ShipmentStatus::OPEN],
+                ['label' => $cartLLL . 'tx_cart_domain_model_order_shipment.status.in_process', 'value' => ShipmentStatus::IN_PROCESS],
+                ['label' => $cartLLL . 'tx_cart_domain_model_order_shipment.status.shipped', 'value' => ShipmentStatus::SHIPPED],
+                ['label' => $cartLLL . 'tx_cart_domain_model_order_shipment.status.delivered', 'value' => ShipmentStatus::DELIVERED],
+                ['label' => $cartLLL . 'tx_cart_domain_model_order_shipment.status.canceled', 'value' => ShipmentStatus::CANCELED],
             ],
         ];
     }

@@ -41,8 +41,10 @@ final class OwnOrderStatusTest extends AbstractOrderStatusTestCase
         ShippingStatus::ON_HOLD => 'on hold',
         ShippingStatus::IN_PROCESS => 'in process',
         'packed' => 'Packed',
+        ShippingStatus::PARTIALLY_SHIPPED => 'partially shipped',
         ShippingStatus::SHIPPED => 'shipped',
         'delivered' => 'Delivered',
+        ShippingStatus::NOT_REQUIRED => 'not required',
     ];
 
     protected array $orderStatusExtensionsToLoad = [

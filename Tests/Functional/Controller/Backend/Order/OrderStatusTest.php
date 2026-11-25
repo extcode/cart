@@ -33,7 +33,9 @@ final class OrderStatusTest extends AbstractOrderStatusTestCase
         ShippingStatus::OPEN => 'open',
         ShippingStatus::ON_HOLD => 'on hold',
         ShippingStatus::IN_PROCESS => 'in process',
+        ShippingStatus::PARTIALLY_SHIPPED => 'partially shipped',
         ShippingStatus::SHIPPED => 'shipped',
+        ShippingStatus::NOT_REQUIRED => 'not required',
     ];
 
     #[Test]
