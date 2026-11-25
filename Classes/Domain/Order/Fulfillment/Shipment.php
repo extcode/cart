@@ -38,4 +38,25 @@ final readonly class Shipment
         public int $uid = 0,
     ) {
     }
+
+    public function getOrderChangeSubject(): string
+    {
+        return 'shipment:' . $this->uid;
+    }
+
+    public function withStatus(string $status): self
+    {
+        return new self(
+            $this->orderItemUid,
+            $status,
+            $this->products,
+            $this->carrier,
+            $this->trackingNumber,
+            $this->trackingUrl,
+            $this->shippedDate,
+            $this->note,
+            $this->isReplacement,
+            $this->uid,
+        );
+    }
 }

@@ -25,6 +25,7 @@ use Extcode\Cart\EventListener\Order\Create\PersistOrder\Item;
 use Extcode\Cart\EventListener\Order\Create\PersistOrder\Payment;
 use Extcode\Cart\EventListener\Order\Create\PersistOrder\Products;
 use Extcode\Cart\EventListener\Order\Create\PersistOrder\Shipping;
+use Extcode\Cart\EventListener\Order\Create\PersistOrder\ShippingNotRequired;
 use Extcode\Cart\EventListener\Order\Create\PersistOrder\TaxClasses;
 use Extcode\Cart\EventListener\Order\Create\PersistOrder\Taxes;
 use Extcode\Cart\EventListener\Order\Export\FluidTemplate;
@@ -200,6 +201,18 @@ return static function (ContainerConfigurator $containerConfigurator): void {
                 'event' => PersistOrderEvent::class,
                 'identifier' => 'cart--order--create--persist-order--shipping',
                 'after' => 'cart--order--create--persist-order--tax-classes',
+            ]
+        )
+    ;
+
+    $services
+        ->set(ShippingNotRequired::class)
+        ->tag(
+            'event.listener',
+            [
+                'event' => PersistOrderEvent::class,
+                'identifier' => 'cart--order--create--persist-order--shipping-not-required',
+                'after' => 'cart--order--create--persist-order--products,cart--order--create--persist-order--shipping',
             ]
         )
     ;

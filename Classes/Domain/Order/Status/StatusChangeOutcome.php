@@ -42,4 +42,6 @@ enum StatusChangeOutcome
      * changed, see StatusChangeResult::$vetoReason.
      */
     case Vetoed;
+
+    case NotAllowed;
 }

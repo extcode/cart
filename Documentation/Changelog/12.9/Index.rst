@@ -16,6 +16,7 @@ Features
 ~~~~~~~~
 
 *  :doc:`#902 - Shipments with lines <Feature-902-OrderShipments>`
+*  :doc:`#905 - Create shipments and derive the shipping status <Feature-905-CreateShipmentsAndDeriveShippingStatus>`
 
 .. toctree::
    :hidden:

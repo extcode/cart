@@ -88,6 +88,11 @@ abstract class AbstractStatusController extends ActionController
                 '',
                 ContextualFeedbackSeverity::WARNING
             ),
+            StatusChangeOutcome::NotAllowed => $this->addFlashMessage(
+                self::translate($labelPrefix . 'not_allowed', [$status]),
+                '',
+                ContextualFeedbackSeverity::WARNING
+            ),
         };
 
         // e.g. an email which could not be sent, the status is changed anyway

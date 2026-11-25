@@ -106,6 +106,45 @@ final readonly class ShipmentRepository
         );
     }
 
+    public function changeStatusIfExpected(int $shipmentUid, string $fromStatus, string $toStatus, DateTimeImmutable $date): bool
+    {
+        $affectedRows = $this->connectionPool->getConnectionForTable(self::ORDER_SHIPMENT_TABLE_NAME)->update(
+            self::ORDER_SHIPMENT_TABLE_NAME,
+            [
+                'status' => $toStatus,
+                'tstamp' => $date->getTimestamp(),
+            ],
+            [
+                'uid' => $shipmentUid,
+                'status' => $fromStatus,
+                'deleted' => 0,
+            ],
+            [
+                'tstamp' => Connection::PARAM_INT,
+                'uid' => Connection::PARAM_INT,
+                'deleted' => Connection::PARAM_INT,
+            ]
+        );
+
+        return $affectedRows > 0;
+    }
+
+    public function findStatusByShipmentUid(int $shipmentUid): ?string
+    {
+        $queryBuilder = $this->connectionPool->getQueryBuilderForTable(self::ORDER_SHIPMENT_TABLE_NAME);
+        $status = $queryBuilder
+            ->select('status')
+            ->from(self::ORDER_SHIPMENT_TABLE_NAME)
+            ->where(
+                $queryBuilder->expr()->eq('uid', $queryBuilder->createNamedParameter($shipmentUid, Connection::PARAM_INT))
+            )
+            ->executeQuery()
+            ->fetchOne()
+        ;
+
+        return is_string($status) ? $status : null;
+    }
+
     public function findByUid(int $shipmentUid): ?Shipment
     {
         $queryBuilder = $this->connectionPool->getQueryBuilderForTable(self::ORDER_SHIPMENT_TABLE_NAME);
