@@ -26,5 +26,9 @@ final class ShippingStatus
 
     public const IN_PROCESS = 'in_process';
 
+    public const PARTIALLY_SHIPPED = 'partially_shipped';
+
     public const SHIPPED = 'shipped';
+
+    public const NOT_REQUIRED = 'not_required';
 }

@@ -12,12 +12,12 @@ namespace Extcode\Cart\Domain\Order\Status;
  */
 
 /**
- * The services of an order which have a status. The status values themselves
- * are no enum, extensions register their own ones in
+ * The parts of an order with a status. The status are registered in
  * Configuration/OrderStatus.php.
  */
 enum ServiceType: string
 {
     case Payment = 'payment';
     case Shipping = 'shipping';
+    case Shipment = 'shipment';
 }

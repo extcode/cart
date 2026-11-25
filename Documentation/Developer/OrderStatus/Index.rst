@@ -6,19 +6,23 @@
 Payment and shipping status
 ===========================
 
-Every order has a payment status and a shipping status. EXT:cart registers
-these status:
+Every order has a payment status and a shipping status, every shipment
+(partial delivery) of an order has its own status. EXT:cart registers these
+status:
 
-=========  =================================================
-Service    Status in their order
-=========  =================================================
+=========  ==================================================================
+Type       Status in their order
+=========  ==================================================================
 payment    ``open``, ``pending``, ``paid``, ``canceled``
-shipping   ``open``, ``on_hold``, ``in_process``, ``shipped``
-=========  =================================================
+shipping   ``open``, ``on_hold``, ``in_process``, ``partially_shipped``,
+           ``shipped``, ``not_required``
+shipment   ``open``, ``in_process``, ``shipped``, ``delivered``, ``canceled``
+=========  ==================================================================
 
 The identifiers of these status are available as constants of
-``\Extcode\Cart\Domain\Order\Status\PaymentStatus`` and
-``\Extcode\Cart\Domain\Order\Status\ShippingStatus``, e.g.
+``\Extcode\Cart\Domain\Order\Status\PaymentStatus``,
+``\Extcode\Cart\Domain\Order\Status\ShippingStatus`` and
+``\Extcode\Cart\Domain\Order\Fulfillment\ShipmentStatus``, e.g.
 ``PaymentStatus::PAID``. The constants only name the status of EXT:cart.
 
 The payment and the shipping of an order tell whether they have one of the
@@ -44,7 +48,7 @@ Register own status
 ===================
 
 Add a file :file:`Configuration/OrderStatus.php` to your extension. It
-returns the status by service type (``payment`` or ``shipping``) and
+returns the status by type (``payment``, ``shipping`` or ``shipment``) and
 identifier. The identifier is stored in the database, it consists of lower
 case letters, digits and underscores and starts with a letter.
 

@@ -24,7 +24,9 @@ final class OrderStatusConfigurationBuilderTest extends UnitTestCase
 {
     private const CART_PAYMENT_STATUS = ['open', 'pending', 'paid', 'canceled'];
 
-    private const CART_SHIPPING_STATUS = ['open', 'on_hold', 'in_process', 'shipped'];
+    private const CART_SHIPPING_STATUS = ['open', 'on_hold', 'in_process', 'partially_shipped', 'shipped', 'not_required'];
+
+    private const CART_SHIPMENT_STATUS = ['open', 'in_process', 'shipped', 'delivered', 'canceled'];
 
     private OrderStatusConfigurationBuilder $subject;
 
@@ -42,6 +44,7 @@ final class OrderStatusConfigurationBuilderTest extends UnitTestCase
 
         self::assertSame(self::CART_PAYMENT_STATUS, array_keys($result['payment']));
         self::assertSame(self::CART_SHIPPING_STATUS, array_keys($result['shipping']));
+        self::assertSame(self::CART_SHIPMENT_STATUS, array_keys($result['shipment']));
         self::assertSame(
             'LLL:EXT:cart/Resources/Private/Language/locallang_db.xlf:tx_cart_domain_model_order_payment.status.paid',
             $result['payment']['paid']
@@ -49,10 +52,10 @@ final class OrderStatusConfigurationBuilderTest extends UnitTestCase
     }
 
     #[Test]
-    public function buildReturnsBothServiceTypesWithoutAnyConfiguration(): void
+    public function buildReturnsAllServiceTypesWithoutAnyConfiguration(): void
     {
         self::assertSame(
-            ['payment' => [], 'shipping' => []],
+            ['payment' => [], 'shipping' => [], 'shipment' => []],
             $this->subject->build([])
         );
     }
@@ -122,7 +125,7 @@ final class OrderStatusConfigurationBuilderTest extends UnitTestCase
                 ],
             ],
             'expectedPaymentStatus' => self::CART_PAYMENT_STATUS,
-            'expectedShippingStatus' => ['ordered', 'open', 'on_hold', 'in_process', 'shipped'],
+            'expectedShippingStatus' => ['ordered', 'open', 'on_hold', 'in_process', 'partially_shipped', 'shipped', 'not_required'],
         ];
         yield 'shipping status between two status' => [
             'configurations' => [
@@ -133,7 +136,7 @@ final class OrderStatusConfigurationBuilderTest extends UnitTestCase
                 ],
             ],
             'expectedPaymentStatus' => self::CART_PAYMENT_STATUS,
-            'expectedShippingStatus' => ['open', 'on_hold', 'in_process', 'packed', 'shipped'],
+            'expectedShippingStatus' => ['open', 'on_hold', 'in_process', 'packed', 'partially_shipped', 'shipped', 'not_required'],
         ];
         yield 'shipping status after the last status' => [
             'configurations' => [
@@ -144,7 +147,7 @@ final class OrderStatusConfigurationBuilderTest extends UnitTestCase
                 ],
             ],
             'expectedPaymentStatus' => self::CART_PAYMENT_STATUS,
-            'expectedShippingStatus' => ['open', 'on_hold', 'in_process', 'shipped', 'delivered'],
+            'expectedShippingStatus' => ['open', 'on_hold', 'in_process', 'partially_shipped', 'shipped', 'delivered', 'not_required'],
         ];
         yield 'status at all positions of both service types' => [
             'configurations' => [
@@ -162,7 +165,7 @@ final class OrderStatusConfigurationBuilderTest extends UnitTestCase
                 ],
             ],
             'expectedPaymentStatus' => ['new', 'open', 'pending', 'paid', 'refunded', 'canceled', 'chargeback'],
-            'expectedShippingStatus' => ['ordered', 'open', 'on_hold', 'in_process', 'packed', 'shipped', 'delivered'],
+            'expectedShippingStatus' => ['ordered', 'open', 'on_hold', 'in_process', 'packed', 'partially_shipped', 'shipped', 'delivered', 'not_required'],
         ];
         yield 'two status between the same two status' => [
             'configurations' => [
@@ -290,7 +293,7 @@ final class OrderStatusConfigurationBuilderTest extends UnitTestCase
         yield 'unknown service type' => [
             'configurations' => ['my_ext' => ['invoice' => []]],
             'expectedException' => new UnexpectedValueException(
-                'The Configuration/OrderStatus.php of the package "my_ext" contains the unknown service type "invoice", allowed are "payment", "shipping".',
+                'The Configuration/OrderStatus.php of the package "my_ext" contains the unknown service type "invoice", allowed are "payment", "shipping", "shipment".',
                 1795068607
             ),
         ];
